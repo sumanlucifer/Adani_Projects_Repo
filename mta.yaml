@@ -1,0 +1,99 @@
+_schema-version: "3.2"
+ID: agel-mmts-web
+version: 0.0.1
+parameters:
+  -enable-parallel-deployments: true
+modules:
+- name: agel-mmts-web-approuter
+  type: approuter.nodejs
+  path: agel-mmts-web-approuter
+  requires:
+  - name: uaa_agel-mmts-web
+  - name: agel-mmts-web_html_repo_runtime
+  - name: portal_resources_agel-mmts-web
+  - name: agel-mmts-destination
+    group: destinations
+    properties:
+      forwardAuthToken: true
+      name: AGEL_MMTS_API
+      url: https://adani-green-energy-limited-renewables-dev-development-a23002998.cfapps.ap11.hana.ondemand.com/
+
+  parameters:
+    buildpack: nodejs_buildpack
+    disk-quota: 256M
+    keep-existing-routes: true
+    memory: 256M
+- name: agel-mmts-web_ui_deployer
+  type: com.sap.application.content
+  path: .
+  requires:
+  - name: agel-mmts-web_html_repo_host
+    parameters:
+      content-target: true
+  build-parameters:
+    build-result: resources
+    requires:
+    - artifacts:
+      - vendorPersona-content.zip
+      name: vendorPersona
+      target-path: resources/
+
+- name: vendorPersona
+  type: html5
+  path: vendorPersona
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []
+
+- name: launchpad
+  type: com.sap.application.content
+  path: launchpad
+  requires:
+  - name: portal_resources_agel-mmts-web
+    parameters:
+      content-target: true
+      service-key:
+        config:
+          content-endpoint: developer
+        name: content-deploy-key
+  - name: agel-mmts-web_html_repo_host
+  - name: agel-mmts-web_ui_deployer
+  - name: uaa_agel-mmts-web
+
+
+resources:
+- name: uaa_agel-mmts-web
+  type: org.cloudfoundry.managed-service
+  parameters:
+    path: ./xs-security.json
+    service: xsuaa
+    service-name: uaa_agel-mmts-web
+    service-plan: application
+- name: agel-mmts-web_html_repo_runtime
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: html5-apps-repo
+    service-plan: app-runtime
+- name: agel-mmts-web_html_repo_host
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: html5-apps-repo
+    service-plan: app-host
+- name: portal_resources_agel-mmts-web
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: portal
+    service-plan: standard
+- name: agel-mmts-destination
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: destination
+    service-plan: lite    
+
+build-parameters:
+  before-all:
+  - builder: custom
+    commands:
+    - npm install

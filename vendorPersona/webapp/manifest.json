@@ -1,0 +1,170 @@
+{
+    "_version": "1.12.0",
+    "sap.app": {
+        "id": "com.agel.mmts.vendorPersona",
+        "type": "application",
+        "i18n": "i18n/i18n.properties",
+        "applicationVersion": {
+            "version": "1.0.0"
+        },
+        "title": "{{appTitle}}",
+        "description": "{{appDescription}}",
+        "resources": "resources.json",
+        "ach": "ach",
+        "sourceTemplate": {
+            "id": "html5moduletemplates.basicSAPUI5ApplicationProjectModule",
+            "version": "1.40.12"
+        },
+        "crossNavigation": {
+            "inbounds": {
+                "intent1": {
+                    "signature": {
+                        "parameters": {},
+                        "additionalParameters": "allowed"
+                    },
+                    "semanticObject": "Actions",
+                    "action": "Vendor",
+                    "title": "{{appTileTitle}}",
+                    "subTitle": "{{appTileSubTitle}}",
+                    "icon": "sap-icon://supplier"
+                }
+            }
+        },
+        "dataSources": {
+            "default": {
+                "uri": "/AGEL_MMTS_API/odata/v4/VendorsService/",
+                "type": "OData",
+                "settings": {
+                    "odataVersion": "4.0",
+                    "localUri": "localService/metadata.xml"
+                }
+            }
+        }
+    },
+    "sap.ui": {
+        "technology": "UI5",
+        "icons": {
+            "icon": "",
+            "favIcon": "",
+            "phone": "",
+            "phone@2": "",
+            "tablet": "",
+            "tablet@2": ""
+        },
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": true
+        }
+    },
+    "sap.ui5": {
+        "flexEnabled": false,
+        "rootView": {
+            "viewName": "com.agel.mmts.vendorPersona.view.App",
+            "type": "XML",
+            "async": true,
+            "id": "app"
+        },
+        "dependencies": {
+            "minUI5Version": "1.60.1",
+            "libs": {
+                "sap.ui.core": {},
+                "sap.m": {},
+                "sap.ui.layout": {},
+                "sap.f": {}
+            }
+        },
+        "contentDensities": {
+            "compact": true,
+            "cozy": true
+        },
+        "models": {
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "settings": {
+                    "bundleName": "com.agel.mmts.vendorPersona.i18n.i18n"
+                }
+            },
+            "": {
+                "settings": {
+                    "operationMode": "Server",
+                    "groupId": "$direct",
+                    "synchronizationMode": "None",
+                    "autoExpandSelect": true
+                },
+                "dataSource": "default",
+                "preload": true
+            }
+        },
+        "resources": {
+            "css": [
+                {
+                    "uri": "css/style.css"
+                }
+            ]
+        },
+        "routing": {
+            "config": {
+                "routerClass": "sap.m.routing.Router",
+                "viewType": "XML",
+                "async": true,
+                "viewPath": "com.agel.mmts.vendorPersona.view",
+                "controlAggregation": "pages",
+                "controlId": "app",
+                "clearControlAggregation": false,
+                "bypassed": {
+                    "target": []
+                }
+            },
+            "routes": [
+                {
+                    "name": "RouteLandingPage",
+                    "pattern": "",
+                    "target": [
+                        "TargetLandingPage"
+                    ]
+                },
+                {
+                    "name": "RouteDetailPage",
+                    "pattern": "Detail/{vendorId}",
+                    "target": [
+                        "TargetDetailPage"
+                    ]
+                },
+                {
+                    "name": "RoutePODetailPage",
+                    "pattern": "PODetail/{POId}",
+                    "target": [
+                        "TargetPODetailPage"
+                    ]
+                }
+            ],
+            "targets": {
+                "TargetLandingPage": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewId": "LandingPage",
+                    "viewName": "LandingPage",
+                    "viewLevel": 1
+                },
+                "TargetDetailPage": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewId": "DetailPage",
+                    "viewName": "DetailPage",
+                    "viewLevel": 2
+                },
+                "TargetPODetailPage": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewId": "PODetails",
+                    "viewName": "PODetails",
+                    "viewLevel": 3
+                }
+            }
+        }
+    }
+}
