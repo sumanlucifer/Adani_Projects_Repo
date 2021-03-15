@@ -77,25 +77,20 @@
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection title="{i18n>parentLineItems}">
                         <VBox renderType="Bare">
-                            <Table id="idParentLineItemsTable" width="auto" items="{
-                                path: 'parent_line_items',
-                                parameter:{
-                                    $expand: {
-                                        'child_line_items': true
-                                    }
-                                }
-                            }" noDataText="{i18n>noParentItems}" growing="true" growingScrollToLoad="true" updateFinished=".onParentItemsTableUpdateFinished" selectionChange=".onParentItemSelect" mode="SingleSelectMaster">
+                            <Table id="idParentLineItemsTable" width="auto" items="{parent_line_items}" noDataText="{i18n>noParentItems}" growing="true" growingScrollToLoad="true" updateFinished=".onParentItemsTableUpdateFinished" selectionChange=".onParentItemSelect" mode="SingleSelectMaster">
                                 <headerToolbar>
                                     <OverflowToolbar>
                                         <Title text="{i18n>items}" level="H4" id="parentItemsTableHeader"/>
                                         <ToolbarSpacer />
                                         <SearchField tooltip="{i18n>searchItem}" placeholder="{i18n>searchItem}">
                                             <layoutData>
-                                                <OverflowToolbarLayoutData maxWidth="200px" priority="NeverOverflow"/>
+                                                <OverflowToolbarLayoutData maxWidth="200px" priority="NeverOverflow" group="1"/>
                                             </layoutData>
                                         </SearchField>
-                                        <Button tooltip="{i18n>sort}" icon="sap-icon://sort" press="handleSortButtonPressed" />
-                                        <Button tooltip="{i18n>filter}" icon="sap-icon://filter" press="handleFilterButtonPressed" />
+                                        <Button tooltip="{i18n>sort}" icon="sap-icon://sort" press="handleSortButtonPressed" type="Transparent"/>
+                                        <Button tooltip="{i18n>filter}" icon="sap-icon://filter" press="handleFilterButtonPressed" type="Transparent"/>
+                                        <Button text="create" icon="sap-icon://add"/>
+                                        <Button text="delete" icon="sap-icon://delete"/>
                                     </OverflowToolbar>
                                 </headerToolbar>
 
@@ -128,9 +123,9 @@
                             </Table>
                         </VBox>
                     </uxap:ObjectPageSubSection>
-                    <uxap:ObjectPageSubSection title="{i18n>childLineItems}">
-                        <VBox>
-                            <Table id="idChildItemsTable" width="auto" noDataText="{i18n>noChildItems}" growing="true" growingScrollToLoad="true" updateFinished=".onChildItemsTableUpdateFinished" updateStarted=".onChildTableUpdateStarted" items="{path:'child_line_items'}">
+                    <uxap:ObjectPageSubSection title="{i18n>childLineItems}" visible="false" id="idChildItemsTableSubsection">
+                        <VBox id="childItemTable">
+                            <Table id="idChildItemsTable" width="auto" noDataText="{i18n>noChildItems}" growing="true" growingScrollToLoad="true" updateFinished=".onChildItemsTableUpdateFinished" updateStarted=".onChildTableUpdateStarted" items="{/ChildLineItems}">
                                 <headerToolbar>
                                     <OverflowToolbar>
                                         <Title text="{i18n>items}" level="H4" id="idChildItemsTableHeader"/>
@@ -161,7 +156,7 @@
                                 </columns>
 
                                 <items>
-                                    <ColumnListItem type="Active" id="favTableItemTemplate">
+                                    <ColumnListItem type="Active" id="idTemplate">
                                         <cells>
                                             <Text text="{ID}"/>
                                             <ObjectIdentifier title="{material_code}" titleActive="true"/>
