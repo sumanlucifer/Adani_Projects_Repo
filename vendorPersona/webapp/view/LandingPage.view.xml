@@ -1,0 +1,68 @@
+<mvc:View controllerName="com.agel.mmts.vendorPersona.controller.LandingPage"
+    xmlns="sap.m"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:semantic="sap.f.semantic">
+
+    <semantic:SemanticPage id="page" headerPinnable="false" toggleHeaderOnTitleClick="false">
+
+        <semantic:titleHeading>
+            <Title text="{i18n>worklistTitle}" />
+        </semantic:titleHeading>
+
+        <semantic:content>
+            <Table id="idVendorTable" width="auto" items="{
+					path: '/Vendors',
+					sorter: {
+						path: 'name',
+						descending: false
+					},
+                    parameters: {
+                        $count : true,
+                        $select : ['ID','name','email','pan','gstin']
+                    }
+				}" noDataText="{worklistView>/tableNoDataText}" busyIndicatorDelay="{worklistView>/tableBusyDelay}" growing="true" growingScrollToLoad="true" updateFinished=".onUpdateFinished">
+
+                <headerToolbar>
+                    <Toolbar>
+                        <Title id="tableHeader" text="Vendors ({$count})"/>
+                        <ToolbarSpacer />
+                        <SearchField id="searchField" tooltip="{i18n>worklistSearchTooltip}" search=".onSearch" width="auto"/>
+                        <Button icon="sap-icon://sort" press="handleSortButtonPressed" tooltip="{i18n>sort}"/>
+                        <Button icon="sap-icon://filter" press="handleFilterButtonPressed" tooltip="{i18n>filter}"/>
+                    </Toolbar>
+                </headerToolbar>
+
+                <columns>
+                    <Column>
+                        <Text text="{i18n>name}"/>
+                    </Column>
+                    <Column>
+                        <Text text="{i18n>email}"/>
+                    </Column>
+                    <Column>
+                        <Text text="{i18n>mobile}"/>
+                    </Column>
+                    <Column>
+                        <Text text="{i18n>pan}"/>
+                    </Column>
+                    <Column>
+                        <Text text="{i18n>gst}"/>
+                    </Column>
+                </columns>
+
+                <items>
+                    <ColumnListItem type="Navigation" press=".onVendorItemPress">
+                        <cells>
+                            <ObjectIdentifier title="{name}" titleActive="true"/>
+                            <Text text="{email}"/>
+                            <Text text="{mobile}"/>
+                            <Text text="{pan}"/>
+                            <Text text="{gstin}"/>
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </semantic:content>
+    </semantic:SemanticPage>
+
+</mvc:View>

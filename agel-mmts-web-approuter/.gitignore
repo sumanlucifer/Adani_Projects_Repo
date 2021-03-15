@@ -1,0 +1,13 @@
+/node_modules/
+package-lock.json
+
+
+
+
+
+# auto generated wildcard
+vendorPersona/.env
+# auto generated wildcard
+vendorPersona/.env2
+# auto generated wildcard
+agel-mmts-web/vendorPersona/.env3

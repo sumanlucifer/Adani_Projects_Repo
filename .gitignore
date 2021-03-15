@@ -1,0 +1,10 @@
+/mta_archives/
+/node_modules/
+/resources/
+
+# auto generated wildcard
+vendorPersona/.env
+# auto generated wildcard
+vendorPersona/.env2
+# auto generated wildcard
+agel-mmts-web/vendorPersona/.env3
