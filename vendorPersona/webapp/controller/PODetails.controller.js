@@ -119,6 +119,46 @@ sap.ui.define([
             oEvent.getSource().setBusy(false);
         },
 
+        onParentItemCreatePress: function (oEvent) {
+            if (!this._oCreateParentItemDialog) {
+                this._oCreateDialog = sap.ui.xmlfragment("com.agel.mmts.vendorPersona.view.fragments.PODetails.CreateParentItem", this);
+                this.getView().addDependent(this._oCreateDialog);
+            }
+            this._oCreateDialog.open();
+        },
+
+        closeDialog: function (oEvent) {
+            this._oCreateDialog.close();
+        },
+
+        onSaveParentLineItemPress: function (oEvent) {
+            var oTable = this.getView().byId("idParentLineItemsTable"),
+                oBinding = oTable.getBinding("items"),
+                aInputData = this.getViewModel("parentItemCreationModel").getData(),
+                oViewContext = this.getView().getBindingContext().getObject(),
+
+                // Create a new entry through the table's list binding
+                oContext = oBinding.create({
+                    "parent_line_item_id": (Math.floor(Math.random() * (999999999999 - 900000000000 + 1)) + 900000000000).toString(),
+                    "description": aInputData.description,
+                    "po_number": oViewContext.po_number,
+                    "material_code": aInputData.material_code,
+                    "qty": parseInt(aInputData.qty),
+                    "purchase_order_ID": oViewContext.ID
+                });
+
+            console.log(oContext);
+
+
+            oContext.created().then(function () {
+                //var oEntry = this.getObject();
+                //sap.m.MessageBox.success("New entry created with name " + oEntry.name + " and email " + oEntry.email);
+            }.bind(oContext), function (error) {
+                //sap.m.MessageBox.success("Error Creating Entries!!");
+            }.bind(oContext));
+            this.closeDialog();
+        },
+
         onExportParentItemsExportPress: function (oEvent) {
             var aCols, oRowBinding, oSettings, oSheet, oTable;
 
