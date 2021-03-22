@@ -40,13 +40,7 @@
                 </uxap:snappedTitleOnMobile>
 
                 <uxap:actions>
-                    <VBox visible="{= %{status}==='CONFIRMED' ? true : false}">
-                        <ObjectStatus class="sapMObjectStatusLarge" text="{status}" state="{= ${status}==='CONFIRMED' ? 'Success' : 'Warning'}" icon="{= ${status}==='CONFIRMED' ? 'sap-icon://message-success' : 'sap-icon://pending'}" />
-                    </VBox>
-                    <VBox visible="{= %{status}==='PENDING' ? true : false}">
-                        <Button text="Confirm PO" press="onConfirmPO" binding="{/confirmPO(...)}" type="Emphasized"/>
-                    </VBox>
-                    <unified:FileUploader id="idBOQUploader" buttonOnly="true" buttonText="Upload BOQ" sameFilenameAllowed="true" multiple="false" fileType="csv" mimeType="text/csv" change="fileUploaonBOQFileSelectedForUploadderChange" binding="{DocumentUploadModel>/uploadBOQ(...)}" style="Emphasized"/>
+                   
                 </uxap:actions>
 
             </uxap:ObjectPageDynamicHeaderTitle>
@@ -97,7 +91,6 @@
                                         </SearchField>
                                         <Button tooltip="{i18n>sort}" icon="sap-icon://sort" press="handleSortButtonPressed" type="Transparent"/>
                                         <Button tooltip="{i18n>filter}" icon="sap-icon://filter" press="handleFilterButtonPressed" type="Transparent"/>
-                                        <Button text="create" icon="sap-icon://add" press=".onParentItemCreatePress"/>
                                         <Button text="delete" icon="sap-icon://delete"/>
                                         <Button text="Export" press=".onExportParentItemsExportPress" icon="sap-icon://download"/>
                                     </OverflowToolbar>
