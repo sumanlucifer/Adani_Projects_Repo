@@ -259,6 +259,30 @@ sap.ui.define([
                     });
                 }
             );
+        },
+
+        onConfirmPO: function (oEvent) {
+            //initialize the action
+            var that = this,
+                oViewContext = this.getView().getBindingContext().getObject(),
+                oBindingObject = oEvent.getSource().getObjectBinding();
+
+            //set the parameters
+            oBindingObject.getParameterContext().setProperty("status", "CONFIRMED");
+            oBindingObject.getParameterContext().setProperty("po_uuid", oViewContext.ID);
+
+            //execute the action
+            oBindingObject.execute().then(
+                function () {
+                    MessageToast.show("PO confirmed!");
+                    that.getView().getModel().refresh();
+                },
+                function (oError) {
+                    sap.m.MessageBox.alert(oError.message, {
+                        title: "Error"
+                    });
+                }
+            );
         }
 
     });
