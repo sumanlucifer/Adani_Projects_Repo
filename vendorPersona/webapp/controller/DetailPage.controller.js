@@ -19,6 +19,11 @@ sap.ui.define([
             });
             this.setModel(oViewModel, "objectViewModel");
 
+            // keeps the search state
+            this._aTableSearchState = [];
+            // Keeps reference to any of the created dialogs
+            this._mViewSettingsDialogs = {};
+
             //Router Object
             this.oRouter = this.getRouter();
             this.oRouter.getRoute("RouteDetailPage").attachPatternMatched(this._onObjectMatched, this);
@@ -55,6 +60,79 @@ sap.ui.define([
 
             if (oTableBinding.getHeaderContext())
                 oView.byId("tableHeader").setBindingContext(oTableBinding.getHeaderContext());
+        },
+
+        _getViewSettingsDialog: function (sDialogFragmentName) {
+            var pDialog = this._mViewSettingsDialogs[sDialogFragmentName];
+
+            if (!pDialog) {
+                pDialog = Fragment.load({
+                    id: this.getView().getId(),
+                    name: sDialogFragmentName,
+                    controller: this
+                }).then(function (oDialog) {
+                    if (Device.system.desktop) {
+                        oDialog.addStyleClass("sapUiSizeCompact");
+                    }
+                    return oDialog;
+                });
+                this._mViewSettingsDialogs[sDialogFragmentName] = pDialog;
+            }
+            return pDialog;
+        },
+
+        handleSortButtonPressed: function () {
+            this._getViewSettingsDialog("com.agel.mmts.vendorPersona.view.fragments.detailPage.SortDialog")
+                .then(function (oViewSettingsDialog) {
+                    oViewSettingsDialog.open();
+                });
+        },
+
+        handleFilterButtonPressed: function (oEvent) {
+            this._getViewSettingsDialog("com.agel.mmts.vendorPersona.view.fragments.detailPage.FilterDialog")
+                .then(
+                    function (oViewSettingsDialog) {
+                        oViewSettingsDialog.setModel(this.getComponentModel());
+                        oViewSettingsDialog.open();
+                    }.bind(this)
+                );
+        },
+
+        handleSortDialogConfirm: function (oEvent) {
+            var oTable = this.byId("idPurchaseOrdersTable"),
+                mParams = oEvent.getParameters(),
+                oBinding = oTable.getBinding("items"),
+                sPath,
+                bDescending,
+                aSorters = [];
+
+            sPath = mParams.sortItem.getKey();
+            bDescending = mParams.sortDescending;
+            aSorters.push(new Sorter(sPath, bDescending));
+
+            // apply the selected sort and group settings
+            oBinding.sort(aSorters);
+        },
+
+        handleFilterDialogConfirm: function (oEvent) {
+            var oTable = this.byId("idPurchaseOrdersTable"),
+                mParams = oEvent.getParameters(),
+                oBinding = oTable.getBinding("items"),
+                aFilters = [];
+
+            var sPath = Object.keys(mParams.filterCompoundKeys)[0],
+                sOperator = "EQ",
+                sValue1 = mParams.filterKeys.CONFIRMED ? 'CONFIRMED' : 'PENDING',
+                oFilter = new Filter(sPath, sOperator, sValue1);
+
+            aFilters.push(oFilter);
+
+            // apply filter settings
+            oBinding.filter(aFilters);
+
+            // update filter bar
+            this.byId("vsdFilterBar").setVisible(aFilters.length > 0);
+            this.byId("vsdFilterLabel").setText(mParams.filterString);
         },
 
         //triggers on press of a vendor item from the list

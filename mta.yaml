@@ -7,6 +7,9 @@ modules:
 - name: agel-mmts-web-approuter
   type: approuter.nodejs
   path: agel-mmts-web-approuter
+  properties:
+    TENANT_HOST_PATTERN: ^(.*)-agel-mmts-web-approuter.${default-domain}
+
   requires:
   - name: uaa_agel-mmts-web
   - name: agel-mmts-web_html_repo_runtime
@@ -61,7 +64,9 @@ modules:
   - name: agel-mmts-web_html_repo_host
   - name: agel-mmts-web_ui_deployer
   - name: uaa_agel-mmts-web
-
+  parameters:
+    config:
+      TENANT_HOST_PATTERN: ^(.*)-agel-mmts-web-approuter.${default-domain}
 
 resources:
 - name: uaa_agel-mmts-web
@@ -69,7 +74,7 @@ resources:
   parameters:
     path: ./xs-security.json
     service: xsuaa
-    service-name: uaa_agel-mmts-web
+    service-name: xsuaa-agel-mmts
     service-plan: application
 - name: agel-mmts-web_html_repo_runtime
   type: org.cloudfoundry.managed-service
