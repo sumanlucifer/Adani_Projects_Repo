@@ -40,7 +40,7 @@
                 </uxap:snappedTitleOnMobile>
 
                 <uxap:actions>
-                   
+                   <unified:FileUploader id="idBOQUploader" buttonOnly="true" buttonText="Upload BOQ" sameFilenameAllowed="true" multiple="false" fileType="csv" mimeType="text/csv" change="fileUploaonBOQFileSelectedForUploadderChange" binding="{DocumentUploadModel>/uploadBOQ(...)}" style="Emphasized"/>
                 </uxap:actions>
 
             </uxap:ObjectPageDynamicHeaderTitle>

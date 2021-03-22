@@ -210,6 +210,55 @@ sap.ui.define([
                 .finally(function () {
                     oSheet.destroy();
                 });
+        },
+
+        fileUploaonBOQFileSelectedForUploadderChange: function (oEvent) {
+            // keep a reference of the uploaded file
+            var that = this;
+            var oFiles = oEvent.getParameters().files;
+            this._getImageData(URL.createObjectURL(oFiles[0]), function (base64) {
+                that._addData(base64);
+            });
+        },
+
+        _getImageData: function (url, callback) {
+            var xhr = new XMLHttpRequest();
+            xhr.onload = function () {
+                var reader = new FileReader();
+                reader.onloadend = function () {
+                    callback(reader.result);
+                };
+                reader.readAsDataURL(xhr.response);
+            };
+            xhr.open('GET', url);
+            xhr.responseType = 'blob';
+            xhr.send();
+        },
+
+        _addData: function (data) {
+            var that = this,
+                oViewContext = this.getView().getBindingContext().getObject(),
+                oBindingObject = this.byId("idBOQUploader").getObjectBinding("DocumentUploadModel");
+            
+            data= data.substr(21, data.length);   
+
+            //set the parameters
+            oBindingObject.getParameterContext().setProperty("file", data);
+            oBindingObject.getParameterContext().setProperty("po_number", oViewContext.po_number);
+            oBindingObject.getParameterContext().setProperty("purchase_order_ID", oViewContext.ID);
+
+            //execute the action
+            oBindingObject.execute().then(
+                function () {
+                    MessageToast.show("BOQ uploaded!");
+                    that.getView().getModel().refresh();
+                },
+                function (oError) {
+                    sap.m.MessageBox.alert(oError.message, {
+                        title: "Error"
+                    });
+                }
+            );
         }
 
     });
