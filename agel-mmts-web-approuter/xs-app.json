@@ -1,5 +1,13 @@
 {
-    "authenticationMethod": "none",
-    "routes": [],
+    "authenticationMethod": "route",
+    "routes": [
+        {
+            "authenticationType": "xsuaa",
+            "source": "^/AGEL_MMTS_API/(.*)$",
+            "target": "$1",
+            "destination": "AGEL_MMTS_API",
+            "csrfProtection": false
+        }
+    ],
     "welcomeFile": "/cp.portal"
 }

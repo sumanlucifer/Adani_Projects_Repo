@@ -3,6 +3,8 @@
     xmlns:uxap="sap.uxap"
     xmlns:layout="sap.ui.layout"
     xmlns:core="sap.ui.core"
+    xmlns:unified="sap.ui.unified"
+    xmlns:tt="sap.ui.table"
     xmlns="sap.m" controllerName="com.agel.mmts.vendorPersona.controller.PODetails" height="100%">
     <uxap:ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true" upperCaseAnchorBar="false" headerContentPinnable="true" toggleHeaderOnTitleClick="true" showFooter="true">
         <uxap:headerTitle>
@@ -38,7 +40,13 @@
                 </uxap:snappedTitleOnMobile>
 
                 <uxap:actions>
-                    <ObjectStatus class="sapMObjectStatusLarge" text="{status}" state="{= ${status}==='CONFIRMED' ? 'Success' : 'Warning'}" icon="{= ${status}==='CONFIRMED' ? 'sap-icon://message-success' : 'sap-icon://pending'}" />
+                    <VBox visible="{= %{status}==='CONFIRMED' ? true : false}">
+                        <ObjectStatus class="sapMObjectStatusLarge" text="{status}" state="{= ${status}==='CONFIRMED' ? 'Success' : 'Warning'}" icon="{= ${status}==='CONFIRMED' ? 'sap-icon://message-success' : 'sap-icon://pending'}" />
+                    </VBox>
+                    <VBox visible="{= %{status}==='PENDING' ? true : false}">
+                        <Button text="Confirm PO" press="onConfirmPO" binding="{/confirmPO(...)}" type="Emphasized"/>
+                    </VBox>
+                    <unified:FileUploader id="idBOQUploader" buttonOnly="true" buttonText="Upload BOQ" sameFilenameAllowed="true" multiple="false" fileType="csv" mimeType="text/csv" change="fileUploaonBOQFileSelectedForUploadderChange" binding="{DocumentUploadModel>/uploadBOQ(...)}" style="Emphasized"/>
                 </uxap:actions>
 
             </uxap:ObjectPageDynamicHeaderTitle>
@@ -89,15 +97,13 @@
                                         </SearchField>
                                         <Button tooltip="{i18n>sort}" icon="sap-icon://sort" press="handleSortButtonPressed" type="Transparent"/>
                                         <Button tooltip="{i18n>filter}" icon="sap-icon://filter" press="handleFilterButtonPressed" type="Transparent"/>
-                                        <Button text="create" icon="sap-icon://add"/>
+                                        <Button text="create" icon="sap-icon://add" press=".onParentItemCreatePress"/>
                                         <Button text="delete" icon="sap-icon://delete"/>
+                                        <Button text="Export" press=".onExportParentItemsExportPress" icon="sap-icon://download"/>
                                     </OverflowToolbar>
                                 </headerToolbar>
 
                                 <columns>
-                                    <Column>
-                                        <Text text="ID"/>
-                                    </Column>
                                     <Column>
                                         <Text text="{i18n>materialCode}"/>
                                     </Column>
@@ -112,7 +118,6 @@
                                 <items>
                                     <ColumnListItem type="Active">
                                         <cells>
-                                            <Text text="{ID}"/>
                                             <ObjectIdentifier title="{material_code}" titleActive="true"/>
                                             <Text text="{description}"/>
                                             <Text text="{qty}"/>
@@ -137,13 +142,11 @@
                                         </SearchField>
                                         <Button tooltip="{i18n>sort}" icon="sap-icon://sort" press="handleSortButtonPressed" />
                                         <Button tooltip="{i18n>filter}" icon="sap-icon://filter" press="handleFilterButtonPressed" />
+                                        <Button icon="sap-icon://edit" press="onEditPress" text="Edit" />
                                     </OverflowToolbar>
                                 </headerToolbar>
 
                                 <columns>
-                                    <Column>
-                                        <Text text="ID"/>
-                                    </Column>
                                     <Column>
                                         <Text text="{i18n>materialCode}"/>
                                     </Column>
@@ -158,7 +161,6 @@
                                 <items>
                                     <ColumnListItem type="Active" id="idTemplate">
                                         <cells>
-                                            <Text text="{ID}"/>
                                             <ObjectIdentifier title="{material_code}" titleActive="true"/>
                                             <Text text="{description}"/>
                                             <Text text="{qty}"/>
@@ -171,6 +173,32 @@
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>
             </uxap:ObjectPageSection>
+          <!--   <uxap:ObjectPageSection title="Tree Table">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection>
+                        <VBox>
+                            <tt:TreeTable id="TreeTableBasic" rows="{path:'parent_line_items'}" selectionMode="None" enableSelectAll="false" ariaLabelledBy="title" class="treeTable">
+                                <tt:extension>
+                                </tt:extension>
+                                <tt:columns>
+                                    <tt:Column >
+                                        <Label text="PO"/>
+                                        <tt:template>
+                                            <VBox width="100%">
+                                                <HBox justifyContent="SpaceBetween" class="sapUiTinyMarginTop">
+                                                    <VBox width="80%">
+                                                        <Input change="onChange" editable="true" id="id_title" value="{path:'ID'}"/>
+                                                    </VBox>
+                                                </HBox>
+                                            </VBox>
+                                        </tt:template>
+                                    </tt:Column>
+                                </tt:columns>
+                            </tt:TreeTable>
+                        </VBox>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection> -->
         </uxap:sections>
     </uxap:ObjectPageLayout>
 </mvc:View>

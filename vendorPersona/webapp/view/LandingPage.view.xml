@@ -10,6 +10,25 @@
         </semantic:titleHeading>
 
         <semantic:content>
+             <Table width="auto" items="{
+					path: 'qrCodeModel>/QRCodes'
+				}">
+
+
+                <columns>
+                    <Column>
+                        <Text text="{i18n>name}"/>
+                    </Column>
+                </columns>
+
+                <items>
+                    <ColumnListItem type="Navigation" press=".onVendorItemPress">
+                        <cells>
+                            <Text text="{qrCodeModel>material_code}"></Text>
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
             <Table id="idVendorTable" width="auto" items="{
 					path: '/Vendors',
 					sorter: {

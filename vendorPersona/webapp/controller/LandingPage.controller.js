@@ -175,6 +175,6 @@ sap.ui.define([
                     vendorId: sObjectPath.slice("/Vendors".length) // /Vendors(123)->(123)
                 });
             });
-        },
+        }
     });
 });

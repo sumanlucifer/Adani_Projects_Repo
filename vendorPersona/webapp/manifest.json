@@ -38,6 +38,22 @@
                     "odataVersion": "4.0",
                     "localUri": "localService/metadata.xml"
                 }
+            },
+            "uploadService": {
+                "uri": "/AGEL_MMTS_API/odata/v4/CsvFileUploaderService/",
+                "type": "OData",
+                "settings": {
+                    "odataVersion": "4.0",
+                    "localUri": "localService/metadata.xml"
+                }
+            },
+            "qrCodeService": {
+                "uri": "/AGEL_MMTS_API/odata/v4/QRCodeService/",
+                "type": "OData",
+                "settings": {
+                    "odataVersion": "4.0",
+                    "localUri": "localService/metadata.xml"
+                }
             }
         }
     },
@@ -93,6 +109,26 @@
                     "autoExpandSelect": true
                 },
                 "dataSource": "default",
+                "preload": true
+            },
+            "DocumentUploadModel": {
+                "settings": {
+                    "operationMode": "Server",
+                    "groupId": "$direct",
+                    "synchronizationMode": "None",
+                    "autoExpandSelect": true
+                },
+                "dataSource": "uploadService",
+                "preload": true
+            },
+            "qrCodeModel": {
+                "settings": {
+                    "operationMode": "Server",
+                    "groupId": "$direct",
+                    "synchronizationMode": "None",
+                    "autoExpandSelect": true
+                },
+                "dataSource": "qrCodeService",
                 "preload": true
             }
         },
