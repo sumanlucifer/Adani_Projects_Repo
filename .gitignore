@@ -1,6 +1,11 @@
 /mta_archives/
 /node_modules/
 /resources/
+/*-content.zip/ 
+package-lock.json
+/dist/
+/.vscode/
+
 
 # auto generated wildcard
 vendorPersona/.env
