@@ -91,6 +91,7 @@
                                         </SearchField>
                                         <Button tooltip="{i18n>sort}" icon="sap-icon://sort" press="handleSortButtonPressed" type="Transparent"/>
                                         <Button tooltip="{i18n>filter}" icon="sap-icon://filter" press="handleFilterButtonPressed" type="Transparent"/>
+                                         <Button text="create" icon="sap-icon://add" press=".onParentItemCreatePress"/>
                                         <Button text="delete" icon="sap-icon://delete"/>
                                         <Button text="Export" press=".onExportParentItemsExportPress" icon="sap-icon://download"/>
                                     </OverflowToolbar>
