@@ -29,6 +29,9 @@
 				"viz": [{
 					"appId": "com.agel.mmts.vendorPersona",
 					"vizId": "Actions-Vendor"
+				}, {
+					"appId": "com.agel.mmts.vendorPersona-ConfirmPOs",
+					"vizId": "confirmedPO-Vendor"
 				}]
 			}
 		}],
@@ -49,7 +52,14 @@
 									"config": {
 										"applications": {
 											"Shell-home": {}
-										}
+										},
+										"enableSearch": false,
+										"enablePersonalization": true,
+										"enableSetTheme": true,
+										"enableSetLanguage": true,
+										"enableAutomaticSignout": true,
+										"sessionTimeoutIntervalInMinutes": 15,
+										"sessionTimeoutReminderInMinutes": 3
 									}
 								}
 							}
