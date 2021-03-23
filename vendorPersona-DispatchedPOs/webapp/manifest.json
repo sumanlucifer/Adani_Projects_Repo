@@ -25,7 +25,7 @@
                     "semanticObject": "dispatchedPO",
                     "action": "Vendor",
                     "title": "{{appTileTitle}}",
-                    "icon": "sap-icon://accept"
+                    "icon": "sap-icon://shipping-status"
                 }
             }
         }
