@@ -40,6 +40,10 @@ modules:
       - vendorPersona-ConfirmPOs-content.zip
       name: vendorPersona-ConfirmPOs
       target-path: resources/
+    - artifacts:
+      - vendorPersona-DispatchedPOs-content.zip
+      name: vendorPersona-DispatchedPOs
+      target-path: resources/
 - name: vendorPersona
   type: html5
   path: vendorPersona
@@ -68,6 +72,14 @@ modules:
 - name: vendorPersona-ConfirmPOs
   type: html5
   path: vendorPersona-ConfirmPOs
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []
+- name: vendorPersona-DispatchedPOs
+  type: html5
+  path: vendorPersona-DispatchedPOs
   build-parameters:
     builder: custom
     commands:
