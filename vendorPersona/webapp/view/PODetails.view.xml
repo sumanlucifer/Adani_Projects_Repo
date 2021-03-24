@@ -46,7 +46,7 @@
                     <VBox visible="{= %{status}==='PENDING' ? true : false}">
                         <Button text="Confirm PO" press="onConfirmPO" binding="{/confirmPO(...)}" type="Emphasized"/>
                     </VBox>
-                   <unified:FileUploader id="idBOQUploader" buttonOnly="true" buttonText="Upload BOQ" sameFilenameAllowed="true" multiple="false" fileType="csv" mimeType="text/csv" change="fileUploaonBOQFileSelectedForUploadderChange" binding="{DocumentUploadModel>/uploadBOQ(...)}" style="Emphasized"/>
+                    <unified:FileUploader id="idBOQUploader" buttonOnly="true" buttonText="Upload BOQ" sameFilenameAllowed="true" multiple="false" fileType="csv" mimeType="text/csv" change="fileUploaonBOQFileSelectedForUploadderChange" binding="{DocumentUploadModel>/uploadBOQ(...)}" style="Emphasized"/>
                 </uxap:actions>
 
             </uxap:ObjectPageDynamicHeaderTitle>
@@ -97,7 +97,7 @@
                                         </SearchField>
                                         <Button tooltip="{i18n>sort}" icon="sap-icon://sort" press="handleSortButtonPressed" type="Transparent"/>
                                         <Button tooltip="{i18n>filter}" icon="sap-icon://filter" press="handleFilterButtonPressed" type="Transparent"/>
-                                         <Button text="create" icon="sap-icon://add" press=".onParentItemCreatePress"/>
+                                        <Button text="create" icon="sap-icon://add" press=".onParentItemCreatePress"/>
                                         <Button text="delete" icon="sap-icon://delete"/>
                                         <Button text="Export" press=".onExportParentItemsExportPress" icon="sap-icon://download"/>
                                     </OverflowToolbar>
@@ -171,34 +171,33 @@
                             </Table>
                         </VBox>
                     </uxap:ObjectPageSubSection>
-                </uxap:subSections>
-            </uxap:ObjectPageSection>
-          <!--   <uxap:ObjectPageSection title="Tree Table">
-                <uxap:subSections>
-                    <uxap:ObjectPageSubSection>
+
+                    <uxap:ObjectPageSubSection title="{i18n>inspectionItemsTitle}" visible="{= %{status}==='CONFIRMED' ? true : false}" id="idInspectionTableSubSection">
                         <VBox>
-                            <tt:TreeTable id="TreeTableBasic" rows="{path:'parent_line_items'}" selectionMode="None" enableSelectAll="false" ariaLabelledBy="title" class="treeTable">
-                                <tt:extension>
-                                </tt:extension>
-                                <tt:columns>
-                                    <tt:Column >
-                                        <Label text="PO"/>
-                                        <tt:template>
-                                            <VBox width="100%">
-                                                <HBox justifyContent="SpaceBetween" class="sapUiTinyMarginTop">
-                                                    <VBox width="80%">
-                                                        <Input change="onChange" editable="true" id="id_title" value="{path:'ID'}"/>
-                                                    </VBox>
-                                                </HBox>
-                                            </VBox>
-                                        </tt:template>
-                                    </tt:Column>
-                                </tt:columns>
-                            </tt:TreeTable>
+                            <Table id="idInspectionTable" width="auto" noDataText="{i18n>noInspectionItems}" growing="true" growingScrollToLoad="true" items="{inspection_call_ids}">
+                                <columns>
+                                    <Column>
+                                        <Text text="{i18n>inspectionID}"/>
+                                    </Column>
+                                    <Column>
+                                        <Text text="{i18n>date}"/>
+                                    </Column>
+                                </columns>
+
+                                <items>
+                                    <ColumnListItem type="Navigation">
+                                        <cells>
+                                            <ObjectIdentifier title="{inspection_call_id}" titleActive="true"/>
+                                            <Text text="{createdAt}"/>
+                                        </cells>
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
                         </VBox>
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>
-            </uxap:ObjectPageSection> -->
+            </uxap:ObjectPageSection>
+
         </uxap:sections>
     </uxap:ObjectPageLayout>
 </mvc:View>

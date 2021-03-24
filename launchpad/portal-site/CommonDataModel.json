@@ -34,7 +34,7 @@
 					"vizId": "confirmedPO-Vendor"
 				}, {
 					"appId": "com.agel.mmts.vendorPersona-DispatchedPOs",
-					"vizId": "dispatchedPOs-Vendor"
+					"vizId": "dispatchedPO-Vendor"
 				}]
 			}
 		}, {

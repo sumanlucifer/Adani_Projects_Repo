@@ -103,7 +103,7 @@ resources:
   parameters:
     path: ./xs-security.json
     service: xsuaa
-    service-name: xsuaa-agel-mmts
+    service-name: uaa_agel-mmts-web
     service-plan: application
 - name: agel-mmts-web_html_repo_runtime
   type: org.cloudfoundry.managed-service
