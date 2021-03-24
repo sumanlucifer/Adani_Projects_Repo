@@ -119,14 +119,14 @@
             "routes": [
                 {
                     "name": "RouteLandingPage",
-                    "pattern": "",
+                    "pattern": "LandingPage",
                     "target": [
                         "TargetLandingPage"
                     ]
                 },
                 {
                     "name": "RouteDetailPage",
-                    "pattern": "Detail/{vendorId}",
+                    "pattern": "",
                     "target": [
                         "TargetDetailPage"
                     ]
@@ -146,7 +146,7 @@
                     "clearControlAggregation": false,
                     "viewId": "LandingPage",
                     "viewName": "LandingPage",
-                    "viewLevel": 1
+                    "viewLevel": 3
                 },
                 "TargetDetailPage": {
                     "viewType": "XML",
@@ -154,7 +154,7 @@
                     "clearControlAggregation": false,
                     "viewId": "DetailPage",
                     "viewName": "DetailPage",
-                    "viewLevel": 2
+                    "viewLevel": 1
                 },
                 "TargetPODetailPage": {
                     "viewType": "XML",
@@ -162,7 +162,7 @@
                     "clearControlAggregation": false,
                     "viewId": "PODetails",
                     "viewName": "PODetails",
-                    "viewLevel": 3
+                    "viewLevel": 2
                 }
             }
         }

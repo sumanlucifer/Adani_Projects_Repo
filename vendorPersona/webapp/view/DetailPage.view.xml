@@ -1,119 +1,114 @@
-<mvc:View xmlns:vbm="sap.ui.vbm"
+<mvc:View controllerName="com.agel.mmts.vendorPersona.controller.DetailPage"
+    height="100%"
     xmlns:mvc="sap.ui.core.mvc"
-    xmlns:uxap="sap.uxap"
-    xmlns:layout="sap.ui.layout"
     xmlns:core="sap.ui.core"
-    xmlns="sap.m" controllerName="com.agel.mmts.vendorPersona.controller.DetailPage">
-    <uxap:ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true" headerContentPinnable="true" busy="{objectViewModel>busy}">
-        <uxap:headerTitle>
-            <uxap:ObjectPageDynamicHeaderTitle>
-                <uxap:breadcrumbs>
-                    <Breadcrumbs currentLocationText="{i18n>vendorDetails}">
-                        <Link text="{i18n>allVendors}" press=".handleToAllVendorsBreadcrumPress"/>
-                    </Breadcrumbs>
-                </uxap:breadcrumbs>
-
-                <uxap:expandedHeading>
-                    <Title text="{name}" class="sapUiTinyMarginEnd"/>
-                </uxap:expandedHeading>
-
-                <uxap:snappedHeading>
-                    <FlexBox fitContainer="true" alignItems="Center" renderType="Bare">
-                        <Avatar class="sapUiTinyMarginEnd" showBorder="true" backgroundColor="Random" src="sap-icon://supplier"/>
-                        <FlexBox direction="Column" renderType="Bare">
-                            <Title text="{name}" wrapping="true"/>
-                            <Text text="{vendor_code}"/>
-                        </FlexBox>
-                    </FlexBox>
-                </uxap:snappedHeading>
-
-                <uxap:expandedContent>
-                    <Text text="{vendor_code}"/>
-                </uxap:expandedContent>
-
-
-                <uxap:snappedTitleOnMobile>
-                    <Title text="{vendor_code}"/>
-                </uxap:snappedTitleOnMobile>
-
-            </uxap:ObjectPageDynamicHeaderTitle>
-
-
-        </uxap:headerTitle>
-
-        <uxap:headerContent>
-            <FlexBox wrap="Wrap" height="100%" class="sapUiSmallMarginBottom" renderType="Bare" direction="Row">
-                <Avatar class="sapUiSmallMarginEnd" displaySize="L" showBorder="true" backgroundColor="Random" src="sap-icon://supplier"/>
-                <FlexBox direction="Column" justifyContent="SpaceAround" class="sapUiSmallMarginBeginEnd" renderType="Bare">
-                    <ObjectAttribute title="{i18n>email}" text="{email}" active="true"/>
-                    <ObjectAttribute title="{i18n>mobile}" text="{mobile}" active="true"/>
-                    <ObjectAttribute title="{i18n>pan}" text="{pan}" active="true"/>
-                    <ObjectAttribute title="{i18n>gst}" text="{gstin}" active="true"/>
-                </FlexBox>
-                <FlexBox direction="Column" justifyContent="SpaceAround" renderType="Bare" binding="{address}">
-                    <ObjectAttribute title="{i18n>street}" text="{street}" active="true"/>
-                    <ObjectAttribute title="{i18n>city}" text="{city}" active="true"/>
-                    <ObjectAttribute title="{i18n>country}" text="{country}" active="true"/>
-                    <ObjectAttribute title="{i18n>zipcode}" text="{zipcode}" active="true"/>
-                </FlexBox>
-            </FlexBox>
-        </uxap:headerContent>
-
-        <uxap:sections>
-            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>purchaseOrders}">
-                <uxap:subSections>
-                    <uxap:ObjectPageSubSection>
-                        <VBox renderType="Bare">
-                            <Table id="idPurchaseOrdersTable" width="auto" items="{path: 'purchase_orders',
-                                parameter:{
-                                    $count: true
-                                }
-                            }" noDataText="{i18n>noDataForPOs}" growing="true" growingScrollToLoad="true" updateFinished=".onPurchaseOrderTableUpdateFinished">
-                                <headerToolbar>
-                                    <OverflowToolbar>
-                                        <Title text="{i18n>purchaseOrders} ({$count})" level="H4" id="tableHeader"/>
-                                        <ToolbarSpacer />
-                                        <SearchField id="searchField" tooltip="{i18n>searchOrder}" placeholder="{i18n>searchOrder}">
-                                            <layoutData>
-                                                <OverflowToolbarLayoutData maxWidth="200px" priority="NeverOverflow"/>
-                                            </layoutData>
-                                        </SearchField>
-                                        <Button tooltip="{i18n>sort}" icon="sap-icon://sort" press="handleSortButtonPressed" />
-                                        <Button tooltip="{i18n>filter}" icon="sap-icon://filter" press="handleFilterButtonPressed" />
-                                    </OverflowToolbar>
-                                </headerToolbar>
-
-                                <columns>
-                                    <Column>
-                                        <Text text="{i18n>ponum}"/>
-                                    </Column>
-                                    <Column>
-                                        <Text text="{i18n>invoiceNum}"/>
-                                    </Column>
-                                    <Column>
-                                        <Text text="{i18n>status}"/>
-                                    </Column>
-                                    <Column>
-                                        <Text text="{i18n>releaseDate}"/>
-                                    </Column>
-                                </columns>
-
-                                <items>
-                                    <ColumnListItem type="Navigation" press=".onPurchaseOrderPress">
-                                        <cells>
-                                            <ObjectIdentifier title="{po_number}" titleActive="true"/>
-                                            <Text text="{invoice_number}"/>
-                                            <ObjectStatus text="{status}" state="{= ${status}==='CONFIRMED' ? 'Success' : 'Warning'}" />
-                                            <Text text="{po_release_date}"/>
-                                        </cells>
-                                    </ColumnListItem>
-                                </items>
-                            </Table>
-                        </VBox>
-                    </uxap:ObjectPageSubSection>
-                </uxap:subSections>
-            </uxap:ObjectPageSection>
-        </uxap:sections>
-    </uxap:ObjectPageLayout>
+    xmlns:layout="sap.ui.layout"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:fb="sap.ui.comp.filterbar"
+    xmlns:vm="sap.ui.comp.variants">
+    <f:DynamicPage headerExpanded="true">
+        <!-- DynamicPage Title -->
+        <f:title>
+            <f:DynamicPageTitle>
+                <f:heading>
+                    <Title text="{i18n>AssignedPO}"/>
+                </f:heading>
+            </f:DynamicPageTitle>
+        </f:title>
+        <!-- DynamicPage Header -->
+        <f:header>
+            <f:DynamicPageHeader pinnable="true">
+                <f:content>
+                    <fb:FilterBar id="filterbar" reset="onReset" search="onSearch" useToolbar="false" showGoOnFB="true">
+                        <fb:filterGroupItems>
+                            <fb:FilterGroupItem groupName="__$INTERNAL$" name="PONOs" label="{i18n>PONOs}" visibleInFilterBar="true" class="searchFieldLabelHidden">
+                                <fb:control>
+                                    <Input id="idNameInput" placeholder="{i18n>EnterPoNos}" showSuggestion="true" showValueHelp="false"  suggestionItems="{purchase_orders}">
+                                        <suggestionItems>
+                                            <core:Item text="{po_number}" />
+                                        </suggestionItems>
+                                    </Input>
+                                </fb:control>
+                            </fb:FilterGroupItem>
+                            <fb:FilterGroupItem groupName="__$INTERNAL$" name="po_release_date" label="{i18n>Date}" visibleInFilterBar="true" class="searchFieldLabelHidden">
+                                <fb:control>
+                                    <DatePicker
+			                            id="DP1"
+			                            placeholder="DDMMYYYY"
+			                            change="onDateChange"
+                                        valueFormat="dd.MM.yyyy"
+			                            class="sapUiSmallMarginBottom"/>
+                                </fb:control>
+                            </fb:FilterGroupItem>
+                            <fb:FilterGroupItem groupName="__$INTERNAL$" name="invoice_number" label="{i18n>ParentCode}" visibleInFilterBar="true" class="searchFieldLabelHidden">
+                                <fb:control>
+                                    <Input id="idIdInput" placeholder="{i18n>EnterCode}" showSuggestion="true" showValueHelp="true" suggestionItems="{purchase_orders}">
+                                        <suggestionItems>
+                                            <core:Item text="{invoice_number}" />
+                                        </suggestionItems>
+                                    </Input>
+                                </fb:control>
+                            </fb:FilterGroupItem>
+                        </fb:filterGroupItems>
+                    </fb:FilterBar>
+                </f:content>
+            </f:DynamicPageHeader>
+        </f:header>
+        <!-- DynamicPage Content -->
+        <f:content>
+            <IconTabBar
+		        id="idIconTabBarInlineMode"
+		        headerMode="Inline"
+		        expanded="true"
+		        class="sapUiResponsiveContentPadding">
+                <items>
+                    <IconTabFilter
+				        text="{i18n>openPOs}"
+				        key="info"
+				        count="4">
+                        <Table id="idPurchaseOrdersTable" width="auto" items="{purchase_orders}"
+                            noDataText="{i18n>noDataForPOs}" growing="true" growingScrollToLoad="true">
+                            <columns>
+                                <Column>
+                                    <Text text="{i18n>ponum}"/>
+                                </Column>
+                                <Column>
+                                    <Text text="{i18n>invoiceNum}"/>
+                                </Column>
+                                <Column>
+                                    <Text text="{i18n>status}"/>
+                                </Column>
+                                <Column>
+                                    <Text text="{i18n>releaseDate}"/>
+                                </Column>
+                            </columns>
+                            <items>
+                                <ColumnListItem type="Navigation" press=".onPurchaseOrderPress">
+                                    <cells>
+                                        <ObjectIdentifier title="{po_number}" titleActive="true"/>
+                                        <Text text="{invoice_number}"/>
+                                        <ObjectStatus text="{status}" state="{= ${status}==='CONFIRMED' ? 'Success' : 'Warning'}" />
+                                        <Text text="{po_release_date}"/>
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                    </IconTabFilter>
+                    <IconTabFilter
+				        text="{i18n>ConfirmedPO}"
+				        key="info"
+				        count="0">
+                    
+                    </IconTabFilter>
+                    <IconTabFilter
+				        text="{i18n>Dispatched}"
+				        key="info"
+				        count="0">
+                    
+                    </IconTabFilter>
+                </items>
+            </IconTabBar>
+        </f:content>
+    </f:DynamicPage>
 </mvc:View>
-
