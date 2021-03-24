@@ -44,6 +44,10 @@ modules:
       - vendorPersona-DispatchedPOs-content.zip
       name: vendorPersona-DispatchedPOs
       target-path: resources/
+    - artifacts:
+      - storeInCharge-content.zip
+      name: storeInCharge
+      target-path: resources/
 - name: vendorPersona
   type: html5
   path: vendorPersona
@@ -80,6 +84,14 @@ modules:
 - name: vendorPersona-DispatchedPOs
   type: html5
   path: vendorPersona-DispatchedPOs
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []
+- name: storeInCharge
+  type: html5
+  path: storeInCharge
   build-parameters:
     builder: custom
     commands:
