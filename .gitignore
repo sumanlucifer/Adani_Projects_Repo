@@ -1,6 +1,11 @@
 /mta_archives/
 /node_modules/
 /resources/
+/*-content.zip/ 
+package-lock.json
+/dist/
+/.vscode/
+
 
 # auto generated wildcard
 vendorPersona/.env
@@ -8,3 +13,9 @@ vendorPersona/.env
 vendorPersona/.env2
 # auto generated wildcard
 agel-mmts-web/vendorPersona/.env3
+# auto generated wildcard
+agel-mmts-web/vendorPersona/.env5
+# auto generated wildcard
+agel-mmts-web/vendorPersona/.env6
+# auto generated wildcard
+agel-mmts-web/vendorPersona/.env7

@@ -1,0 +1,2 @@
+VCAP_SERVICES={}
+destinations=[{"name":"AGEL_MMTS","url":"https://adani-green-energy-limited-renewables-dev-development-a23002998.cfapps.ap11.hana.ondemand.com","forwardAuthToken":true,"proxyHost":"http://127.0.0.1","proxyPort":"8887"}]
