@@ -283,6 +283,21 @@ sap.ui.define([
                     });
                 }
             );
+        },
+
+        //triggers on press of a Inspection ID item from the list
+        onInspectionIDPress: function (oEvent) {
+            // The source is the list item that got pressed
+            this._showObject(oEvent.getSource());
+        },
+
+        _showObject: function (oItem) {
+            var that = this;
+            oItem.getBindingContext().requestCanonicalPath().then(function (sObjectPath) {
+                that.getRouter().navTo("RouteInspectionDetailsPage", {
+                    inspectionID: sObjectPath.slice("/InspectionCallIds".length) // /PurchaseOrders(123)->(123)
+                });
+            });
         }
 
     });

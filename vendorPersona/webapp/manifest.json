@@ -173,6 +173,13 @@
                     "target": [
                         "TargetPODetailPage"
                     ]
+                },
+                {
+                    "name": "RouteInspectionDetailsPage",
+                    "pattern": "InspectionDetails/{inspectionID}",
+                    "target": [
+                        "TargetInspectionDetailsPage"
+                    ]
                 }
             ],
             "targets": {
@@ -199,6 +206,14 @@
                     "viewId": "PODetails",
                     "viewName": "PODetails",
                     "viewLevel": 3
+                },
+                "TargetInspectionDetailsPage": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewId": "InspectionDetails",
+                    "viewName": "InspectionDetails",
+                    "viewLevel": 4
                 }
             }
         }
