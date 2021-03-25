@@ -75,7 +75,7 @@ sap.ui.define([
             userEmail = userEmail || 'symantic.engineering@testemail.com'
             this.getView().byId("idPurchaseOrdersTable").bindItems({
                 path: "/PurchaseOrders",
-                template: this.byId("test"),
+                template: this.byId("idPurchaseOrdersTable").removeItem(0),
                 parameters: {
                     "$expand": {
                         "vendor": {
