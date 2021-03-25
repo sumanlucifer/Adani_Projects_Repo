@@ -34,7 +34,7 @@ sap.ui.define([
         _onObjectMatched: function (oEvent) {
             var sObjectId = oEvent.getParameter("arguments").POId;
             this._bindView("/PurchaseOrders" + sObjectId);
-            this.getView().byId("idChildItemsTableSubsection").setVisible(false);
+         //   this.getView().byId("idChildItemsTableSubsection").setVisible(false);
         },
 
         _initializeCreationModels: function () {
@@ -87,28 +87,6 @@ sap.ui.define([
 
         onParentItemsTableUpdateFinished: function (oEvent) {
             oEvent.getSource().removeSelections();
-        },
-
-        onParentItemSelect: function (oEvent) {
-            var oContext = oEvent.getParameters().listItem.getBindingContext();
-            var sPath = "parent_line_items(" + oContext.getObject().ID + ")";
-            console.log({ sPath });
-            var newPath = oEvent.getParameters().listItem.getBindingContextPath();
-            console.log({ newPath });
-            /* this.byId("idChildItemsTable").bindElement({
-                path: sPath
-            }); */
-            /* this.byId("idChildItemsTable").bindItems({
-                path: sPath,
-                template: this.byId("idTemplate")
-            }); */
-
-            var childTable = this.byId("idChildItemsTable"),
-                binding = childTable.getBinding("items"),
-                oFilter = new Filter("parent_line_item_ID", "EQ", oContext.getObject().ID);
-            binding.filter(oFilter);
-
-            this.getView().byId("idChildItemsTableSubsection").setVisible(true);
         },
 
         onChildTableUpdateStarted: function (oEvent) {
