@@ -67,20 +67,33 @@ sap.ui.define([
         },
 
         _bindView: function (sObjectPath) {
+            debugger;
             var objectViewModel = this.getViewModel("objectViewModel");
-             var userInfo = sap.ushell.Container.getService("UserInfo");
-             var userEmail = userInfo.getEmail();
+            var userInfo = sap.ushell.Container.getService("UserInfo");
+            var userEmail = userInfo.getEmail();
 
-            userEmail = userEmail || "symantic.engineering@testemail.com"
-            this.getView().byId("idPurchaseOrdersTable").bindElement({
-                path: "/Vendors",
+            userEmail = userEmail || 'symantic.engineering@testemail.com'
+            this.getView().byId("idPurchaseOrdersTable").bindItems({
+                path: "/PurchaseOrders",
+                template: this.byId("test"),
                 parameters: {
-                    "$filter":"email eq "+userEmail,
-                    "$expand": "purchase_orders"
+                    "$expand": {
+                        "vendor": {
+                            "$filter": "email eq 'symantic.engineering@testemail.com'"
+                        }
+                    }
+                },
+                events: {
+                    dataRequested: function () {
+                        objectViewModel.setProperty("/busy", true);
+                    },
+                    dataReceived: function () {
+                        objectViewModel.setProperty("/busy", false);
+                    }
                 }
             });
 
-            
+
         },
 
         onPurchaseOrderTableUpdateFinished: function (oEvent) {
@@ -191,27 +204,28 @@ sap.ui.define([
             var releaseDate = this.byId("DP1").getValue();
             var aFilters = [];
             if (poNumber != "") {
-                aFilters.push(new sap.ui.model.Filter("po_number", sap.ui.model.FilterOperator.EQ, poNumber));
+                aFilters.push(new Filter("po_number", FilterOperator.EQ, poNumber));
             }
 
             if (releaseDate != "") {
                 var arr = releaseDate.split('.')
-                releaseDate = arr[2]+'-'+arr[1]+'-'+arr[0]+'T00:00:00Z'
-                aFilters.push(new sap.ui.model.Filter("po_release_date", sap.ui.model.FilterOperator.EQ, releaseDate));
+                releaseDate = arr[2] + '-' + arr[1] + '-' + arr[0] + 'T00:00:00Z'
+                aFilters.push(new Filter("po_release_date", FilterOperator.EQ, releaseDate));
             }
 
-            var mFilters = new sap.ui.model.Filter({
+
+            var mFilters = new Filter({
                 filters: aFilters,
                 and: true
             });
-            
+
             var oTableBinding = this.getView().byId("idPurchaseOrdersTable").getBinding("items");
             oTableBinding.filter(mFilters);
         },
 
         // on Date Change
         onDateChange: function (oEvent) {
-          var   oDP = oEvent.getSource(),
+            var oDP = oEvent.getSource(),
                 sValue = oEvent.getParameter("value"),
                 bValid = oEvent.getParameter("valid");
 
