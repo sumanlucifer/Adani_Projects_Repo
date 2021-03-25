@@ -153,7 +153,18 @@ sap.ui.define([
         //when the breadcrum pressed
         handleToAllVendorsBreadcrumPress: function (oEvent) {
             this.getRouter().navTo("RouteLandingPage");
-        }
+        },
 
+        // Child Line Items Dialog Open
+        handleChildItemsDialogOpen : function(oEvent){
+            
+            this._getViewSettingsDialog("com.agel.mmts.vendorPersona.view.fragments.detailPage.ChildItemsDialog")
+                .then(
+                    function (oViewDialog) {
+                        oViewDialog.setModel(this.getComponentModel());
+                        oViewDialog.open();
+                    }.bind(this)
+                );
+        }
     });
 });

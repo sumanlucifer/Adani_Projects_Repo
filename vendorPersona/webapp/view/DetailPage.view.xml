@@ -97,6 +97,9 @@
                                     <Column>
                                         <Text text="{i18n>releaseDate}"/>
                                     </Column>
+                                    <Column>
+                                        <Text text="{i18n>ChildLineItems}"/>
+                                    </Column>
                                 </columns>
 
                                 <items>
@@ -106,6 +109,7 @@
                                             <Text text="{invoice_number}"/>
                                             <ObjectStatus text="{status}" state="{= ${status}==='CONFIRMED' ? 'Success' : 'Warning'}" />
                                             <Text text="{po_release_date}"/>
+                                            <Button text="Child Items" type="Emphasized" press="handleChildItemsDialogOpen"/>
                                         </cells>
                                     </ColumnListItem>
                                 </items>
