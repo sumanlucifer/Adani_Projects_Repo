@@ -95,6 +95,9 @@
                                 <Column>
                                     <Text text="{i18n>invoiceNum}"/>
                                 </Column>
+                                <Column>
+                                    <Text text="{i18n>status}"/>
+                                </Column>
 
                             </columns>
                             <items>
@@ -102,16 +105,61 @@
                                     <cells>
                                         <Text text="{po_number}"/>
                                         <Text text="{vendor/name}"/>
+                                        <Text text="{status}"/>
                                     </cells>
                                 </ColumnListItem>
                             </items>
                         </Table>
                     </IconTabFilter>
                     <IconTabFilter text="{i18n>ConfirmedPO}" key="info" count="0">
+                         <Table id="idConfirmPOTable" width="auto" noDataText="{i18n>noDataForPOs}" growing="true" growingScrollToLoad="true">
+                            <columns>
+                                <Column>
+                                    <Text text="{i18n>ponum}"/>
+                                </Column>
+                                <Column>
+                                    <Text text="{i18n>invoiceNum}"/>
+                                </Column>
+                                <Column>
+                                    <Text text="{i18n>status}"/>
+                                </Column>
 
+                            </columns>
+                            <items>
+                                <ColumnListItem id="test1">
+                                    <cells>
+                                        <Text text="{po_number}"/>
+                                        <Text text="{vendor/name}"/>
+                                        <Text text="{status}"/>
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
                     </IconTabFilter>
                     <IconTabFilter text="{i18n>Dispatched}" key="info" count="0">
+                         <Table id="idDispatchedPOTable" width="auto" noDataText="{i18n>noDataForPOs}" growing="true" growingScrollToLoad="true">
+                            <columns>
+                                <Column>
+                                    <Text text="{i18n>ponum}"/>
+                                </Column>
+                                <Column>
+                                    <Text text="{i18n>invoiceNum}"/>
+                                </Column>
+                                <Column>
+                                    <Text text="{i18n>status}"/>
+                                </Column>
 
+                            </columns>
+                            <items>
+                                <ColumnListItem id="test2">
+                                    <cells>
+                                        <Text text="{po_number}"/>
+                                        <Text text="{vendor/name}"/>
+                                        <Text text="{status}"/>
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
                     </IconTabFilter>
                 </items>
             </IconTabBar>

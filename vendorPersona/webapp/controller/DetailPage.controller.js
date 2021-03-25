@@ -73,6 +73,7 @@ sap.ui.define([
             var userEmail = userInfo.getEmail();
 
             userEmail = userEmail || 'symantic.engineering@testemail.com'
+            // Open PO table
             this.getView().byId("idPurchaseOrdersTable").bindItems({
                 path: "/PurchaseOrders",
                 template: this.byId("idPurchaseOrdersTable").removeItem(0),
@@ -80,8 +81,9 @@ sap.ui.define([
                     "$expand": {
                         "vendor": {
                             "$filter": "email eq 'symantic.engineering@testemail.com'"
-                        }
-                    }
+                        }                    
+                    } ,
+                    "$filter" : "status eq 'PENDING'"                   
                 },
                 events: {
                     dataRequested: function () {
@@ -93,7 +95,49 @@ sap.ui.define([
                 }
             });
 
+            // Confirm PO Table
+            this.getView().byId("idConfirmPOTable").bindItems({
+                path: "/PurchaseOrders",
+                template: this.byId("idConfirmPOTable").removeItem(0),
+                parameters: {
+                    "$expand": {
+                        "vendor": {
+                            "$filter": "email eq 'symantic.engineering@testemail.com'"
+                        }                    
+                    } ,
+                    "$filter" : "status eq 'CONFIRMED'"                   
+                },
+                events: {
+                    dataRequested: function () {
+                        objectViewModel.setProperty("/busy", true);
+                    },
+                    dataReceived: function () {
+                        objectViewModel.setProperty("/busy", false);
+                    }
+                }
+            });
 
+            // Dispatched PO Table
+            this.getView().byId("idDispatchedPOTable").bindItems({
+                path: "/PurchaseOrders",
+                template: this.byId("idDispatchedPOTable").removeItem(0),
+                parameters: {
+                    "$expand": {
+                        "vendor": {
+                            "$filter": "email eq 'symantic.engineering@testemail.com'"
+                        }                    
+                    } ,
+                    "$filter" : "status eq 'DISPATCHED'"                   
+                },
+                events: {
+                    dataRequested: function () {
+                        objectViewModel.setProperty("/busy", true);
+                    },
+                    dataReceived: function () {
+                        objectViewModel.setProperty("/busy", false);
+                    }
+                }
+            });
         },
 
         onPurchaseOrderTableUpdateFinished: function (oEvent) {
