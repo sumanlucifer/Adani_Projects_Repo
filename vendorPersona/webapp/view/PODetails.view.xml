@@ -107,6 +107,9 @@
                                     <Column>
                                         <Text text="{i18n>quantity}"/>
                                     </Column>
+                                    <Column>
+                                        <Text text="{i18n>ChildLineItems}"/>
+                                    </Column>
                                 </columns>
 
                                 <items>
@@ -115,6 +118,7 @@
                                             <ObjectIdentifier title="{material_code}" titleActive="true"/>
                                             <Text text="{description}"/>
                                             <Text text="{qty}"/>
+                                            <Button text="{i18n>ChildItems}" type="Emphasized" press="onViewChildItemPress"/>
                                         </cells>
                                     </ColumnListItem>
                                 </items>
@@ -158,6 +162,7 @@
                                             <ObjectIdentifier title="{material_code}" titleActive="true"/>
                                             <Text text="{description}"/>
                                             <Text text="{qty}"/>
+                                            
                                         </cells>
                                     </ColumnListItem>
                                 </items>

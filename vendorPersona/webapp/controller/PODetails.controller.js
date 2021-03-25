@@ -210,6 +210,56 @@ sap.ui.define([
                 .finally(function () {
                     oSheet.destroy();
                 });
+        },
+
+        onViewChildItemPress: function (oEvent) {
+            var oItem = oEvent.getSource();
+            var that = this;
+            this._requestCronicalPath(oItem, function (sCronicalPath) {
+                that.handleChildItemsDialogOpen(sCronicalPath);
+            });
+        },
+
+        _requestCronicalPath: function (oItem, callback) {
+            var that = this;
+            oItem.getBindingContext().requestCanonicalPath().then(function (sObjectPath) {
+                callback(sObjectPath);
+            });
+        },
+
+        // Child Line Items Dialog Open
+        handleChildItemsDialogOpen : function (sParentItemPath) {
+            // create dialog lazily
+            var oDetails = {};
+            oDetails.view = this.getView();
+            oDetails.sParentItemPath = sParentItemPath;
+            if (!this.pDialog) {
+                this.pDialog = Fragment.load({
+                    id: oDetails.view.getId(),
+                    name: "com.agel.mmts.vendorPersona.view.fragments.detailPage.ChildItemsDialog"
+                }).then(function (oDialog) {
+                    // connect dialog to the root view of this component (models, lifecycle)
+                    oDetails.view.addDependent(oDialog);
+                    oDialog.bindElement({
+                        path: oDetails.sParentItemPath,
+                        parameters: {
+                            "$expand": {
+                                "child_line_items": {
+                                    "$select":["ID","material_code","qty"]
+                                }
+                            }
+                        }
+                    });
+                    return oDialog;
+                });
+            }
+            this.pDialog.then(function (oDialog) {
+                oDialog.open();
+            });
+        },
+
+        onClose : function(oEvent){
+            this.pDialog.close();
         }
 
     });
