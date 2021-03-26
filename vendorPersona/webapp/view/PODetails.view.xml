@@ -126,7 +126,7 @@
                             </Table>
                         </VBox>
                     </uxap:ObjectPageSubSection>
-
+                       
                     <uxap:ObjectPageSubSection title="{i18n>inspectionItemsTitle}" visible="{= %{status}==='CONFIRMED' ? true : false}" id="idInspectionTableSubSection">
                         <VBox>
                             <Table id="idInspectionTable" width="auto" noDataText="{i18n>noInspectionItems}" growing="true" growingScrollToLoad="true" items="{inspection_call_ids}">
