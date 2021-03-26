@@ -101,7 +101,7 @@
 
                             </columns>
                             <items>
-                                <ColumnListItem id="test">
+                                <ColumnListItem id="test" type="Navigation" press="onPurchaseOrderPress">
                                     <cells>
                                         <Text text="{po_number}"/>
                                         <Text text="{vendor/name}"/>
@@ -126,7 +126,7 @@
 
                             </columns>
                             <items>
-                                <ColumnListItem id="test1">
+                                <ColumnListItem id="test1" type="Navigation" press="onPurchaseOrderPress">
                                     <cells>
                                         <Text text="{po_number}"/>
                                         <Text text="{vendor/name}"/>
@@ -137,7 +137,7 @@
                         </Table>
                     </IconTabFilter>
                     <IconTabFilter text="{i18n>Dispatched}" key="info" count="0">
-                         <Table id="idDispatchedPOTable" width="auto" noDataText="{i18n>noDataForPOs}" growing="true" growingScrollToLoad="true">
+                         <Table id="idDispatchedPOTable" width="auto" noDataText="{i18n>noDataForPOs}" growing="true" growingScrollToLoad="true" >
                             <columns>
                                 <Column>
                                     <Text text="{i18n>ponum}"/>
@@ -151,7 +151,7 @@
 
                             </columns>
                             <items>
-                                <ColumnListItem id="test2">
+                                <ColumnListItem id="test2" type="Navigation" press="onPurchaseOrderPress">
                                     <cells>
                                         <Text text="{po_number}"/>
                                         <Text text="{vendor/name}"/>

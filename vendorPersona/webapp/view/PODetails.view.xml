@@ -105,6 +105,9 @@
                                     <Column>
                                         <Text text="{i18n>quantity}"/>
                                     </Column>
+                                     <Column>
+                                        <Text text="{i18n>ViewChildLineItems}"/>
+                                    </Column>
                                 </columns>
 
                                 <items>
@@ -113,77 +116,11 @@
                                             <ObjectIdentifier title="{material_code}" titleActive="true"/>
                                             <Text text="{description}"/>
                                             <Text text="{qty}"/>
+                                            <Button text="{i18n>ViewChildLineItems}" type="Emphasized" press="onViewChildItemPress"/>
                                         </cells>
                                     </ColumnListItem>
                                 </items>
 
-                            </Table>
-                        </VBox>
-                    </uxap:ObjectPageSubSection>
-                    <uxap:ObjectPageSubSection title="{i18n>childLineItems}" visible="false" id="idChildItemsTableSubsection">
-                        <VBox id="childItemTable">
-                            <Table id="idChildItemsTable" width="auto" noDataText="{i18n>noChildItems}" growing="true" growingScrollToLoad="true" updateFinished=".onChildItemsTableUpdateFinished" updateStarted=".onChildTableUpdateStarted" items="{/ChildLineItems}">
-                                <headerToolbar>
-                                    <OverflowToolbar>
-                                        <Title text="{i18n>items}" level="H4" id="idChildItemsTableHeader"/>
-                                        <ToolbarSpacer />
-                                        <SearchField id="searchField" tooltip="{i18n>searchOrder}" placeholder="{i18n>searchOrder}">
-                                            <layoutData>
-                                                <OverflowToolbarLayoutData maxWidth="200px" priority="NeverOverflow"/>
-                                            </layoutData>
-                                        </SearchField>
-                                        <Button tooltip="{i18n>sort}" icon="sap-icon://sort" press="handleSortButtonPressed" />
-                                        <Button tooltip="{i18n>filter}" icon="sap-icon://filter" press="handleFilterButtonPressed" />
-                                        <Button icon="sap-icon://edit" press="onEditPress" text="Edit" />
-                                    </OverflowToolbar>
-                                </headerToolbar>
-
-                                <columns>
-                                    <Column>
-                                        <Text text="{i18n>materialCode}"/>
-                                    </Column>
-                                    <Column>
-                                        <Text text="{i18n>description}"/>
-                                    </Column>
-                                    <Column>
-                                        <Text text="{i18n>quantity}"/>
-                                    </Column>
-                                </columns>
-
-                                <items>
-                                    <ColumnListItem type="Active" id="idTemplate">
-                                        <cells>
-                                            <ObjectIdentifier title="{material_code}" titleActive="true"/>
-                                            <Text text="{description}"/>
-                                            <Text text="{qty}"/>
-                                        </cells>
-                                    </ColumnListItem>
-                                </items>
-
-                            </Table>
-                        </VBox>
-                    </uxap:ObjectPageSubSection>
-
-                    <uxap:ObjectPageSubSection title="{i18n>inspectionItemsTitle}" visible="{= %{status}==='CONFIRMED' ? true : false}" id="idInspectionTableSubSection">
-                        <VBox>
-                            <Table id="idInspectionTable" width="auto" noDataText="{i18n>noInspectionItems}" growing="true" growingScrollToLoad="true" items="{inspection_call_ids}">
-                                <columns>
-                                    <Column>
-                                        <Text text="{i18n>inspectionID}"/>
-                                    </Column>
-                                    <Column>
-                                        <Text text="{i18n>date}"/>
-                                    </Column>
-                                </columns>
-
-                                <items>
-                                    <ColumnListItem type="Navigation">
-                                        <cells>
-                                            <ObjectIdentifier title="{inspection_call_id}" titleActive="true"/>
-                                            <Text text="{createdAt}"/>
-                                        </cells>
-                                    </ColumnListItem>
-                                </items>
                             </Table>
                         </VBox>
                     </uxap:ObjectPageSubSection>

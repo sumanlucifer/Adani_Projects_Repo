@@ -238,6 +238,8 @@ sap.ui.define([
 
         onClose : function(oEvent){
             this.pDialog.close();
+        },
+
         fileUploaonBOQFileSelectedForUploadderChange: function (oEvent) {
             // keep a reference of the uploaded file
             var that = this;
