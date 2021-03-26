@@ -1,0 +1,126 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc"
+    xmlns:uxap="sap.uxap"
+    xmlns:layout="sap.ui.layout"
+    xmlns:core="sap.ui.core"
+    xmlns:f="sap.ui.layout.form"
+    xmlns="sap.m" controllerName="com.agel.mmts.vendorPersona.controller.InspectionDetails">
+    <uxap:ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true" headerContentPinnable="true" busy="{objectViewModel>busy}">
+        <uxap:headerTitle>
+            <uxap:ObjectPageDynamicHeaderTitle>
+                <uxap:breadcrumbs>
+                    <Breadcrumbs currentLocationText="{i18n>inspectionDeatils}">
+                        <Link text="{i18n>vendorDetails}"/>
+                    </Breadcrumbs>
+                </uxap:breadcrumbs>
+
+                <uxap:expandedHeading>
+                    <Title text="{inspection_call_id}" class="sapUiTinyMarginEnd"/>
+                </uxap:expandedHeading>
+
+                <uxap:snappedHeading>
+                    <FlexBox fitContainer="true" alignItems="Center" renderType="Bare">
+                        <!-- <Avatar class="sapUiTinyMarginEnd" showBorder="true" backgroundColor="Random" src="sap-icon://supplier"/> -->
+                        <FlexBox direction="Column" renderType="Bare">
+                            <Title text="{inspection_call_id}" wrapping="true"/>
+                        </FlexBox>
+                    </FlexBox>
+                </uxap:snappedHeading>
+
+                <uxap:expandedContent>
+                    <Text text="{purchase_order_po_number}"/>
+                </uxap:expandedContent>
+
+
+                <uxap:snappedTitleOnMobile>
+                    <Title text="{purchase_order_po_number}"/>
+                </uxap:snappedTitleOnMobile>
+
+            </uxap:ObjectPageDynamicHeaderTitle>
+
+
+        </uxap:headerTitle>
+
+        <uxap:sections>
+            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>itemDetails}">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection title="{i18n>inspectedParentLineItems}">
+                        <VBox renderType="Bare">
+                            <Table id="idInspectedParentLineItems" width="auto" items="{insepected_parent_line_items}" noDataText="{i18n>noParentItems}" growing="true" growingScrollToLoad="true" selectionChange=".onParentItemSelect" mode="SingleSelectMaster">
+                                <columns>
+                                    <Column>
+                                        <Text text="{i18n>materialCode}"/>
+                                    </Column>
+                                    <Column>
+                                        <Text text="{i18n>description}"/>
+                                    </Column>
+                                    <Column>
+                                        <Text text="{i18n>approvedQty}"/>
+                                    </Column>
+                                    <Column>
+                                        <Text text="{i18n>viewChildInspectedMaterials}"/>
+                                    </Column>
+                                </columns>
+
+                                <items>
+                                    <ColumnListItem type="Active">
+                                        <cells>
+                                            <ObjectIdentifier title="{material_code}" titleActive="true"/>
+                                            <Text text="{description}"/>
+                                            <Text text="{approved_qty}"/>
+                                            <Button type="Emphasized" text="{i18n>viewChildInspectedMaterials}" press=".onViewInspectedChildMaterialsPress"></Button>
+                                        </cells>
+                                    </ColumnListItem>
+                                </items>
+
+                            </Table>
+                        </VBox>
+                    </uxap:ObjectPageSubSection>
+                    <!-- <uxap:ObjectPageSubSection title="{i18n>childLineItems}" visible="false" id="idChildItemsTableSubsection">
+                        <VBox id="childItemTable">
+                            <Table id="idChildItemsTable" width="auto" noDataText="{i18n>noChildItems}" growing="true" growingScrollToLoad="true" updateFinished=".onChildItemsTableUpdateFinished" updateStarted=".onChildTableUpdateStarted" items="{/ChildLineItems}">
+                                <headerToolbar>
+                                    <OverflowToolbar>
+                                        <Title text="{i18n>items}" level="H4" id="idChildItemsTableHeader"/>
+                                        <ToolbarSpacer />
+                                        <SearchField id="searchField" tooltip="{i18n>searchOrder}" placeholder="{i18n>searchOrder}">
+                                            <layoutData>
+                                                <OverflowToolbarLayoutData maxWidth="200px" priority="NeverOverflow"/>
+                                            </layoutData>
+                                        </SearchField>
+                                        <Button tooltip="{i18n>sort}" icon="sap-icon://sort" press="handleSortButtonPressed" />
+                                        <Button tooltip="{i18n>filter}" icon="sap-icon://filter" press="handleFilterButtonPressed" />
+                                        <Button icon="sap-icon://edit" press="onEditPress" text="Edit" />
+                                    </OverflowToolbar>
+                                </headerToolbar>
+
+                                <columns>
+                                    <Column>
+                                        <Text text="{i18n>materialCode}"/>
+                                    </Column>
+                                    <Column>
+                                        <Text text="{i18n>description}"/>
+                                    </Column>
+                                    <Column>
+                                        <Text text="{i18n>quantity}"/>
+                                    </Column>
+                                </columns>
+
+                                <items>
+                                    <ColumnListItem type="Active" id="idTemplate">
+                                        <cells>
+                                            <ObjectIdentifier title="{material_code}" titleActive="true"/>
+                                            <Text text="{description}"/>
+                                            <Text text="{qty}"/>
+                                        </cells>
+                                    </ColumnListItem>
+                                </items>
+
+                            </Table>
+                        </VBox>
+                    </uxap:ObjectPageSubSection> -->
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+        </uxap:sections>
+    </uxap:ObjectPageLayout>
+</mvc:View>
+
