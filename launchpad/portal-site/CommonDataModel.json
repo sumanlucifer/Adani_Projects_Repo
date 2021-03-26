@@ -29,6 +29,27 @@
 				"viz": [{
 					"appId": "com.agel.mmts.vendorPersona",
 					"vizId": "Actions-Vendor"
+				}, {
+					"appId": "com.agel.mmts.vendorPersona-ConfirmPOs",
+					"vizId": "confirmedPO-Vendor"
+				}, {
+					"appId": "com.agel.mmts.vendorPersona-DispatchedPOs",
+					"vizId": "dispatchedPO-Vendor"
+				}]
+			}
+		}, {
+			"_version": "3.0.0",
+			"identification": {
+				"id": "store-in-charge",
+				"title": "{{title}}",
+				"entityType": "group",
+				"i18n": "i18n/store-in-charge.properties"
+			},
+			"payload": {
+				"viz": [{
+					"id": "com.agel.mmts.storeInCharge-0-1616559774744",
+					"appId": "com.agel.mmts.storeInCharge",
+					"vizId": "Actions-StoreInCharge"
 				}]
 			}
 		}],
@@ -49,14 +70,21 @@
 									"config": {
 										"applications": {
 											"Shell-home": {}
-										}
+										},
+										"enableSearch": false,
+										"enablePersonalization": true,
+										"enableSetTheme": true,
+										"enableSetLanguage": true,
+										"enableAutomaticSignout": true,
+										"sessionTimeoutIntervalInMinutes": 15,
+										"sessionTimeoutReminderInMinutes": 3
 									}
 								}
 							}
 						}
 					}
 				},
-				"groupsOrder": ["defaultGroupId"],
+				"groupsOrder": ["defaultGroupId", "store-in-charge"],
 				"sap.cloud.portal": {
 					"config": {
 						"theme.id": "sap_fiori_3",
