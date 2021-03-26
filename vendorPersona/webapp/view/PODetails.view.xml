@@ -1,7 +1,9 @@
-<mvc:View xmlns:vbm="sap.ui.vbm"
+<mvc:View
+    xmlns:vbm="sap.ui.vbm"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns:uxap="sap.uxap"
-    xmlns:layout="sap.ui.layout"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form"
     xmlns:core="sap.ui.core"
     xmlns:unified="sap.ui.unified"
     xmlns:tt="sap.ui.table"
@@ -15,11 +17,9 @@
                         <Link text="{i18n>vendorDetails}" press=".handleToAllPOBreadcrumPress"/>
                     </Breadcrumbs>
                 </uxap:breadcrumbs>
-
                 <uxap:expandedHeading>
                     <Title text="{po_number}" class="sapUiTinyMarginEnd"/>
                 </uxap:expandedHeading>
-
                 <uxap:snappedHeading>
                     <FlexBox fitContainer="true" alignItems="Center" renderType="Bare">
                         <Avatar class="sapUiTinyMarginEnd" showBorder="true" backgroundColor="{= ${status}==='CONFIRMED' ? 'Accent8' : 'Accent1'}" />
@@ -29,29 +29,15 @@
                         </FlexBox>
                     </FlexBox>
                 </uxap:snappedHeading>
-
                 <uxap:expandedContent>
                     <ObjectAttribute title="{i18n>invoiceNumber}" text="{invoice_number}" active="true"/>
                 </uxap:expandedContent>
-
-
                 <uxap:snappedTitleOnMobile>
                     <Title text="{invoice_number}"></Title>
                 </uxap:snappedTitleOnMobile>
-
-                <uxap:actions>
-                    <VBox visible="{= %{status}==='CONFIRMED' ? true : false}">
-                        <ObjectStatus class="sapMObjectStatusLarge" text="{status}" state="{= ${status}==='CONFIRMED' ? 'Success' : 'Warning'}" icon="{= ${status}==='CONFIRMED' ? 'sap-icon://message-success' : 'sap-icon://pending'}" />
-                    </VBox>
-                    <VBox visible="{= %{status}==='PENDING' ? true : false}">
-                        <Button text="Confirm PO" press="onConfirmPO" binding="{/confirmPO(...)}" type="Emphasized"/>
-                    </VBox>
-                    <unified:FileUploader id="idBOQUploader" buttonOnly="true" buttonText="Upload BOQ" sameFilenameAllowed="true" multiple="false" fileType="csv" mimeType="text/csv" change="fileUploaonBOQFileSelectedForUploadderChange" binding="{DocumentUploadModel>/uploadBOQ(...)}" style="Emphasized"/>
-                </uxap:actions>
-
+                <uxap:actions></uxap:actions>
             </uxap:ObjectPageDynamicHeaderTitle>
         </uxap:headerTitle>
-
         <uxap:headerContent>
             <FlexBox wrap="Wrap" height="100%" class="sapUiSmallMarginBottom" renderType="Bare" direction="Row">
                 <Avatar class="sapUiSmallMarginEnd" displaySize="L" showBorder="true" backgroundColor="{= ${status}==='CONFIRMED' ? 'Accent8' : 'Accent1'}" src="sap-icon://order-status"/>
@@ -62,22 +48,28 @@
                 </FlexBox>
             </FlexBox>
         </uxap:headerContent>
-
         <uxap:sections>
-            <uxap:ObjectPageSection title="{i18n>vendorDetails}">
+            <uxap:ObjectPageSection>
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection>
-                        <HBox binding="{vendor}" wrap="Wrap">
-                            <HBox alignItems="Center" class="sapUiSmallMargin">
-                                <Avatar backgroundColor="Random" displaySize="M" class="sapUiTinyMarginEnd"/>
-                                <VBox class="sapUiSmallMarginBeginEnd" renderType="Bare">
-                                    <Link text="{name}" emphasized="true"/>
-                                    <ObjectAttribute text="{email}" active="true"/>
-                                    <Text text="{mobile}"/>
-                                    <Text text="{pan}"/>
-                                </VBox>
-                            </HBox>
-                        </HBox>
+                        <f:SimpleForm id="sfBasicData" binding="{vendor}"
+                            editable="true" layout="ResponsiveGridLayout" 
+			                title="{i18n>BasicData}" labelSpanXL="4" labelSpanL="4" labelSpanM="12"
+			                labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0"
+			                emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2" singleContainerFullSize="false" >
+                            <f:content>
+                                <core:Title />
+                                <Label text="{i18n>CustomerName}" />
+                                <Text text="{name}" />
+                                <Label text="{i18n>email}" />
+                                <Text text="{email}"/>
+                                <core:Title />
+                                 <Label text="{i18n>mobile}" />
+                                <Text text="{mobile}"/>                                   
+                                <Label text="{i18n>pan}" />
+                                <Text text="{pan}"/>                                  
+                            </f:content>
+                        </f:SimpleForm>
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>
             </uxap:ObjectPageSection>
@@ -113,6 +105,9 @@
                                     <Column>
                                         <Text text="{i18n>quantity}"/>
                                     </Column>
+                                     <Column>
+                                        <Text text="{i18n>ViewChildLineItems}"/>
+                                    </Column>
                                 </columns>
 
                                 <items>
@@ -121,77 +116,11 @@
                                             <ObjectIdentifier title="{material_code}" titleActive="true"/>
                                             <Text text="{description}"/>
                                             <Text text="{qty}"/>
+                                            <Button text="{i18n>ViewChildLineItems}" type="Emphasized" press="onViewChildItemPress"/>
                                         </cells>
                                     </ColumnListItem>
                                 </items>
 
-                            </Table>
-                        </VBox>
-                    </uxap:ObjectPageSubSection>
-                    <uxap:ObjectPageSubSection title="{i18n>childLineItems}" visible="false" id="idChildItemsTableSubsection">
-                        <VBox id="childItemTable">
-                            <Table id="idChildItemsTable" width="auto" noDataText="{i18n>noChildItems}" growing="true" growingScrollToLoad="true" updateFinished=".onChildItemsTableUpdateFinished" updateStarted=".onChildTableUpdateStarted" items="{/ChildLineItems}">
-                                <headerToolbar>
-                                    <OverflowToolbar>
-                                        <Title text="{i18n>items}" level="H4" id="idChildItemsTableHeader"/>
-                                        <ToolbarSpacer />
-                                        <SearchField id="searchField" tooltip="{i18n>searchOrder}" placeholder="{i18n>searchOrder}">
-                                            <layoutData>
-                                                <OverflowToolbarLayoutData maxWidth="200px" priority="NeverOverflow"/>
-                                            </layoutData>
-                                        </SearchField>
-                                        <Button tooltip="{i18n>sort}" icon="sap-icon://sort" press="handleSortButtonPressed" />
-                                        <Button tooltip="{i18n>filter}" icon="sap-icon://filter" press="handleFilterButtonPressed" />
-                                        <Button icon="sap-icon://edit" press="onEditPress" text="Edit" />
-                                    </OverflowToolbar>
-                                </headerToolbar>
-
-                                <columns>
-                                    <Column>
-                                        <Text text="{i18n>materialCode}"/>
-                                    </Column>
-                                    <Column>
-                                        <Text text="{i18n>description}"/>
-                                    </Column>
-                                    <Column>
-                                        <Text text="{i18n>quantity}"/>
-                                    </Column>
-                                </columns>
-
-                                <items>
-                                    <ColumnListItem type="Active" id="idTemplate">
-                                        <cells>
-                                            <ObjectIdentifier title="{material_code}" titleActive="true"/>
-                                            <Text text="{description}"/>
-                                            <Text text="{qty}"/>
-                                        </cells>
-                                    </ColumnListItem>
-                                </items>
-
-                            </Table>
-                        </VBox>
-                    </uxap:ObjectPageSubSection>
-
-                    <uxap:ObjectPageSubSection title="{i18n>inspectionItemsTitle}" visible="{= %{status}==='CONFIRMED' ? true : false}" id="idInspectionTableSubSection">
-                        <VBox>
-                            <Table id="idInspectionTable" width="auto" noDataText="{i18n>noInspectionItems}" growing="true" growingScrollToLoad="true" items="{inspection_call_ids}">
-                                <columns>
-                                    <Column>
-                                        <Text text="{i18n>inspectionID}"/>
-                                    </Column>
-                                    <Column>
-                                        <Text text="{i18n>date}"/>
-                                    </Column>
-                                </columns>
-
-                                <items>
-                                    <ColumnListItem type="Navigation">
-                                        <cells>
-                                            <ObjectIdentifier title="{inspection_call_id}" titleActive="true"/>
-                                            <Text text="{createdAt}"/>
-                                        </cells>
-                                    </ColumnListItem>
-                                </items>
                             </Table>
                         </VBox>
                     </uxap:ObjectPageSubSection>

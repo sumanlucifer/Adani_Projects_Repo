@@ -240,6 +240,7 @@ sap.ui.define([
         //when the breadcrum pressed
         handleToAllVendorsBreadcrumPress: function (oEvent) {
             this.getRouter().navTo("RouteLandingPage");
+                 
         },
 
         // on Go Search 

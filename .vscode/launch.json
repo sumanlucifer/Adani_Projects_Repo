@@ -38,7 +38,7 @@
         "MOCK_LOOKUP_DIRS": "[\"webapp\"]",
         "run.config": "{\"handlerId\":\"ui5_run_config_handler_id\",\"runnableId\":\"/home/user/projects/sapui5/vendorPersona\"}"
       },
-      "envFile": "${workspaceFolder}/vendorPersona/.env9",
+      "envFile": "${workspaceFolder}/vendorPersona/.env11",
       "preLaunchTask": "Build sapui5"
     }
   ]
