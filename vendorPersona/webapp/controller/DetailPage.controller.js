@@ -27,6 +27,29 @@ sap.ui.define([
             //Router Object
             this.oRouter = this.getRouter();
             this.oRouter.getRoute("RouteDetailPage").attachPatternMatched(this._onObjectMatched, this);
+
+            this._initializeCreationModel();
+
+            //adding searchfield association to filterbar                                    
+            this._addSearchFieldAssociationToFB();
+        },
+
+        _addSearchFieldAssociationToFB: function () {
+            let oFilterBar = this.getView().byId("filterbar");
+            let oSearchField = oFilterBar.getBasicSearch();
+            var oBasicSearch;
+            if (!oSearchField) {
+                // @ts-ignore   
+                oBasicSearch = new sap.m.SearchField({ id: "idSearch", showSearchButton: false });
+            } else {
+                oSearchField = null;
+            }
+            oFilterBar.setBasicSearch(oBasicSearch);
+            oBasicSearch.attachBrowserEvent("keyup", function (e) {
+                if (e.which === 13) {
+                    this.onSearch();
+                }
+            }.bind(this));
         },
 
         _onObjectMatched: function (oEvent) {
@@ -34,13 +57,77 @@ sap.ui.define([
             this._bindView("/Vendors" + sObjectId);
         },
 
-        _bindView: function (sObjectPath) {
-            var objectViewModel = this.getViewModel("objectViewModel");
+        _initializeCreationModel: function () {
+            var oCreationModel = new JSONModel({
+                "invoice_number": "",
+                "po_number": "",
+                "po_release_date": ""
+            });
+            this.getView().setModel(oCreationModel, "creationModel")
+        },
 
-            this.getView().bindElement({
-                path: sObjectPath,
+        _bindView: function (sObjectPath) {
+            debugger;
+            var objectViewModel = this.getViewModel("objectViewModel");
+            var userInfo = sap.ushell.Container.getService("UserInfo");
+            var userEmail = userInfo.getEmail();
+
+            userEmail = userEmail || 'symantic.engineering@testemail.com'
+            // Open PO table
+            this.getView().byId("idPurchaseOrdersTable").bindItems({
+                path: "/PurchaseOrders",
+                template: this.byId("idPurchaseOrdersTable").removeItem(0),
                 parameters: {
-                    "$expand": "purchase_orders"
+                    "$expand": {
+                        "vendor": {
+                            "$filter": "email eq 'symantic.engineering@testemail.com'"
+                        }                    
+                    } ,
+                    "$filter" : "status eq 'PENDING'"                   
+                },
+                events: {
+                    dataRequested: function () {
+                        objectViewModel.setProperty("/busy", true);
+                    },
+                    dataReceived: function () {
+                        objectViewModel.setProperty("/busy", false);
+                    }
+                }
+            });
+
+            // Confirm PO Table
+            this.getView().byId("idConfirmPOTable").bindItems({
+                path: "/PurchaseOrders",
+                template: this.byId("idConfirmPOTable").removeItem(0),
+                parameters: {
+                    "$expand": {
+                        "vendor": {
+                            "$filter": "email eq 'symantic.engineering@testemail.com'"
+                        }                    
+                    } ,
+                    "$filter" : "status eq 'CONFIRMED'"                   
+                },
+                events: {
+                    dataRequested: function () {
+                        objectViewModel.setProperty("/busy", true);
+                    },
+                    dataReceived: function () {
+                        objectViewModel.setProperty("/busy", false);
+                    }
+                }
+            });
+
+            // Dispatched PO Table
+            this.getView().byId("idDispatchedPOTable").bindItems({
+                path: "/PurchaseOrders",
+                template: this.byId("idDispatchedPOTable").removeItem(0),
+                parameters: {
+                    "$expand": {
+                        "vendor": {
+                            "$filter": "email eq 'symantic.engineering@testemail.com'"
+                        }                    
+                    } ,
+                    "$filter" : "status eq 'DISPATCHED'"                   
                 },
                 events: {
                     dataRequested: function () {
@@ -153,7 +240,46 @@ sap.ui.define([
         //when the breadcrum pressed
         handleToAllVendorsBreadcrumPress: function (oEvent) {
             this.getRouter().navTo("RouteLandingPage");
-        }
+        },
+
+        // on Go Search 
+        onSearch: function (oEvent) {
+            var poNumber = this.byId("idNameInput").getValue();
+            var releaseDate = this.byId("DP1").getValue();
+            var aFilters = [];
+            if (poNumber != "") {
+                aFilters.push(new Filter("po_number", FilterOperator.EQ, poNumber));
+            }
+
+            if (releaseDate != "") {
+                var arr = releaseDate.split('.')
+                releaseDate = arr[2] + '-' + arr[1] + '-' + arr[0] + 'T00:00:00Z'
+                aFilters.push(new Filter("po_release_date", FilterOperator.EQ, releaseDate));
+            }
+
+
+            var mFilters = new Filter({
+                filters: aFilters,
+                and: true
+            });
+
+            var oTableBinding = this.getView().byId("idPurchaseOrdersTable").getBinding("items");
+            oTableBinding.filter(mFilters);
+        },
+
+        // on Date Change
+        onDateChange: function (oEvent) {
+            var oDP = oEvent.getSource(),
+                sValue = oEvent.getParameter("value"),
+                bValid = oEvent.getParameter("valid");
+
+            if (bValid) {
+                oDP.setValueState(sap.ui.core.ValueState.None);
+            } else {
+                oDP.setValueState(sap.ui.core.ValueState.Error);
+            }
+        },
+
 
     });
 });
