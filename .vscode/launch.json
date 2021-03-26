@@ -20,6 +20,26 @@
       },
       "envFile": "${workspaceFolder}/vendorPersona/.env2",
       "preLaunchTask": "Build agel-mmts-web"
+    },
+    {
+      "name": "Run sapui5-vendorPersona",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/agel-mmts-web-approuter/node_modules/@sap/html5-repo-mock/index.js",
+      "args": [
+        "--flp",
+        "relative",
+        "--ui5",
+        "{\"version\":\".\"}"
+      ],
+      "cwd": "${workspaceFolder}/vendorPersona",
+      "env": {
+        "PORT": "6004",
+        "MOCK_LOOKUP_DIRS": "[\"webapp\"]",
+        "run.config": "{\"handlerId\":\"ui5_run_config_handler_id\",\"runnableId\":\"/home/user/projects/sapui5/vendorPersona\"}"
+      },
+      "envFile": "${workspaceFolder}/vendorPersona/.env11",
+      "preLaunchTask": "Build sapui5"
     }
   ]
 }

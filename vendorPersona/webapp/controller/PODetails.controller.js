@@ -34,7 +34,7 @@ sap.ui.define([
         _onObjectMatched: function (oEvent) {
             var sObjectId = oEvent.getParameter("arguments").POId;
             this._bindView("/PurchaseOrders" + sObjectId);
-            this.getView().byId("idChildItemsTableSubsection").setVisible(false);
+         //   this.getView().byId("idChildItemsTableSubsection").setVisible(false);
         },
 
         _initializeCreationModels: function () {
@@ -87,28 +87,6 @@ sap.ui.define([
 
         onParentItemsTableUpdateFinished: function (oEvent) {
             oEvent.getSource().removeSelections();
-        },
-
-        onParentItemSelect: function (oEvent) {
-            var oContext = oEvent.getParameters().listItem.getBindingContext();
-            var sPath = "parent_line_items(" + oContext.getObject().ID + ")";
-            console.log({ sPath });
-            var newPath = oEvent.getParameters().listItem.getBindingContextPath();
-            console.log({ newPath });
-            /* this.byId("idChildItemsTable").bindElement({
-                path: sPath
-            }); */
-            /* this.byId("idChildItemsTable").bindItems({
-                path: sPath,
-                template: this.byId("idTemplate")
-            }); */
-
-            var childTable = this.byId("idChildItemsTable"),
-                binding = childTable.getBinding("items"),
-                oFilter = new Filter("parent_line_item_ID", "EQ", oContext.getObject().ID);
-            binding.filter(oFilter);
-
-            this.getView().byId("idChildItemsTableSubsection").setVisible(true);
         },
 
         onChildTableUpdateStarted: function (oEvent) {
@@ -210,6 +188,56 @@ sap.ui.define([
                 .finally(function () {
                     oSheet.destroy();
                 });
+        },
+
+        onViewChildItemPress: function (oEvent) {
+            var oItem = oEvent.getSource();
+            var that = this;
+            this._requestCronicalPath(oItem, function (sCronicalPath) {
+                that.handleChildItemsDialogOpen(sCronicalPath);
+            });
+        },
+
+        _requestCronicalPath: function (oItem, callback) {
+            var that = this;
+            oItem.getBindingContext().requestCanonicalPath().then(function (sObjectPath) {
+                callback(sObjectPath);
+            });
+        },
+
+        // Child Line Items Dialog Open
+        handleChildItemsDialogOpen : function (sParentItemPath) {
+            // create dialog lazily
+            var oDetails = {};
+            oDetails.view = this.getView();
+            oDetails.sParentItemPath = sParentItemPath;
+            if (!this.pDialog) {
+                this.pDialog = Fragment.load({
+                    id: oDetails.view.getId(),
+                    name: "com.agel.mmts.vendorPersona.view.fragments.detailPage.ChildItemsDialog"
+                }).then(function (oDialog) {
+                    // connect dialog to the root view of this component (models, lifecycle)
+                    oDetails.view.addDependent(oDialog);
+                    oDialog.bindElement({
+                        path: oDetails.sParentItemPath,
+                        parameters: {
+                            "$expand": {
+                                "child_line_items": {
+                                    "$select":["ID","material_code","qty"]
+                                }
+                            }
+                        }
+                    });
+                    return oDialog;
+                });
+            }
+            this.pDialog.then(function (oDialog) {
+                oDialog.open();
+            });
+        },
+
+        onClose : function(oEvent){
+            this.pDialog.close();
         },
 
         fileUploaonBOQFileSelectedForUploadderChange: function (oEvent) {
