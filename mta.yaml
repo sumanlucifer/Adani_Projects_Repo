@@ -1,15 +1,12 @@
 _schema-version: "3.2"
 ID: agel-mmts-web
 version: 0.0.1
-parameters:
-  -enable-parallel-deployments: true
 modules:
 - name: agel-mmts-web-approuter
   type: approuter.nodejs
   path: agel-mmts-web-approuter
   properties:
     TENANT_HOST_PATTERN: ^(.*)-agel-mmts-web-approuter.${default-domain}
-
   requires:
   - name: uaa_agel-mmts-web
   - name: agel-mmts-web_html_repo_runtime
@@ -20,7 +17,6 @@ modules:
       forwardAuthToken: true
       name: AGEL_MMTS_API
       url: https://adani-green-energy-limited-renewables-dev-development-a23002998.cfapps.ap11.hana.ondemand.com/
-
   parameters:
     buildpack: nodejs_buildpack
     disk-quota: 256M
@@ -40,7 +36,18 @@ modules:
       - vendorPersona-content.zip
       name: vendorPersona
       target-path: resources/
-
+    - artifacts:
+      - vendorPersona-ConfirmPOs-content.zip
+      name: vendorPersona-ConfirmPOs
+      target-path: resources/
+    - artifacts:
+      - vendorPersona-DispatchedPOs-content.zip
+      name: vendorPersona-DispatchedPOs
+      target-path: resources/
+    - artifacts:
+      - storeInCharge-content.zip
+      name: storeInCharge
+      target-path: resources/
 - name: vendorPersona
   type: html5
   path: vendorPersona
@@ -49,7 +56,6 @@ modules:
     commands:
     - npm run build
     supported-platforms: []
-
 - name: launchpad
   type: com.sap.application.content
   path: launchpad
@@ -67,14 +73,37 @@ modules:
   parameters:
     config:
       TENANT_HOST_PATTERN: ^(.*)-agel-mmts-web-approuter.${default-domain}
-
+- name: vendorPersona-ConfirmPOs
+  type: html5
+  path: vendorPersona-ConfirmPOs
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []
+- name: vendorPersona-DispatchedPOs
+  type: html5
+  path: vendorPersona-DispatchedPOs
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []
+- name: storeInCharge
+  type: html5
+  path: storeInCharge
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []
 resources:
 - name: uaa_agel-mmts-web
   type: org.cloudfoundry.managed-service
   parameters:
     path: ./xs-security.json
     service: xsuaa
-    service-name: xsuaa-agel-mmts
+    service-name: uaa_agel-mmts-web
     service-plan: application
 - name: agel-mmts-web_html_repo_runtime
   type: org.cloudfoundry.managed-service
@@ -95,8 +124,9 @@ resources:
   type: org.cloudfoundry.managed-service
   parameters:
     service: destination
-    service-plan: lite    
-
+    service-plan: lite
+parameters:
+  -enable-parallel-deployments: true
 build-parameters:
   before-all:
   - builder: custom

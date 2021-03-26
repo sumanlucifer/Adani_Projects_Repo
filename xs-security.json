@@ -1,54 +1,20 @@
 {
-    "xsappname": "xsuaa-agel-mmts",
-    "tenant-mode": "dedicated",
-    "oauth2-configuration": {
-        "redirect-uris": [
-            "https://*.ap11.applicationstudio.cloud.sap/login/callback",
-            "https://*.cfapps.ap11.hana.ondemand.com/login/callback"
-        ]
-    },
-    "scopes": [
-        {
-            "name": "$XSAPPNAME.Read",
-            "description": "Read Permissions."
-        },
-        {
-            "name": "$XSAPPNAME.Admin",
-            "description": "Admin permissions."
-        }
-    ],
-    "role-templates": [
-        {
-            "name": "Viewer",
-            "description": "View Data",
-            "scope-references": [
-                "$XSAPPNAME.Read",
-                "uaa.user"
-            ]
-        },
-        {
-            "name": "Administrator",
-            "description": "View Sensitive Data",
-            "scope-references": [
-                "$XSAPPNAME.Read",
-                "$XSAPPNAME.Admin"
-            ]
-        }
-    ],
-    "role-collections": [
-        {
-            "name": "Viewer",
-            "description": "Viewer (read)",
-            "role-template-references": [
-                "$XSAPPNAME.Viewer"
-            ]
-        },
-        {
-            "name": "Administrator",
-            "description": "Administrator (read all)",
-            "role-template-references": [
-                "$XSAPPNAME.Administrator"
-            ]
-        }
-    ]
+  "xsappname": "agel-mmts-web",
+  "tenant-mode": "dedicated",
+  "description": "Security profile of called application",
+  "scopes": [
+    {
+      "name": "uaa.user",
+      "description": "UAA"
+    }
+  ],
+  "role-templates": [
+    {
+      "name": "Token_Exchange",
+      "description": "UAA",
+      "scope-references": [
+        "uaa.user"
+      ]
+    }
+  ]
 }
