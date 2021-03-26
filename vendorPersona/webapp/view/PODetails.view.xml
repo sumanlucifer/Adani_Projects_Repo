@@ -1,5 +1,4 @@
-<mvc:View
-    xmlns:vbm="sap.ui.vbm"
+<mvc:View xmlns:vbm="sap.ui.vbm"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns:uxap="sap.uxap"
     xmlns:l="sap.ui.layout"
@@ -35,7 +34,14 @@
                 <uxap:snappedTitleOnMobile>
                     <Title text="{invoice_number}"></Title>
                 </uxap:snappedTitleOnMobile>
-                <uxap:actions></uxap:actions>
+                <uxap:actions>
+                    <VBox visible="{= %{status}==='CONFIRMED' ? true : false}">
+                        <ObjectStatus class="sapMObjectStatusLarge" text="{status}" state="{= ${status}==='CONFIRMED' ? 'Success' : 'Warning'}" icon="{= ${status}==='CONFIRMED' ? 'sap-icon://message-success' : 'sap-icon://pending'}" />
+                    </VBox>
+                    <VBox visible="{= %{status}==='PENDING' ? true : false}">
+                        <Button text="Confirm PO" press="onConfirmPO" binding="{/confirmPO(...)}" type="Emphasized"/>
+                    </VBox>
+                </uxap:actions>
             </uxap:ObjectPageDynamicHeaderTitle>
         </uxap:headerTitle>
         <uxap:headerContent>
@@ -52,11 +58,7 @@
             <uxap:ObjectPageSection>
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection>
-                        <f:SimpleForm id="sfBasicData" binding="{vendor}"
-                            editable="true" layout="ResponsiveGridLayout" 
-			                title="{i18n>BasicData}" labelSpanXL="4" labelSpanL="4" labelSpanM="12"
-			                labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0"
-			                emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2" singleContainerFullSize="false" >
+                        <f:SimpleForm id="sfBasicData" binding="{vendor}" editable="true" layout="ResponsiveGridLayout" title="{i18n>BasicData}" labelSpanXL="4" labelSpanL="4" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2" singleContainerFullSize="false">
                             <f:content>
                                 <core:Title />
                                 <Label text="{i18n>CustomerName}" />
@@ -64,10 +66,10 @@
                                 <Label text="{i18n>email}" />
                                 <Text text="{email}"/>
                                 <core:Title />
-                                 <Label text="{i18n>mobile}" />
-                                <Text text="{mobile}"/>                                   
+                                <Label text="{i18n>mobile}" />
+                                <Text text="{mobile}"/>
                                 <Label text="{i18n>pan}" />
-                                <Text text="{pan}"/>                                  
+                                <Text text="{pan}"/>
                             </f:content>
                         </f:SimpleForm>
                     </uxap:ObjectPageSubSection>
@@ -105,7 +107,7 @@
                                     <Column>
                                         <Text text="{i18n>quantity}"/>
                                     </Column>
-                                     <Column>
+                                    <Column>
                                         <Text text="{i18n>ViewChildLineItems}"/>
                                     </Column>
                                 </columns>

@@ -3,6 +3,7 @@ package-lock.json
 /dist/
 /.vscode/
 /*-content.zip/ 
+.env*
 
 # auto generated wildcard
 vendorPersona/.env
