@@ -48,6 +48,10 @@ modules:
       - storeInCharge-content.zip
       name: storeInCharge
       target-path: resources/
+    - artifacts:
+      - vendorPersona-OpenPOs-content.zip
+      name: vendorPersona-OpenPOs
+      target-path: resources/
 - name: vendorPersona
   type: html5
   path: vendorPersona
@@ -92,6 +96,14 @@ modules:
 - name: storeInCharge
   type: html5
   path: storeInCharge
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []
+- name: vendorPersona-OpenPOs
+  type: html5
+  path: vendorPersona-OpenPOs
   build-parameters:
     builder: custom
     commands:
