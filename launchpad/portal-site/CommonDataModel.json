@@ -52,17 +52,32 @@
             {
                 "_version": "3.0.0",
                 "identification": {
-                    "id": "store-in-charge",
+                    "id": "material-tracker",
                     "title": "{{title}}",
                     "entityType": "group",
-                    "i18n": "i18n/store-in-charge.properties"
+                    "i18n": "i18n/material-tracker.properties"
                 },
                 "payload": {
                     "viz": [
                         {
-                            "id": "com.agel.mmts.storeInCharge-0-1616559774744",
-                            "appId": "com.agel.mmts.storeInCharge",
-                            "vizId": "Actions-StoreInCharge"
+                            "appId": "com.agel.mmts.storeInCharge-TotalOrder",
+                            "vizId": "TotalOrders-StoreInCharge"
+                        },
+                        {
+                            "appId": "com.agel.mmts.vendorPersona-RaisedOrder",
+                            "vizId": "RaisedOrders-StoreInCharge"
+                        },
+                        {
+                            "appId": "com.agel.mmts.vendorPersona-UpcomingOrders",
+                            "vizId": "UpcomingOrders-StoreInCharge"
+                        },
+                        {
+                            "appId": "com.agel.mmts.vendorPersona-Inventory",
+                            "vizId": "Inventory-StoreInCharge"
+                        },
+                        {
+                            "appId": "com.agel.mmts.vendorPersona-ReturnMaterialRequests",
+                            "vizId": "ReturnRequests-StoreInCharge"
                         }
                     ]
                 }
@@ -102,7 +117,7 @@
                     },
                     "groupsOrder": [
                         "defaultGroupId",
-                        "store-in-charge"
+                        "material-tracker"
                     ],
                     "sap.cloud.portal": {
                         "config": {

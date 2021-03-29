@@ -34,7 +34,7 @@ sap.ui.define([
         _onObjectMatched: function (oEvent) {
             var sObjectId = oEvent.getParameter("arguments").POId;
             this._bindView("/PurchaseOrders" + sObjectId);
-         //   this.getView().byId("idChildItemsTableSubsection").setVisible(false);
+            //   this.getView().byId("idChildItemsTableSubsection").setVisible(false);
         },
 
         _initializeCreationModels: function () {
@@ -206,7 +206,7 @@ sap.ui.define([
         },
 
         // Child Line Items Dialog Open
-        handleChildItemsDialogOpen : function (sParentItemPath) {
+        handleChildItemsDialogOpen: function (sParentItemPath) {
             // create dialog lazily
             var oDetails = {};
             oDetails.view = this.getView();
@@ -223,7 +223,7 @@ sap.ui.define([
                         parameters: {
                             "$expand": {
                                 "child_line_items": {
-                                    "$select":["ID","material_code","qty"]
+                                    "$select": ["ID", "material_code", "qty"]
                                 }
                             }
                         }
@@ -236,7 +236,7 @@ sap.ui.define([
             });
         },
 
-        onClose : function(oEvent){
+        onClose: function (oEvent) {
             this.pDialog.close();
         },
 
@@ -267,8 +267,8 @@ sap.ui.define([
             var that = this,
                 oViewContext = this.getView().getBindingContext().getObject(),
                 oBindingObject = this.byId("idBOQUploader").getObjectBinding("DocumentUploadModel");
-            
-            data= data.substr(21, data.length);   
+
+            data = data.substr(21, data.length);
 
             //set the parameters
             oBindingObject.getParameterContext().setProperty("file", data);
@@ -317,6 +317,19 @@ sap.ui.define([
         onInspectionIDPress: function (oEvent) {
             // The source is the list item that got pressed
             this._showObject(oEvent.getSource());
+        },
+
+        onViewPress: function (oEvent) {
+            var oItem = oEvent.getSource().getParent();
+            var aCells = [new sap.m.ObjectIdentifier({ title: "{name}", titleActive: true }), new sap.m.Text({ text: "{email}" }),
+            new sap.m.Button({
+                icon: "sap-icon://edit",
+                type: "Transparent"
+            }).attachPress(this.onEditPress, this),
+            new sap.m.Button({ icon: "sap-icon://delete",type: "Transparent"}).attachPress(this.onDeletePress, this)
+            ];
+            this._modifyCells(oItem, aCells);
+
         },
 
         _showObject: function (oItem) {
