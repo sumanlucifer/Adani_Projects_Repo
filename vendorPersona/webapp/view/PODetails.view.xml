@@ -110,6 +110,9 @@
                                     <Column>
                                         <Text text="{i18n>ViewChildLineItems}"/>
                                     </Column>
+                                     <Column>
+                                        <Text text="{i18n>EditButton}"/>
+                                    </Column>
                                 </columns>
 
                                 <items>
@@ -119,6 +122,7 @@
                                             <Text text="{description}"/>
                                             <Text text="{qty}"/>
                                             <Button text="{i18n>ViewChildLineItems}" type="Emphasized" press="onViewChildItemPress"/>
+                                            <Button icon="sap-icon://edit" type="Emphasized" press="onViewPress"/>
                                         </cells>
                                     </ColumnListItem>
                                 </items>
