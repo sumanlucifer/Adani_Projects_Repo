@@ -226,7 +226,6 @@ sap.ui.define([
 
         // Child Line Items Dialog Open
         handleChildItemsDialogOpen: function (sParentItemPath) {
-            console.log(sParentItemPath);
             // create dialog lazily
             var oDetails = {};
             oDetails.view = this.getView();
@@ -267,7 +266,7 @@ sap.ui.define([
             });
         },
 
-        onViewChildDialogClose: function (oEvent) {
+        onClose: function (oEvent) {
             this.pDialog.close();
         },
 
@@ -348,6 +347,19 @@ sap.ui.define([
         onInspectionIDPress: function (oEvent) {
             // The source is the list item that got pressed
             this._showObject(oEvent.getSource());
+        },
+
+        onViewPress: function (oEvent) {
+            var oItem = oEvent.getSource().getParent();
+            var aCells = [new sap.m.ObjectIdentifier({ title: "{name}", titleActive: true }), new sap.m.Text({ text: "{email}" }),
+            new sap.m.Button({
+                icon: "sap-icon://edit",
+                type: "Transparent"
+            }).attachPress(this.onEditPress, this),
+            new sap.m.Button({ icon: "sap-icon://delete",type: "Transparent"}).attachPress(this.onDeletePress, this)
+            ];
+            this._modifyCells(oItem, aCells);
+
         },
 
         _showObject: function (oItem) {

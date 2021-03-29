@@ -45,12 +45,28 @@ modules:
       name: vendorPersona-DispatchedPOs
       target-path: resources/
     - artifacts:
-      - storeInCharge-content.zip
-      name: storeInCharge
-      target-path: resources/
-    - artifacts:
       - vendorPersona-OpenPOs-content.zip
       name: vendorPersona-OpenPOs
+      target-path: resources/
+    - artifacts:
+      - storeInCharge-TotalOrder-content.zip
+      name: storeInCharge-TotalOrder
+      target-path: resources/
+    - artifacts:
+      - storeInCharge-RaisedOrder-content.zip
+      name: storeInCharge-RaisedOrder
+      target-path: resources/
+    - artifacts:
+      - storeInCharge-UpcomingOrders-content.zip
+      name: storeInCharge-UpcomingOrders
+      target-path: resources/
+    - artifacts:
+      - storeInCharge-Inventory-content.zip
+      name: storeInCharge-Inventory
+      target-path: resources/
+    - artifacts:
+      - storeInCharge-ReturnMaterialRequests-content.zip
+      name: storeInCharge-ReturnMaterialRequests
       target-path: resources/
 - name: vendorPersona
   type: html5
@@ -93,17 +109,49 @@ modules:
     commands:
     - npm run build
     supported-platforms: []
-- name: storeInCharge
+- name: vendorPersona-OpenPOs
   type: html5
-  path: storeInCharge
+  path: vendorPersona-OpenPOs
   build-parameters:
     builder: custom
     commands:
     - npm run build
     supported-platforms: []
-- name: vendorPersona-OpenPOs
+- name: storeInCharge-TotalOrder
   type: html5
-  path: vendorPersona-OpenPOs
+  path: storeInCharge-TotalOrder
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []
+- name: storeInCharge-RaisedOrder
+  type: html5
+  path: storeInCharge-RaisedOrder
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []
+- name: storeInCharge-UpcomingOrders
+  type: html5
+  path: storeInCharge-UpcomingOrders
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []
+- name: storeInCharge-Inventory
+  type: html5
+  path: storeInCharge-Inventory
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []
+- name: storeInCharge-ReturnMaterialRequests
+  type: html5
+  path: storeInCharge-ReturnMaterialRequests
   build-parameters:
     builder: custom
     commands:

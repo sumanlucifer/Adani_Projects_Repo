@@ -1,8 +1,0 @@
-/node_modules/
-package-lock.json
-/dist/
-/.vscode/
-/*-content.zip/ 
-
-# auto generated wildcard
-agel-mmts-web/vendorPersona/.env8
