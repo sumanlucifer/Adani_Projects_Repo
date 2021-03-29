@@ -19,6 +19,14 @@ sap.ui.define([
             });
             this.setModel(oViewModel, "objectViewModel");
 
+            // Icon Tab Count Model
+            var oIconTabCountModel = new JSONModel({
+                openCount: null,
+                confirmCount: null,
+                dispatchCount : null
+            });
+            this.setModel(oIconTabCountModel, "oIconTabCountModel");
+
             // keeps the search state
             this._aTableSearchState = [];
             // Keeps reference to any of the created dialogs
@@ -66,8 +74,9 @@ sap.ui.define([
             this.getView().setModel(oCreationModel, "creationModel")
         },
 
+        // on Bind View 
         _bindView: function (sObjectPath) {
-            debugger;
+            
             var objectViewModel = this.getViewModel("objectViewModel");
             var userInfo = sap.ushell.Container.getService("UserInfo");
             var userEmail = userInfo.getEmail();
@@ -83,7 +92,8 @@ sap.ui.define([
                             "$filter": "email eq 'symantic.engineering@testemail.com'"
                         }                    
                     } ,
-                    "$filter" : "status eq 'PENDING'"                   
+                    "$filter" : "status eq 'PENDING'",
+                    "$count" : true                   
                 },
                 events: {
                     dataRequested: function () {
@@ -142,11 +152,38 @@ sap.ui.define([
 
         onPurchaseOrderTableUpdateFinished: function (oEvent) {
             //Setting the header context for a property binding to $count
-            var oView = this.getView(),
-                oTableBinding = oView.byId("idPurchaseOrdersTable").getBinding("items");
+                       
+            this.setIconTabCount(oEvent,oEvent.getParameter("total"),"/openCount");
+            
+        },
 
-            if (oTableBinding.getHeaderContext())
-                oView.byId("tableHeader").setBindingContext(oTableBinding.getHeaderContext());
+        onConfirmPOTableUpdateFinished : function (oEvent) {
+            //Setting the header context for a property binding to $count                       
+            this.setIconTabCount(oEvent,oEvent.getParameter("total"),"/confirmCount");    
+        },
+
+        onDispatchPOTableUpdateFinished :  function (oEvent) {
+            //Setting the header context for a property binding to $count               
+            this.setIconTabCount(oEvent,oEvent.getParameter("total"),"/dispatchCount"); 
+        },
+
+        setIconTabCount : function(oEvent,total,property){
+            if( oEvent.getSource().getBinding("items").isLengthFinal()){ 
+               this.getView().getModel("oIconTabCountModel").setProperty(property,total);
+            }
+        },
+        
+        // On Icon Tab Select
+        onIconTabSelect : function(oEvent){
+            var sKey =  oEvent.getParameter("key");
+            if(sKey === "OpenPOKey"){
+                this.byId("pageTitle").setText(this.getResourceBundle().getText("OpenPOs"));
+            }else if( sKey == "ConfirmPOKey" ){
+                 this.byId("pageTitle").setText(this.getResourceBundle().getText("ConfirmedPOs"));
+                //this.byId("pageTitle").setText("Confirmed PO");
+            }else{
+                this.byId("pageTitle").setText(this.getResourceBundle().getText("DispatchedPOs"));
+            }
         },
 
         _getViewSettingsDialog: function (sDialogFragmentName) {
