@@ -1,4 +1,5 @@
-<mvc:View xmlns:vbm="sap.ui.vbm"
+<mvc:View xmlns:f2="sap.f"
+    xmlns:vbm="sap.ui.vbm"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns:uxap="sap.uxap"
     xmlns:l="sap.ui.layout"
@@ -7,7 +8,7 @@
     xmlns:unified="sap.ui.unified"
     xmlns:tt="sap.ui.table"
     xmlns="sap.m" controllerName="com.agel.mmts.vendorPersona.controller.PODetails" height="100%">
-    <uxap:ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true" upperCaseAnchorBar="false" headerContentPinnable="true" toggleHeaderOnTitleClick="true" showFooter="true">
+    <uxap:ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true" upperCaseAnchorBar="false" headerContentPinnable="true" toggleHeaderOnTitleClick="true" showFooter="{= ${message>/}.length > 0 }">
         <uxap:headerTitle>
             <uxap:ObjectPageDynamicHeaderTitle>
                 <uxap:breadcrumbs>
@@ -55,31 +56,46 @@
             </FlexBox>
         </uxap:headerContent>
         <uxap:sections>
-            <uxap:ObjectPageSection>
+            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>basicDetails}">
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection>
-                        <f:SimpleForm id="sfBasicData" binding="{vendor}" editable="true" layout="ResponsiveGridLayout" title="{i18n>BasicData}" labelSpanXL="4" labelSpanL="4" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2" singleContainerFullSize="false">
-                            <f:content>
-                                <core:Title />
-                                <Label text="{i18n>CustomerName}" />
-                                <Text text="{name}" />
-                                <Label text="{i18n>email}" />
-                                <Text text="{email}"/>
-                                <core:Title />
-                                <Label text="{i18n>mobile}" />
-                                <Text text="{mobile}"/>
-                                <Label text="{i18n>pan}" />
-                                <Text text="{pan}"/>
-                            </f:content>
-                        </f:SimpleForm>
+                        <HBox width="50%">
+                            <f:SimpleForm id="sfBasicData" binding="{vendor}" editable="false" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="3" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="4" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="1" columnsM="1" singleContainerFullSize="true">
+                                <f:content>
+                                    <core:Title text="{i18n>vendorDetails}"/>
+                                    <Label text="{i18n>CustomerName}" />
+                                    <Text text="{name}" />
+                                    <Label text="{i18n>email}" />
+                                    <Text text="{email}"/>
+                                    <Label text="{i18n>mobile}" />
+                                    <Text text="{mobile}"/>
+                                    <Label text="{i18n>pan}" />
+                                    <Text text="{pan}"/>
+                                </f:content>
+                            </f:SimpleForm>
+                        </HBox>
+                        <HBox>
+                            <f:SimpleForm id="sfAddressData" binding="{vendor/address}" editable="false" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="1" singleContainerFullSize="false">
+                                <f:content>
+                                    <core:Title text="{i18n>addressDetails}"/>
+                                    <Label/>
+                                    <VBox>
+                                        <items>
+                                            <Text text="{street},{city}"/>
+                                            <Text text="{country}-{zipcode}"/>
+                                        </items>
+                                    </VBox>
+                                </f:content>
+                            </f:SimpleForm>
+                        </HBox>
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>
             </uxap:ObjectPageSection>
             <uxap:ObjectPageSection titleUppercase="false" title="{i18n>itemDetails}">
                 <uxap:subSections>
-                    <uxap:ObjectPageSubSection title="{i18n>parentLineItems}">
+                    <uxap:ObjectPageSubSection>
                         <VBox renderType="Bare">
-                            <Table id="idParentLineItemsTable" width="auto" items="{parent_line_items}" noDataText="{i18n>noParentItems}" growing="true" growingScrollToLoad="true" updateFinished=".onParentItemsTableUpdateFinished" selectionChange=".onParentItemSelect" mode="SingleSelectMaster">
+                            <Table id="idParentLineItemsTable" width="auto" items="{path: 'parent_line_items', parameters: { $$updateGroupId : 'parentItemsGroup'}}" noDataText="{i18n>noParentItems}" growing="true" growingScrollToLoad="true" updateFinished=".onParentItemsTableUpdateFinished" selectionChange=".onParentItemSelect" mode="SingleSelectMaster">
                                 <headerToolbar>
                                     <OverflowToolbar>
                                         <Title text="{i18n>items}" level="H4" id="parentItemsTableHeader"/>
@@ -126,33 +142,40 @@
                             </Table>
                         </VBox>
                     </uxap:ObjectPageSubSection>
-                       
-                    <uxap:ObjectPageSubSection title="{i18n>inspectionItemsTitle}" visible="{= %{status}==='CONFIRMED' ? true : false}" id="idInspectionTableSubSection">
-                        <VBox>
-                            <Table id="idInspectionTable" width="auto" noDataText="{i18n>noInspectionItems}" growing="true" growingScrollToLoad="true" items="{inspection_call_ids}">
-                                <columns>
-                                    <Column>
-                                        <Text text="{i18n>inspectionID}"/>
-                                    </Column>
-                                    <Column>
-                                        <Text text="{i18n>date}"/>
-                                    </Column>
-                                </columns>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
 
-                                <items>
-                                    <ColumnListItem type="Navigation" press=".onInspectionIDPress">
-                                        <cells>
-                                            <ObjectIdentifier title="{inspection_call_id}" titleActive="true"/>
-                                            <Text text="{createdAt}"/>
-                                        </cells>
-                                    </ColumnListItem>
-                                </items>
-                            </Table>
-                        </VBox>
+            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>inspectionDetails}">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection>
+                        <Table id="idInspectionTable" width="auto" noDataText="{i18n>noInspectionItems}" growing="true" growingScrollToLoad="true" items="{inspection_call_ids}">
+                            <columns>
+                                <Column>
+                                    <Text text="{i18n>inspectionID}"/>
+                                </Column>
+                                <Column>
+                                    <Text text="{i18n>date}"/>
+                                </Column>
+                            </columns>
+
+                            <items>
+                                <ColumnListItem type="Navigation" press=".onInspectionIDPress">
+                                    <cells>
+                                        <ObjectIdentifier title="{inspection_call_id}" titleActive="true"/>
+                                        <Text text="{createdAt}"/>
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>
             </uxap:ObjectPageSection>
 
         </uxap:sections>
+        <uxap:footer>
+            <OverflowToolbar>
+                <Button icon="sap-icon://alert" text="{= ${message>/}.length }" type="Emphasized" press="onMessagePopoverPress" />
+            </OverflowToolbar>
+        </uxap:footer>
     </uxap:ObjectPageLayout>
 </mvc:View>

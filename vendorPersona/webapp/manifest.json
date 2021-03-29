@@ -90,6 +90,7 @@
                 "sap.f": {}
             }
         },
+        "handleValidation": true,
         "contentDensities": {
             "compact": true,
             "cozy": true
@@ -105,8 +106,7 @@
                 "settings": {
                     "operationMode": "Server",
                     "groupId": "$direct",
-                    "synchronizationMode": "None",
-                    "autoExpandSelect": true
+                    "synchronizationMode": "None"
                 },
                 "dataSource": "default",
                 "preload": true

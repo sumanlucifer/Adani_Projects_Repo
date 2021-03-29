@@ -3,7 +3,7 @@
     xmlns:f="sap.ui.layout.form"
     xmlns:core="sap.ui.core"
     xmlns:unified="sap.ui.unified">
-    <Dialog title="Add Parent Item" id="idCreateParentFragment">
+    <Dialog title="Add Parent Item">
         <customHeader>
             <Bar>
                 <contentMiddle>

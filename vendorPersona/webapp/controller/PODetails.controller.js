@@ -34,7 +34,7 @@ sap.ui.define([
         _onObjectMatched: function (oEvent) {
             var sObjectId = oEvent.getParameter("arguments").POId;
             this._bindView("/PurchaseOrders" + sObjectId);
-         //   this.getView().byId("idChildItemsTableSubsection").setVisible(false);
+            //   this.getView().byId("idChildItemsTableSubsection").setVisible(false);
         },
 
         _initializeCreationModels: function () {
@@ -58,10 +58,14 @@ sap.ui.define([
                 parameters: {
                     "$expand": {
                         "parent_line_items": {
+
+                        },
+                        "vendor": {
                             "$expand": {
-                                "child_line_items": {}
+                                "address": {}
                             }
-                        }
+                        },
+                        "inspection_call_ids": {}
                     }
                 },
                 events: {
@@ -110,6 +114,7 @@ sap.ui.define([
         },
 
         onSaveParentLineItemPress: function (oEvent) {
+            var that = this;
             var oTable = this.getView().byId("idParentLineItemsTable"),
                 oBinding = oTable.getBinding("items"),
                 aInputData = this.getViewModel("parentItemCreationModel").getData(),
@@ -129,12 +134,26 @@ sap.ui.define([
 
 
             oContext.created().then(function () {
-                //var oEntry = this.getObject();
-                //sap.m.MessageBox.success("New entry created with name " + oEntry.name + " and email " + oEntry.email);
-            }.bind(oContext), function (error) {
-                //sap.m.MessageBox.success("Error Creating Entries!!");
+                debugger;
+                var oEntry = this.getObject();
+                sap.m.MessageBox.success("New entry created with name " + oEntry.name + " and quantity " + oEntry.qty);
+            }.bind(oContext, that), function (error) {
+                sap.m.MessageBox.success("Error Creating Entries!!");
             }.bind(oContext));
             this.closeDialog();
+
+            // saving the entry
+            var fnSuccess = function (response) {
+                //sap.m.MessageToast.show("!!");
+                //sap.m.MessageBox.success("Changes Saved Successfully!!");
+            }.bind(this);
+
+            var fnError = function (oError) {
+                sap.m.MessageBox.alert(oError.toString());
+            }.bind(this);
+
+
+            this.getView().getModel().submitBatch("parentItemsGroup").then(fnSuccess, fnError);
         },
 
         onExportParentItemsExportPress: function (oEvent) {
@@ -206,7 +225,8 @@ sap.ui.define([
         },
 
         // Child Line Items Dialog Open
-        handleChildItemsDialogOpen : function (sParentItemPath) {
+        handleChildItemsDialogOpen: function (sParentItemPath) {
+            console.log(sParentItemPath);
             // create dialog lazily
             var oDetails = {};
             oDetails.view = this.getView();
@@ -223,7 +243,7 @@ sap.ui.define([
                         parameters: {
                             "$expand": {
                                 "child_line_items": {
-                                    "$select":["ID","material_code","qty"]
+                                    "$select": ["ID", "material_code", "qty"]
                                 }
                             }
                         }
@@ -232,11 +252,22 @@ sap.ui.define([
                 });
             }
             this.pDialog.then(function (oDialog) {
+                oDetails.view.addDependent(oDialog);
+                oDialog.bindElement({
+                    path: oDetails.sParentItemPath,
+                    parameters: {
+                        "$expand": {
+                            "child_line_items": {
+                                "$select": ["ID", "material_code", "qty"]
+                            }
+                        }
+                    }
+                });
                 oDialog.open();
             });
         },
 
-        onClose : function(oEvent){
+        onViewChildDialogClose: function (oEvent) {
             this.pDialog.close();
         },
 
@@ -267,8 +298,8 @@ sap.ui.define([
             var that = this,
                 oViewContext = this.getView().getBindingContext().getObject(),
                 oBindingObject = this.byId("idBOQUploader").getObjectBinding("DocumentUploadModel");
-            
-            data= data.substr(21, data.length);   
+
+            data = data.substr(21, data.length);
 
             //set the parameters
             oBindingObject.getParameterContext().setProperty("file", data);
@@ -326,7 +357,30 @@ sap.ui.define([
                     inspectionID: sObjectPath.slice("/InspectionCallIds".length) // /PurchaseOrders(123)->(123)
                 });
             });
-        }
+        },
+
+        onMessagePopoverPress: function (oEvent) {
+            var oSourceControl = oEvent.getSource();
+            this._getMessagePopover().then(function (oMessagePopover) {
+                oMessagePopover.openBy(oSourceControl);
+            });
+        },
+
+        _getMessagePopover: function () {
+            var oView = this.getView();
+            // create popover lazily (singleton)
+            if (!this._pMessagePopover) {
+                this._pMessagePopover = sap.ui.core.Fragment.load({
+                    id: oView.getId(),
+                    name: "com.agel.mmts.vendorPersona.view.fragments.MessagePopover"
+                }).then(function (oMessagePopover) {
+                    oView.addDependent(oMessagePopover);
+                    return oMessagePopover;
+                });
+            }
+            return this._pMessagePopover;
+        },
+
 
     });
 });
