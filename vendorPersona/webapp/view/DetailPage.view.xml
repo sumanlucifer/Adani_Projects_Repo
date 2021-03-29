@@ -11,7 +11,7 @@
         <f:title>
             <f:DynamicPageTitle>
                 <f:heading>
-                    <Title text="{i18n>AssignedPO}"/>
+                    <Title id="pageTitle" text="{i18n>OpenPOs}"/>
                 </f:heading>
             </f:DynamicPageTitle>
         </f:title>
@@ -51,43 +51,11 @@
         </f:header>
         <!-- DynamicPage Content -->
         <f:content>
-            <IconTabBar id="idIconTabBarInlineMode" headerMode="Inline" expanded="true" class="sapUiResponsiveContentPadding">
+            <IconTabBar id="idIconTabBarInlineMode" select="onIconTabSelect" headerMode="Inline" expanded="true" class="sapUiResponsiveContentPadding">
                 <items>
-                    <IconTabFilter text="{i18n>openPOs}" key="info" count="4">
-                        <!--way 1-->
-                        <!-- <Table id="idPurchaseOrdersTable" width="auto" items="{
-                            path: '/PurchaseOrders',
-                            parameters : {
-                                $count : true,
-                                $expand : {
-                                    'vendor': {
-                                        $filter: 'email eq \'symantic.engineering@testemail.com\''
-                                    }
-                                },
-                                $select: ['ID']
-                            }
-                        }" noDataText="{i18n>noDataForPOs}" growing="true" growingScrollToLoad="true">
-                            <columns>
-                                <Column>
-                                    <Text text="{i18n>ponum}"/>
-                                </Column>
-                                <Column>
-                                    <Text text="{i18n>invoiceNum}"/>
-                                </Column>
-
-                            </columns>
-                            <items>
-                                <ColumnListItem>
-                                    <cells>
-                                        <Text text="{ID}"/>
-                                    </cells>
-                                    <cells>
-                                        <Text text="{vendor/name}"/>
-                                    </cells>
-                                </ColumnListItem>
-                            </items>
-                        </Table> -->
-                         <Table id="idPurchaseOrdersTable" width="auto" noDataText="{i18n>noDataForPOs}" growing="true" growingScrollToLoad="true">
+                    <IconTabFilter id="idOpenPOTabTitle" text="{i18n>openPOs}" key="OpenPOKey" count="{oIconTabCountModel>/openCount}">
+                         <Table id="idPurchaseOrdersTable" width="auto" noDataText="{i18n>noDataForPOs}" busyIndicatorDelay="{objectViewModel>busy}" 
+                           updateFinished="onPurchaseOrderTableUpdateFinished" growing="true" growingScrollToLoad="true">
                             <columns>
                                 <Column>
                                     <Text text="{i18n>ponum}"/>
@@ -111,8 +79,9 @@
                             </items>
                         </Table>
                     </IconTabFilter>
-                    <IconTabFilter text="{i18n>ConfirmedPO}" key="info" count="0">
-                         <Table id="idConfirmPOTable" width="auto" noDataText="{i18n>noDataForPOs}" growing="true" growingScrollToLoad="true">
+                    <IconTabFilter text="{i18n>ConfirmedPO}" key="ConfirmPOKey" count="{oIconTabCountModel>/confirmCount}">
+                         <Table id="idConfirmPOTable" width="auto" noDataText="{i18n>noDataForPOs}" busyIndicatorDelay="{objectViewModel>busy}" 
+                         updateFinished="onConfirmPOTableUpdateFinished" growing="true" growingScrollToLoad="true">
                             <columns>
                                 <Column>
                                     <Text text="{i18n>ponum}"/>
@@ -136,8 +105,9 @@
                             </items>
                         </Table>
                     </IconTabFilter>
-                    <IconTabFilter text="{i18n>Dispatched}" key="info" count="0">
-                         <Table id="idDispatchedPOTable" width="auto" noDataText="{i18n>noDataForPOs}" growing="true" growingScrollToLoad="true" >
+                    <IconTabFilter text="{i18n>Dispatched}" key="DispatchPOKey" count="{oIconTabCountModel>/dispatchCount}">
+                         <Table id="idDispatchedPOTable" width="auto" noDataText="{i18n>noDataForPOs}" busyIndicatorDelay="{objectViewModel>busy}" 
+                         updateFinished="onDispatchPOTableUpdateFinished" growing="true" growingScrollToLoad="true" >
                             <columns>
                                 <Column>
                                     <Text text="{i18n>ponum}"/>
@@ -151,7 +121,7 @@
 
                             </columns>
                             <items>
-                                <ColumnListItem id="test2" type="Navigation" press="onPurchaseOrderPress">
+                                <ColumnListItem id="test2">
                                     <cells>
                                         <Text text="{po_number}"/>
                                         <Text text="{vendor/name}"/>
