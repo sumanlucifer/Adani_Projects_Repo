@@ -84,6 +84,18 @@ modules:
       - engineerInCharge-Inventory-content.zip
       name: engineerInCharge-Inventory
       target-path: resources/
+    - artifacts:
+      - admin-POSummary-content.zip
+      name: admin-POSummary
+      target-path: resources/
+    - artifacts:
+      - admin-UserManagement-content.zip
+      name: admin-UserManagement
+      target-path: resources/
+    - artifacts:
+      - admin-Reports-content.zip
+      name: admin-Reports
+      target-path: resources/
 - name: vendorPersona
   type: html5
   path: vendorPersona
@@ -200,6 +212,30 @@ modules:
 - name: engineerInCharge-Inventory
   type: html5
   path: engineerInCharge-Inventory
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []
+- name: admin-POSummary
+  type: html5
+  path: admin-POSummary
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []
+- name: admin-UserManagement
+  type: html5
+  path: admin-UserManagement
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []
+- name: admin-Reports
+  type: html5
+  path: admin-Reports
   build-parameters:
     builder: custom
     commands:
