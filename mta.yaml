@@ -76,6 +76,14 @@ modules:
       - securityPerson-History-content.zip
       name: securityPerson-History
       target-path: resources/
+    - artifacts:
+      - engineerInCharge-ReturnOrder-content.zip
+      name: engineerInCharge-ReturnOrder
+      target-path: resources/
+    - artifacts:
+      - engineerInCharge-Inventory-content.zip
+      name: engineerInCharge-Inventory
+      target-path: resources/
 - name: vendorPersona
   type: html5
   path: vendorPersona
@@ -176,6 +184,22 @@ modules:
 - name: securityPerson-History
   type: html5
   path: securityPerson-History
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []
+- name: engineerInCharge-ReturnOrder
+  type: html5
+  path: engineerInCharge-ReturnOrder
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []
+- name: engineerInCharge-Inventory
+  type: html5
+  path: engineerInCharge-Inventory
   build-parameters:
     builder: custom
     commands:
