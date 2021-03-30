@@ -349,18 +349,59 @@ sap.ui.define([
             this._showObject(oEvent.getSource());
         },
 
+
         onViewPress: function (oEvent) {
             var oItem = oEvent.getSource().getParent();
-            var aCells = [new sap.m.ObjectIdentifier({ title: "{name}", titleActive: true }), new sap.m.Text({ text: "{email}" }),
+            var aCells = [
+            
+            new sap.m.Input({ value: "{material_code}" }),
+             new sap.m.Input({ value: "{description}" }),
+             new sap.m.Input({ value: "{qty}" }),
+             
             new sap.m.Button({
-                icon: "sap-icon://edit",
-                type: "Transparent"
-            }).attachPress(this.onEditPress, this),
-            new sap.m.Button({ icon: "sap-icon://delete",type: "Transparent"}).attachPress(this.onDeletePress, this)
+                text:"View Child Line Items",
+                type: "Emphasized"
+            }).attachPress(this.onViewChildItemPress, this),
+            new sap.m.Button({ icon: "sap-icon://save",type: "Transparent"}).attachPress(this.onSave, this)
             ];
             this._modifyCells(oItem, aCells);
 
         },
+
+         _modifyCells: function (tableRow, aCells) {
+                for (let i = 0; i < aCells.length; i++) {
+                    tableRow.removeCell(0);
+                    tableRow.addCell(aCells[i]);
+                }
+            },
+
+            onShowCells : function(oItem){
+                var aCells = [
+                new sap.m.ObjectIdentifier({ title: "{material_code}",titleActive: true }),
+                new sap.m.Text({ text: "{description}" }),
+                new sap.m.Text({ text: "{qty}" }),             
+                new sap.m.Button({
+                    text:"View Child Line Items",
+                    type: "Emphasized"
+                }).attachPress(this.onViewChildItemPress, this),                
+                new sap.m.Button({ icon: "sap-icon://edit",type: "Emphasized"}).attachPress(this.onViewPress, this)
+                ];                  
+                this._modifyCells(oItem, aCells);            
+            },
+
+             onSave: function (oEvent) {
+                 var oItem = oEvent.getSource().getParent();
+                var fnSuccess = function () {
+                    this.onShowCells(oItem);
+                    sap.m.MessageBox.success("Changes Saved Successfully!!");
+                }.bind(this);
+
+                var fnError = function (oError) {
+                    sap.m.MessageBox.alert(oError.toString());
+                }.bind(this);
+
+                this.getView().getModel().submitBatch("parentItemsGroup").then(fnSuccess, fnError);
+            },
 
         _showObject: function (oItem) {
             var that = this;

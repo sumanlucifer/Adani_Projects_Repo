@@ -51,7 +51,7 @@
         </f:header>
         <!-- DynamicPage Content -->
         <f:content>
-            <IconTabBar id="idIconTabBarInlineMode" select="onIconTabSelect" headerMode="Inline" expanded="true" class="sapUiResponsiveContentPadding">
+            <IconTabBar id="idIconTabBar" select="onIconTabSelect" headerMode="Inline" expanded="true" class="sapUiResponsiveContentPadding">
                 <items>
                     <IconTabFilter id="idOpenPOTabTitle" text="{i18n>openPOs}" key="OpenPOKey" count="{oIconTabCountModel>/openCount}">
                          <Table id="idPurchaseOrdersTable" width="auto" noDataText="{i18n>noDataForPOs}" busyIndicatorDelay="{objectViewModel>busy}" 
@@ -61,7 +61,10 @@
                                     <Text text="{i18n>ponum}"/>
                                 </Column>
                                 <Column>
-                                    <Text text="{i18n>invoiceNum}"/>
+                                    <Text text="{i18n>vendorName}"/>
+                                </Column>
+                                <Column>
+                                    <Text text="{i18n>releaseDate}"/>
                                 </Column>
                                 <Column>
                                     <Text text="{i18n>status}"/>
@@ -69,10 +72,11 @@
 
                             </columns>
                             <items>
-                                <ColumnListItem id="test" type="Navigation" press="onPurchaseOrderPress">
+                                <ColumnListItem id="idOpenPOColumnItem" type="Navigation" press="onPurchaseOrderPress">
                                     <cells>
                                         <Text text="{po_number}"/>
                                         <Text text="{vendor/name}"/>
+                                        <Text text="{po_release_date}"/>
                                         <Text text="{status}"/>
                                     </cells>
                                 </ColumnListItem>
@@ -87,18 +91,21 @@
                                     <Text text="{i18n>ponum}"/>
                                 </Column>
                                 <Column>
-                                    <Text text="{i18n>invoiceNum}"/>
+                                    <Text text="{i18n>vendorName}"/>
+                                </Column>
+                                 <Column>
+                                    <Text text="{i18n>releaseDate}"/>
                                 </Column>
                                 <Column>
                                     <Text text="{i18n>status}"/>
                                 </Column>
-
                             </columns>
                             <items>
-                                <ColumnListItem id="test1" type="Navigation" press="onPurchaseOrderPress">
+                                <ColumnListItem id="idConfirmColumnItem" type="Navigation" press="onPurchaseOrderPress">
                                     <cells>
                                         <Text text="{po_number}"/>
                                         <Text text="{vendor/name}"/>
+                                        <Text text="{po_release_date}"/>
                                         <Text text="{status}"/>
                                     </cells>
                                 </ColumnListItem>
@@ -113,7 +120,10 @@
                                     <Text text="{i18n>ponum}"/>
                                 </Column>
                                 <Column>
-                                    <Text text="{i18n>invoiceNum}"/>
+                                    <Text text="{i18n>vendorName}"/>
+                                </Column>
+                                 <Column>
+                                    <Text text="{i18n>releaseDate}"/>
                                 </Column>
                                 <Column>
                                     <Text text="{i18n>status}"/>
@@ -121,10 +131,11 @@
 
                             </columns>
                             <items>
-                                <ColumnListItem id="test2">
+                                <ColumnListItem id="idDispatchColumnItem">
                                     <cells>
                                         <Text text="{po_number}"/>
                                         <Text text="{vendor/name}"/>
+                                        <Text text="{po_release_date}"/>
                                         <Text text="{status}"/>
                                     </cells>
                                 </ColumnListItem>
