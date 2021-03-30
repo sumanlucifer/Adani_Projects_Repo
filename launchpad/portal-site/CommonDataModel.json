@@ -148,6 +148,43 @@
                         }
                     ]
                 }
+            },
+            {
+                "_version": "3.0.0",
+                "identification": {
+                    "id": "quick-access",
+                    "title": "{{title}}",
+                    "entityType": "group",
+                    "i18n": "i18n/quick-access.properties"
+                },
+                "payload": {
+                    "viz": [
+                        {
+                            "appId": "com.agel.mmts.quickAccess-History",
+                            "vizId": "vendorHistory-quickAccess"
+                        },
+                        {
+                            "appId": "com.agel.mmts.quickAccess-IssueMaterial",
+                            "vizId": "IssueMaterial-quickAccess"
+                        },
+                        {
+                            "appId": "com.agel.mmts.quickAccess-Reports",
+                            "vizId": "vendorReports-quickAccess"
+                        },
+                        {
+                            "appId": "com.agel.mmts.quickAccess-storeInCharge-Reports",
+                            "vizId": "storeInChargeReports-quickAccess"
+                        },
+                        {
+                            "appId": "com.agel.mmts.quickAccess-TransferStock",
+                            "vizId": "TransferStock-quickAccess"
+                        },
+                        {
+                            "appId": "com.agel.mmts.quickAccess-UnloadMaterial",
+                            "vizId": "UnloadMaterial-quickAccess"
+                        }
+                    ]
+                }
             }
         ],
         "sites": [
@@ -187,7 +224,8 @@
                         "material-tracker",
                         "qr-tracker",
                         "order-tracker",
-                        "admin"
+                        "admin",
+                        "quick-access"
                     ],
                     "sap.cloud.portal": {
                         "config": {
