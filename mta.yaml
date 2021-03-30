@@ -68,6 +68,34 @@ modules:
       - storeInCharge-ReturnMaterialRequests-content.zip
       name: storeInCharge-ReturnMaterialRequests
       target-path: resources/
+    - artifacts:
+      - securityPerson-ScanQR-content.zip
+      name: securityPerson-ScanQR
+      target-path: resources/
+    - artifacts:
+      - securityPerson-History-content.zip
+      name: securityPerson-History
+      target-path: resources/
+    - artifacts:
+      - engineerInCharge-ReturnOrder-content.zip
+      name: engineerInCharge-ReturnOrder
+      target-path: resources/
+    - artifacts:
+      - engineerInCharge-Inventory-content.zip
+      name: engineerInCharge-Inventory
+      target-path: resources/
+    - artifacts:
+      - admin-POSummary-content.zip
+      name: admin-POSummary
+      target-path: resources/
+    - artifacts:
+      - admin-UserManagement-content.zip
+      name: admin-UserManagement
+      target-path: resources/
+    - artifacts:
+      - admin-Reports-content.zip
+      name: admin-Reports
+      target-path: resources/
 - name: vendorPersona
   type: html5
   path: vendorPersona
@@ -152,6 +180,62 @@ modules:
 - name: storeInCharge-ReturnMaterialRequests
   type: html5
   path: storeInCharge-ReturnMaterialRequests
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []
+- name: securityPerson-ScanQR
+  type: html5
+  path: securityPerson-ScanQR
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []
+- name: securityPerson-History
+  type: html5
+  path: securityPerson-History
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []
+- name: engineerInCharge-ReturnOrder
+  type: html5
+  path: engineerInCharge-ReturnOrder
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []
+- name: engineerInCharge-Inventory
+  type: html5
+  path: engineerInCharge-Inventory
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []
+- name: admin-POSummary
+  type: html5
+  path: admin-POSummary
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []
+- name: admin-UserManagement
+  type: html5
+  path: admin-UserManagement
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []
+- name: admin-Reports
+  type: html5
+  path: admin-Reports
   build-parameters:
     builder: custom
     commands:

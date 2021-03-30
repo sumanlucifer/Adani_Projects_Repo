@@ -1,17 +1,16 @@
 {
     "resources": [
         {
-            "name": "controller/LandingPage.controller.js"
+            "name": "index.html"
         },
         {
-            "name": "manifest.json"
+            "name": "controller/LandingPage.controller.js"
         },
         {
             "name": "model/models.js"
         },
         {
-            "name": "i18n/i18n.properties",
-            "raw": "i18n/i18n.properties"
+            "name": "manifest.json"
         },
         {
             "name": "Component.js"
@@ -24,7 +23,7 @@
             "merged": true
         },
         {
-            "name": "model/models-dbg.js",
+            "name": "Component-dbg.js",
             "isDebug": true
         },
         {
@@ -32,7 +31,7 @@
             "isDebug": true
         },
         {
-            "name": "Component-dbg.js",
+            "name": "model/models-dbg.js",
             "isDebug": true
         },
         {
@@ -45,7 +44,8 @@
             "name": "css/style.css"
         },
         {
-            "name": "index.html"
+            "name": "i18n/i18n.properties",
+            "raw": "i18n/i18n.properties"
         }
     ]
 }
