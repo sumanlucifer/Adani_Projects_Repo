@@ -68,6 +68,14 @@ modules:
       - storeInCharge-ReturnMaterialRequests-content.zip
       name: storeInCharge-ReturnMaterialRequests
       target-path: resources/
+    - artifacts:
+      - securityPerson-ScanQR-content.zip
+      name: securityPerson-ScanQR
+      target-path: resources/
+    - artifacts:
+      - securityPerson-History-content.zip
+      name: securityPerson-History
+      target-path: resources/
 - name: vendorPersona
   type: html5
   path: vendorPersona
@@ -152,6 +160,22 @@ modules:
 - name: storeInCharge-ReturnMaterialRequests
   type: html5
   path: storeInCharge-ReturnMaterialRequests
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []
+- name: securityPerson-ScanQR
+  type: html5
+  path: securityPerson-ScanQR
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []
+- name: securityPerson-History
+  type: html5
+  path: securityPerson-History
   build-parameters:
     builder: custom
     commands:

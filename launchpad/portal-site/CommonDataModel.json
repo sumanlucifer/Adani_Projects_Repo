@@ -81,6 +81,27 @@
                         }
                     ]
                 }
+            },
+            {
+                "_version": "3.0.0",
+                "identification": {
+                    "id": "qr-tracker",
+                    "title": "{{title}}",
+                    "entityType": "group",
+                    "i18n": "i18n/qr-tracker.properties"
+                },
+                "payload": {
+                    "viz": [
+                        {
+                            "appId": "com.agel.mmts.securityPerson-ScanQR",
+                            "vizId": "ScanQR-StoreInCharge"
+                        },
+                        {
+                            "appId": "com.agel.mmts.securityPerson-History",
+                            "vizId": "History-StoreInCharge"
+                        }
+                    ]
+                }
             }
         ],
         "sites": [
@@ -117,7 +138,8 @@
                     },
                     "groupsOrder": [
                         "defaultGroupId",
-                        "material-tracker"
+                        "material-tracker",
+                        "qr-tracker"
                     ],
                     "sap.cloud.portal": {
                         "config": {
