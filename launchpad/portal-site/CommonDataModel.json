@@ -64,19 +64,19 @@
                             "vizId": "TotalOrders-StoreInCharge"
                         },
                         {
-                            "appId": "com.agel.mmts.vendorPersona-RaisedOrder",
+                            "appId": "com.agel.mmts.storeInCharge-RaisedOrder",
                             "vizId": "RaisedOrders-StoreInCharge"
                         },
                         {
-                            "appId": "com.agel.mmts.vendorPersona-UpcomingOrders",
+                            "appId": "com.agel.mmts.storeInCharge-UpcomingOrders",
                             "vizId": "UpcomingOrders-StoreInCharge"
                         },
                         {
-                            "appId": "com.agel.mmts.vendorPersona-Inventory",
+                            "appId": "com.agel.mmts.storeInCharge-Inventory",
                             "vizId": "Inventory-StoreInCharge"
                         },
                         {
-                            "appId": "com.agel.mmts.vendorPersona-ReturnMaterialRequests",
+                            "appId": "com.agel.mmts.storeInCharge-ReturnMaterialRequests",
                             "vizId": "ReturnRequests-StoreInCharge"
                         }
                     ]
