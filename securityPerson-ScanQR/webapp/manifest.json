@@ -50,7 +50,7 @@
 	"sap.ui5": {
 		"flexEnabled": false,
 		"rootView": {
-			"viewName": "com.agel.mmts.securityPerson-ScanQR.view.LandingPage",
+			"viewName": "com.agel.mmts.securityPerson-ScanQR.view.QRCodeDetailPage",
 			"type": "XML",
 			"async": true,
 			"id": "LandingPage"
@@ -94,7 +94,13 @@
 				"name": "RouteLandingPage",
 				"pattern": "RouteLandingPage",
 				"target": ["TargetLandingPage"]
-			}],
+            },
+            {
+				"name": "QRCodeDetailPage",
+				"pattern": "QRCodeDetailPage",
+				"target": ["QRCodePage"]
+            }
+        ],
 			"targets": {
 				"TargetLandingPage": {
 					"viewType": "XML",
@@ -102,6 +108,13 @@
 					"clearControlAggregation": false,
 					"viewId": "LandingPage",
 					"viewName": "LandingPage"
+                },
+                "QRCodePage": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearControlAggregation": false,
+					"viewId": "QRDetails",
+					"viewName": "QRDetails"
 				}
 			}
 		}

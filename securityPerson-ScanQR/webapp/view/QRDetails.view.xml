@@ -1,0 +1,124 @@
+<mvc:View xmlns:vbm="sap.ui.vbm"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:uxap="sap.uxap"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+    xmlns:unified="sap.ui.unified"
+    xmlns:tt="sap.ui.table"
+    xmlns="sap.m" controllerName="com.agel.mmts.securityPerson-ScanQR.controller.QRDetails" height="100%">
+    <uxap:ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true" upperCaseAnchorBar="false" headerContentPinnable="true" toggleHeaderOnTitleClick="true" showFooter="true">
+        <uxap:headerTitle>
+            <uxap:ObjectPageDynamicHeaderTitle>
+    
+            </uxap:ObjectPageDynamicHeaderTitle>
+        </uxap:headerTitle>
+        <uxap:headerContent>
+            
+        </uxap:headerContent>
+        <uxap:sections>
+            <uxap:ObjectPageSection>
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection>
+                        <f:SimpleForm id="sfBasicData" binding="{vendor}" editable="true" layout="ResponsiveGridLayout" title="{i18n>BasicData}" labelSpanXL="4" labelSpanL="4" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2" singleContainerFullSize="false">
+                            <f:content>
+                                <core:Title />
+                                <Label text="{i18n>CustomerName}" />
+                                <Text text="{name}" />
+                                <Label text="{i18n>email}" />
+                                <Text text="{email}"/>
+                                <core:Title />
+                                <Label text="{i18n>mobile}" />
+                                <Text text="{mobile}"/>
+                                <Label text="{i18n>pan}" />
+                                <Text text="{pan}"/>
+                            </f:content>
+                        </f:SimpleForm>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>itemDetails}">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection title="{i18n>parentLineItems}">
+                        <VBox renderType="Bare">
+                            <Table id="idParentLineItemsTable" width="auto" items="{parent_line_items}" noDataText="{i18n>noParentItems}" growing="true" growingScrollToLoad="true" updateFinished=".onParentItemsTableUpdateFinished" selectionChange=".onParentItemSelect" mode="SingleSelectMaster">
+                                <headerToolbar>
+                                    <OverflowToolbar>
+                                        <Title text="{i18n>items}" level="H4" id="parentItemsTableHeader"/>
+                                        <ToolbarSpacer />
+                                        <SearchField tooltip="{i18n>searchItem}" placeholder="{i18n>searchItem}">
+                                            <layoutData>
+                                                <OverflowToolbarLayoutData maxWidth="200px" priority="NeverOverflow" group="1"/>
+                                            </layoutData>
+                                        </SearchField>
+                                        <Button tooltip="{i18n>sort}" icon="sap-icon://sort" press="handleSortButtonPressed" type="Transparent"/>
+                                        <Button tooltip="{i18n>filter}" icon="sap-icon://filter" press="handleFilterButtonPressed" type="Transparent"/>
+                                        <Button text="create" icon="sap-icon://add" press=".onParentItemCreatePress"/>
+                                        <Button text="delete" icon="sap-icon://delete"/>
+                                        <Button text="Export" press=".onExportParentItemsExportPress" icon="sap-icon://download"/>
+                                    </OverflowToolbar>
+                                </headerToolbar>
+
+                                <columns>
+                                    <Column>
+                                        <Text text="{i18n>materialCode}"/>
+                                    </Column>
+                                    <Column>
+                                        <Text text="{i18n>description}"/>
+                                    </Column>
+                                    <Column>
+                                        <Text text="{i18n>quantity}"/>
+                                    </Column>
+                                    <Column>
+                                        <Text text="{i18n>ViewChildLineItems}"/>
+                                    </Column>
+                                     <Column>
+                                        <Text text="{i18n>EditButton}"/>
+                                    </Column>
+                                </columns>
+
+                                <items>
+                                    <ColumnListItem type="Active">
+                                        <cells>
+                                            <ObjectIdentifier title="{material_code}" titleActive="true"/>
+                                            <Text text="{description}"/>
+                                            <Text text="{qty}"/>
+                                            <Button text="{i18n>ViewChildLineItems}" type="Emphasized" press="onViewChildItemPress"/>
+                                            <Button icon="sap-icon://edit" type="Emphasized" press="onViewPress"/>
+                                        </cells>
+                                    </ColumnListItem>
+                                </items>
+
+                            </Table>
+                        </VBox>
+                    </uxap:ObjectPageSubSection>
+                       
+                    <uxap:ObjectPageSubSection title="{i18n>inspectionItemsTitle}" visible="{= %{status}==='CONFIRMED' ? true : false}" id="idInspectionTableSubSection">
+                        <VBox>
+                            <Table id="idInspectionTable" width="auto" noDataText="{i18n>noInspectionItems}" growing="true" growingScrollToLoad="true" items="{inspection_call_ids}">
+                                <columns>
+                                    <Column>
+                                        <Text text="{i18n>inspectionID}"/>
+                                    </Column>
+                                    <Column>
+                                        <Text text="{i18n>date}"/>
+                                    </Column>
+                                </columns>
+
+                                <items>
+                                    <ColumnListItem type="Navigation" press=".onInspectionIDPress">
+                                        <cells>
+                                            <ObjectIdentifier title="{inspection_call_id}" titleActive="true"/>
+                                            <Text text="{createdAt}"/>
+                                        </cells>
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
+                        </VBox>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+        </uxap:sections>
+    </uxap:ObjectPageLayout>
+</mvc:View>
