@@ -126,8 +126,11 @@
                                     <Column>
                                         <Text text="{i18n>ViewChildLineItems}"/>
                                     </Column>
-                                     <Column>
+                                    <Column width="5%">
                                         <Text text="{i18n>EditButton}"/>
+                                    </Column>
+                                    <Column width="5%">
+                                        <Text text="{i18n>DeleteButton}"/>
                                     </Column>
                                 </columns>
 
@@ -139,6 +142,7 @@
                                             <Text text="{qty}"/>
                                             <Button text="{i18n>ViewChildLineItems}" type="Emphasized" press="onViewChildItemPress"/>
                                             <Button icon="sap-icon://edit" type="Emphasized" press="onViewPress"/>
+                                            <Button icon="sap-icon://delete" type="Emphasized" press="onDeletePress"/>
                                         </cells>
                                     </ColumnListItem>
                                 </items>
@@ -174,7 +178,6 @@
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>
             </uxap:ObjectPageSection>
-
         </uxap:sections>
         <uxap:footer>
             <OverflowToolbar>

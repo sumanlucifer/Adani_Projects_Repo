@@ -85,7 +85,7 @@ sap.ui.define([
             // Open PO table
             this.getView().byId("idPurchaseOrdersTable").bindItems({
                 path: "/PurchaseOrders",
-                template: this.byId("idPurchaseOrdersTable").removeItem(0),
+                template: this.byId("idOpenPOColumnItem"),
                 parameters: {
                     "$expand": {
                         "vendor": {
@@ -108,7 +108,7 @@ sap.ui.define([
             // Confirm PO Table
             this.getView().byId("idConfirmPOTable").bindItems({
                 path: "/PurchaseOrders",
-                template: this.byId("idConfirmPOTable").removeItem(0),
+                template: this.byId("idConfirmColumnItem"),
                 parameters: {
                     "$expand": {
                         "vendor": {
@@ -130,7 +130,7 @@ sap.ui.define([
             // Dispatched PO Table
             this.getView().byId("idDispatchedPOTable").bindItems({
                 path: "/PurchaseOrders",
-                template: this.byId("idDispatchedPOTable").removeItem(0),
+                template: this.byId("idDispatchColumnItem"),
                 parameters: {
                     "$expand": {
                         "vendor": {

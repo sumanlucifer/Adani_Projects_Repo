@@ -3,7 +3,7 @@
     <Dialog id="helloDialog" contentHeight="50%" contentWidth="50%" title="Child Items Detail">
         <content>
         <VBox binding="{parent_line_items/child_line_items}"></VBox>
-            <Table width="auto" growing="true" growingScrollToLoad="true" items="{child_line_items}">
+            <Table width="auto" growing="true" growingScrollToLoad="true" items="{path: 'child_line_items', parameters: { $$updateGroupId : 'childLineItemOnPopUp'}}">
                 <headerToolbar>
                     <OverflowToolbar>
                         <ToolbarSpacer />
@@ -17,12 +17,20 @@
                     <Column>
                         <Text text="Quantity"/>
                     </Column>
+                    <Column width="5%">
+                        <Text text="{i18n>EditButton}"/>
+                    </Column>
+                    <Column width="5%">
+                        <Text text="{i18n>DeleteButton}"/>
+                    </Column>
                 </columns>
                 <items>
                     <ColumnListItem  press=".onchildItemPress">
                         <cells>
                             <ObjectIdentifier title="{material_code}" titleActive="true"/>
                             <Text text="{qty}"/>
+                            <Button icon="sap-icon://edit" type="Emphasized" press="onViewPress"/>
+                            <Button icon="sap-icon://delete" type="Emphasized" press="onDeletePress"/>
                         </cells>
                     </ColumnListItem>
                 </items>
