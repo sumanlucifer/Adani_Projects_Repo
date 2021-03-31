@@ -27,6 +27,16 @@
                     "title": "{{appTileTitle}}"
                 }
             }
+        },
+        "dataSources": {
+            "default": {
+                "uri": "/AGEL_MMTS_API/odata/v4/QRCodeService/",
+                "type": "OData",
+                "settings": {
+                    "odataVersion": "4.0",
+                    "localUri": "localService/metadata.xml"
+                }
+            }
         }
 	},
 	
@@ -73,7 +83,17 @@
 				"settings": {
 					"bundleName": "com.agel.mmts.securityPerson-ScanQR.i18n.i18n"
 				}
-			}
+            },
+            "": {
+                "settings": {
+                    "operationMode": "Server",
+                    "groupId": "$direct",
+                    "synchronizationMode": "None",
+                    "autoExpandSelect": true
+                },
+                "dataSource": "default",
+                "preload": true
+            }
 		},
 		"resources": {
 			"css": [{

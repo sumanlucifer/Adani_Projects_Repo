@@ -92,30 +92,6 @@
                             </Table>
                         </VBox>
                     </uxap:ObjectPageSubSection>
-                       
-                    <uxap:ObjectPageSubSection title="{i18n>inspectionItemsTitle}" visible="{= %{status}==='CONFIRMED' ? true : false}" id="idInspectionTableSubSection">
-                        <VBox>
-                            <Table id="idInspectionTable" width="auto" noDataText="{i18n>noInspectionItems}" growing="true" growingScrollToLoad="true" items="{inspection_call_ids}">
-                                <columns>
-                                    <Column>
-                                        <Text text="{i18n>inspectionID}"/>
-                                    </Column>
-                                    <Column>
-                                        <Text text="{i18n>date}"/>
-                                    </Column>
-                                </columns>
-
-                                <items>
-                                    <ColumnListItem type="Navigation" press=".onInspectionIDPress">
-                                        <cells>
-                                            <ObjectIdentifier title="{inspection_call_id}" titleActive="true"/>
-                                            <Text text="{createdAt}"/>
-                                        </cells>
-                                    </ColumnListItem>
-                                </items>
-                            </Table>
-                        </VBox>
-                    </uxap:ObjectPageSubSection>
                 </uxap:subSections>
             </uxap:ObjectPageSection>
 
