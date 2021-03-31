@@ -96,6 +96,30 @@ modules:
       - admin-Reports-content.zip
       name: admin-Reports
       target-path: resources/
+    - artifacts:
+      - quickAccess-History-content.zip
+      name: quickAccess-History
+      target-path: resources/
+    - artifacts:
+      - quickAccess-Reports-content.zip
+      name: quickAccess-Reports
+      target-path: resources/
+    - artifacts:
+      - quickAccess-UnloadMaterial-content.zip
+      name: quickAccess-UnloadMaterial
+      target-path: resources/
+    - artifacts:
+      - quickAccess-IssueMaterial-content.zip
+      name: quickAccess-IssueMaterial
+      target-path: resources/
+    - artifacts:
+      - quickAccess-TransferStock-content.zip
+      name: quickAccess-TransferStock
+      target-path: resources/
+    - artifacts:
+      - quickAccess-storeInCharge-Reports-content.zip
+      name: quickAccess-storeInCharge-Reports
+      target-path: resources/
 - name: vendorPersona
   type: html5
   path: vendorPersona
@@ -236,6 +260,54 @@ modules:
 - name: admin-Reports
   type: html5
   path: admin-Reports
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []
+- name: quickAccess-History
+  type: html5
+  path: quickAccess-History
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []
+- name: quickAccess-Reports
+  type: html5
+  path: quickAccess-Reports
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []
+- name: quickAccess-UnloadMaterial
+  type: html5
+  path: quickAccess-UnloadMaterial
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []
+- name: quickAccess-IssueMaterial
+  type: html5
+  path: quickAccess-IssueMaterial
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []
+- name: quickAccess-TransferStock
+  type: html5
+  path: quickAccess-TransferStock
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []
+- name: quickAccess-storeInCharge-Reports
+  type: html5
+  path: quickAccess-storeInCharge-Reports
   build-parameters:
     builder: custom
     commands:
