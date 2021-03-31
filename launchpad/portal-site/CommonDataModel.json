@@ -94,11 +94,11 @@
                     "viz": [
                         {
                             "appId": "com.agel.mmts.securityPerson-ScanQR",
-                            "vizId": "ScanQR-StoreInCharge"
+                            "vizId": "ScanQR-SecurityPerson"
                         },
                         {
                             "appId": "com.agel.mmts.securityPerson-History",
-                            "vizId": "History-StoreInCharge"
+                            "vizId": "History-SecurityPerson"
                         }
                     ]
                 }
