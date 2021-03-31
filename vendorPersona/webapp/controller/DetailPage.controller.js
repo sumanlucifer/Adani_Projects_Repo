@@ -23,7 +23,7 @@ sap.ui.define([
             var oIconTabCountModel = new JSONModel({
                 openCount: null,
                 confirmCount: null,
-                dispatchCount : null
+                dispatchCount: null
             });
             this.setModel(oIconTabCountModel, "oIconTabCountModel");
 
@@ -76,68 +76,27 @@ sap.ui.define([
 
         // on Bind View 
         _bindView: function (sObjectPath) {
-            
-            var objectViewModel = this.getViewModel("objectViewModel");
             var userInfo = sap.ushell.Container.getService("UserInfo");
             var userEmail = userInfo.getEmail();
 
-            userEmail = userEmail || 'symantic.engineering@testemail.com'
+            userEmail = userEmail || 'venkatesh.hulekal@extentia.com'
             // Open PO table
-            this.getView().byId("idPurchaseOrdersTable").bindItems({
-                path: "/PurchaseOrders",
-                template: this.byId("idOpenPOColumnItem"),
-                parameters: {
-                    "$expand": {
-                        "vendor": {
-                            "$filter": "email eq 'symantic.engineering@testemail.com'"
-                        }                    
-                    } ,
-                    "$filter" : "status eq 'PENDING'",
-                    "$count" : true                   
-                },
-                events: {
-                    dataRequested: function () {
-                        objectViewModel.setProperty("/busy", true);
-                    },
-                    dataReceived: function () {
-                        objectViewModel.setProperty("/busy", false);
-                    }
-                }
-            });
+            this._filterItemsAndBindTable("idPurchaseOrdersTable", "PENDING", userEmail);
+            this._filterItemsAndBindTable("idConfirmPOTable", "CONFIRMED", userEmail);
+            this._filterItemsAndBindTable("idDispatchedPOTable", "DISPATCHED", userEmail);
+        },
 
-            // Confirm PO Table
-            this.getView().byId("idConfirmPOTable").bindItems({
+        _filterItemsAndBindTable: function (sTableID, status, email) {
+            var objectViewModel = this.getViewModel("objectViewModel");
+            this.getView().byId(sTableID).bindItems({
                 path: "/PurchaseOrders",
-                template: this.byId("idConfirmColumnItem"),
+                template: this.byId(sTableID).getBindingInfo("items").template,
                 parameters: {
                     "$expand": {
-                        "vendor": {
-                            "$filter": "email eq 'symantic.engineering@testemail.com'"
-                        }                    
-                    } ,
-                    "$filter" : "status eq 'CONFIRMED'"                   
-                },
-                events: {
-                    dataRequested: function () {
-                        objectViewModel.setProperty("/busy", true);
+                        "vendor": {}
                     },
-                    dataReceived: function () {
-                        objectViewModel.setProperty("/busy", false);
-                    }
-                }
-            });
-
-            // Dispatched PO Table
-            this.getView().byId("idDispatchedPOTable").bindItems({
-                path: "/PurchaseOrders",
-                template: this.byId("idDispatchColumnItem"),
-                parameters: {
-                    "$expand": {
-                        "vendor": {
-                            "$filter": "email eq 'symantic.engineering@testemail.com'"
-                        }                    
-                    } ,
-                    "$filter" : "status eq 'DISPATCHED'"                   
+                    "$filter": "vendor/email eq '" + email + "' and status eq '" + status + "'",
+                    "$count": true
                 },
                 events: {
                     dataRequested: function () {
@@ -152,36 +111,35 @@ sap.ui.define([
 
         onPurchaseOrderTableUpdateFinished: function (oEvent) {
             //Setting the header context for a property binding to $count
-                       
-            this.setIconTabCount(oEvent,oEvent.getParameter("total"),"/openCount");
-            
+            this.setIconTabCount(oEvent, oEvent.getParameter("total"), "/openCount");
         },
 
-        onConfirmPOTableUpdateFinished : function (oEvent) {
+        onConfirmPOTableUpdateFinished: function (oEvent) {
             //Setting the header context for a property binding to $count                       
-            this.setIconTabCount(oEvent,oEvent.getParameter("total"),"/confirmCount");    
+            this.setIconTabCount(oEvent, oEvent.getParameter("total"), "/confirmCount");
         },
 
-        onDispatchPOTableUpdateFinished :  function (oEvent) {
+        onDispatchPOTableUpdateFinished: function (oEvent) {
             //Setting the header context for a property binding to $count               
-            this.setIconTabCount(oEvent,oEvent.getParameter("total"),"/dispatchCount"); 
+            this.setIconTabCount(oEvent, oEvent.getParameter("total"), "/dispatchCount");
         },
 
-        setIconTabCount : function(oEvent,total,property){
-            if( oEvent.getSource().getBinding("items").isLengthFinal()){ 
-               this.getView().getModel("oIconTabCountModel").setProperty(property,total);
+        setIconTabCount: function (oEvent, total, property) {
+            if (oEvent.getSource().getBinding("items").isLengthFinal()) {
+                this.getView().getModel("oIconTabCountModel").setProperty(property, total);
             }
         },
-        
+
         // On Icon Tab Select
-        onIconTabSelect : function(oEvent){
-            var sKey =  oEvent.getParameter("key");
-            if(sKey === "OpenPOKey"){
+        onIconTabSelect: function (oEvent) {
+            var sKey = oEvent.getParameter("key");
+            console.log(sKey);
+            if (sKey === "OpenPOKey") {
                 this.byId("pageTitle").setText(this.getResourceBundle().getText("OpenPOs"));
-            }else if( sKey == "ConfirmPOKey" ){
-                 this.byId("pageTitle").setText(this.getResourceBundle().getText("ConfirmedPOs"));
+            } else if (sKey == "ConfirmPOKey") {
+                this.byId("pageTitle").setText(this.getResourceBundle().getText("ConfirmedPOs"));
                 //this.byId("pageTitle").setText("Confirmed PO");
-            }else{
+            } else {
                 this.byId("pageTitle").setText(this.getResourceBundle().getText("DispatchedPOs"));
             }
         },
@@ -277,7 +235,7 @@ sap.ui.define([
         //when the breadcrum pressed
         handleToAllVendorsBreadcrumPress: function (oEvent) {
             this.getRouter().navTo("RouteLandingPage");
-                 
+
         },
 
         // on Go Search 

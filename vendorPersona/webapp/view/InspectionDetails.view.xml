@@ -1,51 +1,67 @@
-<mvc:View xmlns:mvc="sap.ui.core.mvc"
-    xmlns:uxap="sap.uxap"
-    xmlns:layout="sap.ui.layout"
+<mvc:View controllerName="com.agel.mmts.vendorPersona.controller.InspectionDetails" height="100%"
+    xmlns:mvc="sap.ui.core.mvc"
     xmlns:core="sap.ui.core"
-    xmlns:f="sap.ui.layout.form"
-    xmlns="sap.m" controllerName="com.agel.mmts.vendorPersona.controller.InspectionDetails">
-    <uxap:ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true" headerContentPinnable="true" busy="{objectViewModel>busy}">
-        <uxap:headerTitle>
-            <uxap:ObjectPageDynamicHeaderTitle>
-                <uxap:breadcrumbs>
-                    <Breadcrumbs currentLocationText="{i18n>inspectionDeatils}">
-                        <Link text="{i18n>vendorDetails}"/>
+    xmlns:layout="sap.ui.layout"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:fb="sap.ui.comp.filterbar"
+    xmlns:vm="sap.ui.comp.variants">
+    <f:DynamicPage headerExpanded="true">
+        <!-- DynamicPage Title -->
+        <f:title>
+            <f:DynamicPageTitle>
+                <f:heading>
+                    <Title text="{inspection_call_id}" wrapping="true"/>
+                </f:heading>
+                <f:breadcrumbs>
+                    <Breadcrumbs>
+                        <Link text="All POs" />
+                        <Link text="PO {po_number} Details" />
+                        <Link text="Inspection Details" />
                     </Breadcrumbs>
-                </uxap:breadcrumbs>
-
-                <uxap:expandedHeading>
-                    <Title text="{inspection_call_id}" class="sapUiTinyMarginEnd"/>
-                </uxap:expandedHeading>
-
-                <uxap:snappedHeading>
-                    <FlexBox fitContainer="true" alignItems="Center" renderType="Bare">
-                        <!-- <Avatar class="sapUiTinyMarginEnd" showBorder="true" backgroundColor="Random" src="sap-icon://supplier"/> -->
-                        <FlexBox direction="Column" renderType="Bare">
-                            <Title text="{inspection_call_id}" wrapping="true"/>
-                        </FlexBox>
-                    </FlexBox>
-                </uxap:snappedHeading>
-
-                <uxap:expandedContent>
-                    <Text text="{purchase_order_po_number}"/>
-                </uxap:expandedContent>
-
-
-                <uxap:snappedTitleOnMobile>
-                    <Title text="{purchase_order_po_number}"/>
-                </uxap:snappedTitleOnMobile>
-
-            </uxap:ObjectPageDynamicHeaderTitle>
-
-
-        </uxap:headerTitle>
-
-        <uxap:sections>
-            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>itemDetails}">
-                <uxap:subSections>
-                    <uxap:ObjectPageSubSection title="{i18n>inspectedParentLineItems}">
+                </f:breadcrumbs>
+                <f:expandedContent>
+                    <Label text="PO Number - {po_number}"/>
+                </f:expandedContent>
+                <f:snappedContent>
+                     <Label text="PO Number - {po_number}"/>
+                </f:snappedContent>
+                <f:snappedTitleOnMobile>
+                    <Title text="{inspection_call_id}"/>
+                </f:snappedTitleOnMobile>
+            </f:DynamicPageTitle>
+        </f:title>
+        <!-- DynamicPage Header -->
+        <f:header>
+            <f:DynamicPageHeader pinnable="true">
+                <f:content>
+                    <Label text="Created on - {createdAt}"/>
+                </f:content>
+            </f:DynamicPageHeader>
+        </f:header>
+        <!-- DynamicPage Content -->
+        <f:content>
+            <IconTabBar expanded="{device>/isNoPhone}" class="sapUiResponsiveContentPadding">
+                <items>
+                    <IconTabFilter text="{i18n>itemDetails}">
                         <VBox renderType="Bare">
                             <Table id="idInspectedParentLineItems" width="auto" items="{insepected_parent_line_items}" noDataText="{i18n>noParentItems}" growing="true" growingScrollToLoad="true" selectionChange=".onParentItemSelect" mode="SingleSelectMaster">
+                                <headerToolbar>
+                                    <OverflowToolbar>
+                                        <Title text="Inspected Parent Items" level="H4" id="idInspectedParentItems"/>
+                                        <ToolbarSpacer />
+                                        <SearchField tooltip="{i18n>searchItem}" placeholder="{i18n>searchItem}">
+                                            <layoutData>
+                                                <OverflowToolbarLayoutData maxWidth="200px" priority="NeverOverflow" group="1"/>
+                                            </layoutData>
+                                        </SearchField>
+                                        <Button tooltip="{i18n>sort}" icon="sap-icon://sort" press="handleSortButtonPressed" type="Transparent"/>
+                                        <Button tooltip="{i18n>filter}" icon="sap-icon://filter" press="handleFilterButtonPressed" type="Transparent"/>
+                                        <Button press=".onExportParentItemsExportPress" icon="sap-icon://download"/>
+                                        <Button text="Create Packing List" type="Emphasized"/>
+                                        <Button text="Generate QR Code" type="Emphasized" binding="{qrCodeModel>/generateQRCode(...)}" press=".onGenerateQRCodePress"/>
+                                    </OverflowToolbar>
+                                </headerToolbar>
                                 <columns>
                                     <Column>
                                         <Text text="{i18n>materialCode}"/>
@@ -74,53 +90,56 @@
 
                             </Table>
                         </VBox>
-                    </uxap:ObjectPageSubSection>
-                    <!-- <uxap:ObjectPageSubSection title="{i18n>childLineItems}" visible="false" id="idChildItemsTableSubsection">
-                        <VBox id="childItemTable">
-                            <Table id="idChildItemsTable" width="auto" noDataText="{i18n>noChildItems}" growing="true" growingScrollToLoad="true" updateFinished=".onChildItemsTableUpdateFinished" updateStarted=".onChildTableUpdateStarted" items="{/ChildLineItems}">
+                    </IconTabFilter>
+                    <IconTabFilter text="{i18n>packingLists}">
+                        <VBox renderType="Bare">
+                            <Table id="id" width="auto" items="{packing_lists}" noDataText="{i18n>noPackingLists}" growing="true" growingScrollToLoad="true">
                                 <headerToolbar>
                                     <OverflowToolbar>
-                                        <Title text="{i18n>items}" level="H4" id="idChildItemsTableHeader"/>
+                                        <Title text="Packing List" level="H4" id="idPackingListTitle"/>
                                         <ToolbarSpacer />
-                                        <SearchField id="searchField" tooltip="{i18n>searchOrder}" placeholder="{i18n>searchOrder}">
+                                        <SearchField tooltip="{i18n>searchItem}" placeholder="{i18n>searchItem}">
                                             <layoutData>
-                                                <OverflowToolbarLayoutData maxWidth="200px" priority="NeverOverflow"/>
+                                                <OverflowToolbarLayoutData maxWidth="200px" priority="NeverOverflow" group="1"/>
                                             </layoutData>
                                         </SearchField>
-                                        <Button tooltip="{i18n>sort}" icon="sap-icon://sort" press="handleSortButtonPressed" />
-                                        <Button tooltip="{i18n>filter}" icon="sap-icon://filter" press="handleFilterButtonPressed" />
-                                        <Button icon="sap-icon://edit" press="onEditPress" text="Edit" />
+                                        <Button tooltip="{i18n>sort}" icon="sap-icon://sort" press="handleSortButtonPressed" type="Transparent"/>
+                                        <Button tooltip="{i18n>filter}" icon="sap-icon://filter" press="handleFilterButtonPressed" type="Transparent"/>
+                                        <Button press=".onExportParentItemsExportPress" icon="sap-icon://download"/>
                                     </OverflowToolbar>
                                 </headerToolbar>
-
                                 <columns>
                                     <Column>
-                                        <Text text="{i18n>materialCode}"/>
+                                        <Text text="{i18n>poNumber}"/>
                                     </Column>
                                     <Column>
-                                        <Text text="{i18n>description}"/>
+                                        <Text text="{i18n>vehicleNo}"/>
                                     </Column>
                                     <Column>
-                                        <Text text="{i18n>quantity}"/>
+                                        <Text text="{i18n>createdAt}"/>
+                                    </Column>
+                                    <Column>
+                                        <Text text="{i18n>status}"/>
                                     </Column>
                                 </columns>
 
                                 <items>
-                                    <ColumnListItem type="Active" id="idTemplate">
+                                    <ColumnListItem type="Navigation" press="onPackingListItemPress"> 
                                         <cells>
-                                            <ObjectIdentifier title="{material_code}" titleActive="true"/>
-                                            <Text text="{description}"/>
-                                            <Text text="{qty}"/>
+                                            <Text text="{po_number}"/>
+                                            <Text text="{vehicle_no}"/>
+                                            <Text text="{createdAt}"/>
+                                            <ObjectStatus text="{status}" state="{= ${status}==='CONFIRMED' ? 'Success' : 'Warning'}"/>
                                         </cells>
                                     </ColumnListItem>
                                 </items>
 
                             </Table>
                         </VBox>
-                    </uxap:ObjectPageSubSection> -->
-                </uxap:subSections>
-            </uxap:ObjectPageSection>
-        </uxap:sections>
-    </uxap:ObjectPageLayout>
+                    </IconTabFilter>
+                </items>
+            </IconTabBar>
+        </f:content>
+    </f:DynamicPage>
 </mvc:View>
 

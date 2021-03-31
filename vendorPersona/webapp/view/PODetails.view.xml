@@ -60,7 +60,7 @@
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection>
                         <HBox width="50%">
-                            <f:SimpleForm id="sfBasicData" binding="{vendor}" editable="false" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="3" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="4" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="1" columnsM="1" singleContainerFullSize="true">
+                            <f:SimpleForm id="sfBasicData" binding="{vendor}" editable="false" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="3" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="4" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="1" columnsM="1" singleContainerFullSize="false">
                                 <f:content>
                                     <core:Title text="{i18n>vendorDetails}"/>
                                     <Label text="{i18n>CustomerName}" />
@@ -75,18 +75,35 @@
                             </f:SimpleForm>
                         </HBox>
                         <HBox>
-                            <f:SimpleForm id="sfAddressData" binding="{vendor/address}" editable="false" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="1" singleContainerFullSize="false">
-                                <f:content>
-                                    <core:Title text="{i18n>addressDetails}"/>
-                                    <Label/>
-                                    <VBox>
-                                        <items>
-                                            <Text text="{street},{city}"/>
-                                            <Text text="{country}-{zipcode}"/>
-                                        </items>
-                                    </VBox>
-                                </f:content>
-                            </f:SimpleForm>
+                            <VBox>
+                                <items>
+                                    <f:SimpleForm id="sfAddressData" editable="false" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="1" singleContainerFullSize="false">
+                                        <f:content>
+                                            <core:Title text="{i18n>serviceAddress}"/>
+                                            <Label text="{vendor/name}" design="Bold"/>
+                                            <VBox binding="{vendor/address}">
+                                                <items>
+                                                    <ObjectAttribute text="{street},{city}"/>
+                                                    <ObjectAttribute text="{country}-{zipcode}"/>
+                                                </items>
+                                            </VBox>
+                                        </f:content>
+                                    </f:SimpleForm>
+                                    <f:SimpleForm id="sfBuyerAddressData" editable="false" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="1" singleContainerFullSize="false">
+                                        <f:content>
+                                            <core:Title text="{i18n>billingAddress}"/>
+                                            <Label text="{buyer/name}" design="Bold"/>
+                                            <VBox binding="{buyer/address}">
+                                                <items>
+                                                    <ObjectAttribute text="{street},{city}"/>
+                                                    <ObjectAttribute text="{country}-{zipcode}"/>
+                                                </items>
+                                            </VBox>
+                                        </f:content>
+                                    </f:SimpleForm>
+                                </items>
+                            </VBox>
+
                         </HBox>
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>
@@ -107,9 +124,11 @@
                                         </SearchField>
                                         <Button tooltip="{i18n>sort}" icon="sap-icon://sort" press="handleSortButtonPressed" type="Transparent"/>
                                         <Button tooltip="{i18n>filter}" icon="sap-icon://filter" press="handleFilterButtonPressed" type="Transparent"/>
-                                        <Button text="create" icon="sap-icon://add" press=".onParentItemCreatePress"/>
-                                        <Button text="delete" icon="sap-icon://delete"/>
-                                        <Button text="Export" press=".onExportParentItemsExportPress" icon="sap-icon://download"/>
+                                        <Button icon="sap-icon://add" press=".onParentItemCreatePress"/>
+                                        <Button press=".onExportParentItemsExportPress" icon="sap-icon://download"/>
+                                        <VBox visible="{= %{status}==='PENDING' ? true : false}">
+                                            <unified:FileUploader id="idBOQUploader" buttonOnly="true" buttonText="Upload BOQ" sameFilenameAllowed="true" multiple="false" fileType="csv" mimeType="text/csv" change="BOQFileSelectedForUpload" binding="{DocumentUploadModel>/uploadBOQ(...)}" style="Emphasized"/>
+                                        </VBox>
                                     </OverflowToolbar>
                                 </headerToolbar>
 

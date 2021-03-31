@@ -105,7 +105,12 @@
             "": {
                 "settings": {
                     "operationMode": "Server",
-                    "groupId": "$direct",
+                    "groupProperties": {
+                        "childLineItemOnPopUp": {
+                            "submit": "API"
+                        }
+                    },
+                    "autoExpandSelect": true,
                     "synchronizationMode": "None"
                 },
                 "dataSource": "default",
@@ -180,6 +185,13 @@
                     "target": [
                         "TargetInspectionDetailsPage"
                     ]
+                },
+                {
+                    "name": "RoutePackingDeatilsPage",
+                    "pattern": "PackingListDetails/{packingListID}",
+                    "target": [
+                        "TargetPackingListDetailsPage"
+                    ]
                 }
             ],
             "targets": {
@@ -214,6 +226,14 @@
                     "viewId": "InspectionDetails",
                     "viewName": "InspectionDetails",
                     "viewLevel": 4
+                },
+                "TargetPackingListDetailsPage": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewId": "PackingListDetails",
+                    "viewName": "PackingListDetails",
+                    "viewLevel": 5
                 }
             }
         }

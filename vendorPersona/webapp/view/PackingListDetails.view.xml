@@ -1,0 +1,97 @@
+<mvc:View controllerName="com.agel.mmts.vendorPersona.controller.PackingListDetails" height="100%"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns:layout="sap.ui.layout"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:fb="sap.ui.comp.filterbar"
+    xmlns:vm="sap.ui.comp.variants">
+    <f:DynamicPage headerExpanded="true">
+        <!-- DynamicPage Title -->
+        <f:title>
+            <f:DynamicPageTitle>
+                <f:heading >
+                    <Title text="Packing List for Inspection - {inspection_call_id}" wrapping="true" binding="{inspection_call_id}"/>
+                </f:heading>
+                <f:breadcrumbs>
+                    <Breadcrumbs>
+                        <Link text="All POs" />
+                        <Link text="PO {po_number} Details" />
+                        <Link text="Inspection {inspection_call_id} Details" binding="{inspection_call_id}"/>
+                        <Link text="Packing List Details" />
+                    </Breadcrumbs>
+                </f:breadcrumbs>
+                <f:expandedContent>
+                    <Label text="PO Number - {po_number}"/>
+                </f:expandedContent>
+                <f:snappedContent>
+                    <Label text="PO Number - {po_number}"/>
+                </f:snappedContent>
+                <f:snappedTitleOnMobile>
+                    <!-- <Title text="{inspection_call_id}"/> -->
+                </f:snappedTitleOnMobile>
+            </f:DynamicPageTitle>
+        </f:title>
+        <!-- DynamicPage Header -->
+        <f:header>
+            <f:DynamicPageHeader pinnable="true">
+                <f:content>
+                    <VBox>
+                        <items>
+                            <Label text="Created on - {createdAt}"/>
+                            <ObjectStatus text="Status - {status}" state="{= ${status}==='CONFIRMED' ? 'Success' : 'Warning'}"/>
+                            <Label text="Vehicle No - {vehicle_no}"/>
+                        </items>
+                    </VBox>
+
+                </f:content>
+            </f:DynamicPageHeader>
+        </f:header>
+        <!-- DynamicPage Content -->
+        <f:content>
+            <Table id="idInspectedParentLineItems" width="auto" items="{insepected_parent_line_items}" noDataText="{i18n>noParentItems}" growing="true" growingScrollToLoad="true" selectionChange=".onParentItemSelect" mode="SingleSelectMaster">
+                <headerToolbar>
+                    <OverflowToolbar>
+                        <Title text="Inspected Parent Items" level="H4" id="idInspectedParentItems"/>
+                        <ToolbarSpacer />
+                        <SearchField tooltip="{i18n>searchItem}" placeholder="{i18n>searchItem}">
+                            <layoutData>
+                                <OverflowToolbarLayoutData maxWidth="200px" priority="NeverOverflow" group="1"/>
+                            </layoutData>
+                        </SearchField>
+                        <Button tooltip="{i18n>sort}" icon="sap-icon://sort" press="handleSortButtonPressed" type="Transparent"/>
+                        <Button tooltip="{i18n>filter}" icon="sap-icon://filter" press="handleFilterButtonPressed" type="Transparent"/>
+                        <Button press=".onExportParentItemsExportPress" icon="sap-icon://download"/>
+                    </OverflowToolbar>
+                </headerToolbar>
+                <columns>
+                    <Column>
+                        <Text text="{i18n>materialCode}"/>
+                    </Column>
+                    <Column>
+                        <Text text="{i18n>description}"/>
+                    </Column>
+                    <Column>
+                        <Text text="{i18n>approvedQty}"/>
+                    </Column>
+                    <Column>
+                        <Text text="{i18n>viewChildInspectedMaterials}"/>
+                    </Column>
+                </columns>
+
+                <items>
+                    <ColumnListItem type="Active">
+                        <cells>
+                            <ObjectIdentifier title="{material_code}" titleActive="true"/>
+                            <Text text="{description}"/>
+                            <Text text="{approved_qty}"/>
+                            <Button type="Emphasized" text="{i18n>viewChildInspectedMaterials}" press=".onViewInspectedChildMaterialsPress"></Button>
+                        </cells>
+                    </ColumnListItem>
+                </items>
+
+            </Table>
+        </f:content>
+    </f:DynamicPage>
+</mvc:View>
+

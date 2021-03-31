@@ -1,16 +1,17 @@
 {
     "resources": [
         {
-            "name": "index.html"
+            "name": "Component-preload.js",
+            "merged": true
         },
         {
-            "name": "controller/LandingPage.controller.js"
+            "name": "manifest.json"
         },
         {
             "name": "model/models.js"
         },
         {
-            "name": "manifest.json"
+            "name": "controller/LandingPage.controller.js"
         },
         {
             "name": "Component.js"
@@ -19,12 +20,8 @@
             "name": "manifest-bundle.zip"
         },
         {
-            "name": "Component-preload.js",
-            "merged": true
-        },
-        {
-            "name": "Component-dbg.js",
-            "isDebug": true
+            "name": "i18n/i18n.properties",
+            "raw": "i18n/i18n.properties"
         },
         {
             "name": "controller/LandingPage-dbg.controller.js",
@@ -32,6 +29,10 @@
         },
         {
             "name": "model/models-dbg.js",
+            "isDebug": true
+        },
+        {
+            "name": "Component-dbg.js",
             "isDebug": true
         },
         {
@@ -44,8 +45,7 @@
             "name": "css/style.css"
         },
         {
-            "name": "i18n/i18n.properties",
-            "raw": "i18n/i18n.properties"
+            "name": "index.html"
         }
     ]
 }

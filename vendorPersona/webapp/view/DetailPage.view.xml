@@ -55,7 +55,7 @@
                 <items>
                     <IconTabFilter id="idOpenPOTabTitle" text="{i18n>openPOs}" key="OpenPOKey" count="{oIconTabCountModel>/openCount}">
                          <Table id="idPurchaseOrdersTable" width="auto" noDataText="{i18n>noDataForPOs}" busyIndicatorDelay="{objectViewModel>busy}" 
-                           updateFinished="onPurchaseOrderTableUpdateFinished" growing="true" growingScrollToLoad="true">
+                           updateFinished="onPurchaseOrderTableUpdateFinished" growing="true" growingScrollToLoad="true" items="{PurchaseOrders}">
                             <columns>
                                 <Column>
                                     <Text text="{i18n>ponum}"/>
@@ -85,7 +85,7 @@
                     </IconTabFilter>
                     <IconTabFilter text="{i18n>ConfirmedPO}" key="ConfirmPOKey" count="{oIconTabCountModel>/confirmCount}">
                          <Table id="idConfirmPOTable" width="auto" noDataText="{i18n>noDataForPOs}" busyIndicatorDelay="{objectViewModel>busy}" 
-                         updateFinished="onConfirmPOTableUpdateFinished" growing="true" growingScrollToLoad="true">
+                         updateFinished="onConfirmPOTableUpdateFinished" growing="true" growingScrollToLoad="true" items="{PurchaseOrders}">
                             <columns>
                                 <Column>
                                     <Text text="{i18n>ponum}"/>
@@ -114,7 +114,7 @@
                     </IconTabFilter>
                     <IconTabFilter text="{i18n>Dispatched}" key="DispatchPOKey" count="{oIconTabCountModel>/dispatchCount}">
                          <Table id="idDispatchedPOTable" width="auto" noDataText="{i18n>noDataForPOs}" busyIndicatorDelay="{objectViewModel>busy}" 
-                         updateFinished="onDispatchPOTableUpdateFinished" growing="true" growingScrollToLoad="true" >
+                         updateFinished="onDispatchPOTableUpdateFinished" growing="true" growingScrollToLoad="true" items="{PurchaseOrders}">
                             <columns>
                                 <Column>
                                     <Text text="{i18n>ponum}"/>

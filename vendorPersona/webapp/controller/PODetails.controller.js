@@ -12,12 +12,15 @@ sap.ui.define([
     'sap/base/util/deepExtend',
     'sap/ui/export/Spreadsheet',
     'sap/m/MessageToast',
-    "sap/m/MessageBox"
-], function(BaseController, JSONModel, Filter, FilterOperator, Fragment, Sorter, Device, History, ColumnListItem, Input, deepExtend, Spreadsheet, MessageToast,MessageBox) {
+    "sap/m/MessageBox",
+    "sap/m/ObjectIdentifier",
+    "sap/m/Text",
+    "sap/m/Button"
+], function (BaseController, JSONModel, Filter, FilterOperator, Fragment, Sorter, Device, History, ColumnListItem, Input, deepExtend, Spreadsheet, MessageToast, MessageBox, ObjectIdentifier, Text, Button) {
     "use strict";
 
     return BaseController.extend("com.agel.mmts.vendorPersona.controller.PODetails", {
-        onInit: function() {
+        onInit: function () {
             //view model instatiation
             var oViewModel = new JSONModel({
                 busy: true,
@@ -32,13 +35,13 @@ sap.ui.define([
             this.oRouter.getRoute("RoutePODetailPage").attachPatternMatched(this._onObjectMatched, this);
         },
 
-        _onObjectMatched: function(oEvent) {
+        _onObjectMatched: function (oEvent) {
             var sObjectId = oEvent.getParameter("arguments").POId;
             this._bindView("/PurchaseOrders" + sObjectId);
             //   this.getView().byId("idChildItemsTableSubsection").setVisible(false);
         },
 
-        _initializeCreationModels: function() {
+        _initializeCreationModels: function () {
             var oModel = new JSONModel({
                 "parent_line_item_id": null,
                 "description": null,
@@ -50,7 +53,7 @@ sap.ui.define([
             this.getView().setModel(oModel, "parentItemCreationModel")
         },
 
-        _bindView: function(sObjectPath) {
+        _bindView: function (sObjectPath) {
             var objectViewModel = this.getViewModel("objectViewModel");
             var that = this;
 
@@ -59,7 +62,11 @@ sap.ui.define([
                 parameters: {
                     "$expand": {
                         "parent_line_items": {
-
+                            "$expand": {
+                                "child_line_items": {
+                                    "$select": ["material_code", "qty"]
+                                }
+                            }
                         },
                         "vendor": {
                             "$expand": {
@@ -70,10 +77,10 @@ sap.ui.define([
                     }
                 },
                 events: {
-                    dataRequested: function() {
+                    dataRequested: function () {
                         objectViewModel.setProperty("/busy", true);
                     },
-                    dataReceived: function() {
+                    dataReceived: function () {
                         objectViewModel.setProperty("/busy", false);
                         var oView = that.getView();
                     }
@@ -82,27 +89,27 @@ sap.ui.define([
         },
 
         //when the breadcrum pressed
-        handleToAllVendorsBreadcrumPress: function(oEvent) {
+        handleToAllVendorsBreadcrumPress: function (oEvent) {
             this.getRouter().navTo("RouteLandingPage");
         },
 
-        handleToAllPOBreadcrumPress: function(oEvent) {
+        handleToAllPOBreadcrumPress: function (oEvent) {
             history.go(-1);
         },
 
-        onParentItemsTableUpdateFinished: function(oEvent) {
+        onParentItemsTableUpdateFinished: function (oEvent) {
             oEvent.getSource().removeSelections();
         },
 
-        onChildTableUpdateStarted: function(oEvent) {
+        onChildTableUpdateStarted: function (oEvent) {
             oEvent.getSource().setBusy(true);
         },
 
-        onChildItemsTableUpdateFinished: function(oEvent) {
+        onChildItemsTableUpdateFinished: function (oEvent) {
             oEvent.getSource().setBusy(false);
         },
 
-        onParentItemCreatePress: function(oEvent) {
+        onParentItemCreatePress: function (oEvent) {
             if (!this._oCreateParentItemDialog) {
                 this._oCreateDialog = sap.ui.xmlfragment("com.agel.mmts.vendorPersona.view.fragments.PODetails.CreateParentItem", this);
                 this.getView().addDependent(this._oCreateDialog);
@@ -110,11 +117,11 @@ sap.ui.define([
             this._oCreateDialog.open();
         },
 
-        closeDialog: function(oEvent) {
+        closeDialog: function (oEvent) {
             this._oCreateDialog.close();
         },
 
-        onSaveParentLineItemPress: function(oEvent) {
+        onSaveParentLineItemPress: function (oEvent) {
             var that = this;
             var oTable = this.getView().byId("idParentLineItemsTable"),
                 oBinding = oTable.getBinding("items"),
@@ -134,22 +141,22 @@ sap.ui.define([
             console.log(oContext);
 
 
-            oContext.created().then(function() {
+            oContext.created().then(function () {
                 debugger;
                 var oEntry = this.getObject();
                 sap.m.MessageBox.success("New entry created with name " + oEntry.name + " and quantity " + oEntry.qty);
-            }.bind(oContext, that), function(error) {
+            }.bind(oContext, that), function (error) {
                 sap.m.MessageBox.success("Error Creating Entries!!");
             }.bind(oContext));
             this.closeDialog();
 
             // saving the entry
-            var fnSuccess = function(response) {
+            var fnSuccess = function (response) {
                 //sap.m.MessageToast.show("!!");
                 //sap.m.MessageBox.success("Changes Saved Successfully!!");
             }.bind(this);
 
-            var fnError = function(oError) {
+            var fnError = function (oError) {
                 sap.m.MessageBox.alert(oError.toString());
             }.bind(this);
 
@@ -157,29 +164,29 @@ sap.ui.define([
             this.getView().getModel().submitBatch("parentItemsGroup").then(fnSuccess, fnError);
         },
 
-        onExportParentItemsExportPress: function(oEvent) {
+        onExportParentItemsExportPress: function (oEvent) {
             var aCols, oRowBinding, oSettings, oSheet, oTable;
 
             oTable = this.byId("idParentLineItemsTable");
             oRowBinding = oTable.getBinding('items');
 
             aCols = [{
-                    property: 'ID',
-                    label: 'ID',
-                    width: '30%'
-                },
-                {
-                    property: 'material_code',
-                    label: 'Material Code'
-                },
-                {
-                    property: 'description',
-                    label: 'Description'
-                },
-                {
-                    property: 'qty',
-                    label: 'Quantity'
-                }
+                property: 'ID',
+                label: 'ID',
+                width: '30%'
+            },
+            {
+                property: 'material_code',
+                label: 'Material Code'
+            },
+            {
+                property: 'description',
+                label: 'Description'
+            },
+            {
+                property: 'qty',
+                label: 'Quantity'
+            }
             ];
 
             var oModel = oRowBinding.getModel();
@@ -203,40 +210,43 @@ sap.ui.define([
 
             oSheet = new Spreadsheet(oSettings);
             oSheet.build()
-                .then(function() {
+                .then(function () {
                     MessageToast.show('Parent Items ready to Download!')
                 })
-                .finally(function() {
+                .finally(function () {
                     oSheet.destroy();
                 });
         },
 
-        onViewChildItemPress: function(oEvent) {
+        onViewChildItemPress: function (oEvent) {
             var oItem = oEvent.getSource();
             var that = this;
-            this._requestCronicalPath(oItem, function(sCronicalPath) {
+            this._requestCronicalPath(oItem, function (sCronicalPath) {
                 that.handleChildItemsDialogOpen(sCronicalPath);
             });
         },
 
-        _requestCronicalPath: function(oItem, callback) {
+        _requestCronicalPath: function (oItem, callback) {
             var that = this;
-            oItem.getBindingContext().requestCanonicalPath().then(function(sObjectPath) {
+            oItem.getBindingContext().requestCanonicalPath().then(function (sObjectPath) {
                 callback(sObjectPath);
             });
         },
 
         // Child Line Items Dialog Open
-        handleChildItemsDialogOpen: function(sParentItemPath) {
+        handleChildItemsDialogOpen: function (sParentItemPath) {
             // create dialog lazily
+            console.log({ sParentItemPath });
             var oDetails = {};
+            oDetails.controller = this;
             oDetails.view = this.getView();
             oDetails.sParentItemPath = sParentItemPath;
             if (!this.pDialog) {
                 this.pDialog = Fragment.load({
                     id: oDetails.view.getId(),
-                    name: "com.agel.mmts.vendorPersona.view.fragments.detailPage.ChildItemsDialog"
-                }).then(function(oDialog) {
+                    name: "com.agel.mmts.vendorPersona.view.fragments.detailPage.ChildItemsDialog",
+                    controller: oDetails.controller
+                }).then(function (oDialog) {
                     // connect dialog to the root view of this component (models, lifecycle)
                     oDetails.view.addDependent(oDialog);
                     oDialog.bindElement({
@@ -252,7 +262,7 @@ sap.ui.define([
                     return oDialog;
                 });
             }
-            this.pDialog.then(function(oDialog) {
+            this.pDialog.then(function (oDialog) {
                 oDetails.view.addDependent(oDialog);
                 oDialog.bindElement({
                     path: oDetails.sParentItemPath,
@@ -268,24 +278,24 @@ sap.ui.define([
             });
         },
 
-        onClose: function(oEvent) {
+        onClose: function (oEvent) {
             this.pDialog.close();
         },
 
-        fileUploaonBOQFileSelectedForUploadderChange: function(oEvent) {
+        BOQFileSelectedForUpload: function (oEvent) {
             // keep a reference of the uploaded file
             var that = this;
             var oFiles = oEvent.getParameters().files;
-            this._getImageData(URL.createObjectURL(oFiles[0]), function(base64) {
+            this._getImageData(URL.createObjectURL(oFiles[0]), function (base64) {
                 that._addData(base64);
             });
         },
 
-        _getImageData: function(url, callback) {
+        _getImageData: function (url, callback) {
             var xhr = new XMLHttpRequest();
-            xhr.onload = function() {
+            xhr.onload = function () {
                 var reader = new FileReader();
-                reader.onloadend = function() {
+                reader.onloadend = function () {
                     callback(reader.result);
                 };
                 reader.readAsDataURL(xhr.response);
@@ -295,10 +305,10 @@ sap.ui.define([
             xhr.send();
         },
 
-        _addData: function(data) {
+        _addData: function (data) {
             var that = this,
-            oViewContext = this.getView().getBindingContext().getObject(),
-            oBindingObject = this.byId("idBOQUploader").getObjectBinding("DocumentUploadModel");
+                oViewContext = this.getView().getBindingContext().getObject(),
+                oBindingObject = this.byId("idBOQUploader").getObjectBinding("DocumentUploadModel");
 
             data = data.substr(21, data.length);
 
@@ -306,14 +316,15 @@ sap.ui.define([
             oBindingObject.getParameterContext().setProperty("file", data);
             oBindingObject.getParameterContext().setProperty("po_number", oViewContext.po_number);
             oBindingObject.getParameterContext().setProperty("purchase_order_ID", oViewContext.ID);
+            debugger;
 
             //execute the action
             oBindingObject.execute().then(
-                function() {
+                function () {
                     MessageToast.show("BOQ uploaded!");
                     that.getView().getModel().refresh();
                 },
-                function(oError) {
+                function (oError) {
                     sap.m.MessageBox.alert(oError.message, {
                         title: "Error"
                     });
@@ -321,7 +332,7 @@ sap.ui.define([
             );
         },
 
-        onConfirmPO: function(oEvent) {
+        onConfirmPO: function (oEvent) {
             //initialize the action
             var that = this,
                 oViewContext = this.getView().getBindingContext().getObject(),
@@ -333,11 +344,11 @@ sap.ui.define([
 
             //execute the action
             oBindingObject.execute().then(
-                function() {
+                function () {
                     MessageToast.show("PO confirmed!");
                     that.getView().getModel().refresh();
                 },
-                function(oError) {
+                function (oError) {
                     sap.m.MessageBox.alert(oError.message, {
                         title: "Error"
                     });
@@ -346,35 +357,33 @@ sap.ui.define([
         },
 
         //triggers on press of a Inspection ID item from the list
-        onInspectionIDPress: function(oEvent) {
+        onInspectionIDPress: function (oEvent) {
             // The source is the list item that got pressed
             this._showObject(oEvent.getSource());
         },
 
         // On Parent Table Edit Row Button 
-        onViewPress: function(oEvent) {
+        onViewPress: function (oEvent) {
             var oItem = oEvent.getSource().getParent();
             var aCells = [
-
-                new sap.m.Input({
+                new Input({
                     value: "{material_code}"
                 }),
-                new sap.m.Input({
+                new Input({
                     value: "{description}"
                 }),
-                new sap.m.Input({
+                new Input({
                     value: "{qty}"
                 }),
-
-                new sap.m.Button({
+                new Button({
                     text: "View Child Line Items",
                     type: "Emphasized"
                 }).attachPress(this.onViewChildItemPress, this),
-                new sap.m.Button({
+                new Button({
                     icon: "sap-icon://save",
                     type: "Transparent"
                 }).attachPress(this.onSave, this),
-                new sap.m.Button({
+                new Button({
                     icon: "sap-icon://delete",
                     type: "Transparent"
                 }).attachPress(this.onDeletePress, this)
@@ -383,7 +392,7 @@ sap.ui.define([
         },
 
         // On Parent Table Modify Row
-        _modifyCells: function(tableRow, aCells) {
+        _modifyCells: function (tableRow, aCells) {
             for (let i = 0; i < aCells.length; i++) {
                 tableRow.removeCell(0);
                 tableRow.addCell(aCells[i]);
@@ -391,27 +400,27 @@ sap.ui.define([
         },
 
         // On Parent Table Row Save
-        onShowCells: function(oItem) {
+        onShowCells: function (oItem) {
             var aCells = [
-                new sap.m.ObjectIdentifier({
+                new ObjectIdentifier({
                     title: "{material_code}",
                     titleActive: true
                 }),
-                new sap.m.Text({
+                new Text({
                     text: "{description}"
                 }),
-                new sap.m.Text({
+                new Text({
                     text: "{qty}"
                 }),
-                new sap.m.Button({
+                new Button({
                     text: "View Child Line Items",
                     type: "Emphasized"
                 }).attachPress(this.onViewChildItemPress, this),
-                new sap.m.Button({
+                new Button({
                     icon: "sap-icon://edit",
                     type: "Emphasized"
                 }).attachPress(this.onViewPress, this),
-                new sap.m.Button({
+                new Button({
                     icon: "sap-icon://delete",
                     type: "Transparent"
                 }).attachPress(this.onDeletePress, this)
@@ -420,14 +429,14 @@ sap.ui.define([
         },
 
         // On Parent Item Table Save Record
-        onSave: function(oEvent) {
+        onSave: function (oEvent) {
             var oItem = oEvent.getSource().getParent();
-            var fnSuccess = function() {
+            var fnSuccess = function () {
                 this.onShowCells(oItem);
                 sap.m.MessageBox.success("Changes Saved Successfully!!");
             }.bind(this);
 
-            var fnError = function(oError) {
+            var fnError = function (oError) {
                 sap.m.MessageBox.alert(oError.toString());
             }.bind(this);
 
@@ -435,13 +444,13 @@ sap.ui.define([
         },
 
         // On Delete Parent Item Table  
-        onDeletePress: function(oEvent) {
+        onDeletePress: function (oEvent) {
             var oItemToDelete = oEvent.getSource();
             var that = this;
             MessageBox.warning("The parent item entry will be deleted. Press OK to continue", {
                 actions: [MessageBox.Action.OK, MessageBox.Action.CANCEL],
                 emphasizedAction: MessageBox.Action.OK,
-                onClose: function(oItemToDelete, sAction) {
+                onClose: function (oItemToDelete, sAction) {
                     if (sAction === MessageBox.Action.OK) {
                         this._deleteItem(oItemToDelete);
                     }
@@ -450,29 +459,29 @@ sap.ui.define([
         },
 
         // Delete Item Message Toast
-        _deleteItem: function(oItem) {
-            oItem.getBindingContext().delete("$auto").then(function() {
+        _deleteItem: function (oItem) {
+            oItem.getBindingContext().delete("$auto").then(function () {
                 MessageToast.show("Parent Item Deleted");
-            }.bind(this), function(oError) {
+            }.bind(this), function (oError) {
                 MessageBox.error(oError.message);
             });
         },
 
         // On Child View Detail Pop Up Edit Item Press
-        onViewChildViewPopUpPress: function(oEvent) {
+        onViewChildViewPopUpPress: function (oEvent) {
             var oItem = oEvent.getSource().getParent();
             var aCells = [
-                new sap.m.Input({
+                new Input({
                     value: "{material_code}"
                 }),
-                new sap.m.Input({
+                new Input({
                     value: "{qty}"
                 }),
-                new sap.m.Button({
+                new Button({
                     icon: "sap-icon://save",
                     type: "Transparent"
                 }).attachPress(this.onSaveChildViewPopUpPress, this),
-                new sap.m.Button({
+                new Button({
                     icon: "sap-icon://delete",
                     type: "Transparent"
                 }).attachPress(this.onDeleteChildViewPopPress, this)
@@ -481,21 +490,21 @@ sap.ui.define([
         },
 
         // On Child View PopUp Table Modify Row
-        _modifyCellsChildViewPopUp: function(tableRow, aCells) {
+        _modifyCellsChildViewPopUp: function (tableRow, aCells) {
             for (let i = 0; i < aCells.length; i++) {
                 tableRow.removeCell(0);
                 tableRow.addCell(aCells[i]);
             }
         },
- 
-        onSaveChildViewPopUpPress: function(oEvent) {
+
+        onSaveChildViewPopUpPress: function (oEvent) {
             var oItem = oEvent.getSource().getParent();
-            var fnSuccess = function() {
+            var fnSuccess = function () {
                 this.onShowCells(oItem);
                 sap.m.MessageBox.success("Changes Saved Successfully!!");
             }.bind(this);
 
-            var fnError = function(oError) {
+            var fnError = function (oError) {
                 sap.m.MessageBox.alert(oError.toString());
             }.bind(this);
 
@@ -503,13 +512,13 @@ sap.ui.define([
         },
 
         // On Delete Child View Pop Table Item   
-        onDeleteChildViewPopPress: function(oEvent) {
+        onDeleteChildViewPopPress: function (oEvent) {
             var oItemToDelete = oEvent.getSource();
             var that = this;
             MessageBox.warning("The parent item entry will be deleted. Press OK to continue", {
                 actions: [MessageBox.Action.OK, MessageBox.Action.CANCEL],
                 emphasizedAction: MessageBox.Action.OK,
-                onClose: function(oItemToDelete, sAction) {
+                onClose: function (oItemToDelete, sAction) {
                     if (sAction === MessageBox.Action.OK) {
                         this._deleteItemChildViewPop(oItemToDelete);
                     }
@@ -518,40 +527,40 @@ sap.ui.define([
         },
 
         // On Delete Child View Pop Table Item  Message Toast
-        _deleteItemChildViewPop: function(oItem) {
-            oItem.getBindingContext().delete("$auto").then(function() {
+        _deleteItemChildViewPop: function (oItem) {
+            oItem.getBindingContext().delete("$auto").then(function () {
                 MessageToast.show("Parent Item Deleted");
-            }.bind(this), function(oError) {
+            }.bind(this), function (oError) {
                 MessageBox.error(oError.message);
             });
         },
 
         // On Show Object - Navigation
-        _showObject: function(oItem) {
+        _showObject: function (oItem) {
             var that = this;
-            oItem.getBindingContext().requestCanonicalPath().then(function(sObjectPath) {
+            oItem.getBindingContext().requestCanonicalPath().then(function (sObjectPath) {
                 that.getRouter().navTo("RouteInspectionDetailsPage", {
                     inspectionID: sObjectPath.slice("/InspectionCallIds".length) // /PurchaseOrders(123)->(123)
                 });
             });
         },
 
-        onMessagePopoverPress: function(oEvent) {
+        onMessagePopoverPress: function (oEvent) {
             var oSourceControl = oEvent.getSource();
-            this._getMessagePopover().then(function(oMessagePopover) {
+            this._getMessagePopover().then(function (oMessagePopover) {
                 oMessagePopover.openBy(oSourceControl);
             });
         },
 
         // On Message PopOver
-        _getMessagePopover: function() {
+        _getMessagePopover: function () {
             var oView = this.getView();
             // create popover lazily (singleton)
             if (!this._pMessagePopover) {
                 this._pMessagePopover = sap.ui.core.Fragment.load({
                     id: oView.getId(),
                     name: "com.agel.mmts.vendorPersona.view.fragments.MessagePopover"
-                }).then(function(oMessagePopover) {
+                }).then(function (oMessagePopover) {
                     oView.addDependent(oMessagePopover);
                     return oMessagePopover;
                 });
