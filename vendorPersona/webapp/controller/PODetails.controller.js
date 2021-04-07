@@ -51,6 +51,17 @@ sap.ui.define([
                 "purchase_order_ID": null
             });
             this.getView().setModel(oModel, "parentItemCreationModel")
+
+            var oModel = new JSONModel({
+                "parent_line_item_ID": null,
+                "child_line_item_id": (Math.floor(Math.random() * (7777777777 - 7000000000 + 1)) + 7000000000).toString(),
+                "description": null,
+                "material_code": null,
+                "qty": null,
+                "comments": "Additional child items comments",
+                "uom": null
+            });
+            this.getView().setModel(oModel, "childItemCreationModel")
         },
 
         _bindView: function (sObjectPath) {
@@ -64,7 +75,7 @@ sap.ui.define([
                         "parent_line_items": {
                             "$expand": {
                                 "child_line_items": {
-                                    "$select": ["material_code", "qty"]
+                                    "$select": ["material_code","description", "qty", "uom"]
                                 }
                             }
                         },
@@ -142,7 +153,6 @@ sap.ui.define([
 
 
             oContext.created().then(function () {
-                debugger;
                 var oEntry = this.getObject();
                 sap.m.MessageBox.success("New entry created with name " + oEntry.name + " and quantity " + oEntry.qty);
             }.bind(oContext, that), function (error) {
@@ -254,7 +264,7 @@ sap.ui.define([
                         parameters: {
                             "$expand": {
                                 "child_line_items": {
-                                    "$select": ["ID", "material_code", "qty"]
+                                    "$select": ["ID", "material_code", "qty", "uom"]
                                 }
                             }
                         }
@@ -269,7 +279,7 @@ sap.ui.define([
                     parameters: {
                         "$expand": {
                             "child_line_items": {
-                                "$select": ["ID", "material_code", "qty"]
+                                "$select": ["ID", "material_code","description", "qty", "uom"]
                             }
                         }
                     }
@@ -316,7 +326,6 @@ sap.ui.define([
             oBindingObject.getParameterContext().setProperty("file", data);
             oBindingObject.getParameterContext().setProperty("po_number", oViewContext.po_number);
             oBindingObject.getParameterContext().setProperty("purchase_order_ID", oViewContext.ID);
-            debugger;
 
             //execute the action
             oBindingObject.execute().then(
@@ -533,6 +542,57 @@ sap.ui.define([
             }.bind(this), function (oError) {
                 MessageBox.error(oError.message);
             });
+        },
+
+        onCreateChildItemPress: function (oEvent) {
+            if (!this._oCreateParentItemDialog) {
+                this._oCreateDialog = sap.ui.xmlfragment("com.agel.mmts.vendorPersona.view.fragments.PODetails.CreateChildItem", this);
+                this.getView().addDependent(this._oCreateDialog);
+            }
+            this._oCreateDialog.open();
+        },
+
+        onSaveChildLineItemPress: function (oEvent) {
+            var that = this;
+
+            var oTable = this.getView().byId("idChildItemsTable"),
+                oBinding = oTable.getBinding("items"),
+                aInputData = this.getViewModel("childItemCreationModel").getData(),
+                aBindingContextPath = oTable.getBindingContext().getPath(),
+
+                // Create a new entry through the table's list binding
+                oContext = oBinding.create({
+                    "parent_line_item_ID": aBindingContextPath.slice("/ParentLineItems(".length, aBindingContextPath.length - 1),
+                    "child_line_item_id": aInputData.child_line_item_id,
+                    "description": aInputData.description,
+                    "material_code": aInputData.material_code,
+                    "qty": parseInt(aInputData.qty),
+                    "comments": aInputData.comments,
+                    "uom": aInputData.uom
+                });
+
+            console.log(oContext);
+
+
+            oContext.created().then(function () {
+                debugger;
+                sap.m.MessageBox.success("New entry created!");
+            }.bind(oContext, that), function (error) {
+                sap.m.MessageBox.success("Error Creating Entries!!");
+            }.bind(oContext));
+            this.closeDialog();
+        },
+
+        onChildItemsSavePress: function (oEvent) {
+            // saving the entry
+            var fnSuccess = function (response) {
+            }.bind(this);
+
+            var fnError = function (oError) {
+                sap.m.MessageBox.alert(oError.toString());
+            }.bind(this);
+
+            this.getView().getModel().submitBatch("childLineItemGroup").then(fnSuccess, fnError);
         },
 
         // On Show Object - Navigation

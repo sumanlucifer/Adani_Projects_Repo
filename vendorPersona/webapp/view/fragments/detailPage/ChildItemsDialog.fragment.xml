@@ -2,40 +2,49 @@
     xmlns:core="sap.ui.core">
     <Dialog contentHeight="50%" contentWidth="50%" title="Child Items Detail">
         <content>
-        
-            <Table width="auto" growing="true" growingScrollToLoad="true" items="{path: 'child_line_items', parameters: { $$updateGroupId : 'childLineItemOnPopUp'}}">
+
+            <Table width="auto" growing="true" id="idChildItemsTable" growingScrollToLoad="true" items="{path: 'child_line_items', parameters: { $$updateGroupId : 'childLineItemGroup'}}">
                 <headerToolbar>
                     <OverflowToolbar>
                         <ToolbarSpacer />
-                        <Button text="Add" type="Emphasized"/>
+                        <Button icon="sap-icon://add" type="Emphasized" press=".onCreateChildItemPress"/>
+                        <Button icon="sap-icon://save" type="Emphasized" press=".onChildItemsSavePress"/>
                     </OverflowToolbar>
                 </headerToolbar>
                 <columns>
                     <Column>
                         <Text text="Material Code"/>
                     </Column>
+                    <Column width="30%">
+                        <Text text="Description"/>
+                    </Column>
                     <Column>
                         <Text text="Quantity"/>
                     </Column>
-                    <Column width="5%">
+                    <Column>
+                        <Text text="UOM"/>
+                    </Column>
+                    <!--  <Column width="5%">
                         <Text text="{i18n>EditButton}"/>
                     </Column>
                     <Column width="5%">
                         <Text text="{i18n>DeleteButton}"/>
-                    </Column>
+                    </Column> -->
                 </columns>
                 <items>
-                    <ColumnListItem  press=".onchildItemPress">
+                    <ColumnListItem press=".onchildItemPress">
                         <cells>
                             <ObjectIdentifier title="{material_code}" titleActive="true"/>
+                            <Text text="{description}"/>
                             <Text text="{qty}"/>
-                            <Button icon="sap-icon://edit" type="Emphasized" press="onViewChildViewPopUpPress"/>
-                            <Button icon="sap-icon://delete" type="Emphasized" press="onDeleteChildViewPopPress"/>
+                            <Text text="{uom}"/>
+                            <!-- <Button icon="sap-icon://edit" type="Emphasized" press="onViewChildViewPopUpPress"/>
+                            <Button icon="sap-icon://delete" type="Emphasized" press="onDeleteChildViewPopPress"/> -->
                         </cells>
                     </ColumnListItem>
                 </items>
             </Table>
-        
+
         </content>
         <endButton>
             <Button text="Close" press="onViewChildDialogClose" />

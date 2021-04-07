@@ -106,7 +106,10 @@
                 "settings": {
                     "operationMode": "Server",
                     "groupProperties": {
-                        "childLineItemOnPopUp": {
+                        "childLineItemGroup": {
+                            "submit": "API"
+                        },
+                        "parentItemsGroup": {
                             "submit": "API"
                         }
                     },
@@ -159,13 +162,6 @@
             },
             "routes": [
                 {
-                    "name": "RouteLandingPage",
-                    "pattern": "LandingPage",
-                    "target": [
-                        "TargetLandingPage"
-                    ]
-                },
-                {
                     "name": "RouteDetailPage",
                     "pattern": "",
                     "target": [
@@ -195,19 +191,10 @@
                 }
             ],
             "targets": {
-                "TargetLandingPage": {
-                    "viewType": "XML",
-                    "transition": "slide",
-                    "clearControlAggregation": false,
-                    "viewId": "LandingPage",
-                    "viewName": "LandingPage",
-                    "viewLevel": 3
-                },
                 "TargetDetailPage": {
                     "viewType": "XML",
                     "transition": "slide",
                     "clearControlAggregation": false,
-                    "viewId": "DetailPage",
                     "viewName": "DetailPage",
                     "viewLevel": 1
                 },
@@ -215,25 +202,22 @@
                     "viewType": "XML",
                     "transition": "slide",
                     "clearControlAggregation": false,
-                    "viewId": "PODetails",
                     "viewName": "PODetails",
-                    "viewLevel": 3
+                    "viewLevel": 2
                 },
                 "TargetInspectionDetailsPage": {
                     "viewType": "XML",
                     "transition": "slide",
                     "clearControlAggregation": false,
-                    "viewId": "InspectionDetails",
                     "viewName": "InspectionDetails",
-                    "viewLevel": 4
+                    "viewLevel": 3
                 },
                 "TargetPackingListDetailsPage": {
                     "viewType": "XML",
                     "transition": "slide",
                     "clearControlAggregation": false,
-                    "viewId": "PackingListDetails",
                     "viewName": "PackingListDetails",
-                    "viewLevel": 5
+                    "viewLevel": 4
                 }
             }
         }

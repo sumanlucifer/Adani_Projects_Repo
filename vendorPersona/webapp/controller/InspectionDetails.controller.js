@@ -36,10 +36,12 @@ sap.ui.define([
                     "$expand": {
                         "insepected_parent_line_items": {
                             "$expand": {
-                                "inspected_child_line_items": {}
+                                "inspected_child_line_items": {
+                                    "$select" : ["material_code","description", "qty", "uom"]
+                                }
                             }
                         },
-                        "packing_lists":{}
+                        "packing_list":{}
                     }
                 },
                 events: {
@@ -85,7 +87,9 @@ sap.ui.define([
                         path: oDetails.sParentItemPath,
                         parameters: {
                             "$expand": {
-                                "inspected_child_line_items": {}
+                                "inspected_child_line_items": {
+                                    "$select": ["material_code", "description", "qty", "uom"]
+                                }
                             }
                         }
                     });
@@ -122,6 +126,7 @@ sap.ui.define([
             oBindingObject.getParameterContext().setProperty("inspection_call_id", "1000001");
             oBindingObject.getParameterContext().setProperty("width", 10);
             oBindingObject.getParameterContext().setProperty("height", 10);
+             oBindingObject.getParameterContext().setProperty("packing_list_id", 10);
 
             //execute the action
             oBindingObject.execute().then(

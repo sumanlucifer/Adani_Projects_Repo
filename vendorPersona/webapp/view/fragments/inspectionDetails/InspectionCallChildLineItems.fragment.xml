@@ -7,16 +7,24 @@
                     <Column>
                         <Text text="Material Code"/>
                     </Column>
+                    <Column width="40%">
+                        <Text text="Description"/>
+                    </Column>
                     <Column>
                         <Text text="Quantity"/>
+                    </Column>
+                    <Column>
+                        <Text text="UOM"/>
                     </Column>
                 </columns>
 
                 <items>
-                    <ColumnListItem type="Navigation" press=".onInspectionIDPress">
+                    <ColumnListItem press=".onInspectionIDPress">
                         <cells>
                             <ObjectIdentifier title="{material_code}" titleActive="true"/>
+                            <Text text="{description}"/>
                             <Text text="{qty}"/>
+                            <Text text="{uom}"/>
                         </cells>
                     </ColumnListItem>
                 </items>

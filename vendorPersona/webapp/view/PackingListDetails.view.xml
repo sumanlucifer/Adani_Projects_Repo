@@ -11,14 +11,13 @@
         <f:title>
             <f:DynamicPageTitle>
                 <f:heading >
-                    <Title text="Packing List for Inspection - {inspection_call_id}" wrapping="true" binding="{inspection_call_id}"/>
+                    <Title text="Packing List for Inspection - {inspection_call_id}" wrapping="true" binding="{insp_call}"/>
                 </f:heading>
                 <f:breadcrumbs>
-                    <Breadcrumbs>
-                        <Link text="All POs" />
-                        <Link text="PO {po_number} Details" />
-                        <Link text="Inspection {inspection_call_id} Details" binding="{inspection_call_id}"/>
-                        <Link text="Packing List Details" />
+                    <Breadcrumbs currentLocationText="{i18n>packingDetails}">
+                        <Link text="{i18n>allPOs}" press=".handleToAllPOBreadcrumPress"/>
+                        <Link text="{po_number} - {i18n>orderDetails}" binding="{purchase_order}"/>
+                        <Link text="{inspection_call_id} - {i18n>inspectionDetails}" binding="{insp_call}"/>
                     </Breadcrumbs>
                 </f:breadcrumbs>
                 <f:expandedContent>
@@ -36,61 +35,83 @@
         <f:header>
             <f:DynamicPageHeader pinnable="true">
                 <f:content>
-                    <VBox>
+                    <HBox alignItems="Center">
                         <items>
-                            <Label text="Created on - {createdAt}"/>
-                            <ObjectStatus text="Status - {status}" state="{= ${status}==='CONFIRMED' ? 'Success' : 'Warning'}"/>
-                            <Label text="Vehicle No - {vehicle_no}"/>
+                            <VBox renderType="Bare" binding="{qr_code}" alignItems="Center">
+                                <items>
+                                    <Avatar displaySize="XL" badgeIcon="sap-icon://upload" displayShape="Square" src="data:image/jpg;base64,{content}"/>
+                                    <Label text="{qr_number}"/>
+                                </items>
+                            </VBox>
+                            <VBox>
+                                <items>
+                                    <Label text="Created on - {createdAt}"/>
+                                    <ObjectStatus text="Status - {status}" state="{= ${status}==='CONFIRMED' ? 'Success' : 'Warning'}"/>
+                                    <Label text="Vehicle No - {vehicle_no}"/>
+                                </items>
+                            </VBox>
                         </items>
-                    </VBox>
-
+                    </HBox>
                 </f:content>
             </f:DynamicPageHeader>
         </f:header>
         <!-- DynamicPage Content -->
         <f:content>
-            <Table id="idInspectedParentLineItems" width="auto" items="{insepected_parent_line_items}" noDataText="{i18n>noParentItems}" growing="true" growingScrollToLoad="true" selectionChange=".onParentItemSelect" mode="SingleSelectMaster">
-                <headerToolbar>
-                    <OverflowToolbar>
-                        <Title text="Inspected Parent Items" level="H4" id="idInspectedParentItems"/>
-                        <ToolbarSpacer />
-                        <SearchField tooltip="{i18n>searchItem}" placeholder="{i18n>searchItem}">
-                            <layoutData>
-                                <OverflowToolbarLayoutData maxWidth="200px" priority="NeverOverflow" group="1"/>
-                            </layoutData>
-                        </SearchField>
-                        <Button tooltip="{i18n>sort}" icon="sap-icon://sort" press="handleSortButtonPressed" type="Transparent"/>
-                        <Button tooltip="{i18n>filter}" icon="sap-icon://filter" press="handleFilterButtonPressed" type="Transparent"/>
-                        <Button press=".onExportParentItemsExportPress" icon="sap-icon://download"/>
-                    </OverflowToolbar>
-                </headerToolbar>
-                <columns>
-                    <Column>
-                        <Text text="{i18n>materialCode}"/>
-                    </Column>
-                    <Column>
-                        <Text text="{i18n>description}"/>
-                    </Column>
-                    <Column>
-                        <Text text="{i18n>approvedQty}"/>
-                    </Column>
-                    <Column>
-                        <Text text="{i18n>viewChildInspectedMaterials}"/>
-                    </Column>
-                </columns>
-
+            <IconTabBar id="idIconTabBarNoIcons" expanded="{device>/isNoPhone}" class="sapUiResponsiveContentPadding">
                 <items>
-                    <ColumnListItem type="Active">
-                        <cells>
-                            <ObjectIdentifier title="{material_code}" titleActive="true"/>
-                            <Text text="{description}"/>
-                            <Text text="{approved_qty}"/>
-                            <Button type="Emphasized" text="{i18n>viewChildInspectedMaterials}" press=".onViewInspectedChildMaterialsPress"></Button>
-                        </cells>
-                    </ColumnListItem>
-                </items>
+                    <IconTabFilter text="Packing List Information">
+                        <Table id="idInspectedParentLineItems" width="auto" items="{insepected_parent_line_items}" noDataText="{i18n>noParentItems}" growing="true" growingScrollToLoad="true" selectionChange=".onParentItemSelect" mode="SingleSelectMaster">
+                            <headerToolbar>
+                                <OverflowToolbar>
+                                    <Title text="Inspected Parent Items" level="H4" id="idInspectedParentItems"/>
+                                    <ToolbarSpacer />
+                                    <SearchField tooltip="{i18n>searchItem}" placeholder="{i18n>searchItem}">
+                                        <layoutData>
+                                            <OverflowToolbarLayoutData maxWidth="200px" priority="NeverOverflow" group="1"/>
+                                        </layoutData>
+                                    </SearchField>
+                                    <Button tooltip="{i18n>sort}" icon="sap-icon://sort" press="handleSortButtonPressed" type="Transparent"/>
+                                    <Button tooltip="{i18n>filter}" icon="sap-icon://filter" press="handleFilterButtonPressed" type="Transparent"/>
+                                    <Button press=".onExportParentItemsExportPress" icon="sap-icon://download"/>
+                                </OverflowToolbar>
+                            </headerToolbar>
+                            <columns>
+                                <Column>
+                                    <Text text="{i18n>materialCode}"/>
+                                </Column>
+                                <Column>
+                                    <Text text="{i18n>description}"/>
+                                </Column>
+                                <Column>
+                                    <Text text="{i18n>approvedQty}"/>
+                                </Column>
+                                <Column>
+                                    <Text text="{i18n>viewChildInspectedMaterials}"/>
+                                </Column>
+                            </columns>
 
-            </Table>
+                            <items>
+                                <ColumnListItem type="Active">
+                                    <cells>
+                                        <ObjectIdentifier title="{material_code}" titleActive="true"/>
+                                        <Text text="{description}"/>
+                                        <Text text="{approved_qty}"/>
+                                        <Button type="Emphasized" text="{i18n>viewChildInspectedMaterials}" press=".onViewInspectedChildMaterialsPress"></Button>
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+
+                        </Table>
+                    </IconTabFilter>
+                    <IconTabFilter text="Invoice">
+                        <Text text="Attachments go here ..." />
+                    </IconTabFilter>
+                    <IconTabFilter text="Other Documents">
+                        <Text text="Other Documents go here ..." />
+                    </IconTabFilter>
+                </items>
+            </IconTabBar>
+
         </f:content>
     </f:DynamicPage>
 </mvc:View>

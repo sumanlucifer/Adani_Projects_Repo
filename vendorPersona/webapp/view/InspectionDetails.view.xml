@@ -14,10 +14,9 @@
                     <Title text="{inspection_call_id}" wrapping="true"/>
                 </f:heading>
                 <f:breadcrumbs>
-                    <Breadcrumbs>
-                        <Link text="All POs" />
-                        <Link text="PO {po_number} Details" />
-                        <Link text="Inspection Details" />
+                    <Breadcrumbs currentLocationText="{inspection_call_id} - {i18n>inspectionDetails}">
+                        <Link text="{i18n>allPOs}" press=".handleToAllPOBreadcrumPress"/>
+                        <Link text="{po_number} - {i18n>orderDetails}"/>
                     </Breadcrumbs>
                 </f:breadcrumbs>
                 <f:expandedContent>
@@ -59,7 +58,7 @@
                                         <Button tooltip="{i18n>filter}" icon="sap-icon://filter" press="handleFilterButtonPressed" type="Transparent"/>
                                         <Button press=".onExportParentItemsExportPress" icon="sap-icon://download"/>
                                         <Button text="Create Packing List" type="Emphasized"/>
-                                        <Button text="Generate QR Code" type="Emphasized" binding="{qrCodeModel>/generateQRCode(...)}" press=".onGenerateQRCodePress"/>
+                                        <!-- <Button text="Generate QR Code" type="Emphasized" binding="{qrCodeModel>/generateQRCode(...)}" press=".onGenerateQRCodePress"/> -->
                                     </OverflowToolbar>
                                 </headerToolbar>
                                 <columns>
@@ -93,7 +92,7 @@
                     </IconTabFilter>
                     <IconTabFilter text="{i18n>packingLists}">
                         <VBox renderType="Bare">
-                            <Table id="id" width="auto" items="{packing_lists}" noDataText="{i18n>noPackingLists}" growing="true" growingScrollToLoad="true">
+                            <Table id="id" width="auto" items="{packing_list}" noDataText="{i18n>noPackingLists}" growing="true" growingScrollToLoad="true">
                                 <headerToolbar>
                                     <OverflowToolbar>
                                         <Title text="Packing List" level="H4" id="idPackingListTitle"/>
