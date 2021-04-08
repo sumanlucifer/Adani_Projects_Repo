@@ -10,91 +10,24 @@
     <uxap:ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true" upperCaseAnchorBar="false" headerContentPinnable="true" toggleHeaderOnTitleClick="true" showFooter="true">
         <uxap:headerTitle>
             <uxap:ObjectPageDynamicHeaderTitle>
-    
+                <uxap:content>
+                <HBox alignItems="Center">
+                    <Text text="{i18n>scanQRorEnterQrCode}" class="sapUiSmallMarginEnd"/>                            
+                    
+                    <Input id="idInputScanCode" width="60%" showSuggestion="true" showValueHelp="false" 
+                        suggestionItems="{/enterQRNumber}"  suggestionItemSelected="onQRCodeSuggestionSelected">
+                        <suggestionItems>
+                            <core:Item text="{qr_number}" key="{ID}" />
+                        </suggestionItems>
+                     </Input>
+                      <Button text="{i18n>submit}" press="onPressSubmitQRCode" type="Emphasized"/>
+                </HBox>                   
+                </uxap:content>
             </uxap:ObjectPageDynamicHeaderTitle>
         </uxap:headerTitle>
-        <uxap:headerContent>
-            
+        <uxap:headerContent>   
         </uxap:headerContent>
         <uxap:sections>
-            <uxap:ObjectPageSection>
-                <uxap:subSections>
-                    <uxap:ObjectPageSubSection>
-                        <f:SimpleForm id="sfBasicData" binding="{vendor}" editable="true" layout="ResponsiveGridLayout" title="{i18n>BasicData}" labelSpanXL="4" labelSpanL="4" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2" singleContainerFullSize="false">
-                            <f:content>
-                                <core:Title />
-                                <Label text="{i18n>CustomerName}" />
-                                <Text text="{name}" />
-                                <Label text="{i18n>email}" />
-                                <Text text="{email}"/>
-                                <core:Title />
-                                <Label text="{i18n>mobile}" />
-                                <Text text="{mobile}"/>
-                                <Label text="{i18n>pan}" />
-                                <Text text="{pan}"/>
-                            </f:content>
-                        </f:SimpleForm>
-                    </uxap:ObjectPageSubSection>
-                </uxap:subSections>
-            </uxap:ObjectPageSection>
-            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>itemDetails}">
-                <uxap:subSections>
-                    <uxap:ObjectPageSubSection title="{i18n>parentLineItems}">
-                        <VBox renderType="Bare">
-                            <Table id="idParentLineItemsTable" width="auto" items="{parent_line_items}" noDataText="{i18n>noParentItems}" growing="true" growingScrollToLoad="true" updateFinished=".onParentItemsTableUpdateFinished" selectionChange=".onParentItemSelect" mode="SingleSelectMaster">
-                                <headerToolbar>
-                                    <OverflowToolbar>
-                                        <Title text="{i18n>items}" level="H4" id="parentItemsTableHeader"/>
-                                        <ToolbarSpacer />
-                                        <SearchField tooltip="{i18n>searchItem}" placeholder="{i18n>searchItem}">
-                                            <layoutData>
-                                                <OverflowToolbarLayoutData maxWidth="200px" priority="NeverOverflow" group="1"/>
-                                            </layoutData>
-                                        </SearchField>
-                                        <Button tooltip="{i18n>sort}" icon="sap-icon://sort" press="handleSortButtonPressed" type="Transparent"/>
-                                        <Button tooltip="{i18n>filter}" icon="sap-icon://filter" press="handleFilterButtonPressed" type="Transparent"/>
-                                        <Button text="create" icon="sap-icon://add" press=".onParentItemCreatePress"/>
-                                        <Button text="delete" icon="sap-icon://delete"/>
-                                        <Button text="Export" press=".onExportParentItemsExportPress" icon="sap-icon://download"/>
-                                    </OverflowToolbar>
-                                </headerToolbar>
-
-                                <columns>
-                                    <Column>
-                                        <Text text="{i18n>materialCode}"/>
-                                    </Column>
-                                    <Column>
-                                        <Text text="{i18n>description}"/>
-                                    </Column>
-                                    <Column>
-                                        <Text text="{i18n>quantity}"/>
-                                    </Column>
-                                    <Column>
-                                        <Text text="{i18n>ViewChildLineItems}"/>
-                                    </Column>
-                                     <Column>
-                                        <Text text="{i18n>EditButton}"/>
-                                    </Column>
-                                </columns>
-
-                                <items>
-                                    <ColumnListItem type="Active">
-                                        <cells>
-                                            <ObjectIdentifier title="{material_code}" titleActive="true"/>
-                                            <Text text="{description}"/>
-                                            <Text text="{qty}"/>
-                                            <Button text="{i18n>ViewChildLineItems}" type="Emphasized" press="onViewChildItemPress"/>
-                                            <Button icon="sap-icon://edit" type="Emphasized" press="onViewPress"/>
-                                        </cells>
-                                    </ColumnListItem>
-                                </items>
-
-                            </Table>
-                        </VBox>
-                    </uxap:ObjectPageSubSection>
-                </uxap:subSections>
-            </uxap:ObjectPageSection>
-
         </uxap:sections>
     </uxap:ObjectPageLayout>
 </mvc:View>

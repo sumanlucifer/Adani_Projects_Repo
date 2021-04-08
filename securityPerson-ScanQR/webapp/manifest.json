@@ -30,7 +30,7 @@
         },
         "dataSources": {
             "default": {
-                "uri": "/AGEL_MMTS_API/odata/v4/QRCodeService/",
+                "uri": "/AGEL_MMTS_API/odata/v4/SecurityPersonService/",
                 "type": "OData",
                 "settings": {
                     "odataVersion": "4.0",
@@ -60,10 +60,10 @@
 	"sap.ui5": {
 		"flexEnabled": false,
 		"rootView": {
-			"viewName": "com.agel.mmts.securityPerson-ScanQR.view.QRCodeDetailPage",
+			"viewName": "com.agel.mmts.securityPerson-ScanQR.view.App",
 			"type": "XML",
-			"async": true,
-			"id": "LandingPage"
+            "async": true,
+            "id": "app"
 		},
 		"dependencies": {
 			"minUI5Version": "1.60.1",
@@ -108,18 +108,28 @@
 				"viewPath": "com.agel.mmts.securityPerson-ScanQR.view",
 				"controlAggregation": "pages",
 				"controlId": "app",
-				"clearControlAggregation": false
+                "clearControlAggregation": false,
+                "bypassed": {
+                    "target": []
+                }
 			},
 			"routes": [{
 				"name": "RouteLandingPage",
-				"pattern": "RouteLandingPage",
+				"pattern": "LandingPage",
 				"target": ["TargetLandingPage"]
             },
             {
 				"name": "QRCodeDetailPage",
-				"pattern": "QRCodeDetailPage",
+				"pattern": "",
 				"target": ["QRCodePage"]
+            },
+            {
+				"name": "BarCodeDetailsPage",
+				"pattern": "BarCodeDetails/{QRCode}",
+				"target": ["BarCodeDetailsPage"]
             }
+
+            
         ],
 			"targets": {
 				"TargetLandingPage": {
@@ -127,15 +137,25 @@
 					"transition": "slide",
 					"clearControlAggregation": false,
 					"viewId": "LandingPage",
-					"viewName": "LandingPage"
+                    "viewName": "LandingPage",
+                    "viewLevel": 3
                 },
                 "QRCodePage": {
 					"viewType": "XML",
 					"transition": "slide",
 					"clearControlAggregation": false,
 					"viewId": "QRDetails",
-					"viewName": "QRDetails"
-				}
+                    "viewName": "QRDetails",
+                    "viewLevel": 1
+                },
+                "BarCodeDetailsPage":{
+					"viewType": "XML",
+					"transition": "slide",
+					"clearControlAggregation": false,
+					"viewId": "BarCodeDetails",
+                    "viewName": "BarCodeDetails",
+                    "viewLevel": 3
+                }
 			}
 		}
 	}

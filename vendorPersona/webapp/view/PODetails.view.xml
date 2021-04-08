@@ -96,7 +96,6 @@
                                         <Button text="Export" press=".onExportParentItemsExportPress" icon="sap-icon://download"/>
                                     </OverflowToolbar>
                                 </headerToolbar>
-
                                 <columns>
                                     <Column>
                                         <Text text="{i18n>materialCode}"/>
@@ -114,7 +113,6 @@
                                         <Text text="{i18n>EditButton}"/>
                                     </Column>
                                 </columns>
-
                                 <items>
                                     <ColumnListItem type="Active">
                                         <cells>
@@ -126,7 +124,6 @@
                                         </cells>
                                     </ColumnListItem>
                                 </items>
-
                             </Table>
                         </VBox>
                     </uxap:ObjectPageSubSection>
@@ -142,7 +139,6 @@
                                         <Text text="{i18n>date}"/>
                                     </Column>
                                 </columns>
-
                                 <items>
                                     <ColumnListItem type="Navigation" press=".onInspectionIDPress">
                                         <cells>
@@ -156,7 +152,6 @@
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>
             </uxap:ObjectPageSection>
-
         </uxap:sections>
     </uxap:ObjectPageLayout>
 </mvc:View>

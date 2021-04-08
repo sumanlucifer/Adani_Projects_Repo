@@ -1,5 +1,5 @@
 sap.ui.define([
-        "sap/ui/core/mvc/Controller",
+        "./BaseController",
         "sap/ui/model/json/JSONModel",
         "sap/ui/model/Filter",
         "sap/ui/model/FilterOperator",
@@ -13,50 +13,59 @@ sap.ui.define([
 	/**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-	function (Controller , JSONModel, Filter, FilterOperator, Fragment, Sorter, Device, History, ColumnListItem, Input ) {
+	function (BaseController , JSONModel, Filter, FilterOperator, Fragment, Sorter, Device, History, ColumnListItem, Input ) {
 		"use strict";
 
-		return Controller.extend("com.agel.mmts.securityPerson-ScanQR.controller.LandingPage", {
+		return BaseController.extend("com.agel.mmts.securityPerson-ScanQR.controller.QRDetails", {
             
             onInit: function () {
                 
-                 //Router Object
+                //view model instatiation
+                var oViewModel = new JSONModel({
+                    busy: true,
+                    delay: 0
+                });
+                this.setModel(oViewModel, "objectViewModel");
+                
+                //Router Object
                 this.oRouter = this.getRouter();
-                this.oRouter.getRoute("RoutePODetailPage").attachPatternMatched(this._onObjectMatched, this);
+                this.oRouter.getRoute("QRCodeDetailPage").attachPatternMatched(this._onObjectMatched, this);
+            },
+
+            onPressSubmitQRCode : function(oEvent){
+                var that = this;
+                var qrCodeID =this.byId("idInputScanCode").getSelectedKey();
+                that.getRouter().navTo("BarCodeDetailsPage", {QRCode:qrCodeID});
+            },
+
+            onQRCodeSuggestionSelected : function(oEvent){
+                var that = this;
+                oEvent.getSource().setSelectedItem(oEvent.getSource().getSelectedItem());
             },
 
             _onObjectMatched: function (oEvent) {
-                var sObjectId = oEvent.getParameter("arguments").POId;
-                this._bindView("/PurchaseOrders" + sObjectId);
-                
+               // var sObjectId = "XLj52SRDpM";
+               // this._bindView("/enterQRNumber");                
             },
 
             _bindView: function(sObjectPath) {
                 var objectViewModel = this.getViewModel("objectViewModel");
-                var that = this;
 
                 this.getView().bindElement({
                         path: sObjectPath,
-                        parameters: {
-                            "$expand": {
-                                        "parent_line_items": {
-                                                    "$expand": {
-                                                        "child_line_items": {}
-                                                    }   
-                                        }
-                        }   
-                },
-                events: {
-                    dataRequested: function() {
-                        objectViewModel.setProperty("/busy", true);
-                    },
-                    dataReceived: function() {
-                        objectViewModel.setProperty("/busy", false);
-                        var oView = that.getView();
-                    }
-                }
-             });
+                        events: {
+                            dataRequested: function() {
+                                objectViewModel.setProperty("/busy", true);
+                            },
+                            dataReceived: function() {
+                                objectViewModel.setProperty("/busy", false);
+                                
+                            }
+                        }
+                });
+
             },
+           
 
 		});
 	});
