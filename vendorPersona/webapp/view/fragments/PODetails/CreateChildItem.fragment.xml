@@ -3,11 +3,11 @@
     xmlns:f="sap.ui.layout.form"
     xmlns:core="sap.ui.core"
     xmlns:unified="sap.ui.unified">
-    <Dialog title="Add Parent Item">
+    <Dialog title="Add Child Item">
         <customHeader>
             <Bar>
                 <contentMiddle>
-                    <Title text="Add Parent Item"/>
+                    <Title text="Add Child Item"/>
                 </contentMiddle>
                 <contentRight>
                     <core:Icon src="sap-icon://decline" width="1em" press=".closeDialog" class="sapUiTinyMarginEnd"/>
@@ -18,16 +18,18 @@
             <f:SimpleForm editable="true" layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="3" emptySpanL="3" emptySpanM="3" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false">
                 <f:content>
                     <Label text="Material Code"/>
-                    <Input value="{parentItemCreationModel>/material_code}"/>
+                    <Input value="{childItemCreationModel>/material_code}"/>
                     <Label text="Description"/>
-                    <Input value="{parentItemCreationModel>/description}"/>
+                    <Input value="{childItemCreationModel>/description}"/>
                     <Label text="Quantity"/>
-                    <Input value="{parentItemCreationModel>/qty}"/>
+                    <Input value="{childItemCreationModel>/qty}"/>
+                    <Label text="UOM"/>
+                    <Input value="{childItemCreationModel>/uom}"/>
                 </f:content>
             </f:SimpleForm>
         </content>
         <endButton>
-            <Button text="Save Parent Item" press=".onSaveParentLineItemPress" type="Emphasized"></Button>
+            <Button text="Save Child Item" press=".onSaveChildLineItemPress" type="Emphasized"></Button>
         </endButton>
     </Dialog>
 </core:FragmentDefinition>

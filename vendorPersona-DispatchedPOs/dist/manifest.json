@@ -105,7 +105,6 @@
                     "viewType": "XML",
                     "transition": "slide",
                     "clearControlAggregation": false,
-                    "viewId": "LandingPage",
                     "viewName": "LandingPage"
                 }
             }

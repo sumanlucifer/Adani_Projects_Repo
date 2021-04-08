@@ -7,14 +7,7 @@ sap.ui.define([
     "use strict";
 
     return UI5Object.extend("com.agel.mmts.vendorPersona.controller.ErrorHandler", {
-
-        /**
-         * Handles application errors by automatically attaching to the model events and displaying errors when needed.
-         * @class
-         * @param {sap.ui.core.UIComponent} oComponent reference to the app's component
-         * @public
-         * @alias com.cap.manage-ideas.controller.ErrorHandler
-         */
+        
         constructor: function (oComponent) {
             var oMessageManager = sap.ui.getCore().getMessageManager(),
                 oMessageModel = oMessageManager.getMessageModel(),

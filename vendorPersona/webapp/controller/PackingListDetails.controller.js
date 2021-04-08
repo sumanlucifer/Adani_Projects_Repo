@@ -5,7 +5,7 @@ sap.ui.define([
 ], function (BaseController, JSONModel, Fragment) {
     "use strict";
 
-    return BaseController.extend("com.agel.mmts.vendorPersona.controller.InspectionDetails", {
+    return BaseController.extend("com.agel.mmts.vendorPersona.controller.PackingListDetails", {
 
         onInit: function () {
             //view model instatiation
@@ -17,16 +17,16 @@ sap.ui.define([
 
             //Router Object
             this.oRouter = this.getRouter();
-            this.oRouter.getRoute("RouteInspectionDetailsPage").attachPatternMatched(this._onObjectMatched, this);
+            this.oRouter.getRoute("RoutePackingDeatilsPage").attachPatternMatched(this._onObjectMatched, this);
         },
 
         _onObjectMatched: function (oEvent) {
-            var sObjectId = oEvent.getParameter("arguments").inspectionID;
-            this._bindView("/InspectionCallIds" + sObjectId);
+            var sObjectId = oEvent.getParameter("arguments").packingListID;
+            this._bindView("/PackingLists" + sObjectId);
         },
 
         _bindView: function (sObjectPath) {
-            console.log(sObjectPath);
+            console.log({ sObjectPath });
             var objectViewModel = this.getViewModel("objectViewModel");
             var that = this;
 
@@ -37,11 +37,10 @@ sap.ui.define([
                         "insepected_parent_line_items": {
                             "$expand": {
                                 "inspected_child_line_items": {
-                                    "$select" : ["material_code","description", "qty", "uom"]
+                                    "$select": ["material_code","description", "qty", "uom"]
                                 }
                             }
-                        },
-                        "packing_list":{}
+                        }
                     }
                 },
                 events: {
@@ -88,7 +87,7 @@ sap.ui.define([
                         parameters: {
                             "$expand": {
                                 "inspected_child_line_items": {
-                                    "$select": ["material_code", "description", "qty", "uom"]
+                                    "$select": ["material_code","description", "qty", "uom"]
                                 }
                             }
                         }
@@ -101,45 +100,8 @@ sap.ui.define([
             this.pDialog.then(function (oDialog) {
                 oDialog.open();
             });
-        },
-
-        onPackingListItemPress: function(oEvent){
-            this._showObject(oEvent.getSource());
-        },
-
-        // On Show Object - Navigation
-        _showObject: function (oItem) {
-            var that = this;
-            oItem.getBindingContext().requestCanonicalPath().then(function (sObjectPath) {
-                that.getRouter().navTo("RoutePackingDeatilsPage", {
-                    packingListID: sObjectPath.slice("/PackingLists".length) // /PurchaseOrders(123)->(123)
-                });
-            });
-        },
-
-        onGenerateQRCodePress: function(oEvent){
-            var that = this,
-                oBindingObject = oEvent.getSource().getObjectBinding("qrCodeModel");
-
-            //set the parameters
-            oBindingObject.getParameterContext().setProperty("po_number", "4500325995");
-            oBindingObject.getParameterContext().setProperty("inspection_call_id", "1000001");
-            oBindingObject.getParameterContext().setProperty("width", 10);
-            oBindingObject.getParameterContext().setProperty("height", 10);
-             oBindingObject.getParameterContext().setProperty("packing_list_id", 10);
-
-            //execute the action
-            oBindingObject.execute().then(
-                function () {
-                    sap.m.MessageToast.show("QR Generated!");
-                },
-                function (oError) {
-                    sap.m.MessageBox.alert(oError.message, {
-                        title: "Error"
-                    });
-                }
-            );
         }
+
 
 
     });

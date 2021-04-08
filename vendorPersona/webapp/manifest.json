@@ -90,6 +90,7 @@
                 "sap.f": {}
             }
         },
+        "handleValidation": true,
         "contentDensities": {
             "compact": true,
             "cozy": true
@@ -104,9 +105,16 @@
             "": {
                 "settings": {
                     "operationMode": "Server",
-                    "groupId": "$direct",
-                    "synchronizationMode": "None",
-                    "autoExpandSelect": true
+                    "groupProperties": {
+                        "childLineItemGroup": {
+                            "submit": "API"
+                        },
+                        "parentItemsGroup": {
+                            "submit": "API"
+                        }
+                    },
+                    "autoExpandSelect": true,
+                    "synchronizationMode": "None"
                 },
                 "dataSource": "default",
                 "preload": true
@@ -154,13 +162,6 @@
             },
             "routes": [
                 {
-                    "name": "RouteLandingPage",
-                    "pattern": "LandingPage",
-                    "target": [
-                        "TargetLandingPage"
-                    ]
-                },
-                {
                     "name": "RouteDetailPage",
                     "pattern": "",
                     "target": [
@@ -180,22 +181,20 @@
                     "target": [
                         "TargetInspectionDetailsPage"
                     ]
+                },
+                {
+                    "name": "RoutePackingDeatilsPage",
+                    "pattern": "PackingListDetails/{packingListID}",
+                    "target": [
+                        "TargetPackingListDetailsPage"
+                    ]
                 }
             ],
             "targets": {
-                "TargetLandingPage": {
-                    "viewType": "XML",
-                    "transition": "slide",
-                    "clearControlAggregation": false,
-                    "viewId": "LandingPage",
-                    "viewName": "LandingPage",
-                    "viewLevel": 3
-                },
                 "TargetDetailPage": {
                     "viewType": "XML",
                     "transition": "slide",
                     "clearControlAggregation": false,
-                    "viewId": "DetailPage",
                     "viewName": "DetailPage",
                     "viewLevel": 1
                 },
@@ -203,16 +202,21 @@
                     "viewType": "XML",
                     "transition": "slide",
                     "clearControlAggregation": false,
-                    "viewId": "PODetails",
                     "viewName": "PODetails",
-                    "viewLevel": 3
+                    "viewLevel": 2
                 },
                 "TargetInspectionDetailsPage": {
                     "viewType": "XML",
                     "transition": "slide",
                     "clearControlAggregation": false,
-                    "viewId": "InspectionDetails",
                     "viewName": "InspectionDetails",
+                    "viewLevel": 3
+                },
+                "TargetPackingListDetailsPage": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewName": "PackingListDetails",
                     "viewLevel": 4
                 }
             }
