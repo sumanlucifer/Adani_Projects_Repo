@@ -59,23 +59,26 @@ sap.ui.define([
                                                         "insepected_parent_line_items":{
                                                                 "$select":["packing_list_ID","po_number","material_code","name","description"]
                                                         },
+                                                        "qr_code" : {
+                                                            
+                                                        }
                                             },
-                                            "$select" : ["vehicle_no"]
+                                            "$select" : ["vehicle_no","qr_code_ID"]
                                         },
                                         "purchase_order" : {
                                                 "$expand" : {
                                                             "vendor" : {
                                                                 "$expand" : {
                                                                         "address" : {
-                                                                                "select" : ["street","city","state","country"]
+                                                                                "$select" : ["street","city","state","country"]
                                                                         }       
                                                                 },  
-                                                                "select" : ["name"]
+                                                                "$select" : ["name"]
                                                             }
                                                 },
-                                                "select" : ["asn_number","po_number","asn_creation_date","vendor_ID"]
+                                                "$select" : ["asn_number","po_number","asn_creation_date","vendor_ID"]
                                         }
-                             },                                
+                             },                               
                         },
                         events: {
                             dataRequested: function() {
@@ -87,25 +90,6 @@ sap.ui.define([
                         }
                 }); 
             
-                // Basic Data Binding
-           /*     this.getView().byId("sfQRData").bindElement({
-                        path: "/PurchaseOrders",
-                        parameters: {
-                            "$expand": {                                        
-                                        "parent_line_items": {},
-                                        "inspection_call_ids":{}            
-                            },   
-                        },
-                        events: {
-                            dataRequested: function() {
-                                objectViewModel.setProperty("/busy", true);
-                            },
-                            dataReceived: function() {
-                                objectViewModel.setProperty("/busy", false);                                
-                            }
-                        }
-                }); */
-
                 // Approve Reject Hide Based On Vehicle Number Blank
                 if ( this.byId("idTextVehcileNob").getText() == "" ){
                    // this.byId("idHboxApproveReject").setVisible(false);
@@ -120,15 +104,15 @@ sap.ui.define([
 
             // On Reject Press Vehicle Number
             onPressRejectQRCode : function(){
-                
                 //Enter & ReEnter Vehicle Number 
                 this.byId("idHboxEnterVehicleNob").setVisible(false); 
                 this.byId("idHboxReEnterVehicleNob").setVisible(true);
 
                 this.getView().getModel("oViewHandlingModel").setProperty("HeaderDeclineButton",true);
-                     
+                this.getView().getModel("oViewHandlingModel").oData.ReEnterVehicleNob = this.byId("idInputVehcileNob").getValue();
+               // this.byId("idReEnterInputVehcileNob").setValue(this.byId("idInputVehcileNob").getValue());                     
             },
-
+           
             // On Submit Press - 
             onPressSubmitQRCode : function(oEvent){
 
@@ -154,8 +138,6 @@ sap.ui.define([
                         });
                     }
                 );
-                
-                
             },
 
 		});

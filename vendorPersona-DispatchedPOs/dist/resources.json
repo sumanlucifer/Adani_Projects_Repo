@@ -1,52 +1,38 @@
 {
     "resources": [
         {
-            "name": "index.html"
-        },
-        {
-            "name": "Component.js"
+            "name": "Component-preload.js",
+            "merged": true
         },
         {
             "name": "model/models.js"
         },
         {
-            "name": "controller/LandingPage.controller.js"
+            "name": "manifest.json"
         },
         {
-<<<<<<< HEAD
             "name": "controller/LandingPage.controller.js"
         },
         {
             "name": "Component.js"
-=======
-            "name": "manifest.json"
->>>>>>> develop
         },
         {
             "name": "manifest-bundle.zip"
         },
         {
-            "name": "Component-preload.js",
-            "merged": true
+            "name": "i18n/i18n.properties",
+            "raw": "i18n/i18n.properties"
         },
         {
-<<<<<<< HEAD
             "name": "Component-dbg.js",
-=======
+            "isDebug": true
+        },
+        {
             "name": "controller/LandingPage-dbg.controller.js",
->>>>>>> develop
             "isDebug": true
         },
         {
             "name": "model/models-dbg.js",
-            "isDebug": true
-        },
-        {
-<<<<<<< HEAD
-            "name": "model/models-dbg.js",
-=======
-            "name": "Component-dbg.js",
->>>>>>> develop
             "isDebug": true
         },
         {
@@ -56,12 +42,10 @@
             "name": "view/LandingPage.view.xml"
         },
         {
-            "name": "i18n/i18n.properties",
-            "raw": "i18n/i18n.properties"
+            "name": "css/style.css"
         },
         {
-            "name": "i18n/i18n.properties",
-            "raw": "i18n/i18n.properties"
+            "name": "index.html"
         }
     ]
 }

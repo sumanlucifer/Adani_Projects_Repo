@@ -15,12 +15,12 @@
                     <Text text="{i18n>scanQRorEnterQrCode}" class="sapUiSmallMarginEnd"/>                            
                     
                     <Input id="idInputScanCode" width="60%" showSuggestion="true" showValueHelp="false" 
-                        suggestionItems="{/enterQRNumber}"  suggestionItemSelected="onQRCodeSuggestionSelected">
+                        suggestionItems="{/enterQRNumber}" binding="{/maintainScannedQRHistory(...)}" 
+                         suggestionItemSelected="onQRCodeSuggestionSelected">
                         <suggestionItems>
                             <core:Item text="{qr_number}" key="{ID}" />
                         </suggestionItems>
                      </Input>
-                      <Button text="{i18n>submit}" press="onPressSubmitQRCode" type="Emphasized"/>
                 </HBox>                   
                 </uxap:content>
             </uxap:ObjectPageDynamicHeaderTitle>
@@ -28,6 +28,6 @@
         <uxap:headerContent>   
         </uxap:headerContent>
         <uxap:sections>
-        </uxap:sections>
+       </uxap:sections>
     </uxap:ObjectPageLayout>
 </mvc:View>
