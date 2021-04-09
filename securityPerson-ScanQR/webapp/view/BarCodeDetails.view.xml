@@ -30,18 +30,23 @@
                             </items>
                         </HBox>  
                          <VBox id="idHboxEnterVehicleNob" renderType="Bare" binding="{packing_list}">
-                             <Text text="{i18n>VehicleNumber}" class="sapUiSmallMarginEnd"/>                         
+                             <HBox>
+                                <Text text="{i18n>VehicleNumber}" class="sapUiSmallMarginEnd"/>                         
+                                <Button icon="sap-icon://decline" type="Transparent" visible="{oViewHandlingModel>HeaderDeclineButton}" />
+                             </HBox>
                              <Input id="idInputVehcileNob" value="{vehicle_no}" width="80%" visible="{= %{vehicle_no}==='' ? true : false}" />
                              <Text id="idTextVehcileNob" text="{vehicle_no}" width="80%" visible="{= %{vehicle_no}==='' ? false : true}"/>                 
                          </VBox>
                          <VBox id="idHboxReEnterVehicleNob" renderType="Bare" binding="{packing_list}" visible="false">
+                             <Text text="{i18n>VehicleNumber}" class="sapUiSmallMarginEnd"/>                         
+                             <Input  value="{vehicle_no}" width="80%" />
                              <Text text="{i18n>reEnterVehicleNumber}" class="sapUiSmallMarginEnd"/>                         
-                             <Input id="idReEnterInputVehcileNob" value="{vehicle_no}" width="80%" />
+                             <Input id="idReEnterInputVehcileNob" value="{oViewHandlingModel>ReEnterVehicleNob}" width="80%" />
                          </VBox>                                         
                     </items>                    
                 </VBox>        
-                <HBox id="idHboxApproveReject" alignItems="Start" justifyContent="SpaceAround" >
-                    <Button text="{i18n>approve}" press="onPressApproveQRCode" type="Accept"/>
+                <HBox id="idHboxApproveReject" alignItems="Start"  >
+                    <Button text="{i18n>approve}" press="onPressApproveQRCode" type="Accept" class="sapUiSmallMarginEnd"/>
                     <Button text="{i18n>reject}" press="onPressRejectQRCode" type="Reject"/>
                 </HBox>                                                        
                 </uxap:content>
@@ -57,25 +62,33 @@
             <uxap:ObjectPageSection title="QRCodeDetail">
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection>
-                        <f:SimpleForm id="sfQRData"  editable="true" 
+                        <f:SimpleForm id="sfQRData"  binding="{purchase_order/}" editable="true" 
                          layout="ResponsiveGridLayout" title="{i18n>QRCode}" labelSpanXL="4" 
                          labelSpanL="4" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" 
                          emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="3" 
                          columnsL="3" columnsM="3" singleContainerFullSize="false">
                             <f:content>
                                 <core:Title text="{i18n>POAsnDetails}"/>
+                                <Label text="{i18n>asnNumber}" />
+                                <Text text="{asn_number}" />
+                                
                                 <Label text="{i18n>pONumber}" />
                                 <Text text="{po_number}" />
 
+                                <Label text="{i18n>asnCreationDate}" />
+                                <Text text="{asn_creation_date}" />
+
                                 <core:Title text="{i18n>ShipTo}" />
-                                <Label text="{i18n>vendorId}" />
-                                <Text text="{vendor_ID}"/>
+                                <Label text="{i18n>address}" />
+                                <Text text="{vendor/address/street}"/>
 
                                 <core:Title text="{i18n>From}" />
                                 <Label text="{i18n>vendorName}" />
                                 <Text text="{vendorName}"/>
+
                                 <Label text="{i18n>vendorId}" />
-                                <Text text="{vendorId}"/>
+                                <Text text="{vendor_ID}"/>
+
                                 <Label text="{i18n>vendorLoc}" />
                                 <Text text="{vendorLoc}"/>
                             </f:content>
@@ -88,10 +101,10 @@
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection title="{i18n>parentLineItems}">
                         <VBox renderType="Bare">
-                            <Table id="idParentLineItemsTable" width="auto" items="{packing_list/insepected_parent_line_items}"
-                             noDataText="{i18n>noParentItems}"
-                              growing="true" growingScrollToLoad="true" selectionChange=".onParentItemSelect"
-                               mode="SingleSelectMaster">
+                            <Table id="idParentLineItemsTable" width="auto" noDataText="{i18n>noParentItems}"
+                               items="{packing_list/insepected_parent_line_items}"
+                               growing="true" growingScrollToLoad="true" selectionChange=".onParentItemSelect"
+                               mode="SingleSelectMaster" busyIndicatorDelay="{objectViewModel>busy}">
                                 <columns>
                                    <Column width="12%">
                                         <Text text="{i18n>purchase_order_ID}"/>
@@ -136,7 +149,7 @@
                         <VBox>
                             <Table id="idInspectionTable" items="{insp_call}" width="auto" 
                             noDataText="{i18n>noInspectionItems}" 
-                                growing="true" growingScrollToLoad="true">
+                                growing="true" growingScrollToLoad="true" busyIndicatorDelay="{objectViewModel>busy}">
                                 <columns>
                                     <Column>
                                         <Text text="{i18n>inspectionID}"/>

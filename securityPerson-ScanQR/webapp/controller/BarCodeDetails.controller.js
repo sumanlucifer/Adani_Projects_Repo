@@ -26,6 +26,13 @@ sap.ui.define([
                     delay: 0
                 });
                 this.setModel(oViewModel, "objectViewModel");
+
+                var oViewHandlingModel = new JSONModel({
+                    ReEnterVehicleNob : null,
+                    HeaderDeclineButton : false
+                   
+                });
+                this.setModel(oViewHandlingModel, "oViewHandlingModel");
                 
                 //Router Object
                 this.oRouter = this.getRouter();
@@ -40,13 +47,10 @@ sap.ui.define([
 
             _bindView: function(sObjectPath) {
                 var objectViewModel = this.getViewModel("objectViewModel");
-              //  var sObjectId = "XLj52SRDpM";
-
                 this.getView().bindElement({
                         path: sObjectPath,
                         parameters: {
-                            "$expand": {
-                                        
+                            "$expand": {                          
                                         "insp_call": {
                                             "$select" : ["inspection_call_id"]
                                         },
@@ -57,6 +61,19 @@ sap.ui.define([
                                                         },
                                             },
                                             "$select" : ["vehicle_no"]
+                                        },
+                                        "purchase_order" : {
+                                                "$expand" : {
+                                                            "vendor" : {
+                                                                "$expand" : {
+                                                                        "address" : {
+                                                                                "select" : ["street","city","state","country"]
+                                                                        }       
+                                                                },  
+                                                                "select" : ["name"]
+                                                            }
+                                                },
+                                                "select" : ["asn_number","po_number","asn_creation_date","vendor_ID"]
                                         }
                              },                                
                         },
@@ -71,7 +88,7 @@ sap.ui.define([
                 }); 
             
                 // Basic Data Binding
-                this.getView().byId("sfQRData").bindElement({
+           /*     this.getView().byId("sfQRData").bindElement({
                         path: "/PurchaseOrders",
                         parameters: {
                             "$expand": {                                        
@@ -87,27 +104,8 @@ sap.ui.define([
                                 objectViewModel.setProperty("/busy", false);                                
                             }
                         }
-                });
-                
-                // Inspection ID's Detail List
-               /* this.getView().byId("idInspectionTable").bindItems({
-                    path: "/enterQRNumber",
-                    template: this.byId("idInspectionTable").removeItem(0),
-                    parameters: {
-                            "$expand": {
-                                        "insp_call": {}
-                            }
-                    },  
-                    events: {
-                        dataRequested: function () {
-                            objectViewModel.setProperty("/busy", true);
-                        },
-                        dataReceived: function () {
-                          objectViewModel.setProperty("/busy", false);
-                      }
-                    }
-                });   */   
-                
+                }); */
+
                 // Approve Reject Hide Based On Vehicle Number Blank
                 if ( this.byId("idTextVehcileNob").getText() == "" ){
                    // this.byId("idHboxApproveReject").setVisible(false);
@@ -122,13 +120,13 @@ sap.ui.define([
 
             // On Reject Press Vehicle Number
             onPressRejectQRCode : function(){
+                
+                //Enter & ReEnter Vehicle Number 
+                this.byId("idHboxEnterVehicleNob").setVisible(false); 
                 this.byId("idHboxReEnterVehicleNob").setVisible(true);
-                this.byId("idInputVehcileNob").setEditable(true);                  
-                this.byId("idTextVehcileNob").setVisible(false);
-                this.byId("idInputVehcileNob").setVisible(true);
-                this.byId("idHboxReEnterVehicleNob").setVisible(true);     
-                this.byId("idHboxApproveReject").setVisible(false); 
-                        
+
+                this.getView().getModel("oViewHandlingModel").setProperty("HeaderDeclineButton",true);
+                     
             },
 
             // On Submit Press - 
