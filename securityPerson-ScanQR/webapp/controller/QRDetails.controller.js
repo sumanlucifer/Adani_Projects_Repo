@@ -86,17 +86,23 @@ sap.ui.define([
 
              // On Submit QR Histroy
             onPressSubmitQRCode : function(oBindingObject,qr_number){
-                var that = this;               
+                var that = this;
+                var userInfo = sap.ushell.Container.getService("UserInfo");
+                var userId = userInfo.getId();
+                var userEmail = userInfo.getEmail();  
+                
+                //userId = "";
+                userEmail = "venkatesh.hulekal@extentia.com"
                 //set the parameters//
                 oBindingObject.getParameterContext().setProperty("qr_number", qr_number);
-                oBindingObject.getParameterContext().setProperty("user_id","" );
-                oBindingObject.getParameterContext().setProperty("email", "");
+                oBindingObject.getParameterContext().setProperty("user_id",userId );
+                oBindingObject.getParameterContext().setProperty("email", userEmail);
 
                 
                 //execute the action
                 oBindingObject.execute().then(
                     function () {
-                        sap.m.MessageToast.show("Submited Successfully");
+                    //    sap.m.MessageToast.show("Submited Successfully");
                       //  that.getView().getModel().refresh();
                     },
                     function (oError) {

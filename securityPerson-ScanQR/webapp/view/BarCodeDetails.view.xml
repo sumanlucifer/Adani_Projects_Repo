@@ -62,8 +62,9 @@
             <uxap:ObjectPageSection title="QRCodeDetail">
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection>
-                    <HBox>
-                         <VBox renderType="Bare"  alignItems="Center">
+                         <HBox> 
+                        <Title />
+                         <VBox renderType="Bare"  alignItems="Start">
                                  <items>
                                         <Avatar displaySize="XL" badgeIcon="sap-icon://upload" displayShape="Square" src="data:image/jpg;base64,{content}"/>
                                         <Label text="{qr_number}"/>
@@ -173,6 +174,44 @@
                                     </ColumnListItem>
                                 </items>
                             </Table>
+                        </VBox>
+                    </uxap:ObjectPageSubSection>
+                 </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+            <uxap:ObjectPageSection  titleUppercase="false" title="{i18n>attachment}">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection title="{i18n>attachment}" id="idAttachemntsSubSection">
+                        <VBox>
+                           	<UploadCollection
+			id="UploadCollection"
+			maximumFilenameLength="55"
+			maximumFileSize="10"
+			multiple="false"
+			change="onChange"
+			fileSizeExceed="onFileSizeExceed"
+			selectionChange="onSelectionChange"
+			typeMissmatch="onTypeMissmatch"
+			uploadComplete="onUploadComplete"
+			beforeUploadStarts="onBeforeUploadStarts"
+			items="{
+				path: '/Attachments',
+				templateShareable: false
+			}"
+			mode="MultiSelect">
+			<items>
+				<UploadCollectionItem
+					documentId="{ID}"
+					fileName="{fileName}"
+					mimeType="{type}"
+					url="url"
+					enableEdit="false"
+					enableDelete="false"
+					visibleDelete="false"
+					visibleEdit="false">
+				</UploadCollectionItem>
+			</items>
+		</UploadCollection>
                         </VBox>
                     </uxap:ObjectPageSubSection>
                  </uxap:subSections>

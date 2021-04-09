@@ -108,6 +108,9 @@ sap.ui.define([
                 this.byId("idHboxEnterVehicleNob").setVisible(false); 
                 this.byId("idHboxReEnterVehicleNob").setVisible(true);
 
+                // Buttons Hide
+                this.byId("idHboxApproveReject").setVisible(false); 
+                
                 this.getView().getModel("oViewHandlingModel").setProperty("HeaderDeclineButton",true);
                 this.getView().getModel("oViewHandlingModel").oData.ReEnterVehicleNob = this.byId("idInputVehcileNob").getValue();
                // this.byId("idReEnterInputVehcileNob").setValue(this.byId("idInputVehcileNob").getValue());                     
