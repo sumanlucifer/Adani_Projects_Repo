@@ -22,4 +22,8 @@ agel-mmts-web/vendorPersona/.env7
 # auto generated wildcard
 agel-mmts-web/vendorPersona/.env8
 # auto generated wildcard
+<<<<<<< HEAD
+agel-mmts-web/securityPerson-ScanQR/.env1
+=======
 agel-mmts-web/vendorPersona/.env14
+>>>>>>> develop
