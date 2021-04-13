@@ -130,7 +130,6 @@
                                         </VBox>
                                     </OverflowToolbar>
                                 </headerToolbar>
-
                                 <columns>
                                     <Column>
                                         <Text text="{i18n>materialCode}"/>
@@ -154,7 +153,6 @@
                                         <Text text="{i18n>DeleteButton}"/>
                                     </Column> -->
                                 </columns>
-
                                 <items>
                                     <ColumnListItem type="Active">
                                         <cells>
@@ -168,7 +166,6 @@
                                         </cells>
                                     </ColumnListItem>
                                 </items>
-
                             </Table>
                         </VBox>
                     </uxap:ObjectPageSubSection>

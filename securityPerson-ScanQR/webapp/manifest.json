@@ -27,6 +27,24 @@
                     "title": "{{appTileTitle}}"
                 }
             }
+        },
+        "dataSources": {
+            "default": {
+                "uri": "/AGEL_MMTS_API/odata/v4/SecurityPersonService/",
+                "type": "OData",
+                "settings": {
+                    "odataVersion": "4.0",
+                    "localUri": "localService/metadata.xml"
+                }
+            },
+            "uploadService": {
+                "uri": "/AGEL_MMTS_API/odata/v4/AttachmentsService/",
+                "type": "OData",
+                "settings": {
+                    "odataVersion": "4.0",
+                    "localUri": "localService/metadata.xml"
+                }
+            }
         }
 	},
 	
@@ -50,10 +68,10 @@
 	"sap.ui5": {
 		"flexEnabled": false,
 		"rootView": {
-			"viewName": "com.agel.mmts.securityPerson-ScanQR.view.LandingPage",
+			"viewName": "com.agel.mmts.securityPerson-ScanQR.view.App",
 			"type": "XML",
-			"async": true,
-			"id": "LandingPage"
+            "async": true,
+            "id": "app"
 		},
 		"dependencies": {
 			"minUI5Version": "1.60.1",
@@ -73,7 +91,27 @@
 				"settings": {
 					"bundleName": "com.agel.mmts.securityPerson-ScanQR.i18n.i18n"
 				}
-			}
+            },
+            "": {
+                "settings": {
+                    "operationMode": "Server",
+                    "groupId": "$direct",
+                    "synchronizationMode": "None",
+                    "autoExpandSelect": true
+                },
+                "dataSource": "default",
+                "preload": true
+            },
+            "DocumentUploadModel": {
+                "settings": {
+                    "operationMode": "Server",
+                    "groupId": "$direct",
+                    "synchronizationMode": "None",
+                    "autoExpandSelect": true
+                },
+                "dataSource": "uploadService",
+                "preload": true
+            }
 		},
 		"resources": {
 			"css": [{
@@ -88,20 +126,54 @@
 				"viewPath": "com.agel.mmts.securityPerson-ScanQR.view",
 				"controlAggregation": "pages",
 				"controlId": "app",
-				"clearControlAggregation": false
+                "clearControlAggregation": false,
+                "bypassed": {
+                    "target": []
+                }
 			},
 			"routes": [{
 				"name": "RouteLandingPage",
-				"pattern": "RouteLandingPage",
+				"pattern": "LandingPage",
 				"target": ["TargetLandingPage"]
-			}],
+            },
+            {
+				"name": "QRCodeDetailPage",
+				"pattern": "",
+				"target": ["QRCodePage"]
+            },
+            {
+				"name": "BarCodeDetailsPage",
+				"pattern": "BarCodeDetails/{QRCode}",
+				"target": ["BarCodeDetailsPage"]
+            }
+
+            
+        ],
 			"targets": {
 				"TargetLandingPage": {
 					"viewType": "XML",
 					"transition": "slide",
 					"clearControlAggregation": false,
-					"viewName": "LandingPage"
-				}
+					"viewId": "LandingPage",
+                    "viewName": "LandingPage",
+                    "viewLevel": 3
+                },
+                "QRCodePage": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearControlAggregation": false,
+					"viewId": "QRDetails",
+                    "viewName": "QRDetails",
+                    "viewLevel": 1
+                },
+                "BarCodeDetailsPage":{
+					"viewType": "XML",
+					"transition": "slide",
+					"clearControlAggregation": false,
+					"viewId": "BarCodeDetails",
+                    "viewName": "BarCodeDetails",
+                    "viewLevel": 3
+                }
 			}
 		}
 	}

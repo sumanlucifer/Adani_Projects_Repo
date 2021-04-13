@@ -4,16 +4,16 @@
             "name": "manifest-bundle.zip"
         },
         {
-            "name": "Component.js"
+            "name": "model/models.js"
         },
         {
-            "name": "model/models.js"
+            "name": "manifest.json"
         },
         {
             "name": "controller/LandingPage.controller.js"
         },
         {
-            "name": "manifest.json"
+            "name": "Component.js"
         },
         {
             "name": "i18n/i18n.properties",
