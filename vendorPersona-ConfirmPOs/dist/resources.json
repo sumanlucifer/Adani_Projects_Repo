@@ -1,23 +1,23 @@
 {
     "resources": [
         {
-            "name": "manifest-bundle.zip"
-        },
-        {
-            "name": "Component.js"
-        },
-        {
             "name": "model/models.js"
         },
         {
-            "name": "controller/LandingPage.controller.js"
+            "name": "i18n/i18n.properties",
+            "raw": "i18n/i18n.properties"
         },
         {
             "name": "manifest.json"
         },
         {
-            "name": "i18n/i18n.properties",
-            "raw": "i18n/i18n.properties"
+            "name": "controller/LandingPage.controller.js"
+        },
+        {
+            "name": "Component.js"
+        },
+        {
+            "name": "manifest-bundle.zip"
         },
         {
             "name": "Component-preload.js",
