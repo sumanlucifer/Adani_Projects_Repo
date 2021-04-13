@@ -8,14 +8,13 @@ sap.ui.define([
         "sap/ui/Device",
         "sap/ui/core/routing/History",
         'sap/m/ColumnListItem',
-        'sap/m/Input'
+        'sap/m/Input',
 	],
 	/**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-	function (BaseController , JSONModel, Filter, FilterOperator, Fragment, Sorter, Device, History, ColumnListItem, Input ) {
+	function (BaseController , JSONModel, Filter, FilterOperator, Fragment, Sorter, Device, History, ColumnListItem, Input, ValueState ) {
 		"use strict";
-
 		return BaseController.extend("com.agel.mmts.securityPerson-ScanQR.controller.BarCodeDetails", {
             
             onInit: function () {
@@ -122,7 +121,6 @@ sap.ui.define([
            
             // On Submit Press - 
             onPressSubmitQRCode : function(oEvent){
-
                 //initialize the action
                 var that = this,
                 oViewContext = this.getView().getBindingContext().getObject(),
@@ -131,8 +129,7 @@ sap.ui.define([
                 //set the parameters
                 oBindingObject.getParameterContext().setProperty("packingListId", oViewContext.packing_list.ID);
                 oBindingObject.getParameterContext().setProperty("vehicleNumber", oViewContext.packing_list.vehicle_no);
-
-                
+  
                 //execute the action
                 oBindingObject.execute().then(
                     function () {
@@ -146,6 +143,5 @@ sap.ui.define([
                     }
                 );
             },
-
 		});
 	});

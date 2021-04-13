@@ -21,11 +21,11 @@
                             <items>
                                 <VBox renderType="Bare" class="sapUiSmallMarginEnd">
                                      <Label text="{i18n>materialName}" />
-                                     <Text text="MAT33452" /> 
+                                     <Text text="{packing_list/insepected_parent_line_items/0/material_code}" /> 
                                 </VBox>
                                  <VBox renderType="Bare">
                                     <Label text="{i18n>pODate}" />
-                                    <Text text="12/02/2021"/>
+                                    <Text text="{purchase_order/po_release_date}"/>
                                 </VBox>
                             </items>
                         </HBox>  
