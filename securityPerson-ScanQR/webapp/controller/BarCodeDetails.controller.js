@@ -8,18 +8,21 @@ sap.ui.define([
         "sap/ui/Device",
         "sap/ui/core/routing/History",
         'sap/m/ColumnListItem',
-        'sap/m/Input'
+        'sap/m/Input',
+        '../utils/formatter',
+        "jquery.sap.global"
 	],
 	/**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-	function (BaseController , JSONModel, Filter, FilterOperator, Fragment, Sorter, Device, History, ColumnListItem, Input ) {
+	function (BaseController , JSONModel, Filter, FilterOperator, Fragment, Sorter, Device, History, ColumnListItem, Input, formatter, jquery) {
 		"use strict";
 
 		return BaseController.extend("com.agel.mmts.securityPerson-ScanQR.controller.BarCodeDetails", {
-            
+            formatter:formatter,
+
             onInit: function () {
-                
+                jquery.sap.addUrlWhitelist("blob");
                 //view model instatiation
                 var oViewModel = new JSONModel({
                     busy: true,
