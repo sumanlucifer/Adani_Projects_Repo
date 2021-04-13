@@ -84,7 +84,9 @@ sap.ui.define([
                                 "address": {}
                             }
                         },
-                        "inspection_call_ids": {}
+                        "inspection_call_ids": {},
+                        "sow_details":{},
+                        "price_schedule_details":{}
                     }
                 },
                 events: {

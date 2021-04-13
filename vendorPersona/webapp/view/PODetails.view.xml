@@ -58,58 +58,102 @@
             <uxap:ObjectPageSection titleUppercase="false" title="{i18n>basicDetails}">
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection>
-                        <HBox width="50%">
-                            <f:SimpleForm id="sfBasicData" binding="{vendor}" editable="false" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="3" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="4" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="1" columnsM="1" singleContainerFullSize="false">
-                                <f:content>
-                                    <core:Title text="{i18n>vendorDetails}"/>
-                                    <Label text="{i18n>CustomerName}" />
-                                    <Text text="{name}" />
-                                    <Label text="{i18n>email}" />
-                                    <Text text="{email}"/>
-                                    <Label text="{i18n>mobile}" />
-                                    <Text text="{mobile}"/>
-                                    <Label text="{i18n>pan}" />
-                                    <Text text="{pan}"/>
-                                </f:content>
-                            </f:SimpleForm>
-                        </HBox>
-                        <HBox>
-                            <VBox>
-                                <items>
-                                    <f:SimpleForm id="sfAddressData" editable="false" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="1" singleContainerFullSize="false">
-                                        <f:content>
-                                            <core:Title text="{i18n>serviceAddress}"/>
-                                            <Label text="{vendor/name}" design="Bold"/>
-                                            <VBox binding="{vendor/address}">
-                                                <items>
-                                                    <ObjectAttribute text="{street},{city}"/>
-                                                    <ObjectAttribute text="{country}-{zipcode}"/>
-                                                </items>
-                                            </VBox>
-                                        </f:content>
-                                    </f:SimpleForm>
-                                    <f:SimpleForm id="sfBuyerAddressData" editable="false" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="1" singleContainerFullSize="false">
-                                        <f:content>
-                                            <core:Title text="{i18n>billingAddress}"/>
-                                            <Label text="{buyer/name}" design="Bold"/>
-                                            <VBox binding="{buyer/address}">
-                                                <items>
-                                                    <ObjectAttribute text="{street},{city}"/>
-                                                    <ObjectAttribute text="{country}-{zipcode}"/>
-                                                </items>
-                                            </VBox>
-                                        </f:content>
-                                    </f:SimpleForm>
-                                </items>
-                            </VBox>
-
-                        </HBox>
+                        <FlexBox direction="Row">
+                            <HBox>
+                                <f:SimpleForm layout="ColumnLayout" columnsM="2" columnsL="3" columnsXL="4" title="{i18n>buyerDetails}" binding="{buyer}" singleContainerFullSize="true">
+                                    <f:content>
+                                        <core:Title/>
+                                        <Label text="{i18n>CustomerName}" />
+                                        <Text text="{name}" />
+                                        <Label text="{i18n>email}" />
+                                        <Text text="{email}"/>
+                                        <Label text="{i18n>mobile}" />
+                                        <Text text="{mobile}"/>
+                                        <Label text="{i18n>pan}" />
+                                        <Text text="{pan}"/>
+                                        <core:Title/>
+                                        <Label text="{i18n>CustomerName}" />
+                                        <Text text="{name}" />
+                                        <Label text="{i18n>email}" />
+                                        <Text text="{email}"/>
+                                        <Label text="{i18n>mobile}" />
+                                        <Text text="{mobile}"/>
+                                        <Label text="{i18n>address}" />
+                                        <Text text="{pan}"/>
+                                    </f:content>
+                                </f:SimpleForm>
+                                <f:SimpleForm singleContainerFullSize="true" layout="ColumnLayout" columnsM="2" columnsL="3" columnsXL="4" title="{i18n>sellerDetials}" binding="{vendor}">
+                                    <f:content>
+                                        <core:Title/>
+                                        <Label text="{i18n>CustomerName}" />
+                                        <Text text="{name}" />
+                                        <Label text="{i18n>email}" />
+                                        <Text text="{email}"/>
+                                        <Label text="{i18n>mobile}" />
+                                        <Text text="{mobile}"/>
+                                        <Label text="{i18n>pan}" />
+                                        <Text text="{pan}"/>
+                                        <core:Title/>
+                                        <Label text="{i18n>CustomerName}" />
+                                        <Text text="{name}" />
+                                        <Label text="{i18n>email}" />
+                                        <Text text="{email}"/>
+                                        <Label text="{i18n>mobile}" />
+                                        <Text text="{mobile}"/>
+                                        <Label text="{i18n>address}" />
+                                        <Text text="{pan}"/>
+                                    </f:content>
+                                </f:SimpleForm>
+                            </HBox>
+                            <HBox>
+                                <f:SimpleForm singleContainerFullSize="true" layout="ColumnLayout" columnsM="2" columnsL="3" columnsXL="4" title="{i18n>sow}" binding="{sow_details}">
+                                    <f:content>
+                                        <core:Title/>
+                                        <Label text="{i18n>delivertTerm}" />
+                                        <Text text="{delivery_term}" />
+                                        <Label text="{i18n>delieryPoint}" />
+                                        <Text text="{delivery_point}"/>
+                                        <Label text="{i18n>deliverySchedule}" />
+                                        <Text text="{delivery_schedule}"/>
+                                        <Label text="{i18n>paymentTerms}" />
+                                        <Text text="{payment_terms}"/>
+                                        <core:Title/>
+                                        <Label text="{i18n>dispatchDocuments}" />
+                                        <Text text="{dispatch_documents}" />
+                                        <Label text="{i18n>liquidatedDamages}" />
+                                        <Text text="{liquidated_damages}"/>
+                                        <Label text="{i18n>defect_liability_period}" />
+                                        <Text text="{defect_liability_period}"/>
+                                        <Label text="{i18n>address}" />
+                                        <Text text="{invoicing_address}"/>
+                                    </f:content>
+                                </f:SimpleForm>
+                                <f:SimpleForm singleContainerFullSize="true" layout="ColumnLayout" columnsM="2" columnsL="3" columnsXL="4" title="{i18n>priceSchedule}" binding="{price_schedule_details}">
+                                    <f:content>
+                                        <core:Title/>
+                                        <Label text="{i18n>materialCode}" />
+                                        <Text text="{material_code_or_description}" />
+                                        <Label text="{i18n>uom}" />
+                                        <Text text="{uom}"/>
+                                        <Label text="{i18n>quantity}" />
+                                        <Text text="{qty}"/>
+                                        <Label text="{i18n>date}" />
+                                        <Text text="{date}"/>
+                                        <core:Title/>
+                                        <Label text="{i18n>plant}" />
+                                        <Text text="{plant}" />
+                                        <Label text="{i18n>totalItems}" />
+                                        <Text text="{total_items}" />
+                                    </f:content>
+                                </f:SimpleForm>
+                            </HBox>
+                        </FlexBox>
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>
             </uxap:ObjectPageSection>
             <uxap:ObjectPageSection titleUppercase="false" title="{i18n>itemDetails}">
                 <uxap:subSections>
-                    <uxap:ObjectPageSubSection>
+                    <uxap:ObjectPageSubSection title="{i18n>lineItems}"> 
                         <VBox renderType="Bare">
                             <Table id="idParentLineItemsTable" width="auto" items="{path: 'parent_line_items', parameters: { $$updateGroupId : 'parentItemsGroup'}}" noDataText="{i18n>noParentItems}" growing="true" growingScrollToLoad="true" updateFinished=".onParentItemsTableUpdateFinished" selectionChange=".onParentItemSelect" mode="SingleSelectMaster">
                                 <headerToolbar>
@@ -146,7 +190,7 @@
                                     <Column>
                                         <Text text="{i18n>ViewChildLineItems}"/>
                                     </Column>
-                                   <!--  <Column width="5%">
+                                    <!--  <Column width="5%">
                                         <Text text="{i18n>EditButton}"/>
                                     </Column>
                                     <Column width="5%">
@@ -169,8 +213,38 @@
                             </Table>
                         </VBox>
                     </uxap:ObjectPageSubSection>
+                     <uxap:ObjectPageSubSection title="{i18n>manageBOQoptional}">
+                        <Table id="idTableBOQItems" width="auto" noDataText="{i18n>noBOQitems}" growing="true" growingScrollToLoad="true" items="{
+                            path: 'parent_line_items',
+                            parameters : {
+                                $count : true,                             
+                                $filter : 'type ge \'BOQ\''
+                            }
+                          }">
+                            <columns>
+                                <Column>
+                                    <Text text="{i18n>inspectionID}"/>
+                                </Column>
+                                <Column>
+                                    <Text text="{i18n>date}"/>
+                                </Column>
+                            </columns>
+
+                            <items>
+                                <ColumnListItem type="Navigation" press=".onInspectionIDPress">
+                                    <cells>
+                                        <ObjectIdentifier title="{inspection_call_id}" titleActive="true"/>
+                                        <Text text="{createdAt}"/>
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                        
+                    </uxap:ObjectPageSubSection>
                 </uxap:subSections>
             </uxap:ObjectPageSection>
+
+            
 
             <uxap:ObjectPageSection titleUppercase="false" title="{i18n>inspectionDetails}" visible="{= %{status}==='CONFIRMED' ? true : false}">
                 <uxap:subSections>
