@@ -29,7 +29,7 @@ sap.ui.define([
 
                 var oViewHandlingModel = new JSONModel({
                     ReEnterVehicleNob : null,
-                    HeaderDeclineButton : false
+               //     HeaderDeclineButton : false
                    
                 });
                 this.setModel(oViewHandlingModel, "oViewHandlingModel");
@@ -61,6 +61,10 @@ sap.ui.define([
                                                         },
                                                         "qr_code" : {
                                                             
+                                                        },
+                                                        "attachments":{},
+                                                        "gate":{
+                                                            "$select":["entry_id"]
                                                         }
                                             },
                                             "$select" : ["vehicle_no","qr_code_ID"]
@@ -111,7 +115,7 @@ sap.ui.define([
                 // Buttons Hide
                 this.byId("idHboxApproveReject").setVisible(false); 
                 
-                this.getView().getModel("oViewHandlingModel").setProperty("HeaderDeclineButton",true);
+               // this.getView().getModel("oViewHandlingModel").setProperty("HeaderDeclineButton",true);
                 this.getView().getModel("oViewHandlingModel").oData.ReEnterVehicleNob = this.byId("idInputVehcileNob").getValue();
                // this.byId("idReEnterInputVehcileNob").setValue(this.byId("idInputVehcileNob").getValue());                     
             },
@@ -137,8 +141,8 @@ sap.ui.define([
                     },
                     function (oError) {
                             sap.m.MessageBox.alert(oError.message, {
-                            title: "Error"
-                        });
+                                title: "Error"
+                            });
                     }
                 );
             },

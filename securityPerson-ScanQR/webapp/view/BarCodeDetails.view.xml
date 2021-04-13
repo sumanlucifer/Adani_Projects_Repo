@@ -15,7 +15,7 @@
                     <items>
                         <VBox renderType="Bare">
                              <Title text="{i18n>qRCodeDetails}"  titleStyle="H3" class="sapUiTinyMarginBottom"/>
-                             <Text text="#723842980" />
+                             <Text text="{qr_number}" />
                         </VBox>
                         <HBox renderType="Bare" class="sapUiSmallMarginTopBottom">
                             <items>
@@ -31,13 +31,12 @@
                         </HBox>  
                          <VBox id="idHboxEnterVehicleNob" renderType="Bare" binding="{packing_list}">
                              <HBox>
-                                <Text text="{i18n>VehicleNumber}" class="sapUiSmallMarginEnd"/>                         
-                                <Button icon="sap-icon://decline" type="Transparent" visible="{oViewHandlingModel>HeaderDeclineButton}" />
+                                <Text text="{i18n>VehicleNumber}" class="sapUiSmallMarginEnd"/>                 
                              </HBox>
                              <Input id="idInputVehcileNob" value="{vehicle_no}" width="80%" visible="{= %{vehicle_no}==='' ? true : false}" />
                              <Text id="idTextVehcileNob" text="{vehicle_no}" width="80%" visible="{= %{vehicle_no}==='' ? false : true}"/>                 
                          </VBox>
-                         <VBox id="idHboxReEnterVehicleNob" renderType="Bare" binding="{packing_list}" visible="false">
+                         <VBox id="idHboxReEnterVehicleNob" renderType="Bare" binding="{packing_list}" visible="{= %{gate/entry_id} ? false : true}">
                              <Text text="{i18n>VehicleNumber}" class="sapUiSmallMarginEnd"/>                         
                              <Input  value="{vehicle_no}" width="80%" />
                              <Text text="{i18n>reEnterVehicleNumber}" class="sapUiSmallMarginEnd"/>                         
@@ -45,14 +44,16 @@
                          </VBox>                                         
                     </items>                    
                 </VBox>        
-                <HBox id="idHboxApproveReject" alignItems="Start"  >
+                <HBox id="idHboxApproveReject" alignItems="Start" visible="{= %{packing_list/gate/entry_id} ? false : true}" >
                     <Button text="{i18n>approve}" press="onPressApproveQRCode" type="Accept" class="sapUiSmallMarginEnd"/>
                     <Button text="{i18n>reject}" press="onPressRejectQRCode" type="Reject"/>
                 </HBox>                                                        
                 </uxap:content>
                 <uxap:actions>
-                    <Button text="{i18n>submit}" binding="{/submitVehicleNumber(...)}" 
-                        press="onPressSubmitQRCode" type="Emphasized"/>
+                    <HBox visible="{= %{packing_list/gate/entry_id} ? false : true}">
+                        <Button text="{i18n>submit}" binding="{/submitVehicleNumber(...)}" 
+                        press="onPressSubmitQRCode" type="Emphasized" visible="{= %{gate/ID} ? false : true}"/>
+                    </HBox>
                 </uxap:actions>
             </uxap:ObjectPageDynamicHeaderTitle>
         </uxap:headerTitle>
@@ -62,17 +63,16 @@
             <uxap:ObjectPageSection title="QRCodeDetail">
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection>
-                         <HBox> 
-                        <Title />
-                         <VBox renderType="Bare"  alignItems="Start">
+                    
+                        <HBox renderType="Bare"  alignItems="Center"> 
+                             <VBox renderType="Bare" justifyContent="Center" alignItems="Center">
                                  <items>
                                         <Avatar displaySize="XL" badgeIcon="sap-icon://upload" displayShape="Square" src="data:image/jpg;base64,{content}"/>
                                         <Label text="{qr_number}"/>
                                   </items>
                             </VBox>
-
-                        <f:SimpleForm id="sfQRData"  binding="{purchase_order}" editable="true" 
-                         layout="ResponsiveGridLayout" title="{i18n>QRCode}" labelSpanXL="4" 
+                            <f:SimpleForm id="sfQRData" binding="{purchase_order}" editable="true" 
+                         layout="ResponsiveGridLayout" labelSpanXL="4" 
                          labelSpanL="4" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" 
                          emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="3" 
                          columnsL="3" columnsM="3" singleContainerFullSize="false" busyIndicatorDelay="{objectViewModel>busy}">
@@ -102,8 +102,9 @@
                                 <Label text="{i18n>vendorLoc}" />
                                 <Text text="{parts:[{path:'vendor/address/city'},{path:'vendor/address/country'}]}"/>
                             </f:content>
-                        </f:SimpleForm>
-                        </HBox>
+                          </f:SimpleForm>
+                       </HBox>
+                   
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>
             </uxap:ObjectPageSection>
@@ -133,7 +134,7 @@
                                         <Text text="{i18n>packingListID}"/>
                                     </Column>
                                     <Column width="15%">
-                                        <Text text="{i18n>ViewChildLineItems}"/>
+                                        <Text text="{i18n>ViewQRCode}"/>
                                     </Column>
                                 </columns>
                                 <items>
@@ -144,7 +145,7 @@
                                             <Text text="{name}"/>
                                             <Text text="{description}"/>
                                             <Text text="{packing_list_ID}"/>                                            
-                                            <Button text="{i18n>ViewChildLineItems}" type="Emphasized" press="onViewChildItemPress"/>
+                                            <Button text="{i18n>ViewQRCode}" type="Emphasized" press="onViewQRCodePress"/>
                                         </cells>
                                     </ColumnListItem>
                                 </items>
@@ -181,37 +182,73 @@
 
             <uxap:ObjectPageSection  titleUppercase="false" title="{i18n>attachment}">
                 <uxap:subSections>
-                    <uxap:ObjectPageSubSection title="{i18n>attachment}" id="idAttachemntsSubSection">
-                        <VBox>
-                           	<UploadCollection
-			id="UploadCollection"
-			maximumFilenameLength="55"
-			maximumFileSize="10"
-			multiple="false"
-			change="onChange"
-			fileSizeExceed="onFileSizeExceed"
-			selectionChange="onSelectionChange"
-			typeMissmatch="onTypeMissmatch"
-			uploadComplete="onUploadComplete"
-			beforeUploadStarts="onBeforeUploadStarts"
-			items="{
-				path: '/Attachments',
-				templateShareable: false
-			}"
-			mode="MultiSelect">
-			<items>
-				<UploadCollectionItem
-					documentId="{ID}"
-					fileName="{fileName}"
-					mimeType="{type}"
-					url="url"
-					enableEdit="false"
-					enableDelete="false"
-					visibleDelete="false"
-					visibleEdit="false">
-				</UploadCollectionItem>
-			</items>
-		</UploadCollection>
+                <!--For Material Details -->
+                    <uxap:ObjectPageSubSection title="{i18n>MaterialDetailsFile}">
+                        <VBox renderType="Bare">
+                           	<UploadCollection maximumFilenameLength="55"
+			                    maximumFileSize="10" multiple="false" change="onChange"
+                                fileSizeExceed="onFileSizeExceed" selectionChange="onSelectionChange"
+			                    typeMissmatch="onTypeMissmatch" uploadComplete="onUploadComplete"
+			                    beforeUploadStarts="onBeforeUploadStarts" uploadButtonInvisible="true"
+			                    items="{path: 'packing_list/attachments',
+                                parameters : {
+                                    $filter : 'type eq \'MATERIAL\''
+                                },
+                                templateShareable: false}"
+			                    mode="MultiSelect">
+                    			<items>
+				                    <UploadCollectionItem documentId="{document_number}" fileName="{fileName}"
+					                    url="data:text/csv;base64,{file}" enableEdit="false"
+					                    enableDelete="false" visibleDelete="false" visibleEdit="false">
+				                    </UploadCollectionItem>
+			                    </items>
+		                    </UploadCollection>
+                        </VBox>
+                    </uxap:ObjectPageSubSection>
+                    <!--For Invoice Details -->
+                    <uxap:ObjectPageSubSection title="{i18n>invoiceDetailsSubsectionTitle}">
+                        <VBox renderType="Bare">
+                           	<UploadCollection maximumFilenameLength="55"
+			                    maximumFileSize="10" multiple="false" change="onChange"
+                                fileSizeExceed="onFileSizeExceed" selectionChange="onSelectionChange"
+			                    typeMissmatch="onTypeMissmatch" uploadComplete="onUploadComplete"
+			                    beforeUploadStarts="onBeforeUploadStarts" uploadButtonInvisible="true"
+			                    items="{path: 'packing_list/attachments',
+                                parameters : {
+                                    $filter : 'type eq \'INVOICE\''
+                                },
+                                templateShareable: false}"
+			                    mode="MultiSelect">
+                    			<items>
+				                    <UploadCollectionItem documentId="{document_number}" fileName="{fileName}"
+					                    url="data:text/csv;base64,{file}" enableEdit="false"
+					                    enableDelete="false" visibleDelete="false" visibleEdit="false">
+				                    </UploadCollectionItem>
+			                    </items>
+		                    </UploadCollection>
+                        </VBox>
+                    </uxap:ObjectPageSubSection>
+                    <!--For Other Document Details -->
+                    <uxap:ObjectPageSubSection title="{i18n>otherDocumnetsSubsectionTitle}">
+                        <VBox renderType="Bare">
+                           	<UploadCollection maximumFilenameLength="55"
+			                    maximumFileSize="10" multiple="false" change="onChange"
+                                fileSizeExceed="onFileSizeExceed" selectionChange="onSelectionChange"
+			                    typeMissmatch="onTypeMissmatch" uploadComplete="onUploadComplete"
+			                    beforeUploadStarts="onBeforeUploadStarts" uploadButtonInvisible="true"
+			                    items="{path: 'packing_list/attachments',
+                                parameters : {
+                                    $filter : 'type eq \'OTHERS\''
+                                },
+                                templateShareable: false}"
+			                    mode="MultiSelect">
+                    			<items>
+				                    <UploadCollectionItem documentId="{document_number}" fileName="{fileName}"
+					                    url="data:text/csv;base64,{file}" enableEdit="false"
+					                    enableDelete="false" visibleDelete="false" visibleEdit="false">
+				                    </UploadCollectionItem>
+			                    </items>
+		                    </UploadCollection>
                         </VBox>
                     </uxap:ObjectPageSubSection>
                  </uxap:subSections>
