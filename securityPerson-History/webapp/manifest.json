@@ -27,6 +27,16 @@
                     "title": "{{appTileTitle}}"
                 }
             }
+        },
+        "dataSources": {
+            "default": {
+                "uri": "/AGEL_MMTS_API/odata/v4/SecurityPersonService/",
+                "type": "OData",
+                "settings": {
+                    "odataVersion": "4.0",
+                    "localUri": "localService/metadata.xml"
+                }
+            }
         }
 	},
 	
@@ -50,10 +60,10 @@
 	"sap.ui5": {
 		"flexEnabled": false,
 		"rootView": {
-			"viewName": "com.agel.mmts.securityPerson-History.view.LandingPage",
+			"viewName": "com.agel.mmts.securityPerson-History.view.App",
 			"type": "XML",
 			"async": true,
-			"id": "LandingPage"
+			"id": "app"
 		},
 		"dependencies": {
 			"minUI5Version": "1.60.1",
@@ -73,7 +83,17 @@
 				"settings": {
 					"bundleName": "com.agel.mmts.securityPerson-History.i18n.i18n"
 				}
-			}
+            },
+            "": {
+                "settings": {
+                    "operationMode": "Server",
+                     "groupId": "$direct",
+                    "autoExpandSelect": true,
+                    "synchronizationMode": "None"
+                },
+                "dataSource": "default",
+                "preload": true
+            }
 		},
 		"resources": {
 			"css": [{
@@ -88,11 +108,14 @@
 				"viewPath": "com.agel.mmts.securityPerson-History.view",
 				"controlAggregation": "pages",
 				"controlId": "app",
-				"clearControlAggregation": false
+                "clearControlAggregation": false,
+                "bypassed": {
+                    "target": []
+                }
 			},
 			"routes": [{
 				"name": "RouteLandingPage",
-				"pattern": "RouteLandingPage",
+				"pattern": "",
 				"target": ["TargetLandingPage"]
 			}],
 			"targets": {
@@ -100,7 +123,8 @@
 					"viewType": "XML",
 					"transition": "slide",
 					"clearControlAggregation": false,
-					"viewName": "LandingPage"
+                    "viewName": "LandingPage",
+                    "viewLevel": 0
 				}
 			}
 		}

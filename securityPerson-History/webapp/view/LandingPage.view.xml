@@ -1,11 +1,104 @@
-<mvc:View controllerName="com.agel.mmts.securityPerson-History.controller.LandingPage" xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns="sap.m">
-	<Shell id="shell">
-		<App id="app">
-			<pages>
-				<Page id="page" title="{i18n>title}">
-					<content></content>
-				</Page>
-			</pages>
-		</App>
-	</Shell>
+<!-- View for Listing Scanned QR Histories  -->
+<mvc:View controllerName="com.agel.mmts.securityPerson-History.controller.LandingPage" height="100%"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns:layout="sap.ui.layout"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:fb="sap.ui.comp.filterbar"
+    xmlns:vm="sap.ui.comp.variants">
+    <f:DynamicPage headerExpanded="true">
+        <!-- DynamicPage Title -->
+        <f:title>
+            <f:DynamicPageTitle>
+                <f:heading>
+                    <Title text="{i18n>pageTitle}"/>
+                </f:heading>
+            </f:DynamicPageTitle>
+        </f:title>
+        <!-- DynamicPage Header -->
+        <f:header>
+            <f:DynamicPageHeader pinnable="true">
+                <f:content>
+                    <fb:FilterBar id="filterbar" reset="onReset" search="onSearch" useToolbar="false" showGoOnFB="true">
+                        <fb:filterGroupItems>
+                            <fb:FilterGroupItem groupName="__$INTERNAL$" name="PONOs" label="{i18n>PONOs}" visibleInFilterBar="true" class="searchFieldLabelHidden">
+                                <fb:control>
+                                    <Input id="idNameInput" placeholder="{i18n>EnterPoNos}" showSuggestion="true" showValueHelp="false">
+                                    </Input>
+                                </fb:control>
+                            </fb:FilterGroupItem>
+                            <fb:FilterGroupItem groupName="__$INTERNAL$" name="po_release_date" label="{i18n>Date}" visibleInFilterBar="true" class="searchFieldLabelHidden">
+                                <fb:control>
+                                    <DatePicker id="DP1" placeholder="DDMMYYYY" change="onDateChange" valueFormat="dd.MM.yyyy"/>
+                                </fb:control>
+                            </fb:FilterGroupItem>
+                            <fb:FilterGroupItem groupName="__$INTERNAL$" name="invoice_number" label="{i18n>ParentCode}" visibleInFilterBar="true" class="searchFieldLabelHidden">
+                                <fb:control>
+                                    <Input id="idIdInput" placeholder="{i18n>EnterCode}" showSuggestion="true" showValueHelp="true">
+                                    </Input>
+                                </fb:control>
+                            </fb:FilterGroupItem>
+                        </fb:filterGroupItems>
+                    </fb:FilterBar>
+                </f:content>
+            </f:DynamicPageHeader>
+        </f:header>
+        <!-- DynamicPage Content -->
+        <f:content>
+            <Table id="idScannedMaterialHistoryTable" width="auto" noDataText="{i18n>noDataForPOs}" growing="true" growingScrollToLoad="true" items="{
+                    path : '/ScannedMaterialsList', 
+                    parameters : {
+                        $count : true,
+                        $expand : {
+                            'purchase_order':{
+                                '$expand' : {
+                                    'parent_line_items':{}
+                                } 
+                            },
+                            'packing_list':{}
+                        }
+                    }
+                }" updateStarted=".onScannedHistoryTableUpdateStarted">
+                <columns>
+                    <Column>
+                        <Text text="{i18n>ponum}"/>
+                    </Column>
+                    <Column>
+                        <Text text="{i18n>packingListID}"/>
+                    </Column>
+                    <Column>
+                        <Text text="{i18n>materialCode}"/>
+                    </Column>
+                    <Column>
+                        <Text text="{i18n>dateAndTime}"/>
+                    </Column>
+                    <Column>
+                        <Text text="{i18n>vehicleNo}"/>
+                    </Column>
+                    <!-- <Column>
+                        <Text text="{i18n>gateEntryID}"/>
+                    </Column> -->
+                    <Column>
+                        <Text text="{i18n>quantity}"/>
+                    </Column>
+
+                </columns>
+                <items>
+                    <ColumnListItem id="idOpenPOColumnItem" type="Navigation" press="onPurchaseOrderPress">
+                        <cells>
+                            <ObjectIdentifier text="{po_number}"/>
+                            <Text text="{packing_list_ID}"/>
+                            <Text text="{purchase_order/parent_line_items/0/material_code}"/>
+                            <!-- <Text text="{po_release_date}"/> -->
+                            <Text text="{createdAt}"/>
+                            <Text text="{packing_list/vehicle_no}"/>
+                            <!-- <Text text="{status}"/> -->
+                            <Text text="{purchase_order/parent_line_items/0/qty}{purchase_order/parent_line_items/0/uom}"/>
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </f:content>
+    </f:DynamicPage>
 </mvc:View>

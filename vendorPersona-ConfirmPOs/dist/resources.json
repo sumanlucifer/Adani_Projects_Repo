@@ -1,7 +1,7 @@
 {
     "resources": [
         {
-            "name": "manifest-bundle.zip"
+            "name": "model/models.js"
         },
         {
             "name": "model/models.js"
@@ -16,8 +16,7 @@
             "name": "Component.js"
         },
         {
-            "name": "i18n/i18n.properties",
-            "raw": "i18n/i18n.properties"
+            "name": "manifest-bundle.zip"
         },
         {
             "name": "Component-preload.js",

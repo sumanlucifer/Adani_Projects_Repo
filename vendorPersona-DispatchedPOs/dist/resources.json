@@ -17,22 +17,28 @@
             "name": "Component.js"
         },
         {
-            "name": "manifest-bundle.zip"
+            "name": "i18n/i18n.properties",
+            "raw": "i18n/i18n.properties"
         },
         {
             "name": "Component-preload.js",
             "merged": true
         },
         {
+<<<<<<< HEAD
+            "name": "Component-dbg.js",
+            "isDebug": true
+=======
             "name": "i18n/i18n.properties",
             "raw": "i18n/i18n.properties"
+>>>>>>> develop
         },
         {
             "name": "controller/LandingPage-dbg.controller.js",
             "isDebug": true
         },
         {
-            "name": "Component-dbg.js",
+            "name": "model/models-dbg.js",
             "isDebug": true
         },
         {
