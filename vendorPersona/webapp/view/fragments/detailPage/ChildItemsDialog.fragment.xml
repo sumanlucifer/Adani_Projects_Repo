@@ -4,13 +4,13 @@
         <content>
 
             <Table width="auto" growing="true" id="idChildItemsTable" growingScrollToLoad="true" items="{path: 'child_line_items', parameters: { $$updateGroupId : 'childLineItemGroup'}}">
-                <headerToolbar>
+                <!-- <headerToolbar>
                     <OverflowToolbar>
                         <ToolbarSpacer />
                         <Button icon="sap-icon://add" type="Emphasized" press=".onCreateChildItemPress"/>
                         <Button icon="sap-icon://save" type="Emphasized" press=".onChildItemsSavePress"/>
                     </OverflowToolbar>
-                </headerToolbar>
+                </headerToolbar> -->
                 <columns>
                     <Column>
                         <Text text="Material Code"/>

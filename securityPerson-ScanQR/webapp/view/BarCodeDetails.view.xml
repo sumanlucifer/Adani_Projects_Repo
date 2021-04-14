@@ -175,17 +175,15 @@
                     <!--For Material Details -->
                     <uxap:ObjectPageSubSection title="{i18n>MaterialDetailsFile}">
                         <VBox renderType="Bare">
-                            <UploadCollection maximumFilenameLength="55" maximumFileSize="10" multiple="false" change="onChange" fileSizeExceed="onFileSizeExceed" selectionChange="onSelectionChange" typeMissmatch="onTypeMissmatch" uploadComplete="onUploadComplete" beforeUploadStarts="onBeforeUploadStarts" 
-                            items="{
+                            <UploadCollection maximumFilenameLength="55" maximumFileSize="10" multiple="false" change="onChange" fileSizeExceed="onFileSizeExceed" selectionChange="onSelectionChange" typeMissmatch="onTypeMissmatch" uploadComplete="onUploadComplete" beforeUploadStarts="onBeforeUploadStarts" items="{
                                 path:'packing_list/attachments',
                                 parameters : {
                                     $filter : 'type eq \'MATERIAL\''
                                 },
                                 templateShareable: false}" mode="None" uploadButtonInvisible="true">
                                 <items>
-                                    <UploadCollectionItem documentId="{document_number}"
-                                    url="{path: 'file',formatter:'.formatter.fileContent'}"
-                                    enableEdit="false" enableDelete="false" visibleDelete="false" visibleEdit="false" fileName="{fileName}">
+                                    <UploadCollectionItem documentId="{document_number}" url="{parts: ['fileName','file'], 
+                                        formatter: '.formatter.fileContent' }" enableEdit="false" enableDelete="false" visibleDelete="false" visibleEdit="false" fileName="{fileName}">
                                     </UploadCollectionItem>
                                 </items>
                             </UploadCollection>
@@ -200,7 +198,8 @@
                                 },
                                 templateShareable: false}" mode="MultiSelect">
                                 <items>
-                                    <UploadCollectionItem documentId="{document_number}" fileName="{fileName}" url="{path: 'file',formatter:'.formatter.fileContent'}" enableEdit="false" enableDelete="false" visibleDelete="false" visibleEdit="false">
+                                    <UploadCollectionItem documentId="{document_number}" fileName="{fileName}" url="{parts: ['fileName','file'], 
+                                        formatter: '.formatter.fileContent' }" enableEdit="false" enableDelete="false" visibleDelete="false" visibleEdit="false">
                                     </UploadCollectionItem>
                                 </items>
                             </UploadCollection>
@@ -215,7 +214,8 @@
                                 },
                                 templateShareable: false}" mode="MultiSelect">
                                 <items>
-                                    <UploadCollectionItem documentId="{document_number}" fileName="{fileName}" url="{path: 'file',formatter:'.formatter.fileContent'}" enableEdit="false" enableDelete="false" visibleDelete="false" visibleEdit="false">
+                                    <UploadCollectionItem documentId="{document_number}" fileName="{fileName}" url="{parts: ['fileName','file'], 
+                                        formatter: '.formatter.fileContent' }" enableEdit="false" enableDelete="false" visibleDelete="false" visibleEdit="false">
                                     </UploadCollectionItem>
                                 </items>
                             </UploadCollection>

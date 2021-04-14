@@ -153,7 +153,7 @@
             </uxap:ObjectPageSection>
             <uxap:ObjectPageSection titleUppercase="false" title="{i18n>itemDetails}">
                 <uxap:subSections>
-                    <uxap:ObjectPageSubSection title="{i18n>lineItems}"> 
+                    <uxap:ObjectPageSubSection title="{i18n>lineItems}">
                         <VBox renderType="Bare">
                             <Table id="idParentLineItemsTable" width="auto" items="{path: 'parent_line_items', parameters: { $$updateGroupId : 'parentItemsGroup'}}" noDataText="{i18n>noParentItems}" growing="true" growingScrollToLoad="true" updateFinished=".onParentItemsTableUpdateFinished" selectionChange=".onParentItemSelect" mode="SingleSelectMaster">
                                 <headerToolbar>
@@ -213,38 +213,51 @@
                             </Table>
                         </VBox>
                     </uxap:ObjectPageSubSection>
-                     <uxap:ObjectPageSubSection title="{i18n>manageBOQoptional}">
-                        <Table id="idTableBOQItems" width="auto" noDataText="{i18n>noBOQitems}" growing="true" growingScrollToLoad="true" items="{
-                            path: 'parent_line_items',
-                            parameters : {
-                                $count : true,                             
-                                $filter : 'type ge \'BOQ\''
-                            }
-                          }">
-                            <columns>
-                                <Column>
-                                    <Text text="{i18n>inspectionID}"/>
-                                </Column>
-                                <Column>
-                                    <Text text="{i18n>date}"/>
-                                </Column>
-                            </columns>
+                    <uxap:ObjectPageSubSection title="{i18n>manageBOQoptional}">
+                        <VBox renderType="Bare">
+                            <SegmentedButton selectedKey="addBOQ" id="idManageBOQType" selectionChange="onBOQMangeTypeChange">
+                                <items>
+                                    <SegmentedButtonItem text="{i18n>addBOQ}" key="addBOQ" />
+                                    <SegmentedButtonItem text="{i18n>uploadBOQ}" key="uploadBOQ" />
+                                </items>
+                            </SegmentedButton>
+                            <VBox renderType="Bare" visible="{= %{objectViewModel>/boqSelection}==='addBOQ' ? true : false}">
+                                <Table id="idTableBOQItems" width="auto" noDataText="{i18n>noBOQitems}" growing="true" growingScrollToLoad="true" items="{
+                                        path: '/ChildLineItems',
+                                        parameters : {
+                                            $count : true,                             
+                                            $filter : 'type ge \'BOQ\''
+                                        }
+                                    }">
+                                    <columns>
+                                        <Column>
+                                            <Text text="{i18n>material code}"/>
+                                        </Column>
 
-                            <items>
-                                <ColumnListItem type="Navigation" press=".onInspectionIDPress">
-                                    <cells>
-                                        <ObjectIdentifier title="{inspection_call_id}" titleActive="true"/>
-                                        <Text text="{createdAt}"/>
-                                    </cells>
-                                </ColumnListItem>
-                            </items>
-                        </Table>
-                        
+                                    </columns>
+
+                                    <items>
+                                        <ColumnListItem>
+                                            <cells>
+                                                <ObjectIdentifier title="{material_code}" titleActive="true"/>
+
+                                            </cells>
+                                        </ColumnListItem>
+                                    </items>
+                                </Table>
+                            </VBox>
+                            <VBox renderType="Bare" visible="{= %{objectViewModel>/boqSelection}==='uploadBOQ' ? true : false}">
+                                <HBox renderType="Bare" justifyContent="Start" alignItems="Center" class="sapUiSmallMargin">
+                                    <Link text="download sample .csv template" class="sapUiSmallMarginEnd"/>
+                                    <unified:FileUploader buttonText="Upload BOQ" style="Emphasized" buttonOnly="true" icon="sap-icon://upload"/>
+                                </HBox>
+                            </VBox>
+                        </VBox>
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>
             </uxap:ObjectPageSection>
 
-            
+
 
             <uxap:ObjectPageSection titleUppercase="false" title="{i18n>inspectionDetails}" visible="{= %{status}==='CONFIRMED' ? true : false}">
                 <uxap:subSections>
