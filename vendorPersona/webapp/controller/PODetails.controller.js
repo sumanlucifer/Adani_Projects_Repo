@@ -24,7 +24,8 @@ sap.ui.define([
             //view model instatiation
             var oViewModel = new JSONModel({
                 busy: true,
-                delay: 0
+                delay: 0,
+                boqSelection: null
             });
             this.setModel(oViewModel, "objectViewModel");
 
@@ -38,6 +39,10 @@ sap.ui.define([
         _onObjectMatched: function (oEvent) {
             var sObjectId = oEvent.getParameter("arguments").POId;
             this._bindView("/PurchaseOrders" + sObjectId);
+
+            
+            this.getViewModel("objectViewModel").setProperty("/boqSelection", this.byId("idManageBOQType").getSelectedKey());
+
             //   this.getView().byId("idChildItemsTableSubsection").setVisible(false);
         },
 
@@ -84,7 +89,9 @@ sap.ui.define([
                                 "address": {}
                             }
                         },
-                        "inspection_call_ids": {}
+                        "inspection_call_ids": {},
+                        "sow_details":{},
+                        "price_schedule_details":{}
                     }
                 },
                 events: {
@@ -641,6 +648,10 @@ sap.ui.define([
                 });
             }
             return this._pMessagePopover;
+        },
+
+        onBOQMangeTypeChange: function(oEvent){
+            this.getViewModel("objectViewModel").setProperty("/boqSelection", oEvent.getSource().getSelectedKey());
         }
 
 
