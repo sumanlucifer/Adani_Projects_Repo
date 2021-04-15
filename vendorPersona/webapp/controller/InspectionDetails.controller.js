@@ -1,12 +1,13 @@
 sap.ui.define([
     "com/agel/mmts/vendorPersona/controller/BaseController",
     "sap/ui/model/json/JSONModel",
-    "sap/ui/core/Fragment"
-], function (BaseController, JSONModel, Fragment) {
+    "sap/ui/core/Fragment",
+    "../utils/formatter"
+], function (BaseController, JSONModel, Fragment, formatter) {
     "use strict";
 
     return BaseController.extend("com.agel.mmts.vendorPersona.controller.InspectionDetails", {
-
+        formatter: formatter,
         onInit: function () {
             //view model instatiation
             var oViewModel = new JSONModel({
@@ -41,7 +42,8 @@ sap.ui.define([
                                 }
                             }
                         },
-                        "packing_list": {}
+                        "packing_list": {},
+                        "attachments": {}
                     }
                 },
                 events: {
@@ -146,25 +148,30 @@ sap.ui.define([
             var oParentLineItemTable = this.byId("idInspectedParentLineItems")
             var aSelectedItems = oParentLineItemTable.getSelectedContexts()[0].getObject();
             var oViewContextObject = this.getView().getBindingContext().getObject;
+            var aParentItems = aSelectedItems;
+            var selectedChildLineItems = aParentItems.inspected_child_line_items;
+            delete aParentItems.inspected_child_line_items;
+            delete selectedChildLineItems[0].ID;
+            delete aParentItems.ID;
+
             var oPayload = {
                 "status": "Approved",
-                //"purchase_order_ID": "ef1a3038-9218-11eb-a8b3-0242ac130003",
-                "po_number": "4500326716",
+                "vehicle_no": "",
+                "purchase_order_ID": "ef1a3038-9218-11eb-a8b3-0242ac130003",
                 "insp_call_id": "be824424-8c91-11eb-8dcd-0242ac130003",
+                "po_number": "4500326716",
                 "packinglist_parent_line_items": [
                     {
-                        "name": aSelectedItems.material_code,
-                        "description": aSelectedItems.description,
-                        "material_code": aSelectedItems.material_code,
-                        "uom": "LOT",
-                        "approved_qty": aSelectedItems.approved_qty,
-                        "packinglist_child_items": aSelectedItems.inspected_child_line_items
-
+                        "name": aParentItems.name,
+                        "description": aParentItems.description,
+                        "material_code": aParentItems.material_code,
+                        "uom": aParentItems.uom,
+                        "approved_qty": aParentItems.qty,
+                        "packinglist_child_items": selectedChildLineItems
                     }
                 ]
             };
-            console.log(oPayload);
-            debugger;
+
             $.ajax({
                 "async": true,
                 "crossDomain": true,
@@ -176,10 +183,11 @@ sap.ui.define([
                 "processData": false,
                 "data": JSON.stringify(oPayload),
                 success: function (oData, oResponse) {
-                    debugger;
+                   // @ts-ignore
+                   sap.m.MessageToast("packing List Created with ID "+ oData.ID)
                 },
                 error: function (oError) {
-                    debugger;
+                    sap.m.MessageBox.error("Error creating Packing List");
                 }
             });
         }

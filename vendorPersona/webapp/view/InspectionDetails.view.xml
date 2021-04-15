@@ -23,7 +23,7 @@
                     <Label text="PO Number - {po_number}"/>
                 </f:expandedContent>
                 <f:snappedContent>
-                     <Label text="PO Number - {po_number}"/>
+                    <Label text="PO Number - {po_number}"/>
                 </f:snappedContent>
                 <f:snappedTitleOnMobile>
                     <Title text="{inspection_call_id}"/>
@@ -86,8 +86,30 @@
                                         </cells>
                                     </ColumnListItem>
                                 </items>
-
                             </Table>
+
+                            <VBox renderType="Bare" class="sapUiLargeMarginTop" visible="{= %{mdcc} ? false : true || %{attachments} ? false : true}">
+                                <Title text="MDCC details" level="H1"/>
+                                <VBox>
+                                    <Label text="Do you have MDCC Details?" />
+                                    <RadioButton groupName="GroupA" text="Yes" selected="true" />
+                                    <RadioButton groupName="GroupA" text="No" />
+                                </VBox>
+                                <VBox>
+                                    <UploadCollection maximumFilenameLength="55" maximumFileSize="10" multiple="false" change="onChange" fileSizeExceed="onFileSizeExceed" selectionChange="onSelectionChange" typeMissmatch="onTypeMissmatch" uploadComplete="onUploadComplete" beforeUploadStarts="onBeforeUploadStarts" items="{
+                                    path:'attachments',
+                                    parameters : {
+                                        $filter : 'type eq \'MDCC\''
+                                    },
+                                    templateShareable: false}" mode="None" uploadButtonInvisible="false">
+                                        <items>
+                                            <UploadCollectionItem documentId="{document_number}" url="{parts: ['fileName','file'], 
+                                        formatter: '.formatter.fileContent' }" enableEdit="false" enableDelete="false" visibleDelete="false" visibleEdit="false" fileName="{fileName}">
+                                            </UploadCollectionItem>
+                                        </items>
+                                    </UploadCollection>
+                                </VBox>
+                            </VBox>
                         </VBox>
                     </IconTabFilter>
                     <IconTabFilter text="{i18n>packingLists}">
@@ -123,7 +145,7 @@
                                 </columns>
 
                                 <items>
-                                    <ColumnListItem type="Navigation" press="onPackingListItemPress"> 
+                                    <ColumnListItem type="Navigation" press="onPackingListItemPress">
                                         <cells>
                                             <Text text="{po_number}"/>
                                             <Text text="{vehicle_no}"/>
