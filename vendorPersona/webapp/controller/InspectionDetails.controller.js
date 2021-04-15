@@ -37,11 +37,11 @@ sap.ui.define([
                         "insepected_parent_line_items": {
                             "$expand": {
                                 "inspected_child_line_items": {
-                                    "$select" : ["material_code","description", "qty", "uom"]
+                                    "$select": ["material_code", "description", "qty", "uom"]
                                 }
                             }
                         },
-                        "packing_list":{}
+                        "packing_list": {}
                     }
                 },
                 events: {
@@ -103,7 +103,7 @@ sap.ui.define([
             });
         },
 
-        onPackingListItemPress: function(oEvent){
+        onPackingListItemPress: function (oEvent) {
             this._showObject(oEvent.getSource());
         },
 
@@ -117,7 +117,7 @@ sap.ui.define([
             });
         },
 
-        onGenerateQRCodePress: function(oEvent){
+        onGenerateQRCodePress: function (oEvent) {
             var that = this,
                 oBindingObject = oEvent.getSource().getObjectBinding("qrCodeModel");
 
@@ -126,7 +126,7 @@ sap.ui.define([
             oBindingObject.getParameterContext().setProperty("inspection_call_id", "1000001");
             oBindingObject.getParameterContext().setProperty("width", 10);
             oBindingObject.getParameterContext().setProperty("height", 10);
-             oBindingObject.getParameterContext().setProperty("packing_list_id", 10);
+            oBindingObject.getParameterContext().setProperty("packing_list_id", 10);
 
             //execute the action
             oBindingObject.execute().then(
@@ -139,6 +139,49 @@ sap.ui.define([
                     });
                 }
             );
+        },
+
+        onCreatePackingListPress: function (oEvent) {
+            debugger;
+            var oParentLineItemTable = this.byId("idInspectedParentLineItems")
+            var aSelectedItems = oParentLineItemTable.getSelectedContexts()[0].getObject();
+            var oViewContextObject = this.getView().getBindingContext().getObject;
+            var oPayload = {
+                "status": "Approved",
+                //"purchase_order_ID": "ef1a3038-9218-11eb-a8b3-0242ac130003",
+                "po_number": "4500326716",
+                "insp_call_id": "be824424-8c91-11eb-8dcd-0242ac130003",
+                "packinglist_parent_line_items": [
+                    {
+                        "name": aSelectedItems.material_code,
+                        "description": aSelectedItems.description,
+                        "material_code": aSelectedItems.material_code,
+                        "uom": "LOT",
+                        "approved_qty": aSelectedItems.approved_qty,
+                        "packinglist_child_items": aSelectedItems.inspected_child_line_items
+
+                    }
+                ]
+            };
+            console.log(oPayload);
+            debugger;
+            $.ajax({
+                "async": true,
+                "crossDomain": true,
+                "url": "/AGEL_MMTS_API/odata/v4/VendorsService/PackingLists",
+                "method": "POST",
+                "headers": {
+                    "content-type": "application/json"
+                },
+                "processData": false,
+                "data": JSON.stringify(oPayload),
+                success: function (oData, oResponse) {
+                    debugger;
+                },
+                error: function (oError) {
+                    debugger;
+                }
+            });
         }
 
 

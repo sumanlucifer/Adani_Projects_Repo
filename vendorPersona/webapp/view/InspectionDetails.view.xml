@@ -44,7 +44,7 @@
                 <items>
                     <IconTabFilter text="{i18n>itemDetails}">
                         <VBox renderType="Bare">
-                            <Table id="idInspectedParentLineItems" width="auto" items="{insepected_parent_line_items}" noDataText="{i18n>noParentItems}" growing="true" growingScrollToLoad="true" selectionChange=".onParentItemSelect" mode="SingleSelectMaster">
+                            <Table id="idInspectedParentLineItems" width="auto" items="{insepected_parent_line_items}" noDataText="{i18n>noParentItems}" growing="true" growingScrollToLoad="true" selectionChange=".onParentItemSelect" mode="MultiSelect" rememberSelections="true">
                                 <headerToolbar>
                                     <OverflowToolbar>
                                         <Title text="Inspected Parent Items" level="H4" id="idInspectedParentItems"/>
@@ -57,7 +57,7 @@
                                         <Button tooltip="{i18n>sort}" icon="sap-icon://sort" press="handleSortButtonPressed" type="Transparent"/>
                                         <Button tooltip="{i18n>filter}" icon="sap-icon://filter" press="handleFilterButtonPressed" type="Transparent"/>
                                         <Button press=".onExportParentItemsExportPress" icon="sap-icon://download"/>
-                                        <Button text="Create Packing List" type="Emphasized"/>
+                                        <Button text="Create Packing List" type="Emphasized" press="onCreatePackingListPress"/>
                                         <!-- <Button text="Generate QR Code" type="Emphasized" binding="{qrCodeModel>/generateQRCode(...)}" press=".onGenerateQRCodePress"/> -->
                                     </OverflowToolbar>
                                 </headerToolbar>

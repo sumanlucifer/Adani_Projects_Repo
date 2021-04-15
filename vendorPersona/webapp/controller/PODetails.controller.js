@@ -15,17 +15,20 @@ sap.ui.define([
     "sap/m/MessageBox",
     "sap/m/ObjectIdentifier",
     "sap/m/Text",
-    "sap/m/Button"
-], function (BaseController, JSONModel, Filter, FilterOperator, Fragment, Sorter, Device, History, ColumnListItem, Input, deepExtend, Spreadsheet, MessageToast, MessageBox, ObjectIdentifier, Text, Button) {
+    "sap/m/Button",
+    '../utils/formatter',
+], function (BaseController, JSONModel, Filter, FilterOperator, Fragment, Sorter, Device, History, ColumnListItem, Input, deepExtend, Spreadsheet, MessageToast, MessageBox, ObjectIdentifier, Text, Button, formatter) {
     "use strict";
 
     return BaseController.extend("com.agel.mmts.vendorPersona.controller.PODetails", {
+        formatter: formatter,
         onInit: function () {
             //view model instatiation
             var oViewModel = new JSONModel({
                 busy: true,
                 delay: 0,
-                boqSelection: null
+                boqSelection: null,
+                csvFile: "file"
             });
             this.setModel(oViewModel, "objectViewModel");
 
@@ -40,7 +43,7 @@ sap.ui.define([
             var sObjectId = oEvent.getParameter("arguments").POId;
             this._bindView("/PurchaseOrders" + sObjectId);
 
-            
+
             this.getViewModel("objectViewModel").setProperty("/boqSelection", this.byId("idManageBOQType").getSelectedKey());
 
             //   this.getView().byId("idChildItemsTableSubsection").setVisible(false);
@@ -80,7 +83,7 @@ sap.ui.define([
                         "parent_line_items": {
                             "$expand": {
                                 "child_line_items": {
-                                    "$select": ["material_code","description", "qty", "uom"]
+                                    "$select": ["material_code", "description", "qty", "uom"]
                                 }
                             }
                         },
@@ -90,8 +93,9 @@ sap.ui.define([
                             }
                         },
                         "inspection_call_ids": {},
-                        "sow_details":{},
-                        "price_schedule_details":{}
+                        "sow_details": {},
+                        "price_schedule_details": {},
+                        "packing_list": {}
                     }
                 },
                 events: {
@@ -286,7 +290,7 @@ sap.ui.define([
                     parameters: {
                         "$expand": {
                             "child_line_items": {
-                                "$select": ["ID", "material_code","description", "qty", "uom"]
+                                "$select": ["ID", "material_code", "description", "qty", "uom"]
                             }
                         }
                     }
@@ -329,9 +333,10 @@ sap.ui.define([
 
             data = data.substr(21, data.length);
 
+            
             //set the parameters
             oBindingObject.getParameterContext().setProperty("file", data);
-            oBindingObject.getParameterContext().setProperty("po_number", oViewContext.po_number);
+            //oBindingObject.getParameterContext().setProperty("po_number", oViewContext.po_number);
             oBindingObject.getParameterContext().setProperty("purchase_order_ID", oViewContext.ID);
 
             //execute the action
@@ -635,9 +640,69 @@ sap.ui.define([
             return this._pMessagePopover;
         },
 
-        onBOQMangeTypeChange: function(oEvent){
+        onBOQMangeTypeChange: function (oEvent) {
             this.getViewModel("objectViewModel").setProperty("/boqSelection", oEvent.getSource().getSelectedKey());
+        },
+
+        onDownloadSampleCSVPress: function (oEvent) {
+            var sampleBOQJSON = new JSONModel([{
+                "LINE_ITEM_ID": "120014",
+                "MATERIAL_CODE": "C-6758",
+                "DESCRIPTION": "Test Material",
+                "QUANTITY": 100,
+                "UOM": "each",
+                "COMMENTS": "Test Comments",
+                "PARENT_ITEM_ID": "120014"
+            }]);
+
+            var aCols, aItems, oSettings, oSheet;
+
+			aCols = [{
+                property: 'LINE_ITEM_ID',
+                label: 'LINE_ITEM_ID'
+            },
+            {
+                property: 'MATERIAL_CODE',
+                label: 'MATERIAL_CODE'
+            },
+            {
+                property: 'DESCRIPTION',
+                label: 'DESCRIPTION'
+            },
+            {
+                property: 'QUANTITY',
+                label: 'QUANTITY'
+            }, {
+                property: 'UOM',
+                lable: 'UOM'
+            },
+            {
+                property: 'COMMENTS',
+                lable: 'COMMENTS'
+            },
+            {
+                property: 'PARENT_ITEM_ID',
+                lable: 'PARENT_ITEM_ID'
+            }
+            ];
+			aItems = sampleBOQJSON.getProperty('/');;
+
+			oSettings = {
+				workbook: { columns: aCols },
+                dataSource: aItems,
+                fileName: 'SampleBOQ.csv'
+			};
+
+			oSheet = new Spreadsheet(oSettings);
+			oSheet.build()
+				.then( function() {
+					MessageToast.show('Sample BOQ file export has finished!');
+				})
+				.finally(oSheet.destroy);
+
+
         }
+
 
 
     });

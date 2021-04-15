@@ -2,7 +2,7 @@
     xmlns:core="sap.ui.core">
     <Dialog id="helloDialog" contentHeight="50%" contentWidth="50%" title="Inspected Child Line Items">
         <content>
-            <Table width="auto" growing="true" growingScrollToLoad="true" items="{inspected_child_line_items}">
+            <Table id="idInspectedChildLineItems" width="auto" growing="true" growingScrollToLoad="true" items="{inspected_child_line_items}" mode="MultiSelect" rememberSelections="true">
                 <columns>
                     <Column>
                         <Text text="Material Code"/>
