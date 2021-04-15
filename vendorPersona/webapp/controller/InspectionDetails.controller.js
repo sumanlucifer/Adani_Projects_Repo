@@ -144,66 +144,69 @@ sap.ui.define([
         },
 
         onCreatePackingListPress: function (oEvent) {
-            debugger;
             var oParentLineItemTable = this.byId("idInspectedParentLineItems")
-            var aSelectedItems = oParentLineItemTable.getSelectedContexts()[0].getObject();
-            var oViewContextObject = this.getView().getBindingContext().getObject;
-            var aParentItems = aSelectedItems;
-            var selectedChildLineItems = aParentItems.inspected_child_line_items;
-            delete aParentItems.inspected_child_line_items;
-            delete selectedChildLineItems[0].ID;
-            delete aParentItems.ID;
+            if (oParentLineItemTable.getSelectedContexts().length > 0) {
+                var aSelectedItems = oParentLineItemTable.getSelectedContexts()[0].getObject();
+                var oViewContextObject = this.getView().getBindingContext().getObject;
+                var aParentItems = aSelectedItems;
+                var selectedChildLineItems = aParentItems.inspected_child_line_items;
+                delete aParentItems.inspected_child_line_items;
+                delete selectedChildLineItems[0].ID;
+                delete aParentItems.ID;
 
-            var oPayload = {
-                "status": "Approved",
-                "vehicle_no": "",
-                "purchase_order_ID": "ef1a3038-9218-11eb-a8b3-0242ac130003",
-                "insp_call_id": "be824424-8c91-11eb-8dcd-0242ac130003",
-                "po_number": "4500326716",
-                "name": "packing List",
-                "packinglist_parent_line_items": [
-                    {
-                        "name": aParentItems.name,
-                        "description": aParentItems.description,
-                        "material_code": aParentItems.material_code,
-                        "uom": aParentItems.uom,
-                        "approved_qty": aParentItems.qty,
-                        "packinglist_child_items": selectedChildLineItems
+                var oPayload = {
+                    "status": "Approved",
+                    "vehicle_no": "",
+                    "purchase_order_ID": "ef1a3038-9218-11eb-a8b3-0242ac130003",
+                    "insp_call_id": "be824424-8c91-11eb-8dcd-0242ac130003",
+                    "po_number": "4500326716",
+                    "name": "packing List",
+                    "packinglist_parent_line_items": [
+                        {
+                            "name": aParentItems.name,
+                            "description": aParentItems.description,
+                            "material_code": aParentItems.material_code,
+                            "uom": aParentItems.uom,
+                            "approved_qty": aParentItems.qty,
+                            "packinglist_child_items": selectedChildLineItems
+                        }
+                    ]
+                };
+
+                $.ajax({
+                    "async": true,
+                    "crossDomain": true,
+                    "url": "/AGEL_MMTS_API/odata/v4/VendorsService/PackingLists",
+                    "method": "POST",
+                    "headers": {
+                        "content-type": "application/json"
+                    },
+                    "processData": false,
+                    "data": JSON.stringify(oPayload),
+                    success: function (oData, oResponse) {
+                        // @ts-ignore
+                        sap.m.MessageToast.show("packing List Created with ID " + oData.ID)
+                    },
+                    error: function (oError) {
+                        sap.m.MessageBox.error("Error creating Packing List");
                     }
-                ]
-            };
-
-            $.ajax({
-                "async": true,
-                "crossDomain": true,
-                "url": "/AGEL_MMTS_API/odata/v4/VendorsService/PackingLists",
-                "method": "POST",
-                "headers": {
-                    "content-type": "application/json"
-                },
-                "processData": false,
-                "data": JSON.stringify(oPayload),
-                success: function (oData, oResponse) {
-                    // @ts-ignore
-                    sap.m.MessageToast.show("packing List Created with ID " + oData.ID)
-                },
-                error: function (oError) {
-                    sap.m.MessageBox.error("Error creating Packing List");
-                }
-            });
+                });
+            } else {
+                sap.m.MessageBox.information("Please select at least one item to go ahead with Creating Packing List!");
+            }
         },
 
         MDCCFileSelectedForUpload: function (oEvent) {
             // keep a reference of the uploaded file
-            debugger;
             var that = this;
             var oFiles = oEvent.getParameters().files;
+            var fileName = oFiles[0].name;
             this._getImageData(URL.createObjectURL(oFiles[0]), function (base64) {
-                that._addData(base64);
-            });
+                that._addData(base64, fileName);
+            }, fileName);
         },
 
-        _getImageData: function (url, callback) {
+        _getImageData: function (url, callback, fileName) {
             var xhr = new XMLHttpRequest();
             xhr.onload = function () {
                 var reader = new FileReader();
@@ -217,43 +220,74 @@ sap.ui.define([
             xhr.send();
         },
 
-        _addData: function (data) {
+        _addData: function (data, fileName) {
             var that = this,
                 oViewContext = this.getView().getBindingContext().getObject(),
                 oBindingObject = this.byId("idMDCCUploader").getObjectBinding("attachmentModel");
 
-            data = data.substr(21, data.length);
-            var document = {
+            data = data.split(",")[1];
+            var documents = {
                 "documents": [
                     {
                         "type": "mdcc",
                         "packing_list_id": "",
                         "file": data,
-                        "fileName": "firstDoc.txt",
-                        "inspection_call_id": "43e413aa-9376-11eb-a8b3-0242ac130003",
+                        "fileName": fileName,
+                        "inspection_call_id": oViewContext.ID,
                         "document_number": "12345",
-                        "document_date": "2021-04-09"
+                        "document_date": "2021-12-12"
                     }
                 ]
-            }
+            };
 
             //set the parameters
-            oBindingObject.getParameterContext().setProperty("file", data);
+            //oBindingObject.getParameterContext().setProperty("documents", "");
             //oBindingObject.getParameterContext().setProperty("po_number", oViewContext.po_number);
-            oBindingObject.getParameterContext().setProperty("purchase_order_ID", oViewContext.ID);
+            //oBindingObject.getParameterContext().setProperty("purchase_order_ID", oViewContext.ID);
 
             //execute the action
-            oBindingObject.execute().then(
+            /* oBindingObject.execute().then(
                 function () {
-                    MessageToast.show("BOQ uploaded!");
+                    debugger;
+                    sap.m.MessageToast.show("MDCC Details uploaded!");
                     that.getView().getModel().refresh();
                 },
                 function (oError) {
+                    debugger;
                     sap.m.MessageBox.alert(oError.message, {
                         title: "Error"
                     });
                 }
-            );
+            ); */
+
+            $.ajax({
+                "async": true,
+                "crossDomain": true,
+                "url": "/AGEL_MMTS_API/odata/v4/AttachmentsService/uploadDocument",
+                "method": "POST",
+                "headers": {
+                    "content-type": "application/json"
+                },
+                "processData": false,
+                "data": JSON.stringify(documents),
+                success: function (oData, oResponse) {
+                    // @ts-ignore
+                    debugger;
+                    sap.m.MessageToast.show("MDCC Details Uploaded!");
+                    this.getView().getModel().refresh();
+                }.bind(this),
+                error: function (oError) {
+                    debugger;
+                    sap.m.MessageBox.error("Error uploading document");
+                }
+            });
+        },
+
+        onMDCCYesSelect: function () {
+            this.byId("idMDCCUploadArea").setVisible(true);
+        },
+        onMDCCNOSelect: function () {
+            this.byId("idMDCCUploadArea").setVisible(false);
         },
 
 

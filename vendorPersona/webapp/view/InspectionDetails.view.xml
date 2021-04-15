@@ -92,10 +92,10 @@
                                 <Title text="MDCC details" level="H1"/>
                                 <VBox>
                                     <Label text="Do you have MDCC Details?" />
-                                    <RadioButton groupName="GroupA" text="Yes" selected="true" />
-                                    <RadioButton groupName="GroupA" text="No" />
+                                    <RadioButton groupName="GroupA" text="Yes" selected="true" select="onMDCCYesSelect"/>
+                                    <RadioButton groupName="GroupA" text="No" select="onMDCCNOSelect"/>
                                 </VBox>
-                                <VBox>
+                                <VBox id="idMDCCUploadArea">
                                     <UploadCollection id="idMDCCUploader" maximumFilenameLength="55" maximumFileSize="10" multiple="false" change="MDCCFileSelectedForUpload" fileSizeExceed="onFileSizeExceed" selectionChange="MDCCFileSelectedForUpload" typeMissmatch="onTypeMissmatch" uploadComplete="onUploadComplete" beforeUploadStarts="onBeforeUploadStarts" binding="{attachmentModel>/uploadDocument(...)}" items="{
                                     path:'attachments',
                                     parameters : {

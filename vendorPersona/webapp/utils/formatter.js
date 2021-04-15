@@ -39,6 +39,16 @@ sap.ui.define([], function () {
                     var _pdfurl = URL.createObjectURL(blob);
                     return _pdfurl;
                 }
+                if (fileExtention.includes("png") || fileExtention.includes("PNG")) {
+                    var decodedPdfContent = atob(fileContent);
+                    var byteArray = new Uint8Array(decodedPdfContent.length)
+                    for (var i = 0; i < decodedPdfContent.length; i++) {
+                        byteArray[i] = decodedPdfContent.charCodeAt(i);
+                    }
+                    var blob = new Blob([byteArray.buffer], { type: 'image/png' });
+                    var _pdfurl = URL.createObjectURL(blob);
+                    return _pdfurl;
+                }
                 if (fileExtention.includes("jpeg") || fileExtention.includes("JPEG")) {
                     var decodedPdfContent = atob(fileContent);
                     var byteArray = new Uint8Array(decodedPdfContent.length)

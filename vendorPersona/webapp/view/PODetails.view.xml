@@ -291,7 +291,7 @@
                         <Table id="idPackingListsTable" width="auto" noDataText="{i18n>noPackingListsText}" growing="true" growingScrollToLoad="true" items="{packing_list}">
                             <columns>
                                 <Column>
-                                    <Text text="{i18n>name}"/>
+                                    <Text text="ID"/>
                                 </Column>
                                 <Column>
                                     <Text text="{i18n>inspectionCallRefNo}"/>
@@ -305,9 +305,9 @@
                             </columns>
 
                             <items>
-                                <ColumnListItem type="Navigation" press=".onInspectionIDPress">
+                                <ColumnListItem type="Navigation" press=".onPackingListPress">
                                     <cells>
-                                        <ObjectIdentifier title="{name}" titleActive="true"/>
+                                        <ObjectIdentifier title="{ID}" titleActive="true"/>
                                         <Text text="{insp_call_id}"/>
                                         <Text text="{createdAt}"/>
                                         <Text text="{status}"/>

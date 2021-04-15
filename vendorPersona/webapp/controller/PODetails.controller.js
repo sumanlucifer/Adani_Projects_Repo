@@ -333,7 +333,7 @@ sap.ui.define([
 
             data = data.substr(21, data.length);
 
-            
+
             //set the parameters
             oBindingObject.getParameterContext().setProperty("file", data);
             //oBindingObject.getParameterContext().setProperty("po_number", oViewContext.po_number);
@@ -381,6 +381,11 @@ sap.ui.define([
         onInspectionIDPress: function (oEvent) {
             // The source is the list item that got pressed
             this._showObject(oEvent.getSource());
+        },
+
+        onPackingListPress: function (oEvent) {
+            // The source is the list item that got pressed
+            this._showPackingDetails(oEvent.getSource());
         },
 
         // On Parent Table Edit Row Button 
@@ -587,7 +592,6 @@ sap.ui.define([
 
 
             oContext.created().then(function () {
-                debugger;
                 sap.m.MessageBox.success("New entry created!");
             }.bind(oContext, that), function (error) {
                 sap.m.MessageBox.success("Error Creating Entries!!");
@@ -613,6 +617,15 @@ sap.ui.define([
             oItem.getBindingContext().requestCanonicalPath().then(function (sObjectPath) {
                 that.getRouter().navTo("RouteInspectionDetailsPage", {
                     inspectionID: sObjectPath.slice("/InspectionCallIds".length) // /PurchaseOrders(123)->(123)
+                });
+            });
+        },
+
+        _showPackingDetails:function(oItem) {
+            var that = this;
+            oItem.getBindingContext().requestCanonicalPath().then(function (sObjectPath) {
+                that.getRouter().navTo("RoutePackingDeatilsPage", {
+                    packingListID: sObjectPath.slice("/PackingLists".length) // /PurchaseOrders(123)->(123)
                 });
             });
         },
@@ -657,7 +670,7 @@ sap.ui.define([
 
             var aCols, aItems, oSettings, oSheet;
 
-			aCols = [{
+            aCols = [{
                 property: 'LINE_ITEM_ID',
                 label: 'LINE_ITEM_ID'
             },
@@ -685,20 +698,20 @@ sap.ui.define([
                 lable: 'PARENT_ITEM_ID'
             }
             ];
-			aItems = sampleBOQJSON.getProperty('/');;
+            aItems = sampleBOQJSON.getProperty('/');;
 
-			oSettings = {
-				workbook: { columns: aCols },
+            oSettings = {
+                workbook: { columns: aCols },
                 dataSource: aItems,
                 fileName: 'SampleBOQ.csv'
-			};
+            };
 
-			oSheet = new Spreadsheet(oSettings);
-			oSheet.build()
-				.then( function() {
-					MessageToast.show('Sample BOQ file export has finished!');
-				})
-				.finally(oSheet.destroy);
+            oSheet = new Spreadsheet(oSettings);
+            oSheet.build()
+                .then(function () {
+                    MessageToast.show('Sample BOQ file export has finished!');
+                })
+                .finally(oSheet.destroy);
 
 
         }

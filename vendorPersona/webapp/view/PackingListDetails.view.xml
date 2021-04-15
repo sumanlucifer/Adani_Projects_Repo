@@ -29,6 +29,10 @@
                 <f:snappedTitleOnMobile>
                     <!-- <Title text="{inspection_call_id}"/> -->
                 </f:snappedTitleOnMobile>
+                <f:actions>
+                    <Button text="Generate QR Code" type="Emphasized" press="onGenerateQRCodePress" binding="{qrCodeModel>/generateQRCode(...)}"></Button>
+                    <Button id="idPrintButton" type="Emphasized" icon="sap-icon://print" press="onPrintPackingListPress" binding="{/downloadPackingListDocument(...)}"></Button>
+                </f:actions>
             </f:DynamicPageTitle>
         </f:title>
         <!-- DynamicPage Header -->
@@ -39,7 +43,7 @@
                         <items>
                             <VBox renderType="Bare" binding="{qr_code}" alignItems="Center">
                                 <items>
-                                    <Avatar displaySize="XL" badgeIcon="sap-icon://upload" displayShape="Square" src="data:image/jpg;base64,{content}"/>
+                                    <Avatar displaySize="XL" badgeIcon="sap-icon://upload" displayShape="Square" src="data:image/jpg;base64,{content}" visible="{= %{content} ? true : false}"/>
                                     <Label text="{qr_number}"/>
                                 </items>
                             </VBox>
@@ -60,7 +64,7 @@
             <IconTabBar id="idIconTabBarNoIcons" expanded="{device>/isNoPhone}" class="sapUiResponsiveContentPadding">
                 <items>
                     <IconTabFilter text="Packing List Information">
-                        <Table id="idInspectedParentLineItems" width="auto" items="{insepected_parent_line_items}" noDataText="{i18n>noParentItems}" growing="true" growingScrollToLoad="true" selectionChange=".onParentItemSelect" mode="SingleSelectMaster">
+                        <Table id="idInspectedParentLineItems" width="auto" items="{packinglist_parent_line_items}" noDataText="{i18n>noParentItems}" growing="true" growingScrollToLoad="true" selectionChange=".onParentItemSelect" mode="SingleSelectMaster">
                             <headerToolbar>
                                 <OverflowToolbar>
                                     <Title text="Inspected Parent Items" level="H4" id="idInspectedParentItems"/>
@@ -104,10 +108,54 @@
                         </Table>
                     </IconTabFilter>
                     <IconTabFilter text="Invoice">
-                        <Text text="Attachments go here ..." />
+                        <UploadCollection maximumFilenameLength="55" maximumFileSize="10" multiple="false" fileSizeExceed="onFileSizeExceed" typeMissmatch="onTypeMissmatch" uploadComplete="onUploadComplete" beforeUploadStarts="onBeforeUploadStarts" items="{
+                                    path:'attachments',
+                                    parameters : {
+                                        $filter : 'type eq \'INVOICE\''
+                                    },
+                                    templateShareable: false}" mode="None" uploadButtonInvisible="true">
+                            <items>
+                                <UploadCollectionItem documentId="{document_number}" url="{parts: ['fileName','file'], 
+                                        formatter: '.formatter.fileContent' }" enableEdit="false" enableDelete="false" visibleDelete="false" visibleEdit="false" fileName="{fileName}">
+                                    <attributes>
+                                        <ObjectAttribute title="Invoive Number" text="{document_number}"/>
+                                    </attributes>
+                                </UploadCollectionItem>
+
+                            </items>
+                        </UploadCollection>
+                    </IconTabFilter>
+                    <IconTabFilter text="Material Details">
+                        <UploadCollection maximumFilenameLength="55" maximumFileSize="10" multiple="false" fileSizeExceed="onFileSizeExceed" typeMissmatch="onTypeMissmatch" uploadComplete="onUploadComplete" beforeUploadStarts="onBeforeUploadStarts" items="{
+                                    path:'attachments',
+                                    parameters : {
+                                        $filter : 'type eq \'MATERIAL\''
+                                    },
+                                    templateShareable: false}" mode="None" uploadButtonInvisible="true">
+                            <items>
+                                <UploadCollectionItem documentId="{document_number}" url="{parts: ['fileName','file'], 
+                                        formatter: '.formatter.fileContent' }" enableEdit="false" enableDelete="false" visibleDelete="false" visibleEdit="false" fileName="{fileName}">
+                                    <attributes>
+                                        <ObjectAttribute title="Document Number" text="{document_number}"/>
+                                    </attributes>
+                                </UploadCollectionItem>
+                            </items>
+                        </UploadCollection>
                     </IconTabFilter>
                     <IconTabFilter text="Other Documents">
-                        <Text text="Other Documents go here ..." />
+                        <UploadCollection maximumFilenameLength="55" maximumFileSize="10" multiple="false" fileSizeExceed="onFileSizeExceed" typeMissmatch="onTypeMissmatch" uploadComplete="onUploadComplete" beforeUploadStarts="onBeforeUploadStarts" items="{
+                                    path:'attachments',
+                                    parameters : {
+                                        $filter : 'type eq \'OTHERS\''
+                                    },
+                                    templateShareable: false}" mode="None" uploadButtonInvisible="true">
+                            <items>
+                                <UploadCollectionItem documentId="{document_number}" url="{parts: ['fileName','file'], 
+                                        formatter: '.formatter.fileContent' }" enableEdit="false" enableDelete="false" visibleDelete="false" visibleEdit="false" fileName="{fileName}">
+                                        <ObjectAttribute title="Document Number" text="{document_number}"/>
+                                </UploadCollectionItem>
+                            </items>
+                        </UploadCollection>
                     </IconTabFilter>
                 </items>
             </IconTabBar>
