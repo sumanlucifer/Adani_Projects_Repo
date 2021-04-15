@@ -160,6 +160,7 @@ sap.ui.define([
                 "purchase_order_ID": "ef1a3038-9218-11eb-a8b3-0242ac130003",
                 "insp_call_id": "be824424-8c91-11eb-8dcd-0242ac130003",
                 "po_number": "4500326716",
+                "name": "packing List",
                 "packinglist_parent_line_items": [
                     {
                         "name": aParentItems.name,
@@ -183,14 +184,77 @@ sap.ui.define([
                 "processData": false,
                 "data": JSON.stringify(oPayload),
                 success: function (oData, oResponse) {
-                   // @ts-ignore
-                   sap.m.MessageToast("packing List Created with ID "+ oData.ID)
+                    // @ts-ignore
+                    sap.m.MessageToast.show("packing List Created with ID " + oData.ID)
                 },
                 error: function (oError) {
                     sap.m.MessageBox.error("Error creating Packing List");
                 }
             });
-        }
+        },
+
+        MDCCFileSelectedForUpload: function (oEvent) {
+            // keep a reference of the uploaded file
+            debugger;
+            var that = this;
+            var oFiles = oEvent.getParameters().files;
+            this._getImageData(URL.createObjectURL(oFiles[0]), function (base64) {
+                that._addData(base64);
+            });
+        },
+
+        _getImageData: function (url, callback) {
+            var xhr = new XMLHttpRequest();
+            xhr.onload = function () {
+                var reader = new FileReader();
+                reader.onloadend = function () {
+                    callback(reader.result);
+                };
+                reader.readAsDataURL(xhr.response);
+            };
+            xhr.open('GET', url);
+            xhr.responseType = 'blob';
+            xhr.send();
+        },
+
+        _addData: function (data) {
+            var that = this,
+                oViewContext = this.getView().getBindingContext().getObject(),
+                oBindingObject = this.byId("idMDCCUploader").getObjectBinding("attachmentModel");
+
+            data = data.substr(21, data.length);
+            var document = {
+                "documents": [
+                    {
+                        "type": "mdcc",
+                        "packing_list_id": "",
+                        "file": data,
+                        "fileName": "firstDoc.txt",
+                        "inspection_call_id": "43e413aa-9376-11eb-a8b3-0242ac130003",
+                        "document_number": "12345",
+                        "document_date": "2021-04-09"
+                    }
+                ]
+            }
+
+            //set the parameters
+            oBindingObject.getParameterContext().setProperty("file", data);
+            //oBindingObject.getParameterContext().setProperty("po_number", oViewContext.po_number);
+            oBindingObject.getParameterContext().setProperty("purchase_order_ID", oViewContext.ID);
+
+            //execute the action
+            oBindingObject.execute().then(
+                function () {
+                    MessageToast.show("BOQ uploaded!");
+                    that.getView().getModel().refresh();
+                },
+                function (oError) {
+                    sap.m.MessageBox.alert(oError.message, {
+                        title: "Error"
+                    });
+                }
+            );
+        },
 
 
     });

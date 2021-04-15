@@ -88,7 +88,7 @@
                                 </items>
                             </Table>
 
-                            <VBox renderType="Bare" class="sapUiLargeMarginTop" visible="{= %{mdcc} ? false : true || %{attachments} ? false : true}">
+                            <VBox renderType="Bare" class="sapUiLargeMarginTop" visible="{= %{mdcc} ? false : true || %{attachments/0/ID} ? true : false}">
                                 <Title text="MDCC details" level="H1"/>
                                 <VBox>
                                     <Label text="Do you have MDCC Details?" />
@@ -96,7 +96,7 @@
                                     <RadioButton groupName="GroupA" text="No" />
                                 </VBox>
                                 <VBox>
-                                    <UploadCollection maximumFilenameLength="55" maximumFileSize="10" multiple="false" change="onChange" fileSizeExceed="onFileSizeExceed" selectionChange="onSelectionChange" typeMissmatch="onTypeMissmatch" uploadComplete="onUploadComplete" beforeUploadStarts="onBeforeUploadStarts" items="{
+                                    <UploadCollection id="idMDCCUploader" maximumFilenameLength="55" maximumFileSize="10" multiple="false" change="MDCCFileSelectedForUpload" fileSizeExceed="onFileSizeExceed" selectionChange="MDCCFileSelectedForUpload" typeMissmatch="onTypeMissmatch" uploadComplete="onUploadComplete" beforeUploadStarts="onBeforeUploadStarts" binding="{attachmentModel>/uploadDocument(...)}" items="{
                                     path:'attachments',
                                     parameters : {
                                         $filter : 'type eq \'MDCC\''
