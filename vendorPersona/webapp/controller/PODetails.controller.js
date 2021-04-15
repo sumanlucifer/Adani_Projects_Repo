@@ -602,6 +602,24 @@ sap.ui.define([
             });
         },
 
+        // On Search of Parent Line Items Table 
+        onSearch : function(oEvent){
+            var aFilters = [];
+            var FreeTextSearch = this.getView().byId("idSearchField").getValue();
+            if(FreeTextSearch){
+                //  aFilters.push(new Filter("material_code", FilterOperator.Contains, FreeTextSearch));
+                  aFilters.push(new Filter("description", FilterOperator.Contains, FreeTextSearch));
+                //  aFilters.push(new Filter("qty", FilterOperator.Contains, FreeTextSearch));
+                  aFilters.push(new Filter("uom", FilterOperator.Contains, FreeTextSearch));
+            }
+            var mFilters = new Filter({
+                filters: aFilters,
+                and: false
+            });
+            var oTableBinding = this.getView().byId("idParentLineItemsTable").getBinding("items");
+            oTableBinding.filter(mFilters);
+        },
+
         onMessagePopoverPress: function (oEvent) {
             var oSourceControl = oEvent.getSource();
             this._getMessagePopover().then(function (oMessagePopover) {

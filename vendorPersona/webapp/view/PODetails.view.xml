@@ -116,7 +116,7 @@
                                     <OverflowToolbar>
                                         <Title text="{i18n>items}" level="H4" id="parentItemsTableHeader"/>
                                         <ToolbarSpacer />
-                                        <SearchField tooltip="{i18n>searchItem}" placeholder="{i18n>searchItem}">
+                                        <SearchField id="idSearchField" tooltip="{i18n>searchItem}" placeholder="{i18n>searchItem}" search="onSearch">
                                             <layoutData>
                                                 <OverflowToolbarLayoutData maxWidth="200px" priority="NeverOverflow" group="1"/>
                                             </layoutData>
