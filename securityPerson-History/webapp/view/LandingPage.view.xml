@@ -66,9 +66,7 @@
                     <Column>
                         <Text text="{i18n>ponum}"/>
                     </Column>
-                    <Column>
-                        <Text text="{i18n>packingListID}"/>
-                    </Column>
+                    
                     <Column>
                         <Text text="{i18n>materialCode}"/>
                     </Column>
@@ -89,7 +87,6 @@
                     <ColumnListItem id="idOpenPOColumnItem" type="Navigation" press=".onScannedHistoryItemPress">
                         <cells>
                             <ObjectIdentifier text="{po_number}"/>
-                            <Text text="{packing_list_ID}"/>
                             <Text text="{purchase_order/parent_line_items/0/material_code}"/>
                             <!-- <Text text="{po_release_date}"/> -->
                             <Text text="{createdAt}"/>

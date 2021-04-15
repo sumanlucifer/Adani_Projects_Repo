@@ -50,10 +50,9 @@ sap.ui.define([
             var FreeTextSearch = this.getView().byId("filterbar").getBasicSearchValue();
             if(FreeTextSearch){
                 aFilters.push(new Filter("po_number", FilterOperator.Contains, FreeTextSearch));
-                aFilters.push(new Filter("packing_list_ID", FilterOperator.Contains, FreeTextSearch));
-            //    aFilters.push(new Filter("purchase_order/parent_line_items/0/material_code", FilterOperator.EQ, FreeTextSearch));
-            //    aFilters.push(new Filter("packing_list/vehicle_no", FilterOperator.EQ, FreeTextSearch));
-            //    aFilters.push(new Filter("purchase_order/parent_line_items/0/qty", FilterOperator.EQ, FreeTextSearch));
+            //    aFilters.push(new Filter("purchase_order/parent_line_items/material_code", FilterOperator.EQ, FreeTextSearch));
+             //   aFilters.push(new Filter("packing_list/vehicle_no", FilterOperator.EQ, FreeTextSearch));
+             //   aFilters.push(new Filter("purchase_order/parent_line_items/qty", FilterOperator.EQ, FreeTextSearch));
             }
             if (poNumber) {
                 aFilters.push(new Filter("po_number", FilterOperator.EQ, poNumber));

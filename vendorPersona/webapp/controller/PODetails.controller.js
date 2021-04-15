@@ -150,8 +150,6 @@ sap.ui.define([
                 });
 
             console.log(oContext);
-
-
             oContext.created().then(function () {
                 var oEntry = this.getObject();
                 sap.m.MessageBox.success("New entry created with name " + oEntry.name + " and quantity " + oEntry.qty);
@@ -169,7 +167,6 @@ sap.ui.define([
             var fnError = function (oError) {
                 sap.m.MessageBox.alert(oError.toString());
             }.bind(this);
-
 
             this.getView().getModel().submitBatch("parentItemsGroup").then(fnSuccess, fnError);
         },

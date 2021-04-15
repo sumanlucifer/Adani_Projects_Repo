@@ -28,7 +28,7 @@
                                     <Text text="{purchase_order/po_release_date}"/>
                                 </VBox>
                             </items>
-                        </HBox>  
+                         </HBox>  
                          <VBox id="idHboxEnterVehicleNob" renderType="Bare" binding="{packing_list}">
                              <HBox>
                                 <Text text="{i18n>VehicleNumber}" class="sapUiSmallMarginEnd"/>                 

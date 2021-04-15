@@ -143,5 +143,17 @@ sap.ui.define([
                     }
                 );
             },
+
+            onViewQRCodePress : function(oEvent){
+                
+                if (!this._oCreateParentItemDialog) {
+                    this._oCreateDialog = sap.ui.xmlfragment("com.agel.mmts.securityPerson-ScanQR.view.fragments.ViewQR", this);
+                    this.getView().addDependent(this._oCreateDialog);
+                }
+                this._oCreateDialog.open();
+            },
+            closeDialog : function(){
+                this._oCreateDialog.close();
+            }
 		});
 	});
