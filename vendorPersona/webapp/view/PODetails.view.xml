@@ -8,7 +8,7 @@
     xmlns:unified="sap.ui.unified"
     xmlns:tt="sap.ui.table"
     xmlns="sap.m" controllerName="com.agel.mmts.vendorPersona.controller.PODetails" height="100%">
-    <uxap:ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true" upperCaseAnchorBar="false" headerContentPinnable="true" toggleHeaderOnTitleClick="true" showFooter="{= ${message>/}.length > 0 }">
+    <uxap:ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true" upperCaseAnchorBar="false" headerContentPinnable="true" toggleHeaderOnTitleClick="true" showFooter="{= ${message>/}.length > 0 }" busy="{objectViewModel>/busy}">
         <uxap:headerTitle>
             <uxap:ObjectPageDynamicHeaderTitle>
                 <uxap:breadcrumbs>
@@ -238,6 +238,9 @@
                                         <Column>
                                             <Text text="{i18n>description}"/>
                                         </Column>
+                                         <Column>
+                                            <Text text="Uploaded On"/>
+                                        </Column>
                                     </columns>
 
                                     <items>
@@ -247,6 +250,7 @@
                                                 <Text text="{qty}"></Text>
                                                 <Text text="{uom}"></Text>
                                                 <Text text="{description}"></Text>
+                                                <Text text="{createdAt}"></Text>     
                                             </cells>
                                         </ColumnListItem>
                                     </items>
@@ -269,13 +273,20 @@
             <uxap:ObjectPageSection titleUppercase="false" title="{i18n>inspectionDetails}" visible="{= %{status}==='CONFIRMED' ? true : false}">
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection>
-                        <Table id="idInspectionTable" width="auto" noDataText="{i18n>noInspectionItems}" growing="true" growingScrollToLoad="true" items="{inspection_call_ids}">
+                        <Table id="idInspectionTable" width="auto" noDataText="{i18n>noInspectionItems}" growing="true" growingScrollToLoad="true" items="{ path : 'inspection_call_ids',
+                        parameters : {
+                                    $orderby : 'createdAt desc'
+                         }
+                        }">
                             <columns>
                                 <Column>
                                     <Text text="{i18n>inspectionID}"/>
                                 </Column>
                                 <Column>
                                     <Text text="{i18n>date}"/>
+                                </Column>
+                                <Column>
+                                    <Text text="MDCC  Details"/>
                                 </Column>
                             </columns>
 
@@ -284,6 +295,7 @@
                                     <cells>
                                         <ObjectIdentifier title="{inspection_call_id}" titleActive="true"/>
                                         <Text text="{createdAt}"/>
+                                        <Text text="{mdcc}"/>
                                     </cells>
                                 </ColumnListItem>
                             </items>
@@ -294,10 +306,19 @@
             <uxap:ObjectPageSection titleUppercase="false" title="{i18n>packingLists}" visible="{= %{status}==='CONFIRMED' ? true : false}">
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection>
-                        <Table id="idPackingListsTable" width="auto" noDataText="{i18n>noPackingListsText}" growing="true" growingScrollToLoad="true" items="{packing_list}">
+                        <Table id="idPackingListsTable" width="auto" noDataText="{i18n>noPackingListsText}" growing="true" growingScrollToLoad="true" items="{path: 'packing_list',
+                            parameters : {
+                                        $expand: {
+                                            'insp_call': {
+                                                    '$select':['ID', 'inspection_call_id']
+                                                }
+                                        },
+                                        $orderby : 'createdAt desc'
+                            }
+                        }">
                             <columns>
                                 <Column>
-                                    <Text text="{118n>name}"/>
+                                    <Text text="Name"/>
                                 </Column>
                                 <Column>
                                     <Text text="{i18n>inspectionCallRefNo}"/>
@@ -314,9 +335,9 @@
                                 <ColumnListItem type="Navigation" press=".onPackingListPress">
                                     <cells>
                                         <ObjectIdentifier title="{name}" titleActive="true"/>
-                                        <Text text="{insp_call_id}"/>
+                                        <Text text="{insp_call/0/inspection_call_id}"/>
                                         <Text text="{createdAt}"/>
-                                        <Text text="{status}"/>
+                                        <ObjectStatus text="{status}" state="{path:'status', formatter: '.formatter.getPackingListStatusColor'}"/>
                                     </cells>
                                 </ColumnListItem>
                             </items>
