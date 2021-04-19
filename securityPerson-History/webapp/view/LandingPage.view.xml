@@ -30,13 +30,14 @@
                             </fb:FilterGroupItem>
                             <fb:FilterGroupItem groupName="__$INTERNAL$" name="po_release_date" label="{i18n>Date}" visibleInFilterBar="true" class="searchFieldLabelHidden">
                                 <fb:control>
-                                    <DatePicker id="DP1" placeholder="DDMMYYYY" change="onDateChange" valueFormat="dd.MM.yyyy"/>
+                                    <DateRangeSelection	id="dateRangeSelectionId" displayFormat="dd/MM/yyyy" change="onDateRangeSelectionChange"/>
                                 </fb:control>
                             </fb:FilterGroupItem>
-                            <fb:FilterGroupItem groupName="__$INTERNAL$" name="invoice_number" label="{i18n>ParentCode}" visibleInFilterBar="true" class="searchFieldLabelHidden">
+                            <fb:FilterGroupItem groupName="__$INTERNAL$" name="invoice_number" label="{i18n>vehicleNo}" 
+                                visibleInFilterBar="true" class="searchFieldLabelHidden">
                                 <fb:control>
-                                    <Input id="idIdInput" placeholder="{i18n>EnterCode}" showSuggestion="true" showValueHelp="true">
-                                    </Input>
+                                    <Input id="idVehicleNObInput" placeholder="{i18n>EnterVehicleNUmber}"
+                                         showSuggestion="true" showValueHelp="false" />                                    
                                 </fb:control>
                             </fb:FilterGroupItem>
                         </fb:filterGroupItems>
@@ -57,7 +58,8 @@
                                 } 
                             },
                             'packing_list':{}
-                        }
+                        },
+                        $select: ['qr_code_ID']
                     }
                 }" updateStarted=".onScannedHistoryTableUpdateStarted">
                 <columns>
@@ -82,10 +84,9 @@
                     <Column>
                         <Text text="{i18n>quantity}"/>
                     </Column>
-
                 </columns>
                 <items>
-                    <ColumnListItem id="idOpenPOColumnItem" type="Navigation" press="onPurchaseOrderPress">
+                    <ColumnListItem id="idOpenPOColumnItem" type="Navigation" press=".onScannedHistoryItemPress">
                         <cells>
                             <ObjectIdentifier text="{po_number}"/>
                             <Text text="{packing_list_ID}"/>
