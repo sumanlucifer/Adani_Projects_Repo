@@ -23,7 +23,7 @@
                     <Label text="PO Number - {po_number}"/>
                 </f:expandedContent>
                 <f:snappedContent>
-                     <Label text="PO Number - {po_number}"/>
+                    <Label text="PO Number - {po_number}"/>
                 </f:snappedContent>
                 <f:snappedTitleOnMobile>
                     <Title text="{inspection_call_id}"/>
@@ -44,7 +44,7 @@
                 <items>
                     <IconTabFilter text="{i18n>itemDetails}">
                         <VBox renderType="Bare">
-                            <Table id="idInspectedParentLineItems" width="auto" items="{insepected_parent_line_items}" noDataText="{i18n>noParentItems}" growing="true" growingScrollToLoad="true" selectionChange=".onParentItemSelect" mode="SingleSelectMaster">
+                            <Table id="idInspectedParentLineItems" width="auto" items="{insepected_parent_line_items}" noDataText="{i18n>noParentItems}" growing="true" growingScrollToLoad="true" selectionChange=".onParentItemSelect" mode="MultiSelect" rememberSelections="true">
                                 <headerToolbar>
                                     <OverflowToolbar>
                                         <Title text="Inspected Parent Items" level="H4" id="idInspectedParentItems"/>
@@ -57,7 +57,7 @@
                                         <Button tooltip="{i18n>sort}" icon="sap-icon://sort" press="handleSortButtonPressed" type="Transparent"/>
                                         <Button tooltip="{i18n>filter}" icon="sap-icon://filter" press="handleFilterButtonPressed" type="Transparent"/>
                                         <Button press=".onExportParentItemsExportPress" icon="sap-icon://download"/>
-                                        <Button text="Create Packing List" type="Emphasized"/>
+                                        <Button text="Create Packing List" type="Emphasized" enabled="{= %{mdcc} ? true : false || %{attachments/0/file} ? true: false}" press="onCreatePackingListPress" />
                                         <!-- <Button text="Generate QR Code" type="Emphasized" binding="{qrCodeModel>/generateQRCode(...)}" press=".onGenerateQRCodePress"/> -->
                                     </OverflowToolbar>
                                 </headerToolbar>
@@ -66,10 +66,16 @@
                                         <Text text="{i18n>materialCode}"/>
                                     </Column>
                                     <Column>
+                                        <Text text="{i18n>name}"/>
+                                    </Column>
+                                    <Column>
                                         <Text text="{i18n>description}"/>
                                     </Column>
                                     <Column>
                                         <Text text="{i18n>approvedQty}"/>
+                                    </Column>
+                                    <Column>
+                                        <Text text="{i18n>uom}"/>
                                     </Column>
                                     <Column>
                                         <Text text="{i18n>viewChildInspectedMaterials}"/>
@@ -80,14 +86,38 @@
                                     <ColumnListItem type="Active">
                                         <cells>
                                             <ObjectIdentifier title="{material_code}" titleActive="true"/>
+                                            <Text text="{name}"></Text>
                                             <Text text="{description}"/>
                                             <Text text="{approved_qty}"/>
+                                            <Text text="{uom}"/>
                                             <Button type="Emphasized" text="{i18n>viewChildInspectedMaterials}" press=".onViewInspectedChildMaterialsPress"></Button>
                                         </cells>
                                     </ColumnListItem>
                                 </items>
-
                             </Table>
+
+                            <VBox renderType="Bare" class="sapUiLargeMarginTop" visible="{= %{mdcc} ? false : true || %{attachments/0/ID} ? true : false}">
+                                <Title text="MDCC details" level="H1"/>
+                                <VBox>
+                                    <Label text="Do you have MDCC Details?" />
+                                    <RadioButton groupName="GroupA" text="Yes" selected="true" select="onMDCCYesSelect"/>
+                                    <RadioButton groupName="GroupA" text="No" select="onMDCCNOSelect"/>
+                                </VBox>
+                                <VBox id="idMDCCUploadArea">
+                                    <UploadCollection id="idMDCCUploader" maximumFilenameLength="55" maximumFileSize="10" multiple="false" change="MDCCFileSelectedForUpload" fileSizeExceed="onFileSizeExceed" selectionChange="MDCCFileSelectedForUpload" typeMissmatch="onTypeMissmatch" uploadComplete="onUploadComplete" beforeUploadStarts="onBeforeUploadStarts" binding="{attachmentModel>/uploadDocument(...)}" items="{
+                                    path:'attachments',
+                                    parameters : {
+                                        $filter : 'type eq \'MDCC\''
+                                    },
+                                    templateShareable: false}" mode="None" uploadButtonInvisible="false">
+                                        <items>
+                                            <UploadCollectionItem documentId="{document_number}" url="{parts: ['fileName','file'], 
+                                        formatter: '.formatter.fileContent' }" enableEdit="false" enableDelete="false" visibleDelete="false" visibleEdit="false" fileName="{fileName}">
+                                            </UploadCollectionItem>
+                                        </items>
+                                    </UploadCollection>
+                                </VBox>
+                            </VBox>
                         </VBox>
                     </IconTabFilter>
                     <IconTabFilter text="{i18n>packingLists}">
@@ -109,7 +139,7 @@
                                 </headerToolbar>
                                 <columns>
                                     <Column>
-                                        <Text text="{i18n>poNumber}"/>
+                                        <Text text="{i18n>name}"/>
                                     </Column>
                                     <Column>
                                         <Text text="{i18n>vehicleNo}"/>
@@ -123,9 +153,9 @@
                                 </columns>
 
                                 <items>
-                                    <ColumnListItem type="Navigation" press="onPackingListItemPress"> 
+                                    <ColumnListItem type="Navigation" press="onPackingListItemPress">
                                         <cells>
-                                            <Text text="{po_number}"/>
+                                            <Text text="{name}"/>
                                             <Text text="{vehicle_no}"/>
                                             <Text text="{createdAt}"/>
                                             <ObjectStatus text="{status}" state="{= ${status}==='CONFIRMED' ? 'Success' : 'Warning'}"/>

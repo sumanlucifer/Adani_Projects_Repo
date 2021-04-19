@@ -51,74 +51,66 @@
                 </uxap:content>
                 <uxap:actions>
                     <HBox visible="{= %{packing_list/gate/entry_id} ? false : true}">
-                        <Button text="{i18n>submit}" binding="{/submitVehicleNumber(...)}" 
-                        press="onPressSubmitQRCode" type="Emphasized" visible="{= %{gate/ID} ? false : true}"/>
+                        <Button text="{i18n>submit}" binding="{/submitVehicleNumber(...)}" press="onPressSubmitQRCode" type="Emphasized" visible="{= %{gate/ID} ? false : true}"/>
                     </HBox>
                 </uxap:actions>
             </uxap:ObjectPageDynamicHeaderTitle>
         </uxap:headerTitle>
-        <uxap:headerContent>            
+        <uxap:headerContent>
         </uxap:headerContent>
         <uxap:sections>
             <uxap:ObjectPageSection title="QRCodeDetail">
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection>
-                    
-                        <HBox renderType="Bare"  alignItems="Center"> 
-                             <VBox renderType="Bare" justifyContent="Center" alignItems="Center">
-                                 <items>
-                                        <Avatar displaySize="XL" badgeIcon="sap-icon://upload" displayShape="Square" src="data:image/jpg;base64,{content}"/>
-                                        <Label text="{qr_number}"/>
-                                  </items>
+
+                        <HBox renderType="Bare" alignItems="Center">
+                            <VBox renderType="Bare" justifyContent="Center" alignItems="Center">
+                                <items>
+                                    <Avatar displaySize="XL" badgeIcon="sap-icon://upload" displayShape="Square" src="data:image/jpg;base64,{content}"/>
+                                    <Label text="{qr_number}"/>
+                                </items>
                             </VBox>
-                            <f:SimpleForm id="sfQRData" binding="{purchase_order}" editable="true" 
-                         layout="ResponsiveGridLayout" labelSpanXL="4" 
-                         labelSpanL="4" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" 
-                         emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="3" 
-                         columnsL="3" columnsM="3" singleContainerFullSize="false" busyIndicatorDelay="{objectViewModel>busy}">
-                            <f:content>
-                
-                                <core:Title text="{i18n>POAsnDetails}"/>
-                                <Label text="{i18n>asnNumber}" />
-                                <Text text="{asn_number}" />
-                                
-                                <Label text="{i18n>pONumber}" />
-                                <Text text="{po_number}" />
+                            <f:SimpleForm id="sfQRData" binding="{purchase_order}" editable="true" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="3" columnsL="3" columnsM="3" singleContainerFullSize="false" busyIndicatorDelay="{objectViewModel>busy}">
+                                <f:content>
 
-                                <Label text="{i18n>asnCreationDate}" />
-                                <Text text="{asn_creation_date}" />
+                                    <core:Title text="{i18n>POAsnDetails}"/>
+                                    <Label text="{i18n>asnNumber}" />
+                                    <Text text="{asn_number}" />
 
-                                <core:Title text="{i18n>ShipTo}" />
-                                <Label text="{i18n>address}" />
-                                <Text text="{vendor/address/street}"/>
+                                    <Label text="{i18n>pONumber}" />
+                                    <Text text="{po_number}" />
 
-                                <core:Title text="{i18n>From}" />
-                                <Label text="{i18n>vendorName}" />
-                                <Text text="{vendor/name}"/>
+                                    <Label text="{i18n>asnCreationDate}" />
+                                    <Text text="{asn_creation_date}" />
 
-                                <Label text="{i18n>vendorId}" />
-                                <Text text="{vendor_ID}"/>
+                                    <core:Title text="{i18n>ShipTo}" />
+                                    <Label text="{i18n>address}" />
+                                    <Text text="{vendor/address/street}"/>
 
-                                <Label text="{i18n>vendorLoc}" />
-                                <Text text="{parts:[{path:'vendor/address/city'},{path:'vendor/address/country'}]}"/>
-                            </f:content>
-                          </f:SimpleForm>
-                       </HBox>
-                   
+                                    <core:Title text="{i18n>From}" />
+                                    <Label text="{i18n>vendorName}" />
+                                    <Text text="{vendor/name}"/>
+
+                                    <Label text="{i18n>vendorId}" />
+                                    <Text text="{vendor_ID}"/>
+
+                                    <Label text="{i18n>vendorLoc}" />
+                                    <Text text="{parts:[{path:'vendor/address/city'},{path:'vendor/address/country'}]}"/>
+                                </f:content>
+                            </f:SimpleForm>
+                        </HBox>
+
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>
             </uxap:ObjectPageSection>
-            
+
             <uxap:ObjectPageSection titleUppercase="false" title="{i18n>Summary}">
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection title="{i18n>parentLineItems}">
                         <VBox renderType="Bare">
-                            <Table id="idParentLineItemsTable" width="auto" noDataText="{i18n>noParentItems}"
-                               items="{packing_list/insepected_parent_line_items}"
-                               growing="true" growingScrollToLoad="true" selectionChange=".onParentItemSelect"
-                               mode="SingleSelectMaster" busyIndicatorDelay="{objectViewModel>busy}">
+                            <Table id="idParentLineItemsTable" width="auto" noDataText="{i18n>noParentItems}" items="{packing_list/insepected_parent_line_items}" growing="true" growingScrollToLoad="true" selectionChange=".onParentItemSelect" mode="SingleSelectMaster" busyIndicatorDelay="{objectViewModel>busy}">
                                 <columns>
-                                   <Column width="12%">
+                                    <Column width="12%">
                                         <Text text="{i18n>purchase_order_ID}"/>
                                     </Column>
                                     <Column width="10%">
@@ -129,7 +121,7 @@
                                     </Column>
                                     <Column>
                                         <Text text="{i18n>description}"/>
-                                    </Column>                                  
+                                    </Column>
                                     <Column>
                                         <Text text="{i18n>packingListID}"/>
                                     </Column>
@@ -144,7 +136,7 @@
                                             <Text text="{material_code}"/>
                                             <Text text="{name}"/>
                                             <Text text="{description}"/>
-                                            <Text text="{packing_list_ID}"/>                                            
+                                            <Text text="{packing_list_ID}"/>
                                             <Button text="{i18n>ViewQRCode}" type="Emphasized" press="onViewQRCodePress"/>
                                         </cells>
                                     </ColumnListItem>
@@ -154,14 +146,12 @@
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>
             </uxap:ObjectPageSection>
-            
-            <uxap:ObjectPageSection  titleUppercase="false" title="{i18n>inspectionID}">
+
+            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>inspectionID}">
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection title="{i18n>inspectionItemsTitle}" id="idInspectionTableSubSection">
                         <VBox>
-                            <Table id="idInspectionTable" items="{insp_call}" width="auto" 
-                            noDataText="{i18n>noInspectionItems}" 
-                                growing="true" growingScrollToLoad="true" busyIndicatorDelay="{objectViewModel>busy}">
+                            <Table id="idInspectionTable" items="{insp_call}" width="auto" noDataText="{i18n>noInspectionItems}" growing="true" growingScrollToLoad="true" busyIndicatorDelay="{objectViewModel>busy}">
                                 <columns>
                                     <Column>
                                         <Text text="{i18n>inspectionID}"/>
@@ -177,81 +167,61 @@
                             </Table>
                         </VBox>
                     </uxap:ObjectPageSubSection>
-                 </uxap:subSections>
+                </uxap:subSections>
             </uxap:ObjectPageSection>
 
-            <uxap:ObjectPageSection  titleUppercase="false" title="{i18n>attachment}">
+            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>attachment}">
                 <uxap:subSections>
-                <!--For Material Details -->
+                    <!--For Material Details -->
                     <uxap:ObjectPageSubSection title="{i18n>MaterialDetailsFile}">
                         <VBox renderType="Bare">
-                           	<UploadCollection maximumFilenameLength="55"
-			                    maximumFileSize="10" multiple="false" change="onChange"
-                                fileSizeExceed="onFileSizeExceed" selectionChange="onSelectionChange"
-			                    typeMissmatch="onTypeMissmatch" uploadComplete="onUploadComplete"
-			                    beforeUploadStarts="onBeforeUploadStarts" uploadButtonInvisible="true"
-			                    items="{path: 'packing_list/attachments',
+                            <UploadCollection maximumFilenameLength="55" maximumFileSize="10" multiple="false" change="onChange" fileSizeExceed="onFileSizeExceed" selectionChange="onSelectionChange" typeMissmatch="onTypeMissmatch" uploadComplete="onUploadComplete" beforeUploadStarts="onBeforeUploadStarts" items="{
+                                path:'packing_list/attachments',
                                 parameters : {
                                     $filter : 'type eq \'MATERIAL\''
                                 },
-                                templateShareable: false}"
-			                    mode="MultiSelect">
-                    			<items>
-				                    <UploadCollectionItem documentId="{document_number}" fileName="{fileName}"
-					                    url="data:text/csv;base64,{file}" enableEdit="false"
-					                    enableDelete="false" visibleDelete="false" visibleEdit="false">
-				                    </UploadCollectionItem>
-			                    </items>
-		                    </UploadCollection>
+                                templateShareable: false}" mode="None" uploadButtonInvisible="true">
+                                <items>
+                                    <UploadCollectionItem documentId="{document_number}" url="{parts: ['fileName','file'], 
+                                        formatter: '.formatter.fileContent' }" enableEdit="false" enableDelete="false" visibleDelete="false" visibleEdit="false" fileName="{fileName}">
+                                    </UploadCollectionItem>
+                                </items>
+                            </UploadCollection>
                         </VBox>
                     </uxap:ObjectPageSubSection>
                     <!--For Invoice Details -->
                     <uxap:ObjectPageSubSection title="{i18n>invoiceDetailsSubsectionTitle}">
                         <VBox renderType="Bare">
-                           	<UploadCollection maximumFilenameLength="55"
-			                    maximumFileSize="10" multiple="false" change="onChange"
-                                fileSizeExceed="onFileSizeExceed" selectionChange="onSelectionChange"
-			                    typeMissmatch="onTypeMissmatch" uploadComplete="onUploadComplete"
-			                    beforeUploadStarts="onBeforeUploadStarts" uploadButtonInvisible="true"
-			                    items="{path: 'packing_list/attachments',
+                            <UploadCollection maximumFilenameLength="55" maximumFileSize="10" multiple="false" change="onChange" fileSizeExceed="onFileSizeExceed" selectionChange="onSelectionChange" typeMissmatch="onTypeMissmatch" uploadComplete="onUploadComplete" beforeUploadStarts="onBeforeUploadStarts" uploadButtonInvisible="true" items="{path: 'packing_list/attachments',
                                 parameters : {
                                     $filter : 'type eq \'INVOICE\''
                                 },
-                                templateShareable: false}"
-			                    mode="MultiSelect">
-                    			<items>
-				                    <UploadCollectionItem documentId="{document_number}" fileName="{fileName}"
-					                    url="data:text/csv;base64,{file}" enableEdit="false"
-					                    enableDelete="false" visibleDelete="false" visibleEdit="false">
-				                    </UploadCollectionItem>
-			                    </items>
-		                    </UploadCollection>
+                                templateShareable: false}" mode="MultiSelect">
+                                <items>
+                                    <UploadCollectionItem documentId="{document_number}" fileName="{fileName}" url="{parts: ['fileName','file'], 
+                                        formatter: '.formatter.fileContent' }" enableEdit="false" enableDelete="false" visibleDelete="false" visibleEdit="false">
+                                    </UploadCollectionItem>
+                                </items>
+                            </UploadCollection>
                         </VBox>
                     </uxap:ObjectPageSubSection>
                     <!--For Other Document Details -->
                     <uxap:ObjectPageSubSection title="{i18n>otherDocumnetsSubsectionTitle}">
                         <VBox renderType="Bare">
-                           	<UploadCollection maximumFilenameLength="55"
-			                    maximumFileSize="10" multiple="false" change="onChange"
-                                fileSizeExceed="onFileSizeExceed" selectionChange="onSelectionChange"
-			                    typeMissmatch="onTypeMissmatch" uploadComplete="onUploadComplete"
-			                    beforeUploadStarts="onBeforeUploadStarts" uploadButtonInvisible="true"
-			                    items="{path: 'packing_list/attachments',
+                            <UploadCollection maximumFilenameLength="55" maximumFileSize="10" multiple="false" change="onChange" fileSizeExceed="onFileSizeExceed" selectionChange="onSelectionChange" typeMissmatch="onTypeMissmatch" uploadComplete="onUploadComplete" beforeUploadStarts="onBeforeUploadStarts" uploadButtonInvisible="true" items="{path: 'packing_list/attachments',
                                 parameters : {
                                     $filter : 'type eq \'OTHERS\''
                                 },
-                                templateShareable: false}"
-			                    mode="MultiSelect">
-                    			<items>
-				                    <UploadCollectionItem documentId="{document_number}" fileName="{fileName}"
-					                    url="data:text/csv;base64,{file}" enableEdit="false"
-					                    enableDelete="false" visibleDelete="false" visibleEdit="false">
-				                    </UploadCollectionItem>
-			                    </items>
-		                    </UploadCollection>
+                                templateShareable: false}" mode="MultiSelect">
+                                <items>
+                                    <UploadCollectionItem documentId="{document_number}" fileName="{fileName}" url="{parts: ['fileName','file'], 
+                                        formatter: '.formatter.fileContent' }" enableEdit="false" enableDelete="false" visibleDelete="false" visibleEdit="false">
+                                    </UploadCollectionItem>
+                                </items>
+                            </UploadCollection>
                         </VBox>
                     </uxap:ObjectPageSubSection>
-                 </uxap:subSections>
+                </uxap:subSections>
             </uxap:ObjectPageSection>
         </uxap:sections>
     </uxap:ObjectPageLayout>

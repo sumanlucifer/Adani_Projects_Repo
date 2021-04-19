@@ -15,16 +15,20 @@ sap.ui.define([
     "sap/m/MessageBox",
     "sap/m/ObjectIdentifier",
     "sap/m/Text",
-    "sap/m/Button"
-], function (BaseController, JSONModel, Filter, FilterOperator, Fragment, Sorter, Device, History, ColumnListItem, Input, deepExtend, Spreadsheet, MessageToast, MessageBox, ObjectIdentifier, Text, Button) {
+    "sap/m/Button",
+    '../utils/formatter',
+], function (BaseController, JSONModel, Filter, FilterOperator, Fragment, Sorter, Device, History, ColumnListItem, Input, deepExtend, Spreadsheet, MessageToast, MessageBox, ObjectIdentifier, Text, Button, formatter) {
     "use strict";
 
     return BaseController.extend("com.agel.mmts.vendorPersona.controller.PODetails", {
+        formatter: formatter,
         onInit: function () {
             //view model instatiation
             var oViewModel = new JSONModel({
                 busy: true,
-                delay: 0
+                delay: 0,
+                boqSelection: null,
+                csvFile: "file"
             });
             this.setModel(oViewModel, "objectViewModel");
 
@@ -38,6 +42,10 @@ sap.ui.define([
         _onObjectMatched: function (oEvent) {
             var sObjectId = oEvent.getParameter("arguments").POId;
             this._bindView("/PurchaseOrders" + sObjectId);
+
+
+            this.getViewModel("objectViewModel").setProperty("/boqSelection", this.byId("idManageBOQType").getSelectedKey());
+
             //   this.getView().byId("idChildItemsTableSubsection").setVisible(false);
         },
 
@@ -73,9 +81,10 @@ sap.ui.define([
                 parameters: {
                     "$expand": {
                         "parent_line_items": {
+                            "$select": ["parent_line_item_id"],
                             "$expand": {
                                 "child_line_items": {
-                                    "$select": ["material_code","description", "qty", "uom"]
+                                    "$select": ["material_code", "description", "qty", "uom"]
                                 }
                             }
                         },
@@ -84,7 +93,11 @@ sap.ui.define([
                                 "address": {}
                             }
                         },
-                        "inspection_call_ids": {}
+                        "inspection_call_ids": {},
+                        "sow_details": {},
+                        "price_schedule_details": {},
+                        "packing_list": {},
+                        "boq_line_items": {}
                     }
                 },
                 events: {
@@ -279,7 +292,7 @@ sap.ui.define([
                     parameters: {
                         "$expand": {
                             "child_line_items": {
-                                "$select": ["ID", "material_code","description", "qty", "uom"]
+                                "$select": ["ID", "material_code", "description", "qty", "uom"]
                             }
                         }
                     }
@@ -321,6 +334,7 @@ sap.ui.define([
                 oBindingObject = this.byId("idBOQUploader").getObjectBinding("DocumentUploadModel");
 
             data = data.substr(21, data.length);
+
 
             //set the parameters
             oBindingObject.getParameterContext().setProperty("file", data);
@@ -369,6 +383,11 @@ sap.ui.define([
         onInspectionIDPress: function (oEvent) {
             // The source is the list item that got pressed
             this._showObject(oEvent.getSource());
+        },
+
+        onPackingListPress: function (oEvent) {
+            // The source is the list item that got pressed
+            this._showPackingDetails(oEvent.getSource());
         },
 
         // On Parent Table Edit Row Button 
@@ -575,7 +594,6 @@ sap.ui.define([
 
 
             oContext.created().then(function () {
-                debugger;
                 sap.m.MessageBox.success("New entry created!");
             }.bind(oContext, that), function (error) {
                 sap.m.MessageBox.success("Error Creating Entries!!");
@@ -605,6 +623,15 @@ sap.ui.define([
             });
         },
 
+        _showPackingDetails: function (oItem) {
+            var that = this;
+            oItem.getBindingContext().requestCanonicalPath().then(function (sObjectPath) {
+                that.getRouter().navTo("RoutePackingDeatilsPage", {
+                    packingListID: sObjectPath.slice("/PackingLists".length) // /PurchaseOrders(123)->(123)
+                });
+            });
+        },
+
         onMessagePopoverPress: function (oEvent) {
             var oSourceControl = oEvent.getSource();
             this._getMessagePopover().then(function (oMessagePopover) {
@@ -626,8 +653,86 @@ sap.ui.define([
                 });
             }
             return this._pMessagePopover;
+        },
+
+        onBOQMangeTypeChange: function (oEvent) {
+            this.getViewModel("objectViewModel").setProperty("/boqSelection", oEvent.getSource().getSelectedKey());
+        },
+
+        onDownloadSampleCSVPress: function (oEvent) {
+            debugger;
+            var aParentContexts = this.byId("idParentLineItemsTable").getBinding("items").getContexts(0);
+            var aSampleData = [];
+            for (var i = 0; i < aParentContexts.length; i++) {
+                var oRowContext = aParentContexts[i];
+                var oSampleEntry = {
+                    "PARENT_ITEM_ID": oRowContext.getProperty("parent_line_item_id"),
+                    "LINE_ITEM_ID": "120014",
+                    "MATERIAL_CODE": "C-6758",
+                    "NAME": "test name",
+                    "DESCRIPTION": "Test Material",
+                    "QUANTITY": 100,
+                    "UOM": "each",
+                    "COMMENTS": "Test Comments",
+                }
+                aSampleData.push(oSampleEntry);
+            }
+
+            var sampleBOQJSON = new JSONModel(aSampleData);
+
+
+            var aItems = sampleBOQJSON.getProperty('/');;
+
+            var JSONData = aItems,
+                ShowLabel = true;
+
+            var arrData = typeof JSONData != 'object' ? JSON.parse(JSONData) : JSONData;
+            var CSV = '';
+            //This condition will generate the Label/Header
+            if (ShowLabel) {
+                var row = "";
+                //This loop will extract the label from 1st index of on array
+                for (var index in arrData[0]) {
+                    //Now convert each value to string and comma-seprated
+                    row += index + ',';
+                }
+                row = row.slice(0, -1);
+                //append Label row with line break
+                CSV += row + '\r\n';
+            }
+            //1st loop is to extract each row
+            for (var i = 0; i < arrData.length; i++) {
+                var row = "";
+                //2nd loop will extract each column and convert it in string comma-seprated
+                for (var index in arrData[i]) {
+                    row += '"' + arrData[i][index] + '",';
+                }
+                row.slice(0, row.length - 1);
+                //add a line break after each row
+                CSV += row + '\r\n';
+            }
+
+            if (CSV == '') {
+                alert("Invalid data");
+                return;
+            }
+            //Generate a file name
+            var fileName = "Sample BOQ";
+            //Initialize file format you want csv or xls
+            var uri = 'data:text/csv;charset=utf-8,' + escape(CSV); 
+
+            //this trick will generate a temp <a /> tag
+            var link = document.createElement("a");
+            link.href = uri;
+
+            //set the visibility hidden so it will not effect on your web-layout
+            link.style = "visibility:hidden";
+            link.download = fileName + ".csv";
+
+            //this part will append the anchor tag and remove it after automatic click
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
         }
-
-
     });
 });
