@@ -104,12 +104,17 @@
                                     <RadioButton groupName="GroupA" text="No" select="onMDCCNOSelect"/>
                                 </VBox>
                                 <VBox id="idMDCCUploadArea">
-                                    <UploadCollection id="idMDCCUploader" maximumFilenameLength="55" maximumFileSize="10" multiple="true" change="MDCCFileSelectedForUpload" fileSizeExceed="onFileSizeExceed" selectionChange="MDCCFileSelectedForUpload" typeMissmatch="onTypeMissmatch" uploadComplete="onUploadComplete" beforeUploadStarts="onBeforeUploadStarts" binding="{attachmentModel>/uploadDocument(...)}" items="{
+                                    <UploadCollection id="idMDCCUploader" maximumFilenameLength="55" maximumFileSize="10" 
+                                    multiple="true" change="MDCCFileSelectedForUpload" fileSizeExceed="onFileSizeExceed" 
+                                    selectionChange="MDCCFileSelectedForUpload" typeMissmatch="onTypeMissmatch" uploadComplete="onUploadComplete" 
+                                    beforeUploadStarts="onBeforeUploadStarts" binding="{attachmentModel>/uploadDocument(...)}"
+                                    items="{
                                     path:'attachments',
                                     parameters : {
                                         $filter : 'type eq \'MDCC\''
                                     },
-                                    templateShareable: false}" mode="None" uploadButtonInvisible="false">
+                                    templateShareable: false}" mode="None" uploadButtonInvisible="false"
+                                        >
                                         <items>
                                             <UploadCollectionItem documentId="{document_number}" url="{parts: ['fileName','file'], 
                                         formatter: '.formatter.fileContent' }" enableEdit="false" enableDelete="false" visibleDelete="false" visibleEdit="false" fileName="{fileName}">

@@ -17,7 +17,6 @@
                         <Text text="UOM"/>
                     </Column>
                 </columns>
-
                 <items>
                     <ColumnListItem press=".onInspectionIDPress">
                         <cells>
@@ -30,5 +29,8 @@
                 </items>
             </Table>
         </content>
+        <endButton>
+            <Button text="Close" press="onViewInspectChildDialogClose" type="Emphasized"></Button>
+        </endButton>
     </Dialog>
 </core:FragmentDefinition>

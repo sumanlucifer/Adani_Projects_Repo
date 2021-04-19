@@ -58,7 +58,7 @@
 
                             <VBox id="idHboxReEnterVehicleNob" renderType="Bare" binding="{packing_list}" visible="{oViewHandlingModel>/wantChange}">
                                 <Text text="{i18n>VehicleNumber}" class="sapUiSmallMarginEnd"/>
-                                <Input value="{oViewHandlingModel>/EnterVehicleNo}" width="80%" />
+                                <Input value="{vehicle_no}" width="80%" editable="false"/>
                                 <Text text="{i18n>reEnterVehicleNumber}" class="sapUiSmallMarginEnd"/>
                                 <Input id="idReEnterInputVehcileNob" value="{oViewHandlingModel>/ReEnterVehicleNo}" width="80%" />
                             </VBox>

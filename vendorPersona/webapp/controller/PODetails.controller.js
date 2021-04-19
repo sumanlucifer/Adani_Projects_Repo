@@ -636,7 +636,7 @@ sap.ui.define([
             var aFilters = [];
             var FreeTextSearch = this.getView().byId("idSearchField").getValue();
             if(FreeTextSearch){
-                //  aFilters.push(new Filter("material_code", FilterOperator.Contains, FreeTextSearch));
+                  aFilters.push(new Filter("material_code", FilterOperator.Contains, FreeTextSearch));
                   aFilters.push(new Filter("description", FilterOperator.Contains, FreeTextSearch));
                 //  aFilters.push(new Filter("qty", FilterOperator.Contains, FreeTextSearch));
                   aFilters.push(new Filter("uom", FilterOperator.Contains, FreeTextSearch));
@@ -798,18 +798,60 @@ sap.ui.define([
 
         // Sort Parent Items
         handleSortParentItem: function () {
-			this.getViewSettingsDialog("com.agel.mmts.vendorPersona.view.PODetails.SortDialogParentItemTable")
-				.then(function (oViewSettingsDialog) {
+			this.getViewSettingsDialog("com.agel.mmts.vendorPersona.view.fragments.PODetails.SortDialogParentItemTable")
+				.then(function (SortDialogParentItem) {
 					SortDialogParentItem.open();
 				});
-		},
+        },
+        
+        handleSortDialogConfirm : function(oEvent){
+            var oTable = this.byId("idParentLineItemsTable"),
+				mParams = oEvent.getParameters(),
+				oBinding = oTable.getBinding("items"),
+				sPath,
+				bDescending,
+				aSorters = [];
+
+			sPath = mParams.sortItem.getKey();
+			bDescending = mParams.sortDescending;
+			aSorters.push(new Sorter(sPath, bDescending));
+
+			// apply the selected sort and group settings
+			oBinding.sort(aSorters);
+        },
 
         // Filter Parent Items
 		handleFilterParentItem: function () {
-			this.getViewSettingsDialog("com.agel.mmts.vendorPersona.view.PODetails.FilterDialogParentItemTable")
-				.then(function (oViewSettingsDialog) {
+			this.getViewSettingsDialog("com.agel.mmts.vendorPersona.view.fragments.PODetails.FilterDialogParentItemTable")
+				.then(function (FilterDialogParentItem) {
 					FilterDialogParentItem.open();
 				});
+        },
+
+        handleFilterDialogConfirm : function(oEvent){
+            var oTable = this.byId("idParentLineItemsTable"),
+			mParams = oEvent.getParameters(),
+			oBinding = oTable.getBinding("items"),
+            aFilters = [];
+            var sValue1=mParams.filterItems[0].getKey();
+            aFilters.push(new Filter("uom", FilterOperator.EQ, sValue1));
+            
+          /*  mParams.filterItems.forEach(function(oItem) {
+			    var aSplit = oItem.getKey().split("___"),
+			    sPath = aSplit[0],
+			    sOperator = aSplit[1],
+			    sValue1 = aSplit[2],
+			    sValue2 = aSplit[3],
+			    oFilter = new Filter(sPath, sOperator, sValue1, sValue2);
+			    aFilters.push(oFilter);
+            }); */
+            
+            // apply filter settings
+			oBinding.filter(aFilters);
+
+			// update filter bar
+		//	this.byId("vsdFilterBar").setVisible(aFilters.length > 0);
+		//	this.byId("vsdFilterLabel").setText(mParams.filterString);
         },
         
         getViewSettingsDialog: function (sDialogFragmentName) {

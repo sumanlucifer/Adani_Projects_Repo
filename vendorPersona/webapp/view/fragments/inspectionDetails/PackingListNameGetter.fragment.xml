@@ -11,8 +11,11 @@
                 </f:SimpleForm>
             </l:content>
         </l:Grid>
-        <endButton>
+        <beginButton>
             <Button text="Create" press="onCreatePress"></Button>
+        </beginButton>
+        <endButton>            
+            <Button text="Close" press="onCreateClose"></Button>
         </endButton>
     </Dialog>
 </core:FragmentDefinition>

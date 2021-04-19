@@ -30,6 +30,7 @@
         </content>
         <endButton>
             <Button text="Save Child Item" press=".onSaveChildLineItemPress" type="Emphasized"></Button>
+            <Button text="Save Child Item" press=".onSaveChildLineItemPress" type="Emphasized"></Button>
         </endButton>
     </Dialog>
 </core:FragmentDefinition>

@@ -122,14 +122,14 @@ sap.ui.define([
             // On Submit Press - 
             onPressSubmitQRCode: function (oEvent) {
                 //initialize the action
-                if (this.getViewModel("oViewHandlingModel").getProperty("/EnterVehicleNo") === this.getViewModel("oViewHandlingModel").getProperty("/ReEnterVehicleNo")) {
+               // if (this.getViewModel("oViewHandlingModel").getProperty("/EnterVehicleNo") === this.getViewModel("oViewHandlingModel").getProperty("/ReEnterVehicleNo")) {
                     var that = this,
                         oViewContext = this.getView().getBindingContext().getObject(),
                         oBindingObject = oEvent.getSource().getObjectBinding();
 
                     //set the parameters
                     oBindingObject.getParameterContext().setProperty("packingListId", oViewContext.packing_list.ID);
-                    oBindingObject.getParameterContext().setProperty("vehicleNumber", oViewContext.packing_list.vehicle_no);
+                    oBindingObject.getParameterContext().setProperty("vehicleNumber", this.getViewModel("oViewHandlingModel").getProperty("/ReEnterVehicleNo"));
 
                     //execute the action
                     oBindingObject.execute().then(
@@ -144,9 +144,9 @@ sap.ui.define([
                             });
                         }
                     );
-                } else {
-                    sap.m.MessageBox.alert("Vehicle Numbers do not match!");
-                }
+               // } else {
+                //    sap.m.MessageBox.alert("Vehicle Numbers do not match!");
+                //}
             },
 
             onViewQRCodePress : function(oEvent){

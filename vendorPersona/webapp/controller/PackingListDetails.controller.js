@@ -125,6 +125,12 @@ sap.ui.define([
             });
         },
 
+        onViewPackingListChildDialogClose: function (oEvent) {
+             this.pDialog.then(function (oDialog) {
+                oDialog.close();
+             });
+        },
+
         onGenerateQRCodePress: function (oEvent) {
             var that = this,
                 oViewContext = this.getView().getBindingContext().getObject(),
@@ -422,7 +428,21 @@ sap.ui.define([
                 }
             );
             this._oPackingListNameGetterDialog.close();
-        }
+        },
+
+        onBeforeUploadStarts : function(){
+            var objectViewModel = this.getViewModel("objectViewModel");
+            objectViewModel.setProperty("/busy", true);
+
+           // this.busyIndicator = new sap.m.BusyIndicator();
+          //  this.busyIndicator.open();
+        },
+
+        onUploadComplete: function(){
+           // this.busyIndicator.close();
+             var objectViewModel = this.getViewModel("objectViewModel");
+            objectViewModel.setProperty("/busy", false);
+        },
 
     });
 

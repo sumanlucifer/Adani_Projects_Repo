@@ -98,12 +98,16 @@ sap.ui.define([
                     });
                     return oDialog;
                 });
-
             }
-
             this.pDialog.then(function (oDialog) {
                 oDialog.open();
             });
+        },
+
+        onViewInspectChildDialogClose : function () {
+             this.pDialog.then(function (oDialog) {
+                oDialog.close();
+             });
         },
 
         onPackingListItemPress: function (oEvent) {
@@ -123,7 +127,6 @@ sap.ui.define([
         onCreatePackingListPress: function (oEvent) {
             var oParentLineItemTable = this.byId("idInspectedParentLineItems")
             if (oParentLineItemTable.getSelectedContexts().length > 0) {
-
                 var oPackingListInputModel = new JSONModel({
                     "name": null
                 });
@@ -134,10 +137,13 @@ sap.ui.define([
                     this.getView().addDependent(this._oPackingListNameGetterDialog);
                 }
                 this._oPackingListNameGetterDialog.open();
-
             } else {
                 sap.m.MessageBox.information("Please select at least one item to go ahead with Creating Packing List!");
             }
+        },
+
+        onCreateClose : function (oEvent) {
+            this._oPackingListNameGetterDialog.close();
         },
 
         onCreatePress: function (oEvent) {
@@ -289,6 +295,20 @@ sap.ui.define([
         },
         onMDCCNOSelect: function () {
             this.byId("idMDCCUploadArea").setVisible(false);
+        },
+
+        onBeforeUploadStarts : function(){
+            var objectViewModel = this.getViewModel("objectViewModel");
+            objectViewModel.setProperty("/busy", true);
+
+           // this.busyIndicator = new sap.m.BusyIndicator();
+          //  this.busyIndicator.open();
+        },
+
+        onUploadComplete: function(){
+           // this.busyIndicator.close();
+             var objectViewModel = this.getViewModel("objectViewModel");
+            objectViewModel.setProperty("/busy", false);
         },
 
 

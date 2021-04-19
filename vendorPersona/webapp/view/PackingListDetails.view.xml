@@ -152,7 +152,10 @@
                                 <unified:FileUploader id="idInvoiceUploader" buttonOnly="true" buttonText="Upload Invoice" sameFilenameAllowed="true" multiple="false" fileType="csv" mimeType="text/csv" style="Emphasized" change="onInvoiceFileSelectedForUpload"/>
                             </VBox>
                         </HBox>
-                        <UploadCollection maximumFilenameLength="55" maximumFileSize="10" multiple="false" fileSizeExceed="onFileSizeExceed" typeMissmatch="onTypeMissmatch" uploadComplete="onUploadComplete" beforeUploadStarts="onBeforeUploadStarts" items="{
+                        <UploadCollection maximumFilenameLength="55" maximumFileSize="10" multiple="false"
+                          fileSizeExceed="onFileSizeExceed" typeMissmatch="onTypeMissmatch"
+                          uploadComplete="onUploadComplete" beforeUploadStarts="onBeforeUploadStarts" 
+                          items="{
                                     path:'attachments',
                                     parameters : {
                                         $filter : 'type eq \'INVOICE\''
@@ -166,12 +169,14 @@
                                         <ObjectAttribute title="Invoice Date" text="{document_date}"/>
                                     </attributes>
                                 </UploadCollectionItem>
-
                             </items>
                         </UploadCollection>
                     </IconTabFilter>
                     <IconTabFilter text="Material Details">
-                        <UploadCollection maximumFilenameLength="55" maximumFileSize="10" multiple="true" fileSizeExceed="onFileSizeExceed" typeMissmatch="onTypeMissmatch" uploadComplete="onUploadComplete" beforeUploadStarts="onBeforeUploadStarts" items="{
+                        <UploadCollection maximumFilenameLength="55" maximumFileSize="10" multiple="true" 
+                        fileSizeExceed="onFileSizeExceed" typeMissmatch="onTypeMissmatch" 
+                        uploadComplete="onUploadComplete" beforeUploadStarts="onBeforeUploadStarts" 
+                        items="{
                                     path:'attachments',
                                     parameters : {
                                         $filter : 'type eq \'MATERIAL\''
