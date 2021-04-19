@@ -146,54 +146,77 @@ sap.ui.define([
         onCreatePackingListPress: function (oEvent) {
             var oParentLineItemTable = this.byId("idInspectedParentLineItems")
             if (oParentLineItemTable.getSelectedContexts().length > 0) {
-                var aSelectedItems = oParentLineItemTable.getSelectedContexts()[0].getObject();
-                var oViewContextObject = this.getView().getBindingContext().getObject;
-                var aParentItems = aSelectedItems;
-                var selectedChildLineItems = aParentItems.inspected_child_line_items;
-                delete aParentItems.inspected_child_line_items;
-                delete selectedChildLineItems[0].ID;
-                delete aParentItems.ID;
 
-                var oPayload = {
-                    "status": "Approved",
-                    "vehicle_no": "",
-                    "purchase_order_ID": "ef1a3038-9218-11eb-a8b3-0242ac130003",
-                    "insp_call_id": "be824424-8c91-11eb-8dcd-0242ac130003",
-                    "po_number": "4500326716",
-                    "name": "packing List",
-                    "packinglist_parent_line_items": [
-                        {
-                            "name": aParentItems.name,
-                            "description": aParentItems.description,
-                            "material_code": aParentItems.material_code,
-                            "uom": aParentItems.uom,
-                            "approved_qty": aParentItems.qty,
-                            "packinglist_child_items": selectedChildLineItems
-                        }
-                    ]
-                };
-
-                $.ajax({
-                    "async": true,
-                    "crossDomain": true,
-                    "url": "/AGEL_MMTS_API/odata/v4/VendorsService/PackingLists",
-                    "method": "POST",
-                    "headers": {
-                        "content-type": "application/json"
-                    },
-                    "processData": false,
-                    "data": JSON.stringify(oPayload),
-                    success: function (oData, oResponse) {
-                        // @ts-ignore
-                        sap.m.MessageToast.show("packing List Created with ID " + oData.ID)
-                    },
-                    error: function (oError) {
-                        sap.m.MessageBox.error("Error creating Packing List");
-                    }
+                var oPackingListInputModel = new JSONModel({
+                    "name": null
                 });
+                this.getView().setModel(oPackingListInputModel, "PackingListInputModel");
+
+                if (!this._oPackingListNameGetterDialog) {
+                    this._oPackingListNameGetterDialog = sap.ui.xmlfragment("com.agel.mmts.vendorPersona.view.fragments.inspectionDetails.PackingListNameGetter", this);
+                    this.getView().addDependent(this._oPackingListNameGetterDialog);
+                }
+                this._oPackingListNameGetterDialog.open();
+
             } else {
                 sap.m.MessageBox.information("Please select at least one item to go ahead with Creating Packing List!");
             }
+        },
+
+        onCreatePress: function (oEvent) {
+            var oParentLineItemTable = this.byId("idInspectedParentLineItems")
+            var aSelectedItems = oParentLineItemTable.getSelectedContexts()[0].getObject();
+            var oViewContextObject = this.getView().getBindingContext().getObject;
+            var aParentItems = aSelectedItems;
+            var selectedChildLineItems = aParentItems.inspected_child_line_items;
+            delete aParentItems.inspected_child_line_items;
+            delete selectedChildLineItems[0].ID;
+            delete aParentItems.ID;
+
+            var oPayload = {
+                "status": "Approved",
+                "vehicle_no": "",
+                "purchase_order_ID": "ef1a3038-9218-11eb-a8b3-0242ac130003",
+                "insp_call_id": "be824424-8c91-11eb-8dcd-0242ac130003",
+                "po_number": "4500326716",
+                "name": this.getView().getModel("PackingListInputModel").getProperty("/name"),
+                "packinglist_parent_line_items": [
+                    {
+                        "name": aParentItems.name,
+                        "description": aParentItems.description,
+                        "material_code": aParentItems.material_code,
+                        "uom": aParentItems.uom,
+                        "approved_qty": aParentItems.approved_qty,
+                        "packinglist_child_items": selectedChildLineItems
+                    }
+                ]
+            };
+            debugger;
+
+            $.ajax({
+                "async": true,
+                "crossDomain": true,
+                "url": "/AGEL_MMTS_API/odata/v4/VendorsService/PackingLists",
+                "method": "POST",
+                "headers": {
+                    "content-type": "application/json"
+                },
+                "processData": false,
+                "data": JSON.stringify(oPayload),
+                success: function (oData, oResponse) {
+                    // @ts-ignore
+                    this._oPackingListNameGetterDialog.close();
+                    sap.m.MessageToast.show("packing List Created with ID " + oData.name);
+                    this.getView().getModel().refresh();
+                    this.getRouter().navTo("RoutePackingDeatilsPage", {
+                        packingListID: "(" +oData.ID+")" 
+                    });
+                }.bind(this),
+                error: function (oError) {
+                    sap.m.MessageBox.error("Error creating Packing List");
+                }
+            });
+
         },
 
         MDCCFileSelectedForUpload: function (oEvent) {

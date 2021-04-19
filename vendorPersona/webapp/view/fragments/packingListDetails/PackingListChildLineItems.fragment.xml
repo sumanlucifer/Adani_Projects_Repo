@@ -1,8 +1,13 @@
 <core:FragmentDefinition xmlns="sap.m"
     xmlns:core="sap.ui.core">
-    <Dialog id="helloDialog" contentHeight="50%" contentWidth="50%" title="Packing List Child Line Items">
+    <Dialog contentHeight="50%" contentWidth="50%" title="Packing List Child Line Items">
         <content>
-            <Table id="idInspectedChildLineItems" width="auto" growing="true" growingScrollToLoad="true" items="{packinglist_child_items}" >
+            <Table id="idInspectedChildLineItems" width="auto" growing="true" growingScrollToLoad="true" items="{path :'packinglist_child_items', parameters: {
+                $expand : { 
+                    'qr_code' : {
+                               '$select' : ['content']
+                    }
+            }}}">
                 <columns>
                     <Column>
                         <Text text="Material Code"/>
@@ -16,16 +21,28 @@
                     <Column>
                         <Text text="UOM"/>
                     </Column>
+                    <!-- <Column>
+                        <Text text="QR Code"/>
+                    </Column> -->
                 </columns>
 
                 <items>
                     <ColumnListItem press=".onInspectionIDPress">
                         <cells>
                             <ObjectIdentifier title="{material_code}" titleActive="true"/>
+                        </cells>
+                        <cells>
                             <Text text="{description}"/>
+                        </cells>
+                        <cells>
                             <Text text="{qty}"/>
+                        </cells>
+                        <cells>
                             <Text text="{uom}"/>
                         </cells>
+                         <!-- <cells>
+                            <Avatar src= "data:image/jpg;base64,{qr_code/content}" displayShape="Square" displaySize="L" />
+                        </cells> -->
                     </ColumnListItem>
                 </items>
             </Table>
