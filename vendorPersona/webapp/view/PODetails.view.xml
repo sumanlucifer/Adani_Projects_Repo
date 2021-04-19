@@ -155,7 +155,7 @@
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection title="{i18n>lineItems}">
                         <VBox renderType="Bare">
-                            <Table id="idParentLineItemsTable" width="auto" items="{path: 'parent_line_items', parameters: { $$updateGroupId : 'parentItemsGroup'}}" noDataText="{i18n>noParentItems}" growing="true" growingScrollToLoad="true" updateFinished=".onParentItemsTableUpdateFinished" selectionChange=".onParentItemSelect" mode="SingleSelectMaster">
+                            <Table id="idParentLineItemsTable" width="auto" items="{path: 'parent_line_items', parameters: { $$updateGroupId : 'parentItemsGroup', $select: 'parent_line_item_id'}}" noDataText="{i18n>noParentItems}" growing="true" growingScrollToLoad="true" updateFinished=".onParentItemsTableUpdateFinished" selectionChange=".onParentItemSelect" mode="SingleSelectMaster">
                                 <headerToolbar>
                                     <OverflowToolbar>
                                         <Title text="{i18n>items}" level="H4" id="parentItemsTableHeader"/>
@@ -169,9 +169,9 @@
                                         <Button tooltip="{i18n>filter}" icon="sap-icon://filter" press="handleFilterButtonPressed" type="Transparent"/>
                                         <!-- <Button icon="sap-icon://add" press=".onParentItemCreatePress"/> -->
                                         <Button press=".onExportParentItemsExportPress" icon="sap-icon://download"/>
-                                        <VBox visible="{= %{status}==='PENDING' ? true : false}">
+                                        <!-- <VBox visible="{= %{status}==='PENDING' ? true : false}">
                                             <unified:FileUploader id="idBOQUploader" buttonOnly="true" buttonText="Upload BOQ" sameFilenameAllowed="true" multiple="false" fileType="csv" mimeType="text/csv" change="BOQFileSelectedForUpload" binding="{DocumentUploadModel>/uploadBOQ(...)}" style="Emphasized"/>
-                                        </VBox>
+                                        </VBox>-->
                                     </OverflowToolbar>
                                 </headerToolbar>
                                 <columns>
@@ -223,24 +223,30 @@
                             </SegmentedButton>
                             <VBox renderType="Bare" visible="{= %{objectViewModel>/boqSelection}==='addBOQ' ? true : false}">
                                 <Table id="idTableBOQItems" width="auto" noDataText="{i18n>noBOQitems}" growing="true" growingScrollToLoad="true" items="{
-                                        path: '/ChildLineItems',
-                                        parameters : {
-                                            $count : true,                             
-                                            $filter : 'type ge \'BOQ\''
-                                        }
+                                        path: 'boq_line_items'
                                     }">
                                     <columns>
                                         <Column>
                                             <Text text="{i18n>material code}"/>
                                         </Column>
-
+                                        <Column>
+                                            <Text text="{i18n>quantity}"/>
+                                        </Column>
+                                        <Column>
+                                            <Text text="{i18n>uom}"/>
+                                        </Column>
+                                        <Column>
+                                            <Text text="{i18n>description}"/>
+                                        </Column>
                                     </columns>
 
                                     <items>
                                         <ColumnListItem>
                                             <cells>
                                                 <ObjectIdentifier title="{material_code}" titleActive="true"/>
-
+                                                <Text text="{qty}"></Text>
+                                                <Text text="{uom}"></Text>
+                                                <Text text="{description}"></Text>
                                             </cells>
                                         </ColumnListItem>
                                     </items>
@@ -248,8 +254,9 @@
                             </VBox>
                             <VBox renderType="Bare" visible="{= %{objectViewModel>/boqSelection}==='uploadBOQ' ? true : false}">
                                 <HBox renderType="Bare" justifyContent="Start" alignItems="Center" class="sapUiSmallMargin">
-                                    <Link text="download sample .csv template" class="sapUiSmallMarginEnd"/>
-                                    <unified:FileUploader buttonText="Upload BOQ" style="Emphasized" buttonOnly="true" icon="sap-icon://upload"/>
+                                    <Link text="download sample .csv template" class="sapUiSmallMarginEnd" press=".onDownloadSampleCSVPress"/>
+                                    <!-- <Link text="download sample .csv template" target="_self" class="sapUiSmallMarginEnd" href="{path:'objectViewModel>/csvFile', formatter: '.formatter.getSampleFileURL'}" /> -->
+                                    <unified:FileUploader id="idBOQUploader" buttonOnly="true" buttonText="Upload BOQ" icon="sap-icon://upload" sameFilenameAllowed="true" multiple="false" fileType="csv" mimeType="text/csv" change="BOQFileSelectedForUpload" binding="{DocumentUploadModel>/uploadBOQ(...)}" style="Emphasized"/>
                                 </HBox>
                             </VBox>
                         </VBox>
@@ -277,6 +284,39 @@
                                     <cells>
                                         <ObjectIdentifier title="{inspection_call_id}" titleActive="true"/>
                                         <Text text="{createdAt}"/>
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>packingLists}" visible="{= %{status}==='CONFIRMED' ? true : false}">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection>
+                        <Table id="idPackingListsTable" width="auto" noDataText="{i18n>noPackingListsText}" growing="true" growingScrollToLoad="true" items="{packing_list}">
+                            <columns>
+                                <Column>
+                                    <Text text="{118n>name}"/>
+                                </Column>
+                                <Column>
+                                    <Text text="{i18n>inspectionCallRefNo}"/>
+                                </Column>
+                                <Column>
+                                    <Text text="{i18n>date}"/>
+                                </Column>
+                                <Column>
+                                    <Text text="{i18n>status}"/>
+                                </Column>
+                            </columns>
+
+                            <items>
+                                <ColumnListItem type="Navigation" press=".onPackingListPress">
+                                    <cells>
+                                        <ObjectIdentifier title="{name}" titleActive="true"/>
+                                        <Text text="{insp_call_id}"/>
+                                        <Text text="{createdAt}"/>
+                                        <Text text="{status}"/>
                                     </cells>
                                 </ColumnListItem>
                             </items>

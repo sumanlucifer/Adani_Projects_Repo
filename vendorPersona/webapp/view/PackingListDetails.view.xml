@@ -5,7 +5,8 @@
     xmlns="sap.m"
     xmlns:f="sap.f"
     xmlns:fb="sap.ui.comp.filterbar"
-    xmlns:vm="sap.ui.comp.variants">
+    xmlns:vm="sap.ui.comp.variants"
+    xmlns:unified="sap.ui.unified">
     <f:DynamicPage headerExpanded="true">
         <!-- DynamicPage Title -->
         <f:title>
@@ -29,6 +30,22 @@
                 <f:snappedTitleOnMobile>
                     <!-- <Title text="{inspection_call_id}"/> -->
                 </f:snappedTitleOnMobile>
+                <f:actions>
+                    <VBox visible="{= %{qr_code_ID} ? false : true}">
+                        <Link id= "idQRAssistant" text="no I don't opt to generate QR code" press="onQRAssistantPress" binding="{/qrCodeGenerationAssistanceRequest(...)}"></Link>
+                    </VBox>
+                    <Button text="Generate QR Code" type="Emphasized" press="onGenerateQRCodePress" binding="{qrCodeModel>/generateQRCode(...)}" visible="{= %{qr_code_ID} ? false : true}"></Button>
+
+                    <VBox visible="{= %{status} !=='DISPATCHED'}">
+                        <VBox visible="{= %{status} !=='Approved'}">
+                            <VBox visible="{= %{qr_code_ID}}">
+                                <Button text="Dispatch" type="Emphasized" press="onDispatchPackingListPress" binding="{/updatePackingListStatus(...)}" visible="{= %{qr_code_assistance_ID} }"></Button>
+                            </VBox>
+                        </VBox>
+                    </VBox>
+
+                    <Button id="idPrintButton" type="Emphasized" icon="sap-icon://print" press="onPrintPackingListPress" binding="{/downloadPackingListDocument(...)}"></Button>
+                </f:actions>
             </f:DynamicPageTitle>
         </f:title>
         <!-- DynamicPage Header -->
@@ -39,7 +56,7 @@
                         <items>
                             <VBox renderType="Bare" binding="{qr_code}" alignItems="Center">
                                 <items>
-                                    <Avatar displaySize="XL" badgeIcon="sap-icon://upload" displayShape="Square" src="data:image/jpg;base64,{content}"/>
+                                    <Avatar displaySize="XL" badgeIcon="sap-icon://upload" displayShape="Square" src="data:image/jpg;base64,{content}" visible="{= %{content} ? true : false}"/>
                                     <Label text="{qr_number}"/>
                                 </items>
                             </VBox>
@@ -60,10 +77,10 @@
             <IconTabBar id="idIconTabBarNoIcons" expanded="{device>/isNoPhone}" class="sapUiResponsiveContentPadding">
                 <items>
                     <IconTabFilter text="Packing List Information">
-                        <Table id="idInspectedParentLineItems" width="auto" items="{insepected_parent_line_items}" noDataText="{i18n>noParentItems}" growing="true" growingScrollToLoad="true" selectionChange=".onParentItemSelect" mode="SingleSelectMaster">
+                        <Table id="idInspectedParentLineItems" width="auto" items="{packinglist_parent_line_items}" noDataText="{i18n>noParentItems}" growing="true" growingScrollToLoad="true" selectionChange=".onParentItemSelect" mode="SingleSelectMaster">
                             <headerToolbar>
                                 <OverflowToolbar>
-                                    <Title text="Inspected Parent Items" level="H4" id="idInspectedParentItems"/>
+                                    <Title text="Packing List Parent Items" level="H4" id="idInspectedParentItems"/>
                                     <ToolbarSpacer />
                                     <SearchField tooltip="{i18n>searchItem}" placeholder="{i18n>searchItem}">
                                         <layoutData>
@@ -86,6 +103,12 @@
                                     <Text text="{i18n>approvedQty}"/>
                                 </Column>
                                 <Column>
+                                    <Text text="{i18n>uom}"/>
+                                </Column>
+                                <Column visible="{= %{qr_code_ID} ? true : false}">
+                                    <Text text="QR Code"/>
+                                </Column>
+                                <Column>
                                     <Text text="{i18n>viewChildInspectedMaterials}"/>
                                 </Column>
                             </columns>
@@ -96,7 +119,9 @@
                                         <ObjectIdentifier title="{material_code}" titleActive="true"/>
                                         <Text text="{description}"/>
                                         <Text text="{approved_qty}"/>
-                                        <Button type="Emphasized" text="{i18n>viewChildInspectedMaterials}" press=".onViewInspectedChildMaterialsPress"></Button>
+                                        <Text text="{uom}"/>
+                                        <Avatar src= "data:image/jpg;base64,{qr_code/content}" displaySize="XL" displayShape="Square"/>
+                                        <Button type="Emphasized" text="{i18n>viewChildInspectedMaterials}" press=".onPackingListChildMaterialsPress"></Button>
                                     </cells>
                                 </ColumnListItem>
                             </items>
@@ -104,10 +129,68 @@
                         </Table>
                     </IconTabFilter>
                     <IconTabFilter text="Invoice">
-                        <Text text="Attachments go here ..." />
+                        <HBox visible="{= %{status} !== 'DISPATCHED'}">
+                            <VBox class="sapUiSmallMargin">
+                                <Label text="Invoice Number"/>
+                                <Input id="idInvoiceNo"/>
+                            </VBox>
+                            <VBox class="sapUiSmallMargin">
+                                <Label text="Invoice Date"/>
+                                <Input id="idInvoiceDate"/>
+                            </VBox>
+                            <VBox class="sapUiSmallMargin">
+                                <Label/>
+                                <unified:FileUploader id="idInvoiceUploader" buttonOnly="true" buttonText="Upload Invoice" sameFilenameAllowed="true" multiple="false" fileType="csv" mimeType="text/csv" style="Emphasized" change="onInvoiceFileSelectedForUpload"/>
+                            </VBox>
+                        </HBox>
+                        <UploadCollection maximumFilenameLength="55" maximumFileSize="10" multiple="false" fileSizeExceed="onFileSizeExceed" typeMissmatch="onTypeMissmatch" uploadComplete="onUploadComplete" beforeUploadStarts="onBeforeUploadStarts" items="{
+                                    path:'attachments',
+                                    parameters : {
+                                        $filter : 'type eq \'INVOICE\''
+                                    },
+                                    templateShareable: false}" mode="None" uploadButtonInvisible="true" selectionChange="onInvoiceFileSelectedForUpload" instantUpload="false" change="onInvoiceFileSelectedForUpload">
+                            <items>
+                                <UploadCollectionItem documentId="{document_number}" url="{parts: ['fileName','file'], 
+                                        formatter: '.formatter.fileContent' }" enableEdit="false" enableDelete="false" visibleDelete="false" visibleEdit="false" fileName="{fileName}">
+                                    <attributes>
+                                        <ObjectAttribute title="Invoive Number" text="{document_number}"/>
+                                    </attributes>
+                                </UploadCollectionItem>
+
+                            </items>
+                        </UploadCollection>
+                    </IconTabFilter>
+                    <IconTabFilter text="Material Details">
+                        <UploadCollection maximumFilenameLength="55" maximumFileSize="10" multiple="false" fileSizeExceed="onFileSizeExceed" typeMissmatch="onTypeMissmatch" uploadComplete="onUploadComplete" beforeUploadStarts="onBeforeUploadStarts" items="{
+                                    path:'attachments',
+                                    parameters : {
+                                        $filter : 'type eq \'MATERIAL\''
+                                    },
+                                    templateShareable: false}" mode="None" uploadButtonInvisible="{= %{status} !== 'DISPATCHED' ? false : true}" change="onMaterialFileSelectedForUpload" selectionChange="onMaterialFileSelectedForUpload">
+                            <items>
+                                <UploadCollectionItem documentId="{document_number}" url="{parts: ['fileName','file'], 
+                                        formatter: '.formatter.fileContent' }" enableEdit="false" enableDelete="false" visibleDelete="false" visibleEdit="false" fileName="{fileName}">
+                                    <attributes>
+                                        <ObjectAttribute title="Document Number" text="{document_number}"/>
+                                    </attributes>
+                                </UploadCollectionItem>
+                            </items>
+                        </UploadCollection>
                     </IconTabFilter>
                     <IconTabFilter text="Other Documents">
-                        <Text text="Other Documents go here ..." />
+                        <UploadCollection maximumFilenameLength="55" maximumFileSize="10" multiple="false" fileSizeExceed="onFileSizeExceed" typeMissmatch="onTypeMissmatch" uploadComplete="onUploadComplete" beforeUploadStarts="onBeforeUploadStarts" items="{
+                                    path:'attachments',
+                                    parameters : {
+                                        $filter : 'type eq \'OTHERS\''
+                                    },
+                                    templateShareable: false}" mode="None" uploadButtonInvisible="{= %{status} !== 'DISPATCHED' ? false : true}" change="onOtherFileSelectedForUpload" selectionChange="onOtherFileSelectedForUpload">
+                            <items>
+                                <UploadCollectionItem documentId="{document_number}" url="{parts: ['fileName','file'], 
+                                        formatter: '.formatter.fileContent' }" enableEdit="false" enableDelete="false" visibleDelete="false" visibleEdit="false" fileName="{fileName}">
+                                    <ObjectAttribute title="Document Number" text="{document_number}"/>
+                                </UploadCollectionItem>
+                            </items>
+                        </UploadCollection>
                     </IconTabFilter>
                 </items>
             </IconTabBar>
