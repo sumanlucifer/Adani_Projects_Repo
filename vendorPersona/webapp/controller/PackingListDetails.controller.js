@@ -60,6 +60,19 @@ sap.ui.define([
             });
         },
 
+        // on Date Change
+        onDateChange: function (oEvent) {
+            var oDP = oEvent.getSource(),
+                sValue = oEvent.getParameter("value"),
+                bValid = oEvent.getParameter("valid");
+
+            if (bValid) {
+                oDP.setValueState(sap.ui.core.ValueState.None);
+            } else {
+                oDP.setValueState(sap.ui.core.ValueState.Error);
+            }
+        },
+
         onPackingListChildMaterialsPress: function (oEvent) {
             var oItem = oEvent.getSource();
             var that = this;
@@ -217,6 +230,57 @@ sap.ui.define([
             xhr.send();
         },
 
+        onPressVehicleNumber : function(oEvent){
+            var VehicleNob = this.byId("idInputVehicleNob").getValue();
+                
+            //initialize the action
+            var that = this,
+            oViewContext = this.getView().getBindingContext().getObject(),
+            oBindingObject = oEvent.getSource().getObjectBinding();
+
+            //set the parameters
+            oBindingObject.getParameterContext().setProperty("packingListId", oViewContext.ID);
+            oBindingObject.getParameterContext().setProperty("vehicleNumber", VehicleNob);
+  
+            //execute the action
+            oBindingObject.execute().then(
+                function () {
+                    sap.m.MessageToast.show("Submited Successfully");
+                    that.getView().getModel().refresh();
+                },
+                function (oError) {
+                        sap.m.MessageBox.alert(oError.message, {
+                            title: "Error"
+                        });
+                }
+            );
+        },
+
+         // On Search of Parent Line Items Table 
+        onSearch : function(oEvent){
+            var aFilters = [];
+            var FreeTextSearch = this.getView().byId("idSearchFieldPackingListTable").getValue();
+            if(FreeTextSearch){
+                //  aFilters.push(new Filter("material_code", FilterOperator.Contains, FreeTextSearch));
+                  aFilters.push(new Filter("description", FilterOperator.Contains, FreeTextSearch));
+                //  aFilters.push(new Filter("qty", FilterOperator.Contains, FreeTextSearch));
+                  aFilters.push(new Filter("uom", FilterOperator.Contains, FreeTextSearch));
+            }
+            var mFilters = new Filter({
+                filters: aFilters,
+                and: false
+            });
+            var oTableBinding = this.getView().byId("idInspectedParentLineItems").getBinding("items");
+            oTableBinding.filter(mFilters);
+        },
+
+        ondemo : function(oEvent)
+        {
+            var that = this;
+            var document_date = this.byId("DP1").getValue();
+            var date = new Date().toLocaleDateString().split("/");
+        },
+
         _addData: function (data, fileName, fileType) {
             debugger;
             var that = this,
@@ -224,14 +288,16 @@ sap.ui.define([
                 //oBindingObject = this.byId("idMDCCUploader").getObjectBinding("attachmentModel");
 
                 data = data.split(",")[1],
-                date = new Date().toLocaleDateString().split("/");
+                date = this.byId("DP1").getValue().split('.');
+              //  date = new Date().toLocaleDateString().split("/");
             if (fileType === "INVOICE") {
                 var document_number = this.byId("idInvoiceNo").getValue();
-                var document_date = this.byId("idInvoiceDate").getValue();
+                var document_date = this.byId("DP1").getValue();
+                date = document_date.split('.');
             }
             else {
                 var document_number = (Math.floor(Math.random() * (1000000 - 1999999 + 1)) + 1000000).toString();
-                var document_date = date[2] + "-" + date[1] + "-" + date[0]
+                var document_date = date[2] + "-" + date[1] + "-" + date[0];
             }
             var documents = {
                 "documents": [

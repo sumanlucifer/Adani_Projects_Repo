@@ -165,8 +165,8 @@
                                                 <OverflowToolbarLayoutData maxWidth="200px" priority="NeverOverflow" group="1"/>
                                             </layoutData>
                                         </SearchField>
-                                        <Button tooltip="{i18n>sort}" icon="sap-icon://sort" press="handleSortButtonPressed" type="Transparent"/>
-                                        <Button tooltip="{i18n>filter}" icon="sap-icon://filter" press="handleFilterButtonPressed" type="Transparent"/>
+                                        <Button tooltip="{i18n>sort}" icon="sap-icon://sort" press="handleSortParentItem" type="Transparent"/>
+                                        <Button tooltip="{i18n>filter}" icon="sap-icon://filter" press="handleFilterParentItem" type="Transparent"/>
                                         <!-- <Button icon="sap-icon://add" press=".onParentItemCreatePress"/> -->
                                         <Button press=".onExportParentItemsExportPress" icon="sap-icon://download"/>
                                         <!-- <VBox visible="{= %{status}==='PENDING' ? true : false}">
@@ -270,6 +270,24 @@
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection>
                         <Table id="idInspectionTable" width="auto" noDataText="{i18n>noInspectionItems}" growing="true" growingScrollToLoad="true" items="{inspection_call_ids}">
+                            <headerToolbar>
+                                    <OverflowToolbar>
+                                        <ToolbarSpacer />
+                                        <SearchField id="idSearchFieldInspectionID" tooltip="{i18n>searchItem}" 
+                                            placeholder="{i18n>searchItem}" search="onSearchInspectionItem">
+                                            <layoutData>
+                                                <OverflowToolbarLayoutData maxWidth="200px" priority="NeverOverflow" group="1"/>
+                                            </layoutData>
+                                        </SearchField>
+                                      <!--  <Button tooltip="{i18n>sort}" icon="sap-icon://sort" press="handleSortButtonPressed" type="Transparent"/>
+                                        <Button tooltip="{i18n>filter}" icon="sap-icon://filter" press="handleFilterButtonPressed" type="Transparent"/>
+                                         <Button icon="sap-icon://add" press=".onParentItemCreatePress"/> 
+                                        <Button press=".onExportParentItemsExportPress" icon="sap-icon://download"/> -->
+                                        <!-- <VBox visible="{= %{status}==='PENDING' ? true : false}">
+                                            <unified:FileUploader id="idBOQUploader" buttonOnly="true" buttonText="Upload BOQ" sameFilenameAllowed="true" multiple="false" fileType="csv" mimeType="text/csv" change="BOQFileSelectedForUpload" binding="{DocumentUploadModel>/uploadBOQ(...)}" style="Emphasized"/>
+                                        </VBox>-->
+                                    </OverflowToolbar>
+                            </headerToolbar>
                             <columns>
                                 <Column>
                                     <Text text="{i18n>inspectionID}"/>

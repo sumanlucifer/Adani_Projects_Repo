@@ -34,6 +34,9 @@ sap.ui.define([
 
             this._initializeCreationModels();
 
+            // Keeps reference to any of the created sap.m.ViewSettingsDialog-s in this sample
+			this._mViewSettingsDialogs = {};
+
             //Router Object
             this.oRouter = this.getRouter();
             this.oRouter.getRoute("RoutePODetailPage").attachPatternMatched(this._onObjectMatched, this);
@@ -298,8 +301,10 @@ sap.ui.define([
             });
         },
 
-        onClose: function (oEvent) {
-            this.pDialog.close();
+        onViewChildDialogClose: function (oEvent) {
+             this.pDialog.then(function (oDialog) {
+                oDialog.close();
+             });
         },
 
         BOQFileSelectedForUpload: function (oEvent) {
@@ -638,6 +643,42 @@ sap.ui.define([
             oTableBinding.filter(mFilters);
         },
 
+        // On Search of Child Line Items Table 
+        onSearchChildItem : function(oEvent){
+            var aFilters = [];
+            var FreeTextSearch = this.getView().byId("idSearchField").getValue();
+            if(FreeTextSearch){
+                //  aFilters.push(new Filter("material_code", FilterOperator.Contains, FreeTextSearch));
+                  aFilters.push(new Filter("description", FilterOperator.Contains, FreeTextSearch));
+                //  aFilters.push(new Filter("qty", FilterOperator.Contains, FreeTextSearch));
+                  aFilters.push(new Filter("uom", FilterOperator.Contains, FreeTextSearch));
+            }
+            var mFilters = new Filter({
+                filters: aFilters,
+                and: false
+            });
+            var oTableBinding = this.getView().byId("idChildItemsTable").getBinding("items");
+            oTableBinding.filter(mFilters);
+        },
+
+        onSearchInspectionItem : function(oEvent){
+            var aFilters = [];
+            var FreeTextSearch = this.getView().byId("idSearchFieldInspectionID").getValue();
+            if(FreeTextSearch){
+                //  aFilters.push(new Filter("material_code", FilterOperator.Contains, FreeTextSearch));
+                  aFilters.push(new Filter("inspection_call_id", FilterOperator.Contains, FreeTextSearch));
+                //  aFilters.push(new Filter("qty", FilterOperator.Contains, FreeTextSearch));
+             //     aFilters.push(new Filter("uom", FilterOperator.Contains, FreeTextSearch));
+            }
+            var mFilters = new Filter({
+                filters: aFilters,
+                and: false
+            });
+            var oTableBinding = this.getView().byId("idInspectionTable").getBinding("items");
+            oTableBinding.filter(mFilters);
+        },
+
+        
         _showPackingDetails: function (oItem) {
             var that = this;
             oItem.getBindingContext().requestCanonicalPath().then(function (sObjectPath) {
@@ -748,6 +789,41 @@ sap.ui.define([
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
-        }
+        },
+
+        // Sort Parent Items
+        handleSortParentItem: function () {
+			this.getViewSettingsDialog("com.agel.mmts.vendorPersona.view.PODetails.SortDialogParentItemTable")
+				.then(function (oViewSettingsDialog) {
+					SortDialogParentItem.open();
+				});
+		},
+
+        // Filter Parent Items
+		handleFilterParentItem: function () {
+			this.getViewSettingsDialog("com.agel.mmts.vendorPersona.view.PODetails.FilterDialogParentItemTable")
+				.then(function (oViewSettingsDialog) {
+					FilterDialogParentItem.open();
+				});
+        },
+        
+        getViewSettingsDialog: function (sDialogFragmentName) {
+			var pDialog = this._mViewSettingsDialogs[sDialogFragmentName];
+
+			if (!pDialog) {
+				pDialog = Fragment.load({
+					id: this.getView().getId(),
+					name: sDialogFragmentName,
+					controller: this
+				}).then(function (oDialog) {
+					if (Device.system.desktop) {
+						oDialog.addStyleClass("sapUiSizeCompact");
+					}
+					return oDialog;
+				});
+				this._mViewSettingsDialogs[sDialogFragmentName] = pDialog;
+			}
+			return pDialog;
+		},
     });
 });

@@ -58,7 +58,8 @@ sap.ui.define([
                                         },
                                         "packing_list" : {
                                             "$expand": {
-                                                        "insepected_parent_line_items":{
+                                                        "insp_call" : {},
+                                                        "packinglist_parent_line_items":{
                                                                 "$select":["packing_list_ID","po_number","material_code","name","description"]
                                                         },
                                                         "qr_code" : {

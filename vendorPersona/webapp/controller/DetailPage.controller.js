@@ -5,8 +5,9 @@ sap.ui.define([
     "sap/ui/model/FilterOperator",
     "sap/ui/core/Fragment",
     "sap/ui/model/Sorter",
-    "sap/ui/Device"
-], function (BaseController, JSONModel, Filter, FilterOperator, Fragment, Sorter, Device) {
+    "sap/ui/Device",
+    'sap/ui/core/ValueState'
+], function (BaseController, JSONModel, Filter, FilterOperator, Fragment, Sorter, Device,ValueState) {
     "use strict";
 
     return BaseController.extend("com.agel.mmts.vendorPersona.controller.DetailPage", {
@@ -238,19 +239,35 @@ sap.ui.define([
 
         },
 
+        // Date Range Selection
+        onDateRangeSelectionChange : function(oEvent){
+            var sFrom = oEvent.getParameter("from"),
+			sTo = oEvent.getParameter("to"),
+			bValid = oEvent.getParameter("valid"),
+			oEventSource = oEvent.getSource(),
+			oText = this.byId("TextEvent");
+
+			if (bValid) {
+				oEventSource.setValueState(ValueState.None);
+			} else {
+				oEventSource.setValueState(ValueState.Error);
+			}
+        },
+
         // on Go Search 
         onSearch: function (oEvent) {
             var poNumber = this.byId("idNameInput").getValue();
-            var releaseDate = this.byId("DP1").getValue();
+             var DateRange = this.byId("dateRangeSelectionId");
+            var DateRangeValue = this.byId("dateRangeSelectionId").getValue();
             var aFilters = [];
             if (poNumber != "") {
                 aFilters.push(new Filter("po_number", FilterOperator.EQ, poNumber));
             }
 
-            if (releaseDate != "") {
-                var arr = releaseDate.split('.')
-                releaseDate = arr[2] + '-' + arr[1] + '-' + arr[0] + 'T00:00:00Z'
-                aFilters.push(new Filter("po_release_date", FilterOperator.EQ, releaseDate));
+             if (DateRangeValue != "") {
+                var From=new Date(DateRange.getFrom());
+                var To=new Date(DateRange.getTo());
+                aFilters.push(new Filter("po_release_date", FilterOperator.BT, From.toISOString(),To.toISOString()));
             }
 
 

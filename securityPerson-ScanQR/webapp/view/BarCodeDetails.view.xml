@@ -21,7 +21,7 @@
                             <items>
                                 <VBox renderType="Bare" class="sapUiSmallMarginEnd">
                                      <Label text="{i18n>materialName}" />
-                                     <Text text="{packing_list/insepected_parent_line_items/0/material_code}" /> 
+                                     <Text text="{packing_list/packinglist_parent_line_items/0/material_code}" /> 
                                 </VBox>
                                  <VBox renderType="Bare">
                                     <Label text="{i18n>pODate}" />
@@ -108,7 +108,7 @@
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection title="{i18n>parentLineItems}">
                         <VBox renderType="Bare">
-                            <Table id="idParentLineItemsTable" width="auto" noDataText="{i18n>noParentItems}" items="{packing_list/insepected_parent_line_items}" growing="true" growingScrollToLoad="true" selectionChange=".onParentItemSelect" mode="SingleSelectMaster" busyIndicatorDelay="{objectViewModel>busy}">
+                            <Table id="idParentLineItemsTable" width="auto" noDataText="{i18n>noParentItems}" items="{packing_list/packinglist_parent_line_items}" growing="true" growingScrollToLoad="true" selectionChange=".onParentItemSelect" mode="SingleSelectMaster" busyIndicatorDelay="{objectViewModel>busy}">
                                 <columns>
                                     <Column width="12%">
                                         <Text text="{i18n>purchase_order_ID}"/>
@@ -151,7 +151,7 @@
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection title="{i18n>inspectionItemsTitle}" id="idInspectionTableSubSection">
                         <VBox>
-                            <Table id="idInspectionTable" items="{insp_call}" width="auto" noDataText="{i18n>noInspectionItems}" growing="true" growingScrollToLoad="true" busyIndicatorDelay="{objectViewModel>busy}">
+                            <Table id="idInspectionTable" items="{insp_call}" binding="{packing_list}" width="auto" noDataText="{i18n>noInspectionItems}" growing="true" growingScrollToLoad="true" busyIndicatorDelay="{objectViewModel>busy}">
                                 <columns>
                                     <Column>
                                         <Text text="{i18n>inspectionID}"/>
