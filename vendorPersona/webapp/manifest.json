@@ -47,6 +47,14 @@
                     "localUri": "localService/metadata.xml"
                 }
             },
+            "attachmentService": {
+                "uri": "/AGEL_MMTS_API/odata/v4/AttachmentsService/",
+                "type": "OData",
+                "settings": {
+                    "odataVersion": "4.0",
+                    "localUri": "localService/metadata.xml"
+                }
+            },
             "qrCodeService": {
                 "uri": "/AGEL_MMTS_API/odata/v4/QRCodeService/",
                 "type": "OData",
@@ -127,6 +135,16 @@
                     "autoExpandSelect": true
                 },
                 "dataSource": "uploadService",
+                "preload": true
+            },
+            "attachmentModel": {
+                "settings": {
+                    "operationMode": "Server",
+                    "groupId": "$direct",
+                    "synchronizationMode": "None",
+                    "autoExpandSelect": true
+                },
+                "dataSource": "attachmentService",
                 "preload": true
             },
             "qrCodeModel": {
