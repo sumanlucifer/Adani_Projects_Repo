@@ -32,16 +32,16 @@
                 </f:snappedTitleOnMobile>
                 <f:actions>
                     <VBox visible="{= %{qr_code_ID} ? false : true}">
-                        <Link id= "idQRAssistant" text="no I don't opt to generate QR code" press="onQRAssistantPress" binding="{/qrCodeGenerationAssistanceRequest(...)}"></Link>
-                    </VBox>
-                    <Button text="Generate QR Code" type="Emphasized" press="onGenerateQRCodePress" binding="{qrCodeModel>/generateQRCode(...)}" visible="{= %{qr_code_ID} ? false : true}"></Button>
-
-                    <VBox visible="{= %{status} !=='DISPATCHED'}">
-                        <VBox visible="{= %{status} !=='Approved'}">
-                            <VBox visible="{= %{qr_code_ID}}">
-                                <Button text="Dispatch" type="Emphasized" press="onDispatchPackingListPress" binding="{/updatePackingListStatus(...)}" visible="{= %{qr_code_assistance_ID} }"></Button>
-                            </VBox>
+                        <VBox visible="{= %{qr_code_assistance_ID} ? false : true}">
+                            <Link id= "idQRAssistant" text="no I don't opt to generate QR code" press="onQRAssistantPress" binding="{/qrCodeGenerationAssistanceRequest(...)}"></Link>
                         </VBox>
+                    </VBox>
+                    <VBox visible="{= %{qr_code_assistance_ID} ? false : true}">
+                        <Button text="Generate QR Code" type="Emphasized" press="onGenerateQRCodePress" binding="{qrCodeModel>/generateQRCode(...)}" visible="{= %{qr_code_ID} ? false : true}"></Button>
+                    </VBox>
+
+                    <VBox visible="{= %{status} ==='Sent for QR Code Approval' || %{status} ==='QR Code Generated'}">
+                        <Button text="Dispatch" type="Emphasized" press="onDispatchPackingListPress" binding="{/updatePackingListStatus(...)}"></Button>
                     </VBox>
                    
                     <HBox visible="true">
@@ -67,7 +67,7 @@
                             <VBox>
                                 <items>
                                     <Label text="Created on - {createdAt}"/>
-                                    <ObjectStatus text="Status - {status}" state="{= ${status}==='CONFIRMED' ? 'Success' : 'Warning'}"/>
+                                    <ObjectStatus text="Status - {status}" state="{path:'status', formatter: '.formatter.getPackingListStatusColor'}"/>
                                     <Label text="Vehicle No - {vehicle_no}"/>
                                 </items>
                             </VBox>
@@ -162,7 +162,8 @@
                                 <UploadCollectionItem documentId="{document_number}" url="{parts: ['fileName','file'], 
                                         formatter: '.formatter.fileContent' }" enableEdit="false" enableDelete="false" visibleDelete="false" visibleEdit="false" fileName="{fileName}">
                                     <attributes>
-                                        <ObjectAttribute title="Invoive Number" text="{document_number}"/>
+                                        <ObjectAttribute title="Invoive Number" text="{document_number}" class="sapUiSmallMarginEnd"/>
+                                        <ObjectAttribute title="Invoice Date" text="{document_date}"/>
                                     </attributes>
                                 </UploadCollectionItem>
 
@@ -170,7 +171,7 @@
                         </UploadCollection>
                     </IconTabFilter>
                     <IconTabFilter text="Material Details">
-                        <UploadCollection maximumFilenameLength="55" maximumFileSize="10" multiple="false" fileSizeExceed="onFileSizeExceed" typeMissmatch="onTypeMissmatch" uploadComplete="onUploadComplete" beforeUploadStarts="onBeforeUploadStarts" items="{
+                        <UploadCollection maximumFilenameLength="55" maximumFileSize="10" multiple="true" fileSizeExceed="onFileSizeExceed" typeMissmatch="onTypeMissmatch" uploadComplete="onUploadComplete" beforeUploadStarts="onBeforeUploadStarts" items="{
                                     path:'attachments',
                                     parameters : {
                                         $filter : 'type eq \'MATERIAL\''
@@ -180,14 +181,15 @@
                                 <UploadCollectionItem documentId="{document_number}" url="{parts: ['fileName','file'], 
                                         formatter: '.formatter.fileContent' }" enableEdit="false" enableDelete="false" visibleDelete="false" visibleEdit="false" fileName="{fileName}">
                                     <attributes>
-                                        <ObjectAttribute title="Document Number" text="{document_number}"/>
+                                        <ObjectAttribute title="Document Number" text="{document_number}" class="sapUiSmallMarginEnd"/>
+                                        <ObjectAttribute title="Uploaded On" text="{document_date}"/>
                                     </attributes>
                                 </UploadCollectionItem>
                             </items>
                         </UploadCollection>
                     </IconTabFilter>
                     <IconTabFilter text="Other Documents">
-                        <UploadCollection maximumFilenameLength="55" maximumFileSize="10" multiple="false" fileSizeExceed="onFileSizeExceed" typeMissmatch="onTypeMissmatch" uploadComplete="onUploadComplete" beforeUploadStarts="onBeforeUploadStarts" items="{
+                        <UploadCollection maximumFilenameLength="55" maximumFileSize="10" multiple="true" fileSizeExceed="onFileSizeExceed" typeMissmatch="onTypeMissmatch" uploadComplete="onUploadComplete" beforeUploadStarts="onBeforeUploadStarts" items="{
                                     path:'attachments',
                                     parameters : {
                                         $filter : 'type eq \'OTHERS\''
@@ -196,7 +198,8 @@
                             <items>
                                 <UploadCollectionItem documentId="{document_number}" url="{parts: ['fileName','file'], 
                                         formatter: '.formatter.fileContent' }" enableEdit="false" enableDelete="false" visibleDelete="false" visibleEdit="false" fileName="{fileName}">
-                                    <ObjectAttribute title="Document Number" text="{document_number}"/>
+                                    <ObjectAttribute title="Document Number" text="{document_number}" class="sapUiSmallMarginEnd"/>
+                                    <ObjectAttribute title="Uploaded On" text="{document_date}"/>
                                 </UploadCollectionItem>
                             </items>
                         </UploadCollection>

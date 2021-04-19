@@ -198,22 +198,26 @@ sap.ui.define([
             // keep a reference of the uploaded file
             var that = this;
             var oFiles = oEvent.getParameters().files;
-            var fileName = oFiles[0].name;
             var fileType = "MATERIAL";
-            this._getImageData(URL.createObjectURL(oFiles[0]), function (base64) {
-                that._addData(base64, fileName, fileType);
-            }, fileName);
+            for (var i = 0; i < oFiles.length; i++) {
+                var fileName = oFiles[i].name;
+                this._getImageData(URL.createObjectURL(oFiles[i]), function (base64) {
+                    that._addData(base64, fileName, fileType);
+                }, fileName);
+            }
         },
 
         onOtherFileSelectedForUpload: function (oEvent) {
             // keep a reference of the uploaded file
             var that = this;
             var oFiles = oEvent.getParameters().files;
-            var fileName = oFiles[0].name;
             var fileType = "OTHERS";
-            this._getImageData(URL.createObjectURL(oFiles[0]), function (base64) {
-                that._addData(base64, fileName, fileType);
-            }, fileName);
+            for (var i = 0; i < oFiles.length; i++) {
+                var fileName = oFiles[0].name;
+                this._getImageData(URL.createObjectURL(oFiles[i]), function (base64) {
+                    that._addData(base64, fileName, fileType);
+                }, fileName);
+            }
         },
 
         _getImageData: function (url, callback) {
@@ -282,7 +286,6 @@ sap.ui.define([
         },
 
         _addData: function (data, fileName, fileType) {
-            debugger;
             var that = this,
                 oViewContext = this.getView().getBindingContext().getObject(),
                 //oBindingObject = this.byId("idMDCCUploader").getObjectBinding("attachmentModel");
@@ -363,7 +366,7 @@ sap.ui.define([
                 oBindingObject = oEvent.getSource().getObjectBinding();
 
             //set the parameters
-            oBindingObject.getParameterContext().setProperty("status", "DISPATCHED");
+            oBindingObject.getParameterContext().setProperty("status", "Dispatch Initiated");
             oBindingObject.getParameterContext().setProperty("packing_list_id", oViewContext.ID);
 
             //execute the action
@@ -404,7 +407,7 @@ sap.ui.define([
             //set the parameters
             oBindingObject.getParameterContext().setProperty("reason", inputModel.getProperty("/reason"));
             oBindingObject.getParameterContext().setProperty("description", inputModel.getProperty("/comment"));
-            oBindingObject.getParameterContext().setProperty("packing_list_id", oViewContext.ID);
+            oBindingObject.getParameterContext().setProperty("packing_list_ID", oViewContext.ID);
 
             //execute the action
             oBindingObject.execute().then(

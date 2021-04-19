@@ -6,7 +6,7 @@
     xmlns:f="sap.f"
     xmlns:fb="sap.ui.comp.filterbar"
     xmlns:vm="sap.ui.comp.variants">
-    <f:DynamicPage headerExpanded="true">
+    <f:DynamicPage headerExpanded="true" busy="{objectViewModel>/busy}">
         <!-- DynamicPage Title -->
         <f:title>
             <f:DynamicPageTitle>
@@ -77,7 +77,7 @@
                                         <Text text="{po_number}"/>
                                         <Text text="{vendor/name}"/>
                                         <Text text="{po_release_date}"/>
-                                        <Text text="{status}"/>
+                                        <ObjectStatus text="{status}" state="Warning"/>
                                     </cells>
                                 </ColumnListItem>
                             </items>
@@ -106,7 +106,7 @@
                                         <Text text="{po_number}"/>
                                         <Text text="{vendor/name}"/>
                                         <Text text="{po_release_date}"/>
-                                        <Text text="{status}"/>
+                                        <ObjectStatus text="{status}" state="Information"/>
                                     </cells>
                                 </ColumnListItem>
                             </items>
@@ -136,7 +136,7 @@
                                         <Text text="{po_number}"/>
                                         <Text text="{vendor/name}"/>
                                         <Text text="{po_release_date}"/>
-                                        <Text text="{status}"/>
+                                        <ObjectStatus text="{status}" state="Success"/>
                                     </cells>
                                 </ColumnListItem>
                             </items>

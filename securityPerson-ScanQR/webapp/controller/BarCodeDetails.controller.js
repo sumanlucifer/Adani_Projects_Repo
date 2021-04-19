@@ -1,24 +1,24 @@
 sap.ui.define([
-        "./BaseController",
-        "sap/ui/model/json/JSONModel",
-        "sap/ui/model/Filter",
-        "sap/ui/model/FilterOperator",
-        "sap/ui/core/Fragment",
-        "sap/ui/model/Sorter",
-        "sap/ui/Device",
-        "sap/ui/core/routing/History",
-        'sap/m/ColumnListItem',
-        'sap/m/Input',
-        '../utils/formatter',
-        "jquery.sap.global"
-	],
+    "./BaseController",
+    "sap/ui/model/json/JSONModel",
+    "sap/ui/model/Filter",
+    "sap/ui/model/FilterOperator",
+    "sap/ui/core/Fragment",
+    "sap/ui/model/Sorter",
+    "sap/ui/Device",
+    "sap/ui/core/routing/History",
+    'sap/m/ColumnListItem',
+    'sap/m/Input',
+    '../utils/formatter',
+    "jquery.sap.global"
+],
 	/**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-	function (BaseController , JSONModel, Filter, FilterOperator, Fragment, Sorter, Device, History, ColumnListItem, Input, formatter, jquery) {
-		"use strict";
-		return BaseController.extend("com.agel.mmts.securityPerson-ScanQR.controller.BarCodeDetails", {
-            formatter:formatter,
+    function (BaseController, JSONModel, Filter, FilterOperator, Fragment, Sorter, Device, History, ColumnListItem, Input, formatter, jquery) {
+        "use strict";
+        return BaseController.extend("com.agel.mmts.securityPerson-ScanQR.controller.BarCodeDetails", {
+            formatter: formatter,
 
             onInit: function () {
                 jquery.sap.addUrlWhitelist("blob");
@@ -30,12 +30,14 @@ sap.ui.define([
                 this.setModel(oViewModel, "objectViewModel");
 
                 var oViewHandlingModel = new JSONModel({
-                    ReEnterVehicleNob : null,
-               //     HeaderDeclineButton : false
-                   
+                    "EnterVehicleNo": null,
+                    "ReEnterVehicleNo": null,
+                    //     HeaderDeclineButton : false
+                    "wantChange": false
+
                 });
                 this.setModel(oViewHandlingModel, "oViewHandlingModel");
-                
+
                 //Router Object
                 this.oRouter = this.getRouter();
                 this.oRouter.getRoute("BarCodeDetailsPage").attachPatternMatched(this._onObjectMatched, this);
@@ -44,108 +46,107 @@ sap.ui.define([
             // On Object Matched 
             _onObjectMatched: function (oEvent) {
                 var QRCode = oEvent.getParameters().arguments.QRCode;
-                this._bindView("/enterQRNumber("+ QRCode +")");
+                this._bindView("/enterQRNumber(" + QRCode + ")");
             },
 
-            _bindView: function(sObjectPath) {
+            _bindView: function (sObjectPath) {
                 var objectViewModel = this.getViewModel("objectViewModel");
                 this.getView().bindElement({
-                        path: sObjectPath,
-                        parameters: {
-                            "$expand": {                          
-                                        "insp_call": {
-                                            "$select" : ["inspection_call_id"]
-                                        },
-                                        "packing_list" : {
-                                            "$expand": {
-                                                        "insp_call" : {},
-                                                        "packinglist_parent_line_items":{
-                                                                "$select":["packing_list_ID","po_number","material_code","name","description"]
-                                                        },
-                                                        "qr_code" : {
-                                                            
-                                                        },
-                                                        "attachments":{},
-                                                        "gate":{
-                                                            "$select":["entry_id"]
-                                                        }
-                                            },
-                                            "$select" : ["vehicle_no","qr_code_ID"]
-                                        },
-                                        "purchase_order" : {
-                                                "$expand" : {
-                                                            "vendor" : {
-                                                                "$expand" : {
-                                                                        "address" : {
-                                                                                "$select" : ["street","city","state","country"]
-                                                                        }       
-                                                                },  
-                                                                "$select" : ["name"]
-                                                            }
-                                                },
-                                                "$select" : ["asn_number","po_number","asn_creation_date","vendor_ID"]
-                                        }
-                             },                               
-                        },
-                        events: {
-                            dataRequested: function() {
-                                objectViewModel.setProperty("/busy", true);
+                    path: sObjectPath,
+                    parameters: {
+                        "$expand": {
+                            "insp_call": {
+                                "$select": ["inspection_call_id"]
                             },
-                            dataReceived: function() {
-                                objectViewModel.setProperty("/busy", false);                                
+                            "packing_list": {
+                                "$expand": {
+                                    "insepected_parent_line_items": {
+                                        "$select": ["packing_list_ID", "po_number", "material_code", "name", "description"]
+                                    },
+                                    "qr_code": {
+
+                                    },
+                                    "attachments": {},
+                                    "gate": {
+                                        "$select": ["entry_id"]
+                                    }
+                                },
+                                "$select": ["vehicle_no", "qr_code_ID"]
+                            },
+                            "purchase_order": {
+                                "$expand": {
+                                    "vendor": {
+                                        "$expand": {
+                                            "address": {
+                                                "$select": ["street", "city", "state", "country"]
+                                            }
+                                        },
+                                        "$select": ["name"]
+                                    }
+                                },
+                                "$select": ["asn_number", "po_number", "asn_creation_date", "vendor_ID"]
                             }
+                        },
+                    },
+                    events: {
+                        dataRequested: function () {
+                            objectViewModel.setProperty("/busy", true);
+                        },
+                        dataReceived: function () {
+                            objectViewModel.setProperty("/busy", false);
                         }
-                }); 
-            
-                // Approve Reject Hide Based On Vehicle Number Blank
-                if ( this.byId("idTextVehcileNob").getText() == "" ){
-                   // this.byId("idHboxApproveReject").setVisible(false);
+                    }
+                });
+
+            },
+
+            onChangeVehicleNumberPress: function () {
+                var bWantChange = this.getViewModel("oViewHandlingModel").getProperty("/wantChange");
+                if (bWantChange) {
+                    this.getViewModel("oViewHandlingModel").setProperty("/wantChange", false);
+                } else {
+                    this.getViewModel("oViewHandlingModel").setProperty("/wantChange", true)
                 }
             },
 
             // On Approve Press Vehicle Number
-            onPressApproveQRCode : function(){
-                this.byId("idInputVehcileNob").setEditable(false); 
-                this.byId("idHboxApproveReject").setVisible(false);                
+            onPressApproveQRCode: function () {
+                this.byId("idHboxReEnterVehicleNob").setVisible(false);            
             },
 
             // On Reject Press Vehicle Number
-            onPressRejectQRCode : function(){
-                //Enter & ReEnter Vehicle Number 
-                this.byId("idHboxEnterVehicleNob").setVisible(false); 
-                this.byId("idHboxReEnterVehicleNob").setVisible(true);
-
-                // Buttons Hide
-                this.byId("idHboxApproveReject").setVisible(false); 
-                
-               // this.getView().getModel("oViewHandlingModel").setProperty("HeaderDeclineButton",true);
-                this.getView().getModel("oViewHandlingModel").oData.ReEnterVehicleNob = this.byId("idInputVehcileNob").getValue();
-               // this.byId("idReEnterInputVehcileNob").setValue(this.byId("idInputVehcileNob").getValue());                     
+            onPressRejectQRCode: function () {
+                this.byId("idHboxReEnterVehicleNob").setVisible(true);                
             },
-           
-            // On Submit Press - 
-            onPressSubmitQRCode : function(oEvent){
-                //initialize the action
-                var that = this,
-                oViewContext = this.getView().getBindingContext().getObject(),
-                oBindingObject = oEvent.getSource().getObjectBinding();
 
-                //set the parameters
-                oBindingObject.getParameterContext().setProperty("packingListId", oViewContext.packing_list.ID);
-                oBindingObject.getParameterContext().setProperty("vehicleNumber", oViewContext.packing_list.vehicle_no);
-  
-                //execute the action
-                oBindingObject.execute().then(
-                    function () {
-                        sap.m.MessageToast.show("Submited Successfully");
-                        that.getView().getModel().refresh();
-                    },
-                    function (oError) {
+            // On Submit Press - 
+            onPressSubmitQRCode: function (oEvent) {
+                //initialize the action
+                if (this.getViewModel("oViewHandlingModel").getProperty("/EnterVehicleNo") === this.getViewModel("oViewHandlingModel").getProperty("/ReEnterVehicleNo")) {
+                    var that = this,
+                        oViewContext = this.getView().getBindingContext().getObject(),
+                        oBindingObject = oEvent.getSource().getObjectBinding();
+
+                    //set the parameters
+                    oBindingObject.getParameterContext().setProperty("packingListId", oViewContext.packing_list.ID);
+                    oBindingObject.getParameterContext().setProperty("vehicleNumber", oViewContext.packing_list.vehicle_no);
+
+                    //execute the action
+                    oBindingObject.execute().then(
+                        function () {
+                            sap.m.MessageToast.show("Submited Successfully");
+                            that.getView().getModel().refresh();
+                            that.getViewModel("oViewHandlingModel").setProperty("/wantChange", false);
+                        },
+                        function (oError) {
                             sap.m.MessageBox.alert(oError.message, {
                                 title: "Error"
                             });
-                    }
-                );
+                        }
+                    );
+                } else {
+                    sap.m.MessageBox.alert("Vehicle Numbers do not match!");
+                }
             },
 
             onViewQRCodePress : function(oEvent){

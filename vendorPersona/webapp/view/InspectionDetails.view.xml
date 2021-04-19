@@ -6,7 +6,7 @@
     xmlns:f="sap.f"
     xmlns:fb="sap.ui.comp.filterbar"
     xmlns:vm="sap.ui.comp.variants">
-    <f:DynamicPage headerExpanded="true">
+    <f:DynamicPage headerExpanded="true" busy="{objectViewModel>/busy}">
         <!-- DynamicPage Title -->
         <f:title>
             <f:DynamicPageTitle>
@@ -104,7 +104,7 @@
                                     <RadioButton groupName="GroupA" text="No" select="onMDCCNOSelect"/>
                                 </VBox>
                                 <VBox id="idMDCCUploadArea">
-                                    <UploadCollection id="idMDCCUploader" maximumFilenameLength="55" maximumFileSize="10" multiple="false" change="MDCCFileSelectedForUpload" fileSizeExceed="onFileSizeExceed" selectionChange="MDCCFileSelectedForUpload" typeMissmatch="onTypeMissmatch" uploadComplete="onUploadComplete" beforeUploadStarts="onBeforeUploadStarts" binding="{attachmentModel>/uploadDocument(...)}" items="{
+                                    <UploadCollection id="idMDCCUploader" maximumFilenameLength="55" maximumFileSize="10" multiple="true" change="MDCCFileSelectedForUpload" fileSizeExceed="onFileSizeExceed" selectionChange="MDCCFileSelectedForUpload" typeMissmatch="onTypeMissmatch" uploadComplete="onUploadComplete" beforeUploadStarts="onBeforeUploadStarts" binding="{attachmentModel>/uploadDocument(...)}" items="{
                                     path:'attachments',
                                     parameters : {
                                         $filter : 'type eq \'MDCC\''
@@ -113,6 +113,10 @@
                                         <items>
                                             <UploadCollectionItem documentId="{document_number}" url="{parts: ['fileName','file'], 
                                         formatter: '.formatter.fileContent' }" enableEdit="false" enableDelete="false" visibleDelete="false" visibleEdit="false" fileName="{fileName}">
+                                                <attributes>
+                                                    <ObjectAttribute title="Document Number" text="{document_number}" class="sapUiSmallMarginEnd"/>
+                                                    <ObjectAttribute title="Uploaded On" text="{createdAt}"></ObjectAttribute>
+                                                </attributes>
                                             </UploadCollectionItem>
                                         </items>
                                     </UploadCollection>
@@ -122,7 +126,11 @@
                     </IconTabFilter>
                     <IconTabFilter text="{i18n>packingLists}">
                         <VBox renderType="Bare">
-                            <Table id="id" width="auto" items="{packing_list}" noDataText="{i18n>noPackingLists}" growing="true" growingScrollToLoad="true">
+                            <Table id="id" width="auto" items="{path : 'packing_list',
+                                parameters : {
+                                    $orderby : 'createdAt desc'
+                                }
+                            }" noDataText="{i18n>noPackingLists}" growing="true" growingScrollToLoad="true">
                                 <headerToolbar>
                                     <OverflowToolbar>
                                         <Title text="Packing List" level="H4" id="idPackingListTitle"/>
@@ -158,7 +166,7 @@
                                             <Text text="{name}"/>
                                             <Text text="{vehicle_no}"/>
                                             <Text text="{createdAt}"/>
-                                            <ObjectStatus text="{status}" state="{= ${status}==='CONFIRMED' ? 'Success' : 'Warning'}"/>
+                                            <ObjectStatus text="{status}" state="{path:'status', formatter: '.formatter.getPackingListStatusColor'}"/>
                                         </cells>
                                     </ColumnListItem>
                                 </items>
