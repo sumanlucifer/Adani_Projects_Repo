@@ -44,7 +44,8 @@ sap.ui.define([
                         },
                         "packing_list": {},
                         "attachments": {}
-                    }
+                    },
+                    "$select": ["purchase_order_ID"]
                 },
                 events: {
                     dataRequested: function () {
@@ -119,30 +120,6 @@ sap.ui.define([
             });
         },
 
-        onGenerateQRCodePress: function (oEvent) {
-            var that = this,
-                oBindingObject = oEvent.getSource().getObjectBinding("qrCodeModel");
-
-            //set the parameters
-            oBindingObject.getParameterContext().setProperty("po_number", "4500325995");
-            oBindingObject.getParameterContext().setProperty("inspection_call_id", "1000001");
-            oBindingObject.getParameterContext().setProperty("width", 10);
-            oBindingObject.getParameterContext().setProperty("height", 10);
-            oBindingObject.getParameterContext().setProperty("packing_list_id", 10);
-
-            //execute the action
-            oBindingObject.execute().then(
-                function () {
-                    sap.m.MessageToast.show("QR Generated!");
-                },
-                function (oError) {
-                    sap.m.MessageBox.alert(oError.message, {
-                        title: "Error"
-                    });
-                }
-            );
-        },
-
         onCreatePackingListPress: function (oEvent) {
             var oParentLineItemTable = this.byId("idInspectedParentLineItems")
             if (oParentLineItemTable.getSelectedContexts().length > 0) {
@@ -166,7 +143,7 @@ sap.ui.define([
         onCreatePress: function (oEvent) {
             var oParentLineItemTable = this.byId("idInspectedParentLineItems")
             var aSelectedItems = oParentLineItemTable.getSelectedContexts()[0].getObject();
-            var oViewContextObject = this.getView().getBindingContext().getObject;
+            var oViewContextObject = this.getView().getBindingContext().getObject();
             var aParentItems = aSelectedItems;
             var selectedChildLineItems = aParentItems.inspected_child_line_items;
             delete aParentItems.inspected_child_line_items;
@@ -174,11 +151,11 @@ sap.ui.define([
             delete aParentItems.ID;
 
             var oPayload = {
-                "status": "Approved",
+                "status": "Saved",
                 "vehicle_no": "",
-                "purchase_order_ID": "ef1a3038-9218-11eb-a8b3-0242ac130003",
-                "insp_call_id": "be824424-8c91-11eb-8dcd-0242ac130003",
-                "po_number": "4500326716",
+                "purchase_order_ID": oViewContextObject.purchase_order_ID,
+                "insp_call_id": oViewContextObject.ID,
+                "po_number": oViewContextObject.po_number,
                 "name": this.getView().getModel("PackingListInputModel").getProperty("/name"),
                 "packinglist_parent_line_items": [
                     {
@@ -191,7 +168,6 @@ sap.ui.define([
                     }
                 ]
             };
-            debugger;
 
             $.ajax({
                 "async": true,
@@ -209,7 +185,7 @@ sap.ui.define([
                     sap.m.MessageToast.show("packing List Created with ID " + oData.name);
                     this.getView().getModel().refresh();
                     this.getRouter().navTo("RoutePackingDeatilsPage", {
-                        packingListID: "(" +oData.ID+")" 
+                        packingListID: "(" + oData.ID + ")"
                     });
                 }.bind(this),
                 error: function (oError) {
@@ -223,10 +199,12 @@ sap.ui.define([
             // keep a reference of the uploaded file
             var that = this;
             var oFiles = oEvent.getParameters().files;
-            var fileName = oFiles[0].name;
-            this._getImageData(URL.createObjectURL(oFiles[0]), function (base64) {
-                that._addData(base64, fileName);
-            }, fileName);
+            for (var i = 0; i < oFiles.length; i++) {
+                var fileName = oFiles[i].name;
+                this._getImageData(URL.createObjectURL(oFiles[i]), function (base64) {
+                    that._addData(base64, fileName);
+                }, fileName);
+            }
         },
 
         _getImageData: function (url, callback, fileName) {

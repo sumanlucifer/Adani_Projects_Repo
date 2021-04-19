@@ -96,7 +96,13 @@ sap.ui.define([
                         "inspection_call_ids": {},
                         "sow_details": {},
                         "price_schedule_details": {},
-                        "packing_list": {},
+                        "packing_list": {
+                            "$expand": {
+                                "insp_call": {
+                                    "$select": ["ID", "inspection_call_id"]
+                                }
+                            }
+                        },
                         "boq_line_items": {}
                     }
                 },
@@ -660,7 +666,6 @@ sap.ui.define([
         },
 
         onDownloadSampleCSVPress: function (oEvent) {
-            debugger;
             var aParentContexts = this.byId("idParentLineItemsTable").getBinding("items").getContexts(0);
             var aSampleData = [];
             for (var i = 0; i < aParentContexts.length; i++) {

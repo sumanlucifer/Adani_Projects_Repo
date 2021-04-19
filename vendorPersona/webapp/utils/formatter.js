@@ -3,6 +3,26 @@ sap.ui.define([], function () {
 
     return {
 
+        getPackingListStatusColor: function (status) {
+            if (status === 'Saved')
+                return 'Information';
+            if (status === 'QR Code Generated')
+                return 'Indication07';
+            if (status === 'Sent for QR Code Approval')
+                return 'Warning';
+            if (status === 'Ready to Dispatch')
+                return 'warning';
+            if (status === 'Dispatch Initiated')
+                return 'Success';
+            if (status === 'Arrived')
+                return 'Indication08';
+            if (status === 'Received')
+                return 'Success';
+            else 
+                return 'Information';    
+
+        },
+
         getSampleFileURL: function (file) {
             var base64EncodeContent = "TElORV9JVEVNX0lELE1BVEVSSUFMX0NPREUsREVTQ1JJUFRJT04sUVVBTlRJVFksVU9NLENPTU1FTlRTLFBBUkVOVF9JVEVNX0lECjEyMDAxNCxDLTY3NTgsVGVzdCBNYXRlcmlhbCwxMDAsZWFjaCxDb21tZW50cywxMjAwMTQK";
             var decodedPdfContent = atob(base64EncodeContent);
