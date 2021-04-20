@@ -2,15 +2,16 @@
     xmlns:core="sap.ui.core">
     <Dialog contentHeight="50%" contentWidth="50%" title="Child Items Detail">
         <content>
-
             <Table width="auto" growing="true" id="idChildItemsTable" growingScrollToLoad="true" items="{path: 'child_line_items', parameters: { $$updateGroupId : 'childLineItemGroup'}}">
-                <!-- <headerToolbar>
+                <headerToolbar>
                     <OverflowToolbar>
-                        <ToolbarSpacer />
-                        <Button icon="sap-icon://add" type="Emphasized" press=".onCreateChildItemPress"/>
-                        <Button icon="sap-icon://save" type="Emphasized" press=".onChildItemsSavePress"/>
+                        <SearchField  tooltip="{i18n>searchItem}" placeholder="{i18n>searchItem}" search="onSearchChildItem">
+                            <layoutData>
+                                <OverflowToolbarLayoutData maxWidth="200px" priority="NeverOverflow" group="1"/>
+                            </layoutData>
+                        </SearchField>
                     </OverflowToolbar>
-                </headerToolbar> -->
+                </headerToolbar>
                 <columns>
                     <Column>
                         <Text text="Material Code"/>
@@ -44,10 +45,9 @@
                     </ColumnListItem>
                 </items>
             </Table>
-
         </content>
         <endButton>
-            <Button text="Close" press="onViewChildDialogClose" />
+            <Button text="Close" press="onViewChildDialogClose" type="Emphasized" />
         </endButton>
     </Dialog>
 </core:FragmentDefinition>

@@ -47,5 +47,8 @@
                 </items>
             </Table>
         </content>
+        <endButton>
+            <Button text="Close" press="onViewPackingListChildDialogClose" type="Emphasized" />
+        </endButton>
     </Dialog>
 </core:FragmentDefinition>

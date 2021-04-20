@@ -2,8 +2,9 @@ sap.ui.define([
     "com/agel/mmts/vendorPersona/controller/BaseController",
     "sap/ui/model/json/JSONModel",
     "sap/ui/core/Fragment",
-    "../utils/formatter"
-], function (BaseController, JSONModel, Fragment, formatter) {
+    "../utils/formatter",
+    "sap/ui/core/BusyIndicator"
+], function (BaseController, JSONModel, Fragment, formatter, BusyIndicator) {
     "use strict";
 
     return BaseController.extend("com.agel.mmts.vendorPersona.controller.PackingListDetails", {
@@ -60,6 +61,19 @@ sap.ui.define([
             });
         },
 
+        // on Date Change
+        onDateChange: function (oEvent) {
+            var oDP = oEvent.getSource(),
+                sValue = oEvent.getParameter("value"),
+                bValid = oEvent.getParameter("valid");
+
+            if (bValid) {
+                oDP.setValueState(sap.ui.core.ValueState.None);
+            } else {
+                oDP.setValueState(sap.ui.core.ValueState.Error);
+            }
+        },
+
         onPackingListChildMaterialsPress: function (oEvent) {
             var oItem = oEvent.getSource();
             var that = this;
@@ -80,12 +94,14 @@ sap.ui.define([
             var oDetails = {};
             oDetails.view = this.getView();
             oDetails.sParentItemPath = sParentItemPath;
-            console.log({ sParentItemPath })
+            console.log({ sParentItemPath });
+            oDetails.controller = this;
 
             if (!this.pDialog) {
                 this.pDialog = Fragment.load({
                     id: oDetails.view.getId(),
-                    name: "com.agel.mmts.vendorPersona.view.fragments.packingListDetails.PackingListChildLineItems"
+                    name: "com.agel.mmts.vendorPersona.view.fragments.packingListDetails.PackingListChildLineItems",
+                    controller :  oDetails.controller
                 }).then(function (oDialog) {
                     // connect dialog to the root view of this component (models, lifecycle)
                     oDetails.view.addDependent(oDialog);
@@ -110,6 +126,12 @@ sap.ui.define([
             this.pDialog.then(function (oDialog) {
                 oDialog.open();
             });
+        },
+
+        onViewPackingListChildDialogClose: function (oEvent) {
+             this.pDialog.then(function (oDialog) {
+                oDialog.close();
+             });
         },
 
         onGenerateQRCodePress: function (oEvent) {
@@ -173,6 +195,7 @@ sap.ui.define([
         onInvoiceFileSelectedForUpload: function (oEvent) {
             // keep a reference of the uploaded file
             var that = this;
+            BusyIndicator.show();
             var oFiles = oEvent.getParameters().files;
             var fileName = oFiles[0].name;
             var fileType = "INVOICE";
@@ -184,6 +207,7 @@ sap.ui.define([
         onMaterialFileSelectedForUpload: function (oEvent) {
             // keep a reference of the uploaded file
             var that = this;
+            BusyIndicator.show()
             var oFiles = oEvent.getParameters().files;
             var fileType = "MATERIAL";
             for (var i = 0; i < oFiles.length; i++) {
@@ -197,6 +221,7 @@ sap.ui.define([
         onOtherFileSelectedForUpload: function (oEvent) {
             // keep a reference of the uploaded file
             var that = this;
+            BusyIndicator.show()
             var oFiles = oEvent.getParameters().files;
             var fileType = "OTHERS";
             for (var i = 0; i < oFiles.length; i++) {
@@ -221,20 +246,73 @@ sap.ui.define([
             xhr.send();
         },
 
+        onPressVehicleNumber : function(oEvent){
+            var VehicleNob = this.byId("idInputVehicleNob").getValue();
+                
+            //initialize the action
+            var that = this,
+            oViewContext = this.getView().getBindingContext().getObject(),
+            oBindingObject = oEvent.getSource().getObjectBinding();
+
+            //set the parameters
+            oBindingObject.getParameterContext().setProperty("packingListId", oViewContext.ID);
+            oBindingObject.getParameterContext().setProperty("vehicleNumber", VehicleNob);
+  
+            //execute the action
+            oBindingObject.execute().then(
+                function () {
+                    sap.m.MessageToast.show("Submited Successfully");
+                    that.getView().getModel().refresh();
+                },
+                function (oError) {
+                        sap.m.MessageBox.alert(oError.message, {
+                            title: "Error"
+                        });
+                }
+            );
+        },
+
+         // On Search of Parent Line Items Table 
+        onSearch : function(oEvent){
+            var aFilters = [];
+            var FreeTextSearch = this.getView().byId("idSearchFieldPackingListTable").getValue();
+            if(FreeTextSearch){
+                //  aFilters.push(new Filter("material_code", FilterOperator.Contains, FreeTextSearch));
+                  aFilters.push(new Filter("description", FilterOperator.Contains, FreeTextSearch));
+                //  aFilters.push(new Filter("qty", FilterOperator.Contains, FreeTextSearch));
+                  aFilters.push(new Filter("uom", FilterOperator.Contains, FreeTextSearch));
+            }
+            var mFilters = new Filter({
+                filters: aFilters,
+                and: false
+            });
+            var oTableBinding = this.getView().byId("idInspectedParentLineItems").getBinding("items");
+            oTableBinding.filter(mFilters);
+        },
+
+        ondemo : function(oEvent)
+        {
+            var that = this;
+            var document_date = this.byId("DP1").getValue();
+            var date = new Date().toLocaleDateString().split("/");
+        },
+
         _addData: function (data, fileName, fileType) {
             var that = this,
                 oViewContext = this.getView().getBindingContext().getObject(),
                 //oBindingObject = this.byId("idMDCCUploader").getObjectBinding("attachmentModel");
 
                 data = data.split(",")[1],
-                date = new Date().toLocaleDateString().split("/");
+                date = this.byId("DP1").getValue().split('.');
+              //  date = new Date().toLocaleDateString().split("/");
             if (fileType === "INVOICE") {
                 var document_number = this.byId("idInvoiceNo").getValue();
-                var document_date = this.byId("idInvoiceDate").getValue();
+                var document_date = this.byId("DP1").getValue();
+                date = document_date.split('.');
             }
             else {
                 var document_number = (Math.floor(Math.random() * (1000000 - 1999999 + 1)) + 1000000).toString();
-                var document_date = date[2] + "-" + date[1] + "-" + date[0]
+                var document_date = date[2] + "-" + date[1] + "-" + date[0];
             }
             var documents = {
                 "documents": [
@@ -282,12 +360,12 @@ sap.ui.define([
                 "data": JSON.stringify(documents),
                 success: function (oData, oResponse) {
                     // @ts-ignore
-                    debugger;
+                    BusyIndicator.hide();
                     sap.m.MessageToast.show("MDCC Details Uploaded!");
                     this.getView().getModel().refresh();
                 }.bind(this),
                 error: function (oError) {
-                    debugger;
+                    BusyIndicator.hide();
                     sap.m.MessageBox.error("Error uploading document");
                 }
             });
@@ -356,9 +434,22 @@ sap.ui.define([
                 }
             );
             this._oPackingListNameGetterDialog.close();
-        }
+        },
+
+        onBeforeUploadStarts : function(){
+        //    var objectViewModel = this.getViewModel("objectViewModel");
+        //    objectViewModel.setProperty("/busy", true);
+
+           // this.busyIndicator = new sap.m.BusyIndicator();
+          //  this.busyIndicator.open();
+        },
+
+        onUploadComplete: function(){
+           // this.busyIndicator.close();
+         //    var objectViewModel = this.getViewModel("objectViewModel");
+         //   objectViewModel.setProperty("/busy", false);
+        },
 
     });
-
 }
 );

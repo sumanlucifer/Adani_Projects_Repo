@@ -43,7 +43,11 @@
                     <VBox visible="{= %{status} ==='Sent for QR Code Approval' || %{status} ==='QR Code Generated'}">
                         <Button text="Dispatch" type="Emphasized" press="onDispatchPackingListPress" binding="{/updatePackingListStatus(...)}"></Button>
                     </VBox>
-
+                   
+                    <HBox visible="true">
+                        <Button text="{i18n>submit}" binding="{/submitVehicleNumber(...)}" press="onPressVehicleNumber" type="Emphasized" visible="{= %{gate/ID} ? false : true}"/>
+                    </HBox>
+                
                     <Button id="idPrintButton" type="Emphasized" icon="sap-icon://print" press="onPrintPackingListPress" binding="{/downloadPackingListDocument(...)}"></Button>
                 </f:actions>
             </f:DynamicPageTitle>
@@ -82,14 +86,14 @@
                                 <OverflowToolbar>
                                     <Title text="Packing List Parent Items" level="H4" id="idInspectedParentItems"/>
                                     <ToolbarSpacer />
-                                    <SearchField tooltip="{i18n>searchItem}" placeholder="{i18n>searchItem}">
+                                    <SearchField id="idSearchFieldPackingListTable" tooltip="{i18n>searchItem}" placeholder="{i18n>searchItem}" search="onSearch" visible="false">
                                         <layoutData>
                                             <OverflowToolbarLayoutData maxWidth="200px" priority="NeverOverflow" group="1"/>
                                         </layoutData>
                                     </SearchField>
-                                    <Button tooltip="{i18n>sort}" icon="sap-icon://sort" press="handleSortButtonPressed" type="Transparent"/>
-                                    <Button tooltip="{i18n>filter}" icon="sap-icon://filter" press="handleFilterButtonPressed" type="Transparent"/>
-                                    <Button press=".onExportParentItemsExportPress" icon="sap-icon://download"/>
+                                    <Button tooltip="{i18n>sort}" icon="sap-icon://sort" press="handleSortButtonPressed" type="Transparent" visible="false"/>
+                                    <Button tooltip="{i18n>filter}" icon="sap-icon://filter" press="handleFilterButtonPressed" type="Transparent" visible="false"/>
+                                    <Button press=".onExportParentItemsExportPress" icon="sap-icon://download" visible="false"/>
                                 </OverflowToolbar>
                             </headerToolbar>
                             <columns>
@@ -121,12 +125,17 @@
                                         <Text text="{approved_qty}"/>
                                         <Text text="{uom}"/>
                                         <Avatar src= "data:image/jpg;base64,{qr_code/content}" displaySize="XL" displayShape="Square"/>
-                                        <Button type="Emphasized" text="{i18n>viewChildInspectedMaterials}" press=".onPackingListChildMaterialsPress"></Button>
+                                        <Button type="Emphasized" text="{i18n>viewChildInspectedMaterials}" press=".onPackingListChildMaterialsPress"/>
                                     </cells>
                                 </ColumnListItem>
                             </items>
-
                         </Table>
+                        <HBox visible="true">
+                            <VBox class="sapUiSmallMargin">
+                                <Label text="{i18n>EnterVehicleNumber}"/>
+                                <Input id="idInputVehicleNob"/>
+                            </VBox>
+                        </HBox>
                     </IconTabFilter>
                     <IconTabFilter text="Invoice">
                         <HBox visible="{= %{status} !== 'DISPATCHED'}">
@@ -136,14 +145,17 @@
                             </VBox>
                             <VBox class="sapUiSmallMargin">
                                 <Label text="Invoice Date"/>
-                                <Input id="idInvoiceDate"/>
+                                <DatePicker id="DP1" placeholder="DDMMYYYY" change="onDateChange" valueFormat="dd.MM.yyyy" class="sapUiSmallMarginBottom"/>
                             </VBox>
                             <VBox class="sapUiSmallMargin">
                                 <Label/>
                                 <unified:FileUploader id="idInvoiceUploader" buttonOnly="true" buttonText="Upload Invoice" sameFilenameAllowed="true" multiple="false" fileType="csv" mimeType="text/csv" style="Emphasized" change="onInvoiceFileSelectedForUpload"/>
                             </VBox>
                         </HBox>
-                        <UploadCollection maximumFilenameLength="55" maximumFileSize="10" multiple="false" fileSizeExceed="onFileSizeExceed" typeMissmatch="onTypeMissmatch" uploadComplete="onUploadComplete" beforeUploadStarts="onBeforeUploadStarts" items="{
+                        <UploadCollection maximumFilenameLength="55" maximumFileSize="10" multiple="false"
+                          fileSizeExceed="onFileSizeExceed" typeMissmatch="onTypeMissmatch"
+                          uploadComplete="onUploadComplete" beforeUploadStarts="onBeforeUploadStarts" 
+                          items="{
                                     path:'attachments',
                                     parameters : {
                                         $filter : 'type eq \'INVOICE\''
@@ -157,12 +169,14 @@
                                         <ObjectAttribute title="Invoice Date" text="{document_date}"/>
                                     </attributes>
                                 </UploadCollectionItem>
-
                             </items>
                         </UploadCollection>
                     </IconTabFilter>
                     <IconTabFilter text="Material Details">
-                        <UploadCollection maximumFilenameLength="55" maximumFileSize="10" multiple="true" fileSizeExceed="onFileSizeExceed" typeMissmatch="onTypeMissmatch" uploadComplete="onUploadComplete" beforeUploadStarts="onBeforeUploadStarts" items="{
+                        <UploadCollection maximumFilenameLength="55" maximumFileSize="10" multiple="true" 
+                        fileSizeExceed="onFileSizeExceed" typeMissmatch="onTypeMissmatch" 
+                        uploadComplete="onUploadComplete" beforeUploadStarts="onBeforeUploadStarts" 
+                        items="{
                                     path:'attachments',
                                     parameters : {
                                         $filter : 'type eq \'MATERIAL\''

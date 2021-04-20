@@ -1,0 +1,58 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+    xmlns:unified="sap.ui.unified">
+    <Dialog title="View QR Details" contentWidth="50%" >
+        <customHeader>
+            <Bar>
+                <contentMiddle >
+                 
+                </contentMiddle>
+                <contentRight>
+                   <Title text="View QR Details"/>
+                    <core:Icon src="sap-icon://decline" width="1em" press="closeDialog" class="sapUiTinyMarginEnd"/>
+                </contentRight>
+            </Bar>
+        </customHeader>
+        <content>
+            <HBox renderType="Bare"  alignItems="Center">
+                <VBox renderType="Bare" justifyContent="Center" alignItems="Center">
+                    <items>
+                        <Avatar displaySize="XL" badgeIcon="sap-icon://upload" displayShape="Square" src="data:image/jpg;base64,{content}"/>
+                        <Label text="{qr_number}"/>
+                    </items>
+                </VBox>
+                <f:SimpleForm binding="{purchase_order}" editable="true" 
+                         layout="ResponsiveGridLayout" labelSpanXL="4" 
+                         labelSpanL="4" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" 
+                         emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="3" 
+                         columnsL="3" columnsM="3" singleContainerFullSize="false" busyIndicatorDelay="{objectViewModel>busy}">
+                        <f:content>
+                            <core:Title text="{i18n>POAsnDetails}"/>
+                            <Label text="{i18n>asnNumber}" />
+                            <Text text="{asn_number}" />
+                            <Label text="{i18n>pONumber}" />
+                            <Text text="{po_number}" />
+                            <Label text="{i18n>asnCreationDate}" />
+                            <Text text="{asn_creation_date}" />
+                            <core:Title text="{i18n>ShipTo}" />
+                            <Label text="{i18n>address}" />
+                            <Text text="{vendor/address/street}"/>
+                            <core:Title text="{i18n>From}" />
+                            <Label text="{i18n>vendorName}" />
+                            <Text text="{vendor/name}"/>
+                            <Label text="{i18n>vendorId}" />
+                            <Text text="{vendor_ID}"/>
+                            <Label text="{i18n>vendorLoc}" />
+                            <Text text="{parts:[{path:'vendor/address/city'},{path:'vendor/address/country'}]}"/>
+                        </f:content>
+                </f:SimpleForm>
+            </HBox>
+        </content>
+        <endButton>
+            <Button text="Close" press="closeDialog" type="Emphasized"/>            
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

@@ -1,0 +1,18 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <ViewSettingsDialog confirm="handleFilterDialogConfirm">
+        <filterItems>
+            <ViewSettingsFilterItem text="UOM" key="uom" multiSelect="false">
+                <items>
+                    <ViewSettingsItem text="each" key="CONFIRMED"/>
+                    <ViewSettingsItem text="LOB" key="PENDING"/>
+                </items>
+            </ViewSettingsFilterItem>
+            <ViewSettingsFilterItem items="{path: '/packinglist_parent_line_items'}" text="Name" key="name" multiSelect="true">
+                <items>
+                    <ViewSettingsItem key="approved_qty" text="{approved_qty}"/>
+                </items>
+            </ViewSettingsFilterItem>
+        </filterItems>
+    </ViewSettingsDialog>
+</core:FragmentDefinition>

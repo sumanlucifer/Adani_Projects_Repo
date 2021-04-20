@@ -79,7 +79,7 @@ sap.ui.define([
                     qrCodeInput.setValueState(ValueState.Error);
                 }else{
                      qrCodeInput.setValueState(ValueState.None);
-                     this.onPressSubmitQRCode(oBindingObject,oEvent.getSource().getSelectedText());
+                     this.onPressSubmitQRCode(oBindingObject,qrCodeInput.getValue());
                      that.getRouter().navTo("BarCodeDetailsPage", {QRCode:qrCodeID});
                 }                
             },
