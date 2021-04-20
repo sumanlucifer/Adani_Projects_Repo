@@ -16,7 +16,7 @@ To access the SAP Fiori launchpad Site, visit [QA Build for Sprint 2](https://ad
 2. **Seurity InCharge - Under QR Tracker Tab - App Name - Enter or Scan QR**
     * Page 1 - Start entering qr number, click any item from suggestions
     * Page 2 - Packing List Details - Validate or change Vechile Number
-    
+     
 3. **Security InCharge - Under QR Tracker Tab-  App Name - History**
     * page 1 - List of previous Scans
     * Page 2 - Details of the packing list
