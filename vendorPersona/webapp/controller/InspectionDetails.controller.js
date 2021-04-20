@@ -2,8 +2,9 @@ sap.ui.define([
     "com/agel/mmts/vendorPersona/controller/BaseController",
     "sap/ui/model/json/JSONModel",
     "sap/ui/core/Fragment",
-    "../utils/formatter"
-], function (BaseController, JSONModel, Fragment, formatter) {
+    "../utils/formatter",
+    "sap/ui/core/BusyIndicator"
+], function (BaseController, JSONModel, Fragment, formatter,BusyIndicator) {
     "use strict";
 
     return BaseController.extend("com.agel.mmts.vendorPersona.controller.InspectionDetails", {
@@ -78,11 +79,13 @@ sap.ui.define([
             var oDetails = {};
             oDetails.view = this.getView();
             oDetails.sParentItemPath = sParentItemPath;
+            oDetails.controller = this;
 
             if (!this.pDialog) {
                 this.pDialog = Fragment.load({
                     id: oDetails.view.getId(),
-                    name: "com.agel.mmts.vendorPersona.view.fragments.inspectionDetails.InspectionCallChildLineItems"
+                    name: "com.agel.mmts.vendorPersona.view.fragments.inspectionDetails.InspectionCallChildLineItems",
+                    controller :  oDetails.controller
                 }).then(function (oDialog) {
                     // connect dialog to the root view of this component (models, lifecycle)
                     oDetails.view.addDependent(oDialog);
@@ -204,6 +207,7 @@ sap.ui.define([
         MDCCFileSelectedForUpload: function (oEvent) {
             // keep a reference of the uploaded file
             var that = this;
+            BusyIndicator.show();
             var oFiles = oEvent.getParameters().files;
             for (var i = 0; i < oFiles.length; i++) {
                 var fileName = oFiles[i].name;
@@ -280,11 +284,13 @@ sap.ui.define([
                 success: function (oData, oResponse) {
                     // @ts-ignore
                     debugger;
+                    BusyIndicator.hide();
                     sap.m.MessageToast.show("MDCC Details Uploaded!");
                     this.getView().getModel().refresh();
                 }.bind(this),
                 error: function (oError) {
                     debugger;
+                    BusyIndicator.hide();
                     sap.m.MessageBox.error("Error uploading document");
                 }
             });
@@ -298,17 +304,26 @@ sap.ui.define([
         },
 
         onBeforeUploadStarts : function(){
-            var objectViewModel = this.getViewModel("objectViewModel");
-            objectViewModel.setProperty("/busy", true);
+            
+        //    var objectViewModel = this.getViewModel("objectViewModel");
+         //   objectViewModel.setProperty("/busy", true);
+
+        //    BusyIndicator.show();
 
            // this.busyIndicator = new sap.m.BusyIndicator();
           //  this.busyIndicator.open();
         },
 
-        onUploadComplete: function(){
+        onUploadComplete: function(oEvent){
            // this.busyIndicator.close();
+         //    var objectViewModel = this.getViewModel("objectViewModel");
+         //   objectViewModel.setProperty("/busy", false);
+        },
+
+        onUploadTerminated :  function(oEvent){
+           /* this.busyIndicator.close();
              var objectViewModel = this.getViewModel("objectViewModel");
-            objectViewModel.setProperty("/busy", false);
+            objectViewModel.setProperty("/busy", false);*/
         },
 
 

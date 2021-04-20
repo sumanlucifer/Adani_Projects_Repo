@@ -107,7 +107,8 @@
                                     <UploadCollection id="idMDCCUploader" maximumFilenameLength="55" maximumFileSize="10" 
                                     multiple="true" change="MDCCFileSelectedForUpload" fileSizeExceed="onFileSizeExceed" 
                                     selectionChange="MDCCFileSelectedForUpload" typeMissmatch="onTypeMissmatch" uploadComplete="onUploadComplete" 
-                                    beforeUploadStarts="onBeforeUploadStarts" binding="{attachmentModel>/uploadDocument(...)}"
+                                    beforeUploadStarts="onBeforeUploadStarts" uploadTerminated="onUploadTerminated"
+                                     binding="{attachmentModel>/uploadDocument(...)}"
                                     items="{
                                     path:'attachments',
                                     parameters : {
