@@ -40,7 +40,7 @@
         </f:header>
         <!-- DynamicPage Content -->
         <f:content>
-            <IconTabBar expanded="{device>/isNoPhone}" class="sapUiResponsiveContentPadding">
+            <IconTabBar expanded="{device>/isNoPhone}" class="sapUiResponsiveContentPadding" id="idIcnTabBar">
                 <items>
                     <IconTabFilter text="{i18n>itemDetails}">
                         <VBox renderType="Bare">
@@ -130,7 +130,7 @@
                             </VBox>
                         </VBox>
                     </IconTabFilter>
-                    <IconTabFilter text="{i18n>packingLists}">
+                    <IconTabFilter text="{i18n>packingLists}" key="idPackingListTab">
                         <VBox renderType="Bare">
                             <Table id="id" width="auto" items="{path : 'packing_list',
                                 parameters : {

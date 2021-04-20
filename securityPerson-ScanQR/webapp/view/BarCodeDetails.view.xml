@@ -16,6 +16,7 @@
                             <VBox renderType="Bare">
                                 <Title text="{i18n>qRCodeDetails}" titleStyle="H3" class="sapUiTinyMarginBottom"/>
                                 <Text text="{qr_number}" />
+                                <Text text="Packing List Name - {packing_list/name}" />
                             </VBox>
                             <HBox renderType="Bare" class="sapUiSmallMarginTopBottom">
                                 <items>
@@ -33,7 +34,7 @@
                             <!-- added  by venkatesh-->
                             <VBox renderType="Bare" binding="{packing_list}" visible="{= %{vehicle_no} === '' ? true : false &amp;&amp; %{gate_ID} !== '' ? true : false}">
                                 <Label text="{i18n>VehicleNumber}" design="Bold"/>
-                                <Input value="{vehicle_no}" width="80%"/>
+                                <Input value="{oViewHandlingModel>/ReEnterVehicleNo}" width="80%"/>
                             </VBox>
 
                             <VBox renderType="Bare" binding="{packing_list}" visible="{= %{vehicle_no} !== '' ? true : false}">
@@ -136,9 +137,9 @@
                         <VBox renderType="Bare">
                             <Table id="idParentLineItemsTable" width="auto" noDataText="{i18n>noParentItems}" items="{packing_list/packinglist_parent_line_items}" growing="true" growingScrollToLoad="true" selectionChange=".onParentItemSelect" mode="SingleSelectMaster" busyIndicatorDelay="{objectViewModel>busy}">
                                 <columns>
-                                    <Column width="12%">
+                                   <!--  <Column width="12%">
                                         <Text text="{i18n>purchase_order_ID}"/>
-                                    </Column>
+                                    </Column> -->
                                     <Column width="10%">
                                         <Text text="{i18n>materialCode}"/>
                                     </Column>
@@ -148,9 +149,9 @@
                                     <Column>
                                         <Text text="{i18n>description}"/>
                                     </Column>
-                                    <Column>
+                                   <!--  <Column>
                                         <Text text="{i18n>packingListID}"/>
-                                    </Column>
+                                    </Column> -->
                                     <Column width="15%">
                                         <Text text="{i18n>ViewQRCode}"/>
                                     </Column>
@@ -158,11 +159,11 @@
                                 <items>
                                     <ColumnListItem id="parent_table_item" type="Active">
                                         <cells>
-                                            <ObjectIdentifier title="{po_number}" titleActive="true"/>
+                                            <!-- <ObjectIdentifier title="{po_number}" titleActive="true"/> -->
                                             <Text text="{material_code}"/>
                                             <Text text="{name}"/>
                                             <Text text="{description}"/>
-                                            <Text text="{packing_list_ID}"/>
+                                            <!-- <Text text="{packing_list_ID}"/> -->
                                             <Button text="{i18n>ViewQRCode}" type="Emphasized" press="onViewQRCodePress"/>
                                         </cells>
                                     </ColumnListItem>

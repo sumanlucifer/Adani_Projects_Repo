@@ -193,9 +193,10 @@ sap.ui.define([
                     this._oPackingListNameGetterDialog.close();
                     sap.m.MessageToast.show("packing List Created with ID " + oData.name);
                     this.getView().getModel().refresh();
-                    this.getRouter().navTo("RoutePackingDeatilsPage", {
+                    /* this.getRouter().navTo("RoutePackingDeatilsPage", {
                         packingListID: "(" + oData.ID + ")"
-                    });
+                    }); */
+                    this.byId("idIcnTabBar").setSelectedKey("idPackingListTab");
                 }.bind(this),
                 error: function (oError) {
                     sap.m.MessageBox.error("Error creating Packing List");

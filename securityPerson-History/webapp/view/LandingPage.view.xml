@@ -51,6 +51,7 @@
                     path : '/ScannedMaterialsList', 
                     parameters : {
                         $count : true,
+                        $orderby : 'createdAt desc',
                         $expand : {
                             'purchase_order':{
                                 '$expand' : {
