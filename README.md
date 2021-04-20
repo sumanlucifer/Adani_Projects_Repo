@@ -1,7 +1,7 @@
 # About the build
 * Build - QA Build
 * Build Date - 20/04/21
-* Build Done by - Venkatesh Hulekal
+* Build Done by - Venkatesh Hulekal.  Reviewed by - Rakesh Dilip Patil
 
 ## Access URL
 To access the SAP Fiori launchpad Site, visit [QA Build for Sprint 2](https://adani-green-energy-limited-renewables-dev-development-agd0b4162.cfapps.ap11.hana.ondemand.com)
