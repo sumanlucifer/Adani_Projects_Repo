@@ -20,5 +20,5 @@ To access the SAP Fiori launchpad Site, visit [QA Build for Sprint 2](https://ad
     * Page 2 - Details of the packing list
 
 ### Note 
-_The Field level details are not taken from wireframes and not taken into serious condsideration during the development. But based on the review if there is a need we can modify them accordingly_> .
+_The Field level details are not taken from wireframes and not taken into strict condsideration during the development. But based on the review if there is a need we can modify them accordingly_> .
 
