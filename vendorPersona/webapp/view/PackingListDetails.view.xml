@@ -43,11 +43,7 @@
                     <VBox visible="{= %{status} ==='Sent for QR Code Approval' || %{status} ==='QR Code Generated'}">
                         <Button text="Dispatch" type="Emphasized" press="onDispatchPackingListPress" binding="{/updatePackingListStatus(...)}"></Button>
                     </VBox>
-                   
-                    <HBox visible="true">
-                        <Button text="{i18n>submit}" binding="{/submitVehicleNumber(...)}" press="onPressVehicleNumber" type="Emphasized" visible="{= %{gate/ID} ? false : true}"/>
-                    </HBox>
-                
+
                     <Button id="idPrintButton" type="Emphasized" icon="sap-icon://print" press="onPrintPackingListPress" binding="{/downloadPackingListDocument(...)}"></Button>
                 </f:actions>
             </f:DynamicPageTitle>
@@ -130,15 +126,26 @@
                                 </ColumnListItem>
                             </items>
                         </Table>
-                        <HBox visible="true">
-                            <VBox class="sapUiSmallMargin">
+
+                        <HBox visible="{= %{vehicle_no} ? false :  true &amp;&amp; %{status} === 'Ready to Dispatch' ? false : true &amp;&amp; %{status} === 'QR Code Generated' ? false : true &amp;&amp; %{status} === 'Sent for QR Code Approval' ? false : true &amp;&amp; %{status} === 'Dispatch Initiated' ? false : true &amp;&amp; %{status} === 'Arrived' ? false : true &amp;&amp; %{status} === 'Received' ? false : true}" class="sapUiSmallMargin">
+                            <VBox>
                                 <Label text="{i18n>EnterVehicleNumber}"/>
                                 <Input id="idInputVehicleNob"/>
+                            </VBox>
+                            <VBox visible="true">
+                                <Label/>
+                                <Button text="{i18n>submit}" binding="{/submitVehicleNumber(...)}" press="onPressVehicleNumber" type="Emphasized" visible="{= %{gate/ID} ? false : true}"/>
+                            </VBox>
+                        </HBox>
+                        <HBox visible="{= %{vehicle_no} ? true :  false}" class="sapUiSmallMargin">
+                            <VBox>
+                                <Label text="Vehicle Number"/>
+                                <Text text="{vehicle_no}"/>
                             </VBox>
                         </HBox>
                     </IconTabFilter>
                     <IconTabFilter text="Invoice">
-                        <HBox visible="{= %{status} !== 'DISPATCHED'}">
+                        <HBox visible="{= %{status} === 'Ready to Dispatch' ? false : true &amp;&amp; %{status} === 'QR Code Generated' ? false : true &amp;&amp; %{status} === 'Sent for QR Code Approval' ? false : true &amp;&amp; %{status} === 'Dispatch Initiated' ? false : true &amp;&amp; %{status} === 'Arrived' ? false : true &amp;&amp; %{status} === 'Received' ? false : true}">
                             <VBox class="sapUiSmallMargin">
                                 <Label text="Invoice Number"/>
                                 <Input id="idInvoiceNo"/>
@@ -152,10 +159,7 @@
                                 <unified:FileUploader id="idInvoiceUploader" buttonOnly="true" buttonText="Upload Invoice" sameFilenameAllowed="true" multiple="false" fileType="csv" mimeType="text/csv" style="Emphasized" change="onInvoiceFileSelectedForUpload"/>
                             </VBox>
                         </HBox>
-                        <UploadCollection maximumFilenameLength="55" maximumFileSize="10" multiple="false"
-                          fileSizeExceed="onFileSizeExceed" typeMissmatch="onTypeMissmatch"
-                          uploadComplete="onUploadComplete" beforeUploadStarts="onBeforeUploadStarts" 
-                          items="{
+                        <UploadCollection maximumFilenameLength="55" maximumFileSize="10" multiple="false" fileSizeExceed="onFileSizeExceed" typeMissmatch="onTypeMissmatch" uploadComplete="onUploadComplete" beforeUploadStarts="onBeforeUploadStarts" items="{
                                     path:'attachments',
                                     parameters : {
                                         $filter : 'type eq \'INVOICE\''
@@ -173,15 +177,12 @@
                         </UploadCollection>
                     </IconTabFilter>
                     <IconTabFilter text="Material Details">
-                        <UploadCollection maximumFilenameLength="55" maximumFileSize="10" multiple="true" 
-                        fileSizeExceed="onFileSizeExceed" typeMissmatch="onTypeMissmatch" 
-                        uploadComplete="onUploadComplete" beforeUploadStarts="onBeforeUploadStarts" 
-                        items="{
+                        <UploadCollection maximumFilenameLength="55" maximumFileSize="10" multiple="true" fileSizeExceed="onFileSizeExceed" typeMissmatch="onTypeMissmatch" uploadComplete="onUploadComplete" beforeUploadStarts="onBeforeUploadStarts" items="{
                                     path:'attachments',
                                     parameters : {
                                         $filter : 'type eq \'MATERIAL\''
                                     },
-                                    templateShareable: false}" mode="None" uploadButtonInvisible="{= %{status} !== 'DISPATCHED' ? false : true}" change="onMaterialFileSelectedForUpload" selectionChange="onMaterialFileSelectedForUpload">
+                                    templateShareable: false}" mode="None" uploadButtonInvisible="{= %{status} === 'Ready to Dispatch' ? true : false || %{status} === 'QR Code Generated' ? true : false || %{status} === 'Sent for QR Code Approval' ? true : false || %{status} === 'Dispatch Initiated' ? true : false || %{status} === 'Arrived' ? true : false || %{status} === 'Received' ? true : false}" change="onMaterialFileSelectedForUpload" selectionChange="onMaterialFileSelectedForUpload">
                             <items>
                                 <UploadCollectionItem documentId="{document_number}" url="{parts: ['fileName','file'], 
                                         formatter: '.formatter.fileContent' }" enableEdit="false" enableDelete="false" visibleDelete="false" visibleEdit="false" fileName="{fileName}">
@@ -199,7 +200,7 @@
                                     parameters : {
                                         $filter : 'type eq \'OTHERS\''
                                     },
-                                    templateShareable: false}" mode="None" uploadButtonInvisible="{= %{status} !== 'DISPATCHED' ? false : true}" change="onOtherFileSelectedForUpload" selectionChange="onOtherFileSelectedForUpload">
+                                    templateShareable: false}" mode="None" uploadButtonInvisible="{= %{status} === 'Ready to Dispatch' ? true : false || %{status} === 'QR Code Generated' ? true : false || %{status} === 'Sent for QR Code Approval' ? true : false || %{status} === 'Dispatch Initiated' ? true : false || %{status} === 'Arrived' ? true : false || %{status} === 'Received' ? true : false}" change="onOtherFileSelectedForUpload" selectionChange="onOtherFileSelectedForUpload">
                             <items>
                                 <UploadCollectionItem documentId="{document_number}" url="{parts: ['fileName','file'], 
                                         formatter: '.formatter.fileContent' }" enableEdit="false" enableDelete="false" visibleDelete="false" visibleEdit="false" fileName="{fileName}">

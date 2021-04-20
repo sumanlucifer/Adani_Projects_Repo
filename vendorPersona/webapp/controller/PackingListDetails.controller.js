@@ -402,11 +402,11 @@ sap.ui.define([
                 "comment": null
             });
             this.getView().setModel(oModel, "qrAssistantModel")
-            if (!this._oPackingListNameGetterDialog) {
-                this._oPackingListNameGetterDialog = sap.ui.xmlfragment("com.agel.mmts.vendorPersona.view.fragments.packingListDetails.QRassistant", this);
-                this.getView().addDependent(this._oPackingListNameGetterDialog);
+            if (!this._oQRAssistantDialog) {
+                this._oQRAssistantDialog = sap.ui.xmlfragment("com.agel.mmts.vendorPersona.view.fragments.packingListDetails.QRassistant", this);
+                this.getView().addDependent(this._oQRAssistantDialog);
             }
-            this._oPackingListNameGetterDialog.open();
+            this._oQRAssistantDialog.open();
 
         },
 
@@ -433,7 +433,7 @@ sap.ui.define([
                     });
                 }
             );
-            this._oPackingListNameGetterDialog.close();
+            this._oQRAssistantDialog.close();
         },
 
         onBeforeUploadStarts : function(){

@@ -5,7 +5,7 @@
     <Dialog title="Packing List Name" id="idPackingListNameGetter">
         <l:Grid defaultSpan="L12 M12 S12" width="auto" id="idGrid">
             <l:content>
-                <f:SimpleForm id="SimpleFormDisplay354" minWidth="1024" maxContainerCols="2" editable="false" layout="ResponsiveGridLayout" labelSpanL="3" labelSpanM="3" emptySpanL="4" emptySpanM="4" columnsL="2" columnsM="2">
+                <f:SimpleForm  minWidth="1024" maxContainerCols="2" editable="false" layout="ResponsiveGridLayout" labelSpanL="3" labelSpanM="3" emptySpanL="4" emptySpanM="4" columnsL="2" columnsM="2">
                     <Label text="Enter Packing List Name"></Label>
                     <Input value="{PackingListInputModel>/name}"></Input>
                 </f:SimpleForm>

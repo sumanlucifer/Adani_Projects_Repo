@@ -71,7 +71,7 @@ sap.ui.define([
                                         "$select": ["entry_id"]
                                     }
                                 },
-                                "$select": ["vehicle_no", "qr_code_ID"]
+                                "$select": ["vehicle_no", "qr_code_ID", "name"]
                             },
                             "purchase_order": {
                                 "$expand": {
