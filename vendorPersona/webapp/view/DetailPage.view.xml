@@ -23,7 +23,7 @@
                         <fb:filterGroupItems>
                             <fb:FilterGroupItem groupName="__$INTERNAL$" name="PONOs" label="{i18n>PONOs}" visibleInFilterBar="true" class="searchFieldLabelHidden">
                                 <fb:control>
-                                    <Input id="idNameInput" placeholder="{i18n>EnterPoNos}" showSuggestion="true" showValueHelp="false" suggestionItems="{purchase_orders}">
+                                    <Input id="idNameInput" change="onFilterChange" placeholder="{i18n>EnterPoNos}" showSuggestion="true" showValueHelp="false" suggestionItems="{purchase_orders}">
                                         <suggestionItems>
                                             <core:Item text="{po_number}" />
                                         </suggestionItems>
@@ -35,7 +35,7 @@
                                     <DateRangeSelection	id="dateRangeSelectionId" displayFormat="dd/MM/yyyy" change="onDateRangeSelectionChange"/>
                                 </fb:control>
                             </fb:FilterGroupItem>
-                            <fb:FilterGroupItem groupName="__$INTERNAL$" name="invoice_number" label="{i18n>ParentCode}" visibleInFilterBar="true" class="searchFieldLabelHidden">
+                            <!-- <fb:FilterGroupItem groupName="__$INTERNAL$" name="invoice_number" label="{i18n>ParentCode}" visibleInFilterBar="true" class="searchFieldLabelHidden">
                                 <fb:control>
                                     <Input id="idIdInput" placeholder="{i18n>EnterCode}" showSuggestion="true" showValueHelp="true" suggestionItems="{purchase_orders}">
                                         <suggestionItems>
@@ -43,7 +43,7 @@
                                         </suggestionItems>
                                     </Input>
                                 </fb:control>
-                            </fb:FilterGroupItem>
+                            </fb:FilterGroupItem> -->
                         </fb:filterGroupItems>
                     </fb:FilterBar>
                 </f:content>

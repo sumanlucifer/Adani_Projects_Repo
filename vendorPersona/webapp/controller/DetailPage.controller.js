@@ -13,6 +13,7 @@ sap.ui.define([
     return BaseController.extend("com.agel.mmts.vendorPersona.controller.DetailPage", {
 
         onInit: function () {
+
             //view model instatiation
             var oViewModel = new JSONModel({
                 busy: true,
@@ -41,6 +42,9 @@ sap.ui.define([
 
             //adding searchfield association to filterbar                                    
             this._addSearchFieldAssociationToFB();
+
+            this.oFilterBar = null;
+            this.oFilterBar = this.byId("filterbar");
         },
 
         _addSearchFieldAssociationToFB: function () {
@@ -255,30 +259,42 @@ sap.ui.define([
         },
 
         // on Go Search 
-        onSearch: function (oEvent) {
+        onSearch: function (oEvent) {   
+
             var poNumber = this.byId("idNameInput").getValue();
-             var DateRange = this.byId("dateRangeSelectionId");
+            var DateRange = this.byId("dateRangeSelectionId");
             var DateRangeValue = this.byId("dateRangeSelectionId").getValue();
-            var aFilters = [];
+            var orFilters = [];
+            var andFilters = [];
+
+            var FreeTextSearch = this.byId("filterbar").getBasicSearchValue();
+            if(FreeTextSearch){
+                  orFilters.push(new Filter("po_number", FilterOperator.Contains, FreeTextSearch));
+                  orFilters.push(new Filter("vendor/name", FilterOperator.EQ, FreeTextSearch));
+                 orFilters.push(new Filter("status", FilterOperator.EQ, FreeTextSearch));
+             //   aFilters.push(new Filter("purchase_order/parent_line_items/qty", FilterOperator.EQ, FreeTextSearch));
+
+                andFilters.push(new Filter(orFilters, false));
+            }            
+
             if (poNumber != "") {
-                aFilters.push(new Filter("po_number", FilterOperator.EQ, poNumber));
+                andFilters.push(new Filter("po_number", FilterOperator.EQ, poNumber));
             }
 
              if (DateRangeValue != "") {
                 var From=new Date(DateRange.getFrom());
                 var To=new Date(DateRange.getTo());
-                aFilters.push(new Filter("po_release_date", FilterOperator.BT, From.toISOString(),To.toISOString()));
+                andFilters.push(new Filter("po_release_date", FilterOperator.BT, From.toISOString(),To.toISOString()));
             }
 
-
-            var mFilters = new Filter({
-                filters: aFilters,
-                and: true
-            });
-
             var oTableBinding = this.getView().byId("idPurchaseOrdersTable").getBinding("items");
-            oTableBinding.filter(mFilters);
+            oTableBinding.filter(new Filter(andFilters, true));
+           // oTableBinding.filter(mFilters);
         },
+
+        onFilterChange: function (oEvent) {
+			this.oFilterBar.fireFilterChange(oEvent);
+		},
 
         // on Date Change
         onDateChange: function (oEvent) {
@@ -291,8 +307,8 @@ sap.ui.define([
             } else {
                 oDP.setValueState(sap.ui.core.ValueState.Error);
             }
+            this.oFilterBar.fireFilterChange(oEvent);
         },
-
 
     });
 });

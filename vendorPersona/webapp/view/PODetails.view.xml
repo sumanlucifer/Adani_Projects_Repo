@@ -303,7 +303,6 @@
                                     <Text text="MDCC  Details"/>
                                 </Column>
                             </columns>
-
                             <items>
                                 <ColumnListItem type="Navigation" press=".onInspectionIDPress">
                                     <cells>
@@ -344,7 +343,6 @@
                                     <Text text="{i18n>status}"/>
                                 </Column>
                             </columns>
-
                             <items>
                                 <ColumnListItem type="Navigation" press=".onPackingListPress">
                                     <cells>
