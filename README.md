@@ -19,6 +19,13 @@ To access the SAP Fiori launchpad Site, visit [QA Build for Sprint 2](https://ad
     * page 1 - List of previous Scans
     * Page 2 - Details of the packing list
 
+### Build 1.1 #Bugs Fixed
+1. **Vendor - Under PO Tracker Tab-  App Name - Assigned PO**
+    * Page 1 - List of POs - fixed filters, adapt filters,combination search fixed.
+    * Page 2 - PO Details - target date in header added , filter & sort fixed , upload BOQ fixed, material    
+                name column added on view child dialog,manage BOQ seprate tab added.
+    * Page 3 - Inspection Details - create packing list issue fixed, 
+
 ### Note 
 _The Field level details are not taken from wireframes and not taken into strict condsideration during the development. But based on the review if there is a need we can modify them accordingly_> .
 

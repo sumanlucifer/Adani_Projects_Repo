@@ -45,6 +45,12 @@ sap.ui.define([
 
             this.oFilterBar = null;
             this.oFilterBar = this.byId("filterbar");
+
+            this.oFilterBar.registerFetchData(this.fFetchData);
+			this.oFilterBar.registerApplyData(this.fApplyData);
+            this.oFilterBar.registerGetFiltersWithValues(this.fGetFiltersWithValues);
+
+            this.oFilterBar.fireInitialise();
         },
 
         _addSearchFieldAssociationToFB: function () {
@@ -54,6 +60,7 @@ sap.ui.define([
             if (!oSearchField) {
                 // @ts-ignore   
                 oBasicSearch = new sap.m.SearchField({ id: "idSearch", showSearchButton: false });
+                oBasicSearch.attachLiveChange(this.onFilterChange,this);
             } else {
                 oSearchField = null;
             }
@@ -255,7 +262,9 @@ sap.ui.define([
 				oEventSource.setValueState(ValueState.None);
 			} else {
 				oEventSource.setValueState(ValueState.Error);
-			}
+            }
+            
+            this.oFilterBar.fireFilterChange(oEvent);
         },
 
         // on Go Search 
@@ -287,28 +296,82 @@ sap.ui.define([
                 andFilters.push(new Filter("po_release_date", FilterOperator.BT, From.toISOString(),To.toISOString()));
             }
 
-            var oTableBinding = this.getView().byId("idPurchaseOrdersTable").getBinding("items");
-            oTableBinding.filter(new Filter(andFilters, true));
+            var idOpenPOTableBinding = this.getView().byId("idPurchaseOrdersTable").getBinding("items");
+            var idConfirmPOTableBinding = this.getView().byId("idConfirmPOTable").getBinding("items");
+            var idDispatchedPOTableBinding = this.getView().byId("idDispatchedPOTable").getBinding("items");
+            idOpenPOTableBinding.filter(new Filter(andFilters, true));
+            idConfirmPOTableBinding.filter(new Filter(andFilters, true));
+            idDispatchedPOTableBinding.filter(new Filter(andFilters, true));
            // oTableBinding.filter(mFilters);
         },
 
         onFilterChange: function (oEvent) {
-			this.oFilterBar.fireFilterChange(oEvent);
+         //   if (oEvent.getSource().getValue().length){
+                this.oFilterBar.fireFilterChange(oEvent);
+          //  }
 		},
 
-        // on Date Change
-        onDateChange: function (oEvent) {
-            var oDP = oEvent.getSource(),
-                sValue = oEvent.getParameter("value"),
-                bValid = oEvent.getParameter("valid");
+        fFetchData: function () {
+			var oJsonParam;
+			var oJsonData = [];
+			var sGroupName;
+			var oItems = this.getAllFilterItems(true);
 
-            if (bValid) {
-                oDP.setValueState(sap.ui.core.ValueState.None);
-            } else {
-                oDP.setValueState(sap.ui.core.ValueState.Error);
-            }
-            this.oFilterBar.fireFilterChange(oEvent);
-        },
+			for (var i = 0; i < oItems.length; i++) {
+				oJsonParam = {};
+				sGroupName = null;
+				if (oItems[i].getGroupName) {
+					sGroupName = oItems[i].getGroupName();
+					oJsonParam.groupName = sGroupName;
+				}
+
+				oJsonParam.name = oItems[i].getName();
+
+				var oControl = this.determineControlByFilterItem(oItems[i]);
+				if (oControl) {
+					oJsonParam.value = oControl.getValue();
+					oJsonData.push(oJsonParam);
+				}
+			}
+
+			return oJsonData;
+		},
+
+		fApplyData: function (oJsonData) {
+
+			var sGroupName;
+
+			for (var i = 0; i < oJsonData.length; i++) {
+
+				sGroupName = null;
+
+				if (oJsonData[i].groupName) {
+					sGroupName = oJsonData[i].groupName;
+				}
+
+				var oControl = this.determineControlByName(oJsonData[i].name, sGroupName);
+				if (oControl) {
+					oControl.setValue(oJsonData[i].value);
+				}
+			}
+		},
+
+		fGetFiltersWithValues: function () {
+			var i;
+			var oControl;
+			var aFilters = this.getFilterGroupItems();
+
+			var aFiltersWithValue = [];
+
+			for (i = 0; i < aFilters.length; i++) {
+				oControl = this.determineControlByFilterItem(aFilters[i]);
+				if (oControl && oControl.getValue && oControl.getValue()) {
+					aFiltersWithValue.push(aFilters[i]);
+				}
+			}
+
+			return aFiltersWithValue;
+		},
 
     });
 });

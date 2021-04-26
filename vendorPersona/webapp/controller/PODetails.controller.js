@@ -87,7 +87,7 @@ sap.ui.define([
                             "$select": ["parent_line_item_id"],
                             "$expand": {
                                 "child_line_items": {
-                                    "$select": ["material_code", "description", "qty", "uom"]
+                                    "$select": ["material_code", "name", "description", "qty", "uom"]
                                 }
                             }
                         },
@@ -341,7 +341,7 @@ sap.ui.define([
                 oViewContext = this.getView().getBindingContext().getObject(),
                 oBindingObject = this.byId("idBOQUploader").getObjectBinding("DocumentUploadModel");
 
-            data = data.substr(21, data.length);
+            data = data.split(",")[1];
 
 
             //set the parameters
@@ -812,7 +812,7 @@ sap.ui.define([
 				bDescending,
 				aSorters = [];
             
-                if(mParams.sortItem.length){
+                if(mParams.sortItem.getKey()){
 			        sPath = mParams.sortItem.getKey();
 			        bDescending = mParams.sortDescending;
 			        aSorters.push(new Sorter(sPath, bDescending));

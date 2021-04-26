@@ -155,8 +155,12 @@ sap.ui.define([
             var oViewContextObject = this.getView().getBindingContext().getObject();
             var aParentItems = aSelectedItems;
             var selectedChildLineItems = aParentItems.inspected_child_line_items;
+
             delete aParentItems.inspected_child_line_items;
-            delete selectedChildLineItems[0].ID;
+            // New code added 26/04/2021
+            if (selectedChildLineItems.length > 0 ){
+                delete selectedChildLineItems[0].ID;
+            }
             delete aParentItems.ID;
 
             var oPayload = {
