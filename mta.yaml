@@ -16,7 +16,7 @@ modules:
     properties:
       forwardAuthToken: true
       name: AGEL_MMTS_API
-      url: https://adani-green-energy-limited-renewables-dev-development-agfe90665.cfapps.ap11.hana.ondemand.com/
+      url: https://adani-green-energy-limited-renewables-dev-development-a12c869a0.cfapps.ap11.hana.ondemand.com/
   parameters:
     buildpack: nodejs_buildpack
     disk-quota: 256M
@@ -319,7 +319,7 @@ resources:
   parameters:
     path: ./xs-security.json
     service: xsuaa
-    service-name: xsuaa-agel-mmts
+    service-name: xsuaa-agel-mmts-dev-new
     service-plan: application
 - name: agel-mmts-web_html_repo_runtime
   type: org.cloudfoundry.managed-service
