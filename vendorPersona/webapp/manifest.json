@@ -37,34 +37,30 @@
         },
         "dataSources": {
             "default": {
-                "uri": "/AGEL_MMTS_API/odata/v4/VendorsService/",
+                "uri": "/AGEL_MMTS_API/odata/v2/VendorsService/",
                 "type": "OData",
                 "settings": {
-                    "odataVersion": "4.0",
                     "localUri": "localService/metadata.xml"
                 }
             },
             "uploadService": {
-                "uri": "/AGEL_MMTS_API/odata/v4/CsvFileUploaderService/",
+                "uri": "/AGEL_MMTS_API/odata/v2/CsvFileUploaderService/",
                 "type": "OData",
                 "settings": {
-                    "odataVersion": "4.0",
                     "localUri": "localService/metadata.xml"
                 }
             },
             "attachmentService": {
-                "uri": "/AGEL_MMTS_API/odata/v4/AttachmentsService/",
+                "uri": "/AGEL_MMTS_API/odata/v2/AttachmentsService/",
                 "type": "OData",
                 "settings": {
-                    "odataVersion": "4.0",
                     "localUri": "localService/metadata.xml"
                 }
             },
             "qrCodeService": {
-                "uri": "/AGEL_MMTS_API/odata/v4/QRCodeService/",
+                "uri": "/AGEL_MMTS_API/odata/v2/QRCodeService/",
                 "type": "OData",
                 "settings": {
-                    "odataVersion": "4.0",
                     "localUri": "localService/metadata.xml"
                 }
             }
@@ -116,48 +112,45 @@
                 }
             },
             "": {
+                "type": "sap.ui.model.odata.v2.ODataModel",
                 "settings": {
-                    "operationMode": "Server",
-                    "groupProperties": {
-                        "childLineItemGroup": {
-                            "submit": "API"
-                        },
-                        "parentItemsGroup": {
-                            "submit": "API"
-                        }
-                    },
-                    "autoExpandSelect": true,
-                    "synchronizationMode": "None"
+                    "defaultOperationMode": "Server",
+                    "defaultBindingMode": "TwoWay",
+                    "defaultCountMode": "Request",
+                    "useBatch": true
                 },
                 "dataSource": "default",
                 "preload": true
             },
             "DocumentUploadModel": {
+                "type": "sap.ui.model.odata.v2.ODataModel",
                 "settings": {
-                    "operationMode": "Server",
-                    "groupId": "$direct",
-                    "synchronizationMode": "None",
-                    "autoExpandSelect": true
+                    "defaultOperationMode": "Server",
+                    "defaultBindingMode": "TwoWay",
+                    "defaultCountMode": "Request",
+                    "useBatch": true
                 },
                 "dataSource": "uploadService",
                 "preload": true
             },
             "attachmentModel": {
+                "type": "sap.ui.model.odata.v2.ODataModel",
                 "settings": {
-                    "operationMode": "Server",
-                    "groupId": "$direct",
-                    "synchronizationMode": "None",
-                    "autoExpandSelect": true
+                    "defaultOperationMode": "Server",
+                    "defaultBindingMode": "TwoWay",
+                    "defaultCountMode": "Request",
+                    "useBatch": true
                 },
                 "dataSource": "attachmentService",
                 "preload": true
             },
             "qrCodeModel": {
+                "type": "sap.ui.model.odata.v2.ODataModel",
                 "settings": {
-                    "operationMode": "Server",
-                    "groupId": "$direct",
-                    "synchronizationMode": "None",
-                    "autoExpandSelect": true
+                    "defaultOperationMode": "Server",
+                    "defaultBindingMode": "TwoWay",
+                    "defaultCountMode": "Request",
+                    "useBatch": true
                 },
                 "dataSource": "qrCodeService",
                 "preload": true
