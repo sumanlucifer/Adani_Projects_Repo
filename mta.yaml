@@ -2,7 +2,7 @@ _schema-version: "3.2"
 ID: agel-mmts-web
 version: 0.0.1
 modules:
-- name: agel-mmts-web-approuter
+- name: agel-mmts-web-approuterQA
   type: approuter.nodejs
   path: agel-mmts-web-approuter
   properties:
@@ -16,7 +16,7 @@ modules:
     properties:
       forwardAuthToken: true
       name: AGEL_MMTS_API
-      url: https://adani-green-energy-limited-renewables-dev-development-a23002998.cfapps.ap11.hana.ondemand.com/
+      url: https://adani-green-energy-limited-renewables-dev-development-agfe90665.cfapps.ap11.hana.ondemand.com/
   parameters:
     buildpack: nodejs_buildpack
     disk-quota: 256M

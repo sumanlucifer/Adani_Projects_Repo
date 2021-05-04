@@ -51,6 +51,7 @@
                     <ObjectAttribute title="{i18n>vendor}" text="{vendor/name}" active="true"/>
                     <ObjectAttribute title="{i18n>buyerName}" text="{buyer/name}" active="true"/>
                     <ObjectAttribute title="{i18n>releaseDate}" text="{po_release_date}" active="true"/>
+                    <ObjectAttribute title="{i18n>targetDate}" text="{target_date}" active="true"/>
                 </FlexBox>
             </FlexBox>
         </uxap:headerContent>
@@ -178,6 +179,9 @@
                                     <Column>
                                         <Text text="{i18n>materialCode}"/>
                                     </Column>
+                                    <Column>
+                                        <Text text="{i18n>parentName}"/>
+                                    </Column>
                                     <Column width="30%">
                                         <Text text="{i18n>description}"/>
                                     </Column>
@@ -201,6 +205,7 @@
                                     <ColumnListItem type="Active">
                                         <cells>
                                             <ObjectIdentifier title="{material_code}" titleActive="true"/>
+                                            <Text text="{name}"/>
                                             <Text text="{description}"/>
                                             <Text text="{qty}"/>
                                             <Text text="{uom}"/>
@@ -213,6 +218,12 @@
                             </Table>
                         </VBox>
                     </uxap:ObjectPageSubSection>
+                    
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>manageBOQoptional}" visible="{= %{status}==='CONFIRMED' ? true : false}">
+                <uxap:subSections>
                     <uxap:ObjectPageSubSection title="{i18n>manageBOQoptional}">
                         <VBox renderType="Bare">
                             <SegmentedButton selectedKey="addBOQ" id="idManageBOQType" selectionChange="onBOQMangeTypeChange">
@@ -269,7 +280,6 @@
             </uxap:ObjectPageSection>
 
 
-
             <uxap:ObjectPageSection titleUppercase="false" title="{i18n>inspectionDetails}" visible="{= %{status}==='CONFIRMED' ? true : false}">
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection>
@@ -303,7 +313,6 @@
                                     <Text text="MDCC  Details"/>
                                 </Column>
                             </columns>
-
                             <items>
                                 <ColumnListItem type="Navigation" press=".onInspectionIDPress">
                                     <cells>
@@ -344,7 +353,6 @@
                                     <Text text="{i18n>status}"/>
                                 </Column>
                             </columns>
-
                             <items>
                                 <ColumnListItem type="Navigation" press=".onPackingListPress">
                                     <cells>

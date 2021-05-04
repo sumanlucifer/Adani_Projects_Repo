@@ -16,6 +16,9 @@
                     <Column>
                         <Text text="Material Code"/>
                     </Column>
+                     <Column>
+                        <Text text="Name"/>
+                    </Column>
                     <Column width="30%">
                         <Text text="Description"/>
                     </Column>
@@ -36,6 +39,7 @@
                     <ColumnListItem press=".onchildItemPress">
                         <cells>
                             <ObjectIdentifier title="{material_code}" titleActive="true"/>
+                            <Text text="{name}"/>
                             <Text text="{description}"/>
                             <Text text="{qty}"/>
                             <Text text="{uom}"/>

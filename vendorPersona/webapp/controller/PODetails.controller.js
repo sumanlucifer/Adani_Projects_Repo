@@ -87,7 +87,7 @@ sap.ui.define([
                             "$select": ["parent_line_item_id"],
                             "$expand": {
                                 "child_line_items": {
-                                    "$select": ["material_code", "description", "qty", "uom"]
+                                    "$select": ["material_code", "name", "description", "qty", "uom"]
                                 }
                             }
                         },
@@ -341,7 +341,7 @@ sap.ui.define([
                 oViewContext = this.getView().getBindingContext().getObject(),
                 oBindingObject = this.byId("idBOQUploader").getObjectBinding("DocumentUploadModel");
 
-            data = data.substr(21, data.length);
+            data = data.split(",")[1];
 
 
             //set the parameters
@@ -811,13 +811,14 @@ sap.ui.define([
 				sPath,
 				bDescending,
 				aSorters = [];
-
-			sPath = mParams.sortItem.getKey();
-			bDescending = mParams.sortDescending;
-			aSorters.push(new Sorter(sPath, bDescending));
-
-			// apply the selected sort and group settings
-			oBinding.sort(aSorters);
+            
+                if(mParams.sortItem.getKey()){
+			        sPath = mParams.sortItem.getKey();
+			        bDescending = mParams.sortDescending;
+			        aSorters.push(new Sorter(sPath, bDescending));
+                }
+			    // apply the selected sort and group settings
+			    oBinding.sort(aSorters);
         },
 
         // Filter Parent Items
@@ -833,10 +834,12 @@ sap.ui.define([
 			mParams = oEvent.getParameters(),
 			oBinding = oTable.getBinding("items"),
             aFilters = [];
-            var sValue1=mParams.filterItems[0].getKey();
-            aFilters.push(new Filter("uom", FilterOperator.EQ, sValue1));
-            
-          /*  mParams.filterItems.forEach(function(oItem) {
+            if(mParams.filterItems.length){
+                var sValue1=mParams.filterItems[0].getKey();
+                aFilters.push(new Filter("uom", FilterOperator.EQ, sValue1));
+            }
+
+            /*  mParams.filterItems.forEach(function(oItem) {
 			    var aSplit = oItem.getKey().split("___"),
 			    sPath = aSplit[0],
 			    sOperator = aSplit[1],
@@ -850,8 +853,8 @@ sap.ui.define([
 			oBinding.filter(aFilters);
 
 			// update filter bar
-		//	this.byId("vsdFilterBar").setVisible(aFilters.length > 0);
-		//	this.byId("vsdFilterLabel").setText(mParams.filterString);
+		    //	this.byId("vsdFilterBar").setVisible(aFilters.length > 0);
+		    //	this.byId("vsdFilterLabel").setText(mParams.filterString);
         },
         
         getViewSettingsDialog: function (sDialogFragmentName) {

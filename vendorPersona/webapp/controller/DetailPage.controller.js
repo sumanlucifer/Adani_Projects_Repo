@@ -13,6 +13,7 @@ sap.ui.define([
     return BaseController.extend("com.agel.mmts.vendorPersona.controller.DetailPage", {
 
         onInit: function () {
+
             //view model instatiation
             var oViewModel = new JSONModel({
                 busy: true,
@@ -41,6 +42,15 @@ sap.ui.define([
 
             //adding searchfield association to filterbar                                    
             this._addSearchFieldAssociationToFB();
+
+            this.oFilterBar = null;
+            this.oFilterBar = this.byId("filterbar");
+
+            this.oFilterBar.registerFetchData(this.fFetchData);
+			this.oFilterBar.registerApplyData(this.fApplyData);
+            this.oFilterBar.registerGetFiltersWithValues(this.fGetFiltersWithValues);
+
+            this.oFilterBar.fireInitialise();
         },
 
         _addSearchFieldAssociationToFB: function () {
@@ -50,6 +60,7 @@ sap.ui.define([
             if (!oSearchField) {
                 // @ts-ignore   
                 oBasicSearch = new sap.m.SearchField({ id: "idSearch", showSearchButton: false });
+                oBasicSearch.attachLiveChange(this.onFilterChange,this);
             } else {
                 oSearchField = null;
             }
@@ -251,48 +262,116 @@ sap.ui.define([
 				oEventSource.setValueState(ValueState.None);
 			} else {
 				oEventSource.setValueState(ValueState.Error);
-			}
+            }
+            
+            this.oFilterBar.fireFilterChange(oEvent);
         },
 
         // on Go Search 
-        onSearch: function (oEvent) {
+        onSearch: function (oEvent) {   
+
             var poNumber = this.byId("idNameInput").getValue();
-             var DateRange = this.byId("dateRangeSelectionId");
+            var DateRange = this.byId("dateRangeSelectionId");
             var DateRangeValue = this.byId("dateRangeSelectionId").getValue();
-            var aFilters = [];
+            var orFilters = [];
+            var andFilters = [];
+
+            var FreeTextSearch = this.byId("filterbar").getBasicSearchValue();
+            if(FreeTextSearch){
+                  orFilters.push(new Filter("po_number", FilterOperator.Contains, FreeTextSearch));
+                  orFilters.push(new Filter("vendor/name", FilterOperator.EQ, FreeTextSearch));
+                 orFilters.push(new Filter("status", FilterOperator.EQ, FreeTextSearch));
+             //   aFilters.push(new Filter("purchase_order/parent_line_items/qty", FilterOperator.EQ, FreeTextSearch));
+
+                andFilters.push(new Filter(orFilters, false));
+            }            
+
             if (poNumber != "") {
-                aFilters.push(new Filter("po_number", FilterOperator.EQ, poNumber));
+                andFilters.push(new Filter("po_number", FilterOperator.EQ, poNumber));
             }
 
              if (DateRangeValue != "") {
                 var From=new Date(DateRange.getFrom());
                 var To=new Date(DateRange.getTo());
-                aFilters.push(new Filter("po_release_date", FilterOperator.BT, From.toISOString(),To.toISOString()));
+                andFilters.push(new Filter("po_release_date", FilterOperator.BT, From.toISOString(),To.toISOString()));
             }
 
-
-            var mFilters = new Filter({
-                filters: aFilters,
-                and: true
-            });
-
-            var oTableBinding = this.getView().byId("idPurchaseOrdersTable").getBinding("items");
-            oTableBinding.filter(mFilters);
+            var idOpenPOTableBinding = this.getView().byId("idPurchaseOrdersTable").getBinding("items");
+            var idConfirmPOTableBinding = this.getView().byId("idConfirmPOTable").getBinding("items");
+            var idDispatchedPOTableBinding = this.getView().byId("idDispatchedPOTable").getBinding("items");
+            idOpenPOTableBinding.filter(new Filter(andFilters, true));
+            idConfirmPOTableBinding.filter(new Filter(andFilters, true));
+            idDispatchedPOTableBinding.filter(new Filter(andFilters, true));
+           // oTableBinding.filter(mFilters);
         },
 
-        // on Date Change
-        onDateChange: function (oEvent) {
-            var oDP = oEvent.getSource(),
-                sValue = oEvent.getParameter("value"),
-                bValid = oEvent.getParameter("valid");
+        onFilterChange: function (oEvent) {
+         //   if (oEvent.getSource().getValue().length){
+                this.oFilterBar.fireFilterChange(oEvent);
+          //  }
+		},
 
-            if (bValid) {
-                oDP.setValueState(sap.ui.core.ValueState.None);
-            } else {
-                oDP.setValueState(sap.ui.core.ValueState.Error);
-            }
-        },
+        fFetchData: function () {
+			var oJsonParam;
+			var oJsonData = [];
+			var sGroupName;
+			var oItems = this.getAllFilterItems(true);
 
+			for (var i = 0; i < oItems.length; i++) {
+				oJsonParam = {};
+				sGroupName = null;
+				if (oItems[i].getGroupName) {
+					sGroupName = oItems[i].getGroupName();
+					oJsonParam.groupName = sGroupName;
+				}
+
+				oJsonParam.name = oItems[i].getName();
+
+				var oControl = this.determineControlByFilterItem(oItems[i]);
+				if (oControl) {
+					oJsonParam.value = oControl.getValue();
+					oJsonData.push(oJsonParam);
+				}
+			}
+
+			return oJsonData;
+		},
+
+		fApplyData: function (oJsonData) {
+
+			var sGroupName;
+
+			for (var i = 0; i < oJsonData.length; i++) {
+
+				sGroupName = null;
+
+				if (oJsonData[i].groupName) {
+					sGroupName = oJsonData[i].groupName;
+				}
+
+				var oControl = this.determineControlByName(oJsonData[i].name, sGroupName);
+				if (oControl) {
+					oControl.setValue(oJsonData[i].value);
+				}
+			}
+		},
+
+		fGetFiltersWithValues: function () {
+			var i;
+			var oControl;
+			var aFilters = this.getFilterGroupItems();
+
+			var aFiltersWithValue = [];
+
+			for (i = 0; i < aFilters.length; i++) {
+				oControl = this.determineControlByFilterItem(aFilters[i]);
+				if (oControl && oControl.getValue && oControl.getValue()) {
+					aFiltersWithValue.push(aFilters[i]);
+				}
+			}
+
+			return aFiltersWithValue;
+		},
 
     });
 });

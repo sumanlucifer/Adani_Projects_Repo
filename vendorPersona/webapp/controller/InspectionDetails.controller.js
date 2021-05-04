@@ -155,8 +155,12 @@ sap.ui.define([
             var oViewContextObject = this.getView().getBindingContext().getObject();
             var aParentItems = aSelectedItems;
             var selectedChildLineItems = aParentItems.inspected_child_line_items;
+
             delete aParentItems.inspected_child_line_items;
-            delete selectedChildLineItems[0].ID;
+            // New code added 26/04/2021
+            if (selectedChildLineItems.length > 0 ){
+                delete selectedChildLineItems[0].ID;
+            }
             delete aParentItems.ID;
 
             var oPayload = {
@@ -212,9 +216,11 @@ sap.ui.define([
             var oFiles = oEvent.getParameters().files;
             for (var i = 0; i < oFiles.length; i++) {
                 var fileName = oFiles[i].name;
-                this._getImageData(URL.createObjectURL(oFiles[i]), function (base64) {
-                    that._addData(base64, fileName);
-                }, fileName);
+                if (  fileName.split('.').length > 1 ){
+                    this._getImageData(URL.createObjectURL(oFiles[i]), function (base64) {
+                        that._addData(base64, fileName);
+                    }, fileName);
+                }
             }
         },
 

@@ -26,7 +26,12 @@
                     "action": "Vendor",
                     "title": "{{appTileTitle}}",
                     "subTitle": "{{appTileSubTitle}}",
-                    "icon": "sap-icon://supplier"
+                    "icon": "sap-icon://supplier",
+                    "indicatorDataSource": {
+                        "dataSource": "default",
+                        "path": "/AGEL_MMTS_API/odata/v4/VendorsService/PurchaseOrders/$count",
+                        "refresh": 0
+                    }
                 }
             }
         },
