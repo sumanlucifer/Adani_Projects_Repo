@@ -216,9 +216,11 @@ sap.ui.define([
             var oFiles = oEvent.getParameters().files;
             for (var i = 0; i < oFiles.length; i++) {
                 var fileName = oFiles[i].name;
-                this._getImageData(URL.createObjectURL(oFiles[i]), function (base64) {
-                    that._addData(base64, fileName);
-                }, fileName);
+                if (  fileName.split('.').length > 1 ){
+                    this._getImageData(URL.createObjectURL(oFiles[i]), function (base64) {
+                        that._addData(base64, fileName);
+                    }, fileName);
+                }
             }
         },
 
