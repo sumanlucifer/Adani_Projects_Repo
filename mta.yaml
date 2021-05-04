@@ -2,7 +2,7 @@ _schema-version: "3.2"
 ID: agel-mmts-web
 version: 0.0.1
 modules:
-- name: agel-mmts-web-approuterQA
+- name: agel-mmts-web-approuter
   type: approuter.nodejs
   path: agel-mmts-web-approuter
   properties:
