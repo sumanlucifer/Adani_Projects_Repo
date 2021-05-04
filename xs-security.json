@@ -1,5 +1,5 @@
 {
-    "xsappname": "xsuaa-agel-mmts",
+    "xsappname": "xsuaa-agel-mmts-dev-new",
     "tenant-mode": "dedicated",
     "oauth2-configuration": {
         "redirect-uris": [
@@ -30,7 +30,7 @@
             ]
         },
         {
-            "name": "Access_AGEL_UAA_Admin_APIs",
+            "name": "Access_AGEL_UAA_Admin_APIs_DEV",
             "description": "To Access UAA Admin APIs",
             "scope-references": [
                 "xs_user.read",
@@ -62,10 +62,10 @@
     ],
     "role-collections": [
         {
-            "name": "Access_AGEL_UAA_Admin_APIs",
+            "name": "Access_AGEL_UAA_Admin_APIs_DEV",
             "description": "Users, Roles API access",
             "role-template-references": [
-                "$XSAPPNAME.Access_AGEL_UAA_Admin_APIs"
+                "$XSAPPNAME.Access_AGEL_UAA_Admin_APIs_DEV"
             ]
         }
     ]
