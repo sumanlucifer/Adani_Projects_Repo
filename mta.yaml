@@ -120,6 +120,11 @@ modules:
       - quickAccess-storeInCharge-Reports-content.zip
       name: quickAccess-storeInCharge-Reports
       target-path: resources/
+    - artifacts:
+      - ScannerAppLibrary-content.zip
+      name: ScannerAppLibrary
+      target-path: resources/  
+      
 - name: vendorPersona
   type: html5
   path: vendorPersona
@@ -313,6 +318,14 @@ modules:
     commands:
     - npm run build
     supported-platforms: []
+- name: ScannerAppLibrary
+  type: html5
+  path: ScannerAppLibrary
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []    
 resources:
 - name: uaa_agel-mmts-web
   type: org.cloudfoundry.managed-service

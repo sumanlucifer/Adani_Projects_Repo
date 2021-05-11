@@ -40,6 +40,7 @@
                 "uri": "/AGEL_MMTS_API/odata/v2/VendorsService/",
                 "type": "OData",
                 "settings": {
+                    "odataVersion": "2.0",
                     "localUri": "localService/metadata.xml"
                 }
             },
@@ -47,21 +48,21 @@
                 "uri": "/AGEL_MMTS_API/odata/v2/CsvFileUploaderService/",
                 "type": "OData",
                 "settings": {
-                    "localUri": "localService/metadata.xml"
+                   "odataVersion": "2.0"
                 }
             },
             "attachmentService": {
                 "uri": "/AGEL_MMTS_API/odata/v2/AttachmentsService/",
                 "type": "OData",
                 "settings": {
-                    "localUri": "localService/metadata.xml"
+                    "odataVersion": "2.0"
                 }
             },
             "qrCodeService": {
                 "uri": "/AGEL_MMTS_API/odata/v2/QRCodeService/",
                 "type": "OData",
                 "settings": {
-                    "localUri": "localService/metadata.xml"
+                   "odataVersion": "2.0"
                 }
             }
         }
@@ -163,6 +164,7 @@
                 }
             ]
         },
+        
         "routing": {
             "config": {
                 "routerClass": "sap.m.routing.Router",

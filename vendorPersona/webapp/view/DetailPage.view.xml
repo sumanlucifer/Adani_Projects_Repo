@@ -5,7 +5,11 @@
     xmlns="sap.m"
     xmlns:f="sap.f"
     xmlns:fb="sap.ui.comp.filterbar"
-    xmlns:vm="sap.ui.comp.variants">
+    xmlns:vm="sap.ui.comp.variants"
+    xmlns:smartTable="sap.ui.comp.smarttable"
+    xmlns:ndc="sap.ndc"
+    xmlns:x="be.wl.ScannerAppLibrary.controls"
+    xmlns:tt="sap.ui.table">
     <f:DynamicPage headerExpanded="true" busy="{objectViewModel>/busy}">
         <!-- DynamicPage Title -->
         <f:title>
@@ -33,7 +37,7 @@
                             </fb:FilterGroupItem>
                             <fb:FilterGroupItem groupName="__$INTERNAL$" name="po_release_date" label="{i18n>Date}" visibleInFilterBar="true" class="searchFieldLabelHidden">
                                 <fb:control>
-                                    <DateRangeSelection	id="dateRangeSelectionId" displayFormat="dd/MM/yyyy" change="onDateRangeSelectionChange"/>
+                                    <DateRangeSelection id="dateRangeSelectionId" displayFormat="dd/MM/yyyy" change="onDateRangeSelectionChange"/>
                                 </fb:control>
                             </fb:FilterGroupItem>
                             <fb:FilterGroupItem groupName="__$INTERNAL$" name="MatCode" label="{i18n>MatCode}" visibleInFilterBar="true" class="searchFieldLabelHidden">

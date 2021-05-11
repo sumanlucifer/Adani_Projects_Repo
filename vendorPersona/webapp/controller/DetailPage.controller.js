@@ -14,7 +14,7 @@ sap.ui.define([
     return BaseController.extend("com.agel.mmts.vendorPersona.controller.DetailPage", {
         formatter: formatter,
         onInit: function () {
-
+            this.getView().setModel(new JSONModel({ QRCode: "" }), "ui")
             //view model instatiation
             var oViewModel = new JSONModel({
                 busy: false,
@@ -48,7 +48,7 @@ sap.ui.define([
             this.oFilterBar = this.byId("filterbar");
 
             this.oFilterBar.registerFetchData(this.fFetchData);
-			this.oFilterBar.registerApplyData(this.fApplyData);
+            this.oFilterBar.registerApplyData(this.fApplyData);
             this.oFilterBar.registerGetFiltersWithValues(this.fGetFiltersWithValues);
 
             this.oFilterBar.fireInitialise();
@@ -61,7 +61,7 @@ sap.ui.define([
             if (!oSearchField) {
                 // @ts-ignore   
                 oBasicSearch = new sap.m.SearchField({ id: "idSearch", showSearchButton: false });
-                oBasicSearch.attachLiveChange(this.onFilterChange,this);
+                oBasicSearch.attachLiveChange(this.onFilterChange, this);
             } else {
                 oSearchField = null;
             }
@@ -275,24 +275,24 @@ sap.ui.define([
         },
 
         // Date Range Selection
-        onDateRangeSelectionChange : function(oEvent){
+        onDateRangeSelectionChange: function (oEvent) {
             var sFrom = oEvent.getParameter("from"),
-			sTo = oEvent.getParameter("to"),
-			bValid = oEvent.getParameter("valid"),
-			oEventSource = oEvent.getSource(),
-			oText = this.byId("TextEvent");
+                sTo = oEvent.getParameter("to"),
+                bValid = oEvent.getParameter("valid"),
+                oEventSource = oEvent.getSource(),
+                oText = this.byId("TextEvent");
 
-			if (bValid) {
-				oEventSource.setValueState(ValueState.None);
-			} else {
-				oEventSource.setValueState(ValueState.Error);
+            if (bValid) {
+                oEventSource.setValueState(ValueState.None);
+            } else {
+                oEventSource.setValueState(ValueState.Error);
             }
-            
+
             this.oFilterBar.fireFilterChange(oEvent);
         },
 
         // on Go Search 
-        onSearch: function (oEvent) {   
+        onSearch: function (oEvent) {
 
             var poNumber = this.byId("idNameInput").getValue();
             var DateRange = this.byId("dateRangeSelectionId");
@@ -309,7 +309,7 @@ sap.ui.define([
              //   aFilters.push(new Filter("purchase_order/parent_line_items/qty", FilterOperator.EQ, FreeTextSearch));
 
                 andFilters.push(new Filter(orFilters, false));
-            }            
+            }
 
             if (poNumber != "") {
                 andFilters.push(new Filter("po_number", FilterOperator.EQ, poNumber));
@@ -331,14 +331,14 @@ sap.ui.define([
             idOpenPOTableBinding.filter(new Filter(andFilters, true));
             idConfirmPOTableBinding.filter(new Filter(andFilters, true));
             idDispatchedPOTableBinding.filter(new Filter(andFilters, true));
-           // oTableBinding.filter(mFilters);
+            // oTableBinding.filter(mFilters);
         },
 
         onFilterChange: function (oEvent) {
-         //   if (oEvent.getSource().getValue().length){
-                this.oFilterBar.fireFilterChange(oEvent);
-          //  }
-		},
+            //   if (oEvent.getSource().getValue().length){
+            this.oFilterBar.fireFilterChange(oEvent);
+            //  }
+        },
 
         fFetchData: function () {
 			var oJsonParam;
