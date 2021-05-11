@@ -29,7 +29,7 @@
                     "icon": "sap-icon://supplier",
                     "indicatorDataSource": {
                         "dataSource": "default",
-                        "path": "/AGEL_MMTS_API/odata/v4/VendorsService/PurchaseOrders/$count",
+                        "path": "/AGEL_MMTS_API/odata/v2/VendorsService/PurchaseOrders/$count",
                         "refresh": 0
                     }
                 }

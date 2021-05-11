@@ -25,7 +25,7 @@ sap.ui.define([
         onInit: function () {
             //view model instatiation
             var oViewModel = new JSONModel({
-                busy: true,
+                busy: false,
                 delay: 0,
                 boqSelection: null,
                 csvFile: "file"
@@ -47,7 +47,7 @@ sap.ui.define([
             this._bindView("/PurchaseOrders" + sObjectId);
 
 
-            this.getViewModel("objectViewModel").setProperty("/boqSelection", this.byId("idManageBOQType").getSelectedKey());
+         //   this.getViewModel("objectViewModel").setProperty("/boqSelection", this.byId("idManageBOQType").getSelectedKey());
 
             //   this.getView().byId("idChildItemsTableSubsection").setVisible(false);
         },
@@ -75,40 +75,42 @@ sap.ui.define([
             this.getView().setModel(oModel, "childItemCreationModel")
         },
 
+       
+
         _bindView: function (sObjectPath) {
             var objectViewModel = this.getViewModel("objectViewModel");
             var that = this;
 
             this.getView().bindElement({
                 path: sObjectPath,
-                parameters: {
-                    "$expand": {
-                        "parent_line_items": {
-                            "$select": ["parent_line_item_id"],
-                            "$expand": {
-                                "child_line_items": {
-                                    "$select": ["material_code", "name", "description", "qty", "uom"]
+              /*  parameters: {
+                    'expand': {
+                        'parent_line_items': {
+                           // "$select": ["parent_line_item_id"],
+                            'expand': {
+                                'child_line_items': {
+                                   // "$select": ["material_code", "name", "description", "qty", "uom"]
                                 }
                             }
                         },
-                        "vendor": {
-                            "$expand": {
-                                "address": {}
+                        'vendor': {
+                            'expand': {
+                                'address': {}
                             }
                         },
-                        "inspection_call_ids": {},
-                        "sow_details": {},
-                        "price_schedule_details": {},
-                        "packing_list": {
-                            "$expand": {
-                                "insp_call": {
-                                    "$select": ["ID", "inspection_call_id"]
+                        'inspection_call_ids': {},
+                        'sow_details': {},
+                        'price_schedule_details': {},
+                        'packing_list': {
+                            'expand': {
+                                'insp_call': {
+                                    //'select': ["ID", "inspection_call_id"]
                                 }
                             }
                         },
-                        "boq_line_items": {}
+                        'boq_line_items': {}
                     }
-                },
+                }, */
                 events: {
                     dataRequested: function () {
                         objectViewModel.setProperty("/busy", true);
@@ -131,7 +133,7 @@ sap.ui.define([
         },
 
         onParentItemsTableUpdateFinished: function (oEvent) {
-            oEvent.getSource().removeSelections();
+          //  oEvent.getSource().removeSelections();
         },
 
         onChildTableUpdateStarted: function (oEvent) {
@@ -250,17 +252,18 @@ sap.ui.define([
         onViewChildItemPress: function (oEvent) {
             var oItem = oEvent.getSource();
             var that = this;
-            this._requestCronicalPath(oItem, function (sCronicalPath) {
-                that.handleChildItemsDialogOpen(sCronicalPath);
-            });
+            var sPath = oEvent.getSource().getParent().getBindingContextPath();
+         //   this._requestCronicalPath(oItem, function (sCronicalPath) {
+                that.handleChildItemsDialogOpen(sPath);
+         //   });
         },
 
-        _requestCronicalPath: function (oItem, callback) {
+     /*   _requestCronicalPath: function (oItem, callback) {
             var that = this;
             oItem.getBindingContext().requestCanonicalPath().then(function (sObjectPath) {
                 callback(sObjectPath);
             });
-        },
+        },*/
 
         // Child Line Items Dialog Open
         handleChildItemsDialogOpen: function (sParentItemPath) {
@@ -281,11 +284,7 @@ sap.ui.define([
                     oDialog.bindElement({
                         path: oDetails.sParentItemPath,
                         parameters: {
-                            "$expand": {
-                                "child_line_items": {
-                                    "$select": ["ID", "material_code", "qty", "uom"]
-                                }
-                            }
+                            "expand": 'child_line_items'
                         }
                     });
                     return oDialog;
@@ -296,11 +295,7 @@ sap.ui.define([
                 oDialog.bindElement({
                     path: oDetails.sParentItemPath,
                     parameters: {
-                        "$expand": {
-                            "child_line_items": {
-                                "$select": ["ID", "material_code", "description", "qty", "uom"]
-                            }
-                        }
+                        "expand": 'child_line_items'
                     }
                 });
                 oDialog.open();
@@ -794,68 +789,7 @@ sap.ui.define([
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
-        },
-
-        // Sort Parent Items
-        handleSortParentItem: function () {
-			this.getViewSettingsDialog("com.agel.mmts.vendorPersona.view.fragments.PODetails.SortDialogParentItemTable")
-				.then(function (SortDialogParentItem) {
-					SortDialogParentItem.open();
-				});
-        },
-        
-        handleSortDialogConfirm : function(oEvent){
-            var oTable = this.byId("idParentLineItemsTable"),
-				mParams = oEvent.getParameters(),
-				oBinding = oTable.getBinding("items"),
-				sPath,
-				bDescending,
-				aSorters = [];
-            
-                if(mParams.sortItem.getKey()){
-			        sPath = mParams.sortItem.getKey();
-			        bDescending = mParams.sortDescending;
-			        aSorters.push(new Sorter(sPath, bDescending));
-                }
-			    // apply the selected sort and group settings
-			    oBinding.sort(aSorters);
-        },
-
-        // Filter Parent Items
-		handleFilterParentItem: function () {
-			this.getViewSettingsDialog("com.agel.mmts.vendorPersona.view.fragments.PODetails.FilterDialogParentItemTable")
-				.then(function (FilterDialogParentItem) {
-					FilterDialogParentItem.open();
-				});
-        },
-
-        handleFilterDialogConfirm : function(oEvent){
-            var oTable = this.byId("idParentLineItemsTable"),
-			mParams = oEvent.getParameters(),
-			oBinding = oTable.getBinding("items"),
-            aFilters = [];
-            if(mParams.filterItems.length){
-                var sValue1=mParams.filterItems[0].getKey();
-                aFilters.push(new Filter("uom", FilterOperator.EQ, sValue1));
-            }
-
-            /*  mParams.filterItems.forEach(function(oItem) {
-			    var aSplit = oItem.getKey().split("___"),
-			    sPath = aSplit[0],
-			    sOperator = aSplit[1],
-			    sValue1 = aSplit[2],
-			    sValue2 = aSplit[3],
-			    oFilter = new Filter(sPath, sOperator, sValue1, sValue2);
-			    aFilters.push(oFilter);
-            }); */
-            
-            // apply filter settings
-			oBinding.filter(aFilters);
-
-			// update filter bar
-		    //	this.byId("vsdFilterBar").setVisible(aFilters.length > 0);
-		    //	this.byId("vsdFilterLabel").setText(mParams.filterString);
-        },
+        },      
         
         getViewSettingsDialog: function (sDialogFragmentName) {
 			var pDialog = this._mViewSettingsDialogs[sDialogFragmentName];

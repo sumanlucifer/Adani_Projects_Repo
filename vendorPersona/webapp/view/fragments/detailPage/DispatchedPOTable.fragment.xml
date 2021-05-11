@@ -1,0 +1,55 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+    xmlns:smartTable="sap.ui.comp.smarttable"
+	xmlns:core="sap.ui.core">
+	<smartTable:SmartTable class="sapUiSizeCompact " editable="false" 
+            placeToolbarInTable="true" enableAutoBinding="true" entitySet="PurchaseOrders" 
+            header="OpenPO" showFullScreenButton="true" showRowCount="true" 
+            tableType="ResponsiveTable" demandPopin="false" useExportToExcel="false"
+            useTablePersonalisation="true" useVariantManagement="false"
+              beforeRebindTable="onbeforeRebindDispatchPoTable"
+            initiallyVisibleFields="po_number,plantcode,status">
+        <Table sticky="ColumnHeaders,HeaderToolbar">
+		<columns>
+			<Column>
+				<Text text="{i18n>ponum}"/>
+			</Column>
+            <Column>
+				<Text text="{i18n>issuedate}"/>
+			</Column>
+			<Column>
+				<Text text="{i18n>releaseDate}"/>
+			</Column>
+            <Column>
+				<Text text="{i18n>closeddate}"/>
+			</Column>
+            <Column>
+				<Text text="{i18n>companycode}"/>
+			</Column>
+            <Column>
+				<Text text="{i18n>plantcode}"/>
+			</Column>
+			<Column>
+				<Text text="{i18n>status}"/>
+			</Column>
+			<Column>
+				<Text text="{i18n>action}"/>
+			</Column>
+		</columns>
+		<items>
+			<ColumnListItem id="idDispatchColumnItem">
+				<cells>
+					<Text text="{po_number}"/>
+                    <Text text="{path:'issued_po_date',formatter: '.formatter.onDateConvert'}"/>
+					<Text text="{path:'po_release_date',formatter: '.formatter.onDateConvert'}"/>
+                    <Text text="{closed_date}"/>
+                    <Text text="{company_code}"/>
+                    <Text text="{plant_code}"/>
+					<ObjectStatus text="{status}" state="Success"/>
+					<Button text="{i18n>ViewLineItems}" press="onViewLineItemsPress" type="Transparent"/>
+				</cells>
+			</ColumnListItem>
+		</items>
+	    </Table>
+    </smartTable:SmartTable>
+</core:FragmentDefinition>

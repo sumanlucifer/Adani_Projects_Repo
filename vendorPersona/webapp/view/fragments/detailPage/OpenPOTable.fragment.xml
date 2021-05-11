@@ -1,0 +1,77 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+    xmlns:smartTable="sap.ui.comp.smarttable"
+	xmlns:core="sap.ui.core">
+
+                     <smartTable:SmartTable class="sapUiSizeCompact " editable="false" 
+                          placeToolbarInTable="true" enableAutoBinding="true" entitySet="PurchaseOrders" 
+                            header="OpenPO" showFullScreenButton="true" showRowCount="true" 
+                            tableType="ResponsiveTable" demandPopin="false" useExportToExcel="false"
+                             useTablePersonalisation="true" useVariantManagement="false" 
+                              beforeRebindTable="onbeforeRebindOpenPoTable"
+                             initiallyVisibleFields="Name,date,status" >
+	                        <!-- <smartTable:layoutData><FlexItemData growFactor="1" /></smartTable:layoutData> -->
+	                        <Table sticky="ColumnHeaders,HeaderToolbar">
+	                        	<columns>
+
+                                    <Column>
+                                        <customData>    
+					                        <core:CustomData key="p13nData" value='\{"columnKey": "po_number", "leadingProperty": "po_number",
+                                                 "columnIndex": 0 ,"sortProperty": "po_number","filterProperty": "po_number"}'/>
+				                        </customData>
+                                        <Text text="{i18n>ponum}"/>
+                                    </Column>
+                                    
+                                    <Column>
+                                        <customData>    
+					                        <core:CustomData key="p13nData" value='\{"columnKey": "issued_po_date", "leadingProperty": "issued_po_date",
+                                                 "columnIndex": 1 ,"sortProperty": "issued_po_date","filterProperty": "issued_po_date"}'/>
+				                        </customData>
+                                        <Text text="{i18n>issuedate}"/>
+                                    </Column>
+                                    
+                                    <Column>
+                                        <customData>    
+					                        <core:CustomData key="p13nData" value='\{"columnKey": "po_release_date", "leadingProperty": "po_release_date",
+                                                 "columnIndex": 2 ,"sortProperty": "po_release_date","filterProperty": "po_release_date"}'/>
+				                        </customData>
+                                        <Text text="{i18n>releaseDate}"/>
+                                    </Column>
+
+                                  
+
+                                    <Column>
+                                        <customData>    
+					                        <core:CustomData key="p13nData" value='\{"columnKey": "plant_code", "leadingProperty": "plant_code",
+                                                 "columnIndex": 3 ,"sortProperty": "plant_code","filterProperty": "plant_code"}'/>
+				                        </customData>
+                                        <Text text="{i18n>plantcode}"/>
+                                    </Column>
+		                        
+                                    <Column>
+                                        <customData>    
+					                        <core:CustomData key="p13nData" value='\{"columnKey": "status", "leadingProperty": "status",
+                                                 "columnIndex": 4 ,"sortProperty": "status","filterProperty": "status"}'/>
+				                        </customData>
+                                        <Text text="{i18n>status}"/>
+                                    </Column>
+
+                                </columns>
+		                        <items>
+
+                                    <ColumnListItem type="Navigation" press="onPurchaseOrderPress">
+				                       <cells>
+                                            <Text text="{po_number}"/>
+					                        <Text text="{path:'issued_po_date',formatter: '.formatter.onDateConvert'}"/>
+				                    	    <Text text="{path:'po_release_date',formatter: '.formatter.onDateConvert'}"/>
+                                           
+                                            <ObjectIdentifier text="{plant_code}"/>
+					                        <ObjectStatus text="{status}" state="Warning"/>
+				                       </cells>
+			                        </ColumnListItem>
+	
+                                </items>
+	                        </Table>
+                        </smartTable:SmartTable>
+
+</core:FragmentDefinition>

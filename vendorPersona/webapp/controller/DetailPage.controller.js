@@ -6,17 +6,18 @@ sap.ui.define([
     "sap/ui/core/Fragment",
     "sap/ui/model/Sorter",
     "sap/ui/Device",
-    'sap/ui/core/ValueState'
-], function (BaseController, JSONModel, Filter, FilterOperator, Fragment, Sorter, Device,ValueState) {
+    'sap/ui/core/ValueState',
+    '../utils/formatter',
+], function (BaseController, JSONModel, Filter, FilterOperator, Fragment, Sorter, Device,ValueState,formatter) {
     "use strict";
 
     return BaseController.extend("com.agel.mmts.vendorPersona.controller.DetailPage", {
-
+        formatter: formatter,
         onInit: function () {
 
             //view model instatiation
             var oViewModel = new JSONModel({
-                busy: true,
+                busy: false,
                 delay: 0
             });
             this.setModel(oViewModel, "objectViewModel");
@@ -74,7 +75,30 @@ sap.ui.define([
 
         _onObjectMatched: function (oEvent) {
             var sObjectId = oEvent.getParameter("arguments").vendorId;
-            this._bindView("/Vendors" + sObjectId);
+           /* this.getOwnerComponent().getModel().metadataLoaded().then(function(params){
+                    debugger;
+                    this._bindView();
+            }.bind(this));*/
+            //this._bindView();
+             this._bindView("/Vendors" + sObjectId);
+        },
+
+        // Open Po Table Before Bind
+        onbeforeRebindOpenPoTable : function(oEvent){   
+            var mBindingParams = oEvent.getParameter("bindingParams");
+            mBindingParams.filters.push(new Filter("status",sap.ui.model.FilterOperator.EQ,"PENDING"));
+        },
+
+        // Confirm Po Table Before Bind
+        onbeforeRebindConfirmPoTable : function(oEvent){   
+            var mBindingParams = oEvent.getParameter("bindingParams");
+            mBindingParams.filters.push(new Filter("status",sap.ui.model.FilterOperator.EQ,"CONFIRMED"));
+        },
+
+        // Dispatched Po Table Before Bind
+        onbeforeRebindDispatchPoTable : function(oEvent){   
+            var mBindingParams = oEvent.getParameter("bindingParams");
+            mBindingParams.filters.push(new Filter("status",sap.ui.model.FilterOperator.EQ,"DISPATCHED"));
         },
 
         _initializeCreationModel: function () {
@@ -86,30 +110,32 @@ sap.ui.define([
             this.getView().setModel(oCreationModel, "creationModel")
         },
 
+
         // on Bind View 
-        _bindView: function (sObjectPath) {
+        _bindView: function () {
             var userInfo = sap.ushell.Container.getService("UserInfo");
             var userEmail = userInfo.getEmail();
 
             userEmail = userEmail || 'venkatesh.hulekal@extentia.com'
             // Open PO table
-            this._filterItemsAndBindTable("idPurchaseOrdersTable", "PENDING", userEmail);
-            this._filterItemsAndBindTable("idConfirmPOTable", "CONFIRMED", userEmail);
-            this._filterItemsAndBindTable("idDispatchedPOTable", "DISPATCHED", userEmail);
+          //  this._filterItemsAndBindTable("idPurchaseOrdersTable", "PENDING", userEmail);
+          //  this._filterItemsAndBindTable("idConfirmPOTable", "CONFIRMED", userEmail);
+           // this._filterItemsAndBindTable("idDispatchedPOTable", "DISPATCHED", userEmail);
         },
 
         _filterItemsAndBindTable: function (sTableID, status, email) {
             var objectViewModel = this.getViewModel("objectViewModel");
             this.getView().byId(sTableID).bindItems({
-                path: "/PurchaseOrders",
+             //   path: "/PurchaseOrders?$filter=vendor/email eq '" + email + " ' and status eq '" + status + "'",
+                  path : "/PurchaseOrders?$filter=vendor/email eq 'venkatesh.hulekal@extentia.com' and status eq 'DISPATCHED'",
                 template: this.byId(sTableID).getBindingInfo("items").template,
-                parameters: {
-                    "$expand": {
-                        "vendor": {}
-                    },
-                    "$filter": "vendor/email eq '" + email + "' and status eq '" + status + "'",
-                    "$count": true
-                },
+             /* parameters: {
+                      'expand': 'vendor',                    
+                      'filter': "email eq '" + email + "' and status eq '" + status + "'",
+                   // "count": true,
+                   // PurchaseOrders?$expand=vendor($select=ID,name)&$filter=vendor/email eq 'venkatesh.hulekal@extentia.com' and status eq 'PENDING'
+                  // ?$expand=vendor&filter=name eq 'SYMATIC ENGINEERING PVT LTD' and status eq 'PENDING'
+                },*/
                 events: {
                     dataRequested: function () {
                         objectViewModel.setProperty("/busy", true);
@@ -237,17 +263,15 @@ sap.ui.define([
 
         _showObject: function (oItem) {
             var that = this;
-            oItem.getBindingContext().requestCanonicalPath().then(function (sObjectPath) {
-                that.getRouter().navTo("RoutePODetailPage", {
-                    POId: sObjectPath.slice("/PurchaseOrders".length) // /PurchaseOrders(123)->(123)
-                });
+            var sObjectPath = oItem.getBindingContext().sPath;
+            that.getRouter().navTo("RoutePODetailPage", {
+                POId: sObjectPath.slice("/PurchaseOrders".length) // /PurchaseOrders(123)->(123)
             });
         },
 
         //when the breadcrum pressed
         handleToAllVendorsBreadcrumPress: function (oEvent) {
             this.getRouter().navTo("RouteLandingPage");
-
         },
 
         // Date Range Selection
@@ -273,13 +297,14 @@ sap.ui.define([
             var poNumber = this.byId("idNameInput").getValue();
             var DateRange = this.byId("dateRangeSelectionId");
             var DateRangeValue = this.byId("dateRangeSelectionId").getValue();
+            var PlantCode = this.byId("idPlantCode").getValue();
             var orFilters = [];
             var andFilters = [];
 
             var FreeTextSearch = this.byId("filterbar").getBasicSearchValue();
             if(FreeTextSearch){
                   orFilters.push(new Filter("po_number", FilterOperator.Contains, FreeTextSearch));
-                  orFilters.push(new Filter("vendor/name", FilterOperator.EQ, FreeTextSearch));
+               //   orFilters.push(new Filter("vendor/name", FilterOperator.EQ, FreeTextSearch));
                  orFilters.push(new Filter("status", FilterOperator.EQ, FreeTextSearch));
              //   aFilters.push(new Filter("purchase_order/parent_line_items/qty", FilterOperator.EQ, FreeTextSearch));
 
@@ -290,12 +315,16 @@ sap.ui.define([
                 andFilters.push(new Filter("po_number", FilterOperator.EQ, poNumber));
             }
 
-             if (DateRangeValue != "") {
+            if (DateRangeValue != "") {
                 var From=new Date(DateRange.getFrom());
                 var To=new Date(DateRange.getTo());
                 andFilters.push(new Filter("po_release_date", FilterOperator.BT, From.toISOString(),To.toISOString()));
             }
 
+            if ( PlantCode != "") {
+                andFilters.push(new Filter("plant_code", FilterOperator.EQ, PlantCode));
+            }
+            
             var idOpenPOTableBinding = this.getView().byId("idPurchaseOrdersTable").getBinding("items");
             var idConfirmPOTableBinding = this.getView().byId("idConfirmPOTable").getBinding("items");
             var idDispatchedPOTableBinding = this.getView().byId("idDispatchedPOTable").getBinding("items");
@@ -371,7 +400,48 @@ sap.ui.define([
 			}
 
 			return aFiltersWithValue;
-		},
+        },
+        
+        onViewLineItemsPress : function(oEvent){
+            var sParentItemPath = oEvent.getSource().getParent().getBindingContextPath();
+            var oDetails = {};
+            oDetails.controller = this;
+            oDetails.view = this.getView();
+            oDetails.sParentItemPath = sParentItemPath;
+            if (!this.pDialog) {
+                this.pDialog = Fragment.load({
+                    id: oDetails.view.getId(),
+                    name: "com.agel.mmts.vendorPersona.view.fragments.detailPage.ViewLineItemsDialog",
+                    controller: oDetails.controller
+                }).then(function (oDialog) {
+                    // connect dialog to the root view of this component (models, lifecycle)
+                    oDetails.view.addDependent(oDialog);
+                    oDialog.bindElement({
+                        path: oDetails.sParentItemPath,
+                        parameters: {
+                            "expand": 'parent_line_items'
+                        }
+                    });
+                     return oDialog;
+                });
+            }
+            this.pDialog.then(function (oDialog) {
+            oDetails.view.addDependent(oDialog);
+            oDialog.bindElement({
+                path: oDetails.sParentItemPath,
+                parameters: {
+                        'expand': 'parent_line_items'
+                }
+             });
+             oDialog.open();
+             });
+        },
+
+        onViewChildDialogClose: function (oEvent) {
+             this.pDialog.then(function (oDialog) {
+                oDialog.close();
+             });
+        },
 
     });
 });
