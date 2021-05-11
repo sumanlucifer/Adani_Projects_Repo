@@ -1,0 +1,1638 @@
+<?xml version="1.0" ?>
+<edmx:Edmx xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" Version="1.0" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Capabilities.V1.xml">
+        <edmx:Include Alias="Capabilities" Namespace="Org.OData.Capabilities.V1"></edmx:Include>
+    </edmx:Reference>
+    <edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"></edmx:Include>
+    </edmx:Reference>
+    <edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+        <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"></edmx:Include>
+    </edmx:Reference>
+    <edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
+        <edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1"></edmx:Include>
+    </edmx:Reference>
+    <edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Validation.V1.xml">
+        <edmx:Include Alias="Validation" Namespace="Org.OData.Validation.V1"></edmx:Include>
+    </edmx:Reference>
+    <edmx:DataServices m:DataServiceVersion="1.0" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata">
+        <Schema Namespace="VendorsService" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="Addresses">
+                <Key>
+                    <PropertyRef Name="ID"></PropertyRef>
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"></Property>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"></Property>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"></Property>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"></Property>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"></Property>
+                <Property Name="street" Type="Edm.String" MaxLength="200"></Property>
+                <Property Name="city" Type="Edm.String" MaxLength="50"></Property>
+                <Property Name="state" Type="Edm.String" MaxLength="50"></Property>
+                <Property Name="zipcode" Type="Edm.String" MaxLength="10"></Property>
+                <Property Name="country" Type="Edm.String" MaxLength="20"></Property>
+            </EntityType>
+            <EntityType Name="Attachments">
+                <Key>
+                    <PropertyRef Name="ID"></PropertyRef>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"></Property>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"></Property>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"></Property>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"></Property>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"></Property>
+                <Property Name="type" Type="Edm.String" MaxLength="20"></Property>
+                <Property Name="file" Type="Edm.String"></Property>
+                <Property Name="fileName" Type="Edm.String" MaxLength="100"></Property>
+                <Property Name="document_number" Type="Edm.String" MaxLength="20"></Property>
+                <Property Name="document_date" Type="Edm.DateTime" sap:display-format="Date"></Property>
+                <Property Name="packing_list_ID" Type="Edm.Guid"></Property>
+                <Property Name="insp_call_ID" Type="Edm.Guid"></Property>
+                <NavigationProperty Name="packing_list" Relationship="VendorsService.Attachments_packing_list" FromRole="Attachments" ToRole="PackingLists"></NavigationProperty>
+                <NavigationProperty Name="insp_call" Relationship="VendorsService.Attachments_insp_call" FromRole="Attachments" ToRole="InspectionCallIds"></NavigationProperty>
+            </EntityType>
+            <EntityType Name="BOQLineItems">
+                <Key>
+                    <PropertyRef Name="ID"></PropertyRef>
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"></Property>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"></Property>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"></Property>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"></Property>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"></Property>
+                <Property Name="boq_line_item_id" Type="Edm.String" MaxLength="30"></Property>
+                <Property Name="description" Type="Edm.String" MaxLength="200"></Property>
+                <Property Name="material_code" Type="Edm.String" MaxLength="50"></Property>
+                <Property Name="qty" Type="Edm.Double"></Property>
+                <Property Name="uom" Type="Edm.String" MaxLength="50"></Property>
+                <Property Name="comments" Type="Edm.String" MaxLength="300"></Property>
+                <Property Name="name" Type="Edm.String" MaxLength="50"></Property>
+                <Property Name="po_number" Type="Edm.String" MaxLength="20"></Property>
+                <Property Name="purchase_order_ID" Type="Edm.Guid"></Property>
+                <Property Name="parent_line_item_ID" Type="Edm.Guid"></Property>
+                <NavigationProperty Name="parent_line_item" Relationship="VendorsService.BOQLineItems_parent_line_item" FromRole="BOQLineItems" ToRole="ParentLineItems"></NavigationProperty>
+                <NavigationProperty Name="purchase_order" Relationship="VendorsService.BOQLineItems_purchase_order" FromRole="BOQLineItems" ToRole="PurchaseOrders"></NavigationProperty>
+            </EntityType>
+            <EntityType Name="Buyers">
+                <Key>
+                    <PropertyRef Name="ID"></PropertyRef>
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"></Property>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"></Property>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"></Property>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"></Property>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"></Property>
+                <Property Name="name" Type="Edm.String" MaxLength="50"></Property>
+                <Property Name="email" Type="Edm.String" MaxLength="70"></Property>
+                <Property Name="mobile" Type="Edm.String" MaxLength="20"></Property>
+                <Property Name="buyer_code" Type="Edm.String" MaxLength="20"></Property>
+                <Property Name="pan" Type="Edm.String" MaxLength="15"></Property>
+                <Property Name="cin" Type="Edm.String" MaxLength="50"></Property>
+                <Property Name="gstin" Type="Edm.String" MaxLength="50"></Property>
+                <Property Name="iec_number" Type="Edm.String" MaxLength="50"></Property>
+                <Property Name="address_ID" Type="Edm.Guid"></Property>
+                <NavigationProperty Name="address" Relationship="VendorsService.Buyers_address" FromRole="Buyers" ToRole="Addresses"></NavigationProperty>
+            </EntityType>
+            <EntityType Name="ChildLineItems">
+                <Key>
+                    <PropertyRef Name="ID"></PropertyRef>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"></Property>
+                <Property Name="child_line_item_id" Type="Edm.String" MaxLength="30"></Property>
+                <Property Name="name" Type="Edm.String" MaxLength="50"></Property>
+                <Property Name="description" Type="Edm.String" MaxLength="200"></Property>
+                <Property Name="material_code" Type="Edm.String" MaxLength="50"></Property>
+                <Property Name="qty" Type="Edm.Double"></Property>
+                <Property Name="uom" Type="Edm.String" MaxLength="50"></Property>
+                <Property Name="comments" Type="Edm.String" MaxLength="300"></Property>
+                <Property Name="parent_line_item_ID" Type="Edm.Guid"></Property>
+                <NavigationProperty Name="parent_line_item" Relationship="VendorsService.ChildLineItems_parent_line_item" FromRole="ChildLineItems" ToRole="ParentLineItems"></NavigationProperty>
+            </EntityType>
+            <EntityType Name="InspectedChildItems">
+                <Key>
+                    <PropertyRef Name="ID"></PropertyRef>
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"></Property>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"></Property>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"></Property>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"></Property>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"></Property>
+                <Property Name="child_line_item_id" Type="Edm.String" MaxLength="30"></Property>
+                <Property Name="name" Type="Edm.String" MaxLength="50"></Property>
+                <Property Name="description" Type="Edm.String" MaxLength="200"></Property>
+                <Property Name="material_code" Type="Edm.String" MaxLength="50"></Property>
+                <Property Name="qty" Type="Edm.Double"></Property>
+                <Property Name="uom" Type="Edm.String" MaxLength="50"></Property>
+                <Property Name="comments" Type="Edm.String" MaxLength="300"></Property>
+                <Property Name="inspected_parent_line_item_ID" Type="Edm.Guid"></Property>
+                <NavigationProperty Name="inspected_parent_line_item" Relationship="VendorsService.InspectedChildItems_inspected_parent_line_item" FromRole="InspectedChildItems" ToRole="InspectedParentItems"></NavigationProperty>
+            </EntityType>
+            <EntityType Name="InspectedParentItems">
+                <Key>
+                    <PropertyRef Name="ID"></PropertyRef>
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"></Property>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"></Property>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"></Property>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"></Property>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"></Property>
+                <Property Name="name" Type="Edm.String" MaxLength="50"></Property>
+                <Property Name="description" Type="Edm.String" MaxLength="200"></Property>
+                <Property Name="parent_line_item_id" Type="Edm.String" MaxLength="30"></Property>
+                <Property Name="po_number" Type="Edm.String" MaxLength="20"></Property>
+                <Property Name="material_code" Type="Edm.String" MaxLength="50"></Property>
+                <Property Name="approved_qty" Type="Edm.Double"></Property>
+                <Property Name="uom" Type="Edm.String" MaxLength="50"></Property>
+                <Property Name="packed_order_qty" Type="Edm.Double"></Property>
+                <Property Name="delivered_qty" Type="Edm.Double"></Property>
+                <Property Name="inspection_call_id_ID" Type="Edm.Guid"></Property>
+                <Property Name="packing_list_ID" Type="Edm.Guid"></Property>
+                <NavigationProperty Name="inspection_call_id" Relationship="VendorsService.InspectedParentItems_inspection_call_id" FromRole="InspectedParentItems" ToRole="InspectionCallIds"></NavigationProperty>
+                <NavigationProperty Name="packing_list" Relationship="VendorsService.InspectedParentItems_packing_list" FromRole="InspectedParentItems" ToRole="PackingLists"></NavigationProperty>
+                <NavigationProperty Name="inspected_child_line_items" Relationship="VendorsService.InspectedChildItems_inspected_parent_line_item" FromRole="InspectedParentItems" ToRole="InspectedChildItems"></NavigationProperty>
+            </EntityType>
+            <EntityType Name="InspectionCallIds">
+                <Key>
+                    <PropertyRef Name="ID"></PropertyRef>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"></Property>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"></Property>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"></Property>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"></Property>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"></Property>
+                <Property Name="inspection_call_id" Type="Edm.String" Nullable="false" MaxLength="50"></Property>
+                <Property Name="po_number" Type="Edm.String" MaxLength="20"></Property>
+                <Property Name="purchase_order_ID" Type="Edm.Guid"></Property>
+                <Property Name="mdcc" Type="Edm.String" MaxLength="50"></Property>
+                <NavigationProperty Name="purchase_order" Relationship="VendorsService.InspectionCallIds_purchase_order" FromRole="InspectionCallIds" ToRole="PurchaseOrders"></NavigationProperty>
+                <NavigationProperty Name="insepected_parent_line_items" Relationship="VendorsService.InspectedParentItems_inspection_call_id" FromRole="InspectionCallIds" ToRole="InspectedParentItems"></NavigationProperty>
+                <NavigationProperty Name="qr_code" Relationship="VendorsService.InspectionCallIds_qr_code" FromRole="InspectionCallIds" ToRole="QRCodes"></NavigationProperty>
+                <NavigationProperty Name="packing_list" Relationship="VendorsService.InspectionCallIds_packing_list" FromRole="InspectionCallIds" ToRole="PackingLists"></NavigationProperty>
+                <NavigationProperty Name="attachments" Relationship="VendorsService.Attachments_insp_call" FromRole="InspectionCallIds" ToRole="Attachments"></NavigationProperty>
+            </EntityType>
+            <EntityType Name="PackingListChildItems">
+                <Key>
+                    <PropertyRef Name="ID"></PropertyRef>
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"></Property>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"></Property>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"></Property>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"></Property>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"></Property>
+                <Property Name="child_line_item_id" Type="Edm.String" MaxLength="30"></Property>
+                <Property Name="description" Type="Edm.String" MaxLength="200"></Property>
+                <Property Name="material_code" Type="Edm.String" MaxLength="50"></Property>
+                <Property Name="qty" Type="Edm.Double"></Property>
+                <Property Name="uom" Type="Edm.String" MaxLength="50"></Property>
+                <Property Name="comments" Type="Edm.String" MaxLength="300"></Property>
+                <Property Name="name" Type="Edm.String" MaxLength="50"></Property>
+                <Property Name="packinglist_parent_line_items_ID" Type="Edm.Guid"></Property>
+                <Property Name="qr_code_ID" Type="Edm.Guid"></Property>
+                <NavigationProperty Name="packinglist_parent_line_items" Relationship="VendorsService.PackingListChildItems_packinglist_parent_line_items" FromRole="PackingListChildItems" ToRole="PackingListParentItems"></NavigationProperty>
+                <NavigationProperty Name="qr_code" Relationship="VendorsService.PackingListChildItems_qr_code" FromRole="PackingListChildItems" ToRole="QRCodes"></NavigationProperty>
+            </EntityType>
+            <EntityType Name="PackingListParentItems">
+                <Key>
+                    <PropertyRef Name="ID"></PropertyRef>
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"></Property>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"></Property>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"></Property>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"></Property>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"></Property>
+                <Property Name="name" Type="Edm.String" MaxLength="50"></Property>
+                <Property Name="description" Type="Edm.String" MaxLength="200"></Property>
+                <Property Name="parent_line_item_id" Type="Edm.String" MaxLength="30"></Property>
+                <Property Name="po_number" Type="Edm.String" MaxLength="20"></Property>
+                <Property Name="material_code" Type="Edm.String" MaxLength="50"></Property>
+                <Property Name="approved_qty" Type="Edm.Double"></Property>
+                <Property Name="uom" Type="Edm.String" MaxLength="50"></Property>
+                <Property Name="packed_order_qty" Type="Edm.Double"></Property>
+                <Property Name="delivered_qty" Type="Edm.Double"></Property>
+                <Property Name="packing_list_ID" Type="Edm.Guid"></Property>
+                <Property Name="qr_code_ID" Type="Edm.Guid"></Property>
+                <NavigationProperty Name="packing_list" Relationship="VendorsService.PackingListParentItems_packing_list" FromRole="PackingListParentItems" ToRole="PackingLists"></NavigationProperty>
+                <NavigationProperty Name="packinglist_child_items" Relationship="VendorsService.PackingListChildItems_packinglist_parent_line_items" FromRole="PackingListParentItems" ToRole="PackingListChildItems"></NavigationProperty>
+                <NavigationProperty Name="qr_code" Relationship="VendorsService.PackingListParentItems_qr_code" FromRole="PackingListParentItems" ToRole="QRCodes"></NavigationProperty>
+            </EntityType>
+            <EntityType Name="PackingLists">
+                <Key>
+                    <PropertyRef Name="ID"></PropertyRef>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"></Property>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"></Property>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"></Property>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"></Property>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"></Property>
+                <Property Name="status" Type="Edm.String" MaxLength="50"></Property>
+                <Property Name="vehicle_no" Type="Edm.String" MaxLength="50"></Property>
+                <Property Name="insp_call_id" Type="Edm.String" MaxLength="50"></Property>
+                <Property Name="po_number" Type="Edm.String" MaxLength="20"></Property>
+                <Property Name="purchase_order_ID" Type="Edm.Guid"></Property>
+                <Property Name="name" Type="Edm.String" MaxLength="50"></Property>
+                <Property Name="qr_code_ID" Type="Edm.Guid"></Property>
+                <Property Name="gate_ID" Type="Edm.Guid"></Property>
+                <Property Name="qr_code_assistance_ID" Type="Edm.Guid"></Property>
+                <NavigationProperty Name="insp_call" Relationship="VendorsService.PackingLists_insp_call" FromRole="PackingLists" ToRole="InspectionCallIds"></NavigationProperty>
+                <NavigationProperty Name="purchase_order" Relationship="VendorsService.PackingLists_purchase_order" FromRole="PackingLists" ToRole="PurchaseOrders"></NavigationProperty>
+                <NavigationProperty Name="qr_code" Relationship="VendorsService.PackingLists_qr_code" FromRole="PackingLists" ToRole="QRCodes"></NavigationProperty>
+                <NavigationProperty Name="insepected_parent_line_items" Relationship="VendorsService.InspectedParentItems_packing_list" FromRole="PackingLists" ToRole="InspectedParentItems"></NavigationProperty>
+                <NavigationProperty Name="attachments" Relationship="VendorsService.Attachments_packing_list" FromRole="PackingLists" ToRole="Attachments"></NavigationProperty>
+                <NavigationProperty Name="qr_code_assistance" Relationship="VendorsService.PackingLists_qr_code_assistance" FromRole="PackingLists" ToRole="QRCodeGenerationAssistance"></NavigationProperty>
+                <NavigationProperty Name="packinglist_parent_line_items" Relationship="VendorsService.PackingListParentItems_packing_list" FromRole="PackingLists" ToRole="PackingListParentItems"></NavigationProperty>
+            </EntityType>
+            <EntityType Name="ParentLineItems">
+                <Key>
+                    <PropertyRef Name="ID"></PropertyRef>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"></Property>
+                <Property Name="parent_line_item_id" Type="Edm.String" MaxLength="30"></Property>
+                <Property Name="name" Type="Edm.String" MaxLength="50"></Property>
+                <Property Name="description" Type="Edm.String" MaxLength="200"></Property>
+                <Property Name="po_number" Type="Edm.String" MaxLength="20"></Property>
+                <Property Name="purchase_order_ID" Type="Edm.Guid"></Property>
+                <Property Name="material_code" Type="Edm.String" MaxLength="50"></Property>
+                <Property Name="qty" Type="Edm.Double"></Property>
+                <Property Name="uom" Type="Edm.String" MaxLength="50"></Property>
+                <NavigationProperty Name="child_line_items" Relationship="VendorsService.ChildLineItems_parent_line_item" FromRole="ParentLineItems" ToRole="ChildLineItems"></NavigationProperty>
+                <NavigationProperty Name="purchase_order" Relationship="VendorsService.ParentLineItems_purchase_order" FromRole="ParentLineItems" ToRole="PurchaseOrders"></NavigationProperty>
+                <NavigationProperty Name="boq_line_items" Relationship="VendorsService.BOQLineItems_parent_line_item" FromRole="ParentLineItems" ToRole="BOQLineItems"></NavigationProperty>
+            </EntityType>
+            <EntityType Name="PriceScheduleDetails">
+                <Key>
+                    <PropertyRef Name="ID"></PropertyRef>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"></Property>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"></Property>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"></Property>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"></Property>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"></Property>
+                <Property Name="material_code_or_description" Type="Edm.String" MaxLength="100"></Property>
+                <Property Name="uom" Type="Edm.String" MaxLength="50"></Property>
+                <Property Name="qty" Type="Edm.Double"></Property>
+                <Property Name="date" Type="Edm.DateTimeOffset"></Property>
+                <Property Name="plant" Type="Edm.String" MaxLength="50"></Property>
+                <Property Name="total_items" Type="Edm.Int32"></Property>
+                <Property Name="po_number" Type="Edm.String" MaxLength="20"></Property>
+                <Property Name="purchase_order_id" Type="Edm.String" MaxLength="50"></Property>
+                <NavigationProperty Name="purchase_order" Relationship="VendorsService.PriceScheduleDetails_purchase_order" FromRole="PriceScheduleDetails" ToRole="PurchaseOrders"></NavigationProperty>
+            </EntityType>
+            <EntityType Name="PurchaseOrders">
+                <Key>
+                    <PropertyRef Name="ID"></PropertyRef>
+                    <PropertyRef Name="po_number"></PropertyRef>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"></Property>
+                <Property Name="po_number" Type="Edm.String" Nullable="false" MaxLength="20"></Property>
+                <Property Name="invoice_number" Type="Edm.String" MaxLength="20"></Property>
+                <Property Name="status" Type="Edm.String" MaxLength="40"></Property>
+                <Property Name="po_release_date" Type="Edm.DateTimeOffset"></Property>
+                <Property Name="plant_code" Type="Edm.String" MaxLength="50"></Property>
+                <Property Name="issued_po_date" Type="Edm.DateTimeOffset"></Property>
+                <Property Name="target_date" Type="Edm.DateTimeOffset"></Property>
+                <Property Name="asn_number" Type="Edm.String" MaxLength="40"></Property>
+                <Property Name="asn_creation_date" Type="Edm.DateTimeOffset"></Property>
+                <Property Name="vendor_ID" Type="Edm.Guid"></Property>
+                <Property Name="buyer_ID" Type="Edm.Guid"></Property>
+                <Property Name="sow_details_ID" Type="Edm.Guid"></Property>
+                <Property Name="price_schedule_details_ID" Type="Edm.Guid"></Property>
+                <NavigationProperty Name="vendor" Relationship="VendorsService.PurchaseOrders_vendor" FromRole="PurchaseOrders" ToRole="Vendors"></NavigationProperty>
+                <NavigationProperty Name="buyer" Relationship="VendorsService.PurchaseOrders_buyer" FromRole="PurchaseOrders" ToRole="Buyers"></NavigationProperty>
+                <NavigationProperty Name="parent_line_items" Relationship="VendorsService.ParentLineItems_purchase_order" FromRole="PurchaseOrders" ToRole="ParentLineItems"></NavigationProperty>
+                <NavigationProperty Name="inspection_call_ids" Relationship="VendorsService.InspectionCallIds_purchase_order" FromRole="PurchaseOrders" ToRole="InspectionCallIds"></NavigationProperty>
+                <NavigationProperty Name="sow_details" Relationship="VendorsService.PurchaseOrders_sow_details" FromRole="PurchaseOrders" ToRole="SOWDetails"></NavigationProperty>
+                <NavigationProperty Name="price_schedule_details" Relationship="VendorsService.PurchaseOrders_price_schedule_details" FromRole="PurchaseOrders" ToRole="PriceScheduleDetails"></NavigationProperty>
+                <NavigationProperty Name="packing_list" Relationship="VendorsService.PurchaseOrders_packing_list" FromRole="PurchaseOrders" ToRole="PackingLists"></NavigationProperty>
+                <NavigationProperty Name="boq_line_items" Relationship="VendorsService.BOQLineItems_purchase_order" FromRole="PurchaseOrders" ToRole="BOQLineItems"></NavigationProperty>
+            </EntityType>
+            <EntityType Name="QRCodeGenerationAssistance">
+                <Key>
+                    <PropertyRef Name="ID"></PropertyRef>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"></Property>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"></Property>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"></Property>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"></Property>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"></Property>
+                <Property Name="reason" Type="Edm.String" MaxLength="100"></Property>
+                <Property Name="description" Type="Edm.String" MaxLength="200"></Property>
+                <Property Name="status" Type="Edm.String" MaxLength="50"></Property>
+                <Property Name="packing_list_ID" Type="Edm.Guid"></Property>
+                <NavigationProperty Name="packing_list" Relationship="VendorsService.QRCodeGenerationAssistance_packing_list" FromRole="QRCodeGenerationAssistance" ToRole="PackingLists"></NavigationProperty>
+            </EntityType>
+            <EntityType Name="QRCodes">
+                <Key>
+                    <PropertyRef Name="ID"></PropertyRef>
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"></Property>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"></Property>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"></Property>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"></Property>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"></Property>
+                <Property Name="plant_code" Type="Edm.String" MaxLength="50"></Property>
+                <Property Name="po_number" Type="Edm.String" MaxLength="20"></Property>
+                <Property Name="content" Type="Edm.String"></Property>
+                <Property Name="insp_call_id" Type="Edm.String" MaxLength="50"></Property>
+                <Property Name="packing_list_id" Type="Edm.String" MaxLength="50"></Property>
+                <Property Name="qr_number" Type="Edm.String" MaxLength="20"></Property>
+                <Property Name="purchase_order_ID" Type="Edm.Guid"></Property>
+                <Property Name="packinglist_parent_item_id" Type="Edm.String" MaxLength="50"></Property>
+                <Property Name="packinglist_child_item_id" Type="Edm.String" MaxLength="50"></Property>
+                <Property Name="type" Type="Edm.String" MaxLength="25"></Property>
+                <NavigationProperty Name="insp_call" Relationship="VendorsService.QRCodes_insp_call" FromRole="QRCodes" ToRole="InspectionCallIds"></NavigationProperty>
+                <NavigationProperty Name="packing_list" Relationship="VendorsService.QRCodes_packing_list" FromRole="QRCodes" ToRole="PackingLists"></NavigationProperty>
+                <NavigationProperty Name="purchase_order" Relationship="VendorsService.QRCodes_purchase_order" FromRole="QRCodes" ToRole="PurchaseOrders"></NavigationProperty>
+                <NavigationProperty Name="packinglist_parent_line_items" Relationship="VendorsService.QRCodes_packinglist_parent_line_items" FromRole="QRCodes" ToRole="PackingListParentItems"></NavigationProperty>
+                <NavigationProperty Name="packinglist_child_items" Relationship="VendorsService.QRCodes_packinglist_child_items" FromRole="QRCodes" ToRole="PackingListChildItems"></NavigationProperty>
+            </EntityType>
+            <EntityType Name="SOWDetails">
+                <Key>
+                    <PropertyRef Name="ID"></PropertyRef>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"></Property>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"></Property>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"></Property>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"></Property>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"></Property>
+                <Property Name="delivery_term" Type="Edm.DateTimeOffset"></Property>
+                <Property Name="delivery_point" Type="Edm.String" MaxLength="50"></Property>
+                <Property Name="delivery_schedule" Type="Edm.String" MaxLength="50"></Property>
+                <Property Name="payment_terms" Type="Edm.String" MaxLength="50"></Property>
+                <Property Name="dispatch_documents" Type="Edm.String" MaxLength="50"></Property>
+                <Property Name="liquidated_damages" Type="Edm.String" MaxLength="50"></Property>
+                <Property Name="defect_liability_period" Type="Edm.DateTimeOffset"></Property>
+                <Property Name="invoicing_address" Type="Edm.String" MaxLength="200"></Property>
+                <Property Name="specific_agreed_terms" Type="Edm.String" MaxLength="50"></Property>
+                <Property Name="notice_and_communications" Type="Edm.String" MaxLength="50"></Property>
+                <Property Name="po_number" Type="Edm.String" MaxLength="20"></Property>
+                <Property Name="purchase_order_id" Type="Edm.String" MaxLength="50"></Property>
+                <NavigationProperty Name="purchase_order" Relationship="VendorsService.SOWDetails_purchase_order" FromRole="SOWDetails" ToRole="PurchaseOrders"></NavigationProperty>
+            </EntityType>
+            <EntityType Name="ScannedMaterialsList">
+                <Key>
+                    <PropertyRef Name="ID"></PropertyRef>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"></Property>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"></Property>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"></Property>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"></Property>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"></Property>
+                <Property Name="qr_number" Type="Edm.String" MaxLength="50"></Property>
+                <Property Name="po_number" Type="Edm.String" MaxLength="20"></Property>
+                <Property Name="purchase_order_ID" Type="Edm.Guid"></Property>
+                <Property Name="insp_call_id" Type="Edm.String" MaxLength="50"></Property>
+                <Property Name="user_ID" Type="Edm.Guid"></Property>
+                <Property Name="user_email" Type="Edm.String" MaxLength="70"></Property>
+                <Property Name="qr_code_ID" Type="Edm.Guid"></Property>
+                <Property Name="packing_list_ID" Type="Edm.Guid"></Property>
+                <NavigationProperty Name="purchase_order" Relationship="VendorsService.ScannedMaterialsList_purchase_order" FromRole="ScannedMaterialsList" ToRole="PurchaseOrders"></NavigationProperty>
+                <NavigationProperty Name="qr_code" Relationship="VendorsService.ScannedMaterialsList_qr_code" FromRole="ScannedMaterialsList" ToRole="QRCodes"></NavigationProperty>
+                <NavigationProperty Name="packing_list" Relationship="VendorsService.ScannedMaterialsList_packing_list" FromRole="ScannedMaterialsList" ToRole="PackingLists"></NavigationProperty>
+                <NavigationProperty Name="insp_call" Relationship="VendorsService.ScannedMaterialsList_insp_call" FromRole="ScannedMaterialsList" ToRole="InspectionCallIds"></NavigationProperty>
+            </EntityType>
+            <EntityType Name="Vendors">
+                <Key>
+                    <PropertyRef Name="ID"></PropertyRef>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"></Property>
+                <Property Name="name" Type="Edm.String" MaxLength="50"></Property>
+                <Property Name="email" Type="Edm.String" MaxLength="70"></Property>
+                <Property Name="mobile" Type="Edm.String" MaxLength="20"></Property>
+                <Property Name="vendor_code" Type="Edm.String" MaxLength="20"></Property>
+                <Property Name="pan" Type="Edm.String" MaxLength="15"></Property>
+                <Property Name="gstin" Type="Edm.String" MaxLength="50"></Property>
+                <Property Name="fax" Type="Edm.String" MaxLength="50"></Property>
+                <Property Name="address_ID" Type="Edm.Guid"></Property>
+                <NavigationProperty Name="address" Relationship="VendorsService.Vendors_address" FromRole="Vendors" ToRole="Addresses"></NavigationProperty>
+                <NavigationProperty Name="purchase_orders" Relationship="VendorsService.PurchaseOrders_vendor" FromRole="Vendors" ToRole="PurchaseOrders"></NavigationProperty>
+            </EntityType>
+            <ComplexType Name="apiResponse">
+                <Property Name="success" Type="Edm.Boolean"></Property>
+                <Property Name="code" Type="Edm.Int32"></Property>
+                <Property Name="message" Type="Edm.String"></Property>
+            </ComplexType>
+            <Association Name="Attachments_packing_list">
+                <End Type="VendorsService.Attachments" Multiplicity="*" Role="Attachments"></End>
+                <End Type="VendorsService.PackingLists" Multiplicity="0..1" Role="PackingLists"></End>
+                <ReferentialConstraint>
+                    <Principal Role="PackingLists">
+                        <PropertyRef Name="ID"></PropertyRef>
+                    </Principal>
+                    <Dependent Role="Attachments">
+                        <PropertyRef Name="packing_list_ID"></PropertyRef>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="Attachments_insp_call">
+                <End Type="VendorsService.Attachments" Multiplicity="*" Role="Attachments"></End>
+                <End Type="VendorsService.InspectionCallIds" Multiplicity="0..1" Role="InspectionCallIds"></End>
+                <ReferentialConstraint>
+                    <Principal Role="InspectionCallIds">
+                        <PropertyRef Name="ID"></PropertyRef>
+                    </Principal>
+                    <Dependent Role="Attachments">
+                        <PropertyRef Name="insp_call_ID"></PropertyRef>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="BOQLineItems_parent_line_item">
+                <End Type="VendorsService.BOQLineItems" Multiplicity="*" Role="BOQLineItems"></End>
+                <End Type="VendorsService.ParentLineItems" Multiplicity="0..1" Role="ParentLineItems"></End>
+                <ReferentialConstraint>
+                    <Principal Role="ParentLineItems">
+                        <PropertyRef Name="ID"></PropertyRef>
+                    </Principal>
+                    <Dependent Role="BOQLineItems">
+                        <PropertyRef Name="parent_line_item_ID"></PropertyRef>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="BOQLineItems_purchase_order">
+                <End Type="VendorsService.BOQLineItems" Multiplicity="*" Role="BOQLineItems"></End>
+                <End Type="VendorsService.PurchaseOrders" Multiplicity="0..1" Role="PurchaseOrders"></End>
+                <ReferentialConstraint>
+                    <Principal Role="PurchaseOrders">
+                        <PropertyRef Name="po_number"></PropertyRef>
+                        <PropertyRef Name="ID"></PropertyRef>
+                    </Principal>
+                    <Dependent Role="BOQLineItems">
+                        <PropertyRef Name="po_number"></PropertyRef>
+                        <PropertyRef Name="purchase_order_ID"></PropertyRef>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="Buyers_address">
+                <End Type="VendorsService.Buyers" Multiplicity="*" Role="Buyers"></End>
+                <End Type="VendorsService.Addresses" Multiplicity="0..1" Role="Addresses"></End>
+                <ReferentialConstraint>
+                    <Principal Role="Addresses">
+                        <PropertyRef Name="ID"></PropertyRef>
+                    </Principal>
+                    <Dependent Role="Buyers">
+                        <PropertyRef Name="address_ID"></PropertyRef>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="ChildLineItems_parent_line_item">
+                <End Type="VendorsService.ChildLineItems" Multiplicity="*" Role="ChildLineItems"></End>
+                <End Type="VendorsService.ParentLineItems" Multiplicity="0..1" Role="ParentLineItems"></End>
+                <ReferentialConstraint>
+                    <Principal Role="ParentLineItems">
+                        <PropertyRef Name="ID"></PropertyRef>
+                    </Principal>
+                    <Dependent Role="ChildLineItems">
+                        <PropertyRef Name="parent_line_item_ID"></PropertyRef>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="InspectedChildItems_inspected_parent_line_item">
+                <End Type="VendorsService.InspectedChildItems" Multiplicity="*" Role="InspectedChildItems"></End>
+                <End Type="VendorsService.InspectedParentItems" Multiplicity="0..1" Role="InspectedParentItems"></End>
+                <ReferentialConstraint>
+                    <Principal Role="InspectedParentItems">
+                        <PropertyRef Name="ID"></PropertyRef>
+                    </Principal>
+                    <Dependent Role="InspectedChildItems">
+                        <PropertyRef Name="inspected_parent_line_item_ID"></PropertyRef>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="InspectedParentItems_inspection_call_id">
+                <End Type="VendorsService.InspectedParentItems" Multiplicity="*" Role="InspectedParentItems"></End>
+                <End Type="VendorsService.InspectionCallIds" Multiplicity="0..1" Role="InspectionCallIds"></End>
+                <ReferentialConstraint>
+                    <Principal Role="InspectionCallIds">
+                        <PropertyRef Name="ID"></PropertyRef>
+                    </Principal>
+                    <Dependent Role="InspectedParentItems">
+                        <PropertyRef Name="inspection_call_id_ID"></PropertyRef>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="InspectedParentItems_packing_list">
+                <End Type="VendorsService.InspectedParentItems" Multiplicity="*" Role="InspectedParentItems"></End>
+                <End Type="VendorsService.PackingLists" Multiplicity="0..1" Role="PackingLists"></End>
+                <ReferentialConstraint>
+                    <Principal Role="PackingLists">
+                        <PropertyRef Name="ID"></PropertyRef>
+                    </Principal>
+                    <Dependent Role="InspectedParentItems">
+                        <PropertyRef Name="packing_list_ID"></PropertyRef>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="InspectionCallIds_purchase_order">
+                <End Type="VendorsService.InspectionCallIds" Multiplicity="*" Role="InspectionCallIds"></End>
+                <End Type="VendorsService.PurchaseOrders" Multiplicity="0..1" Role="PurchaseOrders"></End>
+                <ReferentialConstraint>
+                    <Principal Role="PurchaseOrders">
+                        <PropertyRef Name="po_number"></PropertyRef>
+                        <PropertyRef Name="ID"></PropertyRef>
+                    </Principal>
+                    <Dependent Role="InspectionCallIds">
+                        <PropertyRef Name="po_number"></PropertyRef>
+                        <PropertyRef Name="purchase_order_ID"></PropertyRef>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="InspectionCallIds_qr_code">
+                <End Type="VendorsService.InspectionCallIds" Multiplicity="*" Role="InspectionCallIds"></End>
+                <End Type="VendorsService.QRCodes" Multiplicity="*" Role="QRCodes"></End>
+            </Association>
+            <Association Name="InspectionCallIds_packing_list">
+                <End Type="VendorsService.InspectionCallIds" Multiplicity="*" Role="InspectionCallIds"></End>
+                <End Type="VendorsService.PackingLists" Multiplicity="*" Role="PackingLists"></End>
+            </Association>
+            <Association Name="PackingListChildItems_packinglist_parent_line_items">
+                <End Type="VendorsService.PackingListChildItems" Multiplicity="*" Role="PackingListChildItems"></End>
+                <End Type="VendorsService.PackingListParentItems" Multiplicity="0..1" Role="PackingListParentItems"></End>
+                <ReferentialConstraint>
+                    <Principal Role="PackingListParentItems">
+                        <PropertyRef Name="ID"></PropertyRef>
+                    </Principal>
+                    <Dependent Role="PackingListChildItems">
+                        <PropertyRef Name="packinglist_parent_line_items_ID"></PropertyRef>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="PackingListChildItems_qr_code">
+                <End Type="VendorsService.PackingListChildItems" Multiplicity="*" Role="PackingListChildItems"></End>
+                <End Type="VendorsService.QRCodes" Multiplicity="0..1" Role="QRCodes"></End>
+                <ReferentialConstraint>
+                    <Principal Role="QRCodes">
+                        <PropertyRef Name="ID"></PropertyRef>
+                    </Principal>
+                    <Dependent Role="PackingListChildItems">
+                        <PropertyRef Name="qr_code_ID"></PropertyRef>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="PackingListParentItems_packing_list">
+                <End Type="VendorsService.PackingListParentItems" Multiplicity="*" Role="PackingListParentItems"></End>
+                <End Type="VendorsService.PackingLists" Multiplicity="0..1" Role="PackingLists"></End>
+                <ReferentialConstraint>
+                    <Principal Role="PackingLists">
+                        <PropertyRef Name="ID"></PropertyRef>
+                    </Principal>
+                    <Dependent Role="PackingListParentItems">
+                        <PropertyRef Name="packing_list_ID"></PropertyRef>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="PackingListParentItems_qr_code">
+                <End Type="VendorsService.PackingListParentItems" Multiplicity="*" Role="PackingListParentItems"></End>
+                <End Type="VendorsService.QRCodes" Multiplicity="0..1" Role="QRCodes"></End>
+                <ReferentialConstraint>
+                    <Principal Role="QRCodes">
+                        <PropertyRef Name="ID"></PropertyRef>
+                    </Principal>
+                    <Dependent Role="PackingListParentItems">
+                        <PropertyRef Name="qr_code_ID"></PropertyRef>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="PackingLists_insp_call">
+                <End Type="VendorsService.PackingLists" Multiplicity="*" Role="PackingLists"></End>
+                <End Type="VendorsService.InspectionCallIds" Multiplicity="*" Role="InspectionCallIds"></End>
+            </Association>
+            <Association Name="PackingLists_purchase_order">
+                <End Type="VendorsService.PackingLists" Multiplicity="*" Role="PackingLists"></End>
+                <End Type="VendorsService.PurchaseOrders" Multiplicity="0..1" Role="PurchaseOrders"></End>
+                <ReferentialConstraint>
+                    <Principal Role="PurchaseOrders">
+                        <PropertyRef Name="po_number"></PropertyRef>
+                        <PropertyRef Name="ID"></PropertyRef>
+                    </Principal>
+                    <Dependent Role="PackingLists">
+                        <PropertyRef Name="po_number"></PropertyRef>
+                        <PropertyRef Name="purchase_order_ID"></PropertyRef>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="PackingLists_qr_code">
+                <End Type="VendorsService.PackingLists" Multiplicity="*" Role="PackingLists"></End>
+                <End Type="VendorsService.QRCodes" Multiplicity="0..1" Role="QRCodes"></End>
+                <ReferentialConstraint>
+                    <Principal Role="QRCodes">
+                        <PropertyRef Name="ID"></PropertyRef>
+                    </Principal>
+                    <Dependent Role="PackingLists">
+                        <PropertyRef Name="qr_code_ID"></PropertyRef>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="PackingLists_qr_code_assistance">
+                <End Type="VendorsService.PackingLists" Multiplicity="*" Role="PackingLists"></End>
+                <End Type="VendorsService.QRCodeGenerationAssistance" Multiplicity="0..1" Role="QRCodeGenerationAssistance"></End>
+                <ReferentialConstraint>
+                    <Principal Role="QRCodeGenerationAssistance">
+                        <PropertyRef Name="ID"></PropertyRef>
+                    </Principal>
+                    <Dependent Role="PackingLists">
+                        <PropertyRef Name="qr_code_assistance_ID"></PropertyRef>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="ParentLineItems_purchase_order">
+                <End Type="VendorsService.ParentLineItems" Multiplicity="*" Role="ParentLineItems"></End>
+                <End Type="VendorsService.PurchaseOrders" Multiplicity="0..1" Role="PurchaseOrders"></End>
+                <ReferentialConstraint>
+                    <Principal Role="PurchaseOrders">
+                        <PropertyRef Name="po_number"></PropertyRef>
+                        <PropertyRef Name="ID"></PropertyRef>
+                    </Principal>
+                    <Dependent Role="ParentLineItems">
+                        <PropertyRef Name="po_number"></PropertyRef>
+                        <PropertyRef Name="purchase_order_ID"></PropertyRef>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="PriceScheduleDetails_purchase_order">
+                <End Type="VendorsService.PriceScheduleDetails" Multiplicity="*" Role="PriceScheduleDetails"></End>
+                <End Type="VendorsService.PurchaseOrders" Multiplicity="0..1" Role="PurchaseOrders"></End>
+                <ReferentialConstraint>
+                    <Principal Role="PurchaseOrders">
+                        <PropertyRef Name="po_number"></PropertyRef>
+                        <PropertyRef Name="ID"></PropertyRef>
+                    </Principal>
+                    <Dependent Role="PriceScheduleDetails">
+                        <PropertyRef Name="po_number"></PropertyRef>
+                        <PropertyRef Name="purchase_order_id"></PropertyRef>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="PurchaseOrders_vendor">
+                <End Type="VendorsService.PurchaseOrders" Multiplicity="*" Role="PurchaseOrders"></End>
+                <End Type="VendorsService.Vendors" Multiplicity="0..1" Role="Vendors"></End>
+                <ReferentialConstraint>
+                    <Principal Role="Vendors">
+                        <PropertyRef Name="ID"></PropertyRef>
+                    </Principal>
+                    <Dependent Role="PurchaseOrders">
+                        <PropertyRef Name="vendor_ID"></PropertyRef>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="PurchaseOrders_buyer">
+                <End Type="VendorsService.PurchaseOrders" Multiplicity="*" Role="PurchaseOrders"></End>
+                <End Type="VendorsService.Buyers" Multiplicity="0..1" Role="Buyers"></End>
+                <ReferentialConstraint>
+                    <Principal Role="Buyers">
+                        <PropertyRef Name="ID"></PropertyRef>
+                    </Principal>
+                    <Dependent Role="PurchaseOrders">
+                        <PropertyRef Name="buyer_ID"></PropertyRef>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="PurchaseOrders_sow_details">
+                <End Type="VendorsService.PurchaseOrders" Multiplicity="*" Role="PurchaseOrders"></End>
+                <End Type="VendorsService.SOWDetails" Multiplicity="0..1" Role="SOWDetails"></End>
+                <ReferentialConstraint>
+                    <Principal Role="SOWDetails">
+                        <PropertyRef Name="ID"></PropertyRef>
+                    </Principal>
+                    <Dependent Role="PurchaseOrders">
+                        <PropertyRef Name="sow_details_ID"></PropertyRef>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="PurchaseOrders_price_schedule_details">
+                <End Type="VendorsService.PurchaseOrders" Multiplicity="*" Role="PurchaseOrders"></End>
+                <End Type="VendorsService.PriceScheduleDetails" Multiplicity="0..1" Role="PriceScheduleDetails"></End>
+                <ReferentialConstraint>
+                    <Principal Role="PriceScheduleDetails">
+                        <PropertyRef Name="ID"></PropertyRef>
+                    </Principal>
+                    <Dependent Role="PurchaseOrders">
+                        <PropertyRef Name="price_schedule_details_ID"></PropertyRef>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="PurchaseOrders_packing_list">
+                <End Type="VendorsService.PurchaseOrders" Multiplicity="*" Role="PurchaseOrders"></End>
+                <End Type="VendorsService.PackingLists" Multiplicity="*" Role="PackingLists"></End>
+            </Association>
+            <Association Name="QRCodeGenerationAssistance_packing_list">
+                <End Type="VendorsService.QRCodeGenerationAssistance" Multiplicity="*" Role="QRCodeGenerationAssistance"></End>
+                <End Type="VendorsService.PackingLists" Multiplicity="0..1" Role="PackingLists"></End>
+                <ReferentialConstraint>
+                    <Principal Role="PackingLists">
+                        <PropertyRef Name="ID"></PropertyRef>
+                    </Principal>
+                    <Dependent Role="QRCodeGenerationAssistance">
+                        <PropertyRef Name="packing_list_ID"></PropertyRef>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="QRCodes_insp_call">
+                <End Type="VendorsService.QRCodes" Multiplicity="*" Role="QRCodes"></End>
+                <End Type="VendorsService.InspectionCallIds" Multiplicity="*" Role="InspectionCallIds"></End>
+            </Association>
+            <Association Name="QRCodes_packing_list">
+                <End Type="VendorsService.QRCodes" Multiplicity="*" Role="QRCodes"></End>
+                <End Type="VendorsService.PackingLists" Multiplicity="0..1" Role="PackingLists"></End>
+                <ReferentialConstraint>
+                    <Principal Role="PackingLists">
+                        <PropertyRef Name="ID"></PropertyRef>
+                    </Principal>
+                    <Dependent Role="QRCodes">
+                        <PropertyRef Name="packing_list_id"></PropertyRef>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="QRCodes_purchase_order">
+                <End Type="VendorsService.QRCodes" Multiplicity="*" Role="QRCodes"></End>
+                <End Type="VendorsService.PurchaseOrders" Multiplicity="0..1" Role="PurchaseOrders"></End>
+                <ReferentialConstraint>
+                    <Principal Role="PurchaseOrders">
+                        <PropertyRef Name="po_number"></PropertyRef>
+                        <PropertyRef Name="ID"></PropertyRef>
+                    </Principal>
+                    <Dependent Role="QRCodes">
+                        <PropertyRef Name="po_number"></PropertyRef>
+                        <PropertyRef Name="purchase_order_ID"></PropertyRef>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="QRCodes_packinglist_parent_line_items">
+                <End Type="VendorsService.QRCodes" Multiplicity="*" Role="QRCodes"></End>
+                <End Type="VendorsService.PackingListParentItems" Multiplicity="0..1" Role="PackingListParentItems"></End>
+                <ReferentialConstraint>
+                    <Principal Role="PackingListParentItems">
+                        <PropertyRef Name="ID"></PropertyRef>
+                    </Principal>
+                    <Dependent Role="QRCodes">
+                        <PropertyRef Name="packinglist_parent_item_id"></PropertyRef>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="QRCodes_packinglist_child_items">
+                <End Type="VendorsService.QRCodes" Multiplicity="*" Role="QRCodes"></End>
+                <End Type="VendorsService.PackingListChildItems" Multiplicity="0..1" Role="PackingListChildItems"></End>
+                <ReferentialConstraint>
+                    <Principal Role="PackingListChildItems">
+                        <PropertyRef Name="ID"></PropertyRef>
+                    </Principal>
+                    <Dependent Role="QRCodes">
+                        <PropertyRef Name="packinglist_child_item_id"></PropertyRef>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="SOWDetails_purchase_order">
+                <End Type="VendorsService.SOWDetails" Multiplicity="*" Role="SOWDetails"></End>
+                <End Type="VendorsService.PurchaseOrders" Multiplicity="0..1" Role="PurchaseOrders"></End>
+                <ReferentialConstraint>
+                    <Principal Role="PurchaseOrders">
+                        <PropertyRef Name="po_number"></PropertyRef>
+                        <PropertyRef Name="ID"></PropertyRef>
+                    </Principal>
+                    <Dependent Role="SOWDetails">
+                        <PropertyRef Name="po_number"></PropertyRef>
+                        <PropertyRef Name="purchase_order_id"></PropertyRef>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="ScannedMaterialsList_purchase_order">
+                <End Type="VendorsService.ScannedMaterialsList" Multiplicity="*" Role="ScannedMaterialsList"></End>
+                <End Type="VendorsService.PurchaseOrders" Multiplicity="0..1" Role="PurchaseOrders"></End>
+                <ReferentialConstraint>
+                    <Principal Role="PurchaseOrders">
+                        <PropertyRef Name="po_number"></PropertyRef>
+                        <PropertyRef Name="ID"></PropertyRef>
+                    </Principal>
+                    <Dependent Role="ScannedMaterialsList">
+                        <PropertyRef Name="po_number"></PropertyRef>
+                        <PropertyRef Name="purchase_order_ID"></PropertyRef>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="ScannedMaterialsList_qr_code">
+                <End Type="VendorsService.ScannedMaterialsList" Multiplicity="*" Role="ScannedMaterialsList"></End>
+                <End Type="VendorsService.QRCodes" Multiplicity="0..1" Role="QRCodes"></End>
+                <ReferentialConstraint>
+                    <Principal Role="QRCodes">
+                        <PropertyRef Name="ID"></PropertyRef>
+                    </Principal>
+                    <Dependent Role="ScannedMaterialsList">
+                        <PropertyRef Name="qr_code_ID"></PropertyRef>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="ScannedMaterialsList_packing_list">
+                <End Type="VendorsService.ScannedMaterialsList" Multiplicity="*" Role="ScannedMaterialsList"></End>
+                <End Type="VendorsService.PackingLists" Multiplicity="0..1" Role="PackingLists"></End>
+                <ReferentialConstraint>
+                    <Principal Role="PackingLists">
+                        <PropertyRef Name="ID"></PropertyRef>
+                    </Principal>
+                    <Dependent Role="ScannedMaterialsList">
+                        <PropertyRef Name="packing_list_ID"></PropertyRef>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="ScannedMaterialsList_insp_call">
+                <End Type="VendorsService.ScannedMaterialsList" Multiplicity="*" Role="ScannedMaterialsList"></End>
+                <End Type="VendorsService.InspectionCallIds" Multiplicity="*" Role="InspectionCallIds"></End>
+            </Association>
+            <Association Name="Vendors_address">
+                <End Type="VendorsService.Vendors" Multiplicity="*" Role="Vendors"></End>
+                <End Type="VendorsService.Addresses" Multiplicity="0..1" Role="Addresses"></End>
+                <ReferentialConstraint>
+                    <Principal Role="Addresses">
+                        <PropertyRef Name="ID"></PropertyRef>
+                    </Principal>
+                    <Dependent Role="Vendors">
+                        <PropertyRef Name="address_ID"></PropertyRef>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <EntityContainer Name="EntityContainer" m:IsDefaultEntityContainer="true">
+                <EntitySet Name="Addresses" EntityType="VendorsService.Addresses"></EntitySet>
+                <EntitySet Name="Attachments" EntityType="VendorsService.Attachments"></EntitySet>
+                <EntitySet Name="BOQLineItems" EntityType="VendorsService.BOQLineItems"></EntitySet>
+                <EntitySet Name="Buyers" EntityType="VendorsService.Buyers"></EntitySet>
+                <EntitySet Name="ChildLineItems" EntityType="VendorsService.ChildLineItems"></EntitySet>
+                <EntitySet Name="InspectedChildItems" EntityType="VendorsService.InspectedChildItems"></EntitySet>
+                <EntitySet Name="InspectedParentItems" EntityType="VendorsService.InspectedParentItems"></EntitySet>
+                <EntitySet Name="InspectionCallIds" EntityType="VendorsService.InspectionCallIds"></EntitySet>
+                <EntitySet Name="PackingListChildItems" EntityType="VendorsService.PackingListChildItems"></EntitySet>
+                <EntitySet Name="PackingListParentItems" EntityType="VendorsService.PackingListParentItems"></EntitySet>
+                <EntitySet Name="PackingLists" EntityType="VendorsService.PackingLists"></EntitySet>
+                <EntitySet Name="ParentLineItems" EntityType="VendorsService.ParentLineItems"></EntitySet>
+                <EntitySet Name="PriceScheduleDetails" EntityType="VendorsService.PriceScheduleDetails"></EntitySet>
+                <EntitySet Name="PurchaseOrders" EntityType="VendorsService.PurchaseOrders"></EntitySet>
+                <EntitySet Name="QRCodeGenerationAssistance" EntityType="VendorsService.QRCodeGenerationAssistance"></EntitySet>
+                <EntitySet Name="QRCodes" EntityType="VendorsService.QRCodes"></EntitySet>
+                <EntitySet Name="SOWDetails" EntityType="VendorsService.SOWDetails"></EntitySet>
+                <EntitySet Name="ScannedMaterialsList" EntityType="VendorsService.ScannedMaterialsList"></EntitySet>
+                <EntitySet Name="Vendors" EntityType="VendorsService.Vendors"></EntitySet>
+                <AssociationSet Name="Attachments_packing_list" Association="VendorsService.Attachments_packing_list">
+                    <End EntitySet="Attachments" Role="Attachments"></End>
+                    <End EntitySet="PackingLists" Role="PackingLists"></End>
+                </AssociationSet>
+                <AssociationSet Name="Attachments_insp_call" Association="VendorsService.Attachments_insp_call">
+                    <End EntitySet="Attachments" Role="Attachments"></End>
+                    <End EntitySet="InspectionCallIds" Role="InspectionCallIds"></End>
+                </AssociationSet>
+                <AssociationSet Name="BOQLineItems_parent_line_item" Association="VendorsService.BOQLineItems_parent_line_item">
+                    <End EntitySet="BOQLineItems" Role="BOQLineItems"></End>
+                    <End EntitySet="ParentLineItems" Role="ParentLineItems"></End>
+                </AssociationSet>
+                <AssociationSet Name="BOQLineItems_purchase_order" Association="VendorsService.BOQLineItems_purchase_order">
+                    <End EntitySet="BOQLineItems" Role="BOQLineItems"></End>
+                    <End EntitySet="PurchaseOrders" Role="PurchaseOrders"></End>
+                </AssociationSet>
+                <AssociationSet Name="Buyers_address" Association="VendorsService.Buyers_address">
+                    <End EntitySet="Buyers" Role="Buyers"></End>
+                    <End EntitySet="Addresses" Role="Addresses"></End>
+                </AssociationSet>
+                <AssociationSet Name="ChildLineItems_parent_line_item" Association="VendorsService.ChildLineItems_parent_line_item">
+                    <End EntitySet="ChildLineItems" Role="ChildLineItems"></End>
+                    <End EntitySet="ParentLineItems" Role="ParentLineItems"></End>
+                </AssociationSet>
+                <AssociationSet Name="InspectedChildItems_inspected_parent_line_item" Association="VendorsService.InspectedChildItems_inspected_parent_line_item">
+                    <End EntitySet="InspectedChildItems" Role="InspectedChildItems"></End>
+                    <End EntitySet="InspectedParentItems" Role="InspectedParentItems"></End>
+                </AssociationSet>
+                <AssociationSet Name="InspectedParentItems_inspection_call_id" Association="VendorsService.InspectedParentItems_inspection_call_id">
+                    <End EntitySet="InspectedParentItems" Role="InspectedParentItems"></End>
+                    <End EntitySet="InspectionCallIds" Role="InspectionCallIds"></End>
+                </AssociationSet>
+                <AssociationSet Name="InspectedParentItems_packing_list" Association="VendorsService.InspectedParentItems_packing_list">
+                    <End EntitySet="InspectedParentItems" Role="InspectedParentItems"></End>
+                    <End EntitySet="PackingLists" Role="PackingLists"></End>
+                </AssociationSet>
+                <AssociationSet Name="InspectionCallIds_purchase_order" Association="VendorsService.InspectionCallIds_purchase_order">
+                    <End EntitySet="InspectionCallIds" Role="InspectionCallIds"></End>
+                    <End EntitySet="PurchaseOrders" Role="PurchaseOrders"></End>
+                </AssociationSet>
+                <AssociationSet Name="InspectionCallIds_qr_code" Association="VendorsService.InspectionCallIds_qr_code">
+                    <End EntitySet="InspectionCallIds" Role="InspectionCallIds"></End>
+                    <End EntitySet="QRCodes" Role="QRCodes"></End>
+                </AssociationSet>
+                <AssociationSet Name="InspectionCallIds_packing_list" Association="VendorsService.InspectionCallIds_packing_list">
+                    <End EntitySet="InspectionCallIds" Role="InspectionCallIds"></End>
+                    <End EntitySet="PackingLists" Role="PackingLists"></End>
+                </AssociationSet>
+                <AssociationSet Name="PackingListChildItems_packinglist_parent_line_items" Association="VendorsService.PackingListChildItems_packinglist_parent_line_items">
+                    <End EntitySet="PackingListChildItems" Role="PackingListChildItems"></End>
+                    <End EntitySet="PackingListParentItems" Role="PackingListParentItems"></End>
+                </AssociationSet>
+                <AssociationSet Name="PackingListChildItems_qr_code" Association="VendorsService.PackingListChildItems_qr_code">
+                    <End EntitySet="PackingListChildItems" Role="PackingListChildItems"></End>
+                    <End EntitySet="QRCodes" Role="QRCodes"></End>
+                </AssociationSet>
+                <AssociationSet Name="PackingListParentItems_packing_list" Association="VendorsService.PackingListParentItems_packing_list">
+                    <End EntitySet="PackingListParentItems" Role="PackingListParentItems"></End>
+                    <End EntitySet="PackingLists" Role="PackingLists"></End>
+                </AssociationSet>
+                <AssociationSet Name="PackingListParentItems_qr_code" Association="VendorsService.PackingListParentItems_qr_code">
+                    <End EntitySet="PackingListParentItems" Role="PackingListParentItems"></End>
+                    <End EntitySet="QRCodes" Role="QRCodes"></End>
+                </AssociationSet>
+                <AssociationSet Name="PackingLists_insp_call" Association="VendorsService.PackingLists_insp_call">
+                    <End EntitySet="PackingLists" Role="PackingLists"></End>
+                    <End EntitySet="InspectionCallIds" Role="InspectionCallIds"></End>
+                </AssociationSet>
+                <AssociationSet Name="PackingLists_purchase_order" Association="VendorsService.PackingLists_purchase_order">
+                    <End EntitySet="PackingLists" Role="PackingLists"></End>
+                    <End EntitySet="PurchaseOrders" Role="PurchaseOrders"></End>
+                </AssociationSet>
+                <AssociationSet Name="PackingLists_qr_code" Association="VendorsService.PackingLists_qr_code">
+                    <End EntitySet="PackingLists" Role="PackingLists"></End>
+                    <End EntitySet="QRCodes" Role="QRCodes"></End>
+                </AssociationSet>
+                <AssociationSet Name="PackingLists_qr_code_assistance" Association="VendorsService.PackingLists_qr_code_assistance">
+                    <End EntitySet="PackingLists" Role="PackingLists"></End>
+                    <End EntitySet="QRCodeGenerationAssistance" Role="QRCodeGenerationAssistance"></End>
+                </AssociationSet>
+                <AssociationSet Name="ParentLineItems_purchase_order" Association="VendorsService.ParentLineItems_purchase_order">
+                    <End EntitySet="ParentLineItems" Role="ParentLineItems"></End>
+                    <End EntitySet="PurchaseOrders" Role="PurchaseOrders"></End>
+                </AssociationSet>
+                <AssociationSet Name="PriceScheduleDetails_purchase_order" Association="VendorsService.PriceScheduleDetails_purchase_order">
+                    <End EntitySet="PriceScheduleDetails" Role="PriceScheduleDetails"></End>
+                    <End EntitySet="PurchaseOrders" Role="PurchaseOrders"></End>
+                </AssociationSet>
+                <AssociationSet Name="PurchaseOrders_vendor" Association="VendorsService.PurchaseOrders_vendor">
+                    <End EntitySet="PurchaseOrders" Role="PurchaseOrders"></End>
+                    <End EntitySet="Vendors" Role="Vendors"></End>
+                </AssociationSet>
+                <AssociationSet Name="PurchaseOrders_buyer" Association="VendorsService.PurchaseOrders_buyer">
+                    <End EntitySet="PurchaseOrders" Role="PurchaseOrders"></End>
+                    <End EntitySet="Buyers" Role="Buyers"></End>
+                </AssociationSet>
+                <AssociationSet Name="PurchaseOrders_sow_details" Association="VendorsService.PurchaseOrders_sow_details">
+                    <End EntitySet="PurchaseOrders" Role="PurchaseOrders"></End>
+                    <End EntitySet="SOWDetails" Role="SOWDetails"></End>
+                </AssociationSet>
+                <AssociationSet Name="PurchaseOrders_price_schedule_details" Association="VendorsService.PurchaseOrders_price_schedule_details">
+                    <End EntitySet="PurchaseOrders" Role="PurchaseOrders"></End>
+                    <End EntitySet="PriceScheduleDetails" Role="PriceScheduleDetails"></End>
+                </AssociationSet>
+                <AssociationSet Name="PurchaseOrders_packing_list" Association="VendorsService.PurchaseOrders_packing_list">
+                    <End EntitySet="PurchaseOrders" Role="PurchaseOrders"></End>
+                    <End EntitySet="PackingLists" Role="PackingLists"></End>
+                </AssociationSet>
+                <AssociationSet Name="QRCodeGenerationAssistance_packing_list" Association="VendorsService.QRCodeGenerationAssistance_packing_list">
+                    <End EntitySet="QRCodeGenerationAssistance" Role="QRCodeGenerationAssistance"></End>
+                    <End EntitySet="PackingLists" Role="PackingLists"></End>
+                </AssociationSet>
+                <AssociationSet Name="QRCodes_insp_call" Association="VendorsService.QRCodes_insp_call">
+                    <End EntitySet="QRCodes" Role="QRCodes"></End>
+                    <End EntitySet="InspectionCallIds" Role="InspectionCallIds"></End>
+                </AssociationSet>
+                <AssociationSet Name="QRCodes_packing_list" Association="VendorsService.QRCodes_packing_list">
+                    <End EntitySet="QRCodes" Role="QRCodes"></End>
+                    <End EntitySet="PackingLists" Role="PackingLists"></End>
+                </AssociationSet>
+                <AssociationSet Name="QRCodes_purchase_order" Association="VendorsService.QRCodes_purchase_order">
+                    <End EntitySet="QRCodes" Role="QRCodes"></End>
+                    <End EntitySet="PurchaseOrders" Role="PurchaseOrders"></End>
+                </AssociationSet>
+                <AssociationSet Name="QRCodes_packinglist_parent_line_items" Association="VendorsService.QRCodes_packinglist_parent_line_items">
+                    <End EntitySet="QRCodes" Role="QRCodes"></End>
+                    <End EntitySet="PackingListParentItems" Role="PackingListParentItems"></End>
+                </AssociationSet>
+                <AssociationSet Name="QRCodes_packinglist_child_items" Association="VendorsService.QRCodes_packinglist_child_items">
+                    <End EntitySet="QRCodes" Role="QRCodes"></End>
+                    <End EntitySet="PackingListChildItems" Role="PackingListChildItems"></End>
+                </AssociationSet>
+                <AssociationSet Name="SOWDetails_purchase_order" Association="VendorsService.SOWDetails_purchase_order">
+                    <End EntitySet="SOWDetails" Role="SOWDetails"></End>
+                    <End EntitySet="PurchaseOrders" Role="PurchaseOrders"></End>
+                </AssociationSet>
+                <AssociationSet Name="ScannedMaterialsList_purchase_order" Association="VendorsService.ScannedMaterialsList_purchase_order">
+                    <End EntitySet="ScannedMaterialsList" Role="ScannedMaterialsList"></End>
+                    <End EntitySet="PurchaseOrders" Role="PurchaseOrders"></End>
+                </AssociationSet>
+                <AssociationSet Name="ScannedMaterialsList_qr_code" Association="VendorsService.ScannedMaterialsList_qr_code">
+                    <End EntitySet="ScannedMaterialsList" Role="ScannedMaterialsList"></End>
+                    <End EntitySet="QRCodes" Role="QRCodes"></End>
+                </AssociationSet>
+                <AssociationSet Name="ScannedMaterialsList_packing_list" Association="VendorsService.ScannedMaterialsList_packing_list">
+                    <End EntitySet="ScannedMaterialsList" Role="ScannedMaterialsList"></End>
+                    <End EntitySet="PackingLists" Role="PackingLists"></End>
+                </AssociationSet>
+                <AssociationSet Name="ScannedMaterialsList_insp_call" Association="VendorsService.ScannedMaterialsList_insp_call">
+                    <End EntitySet="ScannedMaterialsList" Role="ScannedMaterialsList"></End>
+                    <End EntitySet="InspectionCallIds" Role="InspectionCallIds"></End>
+                </AssociationSet>
+                <AssociationSet Name="Vendors_address" Association="VendorsService.Vendors_address">
+                    <End EntitySet="Vendors" Role="Vendors"></End>
+                    <End EntitySet="Addresses" Role="Addresses"></End>
+                </AssociationSet>
+                <FunctionImport Name="confirmPO" ReturnType="VendorsService.apiResponse" m:HttpMethod="POST">
+                    <Parameter Name="status" Type="Edm.String" Mode="In" Nullable="true"></Parameter>
+                    <Parameter Name="po_uuid" Type="Edm.String" Mode="In" Nullable="true"></Parameter>
+                </FunctionImport>
+                <FunctionImport Name="downloadPackingListDocument" ReturnType="VendorsService.apiResponse" m:HttpMethod="POST">
+                    <Parameter Name="insp_call_id" Type="Edm.String" Mode="In" Nullable="true"></Parameter>
+                    <Parameter Name="packing_list_id" Type="Edm.String" Mode="In" Nullable="true"></Parameter>
+                </FunctionImport>
+                <FunctionImport Name="enterInvoiceNumber" ReturnType="VendorsService.apiResponse" m:HttpMethod="POST">
+                    <Parameter Name="poNumber" Type="Edm.String" Mode="In" Nullable="true"></Parameter>
+                    <Parameter Name="invoiceNumber" Type="Edm.String" Mode="In" Nullable="true"></Parameter>
+                </FunctionImport>
+                <FunctionImport Name="qrCodeGenerationAssistanceRequest" ReturnType="VendorsService.apiResponse" m:HttpMethod="POST">
+                    <Parameter Name="reason" Type="Edm.String" Mode="In" Nullable="true"></Parameter>
+                    <Parameter Name="description" Type="Edm.String" Mode="In" Nullable="true"></Parameter>
+                    <Parameter Name="packing_list_ID" Type="Edm.String" Mode="In" Nullable="true"></Parameter>
+                </FunctionImport>
+                <FunctionImport Name="submitVehicleNumber" ReturnType="VendorsService.apiResponse" m:HttpMethod="POST">
+                    <Parameter Name="packingListId" Type="Edm.String" Mode="In" Nullable="true"></Parameter>
+                    <Parameter Name="vehicleNumber" Type="Edm.String" Mode="In" Nullable="true"></Parameter>
+                </FunctionImport>
+                <FunctionImport Name="updatePackingListStatus" ReturnType="VendorsService.apiResponse" m:HttpMethod="POST">
+                    <Parameter Name="status" Type="Edm.String" Mode="In" Nullable="true"></Parameter>
+                    <Parameter Name="packing_list_id" Type="Edm.String" Mode="In" Nullable="true"></Parameter>
+                </FunctionImport>
+            </EntityContainer>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.Addresses">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Capabilities.DeleteRestrictions">
+                    <Record xmlns="http://docs.oasis-open.org/odata/ns/edm" Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Deletable" Bool="false"></PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Capabilities.InsertRestrictions">
+                    <Record xmlns="http://docs.oasis-open.org/odata/ns/edm" Type="Capabilities.InsertRestrictionsType">
+                        <PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Insertable" Bool="false"></PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Capabilities.UpdateRestrictions">
+                    <Record xmlns="http://docs.oasis-open.org/odata/ns/edm" Type="Capabilities.UpdateRestrictionsType">
+                        <PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Updatable" Bool="false"></PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.EntityContainer/Addresses">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Capabilities.DeleteRestrictions">
+                    <Record xmlns="http://docs.oasis-open.org/odata/ns/edm" Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Deletable" Bool="false"></PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Capabilities.InsertRestrictions">
+                    <Record xmlns="http://docs.oasis-open.org/odata/ns/edm" Type="Capabilities.InsertRestrictionsType">
+                        <PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Insertable" Bool="false"></PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Capabilities.UpdateRestrictions">
+                    <Record xmlns="http://docs.oasis-open.org/odata/ns/edm" Type="Capabilities.UpdateRestrictionsType">
+                        <PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Updatable" Bool="false"></PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.Addresses/createdAt">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.Label" String="Created On"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Computed" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Immutable" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="UI.HiddenFilter" Bool="true"></Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.Addresses/createdBy">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.Label" String="Created By"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Computed" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Description" String="User's unique ID"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Immutable" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="UI.HiddenFilter" Bool="true"></Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.Addresses/modifiedAt">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.Label" String="Changed On"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Computed" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="UI.HiddenFilter" Bool="true"></Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.Addresses/modifiedBy">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.Label" String="Changed By"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Computed" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Description" String="User's unique ID"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="UI.HiddenFilter" Bool="true"></Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.Attachments/createdAt">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.Label" String="Created On"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Computed" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Immutable" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="UI.HiddenFilter" Bool="true"></Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.Attachments/createdBy">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.Label" String="Created By"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Computed" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Description" String="User's unique ID"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Immutable" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="UI.HiddenFilter" Bool="true"></Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.Attachments/modifiedAt">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.Label" String="Changed On"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Computed" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="UI.HiddenFilter" Bool="true"></Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.Attachments/modifiedBy">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.Label" String="Changed By"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Computed" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Description" String="User's unique ID"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="UI.HiddenFilter" Bool="true"></Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.BOQLineItems/createdAt">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.Label" String="Created On"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Computed" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Immutable" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="UI.HiddenFilter" Bool="true"></Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.BOQLineItems/createdBy">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.Label" String="Created By"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Computed" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Description" String="User's unique ID"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Immutable" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="UI.HiddenFilter" Bool="true"></Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.BOQLineItems/modifiedAt">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.Label" String="Changed On"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Computed" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="UI.HiddenFilter" Bool="true"></Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.BOQLineItems/modifiedBy">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.Label" String="Changed By"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Computed" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Description" String="User's unique ID"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="UI.HiddenFilter" Bool="true"></Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.BOQLineItems/boq_line_item_id">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"></Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.BOQLineItems/material_code">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"></Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.BOQLineItems/qty">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"></Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.Buyers">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Capabilities.DeleteRestrictions">
+                    <Record xmlns="http://docs.oasis-open.org/odata/ns/edm" Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Deletable" Bool="false"></PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Capabilities.InsertRestrictions">
+                    <Record xmlns="http://docs.oasis-open.org/odata/ns/edm" Type="Capabilities.InsertRestrictionsType">
+                        <PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Insertable" Bool="false"></PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Capabilities.UpdateRestrictions">
+                    <Record xmlns="http://docs.oasis-open.org/odata/ns/edm" Type="Capabilities.UpdateRestrictionsType">
+                        <PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Updatable" Bool="false"></PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.EntityContainer/Buyers">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Capabilities.DeleteRestrictions">
+                    <Record xmlns="http://docs.oasis-open.org/odata/ns/edm" Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Deletable" Bool="false"></PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Capabilities.InsertRestrictions">
+                    <Record xmlns="http://docs.oasis-open.org/odata/ns/edm" Type="Capabilities.InsertRestrictionsType">
+                        <PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Insertable" Bool="false"></PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Capabilities.UpdateRestrictions">
+                    <Record xmlns="http://docs.oasis-open.org/odata/ns/edm" Type="Capabilities.UpdateRestrictionsType">
+                        <PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Updatable" Bool="false"></PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.Buyers/createdAt">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.Label" String="Created On"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Computed" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Immutable" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="UI.HiddenFilter" Bool="true"></Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.Buyers/createdBy">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.Label" String="Created By"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Computed" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Description" String="User's unique ID"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Immutable" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="UI.HiddenFilter" Bool="true"></Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.Buyers/modifiedAt">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.Label" String="Changed On"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Computed" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="UI.HiddenFilter" Bool="true"></Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.Buyers/modifiedBy">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.Label" String="Changed By"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Computed" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Description" String="User's unique ID"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="UI.HiddenFilter" Bool="true"></Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.Buyers/email">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Validation.Pattern" String="^[A-Za-z0-9+_.-]+@(.+)$"></Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.Buyers/buyer_code">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"></Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.ChildLineItems/child_line_item_id">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"></Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.ChildLineItems/material_code">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"></Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.ChildLineItems/qty">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"></Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.InspectedChildItems/createdAt">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.Label" String="Created On"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Computed" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Immutable" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="UI.HiddenFilter" Bool="true"></Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.InspectedChildItems/createdBy">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.Label" String="Created By"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Computed" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Description" String="User's unique ID"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Immutable" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="UI.HiddenFilter" Bool="true"></Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.InspectedChildItems/modifiedAt">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.Label" String="Changed On"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Computed" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="UI.HiddenFilter" Bool="true"></Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.InspectedChildItems/modifiedBy">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.Label" String="Changed By"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Computed" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Description" String="User's unique ID"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="UI.HiddenFilter" Bool="true"></Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.InspectedParentItems/createdAt">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.Label" String="Created On"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Computed" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Immutable" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="UI.HiddenFilter" Bool="true"></Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.InspectedParentItems/createdBy">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.Label" String="Created By"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Computed" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Description" String="User's unique ID"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Immutable" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="UI.HiddenFilter" Bool="true"></Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.InspectedParentItems/modifiedAt">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.Label" String="Changed On"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Computed" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="UI.HiddenFilter" Bool="true"></Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.InspectedParentItems/modifiedBy">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.Label" String="Changed By"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Computed" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Description" String="User's unique ID"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="UI.HiddenFilter" Bool="true"></Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.InspectionCallIds/createdAt">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.Label" String="Created On"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Computed" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Immutable" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="UI.HiddenFilter" Bool="true"></Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.InspectionCallIds/createdBy">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.Label" String="Created By"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Computed" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Description" String="User's unique ID"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Immutable" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="UI.HiddenFilter" Bool="true"></Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.InspectionCallIds/modifiedAt">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.Label" String="Changed On"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Computed" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="UI.HiddenFilter" Bool="true"></Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.InspectionCallIds/modifiedBy">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.Label" String="Changed By"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Computed" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Description" String="User's unique ID"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="UI.HiddenFilter" Bool="true"></Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.InspectionCallIds/po_number">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"></Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.PackingListChildItems/createdAt">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.Label" String="Created On"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Computed" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Immutable" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="UI.HiddenFilter" Bool="true"></Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.PackingListChildItems/createdBy">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.Label" String="Created By"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Computed" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Description" String="User's unique ID"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Immutable" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="UI.HiddenFilter" Bool="true"></Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.PackingListChildItems/modifiedAt">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.Label" String="Changed On"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Computed" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="UI.HiddenFilter" Bool="true"></Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.PackingListChildItems/modifiedBy">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.Label" String="Changed By"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Computed" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Description" String="User's unique ID"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="UI.HiddenFilter" Bool="true"></Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.PackingListParentItems/createdAt">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.Label" String="Created On"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Computed" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Immutable" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="UI.HiddenFilter" Bool="true"></Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.PackingListParentItems/createdBy">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.Label" String="Created By"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Computed" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Description" String="User's unique ID"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Immutable" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="UI.HiddenFilter" Bool="true"></Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.PackingListParentItems/modifiedAt">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.Label" String="Changed On"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Computed" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="UI.HiddenFilter" Bool="true"></Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.PackingListParentItems/modifiedBy">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.Label" String="Changed By"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Computed" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Description" String="User's unique ID"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="UI.HiddenFilter" Bool="true"></Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.PackingLists/createdAt">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.Label" String="Created On"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Computed" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Immutable" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="UI.HiddenFilter" Bool="true"></Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.PackingLists/createdBy">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.Label" String="Created By"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Computed" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Description" String="User's unique ID"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Immutable" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="UI.HiddenFilter" Bool="true"></Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.PackingLists/modifiedAt">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.Label" String="Changed On"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Computed" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="UI.HiddenFilter" Bool="true"></Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.PackingLists/modifiedBy">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.Label" String="Changed By"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Computed" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Description" String="User's unique ID"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="UI.HiddenFilter" Bool="true"></Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.PackingLists/po_number">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"></Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.ParentLineItems/parent_line_item_id">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"></Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.ParentLineItems/po_number">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"></Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.ParentLineItems/material_code">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"></Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.ParentLineItems/qty">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"></Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.PriceScheduleDetails/createdAt">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.Label" String="Created On"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Computed" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Immutable" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="UI.HiddenFilter" Bool="true"></Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.PriceScheduleDetails/createdBy">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.Label" String="Created By"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Computed" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Description" String="User's unique ID"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Immutable" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="UI.HiddenFilter" Bool="true"></Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.PriceScheduleDetails/modifiedAt">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.Label" String="Changed On"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Computed" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="UI.HiddenFilter" Bool="true"></Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.PriceScheduleDetails/modifiedBy">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.Label" String="Changed By"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Computed" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Description" String="User's unique ID"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="UI.HiddenFilter" Bool="true"></Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.PurchaseOrders">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Capabilities.DeleteRestrictions">
+                    <Record xmlns="http://docs.oasis-open.org/odata/ns/edm" Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Deletable" Bool="false"></PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Capabilities.InsertRestrictions">
+                    <Record xmlns="http://docs.oasis-open.org/odata/ns/edm" Type="Capabilities.InsertRestrictionsType">
+                        <PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Insertable" Bool="false"></PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Capabilities.UpdateRestrictions">
+                    <Record xmlns="http://docs.oasis-open.org/odata/ns/edm" Type="Capabilities.UpdateRestrictionsType">
+                        <PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Updatable" Bool="false"></PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.EntityContainer/PurchaseOrders">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Capabilities.DeleteRestrictions">
+                    <Record xmlns="http://docs.oasis-open.org/odata/ns/edm" Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Deletable" Bool="false"></PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Capabilities.InsertRestrictions">
+                    <Record xmlns="http://docs.oasis-open.org/odata/ns/edm" Type="Capabilities.InsertRestrictionsType">
+                        <PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Insertable" Bool="false"></PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Capabilities.UpdateRestrictions">
+                    <Record xmlns="http://docs.oasis-open.org/odata/ns/edm" Type="Capabilities.UpdateRestrictionsType">
+                        <PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Updatable" Bool="false"></PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.PurchaseOrders/invoice_number">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"></Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.QRCodeGenerationAssistance/createdAt">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.Label" String="Created On"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Computed" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Immutable" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="UI.HiddenFilter" Bool="true"></Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.QRCodeGenerationAssistance/createdBy">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.Label" String="Created By"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Computed" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Description" String="User's unique ID"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Immutable" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="UI.HiddenFilter" Bool="true"></Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.QRCodeGenerationAssistance/modifiedAt">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.Label" String="Changed On"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Computed" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="UI.HiddenFilter" Bool="true"></Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.QRCodeGenerationAssistance/modifiedBy">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.Label" String="Changed By"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Computed" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Description" String="User's unique ID"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="UI.HiddenFilter" Bool="true"></Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.QRCodes">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Capabilities.DeleteRestrictions">
+                    <Record xmlns="http://docs.oasis-open.org/odata/ns/edm" Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Deletable" Bool="false"></PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Capabilities.InsertRestrictions">
+                    <Record xmlns="http://docs.oasis-open.org/odata/ns/edm" Type="Capabilities.InsertRestrictionsType">
+                        <PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Insertable" Bool="false"></PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Capabilities.UpdateRestrictions">
+                    <Record xmlns="http://docs.oasis-open.org/odata/ns/edm" Type="Capabilities.UpdateRestrictionsType">
+                        <PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Updatable" Bool="false"></PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.EntityContainer/QRCodes">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Capabilities.DeleteRestrictions">
+                    <Record xmlns="http://docs.oasis-open.org/odata/ns/edm" Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Deletable" Bool="false"></PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Capabilities.InsertRestrictions">
+                    <Record xmlns="http://docs.oasis-open.org/odata/ns/edm" Type="Capabilities.InsertRestrictionsType">
+                        <PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Insertable" Bool="false"></PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Capabilities.UpdateRestrictions">
+                    <Record xmlns="http://docs.oasis-open.org/odata/ns/edm" Type="Capabilities.UpdateRestrictionsType">
+                        <PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Updatable" Bool="false"></PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.QRCodes/createdAt">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.Label" String="Created On"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Computed" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Immutable" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="UI.HiddenFilter" Bool="true"></Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.QRCodes/createdBy">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.Label" String="Created By"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Computed" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Description" String="User's unique ID"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Immutable" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="UI.HiddenFilter" Bool="true"></Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.QRCodes/modifiedAt">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.Label" String="Changed On"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Computed" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="UI.HiddenFilter" Bool="true"></Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.QRCodes/modifiedBy">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.Label" String="Changed By"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Computed" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Description" String="User's unique ID"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="UI.HiddenFilter" Bool="true"></Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.SOWDetails/createdAt">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.Label" String="Created On"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Computed" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Immutable" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="UI.HiddenFilter" Bool="true"></Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.SOWDetails/createdBy">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.Label" String="Created By"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Computed" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Description" String="User's unique ID"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Immutable" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="UI.HiddenFilter" Bool="true"></Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.SOWDetails/modifiedAt">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.Label" String="Changed On"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Computed" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="UI.HiddenFilter" Bool="true"></Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.SOWDetails/modifiedBy">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.Label" String="Changed By"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Computed" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Description" String="User's unique ID"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="UI.HiddenFilter" Bool="true"></Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.ScannedMaterialsList/createdAt">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.Label" String="Created On"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Computed" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Immutable" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="UI.HiddenFilter" Bool="true"></Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.ScannedMaterialsList/createdBy">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.Label" String="Created By"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Computed" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Description" String="User's unique ID"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Immutable" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="UI.HiddenFilter" Bool="true"></Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.ScannedMaterialsList/modifiedAt">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.Label" String="Changed On"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Computed" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="UI.HiddenFilter" Bool="true"></Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.ScannedMaterialsList/modifiedBy">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.Label" String="Changed By"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Computed" Bool="true"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.Description" String="User's unique ID"></Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="UI.HiddenFilter" Bool="true"></Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.ScannedMaterialsList/po_number">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"></Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.Vendors">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Capabilities.DeleteRestrictions">
+                    <Record xmlns="http://docs.oasis-open.org/odata/ns/edm" Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Deletable" Bool="false"></PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Capabilities.InsertRestrictions">
+                    <Record xmlns="http://docs.oasis-open.org/odata/ns/edm" Type="Capabilities.InsertRestrictionsType">
+                        <PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Insertable" Bool="false"></PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Capabilities.UpdateRestrictions">
+                    <Record xmlns="http://docs.oasis-open.org/odata/ns/edm" Type="Capabilities.UpdateRestrictionsType">
+                        <PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Updatable" Bool="false"></PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.EntityContainer/Vendors">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Capabilities.DeleteRestrictions">
+                    <Record xmlns="http://docs.oasis-open.org/odata/ns/edm" Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Deletable" Bool="false"></PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Capabilities.InsertRestrictions">
+                    <Record xmlns="http://docs.oasis-open.org/odata/ns/edm" Type="Capabilities.InsertRestrictionsType">
+                        <PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Insertable" Bool="false"></PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Capabilities.UpdateRestrictions">
+                    <Record xmlns="http://docs.oasis-open.org/odata/ns/edm" Type="Capabilities.UpdateRestrictionsType">
+                        <PropertyValue xmlns="http://docs.oasis-open.org/odata/ns/edm" Property="Updatable" Bool="false"></PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.Vendors/email">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Validation.Pattern" String="^[A-Za-z0-9+_.-]+@(.+)$"></Annotation>
+            </Annotations>
+            <Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="VendorsService.Vendors/vendor_code">
+                <Annotation xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"></Annotation>
+            </Annotations>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

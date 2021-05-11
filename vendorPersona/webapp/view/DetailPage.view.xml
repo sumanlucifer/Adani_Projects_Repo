@@ -5,7 +5,11 @@
     xmlns="sap.m"
     xmlns:f="sap.f"
     xmlns:fb="sap.ui.comp.filterbar"
-    xmlns:vm="sap.ui.comp.variants">
+    xmlns:vm="sap.ui.comp.variants"
+    xmlns:smartTable="sap.ui.comp.smarttable"
+    xmlns:ndc="sap.ndc"
+    xmlns:x="be.wl.ScannerAppLibrary.controls"
+    xmlns:tt="sap.ui.table">
     <f:DynamicPage headerExpanded="true" busy="{objectViewModel>/busy}">
         <!-- DynamicPage Title -->
         <f:title>
@@ -32,7 +36,7 @@
                             </fb:FilterGroupItem>
                             <fb:FilterGroupItem groupName="__$INTERNAL$" name="po_release_date" label="{i18n>Date}" visibleInFilterBar="true" class="searchFieldLabelHidden">
                                 <fb:control>
-                                    <DateRangeSelection	id="dateRangeSelectionId" displayFormat="dd/MM/yyyy" change="onDateRangeSelectionChange"/>
+                                    <DateRangeSelection id="dateRangeSelectionId" displayFormat="dd/MM/yyyy" change="onDateRangeSelectionChange"/>
                                 </fb:control>
                             </fb:FilterGroupItem>
                             <!-- <fb:FilterGroupItem groupName="__$INTERNAL$" name="invoice_number" label="{i18n>ParentCode}" visibleInFilterBar="true" class="searchFieldLabelHidden">
@@ -54,8 +58,10 @@
             <IconTabBar id="idIconTabBar" select="onIconTabSelect" headerMode="Inline" expanded="true" class="sapUiResponsiveContentPadding">
                 <items>
                     <IconTabFilter id="idOpenPOTabTitle" text="{i18n>openPOs}" key="OpenPOKey" count="{oIconTabCountModel>/openCount}">
-                         <Table id="idPurchaseOrdersTable" width="auto" noDataText="{i18n>noDataForPOs}" busyIndicatorDelay="{objectViewModel>busy}" 
-                           updateFinished="onPurchaseOrderTableUpdateFinished" growing="true" growingScrollToLoad="true" items="{PurchaseOrders}">
+                        <Button text="Test QR" press="onQRPress"></Button>
+                        <x:QRScanner QRCodeScanned=".onQRCodeScanned" value="{ui>/QRCode}" />
+                        <ndc:BarcodeScannerButton/>
+                        <Table id="idPurchaseOrdersTable" width="auto" noDataText="{i18n>noDataForPOs}" busyIndicatorDelay="{objectViewModel>busy}" updateFinished="onPurchaseOrderTableUpdateFinished" growing="true" growingScrollToLoad="true" items="{PurchaseOrders}">
                             <columns>
                                 <Column>
                                     <Text text="{i18n>ponum}"/>
@@ -84,8 +90,7 @@
                         </Table>
                     </IconTabFilter>
                     <IconTabFilter text="{i18n>ConfirmedPO}" key="ConfirmPOKey" count="{oIconTabCountModel>/confirmCount}">
-                         <Table id="idConfirmPOTable" width="auto" noDataText="{i18n>noDataForPOs}" busyIndicatorDelay="{objectViewModel>busy}" 
-                         updateFinished="onConfirmPOTableUpdateFinished" growing="true" growingScrollToLoad="true" items="{PurchaseOrders}">
+                        <Table id="idConfirmPOTable" width="auto" noDataText="{i18n>noDataForPOs}" busyIndicatorDelay="{objectViewModel>busy}" updateFinished="onConfirmPOTableUpdateFinished" growing="true" growingScrollToLoad="true" items="{PurchaseOrders}">
                             <columns>
                                 <Column>
                                     <Text text="{i18n>ponum}"/>
@@ -93,7 +98,7 @@
                                 <Column>
                                     <Text text="{i18n>vendorName}"/>
                                 </Column>
-                                 <Column>
+                                <Column>
                                     <Text text="{i18n>releaseDate}"/>
                                 </Column>
                                 <Column>
@@ -113,8 +118,7 @@
                         </Table>
                     </IconTabFilter>
                     <IconTabFilter text="{i18n>Dispatched}" key="DispatchPOKey" count="{oIconTabCountModel>/dispatchCount}">
-                         <Table id="idDispatchedPOTable" width="auto" noDataText="{i18n>noDataForPOs}" busyIndicatorDelay="{objectViewModel>busy}" 
-                         updateFinished="onDispatchPOTableUpdateFinished" growing="true" growingScrollToLoad="true" items="{PurchaseOrders}">
+                        <Table id="idDispatchedPOTable" width="auto" noDataText="{i18n>noDataForPOs}" busyIndicatorDelay="{objectViewModel>busy}" updateFinished="onDispatchPOTableUpdateFinished" growing="true" growingScrollToLoad="true" items="{PurchaseOrders}">
                             <columns>
                                 <Column>
                                     <Text text="{i18n>ponum}"/>
@@ -122,7 +126,7 @@
                                 <Column>
                                     <Text text="{i18n>vendorName}"/>
                                 </Column>
-                                 <Column>
+                                <Column>
                                     <Text text="{i18n>releaseDate}"/>
                                 </Column>
                                 <Column>
@@ -141,6 +145,84 @@
                                 </ColumnListItem>
                             </items>
                         </Table>
+                    </IconTabFilter>
+                    <IconTabFilter text="Smart Table">
+
+
+                        <smartTable:SmartTable class="sapUiSizeCompact " editable="false" placeToolbarInTable="true" enableAutoBinding="true" entitySet="Vendors" header="Vendors" showFullScreenButton="true" showRowCount="true" tableType="ResponsiveTable" demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" initiallyVisibleFields="ID,name">
+                            <!-- <smartTable:layoutData>
+                                <FlexItemData growFactor="1" />
+                            </smartTable:layoutData> -->
+                            <Table sticky="ColumnHeaders,HeaderToolbar">
+                                <columns>
+                                    <Column>
+                                        <customData>
+                                            <core:CustomData key="p13nData" value='\{"columnKey": "ID", "leadingProperty": "ID", "columnIndex": 0 ,"sortProperty": "ID","filterProperty": "ID"}'/>
+                                        </customData>
+                                        <Text text="abc"/>
+
+                                    </Column>
+                                    <Column>
+                                        <customData>
+                                            <core:CustomData key="p13nData" value='\{"columnKey": "name", "leadingProperty": "name", "columnIndex": 1 ,"sortProperty": "name","filterProperty": "name"}'/>
+                                        </customData>
+                                        <Text text="Name"/>
+
+                                    </Column>
+                                </columns>
+                                <items>
+                                    <ColumnListItem>
+                                        <cells>
+                                            <ObjectIdentifier text="{ID}"/>
+                                            <ObjectIdentifier text="{name}"/>
+                                        </cells>
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
+                        </smartTable:SmartTable>
+
+                        <tt:TreeTable id="treeTable" selectionMode="Single" enableColumnReordering="false" expandFirstLevel="false" rows="{
+                                path : '/ParentLineItems',
+                                parameters : {
+                                    countMode: 'Inline',
+                                    treeAnnotationProperties : {
+                                        hierarchyLevelFor : '0',
+                                        hierarchyNodeFor : 'ID',
+                                        hierarchyParentNodeFor : 'parent_line_item_ID',
+                                        hierarchyDrillStateFor : 'expanded'
+                                    }
+                                }
+                            }">
+
+                            <tt:columns>
+
+                                <tt:Column label="Description">
+                                    <tt:template>
+                                        <Input value="{ID}" wrapping="false" />
+                                    </tt:template>
+                                </tt:Column>
+
+                                <tt:Column label="HierarchyLevel">
+                                    <tt:template>
+                                        <Text text="{po_number}" wrapping="false" />
+                                    </tt:template>
+                                </tt:Column>
+
+                                <tt:Column label="NodeID">
+                                    <tt:template>
+                                        <Text text="{description}" wrapping="false" />
+                                    </tt:template>
+                                </tt:Column>
+
+                                <tt:Column label="ParentNodeID">
+                                    <tt:template>
+                                        <Text text="{parent_line_item_ID}" wrapping="false" />
+                                    </tt:template>
+                                </tt:Column>
+
+                            </tt:columns>
+
+                        </tt:TreeTable>
                     </IconTabFilter>
                 </items>
             </IconTabBar>
