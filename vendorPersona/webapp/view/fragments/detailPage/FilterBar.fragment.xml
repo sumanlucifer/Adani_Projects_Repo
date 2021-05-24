@@ -1,0 +1,42 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:fb="sap.ui.comp.filterbar">
+
+    <fb:FilterBar id="filterbar" reset="onReset" search="onSearch" useToolbar="false" showGoOnFB="true">
+        <fb:filterGroupItems>
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="PONOs" label="{i18n>PONOs}" visibleInFilterBar="true" class="searchFieldLabelHidden" >
+                <fb:control>
+                    <Input id="idNameInput" liveChange="onFilterChange" placeholder="{i18n>EnterPoNos}" showSuggestion="true" showValueHelp="false" suggestionItems="{/PurchaseOrderSet}">
+                        <suggestionItems>
+                            <core:Item text="{PONumber}"/>
+                        </suggestionItems>
+                    </Input>
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="po_release_date" label="{i18n>Date}" visibleInFilterBar="true" class="searchFieldLabelHidden">
+                <fb:control>
+                    <DateRangeSelection id="dateRangeSelectionId" displayFormat="dd/MM/yyyy" change="onDateRangeSelectionChange"/>
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="MatCode" label="{i18n>MatCode}" visibleInFilterBar="true" class="searchFieldLabelHidden">
+                <fb:control>
+                    <Input id="idMaterialCode" placeholder="{i18n>EnterMatCode}" showValueHelp="false">
+                    </Input>
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="PlantCode" label="{i18n>PlantCode}" visibleInFilterBar="true" class="searchFieldLabelHidden">
+                <fb:control>
+                    <Input id="idPlantCode" placeholder="{i18n>EnterPlantCode}" showValueHelp="false">
+                    </Input>
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="CompanyCode" label="{i18n>CompanyCode}" visibleInFilterBar="true" class="searchFieldLabelHidden">
+                <fb:control>
+                    <Input id="idCompanyCode" placeholder="{i18n>EnterCompanyCode}" showValueHelp="false">
+                    </Input>
+                </fb:control>
+            </fb:FilterGroupItem>
+        </fb:filterGroupItems>
+    </fb:FilterBar>
+
+</core:FragmentDefinition>

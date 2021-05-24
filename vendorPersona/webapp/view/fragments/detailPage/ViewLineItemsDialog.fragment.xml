@@ -1,46 +1,8 @@
 <core:FragmentDefinition xmlns="sap.m"
     xmlns:core="sap.ui.core">
-    <Dialog contentHeight="50%" contentWidth="50%" class="sapUiResponsiveMargin"> 
+    <Dialog >
         <content>
-            <Table width="auto" growing="true" id="idViewLineItemsTable" 
-                growingScrollToLoad="true" items="{path: 'parent_line_items'}">
-                <columns>
-                     <Column >
-                        <Text text="Parent Name"/>
-                    </Column>
-                    <Column demandPopin="true">
-                        <Text text="Material Code"/>
-                    </Column>
-                    <Column width="30%" demandPopin="true">
-                        <Text text="Description"/>
-                    </Column>
-                    <Column>
-                        <Text text="Quantity"/>
-                    </Column>
-                    <Column>
-                        <Text text="UOM"/>
-                    </Column>
-                    <!--  <Column width="5%">
-                        <Text text="{i18n>EditButton}"/>
-                    </Column>
-                    <Column width="5%">
-                        <Text text="{i18n>DeleteButton}"/>
-                    </Column> -->
-                </columns>
-                <items>
-                    <ColumnListItem press=".onchildItemPress">
-                        <cells>
-                            <ObjectIdentifier title="{po_number}" titleActive="true"/>
-                            <Text text="{material_code}"/>
-                            <Text text="{description}"/>
-                            <Text text="{qty}"/>
-                            <Text text="{uom}"/>
-                            <!-- <Button icon="sap-icon://edit" type="Emphasized" press="onViewChildViewPopUpPress"/>
-                            <Button icon="sap-icon://delete" type="Emphasized" press="onDeleteChildViewPopPress"/> -->
-                        </cells>
-                    </ColumnListItem>
-                </items>
-            </Table>
+            <core:Fragment fragmentName="com.agel.mmts.vendorPersona.view.fragments.common.lineItems" type="XML"/>
         </content>
         <endButton>
             <Button text="Close" press="onViewChildDialogClose" type="Emphasized" />

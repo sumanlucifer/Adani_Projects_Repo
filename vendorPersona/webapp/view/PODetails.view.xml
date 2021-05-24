@@ -8,423 +8,146 @@
     xmlns:unified="sap.ui.unified"
     xmlns:tt="sap.ui.table"
     xmlns:smartTable="sap.ui.comp.smarttable"
-    xmlns="sap.m" controllerName="com.agel.mmts.vendorPersona.controller.PODetails" height="100%">
-    <uxap:ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true" upperCaseAnchorBar="false" headerContentPinnable="true" toggleHeaderOnTitleClick="true" showFooter="{= ${message>/}.length > 0 }" busy="{objectViewModel>/busy}">
+    xmlns="sap.m" controllerName="com.agel.mmts.vendorPersona.controller.PODetails"
+    xmlns:buyerForm="com.agel.mmts.vendorPersona.view.blocks.poDetails.buyerForm"
+    xmlns:sellerForm="com.agel.mmts.vendorPersona.view.blocks.poDetails.sellerForm"
+    xmlns:sowForm="com.agel.mmts.vendorPersona.view.blocks.poDetails.sowForm"
+    xmlns:lineItemsForm="com.agel.mmts.vendorPersona.view.blocks.poDetails.lineItemsForm"
+    xmlns:boqItemsTable="com.agel.mmts.vendorPersona.view.blocks.poDetails.boqItemsTable.blocks"
+    xmlns:inspectionTable="com.agel.mmts.vendorPersona.view.blocks.poDetails.inspectionTable.blocks"
+    xmlns:packingListTable="com.agel.mmts.vendorPersona.view.blocks.poDetails.packingListTable.blocks" height="100%">
+    <uxap:ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true" upperCaseAnchorBar="false" headerContentPinnable="true" toggleHeaderOnTitleClick="true" busy="{objectViewModel>/busy}">
         <uxap:headerTitle>
             <uxap:ObjectPageDynamicHeaderTitle>
                 <uxap:breadcrumbs>
-                    <Breadcrumbs id="breadcrumbsId" currentLocationText="{po_number} - {i18n>orderDetails}">
-                        <Link text="{i18n>allPOs}" press=".handleToAllPOBreadcrumPress"/>
+                    <Breadcrumbs id="breadcrumbsId" currentLocationText="{i18n>confirmedPODetails}">
+                        <Link text="{i18n>assignedPOList}" press=".handleToAllPOBreadcrumPress"/>
                     </Breadcrumbs>
                 </uxap:breadcrumbs>
                 <uxap:expandedHeading>
-                    <Title text="{po_number}" class="sapUiTinyMarginEnd"/>
+                    <FlexBox direction="Column" renderType="Bare">
+                        <Title text="{i18n>confirmedPODetails}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
+                        <Title text="{PONumber}" wrapping="true" titleStyle="H3" />
+                    </FlexBox>
                 </uxap:expandedHeading>
                 <uxap:snappedHeading>
-                    <FlexBox fitContainer="true" alignItems="Center" renderType="Bare">
-                        <Avatar class="sapUiTinyMarginEnd" showBorder="true" backgroundColor="{= ${status}==='CONFIRMED' ? 'Accent8' : 'Accent1'}" />
-                        <FlexBox direction="Column" renderType="Bare">
-                            <Title text="{po_number}" wrapping="true"/>
-                            <ObjectAttribute title="{i18n>invoiceNumber}" text="{invoice_number}" active="true"/>
-                        </FlexBox>
+                    <FlexBox direction="Column" renderType="Bare">
+                        <Title text="{i18n>confirmedPODetails}" wrapping="true" titleStyle="H4"/>
+                        <Title text="{PONumber}" wrapping="true" titleStyle="H3"/>
                     </FlexBox>
                 </uxap:snappedHeading>
-                <uxap:expandedContent>
-                    <ObjectAttribute title="{i18n>invoiceNumber}" text="{invoice_number}" active="true"/>
-                </uxap:expandedContent>
+                <uxap:expandedContent></uxap:expandedContent>
                 <uxap:snappedTitleOnMobile>
-                    <Title text="{invoice_number}"></Title>
+                    <Title text="{i18n>confirmedPODetails}- {PONumber}" wrapping="true" titleStyle="Auto"/>
                 </uxap:snappedTitleOnMobile>
                 <uxap:actions>
-                    <VBox visible="{= %{status}==='CONFIRMED' ? true : false}">
-                        <ObjectStatus class="sapMObjectStatusLarge" text="{status}" state="{= ${status}==='CONFIRMED' ? 'Success' : 'Warning'}" icon="{= ${status}==='CONFIRMED' ? 'sap-icon://message-success' : 'sap-icon://pending'}" />
+                    <VBox visible="{= %{Status}==='CONFIRMED' ? true : false}">
+                        <ObjectStatus class="sapMObjectStatusLarge" text="{Status}" state="{= ${Status}==='CONFIRMED' ? 'Success' : 'Warning'}" icon="{= ${Status}==='CONFIRMED' ? 'sap-icon://message-success' : 'sap-icon://pending'}" />
                     </VBox>
-                    <VBox visible="{= %{status}==='PENDING' ? true : false}">
-                        <Button text="Confirm PO" press="onConfirmPO" binding="{/confirmPO(...)}" type="Emphasized"/>
+                    <VBox visible="{= %{Status}==='PENDING' ? true : false}">
+                        <Button text="Confirm PO" press="onConfirmPO" type="Emphasized"/>
                     </VBox>
                 </uxap:actions>
             </uxap:ObjectPageDynamicHeaderTitle>
         </uxap:headerTitle>
         <uxap:headerContent>
-            <FlexBox wrap="Wrap" height="100%" class="sapUiSmallMarginBottom" renderType="Bare" direction="Row">
-                <Avatar class="sapUiSmallMarginEnd" displaySize="L" showBorder="true" backgroundColor="{= ${status}==='CONFIRMED' ? 'Accent8' : 'Accent1'}" src="sap-icon://order-status"/>
-                <FlexBox direction="Column" justifyContent="SpaceAround" class="sapUiSmallMarginBeginEnd" renderType="Bare">
-                    <ObjectAttribute title="{i18n>vendor}" text="{vendor/name}" active="true"/>
-                    <ObjectAttribute title="{i18n>buyerName}" text="{buyer/name}" active="true"/>
-                    <ObjectAttribute title="{i18n>releaseDate}" text="{po_release_date}" active="true"/>
-                    <ObjectAttribute title="{i18n>targetDate}" text="{target_date}" active="true"/>
-                </FlexBox>
+            <FlexBox wrap="Wrap" height="100%" renderType="Bare" direction="Column">
+                <VBox renderType="Bare">
+                    <FlexBox direction="Row" renderType="Bare" class="sapUiTinyMarginBottom">
+                        <VBox renderType="Bare" class="sapUiMediumMarginEnd">
+                            <Label text="{i18n>issuedDate}" />
+                            <!-- missing -->
+                            <Text text="{path:'POReleaseDate',
+                                     type: 'sap.ui.model.type.Date',
+				                     formatOptions: {
+				                        pattern: 'MMMM dd, yyyy'
+				                     }
+                            }"/>
+                        </VBox>
+                        <VBox renderType="Bare">
+                            <Label text="{i18n>targetDate}" />
+                            <!-- missing -->
+                            <Text text="{path:'POReleaseDate',
+                                     type: 'sap.ui.model.type.Date',
+				                     formatOptions: {
+				                        pattern: 'MMMM dd, yyyy'
+				                     }
+                            }"/>
+                        </VBox>
+                    </FlexBox>
+                </VBox>
+                <VBox renderType="Bare">
+                    <Label text="{i18n>instruction}" />
+                    <ObjectAttribute text="Please raise the inspection call through SIMS portal." />
+                </VBox>
             </FlexBox>
         </uxap:headerContent>
         <uxap:sections>
-        <!-- Basic Details Section -->
+            <!-- Basic Details Section -->
             <uxap:ObjectPageSection titleUppercase="false" title="{i18n>basicDetails}">
                 <uxap:subSections>
-           
-                            <uxap:ObjectPageSubSection>
-                                <f:SimpleForm layout="ColumnLayout" columnsM="2" columnsL="3" 
-                                   columnsXL="4" title="{i18n>buyerDetails}" binding="{buyer}"
-                                   singleContainerFullSize="true" class="style-RemoveTitleHeight"  >
-                                    <f:content>
-                                        <core:Title  />
-                                        <Label text="{i18n>CustomerName}" />
-                                        <Text text="{name}" />
-                                        <Label text="{i18n>email}" />
-                                        <Text text="{email}"/>
-                                        <Label text="{i18n>mobile}" />
-                                        <Text text="{mobile}"/>
-                                        <core:Title  />
-                                        <Label text="{i18n>pan}" />
-                                        <Text text="{pan}"/>
-                                        <Label text="{i18n>CustomerName}" />
-                                        <Text text="{name}" />
-                                        <Label text="{i18n>email}" />
-                                        <Text text="{email}"/>
-                                        <core:Title />
-                                        <Label text="{i18n>mobile}" />
-                                        <Text text="{mobile}"/>
-                                        <Label text="{i18n>address}" />
-                                        <Text text="{pan}"/>
-                                    </f:content>
-                                </f:SimpleForm>
-                                </uxap:ObjectPageSubSection>
-                                <uxap:ObjectPageSubSection>
-                                <f:SimpleForm singleContainerFullSize="true" layout="ColumnLayout" 
-                                 columnsM="2" columnsL="3" columnsXL="4" title="{i18n>sellerDetials}" 
-                                 binding="{vendor}" class="style-RemoveTitleHeight">
-                                    <f:content>
-                                        <core:Title/>
-                                        <Label text="{i18n>CustomerName}" />
-                                        <Text text="{name}" />
-                                        <Label text="{i18n>email}" />
-                                        <Text text="{email}"/>
-                                        <Label text="{i18n>mobile}" />
-                                        <Text text="{mobile}"/>
-                                        <core:Title/>
-                                        <Label text="{i18n>pan}" />
-                                        <Text text="{pan}"/>
-                                        <Label text="{i18n>CustomerName}" />
-                                        <Text text="{name}" />
-                                        <Label text="{i18n>email}" />
-                                        <Text text="{email}"/>
-                                        <core:Title/>
-                                        <Label text="{i18n>mobile}" />
-                                        <Text text="{mobile}"/>
-                                        <Label text="{i18n>address}" />
-                                        <Text text="{pan}"/>
-                                    </f:content>
-                                </f:SimpleForm>
-                            </uxap:ObjectPageSubSection>
-                            <uxap:ObjectPageSubSection>
-                                <f:SimpleForm singleContainerFullSize="true" layout="ColumnLayout" 
-                                    columnsM="2" columnsL="3" columnsXL="4" title="{i18n>sow}"
-                                     binding="{sow_details}" class="style-RemoveTitleHeight">
-                                    <f:content>
-                                        <core:Title/>
-                                        <Label text="{i18n>delivertTerm}" />
-                                        <Text text="{delivery_term}" />
-                                        <Label text="{i18n>delieryPoint}" />
-                                        <Text text="{delivery_point}"/>
-                                        <Label text="{i18n>deliverySchedule}" />
-                                        <Text text="{delivery_schedule}"/>
-                                        <core:Title/>
-                                        <Label text="{i18n>paymentTerms}" />
-                                        <Text text="{payment_terms}"/>
-                                        <Label text="{i18n>dispatchDocuments}" />
-                                        <Text text="{dispatch_documents}" />
-                                        <Label text="{i18n>liquidatedDamages}" />
-                                        <Text text="{liquidated_damages}"/>
-                                        <core:Title/>
-                                        <Label text="{i18n>defect_liability_period}" />
-                                        <Text text="{defect_liability_period}"/>
-                                        <Label text="{i18n>address}" />
-                                        <Text text="{invoicing_address}"/>
-                                    </f:content>
-                                </f:SimpleForm>
-                                
-                                
+                    <uxap:ObjectPageSubSection title="{i18n>buyerDetails}">
+                        <uxap:blocks>
+                            <buyerForm:BuyerForm class="sapUxAPObjectPageSubSectionAlignContent"/>
+                        </uxap:blocks>
                     </uxap:ObjectPageSubSection>
-                    
+                    <uxap:ObjectPageSubSection title="{i18n>sellerDetials}">
+                        <uxap:blocks>
+                            <sellerForm:SellerForm class="sapUxAPObjectPageSubSectionAlignContent"/>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                    <uxap:ObjectPageSubSection title="{i18n>sow}">
+                        <uxap:blocks>
+                            <sowForm:SOWForm class="sapUxAPObjectPageSubSectionAlignContent"/>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
                 </uxap:subSections>
             </uxap:ObjectPageSection>
-             
-        <!-- Line Item Section -->
-            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>itemDetails}">
+
+            <!-- Line Items Section -->
+            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>lineItems}">
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection title="{i18n>lineItems}">
-                        <VBox renderType="Bare">
-                            <Table id="idParentLineItemsTable" width="auto" noDataText="{i18n>noParentItems}"
-                              items="{path: 'parent_line_items'}" growing="true" growingScrollToLoad="true" 
-                              updateFinished=".onParentItemsTableUpdateFinished"
-                              selectionChange=".onParentItemSelect" mode="SingleSelectMaster">
-                                <headerToolbar>
-                                    <OverflowToolbar>
-                                        <Title text="{i18n>items}" level="H4" id="parentItemsTableHeader"/>
-                                        <ToolbarSpacer />
-                                        <SearchField id="idSearchField" tooltip="{i18n>searchItem}" placeholder="{i18n>searchItem}" search="onSearch">
-                                            <layoutData>
-                                                <OverflowToolbarLayoutData maxWidth="200px" priority="NeverOverflow" group="1"/>
-                                            </layoutData>
-                                        </SearchField>
-                                    </OverflowToolbar>
-                                </headerToolbar>
-                                <columns>
-                                    <Column minScreenWidth="Medium" demandPopin="true">
-                                        <Text text="{i18n>ponum}"/>
-                                    </Column>
-                                    <Column minScreenWidth="Medium" demandPopin="true">
-                                        <Text text="{i18n>lineNo}"/>
-                                    </Column>
-                                    <Column minScreenWidth="Medium" demandPopin="true">
-                                        <Text text="{i18n>materialCode}"/>
-                                    </Column>
-                                    <Column width="5%">
-                                        <Text text="{i18n>plant}"/>
-                                    </Column>
-                                    <Column minScreenWidth="Medium" demandPopin="true">
-                                        <Text text="{i18n>storageloc}"/>
-                                    </Column>
-                                    <Column width="20%" minScreenWidth="Medium" demandPopin="true">
-                                        <Text text="{i18n>description}"/>
-                                    </Column>
-                                    <Column minScreenWidth="Medium" demandPopin="true">
-                                        <Text text="{i18n>quantity}"/>
-                                    </Column>
-                                    <Column minScreenWidth="Medium" demandPopin="true">
-                                        <Text text="{i18n>orderunit}"/>
-                                    </Column>
-                                    <Column minScreenWidth="Medium" demandPopin="true">
-                                        <Text text="{i18n>netprice}"/>
-                                    </Column>
-                                    <Column minScreenWidth="Medium" demandPopin="true">
-                                        <Text text="{i18n>netvalue}"/>
-                                    </Column>
-                                    <Column minScreenWidth="Medium" demandPopin="true">
-                                        <Text text="{i18n>taxcode}"/>
-                                    </Column>
-                                    <Column minScreenWidth="Medium" demandPopin="true">
-                                        <Text text="{i18n>taxindicator}"/>
-                                    </Column>
-                                    <Column minScreenWidth="Medium" demandPopin="true">
-                                        <Text text="{i18n>hsncode}"/>
-                                    </Column>
-                                    <Column minScreenWidth="Medium" demandPopin="true">
-                                        <Text text="{i18n>deliverydate}"/>
-                                    </Column>
-                                </columns>
-                                <items>
-                                    <ColumnListItem type="Active">
-                                        <cells>
-                                            <Text text="{po_number}"/>
-                                            <Text text="{lineNo}"/> 
-
-                                            <Text text="{material_code}"/>  
-                                            <Text text="{plant}"/>  
-
-                                            <Text text="{name}"/>
-                                            <Text text="{description}"/>
-
-                                            <Text text="{qty}"/>
-                                            <Text text="{uom}"/>
-                                            
-                                            <Text text="{netprice}"/>
-                                            <Text text="{netvalue}"/>
-
-                                            <Text text="{taxcode}"/>
-                                            <Text text="{taxindicator}"/>
-
-                                            <Text text="{hsncode}"/>
-                                            <Text text="{deliverydate}"/>
-                                        </cells>
-                                    </ColumnListItem>
-                                </items>
-                            </Table>
-                        </VBox>
+                        <uxap:blocks>
+                            <lineItemsForm:LineItemsForm class="sapUxAPObjectPageSubSectionAlignContent"/>
+                        </uxap:blocks>
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>
             </uxap:ObjectPageSection>
 
-       <!-- BoQ Details -->
-            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>manageBOQoptional}" visible="{= %{status}==='CONFIRMED' ? false : true }">
+            <!-- Line Items Section -->
+            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>boqItems}">
                 <uxap:subSections>
-                    <uxap:ObjectPageSubSection title="{i18n>manageBOQoptional}">
-                            <VBox renderType="Bare" visible="{= %{objectViewModel>/boqSelection}==='addBOQ' ? false :true }">
-
-                                <Table id="idTableBOQItems" width="auto" noDataText="{i18n>noBOQitems}"
-                                 growing="true" growingScrollToLoad="true" 
-                                    items="{path: 'boq_line_items'}">
-                                    <headerToolbar>
-                                      <OverflowToolbar>
-                                        <Title text="{i18n>pleaseManageBoqItems}" level="H4"/>
-                                        <ToolbarSpacer />
-                                        <Button text="Send for Approval" type="Emphasized"/>
-                                      </OverflowToolbar>
-                                    </headerToolbar>
-                                    <columns>
-                                        <Column>
-                                            <Text text="{i18n>parentName}"/>
-                                        </Column>
-                                        <Column>
-                                            <Text text="{i18n>materialCode}"/>
-                                        </Column>
-                                         <Column>
-                                            <Text text="{i18n>description}"/>
-                                        </Column>
-                                        <Column>
-                                            <Text text="{i18n>quantity}"/>
-                                        </Column>
-                                        <Column>
-                                            <Text text="{i18n>uom}"/>
-                                        </Column>
-                                        <Column>
-                                            <Text text="{i18n>remarks}"/>
-                                        </Column>
-                                         <Column hAlign="Center">
-                                            <Text text="{i18n>action}"/>
-                                        </Column>
-                                    </columns>
-                                    <items>
-                                        <ColumnListItem>
-                                            <cells>
-                                                <Text text="{parent_name}"/>
-                                                <ObjectIdentifier title="{material_code}" titleActive="true"/>
-                                                <Text text="{description}"/>
-                                                <Text text="{qty}"/>
-                                                <Text text="{uom}"/>
-                                                <Text text="{remarks}"/>
-                                                <Button text="{i18n>manageBOQ}" type="Transparent"/>
-                                            </cells>
-                                        </ColumnListItem>
-                                    </items>
-                                </Table>
-                            </VBox>
-                            <VBox renderType="Bare" visible="{= %{objectViewModel>/boqSelection}==='uploadBOQ' ? true : false}">
-                                <HBox renderType="Bare" justifyContent="Start" alignItems="Center" class="sapUiSmallMargin">
-                                    <Link text="download sample .csv template" class="sapUiSmallMarginEnd" press=".onDownloadSampleCSVPress"/>
-                                    <!-- <Link text="download sample .csv template" target="_self" class="sapUiSmallMarginEnd" href="{path:'objectViewModel>/csvFile', formatter: '.formatter.getSampleFileURL'}" /> -->
-                                    <unified:FileUploader id="idBOQUploader" buttonOnly="true" buttonText="Upload BOQ" 
-                                        icon="sap-icon://upload" sameFilenameAllowed="true" multiple="false" fileType="csv" 
-                                        mimeType="text/csv" change="BOQFileSelectedForUpload"
-                                         binding="{DocumentUploadModel>/uploadBOQ(...)}" style="Emphasized"/>
-                                </HBox>
-                            </VBox>                        
+                    <uxap:ObjectPageSubSection title="{i18n>boqItems}">
+                        <uxap:blocks>
+                            <boqItemsTable:BOQItemsTable class="sapUxAPObjectPageSubSectionAlignContent" ManageBOQItemPress="onManageBOQItemPress"/>
+                        </uxap:blocks>
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>
             </uxap:ObjectPageSection>
 
-       <!-- Inspection Details -->
-            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>inspectionDetails}" visible="{= %{status}==='CONFIRMED' ? false : true}">
+            <!-- Packing List Section -->
+            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>inspectionDetails}">
                 <uxap:subSections>
-                    <uxap:ObjectPageSubSection>
-                        <Table id="idInspectionTable" width="auto" noDataText="{i18n>noInspectionItems}" 
-                            growing="true" growingScrollToLoad="true" items="{inspection_call_ids}">
-                            <headerToolbar>
-                                    <OverflowToolbar>
-                                        <ToolbarSpacer />
-                                        <SearchField id="idSearchFieldInspectionID" tooltip="{i18n>searchItem}" 
-                                            placeholder="{i18n>searchItem}" search="onSearchInspectionItem">
-                                            <layoutData>
-                                                <OverflowToolbarLayoutData maxWidth="200px" priority="NeverOverflow" group="1"/>
-                                            </layoutData>
-                                        </SearchField>
-                                      <!--  <Button tooltip="{i18n>sort}" icon="sap-icon://sort" press="handleSortButtonPressed" type="Transparent"/>
-                                        <Button tooltip="{i18n>filter}" icon="sap-icon://filter" press="handleFilterButtonPressed" type="Transparent"/>
-                                         <Button icon="sap-icon://add" press=".onParentItemCreatePress"/> 
-                                        <Button press=".onExportParentItemsExportPress" icon="sap-icon://download"/> -->
-                                        <!-- <VBox visible="{= %{status}==='PENDING' ? true : false}">
-                                            <unified:FileUploader id="idBOQUploader" buttonOnly="true" buttonText="Upload BOQ" sameFilenameAllowed="true" multiple="false" fileType="csv" mimeType="text/csv" change="BOQFileSelectedForUpload" binding="{DocumentUploadModel>/uploadBOQ(...)}" style="Emphasized"/>
-                                        </VBox>-->
-                                    </OverflowToolbar>
-                            </headerToolbar>
-                            <columns>
-                                <Column>
-                                    <Text text="{i18n>inspectionID}"/>
-                                </Column>
-                                <Column>
-                                    <Text text="{i18n>date}"/>
-                                </Column>
-                                <Column>
-                                    <Text text="MDCC  Details"/>
-                                </Column>
-                            </columns>
-                            <items>
-                                <ColumnListItem type="Navigation" press=".onInspectionIDPress">
-                                    <cells>
-                                        <ObjectIdentifier title="{inspection_call_id}" titleActive="true"/>
-                                        <Text text="{createdAt}"/>
-                                        <Text text="{mdcc}"/>
-                                    </cells>
-                                </ColumnListItem>
-                            </items>
-                        </Table>
+                    <uxap:ObjectPageSubSection title="{i18n>inspectionDetails}">
+                        <uxap:blocks>
+                            <inspectionTable:InspectionTable class="sapUxAPObjectPageSubSectionAlignContent"/>
+                        </uxap:blocks>
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>
             </uxap:ObjectPageSection>
 
-       <!--- Packing List Details -->
-             <uxap:ObjectPageSection titleUppercase="false" title="{i18n>packingLists}" 
-                visible="{= %{status}==='CONFIRMED' ? false : true }">
+            <!-- Packing List Section -->
+            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>packingLists}">
                 <uxap:subSections>
-                    <uxap:ObjectPageSubSection>
-                        <smartTable:SmartTable class="sapUiSizeCompact " editable="false" 
-                          placeToolbarInTable="true" enableAutoBinding="true" entitySet="PurchaseOrders" 
-                            header="Vendors" showFullScreenButton="true" showRowCount="true" 
-                            tableType="ResponsiveTable" demandPopin="false" useExportToExcel="false"
-                             useTablePersonalisation="true" useVariantManagement="false" 
-                             initiallyVisibleFields="Name,date,status">
-	                        <!-- <smartTable:layoutData><FlexItemData growFactor="1" /></smartTable:layoutData> -->
-	                        <Table sticky="ColumnHeaders,HeaderToolbar">
-	                        	<columns>
-                                    <Column>
-                                        <customData>    
-					                        <core:CustomData key="p13nData" value='\{"columnKey": "Name", "leadingProperty": "Name",
-                                                 "columnIndex": 0 ,"sortProperty": "Name","filterProperty": "Name"}'/>
-				                        </customData>
-                                        <Text text="Name"/>
-                                    </Column>
-                                    <Column>
-                                        <customData>    
-					                        <core:CustomData key="p13nData" value='\{"columnKey": "inspection_call_id", "leadingProperty": "inspection_call_id",
-                                                 "columnIndex": 0 ,"sortProperty": "inspection_call_id","filterProperty": "inspection_call_id"}'/>
-				                        </customData>
-                                        <Text text="{i18n>inspectionCallRefNo}"/>
-                                    </Column>
-                                    <Column>
-                                        <customData>    
-					                        <core:CustomData key="p13nData" value='\{"columnKey": "createdAt", "leadingProperty": "createdAt",
-                                                 "columnIndex": 0 ,"sortProperty": "createdAt","filterProperty": "createdAt"}'/>
-				                        </customData>
-                                        <Text text="{i18n>date}"/>
-                                    </Column>
-                                    <Column>
-                                        <customData>    
-					                        <core:CustomData key="p13nData" value='\{"columnKey": "status", "leadingProperty": "status",
-                                                 "columnIndex": 0 ,"sortProperty": "status","filterProperty": "status"}'/>
-				                        </customData>
-                                         <Text text="{i18n>status}"/>
-                                    </Column>
-		                        </columns>
-		                        <items>
-			                        <ColumnListItem>
-				                      <cells>
-					                    <ObjectIdentifier title="{name}" titleActive="true"/>
-                                        <Text text="{insp_call/0/inspection_call_id}"/>
-                                        <Text text="{createdAt}"/>
-                                        <Text text="{status}"/>
-				                       </cells>
-			                        </ColumnListItem>
-		                        </items>
-	                        </Table>
-                        </smartTable:SmartTable>
-
+                    <uxap:ObjectPageSubSection title="{i18n>packingLists}">
+                        <uxap:blocks>
+                            <packingListTable:PackingListTable class="sapUxAPObjectPageSubSectionAlignContent" id="idPackingListBlock"/>
+                        </uxap:blocks>
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>
             </uxap:ObjectPageSection>
+
         </uxap:sections>
-        <uxap:footer>
-            <OverflowToolbar>
-                <Button icon="sap-icon://alert" text="{= ${message>/}.length }" type="Emphasized" press="onMessagePopoverPress" />
-            </OverflowToolbar>
-        </uxap:footer>
     </uxap:ObjectPageLayout>
 </mvc:View>

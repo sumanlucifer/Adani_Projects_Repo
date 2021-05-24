@@ -1,0 +1,53 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns:smartTable="sap.ui.comp.smarttable"
+    xmlns="sap.m"
+    controllerName="com.agel.mmts.vendorPersona.view.blocks.poDetails.packingListTable.PackingListTableController">
+
+    <smartTable:SmartTable class="sapUiSizeCompact" id="idPackingListTable" editable="false" placeToolbarInTable="true" enableAutoBinding="true" entitySet="PackingListSet" showFullScreenButton="true" showRowCount="false" tableType="ResponsiveTable" demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" beforeRebindTable="onBeforeRebindPackingListTable">
+
+        <Table sticky="ColumnHeaders,HeaderToolbar" updateFinished="onPackingListTableUpdateFinished">
+            <columns>
+                <Column >
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Name", "leadingProperty": "Name",
+                                                 "columnIndex": 0 ,"sortProperty": "Name","filterProperty": "Name"}'/>
+                    </customData>
+                    <Text text="{i18n>ponum}"/>
+                </Column>
+                
+                <Column demandPopin="true" minScreenWidth="Tablet">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "CreatedAt", "leadingProperty": "CreatedAt",
+                                                 "columnIndex": 1 ,"sortProperty": "CreatedAt","filterProperty": "CreatedAt"}'/>
+                    </customData>
+                    <Text text="{i18n>issuedate}"/>
+                </Column>
+
+                <Column demandPopin="true" minScreenWidth="Tablet">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Status", "leadingProperty": "Status",
+                                                 "columnIndex": 2 ,"sortProperty": "Status","filterProperty": "Status"}'/>
+                    </customData>
+                    <Text text="{i18n>releaseDate}"/>
+                </Column>
+            </columns>
+            <items>
+
+                <ColumnListItem type="Navigation">
+                    <cells>
+                        <Text text="{Name}"/>
+                        <Text text="{path:'CreatedAt',
+                                    type: 'sap.ui.model.type.Date',
+				                     formatOptions: {
+				                        pattern: 'MMMM dd, yyyy'
+				                     }    
+                        }"/>
+                        <ObjectStatus text="{Status}"/>
+                    </cells>
+                </ColumnListItem>
+
+            </items>
+        </Table>
+    </smartTable:SmartTable>
+</mvc:View>

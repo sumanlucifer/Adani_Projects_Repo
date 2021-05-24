@@ -1,0 +1,180 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc"
+    xmlns:uxap="sap.uxap"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+    xmlns:unified="sap.ui.unified"
+    xmlns:data="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+    xmlns="sap.m" controllerName="com.agel.mmts.vendormanageboq.controller.Detail" height="100%">
+    <uxap:ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true" upperCaseAnchorBar="false" headerContentPinnable="true" toggleHeaderOnTitleClick="true" busy="{objectViewModel>/busy}">
+        <uxap:headerTitle>
+            <uxap:ObjectPageDynamicHeaderTitle>
+                <uxap:breadcrumbs>
+                    <Breadcrumbs id="breadcrumbsId" currentLocationText="{i18n>manageBOQ}">
+                        <Link text="{i18n>assignedPOList}" press=".handleToAllPOBreadcrumPress"/>
+                        <Link text="{i18n>confirmedPODetails}" press=".handleToAllPOBreadcrumPress"/>
+                    </Breadcrumbs>
+                </uxap:breadcrumbs>
+                <uxap:expandedHeading>
+                    <Title text="{Name}" wrapping="true" titleStyle="H3" />
+                </uxap:expandedHeading>
+                <uxap:snappedHeading>
+                    <VBox>
+                        <Title text="{Name}" wrapping="true" titleStyle="H3"/>
+                        <CheckBox text="No Parent-Child relation applicable." selected="{objectViewModel>/noParentChildRelationFlag}" />
+                    </VBox>
+                </uxap:snappedHeading>
+                <uxap:expandedContent></uxap:expandedContent>
+                <uxap:snappedTitleOnMobile>
+                    <Title text="{Name}" wrapping="true" titleStyle="Auto"/>
+                </uxap:snappedTitleOnMobile>
+                <uxap:actions>
+                    <Button text="Create BOQ" type="Emphasized" press="onCreateBOQPress" visible="{= ${objectViewModel>/isPCListSelected}}"></Button>
+                    <ToggleButton text="{objectViewModel>/sViewBOQButtonName}" press="onViewBOQRequests"></ToggleButton>
+                </uxap:actions>
+            </uxap:ObjectPageDynamicHeaderTitle>
+        </uxap:headerTitle>
+        <uxap:headerContent>
+            <FlexBox class="sapUiSmallMarginBottom">
+                <CheckBox text="No Parent-Child relation applicable." selected="{objectViewModel>/noParentChildRelationFlag}" />
+            </FlexBox>
+            <FlexBox direction="Row" renderType="Bare" class="sapUiTinyMarginBottom">
+                <VBox renderType="Bare" class="sapUiMediumMarginEnd">
+                    <Label text="{i18n>poNumber}" class="sapUiTinyMarginBottom"/>
+                    <Text text="{PONumber}"/>
+                </VBox>
+                <VBox renderType="Bare" class="sapUiMediumMarginEnd">
+                    <Label text="{i18n>quantity}" class="sapUiTinyMarginBottom"/>
+                    <Text text="{Quantity}"/>
+                </VBox>
+                <VBox renderType="Bare">
+                    <Label text="{i18n>uom}" class="sapUiTinyMarginBottom"/>
+                    <Text text="{UoM}"/>
+                </VBox>
+            </FlexBox>
+        </uxap:headerContent>
+        <uxap:sections>
+
+            <uxap:ObjectPageSection>
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection visible="{= ${objectViewModel>/noParentChildRelationFlag} ? false : true }">
+                        <!-- <ScrollContainer height="200px" vertical="true"> -->
+                            <Table id="idPCListTable" growing="true" growingThreshold="4" items="{PCGroups}" mode="SingleSelectLeft" visible="{= ${objectViewModel>/isCreatingPCList} ? false : true}" selectionChange="onPCListSelectionChange" >
+                                <headerToolbar>
+                                    <OverflowToolbar>
+                                        <content>
+                                            <Title text="PC List"/>
+                                            <ToolbarSpacer />
+                                            <Button text="Create New" icon="sap-icon://add" press="onCreateNewPCListPress"></Button>
+                                            <Button text="Use Selected" press="onUseSelectedPress" type="Emphasized" visible="{= ${objectViewModel>/isPCListSelected}}"/>
+                                        </content>
+                                    </OverflowToolbar>
+                                </headerToolbar>
+                                <columns>
+                                    <Column>
+                                        <Text text="Name"/>
+                                    </Column>
+                                    <Column>
+                                        <Text text="Created At"/>
+                                    </Column>
+                                    <Column demandPopin="true" minScreenWidth="Tablet">
+                                        <Text text="Child Items"/>
+                                    </Column>
+                                    <Column demandPopin="true" minScreenWidth="Desktop">
+                                        <Text text="Recently used on"/>
+                                    </Column>
+                                    <Column demandPopin="true" minScreenWidth="Desktop">
+                                        <Text text="Action"/>
+                                    </Column>
+                                </columns>
+                                <items>
+                                    <ColumnListItem>
+                                        <cells>
+                                            <ObjectIdentifier title="{Name}"></ObjectIdentifier>
+                                            <Text text="{CreatedAt}"></Text>
+                                            <Text text="{TotalChildItemCount}"></Text>
+                                            <Text text="{RecentlyUsedOn}"></Text>
+                                            <Link text="View Items" press="onViewChildItemsPress"/>
+                                        </cells>
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
+                        <!-- </ScrollContainer> -->
+
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+            <uxap:ObjectPageSection>
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection visible="{= ${objectViewModel>/isCreatingPCList}}">
+                        <VBox renderType="Bare">
+                            <MessageStrip text="BOQ items for 1 quantity of {Name}." type="Information" showIcon="true" class="sapUiMediumMarginBottom" visible="{= ${objectViewModel>/noParentChildRelationFlag} ? false : true }" />
+
+
+                            <Table id="idManageBOQTable" growing="true" growingThreshold="10" items="{ManageBOQModel>/boqItems}" visible="{= ${objectViewModel>/noParentChildRelationFlag} ? false : true }">
+                                <headerToolbar>
+                                    <OverflowToolbar>
+                                        <content>
+                                            <ToolbarSpacer/>
+                                            <Button text="Add Row" icon="sap-icon://add" press="onAddItemPress"></Button>
+                                            <Button text="Save" icon="sap-icon://save" iconFirst="true" press="onSaveManagedBOQItemsPress" type="Emphasized"/>
+                                            <Button text="Cancel" icon="sap-icon://cancel" iconFirst="true" press="onCancelPCListCreationPress" type="Emphasized"/>
+                                        </content>
+                                    </OverflowToolbar>
+                                </headerToolbar>
+                                <columns>
+                                    <Column>
+                                        <Text text="Child Name"/>
+                                    </Column>
+                                    <Column>
+                                        <Text text="Material Code"/>
+                                    </Column>
+                                    <Column demandPopin="true" minScreenWidth="Tablet">
+                                        <Text text="Quantity"/>
+                                    </Column>
+                                    <Column demandPopin="true" minScreenWidth="Desktop">
+                                        <Text text="Remarks"/>
+                                    </Column>
+                                    <Column demandPopin="true" minScreenWidth="Tablet">
+                                        <Text text="UOM"/>
+                                    </Column>
+                                    <Column width="5%">
+                                    </Column>
+                                </columns>
+                                <items>
+                                    <ColumnListItem id="idBOQItems">
+                                        <cells>
+                                            <Select forceSelection="false" selectedKey="{ManageBOQModel>Name}" items="{
+                                                    path: '/MasterBoQItemSet',
+                                                    templateShareable:false,
+                                                    sorter: { path: 'Name' }
+                                                }" change="onBOQItemSelected">
+                                                <core:Item key="{Name}" text="{Name}" />
+                                            </Select>
+                                            <Text data:p="MaterialCode" text="{ManageBOQModel>MaterialCode}"/>
+                                            <Input value="{ManageBOQModel>Qty}"/>
+                                            <VBox>
+                                                <Link text="Add Remarks" press="openAddRemarksPopupPress" visible="{= ${ManageBOQModel>Remarks}.length ? false : true}"/>
+                                                <ExpandableText text="{ManageBOQModel>Remarks}" overflowMode="Popover" visible="{= ${ManageBOQModel>Remarks}.length ? true : false}"/>
+                                            </VBox>
+                                            <Select id="idUOMSelector" forceSelection="false" visible="{= ${ManageBOQModel>Name}.length >0 ? true : false }" selectedKey="{ManageBOQModel>UOM}" items="{
+                                                    path: 'ManageBOQModel>UOMSuggestions',
+                                                        templateShareable:false
+                                                }">
+                                                <core:Item key="{ManageBOQModel>UOM}" text="{ManageBOQModel>UOM}" />
+                                            </Select>
+                                            <Button icon="sap-icon://delete" press="onDeleteBOQItemPress" type="Transparent"/>
+                                        </cells>
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
+                        </VBox>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+
+        </uxap:sections>
+    </uxap:ObjectPageLayout>
+</mvc:View>
