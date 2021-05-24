@@ -1,72 +1,31 @@
 {
-    "xsappname": "xsuaa-agel-mmts-dev-new",
-    "tenant-mode": "dedicated",
-    "oauth2-configuration": {
-        "redirect-uris": [
-            "https://*.ap11.applicationstudio.cloud.sap/login/callback",
-            "https://*.cfapps.ap11.hana.ondemand.com/login/callback"
-        ]
-    },
-    "scopes": [
-        {
-            "name": "$XSAPPNAME.Read",
-            "description": "Read Permissions."
-        },
-        {
-            "name": "xs_user.read",
-            "description": "Read UUA User."
-        },
-        {
-            "name": "xs_authorization.read",
-            "description": "Read UUA Roles."
-        }
-    ],
-    "role-templates": [
-        {
-            "name": "Token_Exchange",
-            "description": "Exchange token between application SAPUI5 to Java",
-            "scope-references": [
-                "uaa.user"
-            ]
-        },
-        {
-            "name": "Access_AGEL_UAA_Admin_APIs_DEV",
-            "description": "To Access UAA Admin APIs",
-            "scope-references": [
-                "xs_user.read",
-                "xs_authorization.read",
-                "xs_authorization.write"
-            ]
-        },
-        {
-            "name": "Confirmed_PO",
-            "description": "To show confirmed purchase order",
-            "scope-references": [
-                "uaa.user"
-            ]
-        },
-        {
-            "name": "Assigned_PO",
-            "description": "To show assigned purchase order",
-            "scope-references": [
-                "uaa.user"
-            ]
-        },
-        {
-            "name": "Dispatched_PO",
-            "description": "To show dispatched purchase order",
-            "scope-references": [
-                "uaa.user"
-            ]
-        }
-    ],
-    "role-collections": [
-        {
-            "name": "Access_AGEL_UAA_Admin_APIs_DEV",
-            "description": "Users, Roles API access",
-            "role-template-references": [
-                "$XSAPPNAME.Access_AGEL_UAA_Admin_APIs_DEV"
-            ]
-        }
-    ]
+	"xsappname": "xsuaa-agel-mmts",
+	"tenant-mode": "dedicated",
+	"oauth2-configuration": {
+		"redirect-uris": [
+			"https://*.ap11.applicationstudio.cloud.sap/login/callback",
+			"https://*.cfapps.ap11.hana.ondemand.com/login/callback"
+		]
+	},
+	"description": "Security profile of called application",
+	"scopes": [{
+			"name": "uaa.user",
+			"description": "UAA"
+		},
+		{
+			"name": "$XSAPPNAME.Callback",
+			"description": "With this scope set, the callbacks for tenant onboarding, offboarding and getDependencies can be called.",
+			"grant-as-authority-to-apps": ["$XSAPPNAME(application, sap-provisioning, tenant-onboarding)"]
+		}
+	],
+	"authorities": [
+		"$XSAPPNAME.Callback"
+	],
+	"role-templates": [{
+		"name": "Token_Exchange",
+		"description": "UAA",
+		"scope-references": [
+			"uaa.user"
+		]
+	}]
 }

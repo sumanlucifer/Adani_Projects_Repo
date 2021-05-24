@@ -1,0 +1,40 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <Dialog >
+        <content>
+            <Table width="auto" growing="true" id="idViewBOQLineItemsTable" growingThreshold="2" items="{path: 'PCGroupItems'}" class="sapUiResponsiveMargin">
+                <columns>
+                    <Column>
+                        <Text text="{i18n>materialCode}" wrapping="true" wrappingType="Hyphenated"/>
+                    </Column>
+                    <Column>
+                        <Text text="{i18n>name}" wrapping="true"/>
+                    </Column>
+                    <Column demandPopin="true" minScreenWidth="Desktop">
+                        <Text text="{i18n>description}"/>
+                    </Column>
+                    <Column demandPopin="true" minScreenWidth="Tablet">
+                        <Text text="{i18n>quantity}" />
+                    </Column>
+                    <Column demandPopin="true" minScreenWidth="Tablet">
+                        <Text text="{i18n>orderUnit}"/>
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem>
+                        <cells>
+                            <ObjectIdentifier title="{MaterialCode}" titleActive="true" />
+                            <Text text="{Name}"/>
+                            <ExpandableText text="{Description}" maxCharacters="20" overflowMode="Popover"/>
+                            <Text text="{Qty}"/>
+                            <Text text="{UOM}"/>
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </content>
+        <endButton>
+            <Button text="Close" press="onViewChildDialogClose" type="Emphasized" />
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

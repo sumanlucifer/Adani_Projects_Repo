@@ -90,7 +90,14 @@ sap.ui.define([], function () {
                     return _pdfurl;
                 }
             }
+        },
+
+        onDateConvert : function(oDate){
+            var date = new Date(oDate);
+
+            return date.toDateString();
         }
+        
 
 
 

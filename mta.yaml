@@ -16,7 +16,7 @@ modules:
     properties:
       forwardAuthToken: true
       name: AGEL_MMTS_API
-      url: https://adani-green-energy-limited-renewables-dev-development-a12c869a0.cfapps.ap11.hana.ondemand.com/
+      url: https://agel-mmts-api.cfapps.ap11.hana.ondemand.com/
   parameters:
     buildpack: nodejs_buildpack
     disk-quota: 256M
@@ -120,10 +120,19 @@ modules:
       - quickAccess-storeInCharge-Reports-content.zip
       name: quickAccess-storeInCharge-Reports
       target-path: resources/
+    - artifacts:
+      - ScannerAppLibrary-content.zip
+      name: ScannerAppLibrary
+      target-path: resources/
+    - artifacts:
+      - comagelmmtsvendormanageboq.zip
+      name: comagelmmtsvendormanageboq
+      target-path: resources/
 - name: vendorPersona
   type: html5
   path: vendorPersona
   build-parameters:
+    build-result: resources
     builder: custom
     commands:
     - npm run build
@@ -145,10 +154,15 @@ modules:
   parameters:
     config:
       TENANT_HOST_PATTERN: ^(.*)-agel-mmts-web-approuter.${default-domain}
+  deployed-after:
+  - agel-mmts-web_ui_deployer
+
+  
 - name: vendorPersona-ConfirmPOs
   type: html5
   path: vendorPersona-ConfirmPOs
   build-parameters:
+    build-result: resources
     builder: custom
     commands:
     - npm run build
@@ -157,6 +171,7 @@ modules:
   type: html5
   path: vendorPersona-DispatchedPOs
   build-parameters:
+    build-result: resources
     builder: custom
     commands:
     - npm run build
@@ -165,6 +180,7 @@ modules:
   type: html5
   path: vendorPersona-OpenPOs
   build-parameters:
+    build-result: resources
     builder: custom
     commands:
     - npm run build
@@ -173,6 +189,7 @@ modules:
   type: html5
   path: storeInCharge-TotalOrder
   build-parameters:
+    build-result: dist
     builder: custom
     commands:
     - npm run build
@@ -181,6 +198,7 @@ modules:
   type: html5
   path: storeInCharge-RaisedOrder
   build-parameters:
+    build-result: dist
     builder: custom
     commands:
     - npm run build
@@ -189,6 +207,7 @@ modules:
   type: html5
   path: storeInCharge-UpcomingOrders
   build-parameters:
+    build-result: dist
     builder: custom
     commands:
     - npm run build
@@ -197,6 +216,7 @@ modules:
   type: html5
   path: storeInCharge-Inventory
   build-parameters:
+    build-result: dist
     builder: custom
     commands:
     - npm run build
@@ -205,6 +225,7 @@ modules:
   type: html5
   path: storeInCharge-ReturnMaterialRequests
   build-parameters:
+    build-result: dist
     builder: custom
     commands:
     - npm run build
@@ -213,6 +234,7 @@ modules:
   type: html5
   path: securityPerson-ScanQR
   build-parameters:
+    build-result: dist
     builder: custom
     commands:
     - npm run build
@@ -221,6 +243,7 @@ modules:
   type: html5
   path: securityPerson-History
   build-parameters:
+    build-result: dist
     builder: custom
     commands:
     - npm run build
@@ -229,6 +252,7 @@ modules:
   type: html5
   path: engineerInCharge-ReturnOrder
   build-parameters:
+    build-result: dist
     builder: custom
     commands:
     - npm run build
@@ -237,6 +261,7 @@ modules:
   type: html5
   path: engineerInCharge-Inventory
   build-parameters:
+    build-result: dist
     builder: custom
     commands:
     - npm run build
@@ -245,6 +270,7 @@ modules:
   type: html5
   path: admin-POSummary
   build-parameters:
+    build-result: dist
     builder: custom
     commands:
     - npm run build
@@ -253,6 +279,7 @@ modules:
   type: html5
   path: admin-UserManagement
   build-parameters:
+    build-result: dist
     builder: custom
     commands:
     - npm run build
@@ -261,6 +288,7 @@ modules:
   type: html5
   path: admin-Reports
   build-parameters:
+    build-result: dist
     builder: custom
     commands:
     - npm run build
@@ -269,6 +297,7 @@ modules:
   type: html5
   path: quickAccess-History
   build-parameters:
+    build-result: dist
     builder: custom
     commands:
     - npm run build
@@ -277,6 +306,7 @@ modules:
   type: html5
   path: quickAccess-Reports
   build-parameters:
+    build-result: dist
     builder: custom
     commands:
     - npm run build
@@ -285,6 +315,7 @@ modules:
   type: html5
   path: quickAccess-UnloadMaterial
   build-parameters:
+    build-result: dist
     builder: custom
     commands:
     - npm run build
@@ -293,6 +324,7 @@ modules:
   type: html5
   path: quickAccess-IssueMaterial
   build-parameters:
+    build-result: dist
     builder: custom
     commands:
     - npm run build
@@ -301,6 +333,7 @@ modules:
   type: html5
   path: quickAccess-TransferStock
   build-parameters:
+    build-result: dist
     builder: custom
     commands:
     - npm run build
@@ -309,9 +342,29 @@ modules:
   type: html5
   path: quickAccess-storeInCharge-Reports
   build-parameters:
+    build-result: dist
     builder: custom
     commands:
     - npm run build
+    supported-platforms: []
+- name: ScannerAppLibrary
+  type: html5
+  path: ScannerAppLibrary
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []
+- name: comagelmmtsvendormanageboq
+  type: html5
+  path: vendor-manageboq
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
     supported-platforms: []
 resources:
 - name: uaa_agel-mmts-web
@@ -319,7 +372,7 @@ resources:
   parameters:
     path: ./xs-security.json
     service: xsuaa
-    service-name: xsuaa-agel-mmts-dev-new
+    service-name: xsuaa-agel-mmts
     service-plan: application
 - name: agel-mmts-web_html_repo_runtime
   type: org.cloudfoundry.managed-service
@@ -339,6 +392,18 @@ resources:
 - name: agel-mmts-destination
   type: org.cloudfoundry.managed-service
   parameters:
+    config:
+      HTML5Runtime_enabled: true
+      init_data:
+        instance:
+          destinations:
+          - Authentication: NoAuthentication
+            Name: ui5
+            ProxyType: Internet
+            Type: HTTP
+            URL: https://ui5.sap.com
+          existing_destinations_policy: update
+      version: 1.0.0
     service: destination
     service-plan: lite
 parameters:

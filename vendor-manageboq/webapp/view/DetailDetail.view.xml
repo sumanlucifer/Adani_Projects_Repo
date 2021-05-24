@@ -1,0 +1,14 @@
+<mvc:View
+    controllerName="com.agel.mmts.vendormanageboq.controller.DetailDetail"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+    xmlns="sap.m">
+	<Page id="page" title="BOQ List for {Name}">
+		<content>
+            <List items="{path: 'BOQGroups',
+                        sorter: {path: 'Name'}}">
+                <StandardListItem title="{Name}" description="{TotalChildItemCount}" info="{GeneratedBOQQty}" type="Navigation" press="onParentLineItemPress"/>
+            </List>
+        </content>
+	</Page>
+</mvc:View>

@@ -1,0 +1,53 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns:smartTable="sap.ui.comp.smarttable"
+    xmlns="sap.m"
+    controllerName="com.agel.mmts.vendorPersona.view.blocks.poDetails.inspectionTable.InspectionTableController">
+
+    <smartTable:SmartTable class="sapUiSizeCompact" id="idPackingListTable" editable="false" placeToolbarInTable="true" enableAutoBinding="true" entitySet="InspectionCallIdSet" showFullScreenButton="true" showRowCount="false" tableType="ResponsiveTable" demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" beforeRebindTable="onBeforeRenderingInspectionTable" enableAutoColumnWidth="true">
+
+        <Table sticky="ColumnHeaders,HeaderToolbar">
+            <columns>
+                <Column >
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "SAPInspectionCallId", "leadingProperty": "SAPInspectionCallId",
+                                                 "columnIndex": 0 ,"sortProperty": "SAPInspectionCallId","filterProperty": "SAPInspectionCallId"}'/>
+                    </customData>
+                    <Text text="{i18n>inspectionNumber}"/>
+                </Column>
+                
+                <Column demandPopin="true" minScreenWidth="Tablet">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "InspectionDate", "leadingProperty": "SAPInspectionCallId",
+                                                 "columnIndex": 1 ,"sortProperty": "InspectionDate","filterProperty": "InspectionDate"}'/>
+                    </customData>
+                    <Text text="{i18n>inspectionDate}"/>
+                </Column>
+
+                <Column demandPopin="true" minScreenWidth="Tablet">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Comments", "leadingProperty": "Comments",
+                                                 "columnIndex": 2 ,"sortProperty": "Comments","filterProperty": "Comments"}'/>
+                    </customData>
+                    <Text text="{i18n>comments}"/>
+                </Column>
+            </columns>
+            <items>
+
+                <ColumnListItem type="Navigation">
+                    <cells>
+                    <ObjectIdentifier title="{SAPInspectionCallId}"></ObjectIdentifier>
+                        <Text text="{path:'InspectionDate',
+                                    type: 'sap.ui.model.type.Date',
+				                     formatOptions: {
+				                        pattern: 'MMMM dd, yyyy'
+				                     }    
+                        }"/>
+                        <Text text="{Comments}"/>
+                    </cells>
+                </ColumnListItem>
+
+            </items>
+        </Table>
+    </smartTable:SmartTable>
+</mvc:View>

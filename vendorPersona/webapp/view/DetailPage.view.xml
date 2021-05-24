@@ -1,17 +1,14 @@
 <mvc:View controllerName="com.agel.mmts.vendorPersona.controller.DetailPage" height="100%"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns:core="sap.ui.core"
-    xmlns:layout="sap.ui.layout"
     xmlns="sap.m"
-    xmlns:f="sap.f"
-    xmlns:fb="sap.ui.comp.filterbar"
-    xmlns:vm="sap.ui.comp.variants">
+    xmlns:f="sap.f">
     <f:DynamicPage headerExpanded="true" busy="{objectViewModel>/busy}">
         <!-- DynamicPage Title -->
         <f:title>
             <f:DynamicPageTitle>
                 <f:heading>
-                    <Title id="pageTitle" text="{i18n>OpenPOs}"/>
+                    <Title id="pageTitle" text="{i18n>AssignedPO}"/>
                 </f:heading>
             </f:DynamicPageTitle>
         </f:title>
@@ -19,33 +16,7 @@
         <f:header>
             <f:DynamicPageHeader pinnable="true">
                 <f:content>
-                    <fb:FilterBar id="filterbar" reset="onReset" search="onSearch" useToolbar="false" showGoButton="true">
-                        <fb:filterGroupItems>
-                            <fb:FilterGroupItem groupName="__$INTERNAL$" name="PONOs" label="{i18n>PONOs}" visibleInFilterBar="true" class="searchFieldLabelHidden">
-                                <fb:control>
-                                    <Input id="idNameInput" liveChange="onFilterChange" placeholder="{i18n>EnterPoNos}" showSuggestion="true" showValueHelp="false" suggestionItems="{purchase_orders}">
-                                        <suggestionItems>
-                                            <core:Item text="{po_number}" />
-                                        </suggestionItems>
-                                    </Input>
-                                </fb:control>
-                            </fb:FilterGroupItem>
-                            <fb:FilterGroupItem groupName="__$INTERNAL$" name="po_release_date" label="{i18n>Date}" visibleInFilterBar="true" class="searchFieldLabelHidden">
-                                <fb:control>
-                                    <DateRangeSelection	id="dateRangeSelectionId" displayFormat="dd/MM/yyyy" change="onDateRangeSelectionChange"/>
-                                </fb:control>
-                            </fb:FilterGroupItem>
-                            <!-- <fb:FilterGroupItem groupName="__$INTERNAL$" name="invoice_number" label="{i18n>ParentCode}" visibleInFilterBar="true" class="searchFieldLabelHidden">
-                                <fb:control>
-                                    <Input id="idIdInput" placeholder="{i18n>EnterCode}" showSuggestion="true" showValueHelp="true" suggestionItems="{purchase_orders}">
-                                        <suggestionItems>
-                                            <core:Item text="{invoice_number}" />
-                                        </suggestionItems>
-                                    </Input>
-                                </fb:control>
-                            </fb:FilterGroupItem> -->
-                        </fb:filterGroupItems>
-                    </fb:FilterBar>
+                    <core:Fragment fragmentName="com.agel.mmts.vendorPersona.view.fragments.detailPage.FilterBar" type="XML"/>
                 </f:content>
             </f:DynamicPageHeader>
         </f:header>
@@ -53,95 +24,19 @@
         <f:content>
             <IconTabBar id="idIconTabBar" select="onIconTabSelect" headerMode="Inline" expanded="true" class="sapUiResponsiveContentPadding">
                 <items>
-                    <IconTabFilter id="idOpenPOTabTitle" text="{i18n>openPOs}" key="OpenPOKey" count="{oIconTabCountModel>/openCount}">
-                         <Table id="idPurchaseOrdersTable" width="auto" noDataText="{i18n>noDataForPOs}" busyIndicatorDelay="{objectViewModel>busy}" 
-                           updateFinished="onPurchaseOrderTableUpdateFinished" growing="true" growingScrollToLoad="true" items="{PurchaseOrders}">
-                            <columns>
-                                <Column>
-                                    <Text text="{i18n>ponum}"/>
-                                </Column>
-                                <Column>
-                                    <Text text="{i18n>vendorName}"/>
-                                </Column>
-                                <Column>
-                                    <Text text="{i18n>releaseDate}"/>
-                                </Column>
-                                <Column>
-                                    <Text text="{i18n>status}"/>
-                                </Column>
 
-                            </columns>
-                            <items>
-                                <ColumnListItem id="idOpenPOColumnItem" type="Navigation" press="onPurchaseOrderPress">
-                                    <cells>
-                                        <Text text="{po_number}"/>
-                                        <Text text="{vendor/name}"/>
-                                        <Text text="{po_release_date}"/>
-                                        <ObjectStatus text="{status}" state="Warning"/>
-                                    </cells>
-                                </ColumnListItem>
-                            </items>
-                        </Table>
+                    <IconTabFilter id="idOpenPOTabTitle" text="{i18n>OpenPO}" key="OpenPOKey" count="{oIconTabCountModel>/openCount}">
+                        <core:Fragment fragmentName="com.agel.mmts.vendorPersona.view.fragments.detailPage.OpenPOTable" type="XML"/>
                     </IconTabFilter>
-                    <IconTabFilter text="{i18n>ConfirmedPO}" key="ConfirmPOKey" count="{oIconTabCountModel>/confirmCount}">
-                         <Table id="idConfirmPOTable" width="auto" noDataText="{i18n>noDataForPOs}" busyIndicatorDelay="{objectViewModel>busy}" 
-                         updateFinished="onConfirmPOTableUpdateFinished" growing="true" growingScrollToLoad="true" items="{PurchaseOrders}">
-                            <columns>
-                                <Column>
-                                    <Text text="{i18n>ponum}"/>
-                                </Column>
-                                <Column>
-                                    <Text text="{i18n>vendorName}"/>
-                                </Column>
-                                 <Column>
-                                    <Text text="{i18n>releaseDate}"/>
-                                </Column>
-                                <Column>
-                                    <Text text="{i18n>status}"/>
-                                </Column>
-                            </columns>
-                            <items>
-                                <ColumnListItem id="idConfirmColumnItem" type="Navigation" press="onPurchaseOrderPress">
-                                    <cells>
-                                        <Text text="{po_number}"/>
-                                        <Text text="{vendor/name}"/>
-                                        <Text text="{po_release_date}"/>
-                                        <ObjectStatus text="{status}" state="Information"/>
-                                    </cells>
-                                </ColumnListItem>
-                            </items>
-                        </Table>
-                    </IconTabFilter>
-                    <IconTabFilter text="{i18n>Dispatched}" key="DispatchPOKey" count="{oIconTabCountModel>/dispatchCount}">
-                         <Table id="idDispatchedPOTable" width="auto" noDataText="{i18n>noDataForPOs}" busyIndicatorDelay="{objectViewModel>busy}" 
-                         updateFinished="onDispatchPOTableUpdateFinished" growing="true" growingScrollToLoad="true" items="{PurchaseOrders}">
-                            <columns>
-                                <Column>
-                                    <Text text="{i18n>ponum}"/>
-                                </Column>
-                                <Column>
-                                    <Text text="{i18n>vendorName}"/>
-                                </Column>
-                                 <Column>
-                                    <Text text="{i18n>releaseDate}"/>
-                                </Column>
-                                <Column>
-                                    <Text text="{i18n>status}"/>
-                                </Column>
 
-                            </columns>
-                            <items>
-                                <ColumnListItem id="idDispatchColumnItem">
-                                    <cells>
-                                        <Text text="{po_number}"/>
-                                        <Text text="{vendor/name}"/>
-                                        <Text text="{po_release_date}"/>
-                                        <ObjectStatus text="{status}" state="Success"/>
-                                    </cells>
-                                </ColumnListItem>
-                            </items>
-                        </Table>
+                     <IconTabFilter text="{i18n>ConfirmedPO}" key="ConfirmPOKey" count="{oIconTabCountModel>/confirmCount}">
+                          <core:Fragment fragmentName="com.agel.mmts.vendorPersona.view.fragments.detailPage.ConfirmedPOTable" type="XML"/>
                     </IconTabFilter>
+                    
+                    <IconTabFilter text="{i18n>ClosedPO}" key="DispatchPOKey" count="{oIconTabCountModel>/dispatchCount}">
+                       <core:Fragment fragmentName="com.agel.mmts.vendorPersona.view.fragments.detailPage.DispatchedPOTable" type="XML"/>
+                    </IconTabFilter>
+
                 </items>
             </IconTabBar>
         </f:content>

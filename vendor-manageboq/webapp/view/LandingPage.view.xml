@@ -1,0 +1,21 @@
+<mvc:View controllerName="com.agel.mmts.vendormanageboq.controller.LandingPage"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns:f="sap.f"
+    xmlns="sap.m"
+    xmlns:smartList="sap.ui.comp.smartlist">
+    <f:DynamicPage toggleHeaderOnTitleClick="false">
+    <f:title>
+				<f:DynamicPageTitle>
+					<f:heading>
+						<Title text="{i18n>parentItems}"/>
+					</f:heading>
+				</f:DynamicPageTitle>
+			</f:title>
+        <f:content>
+            <List items="{path: '/ParentLineItemSet',
+                                                sorter: {path: 'Name'}}">
+                <StandardListItem title="{Name}" description="{Description}" info="{MaterialCode}" type="Navigation" press="onParentLineItemPress"/>
+            </List>
+        </f:content>
+    </f:DynamicPage>
+</mvc:View>

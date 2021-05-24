@@ -1,0 +1,76 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns:f="sap.ui.layout.form"
+    xmlns="sap.m"
+    xmlns:smartTable="sap.ui.comp.smarttable"
+    xmlns:tt="sap.ui.table" controllerName="com.agel.mmts.vendorPersona.view.blocks.poDetails.boqItemsTable.BOQItemsTableController">
+
+    <smartTable:SmartTable id="smartTreeTable" entitySet="ParentLineItemSet" tableType="TreeTable" useExportToExcel="false" useVariantManagement="false" useTablePersonalisation="true" placeToolbarInTable="true" showRowCount="true" enableAutoBinding="true" enableAutoColumnWidth="true" beforeRebindTable="onBeforeRebindTreeTable" class="sapUiSizeCompact">
+        <!-- layout data used to make the table growing but the filter bar fixed -->
+        <tt:TreeTable id="treeTable" selectionMode="None" enableColumnReordering="true" expandFirstLevel="false" visibleRowCountMode="Auto">
+            
+            <tt:columns>
+
+                <tt:Column>
+                    <Label text="{i18n>name}"/>
+                    <tt:customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "ID", "leadingProperty": "ID",
+                                                 "columnIndex": 1 ,"sortProperty": "ID","filterProperty": "ID"}'/>
+                    </tt:customData>
+
+                    <tt:template>
+                        <Text text="{ID}"></Text>
+                    </tt:template>
+                </tt:Column>
+
+                <tt:Column>
+                    <Label text="{i18n>description}" />
+                    <tt:customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Description", "leadingProperty": "Description",
+                                                 "columnIndex": 2 ,"sortProperty": "Description","filterProperty": "Description"}'/>
+                    </tt:customData>
+
+                    <tt:template>
+                        <Text text="{Description}"></Text>
+                    </tt:template>
+                </tt:Column>
+
+                   <tt:Column>
+                    <Label text="{i18n>quantity}" />
+                    <tt:customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Quantity", "leadingProperty":"Quantity", "columnIndex": 4}' />
+                    </tt:customData>
+
+                    <tt:template>
+                        <Text text="{Quantity}"></Text>
+                    </tt:template>
+                </tt:Column>
+
+                <tt:Column>
+                    <Label text="{i18n>uom}" />
+                    <tt:customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "UoM", "leadingProperty":"UoM", "columnIndex": 5}' />
+                    </tt:customData>
+
+                    <tt:template>
+                        <Text text="{UoM}"></Text>
+                    </tt:template>
+                </tt:Column> 
+
+                 <!-- <tt:Column>
+                    <Label text="{i18n>action}" />
+                    <tt:customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Action", "columnIndex": 3}' />
+                    </tt:customData>
+
+                    <tt:template>
+                        <Link text="{i18n>manageBOQ}" press="onManageBOQItemPress"></Link>
+                    </tt:template>
+                </tt:Column> -->
+
+            </tt:columns>
+
+        </tt:TreeTable>
+    </smartTable:SmartTable>
+
+</mvc:View>

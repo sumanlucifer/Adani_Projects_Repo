@@ -29,7 +29,7 @@
                     "icon": "sap-icon://supplier",
                     "indicatorDataSource": {
                         "dataSource": "default",
-                        "path": "/AGEL_MMTS_API/odata/v4/VendorsService/PurchaseOrders/$count",
+                        "path": "/AGEL_MMTS_API/api/v2/odata.svc/PurchaseOrderSet/$count",
                         "refresh": 0
                     }
                 }
@@ -37,34 +37,10 @@
         },
         "dataSources": {
             "default": {
-                "uri": "/AGEL_MMTS_API/odata/v4/VendorsService/",
+                "uri": "/AGEL_MMTS_API/api/v2/odata.svc/",
                 "type": "OData",
                 "settings": {
-                    "odataVersion": "4.0",
-                    "localUri": "localService/metadata.xml"
-                }
-            },
-            "uploadService": {
-                "uri": "/AGEL_MMTS_API/odata/v4/CsvFileUploaderService/",
-                "type": "OData",
-                "settings": {
-                    "odataVersion": "4.0",
-                    "localUri": "localService/metadata.xml"
-                }
-            },
-            "attachmentService": {
-                "uri": "/AGEL_MMTS_API/odata/v4/AttachmentsService/",
-                "type": "OData",
-                "settings": {
-                    "odataVersion": "4.0",
-                    "localUri": "localService/metadata.xml"
-                }
-            },
-            "qrCodeService": {
-                "uri": "/AGEL_MMTS_API/odata/v4/QRCodeService/",
-                "type": "OData",
-                "settings": {
-                    "odataVersion": "4.0",
+                    "odataVersion": "2.0",
                     "localUri": "localService/metadata.xml"
                 }
             }
@@ -116,50 +92,15 @@
                 }
             },
             "": {
+                "type": "sap.ui.model.odata.v2.ODataModel",
                 "settings": {
-                    "operationMode": "Server",
-                    "groupProperties": {
-                        "childLineItemGroup": {
-                            "submit": "API"
-                        },
-                        "parentItemsGroup": {
-                            "submit": "API"
-                        }
-                    },
-                    "autoExpandSelect": true,
-                    "synchronizationMode": "None"
+                    "defaultOperationMode": "Server",
+                    "defaultBindingMode": "TwoWay",
+                    "defaultCountMode": "Inline",
+                    "refreshAfterChange": true,
+                    "useBatch": false
                 },
                 "dataSource": "default",
-                "preload": true
-            },
-            "DocumentUploadModel": {
-                "settings": {
-                    "operationMode": "Server",
-                    "groupId": "$direct",
-                    "synchronizationMode": "None",
-                    "autoExpandSelect": true
-                },
-                "dataSource": "uploadService",
-                "preload": true
-            },
-            "attachmentModel": {
-                "settings": {
-                    "operationMode": "Server",
-                    "groupId": "$direct",
-                    "synchronizationMode": "None",
-                    "autoExpandSelect": true
-                },
-                "dataSource": "attachmentService",
-                "preload": true
-            },
-            "qrCodeModel": {
-                "settings": {
-                    "operationMode": "Server",
-                    "groupId": "$direct",
-                    "synchronizationMode": "None",
-                    "autoExpandSelect": true
-                },
-                "dataSource": "qrCodeService",
                 "preload": true
             }
         },
@@ -170,6 +111,7 @@
                 }
             ]
         },
+        
         "routing": {
             "config": {
                 "routerClass": "sap.m.routing.Router",
@@ -211,6 +153,13 @@
                     "target": [
                         "TargetPackingListDetailsPage"
                     ]
+                },
+                {
+                    "name": "RouteManageBOQPage",
+                    "pattern": "ManageBOQ/{parentID}",
+                    "target": [
+                        "TargetManageBOQ"
+                    ]
                 }
             ],
             "targets": {
@@ -241,6 +190,13 @@
                     "clearControlAggregation": false,
                     "viewName": "PackingListDetails",
                     "viewLevel": 4
+                },
+                "TargetManageBOQ": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewName": "ManageBOQ",
+                    "viewLevel": 5
                 }
             }
         }
