@@ -96,6 +96,10 @@ sap.ui.define([], function () {
             var date = new Date(oDate);
 
             return date.toDateString();
+        },
+
+        test: function(value){
+            debugger;
         }
         
 

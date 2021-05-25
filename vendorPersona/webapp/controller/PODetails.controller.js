@@ -345,8 +345,8 @@ sap.ui.define([
         onManageBOQItemPress: function (oEvent) {
             var sPONumber = this.getView().getBindingContext().getObject().PONumber;
             var mBindingParams = oEvent.getParameters().getParameter("bindingParams");
-            mBindingParams.parameters["expand"] = "BOQItems";
-            mBindingParams.parameters["navigation"] = { "ParentLineItemSet": "BOQItems" };
+            mBindingParams.parameters["expand"] = "BOQGroups";
+            mBindingParams.parameters["navigation"] = { "ParentLineItemSet": "BOQGroups" };
             mBindingParams.parameters["treeAnnotationProperties"] = { "hierarchyLevelFor" : 'HierarchyLevel', "hierarchyNodeFor" : 'ID', "hierarchyParentNodeFor" : 'ParentNodeID'} ;
             mBindingParams.filters.push(new sap.ui.model.Filter("PONumber", sap.ui.model.FilterOperator.EQ, sPONumber));
         },
