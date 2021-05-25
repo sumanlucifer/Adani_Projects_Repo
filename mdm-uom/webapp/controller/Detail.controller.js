@@ -48,14 +48,25 @@ sap.ui.define([
         },
 
         _onObjectMatched: function (oEvent) {
+            debugger;
             this.sParentID = oEvent.getParameter("arguments").parentMaterial;
             var sLayout = oEvent.getParameter("arguments").layout;
+
+            
 
             this.getView().getModel().setProperty("/busy", false);
 
             this.getView().getModel("layoutModel").setProperty("/layout", sLayout);
 
             if (this.sParentID === "new") {
+
+                this.getViewModel("objectViewModel").setProperty("/idSFDisplay", false);
+                this.getViewModel("objectViewModel").setProperty("/idSFEdit", true);
+
+                this.getViewModel("objectViewModel").setProperty("/idBtnEdit", false);
+                this.getViewModel("objectViewModel").setProperty("/idBtnSave", true);
+                this.getViewModel("objectViewModel").setProperty("/idBtnCancel", true);
+                
                 this.mainModel.setDeferredBatchGroups(["createGroup"]);
 
                 this._oNewContext = this.mainModel.createEntry("/MasterUOMSet", {
@@ -144,6 +155,13 @@ sap.ui.define([
 
             this.getViewModel("objectViewModel").setProperty("/idSFDisplay", true);
             this.getViewModel("objectViewModel").setProperty("/idSFEdit", false);
+
+            if (this.sParentID === "new") {
+                this.oRouter.navTo("LandingPage", {
+                },
+                false
+                );
+            }
         },
 
         onCreateNewPCListPress: function (oEvent) {

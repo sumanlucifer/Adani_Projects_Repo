@@ -12,24 +12,18 @@
 				</f:DynamicPageTitle>
 			</f:title>
         <f:content>
-            <List items="{path: '/MasterUOMSet',sorter: {path: 'Name'}}">
+            <List id="idListMaster" items="{path: '/MasterUOMSet',sorter: {path: 'Name'}}">
                 <headerToolbar>
 					<OverflowToolbar>
 						<SearchField id="searchField" showRefreshButton="true"
 							tooltip="{i18n>masterSearchTooltip}" search=".onSearch" width="auto">
 							<layoutData>
-								<OverflowToolbarLayoutData
-									minWidth="150px"
-									maxWidth="240px"
-									shrinkable="true"
+								<OverflowToolbarLayoutData minWidth="150px"
+									maxWidth="240px" shrinkable="true"
 									priority="NeverOverflow"/>
 							</layoutData>
 						</SearchField>
 						<ToolbarSpacer/>
-						<Button id="sortButton"	press=".onOpenViewSettings"
-							icon="sap-icon://sort" type="Transparent"/>
-						<Button id="filterButton" press=".onOpenViewSettings"
-							icon="sap-icon://filter" type="Transparent"/>
 						<Button id="groupButton" press=".onOpenViewSettings"
 							icon="sap-icon://group-2" type="Transparent"/>
 					</OverflowToolbar>
