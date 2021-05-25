@@ -21,9 +21,9 @@ sap.ui.define([
                 delay: 0,
                 idSFDisplay: true,
                 idSFEdit: false,
-                idBtnEdit:true,
-                idBtnSave:false,
-                idBtnCancel:false
+                idBtnEdit: true,
+                idBtnSave: false,
+                idBtnCancel: false
             });
             this.setModel(oViewModel, "objectViewModel");
 
@@ -54,7 +54,26 @@ sap.ui.define([
             this.getView().getModel().setProperty("/busy", false);
 
             this.getView().getModel("layoutModel").setProperty("/layout", sLayout);
-            this._bindView("/MasterUOMSet" + this.sParentID);
+
+            if (this.sParentID === "new") {
+                this.mainModel.setDeferredBatchGroups(["createGroup"]);
+
+                this._oNewContext = this.mainModel.createEntry("/MasterUOMSet", {
+                    groupId: "createGroup",
+                    properties: {
+                        ID: "",
+                        Name: "",
+                        Description: ""
+                    }
+                });
+                this._oObjectPath = this._oNewContext.sPath;
+                //this.getView().setBindingContext(this._oNewContext);
+                this.getView().bindElement({
+                    path: this._oObjectPath
+                });
+            } else {
+                this._bindView("/MasterUOMSet" + this.sParentID);
+            }
         },
 
         _bindView: function (sObjectPath) {
@@ -74,50 +93,50 @@ sap.ui.define([
             });
         },
 
-        onEdit:function(){
-            
+        onEdit: function () {
+
             this.getViewModel("objectViewModel").setProperty("/idBtnEdit", false);
             this.getViewModel("objectViewModel").setProperty("/idBtnSave", true);
             this.getViewModel("objectViewModel").setProperty("/idBtnCancel", true);
 
             this.getViewModel("objectViewModel").setProperty("/idSFDisplay", false);
             this.getViewModel("objectViewModel").setProperty("/idSFEdit", true);
-        
+
             //   this.byId("idBtnEdit").setVisible(false);
             //   this.byId("idBtnSave").setVisible(true);
             //      this.byId("idBtnCancel").setVisible(true);
-            
+
             //   this.byId("idSFDisplay").setVisible(false);
             //   this.byId("idSFEdit").setVisible(true);
 
         },
 
-        onSave : function(){
-            var that = this;
-            var oPayload = {};
-            oPayload.Name=this.byId("nameEdit").getValue();
-            oPayload.Description=this.byId("nameDesc").getValue();
-            
-            this.mainModel.create("/MasterUOMSet", oPayload, {
-                success: function (oData, oResponse) {
-                    sap.m.MessageBox.success(oData.Message);
-                   // this.getViewModel("objectViewModel").setProperty("/isCreatingPCList", false);
-                    this.getView().getModel().refresh();
-                    that.onCancel();
-                }.bind(this),
-                error: function (oError) {
-                    sap.m.MessageBox.error(JSON.stringify(oError));
-                }
-            });
+        onSave: function () {
+                var that = this;
+                var oPayload = {};
+                oPayload.Name = this.byId("nameEdit").getValue();
+                oPayload.Description = this.byId("nameDesc").getValue();
+
+                this.mainModel.create("/MasterUOMSet", oPayload, {
+                    success: function (oData, oResponse) {
+                        sap.m.MessageBox.success(oData.Message);
+                        // this.getViewModel("objectViewModel").setProperty("/isCreatingPCList", false);
+                        this.getView().getModel().refresh();
+                        that.onCancel();
+                    }.bind(this),
+                    error: function (oError) {
+                        sap.m.MessageBox.error(JSON.stringify(oError));
+                    }
+                });
         },
 
-        onCancel : function(){
-          /*  this.byId("idSFDisplay").setVisible(true);
-            this.byId("idSFEdit").setVisible(false);
-
-            this.byId("idBtnEdit").setVisible(true);
-            this.byId("idBtnSave").setVisible(false);
-            this.byId("idBtnCancel").setVisible(false);*/
+        onCancel: function () {
+            /*  this.byId("idSFDisplay").setVisible(true);
+              this.byId("idSFEdit").setVisible(false);
+  
+              this.byId("idBtnEdit").setVisible(true);
+              this.byId("idBtnSave").setVisible(false);
+              this.byId("idBtnCancel").setVisible(false);*/
 
             this.getViewModel("objectViewModel").setProperty("/idBtnEdit", true);
             this.getViewModel("objectViewModel").setProperty("/idBtnSave", false);
@@ -126,7 +145,7 @@ sap.ui.define([
             this.getViewModel("objectViewModel").setProperty("/idSFDisplay", true);
             this.getViewModel("objectViewModel").setProperty("/idSFEdit", false);
         },
-      
+
         onCreateNewPCListPress: function (oEvent) {
             this.getViewModel("objectViewModel").setProperty("/isCreatingPCList", true)
         },

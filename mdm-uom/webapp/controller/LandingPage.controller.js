@@ -5,11 +5,11 @@ sap.ui.define([
 	/**
 	 * @param {typeof sap.ui.core.mvc.Controller} Controller
 	 */
-	function (BaseController,fioriLibrary) {
-		"use strict";
+    function (BaseController, fioriLibrary) {
+        "use strict";
 
-		return BaseController.extend("com.agel.mmts.mdmuom.controller.LandingPage", {
-            
+        return BaseController.extend("com.agel.mmts.mdmuom.controller.LandingPage", {
+
             // Initialisation
             onInit: function () {
                 var oModel = this.getOwnerComponent().getModel("layoutModel");
@@ -19,13 +19,13 @@ sap.ui.define([
                 this.oRouter = this.getRouter();
                 this.oRouter.getRoute("LandingPage").attachPatternMatched(this._onObjectMatched, this);
             },
-            
+
             //ObjectMatch
             _onObjectMatched: function (oEvent) {
                 var sLayout = oEvent.getParameter("arguments").layout;
 
                 this.getView().getModel("layoutModel").setProperty("/layout", sLayout);
-             //   this._bindView("/MasterUOMSet" + this.sParentID);
+                //   this._bindView("/MasterUOMSet" + this.sParentID);
             },
 
             //triggers on press of a PO cheveron item from the list
@@ -42,10 +42,19 @@ sap.ui.define([
                 this.oRouter.navTo("detail", {
                     parentMaterial: sObjectPath.slice("/MasterUOMSet".length),
                     layout: "TwoColumnsMidExpanded"
-                    },
+                },
+                    false
+                );
+            },
+
+            onCreatePress: function (oEvent) {
+                this.oRouter.navTo("detail", {
+                    parentMaterial: "new",
+                    layout: "TwoColumnsMidExpanded"
+                },
                     false
                 );
             }
 
-		});
-	});
+        });
+    });
