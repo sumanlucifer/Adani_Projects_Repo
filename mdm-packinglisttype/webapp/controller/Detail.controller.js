@@ -18,7 +18,12 @@ sap.ui.define([
             //view model instatiation
             var oViewModel = new JSONModel({
                 busy: false,
-                delay: 0
+                delay: 0,
+                idSFDisplay: true,
+                idSFEdit: false,
+                idBtnEdit: true,
+                idBtnSave: false,
+                idBtnCancel: false
             });
             this.setModel(oViewModel, "objectViewModel");
 
@@ -34,9 +39,34 @@ sap.ui.define([
             var sLayout = oEvent.getParameter("arguments").layout;
 
             this.getView().getModel().setProperty("/busy", false);
-
             this.getView().getModel("layoutModel").setProperty("/layout", sLayout);
-            this._bindView("/MasterPackagingTypeSet" + this.sPackingListID);
+
+            if (this.sPackingListID === "new") {
+
+                this.getViewModel("objectViewModel").setProperty("/idSFDisplay", false);
+                this.getViewModel("objectViewModel").setProperty("/idSFEdit", true);
+
+                this.getViewModel("objectViewModel").setProperty("/idBtnEdit", false);
+                this.getViewModel("objectViewModel").setProperty("/idBtnSave", true);
+                this.getViewModel("objectViewModel").setProperty("/idBtnCancel", true);
+                
+                this.mainModel.setDeferredBatchGroups(["createGroup"]);
+
+                this._oNewContext = this.mainModel.createEntry("/MasterPackagingTypeSet", {
+                    groupId: "createGroup",
+                    properties: {
+                        ID: "",
+                        Name: "",
+                    }
+                });
+                this._oObjectPath = this._oNewContext.sPath;
+                //this.getView().setBindingContext(this._oNewContext);
+                this.getView().bindElement({
+                    path: this._oObjectPath
+                });
+            } else {
+                this._bindView("/MasterPackagingTypeSet" + this.sPackingListID);
+            }
         },
 
         _bindView: function (sObjectPath) {
@@ -54,7 +84,53 @@ sap.ui.define([
                     }
                 }
             });
-        }
+        },
+
+            onEdit: function () {
+
+            this.getViewModel("objectViewModel").setProperty("/idBtnEdit", false);
+            this.getViewModel("objectViewModel").setProperty("/idBtnSave", true);
+            this.getViewModel("objectViewModel").setProperty("/idBtnCancel", true);
+
+            this.getViewModel("objectViewModel").setProperty("/idSFDisplay", false);
+            this.getViewModel("objectViewModel").setProperty("/idSFEdit", true);
+
+        },
+
+        onSave: function () {
+                var that = this;
+                var oPayload = {};
+                oPayload.Name = this.byId("nameEdit").getValue();
+                oPayload.Description = this.byId("nameDesc").getValue();
+
+                this.mainModel.create("/MasterPackagingTypeSet", oPayload, {
+                    success: function (oData, oResponse) {
+                        sap.m.MessageBox.success(oData.Message);
+                        // this.getViewModel("objectViewModel").setProperty("/isCreatingPCList", false);
+                        this.getView().getModel().refresh();
+                        that.onCancel();
+                    }.bind(this),
+                    error: function (oError) {
+                        sap.m.MessageBox.error(JSON.stringify(oError));
+                    }
+                });
+        },
+
+        onCancel: function () {
+            this.getViewModel("objectViewModel").setProperty("/idBtnEdit", true);
+            this.getViewModel("objectViewModel").setProperty("/idBtnSave", false);
+            this.getViewModel("objectViewModel").setProperty("/idBtnCancel", false);
+
+            this.getViewModel("objectViewModel").setProperty("/idSFDisplay", true);
+            this.getViewModel("objectViewModel").setProperty("/idSFEdit", false);
+
+            if (this.sPackingListID === "new") {
+                this.oRouter.navTo("TargetMaster", {
+                },
+                false
+                );
+            }
+        },
 
 
     });

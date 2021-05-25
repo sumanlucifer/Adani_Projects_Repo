@@ -12,18 +12,30 @@
             </f:DynamicPageTitle>
         </f:title>
         <f:content>
-            <List items="{path: '/MasterPackagingTypeSet',
-                                                sorter: {path: 'Name'}}">
-                <StandardListItem title="Name: {Name}" description="ID : {ID}" type="Navigation" press="onPackingListTypePress"/>
+            <List id="idListMaster" items="{path: '/MasterPackagingTypeSet',sorter: {path: 'Name'}}">
+            <headerToolbar>
+					<OverflowToolbar>
+                        <Title id="idTitle" text="{i18n>UOM}"/>
+                        <ToolbarSpacer/>
+						<SearchField id="searchField" showRefreshButton="true"
+							tooltip="{i18n>masterSearchTooltip}" search=".onSearch" width="auto">
+							<layoutData>
+								<OverflowToolbarLayoutData minWidth="150px"
+									maxWidth="240px" shrinkable="true"
+									priority="NeverOverflow"/>
+							</layoutData>
+						</SearchField>
+						<Button id="groupButton" press=".onOpenViewSettings"
+							icon="sap-icon://group-2" type="Transparent"/>
+                        <Button icon="sap-icon://add" 
+                            press="onCreatePress"/>
+					</OverflowToolbar>
+				</headerToolbar>
+                <items> 
+                <StandardListItem title="Name: {Name}" description="ID : {ID}" 
+                type="Navigation" press="onPackingListTypePress"/>
+                </items>
             </List>
         </f:content>
-        <f:footer>
-            <OverflowToolbar>
-                <content>
-                    <ToolbarSpacer ></ToolbarSpacer>
-                    <Button icon="sap-icon://add" text="Create" press="onCreatePress"></Button>
-                </content>
-            </OverflowToolbar>
-        </f:footer>
     </f:DynamicPage>
 </mvc:View>

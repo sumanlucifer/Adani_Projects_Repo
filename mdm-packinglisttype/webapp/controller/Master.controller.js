@@ -1,11 +1,14 @@
 sap.ui.define([
-    "./BaseController",
-    'sap/f/library'
+     "./BaseController",
+    'sap/f/library',
+    "sap/ui/core/Fragment",
+    "sap/ui/model/Filter",
+    "sap/ui/model/FilterOperator",
 ],
 	/**
 	 * @param {typeof sap.ui.core.mvc.Controller} Controller
 	 */
-    function (BaseController, fioriLibrary) {
+    function (BaseController, fioriLibrary,Fragment,Filter,FilterOperator) {
         "use strict";
 
         return BaseController.extend("com.agel.mmts.mdmpackinglisttype.controller.Master", {
@@ -21,7 +24,6 @@ sap.ui.define([
 
             _onObjectMatched: function (oEvent) {
                 var sLayout = oEvent.getParameter("arguments").layout;
-                debugger;
                 //this.getView().getModel("layoutModel").setProperty("/layout", sLayout);
                 //this._bindView("/MasterPackagingTypeSet" + this.sParentID);
             },
@@ -42,6 +44,109 @@ sap.ui.define([
                 },
                     false
                 );
+            },
+
+             onCreatePress: function (oEvent) {
+                this.oRouter.navTo("detail", {
+                    packingListType: "new",
+                    layout: "TwoColumnsMidExpanded"
+                },
+                    false
+                );
+            },
+
+            //On Search
+            onSearch : function(oEvent){
+
+                var oView = this.getView();
+                var oList = oView.byId("idListMaster");
+                var oValue = oView.byId("searchField").getValue();
+                var oBinding = oList.getBinding("items");
+                var aFilters=[];
+                var oFilter = new sap.ui.model.Filter("Name", FilterOperator.Contains, oValue);
+             //   var oFilter1 = new sap.ui.model.Filter("Description", FilterOperator.Contains, oValue);
+                aFilters.push(oFilter);
+              //  aFilters.push(oFilter1);
+                oBinding.filter(aFilters);                
+            },
+
+            // Child Line Items Dialog Open
+            onOpenViewSettings: function (sParentItemPath) {
+                // create dialog lazily
+                var oDetails = {};
+                oDetails.controller = this;
+                oDetails.view = this.getView();
+              //  oDetails.sParentItemPath = sParentItemPath;
+                if (!this.pDialog) {
+                    this.pDialog = Fragment.load({
+                        id: oDetails.view.getId(),
+                        name: "com.agel.mmts.mdmpackinglisttype.view.fragments.FilterSortGroup",
+                        controller: oDetails.controller
+                    }).then(function (oDialog) {
+                        // connect dialog to the root view of this component (models, lifecycle)
+                        oDetails.view.addDependent(oDialog);
+                        oDialog.bindElement({
+                            path: "/MasterPackagingTypeSet",
+                        }); 
+                        return oDialog;
+                    });
+                }
+                this.pDialog.then(function (oDialog) {
+                    oDetails.view.addDependent(oDialog);
+                    oDialog.bindElement({
+                        path: "/MasterPackagingTypeSet",
+                    }); 
+                    oDialog.open();
+                });
+            },
+
+            onViewChildDialogClose: function (oEvent) {
+                this.pDialog.then(function (oDialog) {
+                    oDialog.close();
+                });
+            },
+
+            onFilterSortConfirm: function(oEvent) {
+                var oView = this.getView();
+                var oList = oView.byId("idListMaster");
+                var mParams = oEvent.getParameters();
+                var oBinding = oList.getBinding("items");
+                // apply grouping 
+                var aSorters = [];
+                if (mParams.groupItem) {
+                    var sPath = mParams.groupItem.getKey();
+                    var bDescending = mParams.groupDescending;
+                    var vGroup = function(oContext) {
+                    var name = oContext.getProperty("Name");
+                        return {
+                            key: name,      
+                            text: name
+                        };
+                    };
+                    aSorters.push(new sap.ui.model.Sorter(sPath, bDescending, vGroup));
+                }
+                // apply sorter 
+                if (mParams.sortItem) {
+                    var sPath = mParams.sortItem.getKey();
+                    var bDescending = mParams.sortDescending;
+                    aSorters.push(new sap.ui.model.Sorter(sPath, bDescending));
+                    oBinding.sort(aSorters);
+                }
+                // apply filters 
+                if (mParams.filterItems) {
+                    var aFilters = [];
+                    for (var i = 0, l = mParams.filterItems.length; i < l; i++) 
+                    {
+                        var oItem = mParams.filterItems[i];
+                        var aSplit = oItem.getKey().split("___");
+                       // var sPath = "Name";
+                       // var vOperator = new sap.ui.model.FilterOperator.Contains;
+                        var vValue1 = aSplit[0];
+                        var oFilter = new sap.ui.model.Filter("Name", FilterOperator.Contains, vValue1);
+                        aFilters.push(oFilter);
+                    }
+                    oBinding.filter(aFilters);
+                }
             }
 
         });

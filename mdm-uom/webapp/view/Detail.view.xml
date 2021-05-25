@@ -9,12 +9,6 @@
     <uxap:ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true" upperCaseAnchorBar="false" headerContentPinnable="true" toggleHeaderOnTitleClick="true" busy="{objectViewModel>/busy}">
         <uxap:headerTitle>
             <uxap:ObjectPageDynamicHeaderTitle>
-                <uxap:breadcrumbs>
-                    <Breadcrumbs id="breadcrumbsId" currentLocationText="{i18n>manageBOQ}">
-                        <Link text="{i18n>assignedPOList}" press=".handleToAllPOBreadcrumPress"/>
-                        <Link text="{i18n>confirmedPODetails}" press=".handleToAllPOBreadcrumPress"/>
-                    </Breadcrumbs>
-                </uxap:breadcrumbs>
                 <uxap:expandedHeading>
                     <Title text="{ID}" wrapping="true" titleStyle="H3" />
                 </uxap:expandedHeading>
