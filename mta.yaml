@@ -128,6 +128,10 @@ modules:
       - comagelmmtsvendormanageboq.zip
       name: comagelmmtsvendormanageboq
       target-path: resources/
+    - artifacts:
+      - comagelmmtsmdmuom.zip
+      name: comagelmmtsmdmuom
+      target-path: resources/
 - name: vendorPersona
   type: html5
   path: vendorPersona
@@ -156,8 +160,6 @@ modules:
       TENANT_HOST_PATTERN: ^(.*)-agel-mmts-web-approuter.${default-domain}
   deployed-after:
   - agel-mmts-web_ui_deployer
-
-  
 - name: vendorPersona-ConfirmPOs
   type: html5
   path: vendorPersona-ConfirmPOs
@@ -366,6 +368,16 @@ modules:
     - npm install
     - npm run build:cf
     supported-platforms: []
+- name: comagelmmtsmdmuom
+  type: html5
+  path: mdm-uom
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
 resources:
 - name: uaa_agel-mmts-web
   type: org.cloudfoundry.managed-service
@@ -408,6 +420,7 @@ resources:
     service-plan: lite
 parameters:
   -enable-parallel-deployments: true
+  deploy_mode: html5-repo
 build-parameters:
   before-all:
   - builder: custom
