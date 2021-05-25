@@ -1,0 +1,129 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns:f="sap.ui.layout.form"
+    xmlns="sap.m"
+    xmlns:smartTable="sap.ui.comp.smarttable"
+    xmlns:tt="sap.ui.table" controllerName="com.agel.mmts.tcengineer.view.blocks.BOQDetails.boqItemsTable.BOQItemsTableController">
+
+    <Table items="{path: 'ParentLineItem/BOQItems'}" autoPopinMode="true" alternateRowColors="true" growingThreshold="3" growing="true">
+        <headerToolbar>
+            <OverflowToolbar >
+                <content>
+                    <ToolbarSpacer></ToolbarSpacer>
+                    <Button text="Approve" type="Accept" press="onApproveBOQPress"></Button>
+                    <Button text="Reject" type="Reject" press="onRejectBOQPress"></Button>
+                    <Button icon="sap-icon://sort"></Button>
+                    <Button icon="sap-icon://filter"></Button>
+                    <Button icon="sap-icon://group"></Button>
+                </content>
+            </OverflowToolbar>
+        </headerToolbar>
+        <columns>
+            <Column>
+                <Text text="Name"/>
+            </Column>
+            <Column>
+                <Text text="Name"/>
+            </Column>
+            <Column>
+                <Text text="Name"/>
+            </Column>
+            <Column>
+                <Text text="Name"/>
+            </Column>
+            <Column>
+                <Text text="Name"/>
+            </Column>
+            <Column>
+                <Text text="Name"/>
+            </Column>
+        </columns>
+        <items>
+            <ColumnListItem>
+                <cells>
+                    <ObjectIdentifier title="{MaterialCode}"/>
+                    <Text text="{Name}"/>
+                    <Text text="{Qty}"/>
+                    <ExpandableText text="{Description}" overflowMode="InPlace" maxCharacters="15" />
+                    <Text text="{UOM}"/>
+                    <Text text="{CreatedAt}"/>
+
+                </cells>
+            </ColumnListItem>
+        </items>
+    </Table>
+
+
+
+
+    <!-- <VBox>
+        <Panel expandable="true" width="auto">
+            <headerToolbar>
+                <OverflowToolbar>
+                    <FlexBox renderType="Bare" direction="Row" binding="{ParentLineItem}" justifyContent="SpaceBetween" width="100%">
+                    <VBox justifyContent="Center" alignItems="Center">
+                    <Text text="material Code" class="sapUiTinymarginBottom"/>
+                    <ObjectIdentifier text="{MaterialCode}" titleActive="true" />
+                    </VBox>
+                        
+                        <Text text="{Name}"/>
+                        <Text text="{Quantity}"/>
+                        <ExpandableText text="{Description}" overflowMode="InPlace" maxCharacters="15" />
+                        <Text text="{UoM}"/>
+                        <HBox justifyContent="SpaceAround">
+                            <Button text="Approve" type="Accept"></Button>
+                            <Button text="Reject" type="Reject"></Button>
+                            <Button icon="sap-icon://filter"></Button>
+                            <Button icon="sap-icon://sort"></Button>
+                        </HBox>
+                    </FlexBox>
+
+                    <ToolbarSpacer/>
+                    <Label text="{oModel>Phone}"></Label>
+                </OverflowToolbar>
+            </headerToolbar>
+            <content>
+            <VBox class="sapUiLargeMarginBegin">
+                <Table items="{path: 'ParentLineItem/BOQItems'}" autoPopinMode="true" alternateRowColors="true">
+                    <columns>
+                        <Column>
+
+                        </Column>
+                        <Column>
+
+                        </Column>
+                        <Column>
+
+                        </Column>
+                        <Column>
+
+                        </Column>
+                        <Column>
+
+                        </Column>
+                        <Column>
+
+                        </Column>
+                    </columns>
+                    <items>
+                        <ColumnListItem>
+                            <cells>
+                                <ObjectIdentifier title="{MaterialCode}"/>
+                                <Text text="{Name}"/>
+                                <Text text="{Qty}"/>
+                                <ExpandableText text="{Description}" overflowMode="InPlace" maxCharacters="15" />
+                                 <Text text="{UOM}"/>
+                                <Text text="{CreatedAt}"/>
+                                
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
+                </VBox>
+            </content>
+        </Panel>
+    </VBox> -->
+
+</mvc:View>
+
+

@@ -1,4 +1,5 @@
 {
     "[xml].editor.defaultFormatter": "sapse.sap-ux-annotation-modeler-extension",
-    "actions": []
+    "actions": [],
+    "liveServer.settings.port": 8083
 }

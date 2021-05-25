@@ -3,7 +3,7 @@
     xmlns:f="sap.ui.layout.form"
     xmlns="sap.m">
 
-    <f:SimpleForm singleContainerFullSize="true" layout="ColumnLayout" columnsM="2" columnsL="3" columnsXL="4" binding="{Vendor}" class="style-RemoveTitleHeight">
+    <f:SimpleForm singleContainerFullSize="true" layout="ColumnLayout" columnsM="2" columnsL="3" columnsXL="4" binding="{ParentLineItem/PurchaseOrder/Vendor}" class="style-RemoveTitleHeight">
         <f:content>
             <core:Title  />
             <Label text="{i18n>vendorName}" />

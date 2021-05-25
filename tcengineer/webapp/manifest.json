@@ -85,7 +85,7 @@
                 "settings": {
                     "defaultOperationMode": "Server",
                     "defaultBindingMode": "TwoWay",
-                    "defaultCountMode": "Inline",
+                    "defaultCountMode": "Request",
                     "refreshAfterChange": true,
                     "useBatch": false
                 },

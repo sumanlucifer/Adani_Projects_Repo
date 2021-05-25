@@ -11,8 +11,9 @@
     xmlns="sap.m" controllerName="com.agel.mmts.tcengineer.controller.BOQDetails"
     xmlns:buyerForm="com.agel.mmts.tcengineer.view.blocks.BOQDetails.buyerForm"
     xmlns:sellerForm="com.agel.mmts.tcengineer.view.blocks.BOQDetails.sellerForm"
-    xmlns:sowForm="com.agel.mmts.tcengineer.view.blocks.BOQDetails.sowForm"
     xmlns:lineItemsForm="com.agel.mmts.tcengineer.view.blocks.BOQDetails.lineItemsForm"
+    xmlns:sowForm="com.agel.mmts.tcengineer.view.blocks.BOQDetails.sowForm"
+    xmlns:boqItemsTable="com.agel.mmts.tcengineer.view.blocks.BOQDetails.boqItemsTable.blocks"
     height="100%">
     <uxap:ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true" upperCaseAnchorBar="false" headerContentPinnable="true" toggleHeaderOnTitleClick="true" busy="{objectViewModel>/busy}">
         <uxap:headerTitle>
@@ -25,25 +26,25 @@
                 <uxap:expandedHeading>
                     <FlexBox direction="Column" renderType="Bare">
                         <Title text="PO Details" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
-                        <Title text="{PONumber}" wrapping="true" titleStyle="H3" />
+                        <Title text="{PONumber}" binding="{ParentLineItem/PurchaseOrder}" wrapping="true" titleStyle="H3" />
                     </FlexBox>
                 </uxap:expandedHeading>
                 <uxap:snappedHeading>
                     <FlexBox direction="Column" renderType="Bare">
                         <Title text="PO Details" wrapping="true" titleStyle="H4"/>
-                        <Title text="{PONumber}" wrapping="true" titleStyle="H3"/>
+                        <Title text="{PONumber}" binding="{ParentLineItem/PurchaseOrder}" wrapping="true" titleStyle="H3"/>
                     </FlexBox>
                 </uxap:snappedHeading>
                 <uxap:expandedContent></uxap:expandedContent>
                 <uxap:snappedTitleOnMobile>
-                    <Title text="PO Details - {PONumber}" wrapping="true" titleStyle="Auto"/>
+                    <Title text="PO Details - {PONumber}" binding="{ParentLineItem/PurchaseOrder}" wrapping="true" titleStyle="Auto"/>
                 </uxap:snappedTitleOnMobile>
                 <uxap:actions>
                 </uxap:actions>
             </uxap:ObjectPageDynamicHeaderTitle>
         </uxap:headerTitle>
         <uxap:headerContent>
-            <FlexBox wrap="Wrap" height="100%" renderType="Bare" direction="Column">
+            <FlexBox wrap="Wrap" height="100%" renderType="Bare" direction="Column" binding="{ParentLineItem/PurchaseOrder}">
                 <VBox renderType="Bare">
                     <FlexBox direction="Row" renderType="Bare" class="sapUiTinyMarginBottom">
                         <VBox renderType="Bare" class="sapUiMediumMarginEnd">
@@ -104,7 +105,7 @@
             </uxap:ObjectPageSection>
 
             <!-- Line Items Section -->
-            <!-- <uxap:ObjectPageSection titleUppercase="false" title="{i18n>boqItems}">
+            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>boqItems}">
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection title="{i18n>boqItems}">
                         <uxap:blocks>
@@ -112,7 +113,7 @@
                         </uxap:blocks>
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>
-            </uxap:ObjectPageSection> -->
+            </uxap:ObjectPageSection>
 
         </uxap:sections>
     </uxap:ObjectPageLayout>

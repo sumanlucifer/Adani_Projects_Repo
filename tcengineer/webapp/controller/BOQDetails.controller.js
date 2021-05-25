@@ -20,7 +20,7 @@ sap.ui.define([
     "use strict";
 
     return BaseController.extend("com.agel.mmts.tcengineer.controller.BOQDetails", {
-        
+
         onInit: function () {
             this.getView().addEventDelegate({
                 onAfterShow: this.onBeforeShow,
@@ -33,6 +33,8 @@ sap.ui.define([
             });
             this.setModel(oViewModel, "objectViewModel");
 
+            this._createBOQApprovalModel();
+
             // Keeps reference to any of the created sap.m.ViewSettingsDialog-s in this sample
             this._mViewSettingsDialogs = {};
 
@@ -43,7 +45,19 @@ sap.ui.define([
 
         _onObjectMatched: function (oEvent) {
             var sObjectId = oEvent.getParameter("arguments").BOQRequestId;
-            this._bindView("/BOQApprovalRequestSet" + sObjectId + "/ParentLineItem/PurchaseOrder");
+            this._bindView("/BOQApprovalRequestSet" + sObjectId);
+        },
+
+        _createBOQApprovalModel: function () {
+            
+            var oModel = new JSONModel({
+                BOQApprovedRequestId: null,
+                Status: null,
+                Comment: null,
+                BOQGroupId: null
+            });
+
+            this.setModel(oModel, "BOQApprovalModel");
         },
 
 
@@ -142,19 +156,19 @@ sap.ui.define([
             return pDialog;
         },
 
-        onManageBOQItemPress: function (oEvent) {
-            var sPONumber = this.getView().getBindingContext().getObject().PONumber;
-            var mBindingParams = oEvent.getParameters().getParameter("bindingParams");
-            mBindingParams.parameters["expand"] = "BOQGroups";
-            mBindingParams.parameters["navigation"] = { "ParentLineItemSet": "BOQGroups" };
-            mBindingParams.parameters["treeAnnotationProperties"] = { "hierarchyLevelFor" : 'HierarchyLevel', "hierarchyNodeFor" : 'ID', "hierarchyParentNodeFor" : 'ParentNodeID'} ;
-            mBindingParams.filters.push(new sap.ui.model.Filter("PONumber", sap.ui.model.FilterOperator.EQ, sPONumber));
+        onBeforeShow: function (evt) {
+            //this.getView().getContent()[0].getSections()[1].rerender();
+            //this.getView().getContent()[0].getSections()[2].rerender();
+            //this.getView().getContent()[0].getSections()[2].rerender();
         },
 
-        onBeforeShow : function(evt) {
-            this.getView().getContent()[0].getSections()[1].rerender();
-            //this.getView().getContent()[0].getSections()[2].rerender();
-            //this.getView().getContent()[0].getSections()[2].rerender();
+        onApproveBOQPress: function (oEvent) {
+
+        },
+
+        onRejectBOQPress: function (oEvent) {
+
         }
+
     });
 });
