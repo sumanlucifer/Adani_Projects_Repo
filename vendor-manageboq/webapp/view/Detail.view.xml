@@ -44,8 +44,12 @@
                     <Text text="{PONumber}"/>
                 </VBox>
                 <VBox renderType="Bare" class="sapUiMediumMarginEnd">
-                    <Label text="{i18n>quantity}" class="sapUiTinyMarginBottom"/>
+                    <Label text="{i18n>actualQuantity}" class="sapUiTinyMarginBottom"/>
                     <Text text="{Quantity}"/>
+                </VBox>
+                <VBox renderType="Bare" class="sapUiMediumMarginEnd">
+                    <Label text="{i18n>boqgenerationQuantity}" class="sapUiTinyMarginBottom"/>
+                    <Text text="{PendingQty}"/>
                 </VBox>
                 <VBox renderType="Bare">
                     <Label text="{i18n>uom}" class="sapUiTinyMarginBottom"/>

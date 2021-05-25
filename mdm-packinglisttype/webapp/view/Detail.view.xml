@@ -1,0 +1,44 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc"
+    xmlns:uxap="sap.uxap"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+    xmlns:unified="sap.ui.unified"
+    xmlns="sap.m" controllerName="com.agel.mmts.mdmpackinglisttype.controller.Detail" height="100%">
+    <uxap:ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true" upperCaseAnchorBar="false" headerContentPinnable="true" toggleHeaderOnTitleClick="true" busy="{objectViewModel>/busy}">
+        <uxap:headerTitle>
+            <uxap:ObjectPageDynamicHeaderTitle>
+                <uxap:expandedHeading>
+                    <Title text="{ID}" wrapping="true" titleStyle="H3" />
+                </uxap:expandedHeading>
+                <uxap:snappedHeading>
+                </uxap:snappedHeading>
+                <uxap:expandedContent></uxap:expandedContent>
+                <uxap:snappedTitleOnMobile>
+                    <Title text="{Name}" wrapping="true" titleStyle="Auto"/>
+                </uxap:snappedTitleOnMobile>
+                <uxap:actions>
+                </uxap:actions>
+            </uxap:ObjectPageDynamicHeaderTitle>
+        </uxap:headerTitle>
+        <uxap:headerContent>
+            <FlexBox direction="Row" renderType="Bare" class="sapUiTinyMarginBottom">
+                <VBox renderType="Bare" class="sapUiMediumMarginEnd">
+                    <Label text="{i18n>name}" class="sapUiTinyMarginBottom"/>
+                    <Text text="{Name}"/>
+                </VBox>
+            </FlexBox>
+        </uxap:headerContent>
+        <uxap:sections>
+
+            <uxap:ObjectPageSection>
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection>
+                       
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+        </uxap:sections>
+    </uxap:ObjectPageLayout>
+</mvc:View>
