@@ -8,18 +8,30 @@
     <smartTable:SmartTable id="smartTreeTable" entitySet="ParentLineItemSet" tableType="TreeTable" useExportToExcel="false" useVariantManagement="false" useTablePersonalisation="true" placeToolbarInTable="true" showRowCount="true" enableAutoBinding="true" enableAutoColumnWidth="true" beforeRebindTable="onBeforeRebindTreeTable" class="sapUiSizeCompact">
         <!-- layout data used to make the table growing but the filter bar fixed -->
         <tt:TreeTable id="treeTable" selectionMode="None" enableColumnReordering="true" expandFirstLevel="false" visibleRowCountMode="Auto">
-            
+
             <tt:columns>
 
                 <tt:Column>
                     <Label text="{i18n>name}"/>
                     <tt:customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "ID", "leadingProperty": "ID",
-                                                 "columnIndex": 1 ,"sortProperty": "ID","filterProperty": "ID"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Name", "leadingProperty": "Name",
+                                                 "columnIndex": 0 ,"sortProperty": "Name","filterProperty": "Name"}'/>
                     </tt:customData>
 
                     <tt:template>
-                        <Text text="{ID}"></Text>
+                        <Text text="{Name}"></Text>
+                    </tt:template>
+                </tt:Column>
+
+                <tt:Column>
+                    <Label text="{i18n>materialCode}"/>
+                    <tt:customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "MaterialCode", "leadingProperty": "MaterialCode",
+                                                 "columnIndex": 1 ,"sortProperty": "NamMaterialCodee","filterProperty": "MaterialCode"}'/>
+                    </tt:customData>
+
+                    <tt:template>
+                        <ObjectIdentifier text="{MaterialCode}"></ObjectIdentifier>
                     </tt:template>
                 </tt:Column>
 
@@ -31,18 +43,30 @@
                     </tt:customData>
 
                     <tt:template>
-                        <Text text="{Description}"></Text>
+
+                        <ExpandableText text="{Description}" overflowMode="InPlace" maxCharacters="20"/>
                     </tt:template>
                 </tt:Column>
 
-                   <tt:Column>
-                    <Label text="{i18n>quantity}" />
+                <tt:Column>
+                    <Label text="{i18n>poQuantity}" />
                     <tt:customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "Quantity", "leadingProperty":"Quantity", "columnIndex": 4}' />
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Quantity", "leadingProperty":"Quantity", "columnIndex": 3}' />
                     </tt:customData>
 
                     <tt:template>
                         <Text text="{Quantity}"></Text>
+                    </tt:template>
+                </tt:Column>
+
+                <tt:Column>
+                    <Label text="{i18n>boqDefinedFor}" />
+                    <tt:customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "GeneratedBOQQty", "leadingProperty":"BOQGroups/GeneratedBOQQty", "columnIndex": 4}' />
+                    </tt:customData>
+
+                    <tt:template>
+                        <Text text="{GeneratedBOQQty}"></Text>
                     </tt:template>
                 </tt:Column>
 
@@ -55,18 +79,40 @@
                     <tt:template>
                         <Text text="{UoM}"></Text>
                     </tt:template>
-                </tt:Column> 
+                </tt:Column>
 
-                 <!-- <tt:Column>
-                    <Label text="{i18n>action}" />
+                <tt:Column>
+                    <Label text="{i18n>boqItems}" />
                     <tt:customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "Action", "columnIndex": 3}' />
+                        <core:CustomData key="p13nData" value='\{"columnKey": "TotalChildItemCount", "leadingProperty":"BOQGroups/TotalChildItemCount", "columnIndex": 6}' />
                     </tt:customData>
 
                     <tt:template>
-                        <Link text="{i18n>manageBOQ}" press="onManageBOQItemPress"></Link>
+                        <Text text="{TotalChildItemCount}"></Text>
                     </tt:template>
-                </tt:Column> -->
+                </tt:Column>
+
+                <tt:Column>
+                    <Label text="{i18n>action}" />
+                    <tt:customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Action", "columnIndex": 7}' />
+                    </tt:customData>
+
+                    <tt:template>
+                        <Link text="{= ${MaterialCode} ? '' : 'View BOQ Items' }" press="onViewBOQItemPress"></Link>
+                    </tt:template>
+                </tt:Column>
+
+                <tt:Column>
+                    <Label text="{i18n>status}" />
+                    <tt:customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "status", "leadingProperty":"BOQGroups/Status", "columnIndex": 6}' />
+                    </tt:customData>
+
+                    <tt:template>
+                        <Text text="{Status}"></Text>
+                    </tt:template>
+                </tt:Column>
 
             </tt:columns>
 
