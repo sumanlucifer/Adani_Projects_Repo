@@ -16,8 +16,9 @@ sap.ui.define([
     "sap/m/ObjectIdentifier",
     "sap/m/Text",
     "sap/m/Button",
+    "sap/m/Dialog",
     '../utils/formatter',
-], function (BaseController, JSONModel, Filter, FilterOperator, Fragment, Sorter, Device, History, ColumnListItem, Input, deepExtend, Spreadsheet, MessageToast, MessageBox, ObjectIdentifier, Text, Button, formatter) {
+], function (BaseController, JSONModel, Filter, FilterOperator, Fragment, Sorter, Device, History, ColumnListItem, Input, deepExtend, Spreadsheet, MessageToast, MessageBox, ObjectIdentifier, Text, Button, Dialog, formatter) {
     "use strict";
 
     return BaseController.extend("com.agel.mmts.vendorPersona.controller.PODetails", {
@@ -165,33 +166,20 @@ sap.ui.define([
 
 
         onConfirmPO: function (oEvent) {
-            //initialize the action
-            var that = this,
-                oViewContext = this.getView().getBindingContext().getObject(),
-                oBindingObject = oEvent.getSource().getObjectBinding();
+            var sPath = this.getView().getBindingContext().getPath();
+            var oPayload = {
+                "Status":"CONFIRMED"
+            };
 
-            //set the parameters
-            oBindingObject.getParameterContext().setProperty("status", "CONFIRMED");
-            oBindingObject.getParameterContext().setProperty("po_uuid", oViewContext.ID);
-
-            //execute the action
-            oBindingObject.execute().then(
-                function () {
-                    MessageToast.show("PO confirmed!");
-                    that.getView().getModel().refresh();
-                },
-                function (oError) {
-                    sap.m.MessageBox.alert(oError.message, {
-                        title: "Error"
-                    });
+            this.getComponentModel().update(sPath, oPayload,{
+                success: function(oData, oResponse){
+                    sap.m.MessageBox.success("Purchase order has been confirmed!");
+                    this.getComponentModel().refresh();
+                }.bind(this),
+                error: function(oError){
+                    sap.m.MessageBox.error(JSON.stringify(oError));
                 }
-            );
-        },
-
-        //triggers on press of a Inspection ID item from the list
-        onInspectionIDPress: function (oEvent) {
-            // The source is the list item that got pressed
-            this._showObject(oEvent.getSource());
+            })
         },
 
         onPackingListPress: function (oEvent) {
@@ -248,16 +236,6 @@ sap.ui.define([
             }.bind(this);
 
             this.getView().getModel().submitBatch("childLineItemGroup").then(fnSuccess, fnError);
-        },
-
-        // On Show Object - Navigation
-        _showObject: function (oItem) {
-            var that = this;
-            oItem.getBindingContext().requestCanonicalPath().then(function (sObjectPath) {
-                that.getRouter().navTo("RouteInspectionDetailsPage", {
-                    inspectionID: sObjectPath.slice("/InspectionCallIds".length) // /PurchaseOrders(123)->(123)
-                });
-            });
         },
 
         // On Search of Parent Line Items Table 
@@ -347,18 +325,111 @@ sap.ui.define([
             var mBindingParams = oEvent.getParameters().getParameter("bindingParams");
             mBindingParams.parameters["expand"] = "BOQGroups";
             mBindingParams.parameters["navigation"] = { "ParentLineItemSet": "BOQGroups" };
-            mBindingParams.parameters["treeAnnotationProperties"] = { "hierarchyLevelFor" : 'HierarchyLevel', "hierarchyNodeFor" : 'ID', "hierarchyParentNodeFor" : 'ParentNodeID'} ;
+            mBindingParams.parameters["treeAnnotationProperties"] = { "hierarchyLevelFor": 'HierarchyLevel', "hierarchyNodeFor": 'ID', "hierarchyParentNodeFor": 'ParentNodeID' };
             mBindingParams.filters.push(new sap.ui.model.Filter("PONumber", sap.ui.model.FilterOperator.EQ, sPONumber));
         },
 
-        onBeforeShow : function(evt) {
+        onBeforeShow: function (evt) {
             this.getView().getContent()[0].getSections()[1].rerender();
             this.getView().getContent()[0].getSections()[2].rerender();
-            this.getView().getContent()[0].getSections()[2].rerender();
+            this.getView().getContent()[0].getSections()[3].rerender();
+            this.getView().getContent()[0].getSections()[4].rerender();
         },
 
-        getSelectedRow: function(oEvent){
-            debugger;
+        onSendForApprovalPress: function (oEvent) {
+            var oBOQGroupSelected = oEvent.mParameters.getSource().getBindingContext().getObject();
+            var sPurchaseOrderId = this.getView().getBindingContext().getObject().ID;
+            var oModel = new JSONModel({
+                oBOQGroupSelected: oBOQGroupSelected,
+                sPurchaseOrderId: sPurchaseOrderId
+            });
+            this.getView().setModel(oModel, "sendForApprovalModel");
+            this._openConfirmationDialog();
+        },
+
+        _openConfirmationDialog: function () {
+            //if (!this.oApproveDialog) {
+            this.oApproveDialog = new Dialog({
+                type: sap.m.DialogType.Message,
+                title: "Confirm",
+                content: new Text({ text: "Do you want to send the " + this.getViewModel("sendForApprovalModel").getProperty("/oBOQGroupSelected").Name + " group for TC approval?" }),
+                beginButton: new Button({
+                    type: sap.m.ButtonType.Emphasized,
+                    text: "Send",
+                    press: function () {
+                        this.sendForApproval();
+                        this.oApproveDialog.close();
+                    }.bind(this)
+                }),
+                endButton: new Button({
+                    text: "Cancel",
+                    press: function () {
+                        this.oApproveDialog.close();
+                    }.bind(this)
+                })
+            });
+            //}
+
+            this.oApproveDialog.open();
+        },
+
+        sendForApproval: function (oEvent) {
+            this.oApproveDialog.close();
+            var sendForApprovalModel = this.getViewModel("sendForApprovalModel");
+            var oPayload = {
+                "PurchaseOrderId": sendForApprovalModel.getProperty("/sPurchaseOrderId"),
+                "BOQGroupId": sendForApprovalModel.getProperty("/oBOQGroupSelected").ID
+            };
+            this.getComponentModel().create("/ParentLineItemTCApprovalListSet", oPayload, {
+                success: function (oData, oEvent) {
+                    if (oData.Success)
+                        sap.m.MessageBox.success(oData.Message);
+                    else
+                        sap.m.MessageBox.error(oData.Message);
+                     this.getView().getContent()[0].getSections()[2].rerender();
+                }.bind(this),
+                error: function (oError) {
+                    sap.m.MessageBox.success(JSON.stringify(oError));
+                }
+            });
+        },
+
+        onViewBOQItemPress: function (oEvent) {
+            var sBOQItemPath = oEvent.mParameters.getSource().getBindingContext().getPath();
+            var sDialogTitle = oEvent.mParameters.getSource().getBindingContext().getObject().Name + " Items";
+            var oDetails = {};
+            oDetails.controller = this;
+            oDetails.view = this.getView();
+            oDetails.sBOQItemPath = sBOQItemPath;
+            oDetails.title = sDialogTitle;
+            if (!this.boqDialog) {
+                this.boqDialog = Fragment.load({
+                    id: oDetails.view.getId(),
+                    name: "com.agel.mmts.vendorPersona.view.fragments.PODetails.ViewBOQItems",
+                    controller: oDetails.controller
+                }).then(function (oDialog) {
+                    // connect dialog to the root view of this component (models, lifecycle)
+                    oDetails.view.addDependent(oDialog);
+                    oDialog.bindElement({
+                        path: oDetails.sBOQItemPath
+                    });
+                    oDialog.setTitle(oDetails.title)
+                    return oDialog;
+                });
+            }
+            this.boqDialog.then(function (oDialog) {
+                oDetails.view.addDependent(oDialog);
+                oDialog.bindElement({
+                    path: oDetails.sBOQItemPath,
+                });
+                oDialog.open();
+            });
+        },
+
+         onViewBOQItemDialogClose: function (oEvent) {
+            this.boqDialog.then(function (oDialog) {
+                oDialog.close();
+            });
         }
 
     });

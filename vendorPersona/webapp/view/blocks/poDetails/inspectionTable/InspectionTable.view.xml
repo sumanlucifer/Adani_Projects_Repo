@@ -34,7 +34,7 @@
             </columns>
             <items>
 
-                <ColumnListItem type="Navigation">
+                <ColumnListItem type="Navigation" press="onInspectionIDPress">
                     <cells>
                     <ObjectIdentifier title="{SAPInspectionCallId}"></ObjectIdentifier>
                         <Text text="{path:'InspectionDate',

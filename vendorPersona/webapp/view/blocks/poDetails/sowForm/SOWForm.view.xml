@@ -5,7 +5,7 @@
 
     <f:SimpleForm singleContainerFullSize="true" layout="ColumnLayout" columnsM="2" columnsL="3" columnsXL="4" binding="{SOW}" class="style-RemoveTitleHeight">
         <f:content>
-            <core:Title/>
+            <!-- <core:Title/> -->
             <Label text="{i18n>delivertTerm}" />
             <Text text="{DeliveryTerm}" />
             <!--  <Text text="{path:'DeliveryTerm',
@@ -20,14 +20,14 @@
             <Text text="{PaymentTerms}"/>
             <Label text="{i18n>noticeAndCommunication}" />
             <Text text="{NoticeAndCommunications}"/>
-            <core:Title/>
+            <!-- <core:Title/> -->
             <Label text="{i18n>liquidatedDamages}" />
             <Text text="{LiquidatedDamages}"/>
             <Label text="{i18n>deliverySchedule}" />
             <Text text="missing"/>
             <Label text="{i18n>specificAgreedTems}" />
             <Text text="{SpecificAgreedTerms}"/>
-            <core:Title/>
+            <!-- <core:Title/> -->
             <Label text="{i18n>defect_liability_period}" />
             <Text text="{DefectLiabilityPeriod}"/>
             <Label text="{i18n>address}" />

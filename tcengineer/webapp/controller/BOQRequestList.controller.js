@@ -70,5 +70,10 @@ sap.ui.define([
                     BOQRequestId: sObjectPath.slice("/BOQApprovalRequestSet".length) // /BOQApprovalRequestSet(123)->(123)
                 });
             },
+
+            onBeforeRebindBOQTable: function (oEvent) {
+                var mBindingParams = oEvent.getParameter("bindingParams");
+                mBindingParams.sorter.push(new sap.ui.model.Sorter("CreatedAt", true));
+            }
         });
     });

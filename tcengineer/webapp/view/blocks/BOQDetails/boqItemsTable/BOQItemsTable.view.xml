@@ -5,13 +5,13 @@
     xmlns:smartTable="sap.ui.comp.smarttable"
     xmlns:tt="sap.ui.table" controllerName="com.agel.mmts.tcengineer.view.blocks.BOQDetails.boqItemsTable.BOQItemsTableController">
 
-    <Table items="{path: 'ParentLineItem/BOQItems'}" autoPopinMode="true" alternateRowColors="true" growingThreshold="3" growing="true">
+    <Table id="idBOQItemTable" items="{path: 'ParentLineItem/BOQItems'}" autoPopinMode="true" alternateRowColors="true" growingThreshold="3" growing="true">
         <headerToolbar>
             <OverflowToolbar >
                 <content>
                     <ToolbarSpacer></ToolbarSpacer>
-                    <Button text="Approve" type="Accept" press="onApproveBOQPress"></Button>
-                    <Button text="Reject" type="Reject" press="onRejectBOQPress"></Button>
+                    <Button text="Approve" type="Accept" press="onApproveBOQPress" visible="{= ${Status}=== 'PENDING' ? true : false}"></Button>
+                    <Button text="Reject" type="Reject" press="onRejectBOQPress" visible="{= ${Status}=== 'PENDING' ? true : false}"></Button>
                     <Button icon="sap-icon://sort"></Button>
                     <Button icon="sap-icon://filter"></Button>
                     <Button icon="sap-icon://group"></Button>
