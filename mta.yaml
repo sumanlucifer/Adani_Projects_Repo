@@ -129,6 +129,10 @@ modules:
       name: comagelmmtsvendormanageboq
       target-path: resources/
     - artifacts:
+      - comagelmmtsmdmuom.zip
+      target-path: resources/
+      name: comagelmmtsmdmuom
+    - artifacts:
       - comagelmmtstcengineer.zip
       name: comagelmmtstcengineer
       target-path: resources/
@@ -365,6 +369,16 @@ modules:
 - name: comagelmmtsvendormanageboq
   type: html5
   path: vendor-manageboq
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: comagelmmtsmdmuom
+  type: html5
+  path: mdm-uom
   build-parameters:
     build-result: dist
     builder: custom
