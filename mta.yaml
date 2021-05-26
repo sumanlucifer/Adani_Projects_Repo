@@ -130,7 +130,15 @@ modules:
       target-path: resources/
     - artifacts:
       - comagelmmtsmdmuom.zip
+      target-path: resources/
       name: comagelmmtsmdmuom
+    - artifacts:
+      - comagelmmtstcengineer.zip
+      name: comagelmmtstcengineer
+      target-path: resources/
+    - artifacts:
+      - comagelmmtsmdmpackinglisttype.zip
+      name: comagelmmtsmdmpackinglisttype
       target-path: resources/
     - artifacts:
       - comagelmmtsmdmboqitems.zip
@@ -385,6 +393,26 @@ modules:
 - name: comagelmmtsmdmboqitems
   type: html5
   path: mdm-boqitems
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: comagelmmtstcengineer
+  type: html5
+  path: tcengineer
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: comagelmmtsmdmpackinglisttype
+  type: html5
+  path: mdm-packinglisttype
   build-parameters:
     build-result: dist
     builder: custom

@@ -3,7 +3,7 @@
     xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
     xmlns:f="sap.f" xmlns="sap.m"
     xmlns:smartList="sap.ui.comp.smartlist">
-    <f:DynamicPage toggleHeaderOnTitleClick="false" showFooter="true">
+    <f:DynamicPage toggleHeaderOnTitleClick="false">
             <f:title>
 				<f:DynamicPageTitle>
 					<f:heading>
@@ -12,26 +12,23 @@
 				</f:DynamicPageTitle>
 			</f:title>
         <f:content>
-            <List items="{path: '/MasterUOMSet',sorter: {path: 'Name'}}">
+            <List id="idListMaster" items="{path: '/MasterUOMSet',sorter: {path: 'CreatedAt'}}">
                 <headerToolbar>
 					<OverflowToolbar>
+                        <Title id="idTitle" text="{i18n>UOM}"/>
+                        <ToolbarSpacer/>
 						<SearchField id="searchField" showRefreshButton="true"
 							tooltip="{i18n>masterSearchTooltip}" search=".onSearch" width="auto">
 							<layoutData>
-								<OverflowToolbarLayoutData
-									minWidth="150px"
-									maxWidth="240px"
-									shrinkable="true"
+								<OverflowToolbarLayoutData minWidth="150px"
+									maxWidth="240px" shrinkable="true"
 									priority="NeverOverflow"/>
 							</layoutData>
 						</SearchField>
-						<ToolbarSpacer/>
-						<Button id="sortButton"	press=".onOpenViewSettings"
-							icon="sap-icon://sort" type="Transparent"/>
-						<Button id="filterButton" press=".onOpenViewSettings"
-							icon="sap-icon://filter" type="Transparent"/>
 						<Button id="groupButton" press=".onOpenViewSettings"
 							icon="sap-icon://group-2" type="Transparent"/>
+                        <Button icon="sap-icon://add" 
+                            press="onCreatePress"/>
 					</OverflowToolbar>
 				</headerToolbar>
                 <items>               
@@ -40,13 +37,5 @@
                 </items>
             </List>
         </f:content>
-        <f:footer>
-            <OverflowToolbar>
-                <content>
-                    <ToolbarSpacer ></ToolbarSpacer>
-                    <Button icon="sap-icon://add" text="Create" press="onCreatePress"></Button>
-                </content>
-            </OverflowToolbar>
-        </f:footer>
     </f:DynamicPage>
 </mvc:View>

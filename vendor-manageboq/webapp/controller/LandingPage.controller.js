@@ -23,7 +23,7 @@ sap.ui.define([
                 var sLayout = oEvent.getParameter("arguments").layout;
 
                 this.getView().getModel("layoutModel").setProperty("/layout", sLayout);
-                this._bindView("/ParentLineItemSet" + this.sParentID);
+                //this._bindView("/ParentLineItemSet" + this.sParentID);
             },
 
             //triggers on press of a PO cheveron item from the list

@@ -1,0 +1,41 @@
+<mvc:View controllerName="com.agel.mmts.mdmpackinglisttype.controller.Master"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns:f="sap.f"
+    xmlns="sap.m"
+    xmlns:smartList="sap.ui.comp.smartlist">
+    <f:DynamicPage toggleHeaderOnTitleClick="false" showFooter="true">
+        <f:title>
+            <f:DynamicPageTitle>
+                <f:heading>
+                    <Title text="{i18n>packingList}"/>
+                </f:heading>
+            </f:DynamicPageTitle>
+        </f:title>
+        <f:content>
+            <List id="idListMaster" items="{path: '/MasterPackagingTypeSet',sorter: {path: 'Name'}}">
+            <headerToolbar>
+					<OverflowToolbar>
+                        <Title id="idTitle" text="{i18n>UOM}"/>
+                        <ToolbarSpacer/>
+						<SearchField id="searchField" showRefreshButton="true"
+							tooltip="{i18n>masterSearchTooltip}" search=".onSearch" width="auto">
+							<layoutData>
+								<OverflowToolbarLayoutData minWidth="150px"
+									maxWidth="240px" shrinkable="true"
+									priority="NeverOverflow"/>
+							</layoutData>
+						</SearchField>
+						<Button id="groupButton" press=".onOpenViewSettings"
+							icon="sap-icon://filter" type="Transparent"/>
+                        <Button icon="sap-icon://add" 
+                            press="onCreatePress"/>
+					</OverflowToolbar>
+				</headerToolbar>
+                <items> 
+                <StandardListItem title="Name: {Name}" description="ID : {ID}" 
+                type="Navigation" press="onPackingListTypePress"/>
+                </items>
+            </List>
+        </f:content>
+    </f:DynamicPage>
+</mvc:View>

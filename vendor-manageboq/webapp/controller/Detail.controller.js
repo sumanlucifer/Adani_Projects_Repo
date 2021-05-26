@@ -382,7 +382,6 @@ sap.ui.define([
                     }
                 });
             }
-            debugger;
         },
 
         onViewChildItemsPress: function (oEvent) {
