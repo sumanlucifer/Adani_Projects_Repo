@@ -101,11 +101,12 @@ sap.ui.define([
                 var that = this;
                 var oPayload = {};
                 oPayload.Name = this.byId("nameEdit").getValue();
-                oPayload.Description = this.byId("nameDesc").getValue();
+                oPayload.ID = this.byId("idEdit").getValue();
 
                 this.mainModel.create("/MasterPackagingTypeSet", oPayload, {
                     success: function (oData, oResponse) {
-                        sap.m.MessageBox.success(oData.Message);
+                       // sap.m.MessageBox.success(oData.Message);
+                        sap.m.MessageBox.success("Packing List Type Created Successfully");
                         // this.getViewModel("objectViewModel").setProperty("/isCreatingPCList", false);
                         this.getView().getModel().refresh();
                         that.onCancel();
@@ -125,13 +126,28 @@ sap.ui.define([
             this.getViewModel("objectViewModel").setProperty("/idSFEdit", false);
 
             if (this.sPackingListID === "new") {
-                this.oRouter.navTo("TargetMaster", {
+                this.oRouter.navTo("RouteMaster", {
                 },
                 false
                 );
             }
         },
 
-
+        onDeletePress : function(oEvent){
+           
+            var sPath = this.getView().getBindingContext().getPath();
+            this.mainModel.remove(sPath, {
+                    success: function (oData, oResponse) {
+                       // sap.m.MessageBox.success(oData.Message);
+                        sap.m.MessageBox.success("Packing List Type Deleted Successfully");
+                        // this.getViewModel("objectViewModel").setProperty("/isCreatingPCList", false);
+                        this.getView().getModel().refresh();
+                      //  that.onCancel();
+                    }.bind(this),
+                    error: function (oError) {
+                        sap.m.MessageBox.error(JSON.stringify(oError));
+                    }
+                });
+        }
     });
 });            

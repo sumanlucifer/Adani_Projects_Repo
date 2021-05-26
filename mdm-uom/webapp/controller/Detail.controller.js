@@ -105,7 +105,8 @@ sap.ui.define([
 
                 this.mainModel.create("/MasterUOMSet", oPayload, {
                     success: function (oData, oResponse) {
-                        sap.m.MessageBox.success(oData.Message);
+                        sap.m.MessageBox.success("UOM Created Successfully");
+                      //  sap.m.MessageBox.success(oData.Message);
                         // this.getViewModel("objectViewModel").setProperty("/isCreatingPCList", false);
                         this.getView().getModel().refresh();
                         that.onCancel();

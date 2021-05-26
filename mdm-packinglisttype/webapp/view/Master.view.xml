@@ -7,7 +7,7 @@
         <f:title>
             <f:DynamicPageTitle>
                 <f:heading>
-                    <Title text="{i18n>packingLists}"/>
+                    <Title text="{i18n>packingList}"/>
                 </f:heading>
             </f:DynamicPageTitle>
         </f:title>
@@ -26,7 +26,7 @@
 							</layoutData>
 						</SearchField>
 						<Button id="groupButton" press=".onOpenViewSettings"
-							icon="sap-icon://group-2" type="Transparent"/>
+							icon="sap-icon://filter" type="Transparent"/>
                         <Button icon="sap-icon://add" 
                             press="onCreatePress"/>
 					</OverflowToolbar>

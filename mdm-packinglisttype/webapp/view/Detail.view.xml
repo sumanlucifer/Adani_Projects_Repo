@@ -12,11 +12,13 @@
                 <uxap:expandedHeading>
                     <Title text="{ID}" wrapping="true" titleStyle="H3" />
                 </uxap:expandedHeading>
-                <uxap:expandedContent></uxap:expandedContent>
+                <uxap:expandedContent>
+                </uxap:expandedContent>
                 <uxap:snappedTitleOnMobile>
                     <Title text="{Name}" wrapping="true" titleStyle="Auto"/>
                 </uxap:snappedTitleOnMobile>
                 <uxap:actions>
+                    <Button text="Delete" type="Reject" press="onDeletePress"/>
                 </uxap:actions>
             </uxap:ObjectPageDynamicHeaderTitle>
         </uxap:headerTitle>
@@ -35,31 +37,33 @@
                     <uxap:ObjectPageSubSection>
                          <uxap:blocks>
                       	<f:SimpleForm id="idSFDisplay"	editable="false"
-                          visible="{= ${objectViewModel>/idSFDisplay}}" 
+                            visible="{= ${objectViewModel>/idSFDisplay}}" 
                             layout="ResponsiveGridLayout"  title="Details" 
                         	labelSpanXL="3"	labelSpanL="3" labelSpanM="3" labelSpanS="12"
 			                adjustLabelSpan="false"	emptySpanXL="4" emptySpanL="4" emptySpanM="4"
 			                emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false" >
 			                <f:content>
+                                <Label text="ID" />
+				                <Input id="desc1" value="{ID}" editable="false"/>
+
 				                <Label text="Name" />
 				                <Input id="name" value="{Name}" editable="false" />
-				
-                                <Label text="Description" />
-				                <Input id="desc1" value="{Description}" editable="false"/>
 			                </f:content>    
 		                </f:SimpleForm>
 
-                        <f:SimpleForm id="idSFEdit"	editable="true" visible="{= ${objectViewModel>/idSFEdit}}"
+                        <f:SimpleForm id="idSFEdit"	editable="true"
+                            visible="{= ${objectViewModel>/idSFEdit}}"
                             layout="ResponsiveGridLayout"  title="Details" 
                         	labelSpanXL="3"	labelSpanL="3" labelSpanM="3" labelSpanS="12"
 			                adjustLabelSpan="false"	emptySpanXL="4" emptySpanL="4" emptySpanM="4"
 			                emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false" >
 			                <f:content>
+                                <Label text="ID" />
+				                <Input id="idEdit" value="{ID}"/>
+
 				                <Label text="Name" />
 				                <Input id="nameEdit" value="{Name}" />
 				
-                                <Label text="Description" />
-				                <Input id="nameDesc" value="{Description}"/>
 			                </f:content>    
 		                </f:SimpleForm>
                     </uxap:blocks>

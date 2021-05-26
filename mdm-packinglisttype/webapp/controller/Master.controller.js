@@ -23,9 +23,19 @@ sap.ui.define([
             },
 
             _onObjectMatched: function (oEvent) {
+                
+                var oModel = this.getOwnerComponent().getModel("layoutModel");
+                oModel.setProperty("/layout", "OneColumn");
+
                 var sLayout = oEvent.getParameter("arguments").layout;
+                
                 //this.getView().getModel("layoutModel").setProperty("/layout", sLayout);
                 //this._bindView("/MasterPackagingTypeSet" + this.sParentID);
+            },
+
+            //Setting the header context for a property binding to $count
+            onListUpdateFinished: function (oEvent) {            
+                this.setIconTabCount(oEvent, oEvent.getParameter("total"), "/openCount");
             },
 
             //triggers on press of a PO cheveron item from the list
