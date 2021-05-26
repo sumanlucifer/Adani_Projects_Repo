@@ -1,0 +1,52 @@
+<mvc:View
+    controllerName="com.agel.mmts.mdmboqitems.controller.LandingPage"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns:f="sap.f" xmlns="sap.m"
+    xmlns:smartList="sap.ui.comp.smartlist">
+    <f:DynamicPage toggleHeaderOnTitleClick="false" showFooter="true">
+            <f:title>
+				<f:DynamicPageTitle>
+					<f:heading>
+						<Title text="{i18n>mstrPgMasterItems}"/>
+					</f:heading>
+				</f:DynamicPageTitle>
+			</f:title>
+        <f:content>
+            <List items="{path: '/MasterBoQItemSet',sorter: {path: 'Name'}}">
+                <headerToolbar>
+					<OverflowToolbar>
+						<SearchField id="searchField" showRefreshButton="true"
+							tooltip="{i18n>mstrPgmasterSearchTooltip}" search=".onSearch" width="auto">
+							<layoutData>
+								<OverflowToolbarLayoutData
+									minWidth="150px"
+									maxWidth="240px"
+									shrinkable="true"
+									priority="NeverOverflow"/>
+							</layoutData>
+						</SearchField>
+						<ToolbarSpacer/>
+						<Button id="sortButton"	press=".onSort"
+							icon="sap-icon://sort" type="Transparent"/>
+						<Button id="filterButton" press=".onFilter"
+							icon="sap-icon://filter" type="Transparent"/>
+						<Button id="groupButton" press=".onGroupBy"
+							icon="sap-icon://group-2" type="Transparent"/>
+					</OverflowToolbar>
+				</headerToolbar>
+                <items>               
+                   <StandardListItem title="{Name}" description="{Description}" info="{Description}"
+                    type="Navigation" press="onParentLineItemPress"/>
+                </items>
+            </List>
+        </f:content>
+        <f:footer>
+            <OverflowToolbar>
+                <content>
+                    <ToolbarSpacer ></ToolbarSpacer>
+                    <Button icon="sap-icon://add" text="Create" press="onCreatePress"></Button>
+                </content>
+            </OverflowToolbar>
+        </f:footer>
+    </f:DynamicPage>
+</mvc:View>

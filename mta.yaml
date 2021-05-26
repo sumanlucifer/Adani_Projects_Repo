@@ -132,6 +132,10 @@ modules:
       - comagelmmtsmdmuom.zip
       name: comagelmmtsmdmuom
       target-path: resources/
+    - artifacts:
+      - comagelmmtsmdmboqitems.zip
+      name: comagelmmtsmdmboqitems
+      target-path: resources/
 - name: vendorPersona
   type: html5
   path: vendorPersona
@@ -371,6 +375,16 @@ modules:
 - name: comagelmmtsmdmuom
   type: html5
   path: mdm-uom
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: comagelmmtsmdmboqitems
+  type: html5
+  path: mdm-boqitems
   build-parameters:
     build-result: dist
     builder: custom
