@@ -39,15 +39,15 @@
                 <uxap:snappedTitleOnMobile>
                     <Title text="PO Details - {PONumber}" binding="{ParentLineItem/PurchaseOrder}" wrapping="true" titleStyle="Auto"/>
                 </uxap:snappedTitleOnMobile>
-                <uxap:actions>
+                <uxap:actions>    
                 </uxap:actions>
             </uxap:ObjectPageDynamicHeaderTitle>
         </uxap:headerTitle>
         <uxap:headerContent>
-            <FlexBox wrap="Wrap" height="100%" renderType="Bare" direction="Column" binding="{ParentLineItem/PurchaseOrder}">
+            <FlexBox wrap="Wrap" height="100%" renderType="Bare" direction="Column">
                 <VBox renderType="Bare">
                     <FlexBox direction="Row" renderType="Bare" class="sapUiTinyMarginBottom">
-                        <VBox renderType="Bare" class="sapUiMediumMarginEnd">
+                        <VBox renderType="Bare" class="sapUiMediumMarginEnd" binding="{ParentLineItem/PurchaseOrder}">
                             <Label text="{i18n>issuedDate}" />
                             <!-- missing -->
                             <Text text="{path:'POReleaseDate',
@@ -57,7 +57,7 @@
 				                     }
                             }"/>
                         </VBox>
-                        <VBox renderType="Bare">
+                        <VBox renderType="Bare" class="sapUiMediumMarginEnd" binding="{ParentLineItem/PurchaseOrder}">
                             <Label text="{i18n>targetDate}" />
                             <!-- missing -->
                             <Text text="{path:'POReleaseDate',
@@ -67,6 +67,11 @@
 				                     }
                             }"/>
                         </VBox>
+
+                         <VBox renderType="Bare">
+                            <Label text="{i18n>boqApprovalstatus}" />
+                            <ObjectStatus text="{Status}" state="{= ${Status} === 'PENDING' ? 'Warning' : ${Status} === 'REJECTED' ? 'Error' : 'Success'}"/>
+                        </VBox>
                     </FlexBox>
                 </VBox>
             </FlexBox>
@@ -75,7 +80,7 @@
             <!-- Basic Details Section -->
             <uxap:ObjectPageSection titleUppercase="false" title="{i18n>basicDetails}">
                 <uxap:subSections>
-                    <uxap:ObjectPageSubSection title="{i18n>buyerDetails}">
+                    <uxap:ObjectPageSubSection title="{i18n>buyerDetails}" titleLevel="H6">
                         <uxap:blocks>
                             <buyerForm:BuyerForm class="sapUxAPObjectPageSubSectionAlignContent"/>
                         </uxap:blocks>
@@ -91,7 +96,7 @@
                         </uxap:blocks>
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>
-            </uxap:ObjectPageSection>
+            </uxap:ObjectPageSection> 
 
             <!-- Line Items Section -->
             <uxap:ObjectPageSection titleUppercase="false" title="{i18n>lineItems}">
@@ -109,7 +114,7 @@
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection title="{i18n>boqItems}">
                         <uxap:blocks>
-                            <boqItemsTable:BOQItemsTable class="sapUxAPObjectPageSubSectionAlignContent" ManageBOQItemPress="onManageBOQItemPress"/>
+                            <boqItemsTable:BOQItemsTable class="sapUxAPObjectPageSubSectionAlignContent" OnApproveBOQPress="BOQApproval" OnRejectBOQPress="onRejectBOQPress"/>
                         </uxap:blocks>
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>

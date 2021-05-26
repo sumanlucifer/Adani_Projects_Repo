@@ -5,7 +5,7 @@
 
     <f:SimpleForm singleContainerFullSize="true" layout="ColumnLayout" columnsM="2" columnsL="3" columnsXL="4" binding="{ParentLineItem/PurchaseOrder/Vendor}" class="style-RemoveTitleHeight">
         <f:content>
-            <core:Title  />
+            <!-- <core:Title  /> -->
             <Label text="{i18n>vendorName}" />
             <Text text="{Name}" />
             <Label text="{i18n>faxNo}" />
@@ -16,7 +16,7 @@
             <Text text="{Pan}"/>
             <Label text="{i18n>gstIN}" />
             <Text text="{GSTIN}"/>
-            <core:Title  />
+            <!-- <core:Title  /> -->
             <Label text="{i18n>vendorCode}" />
             <Text text="{VendorCode}"/>
             <Label text="{i18n>street2}" />
@@ -27,7 +27,7 @@
             <Text text="{pinCode}" binding="{Address}"/>
             <Label text="{i18n>emailID}" />
             <Text text="{Email}"/>
-            <core:Title />
+            <!-- <core:Title /> -->
             <Label text="{i18n>addressNoSAP}" />
             <ExpandableText binding="{Address}" text="{Country}" overflowMode="InPlace"/>
             <Label text="{i18n>street}" />

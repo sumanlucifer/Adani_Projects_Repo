@@ -5,7 +5,7 @@
 
     <f:SimpleForm layout="ColumnLayout" columnsM="2" columnsL="3" columnsXL="4" binding="{Buyer}" singleContainerFullSize="true" class="style-RemoveTitleHeight">
         <f:content>
-            <core:Title  />
+            <!-- <core:Title  /> -->
             <Label text="{i18n>buyerCode}" />
             <Text text="{BuyerCode}" />
             <Label text="{i18n>pinCode}" />
@@ -16,7 +16,7 @@
             <Text text="{PurchasingOrg}"/>
             <Label text="{i18n>email}" />
             <Text text="{Email}"/>
-            <core:Title  />
+            <!-- <core:Title  /> -->
             <Label text="{i18n>gstin}" />
             <Text text="{GSTIN}"/>
             <Label text="{i18n>pan}" />
@@ -25,7 +25,7 @@
             <Text text="{ContactPerson}" />
             <Label text="{i18n>purchasingGroup}" />
             <Text text="{PurchasingGroup}"/>
-            <core:Title />
+            <!-- <core:Title /> -->
             <Label text="{i18n>address}" />
             <ExpandableText binding="{Address}" text="{parts: [{path: 'Street'}, {path: 'City'}, {path: 'State'}, {path: 'Country'}, {path: 'pinCode'}]}" overflowMode="InPlace"/>
             <Label text="{i18n>companyCode}" />

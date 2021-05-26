@@ -11,22 +11,22 @@
         <f:title>
             <f:DynamicPageTitle>
                 <f:heading>
-                    <Title text="{inspection_call_id}" wrapping="true"/>
+                    <Title text="{SAPInspectionCallId}" wrapping="true"/>
                 </f:heading>
                 <f:breadcrumbs>
                     <Breadcrumbs currentLocationText="{inspection_call_id} - {i18n>inspectionDetails}">
                         <Link text="{i18n>allPOs}" press=".handleToAllPOBreadcrumPress"/>
-                        <Link text="{po_number} - {i18n>orderDetails}"/>
+                        <Link text="{PONumber} - {i18n>orderDetails}"/>
                     </Breadcrumbs>
                 </f:breadcrumbs>
                 <f:expandedContent>
-                    <Label text="PO Number - {po_number}"/>
+                    <Label text="PO Number - {PONumber}"/>
                 </f:expandedContent>
                 <f:snappedContent>
-                    <Label text="PO Number - {po_number}"/>
+                    <Label text="PO Number - {PONumber}"/>
                 </f:snappedContent>
                 <f:snappedTitleOnMobile>
-                    <Title text="{inspection_call_id}"/>
+                    <Title text="{SAPInspectionCallId}"/>
                 </f:snappedTitleOnMobile>
             </f:DynamicPageTitle>
         </f:title>
@@ -44,7 +44,7 @@
                 <items>
                     <IconTabFilter text="{i18n>itemDetails}">
                         <VBox renderType="Bare">
-                            <Table id="idInspectedParentLineItems" width="auto" items="{insepected_parent_line_items}" noDataText="{i18n>noParentItems}" growing="true" growingScrollToLoad="true" selectionChange=".onParentItemSelect" mode="MultiSelect" rememberSelections="true">
+                            <Table id="idInspectedParentLineItems" width="auto" items="{InspectedParentItems}" noDataText="{i18n>noParentItems}" growing="true" growingScrollToLoad="true">
                                 <headerToolbar>
                                     <OverflowToolbar>
                                         <Title text="Inspected Parent Items" level="H4" id="idInspectedParentItems"/>
@@ -57,7 +57,7 @@
                                         <Button tooltip="{i18n>sort}" icon="sap-icon://sort" press="handleSortButtonPressed" type="Transparent" visible="false"/>
                                         <Button tooltip="{i18n>filter}" icon="sap-icon://filter" press="handleFilterButtonPressed" type="Transparent" visible="false"/>
                                         <Button press=".onExportParentItemsExportPress" icon="sap-icon://download" visible="false"/>
-                                        <Button text="Create Packing List" type="Emphasized" enabled="{= %{mdcc} ? true : false || %{attachments/0/file} ? true: false}" press="onCreatePackingListPress" />
+                                       <!--  <Button text="Create Packing List" type="Emphasized" enabled="{= %{mdcc} ? true : false || %{attachments/0/file} ? true: false}" press="onCreatePackingListPress" /> -->
                                         <!-- <Button text="Generate QR Code" type="Emphasized" binding="{qrCodeModel>/generateQRCode(...)}" press=".onGenerateQRCodePress"/> -->
                                     </OverflowToolbar>
                                 </headerToolbar>
@@ -77,26 +77,22 @@
                                     <Column>
                                         <Text text="{i18n>uom}"/>
                                     </Column>
-                                    <Column>
-                                        <Text text="{i18n>viewChildInspectedMaterials}"/>
-                                    </Column>
                                 </columns>
 
                                 <items>
                                     <ColumnListItem type="Active">
                                         <cells>
-                                            <ObjectIdentifier title="{material_code}" titleActive="true"/>
-                                            <Text text="{name}"></Text>
-                                            <Text text="{description}"/>
-                                            <Text text="{approved_qty}"/>
-                                            <Text text="{uom}"/>
-                                            <Button type="Emphasized" text="{i18n>viewChildInspectedMaterials}" press=".onViewInspectedChildMaterialsPress"></Button>
+                                            <ObjectIdentifier title="{MaterialCode}"/>
+                                            <Text text="{Name}"></Text>
+                                            <Text text="{Description}"/>
+                                            <Text text="{Qty}"/>
+                                            <Text text="{UOM}"/>
                                         </cells>
                                     </ColumnListItem>
                                 </items>
                             </Table>
 
-                            <VBox renderType="Bare" class="sapUiLargeMarginTop" visible="{= %{mdcc} ? false : true || %{attachments/0/ID} ? true : false}">
+                           <!--  <VBox renderType="Bare" class="sapUiLargeMarginTop" visible="{= %{mdcc} ? false : true || %{attachments/0/ID} ? true : false}">
                                 <Title text="MDCC details" level="H1"/>
                                 <VBox>
                                     <Label text="Do you have MDCC Details?" />
@@ -127,10 +123,10 @@
                                         </items>
                                     </UploadCollection>
                                 </VBox>
-                            </VBox>
+                            </VBox> -->
                         </VBox>
                     </IconTabFilter>
-                    <IconTabFilter text="{i18n>packingLists}" key="idPackingListTab">
+                   <!--  <IconTabFilter text="{i18n>packingLists}" key="idPackingListTab">
                         <VBox renderType="Bare">
                             <Table id="id" width="auto" items="{path : 'packing_list',
                                 parameters : {
@@ -179,7 +175,7 @@
 
                             </Table>
                         </VBox>
-                    </IconTabFilter>
+                    </IconTabFilter> -->
                 </items>
             </IconTabBar>
         </f:content>

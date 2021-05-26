@@ -49,12 +49,14 @@ sap.ui.define([
         },
 
         _createBOQApprovalModel: function () {
-            
+
             var oModel = new JSONModel({
                 BOQApprovedRequestId: null,
                 Status: null,
                 Comment: null,
-                BOQGroupId: null
+                BOQGroupId: null,
+                isPostButtonEnabled: false,
+                Label: null
             });
 
             this.setModel(oModel, "BOQApprovalModel");
@@ -156,18 +158,84 @@ sap.ui.define([
             return pDialog;
         },
 
-        onBeforeShow: function (evt) {
-            //this.getView().getContent()[0].getSections()[1].rerender();
-            //this.getView().getContent()[0].getSections()[2].rerender();
-            //this.getView().getContent()[0].getSections()[2].rerender();
+        BOQApproval: function (oEvent) {
+            var BOQApprovedRequestId = this.getView().getBindingContext().getObject().ID;
+            var BOQGroupId = oEvent.getSource().getBindingContext().getObject().BOQGroupId;
+            var boqApprovalModel = this.getViewModel("BOQApprovalModel");
+
+            if (BOQGroupId) {
+                boqApprovalModel.setProperty("/Label", "Please enter your approval comments.");
+                boqApprovalModel.setProperty("/BOQApprovedRequestId", BOQApprovedRequestId);
+                boqApprovalModel.setProperty("/BOQGroupId", BOQGroupId);
+                boqApprovalModel.setProperty("/Status", "APPROVED");
+            }
+
+            if (!this._oBOQApprovalDialog) {
+                this._oBOQApprovalDialog = sap.ui.xmlfragment("com.agel.mmts.tcengineer.view.fragments.BOQDetails.BOQCommentGetter", this);
+                this.getView().addDependent(this._oBOQApprovalDialog);
+            }
+            this._oBOQApprovalDialog.open();
         },
 
-        onApproveBOQPress: function (oEvent) {
+        onCommentLiveChange: function (oEvent) {
+            var boqApprovalModel = this.getViewModel("BOQApprovalModel");
+            if (oEvent.getSource().getValue().length > 0)
+                boqApprovalModel.setProperty("/isPostButtonEnabled", true);
+            else
+                boqApprovalModel.setProperty("/isPostButtonEnabled", false);
+        },
+
+        onPostButtonPress: function (oEvent) {
+            this._oBOQApprovalDialog.close();
+            var oData = this.getViewModel("BOQApprovalModel").getData();
+            var boqApprovalModel = this.getViewModel("BOQApprovalModel");
+
+            var aPayload = {
+                "Responses": [{
+                    "BOQApprovedRequestId": boqApprovalModel.getProperty("/BOQApprovedRequestId"),
+                    "Status": boqApprovalModel.getProperty("/Status"),
+                    "Comment": boqApprovalModel.getProperty("/Comment"),
+                    "BOQGroupId": boqApprovalModel.getProperty("/BOQGroupId")
+                }]
+            };
+
+
+            this.getComponentModel().create("/TCBOQResponseSet", aPayload, {
+                success: function (oData, oResponse) {
+                    if(oData.Success)
+                    sap.m.MessageBox.success(oData.Message);
+                    else
+                    sap.m.MessageBox.error(oData.Message);  
+                    this.getComponentModel().refresh();
+                }.bind(this),
+                error: function (oError) {
+                    sap.m.MessageBox.success(JSON.stringify(oError));
+                }
+            })
 
         },
 
         onRejectBOQPress: function (oEvent) {
+            var BOQApprovedRequestId = this.getView().getBindingContext().getObject().ID;
+            var BOQGroupId = oEvent.getSource().getBindingContext().getObject().BOQGroupId;
+            var boqApprovalModel = this.getViewModel("BOQApprovalModel");
 
+            if (BOQGroupId) {
+                boqApprovalModel.setProperty("/Label", "Please enter reason for rejection.");
+                boqApprovalModel.setProperty("/BOQApprovedRequestId", BOQApprovedRequestId);
+                boqApprovalModel.setProperty("/BOQGroupId", BOQGroupId);
+                boqApprovalModel.setProperty("/Status", "REJECTED");
+            }
+
+            if (!this._oBOQApprovalDialog) {
+                this._oBOQApprovalDialog = sap.ui.xmlfragment("com.agel.mmts.tcengineer.view.fragments.BOQDetails.BOQCommentGetter", this);
+                this.getView().addDependent(this._oBOQApprovalDialog);
+            }
+            this._oBOQApprovalDialog.open();
+        },
+
+        onCancelBOQApprovalProcess: function (oEvent) {
+            this._oBOQApprovalDialog.close();
         }
 
     });
