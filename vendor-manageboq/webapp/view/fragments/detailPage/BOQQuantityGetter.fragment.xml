@@ -1,16 +1,19 @@
-<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core">
-	<Dialog title="Do you want create this BOQ for {boqCreationModel>/selectedItemData/Name}?" id="materialFragment">
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core">
+    <Dialog title="Do you want to create this BOQ for {boqCreationModel>/selectedItemData/Name}?" id="materialFragment" >
         <content>
-        <FlexBox wrap="Wrap" renderType="Bare" class="sapUiSmallMargin">
-            <Label text="Please enter the quantity"></Label>
-            <Input value="{boqCreationModel>/quantity}" liveChange="onQuantityLiveChange" type="Number" valueState="{boqCreationModel>/valueState}" valueStateText="{boqCreationModel>/valueStateText}"></Input>
-        </FlexBox>
+            <FlexBox wrap="Wrap" renderType="Bare" class="sapUiSmallMargin">
+                <Label text="Please enter the quantity"></Label>
+                <Input value="{boqCreationModel>/quantity}" liveChange="onQuantityLiveChange" type="Number" valueState="{boqCreationModel>/valueState}" valueStateText="{boqCreationModel>/valueStateText}"></Input>
+            </FlexBox>
         </content>
-		<beginButton>
+        <beginButton>
             <Button id="idCreateBOQButton" text="confirm" press="onConfirmCreateBOQPress" type="Emphasized" enabled="{boqCreationModel>/isConfirmButtonEnabled}"></Button>
         </beginButton>
-		<endButton>
-			<Button text="cancel" press="onCancelBOQCreationProcess"></Button>
-		</endButton>
-	</Dialog>
+        <endButton>
+            <Button text="cancel" press="onCancelBOQCreationProcess"></Button>
+        </endButton>
+    </Dialog>
 </core:FragmentDefinition>
