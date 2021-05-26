@@ -94,7 +94,6 @@ sap.ui.define([
 
             this.getViewModel("objectViewModel").setProperty("/idSFDisplay", false);
             this.getViewModel("objectViewModel").setProperty("/idSFEdit", true);
-
         },
 
         onSave: function () {
