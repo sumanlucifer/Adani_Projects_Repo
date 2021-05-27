@@ -29,7 +29,7 @@
                         "additionalParameters": "allowed"
                     },
                     "semanticObject": "boqitems",
-                    "action": "manage",
+                    "action": "Manage",
                     "title": "BOQItems",
                     "subTitle": "",
                     "icon": ""

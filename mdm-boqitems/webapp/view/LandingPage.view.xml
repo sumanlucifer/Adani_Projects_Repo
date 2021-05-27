@@ -12,41 +12,32 @@
 				</f:DynamicPageTitle>
 			</f:title>
         <f:content>
-            <List items="{path: '/MasterBoQItemSet',sorter: {path: 'Name'}}">
+            <List id="idListMaster" items="{path: '/MasterBoQItemSet',
+                                            sorter: {path: 'CreatedAt'}}">
                 <headerToolbar>
 					<OverflowToolbar>
+                        <Title id="idTitle" text="{i18n>mstrPgboqItems}"/>
+                        <ToolbarSpacer/>
 						<SearchField id="searchField" showRefreshButton="true"
 							tooltip="{i18n>mstrPgmasterSearchTooltip}" search=".onSearch" width="auto">
 							<layoutData>
 								<OverflowToolbarLayoutData
-									minWidth="150px"
-									maxWidth="240px"
-									shrinkable="true"
-									priority="NeverOverflow"/>
+									minWidth="150px" maxWidth="240px"
+									shrinkable="true" priority="NeverOverflow"/>
 							</layoutData>
 						</SearchField>
-						<ToolbarSpacer/>
-						<Button id="sortButton"	press=".onSort"
-							icon="sap-icon://sort" type="Transparent"/>
-						<Button id="filterButton" press=".onFilter"
-							icon="sap-icon://filter" type="Transparent"/>
-						<Button id="groupButton" press=".onGroupBy"
-							icon="sap-icon://group-2" type="Transparent"/>
+						<!-- <ToolbarSpacer/> -->
+						<Button id="groupButton" press=".onOpenViewSettings"
+							icon="sap-icon://action-settings" type="Transparent"/>
+                        <Button icon="sap-icon://add" 
+                            press="onCreatePress"/>
 					</OverflowToolbar>
 				</headerToolbar>
                 <items>               
-                   <StandardListItem title="{Name}" description="{Description}" info="{Description}"
+                   <StandardListItem title="{Name}" description="{Description}" info="{ID}"
                     type="Navigation" press="onParentLineItemPress"/>
                 </items>
             </List>
         </f:content>
-        <f:footer>
-            <OverflowToolbar>
-                <content>
-                    <ToolbarSpacer ></ToolbarSpacer>
-                    <Button icon="sap-icon://add" text="Create" press="onCreatePress"></Button>
-                </content>
-            </OverflowToolbar>
-        </f:footer>
     </f:DynamicPage>
 </mvc:View>

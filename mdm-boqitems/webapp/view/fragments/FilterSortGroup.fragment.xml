@@ -1,0 +1,19 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<ViewSettingsDialog	confirm="onFilterSortConfirm">
+		<sortItems > 
+			<ViewSettingsItem text="ID" key="ID" />	
+		</sortItems>
+		<groupItems>
+			<ViewSettingsItem text="Name" key="Name" />
+		</groupItems>
+		<filterItems >
+			<ViewSettingsFilterItem text="Name" key="Name" items="{/MasterBoQItemSet}">
+				<items>
+					<ViewSettingsItem text="{Name}" key="{Name}" />
+				</items>
+			</ViewSettingsFilterItem>
+		</filterItems>
+	</ViewSettingsDialog>
+</core:FragmentDefinition>
