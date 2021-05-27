@@ -73,11 +73,30 @@ sap.ui.define([
                 var oValue = oView.byId("searchField").getValue();
                 var oBinding = oList.getBinding("items");
                 var aFilters=[];
-                var oFilter = new sap.ui.model.Filter("Name", FilterOperator.Contains, oValue);
-             //   var oFilter1 = new sap.ui.model.Filter("Description", FilterOperator.Contains, oValue);
-                aFilters.push(oFilter);
-              //  aFilters.push(oFilter1);
-                oBinding.filter(aFilters);                
+                
+                if(oValue !== ""){
+                var aSearchFilters = [
+                    new sap.ui.model.Filter("Name", FilterOperator.Contains, oValue)
+                   // new sap.ui.model.Filter("ID", FilterOperator.EQ, oValue)
+                ];
+                
+                if (!isNaN(oValue)) {
+                    aSearchFilters.push(new sap.ui.model.Filter("ID", FilterOperator.EQ, oValue));
+                }
+
+                aFilters.push(new Filter(aSearchFilters, false));
+                if (aFilters.length > 0) {
+                    var oFilter = new Filter({
+                        filters: aFilters,
+                        and: true,
+                    });
+                    oBinding.filter(oFilter);
+                } else {
+                    oBinding.filter([]);
+                }    
+                }else{
+                    oBinding.filter([]);
+                }   
             },
 
             // Child Line Items Dialog Open
