@@ -118,6 +118,14 @@
 				}, {
 					"appId": "com.agel.mmts.admin-UserManagement",
 					"vizId": "UserMgmt-Admin"
+				}, {
+					"id": "com.agel.mmts.mdmuom-3-1622098857352",
+					"appId": "com.agel.mmts.mdmuom",
+					"vizId": "MDM-Manage"
+				}, {
+					"id": "com.agel.mmts.mdmpackinglisttype-4-1622098857352",
+					"appId": "com.agel.mmts.mdmpackinglisttype",
+					"vizId": "PackingListType-Manage"
 				}]
 			}
 		}, {
