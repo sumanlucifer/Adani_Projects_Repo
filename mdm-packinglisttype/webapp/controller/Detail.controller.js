@@ -21,6 +21,7 @@ sap.ui.define([
                 delay: 0,
                 idSFDisplay: true,
                 idSFEdit: false,
+                idBtnDelete: true,
                 idBtnEdit: true,
                 idBtnSave: false,
                 idBtnCancel: false
@@ -46,6 +47,7 @@ sap.ui.define([
                 this.getViewModel("objectViewModel").setProperty("/idSFDisplay", false);
                 this.getViewModel("objectViewModel").setProperty("/idSFEdit", true);
 
+                this.getViewModel("objectViewModel").setProperty("/idBtnDelete", false);
                 this.getViewModel("objectViewModel").setProperty("/idBtnEdit", false);
                 this.getViewModel("objectViewModel").setProperty("/idBtnSave", true);
                 this.getViewModel("objectViewModel").setProperty("/idBtnCancel", true);
@@ -86,17 +88,17 @@ sap.ui.define([
             });
         },
 
-            onEdit: function () {
-
+        // On Edit Press Button
+        onEdit: function () {
             this.getViewModel("objectViewModel").setProperty("/idBtnEdit", false);
             this.getViewModel("objectViewModel").setProperty("/idBtnSave", true);
             this.getViewModel("objectViewModel").setProperty("/idBtnCancel", true);
 
             this.getViewModel("objectViewModel").setProperty("/idSFDisplay", false);
             this.getViewModel("objectViewModel").setProperty("/idSFEdit", true);
-
         },
 
+        // On Save Press Button
         onSave: function () {
                 var that = this;
                 var oPayload = {};
@@ -117,6 +119,7 @@ sap.ui.define([
                 });
         },
 
+        // On Cancel Press Button
         onCancel: function () {
             this.getViewModel("objectViewModel").setProperty("/idBtnEdit", true);
             this.getViewModel("objectViewModel").setProperty("/idBtnSave", false);
@@ -133,8 +136,8 @@ sap.ui.define([
             }
         },
 
+        // On Delete Press Button
         onDeletePress : function(oEvent){
-           
             var sPath = this.getView().getBindingContext().getPath();
             this.mainModel.remove(sPath, {
                     success: function (oData, oResponse) {
