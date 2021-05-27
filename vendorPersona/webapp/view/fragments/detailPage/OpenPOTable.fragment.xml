@@ -74,8 +74,8 @@
 				                        pattern: 'MMMM dd, yyyy'
 				                     }
                         }"/>
-                        <ObjectIdentifier text="{PlantCode}"/>
                         <Text text="{GSTIN}" binding="{Buyer}"/>
+                        <ObjectIdentifier text="{PlantCode}"/>                        
                         <Link text="{i18n>viewLineItems}" press="onViewLineItemsPress"></Link>
                     </cells>
                 </ColumnListItem>

@@ -69,7 +69,7 @@
                         <core:CustomData key="p13nData" value='\{"columnKey": "boqStatus", "leadingProperty": "Status",
                                                  "columnIndex": 7 ,"sortProperty": "Status","filterProperty": "Status"}'/>
                     </customData>
-                    <Text text="{i18n>poIssueDate}"/>
+                    <Text text="{i18n>status}"/>
                 </Column>
 
             </columns>
