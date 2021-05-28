@@ -1,8 +1,9 @@
 sap.ui.define([
 	"sap/ui/core/UIComponent",
 	"sap/ui/Device",
-	"com/agel/mmts/mdmpackinglisttype/model/models"
-], function (UIComponent, Device, models) {
+    "com/agel/mmts/mdmpackinglisttype/model/models",
+    "com/agel/mmts/mdmpackinglisttype/controller/ErrorHandler"
+], function (UIComponent, Device, models,ErrorHandler) {
 	"use strict";
 
 	return UIComponent.extend("com.agel.mmts.mdmpackinglisttype.Component", {
@@ -23,6 +24,9 @@ sap.ui.define([
 			// enable routing
 			this.getRouter().initialize();
 
+              //initialize the error handler with the component
+            this._oErrorHandler = new ErrorHandler(this);
+
 			// set the device model
             this.setModel(models.createDeviceModel(), "device");
             
@@ -37,11 +41,12 @@ sap.ui.define([
 			 * @override
 			 */
         destroy: function () {
-            //this._oErrorHandler.destroy();
+            this._oErrorHandler.destroy();
             // call the base component's destroy function
             UIComponent.prototype.destroy.apply(this, arguments);
         },
 
+        
         /**
 		 * This method can be called to determine whether the sapUiSizeCompact or sapUiSizeCozy
 		 * design mode class should be set, which influences the size appearance of some controls.

@@ -21,6 +21,7 @@ sap.ui.define([
                 delay: 0,
                 idSFDisplay: true,
                 idBtnDelete: true,
+                showFooter:false,
                 idSFEdit: false,
                 idBtnEdit: true,
                 idBtnSave: false,
@@ -46,7 +47,7 @@ sap.ui.define([
 
                 this.getViewModel("objectViewModel").setProperty("/idSFDisplay", false);
                 this.getViewModel("objectViewModel").setProperty("/idSFEdit", true);
-
+                this.getViewModel("objectViewModel").setProperty("/showFooter", true);
                 this.getViewModel("objectViewModel").setProperty("/idBtnDelete", false);
                 this.getViewModel("objectViewModel").setProperty("/idBtnEdit", false);
                 this.getViewModel("objectViewModel").setProperty("/idBtnSave", true);
@@ -67,6 +68,7 @@ sap.ui.define([
                     path: this._oObjectPath
                 });
             } else {
+                this.getViewModel("objectViewModel").setProperty("/showFooter", false);
                 this.getViewModel("objectViewModel").setProperty("/idBtnDelete", true);
                 this._bindView("/MasterUOMSet" + this.sParentID);
             }
@@ -90,7 +92,7 @@ sap.ui.define([
         },
 
         onEdit: function () {
-
+            this.getViewModel("objectViewModel").setProperty("/showFooter", true);
             this.getViewModel("objectViewModel").setProperty("/idBtnEdit", false);
             this.getViewModel("objectViewModel").setProperty("/idBtnSave", true);
             this.getViewModel("objectViewModel").setProperty("/idBtnCancel", true);
@@ -102,38 +104,53 @@ sap.ui.define([
         onSave: function () {
             var that = this;
             var oPayload = {};
-            oPayload.Name = this.byId("nameEdit").getValue();
-            oPayload.Description = this.byId("nameDesc").getValue();
+            var Name = this.byId("nameEdit").getValue();
+            var Description = this.byId("nameDesc").getValue();
+            if ( Name == "" ){
+                sap.m.MessageBox.error("Please enter name ");
+                return;
+            }           
+            oPayload.Name = Name;
+            oPayload.Description = Description;
 
-             if (this.sParentID === "new") {
-
-                this.mainModel.create("/MasterUOMSet", oPayload, {
-                    success: function (oData, oResponse) {
-                        sap.m.MessageBox.success("UOM Created Successfully");
-                      //  sap.m.MessageBox.success(oData.Message);
-                        // this.getViewModel("objectViewModel").setProperty("/isCreatingPCList", false);
-                        this.getView().getModel().refresh();
-                        that.onCancel();
-                    }.bind(this),
-                    error: function (oError) {
-                        sap.m.MessageBox.error(JSON.stringify(oError));
+            if (this.sParentID === "new") {
+                MessageBox.confirm("Do you want crate new packing list type ?",{
+				    icon: MessageBox.Icon.INFORMATION,
+				    title: "Confirm",
+				    actions: [MessageBox.Action.YES, MessageBox.Action.NO],
+				    emphasizedAction: MessageBox.Action.YES,
+				    onClose: function (oAction) { 
+                        if ( oAction == "YES" ){
+                        that.getComponentModel("app").setProperty("/busy", true);
+                         this.mainModel.create("/MasterUOMSet", oPayload, {
+                            success: function (oData, oResponse) {
+                                sap.m.MessageBox.success("UOM Created Successfully");
+                                that.getComponentModel("app").setProperty("/busy", false);
+                                that.onCancel();
+                            }.bind(this),
+                            error: function (oError) {
+                                that.getComponentModel("app").setProperty("/busy", false);
+                                sap.m.MessageBox.error(JSON.stringify(oError));
+                             }
+                            });
+                        }
                     }
-                });
-             }
-             else
-             {   
-                               //        /scarrEntitySet('" + oCust1 + "')", 
-                               //"/MasterPackagingTypeSet('" + oCust1 + "')"
+			    });
+            }
+            else{        
                 var sPath = this.getView().getBindingContext().getPath();
-                 this.mainModel.update(sPath, oPayload, {
+                that.getComponentModel("app").setProperty("/busy", true);
+                this.mainModel.update(sPath, oPayload, {
                     success: function (oData, oResponse) {
                        // sap.m.MessageBox.success(oData.Message);
                         sap.m.MessageBox.success("UOM Updated Successfully");
+                        that.getComponentModel("app").setProperty("/busy", false);
                         // this.getViewModel("objectViewModel").setProperty("/isCreatingPCList", false);
-                        this.getView().getModel().refresh();
+                        that.getView().getModel().refresh();
                         that.onCancel();
                     }.bind(this),
                     error: function (oError) {
+                        that.getComponentModel("app").setProperty("/busy", false);
                         sap.m.MessageBox.error(JSON.stringify(oError));
                     }
                 });
@@ -144,6 +161,7 @@ sap.ui.define([
             this.getViewModel("objectViewModel").setProperty("/idBtnEdit", true);
             this.getViewModel("objectViewModel").setProperty("/idBtnSave", false);
             this.getViewModel("objectViewModel").setProperty("/idBtnCancel", false);
+            this.getViewModel("objectViewModel").setProperty("/showFooter", false);
 
             this.getViewModel("objectViewModel").setProperty("/idSFDisplay", true);
             this.getViewModel("objectViewModel").setProperty("/idSFEdit", false);
@@ -160,21 +178,33 @@ sap.ui.define([
         onDeletePress : function(oEvent){
             var that=this;
             var sPath = this.getView().getBindingContext().getPath();
-            this.mainModel.remove(sPath, {
-                    success: function (oData, oResponse) {
-                       // sap.m.MessageBox.success(oData.Message);
-                        sap.m.MessageBox.success("UOM Deleted Successfully");
-                        // this.getViewModel("objectViewModel").setProperty("/isCreatingPCList", false);
-                        this.getView().getModel().refresh();
-                        that.onCancel();
-                        that.onNavigateToMaster();
-                    }.bind(this),
-                    error: function (oError) {
-                        sap.m.MessageBox.error(JSON.stringify(oError));
+            MessageBox.confirm("Do you want delete UOM type ?",{
+				    icon: MessageBox.Icon.WARNING,
+				    title: "Confirm",
+				    actions: [MessageBox.Action.YES, MessageBox.Action.NO],
+				    emphasizedAction: MessageBox.Action.YES,
+				    onClose: function (oAction) { 
+                        if ( oAction == "YES" ){
+                            that.getComponentModel("app").setProperty("/busy", true);
+                            that.mainModel.remove(sPath, {
+                                success: function (oData, oResponse) {
+                                    // sap.m.MessageBox.success(oData.Message);
+                                    that.getComponentModel("app").setProperty("/busy", false);
+                                    sap.m.MessageBox.success("UOM Deleted Successfully");
+                                    // this.getViewModel("objectViewModel").setProperty("/isCreatingPCList", false);
+                                    //   this.getView().getModel().refresh();
+                                    that.onCancel();
+                                    that.onNavigateToMaster();
+                                }.bind(this),
+                                error: function (oError) {
+                                    that.getComponentModel("app").setProperty("/busy", false);
+                                    sap.m.MessageBox.error(JSON.stringify(oError));
+                                }
+                            });
+                        }
                     }
-                });
+            });
         },
-
         onNavigateToMaster : function(){
                 this.oRouter.navTo("LandingPage", {
                 },

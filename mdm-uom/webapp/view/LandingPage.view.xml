@@ -32,7 +32,7 @@
 					</OverflowToolbar>
 				</headerToolbar>
                 <items>               
-                   <StandardListItem title="{Name}" description="{Description}" info="{Description}"
+                   <StandardListItem title="{Name}" description="{Description}"
                     type="Navigation" press="onParentLineItemPress"/>
                 </items>
             </List>

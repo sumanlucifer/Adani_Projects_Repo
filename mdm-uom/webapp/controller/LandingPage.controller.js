@@ -4,11 +4,12 @@ sap.ui.define([
     "sap/ui/core/Fragment",
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator",
+    "sap/ui/model/json/JSONModel"
 ],
 	/**
 	 * @param {typeof sap.ui.core.mvc.Controller} Controller
 	 */
-    function (BaseController, fioriLibrary,Fragment,Filter,FilterOperator) {
+    function (BaseController, fioriLibrary,Fragment,Filter,FilterOperator,JSONModel) {
         "use strict";
 
         return BaseController.extend("com.agel.mmts.mdmuom.controller.LandingPage", {
@@ -17,6 +18,27 @@ sap.ui.define([
             onInit: function () {
                 var oModel = this.getOwnerComponent().getModel("layoutModel");
                 oModel.setProperty("/layout", "OneColumn");
+
+                var oAppModel,
+                fnSetAppNotBusy,
+                iOriginalBusyDelay = this.getView().getBusyIndicatorDelay();
+ 
+                oAppModel = new JSONModel({
+                    busy : false,
+                    delay : 1000
+                });
+                this.oAppModel = oAppModel;
+                this.getOwnerComponent().setModel(oAppModel, "app");
+ 
+                fnSetAppNotBusy = function() {
+                    oAppModel.setProperty("/busy", false);
+                    oAppModel.setProperty("/delay", iOriginalBusyDelay);
+                };
+ 
+                // disable busy indication when the metadata is loaded and in case of errors
+                this.getOwnerComponent().getModel().metadataLoaded().
+                    then(fnSetAppNotBusy);
+                this.getOwnerComponent().getModel().attachMetadataFailed(fnSetAppNotBusy);
 
                 //Router Object
                 this.oRouter = this.getRouter();
