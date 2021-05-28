@@ -12,8 +12,7 @@
 				</f:DynamicPageTitle>
 			</f:title>
         <f:content>
-            <List id="idListMaster" items="{path: '/MasterBoQItemSet',
-                                            sorter: {path: 'CreatedAt'}}">
+            <List id="idListMaster" items="{path: '/MasterBoQItemSet',sorter: {path: 'CreatedAt'}}">
                 <headerToolbar>
 					<OverflowToolbar>
                         <Title id="idTitle" text="{i18n>mstrPgboqItems}"/>
@@ -34,7 +33,7 @@
 					</OverflowToolbar>
 				</headerToolbar>
                 <items>               
-                   <StandardListItem title="{Name}" description="{Description}" info="{ID}"
+                   <StandardListItem title="{Name}" description="{Description}"
                     type="Navigation" press="onParentLineItemPress"/>
                 </items>
             </List>

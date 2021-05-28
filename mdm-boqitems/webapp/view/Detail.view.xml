@@ -6,23 +6,13 @@
     xmlns:unified="sap.ui.unified"
     xmlns:data="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
     xmlns="sap.m" controllerName="com.agel.mmts.mdmboqitems.controller.Detail" height="100%">
-    <uxap:ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true" upperCaseAnchorBar="false" headerContentPinnable="true" toggleHeaderOnTitleClick="true" busy="{objectViewModel>/busy}">
+    <uxap:ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true" showFooter="{objectViewModel>/showFooter}" upperCaseAnchorBar="false" headerContentPinnable="true" toggleHeaderOnTitleClick="true" busy="{objectViewModel>/busy}">
         <uxap:headerTitle>
             <uxap:ObjectPageDynamicHeaderTitle>
-                <uxap:breadcrumbs>
-                    <!-- <Breadcrumbs id="breadcrumbsId" currentLocationText="{i18n>detlPgmanageBOQ}">
-                        <Link text="{i18n>detlPgassignedPOList}" press=".handleToAllPOBreadcrumPress"/>
-                        <Link text="{i18n>detlPgconfirmedPODetails}" press=".handleToAllPOBreadcrumPress"/>
-                    </Breadcrumbs> -->
-                </uxap:breadcrumbs>
                 <uxap:expandedHeading>
-                    <Title text="{ID}" wrapping="true" titleStyle="H3" />
+                    <Title text="{Name}" wrapping="true" titleStyle="H3" />
                 </uxap:expandedHeading>
                 <uxap:snappedHeading>
-                    <!--<VBox>
-                        <Title text="{Name}" wrapping="true" titleStyle="H3"/>
-                        <CheckBox text="No Parent-Child relation applicable." selected="{objectViewModel>/noParentChildRelationFlag}" />
-                    </VBox> -->
                 </uxap:snappedHeading>
                 <uxap:expandedContent>
                 </uxap:expandedContent>
@@ -30,30 +20,23 @@
                     <Title text="{Name}" wrapping="true" titleStyle="Auto"/>
                 </uxap:snappedTitleOnMobile>
                <uxap:actions>
-                            <Button id="idBtnEdit" text="Edit" icon="sap-icon://edit" type="Emphasized" press="onEdit" 
+                    <Button id="idBtnEdit" text="Edit" icon="sap-icon://edit" press="onEdit" 
                                     visible="{= ${objectViewModel>/idBtnEdit}}"/>
-							<Button id="idBtnSave" text="Save" icon="sap-icon://save" type="Emphasized" press="onSave"
-                                    visible="{= ${objectViewModel>/idBtnSave}}"/>
-							<Button id="idBtnCancel" text="Cancel" icon="sap-icon://cancel" press="onCancel" 
-                                    visible="{= ${objectViewModel>/idBtnCancel}}"/>
-                            <Button id="idBtnDelete" text="Delete" icon="sap-icon://delete" press="onDelete" 
-                                    visible="{= ${objectViewModel>/idBtnDelete}}"/>
-                    <!-- <Button text="Create BOQ" type="Emphasized" press="onCreateBOQPress" visible="{= ${objectViewModel>/isPCListSelected}}"></Button>
-                    <ToggleButton text="{objectViewModel>/sViewBOQButtonName}" press="onViewBOQRequests"></ToggleButton> -->
+                    <Button text="Delete" type="Reject" visible="{= ${objectViewModel>/idBtnDelete}}"
+                                            press="onDelete"/>                
                 </uxap:actions>
             </uxap:ObjectPageDynamicHeaderTitle>
         </uxap:headerTitle>
         <uxap:headerContent>
-
             <FlexBox direction="Row" renderType="Bare" class="sapUiTinyMarginBottom">
-                <VBox renderType="Bare" class="sapUiMediumMarginEnd">
+                <!-- <VBox renderType="Bare" class="sapUiMediumMarginEnd">
                     <Label text="{i18n>detlPgName}" class="sapUiTinyMarginBottom"/>
                     <Text text="{Name}"/>
-                </VBox>
-                <VBox renderType="Bare" class="sapUiMediumMarginEnd">
+                </VBox> -->
+                <!-- <VBox renderType="Bare" class="sapUiMediumMarginEnd">
                     <Label text="{i18n>detlPgDescription}" class="sapUiTinyMarginBottom"/>
                     <Text text="{Description}"/>
-                </VBox>
+                </VBox> -->
             </FlexBox>
         </uxap:headerContent>
         <uxap:sections>
@@ -75,13 +58,12 @@
 				
                                 <Label text="Description" />
 				                <Input id="desc1" value="{Description}" editable="false"/>
-                                <Label text="UOM" />
-                                    <MultiComboBox editable="false" id="uom"
+                                <Label text="UOM" id="uom" />
+                                  	<MultiComboBox selectedKeys="{oSelectedKeyModel>/key}" editable="false"
                                         items="{
-                                            path: '/MasterUOMSet',
-                                            sorter: { path: 'CreatedAt' }
+                                            path: '/MasterUOMSet'
                                         }">
-                                        <core:Item key="{Name}" text="{Description}" />
+                                        <core:Item key="{ID}" text="{Name}"/>
                                     </MultiComboBox>
 			                </f:content>    
 		                </f:SimpleForm>
@@ -97,24 +79,30 @@
 				
                                 <Label text="Description" />
 				                <Input id="nameDesc" value="{Description}"/>
-                                <Label text="UOM" />
-                                    <MultiComboBox id="uomEdit"
+                                <Label text="UOM" id= "uomEdit"/>
+                                    <MultiComboBox placeholder= "Select" selectedItems="{UOMs}"
                                         items="{
-                                            path: '/MasterUOMSet',
-                                            sorter: { path: 'CreatedAt' }
+                                            path: '/MasterUOMSet'
                                         }">
-                                        <core:Item key="{Name}" text="{Description}" />
+                                        <core:Item key="{Name}" text="{Description}"/>
                                     </MultiComboBox>
 			                </f:content>    
 		                </f:SimpleForm>
                     </uxap:blocks>
-                      <uxap:actions>
-
-						</uxap:actions>
+                    <uxap:actions>
+					</uxap:actions>
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>
             </uxap:ObjectPageSection>
-
         </uxap:sections>
+        <uxap:footer>
+            <OverflowToolbar>
+            <ToolbarSpacer/>
+                <Button id="idBtnSave" text="Save" icon="sap-icon://save" press="onSave"
+                         type="Accept"  visible="{= ${objectViewModel>/idBtnSave}}"/>
+                <Button id="idBtnCancel" text="Cancel" icon="sap-icon://cancel" press="onCancel" 
+                                    visible="{= ${objectViewModel>/idBtnCancel}}"/>
+            </OverflowToolbar>
+        </uxap:footer>
     </uxap:ObjectPageLayout>
 </mvc:View>

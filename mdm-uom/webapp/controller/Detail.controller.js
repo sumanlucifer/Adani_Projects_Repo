@@ -20,6 +20,7 @@ sap.ui.define([
                 busy: false,
                 delay: 0,
                 idSFDisplay: true,
+                idBtnDelete: true,
                 idSFEdit: false,
                 idBtnEdit: true,
                 idBtnSave: false,
@@ -46,6 +47,7 @@ sap.ui.define([
                 this.getViewModel("objectViewModel").setProperty("/idSFDisplay", false);
                 this.getViewModel("objectViewModel").setProperty("/idSFEdit", true);
 
+                this.getViewModel("objectViewModel").setProperty("/idBtnDelete", false);
                 this.getViewModel("objectViewModel").setProperty("/idBtnEdit", false);
                 this.getViewModel("objectViewModel").setProperty("/idBtnSave", true);
                 this.getViewModel("objectViewModel").setProperty("/idBtnCancel", true);
@@ -65,6 +67,7 @@ sap.ui.define([
                     path: this._oObjectPath
                 });
             } else {
+                this.getViewModel("objectViewModel").setProperty("/idBtnDelete", true);
                 this._bindView("/MasterUOMSet" + this.sParentID);
             }
         },
@@ -94,14 +97,15 @@ sap.ui.define([
 
             this.getViewModel("objectViewModel").setProperty("/idSFDisplay", false);
             this.getViewModel("objectViewModel").setProperty("/idSFEdit", true);
-
         },
 
         onSave: function () {
-                var that = this;
-                var oPayload = {};
-                oPayload.Name = this.byId("nameEdit").getValue();
-                oPayload.Description = this.byId("nameDesc").getValue();
+            var that = this;
+            var oPayload = {};
+            oPayload.Name = this.byId("nameEdit").getValue();
+            oPayload.Description = this.byId("nameDesc").getValue();
+
+             if (this.sParentID === "new") {
 
                 this.mainModel.create("/MasterUOMSet", oPayload, {
                     success: function (oData, oResponse) {
@@ -115,6 +119,25 @@ sap.ui.define([
                         sap.m.MessageBox.error(JSON.stringify(oError));
                     }
                 });
+             }
+             else
+             {   
+                               //        /scarrEntitySet('" + oCust1 + "')", 
+                               //"/MasterPackagingTypeSet('" + oCust1 + "')"
+                var sPath = this.getView().getBindingContext().getPath();
+                 this.mainModel.update(sPath, oPayload, {
+                    success: function (oData, oResponse) {
+                       // sap.m.MessageBox.success(oData.Message);
+                        sap.m.MessageBox.success("UOM Updated Successfully");
+                        // this.getViewModel("objectViewModel").setProperty("/isCreatingPCList", false);
+                        this.getView().getModel().refresh();
+                        that.onCancel();
+                    }.bind(this),
+                    error: function (oError) {
+                        sap.m.MessageBox.error(JSON.stringify(oError));
+                    }
+                });
+            }
         },
 
         onCancel: function () {
@@ -132,6 +155,32 @@ sap.ui.define([
                 );
             }
         },
+
+        // On Delete Press Button
+        onDeletePress : function(oEvent){
+            var that=this;
+            var sPath = this.getView().getBindingContext().getPath();
+            this.mainModel.remove(sPath, {
+                    success: function (oData, oResponse) {
+                       // sap.m.MessageBox.success(oData.Message);
+                        sap.m.MessageBox.success("UOM Deleted Successfully");
+                        // this.getViewModel("objectViewModel").setProperty("/isCreatingPCList", false);
+                        this.getView().getModel().refresh();
+                        that.onCancel();
+                        that.onNavigateToMaster();
+                    }.bind(this),
+                    error: function (oError) {
+                        sap.m.MessageBox.error(JSON.stringify(oError));
+                    }
+                });
+        },
+
+        onNavigateToMaster : function(){
+                this.oRouter.navTo("LandingPage", {
+                },
+                false
+                );
+        }
 
     });
 });            

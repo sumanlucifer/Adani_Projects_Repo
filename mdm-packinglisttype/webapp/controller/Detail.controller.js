@@ -21,6 +21,7 @@ sap.ui.define([
                 delay: 0,
                 idSFDisplay: true,
                 idSFEdit: false,
+                idBtnDelete: true,
                 idBtnEdit: true,
                 idBtnSave: false,
                 idBtnCancel: false
@@ -46,6 +47,7 @@ sap.ui.define([
                 this.getViewModel("objectViewModel").setProperty("/idSFDisplay", false);
                 this.getViewModel("objectViewModel").setProperty("/idSFEdit", true);
 
+                this.getViewModel("objectViewModel").setProperty("/idBtnDelete", false);
                 this.getViewModel("objectViewModel").setProperty("/idBtnEdit", false);
                 this.getViewModel("objectViewModel").setProperty("/idBtnSave", true);
                 this.getViewModel("objectViewModel").setProperty("/idBtnCancel", true);
@@ -65,6 +67,7 @@ sap.ui.define([
                     path: this._oObjectPath
                 });
             } else {
+                this.getViewModel("objectViewModel").setProperty("/idBtnDelete", true);
                 this._bindView("/MasterPackagingTypeSet" + this.sPackingListID);
             }
         },
@@ -86,23 +89,24 @@ sap.ui.define([
             });
         },
 
-            onEdit: function () {
-
+        // On Edit Press Button
+        onEdit: function () {
             this.getViewModel("objectViewModel").setProperty("/idBtnEdit", false);
             this.getViewModel("objectViewModel").setProperty("/idBtnSave", true);
             this.getViewModel("objectViewModel").setProperty("/idBtnCancel", true);
 
             this.getViewModel("objectViewModel").setProperty("/idSFDisplay", false);
             this.getViewModel("objectViewModel").setProperty("/idSFEdit", true);
-
         },
 
+        // On Save Press Button
         onSave: function () {
                 var that = this;
                 var oPayload = {};
                 oPayload.Name = this.byId("nameEdit").getValue();
                 oPayload.ID = this.byId("idEdit").getValue();
 
+            if (this.sPackingListID === "new") {
                 this.mainModel.create("/MasterPackagingTypeSet", oPayload, {
                     success: function (oData, oResponse) {
                        // sap.m.MessageBox.success(oData.Message);
@@ -115,8 +119,28 @@ sap.ui.define([
                         sap.m.MessageBox.error(JSON.stringify(oError));
                     }
                 });
+            }
+            else
+            {   
+                               //        /scarrEntitySet('" + oCust1 + "')", 
+                               //"/MasterPackagingTypeSet('" + oCust1 + "')"
+                var sPath = this.getView().getBindingContext().getPath();
+                 this.mainModel.update(sPath, oPayload, {
+                    success: function (oData, oResponse) {
+                       // sap.m.MessageBox.success(oData.Message);
+                        sap.m.MessageBox.success("Packing List Updated Successfully");
+                        // this.getViewModel("objectViewModel").setProperty("/isCreatingPCList", false);
+                        this.getView().getModel().refresh();
+                        that.onCancel();
+                    }.bind(this),
+                    error: function (oError) {
+                        sap.m.MessageBox.error(JSON.stringify(oError));
+                    }
+                });
+            }
         },
 
+        // On Cancel Press Button
         onCancel: function () {
             this.getViewModel("objectViewModel").setProperty("/idBtnEdit", true);
             this.getViewModel("objectViewModel").setProperty("/idBtnSave", false);
@@ -133,8 +157,9 @@ sap.ui.define([
             }
         },
 
+        // On Delete Press Button
         onDeletePress : function(oEvent){
-           
+            var that=this;
             var sPath = this.getView().getBindingContext().getPath();
             this.mainModel.remove(sPath, {
                     success: function (oData, oResponse) {
@@ -142,12 +167,19 @@ sap.ui.define([
                         sap.m.MessageBox.success("Packing List Type Deleted Successfully");
                         // this.getViewModel("objectViewModel").setProperty("/isCreatingPCList", false);
                         this.getView().getModel().refresh();
-                      //  that.onCancel();
+                        that.onCancel();
+                        that.onNavigateToMaster();
                     }.bind(this),
                     error: function (oError) {
                         sap.m.MessageBox.error(JSON.stringify(oError));
                     }
                 });
+        },
+         onNavigateToMaster : function(){
+                this.oRouter.navTo("RouteMaster", {
+                },
+                false
+                );
         }
     });
 });            

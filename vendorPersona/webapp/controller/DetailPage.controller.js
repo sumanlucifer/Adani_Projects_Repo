@@ -102,7 +102,6 @@ sap.ui.define([
              } */
         },
 
-
         //triggers on press of a PO cheveron item from the list
         onPurchaseOrderPress: function (oEvent) {
             // The source is the list item that got pressed
@@ -135,7 +134,6 @@ sap.ui.define([
             } else {
                 oEventSource.setValueState(ValueState.Error);
             }
-
             this.oFilterBar.fireFilterChange(oEvent);
         },
 
@@ -145,6 +143,7 @@ sap.ui.define([
             var DateRange = this.byId("dateRangeSelectionId");
             var DateRangeValue = this.byId("dateRangeSelectionId").getValue();
             var PlantCode = this.byId("idPlantCode").getValue();
+          //  var CompanyCode = this.byId("idCompanyCode").getValue();
             var orFilters = [];
             var andFilters = [];
 
@@ -152,7 +151,8 @@ sap.ui.define([
             if (FreeTextSearch) {
                 orFilters.push(new Filter("PONumber", FilterOperator.Contains, FreeTextSearch));
                 //   orFilters.push(new Filter("vendor/name", FilterOperator.EQ, FreeTextSearch));
-                orFilters.push(new Filter("Status", FilterOperator.EQ, FreeTextSearch));
+              //  orFilters.push(new Filter("CompanyCode", FilterOperator.EQ, FreeTextSearch));
+                orFilters.push(new Filter("PlantCode", FilterOperator.EQ, FreeTextSearch));
                 //   aFilters.push(new Filter("purchase_order/parent_line_items/qty", FilterOperator.EQ, FreeTextSearch));
 
                 andFilters.push(new Filter(orFilters, false));
@@ -168,6 +168,10 @@ sap.ui.define([
                 andFilters.push(new Filter("POReleaseDate", FilterOperator.BT, From.toISOString(), To.toISOString()));
             }
 
+         /*   if (CompanyCode != "") {
+                andFilters.push(new Filter("CompanyCode", FilterOperator.EQ, PlantCode));
+            }*/
+
             if (PlantCode != "") {
                 andFilters.push(new Filter("PlantCode", FilterOperator.EQ, PlantCode));
             }
@@ -175,10 +179,36 @@ sap.ui.define([
             var idOpenPOTableBinding = this.getView().byId("idPurchaseOrdersTable").getTable().getBinding("items");
             var idConfirmPOTableBinding = this.getView().byId("idConfirmPOTable").getTable().getBinding("items");
             var idDispatchedPOTableBinding = this.getView().byId("idDispatchedPOTable").getTable().getBinding("items");
-            idOpenPOTableBinding.filter(new Filter(andFilters, true));
-            idConfirmPOTableBinding.filter(new Filter(andFilters, true));
-            idDispatchedPOTableBinding.filter(new Filter(andFilters, true));
+            
+            if (andFilters.length == 0){
+                andFilters.push(new Filter("PONumber", FilterOperator.NE, ""));
+                idOpenPOTableBinding.filter(new Filter(andFilters, true));
+                idConfirmPOTableBinding.filter(new Filter(andFilters, true));
+                idDispatchedPOTableBinding.filter(new Filter(andFilters, true));
+            }
+
+            if (andFilters.length > 0){
+                idOpenPOTableBinding.filter(new Filter(andFilters, true));
+                idConfirmPOTableBinding.filter(new Filter(andFilters, true));
+                idDispatchedPOTableBinding.filter(new Filter(andFilters, true));
+            }
             // oTableBinding.filter(mFilters);
+        },
+
+        onResetFilters: function () {
+            //this.byId("filterbar").setBasicSearch("");
+            this.byId("idNameInput").setValue("");
+            this.byId("idMaterialCode").setValue("");
+            this.byId("dateRangeSelectionId").setValue("");
+            this.byId("idPlantCode").setValue("");
+           // this.byId("idVendorCode").setValue("");
+            
+            var idOpenPOTableBinding = this.getView().byId("idPurchaseOrdersTable").getTable().getBinding("items");
+            var idConfirmPOTableBinding = this.getView().byId("idConfirmPOTable").getTable().getBinding("items");
+            var idDispatchedPOTableBinding = this.getView().byId("idDispatchedPOTable").getTable().getBinding("items");
+            idOpenPOTableBinding.filter([]);
+            idConfirmPOTableBinding.filter([]);
+            idDispatchedPOTableBinding.filter([]);
         },
 
         onFilterChange: function (oEvent) {

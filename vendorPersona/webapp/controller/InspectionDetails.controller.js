@@ -24,7 +24,7 @@ sap.ui.define([
 
         _onObjectMatched: function (oEvent) {
             var sObjectId = oEvent.getParameter("arguments").inspectionID;
-            this._bindView("/InspectionCallIds" + sObjectId);
+            this._bindView("/InspectionCallIdSet" + sObjectId);
         },
 
         _bindView: function (sObjectPath) {
@@ -34,20 +34,6 @@ sap.ui.define([
 
             this.getView().bindElement({
                 path: sObjectPath,
-                parameters: {
-                    "$expand": {
-                        "insepected_parent_line_items": {
-                            "$expand": {
-                                "inspected_child_line_items": {
-                                    "$select": ["material_code", "description", "qty", "uom"]
-                                }
-                            }
-                        },
-                        "packing_list": {},
-                        "attachments": {}
-                    },
-                    "$select": ["purchase_order_ID"]
-                },
                 events: {
                     dataRequested: function () {
                         objectViewModel.setProperty("/busy", true);

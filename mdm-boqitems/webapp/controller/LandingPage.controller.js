@@ -4,11 +4,12 @@ sap.ui.define([
     "sap/ui/core/Fragment",
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator",
+    "sap/ui/model/json/JSONModel"
 ],
 	/**
 	 * @param {typeof sap.ui.core.mvc.Controller} Controller
 	 */
-    function (BaseController, fioriLibrary, Fragment, Filter, FilterOperator) {
+    function (BaseController, fioriLibrary, Fragment, Filter, FilterOperator, JSONModel) {
         "use strict";
 
         return BaseController.extend("com.agel.mmts.mdmboqitems.controller.LandingPage", {
@@ -21,6 +22,31 @@ sap.ui.define([
                 //Router Object
                 this.oRouter = this.getRouter();
                 this.oRouter.getRoute("LandingPage").attachPatternMatched(this._onObjectMatched, this);
+
+
+            var oAppModel,
+				fnSetAppNotBusy,
+				iOriginalBusyDelay = this.getView().getBusyIndicatorDelay();
+
+			oAppModel = new JSONModel({
+				busy : false,
+				delay : 100
+            });
+            this.oAppModel = oAppModel;
+			this.getOwnerComponent().setModel(oAppModel, "app");
+
+			fnSetAppNotBusy = function() {
+				oAppModel.setProperty("/busy", false);
+				oAppModel.setProperty("/delay", iOriginalBusyDelay);
+			};
+
+			// disable busy indication when the metadata is loaded and in case of errors
+			this.getOwnerComponent().getModel().metadataLoaded().
+			 	then(fnSetAppNotBusy);
+			this.getOwnerComponent().getModel().attachMetadataFailed(fnSetAppNotBusy);
+
+
+
             },
 
             //ObjectMatch
@@ -31,9 +57,7 @@ sap.ui.define([
                 //   this._bindView("/MasterBoQItemSet" + this.sParentID);
             },
 
-            //triggers on press of a PO cheveron item from the list
             onParentLineItemPress: function (oEvent) {
-                // The source is the list item that got pressed
                 this._showObject(oEvent.getSource());
             },
 
@@ -41,7 +65,6 @@ sap.ui.define([
             _showObject: function (oItem) {
                 var that = this;
                 var sObjectPath = oItem.getBindingContext().sPath;
-
                 this.oRouter.navTo("detail", {
                     parentMaterial: sObjectPath.slice("/MasterBoQItemSet".length),
                     layout: "TwoColumnsMidExpanded"

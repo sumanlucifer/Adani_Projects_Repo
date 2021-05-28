@@ -42,7 +42,7 @@
                 </uxap:snappedTitleOnMobile>
                 <uxap:actions>
                     <VBox visible="{= %{Status}==='CONFIRMED' ? true : false}">
-                        <ObjectStatus class="sapMObjectStatusLarge" text="{Status}" state="{= ${Status}==='CONFIRMED' ? 'Success' : 'Warning'}" icon="{= ${Status}==='CONFIRMED' ? 'sap-icon://message-success' : 'sap-icon://pending'}" />
+                        
                     </VBox>
                     <VBox visible="{= %{Status}==='PENDING' ? true : false}">
                         <Button text="Confirm PO" press="onConfirmPO" type="Emphasized"/>
@@ -64,7 +64,7 @@
 				                     }
                             }"/>
                         </VBox>
-                        <VBox renderType="Bare">
+                        <VBox renderType="Bare" class="sapUiMediumMarginEnd">
                             <Label text="{i18n>targetDate}" />
                             <!-- missing -->
                             <Text text="{path:'POReleaseDate',
@@ -74,10 +74,15 @@
 				                     }
                             }"/>
                         </VBox>
+                        <VBox renderType="Bare">
+                            <Label text="{i18n>status}" />
+                            <!-- missing -->
+                            <ObjectStatus text="{Status}" state="{= ${Status}==='CONFIRMED' ? 'Success' : 'Warning'}"/>
+                        </VBox>
                     </FlexBox>
                 </VBox>
                 <VBox renderType="Bare">
-                    <Label text="{i18n>instruction}" />
+                    <Label text="{i18n>instruction}" design="Bold"/>
                     <ObjectAttribute text="Please raise the inspection call through SIMS portal." />
                 </VBox>
             </FlexBox>
@@ -116,18 +121,18 @@
             </uxap:ObjectPageSection>
 
             <!-- Line Items Section -->
-            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>boqItems}">
+            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>boqItems}" visible="{= ${Status}==='CONFIRMED' ? true : false}">
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection title="{i18n>boqItems}">
                         <uxap:blocks>
-                            <boqItemsTable:BOQItemsTable class="sapUxAPObjectPageSubSectionAlignContent" ManageBOQItemPress="onManageBOQItemPress"/>
+                            <boqItemsTable:BOQItemsTable class="sapUxAPObjectPageSubSectionAlignContent" ManageBOQItemPress="onManageBOQItemPress" onSendForApprovalPress="onSendForApprovalPress" onViewBOQItemPress="onViewBOQItemPress"/>
                         </uxap:blocks>
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>
             </uxap:ObjectPageSection>
 
             <!-- Packing List Section -->
-            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>inspectionDetails}">
+            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>inspectionDetails}" visible="{= ${Status}==='CONFIRMED' ? true : false}">
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection title="{i18n>inspectionDetails}">
                         <uxap:blocks>
@@ -138,7 +143,7 @@
             </uxap:ObjectPageSection>
 
             <!-- Packing List Section -->
-            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>packingLists}">
+            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>packingLists}" visible="{= ${Status}==='CONFIRMED' ? true : false}">
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection title="{i18n>packingLists}">
                         <uxap:blocks>

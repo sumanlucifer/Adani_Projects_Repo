@@ -28,7 +28,14 @@ sap.ui.define(["sap/ui/core/mvc/Controller"], function (Controller) {
         },
 
         onChange: function(oEvent){
-            debugger;
+        },
+
+        onSendForApprovalPress: function(oEvent){
+            this.oParentBlock.fireOnSendForApprovalPress(oEvent);
+        },
+
+        onViewBOQItemPress: function(oEvent){
+            this.oParentBlock.fireOnViewBOQItemPress(oEvent);
         }
 
 

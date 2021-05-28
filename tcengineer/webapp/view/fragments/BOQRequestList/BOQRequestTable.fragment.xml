@@ -2,9 +2,9 @@
     xmlns:smartTable="sap.ui.comp.smarttable"
     xmlns:core="sap.ui.core">
 
-    <smartTable:SmartTable class="sapUiSizeCompact" id="idBOQRequestTable" editable="false" placeToolbarInTable="true" enableAutoBinding="true" entitySet="BOQApprovalRequestSet" showFullScreenButton="true" showRowCount="false" tableType="ResponsiveTable" demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" beforeRebindTable="onBeforeRebindBOQTable">
+    <smartTable:SmartTable class="sapUiResponsiveContentPadding" id="idBOQRequestTable" editable="false" placeToolbarInTable="true" enableAutoBinding="true" entitySet="BOQApprovalRequestSet" showFullScreenButton="true" showRowCount="false" tableType="ResponsiveTable" demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" beforeRebindTable="onBeforeRebindBOQTable" enableAutoColumnWidth="true">
 
-        <!-- <smartTable:layoutData><FlexItemData growFactor="1" /></smartTable:layoutData> -->
+        <smartTable:layoutData><FlexItemData growFactor="1" /></smartTable:layoutData>
         <Table sticky="ColumnHeaders,HeaderToolbar" alternateRowColors="true">
             <columns>
 
@@ -15,11 +15,19 @@
                     </customData>
                     <Text text="{i18n>ponum}"/>
                 </Column>
-                <!-- Issue Date missing -->
+
+                 <Column demandPopin="true" minScreenWidth="Desktop"> 
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "BOQGroupName", "leadingProperty": "BOQGroupName",
+                                                 "columnIndex": 1 ,"sortProperty": "BOQGroupName","filterProperty": "BOQGroupName"}'/>
+                    </customData>
+                    <Text text="{i18n>boqName}"/>
+                </Column>
+
                 <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "CreatedAt", "leadingProperty": "CreatedAt",
-                                                 "columnIndex": 1 ,"sortProperty": "CreatedAt","filterProperty": "CreatedAt"}'/>
+                                                 "columnIndex": 2 ,"sortProperty": "CreatedAt","filterProperty": "CreatedAt"}'/>
                     </customData>
                     <Text text="{i18n>requestDate}"/>
                 </Column>
@@ -27,7 +35,7 @@
                 <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "vendorCode", "leadingProperty": "ParentLineItem/PurchaseOrder/Vendor/VendorCode",
-                                                 "columnIndex": 2 ,"sortProperty": "ParentLineItem/PurchaseOrder/Vendor/VendorCode","filterProperty": "ParentLineItem/PurchaseOrder/Vendor/VendorCode"}'/>
+                                                 "columnIndex": 3 ,"sortProperty": "ParentLineItem/PurchaseOrder/Vendor/VendorCode","filterProperty": "ParentLineItem/PurchaseOrder/Vendor/VendorCode"}'/>
                     </customData>
                     <Text text="{i18n>vendorCode}"/>
                 </Column>
@@ -35,7 +43,7 @@
                 <Column>
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "vendorName", "leadingProperty": "ParentLineItem/PurchaseOrder/Vendor/Name",
-                                                 "columnIndex": 3 ,"sortProperty": "ParentLineItem/PurchaseOrder/Vendor/Name","filterProperty": "ParentLineItem/PurchaseOrder/Vendor/Name"}'/>
+                                                 "columnIndex": 4 ,"sortProperty": "ParentLineItem/PurchaseOrder/Vendor/Name","filterProperty": "ParentLineItem/PurchaseOrder/Vendor/Name"}'/>
                     </customData>
                     <Text text="{i18n>name}"/>
                 </Column>
@@ -43,7 +51,7 @@
                 <Column demandPopin="true" minScreenWidth="Desktop"> 
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "PlantCode", "leadingProperty": "ParentLineItem/PurchaseOrder/PlantCode",
-                                                 "columnIndex": 4 ,"sortProperty": "ParentLineItem/PurchaseOrder/PlantCode","filterProperty": "ParentLineItem/PurchaseOrder/PlantCode"}'/>
+                                                 "columnIndex": 5 ,"sortProperty": "ParentLineItem/PurchaseOrder/PlantCode","filterProperty": "ParentLineItem/PurchaseOrder/PlantCode"}'/>
                     </customData>
                     <Text text="{i18n>plantcode}"/>
                 </Column>
@@ -51,7 +59,7 @@
                 <Column demandPopin="true" minScreenWidth="Desktop"> 
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "poIssuedDate", "leadingProperty": "ParentLineItem/PurchaseOrder/CreatedAt",
-                                                 "columnIndex": 5 ,"sortProperty": "ParentLineItem/PurchaseOrder/CreatedAt","filterProperty": "ParentLineItem/PurchaseOrder/CreatedAt"}'/>
+                                                 "columnIndex": 6 ,"sortProperty": "ParentLineItem/PurchaseOrder/CreatedAt","filterProperty": "ParentLineItem/PurchaseOrder/CreatedAt"}'/>
                     </customData>
                     <Text text="{i18n>poIssueDate}"/>
                 </Column>
@@ -59,9 +67,9 @@
                <Column demandPopin="true" minScreenWidth="Desktop"> 
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "boqStatus", "leadingProperty": "Status",
-                                                 "columnIndex": 6 ,"sortProperty": "Status","filterProperty": "Status"}'/>
+                                                 "columnIndex": 7 ,"sortProperty": "Status","filterProperty": "Status"}'/>
                     </customData>
-                    <Text text="{i18n>poIssueDate}"/>
+                    <Text text="{i18n>status}"/>
                 </Column>
 
             </columns>
@@ -69,7 +77,8 @@
 
                 <ColumnListItem type="Navigation" press="onBOQRequestPress">
                     <cells>
-                        <Text text="{PONumber}" binding="{ParentLineItem}"/>
+                        <ObjectIdentifier title="{PONumber}" binding="{ParentLineItem}"/>
+                        <ObjectIdentifier title="{BOQGroupName}"/>
                         <Text text="{path:'CreatedAt',
                                     type: 'sap.ui.model.type.Date',
 				                     formatOptions: {
@@ -77,15 +86,15 @@
 				                     }    
                         }"/>
                         <Text text="{VendorCode}" binding="{ParentLineItem/PurchaseOrder/Vendor}"/>
-                        <Text text="{Name}" binding="{ParentLineItem/PurchaseOrder/Vendor}"/>
-                         <Text text="{PlantCode}" binding="{ParentLineItem/PurchaseOrder}"/>
+                        <Text text="{Name}" binding="{ParentLineItem/PurchaseOrder/Vendor}" wrapping="false"/>
+                        <Text text="{PlantCode}" binding="{ParentLineItem/PurchaseOrder}"/>
                         <Text text="{path:'CreatedAt',
                                      type: 'sap.ui.model.type.Date',
 				                     formatOptions: {
 				                        pattern: 'MMMM dd, yyyy'
 				                     }
                         }" binding="{ParentLineItem/PurchaseOrder}"/>
-                        <ObjectStatus text="{Status}"></ObjectStatus>
+                        <ObjectStatus text="{Status}" state="{= ${Status} === 'PENDING' ? 'Warning' : ${Status} === 'REJECTED' ? 'Error' : 'Success'}"/>
                     </cells>
                 </ColumnListItem>
 
