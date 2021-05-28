@@ -2,7 +2,12 @@
     xmlns:core="sap.ui.core"
     xmlns:fb="sap.ui.comp.filterbar">
 
+<<<<<<< HEAD
     <fb:FilterBar id="filterbar" reset="onResetFilters" search="onSearch" useToolbar="false" showGoOnFB="true">
+=======
+    <fb:FilterBar id="filterbar" reset="onResetFilters" search="onSearch" useToolbar="false"
+         showGoOnFB="true" showRestoreOnFB="true" >
+>>>>>>> 91dc7ae775773b8a8cf094c0835a9af971a26401
         <fb:filterGroupItems>
             <fb:FilterGroupItem groupName="__$INTERNAL$" name="PONOs" label="{i18n>PONOs}" visibleInFilterBar="true" class="searchFieldLabelHidden" >
                 <fb:control>

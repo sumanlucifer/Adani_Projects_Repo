@@ -7,7 +7,7 @@
         <f:title>
             <f:DynamicPageTitle>
                 <f:heading>
-                    <Title text="{i18n>packingList}"/>
+                    <Title text="{i18n>managepackingList}"/>
                 </f:heading>
             </f:DynamicPageTitle>
         </f:title>
@@ -15,7 +15,11 @@
             <List id="idListMaster" items="{path: '/MasterPackagingTypeSet',sorter: {path: 'Name'}}">
             <headerToolbar>
 					<OverflowToolbar>
+<<<<<<< HEAD
                         <Title id="idTitle"/>
+=======
+                        <Title id="idTitle" text="{i18n>packingList}"/>
+>>>>>>> 91dc7ae775773b8a8cf094c0835a9af971a26401
                         <ToolbarSpacer/>
 						<SearchField id="searchField" showRefreshButton="true"
 							tooltip="{i18n>masterSearchTooltip}" search=".onSearch" width="auto">
@@ -32,7 +36,7 @@
 					</OverflowToolbar>
 				</headerToolbar>
                 <items> 
-                <StandardListItem title="Name: {Name}" description="ID : {ID}" 
+                <StandardListItem title="{Name}" 
                 type="Navigation" press="onPackingListTypePress"/>
                 </items>
             </List>

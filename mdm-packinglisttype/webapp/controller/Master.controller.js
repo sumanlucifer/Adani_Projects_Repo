@@ -4,11 +4,12 @@ sap.ui.define([
     "sap/ui/core/Fragment",
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator",
+    "sap/ui/model/json/JSONModel"
 ],
 	/**
 	 * @param {typeof sap.ui.core.mvc.Controller} Controller
 	 */
-    function (BaseController, fioriLibrary,Fragment,Filter,FilterOperator) {
+    function (BaseController, fioriLibrary,Fragment,Filter,FilterOperator,JSONModel) {
         "use strict";
 
         return BaseController.extend("com.agel.mmts.mdmpackinglisttype.controller.Master", {
@@ -16,6 +17,27 @@ sap.ui.define([
 
                 var oModel = this.getOwnerComponent().getModel("layoutModel");
                 oModel.setProperty("/layout", "OneColumn");
+
+                var oAppModel,
+                fnSetAppNotBusy,
+                iOriginalBusyDelay = this.getView().getBusyIndicatorDelay();
+ 
+                oAppModel = new JSONModel({
+                    busy : false,
+                    delay : 1000
+                });
+                this.oAppModel = oAppModel;
+                this.getOwnerComponent().setModel(oAppModel, "app");
+ 
+                fnSetAppNotBusy = function() {
+                    oAppModel.setProperty("/busy", false);
+                    oAppModel.setProperty("/delay", iOriginalBusyDelay);
+                };
+ 
+                // disable busy indication when the metadata is loaded and in case of errors
+                this.getOwnerComponent().getModel().metadataLoaded().
+                    then(fnSetAppNotBusy);
+                this.getOwnerComponent().getModel().attachMetadataFailed(fnSetAppNotBusy);
 
                 //Router Object
                 this.oRouter = this.getRouter();
@@ -80,9 +102,15 @@ sap.ui.define([
                    // new sap.ui.model.Filter("ID", FilterOperator.EQ, oValue)
                 ];
                 
+<<<<<<< HEAD
                 if (!isNaN(oValue)) {
                     aSearchFilters.push(new sap.ui.model.Filter("ID", FilterOperator.EQ, oValue));
                 }
+=======
+             /* if (!isNaN(oValue)) {
+                    aSearchFilters.push(new sap.ui.model.Filter("ID", FilterOperator.EQ, oValue));
+                } */
+>>>>>>> 91dc7ae775773b8a8cf094c0835a9af971a26401
 
                 aFilters.push(new Filter(aSearchFilters, false));
                 if (aFilters.length > 0) {

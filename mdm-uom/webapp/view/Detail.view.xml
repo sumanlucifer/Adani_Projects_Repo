@@ -6,12 +6,21 @@
     xmlns:unified="sap.ui.unified"
     xmlns:data="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
     xmlns="sap.m" controllerName="com.agel.mmts.mdmuom.controller.Detail" height="100%">
-    <uxap:ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true" upperCaseAnchorBar="false" headerContentPinnable="true" toggleHeaderOnTitleClick="true" busy="{objectViewModel>/busy}">
+    <uxap:ObjectPageLayout id="ObjectPageLayout" showFooter="{objectViewModel>/showFooter}"
+         showTitleInHeaderContent="true" 
+        upperCaseAnchorBar="false" headerContentPinnable="true" toggleHeaderOnTitleClick="true" 
+        busy="{objectViewModel>/busy}">
         <uxap:headerTitle>
             <uxap:ObjectPageDynamicHeaderTitle>
+<<<<<<< HEAD
               <!--  <uxap:expandedHeading>
                     <Title text="{ID}" wrapping="true" titleStyle="H3" />
                 </uxap:expandedHeading> -->
+=======
+               <uxap:expandedHeading>
+                    <Title text="{Name}" wrapping="true" titleStyle="H3" />
+                </uxap:expandedHeading> 
+>>>>>>> 91dc7ae775773b8a8cf094c0835a9af971a26401
                 <uxap:snappedHeading>
                     <!--<VBox>
                         <Title text="{Name}" wrapping="true" titleStyle="H3"/>
@@ -26,17 +35,23 @@
                 <uxap:actions>
                     <Button id="idBtnEdit" text="Edit" icon="sap-icon://edit" press="onEdit" 
                                     visible="{= ${objectViewModel>/idBtnEdit}}"/>
+<<<<<<< HEAD
                     <Button text="Delete" type="Reject" visible="{= ${objectViewModel>/idBtnDelete}}"
                                             press="onDeletePress"/>
+=======
+					
+                    <Button id="idBtnDelete" text="Delete" type="Reject" visible="{= ${objectViewModel>/idBtnDelete}}"
+                        press="onDeletePress"/>
+>>>>>>> 91dc7ae775773b8a8cf094c0835a9af971a26401
                 </uxap:actions> 
             </uxap:ObjectPageDynamicHeaderTitle>
         </uxap:headerTitle>
         <uxap:headerContent>
             <FlexBox direction="Row" renderType="Bare" class="sapUiTinyMarginBottom">
-                <VBox renderType="Bare" class="sapUiMediumMarginEnd">
+             <!--   <VBox renderType="Bare" class="sapUiMediumMarginEnd">
                     <Label text="{i18n>Name}" class="sapUiTinyMarginBottom"/>
                     <Text text="{Name}"/>
-                </VBox>
+                </VBox>-->
                 <VBox renderType="Bare" class="sapUiMediumMarginEnd">
                     <Label text="{i18n>Description}" class="sapUiTinyMarginBottom"/>
                     <Text text="{Description}"/>
@@ -90,9 +105,11 @@
 				         </HBox> -->
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>
+               
             </uxap:ObjectPageSection>
 
         </uxap:sections>
+<<<<<<< HEAD
         <!-- <uxap:footer>
             <OverflowToolbar>
             <ToolbarSpacer/>
@@ -102,5 +119,16 @@
                                     visible="{= ${objectViewModel>/idBtnCancel}}"/>
             </OverflowToolbar>
          </uxap:footer> -->
+=======
+         <uxap:footer>
+            <OverflowToolbar>
+            <ToolbarSpacer/>
+            <Button id="idBtnSave" text="Save" icon="sap-icon://save" press="onSave"
+                               type="Accept" visible="{= ${objectViewModel>/idBtnSave}}"/>
+			<Button id="idBtnCancel" text="Cancel" icon="sap-icon://cancel" press="onCancel" 
+                                    visible="{= ${objectViewModel>/idBtnCancel}}"/>
+            </OverflowToolbar>
+         </uxap:footer>
+>>>>>>> 91dc7ae775773b8a8cf094c0835a9af971a26401
     </uxap:ObjectPageLayout>
 </mvc:View>

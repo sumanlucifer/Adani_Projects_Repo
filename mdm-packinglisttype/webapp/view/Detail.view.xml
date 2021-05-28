@@ -6,12 +6,19 @@
     xmlns:unified="sap.ui.unified"
     xmlns:data="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
     xmlns="sap.m" controllerName="com.agel.mmts.mdmpackinglisttype.controller.Detail" height="100%">
-    <uxap:ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true" upperCaseAnchorBar="false" headerContentPinnable="true" toggleHeaderOnTitleClick="true" busy="{objectViewModel>/busy}">
+    <uxap:ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true" showFooter="{objectViewModel>/showFooter}"
+         upperCaseAnchorBar="false" headerContentPinnable="true" toggleHeaderOnTitleClick="true" busy="{objectViewModel>/busy}">
         <uxap:headerTitle>
             <uxap:ObjectPageDynamicHeaderTitle>
+<<<<<<< HEAD
              <!--   <uxap:expandedHeading>
                     <Title text="{ID}" wrapping="true" titleStyle="H3" />
                 </uxap:expandedHeading> -->
+=======
+               <uxap:expandedHeading>
+                    <Title text="{Name}" wrapping="true" titleStyle="H3" />
+                </uxap:expandedHeading> 
+>>>>>>> 91dc7ae775773b8a8cf094c0835a9af971a26401
                 <uxap:expandedContent>
                 </uxap:expandedContent>
                 <uxap:snappedTitleOnMobile>
@@ -20,20 +27,25 @@
                 <uxap:actions>
                     <Button id="idBtnEdit" text="Edit" icon="sap-icon://edit" press="onEdit" 
                                     visible="{= ${objectViewModel>/idBtnEdit}}"/>
+<<<<<<< HEAD
 					<Button id="idBtnSave" text="Save" icon="sap-icon://save" press="onSave"
                                     visible="{= ${objectViewModel>/idBtnSave}}"/>
 					<Button id="idBtnCancel" text="Cancel" icon="sap-icon://cancel" press="onCancel" 
                                     visible="{= ${objectViewModel>/idBtnCancel}}"/>
                     <Button text="Delete" type="Reject" visible="{= ${objectViewModel>/idBtnDelete}}"
                      press="onDeletePress"/>
+=======
+                    <Button text="Delete" type="Reject" visible="{= ${objectViewModel>/idBtnDelete}}"
+                         press="onDeletePress"/>
+>>>>>>> 91dc7ae775773b8a8cf094c0835a9af971a26401
                 </uxap:actions>
             </uxap:ObjectPageDynamicHeaderTitle>
         </uxap:headerTitle>
         <uxap:headerContent>
             <FlexBox direction="Row" renderType="Bare" class="sapUiTinyMarginBottom">
                 <VBox renderType="Bare" class="sapUiMediumMarginEnd">
-                    <Label text="{i18n>name}" class="sapUiTinyMarginBottom"/>
-                    <Text text="{Name}"/>
+                   <!-- <Label text="{i18n>name}" class="sapUiTinyMarginBottom"/>
+                    <Text text="{Name}"/> -->
                 </VBox>
             </FlexBox>
         </uxap:headerContent>
@@ -50,8 +62,8 @@
 			                adjustLabelSpan="false"	emptySpanXL="4" emptySpanL="4" emptySpanM="4"
 			                emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false" >
 			                <f:content>
-                                <Label text="ID" />
-				                <Input id="desc1" value="{ID}" editable="false"/>
+                              <!--  <Label text="ID" />
+				                <Input id="desc1" value="{ID}" editable="false"/> -->
 
 				                <Label text="Name" />
 				                <Input id="name" value="{Name}" editable="false" />
@@ -65,23 +77,38 @@
 			                adjustLabelSpan="false"	emptySpanXL="4" emptySpanL="4" emptySpanM="4"
 			                emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false" >
 			                <f:content>
-                                <Label text="ID" />
-				                <Input id="idEdit" value="{ID}"/>
+                              <!--  <Label text="ID" />
+				                <Input id="idEdit" value="{ID}"/> -->
 
 				                <Label text="Name" />
-				                <Input id="nameEdit" value="{Name}" />
+				                <Input id="nameEdit" value="{Name}" maxLength="20"/>
 				
 			                </f:content>    
 		                </f:SimpleForm>
                     </uxap:blocks>
 
+<<<<<<< HEAD
                       <uxap:actions>
                             
 						</uxap:actions>
+=======
+                    <uxap:actions>
+                            
+					</uxap:actions>
+>>>>>>> 91dc7ae775773b8a8cf094c0835a9af971a26401
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>
             </uxap:ObjectPageSection>
 
         </uxap:sections>
+        <uxap:footer>
+            <OverflowToolbar>
+            <ToolbarSpacer/>
+            <Button id="idBtnSave" text="Save" icon="sap-icon://save" press="onSave"
+                         type="Accept"  visible="{= ${objectViewModel>/idBtnSave}}"/>
+					<Button id="idBtnCancel" text="Cancel" icon="sap-icon://cancel" press="onCancel" 
+                                    visible="{= ${objectViewModel>/idBtnCancel}}"/>
+            </OverflowToolbar>
+         </uxap:footer>
     </uxap:ObjectPageLayout>
 </mvc:View>
