@@ -2,7 +2,7 @@
     xmlns:core="sap.ui.core">
     <Dialog >
         <content>
-            <core:Fragment fragmentName="com.agel.mmts.vendorPersona.view.fragments.common.lineItems" type="XML"/>
+            <core:Fragment fragmentName="com.agel.mmts.vendorPersona.view.fragments.common.lineItems" type="XML" class="sapUiResponsiveMargin"/>
         </content>
         <endButton>
             <Button text="Close" press="onViewChildDialogClose" type="Emphasized" />

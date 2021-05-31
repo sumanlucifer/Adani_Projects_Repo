@@ -1,16 +1,16 @@
 {
     "resources": [
         {
-            "name": "css/style.css"
+            "name": "index.html"
         },
         {
-            "name": "controller/LandingPage.controller.js"
+            "name": "manifest.json"
         },
         {
             "name": "model/models.js"
         },
         {
-            "name": "manifest.json"
+            "name": "controller/LandingPage.controller.js"
         },
         {
             "name": "Component.js"
@@ -41,11 +41,11 @@
             "name": "view/LandingPage.view.xml"
         },
         {
-            "name": "i18n/i18n.properties",
-            "raw": "i18n/i18n.properties"
+            "name": "css/style.css"
         },
         {
-            "name": "index.html"
+            "name": "i18n/i18n.properties",
+            "raw": "i18n/i18n.properties"
         }
     ]
 }

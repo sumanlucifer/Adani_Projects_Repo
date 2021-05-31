@@ -5,22 +5,22 @@
     xmlns:smartTable="sap.ui.comp.smarttable"
     xmlns:tt="sap.ui.table" controllerName="com.agel.mmts.vendorPersona.view.blocks.poDetails.boqItemsTable.BOQItemsTableController">
 
-    <smartTable:SmartTable id="smartTreeTable" entitySet="ParentLineItemSet" tableType="TreeTable" useExportToExcel="false" useVariantManagement="false" useTablePersonalisation="true" placeToolbarInTable="true" showRowCount="true" enableAutoBinding="true" enableAutoColumnWidth="true" beforeRebindTable="onBeforeRebindTreeTable" class="sapUiResponsiveContentPadding" ignoreFromPersonalisation="DeliveryDate,HSNCode,ID,InspectedQty,IsBOQApplicable,OverseasQrCode,PlantCode,PONumber,Price,Status,StorageLocation,TaxCode,TaxIndicator,Value,Comment">
+    <smartTable:SmartTable id="smartTreeTable" entitySet="ParentLineItemSet" tableType="TreeTable" useExportToExcel="false" useVariantManagement="false" useTablePersonalisation="true" placeToolbarInTable="true" showRowCount="true" enableAutoBinding="true" enableAutoColumnWidth="true" beforeRebindTable="onBeforeRebindTreeTable" ignoreFromPersonalisation="DeliveryDate,HSNCode,ID,InspectedQty,IsBOQApplicable,OverseasQrCode,PlantCode,PONumber,Price,Status,StorageLocation,TaxCode,TaxIndicator,Value,Comment">
         <!-- layout data used to make the table growing but the filter bar fixed -->
         <smartTable:customToolbar>
 			<OverflowToolbar design="Transparent">
 				<ToolbarSpacer/>
-				<Button text="Manage BOQ"/>
+				<Button text="Manage BOQ" press="navToManageBOQApp"/>
 			</OverflowToolbar>
 		</smartTable:customToolbar>
-        <tt:TreeTable id="treeTable" selectionMode="None" enableColumnReordering="true" expandFirstLevel="true" visibleRowCountMode="Interactive">
+        <tt:TreeTable id="treeTable" selectionMode="None" enableColumnReordering="true" expandFirstLevel="false" visibleRowCountMode="Auto">
             <tt:columns>
 
                 <tt:Column hAlign="Center">
                     <Label text="{i18n>name}"/>
                     <tt:customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "Name", "leadingProperty": "Name",
-                                                 "columnIndex": 0 ,"sortProperty": "Name","filterProperty": "Name"}'/>
+                                                 "columnIndex": 1 ,"sortProperty": "Name","filterProperty": "Name"}'/>
                     </tt:customData>
 
                     <tt:template>
@@ -32,11 +32,11 @@
                     <Label text="{i18n>materialCode}"/>
                     <tt:customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "MaterialCode", "leadingProperty": "MaterialCode",
-                                                 "columnIndex": 1 ,"sortProperty": "NamMaterialCodee","filterProperty": "MaterialCode"}'/>
+                                                 "columnIndex": 0 ,"sortProperty": "NamMaterialCodee","filterProperty": "MaterialCode"}'/>
                     </tt:customData>
 
                     <tt:template>
-                        <ObjectIdentifier text="{MaterialCode}"></ObjectIdentifier>
+                        <ObjectIdentifier title="{MaterialCode}"></ObjectIdentifier>
                     </tt:template>
                 </tt:Column>
 
@@ -49,7 +49,7 @@
 
                     <tt:template>
 
-                        <ExpandableText text="{Description}" overflowMode="InPlace" maxCharacters="20"/>
+                        <ExpandableText text="{Description}" overflowMode="Popover" maxCharacters="5"/>
                     </tt:template>
                 </tt:Column>
 

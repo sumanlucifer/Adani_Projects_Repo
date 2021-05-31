@@ -1,8 +1,7 @@
 {
     "resources": [
         {
-            "name": "controller/LandingPage-dbg.controller.js",
-            "isDebug": true
+            "name": "view/LandingPage.view.xml"
         },
         {
             "name": "manifest.json"
@@ -24,22 +23,23 @@
             "merged": true
         },
         {
-            "name": "Component-dbg.js",
+            "name": "model/models-dbg.js",
             "isDebug": true
         },
         {
-            "name": "i18n/i18n.properties",
-            "raw": "i18n/i18n.properties"
+            "name": "controller/LandingPage-dbg.controller.js",
+            "isDebug": true
         },
         {
-            "name": "model/models-dbg.js",
+            "name": "Component-dbg.js",
             "isDebug": true
         },
         {
             "name": "../../../../sap-ui-version.json"
         },
         {
-            "name": "view/LandingPage.view.xml"
+            "name": "i18n/i18n.properties",
+            "raw": "i18n/i18n.properties"
         },
         {
             "name": "css/style.css"

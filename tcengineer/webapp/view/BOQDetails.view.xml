@@ -13,8 +13,7 @@
     xmlns:sellerForm="com.agel.mmts.tcengineer.view.blocks.BOQDetails.sellerForm"
     xmlns:lineItemsForm="com.agel.mmts.tcengineer.view.blocks.BOQDetails.lineItemsForm"
     xmlns:sowForm="com.agel.mmts.tcengineer.view.blocks.BOQDetails.sowForm"
-    xmlns:boqItemsTable="com.agel.mmts.tcengineer.view.blocks.BOQDetails.boqItemsTable.blocks"
-    height="100%">
+    xmlns:boqItemsTable="com.agel.mmts.tcengineer.view.blocks.BOQDetails.boqItemsTable.blocks" height="100%">
     <uxap:ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true" upperCaseAnchorBar="false" headerContentPinnable="true" toggleHeaderOnTitleClick="true" busy="{objectViewModel>/busy}">
         <uxap:headerTitle>
             <uxap:ObjectPageDynamicHeaderTitle>
@@ -25,21 +24,21 @@
                 </uxap:breadcrumbs>
                 <uxap:expandedHeading>
                     <FlexBox direction="Column" renderType="Bare">
-                        <Title text="PO Details" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
-                        <Title text="{PONumber}" binding="{ParentLineItem/PurchaseOrder}" wrapping="true" titleStyle="H3" />
+                        <Title text="BOQ Approval Request Details" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
+                        <Title text="{BOQGroupName}" wrapping="true" titleStyle="H3" />
                     </FlexBox>
                 </uxap:expandedHeading>
                 <uxap:snappedHeading>
                     <FlexBox direction="Column" renderType="Bare">
-                        <Title text="PO Details" wrapping="true" titleStyle="H4"/>
+                        <Title text="BOQ Approval Request Details" wrapping="true" titleStyle="H4"/>
                         <Title text="{PONumber}" binding="{ParentLineItem/PurchaseOrder}" wrapping="true" titleStyle="H3"/>
                     </FlexBox>
                 </uxap:snappedHeading>
                 <uxap:expandedContent></uxap:expandedContent>
                 <uxap:snappedTitleOnMobile>
-                    <Title text="PO Details - {PONumber}" binding="{ParentLineItem/PurchaseOrder}" wrapping="true" titleStyle="Auto"/>
+                    <Title text="BOQ Approval Request Details - {PONumber}" binding="{ParentLineItem/PurchaseOrder}" wrapping="true" titleStyle="Auto"/>
                 </uxap:snappedTitleOnMobile>
-                <uxap:actions>    
+                <uxap:actions>
                 </uxap:actions>
             </uxap:ObjectPageDynamicHeaderTitle>
         </uxap:headerTitle>
@@ -48,7 +47,12 @@
                 <VBox renderType="Bare">
                     <FlexBox direction="Row" renderType="Bare" class="sapUiTinyMarginBottom">
                         <VBox renderType="Bare" class="sapUiMediumMarginEnd" binding="{ParentLineItem/PurchaseOrder}">
-                            <Label text="{i18n>issuedDate}" />
+                            <Label text="PO Number" />
+                            <!-- missing -->
+                            <Text text="{PONumber}"/>
+                        </VBox>
+                        <VBox renderType="Bare" class="sapUiMediumMarginEnd" binding="{ParentLineItem/PurchaseOrder}">
+                            <Label text="PO Issues Date" />
                             <!-- missing -->
                             <Text text="{path:'POReleaseDate',
                                      type: 'sap.ui.model.type.Date',
@@ -58,7 +62,7 @@
                             }"/>
                         </VBox>
                         <VBox renderType="Bare" class="sapUiMediumMarginEnd" binding="{ParentLineItem/PurchaseOrder}">
-                            <Label text="{i18n>targetDate}" />
+                            <Label text="PO Target Date" />
                             <!-- missing -->
                             <Text text="{path:'POReleaseDate',
                                      type: 'sap.ui.model.type.Date',
@@ -68,7 +72,18 @@
                             }"/>
                         </VBox>
 
-                         <VBox renderType="Bare">
+                        <VBox renderType="Bare" class="sapUiMediumMarginEnd">
+                            <Label text="BOQ Request Date" />
+                            <!-- missing -->
+                            <Text text="{path:'CreatedAt',
+                                     type: 'sap.ui.model.type.Date',
+				                     formatOptions: {
+				                        pattern: 'MMMM dd, yyyy'
+				                     }
+                            }"/>
+                        </VBox>
+
+                        <VBox renderType="Bare">
                             <Label text="{i18n>boqApprovalstatus}" />
                             <ObjectStatus text="{Status}" state="{= ${Status} === 'PENDING' ? 'Warning' : ${Status} === 'REJECTED' ? 'Error' : 'Success'}"/>
                         </VBox>
@@ -96,7 +111,7 @@
                         </uxap:blocks>
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>
-            </uxap:ObjectPageSection> 
+            </uxap:ObjectPageSection>
 
             <!-- Line Items Section -->
             <uxap:ObjectPageSection titleUppercase="false" title="{i18n>lineItems}">

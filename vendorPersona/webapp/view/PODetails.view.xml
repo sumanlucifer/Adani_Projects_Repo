@@ -20,25 +20,25 @@
         <uxap:headerTitle>
             <uxap:ObjectPageDynamicHeaderTitle>
                 <uxap:breadcrumbs>
-                    <Breadcrumbs id="breadcrumbsId" currentLocationText="{i18n>confirmedPODetails}">
+                    <Breadcrumbs id="breadcrumbsId" currentLocationText="{i18n>PODetails}">
                         <Link text="{i18n>assignedPOList}" press=".handleToAllPOBreadcrumPress"/>
                     </Breadcrumbs>
                 </uxap:breadcrumbs>
                 <uxap:expandedHeading>
                     <FlexBox direction="Column" renderType="Bare">
-                        <Title text="{i18n>confirmedPODetails}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
+                        <Title text="{i18n>PODetails}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
                         <Title text="{PONumber}" wrapping="true" titleStyle="H3" />
                     </FlexBox>
                 </uxap:expandedHeading>
                 <uxap:snappedHeading>
                     <FlexBox direction="Column" renderType="Bare">
-                        <Title text="{i18n>confirmedPODetails}" wrapping="true" titleStyle="H4"/>
+                        <Title text="{i18n>PODetails}" wrapping="true" titleStyle="H4"/>
                         <Title text="{PONumber}" wrapping="true" titleStyle="H3"/>
                     </FlexBox>
                 </uxap:snappedHeading>
                 <uxap:expandedContent></uxap:expandedContent>
                 <uxap:snappedTitleOnMobile>
-                    <Title text="{i18n>confirmedPODetails}- {PONumber}" wrapping="true" titleStyle="Auto"/>
+                    <Title text="{i18n>PODetails}- {PONumber}" wrapping="true" titleStyle="Auto"/>
                 </uxap:snappedTitleOnMobile>
                 <uxap:actions>
                     <VBox visible="{= %{Status}==='CONFIRMED' ? true : false}">
@@ -57,7 +57,7 @@
                         <VBox renderType="Bare" class="sapUiMediumMarginEnd">
                             <Label text="{i18n>issuedDate}" />
                             <!-- missing -->
-                            <Text text="{path:'POReleaseDate',
+                            <Text text="{path:'ValidityStartDate',
                                      type: 'sap.ui.model.type.Date',
 				                     formatOptions: {
 				                        pattern: 'MMMM dd, yyyy'
@@ -67,7 +67,7 @@
                         <VBox renderType="Bare" class="sapUiMediumMarginEnd">
                             <Label text="{i18n>targetDate}" />
                             <!-- missing -->
-                            <Text text="{path:'POReleaseDate',
+                            <Text text="{path:'ValidityEndDate',
                                      type: 'sap.ui.model.type.Date',
 				                     formatOptions: {
 				                        pattern: 'MMMM dd, yyyy'
@@ -125,7 +125,7 @@
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection title="{i18n>boqItems}">
                         <uxap:blocks>
-                            <boqItemsTable:BOQItemsTable class="sapUxAPObjectPageSubSectionAlignContent" ManageBOQItemPress="onManageBOQItemPress" onSendForApprovalPress="onSendForApprovalPress" onViewBOQItemPress="onViewBOQItemPress"/>
+                            <boqItemsTable:BOQItemsTable class="sapUxAPObjectPageSubSectionAlignContent sapUiTinyMarginEnd" ManageBOQItemPress="onManageBOQItemPress" onSendForApprovalPress="onSendForApprovalPress" onViewBOQItemPress="onViewBOQItemPress"/>
                         </uxap:blocks>
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>

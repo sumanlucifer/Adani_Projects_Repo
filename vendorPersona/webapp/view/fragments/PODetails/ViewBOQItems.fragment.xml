@@ -2,7 +2,7 @@
     xmlns:core="sap.ui.core">
     <Dialog >
         <content>
-            <Table width="auto" growing="true" id="idViewBOQItemTable" growingThreshold="2" items="{path: 'BOQItems'}">
+            <Table width="auto" growing="true" id="idViewBOQItemTable" growingThreshold="2" items="{path: 'BOQItems'}" fixedLayout="false" class="sapUiResponsiveMargin">
         <columns>
             <Column>
                 <Text text="{i18n>materialCode}" wrapping="true" wrappingType="Hyphenated"/>
@@ -13,19 +13,19 @@
             <Column demandPopin="true" minScreenWidth="Desktop">
                 <Text text="{i18n>description}"/>
             </Column>
-            <Column demandPopin="true" minScreenWidth="Tablet">
+            <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center">
                 <Text text="{i18n>quantity}" />
             </Column>
-            <Column demandPopin="true" minScreenWidth="Tablet">
+            <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center">
                 <Text text="{i18n>orderUnit}"/>
             </Column>
         </columns>
         <items>
             <ColumnListItem>
                 <cells>
-                    <ObjectIdentifier title="{MaterialCode}" titleActive="true" />
+                    <ObjectIdentifier title="{MaterialCode}"/>
                     <Text text="{Name}"/>
-                    <ExpandableText text="{Description}" maxCharacters="20" overflowMode="Popover"/>
+                    <ExpandableText text="{Description}" maxCharacters="50" overflowMode="Popover"/>
                     <Text text="{Qty}"/>
                     <Text text="{UOM}"/>
                 </cells>

@@ -23,7 +23,8 @@ sap.ui.define([
                 idSFEdit: false,
                 idBtnEdit: true,
                 idBtnSave: false,
-                idBtnCancel: false
+                idBtnCancel: false,
+                idBtnDelete: false
             });
             this.setModel(oViewModel, "objectViewModel");
 
@@ -42,7 +43,7 @@ sap.ui.define([
             this.getView().getModel("layoutModel").setProperty("/layout", sLayout);
 
             if (this.sPackingListID === "new") {
-
+                this.getViewModel("objectViewModel").setProperty("/idBtnDelete", false);
                 this.getViewModel("objectViewModel").setProperty("/idSFDisplay", false);
                 this.getViewModel("objectViewModel").setProperty("/idSFEdit", true);
 
@@ -66,6 +67,7 @@ sap.ui.define([
                 });
             } else {
                 this._bindView("/MasterPackagingTypeSet" + this.sPackingListID);
+                this.getViewModel("objectViewModel").setProperty("/idBtnDelete", true);
             }
         },
 

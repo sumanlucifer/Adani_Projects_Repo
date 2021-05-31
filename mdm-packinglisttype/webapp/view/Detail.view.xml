@@ -18,7 +18,7 @@
                     <Title text="{Name}" wrapping="true" titleStyle="Auto"/>
                 </uxap:snappedTitleOnMobile>
                 <uxap:actions>
-                    <Button text="Delete" type="Reject" press="onDeletePress"/>
+                    <Button text="Delete" type="Reject" press="onDeletePress" visible="{objectViewModel>/idBtnDelete}"/>
                 </uxap:actions>
             </uxap:ObjectPageDynamicHeaderTitle>
         </uxap:headerTitle>
