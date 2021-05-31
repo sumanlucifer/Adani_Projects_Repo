@@ -5,48 +5,53 @@
     xmlns:smartTable="sap.ui.comp.smarttable"
     xmlns:tt="sap.ui.table" controllerName="com.agel.mmts.tcengineer.view.blocks.BOQDetails.boqItemsTable.BOQItemsTableController">
 
-    <Table id="idBOQItemTable" items="{path: 'ParentLineItem/BOQItems'}" autoPopinMode="true" alternateRowColors="true" growingThreshold="3" growing="true">
+    <Table id="idBOQItemTable" items="{path: 'BOQGroup/BOQItems'}" autoPopinMode="true" growingThreshold="3" growing="true">
         <headerToolbar>
             <OverflowToolbar >
                 <content>
                     <ToolbarSpacer></ToolbarSpacer>
                     <Button text="Approve" type="Accept" press="onApproveBOQPress" visible="{= ${Status}=== 'PENDING' ? true : false}"></Button>
                     <Button text="Reject" type="Reject" press="onRejectBOQPress" visible="{= ${Status}=== 'PENDING' ? true : false}"></Button>
-                    <Button icon="sap-icon://sort"></Button>
+                    <!-- <Button icon="sap-icon://sort"></Button>
                     <Button icon="sap-icon://filter"></Button>
-                    <Button icon="sap-icon://group"></Button>
+                    <Button icon="sap-icon://group"></Button> -->
                 </content>
             </OverflowToolbar>
         </headerToolbar>
         <columns>
             <Column>
-                <Text text="Name"/>
+                <Text text="Material Code"/>
             </Column>
             <Column>
                 <Text text="Name"/>
             </Column>
             <Column>
-                <Text text="Name"/>
+                <Text text="Description"/>
             </Column>
             <Column>
-                <Text text="Name"/>
+                <Text text="Quantity"/>
             </Column>
             <Column>
-                <Text text="Name"/>
+                <Text text="Order Unit"/>
             </Column>
-            <Column>
+            <!-- <Column>
                 <Text text="Name"/>
-            </Column>
+            </Column> -->
         </columns>
         <items>
             <ColumnListItem>
                 <cells>
                     <ObjectIdentifier title="{MaterialCode}"/>
                     <Text text="{Name}"/>
+                     <ExpandableText text="{Description}" overflowMode="InPlace" maxCharacters="50" />
                     <Text text="{Qty}"/>
-                    <ExpandableText text="{Description}" overflowMode="InPlace" maxCharacters="15" />
                     <Text text="{UOM}"/>
-                    <Text text="{CreatedAt}"/>
+                    <!-- <Text text="{path:'CreatedAt',
+                                     type: 'sap.ui.model.type.Date',
+				                     formatOptions: {
+				                        pattern: 'MMMM dd, yyyy'
+				                     }
+                        }"/> -->
 
                 </cells>
             </ColumnListItem>

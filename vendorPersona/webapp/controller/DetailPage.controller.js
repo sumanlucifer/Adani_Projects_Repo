@@ -244,7 +244,7 @@ sap.ui.define([
                             "expand": 'ParentLineItems'
                         }
                     });
-                    oDialog.setTitle(oDetails.title)
+                    oDialog.setTitle(oDetails.title);
                     return oDialog;
                 });
             }
@@ -256,6 +256,7 @@ sap.ui.define([
                         'expand': 'ParentLineItems'
                     }
                 });
+                oDialog.setTitle(oDetails.title);
                 oDialog.open();
             });
         },

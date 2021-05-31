@@ -4,7 +4,7 @@
     xmlns="sap.m"
     controllerName="com.agel.mmts.vendorPersona.view.blocks.poDetails.inspectionTable.InspectionTableController">
 
-    <smartTable:SmartTable class="sapUiSizeCompact" id="idPackingListTable" editable="false" placeToolbarInTable="true" enableAutoBinding="true" entitySet="InspectionCallIdSet" showFullScreenButton="true" showRowCount="false" tableType="ResponsiveTable" demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" beforeRebindTable="onBeforeRenderingInspectionTable" enableAutoColumnWidth="true">
+    <smartTable:SmartTable class="sapUiSizeCompact" id="idPackingListTable" editable="false" placeToolbarInTable="true" enableAutoBinding="true" entitySet="InspectionCallIdSet" showFullScreenButton="true" showRowCount="false" tableType="ResponsiveTable" demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" beforeRebindTable="onBeforeRenderingInspectionTable" enableAutoColumnWidth="true" ignoreFromPersonalisation="CreatedBy,ID,IsArchived,PONumber,Type,UpdatedAt,UpdatedBy">
 
         <Table sticky="ColumnHeaders,HeaderToolbar">
             <columns>

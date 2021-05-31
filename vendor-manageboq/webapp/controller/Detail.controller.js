@@ -34,6 +34,7 @@ sap.ui.define([
                 boqItems: [{
                     Name: "",
                     MaterialCode: "",
+                    Description:"",
                     Qty: "",
                     Remarks: "",
                     UOM: "",
@@ -49,7 +50,10 @@ sap.ui.define([
         _onObjectMatched: function (oEvent) {
             this.sParentID = oEvent.getParameter("arguments").parentMaterial;
             var sLayout = oEvent.getParameter("arguments").layout;
-
+            if(sLayout == 'TwoColumnsMidExpanded'){
+                this.byId("idViewBOQListButton").setPressed(false);
+                this.getViewModel("objectViewModel").setProperty("/sViewBOQButtonName", "View BOQ List");
+            }
             this.getView().getModel().setProperty("/busy", false);
 
             this.getView().getModel("layoutModel").setProperty("/layout", sLayout);
@@ -117,6 +121,7 @@ sap.ui.define([
             oItems.push({
                 Name: "",
                 MaterialCode: "",
+                Description:"",
                 Qty: "",
                 Remarks: "",
                 UOM: "",
@@ -135,7 +140,7 @@ sap.ui.define([
             if (!this.pDialog) {
                 this.pDialog = Fragment.load({
                     id: oDetails.view.getId(),
-                    name: "com.agel.mmts.vendorPersona.view.fragments.manageBOQ.AddRemarks",
+                    name: "com.agel.mmts.vendormanageboq.view.fragments.manageBOQ.AddRemarks",
                     controller: oDetails.controller
                 }).then(function (oDialog) {
                     // connect dialog to the root view of this component (models, lifecycle)
@@ -169,7 +174,7 @@ sap.ui.define([
         onCloseRemarkPopupPress: function (oEvent) {
             var that = this;
             this.pDialog.then(function (oDialog) {
-                that.byId("idRemarksTextArea").setValue(null);
+                //that.byId("idRemarksTextArea").setValue(null);
                 oDialog.close();
             });
         },

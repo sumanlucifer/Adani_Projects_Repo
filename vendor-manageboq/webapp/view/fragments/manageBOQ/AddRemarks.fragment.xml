@@ -4,14 +4,14 @@
             <Bar>
                 <contentLeft></contentLeft>
                 <contentMiddle>
-                    <Title text="Add Remark"/>
+                    <Title text="Add remark"/>
                 </contentMiddle>
                 <contentRight></contentRight>
             </Bar>
         </customHeader>
         <content>
             <FlexBox renderType="Bare" wrap="Wrap">
-                <TextArea id="idRemarksTextArea" rows="3" width="100%" cols="80" class="sapUiSmallMargin"/>
+                <TextArea id="idRemarksTextArea" value="{Remarks}" rows="3" width="100%" cols="80" class="sapUiSmallMargin"/>
             </FlexBox>
         </content>
         <beginButton>

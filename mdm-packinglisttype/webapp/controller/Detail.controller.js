@@ -25,7 +25,8 @@ sap.ui.define([
                 idBtnDelete: true,
                 idBtnEdit: true,
                 idBtnSave: false,
-                idBtnCancel: false
+                idBtnCancel: false,
+                idBtnDelete: false
             });
             this.setModel(oViewModel, "objectViewModel");
 
@@ -71,6 +72,7 @@ sap.ui.define([
                 this.getViewModel("objectViewModel").setProperty("/showFooter", false);
                 this.getViewModel("objectViewModel").setProperty("/idBtnDelete", true);
                 this._bindView("/MasterPackagingTypeSet" + this.sPackingListID);
+                this.getViewModel("objectViewModel").setProperty("/idBtnDelete", true);
             }
         },
 
