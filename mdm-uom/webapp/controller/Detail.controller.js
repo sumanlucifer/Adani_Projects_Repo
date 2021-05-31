@@ -109,7 +109,11 @@ sap.ui.define([
             if ( Name == "" ){
                 sap.m.MessageBox.error("Please enter name ");
                 return;
-            }           
+            }   
+            if ( Description == "" ){
+                sap.m.MessageBox.error("Please enter description ");
+                return;
+            }        
             oPayload.Name = Name;
             oPayload.Description = Description;
 
@@ -138,22 +142,30 @@ sap.ui.define([
 			    });
             }
             else{        
-                var sPath = this.getView().getBindingContext().getPath();
-                that.getComponentModel("app").setProperty("/busy", true);
-                this.mainModel.update(sPath, oPayload, {
-                    success: function (oData, oResponse) {
-                       // sap.m.MessageBox.success(oData.Message);
-                        sap.m.MessageBox.success("UOM Updated Successfully");
-                        that.getComponentModel("app").setProperty("/busy", false);
-                        // this.getViewModel("objectViewModel").setProperty("/isCreatingPCList", false);
-                        that.getView().getModel().refresh();
-                        that.onCancel();
-                    }.bind(this),
-                    error: function (oError) {
-                        that.getComponentModel("app").setProperty("/busy", false);
-                        sap.m.MessageBox.error(JSON.stringify(oError));
+                MessageBox.confirm("Do you want to update UOM type ?",{
+				    icon: MessageBox.Icon.INFORMATION,
+				    title: "Confirm",
+				    actions: [MessageBox.Action.YES, MessageBox.Action.NO],
+				    emphasizedAction: MessageBox.Action.YES,
+				    onClose: function (oAction) { 
+                        if ( oAction == "YES" ){
+                            var sPath = that.getView().getBindingContext().getPath();
+                            that.getComponentModel("app").setProperty("/busy", true);
+                            that.mainModel.update(sPath, oPayload, {
+                                success: function (oData, oResponse) {
+                                sap.m.MessageBox.success("UOM Updated Successfully");
+                                that.getComponentModel("app").setProperty("/busy", false);
+                                that.getView().getModel().refresh();
+                                that.onCancel();
+                            }.bind(this),
+                                error: function (oError) {
+                                    that.getComponentModel("app").setProperty("/busy", false);
+                                    sap.m.MessageBox.error(JSON.stringify(oError));
+                               }
+                            });
+                        }
                     }
-                });
+			    });
             }
         },
 

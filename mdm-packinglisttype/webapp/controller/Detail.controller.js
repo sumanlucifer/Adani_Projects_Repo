@@ -140,22 +140,31 @@ sap.ui.define([
                 
             }
             else
-            {   
-                var sPath = this.getView().getBindingContext().getPath();
-                that.getComponentModel("app").setProperty("/busy", true);
-                 this.mainModel.update(sPath, oPayload, {
-                    success: function (oData, oResponse) {
-                       // MessageBox.success(oData.Message);
-                        that.getComponentModel("app").setProperty("/busy", false);
-                        MessageBox.success("Packing list updated successfully");
-                        that.getView().getModel().refresh();
-                        that.onCancel();
-                    }.bind(this),
-                    error: function (oError) {
-                        that.getComponentModel("app").setProperty("/busy", false);
-                        MessageBox.error(JSON.stringify(oError));
+            {  
+                 MessageBox.confirm("Do you want to update packing list type ?",{
+				    icon: MessageBox.Icon.INFORMATION,
+				    title: "Confirm",
+				    actions: [MessageBox.Action.YES, MessageBox.Action.NO],
+				    emphasizedAction: MessageBox.Action.YES,
+				    onClose: function (oAction) { 
+                        if ( oAction == "YES" ){
+                            var sPath = that.getView().getBindingContext().getPath();
+                            that.getComponentModel("app").setProperty("/busy", true);
+                            that.mainModel.update(sPath, oPayload, {
+                                success: function (oData, oResponse) {
+                                    that.getComponentModel("app").setProperty("/busy", false);
+                                    MessageBox.success("Packing list updated successfully");
+                                    that.getView().getModel().refresh();
+                                    that.onCancel();
+                                }.bind(this),
+                                error: function (oError) {
+                                    that.getComponentModel("app").setProperty("/busy", false);
+                                    MessageBox.error(JSON.stringify(oError));
+                               }
+                            });
+                        }
                     }
-                });
+			    });   
             }
         },
 
