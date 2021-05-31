@@ -14,7 +14,7 @@
                     </Input>
                 </fb:control>
             </fb:FilterGroupItem>
-            <fb:FilterGroupItem groupName="__$INTERNAL$" name="po_release_date" label="{i18n>Date}" visibleInFilterBar="true" class="searchFieldLabelHidden">
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="po_release_date" label="{i18n>issuedate}" visibleInFilterBar="true" class="searchFieldLabelHidden">
                 <fb:control>
                     <DateRangeSelection id="dateRangeSelectionId" displayFormat="dd/MM/yyyy" change="onDateRangeSelectionChange"/>
                 </fb:control>
@@ -22,6 +22,12 @@
             <fb:FilterGroupItem groupName="__$INTERNAL$" name="MatCode" label="{i18n>MatCode}" visibleInFilterBar="true" class="searchFieldLabelHidden">
                 <fb:control>
                     <Input id="idMaterialCode" placeholder="{i18n>EnterMatCode}" showValueHelp="false">
+                    </Input>
+                </fb:control>
+            </fb:FilterGroupItem>
+             <fb:FilterGroupItem groupName="__$INTERNAL$" name="CompCode" label="{i18n>companyCode}" visibleInFilterBar="true" class="searchFieldLabelHidden">
+                <fb:control>
+                    <Input id="idCompanyCode" placeholder="{i18n>EnterCompanyCode}" showValueHelp="false">
                     </Input>
                 </fb:control>
             </fb:FilterGroupItem>
