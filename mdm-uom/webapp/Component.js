@@ -1,8 +1,9 @@
 sap.ui.define([
 	"sap/ui/core/UIComponent",
 	"sap/ui/Device",
-	"com/agel/mmts/mdmuom/model/models",
-], function (UIComponent, Device, models) {
+    "com/agel/mmts/mdmuom/model/models",
+    "com/agel/mmts/mdmuom/controller/ErrorHandler"
+], function (UIComponent, Device, models,ErrorHandler) {
 	"use strict";
 
 	return UIComponent.extend("com.agel.mmts.mdmuom.Component", {
@@ -21,13 +22,22 @@ sap.ui.define([
 			UIComponent.prototype.init.apply(this, arguments);
 
 			// enable routing
-			this.getRouter().initialize();
+            this.getRouter().initialize();
+            
+            //initialize the error handler with the component
+            this._oErrorHandler = new ErrorHandler(this);
 
 			// set the device model
             this.setModel(models.createDeviceModel(), "device");
 
             //creating model to change view dynamically
             this.setModel(models.createLayoutModel(), "layoutModel");
+        },
+
+        destroy: function () {
+            this._oErrorHandler.destroy();
+            // call the base component's destroy function
+            UIComponent.prototype.destroy.apply(this, arguments);
         },
         
         /**

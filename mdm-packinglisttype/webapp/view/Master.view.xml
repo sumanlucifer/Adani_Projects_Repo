@@ -7,7 +7,7 @@
         <f:title>
             <f:DynamicPageTitle>
                 <f:heading>
-                    <Title text="{i18n>packingList}"/>
+                    <Title text="{i18n>managepackingList}"/>
                 </f:heading>
             </f:DynamicPageTitle>
         </f:title>
@@ -15,7 +15,7 @@
             <List id="idListMaster" items="{path: '/MasterPackagingTypeSet',sorter: {path: 'Name'}}">
             <headerToolbar>
 					<OverflowToolbar>
-                        <Title id="idTitle" text="{i18n>UOM}"/>
+                        <Title id="idTitle" text="{i18n>packingList}"/>
                         <ToolbarSpacer/>
 						<SearchField id="searchField" showRefreshButton="true"
 							tooltip="{i18n>masterSearchTooltip}" search=".onSearch" width="auto">
@@ -26,13 +26,13 @@
 							</layoutData>
 						</SearchField>
 						<Button id="groupButton" press=".onOpenViewSettings"
-							icon="sap-icon://filter" type="Transparent"/>
+							icon="sap-icon://action-settings" type="Transparent"/>
                         <Button icon="sap-icon://add" 
                             press="onCreatePress"/>
 					</OverflowToolbar>
 				</headerToolbar>
                 <items> 
-                <StandardListItem title="Name: {Name}" description="ID : {ID}" 
+                <StandardListItem title="{Name}" 
                 type="Navigation" press="onPackingListTypePress"/>
                 </items>
             </List>

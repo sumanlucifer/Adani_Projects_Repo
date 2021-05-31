@@ -4,6 +4,7 @@
 	<ViewSettingsDialog	confirm="onFilterSortConfirm">
 		<sortItems > 
 			<ViewSettingsItem text="ID" key="ID" />	
+            <ViewSettingsItem text="CreatedAt" key="CreatedAt" />	
 		</sortItems>
 		<groupItems>
 			<ViewSettingsItem text="Name" key="Name" />
