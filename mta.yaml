@@ -139,7 +139,11 @@ modules:
     - artifacts:
       - vendor-manageboq-content.zip
       name: vendor-manageboq
-      target-path: resources/    
+      target-path: resources/
+    - artifacts:
+      - comagelmmtspmcg.zip
+      name: pmcg
+      target-path: resources/
 - name: vendorPersona
   type: html5
   path: vendorPersona
@@ -374,8 +378,16 @@ modules:
     builder: custom
     commands:
     - npm run build
-    supported-platforms: []      
-
+    supported-platforms: []
+- name: pmcg
+  type: html5
+  path: pmcg
+  build-parameters:
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
 resources:
 - name: uaa_agel-mmts-web
   type: org.cloudfoundry.managed-service
