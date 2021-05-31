@@ -13,7 +13,7 @@
 			</f:title>
         <f:content>
             <List items="{path: '/ParentLineItemSet',
-                                                sorter: {path: 'Name'}}">
+                                                sorter: {path: 'Name'}}" updateFinished="onUpdateListFinished">
                 <StandardListItem title="{Name}" description="{Description}" info="{MaterialCode}" type="Navigation" press="onParentLineItemPress"/>
             </List>
         </f:content>

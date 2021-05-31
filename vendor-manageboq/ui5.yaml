@@ -2,24 +2,26 @@ specVersion: '1.0'
 metadata:
   name: 'vendor-manageboq'
 type: application
-ui5Theme: sap_fiori_3
-server:
-  customMiddleware:
-  - name: fiori-tools-proxy
-    afterMiddleware: compression
+resources:
+  configuration:
+    propertiesFileSourceEncoding: UTF-8
+builder:
+  resources:
+    excludes:
+      - "/test/**"
+      - "/localService/**"
+  customTasks:
+  - name: webide-extension-task-updateManifestJson
+    afterTask: generateVersionInfo
     configuration:
-      ignoreCertError: false # If set to true, certificate errors will be ignored. E.g. self-signed certificates will be accepted
-      backend:
-      - path: /api
-        url: https://agel-mmts-api.cfapps.ap11.hana.ondemand.com
-      ui5:
-        path: 
-        - /resources
-        - /test-resources
-        url: https://ui5.sap.com
-        version:  # The UI5 version, for instance, 1.78.1. Empty means latest version
-  - name: fiori-tools-appreload
-    afterMiddleware: compression
+      appFolder: webapp
+      destDir: dist
+  - name: webide-extension-task-resources
+    afterTask: webide-extension-task-updateManifestJson
     configuration:
-     port: 35729
-     path: webapp
+      nameSpace: com/agel/mmts
+  - name: webide-extension-task-copyFile
+    afterTask: webide-extension-task-resources
+    configuration:
+      srcFile: "/xs-app.json"
+      destFile: "/xs-app.json"

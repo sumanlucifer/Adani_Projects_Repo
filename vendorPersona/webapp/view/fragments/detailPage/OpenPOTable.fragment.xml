@@ -2,7 +2,7 @@
     xmlns:smartTable="sap.ui.comp.smarttable"
     xmlns:core="sap.ui.core">
 
-    <smartTable:SmartTable class="sapUiSizeCompact" id="idPurchaseOrdersTable" editable="false" placeToolbarInTable="true" enableAutoBinding="true" entitySet="PurchaseOrderSet" showFullScreenButton="true" showRowCount="false" tableType="ResponsiveTable" demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" beforeRebindTable="onbeforeRebindOpenPoTable">
+    <smartTable:SmartTable class="sapUiResponsiveContentPadding" id="idPurchaseOrdersTable" editable="false" placeToolbarInTable="true" enableAutoBinding="true" entitySet="PurchaseOrderSet" showFullScreenButton="true" showRowCount="false" tableType="ResponsiveTable" demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" beforeRebindTable="onbeforeRebindOpenPoTable" ignoreFromPersonalisation="AmendmentBy,AmendmentDate,AmendmentReason,CreatedBy,ID,Currency,IsArchived,UpdatedAt,UpdatedBy,ValidityEndDate,ValidityStartDate,Status">
 
         <!-- <smartTable:layoutData><FlexItemData growFactor="1" /></smartTable:layoutData> -->
         <Table sticky="ColumnHeaders,HeaderToolbar" updateFinished="onPurchaseOrderTableUpdateFinished" alternateRowColors="true">
@@ -19,7 +19,7 @@
                 <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "CreatedAt", "leadingProperty": "CreatedAt",
-                                                 "columnIndex": 1 ,"sortProperty": "CreatedAt","filterProperty": "CreatedAt"}'/>
+                                                 "columnIndex": 1}'/>
                     </customData>
                     <Text text="{i18n>issuedate}"/>
                 </Column>
@@ -27,7 +27,7 @@
                 <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "POReleaseDate", "leadingProperty": "POReleaseDate",
-                                                 "columnIndex": 2 ,"sortProperty": "POReleaseDate","filterProperty": "POReleaseDate"}'/>
+                                                 "columnIndex": 2 }'/>
                     </customData>
                     <Text text="{i18n>releaseDate}"/>
                 </Column>

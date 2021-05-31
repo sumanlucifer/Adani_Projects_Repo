@@ -1,6 +1,6 @@
 _schema-version: "3.2"
 ID: agel-mmts-web
-version: 0.0.1
+version: 0.0.2
 modules:
 - name: agel-mmts-web-approuter
   type: approuter.nodejs
@@ -125,26 +125,25 @@ modules:
       name: ScannerAppLibrary
       target-path: resources/
     - artifacts:
-      - comagelmmtsvendormanageboq.zip
-      name: comagelmmtsvendormanageboq
+      - tcengineer-content.zip
+      name: tcengineer
       target-path: resources/
     - artifacts:
-      - comagelmmtsmdmuom.zip
-      target-path: resources/
-      name: comagelmmtsmdmuom
-    - artifacts:
-      - comagelmmtstcengineer.zip
-      name: comagelmmtstcengineer
+      - mdm-packinglisttype-content.zip
+      name: mdm-packinglisttype
       target-path: resources/
     - artifacts:
-      - comagelmmtsmdmpackinglisttype.zip
-      name: comagelmmtsmdmpackinglisttype
+      - mdm-uom-content.zip
+      name: mdm-uom
       target-path: resources/
+    - artifacts:
+      - vendor-manageboq-content.zip
+      name: vendor-manageboq
+      target-path: resources/    
 - name: vendorPersona
   type: html5
   path: vendorPersona
   build-parameters:
-    build-result: resources
     builder: custom
     commands:
     - npm run build
@@ -172,7 +171,6 @@ modules:
   type: html5
   path: vendorPersona-ConfirmPOs
   build-parameters:
-    build-result: resources
     builder: custom
     commands:
     - npm run build
@@ -181,7 +179,6 @@ modules:
   type: html5
   path: vendorPersona-DispatchedPOs
   build-parameters:
-    build-result: resources
     builder: custom
     commands:
     - npm run build
@@ -190,7 +187,6 @@ modules:
   type: html5
   path: vendorPersona-OpenPOs
   build-parameters:
-    build-result: resources
     builder: custom
     commands:
     - npm run build
@@ -199,7 +195,6 @@ modules:
   type: html5
   path: storeInCharge-TotalOrder
   build-parameters:
-    build-result: dist
     builder: custom
     commands:
     - npm run build
@@ -208,7 +203,6 @@ modules:
   type: html5
   path: storeInCharge-RaisedOrder
   build-parameters:
-    build-result: dist
     builder: custom
     commands:
     - npm run build
@@ -217,7 +211,6 @@ modules:
   type: html5
   path: storeInCharge-UpcomingOrders
   build-parameters:
-    build-result: dist
     builder: custom
     commands:
     - npm run build
@@ -226,7 +219,6 @@ modules:
   type: html5
   path: storeInCharge-Inventory
   build-parameters:
-    build-result: dist
     builder: custom
     commands:
     - npm run build
@@ -235,7 +227,6 @@ modules:
   type: html5
   path: storeInCharge-ReturnMaterialRequests
   build-parameters:
-    build-result: dist
     builder: custom
     commands:
     - npm run build
@@ -244,7 +235,6 @@ modules:
   type: html5
   path: securityPerson-ScanQR
   build-parameters:
-    build-result: dist
     builder: custom
     commands:
     - npm run build
@@ -253,7 +243,6 @@ modules:
   type: html5
   path: securityPerson-History
   build-parameters:
-    build-result: dist
     builder: custom
     commands:
     - npm run build
@@ -262,7 +251,6 @@ modules:
   type: html5
   path: engineerInCharge-ReturnOrder
   build-parameters:
-    build-result: dist
     builder: custom
     commands:
     - npm run build
@@ -271,7 +259,6 @@ modules:
   type: html5
   path: engineerInCharge-Inventory
   build-parameters:
-    build-result: dist
     builder: custom
     commands:
     - npm run build
@@ -280,7 +267,6 @@ modules:
   type: html5
   path: admin-POSummary
   build-parameters:
-    build-result: dist
     builder: custom
     commands:
     - npm run build
@@ -289,7 +275,6 @@ modules:
   type: html5
   path: admin-UserManagement
   build-parameters:
-    build-result: dist
     builder: custom
     commands:
     - npm run build
@@ -298,7 +283,6 @@ modules:
   type: html5
   path: admin-Reports
   build-parameters:
-    build-result: dist
     builder: custom
     commands:
     - npm run build
@@ -307,7 +291,6 @@ modules:
   type: html5
   path: quickAccess-History
   build-parameters:
-    build-result: dist
     builder: custom
     commands:
     - npm run build
@@ -316,7 +299,6 @@ modules:
   type: html5
   path: quickAccess-Reports
   build-parameters:
-    build-result: dist
     builder: custom
     commands:
     - npm run build
@@ -325,7 +307,6 @@ modules:
   type: html5
   path: quickAccess-UnloadMaterial
   build-parameters:
-    build-result: dist
     builder: custom
     commands:
     - npm run build
@@ -334,7 +315,6 @@ modules:
   type: html5
   path: quickAccess-IssueMaterial
   build-parameters:
-    build-result: dist
     builder: custom
     commands:
     - npm run build
@@ -343,7 +323,6 @@ modules:
   type: html5
   path: quickAccess-TransferStock
   build-parameters:
-    build-result: dist
     builder: custom
     commands:
     - npm run build
@@ -352,7 +331,6 @@ modules:
   type: html5
   path: quickAccess-storeInCharge-Reports
   build-parameters:
-    build-result: dist
     builder: custom
     commands:
     - npm run build
@@ -361,51 +339,43 @@ modules:
   type: html5
   path: ScannerAppLibrary
   build-parameters:
-    build-result: dist
     builder: custom
     commands:
     - npm run build
     supported-platforms: []
-- name: comagelmmtsvendormanageboq
-  type: html5
-  path: vendor-manageboq
-  build-parameters:
-    build-result: dist
-    builder: custom
-    commands:
-    - npm install
-    - npm run build:cf
-    supported-platforms: []
-- name: comagelmmtsmdmuom
-  type: html5
-  path: mdm-uom
-  build-parameters:
-    build-result: dist
-    builder: custom
-    commands:
-    - npm install
-    - npm run build:cf
-    supported-platforms: []
-- name: comagelmmtstcengineer
+- name: tcengineer
   type: html5
   path: tcengineer
   build-parameters:
-    build-result: dist
     builder: custom
     commands:
-    - npm install
-    - npm run build:cf
+    - npm run build
     supported-platforms: []
-- name: comagelmmtsmdmpackinglisttype
+- name: mdm-uom
+  type: html5
+  path: mdm-uom
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []
+- name: mdm-packinglisttype
   type: html5
   path: mdm-packinglisttype
   build-parameters:
-    build-result: dist
     builder: custom
     commands:
-    - npm install
-    - npm run build:cf
+    - npm run build
     supported-platforms: []
+- name: vendor-manageboq
+  type: html5
+  path: vendor-manageboq
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []      
+
 resources:
 - name: uaa_agel-mmts-web
   type: org.cloudfoundry.managed-service
@@ -448,7 +418,6 @@ resources:
     service-plan: lite
 parameters:
   -enable-parallel-deployments: true
-  deploy_mode: html5-repo
 build-parameters:
   before-all:
   - builder: custom

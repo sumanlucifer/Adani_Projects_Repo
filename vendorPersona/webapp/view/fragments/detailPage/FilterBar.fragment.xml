@@ -18,12 +18,12 @@
                     <DateRangeSelection id="dateRangeSelectionId" displayFormat="dd/MM/yyyy" change="onDateRangeSelectionChange"/>
                 </fb:control>
             </fb:FilterGroupItem>
-            <fb:FilterGroupItem groupName="__$INTERNAL$" name="MatCode" label="{i18n>MatCode}" visibleInFilterBar="true" class="searchFieldLabelHidden">
+            <!-- <fb:FilterGroupItem groupName="__$INTERNAL$" name="MatCode" label="{i18n>MatCode}" visibleInFilterBar="true" class="searchFieldLabelHidden">
                 <fb:control>
                     <Input id="idMaterialCode" placeholder="{i18n>EnterMatCode}" showValueHelp="false">
                     </Input>
                 </fb:control>
-            </fb:FilterGroupItem>
+            </fb:FilterGroupItem> -->
             <fb:FilterGroupItem groupName="__$INTERNAL$" name="PlantCode" label="{i18n>PlantCode}" visibleInFilterBar="true" class="searchFieldLabelHidden">
                 <fb:control>
                     <Input id="idPlantCode" placeholder="{i18n>EnterPlantCode}" showValueHelp="false">

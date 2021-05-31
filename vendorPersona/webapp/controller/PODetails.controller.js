@@ -414,6 +414,9 @@ sap.ui.define([
                         path: oDetails.sBOQItemPath
                     });
                     oDialog.setTitle(oDetails.title)
+                    if (Device.system.desktop) {
+						oDialog.addStyleClass("sapUiSizeCompact");
+					}
                     return oDialog;
                 });
             }

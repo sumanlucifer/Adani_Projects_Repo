@@ -18,7 +18,8 @@ sap.ui.define(['sap/uxap/BlockBase'], function (BlockBase) {
                 "onManageBOQItemPress":{},
                 "onChange":{},
                 "onSendForApprovalPress":{},
-                "onViewBOQItemPress":{}
+                "onViewBOQItemPress":{},
+                "navToManageBOQApp":{}
 			}
         }
     });
