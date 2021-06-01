@@ -142,6 +142,7 @@ sap.ui.define([
                 
             }
             else
+
             {  
                  MessageBox.confirm("Do you want to update packing list type ?",{
 				    icon: MessageBox.Icon.INFORMATION,
@@ -165,6 +166,7 @@ sap.ui.define([
                                }
                             });
                         }
+
                     }
 			    });   
             }

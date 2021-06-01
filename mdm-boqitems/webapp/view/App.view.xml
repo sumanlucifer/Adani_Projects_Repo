@@ -1,0 +1,13 @@
+<mvc:View
+    controllerName="com.agel.mmts.mdmboqitems.controller.App"
+    xmlns="sap.f"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:m="sap.m"
+    displayBlock="true"
+    height="100%">
+	 <m:App>
+        <m:pages>
+           <FlexibleColumnLayout id="fcl" stateChange="onStateChanged" layout="{layoutModel>/layout}" backgroundDesign="Solid"/>
+        </m:pages>
+    </m:App>
+</mvc:View>
