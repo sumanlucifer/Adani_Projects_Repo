@@ -7,3 +7,7 @@ mta_archives
 mta-*
 resources
 archive.zip
+# auto generated wildcard
+agel-mmts-web/tcengineer/.env1
+# auto generated wildcard
+agel-mmts-web/pmcg/.env1

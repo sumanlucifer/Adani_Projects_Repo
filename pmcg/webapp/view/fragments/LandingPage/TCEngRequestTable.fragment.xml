@@ -1,0 +1,110 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:smartTable="sap.ui.comp.smarttable"
+    xmlns:core="sap.ui.core">
+
+    <smartTable:SmartTable class="sapUiResponsiveContentPadding" id="idBOQRequestTable"
+             editable="false" placeToolbarInTable="true" enableAutoBinding="true" 
+             entitySet="BOQApprovalRequestSet" showFullScreenButton="true" showRowCount="false"
+              tableType="ResponsiveTable" demandPopin="false" useExportToExcel="false" 
+              useTablePersonalisation="true" useVariantManagement="false" 
+              beforeRebindTable="onBeforeRebindBOQTable" enableAutoColumnWidth="true">
+
+        <smartTable:layoutData><FlexItemData growFactor="1" /></smartTable:layoutData>
+        <Table sticky="ColumnHeaders,HeaderToolbar">
+            <columns>
+
+                <Column >
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "PONumber", "leadingProperty": "ParentLineItem/PONumber",
+                                                 "columnIndex": 1 ,"sortProperty": "ParentLineItem/PONumber","filterProperty": "ParentLineItem/PONumber"}'/>
+                    </customData>
+                    <Text text="{i18n>ponum}"/>
+                </Column>
+
+                 <Column demandPopin="true" minScreenWidth="Desktop"> 
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "BOQGroupName", "leadingProperty": "BOQGroupName",
+                                                 "columnIndex": 0 ,"sortProperty": "BOQGroupName","filterProperty": "BOQGroupName"}'/>
+                    </customData>
+                    <Text text="{i18n>boqName}"/>
+                </Column>
+
+                <Column demandPopin="true" minScreenWidth="Tablet">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "CreatedAt", "leadingProperty": "CreatedAt",
+                                                 "columnIndex": 2}'/>
+                    </customData>
+                    <Text text="{i18n>requestDate}"/>
+                </Column>
+
+                <Column demandPopin="true" minScreenWidth="Tablet">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "vendorCode", "leadingProperty": "ParentLineItem/PurchaseOrder/Vendor/VendorCode",
+                                                 "columnIndex": 3 ,"sortProperty": "ParentLineItem/PurchaseOrder/Vendor/VendorCode","filterProperty": "ParentLineItem/PurchaseOrder/Vendor/VendorCode"}'/>
+                    </customData>
+                    <Text text="{i18n>vendorCode}"/>
+                </Column>
+
+                <Column>
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "vendorName", "leadingProperty": "ParentLineItem/PurchaseOrder/Vendor/Name",
+                                                 "columnIndex": 4 ,"sortProperty": "ParentLineItem/PurchaseOrder/Vendor/Name","filterProperty": "ParentLineItem/PurchaseOrder/Vendor/Name"}'/>
+                    </customData>
+                    <Text text="{i18n>vendorName}"/>
+                </Column>
+
+                <Column demandPopin="true" minScreenWidth="Desktop"> 
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "PlantCode", "leadingProperty": "ParentLineItem/PurchaseOrder/PlantCode",
+                                                 "columnIndex": 5 ,"sortProperty": "ParentLineItem/PurchaseOrder/PlantCode","filterProperty": "ParentLineItem/PurchaseOrder/PlantCode"}'/>
+                    </customData>
+                    <Text text="{i18n>plantcode}"/>
+                </Column>
+
+                <Column demandPopin="true" minScreenWidth="Desktop"> 
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "poIssuedDate", "leadingProperty": "ParentLineItem/PurchaseOrder/CreatedAt",
+                                                 "columnIndex": 6 }'/>
+                    </customData>
+                    <Text text="{i18n>poIssueDate}"/>
+                </Column>
+
+               <Column demandPopin="true" minScreenWidth="Desktop"> 
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "boqStatus", "leadingProperty": "Status",
+                                                 "columnIndex": 7 }'/>
+                    </customData>
+                    <Text text="{i18n>status}"/>
+                </Column>
+
+            </columns>
+            <items>
+
+                <ColumnListItem type="Navigation" press="onBOQRequestPress">
+                    <cells>
+                        <Text text="{PONumber}" binding="{ParentLineItem}"/>
+                        <ObjectIdentifier title="{BOQGroupName}"/>
+                        <Text text="{path:'CreatedAt',
+                                    type: 'sap.ui.model.type.Date',
+				                     formatOptions: {
+				                        pattern: 'MMMM dd, yyyy'
+				                     }    
+                        }"/>
+                        <Text text="{VendorCode}" binding="{ParentLineItem/PurchaseOrder/Vendor}"/>
+                        <Text text="{Name}" binding="{ParentLineItem/PurchaseOrder/Vendor}" wrapping="false"/>
+                        <Text text="{PlantCode}" binding="{ParentLineItem/PurchaseOrder}"/>
+                        <Text text="{path:'CreatedAt',
+                                     type: 'sap.ui.model.type.Date',
+				                     formatOptions: {
+				                        pattern: 'MMMM dd, yyyy'
+				                     }
+                        }" binding="{ParentLineItem/PurchaseOrder}"/>
+                        <ObjectStatus text="{Status}" state="{= ${Status} === 'PENDING' ? 'Warning' : ${Status} === 'REJECTED' ? 'Error' : 'Success'}"/>
+                    </cells>
+                </ColumnListItem>
+
+            </items>
+        </Table>
+    </smartTable:SmartTable>
+
+</core:FragmentDefinition>
