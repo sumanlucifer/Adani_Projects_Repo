@@ -35,8 +35,8 @@
                 <!-- missing -->
                 <Column>
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "GSTIN", "leadingProperty": "Buyer/GSTIN",
-                                                 "columnIndex": 3 ,"sortProperty": "Buyer/GSTIN","filterProperty": "Buyer/GSTIN"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "CompanyCode", "leadingProperty": "Buyer/CompanyCode",
+                                                 "columnIndex": 3 ,"sortProperty": "Buyer/CompanyCode","filterProperty": "Buyer/CompanyCode"}'/>
                     </customData>
                     <Text text="{i18n>companyCode}"/>
                 </Column>
@@ -74,7 +74,7 @@
 				                        pattern: 'MMMM dd, yyyy'
 				                     }
                         }"/>
-                        <Text text="{GSTIN}" binding="{Buyer}"/>
+                        <Text text="{CompanyCode}" binding="{Buyer}"/>
                         <ObjectIdentifier text="{PlantCode}"/>                        
                         <Link text="{i18n>viewLineItems}" press="onViewLineItemsPress"></Link>
                     </cells>

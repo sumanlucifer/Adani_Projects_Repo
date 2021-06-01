@@ -3,6 +3,9 @@
 
     <Table width="auto" growing="true" growingThreshold="2" items="{path: 'ParentLineItems'}" binding="{ParentLineItem/PurchaseOrder}" fixedLayout="false">
         <columns>
+            <Column>
+                <Text text="{i18n>LineNumber}" wrapping="true" wrappingType="Hyphenated"/>
+            </Column>
             <Column importance="High">
                 <Text text="{i18n>materialCode}" wrapping="true" wrappingType="Hyphenated"/>
             </Column>
@@ -46,6 +49,7 @@
         <items>
             <ColumnListItem>
                 <cells>
+                    <Text text="{LineNumber}" wrappingType="Hyphenated"/>
                     <ObjectIdentifier title="{MaterialCode}"/>
                     <Text text="{Name}" wrappingType="Hyphenated"/>
                     <ExpandableText text="{Description}" maxCharacters="20" overflowMode="Popover"/>

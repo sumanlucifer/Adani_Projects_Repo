@@ -173,7 +173,7 @@ sap.ui.define([
 
             this.getComponentModel().update(sPath, oPayload,{
                 success: function(oData, oResponse){
-                    sap.m.MessageBox.success("Purchase order has been confirmed!");
+                    sap.m.MessageBox.success("Purchase order has been confirmed! Please raise the inspection call through SIMS portal.");
                     this.getComponentModel().refresh();
                 }.bind(this),
                 error: function(oError){
