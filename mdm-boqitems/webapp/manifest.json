@@ -1,0 +1,154 @@
+{
+    "_version": "1.32.0",
+    "sap.app": {
+        "id": "com.agel.mmts.mdmboqitems",
+        "type": "application",
+        "i18n": "i18n/i18n.properties",
+        "applicationVersion": {
+            "version": "1.0.0"
+        },
+        "title": "{{appTitle}}",
+        "description": "{{appDescription}}",
+        "resources": "resources.json",
+        "ach": "ach",
+        "dataSources": {
+            "mainService": {
+                "uri": "/api/v2/odata.svc/",
+                "type": "OData",
+                "settings": {
+                    "odataVersion": "2.0",
+                    "localUri": "localService/metadata.xml"
+                }
+            }
+        },
+        "crossNavigation": {
+            "inbounds": {
+                "com-agel-mmts-mdmboqitems-inbound": {
+                    "signature": {
+                        "parameters": {},
+                        "additionalParameters": "allowed"
+                    },
+                    "semanticObject": "boqitems",
+                    "action": "Manage",
+                    "title": "BOQItems",
+                    "subTitle": "",
+                    "icon": ""
+                }
+            }
+        }
+    },
+    "sap.ui": {
+        "technology": "UI5",
+        "icons": {
+            "icon": "sap-icon://task",
+            "favIcon": "",
+            "phone": "",
+            "phone@2": "",
+            "tablet": "",
+            "tablet@2": ""
+        },
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": true
+        }
+    },
+    "sap.ui5": {
+        "flexEnabled": false,
+        "rootView": {
+            "viewName": "com.agel.mmts.mdmboqitems.view.App",
+            "type": "XML",
+            "async": true,
+            "id": "fcl"
+        },
+        "dependencies": {
+            "minUI5Version": "1.66.0",
+            "libs": {
+                "sap.ui.core": {},
+                "sap.m": {},
+                "sap.ui.layout": {}
+            }
+        },
+        "contentDensities": {
+            "compact": true,
+            "cozy": true
+        },
+        "models": {
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "settings": {
+                    "bundleName": "com.agel.mmts.mdmboqitems.i18n.i18n"
+                }
+            },
+            "": {
+                "type": "sap.ui.model.odata.v2.ODataModel",
+                "settings": {
+                    "defaultOperationMode": "Server",
+                    "defaultBindingMode": "TwoWay",
+                    "defaultCountMode": "Inline",
+                    "refreshAfterChange": true,
+                    "useBatch": false
+                },
+                "dataSource": "mainService",
+                "preload": true
+            }
+        },
+        "resources": {
+            "css": [
+                {
+                    "uri": "css/style.css"
+                }
+            ]
+        },
+        "routing": {
+            "config": {
+                "routerClass": "sap.m.routing.Router",
+                "viewType": "XML",
+                "async": true,
+                "viewPath": "com.agel.mmts.mdmboqitems.view",
+                "controlAggregation": "pages",
+                "controlId": "fcl",
+                "clearControlAggregation": false,
+                "transition": "slide",
+                "bypassed": {
+                    "target": []
+                }
+            },
+            "routes": [
+                {
+                    "name": "LandingPage",
+                    "pattern": "",
+                    "target": [
+                        "TargetLandingPage"
+                    ]
+                },
+                {
+                    "pattern": "detail/{parentMaterial}/{layout}",
+                    "name": "detail",
+                    "titleTarget": "",
+                    "greedy": false,
+                    "target": [
+                        "TargetLandingPage",
+                        "detail"
+                    ]
+                }
+            ],
+            "targets": {
+                "TargetLandingPage": {
+                    "viewType": "XML",
+                    "viewLevel": 1,
+                    "transition": "slide",
+                    "controlAggregation": "beginColumnPages",
+                    "viewName": "LandingPage"
+                },
+                "detail": {
+                    "viewName": "Detail",
+                    "viewLevel": 2,
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "controlAggregation": "midColumnPages"
+                }
+            }
+        }
+    }
+}
