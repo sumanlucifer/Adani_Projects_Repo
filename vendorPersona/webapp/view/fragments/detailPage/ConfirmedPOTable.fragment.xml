@@ -12,9 +12,10 @@
                     <Text text="{i18n>ponum}"/>
                 </Column>
                 <!-- missing company code -->
-                <Column>
+                <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "companyCode", "columnIndex": 1}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "CompanyCode", "leadingProperty": "Buyer/CompanyCode",
+                                                 "columnIndex": 1 ,"sortProperty": "Buyer/CompanyCode","filterProperty": "Buyer/CompanyCode"}'/>
                     </customData>
                     <Text text="{i18n>companyCode}"/>
                 </Column>
@@ -27,19 +28,27 @@
                     <Text text="{i18n>plantcode}"/>
                 </Column>
 
-                <!-- missing issued date -->
+                <!--  issued date -->
                 <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "POReleaseDate", "leadingProperty": "POReleaseDate",
+                        <core:CustomData key="p13nData" value='\{"columnKey": "IssueDate", "leadingProperty": "CreatedAt",
                                                  "columnIndex": 3 }'/>
                     </customData>
-                    <Text text="{i18n>releaseDate}"/>
+                    <Text text="{i18n>issuedDate}"/>
                 </Column>
-                <!-- missing confirmed date -->
+                <!--  confirmed date -->
+                <Column demandPopin="true" minScreenWidth="Tablet">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "ConfirmedDate", "leadingProperty": "UpdatedAt",
+                                                 "columnIndex": 4 }'/>
+                    </customData>
+                    <Text text="{i18n>confirmdate}"/>
+                </Column> 
+                <!-- released  date -->
                 <Column demandPopin="true" minScreenWidth="Desktop">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "ConfirmedDate", "leadingProperty": "POReleaseDate",
-                                                 "columnIndex": 4}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "ReleaseDate", "leadingProperty": "POReleaseDate",
+                                                 "columnIndex": 5}'/>
                     </customData>
                     <Text text="{i18n>releaseDate}"/>
                 </Column>
@@ -56,9 +65,15 @@
                 <ColumnListItem type="Navigation" press="onPurchaseOrderPress">
                     <cells>
                         <Text text="{PONumber}"/>
-                        <Text text="missing"/>
+                         <Text text="{CompanyCode}" binding="{Buyer}"/>
                         <Text text="{PlantCode}"/>
-                        <Text text="{path:'POReleaseDate',
+                        <Text text="{path:'CreatedAt',
+                                     type: 'sap.ui.model.type.Date',
+				                     formatOptions: {
+				                        pattern: 'MMMM dd, yyyy'
+				                     }
+                        }"/>
+                        <Text text="{path:'UpdatedAt',
                                      type: 'sap.ui.model.type.Date',
 				                     formatOptions: {
 				                        pattern: 'MMMM dd, yyyy'

@@ -92,7 +92,6 @@
 					            <Button id="save" text="Save" type="Emphasized" visible="false" press="handleSavePress" />
 					            <Button id="cancel" text="Cancel" visible="false" press="handleCancelPress" />
 				         </HBox> -->
-                        
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>
                

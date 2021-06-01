@@ -1,0 +1,118 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc"
+    xmlns:uxap="sap.uxap"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+    xmlns:unified="sap.ui.unified"
+    xmlns:data="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+    xmlns="sap.m" controllerName="com.agel.mmts.mdmboqitems.controller.Detail" height="100%">
+    <uxap:ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true" showFooter="{objectViewModel>/showFooter}" upperCaseAnchorBar="false" headerContentPinnable="true" toggleHeaderOnTitleClick="true" busy="{objectViewModel>/busy}">
+        <uxap:headerTitle>
+            <uxap:ObjectPageDynamicHeaderTitle>
+                <uxap:expandedHeading>
+                    <Title text="{Name}" wrapping="true" titleStyle="H3" />
+                </uxap:expandedHeading>
+                <uxap:snappedHeading>
+                </uxap:snappedHeading>
+                <uxap:expandedContent>
+                </uxap:expandedContent>
+                <uxap:snappedTitleOnMobile>
+                    <Title text="{Name}" wrapping="true" titleStyle="Auto"/>
+                </uxap:snappedTitleOnMobile>
+               <uxap:actions>
+                    <Button id="idBtnEdit" text="Edit" icon="sap-icon://edit" press="onEdit" 
+                                    visible="{= ${objectViewModel>/idBtnEdit}}"/>
+                    <Button text="Delete" type="Reject" visible="{= ${objectViewModel>/idBtnDelete}}"
+                                            press="onDelete"/>                
+                </uxap:actions>
+            </uxap:ObjectPageDynamicHeaderTitle>
+        </uxap:headerTitle>
+        <uxap:headerContent>
+            <FlexBox direction="Row" renderType="Bare" class="sapUiTinyMarginBottom">
+                <!-- <VBox renderType="Bare" class="sapUiMediumMarginEnd">
+                    <Label text="{i18n>detlPgName}" class="sapUiTinyMarginBottom"/>
+                    <Text text="{Name}"/>
+                </VBox> -->
+                <!-- <VBox renderType="Bare" class="sapUiMediumMarginEnd">
+                    <Label text="{i18n>detlPgDescription}" class="sapUiTinyMarginBottom"/>
+                    <Text text="{Description}"/>
+                </VBox> -->
+            </FlexBox>
+        </uxap:headerContent>
+        <uxap:sections>
+            <uxap:ObjectPageSection>
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection>
+                    <uxap:blocks>
+                      	<f:SimpleForm id="idSFDisplay"	editable="false"
+                          visible="{= ${objectViewModel>/idSFDisplay}}" 
+                            layout="ResponsiveGridLayout"  title="Details" 
+                        	labelSpanXL="3"	labelSpanL="3" labelSpanM="3" labelSpanS="12"
+			                adjustLabelSpan="false"	emptySpanXL="4" emptySpanL="4" emptySpanM="4"
+			                emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false" >
+			                <f:content>
+
+				                <Label text="Name" />
+				                <Input id="name" value="{Name}" editable="false" />
+				
+                                <Label text="Description" />
+				                <Input id="desc1" value="{Description}" editable="false"/>
+                                
+                                <Label text="Material Code" />
+				                <Input id="mcode" value="{MaterialCode}" type="Number" editable="false"/>
+
+                                <Label text="UOM" id="uom" />
+                                  	<MultiComboBox editable="false" selectedKeys="{oSelectedKeyModel>/selectedItems/0}"
+                                        items="{
+                                            path: '/MasterUOMSet'
+                                        }">
+                                        <core:Item key="{ID}" text="{Name}"/>
+                                    </MultiComboBox>
+
+			                </f:content>    
+		                </f:SimpleForm>
+
+                        <f:SimpleForm id="idSFEdit"	editable="true" visible="{= ${objectViewModel>/idSFEdit}}"
+                            layout="ResponsiveGridLayout"  title="Details" 
+                        	labelSpanXL="3"	labelSpanL="3" labelSpanM="3" labelSpanS="12"
+			                adjustLabelSpan="false"	emptySpanXL="4" emptySpanL="4" emptySpanM="4"
+			                emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false" >
+			                <f:content>
+
+				                <Label text="Name" />
+				                <Input id="nameEdit" value="{Name}" />
+				
+                                <Label text="Description" />
+				                <Input id="nameDesc" value="{Description}"/>
+
+                                <Label text="Material Code" />
+				                <Input id="mcodeEdit" type="Number" value="{MaterialCode}"/>
+
+                                <Label text="UOM" />
+                                    <MultiComboBox id= "uomEdit" placeholder= "Select" selectedKeys="{oSelectedKeyModel>/selectedItems/0}"
+                                        items="{
+                                            path: '/MasterUOMSet'
+                                        }">
+                                        <core:Item key="{ID}" text="{Name}"/>
+                                    </MultiComboBox>
+
+			                </f:content>    
+		                </f:SimpleForm>
+                    </uxap:blocks>
+                    <uxap:actions>
+					</uxap:actions>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+        </uxap:sections>
+        <uxap:footer>
+            <OverflowToolbar>
+            <ToolbarSpacer/>
+                <Button id="idBtnSave" text="Save" icon="sap-icon://save" press="onSave"
+                         type="Accept"  visible="{= ${objectViewModel>/idBtnSave}}"/>
+                <Button id="idBtnCancel" text="Cancel" icon="sap-icon://cancel" press="onCancel" 
+                                    visible="{= ${objectViewModel>/idBtnCancel}}"/>
+            </OverflowToolbar>
+        </uxap:footer>
+    </uxap:ObjectPageLayout>
+</mvc:View>

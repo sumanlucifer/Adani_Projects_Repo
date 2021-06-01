@@ -42,8 +42,16 @@
 
                 <Column>
                     <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "CompanyCode", "leadingProperty": "BOQGroup/ParentLineItem/PurchaseOrder/Buyer/CompanyCode",
+                                                 "columnIndex": 4 ,"sortProperty": "BOQGroup/ParentLineItem/PurchaseOrder/Buyer/CompanyCode","filterProperty": "BOQGroup/ParentLineItem/PurchaseOrder/Buyer/CompanyCode"}'/>
+                    </customData>
+                    <Text text="{i18n>companyCode}"/>
+                </Column>
+
+                <Column>
+                    <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "vendorName", "leadingProperty": "ParentLineItem/PurchaseOrder/Vendor/Name",
-                                                 "columnIndex": 4 ,"sortProperty": "ParentLineItem/PurchaseOrder/Vendor/Name","filterProperty": "ParentLineItem/PurchaseOrder/Vendor/Name"}'/>
+                                                 "columnIndex": 5 ,"sortProperty": "ParentLineItem/PurchaseOrder/Vendor/Name","filterProperty": "ParentLineItem/PurchaseOrder/Vendor/Name"}'/>
                     </customData>
                     <Text text="{i18n>vendorName}"/>
                 </Column>
@@ -51,7 +59,7 @@
                 <Column demandPopin="true" minScreenWidth="Desktop"> 
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "PlantCode", "leadingProperty": "ParentLineItem/PurchaseOrder/PlantCode",
-                                                 "columnIndex": 5 ,"sortProperty": "ParentLineItem/PurchaseOrder/PlantCode","filterProperty": "ParentLineItem/PurchaseOrder/PlantCode"}'/>
+                                                 "columnIndex": 6 ,"sortProperty": "ParentLineItem/PurchaseOrder/PlantCode","filterProperty": "ParentLineItem/PurchaseOrder/PlantCode"}'/>
                     </customData>
                     <Text text="{i18n>plantcode}"/>
                 </Column>
@@ -59,7 +67,7 @@
                 <Column demandPopin="true" minScreenWidth="Desktop"> 
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "poIssuedDate", "leadingProperty": "ParentLineItem/PurchaseOrder/CreatedAt",
-                                                 "columnIndex": 6 }'/>
+                                                 "columnIndex": 7 }'/>
                     </customData>
                     <Text text="{i18n>poIssueDate}"/>
                 </Column>
@@ -67,7 +75,7 @@
                <Column demandPopin="true" minScreenWidth="Desktop"> 
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "boqStatus", "leadingProperty": "Status",
-                                                 "columnIndex": 7 }'/>
+                                                 "columnIndex": 8 }'/>
                     </customData>
                     <Text text="{i18n>status}"/>
                 </Column>
@@ -86,6 +94,7 @@
 				                     }    
                         }"/>
                         <Text text="{VendorCode}" binding="{ParentLineItem/PurchaseOrder/Vendor}"/>
+                        <Text text="{CompanyCode}" binding="{BOQGroup/ParentLineItem/PurchaseOrder/Buyer}"/>
                         <Text text="{Name}" binding="{ParentLineItem/PurchaseOrder/Vendor}" wrapping="false"/>
                         <Text text="{PlantCode}" binding="{ParentLineItem/PurchaseOrder}"/>
                         <Text text="{path:'CreatedAt',
