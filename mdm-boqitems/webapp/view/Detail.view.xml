@@ -40,11 +40,9 @@
             </FlexBox>
         </uxap:headerContent>
         <uxap:sections>
-
             <uxap:ObjectPageSection>
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection>
-
                     <uxap:blocks>
                       	<f:SimpleForm id="idSFDisplay"	editable="false"
                           visible="{= ${objectViewModel>/idSFDisplay}}" 
@@ -53,18 +51,24 @@
 			                adjustLabelSpan="false"	emptySpanXL="4" emptySpanL="4" emptySpanM="4"
 			                emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false" >
 			                <f:content>
+
 				                <Label text="Name" />
 				                <Input id="name" value="{Name}" editable="false" />
 				
                                 <Label text="Description" />
 				                <Input id="desc1" value="{Description}" editable="false"/>
+                                
+                                <Label text="Material Code" />
+				                <Input id="mcode" value="{MaterialCode}" type="Number" editable="false"/>
+
                                 <Label text="UOM" id="uom" />
-                                  	<MultiComboBox selectedKeys="{oSelectedKeyModel>/key}" editable="false"
+                                  	<MultiComboBox editable="false" selectedKeys="{oSelectedKeyModel>/selectedItems/0}"
                                         items="{
                                             path: '/MasterUOMSet'
                                         }">
                                         <core:Item key="{ID}" text="{Name}"/>
                                     </MultiComboBox>
+
 			                </f:content>    
 		                </f:SimpleForm>
 
@@ -74,18 +78,24 @@
 			                adjustLabelSpan="false"	emptySpanXL="4" emptySpanL="4" emptySpanM="4"
 			                emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false" >
 			                <f:content>
+
 				                <Label text="Name" />
 				                <Input id="nameEdit" value="{Name}" />
 				
                                 <Label text="Description" />
 				                <Input id="nameDesc" value="{Description}"/>
-                                <Label text="UOM" id= "uomEdit"/>
-                                    <MultiComboBox placeholder= "Select" selectedItems="{UOMs}"
+
+                                <Label text="Material Code" />
+				                <Input id="mcodeEdit" type="Number" value="{MaterialCode}"/>
+
+                                <Label text="UOM" />
+                                    <MultiComboBox id= "uomEdit" placeholder= "Select" selectedKeys="{oSelectedKeyModel>/selectedItems/0}"
                                         items="{
                                             path: '/MasterUOMSet'
                                         }">
-                                        <core:Item key="{Name}" text="{Description}"/>
+                                        <core:Item key="{ID}" text="{Name}"/>
                                     </MultiComboBox>
+
 			                </f:content>    
 		                </f:SimpleForm>
                     </uxap:blocks>

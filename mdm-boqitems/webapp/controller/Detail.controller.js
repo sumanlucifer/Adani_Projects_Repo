@@ -24,8 +24,8 @@ sap.ui.define([
                 idBtnEdit: true,
                 idBtnSave: false,
                 idBtnCancel: false,
-                idBtnDelete:true,
-                showFooter:false
+                idBtnDelete: true,
+                showFooter: false
             });
             this.setModel(oViewModel, "objectViewModel");
 
@@ -43,11 +43,15 @@ sap.ui.define([
             this.getView().getModel().setProperty("/busy", false);
 
             this.getView().getModel("layoutModel").setProperty("/layout", sLayout);
+
+            //added
             var oSelectedKeyModel = new JSONModel();
             this.getView().setModel(oSelectedKeyModel, "oSelectedKeyModel");
 
             if (this.sParentID === "new") {
-                this.getView().getModel("oSelectedKeyModel").setData([]);
+                //added
+                var items = {selectedItems : []}
+                this.getView().getModel("oSelectedKeyModel").setData(items);
 
                 this.getViewModel("objectViewModel").setProperty("/idSFDisplay", false);
                 this.getViewModel("objectViewModel").setProperty("/idSFEdit", true);
@@ -66,7 +70,8 @@ sap.ui.define([
                         ID: "",
                         Name: "",
                         Description: "",
-                        UOMs:[]
+                        MaterialCode:"",
+                        UOMs: []
                     }
                 });
                 this._oObjectPath = this._oNewContext.sPath;
@@ -75,7 +80,9 @@ sap.ui.define([
                     path: this._oObjectPath
                 });
             } else {
-                this.getView().getModel("oSelectedKeyModel").setData([{key: "49"}]);
+                //added
+                this.getSelectedKeys(this.sParentID);
+
                 this.getViewModel("objectViewModel").setProperty("/showFooter", false);
                 this.getViewModel("objectViewModel").setProperty("/idBtnDelete", true);
                 this._bindView("/MasterBoQItemSet" + this.sParentID);
@@ -99,6 +106,27 @@ sap.ui.define([
             });
         },
 
+        //added
+        getSelectedKeys: function (sParentID) {
+            var sReadPath = "/MasterBoQItemSet" + sParentID + "/UOMs"
+            this.getComponentModel().read(sReadPath, {
+                success: function(oData ,oResponse){
+                    var aData = oData.results;
+                    if(aData.length){
+                        var selectedKeys = [];
+                        for(var i =0 ; i<aData.length;i++){
+                            selectedKeys.push(aData[i].MasterUOMId);
+                        }
+                        var items = {selectedItems : [selectedKeys]}
+                        this.getView().getModel("oSelectedKeyModel").setData(items);
+                    }
+                }.bind(this),
+                error: function(oError){
+                    sap.m.MessageBox.error(JSON.stringify(oError));
+                }
+            });
+        },
+
         onEdit: function () {
             this.getViewModel("objectViewModel").setProperty("/showFooter", true);
             this.getViewModel("objectViewModel").setProperty("/idBtnEdit", false);
@@ -111,56 +139,78 @@ sap.ui.define([
         },
 
         onSave: function () {
-                var that = this;
-                var oPayload = {};
-                var arr =[];
-                oPayload.Name = this.byId("nameEdit").getValue();
-                oPayload.Description = this.byId("nameDesc").getValue();
-                // oPayload.MaterialCode = "123";
-                var selectedData = this.byId("uomEdit").getSelectedItems();
-                if (this.sParentID === "new") {
-                for(var i=0; i < selectedData.length; i++){
-                    var obj ={};
-                    obj.Name = selectedData[i].getProperty("text");
-                    obj.MasterUOM ={
-                        "__metadata":{
-                            "uri": "MasterUOMSet(" + selectedData[i].getProperty("key") + ")"
+            var that = this;
+            var oPayload = {};
+            var arr = [];
+            var name = this.byId("nameEdit").getValue();
+            var description = this.byId("nameDesc").getValue();
+            var materialCode = this.byId("mcodeEdit").getValue();
+            if (name == "") {
+                sap.m.MessageBox.error("Please enter Name ! ");
+                return;
+            }
+            else if (description == "") {
+                sap.m.MessageBox.error("Please enter Description ! ");
+                return;
+            }
+            else if (materialCode == "") {
+                sap.m.MessageBox.error("Please enter Material Code ! ");
+                return;
+            }
+            oPayload.Name = name;
+            oPayload.Description = description;
+            oPayload.MaterialCode = materialCode;
+            // oPayload.MaterialCode = "123";
+            var selectedData = this.byId("uomEdit").getSelectedItems();
+            for (var i = 0; i < selectedData.length; i++) {
+                var obj = {};
+                obj.Name = selectedData[i].getProperty("text");
+                obj.MasterUOMId = selectedData[i].getProperty("key");
+                /*obj.MasterUOM = {
+                    "__metadata": {
+                        "uri": "MasterUOMSet(" + selectedData[i].getProperty("key") + ")"
+                    }
+                };*/
+                arr.push(obj);
+            }
+            oPayload.UOMs = arr;
+            if (this.sParentID === "new") {
+                MessageBox.confirm("Do you want save this BOQ Item ?", {
+                    icon: MessageBox.Icon.INFORMATION,
+                    title: "Confirm",
+                    actions: [MessageBox.Action.YES, MessageBox.Action.NO],
+                    emphasizedAction: MessageBox.Action.YES,
+                    onClose: function (oAction) {
+                        if (oAction == "YES") {
+                            that.getComponentModel("app").setProperty("/busy", true);
+                            that.mainModel.create("/MasterBoQItemSet", oPayload, {
+                                success: function (oData, oResponse) {
+                                    sap.m.MessageBox.success("BOQ Item Created Successfully");
+                                    // sap.m.MessageBox.success(oData.Message);
+                                    that.onCancel();
+                                    that.getComponentModel("app").setProperty("/busy", false);
+                                }.bind(this),
+                                error: function (oError) {
+                                    sap.m.MessageBox.error(JSON.stringify(oError));
+                                    that.getComponentModel("app").setProperty("/busy", false);
+                                }
+                            });
                         }
-                    }; 
-                    arr.push(obj) ;   
-                }
-                oPayload.UOMs=arr; 
-                this.getComponentModel("app").setProperty("/busy", true);
-                this.mainModel.create("/MasterBoQItemSet", oPayload, {
-                    success: function (oData, oResponse) {
-                        sap.m.MessageBox.success("BOQ Item Created Successfully");
-                        // sap.m.MessageBox.success(oData.Message);
-                        // this.getViewModel("objectViewModel").setProperty("/isCreatingPCList", false);
-                        // this.getView().getModel().refresh();
-                        that.onCancel();
-                        this.getComponentModel("app").setProperty("/busy", false);
-                    }.bind(this),
-                    error: function (oError) {
-                        sap.m.MessageBox.error(JSON.stringify(oError));
-                        this.getComponentModel("app").setProperty("/busy", false);
                     }
                 });
-                }
-                else
-                {   
+            }
+            else {
                 var sPath = this.getView().getBindingContext().getPath();
-                this.getComponentModel("app").setProperty("/busy", true);
-                 this.mainModel.update(sPath, oPayload, {
+                that.getComponentModel("app").setProperty("/busy", true);
+                that.mainModel.update(sPath, oPayload, {
                     success: function (oData, oResponse) {
-                        
-                       // sap.m.MessageBox.success(oData.Message);
-                        sap.m.MessageBox.success("UOM Updated Successfully");
-                        this.getView().getModel().refresh();
+                        sap.m.MessageBox.success("BOQ Item Updated Successfully");
+                        // sap.m.MessageBox.success(oData.Message);
                         that.onCancel();
-                        this.getComponentModel("app").setProperty("/busy", false);
+                        that.getComponentModel("app").setProperty("/busy", false);
                     }.bind(this),
                     error: function (oError) {
-                        this.getComponentModel("app").setProperty("/busy", false);
+                        that.getComponentModel("app").setProperty("/busy", false);
                         sap.m.MessageBox.error(JSON.stringify(oError));
                     }
                 });
@@ -177,40 +227,50 @@ sap.ui.define([
             this.getViewModel("objectViewModel").setProperty("/idSFEdit", false);
 
             if (this.sParentID === "new") {
-                    this.oRouter.navTo("LandingPage", {
+                this.oRouter.navTo("LandingPage", {
                 },
                     false
                 );
             }
         },
-        
-        // On Delete Press Button
-        onDelete : function(oEvent){
-            var that=this;
+
+        // On Delete //
+        onDelete: function (oEvent) {
+            var that = this;
             var sPath = this.getView().getBindingContext().getPath();
             this.getComponentModel("app").setProperty("/busy", true);
-            this.mainModel.remove(sPath, {
-                    success: function (oData, oResponse) {
-                       // sap.m.MessageBox.success(oData.Message);
-                        sap.m.MessageBox.success("UOM Deleted Successfully");
-                        // this.getView().getModel().refresh();
-                        that.onCancel();
-                        that.onNavigateToMaster();
-                        this.getComponentModel("app").setProperty("/busy", false);
-                    }.bind(this),
-                    error: function (oError) {
-                        sap.m.MessageBox.error(JSON.stringify(oError));
-                        this.getComponentModel("app").setProperty("/busy", false);
+            MessageBox.confirm("Do you want delete this BOQ Item ?", {
+                icon: MessageBox.Icon.WARNING,
+                title: "Confirm",
+                actions: [MessageBox.Action.YES, MessageBox.Action.NO],
+                emphasizedAction: MessageBox.Action.YES,
+                onClose: function (oAction) {
+                    if (oAction == "YES") {
+                        that.getComponentModel("app").setProperty("/busy", true);
+                        that.mainModel.remove(sPath, {
+                            success: function (oData, oResponse) {
+                                sap.m.MessageBox.success("UOM Deleted Successfully");
+                                // sap.m.MessageBox.success(oData.Message);
+                                that.onCancel();
+                                that.onNavigateToMaster();
+                                that.getComponentModel("app").setProperty("/busy", false);
+                            }.bind(this),
+                            error: function (oError) {
+                                that.getComponentModel("app").setProperty("/busy", false);
+                                sap.m.MessageBox.error(JSON.stringify(oError));
+                            }
+                        });
                     }
-                });
+                }
+            });
         },
 
-        onNavigateToMaster : function(){
-                this.oRouter.navTo("LandingPage", {
-                },
+        onNavigateToMaster: function () {
+            this.oRouter.navTo("LandingPage", {
+            },
                 false
-                );
+            );
         }
-        
+
     });
 });            

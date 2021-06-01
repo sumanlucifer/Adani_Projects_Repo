@@ -1,8 +1,9 @@
 sap.ui.define([
 	"sap/ui/core/UIComponent",
 	"sap/ui/Device",
-	"com/agel/mmts/mdmboqitems/model/models"
-], function (UIComponent, Device, models) {
+    "com/agel/mmts/mdmboqitems/model/models",
+    "com/agel/mmts/mdmboqitems/controller/ErrorHandler"
+], function (UIComponent, Device, models, ErrorHandler) {
 	"use strict";
 
 	return UIComponent.extend("com.agel.mmts.mdmboqitems.Component", {
@@ -21,7 +22,10 @@ sap.ui.define([
 			UIComponent.prototype.init.apply(this, arguments);
 
 			// enable routing
-			this.getRouter().initialize();
+            this.getRouter().initialize();
+            
+             //initialize the error handler with the component
+            this._oErrorHandler = new ErrorHandler(this);
 
 			// set the device model
             this.setModel(models.createDeviceModel(), "device");

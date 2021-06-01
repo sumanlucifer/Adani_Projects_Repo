@@ -30,7 +30,7 @@ sap.ui.define([
 
 			oAppModel = new JSONModel({
 				busy : false,
-				delay : 100
+				delay : 1000
             });
             this.oAppModel = oAppModel;
 			this.getOwnerComponent().setModel(oAppModel, "app");
