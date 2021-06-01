@@ -43,6 +43,7 @@ sap.ui.define([
             var DateRangeValue = this.byId("dateRangeSelectionId").getValue();
             var PlantCode = this.byId("idPlantCode").getValue();
             var VendorCode = this.byId("idVendorCode").getValue();
+            var CompanyCode = this.byId("idCompanyCode").getValue();
             var orFilters = [];
             var andFilters = [];
 
@@ -54,6 +55,7 @@ sap.ui.define([
                 orFilters.push(new Filter("ParentLineItem/PurchaseOrder/Vendor/VendorCode", FilterOperator.EQ, FreeTextSearch));
                 orFilters.push(new Filter("ParentLineItem/PurchaseOrder/PlantCode", FilterOperator.EQ, FreeTextSearch));
                 //   aFilters.push(new Filter("purchase_order/parent_line_items/qty", FilterOperator.EQ, FreeTextSearch));
+                orFilters.push(new Filter("BOQGroup/ParentLineItem/PurchaseOrder/Buyer/CompanyCode", FilterOperator.EQ, CompanyCode));
 
                 andFilters.push(new Filter(orFilters, false));
             }
@@ -84,6 +86,11 @@ sap.ui.define([
                 andFilters.push(new Filter("ParentLineItem/PurchaseOrder/PlantCode", FilterOperator.EQ, PlantCode));
             }
 
+            // Company Code
+            if (CompanyCode != "") {
+                andFilters.push(new Filter("BOQGroup/ParentLineItem/PurchaseOrder/Buyer/CompanyCode", FilterOperator.EQ, CompanyCode));
+            }
+
              var idBOQRequestTableBinding = this.getView().byId("idBOQRequestTable").getTable().getBinding("items");
              if (andFilters.length == 0){
                 andFilters.push(new Filter("ParentLineItem/PONumber", FilterOperator.NE, ""));
@@ -104,6 +111,7 @@ sap.ui.define([
             this.byId("dateRangeSelectionId").setValue("");
             this.byId("idPlantCode").setValue("");
             this.byId("idVendorCode").setValue("");
+            this.byId("idCompanyCode").setValue("");
             var oTable = this.getView().byId("idBOQRequestTable").getTable();
             var oBinding = oTable.getBinding("items");
             oBinding.filter([]);

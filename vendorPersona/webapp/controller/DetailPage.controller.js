@@ -205,7 +205,7 @@ sap.ui.define([
             this.byId("idMaterialCode").setValue("");
             this.byId("dateRangeSelectionId").setValue("");
             this.byId("idPlantCode").setValue("");
-           // this.byId("idVendorCode").setValue("");
+            this.byId("idCompanyCode").setValue("");
             
             var idOpenPOTableBinding = this.getView().byId("idPurchaseOrdersTable").getTable().getBinding("items");
             var idConfirmPOTableBinding = this.getView().byId("idConfirmPOTable").getTable().getBinding("items");

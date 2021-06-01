@@ -81,10 +81,10 @@
                         </VBox>
                     </FlexBox>
                 </VBox>
-                <VBox renderType="Bare">
+               <!-- <VBox renderType="Bare">
                     <Label text="{i18n>instruction}" design="Bold"/>
                     <ObjectAttribute text="Please raise the inspection call through SIMS portal." />
-                </VBox>
+                </VBox> -->
             </FlexBox>
         </uxap:headerContent>
         <uxap:sections>

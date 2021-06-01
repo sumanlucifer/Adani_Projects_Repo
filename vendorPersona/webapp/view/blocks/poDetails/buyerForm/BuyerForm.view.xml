@@ -32,7 +32,7 @@
             <Label text="{i18n>purchasingGroup}" />
             <Text text="{PurchasingGroup}"/>
             <Label text="{i18n>companyCode}" />
-            <Text text="missing"/>
+            <Text text="{CompanyCode}"/>
             <Label text="{i18n>ifcNo}" />
             <Text text="{IECNo}"/>
         </f:content>
