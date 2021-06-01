@@ -1,11 +1,13 @@
 sap.ui.define([
     "./BaseController",
-    "sap/ui/model/json/JSONModel"
+    "sap/ui/model/json/JSONModel",
+    "sap/ui/core/Fragment",
+    "sap/ui/Device"
 ],
 	/**
 	 * @param {typeof sap.ui.core.mvc.Controller} Controller
 	 */
-    function (BaseController, JSONModel) {
+    function (BaseController, JSONModel, Fragment,Device) {
         "use strict";
 
         return BaseController.extend("com.agel.mmts.vendormanageboq.controller.DetailDetail", {
@@ -54,9 +56,48 @@ sap.ui.define([
                         }
                     }
                 });
+            },
+
+            onBOQGroupItemPress: function (oEvent) {
+                var sParentItemPath = oEvent.getSource().getBindingContext().getPath();
+                var sDialogTitle = "BOQ Items of " + oEvent.getSource().getBindingContext().getObject().Name;
+                var oDetails = {};
+                oDetails.controller = this;
+                oDetails.view = this.getView();
+                oDetails.sParentItemPath = sParentItemPath;
+                oDetails.title = sDialogTitle;
+                if (!this.pDialog) {
+                    this.pDialog = Fragment.load({
+                        id: oDetails.view.getId(),
+                        name: "com.agel.mmts.vendormanageboq.view.fragments.detailPage.ViewBOQItemsDialog",
+                        controller: oDetails.controller
+                    }).then(function (oDialog) {
+                        // connect dialog to the root view of this component (models, lifecycle)
+                        oDetails.view.addDependent(oDialog);
+                        oDialog.bindElement({
+                            path: oDetails.sParentItemPath
+                        });
+                        oDialog.setTitle(oDetails.title)
+                        if (Device.system.desktop) {
+                            oDialog.addStyleClass("sapUiSizeCompact");
+                        }
+                        return oDialog;
+                    });
+                }
+                this.pDialog.then(function (oDialog) {
+                    oDetails.view.addDependent(oDialog);
+                    oDialog.bindElement({
+                        path: oDetails.sParentItemPath
+                    });
+                    oDialog.open();
+                });
+            },
+
+            onViewChildDialogClose: function (oEvent) {
+                this.pDialog.then(function (oDialog) {
+                    oDialog.close();
+                });
             }
-
-
 
         });
     });

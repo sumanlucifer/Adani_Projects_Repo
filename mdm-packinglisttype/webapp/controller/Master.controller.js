@@ -102,15 +102,9 @@ sap.ui.define([
                    // new sap.ui.model.Filter("ID", FilterOperator.EQ, oValue)
                 ];
                 
-<<<<<<< HEAD
-                if (!isNaN(oValue)) {
-                    aSearchFilters.push(new sap.ui.model.Filter("ID", FilterOperator.EQ, oValue));
-                }
-=======
              /* if (!isNaN(oValue)) {
                     aSearchFilters.push(new sap.ui.model.Filter("ID", FilterOperator.EQ, oValue));
                 } */
->>>>>>> 91dc7ae775773b8a8cf094c0835a9af971a26401
 
                 aFilters.push(new Filter(aSearchFilters, false));
                 if (aFilters.length > 0) {

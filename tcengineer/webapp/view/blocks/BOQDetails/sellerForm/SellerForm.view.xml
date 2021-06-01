@@ -8,25 +8,29 @@
             <!-- <core:Title  /> -->
             <Label text="{i18n>vendorName}" />
             <Text text="{Name}" />
-            <Label text="{i18n>faxNo}" />
-            <Text text="{Fax}"/>
-            <Label text="{i18n>city}"/>
-            <Text text="{City}" binding="{Address}"/>
-            <Label text="{i18n>pan}" />
-            <Text text="{Pan}"/>
-            <Label text="{i18n>gstIN}" />
-            <Text text="{GSTIN}"/>
-            <!-- <core:Title  /> -->
             <Label text="{i18n>vendorCode}" />
             <Text text="{VendorCode}"/>
+            <Label text="{i18n>gstIN}" />
+            <Text text="{GSTIN}"/>
+
+            <Label text="{i18n>pan}" />
+            <Text text="{Pan}"/>
+            <Label text="{i18n>emailID}" />
+            <Link text="{Email}"/>
+            <Label text="{i18n>mobile}" />
+            <Link text="{Phone}"/>
+            <Label text="{i18n>faxNo}" />
+            <Text text="{Fax}"/>
+            <!-- <core:Title  /> -->
+            <Label text="{i18n>city}"/>
+            <Text text="{City}" binding="{Address}"/>
             <Label text="{i18n>street2}" />
             <ExpandableText binding="{Address}" text="{Street}" overflowMode="InPlace"/>
             <Label text="{i18n>stateCode}" />
             <Text text="{State}" binding="{Address}"/>
             <Label text="{i18n>postalCode}" />
             <Text text="{pinCode}" binding="{Address}"/>
-            <Label text="{i18n>emailID}" />
-            <Text text="{Email}"/>
+
             <!-- <core:Title /> -->
             <Label text="{i18n>addressNoSAP}" />
             <ExpandableText binding="{Address}" text="{Country}" overflowMode="InPlace"/>
@@ -34,8 +38,6 @@
             <Text text="{Street}" binding="{Address}"/>
             <Label text="{i18n>countryCode}" />
             <Text text="{Country}" binding="{Address}"/>
-            <Label text="{i18n>mobile}" />
-            <Text text="{Phone}"/>
         </f:content>
     </f:SimpleForm>
 

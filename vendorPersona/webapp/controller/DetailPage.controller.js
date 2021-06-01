@@ -143,6 +143,8 @@ sap.ui.define([
             var DateRange = this.byId("dateRangeSelectionId");
             var DateRangeValue = this.byId("dateRangeSelectionId").getValue();
             var PlantCode = this.byId("idPlantCode").getValue();
+            var MaterialCode = this.byId("idMaterialCode").getValue();
+            var CompanyCode = this.byId("idCompanyCode").getValue();
           //  var CompanyCode = this.byId("idCompanyCode").getValue();
             var orFilters = [];
             var andFilters = [];
@@ -150,11 +152,9 @@ sap.ui.define([
             var FreeTextSearch = this.byId("filterbar").getBasicSearchValue();
             if (FreeTextSearch) {
                 orFilters.push(new Filter("PONumber", FilterOperator.Contains, FreeTextSearch));
-                //   orFilters.push(new Filter("vendor/name", FilterOperator.EQ, FreeTextSearch));
-              //  orFilters.push(new Filter("CompanyCode", FilterOperator.EQ, FreeTextSearch));
+                orFilters.push(new Filter("Buyer/CompanyCode", FilterOperator.EQ, CompanyCode));
+                orFilters.push(new Filter("ParentLineItems/MaterialCode", FilterOperator.EQ, MaterialCode));
                 orFilters.push(new Filter("PlantCode", FilterOperator.EQ, FreeTextSearch));
-                //   aFilters.push(new Filter("purchase_order/parent_line_items/qty", FilterOperator.EQ, FreeTextSearch));
-
                 andFilters.push(new Filter(orFilters, false));
             }
 
@@ -168,9 +168,13 @@ sap.ui.define([
                 andFilters.push(new Filter("POReleaseDate", FilterOperator.BT, From.toISOString(), To.toISOString()));
             }
 
-         /*   if (CompanyCode != "") {
-                andFilters.push(new Filter("CompanyCode", FilterOperator.EQ, PlantCode));
-            }*/
+            if (CompanyCode != "") {
+                andFilters.push(new Filter("Buyer/CompanyCode", FilterOperator.EQ, CompanyCode));
+            }
+
+            if (MaterialCode != "") {
+                andFilters.push(new Filter("ParentLineItems/MaterialCode", FilterOperator.EQ, MaterialCode));
+            }
 
             if (PlantCode != "") {
                 andFilters.push(new Filter("PlantCode", FilterOperator.EQ, PlantCode));
@@ -240,7 +244,7 @@ sap.ui.define([
                             "expand": 'ParentLineItems'
                         }
                     });
-                    oDialog.setTitle(oDetails.title)
+                    oDialog.setTitle(oDetails.title);
                     return oDialog;
                 });
             }
@@ -252,6 +256,7 @@ sap.ui.define([
                         'expand': 'ParentLineItems'
                     }
                 });
+                oDialog.setTitle(oDetails.title);
                 oDialog.open();
             });
         },

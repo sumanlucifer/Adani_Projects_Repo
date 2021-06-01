@@ -10,15 +10,9 @@
          upperCaseAnchorBar="false" headerContentPinnable="true" toggleHeaderOnTitleClick="true" busy="{objectViewModel>/busy}">
         <uxap:headerTitle>
             <uxap:ObjectPageDynamicHeaderTitle>
-<<<<<<< HEAD
-             <!--   <uxap:expandedHeading>
-                    <Title text="{ID}" wrapping="true" titleStyle="H3" />
-                </uxap:expandedHeading> -->
-=======
                <uxap:expandedHeading>
                     <Title text="{Name}" wrapping="true" titleStyle="H3" />
                 </uxap:expandedHeading> 
->>>>>>> 91dc7ae775773b8a8cf094c0835a9af971a26401
                 <uxap:expandedContent>
                 </uxap:expandedContent>
                 <uxap:snappedTitleOnMobile>
@@ -27,17 +21,8 @@
                 <uxap:actions>
                     <Button id="idBtnEdit" text="Edit" icon="sap-icon://edit" press="onEdit" 
                                     visible="{= ${objectViewModel>/idBtnEdit}}"/>
-<<<<<<< HEAD
-					<Button id="idBtnSave" text="Save" icon="sap-icon://save" press="onSave"
-                                    visible="{= ${objectViewModel>/idBtnSave}}"/>
-					<Button id="idBtnCancel" text="Cancel" icon="sap-icon://cancel" press="onCancel" 
-                                    visible="{= ${objectViewModel>/idBtnCancel}}"/>
-                    <Button text="Delete" type="Reject" visible="{= ${objectViewModel>/idBtnDelete}}"
-                     press="onDeletePress"/>
-=======
                     <Button text="Delete" type="Reject" visible="{= ${objectViewModel>/idBtnDelete}}"
                          press="onDeletePress"/>
->>>>>>> 91dc7ae775773b8a8cf094c0835a9af971a26401
                 </uxap:actions>
             </uxap:ObjectPageDynamicHeaderTitle>
         </uxap:headerTitle>
@@ -87,15 +72,9 @@
 		                </f:SimpleForm>
                     </uxap:blocks>
 
-<<<<<<< HEAD
-                      <uxap:actions>
-                            
-						</uxap:actions>
-=======
                     <uxap:actions>
                             
 					</uxap:actions>
->>>>>>> 91dc7ae775773b8a8cf094c0835a9af971a26401
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>
             </uxap:ObjectPageSection>

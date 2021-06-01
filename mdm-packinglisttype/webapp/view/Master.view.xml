@@ -15,11 +15,7 @@
             <List id="idListMaster" items="{path: '/MasterPackagingTypeSet',sorter: {path: 'Name'}}">
             <headerToolbar>
 					<OverflowToolbar>
-<<<<<<< HEAD
-                        <Title id="idTitle"/>
-=======
                         <Title id="idTitle" text="{i18n>packingList}"/>
->>>>>>> 91dc7ae775773b8a8cf094c0835a9af971a26401
                         <ToolbarSpacer/>
 						<SearchField id="searchField" showRefreshButton="true"
 							tooltip="{i18n>masterSearchTooltip}" search=".onSearch" width="auto">
