@@ -1,10 +1,16 @@
 <mvc:View xmlns:mvc="sap.ui.core.mvc"
     xmlns:core="sap.ui.core"
     xmlns:smartTable="sap.ui.comp.smarttable"
-    xmlns="sap.m"
-    controllerName="com.agel.mmts.vendorPersona.view.blocks.poDetails.inspectionTable.InspectionTableController">
+    xmlns="sap.m" controllerName="com.agel.mmts.vendorPersona.view.blocks.poDetails.inspectionTable.InspectionTableController">
 
     <smartTable:SmartTable class="sapUiSizeCompact" id="idPackingListTable" editable="false" placeToolbarInTable="true" enableAutoBinding="true" entitySet="InspectionCallIdSet" showFullScreenButton="true" showRowCount="false" tableType="ResponsiveTable" demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" beforeRebindTable="onBeforeRenderingInspectionTable" enableAutoColumnWidth="true" ignoreFromPersonalisation="CreatedBy,ID,IsArchived,PONumber,Type,UpdatedAt,UpdatedBy">
+
+     <smartTable:customToolbar>
+			<OverflowToolbar design="Transparent">
+				<ToolbarSpacer/>
+				<Button text="Offline inspection raised?" press="onOfflineInspectionPress"></Button>
+			</OverflowToolbar>
+		</smartTable:customToolbar>
 
         <Table sticky="ColumnHeaders,HeaderToolbar">
             <columns>
@@ -15,7 +21,7 @@
                     </customData>
                     <Text text="{i18n>inspectionNumber}"/>
                 </Column>
-                
+
                 <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "InspectionDate", "leadingProperty": "SAPInspectionCallId",
@@ -36,7 +42,7 @@
 
                 <ColumnListItem type="Navigation" press="onInspectionIDPress">
                     <cells>
-                    <ObjectIdentifier title="{SAPInspectionCallId}"></ObjectIdentifier>
+                        <ObjectIdentifier title="{SAPInspectionCallId}"></ObjectIdentifier>
                         <Text text="{path:'InspectionDate',
                                     type: 'sap.ui.model.type.Date',
 				                     formatOptions: {

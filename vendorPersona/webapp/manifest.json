@@ -160,6 +160,13 @@
                     "target": [
                         "TargetManageBOQ"
                     ]
+                },
+                {
+                    "name": "RouteCreateOfflineInspection",
+                    "pattern": "offlineInspection/{POId}",
+                    "target": [
+                        "TargetOfflineInspection"
+                    ]
                 }
             ],
             "targets": {
@@ -197,6 +204,13 @@
                     "clearControlAggregation": false,
                     "viewName": "ManageBOQ",
                     "viewLevel": 5
+                },
+                "TargetOfflineInspection": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewName": "OfflineInspection",
+                    "viewLevel": 6
                 }
             }
         }
