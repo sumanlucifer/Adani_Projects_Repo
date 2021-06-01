@@ -4,17 +4,24 @@
     xmlns="sap.m"
     xmlns:smartList="sap.ui.comp.smartlist">
     <f:DynamicPage toggleHeaderOnTitleClick="false">
-    <f:title>
-				<f:DynamicPageTitle>
-					<f:heading>
-						<Title text="{i18n>parentItems}"/>
-					</f:heading>
-				</f:DynamicPageTitle>
-			</f:title>
+        <f:title>
+            <f:DynamicPageTitle>
+                <f:heading>
+                    <Title text="{i18n>manageBOQ}"/>
+                </f:heading>
+            </f:DynamicPageTitle>
+        </f:title>
         <f:content>
             <List items="{path: '/ParentLineItemSet',
                                                 sorter: {path: 'Name'}}" updateFinished="onUpdateListFinished">
-                <StandardListItem title="{Name}" description="{Description}" info="{MaterialCode}" type="Navigation" press="onParentLineItemPress"/>
+                <headerToolbar>
+                    <OverflowToolbar>
+                    <content>
+                    <Title text="{i18n>parentItems}"/>
+                    </content>
+                    </OverflowToolbar>
+                </headerToolbar>
+                <StandardListItem title="{Name}" description="Description: {Description}" info="Material Code: {MaterialCode}" type="Navigation" press="onParentLineItemPress"/>
             </List>
         </f:content>
     </f:DynamicPage>
