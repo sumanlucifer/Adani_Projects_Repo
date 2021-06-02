@@ -3,7 +3,7 @@
 
     <Table width="auto" growing="true" growingThreshold="5" items="{path: 'ParentLineItems'}" fixedLayout="false">
         <columns>
-            <Column demandPopin="true" minScreenWidth="Desktop">
+            <Column demandPopin="true" minScreenWidth="Desktop" hAlign="Center">
                 <Text text="{i18n>LineNumber}" wrapping="true" wrappingType="Hyphenated"/>
             </Column>
             <Column demandPopin="true" minScreenWidth="Desktop">

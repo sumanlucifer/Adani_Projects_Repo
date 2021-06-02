@@ -5,15 +5,15 @@
     xmlns:smartTable="sap.ui.comp.smarttable"
     xmlns:tt="sap.ui.table" controllerName="com.agel.mmts.vendorPersona.view.blocks.poDetails.boqItemsTable.BOQItemsTableController">
 
-    <smartTable:SmartTable id="smartTreeTable" entitySet="ParentLineItemSet" tableType="TreeTable" useExportToExcel="false" useVariantManagement="false" useTablePersonalisation="true" placeToolbarInTable="true" showRowCount="true" enableAutoBinding="true" enableAutoColumnWidth="true" beforeRebindTable="onBeforeRebindTreeTable" ignoreFromPersonalisation="DeliveryDate,HSNCode,ID,InspectedQty,IsBOQApplicable,OverseasQrCode,PlantCode,PONumber,Price,Status,StorageLocation,TaxCode,TaxIndicator,Value,Comment">
+    <smartTable:SmartTable id="smartTreeTable" entitySet="ParentLineItemSet" tableType="TreeTable" useExportToExcel="false" useVariantManagement="false" useTablePersonalisation="true" placeToolbarInTable="true" showRowCount="true" enableAutoBinding="true" enableAutoColumnWidth="true" useGroupMode="true" beforeRebindTable="onBeforeRebindTreeTable"  ignoreFromPersonalisation="DeliveryDate,HSNCode,ID,InspectedQty,IsBOQApplicable,OverseasQrCode,PlantCode,PONumber,Price,Status,StorageLocation,TaxCode,TaxIndicator,Value">
         <!-- layout data used to make the table growing but the filter bar fixed -->
         <smartTable:customToolbar>
-			<OverflowToolbar design="Transparent">
-				<ToolbarSpacer/>
-				<Button text="Manage BOQ" press="navToManageBOQApp"/>
-			</OverflowToolbar>
-		</smartTable:customToolbar>
-        <tt:TreeTable id="treeTable" selectionMode="None" enableColumnReordering="true" expandFirstLevel="false" visibleRowCountMode="Auto">
+            <OverflowToolbar design="Transparent">
+                <ToolbarSpacer/>
+                <Button text="Manage BOQ" press="navToManageBOQApp"/>
+            </OverflowToolbar>
+        </smartTable:customToolbar>
+        <tt:TreeTable id="treeTable" selectionMode="None" enableColumnReordering="true" expandFirstLevel="true" visibleRowCountMode="Interactive">
             <tt:columns>
 
                 <tt:Column hAlign="Center">
@@ -122,6 +122,19 @@
                         </VBox>
                     </tt:template>
                 </tt:Column>
+
+                <tt:Column hAlign="Center">
+                    <Label text="{i18n>comments}" />
+                    <tt:customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Comment", "leadingProperty":"BOQGroups/Comment", "columnIndex": 9}' />
+                    </tt:customData>
+
+                    <tt:template>
+                        <ExpandableText text="{Comment}" maxCharacters="10" overflowMode="Popover" visible="{= ${MaterialCode} ? false : true }"/>
+                    </tt:template>
+                </tt:Column>
+
+
 
                 <tt:Column hAlign="Center">
                     <Label text="{i18n>approveAction}" />

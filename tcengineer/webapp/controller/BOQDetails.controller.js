@@ -221,10 +221,10 @@ sap.ui.define([
             var BOQGroupId = oEvent.getSource().getBindingContext().getObject().BOQGroupId;
             var boqApprovalModel = this.getViewModel("BOQApprovalModel");
 
-            if (BOQGroupId) {
+            if (BOQApprovedRequestId) {
                 boqApprovalModel.setProperty("/Label", "Please enter reason for rejection.");
                 boqApprovalModel.setProperty("/BOQApprovedRequestId", BOQApprovedRequestId);
-                boqApprovalModel.setProperty("/BOQGroupId", BOQGroupId);
+                //boqApprovalModel.setProperty("/BOQGroupId", BOQGroupId);
                 boqApprovalModel.setProperty("/Status", "REJECTED");
             }
 

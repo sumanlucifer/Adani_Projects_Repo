@@ -139,7 +139,12 @@ modules:
     - artifacts:
       - vendor-manageboq-content.zip
       name: vendor-manageboq
-      target-path: resources/    
+      target-path: resources/
+    - artifacts:
+      - mdm-boqitems-content.zip
+      name: mdm-boqitems
+      target-path: resources/   
+         
 - name: vendorPersona
   type: html5
   path: vendorPersona
@@ -374,7 +379,15 @@ modules:
     builder: custom
     commands:
     - npm run build
-    supported-platforms: []      
+    supported-platforms: [] 
+- name: mdm-boqitems 
+  type: html5
+  path: mdm-boqitems 
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []    
 
 resources:
 - name: uaa_agel-mmts-web

@@ -62,7 +62,7 @@
             "id": "fcl"
         },
         "config": {
-            "fullWidth": true
+            "fullWidth": false
         },
         "dependencies": {
             "minUI5Version": "1.66.0",

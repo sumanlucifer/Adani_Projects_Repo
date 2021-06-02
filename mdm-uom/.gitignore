@@ -19,3 +19,6 @@ agel-mmts-web/vendorPersona-OpenPOs/.env1
 agel-mmts-web/vendor-manageboq/.env1
 # auto generated wildcard
 agel-mmts-web/tcengineer/.env2
+
+# auto generated wildcard
+vendor-manageboq/.env2
