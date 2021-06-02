@@ -9,3 +9,5 @@ resources
 archive.zip
 # auto generated wildcard
 vendor-manageboq/.env1
+# auto generated wildcard
+agel-mmts-web/user-roleassignment/.env1

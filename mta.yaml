@@ -139,7 +139,11 @@ modules:
     - artifacts:
       - vendor-manageboq-content.zip
       name: vendor-manageboq
-      target-path: resources/    
+      target-path: resources/
+    - artifacts:
+      - comagelmmtsuserroleassignment.zip
+      name: user-roleassignment
+      target-path: resources/
 - name: vendorPersona
   type: html5
   path: vendorPersona
@@ -374,8 +378,15 @@ modules:
     builder: custom
     commands:
     - npm run build
-    supported-platforms: []      
-
+    supported-platforms: []
+- name: user-roleassignment
+  type: html5
+  path: user-roleassignment
+  build-parameters:
+    builder: custom
+    commands:
+    - npm install
+    supported-platforms: []
 resources:
 - name: uaa_agel-mmts-web
   type: org.cloudfoundry.managed-service

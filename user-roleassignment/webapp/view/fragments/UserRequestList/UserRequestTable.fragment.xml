@@ -1,0 +1,123 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:smartTable="sap.ui.comp.smarttable"
+    xmlns:core="sap.ui.core">
+
+    <smartTable:SmartTable class="sapUiResponsiveContentPadding" id="idUserRoleTable" editable="false" placeToolbarInTable="true" 
+    enableAutoBinding="true" entitySet="UserSet" showFullScreenButton="true" showRowCount="false" tableType="ResponsiveTable" 
+    demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" beforeRebindTable="onBeforeRebindBOQTable"  
+    enableAutoColumnWidth="true">
+
+        <smartTable:layoutData><FlexItemData growFactor="1" /></smartTable:layoutData>
+        <Table sticky="ColumnHeaders,HeaderToolbar">
+            <columns>
+
+                <Column demandPopin="true" minScreenWidth="Tablet">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Username", "leadingProperty": "Username",
+                                                 "columnIndex": 0 ,"sortProperty": "Username","filterProperty": "Username"}'/>
+                    </customData>
+                    <Text text="{i18n>usrname}"/>
+                </Column>
+
+                 <Column demandPopin="true" minScreenWidth="Tablet"> 
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "FirstName", "leadingProperty": "FirstName",
+                                                 "columnIndex": 1 ,"sortProperty": "FirstName","filterProperty": "FirstName"}'/>
+                    </customData>
+                    <Text text="{i18n>frstName}"/>
+                </Column>
+
+                <Column demandPopin="true" minScreenWidth="Tablet">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "CreatedAt", "leadingProperty": "CreatedAt",
+                                                 "columnIndex": 2}'/>
+                    </customData>
+                    <Text text="{i18n>createdAt}"/>
+                </Column>
+
+                <Column demandPopin="true" minScreenWidth="Tablet">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "UpdatedAt", "leadingProperty": "UpdatedAt",
+                                                 "columnIndex": 3}'/>
+                    </customData>
+                    <Text text="{i18n>updatedAt}"/>
+                </Column>
+
+                <!-- <Column demandPopin="true" minScreenWidth="Tablet">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "vendorCode", "leadingProperty": "ParentLineItem/PurchaseOrder/Vendor/VendorCode",
+                                                 "columnIndex": 4 ,"sortProperty": "ParentLineItem/PurchaseOrder/Vendor/VendorCode","filterProperty": "ParentLineItem/PurchaseOrder/Vendor/VendorCode"}'/>
+                    </customData>
+                    <Text text="{i18n>vendorCode}"/>
+                </Column>
+
+                <Column demandPopin="true" minScreenWidth="Tablet">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "CompanyCode", "leadingProperty": "BOQGroup/ParentLineItem/PurchaseOrder/Buyer/CompanyCode",
+                                                 "columnIndex": 5 ,"sortProperty": "BOQGroup/ParentLineItem/PurchaseOrder/Buyer/CompanyCode","filterProperty": "BOQGroup/ParentLineItem/PurchaseOrder/Buyer/CompanyCode"}'/>
+                    </customData>
+                    <Text text="{i18n>companyCode}"/>
+                </Column>
+
+                <Column>
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "vendorName", "leadingProperty": "ParentLineItem/PurchaseOrder/Vendor/Name",
+                                                 "columnIndex": 6 ,"sortProperty": "ParentLineItem/PurchaseOrder/Vendor/Name","filterProperty": "ParentLineItem/PurchaseOrder/Vendor/Name"}'/>
+                    </customData>
+                    <Text text="{i18n>vendorName}"/>
+                </Column> 
+
+                <Column demandPopin="true" minScreenWidth="Desktop"> 
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "PlantCode", "leadingProperty": "ParentLineItem/PurchaseOrder/PlantCode",
+                                                 "columnIndex": 7 ,"sortProperty": "ParentLineItem/PurchaseOrder/PlantCode","filterProperty": "ParentLineItem/PurchaseOrder/PlantCode"}'/>
+                    </customData>
+                    <Text text="{i18n>plantcode}"/>
+                </Column>
+
+                <Column demandPopin="true" minScreenWidth="Desktop"> 
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "poIssuedDate", "leadingProperty": "ParentLineItem/PurchaseOrder/CreatedAt",
+                                                 "columnIndex": 8 }'/>
+                    </customData>
+                    <Text text="{i18n>poIssueDate}"/>
+                </Column>-->
+
+               <Column demandPopin="true" minScreenWidth="Desktop"> 
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Active", "leadingProperty": "Active",
+                                                 "columnIndex": 9 }'/>
+                    </customData>
+                    <Text text="{i18n>active}"/>
+                </Column>
+
+            </columns>
+            <items>
+
+                <ColumnListItem type="Navigation" press="onUserRoleDetlPress">
+                    <cells>
+                        <Text text="{Username}" binding="{UserSet/}" wrapping="false"/>
+                        <Text text="{FirstName}" binding="{UserSet/}" wrapping="false"/>
+                        <Text text="{LastName}" binding="{UserSet/}"  wrapping="false"/>
+                        <Text text="{Email}" binding="{UserSet/}"  wrapping="false"/>
+                        <Text text="{path:'CreatedAt',
+                                     type: 'sap.ui.model.type.Date',
+				                     formatOptions: {
+				                        pattern: 'MMMM dd, yyyy'
+				                     }
+                        }" binding="{UserSet/}"/>
+                        <Text text="{path:'UpdatedAt',
+                                     type: 'sap.ui.model.type.Date',
+				                     formatOptions: {
+				                        pattern: 'MMMM dd, yyyy'
+				                     }
+                        }" binding="{UserSet/}"/>
+                        <ObjectStatus text="{Active}" state="{= ${Active} === 'True' ? 'Warning' : ${Active} === 'False' ? 'Error' : 'Success'}"/>
+                    </cells>
+                </ColumnListItem>
+
+            </items>
+        </Table>
+    </smartTable:SmartTable>
+
+</core:FragmentDefinition>

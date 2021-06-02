@@ -47,3 +47,6 @@ agel-mmts-web/vendor-manageboq/.env1
 agel-mmts-web/tcengineer/.env2
 =======
 >>>>>>> develop
+
+# auto generated wildcard
+agel-mmts-web/user-roleassignment/.env1
