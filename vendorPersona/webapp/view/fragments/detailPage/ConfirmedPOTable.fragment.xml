@@ -34,7 +34,7 @@
                         <core:CustomData key="p13nData" value='\{"columnKey": "IssueDate", "leadingProperty": "CreatedAt",
                                                  "columnIndex": 3 }'/>
                     </customData>
-                    <Text text="{i18n>issuedDate}"/>
+                    <Text text="{i18n>issuedate}"/>
                 </Column>
                 <!--  confirmed date -->
                 <Column demandPopin="true" minScreenWidth="Tablet">

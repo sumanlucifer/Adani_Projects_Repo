@@ -152,9 +152,10 @@ sap.ui.define([
             var FreeTextSearch = this.byId("filterbar").getBasicSearchValue();
             if (FreeTextSearch) {
                 orFilters.push(new Filter("PONumber", FilterOperator.Contains, FreeTextSearch));
-                orFilters.push(new Filter("Buyer/CompanyCode", FilterOperator.EQ, CompanyCode));
-                orFilters.push(new Filter("ParentLineItems/MaterialCode", FilterOperator.EQ, MaterialCode));
+                orFilters.push(new Filter("Buyer/CompanyCode", FilterOperator.EQ, FreeTextSearch));
+                orFilters.push(new Filter("ParentLineItems/MaterialCode", FilterOperator.EQ, FreeTextSearch));
                 orFilters.push(new Filter("PlantCode", FilterOperator.EQ, FreeTextSearch));
+                orFilters.push(new Filter("ParentLineItems/Name", FilterOperator.Contains, FreeTextSearch));
                 andFilters.push(new Filter(orFilters, false));
             }
 
@@ -200,7 +201,7 @@ sap.ui.define([
         },
 
         onResetFilters: function () {
-            //this.byId("filterbar").setBasicSearch("");
+            this.oFilterBar._oBasicSearchField.setValue("")
             this.byId("idNameInput").setValue("");
             this.byId("idMaterialCode").setValue("");
             this.byId("dateRangeSelectionId").setValue("");
