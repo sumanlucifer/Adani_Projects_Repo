@@ -11,33 +11,11 @@
                     </customData>
                     <Text text="{i18n>ponum}"/>
                 </Column>
-                <!-- missing issued date -->
-                <Column demandPopin="true" minScreenWidth="Tablet">
-                    <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "IssuedDate", "leadingProperty": "POReleaseDate",
-                                                 "columnIndex": 1 }'/>
-                    </customData>
-                    <Text text="{i18n>issuedDate}"/>
-                </Column>
-                <Column demandPopin="true" minScreenWidth="Tablet">
-                    <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "POReleaseDate", "leadingProperty": "POReleaseDate",
-                                                 "columnIndex": 2 }'/>
-                    </customData>
-                    <Text text="{i18n>releaseDate}"/>
-                </Column>
-                <!-- missing closed date -->
-                <Column demandPopin="true" minScreenWidth="Tablet">
-                    <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "ClosedDate", "leadingProperty": "POReleaseDate",
-                                                 "columnIndex": 3 }'/>
-                    </customData>
-                    <Text text="{i18n>closedDate}"/>
-                </Column>
                 <!-- missing company code -->
                 <Column demandPopin="true" minScreenWidth="Desktop">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "companyCode", "columnIndex": 4}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "companyCode",
+                                 "columnIndex": 1}'/>
                     </customData>
                     <Text text="{i18n>companyCode}"/>
                 </Column>
@@ -45,9 +23,32 @@
                 <Column demandPopin="true" minScreenWidth="Desktop">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "PlantCode", "leadingProperty": "PlantCode",
-                            "columnIndex": 5 ,"sortProperty": "PlantCode","filterProperty": "PlantCode"}'/>
+                            "columnIndex": 2 ,"sortProperty": "PlantCode","filterProperty": "PlantCode"}'/>
                     </customData>
                     <Text text="{i18n>plantcode}"/>
+                </Column>
+                <!-- missing issued date -->
+                <Column demandPopin="true" minScreenWidth="Tablet">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "IssuedDate", "leadingProperty": "POReleaseDate",
+                                                 "columnIndex": 3 }'/>
+                    </customData>
+                    <Text text="{i18n>issuedate}"/>
+                </Column>
+                <Column demandPopin="true" minScreenWidth="Tablet">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "POReleaseDate", "leadingProperty": "POReleaseDate",
+                                                 "columnIndex": 4 }'/>
+                    </customData>
+                    <Text text="{i18n>releaseDate}"/>
+                </Column>
+                <!-- missing closed date -->
+                <Column demandPopin="true" minScreenWidth="Tablet">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "ClosedDate", "leadingProperty": "POReleaseDate",
+                                                 "columnIndex": 5 }'/>
+                    </customData>
+                    <Text text="{i18n>closedDate}"/>
                 </Column>
 
                 <Column>
@@ -61,6 +62,9 @@
                 <ColumnListItem type="Navigation" press="onPurchaseOrderPress"> 
                     <cells>
                         <Text text="{PONumber}"/>
+                        <Text text="missing"/>
+                        <Text text="{PlantCode}"/>
+
                         <Text text="{path:'POReleaseDate',
                                     type: 'sap.ui.model.type.Date',
 				                     formatOptions: {
@@ -79,8 +83,6 @@
 				                        pattern: 'MMMM dd, yyyy'
 				                     }
                         }"/>
-                        <Text text="missing"/>
-                        <Text text="{PlantCode}"/>
                         <Link text="{i18n>viewLineItems}" press="onViewLineItemsPress"></Link>
                     </cells>
                 </ColumnListItem>
