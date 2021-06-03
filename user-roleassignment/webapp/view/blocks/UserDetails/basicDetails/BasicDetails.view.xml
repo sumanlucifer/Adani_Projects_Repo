@@ -52,8 +52,8 @@
 
     <Table width="auto" growing="true" growingThreshold="2" fixedLayout="false">
 
-            <Button id="idBtnEdit" text="Edit" icon="sap-icon://edit" press="onEdit" 
-                                    visible="{= ${objectViewModel>/idBtnEdit}}"/>
+        <!-- <Button id="idBtnEdit" text="Edit" icon="sap-icon://edit" press="onEdit" 
+                                visible="{= ${objectViewModel>/idBtnEdit}}"/> -->
         <columns>
             <!-- <Column demandPopin="true" minScreenWidth="Tablet">
                 <Text text="{i18n>LineNumber}" wrapping="true" wrappingType="Hyphenated"/>
