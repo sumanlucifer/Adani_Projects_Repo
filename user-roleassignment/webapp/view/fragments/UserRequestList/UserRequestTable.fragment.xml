@@ -1,0 +1,87 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:smartTable="sap.ui.comp.smarttable"
+    xmlns:core="sap.ui.core">
+
+    <smartTable:SmartTable class="sapUiResponsiveContentPadding" id="idUserRoleTable" editable="false" placeToolbarInTable="true" 
+    enableAutoBinding="true" entitySet="UserSet" showFullScreenButton="true" showRowCount="false" tableType="ResponsiveTable" 
+    demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" beforeRebindTable="onBeforeRebindBOQTable"  
+    enableAutoColumnWidth="true">
+
+        <smartTable:layoutData><FlexItemData growFactor="1" /></smartTable:layoutData>
+        <Table sticky="ColumnHeaders,HeaderToolbar">
+            <columns>
+
+                 <Column demandPopin="true" minScreenWidth="Tablet"> 
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "FirstName", "leadingProperty": "FirstName",
+                                                 "columnIndex": 0 ,"sortProperty": "FirstName","filterProperty": "FirstName"}'/>
+                    </customData>
+                    <Text text="{i18n>frstName}"/>
+                </Column>
+              
+                 <Column demandPopin="true" minScreenWidth="Tablet"> 
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "LastName", "leadingProperty": "LastName",
+                                                 "columnIndex": 1 ,"sortProperty": "LastName","filterProperty": "LastName"}'/>
+                    </customData>
+                    <Text text="{i18n>lastName}"/>
+                </Column>
+
+                <Column demandPopin="true" minScreenWidth="Tablet"> 
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Email", "leadingProperty": "Email",
+                                                 "columnIndex": 2 ,"sortProperty": "Email","filterProperty": "Email"}'/>
+                    </customData>
+                    <Text text="{i18n>email}"/>
+                </Column>
+
+                <Column demandPopin="true" minScreenWidth="Tablet">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "CreatedAt", "leadingProperty": "CreatedAt",
+                                                 "columnIndex": 3}'/>
+                    </customData>
+                    <Text text="{i18n>createdAt}"/>
+                </Column>
+
+                <Column demandPopin="true" minScreenWidth="Tablet">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "UpdatedAt", "leadingProperty": "UpdatedAt",
+                                                 "columnIndex": 4}'/>
+                    </customData>
+                    <Text text="{i18n>updatedAt}"/>
+                </Column>
+
+               <Column demandPopin="true" minScreenWidth="Tablet"> 
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Active", "leadingProperty": "Active",
+                                                 "columnIndex": 5 }'/>
+                    </customData>
+                    <Text text="{i18n>active}"/>
+                </Column>
+            </columns>
+            <items>
+                <ColumnListItem type="Navigation" press="onUserRoleDetlPress">
+                    <cells>
+                        <Text text="{FirstName}" wrapping="false"/>
+                        <Text text="{LastName}" wrapping="false"/>
+                        <Text text="{Email}" wrapping="false"/>
+                        <Text text="{path:'CreatedAt',
+                                     type: 'sap.ui.model.type.Date',
+				                     formatOptions: {
+				                        pattern: 'MMMM dd, yyyy'
+				                     }
+                        }" />
+                        <Text text="{path:'UpdatedAt',
+                                     type: 'sap.ui.model.type.Date',
+				                     formatOptions: {
+				                        pattern: 'MMMM dd, yyyy'
+				                     }
+                        }" />
+                        <ObjectStatus text="{Active}" state="{= ${Active} === 'True' ? 'Warning' : ${Active} === 'False' ? 'Error' : 'Success'}"/>
+                    </cells>
+                </ColumnListItem>
+            </items>
+        </Table>
+    </smartTable:SmartTable>
+
+</core:FragmentDefinition>
