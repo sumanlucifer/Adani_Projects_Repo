@@ -145,6 +145,46 @@
       },
       "envFile": "${workspaceFolder}/mdm-uom/.env2",
       "preLaunchTask": "Build agel-mmts-web"
+    },
+    {
+      "name": "Run agel-mmts-web-mdm-uom",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/agel-mmts-web-approuter/node_modules/@sap/html5-repo-mock/index.js",
+      "args": [
+        "--standalone",
+        "/comagelmmtsmdmuom/index.html",
+        "--ui5",
+        "{\"version\":\".\"}"
+      ],
+      "cwd": "${workspaceFolder}/mdm-uom",
+      "env": {
+        "PORT": "6004",
+        "MOCK_LOOKUP_DIRS": "[\"webapp\"]",
+        "run.config": "{\"handlerId\":\"ui5_run_config_handler_id\",\"runnableId\":\"/home/user/projects/agel-mmts-web/mdm-uom\"}"
+      },
+      "envFile": "${workspaceFolder}/mdm-uom/.env3",
+      "preLaunchTask": "Build agel-mmts-web"
+    },
+    {
+      "name": "Run agel-mmts-web-mdm-packinglisttype",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/agel-mmts-web-approuter/node_modules/@sap/html5-repo-mock/index.js",
+      "args": [
+        "--standalone",
+        "/comagelmmtsmdmpackinglisttype/index.html",
+        "--ui5",
+        "{\"version\":\".\"}"
+      ],
+      "cwd": "${workspaceFolder}/mdm-packinglisttype",
+      "env": {
+        "PORT": "6004",
+        "MOCK_LOOKUP_DIRS": "[\"webapp\"]",
+        "run.config": "{\"handlerId\":\"ui5_run_config_handler_id\",\"runnableId\":\"/home/user/projects/agel-mmts-web/mdm-packinglisttype\"}"
+      },
+      "envFile": "${workspaceFolder}/mdm-packinglisttype/.env1",
+      "preLaunchTask": "Build agel-mmts-web"
     }
   ],
   "compounds": [],

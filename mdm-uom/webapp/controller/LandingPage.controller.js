@@ -127,6 +127,7 @@ sap.ui.define([
                         oDialog.bindElement({
                             path: "/MasterUOMSet",
                         }); 
+                        oDialog.addStyleClass("sapUiSizeCompact");
                         return oDialog;
                     });
                 }

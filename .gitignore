@@ -46,3 +46,8 @@ vendor-manageboq/.env2
 # auto generated wildcard
 vendorPersona/.env21
 
+
+# auto generated wildcard
+mdm-uom/.env2
+# auto generated wildcard
+mdm-packinglisttype/.env1

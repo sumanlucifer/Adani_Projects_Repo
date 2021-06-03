@@ -11,3 +11,7 @@ archive.zip
 vendor-manageboq/.env1
 # auto generated wildcard
 vendor-manageboq/.env2
+# auto generated wildcard
+mdm-uom/.env2
+# auto generated wildcard
+mdm-packinglisttype/.env1

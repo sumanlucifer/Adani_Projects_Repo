@@ -110,13 +110,13 @@ sap.ui.define([
             var that = this;
             var Name = this.byId("nameEdit").getValue();
             if ( Name == "" ){
-                MessageBox.error("Please enter name ");
+                MessageBox.error("Please enter name");
                 return;
             }
             var oPayload = {};
             oPayload.Name = Name;
             if (this.sPackingListID === "new") {
-                MessageBox.confirm("Do you want crate new packing list type ?",{
+                MessageBox.confirm("Do you want create new packing list type "+Name+"?",{
 				    icon: MessageBox.Icon.INFORMATION,
 				    title: "Confirm",
 				    actions: [MessageBox.Action.YES, MessageBox.Action.NO],
@@ -144,7 +144,7 @@ sap.ui.define([
             else
 
             {  
-                 MessageBox.confirm("Do you want to update packing list type ?",{
+                 MessageBox.confirm("Do you want to update packing list type "+Name+"?",{
 				    icon: MessageBox.Icon.INFORMATION,
 				    title: "Confirm",
 				    actions: [MessageBox.Action.YES, MessageBox.Action.NO],
@@ -194,7 +194,8 @@ sap.ui.define([
         onDeletePress : function(oEvent){
             var that=this;
             var sPath = this.getView().getBindingContext().getPath();
-            MessageBox.confirm("Do you want delete packing list type ?",{
+            var sName = this.getView().getBindingContext().getObject().Name;
+            MessageBox.confirm("Do you want delete packing list type "+sName+"?",{
 				    icon: MessageBox.Icon.WARNING,
 				    title: "Confirm",
 				    actions: [MessageBox.Action.YES, MessageBox.Action.NO],

@@ -4,16 +4,16 @@
             "name": "index.html"
         },
         {
-            "name": "Component.js"
+            "name": "controller/LandingPage.controller.js"
         },
         {
             "name": "model/models.js"
         },
         {
-            "name": "controller/LandingPage.controller.js"
+            "name": "manifest.json"
         },
         {
-            "name": "manifest.json"
+            "name": "Component.js"
         },
         {
             "name": "manifest-bundle.zip"
@@ -23,7 +23,7 @@
             "merged": true
         },
         {
-            "name": "Component-dbg.js",
+            "name": "model/models-dbg.js",
             "isDebug": true
         },
         {
@@ -31,7 +31,7 @@
             "isDebug": true
         },
         {
-            "name": "model/models-dbg.js",
+            "name": "Component-dbg.js",
             "isDebug": true
         },
         {
