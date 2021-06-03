@@ -129,7 +129,8 @@ sap.ui.define([
                         oDetails.view.addDependent(oDialog);
                         oDialog.bindElement({
                             path: "/MasterBoQItemSet",
-                        }); 
+                        });
+                        oDialog.addStyleClass("sapUiSizeCompact");
                         return oDialog;
                     });
                 }

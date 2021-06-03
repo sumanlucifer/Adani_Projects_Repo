@@ -146,15 +146,15 @@ sap.ui.define([
             var description = this.byId("nameDesc").getValue();
             var materialCode = this.byId("mcodeEdit").getValue();
             if (name == "") {
-                sap.m.MessageBox.error("Please enter Name ! ");
+                sap.m.MessageBox.error("Please enter Name");
                 return;
             }
             else if (description == "") {
-                sap.m.MessageBox.error("Please enter Description ! ");
+                sap.m.MessageBox.error("Please enter Description");
                 return;
             }
             else if (materialCode == "") {
-                sap.m.MessageBox.error("Please enter Material Code ! ");
+                sap.m.MessageBox.error("Please enter Material Code");
                 return;
             }
             oPayload.Name = name;
@@ -173,9 +173,14 @@ sap.ui.define([
                 };*/
                 arr.push(obj);
             }
+            if (arr == "") {
+                sap.m.MessageBox.error("Please enter UOM");
+                return;
+            }
+
             oPayload.UOMs = arr;
             if (this.sParentID === "new") {
-                MessageBox.confirm("Do you want save this BOQ Item ?", {
+                MessageBox.confirm("Do you want to save BOQ item "+name+"? ", {
                     icon: MessageBox.Icon.INFORMATION,
                     title: "Confirm",
                     actions: [MessageBox.Action.YES, MessageBox.Action.NO],
@@ -185,7 +190,7 @@ sap.ui.define([
                             that.getComponentModel("app").setProperty("/busy", true);
                             that.mainModel.create("/MasterBoQItemSet", oPayload, {
                                 success: function (oData, oResponse) {
-                                    sap.m.MessageBox.success("BOQ Item Created Successfully");
+                                    sap.m.MessageBox.success("BOQ item created successfully");
                                     // sap.m.MessageBox.success(oData.Message);
                                     that.onCancel();
                                     that.getComponentModel("app").setProperty("/busy", false);
@@ -204,7 +209,7 @@ sap.ui.define([
                 that.getComponentModel("app").setProperty("/busy", true);
                 that.mainModel.update(sPath, oPayload, {
                     success: function (oData, oResponse) {
-                        sap.m.MessageBox.success("BOQ Item Updated Successfully");
+                        sap.m.MessageBox.success("BOQ item updated successfully");
                         // sap.m.MessageBox.success(oData.Message);
                         that.onCancel();
                         that.getComponentModel("app").setProperty("/busy", false);
@@ -237,9 +242,10 @@ sap.ui.define([
         // On Delete //
         onDelete: function (oEvent) {
             var that = this;
+            var name= this.getView().getBindingContext().getObject().Name;
             var sPath = this.getView().getBindingContext().getPath();
             this.getComponentModel("app").setProperty("/busy", true);
-            MessageBox.confirm("Do you want delete this BOQ Item ?", {
+            MessageBox.confirm("Do you want to delete BOQ item "+name+"?", {
                 icon: MessageBox.Icon.WARNING,
                 title: "Confirm",
                 actions: [MessageBox.Action.YES, MessageBox.Action.NO],
@@ -249,7 +255,7 @@ sap.ui.define([
                         that.getComponentModel("app").setProperty("/busy", true);
                         that.mainModel.remove(sPath, {
                             success: function (oData, oResponse) {
-                                sap.m.MessageBox.success("UOM Deleted Successfully");
+                                sap.m.MessageBox.success("UOM item deleted successfully");
                                 // sap.m.MessageBox.success(oData.Message);
                                 that.onCancel();
                                 that.onNavigateToMaster();
