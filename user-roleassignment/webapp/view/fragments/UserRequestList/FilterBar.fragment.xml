@@ -5,42 +5,37 @@
     <fb:FilterBar id="filterbar" reset="onResetFilters" search="onSearch" useToolbar="false" showGoOnFB="true"
     showRestoreOnFB="true">
         <fb:filterGroupItems>
-            <!-- <fb:FilterGroupItem groupName="__$INTERNAL$" name="FirstName" label="{i18n>firstName}" visibleInFilterBar="true" class="searchFieldLabelHidden" >
+          <fb:FilterGroupItem groupName="__$INTERNAL$" name="FirstName" label="{i18n>firstName}" visibleInFilterBar="true" class="searchFieldLabelHidden" >
                 <fb:control>
-                    <Input id="idfrstName" liveChange="onFilterChange" placeholder="{i18n>EnterFrstNm}" showSuggestion="true" showValueHelp="false" suggestionItems="{/PurchaseOrderSet}">
+                    <Input id="idfrstName" liveChange="onFilterChange" placeholder="{i18n>EnterFrstNm}" showSuggestion="true" showValueHelp="false" suggestionItems="{/UserSet}">
                         <suggestionItems>
                             <core:Item text="{FirstName}"/>
                         </suggestionItems>
                     </Input>
                 </fb:control>
             </fb:FilterGroupItem> 
-            <fb:FilterGroupItem groupName="__$INTERNAL$" name="po_release_date" label="{i18n>poIssueDate}" visibleInFilterBar="true" class="searchFieldLabelHidden">
-                <fb:control>
-                    <DateRangeSelection id="dateRangeSelectionId" displayFormat="dd/MM/yyyy" change="onDateRangeSelectionChange"/>
-                </fb:control>
-            </fb:FilterGroupItem> -->
-            <fb:FilterGroupItem groupName="__$INTERNAL$" name="UserName" label="{i18n>usrName}" visibleInFilterBar="true" class="searchFieldLabelHidden" >
-                <fb:control>
-                    <Input id="idUserName" placeholder="{i18n>EnterUsrNm}" showSuggestion="true" showValueHelp="false">
-                    </Input>
-                </fb:control>
-            </fb:FilterGroupItem>
-            <fb:FilterGroupItem groupName="__$INTERNAL$" name="FirstName" label="{i18n>firstName}" visibleInFilterBar="true" class="searchFieldLabelHidden" >
-                <fb:control>
-                    <Input id="idfrstName" placeholder="{i18n>EnterFrstNm}" showSuggestion="true" showValueHelp="false">
-                    </Input>
-                </fb:control>
-            </fb:FilterGroupItem>
+
             <fb:FilterGroupItem groupName="__$INTERNAL$" name="LastName" label="{i18n>lastName}" visibleInFilterBar="true" class="searchFieldLabelHidden">
                 <fb:control>
-                    <Input id="idlstName" placeholder="{i18n>EnterLstNm}" showValueHelp="false">
+                    <Input id="idlstName" liveChange="onFilterChange" placeholder="{i18n>EnterLstNm}" showValueHelp="false" suggestionItems="{/UserSet}" showSuggestion="true">
+                        <suggestionItems>
+                            <core:Item text="{LastName}"/>
+                        </suggestionItems>
                     </Input>
                 </fb:control>
             </fb:FilterGroupItem>
             <fb:FilterGroupItem groupName="__$INTERNAL$" name="Email" label="{i18n>email}" visibleInFilterBar="true" class="searchFieldLabelHidden">
                 <fb:control>
-                    <Input id="idEmail" placeholder="{i18n>EntrEmail}" showValueHelp="false">
+                    <Input id="idEmail" liveChange="onFilterChange" placeholder="{i18n>EntrEmail}" showValueHelp="false" suggestionItems="{/UserSet}" showSuggestion="true">
+                        <suggestionItems>
+                            <core:Item text="{Email}"/>
+                        </suggestionItems>
                     </Input>
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="createdAt" label="{i18n>createdAt}" visibleInFilterBar="true" class="searchFieldLabelHidden">
+                <fb:control>
+                    <DateRangeSelection id="dateRangeSelectionId" displayFormat="dd/MM/yyyy" change="onDateRangeSelectionChange"/>
                 </fb:control>
             </fb:FilterGroupItem>
             <!-- <fb:FilterGroupItem groupName="__$INTERNAL$" name="PlantCode" label="{i18n>PlantCode}" visibleInFilterBar="true" class="searchFieldLabelHidden">

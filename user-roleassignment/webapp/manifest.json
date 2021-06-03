@@ -120,9 +120,9 @@
                 },
                 {	
                     "name": "RouteUserRoleDetailPage",	
-                    "pattern": "PODetail/{BOQRequestId}",	
+                    "pattern": "UserDetail/{BOQRequestId}",	
                     "target": [	
-                        "TargetBOQDetailsPage"	
+                        "TargetUserDetailsPage"	
                     ]	
                 }
             ],
@@ -134,11 +134,11 @@
                     "viewId": "UserList",
                     "viewName": "UserList"
                 },
-                 "TargetBOQDetailsPage": {	
+                 "TargetUserDetailsPage": {	
                     "viewType": "XML",	
                     "transition": "slide",	
                     "clearControlAggregation": false,	
-                    "viewName": "BOQDetails",	
+                    "viewName": "UserDetails",	
                     "viewLevel": 2	
                 }	
             }
