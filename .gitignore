@@ -44,8 +44,27 @@ vendor-manageboq/.env1
 # auto generated wildcard
 vendor-manageboq/.env2
 # auto generated wildcard
+
+# auto generated wildcard
+agel-mmts-web/user-roleassignment/.env1
+=======
 vendorPersona/.env21
 
+<<<<<<< HEAD
 
 # auto generated wildcard
 agel-mmts-web/mdm-packinglisttype/.env1
+=======
+<<<<<<< HEAD
+
+# auto generated wildcard
+mdm-uom/.env2
+# auto generated wildcard
+mdm-packinglisttype/.env1
+=======
+>>>>>>> develop
+
+# auto generated wildcard
+user-roleassignment/.env2
+>>>>>>> develop
+>>>>>>> develop

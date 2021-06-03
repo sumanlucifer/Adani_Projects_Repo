@@ -19,6 +19,9 @@
             <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center">
                 <Text text="{i18n>orderUnit}"/>
             </Column>
+            <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center">
+                <Text text="{i18n>remarks}"/>
+            </Column>
         </columns>
         <items>
             <ColumnListItem>
@@ -28,6 +31,7 @@
                     <ExpandableText text="{Description}" maxCharacters="50" overflowMode="Popover"/>
                     <Text text="{Qty}"/>
                     <Text text="{UOM}"/>
+                    <ExpandableText text="{Remarks}" maxCharacters="50" overflowMode="Popover"/>
                 </cells>
             </ColumnListItem>
         </items>

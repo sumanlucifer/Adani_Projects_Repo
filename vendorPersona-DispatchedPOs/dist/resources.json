@@ -1,13 +1,13 @@
 {
     "resources": [
         {
-            "name": "manifest.json"
-        },
-        {
             "name": "controller/LandingPage.controller.js"
         },
         {
             "name": "model/models.js"
+        },
+        {
+            "name": "manifest.json"
         },
         {
             "name": "i18n/i18n.properties",
@@ -24,7 +24,11 @@
             "merged": true
         },
         {
+<<<<<<< HEAD
             "name": "controller/LandingPage-dbg.controller.js",
+=======
+            "name": "Component-dbg.js",
+>>>>>>> develop
             "isDebug": true
         },
         {
@@ -32,7 +36,7 @@
             "isDebug": true
         },
         {
-            "name": "Component-dbg.js",
+            "name": "model/models-dbg.js",
             "isDebug": true
         },
         {

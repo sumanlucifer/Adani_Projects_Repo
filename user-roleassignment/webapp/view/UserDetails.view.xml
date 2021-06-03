@@ -1,0 +1,140 @@
+<mvc:View xmlns:f2="sap.f"
+    xmlns:vbm="sap.ui.vbm"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:uxap="sap.uxap"
+    xmlns:layout="sap.ui.layout"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+    xmlns:unified="sap.ui.unified"
+    xmlns:tt="sap.ui.table"
+    xmlns:smartTable="sap.ui.comp.smarttable"
+    xmlns="sap.m" controllerName="com.agel.mmts.userroleassignment.controller.UserDetails"
+    xmlns:basicDetails="com.agel.mmts.userroleassignment.view.blocks.UserDetails.basicDetails"
+    xmlns:boqItemsTable="com.agel.mmts.userroleassignment.view.blocks.UserDetails.boqItemsTable.blocks" height="100%">
+    <uxap:ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true" upperCaseAnchorBar="false" 
+    headerContentPinnable="true" toggleHeaderOnTitleClick="true" busy="{objectViewModel>/busy}" showFooter="{objectViewModel>/showFooter}">
+        <uxap:headerTitle>
+            <uxap:ObjectPageDynamicHeaderTitle>
+                <uxap:breadcrumbs>
+                    <!-- <Breadcrumbs id="breadcrumbsId" currentLocationText="{i18n>confirmedPODetails}">
+                        <Link text="{i18n>assignedPOList}" press=".handleToAllPOBreadcrumPress"/>
+                    </Breadcrumbs> -->
+                </uxap:breadcrumbs>
+                <uxap:expandedHeading>
+                    <FlexBox direction="Column" renderType="Bare">
+                        <Title text="User Details" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
+                        <!-- <Title text="{ID}" wrapping="true" titleStyle="H3" /> -->
+                    </FlexBox>
+                </uxap:expandedHeading>
+                <uxap:snappedHeading>
+                    <FlexBox direction="Column" renderType="Bare">
+                        <Title text="User Details" wrapping="true" titleStyle="H4"/>
+                        <!-- <Title text="{ID}" wrapping="true" titleStyle="H3"/> -->
+                    </FlexBox>
+                </uxap:snappedHeading>
+                <uxap:expandedContent></uxap:expandedContent>
+                <uxap:snappedTitleOnMobile>
+                    <Title text="User Details" wrapping="true" titleStyle="Auto"/>
+                </uxap:snappedTitleOnMobile>
+                <uxap:actions>          
+                </uxap:actions>
+            </uxap:ObjectPageDynamicHeaderTitle>
+        </uxap:headerTitle>
+        <!-- <uxap:headerContent>
+            <layout:VerticalLayout>
+     			<ObjectStatus title="First Name" text="{FirstName}"/>
+				<ObjectStatus title="Last Name" text="{LastName}"/>
+				<ObjectStatus title="Email" text="{Email}"/>
+            </layout:VerticalLayout>
+            <layout:VerticalLayout>
+                <ObjectStatus title="Email" text="{Email}"/>
+                <ObjectStatus  title="{i18n>active}" text="{Active}" state="{= ${Active} === 'PENDING' ? 'Warning' : ${Active} === 'REJECTED' ? 'Error' : 'Success'}"/>
+            </layout:VerticalLayout>
+        </uxap:headerContent> -->
+        <uxap:headerContent>
+            <FlexBox wrap="Wrap" height="100%" renderType="Bare" direction="Column">
+                <VBox renderType="Bare">
+                    <FlexBox direction="Row" renderType="Bare" class="sapUiTinyMarginBottom">
+                        <VBox renderType="Bare" class="sapUiMediumMarginEnd">
+                            <Label text="First Name" />
+                            <Text text="{FirstName}"/>
+                        </VBox>
+                        
+                        <VBox renderType="Bare" class="sapUiMediumMarginEnd">
+                            <Label text="Last Name" />
+                            <Text text="{LastName}"/>
+                        </VBox>
+
+                        <VBox renderType="Bare" class="sapUiMediumMarginEnd">
+                            <Label text="Email" />
+                            <Link text="{Email}"/>
+                        </VBox>
+   
+                        <!-- <VBox renderType="Bare" class="sapUiMediumMarginEnd">
+                            <Label text="Created On" />
+                            <Text text="{path:'CreatedAt',
+                                     type: 'sap.ui.model.type.Date',
+				                     formatOptions: {
+				                        pattern: 'MMMM dd, yyyy'
+				                     }
+                            }"/>
+                        </VBox>
+
+                        <VBox renderType="Bare" class="sapUiMediumMarginEnd">
+                            <Label text="Updated On" />
+                            <Text text="{path:'UpdatedAt',
+                                     type: 'sap.ui.model.type.Date',
+				                     formatOptions: {
+				                        pattern: 'MMMM dd, yyyy'
+				                     }
+                            }"/>
+                        </VBox> -->
+
+                        <VBox renderType="Bare">
+                            <Label text="{i18n>active}" />
+                            <ObjectStatus text="{Active}" state="{= ${Active} === 'PENDING' ? 'Warning' : ${Active} === 'REJECTED' ? 'Error' : 'Success'}"/>
+                        </VBox>
+                        
+                    </FlexBox>
+                </VBox>
+            </FlexBox>
+        </uxap:headerContent>
+        <uxap:sections>
+
+        <!-- Basic Details Section -->
+
+        <uxap:ObjectPageSection titleUppercase="false" title="{i18n>basicDetails}">
+            <uxap:subSections>
+                <uxap:ObjectPageSubSection title="{i18n>basicDetails}" titleLevel="H6">
+                    <uxap:blocks>
+                        <basicDetails:BasicDetails class="sapUxAPObjectPageSubSectionAlignContent"/>
+                    </uxap:blocks>
+                </uxap:ObjectPageSubSection>
+            </uxap:subSections>
+        </uxap:ObjectPageSection>
+
+            <!-- Line Items Section -->
+
+            <!-- <uxap:ObjectPageSection titleUppercase="false" title="{i18n>lineItems}">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection title="{i18n>lineItems}">
+                        <uxap:blocks>
+                            <lineItemsForm:LineItemsForm class="sapUxAPObjectPageSubSectionAlignContent"/>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection> -->
+
+        </uxap:sections>
+        <uxap:footer>
+            <OverflowToolbar>
+            <ToolbarSpacer/>
+                <Button id="idBtnSave" text="Save" icon="sap-icon://save" press="onSave"
+                         type="Accept"  visible="{= ${objectViewModel>/idBtnSave}}"/>
+                <Button id="idBtnCancel" text="Cancel" icon="sap-icon://cancel" press="onCancel" 
+                                    visible="{= ${objectViewModel>/idBtnCancel}}"/>
+            </OverflowToolbar>
+        </uxap:footer>
+    </uxap:ObjectPageLayout>
+</mvc:View>

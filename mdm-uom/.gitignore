@@ -21,4 +21,8 @@ agel-mmts-web/vendor-manageboq/.env1
 agel-mmts-web/tcengineer/.env2
 
 # auto generated wildcard
+<<<<<<< HEAD
 agel-mmts-web/mdm-packinglisttype/.env1
+=======
+user-roleassignment/.env2
+>>>>>>> develop
