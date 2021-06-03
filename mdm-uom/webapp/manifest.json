@@ -11,6 +11,25 @@
         "description": "{{appDescription}}",
         "resources": "resources.json",
         "ach": "ach",
+        "sourceTemplate": {
+            "id": "html5moduletemplates.basicSAPUI5ApplicationProjectModule",
+            "version": "1.40.12"
+        },
+        "crossNavigation": {
+            "inbounds": {
+                "intent1": {
+                    "signature": {
+                        "parameters": {},
+                        "additionalParameters": "allowed"
+                    },
+                    "semanticObject": "uommaster",
+                    "action": "manage",
+                    "title": "Manage UOM",
+                    "subTitle": "",
+                    "icon": ""
+                }
+            }
+        },
         "dataSources": {
             "mainService": {
                 "uri": "/AGEL_MMTS_API/api/v2/odata.svc/",
@@ -18,21 +37,6 @@
                 "settings": {
                     "odataVersion": "2.0",
                     "localUri": "localService/metadata.xml"
-                }
-            }
-        },
-        "crossNavigation": {
-            "inbounds": {
-                "com-agel-mmts-mdmuom-inbound": {
-                    "signature": {
-                        "parameters": {},
-                        "additionalParameters": "allowed"
-                    },
-                    "semanticObject": "MDM",
-                    "action": "Manage",
-                    "title": "Manage UOM",
-                    "subTitle": "",
-                    "icon": ""
                 }
             }
         }
@@ -81,13 +85,13 @@
                 }
             },
             "": {
-                "type": "sap.ui.model.odata.v2.ODataModel",	
-                "settings": {	
-                    "defaultOperationMode": "Server",	
-                    "defaultBindingMode": "TwoWay",	
-                    "defaultCountMode": "Inline",	
-                    "refreshAfterChange": true,	
-                    "useBatch": false	
+                "type": "sap.ui.model.odata.v2.ODataModel",
+                "settings": {
+                    "defaultOperationMode": "Server",
+                    "defaultBindingMode": "TwoWay",
+                    "defaultCountMode": "Inline",
+                    "refreshAfterChange": true,
+                    "useBatch": false
                 },
                 "dataSource": "mainService",
                 "preload": true

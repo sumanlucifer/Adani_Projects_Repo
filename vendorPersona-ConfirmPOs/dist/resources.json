@@ -1,7 +1,8 @@
 {
     "resources": [
         {
-            "name": "index.html"
+            "name": "i18n/i18n.properties",
+            "raw": "i18n/i18n.properties"
         },
         {
             "name": "manifest.json"
@@ -44,8 +45,7 @@
             "name": "css/style.css"
         },
         {
-            "name": "i18n/i18n.properties",
-            "raw": "i18n/i18n.properties"
+            "name": "index.html"
         }
     ]
 }

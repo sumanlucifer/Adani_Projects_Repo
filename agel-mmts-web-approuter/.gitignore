@@ -36,3 +36,6 @@ vendorPersona/.env20
 agel-mmts-web/vendorPersona/.env17
 # auto generated wildcard
 tcengineer/.env1
+
+# auto generated wildcard
+agel-mmts-web/mdm-packinglisttype/.env1
