@@ -8,11 +8,6 @@ mta-*
 resources
 archive.zip
 # auto generated wildcard
-agel-mmts-web/vendorPersona/.env17
-# auto generated wildcard
-tcengineer/.env1
-
-# auto generated wildcard
 agel-mmts-web/user-roleassignment/.env1
 # auto generated wildcard
 user-roleassignment/.env2
