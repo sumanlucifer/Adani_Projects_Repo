@@ -139,6 +139,7 @@ sap.ui.define([
                         oDialog.bindElement({
                             path: "/MasterPackagingTypeSet",
                         }); 
+                        oDialog.addStyleClass("sapUiSizeCompact");
                         return oDialog;
                     });
                 }

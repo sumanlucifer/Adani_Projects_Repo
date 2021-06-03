@@ -39,6 +39,7 @@ sap.ui.define([
                     Remarks: "",
                     UOM: "",
                     MasterBOQItemId: "",
+                    masterUOMItemId:"",
                     UOMSuggestions: null
 
                 }]
@@ -92,6 +93,13 @@ sap.ui.define([
                 aRowCells = oEvent.getSource().getParent().getCells(),
                 sItemPath = oEvent.getSource().getBindingContext("ManageBOQModel").getPath();
 
+                 var sText = oEvent.getParameter("selectedItem").getText();
+                this.getView().getModel("ManageBOQModel").setProperty(sItemPath + "/Name", sText);
+
+                var sKey = oEvent.getParameter("selectedItem").getKey();
+                this.getView().getModel("ManageBOQModel").setProperty(sItemPath + "/MasterBOQItemId", sKey);
+                
+
             for (var i = 1; i < aRowCells.length; i++) {
                 if (aRowCells[i] instanceof sap.m.Text) {
                     var cellContextPath = aRowCells[i].data("p");
@@ -133,6 +141,7 @@ sap.ui.define([
                 Remarks: "",
                 UOM: "",
                 MasterBOQItemId: "",
+                MasterUOMItemId:"",
                 UOMSuggestions: null
             });
 
@@ -228,6 +237,7 @@ sap.ui.define([
             oPayload.ParentLineItemID = sParentID;
             oPayload.PCGroupItems = aPayloadSelectedItem;
             oPayload.VendorID = sVendorID;
+            debugger;
 
             this.mainModel.create("/PCGroupItemListSet", oPayload, {
                 success: function (oData, oResponse) {
@@ -279,13 +289,15 @@ sap.ui.define([
             else
                 this.getViewModel("boqCreationModel").setProperty("/isConfirmButtonEnabled", false);
 
-            if (parseInt(oEvent.getSource().getValue()) > parseInt(oPOData.Quantity)) {
+            if (parseInt(oEvent.getSource().getValue()) > parseInt(oPOData.PendingQty)) {
                 this.getViewModel("boqCreationModel").setProperty("/valueState", "Error");
-                this.getViewModel("boqCreationModel").setProperty("/valueStateText", "BOQ quantity should not exceed PO Material quantity.");
+                this.getViewModel("boqCreationModel").setProperty("/valueStateText", "BOQ quantity should not exceed PO's pending quantity.");
+                this.getViewModel("boqCreationModel").setProperty("/isConfirmButtonEnabled", false);
             }
             else {
                 this.getViewModel("boqCreationModel").setProperty("/valueState", null);
                 this.getViewModel("boqCreationModel").setProperty("/valueStateText", "");
+                this.getViewModel("boqCreationModel").setProperty("/isConfirmButtonEnabled", true);
             }
         },
 
@@ -384,7 +396,8 @@ sap.ui.define([
                 boqItem.Remarks = data[i].Remarks;
                 boqItem.UOM = data[i].UOM;
                 boqItem.MasterBOQItemId = data[i].MasterBOQItemId,
-                    boqItem.UOMSuggestions = null;
+                boqItem.masterUOMItemId=data[i].MasterUOMItemId,
+                boqItem.UOMSuggestions = null;
                 aBOQItems.push(boqItem);
                 this._getUOMSuggestions(aBOQItems, data, i);
             }
@@ -399,7 +412,7 @@ sap.ui.define([
             var details = {};
             details.path = path;
             details.aBOQItems = aBOQItems;
-            var oBindingContextPath = "/MasterBoQItemSet(" + data[path].Name + ")/UOMs";
+            var oBindingContextPath = "/MasterBoQItemSet(" + data[path].MasterBOQItemId + ")/UOMs";
             oModel.read(oBindingContextPath, {
                 success: function (details, oData, oResponse) {
                     details.aBOQItems[details.path].UOMSuggestions = oData.results;

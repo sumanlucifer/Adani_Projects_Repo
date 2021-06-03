@@ -4,13 +4,13 @@
             "name": "index.html"
         },
         {
-            "name": "manifest.json"
+            "name": "controller/LandingPage.controller.js"
         },
         {
             "name": "model/models.js"
         },
         {
-            "name": "controller/LandingPage.controller.js"
+            "name": "manifest.json"
         },
         {
             "name": "Component.js"

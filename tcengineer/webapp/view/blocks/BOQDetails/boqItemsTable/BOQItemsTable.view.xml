@@ -5,7 +5,7 @@
     xmlns:smartTable="sap.ui.comp.smarttable"
     xmlns:tt="sap.ui.table" controllerName="com.agel.mmts.tcengineer.view.blocks.BOQDetails.boqItemsTable.BOQItemsTableController">
 
-    <Table id="idBOQItemTable" items="{path: 'BOQGroup/BOQItems'}" autoPopinMode="true" growingThreshold="3" growing="true">
+    <Table id="idBOQItemTable" items="{path: 'BOQGroup/BOQItems'}" autoPopinMode="true" growingThreshold="5" growing="true" fixedLayout="false">
         <headerToolbar>
             <OverflowToolbar >
                 <content>
@@ -34,6 +34,9 @@
             <Column>
                 <Text text="Order Unit"/>
             </Column>
+            <Column>
+                <Text text="Remarks"/>
+            </Column>
             <!-- <Column>
                 <Text text="Name"/>
             </Column> -->
@@ -43,9 +46,10 @@
                 <cells>
                     <ObjectIdentifier title="{MaterialCode}"/>
                     <Text text="{Name}"/>
-                     <ExpandableText text="{Description}" overflowMode="InPlace" maxCharacters="50" />
+                    <ExpandableText text="{Description}" overflowMode="InPlace" maxCharacters="50" />
                     <Text text="{Qty}"/>
                     <Text text="{UOM}"/>
+                    <ExpandableText text="{Remarks}" overflowMode="InPlace" maxCharacters="50" />
                     <!-- <Text text="{path:'CreatedAt',
                                      type: 'sap.ui.model.type.Date',
 				                     formatOptions: {

@@ -1,6 +1,6 @@
 specVersion: '1.0'
 metadata:
-  name: 'mdm-packinglisttype'
+  name: mdm-packinglisttype
 type: application
 resources:
   configuration:

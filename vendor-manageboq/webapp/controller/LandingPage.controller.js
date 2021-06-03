@@ -27,10 +27,11 @@ sap.ui.define([
                 this.getView().getModel("layoutModel").setProperty("/layout", sLayout);
                 //this._bindView("/ParentLineItemSet" + this.sParentID);
                 var poNumber;
-                /* var startupParams = this.getOwnerComponent().getComponentData().startupParameters; // get Startup params from Owner Component
+                var startupParams = this.getOwnerComponent().getComponentData().startupParameters; 
+                // get Startup params from Owner Component
                 if ((startupParams.poNumber && startupParams.poNumber[0])) {
                     this.recievedPONumber = startupParams.poNumber;
-                } */
+                }
             },
 
             onUpdateListFinished: function (oEvent) {
@@ -39,7 +40,7 @@ sap.ui.define([
                 if (this.recievedPONumber) {
                     aFilter.push(new Filter("PONumber", FilterOperator.EQ, this.recievedPONumber));
                 }
-                //oBinding.filter(aFilter);
+                oBinding.filter(aFilter);
             },
 
             //triggers on press of a PO cheveron item from the list
