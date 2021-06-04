@@ -68,3 +68,6 @@ mdm-packinglisttype/.env1
 user-roleassignment/.env2
 >>>>>>> develop
 >>>>>>> develop
+
+# auto generated wildcard
+agel-mmts-web/vendor-managemdcc/.env1

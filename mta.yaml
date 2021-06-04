@@ -143,8 +143,11 @@ modules:
     - artifacts:
       - mdm-boqitems-content.zip
       name: mdm-boqitems
-      target-path: resources/   
-         
+      target-path: resources/
+    - artifacts:
+      - comagelmmtsvendormanagemdcc.zip
+      name: comagelmmtsvendormanagemdcc
+      target-path: resources/
 - name: vendorPersona
   type: html5
   path: vendorPersona
@@ -379,16 +382,25 @@ modules:
     builder: custom
     commands:
     - npm run build
-    supported-platforms: [] 
-- name: mdm-boqitems 
+    supported-platforms: []
+- name: mdm-boqitems
   type: html5
-  path: mdm-boqitems 
+  path: mdm-boqitems
   build-parameters:
     builder: custom
     commands:
     - npm run build
-    supported-platforms: []    
-
+    supported-platforms: []
+- name: comagelmmtsvendormanagemdcc
+  type: html5
+  path: vendor-managemdcc
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
 resources:
 - name: uaa_agel-mmts-web
   type: org.cloudfoundry.managed-service
@@ -431,6 +443,7 @@ resources:
     service-plan: lite
 parameters:
   -enable-parallel-deployments: true
+  deploy_mode: html5-repo
 build-parameters:
   before-all:
   - builder: custom
