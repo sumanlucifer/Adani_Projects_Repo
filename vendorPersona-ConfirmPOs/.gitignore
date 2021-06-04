@@ -26,3 +26,6 @@ agel-mmts-web/tcengineer/.env2
 
 # auto generated wildcard
 user-roleassignment/.env2
+
+# auto generated wildcard
+vendorPersona/.env10
