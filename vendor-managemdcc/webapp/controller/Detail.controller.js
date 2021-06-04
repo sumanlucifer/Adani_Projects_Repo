@@ -135,6 +135,28 @@ sap.ui.define([
             }
         },
 
+        // on Add Item Press
+        onAddItemPress: function (oEvent) {
+            var oModel = this.getViewModel("ParentItemModel");
+            var oItems = oModel.getProperty("/").map(function (oItem) {
+                return Object.assign({}, oItem);
+            });
+
+            oItems.push({
+                Name: "",
+                MaterialCode: "",
+                Description: "",
+                Qty: "",
+                MDCCApprovedQty1:"",
+                UOM: "",
+            //    Remarks: "",
+             //   MasterBOQItemId: "",
+              //  MasterUOMItemId:"",
+              //  UOMSuggestions: null
+            });
+            
+            oModel.setProperty("/boqItems", oItems);
+        },
         // On Save Press Button
         onSave: function () {
             var that = this;

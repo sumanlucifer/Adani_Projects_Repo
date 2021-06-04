@@ -12,7 +12,7 @@
 		<uxap:headerTitle>
 			<uxap:ObjectPageDynamicHeaderTitle>
 				<uxap:expandedHeading>
-					<Title text="{Name}" wrapping="true" titleStyle="H3" />
+					<Title text="{InspectionCall/InspectedParentItems/Name}" wrapping="true" titleStyle="H3" />
 				</uxap:expandedHeading>
 				<uxap:expandedContent></uxap:expandedContent>
 				<uxap:snappedTitleOnMobile>
@@ -57,10 +57,10 @@
 									<Text text="{i18n>description}"/>
 								</Column>
                                 <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center">
-									<Text text="{i18n>approvedQuantity}" />
+									<Text text="{i18n>quantity}" />
 								</Column>
 								<Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center">
-									<Text text="{i18n>quantity}" />
+									<Text text="{i18n>approvedQuantity}" />
 								</Column>								
 								<Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center">
 									<Text text="{i18n>orderUnit}"/>
@@ -72,8 +72,8 @@
 										<ObjectIdentifier title="{ParentItemModel>MaterialCode}"/>
 										<Text text="{ParentItemModel>Name}" wrappingType="Hyphenated"/>
 										<ExpandableText text="{ParentItemModel>Description}" maxCharacters="20" overflowMode="Popover"/>
-										<Text text="{ParentItemModel>MDCCApprovedQty}"/>
-										<Input value="{ParentItemModel>QtY}" width="30%" type="Number" enabled="false"/>
+										<Text text="{ParentItemModel>Qty}"/>
+										<Input value="{ParentItemModel>MDCCApprovedQty1}" width="30%" type="Number" enabled="false"/>
 										<Text text="{ParentItemModel>UOM}"/>
 									</cells>
 								</ColumnListItem>

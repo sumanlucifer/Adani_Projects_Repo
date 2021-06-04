@@ -19,9 +19,25 @@
 							icon="sap-icon://action-settings" type="Transparent"/><Button icon="sap-icon://add" 
                             press="onCreatePress"/></OverflowToolbar></headerToolbar><items><StandardListItem title="{Name}" description="{Description}"
                 type="Navigation" press="onPackingListTypePress"/></items></List>-->
-			<Table width="auto" growing="true" id="idViewBOQLineItemsTable" 
-            growingThreshold="2" items="{path: 'InspectionCall/InspectedParentItems'}" 
-            class="sapUiResponsiveMargin" fixedLayout="false" >
+			<Table width="auto" growing="true" id="idViewMDCCLineItemsTable" 
+              growingThreshold="10" items="{path: 'InspectionCall/InspectedParentItems'}" 
+              class="sapUiResponsiveMargin" fixedLayout="false" >
+                <headerToolbar>
+					<OverflowToolbar>
+                        <Title id="idTitle" text="{i18n>mdccList}"/>
+                        <ToolbarSpacer/>
+						<SearchField id="searchField" showRefreshButton="true"
+							tooltip="{i18n>masterSearchTooltip}" search=".onSearch" width="auto">
+							<layoutData>
+								<OverflowToolbarLayoutData minWidth="150px"
+									maxWidth="240px" shrinkable="true"
+									priority="NeverOverflow"/>
+							</layoutData>
+						</SearchField>
+						<Button id="groupButton" press=".onOpenViewSettings"
+							icon="sap-icon://action-settings" type="Transparent"/>
+					</OverflowToolbar>
+				</headerToolbar>
 				<columns>
 					<Column>
 						<Text text="{i18n>materialCode}" wrapping="true" wrappingType="Hyphenated"/>

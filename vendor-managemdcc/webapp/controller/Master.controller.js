@@ -129,7 +129,7 @@ sap.ui.define([
             onSearch : function(oEvent){
 
                 var oView = this.getView();
-                var oList = oView.byId("idListMaster");
+                var oList = oView.byId("idViewMDCCLineItemsTable");
                 var oValue = oView.byId("searchField").getValue();
                 var oBinding = oList.getBinding("items");
                 var aFilters=[];
@@ -140,9 +140,9 @@ sap.ui.define([
                    // new sap.ui.model.Filter("ID", FilterOperator.EQ, oValue)
                 ];
                 
-             /* if (!isNaN(oValue)) {
-                    aSearchFilters.push(new sap.ui.model.Filter("ID", FilterOperator.EQ, oValue));
-                } */
+              if (!isNaN(oValue)) {
+                    aSearchFilters.push(new sap.ui.model.Filter("MaterialCode", FilterOperator.EQ, oValue));
+              } 
 
                 aFilters.push(new Filter(aSearchFilters, false));
                 if (aFilters.length > 0) {
@@ -162,6 +162,7 @@ sap.ui.define([
             // Child Line Items Dialog Open
             onOpenViewSettings: function (sParentItemPath) {
                 // create dialog lazily
+                var that = this;
                 var oDetails = {};
                 oDetails.controller = this;
                 oDetails.view = this.getView();
@@ -169,13 +170,13 @@ sap.ui.define([
                 if (!this.pDialog) {
                     this.pDialog = Fragment.load({
                         id: oDetails.view.getId(),
-                        name: "com.agel.mmts.mdmpackinglisttype.view.fragments.FilterSortGroup",
+                        name: "com.agel.mmts.vendormanagemdcc.view.fragments.FilterSortGroup",
                         controller: oDetails.controller
                     }).then(function (oDialog) {
                         // connect dialog to the root view of this component (models, lifecycle)
                         oDetails.view.addDependent(oDialog);
                         oDialog.bindElement({
-                            path: "/MasterPackagingTypeSet",
+                            path: "/MDCCSet(" + that.mdccID + ")/InspectionCall/InspectedParentItems",
                         }); 
                         oDialog.addStyleClass("sapUiSizeCompact");
                         return oDialog;
@@ -184,7 +185,10 @@ sap.ui.define([
                 this.pDialog.then(function (oDialog) {
                     oDetails.view.addDependent(oDialog);
                     oDialog.bindElement({
-                        path: "/MasterPackagingTypeSet",
+                        path: "/MDCCSet(" + that.mdccID + ")/InspectionCall/InspectedParentItems"
+                    });
+                    oDialog.bindFilterItems({
+                        path: "/MDCCSet(" + that.mdccID + ")/InspectionCall/InspectedParentItems"
                     }); 
                     oDialog.open();
                 });
@@ -198,7 +202,7 @@ sap.ui.define([
 
             onFilterSortConfirm: function(oEvent) {
                 var oView = this.getView();
-                var oList = oView.byId("idListMaster");
+                var oList = oView.byId("idViewMDCCLineItemsTable");
                 var mParams = oEvent.getParameters();
                 var oBinding = oList.getBinding("items");
                 // apply grouping 
