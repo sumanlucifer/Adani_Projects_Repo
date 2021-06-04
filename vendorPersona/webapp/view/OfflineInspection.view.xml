@@ -1,0 +1,92 @@
+<mvc:View xmlns:vbm="sap.ui.vbm"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:uxap="sap.uxap"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+    xmlns:unified="sap.ui.unified"
+    xmlns:tt="sap.ui.table"
+    xmlns:smartTable="sap.ui.comp.smarttable"
+    xmlns="sap.m" controllerName="com.agel.mmts.vendorPersona.controller.OfflineInspection" height="100%">
+    <uxap:ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true" upperCaseAnchorBar="false" headerContentPinnable="true" toggleHeaderOnTitleClick="true" busy="{objectViewModel>/busy}">
+        <uxap:headerTitle>
+            <uxap:ObjectPageDynamicHeaderTitle>
+                <uxap:breadcrumbs>
+                    <Breadcrumbs id="breadcrumbsId" currentLocationText="{i18n>offlineInspectionCall}">
+                        <Link text="{i18n>assignedPOList}" press=".handleToAllPOBreadcrumPress"/>
+                        <Link text="{i18n>PODetails}" press=".handleToAllPOBreadcrumPress"/>
+                    </Breadcrumbs>
+                </uxap:breadcrumbs>
+                <uxap:expandedHeading>
+                    <Title text="{i18n>offlineInspectionCall}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
+                </uxap:expandedHeading>
+                <uxap:snappedHeading>
+                    <Title text="{i18n>offlineInspectionCall}" wrapping="true" titleStyle="H4"/>
+                </uxap:snappedHeading>
+                <uxap:expandedContent></uxap:expandedContent>
+                <uxap:snappedTitleOnMobile>
+                    <Title text="{i18n>offlineInspectionCall}- {PONumber}" wrapping="true" titleStyle="Auto"/>
+                </uxap:snappedTitleOnMobile>
+                <uxap:actions>
+                    <Button text="{i18n>close}"></Button>
+                    <Button text="{i18n>save}" type="Emphasized" press="onSaveButtonPress"></Button>
+                </uxap:actions>
+            </uxap:ObjectPageDynamicHeaderTitle>
+        </uxap:headerTitle>
+        <uxap:headerContent>
+            <FlexBox wrap="Wrap" height="100%" renderType="Bare" direction="Column">
+                <VBox renderType="Bare" class="sapUiMediumMarginEnd">
+                    <Label text="{i18n>poNumber}" />
+                    <!-- missing -->
+                    <Text text="{PONumber}"/>
+                </VBox>
+            </FlexBox>
+        </uxap:headerContent>
+        <uxap:sections>
+            <!-- Basic Details Section -->
+            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>basicDetails}">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection title="{i18n>buyerDetails}">
+                       
+                            <Table id="idParentItemTable" width="auto" growing="true" growingThreshold="5" items="{path: 'ParentItemModel>/'}" fixedLayout="false" mode="MultiSelect" selectionChange="onSelectionChange">
+                                <columns>
+                                    <Column importance="High">
+                                        <Text text="{i18n>materialCode}" wrapping="true" wrappingType="Hyphenated"/>
+                                    </Column>
+                                    <Column>
+                                        <Text text="Name" wrapping="true"/>
+                                    </Column>
+                                    <Column demandPopin="true" minScreenWidth="Desktop">
+                                        <Text text="{i18n>description}"/>
+                                    </Column>
+                                    <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center">
+                                        <Text text="{i18n>quantity}" />
+                                    </Column>
+                                     <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center">
+                                        <Text text="{i18n>inspectionQuantity}" />
+                                    </Column>
+                                    <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center">
+                                        <Text text="{i18n>orderUnit}"/>
+                                    </Column>
+                                </columns>
+                                <items>
+                                    <ColumnListItem>
+                                        <cells>
+                                            <ObjectIdentifier title="{ParentItemModel>MaterialCode}"/>
+                                            <Text text="{ParentItemModel>Name}" wrappingType="Hyphenated"/>
+                                            <ExpandableText text="{ParentItemModel>Description}" maxCharacters="20" overflowMode="Popover"/>
+                                            <Text text="{ParentItemModel>Quantity}"/>
+                                            <Input value="{ParentItemModel>inspectionQuantity}" width="30%" type="Number" enabled="false"/>
+                                            <Text text="{ParentItemModel>UoM}"/>
+                                        </cells>
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
+                       
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+        </uxap:sections>
+    </uxap:ObjectPageLayout>
+</mvc:View>

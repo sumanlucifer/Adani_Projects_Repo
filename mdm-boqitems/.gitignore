@@ -1,0 +1,15 @@
+node_modules/
+dist/
+.scp/
+.env
+Makefile*.mta
+mta_archives
+mta-*
+resources
+archive.zip
+# auto generated wildcard
+vendor-manageboq/.env1
+# auto generated wildcard
+agel-mmts-web/user-roleassignment/.env1
+# auto generated wildcard
+user-roleassignment/.env2

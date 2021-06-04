@@ -18,6 +18,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller"], function (Controller) {
             // The source is the list item that got pressed
             this._showObject(oEvent.getSource());
         },
+        
 
         // On Show Object - Navigation
         _showObject: function (oItem) {
@@ -28,5 +29,13 @@ sap.ui.define(["sap/ui/core/mvc/Controller"], function (Controller) {
                     inspectionID: sPath.slice("/InspectionCallIdSet".length) // /PurchaseOrders(123)->(123)
             });
         },
+
+        onOfflineInspectionPress: function(oEvent){
+            var POId = this.getView().getBindingContext().getObject().ID;
+            this.oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+            this.oRouter.navTo("RouteCreateOfflineInspection", {
+                POId: POId
+            });
+        }
     });
 });

@@ -34,10 +34,12 @@ sap.ui.define([
                 boqItems: [{
                     Name: "",
                     MaterialCode: "",
-                    Description:"",
+                    Description: "",
                     Qty: "",
                     Remarks: "",
                     UOM: "",
+                    MasterBOQItemId: "",
+                    masterUOMItemId:"",
                     UOMSuggestions: null
 
                 }]
@@ -50,7 +52,7 @@ sap.ui.define([
         _onObjectMatched: function (oEvent) {
             this.sParentID = oEvent.getParameter("arguments").parentMaterial;
             var sLayout = oEvent.getParameter("arguments").layout;
-            if(sLayout == 'TwoColumnsMidExpanded'){
+            if (sLayout == 'TwoColumnsMidExpanded') {
                 this.byId("idViewBOQListButton").setPressed(false);
                 this.getViewModel("objectViewModel").setProperty("/sViewBOQButtonName", "View BOQ List");
             }
@@ -77,6 +79,12 @@ sap.ui.define([
             });
         },
 
+        onUOMSelected: function (oEvent) {
+            var sItemPath = oEvent.getSource().getBindingContext("ManageBOQModel").getPath();
+            var sText = oEvent.getParameter("selectedItem").getText();
+            this.getView().getModel("ManageBOQModel").setProperty(sItemPath + "/UOM", sText);
+        },
+
         onBOQItemSelected: function (oEvent) {
             //this.getViewModel("UOMSuggestionModel").setData(null);
             var userObj = oEvent.getParameter("selectedItem").getBindingContext().getObject(),
@@ -84,6 +92,13 @@ sap.ui.define([
                 oBindingContextPath = oEvent.getSource().getSelectedItem().getBindingContext().getPath(),
                 aRowCells = oEvent.getSource().getParent().getCells(),
                 sItemPath = oEvent.getSource().getBindingContext("ManageBOQModel").getPath();
+
+                 var sText = oEvent.getParameter("selectedItem").getText();
+                this.getView().getModel("ManageBOQModel").setProperty(sItemPath + "/Name", sText);
+
+                var sKey = oEvent.getParameter("selectedItem").getKey();
+                this.getView().getModel("ManageBOQModel").setProperty(sItemPath + "/MasterBOQItemId", sKey);
+                
 
             for (var i = 1; i < aRowCells.length; i++) {
                 if (aRowCells[i] instanceof sap.m.Text) {
@@ -121,10 +136,12 @@ sap.ui.define([
             oItems.push({
                 Name: "",
                 MaterialCode: "",
-                Description:"",
+                Description: "",
                 Qty: "",
                 Remarks: "",
                 UOM: "",
+                MasterBOQItemId: "",
+                MasterUOMItemId:"",
                 UOMSuggestions: null
             });
 
@@ -137,8 +154,8 @@ sap.ui.define([
             oDetails.controller = this;
             oDetails.view = this.getView();
             oDetails.sItemPath = sItemPath;
-            if (!this.pDialog) {
-                this.pDialog = Fragment.load({
+            if (!this.addRemarksDialog) {
+                this.addRemarksDialog = Fragment.load({
                     id: oDetails.view.getId(),
                     name: "com.agel.mmts.vendormanageboq.view.fragments.manageBOQ.AddRemarks",
                     controller: oDetails.controller
@@ -152,7 +169,7 @@ sap.ui.define([
                     return oDialog;
                 });
             }
-            this.pDialog.then(function (oDialog) {
+            this.addRemarksDialog.then(function (oDialog) {
                 oDetails.view.addDependent(oDialog);
                 oDialog.bindElement({
                     path: oDetails.sItemPath
@@ -173,7 +190,7 @@ sap.ui.define([
 
         onCloseRemarkPopupPress: function (oEvent) {
             var that = this;
-            this.pDialog.then(function (oDialog) {
+            this.addRemarksDialog.then(function (oDialog) {
                 //that.byId("idRemarksTextArea").setValue(null);
                 oDialog.close();
             });
@@ -214,13 +231,13 @@ sap.ui.define([
             var aPayloadSelectedItem = aTableData;
             aPayloadSelectedItem.forEach(element => {
                 delete element.UOMSuggestions;
-                delete element.Remarks;
             });
             var sVendorID = "1";
             var sParentID = this.getView().getBindingContext().getObject().ID;
             oPayload.ParentLineItemID = sParentID;
             oPayload.PCGroupItems = aPayloadSelectedItem;
             oPayload.VendorID = sVendorID;
+            debugger;
 
             this.mainModel.create("/PCGroupItemListSet", oPayload, {
                 success: function (oData, oResponse) {
@@ -248,9 +265,9 @@ sap.ui.define([
         },
 
         onCreateBOQPress: function (oEvent) {
-            var oSelectedItemData = this.byId("idPCListTable").getSelectedItem().getBindingContext().getObject();
+            var isMaterialStandAlone = this.getViewModel("objectViewModel").getProperty("/noParentChildRelationFlag");
             var boqCreationModel = new JSONModel({
-                selectedItemData: oSelectedItemData,
+                selectedItemData: isMaterialStandAlone ? null : this.byId("idPCListTable").getSelectedItem().getBindingContext().getObject(),
                 quantity: null,
                 isConfirmButtonEnabled: false,
                 valueState: null,
@@ -272,13 +289,15 @@ sap.ui.define([
             else
                 this.getViewModel("boqCreationModel").setProperty("/isConfirmButtonEnabled", false);
 
-            if (parseInt(oEvent.getSource().getValue()) > parseInt(oPOData.Quantity)) {
+            if (parseInt(oEvent.getSource().getValue()) > parseInt(oPOData.PendingQty)) {
                 this.getViewModel("boqCreationModel").setProperty("/valueState", "Error");
-                this.getViewModel("boqCreationModel").setProperty("/valueStateText", "BOQ quantity should not exceed PO Material quantity.");
+                this.getViewModel("boqCreationModel").setProperty("/valueStateText", "BOQ quantity should not exceed PO's pending quantity.");
+                this.getViewModel("boqCreationModel").setProperty("/isConfirmButtonEnabled", false);
             }
             else {
                 this.getViewModel("boqCreationModel").setProperty("/valueState", null);
                 this.getViewModel("boqCreationModel").setProperty("/valueStateText", "");
+                this.getViewModel("boqCreationModel").setProperty("/isConfirmButtonEnabled", true);
             }
         },
 
@@ -288,29 +307,40 @@ sap.ui.define([
 
         onConfirmCreateBOQPress: function (oEvent) {
             this._oBOQCreationDialog.close();
+            var isMaterialStandAlone = this.getViewModel("objectViewModel").getProperty("/noParentChildRelationFlag");
             var sQuantity = this.getViewModel("boqCreationModel").getProperty("/quantity");
-            var oSelectedItemData = this.byId("idPCListTable").getSelectedItem().getBindingContext().getObject();
             var oModel = this.getComponentModel();
+            if (sQuantity !== "0" ) {
+                if (isMaterialStandAlone) {
+                    var oPayload = {
+                        "QTY": parseInt(sQuantity),
+                        "PCGroupId": 0,
+                        "ParentLineItemId": this.getView().getBindingContext().getObject().ID,
+                        "IsOne2OneLineItem":true
+                    };
+                    sap.m.MessageBox.error("PC List created with no Quantity!");
+                } else {
+                    var oSelectedItemData = this.byId("idPCListTable").getSelectedItem().getBindingContext().getObject();
 
-            if (sQuantity !== "0")
-                var oPayload = {
-                    "QTY": parseInt(sQuantity),
-                    "PCGroupId": parseInt(oSelectedItemData.ID),
-                    "ParentLineItemId": parseInt(oSelectedItemData.ParentLineItemID)
-                };
-            else
-                sap.m.MessageBox.error("PC List created with no Quantity!");
-
-            if (oPayload) {
-                oModel.create("/BOQCalculationSet", oPayload, {
-                    success: function (oData) {
-                        sap.m.MessageBox.success(oData.Message);
-                        this.getComponentModel().refresh();
-                    }.bind(this),
-                    error: function (oError) {
-                        sap.m.MessageBox.error(JSON.stringify(oError));
-                    }
-                });
+                    var oPayload = {
+                        "QTY": parseInt(sQuantity),
+                        "PCGroupId": parseInt(oSelectedItemData.ID),
+                        "ParentLineItemId": parseInt(oSelectedItemData.ParentLineItemID)
+                    };
+                }
+                if (oPayload) {
+                    oModel.create("/BOQCalculationSet", oPayload, {
+                        success: function (oData) {
+                            sap.m.MessageBox.success(oData.Message);
+                            this.getComponentModel().refresh();
+                        }.bind(this),
+                        error: function (oError) {
+                            sap.m.MessageBox.error(JSON.stringify(oError));
+                        }
+                    });
+                }
+            } else {
+                sap.m.MessageBox.error("Please ")
             }
 
         },
@@ -348,45 +378,50 @@ sap.ui.define([
                     }
                 }.bind(this),
                 error: function (oError) {
-                    debugger;
+                    sap.m.MessageBox.error(JSON.stringify(oError));
                 }
             });
 
         },
 
         _setDataInTable: function (data) {
-            var boqItem = {};
             var aBOQItems = [];
 
             for (var i = 0; i < data.length; i++) {
+                var boqItem = {};
                 boqItem.MaterialCode = data[i].MaterialCode;
                 boqItem.Name = data[i].Name;
                 boqItem.Qty = data[i].Qty;
-                boqItem.Remarks = ""
+                boqItem.Description = data[i].Description;
+                boqItem.Remarks = data[i].Remarks;
                 boqItem.UOM = data[i].UOM;
+                boqItem.MasterBOQItemId = data[i].MasterBOQItemId,
+                boqItem.masterUOMItemId=data[i].MasterUOMItemId,
                 boqItem.UOMSuggestions = null;
-
                 aBOQItems.push(boqItem);
+                this._getUOMSuggestions(aBOQItems, data, i);
             }
-            this._getUOMSuggestions(aBOQItems, data);
+
             this.getViewModel("ManageBOQModel").setProperty("/boqItems", aBOQItems);
             this.getViewModel("objectViewModel").setProperty("/isCreatingPCList", true);
         },
 
-        _getUOMSuggestions: function (aBOQItems, data) {
+        _getUOMSuggestions: function (aBOQItems, data, path) {
             var oModel = this.getView().getModel();
-            this.suggestions = [];
-            for (var i = 0; i < aBOQItems.length; i++) {
-                var oBindingContextPath = "/MasterBoQItemSet(" + data[i].ID + ")/UOMs";
-                oModel.read(oBindingContextPath, {
-                    success: function (oData, oResponse) {
-                        this.suggestions.push(oData.results);
-                    }.bind(this),
-                    error: function (oError) {
-                        sap.m.MessageBox.error("Error fetching UOMs");
-                    }
-                });
-            }
+            //this.suggestions = [];
+            var details = {};
+            details.path = path;
+            details.aBOQItems = aBOQItems;
+            var oBindingContextPath = "/MasterBoQItemSet(" + data[path].MasterBOQItemId + ")/UOMs";
+            oModel.read(oBindingContextPath, {
+                success: function (details, oData, oResponse) {
+                    details.aBOQItems[details.path].UOMSuggestions = oData.results;
+                    this.getViewModel("ManageBOQModel").refresh();
+                }.bind(this, details),
+                error: function (oError) {
+                    sap.m.MessageBox.error("Error fetching UOMs");
+                }
+            });
         },
 
         onViewChildItemsPress: function (oEvent) {

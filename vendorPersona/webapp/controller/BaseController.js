@@ -78,7 +78,8 @@ sap.ui.define([
             var oBasicSearch;
             if (!oSearchField) {
                 // @ts-ignore   
-                oBasicSearch = new sap.m.SearchField({ id: "idSearch", showSearchButton: false });
+                oBasicSearch = new sap.m.SearchField({ id: "idSearch", showSearchButton: false ,
+                                                        placeholder:"Search"});
                 oBasicSearch.attachLiveChange(this.onFilterChange, this);
             } else {
                 oSearchField = null;

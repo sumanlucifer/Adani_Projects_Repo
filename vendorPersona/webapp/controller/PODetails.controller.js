@@ -164,8 +164,22 @@ sap.ui.define([
             });
         },
 
+        onConfirmPO: function () {
+            var poNumber = this.getView().getBindingContext().getObject().PONumber;
+			MessageBox.confirm("Do you want to confirm purchase order "+poNumber +"?", {
+                styleClass: "sapUiResponsivePadding--header sapUiResponsivePadding--content sapUiResponsivePadding--footer",
+				actions: [MessageBox.Action.OK, MessageBox.Action.CANCEL],
+				emphasizedAction: MessageBox.Action.OK,
+				onClose: function (sAction) {
+					if(sAction == "OK"){
+                        this.confirmPO();
+                    }
+				}.bind(this)
+			});
+		},
 
-        onConfirmPO: function (oEvent) {
+
+        confirmPO: function (oEvent) {
             var sPath = this.getView().getBindingContext().getPath();
             var oPayload = {
                 "Status":"CONFIRMED"
@@ -173,7 +187,7 @@ sap.ui.define([
 
             this.getComponentModel().update(sPath, oPayload,{
                 success: function(oData, oResponse){
-                    sap.m.MessageBox.success("Purchase order has been confirmed!");
+                    sap.m.MessageBox.success("Purchase order has been confirmed! Please raise the inspection call through SIMS portal.");
                     this.getComponentModel().refresh();
                 }.bind(this),
                 error: function(oError){
@@ -327,6 +341,7 @@ sap.ui.define([
             mBindingParams.parameters["navigation"] = { "ParentLineItemSet": "BOQGroups" };
             mBindingParams.parameters["treeAnnotationProperties"] = { "hierarchyLevelFor": 'HierarchyLevel', "hierarchyNodeFor": 'ID', "hierarchyParentNodeFor": 'ParentNodeID' };
             mBindingParams.filters.push(new sap.ui.model.Filter("PONumber", sap.ui.model.FilterOperator.EQ, sPONumber));
+            //mBindingParams.sorter.push(new sap.ui.model.Sorter("CreatedAt", true));
         },
 
         onBeforeShow: function (evt) {

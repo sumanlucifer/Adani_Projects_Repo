@@ -118,7 +118,7 @@ sap.ui.define([
             oPayload.Description = Description;
 
             if (this.sParentID === "new") {
-                MessageBox.confirm("Do you want crate new packing list type ?",{
+                MessageBox.confirm("Do you want create UOM "+ Name +" ?",{
 				    icon: MessageBox.Icon.INFORMATION,
 				    title: "Confirm",
 				    actions: [MessageBox.Action.YES, MessageBox.Action.NO],
@@ -126,7 +126,7 @@ sap.ui.define([
 				    onClose: function (oAction) { 
                         if ( oAction == "YES" ){
                         that.getComponentModel("app").setProperty("/busy", true);
-                         this.mainModel.create("/MasterUOMSet", oPayload, {
+                         that.mainModel.create("/MasterUOMSet", oPayload, {
                             success: function (oData, oResponse) {
                                 sap.m.MessageBox.success("UOM Created Successfully");
                                 that.getComponentModel("app").setProperty("/busy", false);
@@ -142,7 +142,7 @@ sap.ui.define([
 			    });
             }
             else{        
-                MessageBox.confirm("Do you want to update UOM type ?",{
+                MessageBox.confirm("Do you want to update UOM "+Name+"?",{
 				    icon: MessageBox.Icon.INFORMATION,
 				    title: "Confirm",
 				    actions: [MessageBox.Action.YES, MessageBox.Action.NO],
@@ -165,7 +165,8 @@ sap.ui.define([
                             });
                         }
                     }
-			    });
+                });
+
             }
         },
 
@@ -190,7 +191,9 @@ sap.ui.define([
         onDeletePress : function(oEvent){
             var that=this;
             var sPath = this.getView().getBindingContext().getPath();
-            MessageBox.confirm("Do you want delete UOM type ?",{
+            var sName = this.getView().getBindingContext().getObject().Name;
+
+            MessageBox.confirm("Do you want delete UOM "+ sName +"?",{
 				    icon: MessageBox.Icon.WARNING,
 				    title: "Confirm",
 				    actions: [MessageBox.Action.YES, MessageBox.Action.NO],

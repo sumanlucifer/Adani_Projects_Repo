@@ -27,7 +27,8 @@ sap.ui.define([
                 this.getView().getModel("layoutModel").setProperty("/layout", sLayout);
                 //this._bindView("/ParentLineItemSet" + this.sParentID);
                 var poNumber;
-                var startupParams = this.getOwnerComponent().getComponentData().startupParameters; // get Startup params from Owner Component
+                var startupParams = this.getOwnerComponent().getComponentData().startupParameters; 
+                // get Startup params from Owner Component
                 if ((startupParams.poNumber && startupParams.poNumber[0])) {
                     this.recievedPONumber = startupParams.poNumber;
                 }

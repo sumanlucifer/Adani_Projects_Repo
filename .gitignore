@@ -22,11 +22,7 @@ agel-mmts-web/vendorPersona/.env7
 # auto generated wildcard
 agel-mmts-web/vendorPersona/.env8
 # auto generated wildcard
-<<<<<<< HEAD
-agel-mmts-web/securityPerson-ScanQR/.env1
-=======
 agel-mmts-web/vendorPersona/.env14
->>>>>>> develop
 
 # auto generated wildcard
 agel-mmts-web/vendorPersona/.env15
@@ -42,7 +38,34 @@ vendorPersona/.env20
 agel-mmts-web/vendorPersona/.env17
 # auto generated wildcard
 tcengineer/.env1
+<<<<<<< HEAD
 # auto generated wildcard
 agel-mmts-web/tcengineer/.env1
 # auto generated wildcard
 agel-mmts-web/pmcg/.env1
+=======
+
+# auto generated wildcard
+vendor-manageboq/.env1
+# auto generated wildcard
+vendor-manageboq/.env2
+# auto generated wildcard
+
+# auto generated wildcard
+agel-mmts-web/user-roleassignment/.env1
+=======
+vendorPersona/.env21
+
+<<<<<<< HEAD
+
+# auto generated wildcard
+mdm-uom/.env2
+# auto generated wildcard
+mdm-packinglisttype/.env1
+=======
+>>>>>>> develop
+
+# auto generated wildcard
+user-roleassignment/.env2
+>>>>>>> develop
+>>>>>>> develop

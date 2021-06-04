@@ -159,14 +159,15 @@ sap.ui.define([
         },
 
         BOQApproval: function (oEvent) {
+            debugger;
             var BOQApprovedRequestId = this.getView().getBindingContext().getObject().ID;
-            var BOQGroupId = oEvent.getSource().getBindingContext().getObject().BOQGroupId;
+            //var BOQGroupId = oEvent.getSource().getBindingContext().getObject().BOQGroupId;
             var boqApprovalModel = this.getViewModel("BOQApprovalModel");
 
-            if (BOQGroupId) {
+            if (BOQApprovedRequestId) {
                 boqApprovalModel.setProperty("/Label", "Please enter your approval comments.");
                 boqApprovalModel.setProperty("/BOQApprovedRequestId", BOQApprovedRequestId);
-                boqApprovalModel.setProperty("/BOQGroupId", BOQGroupId);
+                //boqApprovalModel.setProperty("/BOQGroupId", BOQGroupId);
                 boqApprovalModel.setProperty("/Status", "APPROVED");
             }
 
@@ -194,8 +195,8 @@ sap.ui.define([
                 "Responses": [{
                     "BOQApprovedRequestId": boqApprovalModel.getProperty("/BOQApprovedRequestId"),
                     "Status": boqApprovalModel.getProperty("/Status"),
-                    "Comment": boqApprovalModel.getProperty("/Comment"),
-                    "BOQGroupId": boqApprovalModel.getProperty("/BOQGroupId")
+                    "Comment": boqApprovalModel.getProperty("/Comment")
+                    //"BOQGroupId": boqApprovalModel.getProperty("/BOQGroupId")
                 }]
             };
 
@@ -220,10 +221,10 @@ sap.ui.define([
             var BOQGroupId = oEvent.getSource().getBindingContext().getObject().BOQGroupId;
             var boqApprovalModel = this.getViewModel("BOQApprovalModel");
 
-            if (BOQGroupId) {
+            if (BOQApprovedRequestId) {
                 boqApprovalModel.setProperty("/Label", "Please enter reason for rejection.");
                 boqApprovalModel.setProperty("/BOQApprovedRequestId", BOQApprovedRequestId);
-                boqApprovalModel.setProperty("/BOQGroupId", BOQGroupId);
+                //boqApprovalModel.setProperty("/BOQGroupId", BOQGroupId);
                 boqApprovalModel.setProperty("/Status", "REJECTED");
             }
 

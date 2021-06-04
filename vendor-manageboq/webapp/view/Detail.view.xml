@@ -25,7 +25,7 @@
                     <Title text="{Name}" wrapping="true" titleStyle="Auto"/>
                 </uxap:snappedTitleOnMobile>
                 <uxap:actions>
-                    <Button text="Create BOQ" type="Emphasized" press="onCreateBOQPress" visible="{= ${objectViewModel>/isPCListSelected}}"></Button>
+                    <Button text="Create BOQ" type="Emphasized" press="onCreateBOQPress" visible="{= ${objectViewModel>/isPCListSelected} || ${objectViewModel>/noParentChildRelationFlag} }"></Button>
                     <ToggleButton id="idViewBOQListButton" text="{objectViewModel>/sViewBOQButtonName}" press="onViewBOQRequests"></ToggleButton>
                 </uxap:actions>
             </uxap:ObjectPageDynamicHeaderTitle>
@@ -78,7 +78,7 @@
                                 <Column>
                                     <Text text="Created on"/>
                                 </Column>
-                                <Column demandPopin="true" minScreenWidth="Tablet">
+                                <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center">
                                     <Text text="Child item count"/>
                                 </Column>
                                 <Column demandPopin="true" minScreenWidth="Desktop">
@@ -159,12 +159,12 @@
                                 <items>
                                     <ColumnListItem id="idBOQItems">
                                         <cells>
-                                            <Select forceSelection="false" selectedKey="{ManageBOQModel>Name}" items="{
+                                            <Select forceSelection="false" selectedKey="{ManageBOQModel>MasterBOQItemId}" items="{
                                                     path: '/MasterBoQItemSet',
                                                     templateShareable:false,
                                                     sorter: { path: 'Name' }
                                                 }" change="onBOQItemSelected">
-                                                <core:Item key="{Name}" text="{Name}" />
+                                                <core:Item key="{ID}" text="{Name}" />
                                             </Select>
                                             <Text data:p="MaterialCode" text="{ManageBOQModel>MaterialCode}"/>
                                             <Text data:p="Description" text="{ManageBOQModel>Description}"/>
@@ -173,11 +173,11 @@
                                                 <Link text="{= ${ManageBOQModel>Remarks}.length ? 'View remarks' : 'Add remarks'}" press="openAddRemarksPopupPress"/>
                                                 <!--  <ExpandableText text="{ManageBOQModel>Remarks}" overflowMode="Popover" visible="{= ${ManageBOQModel>Remarks}.length ? true : false}"/> -->
                                             </VBox>
-                                            <Select id="idUOMSelector" forceSelection="false" visible="{= ${ManageBOQModel>Name}.length >0 ? true : false }" selectedKey="{ManageBOQModel>UOM}" items="{
+                                            <Select id="idUOMSelector" forceSelection="false" visible="{= ${ManageBOQModel>Name}.length >0 ? true : false }" selectedKey="{ManageBOQModel>masterUOMItemId}" items="{
                                                     path: 'ManageBOQModel>UOMSuggestions',
                                                         templateShareable:false
-                                                }">
-                                                <core:Item key="{ManageBOQModel>UOM}" text="{ManageBOQModel>UOM}" />
+                                                }" change="onUOMSelected">
+                                                <core:Item key="{ManageBOQModel>MasterUOMId}" text="{ManageBOQModel>Name}" />
                                             </Select>
                                             <Button icon="sap-icon://delete" press="onDeleteBOQItemPress" type="Transparent"/>
                                         </cells>

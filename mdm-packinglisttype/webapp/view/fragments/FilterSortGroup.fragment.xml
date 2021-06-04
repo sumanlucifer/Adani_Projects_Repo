@@ -3,7 +3,7 @@
 	xmlns:core="sap.ui.core">
 	<ViewSettingsDialog	confirm="onFilterSortConfirm">
 		<sortItems > 
-			<ViewSettingsItem text="ID" key="ID" />	
+			<ViewSettingsItem text="Name" key="Name" />	
 		</sortItems>
 		<groupItems>
 			<ViewSettingsItem text="Name" key="Name" />
