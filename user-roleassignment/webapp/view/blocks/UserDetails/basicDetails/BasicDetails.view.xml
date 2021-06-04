@@ -1,114 +1,50 @@
 <mvc:View xmlns:mvc="sap.ui.core.mvc"
     xmlns:core="sap.ui.core"
     xmlns:f="sap.ui.layout.form"
-    xmlns="sap.m">
-<VBox>
-    <!-- <f:SimpleForm layout="ColumnLayout" columnsM="2" columnsL="3" columnsXL="4" singleContainerFullSize="true" class="style-RemoveTitleHeight">
-        <f:content>
-            
-   
-            <Label text="{i18n>frstName}" />
-            <Text text="{FirstName}"  />
-            <Label text="{i18n>lstName}" />
-            <Text text="{LastName}" />
-             <Label text="{i18n>id}" />
-            <Text text="{ID}"/>
-            <Label text="{i18n>email}" />
-            <Link text="{Email}"/>
-   
-            <Label text="{i18n>createdAt}" />
-            <Text text="{path:'CreatedAt',
-                                    type: 'sap.ui.model.type.Date',
-                                    formatOptions: {
-                                    pattern: 'MMMM dd, yyyy'
-                                    }
-                        }"/>
-            <Label text="{i18n>updatedAt}" />
-            <Text text="{path:'UpdatedAt',
-                                     type: 'sap.ui.model.type.Date',
-				                     formatOptions: {
-				                        pattern: 'MMMM dd, yyyy'
-				                     }
-                        }"/>
-            <Label text="{i18n>selectRole}" />
-            <MultiComboBox id= "uomEdit" placeholder= "Select"  editable="{= ${objectViewModel>/idBtnSave}}" selectedKeys="{oSelectedKeyModel>/selectedItems/0}"
-                items="{
-                    path: '/MasterRoleSet'
-                }">
-                <core:Item key="{ID}" text="{Role}"/>
-            </MultiComboBox> 
-
-        </f:content>
-    </f:SimpleForm> -->
-
-    <!-- <Table headerText="Products" items="{UserRoles}">
-    <columns>
-    <Column ></Column>
-    </columns>
-            <ColumnListItem>
-                        <Text text="{Role}​​​" binding="{Role}" />
-            </ColumnListItem>
-    </Table> -->
-
-    <Table width="auto" growing="true" growingThreshold="2" fixedLayout="false">
-
-        <!-- <Button id="idBtnEdit" text="Edit" icon="sap-icon://edit" press="onEdit" 
-                                visible="{= ${objectViewModel>/idBtnEdit}}"/> -->
-        <columns>
-            <!-- <Column demandPopin="true" minScreenWidth="Tablet">
-                <Text text="{i18n>LineNumber}" wrapping="true" wrappingType="Hyphenated"/>
-            </Column> -->
-            <Column demandPopin="true" minScreenWidth="Tablet">
-                <Text text="{i18n>frstName}" wrapping="true"/>
-            </Column>
-            <Column demandPopin="true" minScreenWidth="Tablet">
-                <Text text="{i18n>lstName}" wrapping="true"/>
-            </Column>
-            <Column demandPopin="true" minScreenWidth="Tablet">
-                <Text text="{i18n>email}" wrapping="true"/>
-            </Column>
-            <Column demandPopin="true" minScreenWidth="Tablet">
-                <Text text="{i18n>createdAt}" wrapping="true"/>
-            </Column>
-            <Column demandPopin="true" minScreenWidth="Tablet">
-                <Text text="{i18n>updatedAt}" wrapping="true"/>
-            </Column>
-            <Column demandPopin="true" minScreenWidth="Tablet">
-                <Text text="{i18n>role}" wrapping="true"/>
-            </Column>
-        </columns>
-        <items>
-            <ColumnListItem>
-                <cells>
-                    <!-- <Text text="{LineNumber}" wrappingType="Hyphenated"/> -->
-                    <Text text="{FirstName}" wrappingType="Hyphenated"/>
-                    <Text text="{LastName}" wrappingType="Hyphenated"/>
-                    <Link text="{Email}"/>
-                    <Text text="{path:'CreatedAt',
-                                     type: 'sap.ui.model.type.Date',
-				                     formatOptions: {
-				                        pattern: 'MMMM dd, yyyy'
-				                     }
-                        }"/>
-                    <Text text="{path:'UpdatedAt',
-                                    type: 'sap.ui.model.type.Date',
-                                    formatOptions: {
-                                    pattern: 'MMMM dd, yyyy'
-                                    }
-                    }"/>
-                </cells>
-            </ColumnListItem>
-        </items>
-    </Table>
-
-
-
-    
-</VBox>
-
-
-
-
-
-
+    xmlns="sap.m"
+    controllerName="com.agel.mmts.userroleassignment.view.blocks.UserDetails.basicDetails.BasicDetailsController">
+            <Table width="auto" growing="true" growingThreshold="10" fixedLayout="false" items="{UserRoles}">
+                <headerToolbar>
+					<OverflowToolbar>
+						<ToolbarSpacer />
+                        <Button text="Assign Role" icon="sap-icon://edit" press="onRoleDialogPress" class="sapUiSmallMarginBottom"/>
+						<!-- <Button id="idBtnEdit" text="Edit" icon="sap-icon://edit" type="Transparent"
+							press="onEdit" visible="{= ${objectViewModel>/idBtnEdit}}"/>
+                        <Button id="idBtnSave" text="Save" icon="sap-icon://save" press="onSave"
+                                type="Accept"  visible="{= ${objectViewModel>/idBtnSave}}"/>
+                        <Button id="idBtnCancel" text="Cancel" icon="sap-icon://cancel" press="onCancel" 
+                                            visible="{= ${objectViewModel>/idBtnCancel}}"/> -->
+					</OverflowToolbar>
+				</headerToolbar>
+                <columns>
+                    <Column demandPopin="true" minScreenWidth="Tablet">
+                        <Text text="{i18n>roleCreated}" wrapping="true"/>
+                    </Column>
+                    <Column demandPopin="true" minScreenWidth="Tablet">
+                        <Text text="{i18n>roleUpdated}" wrapping="true"/>
+                    </Column>
+                    <Column demandPopin="true" minScreenWidth="Tablet">
+                        <Text text="{i18n>role}" wrapping="true"/>
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem>
+                        <cells>
+                            <Text text="{path:'CreatedAt',
+                                            type: 'sap.ui.model.type.Date',
+                                            formatOptions: {
+                                                pattern: 'MMMM dd, yyyy'
+                                            }
+                                }"/>
+                            <Text text="{path:'UpdatedAt',
+                                            type: 'sap.ui.model.type.Date',
+                                            formatOptions: {
+                                            pattern: 'MMMM dd, yyyy'
+                                            }
+                            }"/>
+                            <Text text="{Role}​​​" binding="{Role}"/>
+                        </cells>
+                    </ColumnListItem>
+                </items>
+        </Table>
 </mvc:View>

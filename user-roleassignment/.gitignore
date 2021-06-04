@@ -11,3 +11,5 @@ archive.zip
 agel-mmts-web/user-roleassignment/.env1
 # auto generated wildcard
 user-roleassignment/.env2
+# auto generated wildcard
+vendorPersona/.env10

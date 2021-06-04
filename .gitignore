@@ -62,3 +62,6 @@ mdm-packinglisttype/.env1
 # auto generated wildcard
 user-roleassignment/.env2
 >>>>>>> develop
+
+# auto generated wildcard
+vendorPersona/.env10
