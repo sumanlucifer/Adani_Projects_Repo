@@ -55,6 +55,10 @@ sap.ui.define(["sap/ui/core/mvc/Controller"], function (Controller) {
                     shellHash: hash
                 }
             }); // navigate to Supplier application
+        },
+
+        onRefreshBOQItems: function(){
+            this.getOwnerComponent().getModel().refresh();
         }
 
 
