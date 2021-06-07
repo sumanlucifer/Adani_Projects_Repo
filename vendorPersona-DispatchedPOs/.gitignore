@@ -29,3 +29,5 @@ user-roleassignment/.env2
 
 # auto generated wildcard
 agel-mmts-web/vendor-managemdcc/.env1
+# auto generated wildcard
+agel-mmts-web/vendor-mdcc/.env1

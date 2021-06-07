@@ -187,9 +187,6 @@ sap.ui.define([
                     oDialog.bindElement({
                         path: "/MDCCSet(" + that.mdccID + ")/InspectionCall/InspectedParentItems"
                     });
-                    oDialog.bindFilterItems({
-                        path: "/MDCCSet(" + that.mdccID + ")/InspectionCall/InspectedParentItems"
-                    }); 
                     oDialog.open();
                 });
             },

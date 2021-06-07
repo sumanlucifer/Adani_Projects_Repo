@@ -148,6 +148,10 @@ modules:
       - comagelmmtsvendormanagemdcc.zip
       name: comagelmmtsvendormanagemdcc
       target-path: resources/
+    - artifacts:
+      - comagelmmtsvendormdcc.zip
+      name: comagelmmtsvendormdcc
+      target-path: resources/
 - name: vendorPersona
   type: html5
   path: vendorPersona
@@ -394,6 +398,16 @@ modules:
 - name: comagelmmtsvendormanagemdcc
   type: html5
   path: vendor-managemdcc
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: comagelmmtsvendormdcc
+  type: html5
+  path: vendor-mdcc
   build-parameters:
     build-result: dist
     builder: custom

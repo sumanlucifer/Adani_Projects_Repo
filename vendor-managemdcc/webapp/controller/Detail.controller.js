@@ -46,7 +46,7 @@ sap.ui.define([
             this.getView().getModel("layoutModel").setProperty("/layout", sLayout);
          //   this.mdccID = 3;
          //   this.parentItem = 1;
-            this._bindView("/MDCCSet" + this.mdccID);
+            this._bindView("/MDCCSet(" + this.mdccID + ")/InspectionCall/InspectedParentItems" + this.parentItem );
             this._getLineItemData("/MDCCSet(" + this.mdccID + ")/InspectionCall/InspectedParentItems" + this.parentItem + "/InspectedBOQItems");
         },
 

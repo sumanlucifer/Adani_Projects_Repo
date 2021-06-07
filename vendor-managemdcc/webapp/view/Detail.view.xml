@@ -11,12 +11,20 @@
          upperCaseAnchorBar="false" headerContentPinnable="true" toggleHeaderOnTitleClick="true" busy="{objectViewModel>/busy}">
 		<uxap:headerTitle>
 			<uxap:ObjectPageDynamicHeaderTitle>
+                <uxap:breadcrumbs>
+                    <Breadcrumbs id="breadcrumbsId" currentLocationText="{i18n>ManageMDCC}">
+                        <Link text="{i18n>ManageMDCC}" press=".handleToAllPOBreadcrumPress"/>
+                        <Link text="{i18n>ManageMDCC}" press=".handleToAllPOBreadcrumPress"/>
+                    </Breadcrumbs>
+                </uxap:breadcrumbs>
 				<uxap:expandedHeading>
-					<Title text="{InspectionCall/InspectedParentItems/Name}" wrapping="true" titleStyle="H3" />
+					<Title text="{PONumber}" wrapping="true" titleStyle="H3" />
 				</uxap:expandedHeading>
-				<uxap:expandedContent></uxap:expandedContent>
+				<uxap:expandedContent>
+                    <Title text="{MDCCNumber}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
+                </uxap:expandedContent>
 				<uxap:snappedTitleOnMobile>
-					<Title text="{Name}" wrapping="true" titleStyle="Auto"/>
+					<Title text="{MDCCNumber}" wrapping="true" titleStyle="Auto"/>
 				</uxap:snappedTitleOnMobile>
 				<uxap:actions>
 					<Button id="idBtnEdit" text="Edit" icon="sap-icon://edit" press="onEdit" 

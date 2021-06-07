@@ -8,6 +8,4 @@ mta-*
 resources
 archive.zip
 # auto generated wildcard
-agel-mmts-web/vendor-managemdcc/.env1
-# auto generated wildcard
 agel-mmts-web/vendor-mdcc/.env1
