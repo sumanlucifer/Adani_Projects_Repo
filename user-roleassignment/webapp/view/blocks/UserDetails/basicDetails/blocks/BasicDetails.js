@@ -1,4 +1,5 @@
-sap.ui.define(['sap/uxap/BlockBase'], function (BlockBase) {
+sap.ui.define(['sap/uxap/BlockBase'], 
+function (BlockBase) {
     "use strict";
 
     var BuyerFormBlock = BlockBase.extend("com.agel.mmts.userroleassignment.view.blocks.UserDetails.basicDetails.BasicDetails", {
@@ -12,9 +13,12 @@ sap.ui.define(['sap/uxap/BlockBase'], function (BlockBase) {
                     viewName: "com.agel.mmts.userroleassignment.view.blocks.UserDetails.basicDetails.BasicDetails",
                     type: "XML"
                 }
-            }
+            },
+            events: {
+                "onRoleDialogPress": {}
+			}
         }
     });
-
     return BuyerFormBlock;
+    
 });

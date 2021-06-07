@@ -162,6 +162,10 @@
                         {
                             "appId": "com.agel.mmts.mdmboqitems",
                             "vizId": "mdmBOQ-manage"
+                        },
+                        {
+                            "appId": "com.agel.mmts.userroleassignment",
+                            "vizId": "userRoleAssignment-manage"
                         }
                     ]
                 }

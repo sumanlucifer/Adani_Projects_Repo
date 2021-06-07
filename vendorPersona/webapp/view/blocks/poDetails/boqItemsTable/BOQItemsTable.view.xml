@@ -11,6 +11,7 @@
             <OverflowToolbar design="Transparent">
                 <ToolbarSpacer/>
                 <Button text="Manage BOQ" press="navToManageBOQApp"/>
+                <Button icon="sap-icon://refresh" press="onRefreshBOQItems"/>
             </OverflowToolbar>
         </smartTable:customToolbar>
         <tt:TreeTable id="treeTable" selectionMode="None" enableColumnReordering="true" expandFirstLevel="true" visibleRowCountMode="Interactive">

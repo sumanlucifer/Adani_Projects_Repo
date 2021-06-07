@@ -10,15 +10,4 @@ archive.zip
 # auto generated wildcard
 vendor-manageboq/.env1
 # auto generated wildcard
-<<<<<<< HEAD
-agel-mmts-web/mdm-packinglisttype/.env1
-=======
-agel-mmts-web/user-roleassignment/.env1
-# auto generated wildcard
-user-roleassignment/.env2
->>>>>>> develop
 
-# auto generated wildcard
-agel-mmts-web/vendor-managemdcc/.env1
-# auto generated wildcard
-agel-mmts-web/vendor-mdcc/.env1
