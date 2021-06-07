@@ -24,7 +24,7 @@
             <Label text="{i18n>liquidatedDamages}" />
             <Text text="{LiquidatedDamages}"/>
             <Label text="{i18n>deliverySchedule}" />
-            <Text text="missing"/>
+            <Text text=""/>
             <Label text="{i18n>specificAgreedTems}" />
             <Text text="{SpecificAgreedTerms}"/>
             <!-- <core:Title/> -->

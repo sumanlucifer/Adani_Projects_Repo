@@ -125,7 +125,7 @@
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection title="{i18n>boqItems}">
                         <uxap:blocks>
-                            <boqItemsTable:BOQItemsTable class="sapUxAPObjectPageSubSectionAlignContent sapUiTinyMarginEnd" ManageBOQItemPress="onManageBOQItemPress" onSendForApprovalPress="onSendForApprovalPress" onViewBOQItemPress="onViewBOQItemPress"/>
+                            <boqItemsTable:BOQItemsTable class="sapUxAPObjectPageSubSectionAlignContent" ManageBOQItemPress="onManageBOQItemPress" onSendForApprovalPress="onSendForApprovalPress" onViewBOQItemPress="onViewBOQItemPress"/>
                         </uxap:blocks>
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>
