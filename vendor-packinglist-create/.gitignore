@@ -11,3 +11,5 @@ archive.zip
 agel-mmts-web/vendor-packinglist-create/.env1
 # auto generated wildcard
 vendorPersona/.env11
+# auto generated wildcard
+agel-mmts-web/vendor-mdcc/.env1

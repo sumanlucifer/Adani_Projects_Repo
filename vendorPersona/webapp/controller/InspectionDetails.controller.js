@@ -307,7 +307,7 @@ sap.ui.define([
         
         onSendForApprovalPress : function(oEvent){
             //debugger;
-            var sPath = "MDCCSet("+3+")/MDCCStatusSet"
+            var sPath = "/MDCCStatusSet"
             var obj = oEvent.getSource().getBindingContext().getObject();
             var oPayload = {
                             "Status" : obj.Status,
@@ -315,11 +315,11 @@ sap.ui.define([
                     //      "ApprovedBy": obj.,
                             "CreatedAt": obj.CreatedAt,
                             "CreatedBy": obj.CreatedBy,
-                            "UpdatedAt": obj.UpdatedAt,
-                            "UpdatedBy": obj.UpdatedBy,
+                    //        "UpdatedAt": obj.UpdatedAt,
+                    //        "UpdatedBy": obj.UpdatedBy,
                     //    "Comment"  : obj.,
                             "IsArchived": false,
-                     //       "MDCCID": obj.MDCCNumber
+                            "MDCCID": obj.ID
                 };
 
                 this.MainModel.create(sPath,oPayload,{
