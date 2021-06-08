@@ -7,7 +7,7 @@
 		<content>
             <List items="{path: 'BOQGroups', sorter : {
                             path : 'ID', descending: 'true'}}">
-                <StandardListItem title="{Name}" description="Total child items: {TotalChildItemCount}" info="BOQ quantity: {GeneratedBOQQty}" type="Navigation" press="onBOQGroupItemPress" highlight="{= ${Status} === 'PENDING' ? 'Warning' : ${Status} === 'REJECTED' ? 'Error' : 'Success'}"/>
+                <StandardListItem title="{Name}" description="Total child items: {TotalChildItemCount}" info="BOQ quantity: {GeneratedBOQQty}" type="Navigation" press="onBOQGroupItemPress" highlight="{= ${Status} === 'PENDING' ? 'Warning' : ${Status} === 'REJECTED' ? 'Error' : ${Status} === 'APPROVED' ? 'Success' : 'Information' }"/>
             </List>
         </content>
 	</Page>

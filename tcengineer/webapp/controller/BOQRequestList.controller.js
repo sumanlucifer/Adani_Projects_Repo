@@ -115,6 +115,7 @@ sap.ui.define([
             var oTable = this.getView().byId("idBOQRequestTable").getTable();
             var oBinding = oTable.getBinding("items");
             oBinding.filter([]);
+            this.oFilterBar.fireFilterChange();
         },
 
             onFilterChange: function (oEvent) {

@@ -11,16 +11,6 @@
         "description": "{{appDescription}}",
         "resources": "resources.json",
         "ach": "ach",
-        "dataSources": {
-            "mainService": {
-                "uri": "/AGEL_MMTS_API/api/v2/odata.svc/",
-                "type": "OData",
-                "settings": {
-                    "odataVersion": "2.0",
-                    "localUri": "localService/metadata.xml"
-                }
-            }
-        },
         "crossNavigation": {
             "inbounds": {
                 "com-agel-mmts-userroleassignment-inbound": {
@@ -35,7 +25,17 @@
                     "icon": ""
                 }
             }
-        }
+        },
+        "dataSources": {
+            "mainService": {
+                "uri": "/AGEL_MMTS_API/api/v2/odata.svc/",
+                "type": "OData",
+                "settings": {
+                    "odataVersion": "2.0",
+                    "localUri": "localService/metadata.xml"
+                }
+            }
+        } 
     },
     "sap.ui": {
         "technology": "UI5",

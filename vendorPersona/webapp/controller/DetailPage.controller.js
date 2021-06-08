@@ -201,7 +201,7 @@ sap.ui.define([
         },
 
         onResetFilters: function () {
-            this.oFilterBar._oBasicSearchField.setValue("")
+            this.oFilterBar._oBasicSearchField.setValue("");
             this.byId("idNameInput").setValue("");
             this.byId("idMaterialCode").setValue("");
             this.byId("dateRangeSelectionId").setValue("");
@@ -214,6 +214,7 @@ sap.ui.define([
             idOpenPOTableBinding.filter([]);
             idConfirmPOTableBinding.filter([]);
             idDispatchedPOTableBinding.filter([]);
+            this.oFilterBar.fireFilterChange();
         },
 
         onFilterChange: function (oEvent) {

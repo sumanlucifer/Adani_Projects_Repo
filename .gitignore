@@ -68,7 +68,15 @@ mdm-packinglisttype/.env1
 # auto generated wildcard
 user-roleassignment/.env2
 >>>>>>> develop
+<<<<<<< HEAD
 >>>>>>> develop
 
 # auto generated wildcard
 pmcg/.env2
+=======
+
+# auto generated wildcard
+vendorPersona/.env10
+# auto generated wildcard
+agel-mmts-web/vendor-packinglist-create/.env1
+>>>>>>> develop
