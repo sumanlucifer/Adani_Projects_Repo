@@ -228,7 +228,7 @@ sap.ui.define([
             xhr.send();
         },
 
-        _addData: function (data, fileName) {
+     /*   _addData: function (data, fileName) {
             var that = this,
                 oViewContext = this.getView().getBindingContext().getObject(),
                 oBindingObject = this.byId("idMDCCUploader").getObjectBinding("attachmentModel");
@@ -247,26 +247,6 @@ sap.ui.define([
                     }
                 ]
             };
-
-            //set the parameters
-            //oBindingObject.getParameterContext().setProperty("documents", "");
-            //oBindingObject.getParameterContext().setProperty("po_number", oViewContext.po_number);
-            //oBindingObject.getParameterContext().setProperty("purchase_order_ID", oViewContext.ID);
-
-            //execute the action
-            /* oBindingObject.execute().then(
-                function () {
-                    debugger;
-                    sap.m.MessageToast.show("MDCC Details uploaded!");
-                    that.getView().getModel().refresh();
-                },
-                function (oError) {
-                    debugger;
-                    sap.m.MessageBox.alert(oError.message, {
-                        title: "Error"
-                    });
-                }
-            ); */
 
             $.ajax({
                 "async": true,
@@ -291,7 +271,7 @@ sap.ui.define([
                     sap.m.MessageBox.error("Error uploading document");
                 }
             });
-        },
+        },*/
 
         onMDCCYesSelect: function () {
             this.byId("idMDCCUploadArea").setVisible(true);
@@ -323,6 +303,48 @@ sap.ui.define([
              objectViewModel.setProperty("/busy", false);*/
         },
 
+        ///--------------------- Send For Approval ----------------------------------//
+        
+        onSendForApprovalPress : function(oEvent){
+            //debugger;
+            var sPath = "MDCCSet("+3+")/MDCCStatusSet"
+            var obj = oEvent.getSource().getBindingContext().getObject();
+            var oPayload = {
+                            "Status" : obj.Status,
+                    //      "ApprovedOn": obj.,
+                    //      "ApprovedBy": obj.,
+                            "CreatedAt": obj.CreatedAt,
+                            "CreatedBy": obj.CreatedBy,
+                            "UpdatedAt": obj.UpdatedAt,
+                            "UpdatedBy": obj.UpdatedBy,
+                    //    "Comment"  : obj.,
+                            "IsArchived": false,
+                     //       "MDCCID": obj.MDCCNumber
+                };
+
+                this.MainModel.create(sPath,oPayload,{
+                    success:function(oData,oResponse){
+                        //debugger;
+                        MessageBox.success("Send for approval successfully");
+                    }.bind(this),
+                    error:function (oError){
+                        MessageBox.error(JSON.stringify(oError));
+                    }
+                });
+
+              /*  that.mainModel.create("/MasterPackagingTypeSet", oPayload, {
+                    success: function (oData, oResponse) {
+                        // MessageBox.success(oData.Message);
+                        that.getComponentModel("app").setProperty("/busy", false);
+                        MessageBox.success("Packing list type created successfully");
+                        that.onCancel();
+                    }.bind(this),
+                    error: function (oError) {
+                        that.getComponentModel("app").setProperty("/busy", false);
+                        MessageBox.error(JSON.stringify(oError));
+                    }
+                }); */
+        },
 
         /////----------------------------------------------View Items-------------------------//
         _arrangeData: function () {
@@ -437,7 +459,66 @@ sap.ui.define([
                     }
                 });
             }
-        }
+        },
+
+        //-------------------- File Upload MDCC ----------------------//
+         onInvoiceFileSelectedForUpload: function (oEvent) {
+            // keep a reference of the uploaded file
+            var that = this;
+            BusyIndicator.show();
+            var oFiles = oEvent.getParameters().files;
+            var fileName = oFiles[0].name;
+            var fileType = "application/pdf";
+            this._getImageData(URL.createObjectURL(oFiles[0]), function (base64) {
+                that._addData(base64, fileName, fileType);
+            }, fileName);
+        },
+
+        _addData: function (data, fileName, fileType) {
+            var that = this;
+            var documents = {
+                "Documents": [
+                    {
+                        "UploadTypeId": 3, // MDCC Id
+                        "Type": "MDCC",
+                        "SubType":"",
+                        "FileName": fileName,
+                        "Content": data, // base - 64 (Type)
+                        "ContentType":fileType, // application/pdf text/csv
+                        "UploadedBy": "vendor-1",
+                        "FileSize": "5"
+                    }
+                ]
+            };
+            that.documents = documents;
+            var sPath = "/DocumentUploadEdmSet"
+            this.MainModel.create(sPath,documents,{
+                success: function(oData,oResponse) {
+                    BusyIndicator.hide();
+                    sap.m.MessageToast.show("MDCC Details Uploaded!");
+                 //   this.getView().getModel().refresh();
+                }.bind(this),
+                error:function(oError) {
+                    BusyIndicator.hide();
+                    sap.m.MessageBox.error("Error uploading document");
+                }
+            });
+
+       /*     that.mainModel.create("/MasterPackagingTypeSet", oPayload, {
+                                success: function (oData, oResponse) {
+                                    // MessageBox.success(oData.Message);
+                                    that.getComponentModel("app").setProperty("/busy", false);
+                                    MessageBox.success("Packing list type created successfully");
+                                    that.onCancel();
+                                    }.bind(this),
+                                error: function (oError) {
+                                    that.getComponentModel("app").setProperty("/busy", false);
+                                    MessageBox.error(JSON.stringify(oError));
+                                }
+                            });*/
+
+        },
+
     });
 }
 );
