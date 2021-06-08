@@ -3,8 +3,10 @@ sap.ui.define([
     "sap/ui/model/json/JSONModel",
     "sap/ui/core/Fragment",
     "../utils/formatter",
-    "sap/ui/core/BusyIndicator"
-], function (BaseController, JSONModel, Fragment, formatter,BusyIndicator) {
+    "sap/ui/core/BusyIndicator",
+    "sap/m/MessageToast",
+    "sap/m/MessageBox",
+], function (BaseController, JSONModel, Fragment, formatter, BusyIndicator, MessageToast, MessageBox) {
     "use strict";
 
     return BaseController.extend("com.agel.mmts.vendorPersona.controller.InspectionDetails", {
@@ -16,6 +18,8 @@ sap.ui.define([
                 delay: 0
             });
             this.setModel(oViewModel, "objectViewModel");
+            
+            this.MainModel = this.getOwnerComponent().getModel();
 
             //Router Object
             this.oRouter = this.getRouter();
@@ -71,7 +75,7 @@ sap.ui.define([
                 this.pDialog = Fragment.load({
                     id: oDetails.view.getId(),
                     name: "com.agel.mmts.vendorPersona.view.fragments.inspectionDetails.InspectionCallChildLineItems",
-                    controller :  oDetails.controller
+                    controller: oDetails.controller
                 }).then(function (oDialog) {
                     // connect dialog to the root view of this component (models, lifecycle)
                     oDetails.view.addDependent(oDialog);
@@ -93,10 +97,10 @@ sap.ui.define([
             });
         },
 
-        onViewInspectChildDialogClose : function () {
-             this.pDialog.then(function (oDialog) {
+        onViewInspectChildDialogClose: function () {
+            this.pDialog.then(function (oDialog) {
                 oDialog.close();
-             });
+            });
         },
 
         onPackingListItemPress: function (oEvent) {
@@ -131,7 +135,7 @@ sap.ui.define([
             }
         },
 
-        onCreateClose : function (oEvent) {
+        onCreateClose: function (oEvent) {
             this._oPackingListNameGetterDialog.close();
         },
 
@@ -144,7 +148,7 @@ sap.ui.define([
 
             delete aParentItems.inspected_child_line_items;
             // New code added 26/04/2021
-            if (selectedChildLineItems.length > 0 ){
+            if (selectedChildLineItems.length > 0) {
                 delete selectedChildLineItems[0].ID;
             }
             delete aParentItems.ID;
@@ -202,7 +206,7 @@ sap.ui.define([
             var oFiles = oEvent.getParameters().files;
             for (var i = 0; i < oFiles.length; i++) {
                 var fileName = oFiles[i].name;
-                if (  fileName.split('.').length > 1 ){
+                if (fileName.split('.').length > 1) {
                     this._getImageData(URL.createObjectURL(oFiles[i]), function (base64) {
                         that._addData(base64, fileName);
                     }, fileName);
@@ -276,13 +280,13 @@ sap.ui.define([
                 "data": JSON.stringify(documents),
                 success: function (oData, oResponse) {
                     // @ts-ignore
-                    debugger;
+                    // debugger;
                     BusyIndicator.hide();
                     sap.m.MessageToast.show("MDCC Details Uploaded!");
                     this.getView().getModel().refresh();
                 }.bind(this),
                 error: function (oError) {
-                    debugger;
+                    // debugger;
                     BusyIndicator.hide();
                     sap.m.MessageBox.error("Error uploading document");
                 }
@@ -296,31 +300,144 @@ sap.ui.define([
             this.byId("idMDCCUploadArea").setVisible(false);
         },
 
-        onBeforeUploadStarts : function(){
+        onBeforeUploadStarts: function () {
+
+            //    var objectViewModel = this.getViewModel("objectViewModel");
+            //   objectViewModel.setProperty("/busy", true);
+
+            //    BusyIndicator.show();
+
+            // this.busyIndicator = new sap.m.BusyIndicator();
+            //  this.busyIndicator.open();
+        },
+
+        onUploadComplete: function (oEvent) {
+            // this.busyIndicator.close();
+            //    var objectViewModel = this.getViewModel("objectViewModel");
+            //   objectViewModel.setProperty("/busy", false);
+        },
+
+        onUploadTerminated: function (oEvent) {
+            /* this.busyIndicator.close();
+              var objectViewModel = this.getViewModel("objectViewModel");
+             objectViewModel.setProperty("/busy", false);*/
+        },
+
+
+        /////----------------------------------------------View Items-------------------------//
+        _arrangeData: function () {
+            var oModel = new JSONModel({ "ChildItems": this.ParentData });
+            this.getView().setModel(oModel, "TreeTableModel");
+        },
+
+        onViewPress: function (oEvent) {
+            //  var oItem = oEvent.getSource();
+             var sObjectId=oEvent.getSource().getBindingContext().getObject().ID;
+            var that = this;
+            this._getParentDataViewMDCC(sObjectId);
+            //that.sPath = oEvent.getSource().getParent().getBindingContextPath();
+            // that.handleViewDialogOpen();
+        },
+
+        // Arrange Data For View / Model Set
+
+        _arrangeDataView: function () {
+            var that = this;
+            var oModel = new JSONModel({ "ChildItemsView": this.ParentDataView });
+            this.getView().setModel(oModel, "TreeTableModelView");
+            // var sPath = oEvent.getSource().getParent().getBindingContextPath();
+            // sPath=  ;
+            that.handleViewDialogOpen();
+            //debugger;
+        },
+
+        // Child Line Items Dialog Open
+
+        handleViewDialogOpen: function () {
+            // create dialog lazily
+            // debugger;
+            var that = this;
+            var oDetails = {};
+            oDetails.controller = this;
+            oDetails.view = this.getView();
+            //  oDetails.sParentItemPath = sParentItemPath;
+            if (!this.pDialog) {
+                this.pDialog = Fragment.load({
+                    id: oDetails.view.getId(),
+                    name: "com.agel.mmts.vendorPersona.view.fragments.inspectionDetails.TreeTableView",
+                    controller: oDetails.controller
+                }).then(function (oDialog) {
+                    // connect dialog to the root view of this component (models, lifecycle)
+                    oDetails.view.addDependent(oDialog);
+                    /* oDialog.bindElement({
+                         path: oDetails.sParentItemPath,
+                     });*/
+                    oDialog.setModel(that.getView().getModel("TreeTableModelView"));
+                    return oDialog;
+                });
+            }
+            this.pDialog.then(function (oDialog) {
+                oDetails.view.addDependent(oDialog);
+                /*  oDialog.bindElement({
+                      path: oDetails.sParentItemPath,
+                  });*/
+
+                oDialog.setModel(that.getView().getModel("TreeTableModelView"));
+                oDialog.open();
+            });
             
-        //    var objectViewModel = this.getViewModel("objectViewModel");
-         //   objectViewModel.setProperty("/busy", true);
-
-        //    BusyIndicator.show();
-
-           // this.busyIndicator = new sap.m.BusyIndicator();
-          //  this.busyIndicator.open();
         },
 
-        onUploadComplete: function(oEvent){
-           // this.busyIndicator.close();
-         //    var objectViewModel = this.getViewModel("objectViewModel");
-         //   objectViewModel.setProperty("/busy", false);
+        onViewChildDialogClose: function (oEvent) {
+            this.pDialog.then(function (oDialog) {
+                oDialog.close();
+            });
+
         },
 
-        onUploadTerminated :  function(oEvent){
-           /* this.busyIndicator.close();
-             var objectViewModel = this.getViewModel("objectViewModel");
-            objectViewModel.setProperty("/busy", false);*/
+        // Parent Data View Fetch / Model Set
+        _getParentDataViewMDCC: function (sObjectId) {
+            // debugger;
+            this.ParentDataView = [];
+            var sPath = "/MDCCSet(" + sObjectId + ")/MDCCParentLineItems";
+            this.MainModel.read(sPath, {
+                success: function (oData, oResponse) {
+                    if (oData.results.length) {
+                        this._getChildItemsViewMDCC(oData.results, sObjectId);
+                    }
+
+                }.bind(this),
+                error: function (oError) {
+                    sap.m.MessageBox.Error(JSON.stringify(oError));
+                }
+            });
         },
 
+        // Child Item View Fetch / Model Set
+        _getChildItemsViewMDCC: function (ParentDataView, sObjectId) {
+            this.ParentDataView = ParentDataView;
+            for (var i = 0; i < ParentDataView.length; i++) {
+                var sPath = "/MDCCSet(" + sObjectId + ")/MDCCParentLineItems(" + ParentDataView[i].ID + ")/MDCCBOQItems";
+                this.MainModel.read(sPath, {
+                    success: function (i, oData, oResponse) {
+                        if (oData.results.length) {
+                            this.ParentDataView[i].isStandAlone = true;
+                            this.ParentDataView[i].ChildItemsView = oData.results;
+                        }
+                        else {
+                            this.ParentDataView[i].isStandAlone = false;
+                            this.ParentDataView[i].ChildItemsView = [];
+                        }
 
+                        if (i == this.ParentDataView.length - 1)
+                            this._arrangeDataView();
+                    }.bind(this, i),
+                    error: function (oError) {
+                        sap.m.MessageBox.Error(JSON.stringify(oError));
+                    }
+                });
+            }
+        }
     });
-
 }
 );

@@ -13,3 +13,5 @@ agel-mmts-web/tcengineer/.env1
 agel-mmts-web/pmcg/.env1
 # auto generated wildcard
 pmcg/.env2
+# auto generated wildcard
+vendorPersona/.env11

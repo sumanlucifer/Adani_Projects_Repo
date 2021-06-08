@@ -15,10 +15,9 @@ agel-mmts-web/user-roleassignment/.env1
 user-roleassignment/.env2
 
 # auto generated wildcard
-<<<<<<< HEAD
-pmcg/.env2
-=======
 vendorPersona/.env10
 # auto generated wildcard
 agel-mmts-web/vendor-packinglist-create/.env1
->>>>>>> develop
+
+# auto generated wildcard
+vendorPersona/.env11

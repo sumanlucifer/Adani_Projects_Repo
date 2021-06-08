@@ -127,29 +127,12 @@
       "preLaunchTask": "Build sapui5-1"
     },
     {
-<<<<<<< HEAD
-      "name": "Run sapui5-1-pmcg",
-=======
       "name": "Run sapui5-1-vendorPersona",
->>>>>>> develop
       "type": "node",
       "request": "launch",
       "program": "${workspaceFolder}/agel-mmts-web-approuter/node_modules/@sap/html5-repo-mock/index.js",
       "args": [
         "--standalone",
-<<<<<<< HEAD
-        "/comagelmmtspmcg/index.html",
-        "--ui5",
-        "{\"version\":\".\"}"
-      ],
-      "cwd": "${workspaceFolder}/pmcg",
-      "env": {
-        "PORT": "6004",
-        "MOCK_LOOKUP_DIRS": "[\"webapp\"]",
-        "run.config": "{\"handlerId\":\"ui5_run_config_handler_id\",\"runnableId\":\"/home/user/projects/sapui5-1/pmcg\"}"
-      },
-      "envFile": "${workspaceFolder}/pmcg/.env2",
-=======
         "/comagelmmtsvendorPersona/index.html",
         "--ui5",
         "{\"version\":\".\"}"
@@ -161,7 +144,26 @@
         "run.config": "{\"handlerId\":\"ui5_run_config_handler_id\",\"runnableId\":\"/home/user/projects/sapui5-1/vendorPersona\"}"
       },
       "envFile": "${workspaceFolder}/vendorPersona/.env10",
->>>>>>> develop
+      "preLaunchTask": "Build sapui5-1"
+    },
+    {
+      "name": "Run sapui5-1-vendorPersona",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/agel-mmts-web-approuter/node_modules/@sap/html5-repo-mock/index.js",
+      "args": [
+        "--standalone",
+        "/comagelmmtsvendorPersona/index.html",
+        "--ui5",
+        "{\"version\":\".\"}"
+      ],
+      "cwd": "${workspaceFolder}/vendorPersona",
+      "env": {
+        "PORT": "6004",
+        "MOCK_LOOKUP_DIRS": "[\"webapp\"]",
+        "run.config": "{\"handlerId\":\"ui5_run_config_handler_id\",\"runnableId\":\"/home/user/projects/sapui5-1/vendorPersona\"}"
+      },
+      "envFile": "${workspaceFolder}/vendorPersona/.env11",
       "preLaunchTask": "Build sapui5-1"
     }
   ],

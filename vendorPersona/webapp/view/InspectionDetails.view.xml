@@ -92,7 +92,7 @@
                                 </items>
                             </Table>
 
-                           <!--  <VBox renderType="Bare" class="sapUiLargeMarginTop" visible="{= %{mdcc} ? false : true || %{attachments/0/ID} ? true : false}">
+                            <!-- <VBox renderType="Bare" class="sapUiLargeMarginTop" visible="{= %{mdcc} ? false : true || %{attachments/0/ID} ? true : false}">
                                 <Title text="MDCC details" level="H1"/>
                                 <VBox>
                                     <Label text="Do you have MDCC Details?" />
@@ -126,22 +126,18 @@
                             </VBox> -->
                         </VBox>
                     </IconTabFilter>
-                   <!--  <IconTabFilter text="{i18n>packingLists}" key="idPackingListTab">
+                    <IconTabFilter text="MDCC" key="idPackingListTab">
                         <VBox renderType="Bare">
-                            <Table id="id" width="auto" items="{path : 'packing_list',
-                                parameters : {
-                                    $orderby : 'createdAt desc'
-                                }
-                            }" noDataText="{i18n>noPackingLists}" growing="true" growingScrollToLoad="true">
+                            <Table id="id" width="auto" items="{MDCC}" noDataText="{i18n>noPackingLists}" growing="true" growingScrollToLoad="true">
                                 <headerToolbar>
                                     <OverflowToolbar>
                                         <Title text="Packing List" level="H4" id="idPackingListTitle"/>
                                         <ToolbarSpacer />
-                                        <SearchField tooltip="{i18n>searchItem}" placeholder="{i18n>searchItem}" visible="false">
+                                        <!-- <SearchField tooltip="{i18n>searchItem}" placeholder="{i18n>searchItem}" visible="false">
                                             <layoutData>
                                                 <OverflowToolbarLayoutData maxWidth="200px" priority="NeverOverflow" group="1"/>
                                             </layoutData>
-                                        </SearchField>
+                                        </SearchField> -->
                                         <Button tooltip="{i18n>sort}" icon="sap-icon://sort" press="handleSortButtonPressed" type="Transparent" visible="false"/>
                                         <Button tooltip="{i18n>filter}" icon="sap-icon://filter" press="handleFilterButtonPressed" type="Transparent" visible="false"/>
                                         <Button press=".onExportParentItemsExportPress" icon="sap-icon://download" visible="false"/>
@@ -149,33 +145,43 @@
                                 </headerToolbar>
                                 <columns>
                                     <Column>
-                                        <Text text="{i18n>name}"/>
+                                        <Text text="{i18n>MDCCNumber}"/>
                                     </Column>
                                     <Column>
-                                        <Text text="{i18n>vehicleNo}"/>
+                                        <Text text="{i18n>POitem}"/>
                                     </Column>
                                     <Column>
-                                        <Text text="{i18n>createdAt}"/>
+                                        <Text text="{i18n>Upload}"/>
                                     </Column>
                                     <Column>
-                                        <Text text="{i18n>status}"/>
+                                        <Text text="{i18n>action}"/>
+                                    </Column>
+                                    <Column>
+                                        <Text text="{i18n>Items}"/>
+                                    </Column>
+                                    <Column>
+                                        <Text text="{i18n>approval}"/>
+                                    </Column>
+                                    <Column>
+                                        <Text text="{i18n>packingList}"/>
                                     </Column>
                                 </columns>
 
                                 <items>
                                     <ColumnListItem type="Navigation" press="onPackingListItemPress">
                                         <cells>
-                                            <Text text="{name}"/>
-                                            <Text text="{vehicle_no}"/>
-                                            <Text text="{createdAt}"/>
-                                            <ObjectStatus text="{status}" state="{path:'status', formatter: '.formatter.getPackingListStatusColor'}"/>
+                                            <Text text="{MDCCNumber}"/>
+                                            <Text text="{PONumber}"/>
+                                            <Link text="Upload" press="onUpload"/>
+                                            <Link text="Map Items for MDCC" press="onMapMDCCCItems"/>
+                                            <Link text="View Items" press="onViewPress"/>
                                         </cells>
                                     </ColumnListItem>
                                 </items>
 
                             </Table>
                         </VBox>
-                    </IconTabFilter> -->
+                    </IconTabFilter>
                 </items>
             </IconTabBar>
         </f:content>

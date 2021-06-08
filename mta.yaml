@@ -143,14 +143,6 @@ modules:
     - artifacts:
       - mdm-boqitems-content.zip
       name: mdm-boqitems
-<<<<<<< HEAD
-      target-path: resources/ 
-    - artifacts:
-      - pmcg-content.zip
-      name: pmcg
-      target-path: resources/    
-         
-=======
       target-path: resources/
     - artifacts:
       - user-roleassignment-content.zip
@@ -160,7 +152,6 @@ modules:
       - comagelmmtsvendorpackinglistcreate.zip
       name: comagelmmtsvendorpackinglistcreate
       target-path: resources/
->>>>>>> develop
 - name: vendorPersona
   type: html5
   path: vendorPersona
@@ -403,25 +394,14 @@ modules:
     builder: custom
     commands:
     - npm run build
-<<<<<<< HEAD
-    supported-platforms: []  
-- name: pmcg 
-  type: html5
-  path: pmcg
-=======
     supported-platforms: []
 - name: user-roleassignment
   type: html5
   path: user-roleassignment
->>>>>>> develop
   build-parameters:
     builder: custom
     commands:
     - npm run build
-<<<<<<< HEAD
-    supported-platforms: []  
-
-=======
     supported-platforms: []
 - name: comagelmmtsvendorpackinglistcreate
   type: html5
@@ -431,7 +411,6 @@ modules:
     commands:
     - npm install
     supported-platforms: []
->>>>>>> develop
 resources:
 - name: uaa_agel-mmts-web
   type: org.cloudfoundry.managed-service

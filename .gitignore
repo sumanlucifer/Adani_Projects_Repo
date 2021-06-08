@@ -38,7 +38,7 @@ vendorPersona/.env20
 agel-mmts-web/vendorPersona/.env17
 # auto generated wildcard
 tcengineer/.env1
-<<<<<<< HEAD
+
 # auto generated wildcard
 agel-mmts-web/tcengineer/.env1
 # auto generated wildcard
@@ -56,20 +56,10 @@ agel-mmts-web/user-roleassignment/.env1
 =======
 vendorPersona/.env21
 
-<<<<<<< HEAD
-
-# auto generated wildcard
-mdm-uom/.env2
-# auto generated wildcard
-mdm-packinglisttype/.env1
-=======
->>>>>>> develop
 
 # auto generated wildcard
 user-roleassignment/.env2
->>>>>>> develop
-<<<<<<< HEAD
->>>>>>> develop
+
 
 # auto generated wildcard
 pmcg/.env2
@@ -79,4 +69,7 @@ pmcg/.env2
 vendorPersona/.env10
 # auto generated wildcard
 agel-mmts-web/vendor-packinglist-create/.env1
->>>>>>> develop
+
+
+# auto generated wildcard
+vendorPersona/.env11
