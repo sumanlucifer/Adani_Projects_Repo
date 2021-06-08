@@ -64,6 +64,33 @@
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection title="{i18n>Uploaded}">
                         <Label text="Uploaded Documents Will Be Shown Here"/>
+                        <Table id="idMDCCUploadedTable" width="auto" items="{Attachments}" noDataText="{i18n>noParentItems}" growing="true" growingScrollToLoad="true">
+                                <headerToolbar>
+                                    <OverflowToolbar>
+                                        <Title text="Uploaded" level="H4" id="idInspectedParentItems"/>
+                                    </OverflowToolbar>
+                                </headerToolbar>
+                                <columns>
+                                    <Column>
+                                        <Text text="{i18n>fileName}"/>
+                                    </Column>
+                                    <Column>
+                                        <Text text="{i18n>uploadedBy}"/>
+                                    </Column>
+                                    <Column>
+                                        <Text text="{i18n>uploadedOn}"/>
+                                    </Column>
+                                </columns>
+                                <items>
+                                    <ColumnListItem type="Active">
+                                        <cells>
+                                            <Link text="{FileName}"/>
+                                            <ObjectIdentifier title="{UploadedBy}"/>
+                                            <Text text="{UploadedOn}"/>
+                                        </cells>
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>
             </uxap:ObjectPageSection>
@@ -72,7 +99,7 @@
             <uxap:ObjectPageSection titleUppercase="false" title="{i18n>lineItems}">
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection title="{i18n>lineItems}">                        
-                        <!--  <core:Fragment fragmentName="com.agel.mmts.vendormdcc.view.fragments.DispatchView.TreeTableView" type="XML"/> -->
+                         <core:Fragment fragmentName="com.agel.mmts.vendormdcc.view.fragments.DispatchView.TreeTableView" type="XML"/> 
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>
             </uxap:ObjectPageSection>

@@ -40,8 +40,10 @@ sap.ui.define([
             var that = this;
             var sObjectId = oEvent.getParameter("arguments").MDCCId;
             this.sObjectId=3;
-         //   this._bindView("/MDCCSet("+this.sObjectId+")");         
+            this._bindView("/MDCCSet("+this.sObjectId+")");   
+
               this._getParentDataViewMDCC();
+              this._getPackingListData();
         },
 
         _bindView: function (sObjectPath) {
@@ -89,6 +91,21 @@ sap.ui.define([
               // sPath=  ;
              //   that.handleViewDialogOpen();
                 //debugger;
+        },
+
+        _getPackingListData : function(){
+                this.ParentDataView = [];
+                var sPath = "/MDCCSet("+this.sObjectId+")/MDCCParentLineItems";
+                this.MainModel.read(sPath,{
+                    success:function(oData,oResponse){
+                        if(oData.results.length){
+                            this._getChildItemsViewMDCC(oData.results);
+                        }
+                    }.bind(this),
+                    error:function(oError){
+                        sap.m.MessageBox.Error(JSON.stringify(oError));
+                    }
+                });
         },
 
             // Parent Data View Fetch / Model Set
