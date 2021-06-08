@@ -107,6 +107,7 @@ sap.ui.define([
         },
 
         onResetFilters: function (oEvent) {
+            this.oFilterBar._oBasicSearchField.setValue("");
          //   this.byId("filterbar").setBasicSearchValue("");
             this.byId("idPono").setValue("");
             this.byId("idMdccNo").setValue("");

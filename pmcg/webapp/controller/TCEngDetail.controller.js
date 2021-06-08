@@ -174,7 +174,7 @@ sap.ui.define([
             }
 
             if (!this._oBOQApprovalDialog) {
-                this._oBOQApprovalDialog = sap.ui.xmlfragment("com.agel.mmts.tcengineer.view.fragments.BOQDetails.BOQCommentGetter", this);
+                this._oBOQApprovalDialog = sap.ui.xmlfragment("com.agel.mmts.pmcg.view.fragments.BOQDetails.BOQCommentGetter", this);
                 this.getView().addDependent(this._oBOQApprovalDialog);
             }
             this._oBOQApprovalDialog.open();
@@ -219,18 +219,18 @@ sap.ui.define([
 
         onRejectBOQPress: function (oEvent) {
             var BOQApprovedRequestId = this.getView().getBindingContext().getObject().ID;
-            var BOQGroupId = oEvent.getSource().getBindingContext().getObject().BOQGroupId;
+            var BOQGroupId = oEvent.getSource().getBindingContext().getObject().PONumber;
             var boqApprovalModel = this.getViewModel("BOQApprovalModel");
 
             if (BOQGroupId) {
                 boqApprovalModel.setProperty("/Label", "Please enter reason for rejection.");
                 boqApprovalModel.setProperty("/BOQApprovedRequestId", BOQApprovedRequestId);
-                boqApprovalModel.setProperty("/BOQGroupId", BOQGroupId);
+                boqApprovalModel.setProperty("/PONumber", BOQGroupId);
                 boqApprovalModel.setProperty("/Status", "REJECTED");
             }
 
             if (!this._oBOQApprovalDialog) {
-                this._oBOQApprovalDialog = sap.ui.xmlfragment("com.agel.mmts.tcengineer.view.fragments.BOQDetails.BOQCommentGetter", this);
+                this._oBOQApprovalDialog = sap.ui.xmlfragment("com.agel.mmts.pmcg.view.fragments.BOQDetails.BOQCommentGetter", this);
                 this.getView().addDependent(this._oBOQApprovalDialog);
             }
             this._oBOQApprovalDialog.open();
