@@ -9,8 +9,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller"], function (Controller) {
 
         onRejectBOQPress: function (oEvent) {
             this.oParentBlock.fireOnRejectBOQPress(oEvent);
-        },
-
-
+        }
+        
     });
 });

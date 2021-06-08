@@ -141,16 +141,14 @@ modules:
       name: vendor-manageboq
       target-path: resources/
     - artifacts:
-<<<<<<< HEAD
-      - comagelmmtspmcg.zip
-      name: pmcg
-      target-path: resources/
-=======
       - mdm-boqitems-content.zip
       name: mdm-boqitems
-      target-path: resources/   
+      target-path: resources/ 
+    - artifacts:
+      - pmcg-content.zip
+      name: pmcg
+      target-path: resources/    
          
->>>>>>> develop
 - name: vendorPersona
   type: html5
   path: vendorPersona
@@ -385,18 +383,6 @@ modules:
     builder: custom
     commands:
     - npm run build
-<<<<<<< HEAD
-    supported-platforms: []
-- name: pmcg
-  type: html5
-  path: pmcg
-  build-parameters:
-    builder: custom
-    commands:
-    - npm install
-    - npm run build:cf
-    supported-platforms: []
-=======
     supported-platforms: [] 
 - name: mdm-boqitems 
   type: html5
@@ -405,9 +391,16 @@ modules:
     builder: custom
     commands:
     - npm run build
-    supported-platforms: []    
+    supported-platforms: []  
+- name: pmcg 
+  type: html5
+  path: pmcg
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []  
 
->>>>>>> develop
 resources:
 - name: uaa_agel-mmts-web
   type: org.cloudfoundry.managed-service

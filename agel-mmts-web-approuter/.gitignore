@@ -41,3 +41,6 @@ tcengineer/.env1
 agel-mmts-web/user-roleassignment/.env1
 # auto generated wildcard
 user-roleassignment/.env2
+
+# auto generated wildcard
+pmcg/.env2

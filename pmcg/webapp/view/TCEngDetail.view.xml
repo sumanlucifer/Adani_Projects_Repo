@@ -24,19 +24,19 @@
                 </uxap:breadcrumbs>
                 <uxap:expandedHeading>
                     <FlexBox direction="Column" renderType="Bare">
-                        <Title text="TC Engineer Approval Request Details" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
-                        <Title text="{BOQGroupName}" wrapping="true" titleStyle="H3" />
+                        <Title text="PMCG Details" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
+                        <Title text="{PONumber}" wrapping="true" titleStyle="H3" />
                     </FlexBox>
                 </uxap:expandedHeading>
                 <uxap:snappedHeading>
                     <FlexBox direction="Column" renderType="Bare">
-                        <Title text="TC Engineer Request Details" wrapping="true" titleStyle="H4"/>
-                        <Title text="{PONumber}" binding="{ParentLineItem/PurchaseOrder}" wrapping="true" titleStyle="H3"/>
+                        <Title text="PMCG Details" wrapping="true" titleStyle="H4"/>
+                        <Title text="{PONumber}" wrapping="true" titleStyle="H3"/>
                     </FlexBox>
                 </uxap:snappedHeading>
                 <uxap:expandedContent></uxap:expandedContent>
                 <uxap:snappedTitleOnMobile>
-                    <Title text="TC Engineer Approval Request Details - {PONumber}" binding="{ParentLineItem/PurchaseOrder}" wrapping="true" titleStyle="Auto"/>
+                    <Title text="PMCG Details - {PONumber}" wrapping="true" titleStyle="Auto"/>
                 </uxap:snappedTitleOnMobile>
                 <uxap:actions>
                 </uxap:actions>
@@ -46,34 +46,13 @@
             <FlexBox wrap="Wrap" height="100%" renderType="Bare" direction="Column">
                 <VBox renderType="Bare">
                     <FlexBox direction="Row" renderType="Bare" class="sapUiTinyMarginBottom">
-                        <VBox renderType="Bare" class="sapUiMediumMarginEnd" binding="{ParentLineItem/PurchaseOrder}">
+                        <VBox renderType="Bare" class="sapUiMediumMarginEnd">
                             <Label text="PO Number" />
                             <!-- missing -->
                             <Text text="{PONumber}"/>
                         </VBox>
-                        <VBox renderType="Bare" class="sapUiMediumMarginEnd" binding="{ParentLineItem/PurchaseOrder}">
-                            <Label text="PO Issues Date" />
-                            <!-- missing -->
-                            <Text text="{path:'POReleaseDate',
-                                     type: 'sap.ui.model.type.Date',
-				                     formatOptions: {
-				                        pattern: 'MMMM dd, yyyy'
-				                     }
-                            }"/>
-                        </VBox>
-                        <VBox renderType="Bare" class="sapUiMediumMarginEnd" binding="{ParentLineItem/PurchaseOrder}">
-                            <Label text="PO Target Date" />
-                            <!-- missing -->
-                            <Text text="{path:'POReleaseDate',
-                                     type: 'sap.ui.model.type.Date',
-				                     formatOptions: {
-				                        pattern: 'MMMM dd, yyyy'
-				                     }
-                            }"/>
-                        </VBox>
-
                         <VBox renderType="Bare" class="sapUiMediumMarginEnd">
-                            <Label text="BOQ Request Date" />
+                            <Label text="Created At" />
                             <!-- missing -->
                             <Text text="{path:'CreatedAt',
                                      type: 'sap.ui.model.type.Date',
@@ -82,9 +61,18 @@
 				                     }
                             }"/>
                         </VBox>
-
+                        <VBox renderType="Bare" class="sapUiMediumMarginEnd">
+                            <Label text="Updated At" />
+                            <!-- missing -->
+                            <Text text="{path:'UpdatedAt',
+                                     type: 'sap.ui.model.type.Date',
+				                     formatOptions: {
+				                        pattern: 'MMMM dd, yyyy'
+				                     }
+                            }"/>
+                        </VBox>
                         <VBox renderType="Bare">
-                            <Label text="{i18n>boqApprovalstatus}" />
+                            <Label text="{i18n>status}" />
                             <ObjectStatus text="{Status}" state="{= ${Status} === 'PENDING' ? 'Warning' : ${Status} === 'REJECTED' ? 'Error' : 'Success'}"/>
                         </VBox>
                     </FlexBox>

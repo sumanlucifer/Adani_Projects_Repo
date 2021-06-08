@@ -3,7 +3,7 @@
     xmlns:f="sap.ui.layout.form"
     xmlns="sap.m">
 
-    <f:SimpleForm layout="ColumnLayout" columnsM="2" columnsL="3" columnsXL="4" binding="{ParentLineItem/PurchaseOrder/Buyer}" singleContainerFullSize="true" class="style-RemoveTitleHeight">
+    <f:SimpleForm layout="ColumnLayout" columnsM="2" columnsL="3" columnsXL="4" binding="{InspectionCall/PurchaseOrder/Buyer}" singleContainerFullSize="true" class="style-RemoveTitleHeight">
         <f:content>
             
              <!-- <core:Title  /> -->
@@ -15,7 +15,7 @@
             <Text text="{GSTIN}"/>
             <Label text="{i18n>pan}" />
             <Text text="{Pan}"/>
-            <Label text="{i18n>email}" />
+            <Label text="{i18n>emailID}" />
             <Link text="{Email}"/>
             <Label text="{i18n>mobile}" />
             <Link text="{Phone}"/>
@@ -32,8 +32,8 @@
             <Text text="{PurchasingOrg}"/>
             <Label text="{i18n>purchasingGroup}" />
             <Text text="{PurchasingGroup}"/>
-            <Label text="{i18n>companyCode}" />
-            <Text text="missing"/>
+            <Label text="{i18n>CompanyCode}" />
+            <Text text="{CompanyCode}"/>
             <Label text="{i18n>ifcNo}" />
             <Text text="{IECNo}"/>
         </f:content>

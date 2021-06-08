@@ -4,7 +4,7 @@
     xmlns="sap.m">
 
     <f:SimpleForm singleContainerFullSize="true" layout="ColumnLayout" columnsM="2" columnsL="3" 
-        columnsXL="4" binding="{ParentLineItem/PurchaseOrder/SOW}" class="style-RemoveTitleHeight">
+        columnsXL="4" binding="{InspectionCall/PurchaseOrder/SOW}" class="style-RemoveTitleHeight">
         <f:content>
             <!-- <core:Title/> -->
             <Label text="{i18n>delivertTerm}" />
@@ -25,7 +25,7 @@
             <Label text="{i18n>liquidatedDamages}" />
             <Text text="{LiquidatedDamages}"/>
             <Label text="{i18n>deliverySchedule}" />
-            <Text text="missing"/>
+            <Text text="{DeliverySchedule}"/>
             <Label text="{i18n>specificAgreedTems}" />
             <Text text="{SpecificAgreedTerms}"/>
             <!-- <core:Title/> -->

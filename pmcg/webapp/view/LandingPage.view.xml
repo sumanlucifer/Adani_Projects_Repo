@@ -12,7 +12,7 @@
 					<f:title>
 						<f:DynamicPageTitle>
 							<f:heading>
-								<Title text="{i18n>TCEngineer}"/>
+								<Title text="{i18n>pmcgTitle}"/>
 							</f:heading>
 						</f:DynamicPageTitle>
 					</f:title>

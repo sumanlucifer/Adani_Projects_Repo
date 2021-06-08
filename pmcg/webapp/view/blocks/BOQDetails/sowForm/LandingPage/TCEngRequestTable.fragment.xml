@@ -28,7 +28,8 @@
                     </customData>
                     <Text text="{i18n>mdccNUm}"/>
                 </Column>
-                
+
+
                 <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "NotificationNumber", "leadingProperty": "NotificationNumber",
@@ -37,10 +38,19 @@
                     <Text text="{i18n>notNum}"/>
                 </Column>
 
+                <!-- <Column demandPopin="true" minScreenWidth="Desktop"> 
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Version", "leadingProperty": "Version",
+                                                 "columnIndex": 4 ,"sortProperty": "Version","filterProperty": "Version"}'/>
+                    </customData>
+                    <Text text="{i18n>version}"/>
+                </Column> -->
+
+                
                 <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "CreatedAt", "leadingProperty": "CreatedAt",
-                                                 "columnIndex": 3}'/>
+                                                 "columnIndex": 5}'/>
                     </customData>
                     <Text text="{i18n>crtdDate}"/>
                 </Column>
@@ -48,7 +58,7 @@
                 <Column demandPopin="true" minScreenWidth="Desktop"> 
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "UpdatedAt", "leadingProperty": "UpdatedAt",
-                                                 "columnIndex": 4 }'/>
+                                                 "columnIndex": 6 }'/>
                     </customData>
                     <Text text="{i18n>uptdDate}"/>
                 </Column>
@@ -56,10 +66,11 @@
                <Column demandPopin="true" minScreenWidth="Desktop"> 
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "Status", "leadingProperty": "Status",
-                                                 "columnIndex": 5 }'/>
+                                                 "columnIndex": 7 }'/>
                     </customData>
                     <Text text="{i18n>status}"/>
                 </Column>
+
 
             </columns>
             <items>
@@ -69,7 +80,7 @@
                         <Text text="{PONumber}"/>
                         <Text text="{MDCCNumber}"/>
                         <Text text="{NotificationNumber}"/>
-                        
+                        <!-- <Text text="{Version}"/> -->
                         <Text text="{path:'CreatedAt',
                                     type: 'sap.ui.model.type.Date',
 				                     formatOptions: {
@@ -77,10 +88,10 @@
 				                     }    
                         }"/>
                         <Text text="{path:'UpdatedAt',
-                                     type: 'sap.ui.model.type.Date',
+                                    type: 'sap.ui.model.type.Date',
 				                     formatOptions: {
 				                        pattern: 'MMMM dd, yyyy'
-				                     }
+				                     }    
                         }"/>
                         <ObjectStatus text="{Status}" state="{= ${Status} === 'PENDING' ? 'Warning' : ${Status} === 'REJECTED' ? 'Error' : 'Success'}"/>
                     </cells>

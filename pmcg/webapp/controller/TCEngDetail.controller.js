@@ -32,6 +32,7 @@ sap.ui.define([
                 boqSelection: null
             });
             this.setModel(oViewModel, "objectViewModel");
+                       this.MainModel = this.getOwnerComponent().getModel();
 
             this._createBOQApprovalModel();
 
@@ -44,8 +45,12 @@ sap.ui.define([
         },
 
         _onObjectMatched: function (oEvent) {
+            // var sObjectId = oEvent.getParameter("arguments").TCEngId;
+
             var sObjectId = oEvent.getParameter("arguments").TCEngId;
-            this._bindView("/BOQApprovalRequestSet" + sObjectId);
+ 
+            this._bindView("/MDCCSet" + sObjectId);
+            this._getParentDataViewMDCC(sObjectId);
         },
 
         _createBOQApprovalModel: function () {
@@ -61,8 +66,6 @@ sap.ui.define([
 
             this.setModel(oModel, "BOQApprovalModel");
         },
-
-
 
         _bindView: function (sObjectPath) {
             var objectViewModel = this.getViewModel("objectViewModel");
@@ -199,7 +202,6 @@ sap.ui.define([
                 }]
             };
 
-
             this.getComponentModel().create("/TCBOQResponseSet", aPayload, {
                 success: function (oData, oResponse) {
                     if(oData.Success)
@@ -236,6 +238,64 @@ sap.ui.define([
 
         onCancelBOQApprovalProcess: function (oEvent) {
             this._oBOQApprovalDialog.close();
+        },
+
+        		
+		//---------------------------------------------Tree Table-------------------------------------------------------------//
+        _arrangeData : function(){        
+            var oModel = new JSONModel({"ChildItems":this.ParentData});
+            this.getView().setModel(oModel,"TreeTableModel");
+        },
+        _getParentDataViewMDCC : function(sObjectId){
+                var patt1 = /[0-9]/g;
+                var sObject =sObjectId;
+                sObjectId = parseInt(sObject.match(patt1));
+
+                this.ParentDataView = [];
+                var sPath = "/MDCCSet("+sObjectId+")/MDCCParentLineItems";
+                this.MainModel.read(sPath,{
+                    success:function(oData,oResponse){
+                        if(oData.results.length){
+                            this._getChildItemsViewMDCC(oData.results, sObjectId);
+                        }
+                    }.bind(this),
+                    error:function(oError){
+                        sap.m.MessageBox.Error(JSON.stringify(oError));
+                    }
+                });
+        },           
+        _getChildItemsViewMDCC : function(ParentDataView, sObjectId){
+            this.ParentDataView = ParentDataView;
+            for( var i=0; i < ParentDataView.length; i++){
+                var sPath = "/MDCCSet("+sObjectId+")/MDCCParentLineItems("+ ParentDataView[i].ID +")/MDCCBOQItems";
+                this.MainModel.read(sPath,{
+                    success:function(i,oData,oResponse){
+                        if(oData.results.length){
+                            this.ParentDataView[i].isStandAlone=true;
+                            this.ParentDataView[i].ChildItemsView=oData.results;
+                        }
+                        else{
+                            this.ParentDataView[i].isStandAlone=false;
+                            this.ParentDataView[i].ChildItemsView=[];
+                        }
+                        if(i==this.ParentDataView.length-1)
+                            this._arrangeDataView();
+                    }.bind(this,i),
+                    error:function(oError){
+                        sap.m.MessageBox.Error(JSON.stringify(oError));
+
+                    }
+                });
+            }
+        },
+        _arrangeDataView : function(){        
+                var that = this;
+                var oModel = new JSONModel({"ChildItemsView":this.ParentDataView});
+                this.getView().setModel(oModel,"TreeTableModelView");
+               // var sPath = oEvent.getSource().getParent().getBindingContextPath();
+               // sPath=  ;
+               // that.handleViewDialogOpen();
+               //debugger;
         }
 
     });
