@@ -20,13 +20,13 @@ sap.ui.define([
 	function (BaseController, Filter, FilterOperator, Fragment, Sorter, Device, History, ColumnListItem, Input, deepExtend, Spreadsheet, MessageToast, MessageBox,JSONModel) {
 		"use strict";
 
-		return BaseController.extend("com.agel.mmts.vendormdcc.controller.Main", {
+		return BaseController.extend("com.agel.mmts.vendormdcc.controller.PackingListProceed", {
 			onInit: function () {
 
                 this.MainModel = this.getOwnerComponent().getModel();
                  //Router Object
                  this.oRouter = this.getOwnerComponent().getRouter();
-                 this.oRouter.getRoute("RouteMain").attachPatternMatched(this._onObjectMatched, this);
+                 this.oRouter.getRoute("RoutePackingListProceedPage").attachPatternMatched(this._onObjectMatched, this);
 
                  this.getView().setModel(this.getOwnerComponent().getModel("i18n").getResourceBundle());
             },

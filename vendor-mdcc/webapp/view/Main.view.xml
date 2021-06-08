@@ -14,6 +14,7 @@
                             <ToolbarSpacer width="80%"/>
                             <Button text="Save" type="Emphasized" press="onSave"/>
                             <Button text="View" type="Emphasized" press="onViewPress"/>
+                            <Button text="Disptach View" type="Emphasized" press="onDispatchViewPress"/>
                         </OverflowToolbar>
 						<ui:TreeTable id="TreeTableBasic"
                             rows="{path:'TreeTableModel>/', parameters: {arrayNames:['ChildItems']}}"
@@ -54,8 +55,8 @@
 									<Label text="MDCCApprovedQty"/>
 									<ui:template>
                                         <HBox justifyContent="SpaceAround" visible="{= ${TreeTableModel>isStandAlone} ? false : true}"> 
-										    <Button icon="sap-icon://edit" type="Transparent" press="onEditQuantity"/>
-                                            <Input value="{TreeTableModel>MDCCApprovedQty1}" />
+										    <Input value="{TreeTableModel>MDCCApprovedQty1}" />
+                                            <Button icon="sap-icon://edit" type="Transparent" press="onEditQuantity"/>
                                         </HBox>
 									</ui:template>
 								</ui:Column>

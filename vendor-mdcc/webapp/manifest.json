@@ -59,7 +59,7 @@
             "viewName": "com.agel.mmts.vendormdcc.view.Main",
             "type": "XML",
             "async": true,
-            "id": "Main"
+            "id": "app"
         },
         "dependencies": {
             "minUI5Version": "1.66.0",
@@ -117,6 +117,20 @@
                     "target": [
                         "TargetMain"
                     ]
+                },
+                {
+                    "name": "RouteInitiateDispatchPage",
+                    "pattern": "MDCC/{MDCCId}",
+                    "target": [
+                        "TargetInitiateDispatchPage"                     
+                    ]
+                },
+                {
+                    "name": "RoutePackingListProceedPage",
+                    "pattern": "PackingList/{MDCCId}",
+                    "target": [
+                        "TargetPackingListProceedPage"
+                    ]
                 }
             ],
             "targets": {
@@ -125,6 +139,18 @@
                     "transition": "slide",
                     "clearControlAggregation": false,
                     "viewName": "Main"
+                },
+                 "TargetInitiateDispatchPage": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewName": "InitiateDispatch"
+                },
+                "TargetPackingListProceedPage": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewName": "PackingListProceed"
                 }
             }
         }

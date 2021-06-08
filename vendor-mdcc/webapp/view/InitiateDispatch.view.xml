@@ -1,0 +1,108 @@
+<mvc:View xmlns:f2="sap.f"
+    xmlns:vbm="sap.ui.vbm"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:uxap="sap.uxap"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+    xmlns:unified="sap.ui.unified"
+    xmlns:tt="sap.ui.table"
+    xmlns:smartTable="sap.ui.comp.smarttable"
+    xmlns="sap.m" 
+    controllerName="com.agel.mmts.vendormdcc.controller.InitiateDispatch"
+    height="100%">
+    <uxap:ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true" upperCaseAnchorBar="false"
+         headerContentPinnable="true" toggleHeaderOnTitleClick="true" busy="{objectViewModel>/busy}">
+        <uxap:headerTitle>
+            <uxap:ObjectPageDynamicHeaderTitle>
+                <uxap:breadcrumbs>
+                    <!-- <Breadcrumbs id="breadcrumbsId" currentLocationText="{i18n>confirmedPODetails}">
+                        <Link text="{i18n>assignedPOList}" press=".handleToAllPOBreadcrumPress"/>
+                    </Breadcrumbs> -->
+                </uxap:breadcrumbs>
+                <uxap:expandedHeading>
+                    <FlexBox direction="Column" renderType="Bare">
+                        <Title text="MDCC No." wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
+                        <Title text="" wrapping="true" titleStyle="H3"/>
+                    </FlexBox>
+                </uxap:expandedHeading>
+                <uxap:snappedHeading>
+                    <FlexBox direction="Column" renderType="Bare">
+                        <Title text="Date" wrapping="true" titleStyle="H4"/>
+                        <Title text=""  wrapping="true" titleStyle="H3"/>
+                    </FlexBox>
+                </uxap:snappedHeading>
+                <uxap:expandedContent></uxap:expandedContent>
+                <uxap:snappedTitleOnMobile>
+                    <Title text="MDCC" wrapping="true" titleStyle="Auto"/>
+                </uxap:snappedTitleOnMobile>
+                <uxap:actions>
+                    <Button text="Initiate Dispatch" type="Emphasized" press="onPressInitiateDispatch"/>
+                </uxap:actions>
+            </uxap:ObjectPageDynamicHeaderTitle>
+        </uxap:headerTitle>
+        <uxap:headerContent>
+            <FlexBox wrap="Wrap" height="100%" renderType="Bare" direction="Column">
+                <VBox renderType="Bare">
+                    <FlexBox direction="Row" renderType="Bare" class="sapUiTinyMarginBottom">
+                        <VBox renderType="Bare" class="sapUiMediumMarginEnd">
+                            <Label text="MDCC Number" />
+                            <!-- missing -->
+                            <Text text=""/>
+                        </VBox>
+                        <VBox renderType="Bare">
+                            
+                        </VBox>
+                    </FlexBox>
+                </VBox>
+            </FlexBox>
+        </uxap:headerContent>
+        <uxap:sections>
+
+            <!-- Uploaded Items Section -->
+            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>Uploaded}">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection title="{i18n>Uploaded}">
+                        <Label text="Uploaded Documents Will Be Shown Here"/>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+           
+            <!-- Line Items Section -->
+            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>lineItems}">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection title="{i18n>lineItems}">                        
+                        <!--  <core:Fragment fragmentName="com.agel.mmts.vendormdcc.view.fragments.DispatchView.TreeTableView" type="XML"/> -->
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+            
+            <!-- Reason Approve / Reject Items Section -->
+            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>Reason}">
+                <uxap:subSections>
+                    
+                    <uxap:ObjectPageSubSection title="{i18n>Reason}">
+                       <VBox alignContent="SpaceAround" renderType="List"> 
+                        <Title text="Reason Approve / Reject Will Be Shown Here"  wrapping="true" titleStyle="H5"/>
+                        <Label text="Lorem ipsum dolor sit amet, consectetur adipiscing elit.\b 
+                            Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.
+                             Proin sodales pulvinar sic tempor.\b Sociis natoque penatibus et magnis dis parturient montes, 
+                                nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate,
+                             felis tellus mollis orci, sed rhoncus pronin sapien nunc accuan eget."/>
+                        </VBox>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+            <!-- Packing List Items Section -->
+            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>packingList}">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection title="{i18n>packingList}">
+                     <Label text="Packing List"/>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+        </uxap:sections>
+    </uxap:ObjectPageLayout>
+</mvc:View>
