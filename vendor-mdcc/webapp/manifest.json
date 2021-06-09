@@ -120,7 +120,7 @@
                 },
                 {
                     "name": "RouteInitiateDispatchPage",
-                    "pattern": "MDCC/{MDCCId}",
+                    "pattern": "InitiateDispatch/{MDCCId}",
                     "target": [
                         "TargetInitiateDispatchPage"                     
                     ]

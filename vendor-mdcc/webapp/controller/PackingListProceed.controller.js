@@ -35,8 +35,9 @@ sap.ui.define([
                 this.sObjectId = oEvent.getParameter("arguments").POId;
                 this.sObjectId = 3;
                 this._getMDCCData();
-                this._getParentData();
-             //   this._bindView("/PurchaseOrderSet" + sObjectId);
+                this._getParentDataViewMDCC();
+              //  this._getParentData();
+               // this._bindView("/MDCCSet("+this.sObjectId+"");
             },
 
             // Get MDCC Set Level Data For Post Operation
@@ -56,46 +57,7 @@ sap.ui.define([
                     }
                 });
             },
-
-            _getParentData : function(){
-                var sPath = "/MDCCSet("+this.sObjectId+")/InspectionCall/InspectedParentItems";
-                this.MainModel.read(sPath,{
-                    success:function(oData,oResponse){
-                        if(oData.results.length){
-                            this._getChildItems(oData.results);
-                        }
-                    }.bind(this),
-                    error:function(oError){
-                        sap.m.MessageBox.Error(JSON.stringify(oError));
-                    }
-                });
-            },
-
-            _getChildItems : function(ParentData){
-                this.ParentData = ParentData;
-                for( var i=0; i < ParentData.length; i++){
-                
-                    var sPath = "/MDCCSet("+this.sObjectId+")/InspectionCall/InspectedParentItems("+ ParentData[i].ID +")/InspectedBOQItems";
-                    this.MainModel.read(sPath,{
-                        success:function(i,oData,oResponse){
-                                                        
-                            if(oData.results.length){
-                                this.ParentData[i].isStandAlone=true;
-                                this.ParentData[i].ChildItems=oData.results;
-                            }
-                            else{
-                                this.ParentData[i].isStandAlone=false;
-                                this.ParentData[i].ChildItems=[];
-                            }
-                            if(i==this.ParentData.length-1)
-                                this._arrangeData();
-                        }.bind(this,i),
-                        error:function(oError){
-                            sap.m.MessageBox.Error(JSON.stringify(oError));
-                        }
-                    });
-                }
-            },
+        
 
             onEditQuantity: function(oEvent){
 
@@ -158,7 +120,7 @@ sap.ui.define([
             onViewPress: function (oEvent) {
               //  var oItem = oEvent.getSource();
               var that = this;
-              this._getParentDataViewMDCC();
+             // this._getParentDataViewMDCC();
               //that.sPath = oEvent.getSource().getParent().getBindingContextPath();
                // that.handleViewDialogOpen();
             },
@@ -166,54 +128,14 @@ sap.ui.define([
             // Arrange Data For View / Model Set
             _arrangeDataView : function(){        
                 var that = this;
-                var oModel = new JSONModel({"ChildItemsView":this.ParentDataView});
-                this.getView().setModel(oModel,"TreeTableModelView");
+                var oModel = new JSONModel({"ChildItems":this.ParentDataView});
+                this.getView().setModel(oModel,"TreeTableModel");
                // var sPath = oEvent.getSource().getParent().getBindingContextPath();
               // sPath=  ;
-                that.handleViewDialogOpen();
+             //   that.handleViewDialogOpen();
                 //debugger;
             },
-
-             // Child Line Items Dialog Open
-            handleViewDialogOpen: function () {
-                // create dialog lazily
-                //debugger;
-                var that =this;
-                var oDetails = {};
-                oDetails.controller = this;
-                oDetails.view = this.getView();
-              //  oDetails.sParentItemPath = sParentItemPath;
-                if (!this.pDialog) {
-                    this.pDialog = Fragment.load({
-                        id: oDetails.view.getId(),
-                        name: "com.agel.mmts.vendormdcc.view.fragments.TreeTableView",
-                        controller: oDetails.controller
-                    }).then(function (oDialog) {
-                        // connect dialog to the root view of this component (models, lifecycle)
-                        oDetails.view.addDependent(oDialog);
-                       /* oDialog.bindElement({
-                            path: oDetails.sParentItemPath,
-                        });*/
-                        oDialog.setModel(that.getView().getModel("TreeTableModelView"));
-                        return oDialog;
-                    });
-                }
-                this.pDialog.then(function (oDialog) {
-                    oDetails.view.addDependent(oDialog);
-                  /*  oDialog.bindElement({
-                        path: oDetails.sParentItemPath,
-                    });*/
-                    oDialog.setModel(that.getView().getModel("TreeTableModelView"));
-                    oDialog.open();
-                });
-            },
-
-            onViewChildDialogClose: function (oEvent) {
-                this.pDialog.then(function (oDialog) {
-                    oDialog.close();
-                });
-            },
-
+        
             // Parent Data View Fetch / Model Set
             _getParentDataViewMDCC : function(){
                 this.ParentDataView = [];

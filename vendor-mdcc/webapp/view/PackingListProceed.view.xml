@@ -78,6 +78,12 @@
 										<Text text="{TreeTableModel>ID}" wrapping="false" />
 									</ui:template>
 								</ui:Column>
+                                <ui:Column width="13rem">
+									<Label text="MaterialCode"/>
+									<ui:template>
+										<Text text="{TreeTableModel>MaterialCode}" wrapping="false" />
+									</ui:template>
+								</ui:Column>
 								<ui:Column width="13rem">
 									<Label text="Name"/>
 									<ui:template>
@@ -90,26 +96,32 @@
 										<Text text="{TreeTableModel>Description}" wrapping="false" />
 									</ui:template>
 								</ui:Column>
-								<ui:Column width="13rem">
-									<Label text="MaterialCode"/>
-									<ui:template>
-										<Text text="{TreeTableModel>MaterialCode}" wrapping="false" />
-									</ui:template>
-								</ui:Column>
+								
 								<ui:Column width="5rem">
 									<Label text="Qty"/>
 									<ui:template>
 										<Text text="{TreeTableModel>Qty}" wrapping="false" />
 									</ui:template>
 								</ui:Column>
+
 								<ui:Column width="10rem">
-									<Label text="MDCCApprovedQty"/>
+									<Label text="MDCCApproved Qty"/>
 									<ui:template>
                                         <HBox justifyContent="SpaceAround" visible="{= ${TreeTableModel>isStandAlone} ? false : true}"> 
 										    <Text text="{TreeTableModel>MDCCApprovedQty}" />
                                         </HBox>
 									</ui:template>
 								</ui:Column>
+
+                                <ui:Column width="10rem">
+									<Label text="Dispatch Qty"/>
+									<ui:template>
+                                        <HBox justifyContent="SpaceAround" visible="{= ${TreeTableModel>isStandAlone} ? false : true}"> 
+										    <Input value="{TreeTableModel>DispatchQty}" />
+                                        </HBox>
+									</ui:template>
+								</ui:Column>
+
 								<ui:Column width="13rem">
 									<Label text="UOM"/>
 									<ui:template>

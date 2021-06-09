@@ -17,7 +17,7 @@ sap.ui.define([
         onInit: function () {   
 
             this.MainModel = this.getOwnerComponent().getModel();
-          
+            this.getView().setModel(this.MainModel);
             //view model instatiation
             var oViewModel = new JSONModel({
                 busy: false,
@@ -43,7 +43,7 @@ sap.ui.define([
             this._bindView("/MDCCSet("+this.sObjectId+")");   
 
               this._getParentDataViewMDCC();
-              this._getPackingListData();
+           //   this._getPackingListData();
         },
 
         _bindView: function (sObjectPath) {
@@ -168,6 +168,16 @@ sap.ui.define([
                 this._mViewSettingsDialogs[sDialogFragmentName] = pDialog;
             }
             return pDialog;
+        },
+
+         onBeforeRebindPackingListTable: function (oEvent) {
+            var MDCC_Id ;
+            var mBindingParams = oEvent.getParameter("bindingParams");
+         //   if (this.getView().getBindingContext().getObject())
+         //       MDCC_Id  = this.getView().getBindingContext().getObject().MDCC_Id ;
+
+            mBindingParams.filters.push(new sap.ui.model.Filter("MDCC_Id ", sap.ui.model.FilterOperator.EQ, 4 ));
+
         },
 
     });
