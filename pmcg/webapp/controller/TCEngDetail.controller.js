@@ -32,7 +32,9 @@ sap.ui.define([
                 boqSelection: null
             });
             this.setModel(oViewModel, "objectViewModel");
-                       this.MainModel = this.getOwnerComponent().getModel();
+            
+            this.MainModel = this.getOwnerComponent().getModel();
+            this.getView().setModel(this.MainModel);
 
             this._createBOQApprovalModel();
 
@@ -48,6 +50,7 @@ sap.ui.define([
             // var sObjectId = oEvent.getParameter("arguments").TCEngId;
 
             var sObjectId = oEvent.getParameter("arguments").TCEngId;
+            this.sObjectId =sObjectId;
  
             this._bindView("/MDCCSet" + sObjectId);
             this._getParentDataViewMDCC(sObjectId);
@@ -56,12 +59,16 @@ sap.ui.define([
         _createBOQApprovalModel: function () {
 
             var oModel = new JSONModel({
-                BOQApprovedRequestId: null,
+                ID: null,
                 Status: null,
                 Comment: null,
-                BOQGroupId: null,
+                MDCCID: null,
                 isPostButtonEnabled: false,
-                Label: null
+                UpdatedAt: null,
+                UpdatedBy: null,
+                ApprovedOn: null,
+                ApprovedBy:null
+
             });
 
             this.setModel(oModel, "BOQApprovalModel");
@@ -161,16 +168,27 @@ sap.ui.define([
             return pDialog;
         },
 
-        BOQApproval: function (oEvent) {
-            var BOQApprovedRequestId = this.getView().getBindingContext().getObject().ID;
-            var BOQGroupId = oEvent.getSource().getBindingContext().getObject().BOQGroupId;
+        onApproveBOQPress: function (oEvent) {
             var boqApprovalModel = this.getViewModel("BOQApprovalModel");
+            var obj=oEvent.getSource().getBindingContext().getObject();
+            var patt1 = /[0-9]/g;
+            var sObject =this.sObjectId;
+            var mDCCID = parseInt(sObject.match(patt1));
+            var iD = obj.ID;
+            var updatedAt = obj.UpdatedAt;
+            var updatedBy = obj.UpdatedBy;
+            var approvedBy = obj.ApprovedBy;
+            var approvedAt = obj.ApprovedAt;
 
-            if (BOQGroupId) {
+            if (mDCCID) {
                 boqApprovalModel.setProperty("/Label", "Please enter your approval comments.");
-                boqApprovalModel.setProperty("/BOQApprovedRequestId", BOQApprovedRequestId);
-                boqApprovalModel.setProperty("/BOQGroupId", BOQGroupId);
+                boqApprovalModel.setProperty("/ID", iD);
+                boqApprovalModel.setProperty("/MDCCID", mDCCID);
                 boqApprovalModel.setProperty("/Status", "APPROVED");
+                boqApprovalModel.setProperty("/UpdatedAt", updatedAt);
+                boqApprovalModel.setProperty("/UpdatedBy", "Test");
+                boqApprovalModel.setProperty("/ApprovedBy", "Test");
+                boqApprovalModel.setProperty("/ApprovedAt", approvedAt);
             }
 
             if (!this._oBOQApprovalDialog) {
@@ -192,22 +210,26 @@ sap.ui.define([
             this._oBOQApprovalDialog.close();
             var oData = this.getViewModel("BOQApprovalModel").getData();
             var boqApprovalModel = this.getViewModel("BOQApprovalModel");
+            var patt1 = /[0-9]/g;
+            var sObject = this.sObjectId;
+            var sObjectId = parseInt(sObject.match(patt1));
 
-            var aPayload = {
-                "Responses": [{
-                    "BOQApprovedRequestId": boqApprovalModel.getProperty("/BOQApprovedRequestId"),
+            var aPayload = 
+            // {"Responses": 
+                {
+                    "ID": boqApprovalModel.getProperty("/ID"),
                     "Status": boqApprovalModel.getProperty("/Status"),
                     "Comment": boqApprovalModel.getProperty("/Comment"),
-                    "BOQGroupId": boqApprovalModel.getProperty("/BOQGroupId")
-                }]
-            };
+                    "MDCCID": boqApprovalModel.getProperty("/MDCCID"),
+                    "UpdatedAt": boqApprovalModel.getProperty("/UpdatedAt"),
+                    "UpdatedBy": boqApprovalModel.getProperty("/UpdatedBy"),
+                    "ApprovedOn": boqApprovalModel.getProperty("/ApprovedOn"),
+                    "ApprovedBy": boqApprovalModel.getProperty("/ApprovedBy")
+                };
+            // };
 
-            this.getComponentModel().create("/TCBOQResponseSet", aPayload, {
+            this.getComponentModel().update("/MDCCStatusSet(" + sObjectId +")", aPayload, {
                 success: function (oData, oResponse) {
-                    if(oData.Success)
-                    sap.m.MessageBox.success(oData.Message);
-                    else
-                    sap.m.MessageBox.error(oData.Message);  
                     this.getComponentModel().refresh();
                 }.bind(this),
                 error: function (oError) {
@@ -218,15 +240,26 @@ sap.ui.define([
         },
 
         onRejectBOQPress: function (oEvent) {
-            var BOQApprovedRequestId = this.getView().getBindingContext().getObject().ID;
-            var BOQGroupId = oEvent.getSource().getBindingContext().getObject().PONumber;
             var boqApprovalModel = this.getViewModel("BOQApprovalModel");
+            var obj=oEvent.getSource().getBindingContext().getObject();
+            var patt1 = /[0-9]/g;
+            var sObject =this.sObjectId;
+            var mDCCID = parseInt(sObject.match(patt1));
+            var iD = obj.ID;
+            var updatedAt = obj.UpdatedAt;
+            var updatedBy = obj.UpdatedBy;
+            var approvedBy = obj.ApprovedBy;
+            var approvedAt = obj.ApprovedAt;
 
-            if (BOQGroupId) {
+            if (mDCCID) {
                 boqApprovalModel.setProperty("/Label", "Please enter reason for rejection.");
-                boqApprovalModel.setProperty("/BOQApprovedRequestId", BOQApprovedRequestId);
-                boqApprovalModel.setProperty("/PONumber", BOQGroupId);
+                boqApprovalModel.setProperty("/ID", iD);
+                boqApprovalModel.setProperty("/MDCCID", mDCCID);
                 boqApprovalModel.setProperty("/Status", "REJECTED");
+                boqApprovalModel.setProperty("/UpdatedAt", updatedAt);
+                boqApprovalModel.setProperty("/UpdatedBy", "Test");
+                boqApprovalModel.setProperty("/ApprovedBy", "Test");
+                boqApprovalModel.setProperty("/ApprovedAt", approvedAt);
             }
 
             if (!this._oBOQApprovalDialog) {

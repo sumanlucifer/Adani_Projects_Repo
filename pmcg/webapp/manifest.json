@@ -87,7 +87,9 @@
                     "defaultBindingMode": "TwoWay",	
                     "defaultCountMode": "Request",	
                     "refreshAfterChange": true,	
-                    "useBatch": false	
+                    "useBatch": false,
+                    "defaultUpdateMethod":"PUT"
+	
                 },
                 "dataSource": "mainService",
                 "preload": true

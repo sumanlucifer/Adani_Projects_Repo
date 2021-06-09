@@ -38,3 +38,5 @@ agel-mmts-web/vendor-packinglist-create/.env1
 
 # auto generated wildcard
 vendorPersona/.env11
+# auto generated wildcard
+pmcg/.env3
