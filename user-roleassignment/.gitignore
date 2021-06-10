@@ -15,3 +15,13 @@ user-roleassignment/.env2
 vendorPersona/.env10
 # auto generated wildcard
 agel-mmts-web/vendor-packinglist-create/.env1
+# auto generated wildcard
+securityPerson-ScanQR/.env1
+# auto generated wildcard
+securityPerson-ScanQR/.env2
+# auto generated wildcard
+securityPerson-ScanQR/.env3
+# auto generated wildcard
+securityPerson-ScanQR/.env4
+# auto generated wildcard
+security-scanqr/.env1

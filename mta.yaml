@@ -152,6 +152,10 @@ modules:
       - comagelmmtsvendorpackinglistcreate.zip
       name: comagelmmtsvendorpackinglistcreate
       target-path: resources/
+    - artifacts:
+      - security-scanqr-content.zip
+      name: security-scanqr
+      target-path: resources/
 - name: vendorPersona
   type: html5
   path: vendorPersona
@@ -406,6 +410,14 @@ modules:
 - name: comagelmmtsvendorpackinglistcreate
   type: html5
   path: vendor-packinglist-create
+  build-parameters:
+    builder: custom
+    commands:
+    - npm install
+    supported-platforms: []
+- name: security-scanqr
+  type: html5
+  path: security-scanqr
   build-parameters:
     builder: custom
     commands:
