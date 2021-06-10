@@ -12,7 +12,8 @@
     controllerName="com.agel.mmts.vendormdcc.controller.InitiateDispatch"
     height="100%">
     <uxap:ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true" upperCaseAnchorBar="false"
-         headerContentPinnable="true" toggleHeaderOnTitleClick="true" busy="{objectViewModel>/busy}">
+         headerContentPinnable="true" toggleHeaderOnTitleClick="true" preserveHeaderStateOnScroll="true"
+          busy="{objectViewModel>/busy}">
         <uxap:headerTitle>
             <uxap:ObjectPageDynamicHeaderTitle>
                 <uxap:breadcrumbs>
@@ -23,18 +24,18 @@
                 <uxap:expandedHeading>
                     <FlexBox direction="Column" renderType="Bare">
                         <Title text="MDCC No." wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
-                        <Title text="" wrapping="true" titleStyle="H3"/>
-                    </FlexBox>
+                        <Title text="{MDCCNumber}" wrapping="true" titleStyle="H3"/>
+                    </FlexBox>                                  
                 </uxap:expandedHeading>
                 <uxap:snappedHeading>
                     <FlexBox direction="Column" renderType="Bare">
-                        <Title text="Date" wrapping="true" titleStyle="H4"/>
-                        <Title text=""  wrapping="true" titleStyle="H3"/>
+                        
                     </FlexBox>
                 </uxap:snappedHeading>
-                <uxap:expandedContent></uxap:expandedContent>
+                <uxap:expandedContent>
+                </uxap:expandedContent>
                 <uxap:snappedTitleOnMobile>
-                    <Title text="MDCC" wrapping="true" titleStyle="Auto"/>
+                   <!-- <Title text="MDCC" wrapping="true" titleStyle="Auto"/>-->
                 </uxap:snappedTitleOnMobile>
                 <uxap:actions>
                     <Button text="Initiate Dispatch" type="Emphasized" press="onPressInitiateDispatch"/>
@@ -46,9 +47,14 @@
                 <VBox renderType="Bare">
                     <FlexBox direction="Row" renderType="Bare" class="sapUiTinyMarginBottom">
                         <VBox renderType="Bare" class="sapUiMediumMarginEnd">
-                            <Label text="MDCC Number" />
+                         <!--   <Label text="MDCC Number" />-->
                             <!-- missing -->
-                            <Text text=""/>
+                            <Title text="Date" wrapping="true" titleStyle="H4"/>
+                            <Title text="{path:'CreatedAt',
+                                     type: 'sap.ui.model.type.Date',
+				                     formatOptions: {
+				                        pattern: 'MMMM dd, yyyy'
+				                     }}"  wrapping="true" titleStyle="H3"/>
                         </VBox>
                         <VBox renderType="Bare">
                             

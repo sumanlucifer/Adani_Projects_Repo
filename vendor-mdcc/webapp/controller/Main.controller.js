@@ -57,6 +57,7 @@ sap.ui.define([
                 });
             },
 
+            // Read Inspected Parent Items
             _getParentData : function(){
                 var sPath = "/MDCCSet("+this.sObjectId+")/InspectionCall/InspectedParentItems";
                 this.MainModel.read(sPath,{
@@ -70,21 +71,41 @@ sap.ui.define([
                     }
                 });
             },
-
+            
+            // Read Child Items -- Inspected BOQ Items
             _getChildItems : function(ParentData){
                 this.ParentData = ParentData;
                 for( var i=0; i < ParentData.length; i++){
                 
                     var sPath = "/MDCCSet("+this.sObjectId+")/InspectionCall/InspectedParentItems("+ ParentData[i].ID +")/InspectedBOQItems";
                     this.MainModel.read(sPath,{
-                        success:function(i,oData,oResponse){
-                                                        
+                        success:function(i,oData,oResponse){   
+                            
+                            // Is Deleted - Check based on quantity is present or not then push it.
+                            if( ParentData[i].MDCCApprovedQty != null && ParentData[i].MDCCApprovedQty != ""){
+                                this.ParentData[i].isSelected=true;
+                            }else{
+                                 this.ParentData[i].isSelected=false;
+                            }                            
+
                             if(oData.results.length){
                                 this.ParentData[i].isStandAlone=true;
                                 this.ParentData[i].ChildItems=oData.results;
+                                this.ParentData[i].IsDeleted=false;
+
+                                for ( var j = 0 ; j < ParentData[i].ChildItems.length ; j++ ){
+                                    if( ParentData[i].ChildItems[j].MDCCApprovedQty != null && ParentData[i].ChildItems[j].MDCCApprovedQty != ""){
+                                        this.ParentData[i].ChildItems[j].isSelected=true;
+                                        this.ParentData[i].ChildItems[j].IsDeleted=false;
+                                    }else{
+                                        this.ParentData[i].ChildItems[j].isSelected=false;
+                                        this.ParentData[i].ChildItems[j].IsDeleted=false;
+                                    }
+                                }                                
                             }
                             else{
                                 this.ParentData[i].isStandAlone=false;
+                                this.ParentData[i].IsDeleted=false;
                                 this.ParentData[i].ChildItems=[];
                             }
                             if(i==this.ParentData.length-1)
@@ -97,13 +118,21 @@ sap.ui.define([
                 }
             },
 
-            onEditQuantity: function(oEvent){
+            onSelectionOfRow: function(oEvent){
+                var bSelected = oEvent.getParameter("selected");
 
+               if (bSelected) {
+                   oEvent.getSource().getParent().getCells()[6].setEditable(true);
+                } else {
+                    oEvent.getSource().getParent().getCells()[6].setEditable(false);
+                    oEvent.getSource().getParent().getCells()[6].setValue(null);
+                }
             },
 
             onSave: function(oEvent){
                 debugger;
-                var that =this
+               var that =this;
+                var flag = 0;
                 var oPayload = {
                     "MDCCId":that.MDCCData.ID,
                     "MDCCName":"",
@@ -115,31 +144,41 @@ sap.ui.define([
                 oPayload.MDCCParentLineItem =[];
                 var data = this.getView().getModel("TreeTableModel").getData().ChildItems;
                 for ( var i=0 ; i< data.length ; i++){
+                	flag = 0;
                     var obj = {};
                     obj.ParentLineItemID=data[i].ID;
-                    obj.MDCCApprovedQty=data[i].MDCCApprovedQty1;
+                    obj.MDCCApprovedQty=parseInt(data[i].MDCCApprovedQty);
+                    obj.RemainingQty = parseInt(data[i].RemainingQty);
+                    obj.IsDeleted = data[i].IsDeleted;
                     obj.MDCCBOQItem = [];
                     
                     for( var j = 0 ; j<data[i].ChildItems.length ; j++){
                         var childObj = {};
                         childObj.BOQItemID=data[i].ChildItems[j].ID;
-                        childObj.MDCCApprovedQty=data[i].ChildItems[j].MDCCApprovedQty1;
-                        if(childObj.MDCCApprovedQty)
+                        childObj.MDCCApprovedQty=parseInt(data[i].ChildItems[j].MDCCApprovedQty);
+                        childObj.RemainingQty = parseInt(data[i].ChildItems[j].RemainingQty);
+                        childObj.IsDeleted = data[i].ChildItems[j].IsDeleted;
+                        
+                        if(childObj.MDCCApprovedQty){
                             obj.MDCCBOQItem.push(childObj);
+                            flag = 1;
+                        }
                     }
-                    if(obj.MDCCApprovedQty)
+                    if(obj.MDCCApprovedQty || flag == 1)
                         oPayload.MDCCParentLineItem.push(obj);
                 }
-               // Create Call 
+                debugger;
+                return;
+                // Create Call 
                 that.MainModel.create("/MDCCBOQRequestSet", oPayload, {
                     success: function (oData, oResponse) {
                       //  that.getComponentModel("app").setProperty("/busy", false);
-                        debbuger;
+                       // debbuger;
                         MessageBox.success("MDCC items mapped successfully");
                       //  that.onCancel();
                     }.bind(this),
                     error: function (oError) {
-                        debbuger;
+                       // debbuger;
                        // that.getComponentModel("app").setProperty("/busy", false);
                         MessageBox.error(JSON.stringify(oError));
                     }
@@ -154,65 +193,6 @@ sap.ui.define([
 
             //---------------------- View Data Fragment operation -----------------------//
             // Fragment/Dialog Open
-
-            onViewPress: function (oEvent) {
-              //  var oItem = oEvent.getSource();
-              var that = this;
-              this._getParentDataViewMDCC();
-              //that.sPath = oEvent.getSource().getParent().getBindingContextPath();
-               // that.handleViewDialogOpen();
-            },
-
-            // Arrange Data For View / Model Set
-            _arrangeDataView : function(){        
-                var that = this;
-                var oModel = new JSONModel({"ChildItemsView":this.ParentDataView});
-                this.getView().setModel(oModel,"TreeTableModelView");
-               // var sPath = oEvent.getSource().getParent().getBindingContextPath();
-              // sPath=  ;
-                that.handleViewDialogOpen();
-                //debugger;
-            },
-
-             // Child Line Items Dialog Open
-            handleViewDialogOpen: function () {
-                // create dialog lazily
-                //debugger;
-                var that =this;
-                var oDetails = {};
-                oDetails.controller = this;
-                oDetails.view = this.getView();
-              //  oDetails.sParentItemPath = sParentItemPath;
-                if (!this.pDialog) {
-                    this.pDialog = Fragment.load({
-                        id: oDetails.view.getId(),
-                        name: "com.agel.mmts.vendormdcc.view.fragments.TreeTableView",
-                        controller: oDetails.controller
-                    }).then(function (oDialog) {
-                        // connect dialog to the root view of this component (models, lifecycle)
-                        oDetails.view.addDependent(oDialog);
-                       /* oDialog.bindElement({
-                            path: oDetails.sParentItemPath,
-                        });*/
-                        oDialog.setModel(that.getView().getModel("TreeTableModelView"));
-                        return oDialog;
-                    });
-                }
-                this.pDialog.then(function (oDialog) {
-                    oDetails.view.addDependent(oDialog);
-                  /*  oDialog.bindElement({
-                        path: oDetails.sParentItemPath,
-                    });*/
-                    oDialog.setModel(that.getView().getModel("TreeTableModelView"));
-                    oDialog.open();
-                });
-            },
-
-            onViewChildDialogClose: function (oEvent) {
-                this.pDialog.then(function (oDialog) {
-                    oDialog.close();
-                });
-            },
 
             // Parent Data View Fetch / Model Set
             _getParentDataViewMDCC : function(){

@@ -23,3 +23,6 @@ vendorPersona/.env10
 # auto generated wildcard
 agel-mmts-web/vendor-packinglist-create/.env1
 >>>>>>> develop
+
+# auto generated wildcard
+agel-mmts-web/securityPerson-ScanQR/.env4

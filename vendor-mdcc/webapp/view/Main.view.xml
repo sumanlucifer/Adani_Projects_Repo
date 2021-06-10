@@ -13,14 +13,22 @@
                         <OverflowToolbar>
                             <ToolbarSpacer width="80%"/>
                             <Button text="Save" type="Emphasized" press="onSave"/>
-                            <Button text="View" type="Emphasized" press="onViewPress"/>
+                        <!--    <Button text="View" type="Emphasized" press="onViewPress"/> -->
                             <Button text="Disptach View" type="Emphasized" press="onDispatchViewPress"/>
                         </OverflowToolbar>
 						<ui:TreeTable id="TreeTableBasic"
                             rows="{path:'TreeTableModel>/', parameters: {arrayNames:['ChildItems']}}"
-                            selectionMode="MultiToggle"  enableSelectAll="false"
+                            selectionMode="None"  enableSelectAll="false"
                             title="{i18n>ManageMDCC}" ariaLabelledBy="title">
 							<ui:columns>
+                              <ui:Column width="7rem">
+									<Label text="Select"/>
+									<ui:template>
+										 <CheckBox selected="{TreeTableModel>isSelected}" 
+                                           select="onSelectionOfRow" />
+									</ui:template>
+								</ui:Column>
+
 								<ui:Column width="5rem">
 									<Label text="ID"/>
 									<ui:template>
@@ -54,10 +62,11 @@
 								<ui:Column width="10rem">
 									<Label text="MDCCApprovedQty"/>
 									<ui:template>
-                                        <HBox justifyContent="SpaceAround" visible="{= ${TreeTableModel>isStandAlone} ? false : true}"> 
-										    <Input value="{TreeTableModel>MDCCApprovedQty1}" />
-                                            <Button icon="sap-icon://edit" type="Transparent" press="onEditQuantity"/>
-                                        </HBox>
+                                        
+										    <Input value="{TreeTableModel>MDCCApprovedQty}" 
+                                                editable="{= ${TreeTableModel>isSelected} ? true : false }" />
+                                          <!--  <Button icon="sap-icon://edit" type="Transparent" press="onEditQuantity"/>-->
+                                       
 									</ui:template>
 								</ui:Column>
 								<ui:Column width="13rem">
