@@ -24,15 +24,18 @@ sap.ui.define([
             //Router Object
             this.oRouter = this.getRouter();
             this.oRouter.getRoute("RouteInspectionDetailsPage").attachPatternMatched(this._onObjectMatched, this);
+            
         },
 
         _onObjectMatched: function (oEvent) {
+            var that = this;
             var sObjectId = oEvent.getParameter("arguments").inspectionID;
+            that.sObjectId=sObjectId;
             this._bindView("/InspectionCallIdSet" + sObjectId);
         },
 
         _bindView: function (sObjectPath) {
-            console.log(sObjectPath);
+            
             var objectViewModel = this.getViewModel("objectViewModel");
             var that = this;
 
@@ -43,6 +46,7 @@ sap.ui.define([
                         objectViewModel.setProperty("/busy", true);
                     },
                     dataReceived: function () {
+                        that.onReadMDCCItems(that.sObjectId);
                         objectViewModel.setProperty("/busy", false);
                     }
                 }
@@ -228,51 +232,6 @@ sap.ui.define([
             xhr.send();
         },
 
-     /*   _addData: function (data, fileName) {
-            var that = this,
-                oViewContext = this.getView().getBindingContext().getObject(),
-                oBindingObject = this.byId("idMDCCUploader").getObjectBinding("attachmentModel");
-
-            data = data.split(",")[1];
-            var documents = {
-                "documents": [
-                    {
-                        "type": "mdcc",
-                        "packing_list_id": "",
-                        "file": data,
-                        "fileName": fileName,
-                        "inspection_call_id": oViewContext.ID,
-                        "document_number": "12345",
-                        "document_date": "2021-12-12"
-                    }
-                ]
-            };
-
-            $.ajax({
-                "async": true,
-                "crossDomain": true,
-                "url": "/AGEL_MMTS_API/odata/v4/AttachmentsService/uploadDocument",
-                "method": "POST",
-                "headers": {
-                    "content-type": "application/json"
-                },
-                "processData": false,
-                "data": JSON.stringify(documents),
-                success: function (oData, oResponse) {
-                    // @ts-ignore
-                    // debugger;
-                    BusyIndicator.hide();
-                    sap.m.MessageToast.show("MDCC Details Uploaded!");
-                    this.getView().getModel().refresh();
-                }.bind(this),
-                error: function (oError) {
-                    // debugger;
-                    BusyIndicator.hide();
-                    sap.m.MessageBox.error("Error uploading document");
-                }
-            });
-        },*/
-
         onMDCCYesSelect: function () {
             this.byId("idMDCCUploadArea").setVisible(true);
         },
@@ -281,32 +240,21 @@ sap.ui.define([
         },
 
         onBeforeUploadStarts: function () {
-
-            //    var objectViewModel = this.getViewModel("objectViewModel");
-            //   objectViewModel.setProperty("/busy", true);
-
-            //    BusyIndicator.show();
-
-            // this.busyIndicator = new sap.m.BusyIndicator();
-            //  this.busyIndicator.open();
         },
 
         onUploadComplete: function (oEvent) {
-            // this.busyIndicator.close();
-            //    var objectViewModel = this.getViewModel("objectViewModel");
-            //   objectViewModel.setProperty("/busy", false);
+          
         },
 
         onUploadTerminated: function (oEvent) {
-            /* this.busyIndicator.close();
-              var objectViewModel = this.getViewModel("objectViewModel");
-             objectViewModel.setProperty("/busy", false);*/
+        
         },
 
         ///--------------------- Send For Approval ----------------------------------//
         
         onSendForApprovalPress : function(oEvent){
             //debugger;
+           // return;
             var sPath = "/MDCCStatusSet"
             var obj = oEvent.getSource().getBindingContext().getObject();
             var oPayload = {
@@ -326,24 +274,12 @@ sap.ui.define([
                     success:function(oData,oResponse){
                         //debugger;
                         MessageBox.success("Send for approval successfully");
+                        this.getView().getContent()[0].getContent().rerender();
                     }.bind(this),
                     error:function (oError){
                         MessageBox.error(JSON.stringify(oError));
                     }
                 });
-
-              /*  that.mainModel.create("/MasterPackagingTypeSet", oPayload, {
-                    success: function (oData, oResponse) {
-                        // MessageBox.success(oData.Message);
-                        that.getComponentModel("app").setProperty("/busy", false);
-                        MessageBox.success("Packing list type created successfully");
-                        that.onCancel();
-                    }.bind(this),
-                    error: function (oError) {
-                        that.getComponentModel("app").setProperty("/busy", false);
-                        MessageBox.error(JSON.stringify(oError));
-                    }
-                }); */
         },
 
         /////----------------------------------------------View Items-------------------------//
@@ -461,20 +397,57 @@ sap.ui.define([
             }
         },
 
+         //-------------------- Read MDCC ----------------------//
+
+        onReadMDCCItems : function(sObjectId){
+            var that = this;
+            var sPath = "/InspectionCallIdSet" + sObjectId + "/MDCC";
+            this.MainModel.read(sPath, {
+                success: function (oData, oResponse) {
+                    var oManageMDCCModel = new JSONModel({"MDCCItems" :oData.results })
+                    that.getView().setModel(oManageMDCCModel, "ManageMDCCModel");
+                   // that.getView().getModel("ManageMDCCModel").getData().MDCCItems = oData.results;
+                }.bind(this),
+                error: function (oError) {
+                    sap.m.MessageBox.Error(JSON.stringify(oError));
+                }
+            });
+        },          
+
+        // Add MDCC Item 
+        onAddMdccItem : function (oEvent) {
+         // debugger;
+          var oRow = {
+              MDCCNumber : "",
+              PONumber : "",
+              FileName : "",
+              MapItems:false,
+              ViewUpload:true,
+              ViewItems:false,
+              Status : "",
+              ViewStatus:false,
+              ViewManage:false,
+          };
+
+          this.getView().byId("idTblMDCC").getModel("ManageMDCCModel").oData.MDCCItems.push(oRow);
+          this.getView().byId("idTblMDCC").getModel("ManageMDCCModel").refresh();
+        },
+
         //-------------------- File Upload MDCC ----------------------//
          onInvoiceFileSelectedForUpload: function (oEvent) {
             // keep a reference of the uploaded file
             var that = this;
+            var rowId = oEvent.getSource().getParent().getParent().getBindingContextPath().split('/').pop();
             BusyIndicator.show();
             var oFiles = oEvent.getParameters().files;
             var fileName = oFiles[0].name;
             var fileType = "application/pdf";
             this._getImageData(URL.createObjectURL(oFiles[0]), function (base64) {
-                that._addData(base64, fileName, fileType);
+                that._addData(base64, fileName, fileType , rowId);
             }, fileName);
         },
 
-        _addData: function (data, fileName, fileType) {
+        _addData: function (data, fileName, fileType,rowId) {
             var that = this;
             var documents = {
                 "Documents": [
@@ -496,7 +469,8 @@ sap.ui.define([
                 success: function(oData,oResponse) {
                     BusyIndicator.hide();
                     sap.m.MessageToast.show("MDCC Details Uploaded!");
-                 //   this.getView().getModel().refresh();
+                    this.getView().getModel("ManageMDCCModel").getData().MDCCItems[rowId].MapItems = true;
+                    this.getView().getModel("ManageMDCCModel").refresh();
                 }.bind(this),
                 error:function(oError) {
                     BusyIndicator.hide();
@@ -505,8 +479,43 @@ sap.ui.define([
             });
         },
 
+        // Navigating to Manage MDCC Application
+        onMapMDCCCItems :   function(oEvent){
+            var mdccID = oEvent.getSource().getBindingContext().getObject().ID; // read MDCCIId from OData path MDCCSet
+            var oCrossAppNavigator = sap.ushell.Container.getService("CrossApplicationNavigation"); // get a handle on the global XAppNav service
+            var hash = (oCrossAppNavigator && oCrossAppNavigator.hrefForExternal({
+                target: {
+                    semanticObject: "managemdcc",
+                    action: "manage"
+                },
+                params: {
+                    "MDCCId": mdccID
+                }
+            })) || ""; // generate the Hash to display a MDCC Number
+            oCrossAppNavigator.toExternal({
+                target: {
+                    shellHash: hash
+                }
+            }); // navigate to Manage MDCC application - Initiate Dispatch Screen
+        },
+
         onManagePress : function(oEvent){
-            
+            var mdccID = oEvent.getSource().getBindingContext().getObject().ID; // read MDCCIId from OData path MDCCSet
+            var oCrossAppNavigator = sap.ushell.Container.getService("CrossApplicationNavigation"); // get a handle on the global XAppNav service
+            var hash = (oCrossAppNavigator && oCrossAppNavigator.hrefForExternal({
+                target: {
+                    semanticObject: "managemdcc",
+                    action: "manage"
+                },
+                params: {
+                    "MDCCId": mdccID
+                }
+            })) || ""; // generate the Hash to display a MDCC Number
+            oCrossAppNavigator.toExternal({
+                target: {
+                    shellHash: hash
+                }
+            }); // navigate to Manage MDCC application - Initiate Dispatch Screen
         }
 
     });
