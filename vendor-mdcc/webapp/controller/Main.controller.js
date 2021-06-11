@@ -84,8 +84,10 @@ sap.ui.define([
                             // Is Deleted - Check based on quantity is present or not then push it.
                             if( ParentData[i].MDCCApprovedQty != null && ParentData[i].MDCCApprovedQty != ""){
                                 this.ParentData[i].isSelected=true;
+                                this.ParentData[i].isPreviouslySelected=true;
                             }else{
                                  this.ParentData[i].isSelected=false;
+                                 this.ParentData[i].isPreviouslySelected=false;
                             }                            
 
                             if(oData.results.length){
@@ -96,9 +98,11 @@ sap.ui.define([
                                 for ( var j = 0 ; j < ParentData[i].ChildItems.length ; j++ ){
                                     if( ParentData[i].ChildItems[j].MDCCApprovedQty != null && ParentData[i].ChildItems[j].MDCCApprovedQty != ""){
                                         this.ParentData[i].ChildItems[j].isSelected=true;
+                                        this.ParentData[i].ChildItems[j].isPreviouslySelected=true;
                                         this.ParentData[i].ChildItems[j].IsDeleted=false;
                                     }else{
                                         this.ParentData[i].ChildItems[j].isSelected=false;
+                                        this.ParentData[i].ChildItems[j].isPreviouslySelected=false;
                                         this.ParentData[i].ChildItems[j].IsDeleted=false;
                                     }
                                 }                                
@@ -118,14 +122,36 @@ sap.ui.define([
                 }
             },
 
+            onLiveChangeApprovedQty : function(oEvent){
+                var rowObj =  oEvent.getSource().getParent().getRowBindingContext().getObject();
+                var MDCCApprovedQty = oEvent.getSource().getParent().getCells()[6].getValue();
+                var aCell = oEvent.getSource().getParent().getCells()[6];
+                if ( parseInt(MDCCApprovedQty) > parseInt(rowObj.Qty) ){
+                    aCell.setValueState("Error");
+                    aCell.setValueStateText("Please do not enter more quantity than total quantity")
+                    this.getView().byId("idBtnSave").setEnabled(false);
+                }else{
+                    aCell.setValueState("None");
+                    this.getView().byId("idBtnSave").setEnabled(true);
+                }
+            },
+
             onSelectionOfRow: function(oEvent){
                 var bSelected = oEvent.getParameter("selected");
 
                if (bSelected) {
                    oEvent.getSource().getParent().getCells()[6].setEditable(true);
+                   if ( oEvent.getSource().getParent().getRowBindingContext().getObject().isPreviouslySelected ){
+                        oEvent.getSource().getParent().getRowBindingContext().getObject().IsDeleted = false ;
+                   }
                 } else {
                     oEvent.getSource().getParent().getCells()[6].setEditable(false);
                     oEvent.getSource().getParent().getCells()[6].setValue(null);
+
+                   // Is Deleted - If User unselect the previous saved item
+                    if ( oEvent.getSource().getParent().getRowBindingContext().getObject().isPreviouslySelected ){
+                        oEvent.getSource().getParent().getRowBindingContext().getObject().IsDeleted = true ;
+                    }
                 }
             },
 

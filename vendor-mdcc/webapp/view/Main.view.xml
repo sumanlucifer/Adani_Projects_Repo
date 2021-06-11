@@ -12,7 +12,7 @@
 					<content>
                         <OverflowToolbar>
                             <ToolbarSpacer width="80%"/>
-                            <Button text="Save" type="Emphasized" press="onSave"/>
+                            <Button id="idBtnSave" text="Save" type="Emphasized" press="onSave"/>
                         <!--    <Button text="View" type="Emphasized" press="onViewPress"/> -->
                             <Button text="Disptach View" type="Emphasized" press="onDispatchViewPress"/>
                         </OverflowToolbar>
@@ -64,7 +64,8 @@
 									<ui:template>
                                         
 										    <Input value="{TreeTableModel>MDCCApprovedQty}" 
-                                                editable="{= ${TreeTableModel>isSelected} ? true : false }" />
+                                                editable="{= ${TreeTableModel>isSelected} ? true : false }"
+                                                liveChange="onLiveChangeApprovedQty" />
                                           <!--  <Button icon="sap-icon://edit" type="Transparent" press="onEditQuantity"/>-->
                                        
 									</ui:template>
