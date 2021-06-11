@@ -7,7 +7,6 @@ mta_archives
 mta-*
 resources
 archive.zip
-# auto generated wildcard
-agel-mmts-web/vendor-packinglist-create/.env1
+.*_mta_build_tmp
 # auto generated wildcard
 agel-mmts-web/security-international-import/.env1
