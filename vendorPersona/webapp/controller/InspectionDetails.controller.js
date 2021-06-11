@@ -503,21 +503,11 @@ sap.ui.define([
                     sap.m.MessageBox.error("Error uploading document");
                 }
             });
-
-       /*     that.mainModel.create("/MasterPackagingTypeSet", oPayload, {
-                                success: function (oData, oResponse) {
-                                    // MessageBox.success(oData.Message);
-                                    that.getComponentModel("app").setProperty("/busy", false);
-                                    MessageBox.success("Packing list type created successfully");
-                                    that.onCancel();
-                                    }.bind(this),
-                                error: function (oError) {
-                                    that.getComponentModel("app").setProperty("/busy", false);
-                                    MessageBox.error(JSON.stringify(oError));
-                                }
-                            });*/
-
         },
+
+        onManagePress : function(oEvent){
+            
+        }
 
     });
 }
