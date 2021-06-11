@@ -176,11 +176,11 @@
                                             <Text text="{ManageMDCCModel>MDCCNumber}"/>
                                             <Text text="{ManageMDCCModel>PONumber}"/>
                                             <VBox>
-                                                <Text id="idFileName" text="{FileName}" binding="{Attachments}"/>
+                                                <Text id="idFileName" text="{FileName}" binding="{Attachments}" visible="true"/>
                                                 <unified:FileUploader id="idInvoiceUploader" buttonOnly="true"
                                                  buttonText="Upload Invoice" sameFilenameAllowed="true"  multiple="false"                                                 
                                                  style="Emphasized" change="onInvoiceFileSelectedForUpload"
-                                                 enabled="{= ${ManageMDCCModel>ViewUpload} ? true : false }"/>
+                                                 enabled="{= ${ManageMDCCModel>ViewUpload} ? true : false }" />
                                             </VBox>
                                             <Link text="Map Items for MDCC" press="onMapMDCCCItems" enabled="{= ${ManageMDCCModel>MapItems} ? true :false }"/>
                                             <Link text="View Items" press="onViewPress" enabled="{= ${ManageMDCCModel>ViewItems}.length > 0 ? true : false}"/>
