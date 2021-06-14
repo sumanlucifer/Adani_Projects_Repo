@@ -1,0 +1,98 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:smartTable="sap.ui.comp.smarttable"
+    xmlns:core="sap.ui.core">
+       <smartTable:SmartTable class="sapUiResponsiveContentPadding" id="idInternationalTable" editable="false" 
+            placeToolbarInTable="true" enableAutoBinding="true" entitySet="ManualEntrySet"
+             showFullScreenButton="true" showRowCount="false" tableType="ResponsiveTable"
+             demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" 
+             useVariantManagement="false" beforeRebindTable="onbeforeRebindOpenPoTable">
+
+        <Table sticky="ColumnHeaders,HeaderToolbar" updateFinished="onPurchaseOrderTableUpdateFinished"
+             alternateRowColors="true">
+            <columns>
+
+                <!-- PO Number -->
+                <Column >
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "PONumber", "leadingProperty": "PONumber",
+                                                 "columnIndex": 0 ,"sortProperty": "PONumber","filterProperty": "PONumber"}'/>
+                    </customData>
+                    <Text text="{i18n>pONumber}"/>
+                </Column>
+
+                <!-- Vendor Code 
+                <Column demandPopin="true" minScreenWidth="Desktop"> 
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "VendorCode", "leadingProperty": "VendorCode",
+                                                 "columnIndex": 1 ,"sortProperty": "VendorCode","filterProperty": "VendorCode"}'/>
+                    </customData>
+                    <Text text="{i18n>vendorCode}"/>
+                </Column> -->
+
+                <!-- Date Time -->
+                <Column demandPopin="true" minScreenWidth="Tablet">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "CreatedAt", "leadingProperty": "CreatedAt",
+                                                 "columnIndex": 2}'/>
+                    </customData>
+                    <Text text="{i18n>dataTime}"/>
+                </Column>
+
+                <!-- packing List Ref No -->
+                <Column>
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "ContainerNumber", "leadingProperty": "ContainerNumber",
+                                                 "columnIndex": 3 ,"sortProperty": "ContainerNumber","filterProperty": "ContainerNumber"}'/>
+                    </customData>
+                    <Text text="{i18n>containerNob}"/>
+                </Column>
+
+                <!-- Invoice Number -->
+                <Column demandPopin="true" minScreenWidth="Tablet">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "InvoiceNumber", "leadingProperty": "InvoiceNumber",
+                                                 "columnIndex": 4 }'/>
+                    </customData>
+                    <Text text="{i18n>invNob}"/>
+                </Column>     
+
+                <!-- Gate Entery Id 
+                <Column>
+                    <customData>
+                          <core:CustomData key="p13nData" value='\{"columnKey": "GateEntryNumber", "leadingProperty": "GateEntryNumber",
+                                                 "columnIndex": 5 }'/>
+                    </customData>
+                    <Text text="{i18n>GateEntryNumber}"/>
+                </Column>-->
+
+                <!-- Quantity 
+                <Column>
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Action"}'/>
+                    </customData>
+                    <Text text="{i18n>qty}"/>
+                </Column>-->
+
+            </columns>
+            <items>
+
+                <ColumnListItem type="Navigation" press="onDomesticEntryPress">
+                    <cells>
+                        <Text text="{PONumber}"/>
+                       <!-- <Text text="{VendorCode}"/>-->
+                        <Text text="{path:'CreatedAt',
+                                     type: 'sap.ui.model.type.Date',
+				                     formatOptions: {
+				                        pattern: 'MMMM dd, yyyy'
+				                     }
+                        }"/>                       
+                        <Text text="{ContainerNumber}"/>
+                        <Text text="{InvoiceNumber}"/>
+                     <!--   <Text text="{GateEntryNumber}" />-->
+                     <!--   <Text text="{Qty}" />-->
+                    </cells>
+                </ColumnListItem>
+            </items>
+        </Table>
+    </smartTable:SmartTable>
+</core:FragmentDefinition>

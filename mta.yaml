@@ -156,6 +156,10 @@ modules:
       - comagelmmtssecurityinternationalimport.zip
       name: comagelmmtssecurityinternationalimport
       target-path: resources/
+    - artifacts:
+      - comagelmmtssecurityscanhistory.zip
+      name: comagelmmtssecurityscanhistory
+      target-path: resources/
 - name: vendorPersona
   type: html5
   path: vendorPersona
@@ -418,6 +422,16 @@ modules:
 - name: comagelmmtssecurityinternationalimport
   type: html5
   path: security-international-import
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: comagelmmtssecurityscanhistory
+  type: html5
+  path: security-scan-history
   build-parameters:
     build-result: dist
     builder: custom
