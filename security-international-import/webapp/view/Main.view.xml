@@ -42,19 +42,19 @@
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection>
                             <f:SimpleForm layout="ColumnLayout" columnsM="2" columnsL="3" columnsXL="4"
-                              singleContainerFullSize="true" class="style-RemoveTitleHeight"
-                               title="Enter Details" binding="{oImportModel>/}">
+                              labelSpanL="4" labelSpanXL="4"	labelSpanM="12"	labelSpanS="12"
+                                  singleContainerFullSize="false" binding="{oImportModel>/}" >
                                 <f:content>
                                     <!-- <core:Title  /> -->
                                     <Label text="PO Number:" />
-                                    <Input value="{oImportModel>PONumber}" />
+                                    <Input id="idInpPoNob" liveChange="onLiveChangePoNob" value="{oImportModel>PONumber}" />
                                     <Label text="Container Number:" />
-                                    <Input value="{oImportModel>ContainerNumber}" />
+                                    <Input id="idInpContNob" liveChange="onLiveChangeContNob" value="{oImportModel>ContainerNumber}" />
                                     <!-- <core:Title ></core:Title> -->
                                     <Label text="Vehicle Number:" />
-                                    <Input value="{oImportModel>VehicleNumber}" />
+                                    <Input id="idInpVehicleNob" liveChange="onLiveChangeVehicleNob" value="{oImportModel>VehicleNumber}" />
                                     <Label text="Invoice Number:" />
-                                    <Input value="{oImportModel>InvoiceNumber}" />
+                                    <Input id="idInvoiceNob" liveChange="onLiveChangeInvoiceNob" value="{oImportModel>InvoiceNumber}" />
                                 </f:content>
                             </f:SimpleForm> 
                    </uxap:ObjectPageSubSection>

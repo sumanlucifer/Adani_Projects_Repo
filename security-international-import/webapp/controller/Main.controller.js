@@ -36,12 +36,48 @@ sap.ui.define([
                // debugger;
             },
 
+            onLiveChangePoNob : function(oEvent){
+                oEvent.getSource().setValueState("None");
+            },
+            onLiveChangeContNob : function(oEvent){
+                oEvent.getSource().setValueState("None");
+            },
+            onLiveChangeVehicleNob : function(oEvent){
+                oEvent.getSource().setValueState("None");
+            },
+            onLiveChangeInvoiceNob : function(oEvent){
+                oEvent.getSource().setValueState("None");
+            },
+
             onCreateEntry : function(oEvent){
-                // debugger;
+                
                 var that=this;
-                var oModel = this.getView().getModel("oImportModel").getData();;
+                var oModel = this.getView().getModel("oImportModel").getData();
+                var flag = 0 ;
+                if ( oModel.PONumber == "" ){
+                    this.getView().byId("idInpPoNob").setValueState("Error");
+                    flag = 1;
+                }
+                if ( oModel.ContainerNumber == "" ){
+                    this.getView().byId("idInpContNob").setValueState("Error");
+                    flag = 1;
+                }
+                if ( oModel.VehicleNumber == "" ){
+                    this.getView().byId("idInpVehicleNob").setValueState("Error");
+                    flag = 1;
+                }
+                if ( oModel.InvoiceNumber == "" ){
+                    this.getView().byId("idInvoiceNob").setValueState("Error");
+                    flag = 1;
+                }
+
+                if ( flag == 1){
+                    sap.m.MessageBox.error("Please fill mandatory fields");
+                    return 0;
+                };
+
                 var oPayload = {
-                     "PONumber": oModel.PONumber,
+                    "PONumber": oModel.PONumber,
                     "ContainerNumber": oModel.ContainerNumber,
                     "VehicleNumber": oModel.VehicleNumber,
                     "InvoiceNumber": oModel.InvoiceNumber,
@@ -55,8 +91,6 @@ sap.ui.define([
                     }
                 });
             }
-
-
 
 		});
 	});
