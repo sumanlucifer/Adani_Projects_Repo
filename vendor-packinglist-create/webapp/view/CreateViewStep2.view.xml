@@ -36,8 +36,9 @@
                 </uxap:snappedTitleOnMobile>
                 <uxap:actions>
                     <Button text="Save" press="onSavePackingListPress" type="Emphasized" visible="{= ${objectViewModel>/isPackingListInEditMode} ? true : false}"/>
+                    <Button text="View QR Code" press="onViewQRCodePress" type="Emphasized" visible="{= ${objectViewModel>/isViewQRMode} ? true : false}"/>
                     <Button text="Edit" press="onEditPackingListPress" type="Emphasized" visible="{= ${objectViewModel>/isPackingListInEditMode} ? false : true}"/>
-                    <Button text="Proceed" press="onProceedStep2Press" type="Emphasized" visible="{= ${objectViewModel>/isPackingListInEditMode} ? false : true}"/>
+                    <!-- <Button text="Proceed" press="onProceedStep2Press" type="Emphasized" visible="{= ${objectViewModel>/isPackingListInEditMode} ? false : true}"/> -->
                 </uxap:actions>
             </uxap:ObjectPageDynamicHeaderTitle>
         </uxap:headerTitle>
@@ -218,18 +219,18 @@
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection title="Additional Details">
                         <uxap:blocks>
-                            <f:SimpleForm layout="ColumnLayout" columnsM="2" columnsL="3" columnsXL="4" binding="{AdditionalDetialsModel>/}" singleContainerFullSize="true" class="style-RemoveTitleHeight">
+                            <f:SimpleForm layout="ColumnLayout"  binding="{AdditionalDetialsModel>/}" columnsM="2" columnsL="3" columnsXL="4" singleContainerFullSize="true" class="style-RemoveTitleHeight">
                                 <f:content>
                                     <!-- <core:Title  /> -->
                                     <Label text="Vehicle Number" />
-                                    <Input value="{AdditionalDetialsModel>VehicleNumber}" editable="{= ${objectViewModel>/isPackingListInEditMode} ? true : false}"/>
+                                    <Input value="{AdditionalDetialsModel>/VehicleNumber}" editable="{= ${objectViewModel>/isPackingListInEditMode} ? true : false}"/>
                                     <Label text="Invoice Number" />
-                                    <Input value="{AdditionalDetialsModel>InvoiceNumber}" editable="{= ${objectViewModel>/isPackingListInEditMode} ? true : false}"/>
+                                    <Input value="{AdditionalDetialsModel>/InvoiceNumber}" editable="{= ${objectViewModel>/isPackingListInEditMode} ? true : false}"/>
                                     <!-- <core:Title ></core:Title> -->
                                     <Label text="Packaging Ref. No." />
-                                    <Input value="{AdditionalDetialsModel>PackagingReferenceNumber}" editable="{= ${objectViewModel>/isPackingListInEditMode} ? true : false}"/>
+                                    <Input value="{AdditionalDetialsModel>/PackagingReferenceNumber}" editable="{= ${objectViewModel>/isPackingListInEditMode} ? true : false}"/>
                                     <Label text="Invoice Date" />
-                                    <DatePicker value="{AdditionalDetialsModel>InvoiceDate}" valueFormat="yyyy-MM-dd" editable="{= ${objectViewModel>/isPackingListInEditMode} ? true : false}"/>
+                                    <DatePicker value="{AdditionalDetialsModel>/InvoiceDate}" valueFormat="yyyy-MM-dd" editable="{= ${objectViewModel>/isPackingListInEditMode} ? true : false}"/>
                                 </f:content>
                             </f:SimpleForm>
                         </uxap:blocks>

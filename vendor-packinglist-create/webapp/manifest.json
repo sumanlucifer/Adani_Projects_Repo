@@ -124,6 +124,20 @@
                     "target": [
                         "TargetCreateViewStep2"
                     ]
+                },
+                {
+                    "name": "RoutePackingListDetails",
+                    "pattern": "step3",
+                    "target": [
+                        "TargetPackingListDetails"
+                    ]
+                },
+                 {
+                    "name": "RouteQRCodeDetails",
+                    "pattern": "step4",
+                    "target": [
+                        "TargetQRCodeDetails"
+                    ]
                 }
             ],
             "targets": {
@@ -138,6 +152,18 @@
                     "transition": "slide",
                     "clearControlAggregation": false,
                     "viewName": "CreateViewStep2"
+                },
+                "TargetPackingListDetails": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewName": "PackingListDetails"
+                },
+                "TargetQRCodeDetails": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewName": "QRCodeDetails"
                 }
             }
         }

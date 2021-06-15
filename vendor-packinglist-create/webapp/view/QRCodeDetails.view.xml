@@ -1,0 +1,176 @@
+<mvc:View xmlns:vbm="sap.ui.vbm"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:uxap="sap.uxap"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+    xmlns:unified="sap.ui.unified"
+    xmlns:tt="sap.ui.table"
+    xmlns="sap.m" controllerName="com.agel.mmts.vendorpackinglistcreate.controller.QRCodeDetails" height="100%">
+    <uxap:ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true" upperCaseAnchorBar="false" headerContentPinnable="true" toggleHeaderOnTitleClick="true" showFooter="true">
+        <uxap:headerTitle>
+            <uxap:ObjectPageDynamicHeaderTitle>
+                <uxap:content>
+                    <VBox renderType="Bare">
+                        <items>
+                            <VBox renderType="Bare">
+                                <Title text="{i18n>packingListNumber}" titleStyle="H3" class="sapUiTinyMarginBottom"/>
+                                <Text text="{PackingListNumber}" />
+                            </VBox>
+                            <HBox renderType="Bare" class="sapUiSmallMarginTopBottom">
+                                <items>
+                                    <VBox renderType="Bare" class="sapUiSmallMarginEnd">
+                                        <Label text="{i18n>parentname}" />
+                                        <Text text="{Name}" />
+                                    </VBox>
+                                    <VBox renderType="Bare" class="sapUiSmallMarginEnd">
+                                        <Label text="{i18n>approvedqty}" />
+                                        <Text text="{ApprovedQty}" />
+                                    </VBox>
+                                    <VBox renderType="Bare" class="sapUiSmallMarginEnd">
+                                        <Label text="{i18n>dispatchedqty}" />
+                                        <Text text="{DispatchedQty}" />
+                                    </VBox>
+                                    <VBox renderType="Bare" class="sapUiSmallMarginEnd">
+                                        <Label text="{i18n>uom}" />
+                                        <Text text="{UOM}" />
+                                    </VBox>                                  
+                                </items>
+                            </HBox>
+                            <HBox renderType="Bare" class="sapUiSmallMarginTopBottom">
+                                <items>
+                                    <VBox renderType="Bare" class="sapUiSmallMarginEnd">
+                                        <Label text="{i18n>childMatID}" />
+                                        <Text text="{ApprovedQty}" />
+                                    </VBox>
+                                    <VBox renderType="Bare" class="sapUiSmallMarginEnd">
+                                        <Label text="{i18n>childName}" />
+                                        <Text text="{DispatchedQty}" />
+                                    </VBox>
+                                    <VBox renderType="Bare" class="sapUiSmallMarginEnd">
+                                        <Label text="{i18n>dispatchType}" />
+                                        <Text text="{UOM}" />
+                                    </VBox>                                  
+                                </items>
+                            </HBox>
+                        </items>
+                    </VBox>
+                </uxap:content>
+                <uxap:actions>
+                </uxap:actions>
+            </uxap:ObjectPageDynamicHeaderTitle>
+        </uxap:headerTitle>
+        <uxap:headerContent>
+        </uxap:headerContent>
+        <uxap:sections>
+            <uxap:ObjectPageSection>
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection>
+                        <HBox renderType="Bare" alignItems="Center">
+                            <VBox renderType="Bare" justifyContent="Center" alignItems="Center">
+                                <items>
+                                    <Label text="{qr_number}"/>
+                                    <Avatar displaySize="XL" badgeIcon="sap-icon://upload" displayShape="Square" src="data:image/jpg;base64,{content}"/>
+                                </items>
+                            </VBox>
+                            <VBox renderType="Bare" justifyContent="Center" alignItems="Center">
+                            <HBox renderType="Bare" justifyContent="Center" alignItems="Center">
+                                <items>
+                                    <VBox renderType="Bare" class="sapUiSmallMarginEnd">
+                                        <Label text="{i18n>srNo}" />
+                                        <Text text="{ApprovedQty}" />
+                                    </VBox>
+                                    <VBox renderType="Bare" class="sapUiSmallMarginEnd">
+                                        <Label text="{i18n>parentName}" />
+                                        <Text text="{UOM}" />
+                                    </VBox>
+                                    <VBox renderType="Bare" class="sapUiSmallMarginEnd">
+                                        <Label text="{i18n>approvedQty}" />
+                                        <Text text="{UOM}" />
+                                    </VBox> 
+                                    <VBox renderType="Bare" class="sapUiSmallMarginEnd">
+                                        <Label text="{i18n>dispatchedQty}" />
+                                        <Text text="{UOM}" />
+                                    </VBox>                                  
+                                </items>
+                            </HBox>
+                            <HBox renderType="Bare" justifyContent="Center" alignItems="Center">
+                                <items>
+                                    <VBox renderType="Bare" class="sapUiSmallMarginEnd">
+                                        <Label text="{i18n>childMaterialID}" />
+                                        <Text text="{ApprovedQty}" />
+                                    </VBox>
+                                    <VBox renderType="Bare" class="sapUiSmallMarginEnd">
+                                        <Label text="{i18n>childName}" />
+                                        <Text text="{UOM}" />
+                                    </VBox>
+                                    <VBox renderType="Bare" class="sapUiSmallMarginEnd">
+                                        <Label text="{i18n>dispatchType}" />
+                                        <Text text="{UOM}" />
+                                    </VBox> 
+                                    <VBox renderType="Bare" class="sapUiSmallMarginEnd">
+                                        <Label text="{i18n>uom}" />
+                                        <Text text="{UOM}" />
+                                    </VBox>                                  
+                                </items>
+                            </HBox>
+                        </VBox>
+                    </HBox>
+                    </uxap:ObjectPageSubSection>
+                    <uxap:ObjectPageSubSection>
+                        <HBox renderType="Bare" alignItems="Center">
+                            <VBox renderType="Bare" justifyContent="Center" alignItems="Center">
+                                <items>
+                                    <Label text="{qr_number}"/>
+                                    <Avatar displaySize="XL" badgeIcon="sap-icon://upload" displayShape="Square" src="data:image/jpg;base64,{content}"/>
+                                </items>
+                            </VBox>
+                            <VBox renderType="Bare" justifyContent="Center" alignItems="Center">
+                            <HBox renderType="Bare" justifyContent="Center" alignItems="Center">
+                                <items>
+                                    <VBox renderType="Bare" class="sapUiSmallMarginEnd">
+                                        <Label text="{i18n>srNo}" />
+                                        <Text text="{ApprovedQty}" />
+                                    </VBox>
+                                    <VBox renderType="Bare" class="sapUiSmallMarginEnd">
+                                        <Label text="{i18n>parentName}" />
+                                        <Text text="{UOM}" />
+                                    </VBox>
+                                    <VBox renderType="Bare" class="sapUiSmallMarginEnd">
+                                        <Label text="{i18n>approvedQty}" />
+                                        <Text text="{UOM}" />
+                                    </VBox> 
+                                    <VBox renderType="Bare" class="sapUiSmallMarginEnd">
+                                        <Label text="{i18n>dispatchedQty}" />
+                                        <Text text="{UOM}" />
+                                    </VBox>                                  
+                                </items>
+                            </HBox>
+                            <HBox renderType="Bare" justifyContent="Center" alignItems="Center">
+                                <items>
+                                    <VBox renderType="Bare" class="sapUiSmallMarginEnd">
+                                        <Label text="{i18n>childMaterialID}" />
+                                        <Text text="{ApprovedQty}" />
+                                    </VBox>
+                                    <VBox renderType="Bare" class="sapUiSmallMarginEnd">
+                                        <Label text="{i18n>childName}" />
+                                        <Text text="{UOM}" />
+                                    </VBox>
+                                    <VBox renderType="Bare" class="sapUiSmallMarginEnd">
+                                        <Label text="{i18n>dispatchType}" />
+                                        <Text text="{UOM}" />
+                                    </VBox> 
+                                    <VBox renderType="Bare" class="sapUiSmallMarginEnd">
+                                        <Label text="{i18n>uom}" />
+                                        <Text text="{UOM}" />
+                                    </VBox>                                  
+                                </items>
+                            </HBox>
+                        </VBox>
+                    </HBox>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+        </uxap:sections>
+    </uxap:ObjectPageLayout>
+</mvc:View>
