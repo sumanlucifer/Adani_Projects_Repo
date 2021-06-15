@@ -64,11 +64,13 @@
                         </FlexBox>
                     </VBox>
                     <VBox class="sapUiSmallMarginEnd">
-                        <Text text="{i18n>pOandASNDetails}"/>
+                        <Title text="{i18n>pOandASNDetails}"/>
                         <ObjectStatus title="Invoice Number" text="{InvoiceNumber}"/>
                         <ObjectStatus title="PO Number" text="{PONumber}"/>
-                        <ObjectStatus title="Created Date" text="{CreatedAt}"/>
-                        <ObjectStatus title="Invoice Date" text="{InvoiceDate}"/>
+                        <ObjectStatus title="Created Date" text="{path:'CreatedAt', type: 'sap.ui.model.type.Date',
+				                                            formatOptions: {pattern: 'MMMM dd, yyyy'}}"/>
+                        <ObjectStatus title="Invoice Date"  text="{path:'InvoiceDate', type: 'sap.ui.model.type.Date',
+				                                            formatOptions: {pattern: 'MMMM dd, yyyy'}}"/>
                         <ObjectStatus title="Status" text="{Status}"/>
                     </VBox>
                     <VBox class="sapUiSmallMarginEnd">
@@ -78,10 +80,9 @@
                         <ObjectStatus title="Pin Code" text="{pinCode}" binding="{PurchaseOrder/Buyer/Address}"/>
                         <ObjectStatus title="State" text="{State}" binding="{PurchaseOrder/Buyer/Address}"/>
                         <ObjectStatus title="Country" text="{Country}" binding="{PurchaseOrder/Buyer/Address}"/>
-
                     </VBox>
                     <VBox class="sapUiSmallMarginEnd">
-                        <Text text="{i18n>from}"/>
+                        <Title text="{i18n>from}"/>
                         <ObjectStatus title="Vendor Code" text="{VendorCode}" binding="{PurchaseOrder/Vendor}"/>
                         <ObjectStatus title="Vendor Name" text="{Name}" binding="{PurchaseOrder/Vendor}"/>
                         <ObjectStatus title="GSTIN" text="{GSTIN}" binding="{PurchaseOrder/Vendor}"/>
@@ -93,24 +94,160 @@
         </uxap:headerContent>
         <uxap:sections>
 
-            <!-- Line Items Section -->
+            <!-- PackingListParentItems Line Items Section -->
             <uxap:ObjectPageSection titleUppercase="false" title="{i18n>lineItems}">
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection title="{i18n>lineItems}" titleLevel="H6">
-                     
+                        <uxap:blocks>
+	                        <Table id="idBOQItemTable" items="{path: 'PackingListParentItems'}" 
+                                autoPopinMode="true" growingThreshold="5" growing="true" fixedLayout="false">
+		                        <headerToolbar>
+			                        <OverflowToolbar >
+				                        <content>
+                                         <Text text="{i18n>lineItems}"/>
+					                    <ToolbarSpacer></ToolbarSpacer>
+				                    </content>
+			                        </OverflowToolbar>
+		                        </headerToolbar>
+		                        <columns>
+			                        <Column>
+				                        <Text text="Line Number"/>
+			                        </Column>
+			                        <Column>
+				                        <Text text="Line Item ID"/>
+			                        </Column>
+			                        <Column>
+				                        <Text text="PO Qty."/>
+			                        </Column>
+			                        <Column>
+				                        <Text text="MDCC Approved Qty."/>
+			                        </Column>
+			                        <Column>
+				                        <Text text="Dispatch Qty"/>
+			                        </Column>
+			                        <Column>
+				                        <Text text="UOM"/>
+			                        </Column>
+		                        </columns>
+		                        <items>
+			                        <ColumnListItem>
+				                        <cells> 
+					                        <ObjectIdentifier title="{LineNumber}"/>
+					                        <ObjectIdentifier title="{ID}"/>
+					                        <Text text="{Qty}"/>
+					                        <Text text="{MDCCApprovedQty}"/>
+					                        <Text text="{DispatchQty}"/>
+					                        <Text text="{UOM}"/>
+				                        </cells>
+			                        </ColumnListItem>
+		                        </items>
+	                        </Table>
+                        </uxap:blocks>
                          <!--   <lineItemsTable:LineItemsTable class="sapUxAPObjectPageSubSectionAlignContent" OnViewBOQItemsPress="onViewBOQItemsPress"/>-->
                        
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>
             </uxap:ObjectPageSection>
 
-            <!-- Packing List Contains -->
-            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>PackListContains}">
+            <!-- Outer Packing List  -->
+            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>OuterPackaging}">
                 <uxap:subSections>
-                    <uxap:ObjectPageSubSection title="{i18n>PackListContains}">
-                       
-                          <!--    <linePackingItems:LineItemsTable class="sapUxAPObjectPageSubSectionAlignContent" OnViewBOQItemsPress="onViewBOQItemsPress" OnViewQRCode="onViewQRCode" OnViewQRCode1="OnViewQRCode1"/> -->
-                    
+                    <uxap:ObjectPageSubSection title="{i18n>OuterPackaging}">
+                        <uxap:blocks>
+                            <Table id="idOuterPackaging" items="{path: 'OuterPackagings'}" 
+                                autoPopinMode="true" growingThreshold="5" growing="true" fixedLayout="false">
+	                            <headerToolbar>
+		                            <OverflowToolbar >
+			                            <content>
+				                            <Text text="Outer Packaging"/>
+			                            </content>
+		                            </OverflowToolbar>
+	                            </headerToolbar>
+	                            <columns>
+		                            <Column>
+			                            <Text text="Packaging Type"/>
+		                            </Column>
+		                            <Column>
+			                            <Text text="Line Item ID"/>
+		                            </Column>
+		                            <Column>
+			                            <Text text="Dispatch Qty."/>
+		                            </Column>
+		                            <Column>
+			                            <Text text="Packaging Dimensions"/>
+		                            </Column>
+		                            <Column>
+			                            <Text text="UOM"/>
+		                            </Column>
+		                            <Column>
+			                            <Text text=""/>
+		                            </Column>
+	                            </columns>
+	                            <items>
+		                            <ColumnListItem>
+			                            <cells>
+				                            <ObjectIdentifier title="{PackagingType}"/>
+				                            <ObjectIdentifier title="{ID}"/>
+				                            <Text text="{DispatchQty}"/>
+				                            <Text text="{PackagingDimensions}"/>
+				                            <Text text="{UOM}"/>
+				                            <Link text="View QR Code" press="onViewQRCode1"/>
+			                            </cells>
+		                            </ColumnListItem>
+	                            </items>
+                            </Table>
+                        </uxap:blocks>                    
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+            <!-- Inner Packing List  -->
+            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>InnerPackaging}">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection title="{i18n>InnerPackaging}">
+                        <uxap:blocks>
+                            <Table id="idInnerPackaging" items="{path: 'InnerPackagings'}" autoPopinMode="true" growingThreshold="5" growing="true" fixedLayout="false">
+                                <headerToolbar>
+                                    <OverflowToolbar >
+                                        <content>
+                                            <Text text="Inner Packaging"/>
+                                        </content>
+                                    </OverflowToolbar>
+                                </headerToolbar>
+                                <columns>
+                                    <Column>
+                                        <Text text="Packaging Type"/>
+                                    </Column>
+                                    <Column>
+                                        <Text text="Line Number"/>
+                                    </Column>
+                                    <Column>
+                                        <Text text="Dispatch Qty."/>
+                                    </Column>
+                                    <Column>
+                                        <Text text="Packaging Qty"/>
+                                    </Column>
+                                    <Column>
+                                        <Text text="UOM"/>
+                                    </Column>
+                                    <Column>
+                                        <Text text=""/>
+                                    </Column>
+                                </columns>
+                                <items>
+                                    <ColumnListItem>
+                                        <cells>
+                                            <ObjectIdentifier title="{PackagingType}"/>
+                                            <ObjectIdentifier title="{LineNumber}"/>
+                                            <Text text="{DispatchQty}"/>
+                                            <Text text="{PackagingQty}"/>
+                                            <Text text="{UOM}"/>
+                                            <Link text="View QR Code" press="onViewQRCode2"/>
+                                        </cells>
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
+                        </uxap:blocks>                    
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>
             </uxap:ObjectPageSection>
@@ -130,9 +267,13 @@
                                     <Text text="{InvoiceNumber}" />
                                     <!-- <core:Title ></core:Title> -->
                                     <Label text="Packaging Ref. No." />
-                                    <Text text="{PackingReferenceNumber}" />
+                                    <Text text="{PackagingReferenceNumber}" />
                                     <Label text="Invoice Date" />
-                                    <Text text="{InvoiceDate}" />
+                                    <Text text="{path:'InvoiceDate',
+                                     type: 'sap.ui.model.type.Date',
+				                     formatOptions: {
+				                        pattern: 'MMMM dd, yyyy'
+				                     }}" />
                                 </f:content>
                             </f:SimpleForm>                       
                         </uxap:blocks>
@@ -158,7 +299,8 @@
                                         formatter: '.formatter.fileContent' }" enableEdit="false" enableDelete="false" visibleDelete="false" visibleEdit="false" fileName="{FileName}">
                                         <attributes>
                                             <ObjectAttribute title="Material Documnets" text="{ID}" class="sapUiSmallMarginEnd"/>
-                                            <ObjectAttribute title="Invoice Date" text="{CreatedAt}"/>
+                                            <ObjectAttribute title="Invoice Date" text="{path:'CreatedAt', type: 'sap.ui.model.type.Date',
+				                                            formatOptions: {pattern: 'MMMM dd, yyyy'}}"/>
                                             <ObjectAttribute title="Size" text="{path : 'FileSize', formatter : '.formatter.formatFileSize'}"/>
                                         </attributes>
                                     </UploadCollectionItem>
@@ -180,7 +322,8 @@
                                         formatter: '.formatter.fileContent' }" enableEdit="false" enableDelete="false" visibleDelete="false" visibleEdit="false" fileName="{FileName}">
                                         <attributes>
                                             <ObjectAttribute title="Material Documnets" text="{ID}" class="sapUiSmallMarginEnd"/>
-                                            <ObjectAttribute title="Invoice Date" text="{CreatedAt}"/>
+                                            <ObjectAttribute title="Invoice Date" text="{path:'CreatedAt', type: 'sap.ui.model.type.Date',
+				                                            formatOptions: {pattern: 'MMMM dd, yyyy'}}"/>
                                             <ObjectAttribute title="Size" text="{path : 'FileSize', formatter : '.formatter.formatFileSize'}"/>
                                         </attributes>
                                     </UploadCollectionItem>
@@ -202,7 +345,8 @@
                                         formatter: '.formatter.fileContent' }" enableEdit="false" enableDelete="false" visibleDelete="false" visibleEdit="false" fileName="{FileName}">
                                         <attributes>
                                             <ObjectAttribute title="Material Documents" text="{ID}" class="sapUiSmallMarginEnd"/>
-                                            <ObjectAttribute title="Invoice Date" text="{CreatedAt}"/>
+                                            <ObjectAttribute title="Invoice Date" text="{path:'CreatedAt', type: 'sap.ui.model.type.Date',
+				                                            formatOptions: {pattern: 'MMMM dd, yyyy'}}"/>
                                             <ObjectAttribute title="Size" text="{path : 'FileSize', formatter : '.formatter.formatFileSize'}"/>
                                         </attributes>
                                     </UploadCollectionItem>
@@ -212,6 +356,7 @@
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>
             </uxap:ObjectPageSection>
+
         </uxap:sections>
     </uxap:ObjectPageLayout>
 

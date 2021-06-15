@@ -9,7 +9,6 @@ sap.ui.define([
     "sap/ui/core/routing/History",
     'sap/m/ColumnListItem',
     'sap/m/Input',
-    
     "jquery.sap.global"
 ],
 	/**
@@ -38,6 +37,10 @@ sap.ui.define([
                 });
                 this.setModel(oViewHandlingModel, "oViewHandlingModel");
 
+                // Main Model Set
+                this.MainModel = this.getComponentModel();
+                this.getView().setModel(this.MainModel);
+
                 //Router Object
                 this.oRouter = this.getRouter();
                 this.oRouter.getRoute("RouteQRCodeDetail").attachPatternMatched(this._onObjectMatched, this);
@@ -46,8 +49,26 @@ sap.ui.define([
             // On Object Matched 
             _onObjectMatched: function (oEvent) {
               //  var QRCode = oEvent.getParameters().arguments.QRCode;
-              var QRCode = 123;
-                // this._bindView("/enterQRNumber(" + QRCode + ")");
+              var QRCode = 5;
+              this._bindView("/PackingListSet(" + QRCode + ")");
+            },
+
+            // View Level Binding
+            _bindView: function (sObjectPath) {
+                var that = this;
+                var objectViewModel = this.getViewModel("objectViewModel");
+
+                this.getView().bindElement({
+                    path: sObjectPath,
+                    events: {
+                        dataRequested: function () {
+                            objectViewModel.setProperty("/busy", true);
+                        },
+                        dataReceived: function () {
+                            objectViewModel.setProperty("/busy", false);
+                        }
+                    }
+                });
             },
 
             onChangeVehicleNumberPress: function () {
