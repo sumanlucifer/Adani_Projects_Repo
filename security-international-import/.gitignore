@@ -1,0 +1,14 @@
+node_modules/
+dist/
+.scp/
+.env
+Makefile*.mta
+mta_archives
+mta-*
+resources
+archive.zip
+.*_mta_build_tmp
+# auto generated wildcard
+agel-mmts-web/security-international-import/.env1
+# auto generated wildcard
+agel-mmts-web/security-scan-history/.env1

@@ -4,6 +4,7 @@
     xmlns:layout="sap.ui.layout"
     xmlns="sap.m"
     xmlns:f="sap.f"
+    xmlns:unified="sap.ui.unified"
     xmlns:fb="sap.ui.comp.filterbar"
     xmlns:vm="sap.ui.comp.variants">
     <f:DynamicPage headerExpanded="true" busy="{objectViewModel>/busy}">
@@ -92,7 +93,7 @@
                                 </items>
                             </Table>
 
-                           <!--  <VBox renderType="Bare" class="sapUiLargeMarginTop" visible="{= %{mdcc} ? false : true || %{attachments/0/ID} ? true : false}">
+                            <!-- <VBox renderType="Bare" class="sapUiLargeMarginTop" visible="{= %{mdcc} ? false : true || %{attachments/0/ID} ? true : false}">
                                 <Title text="MDCC details" level="H1"/>
                                 <VBox>
                                     <Label text="Do you have MDCC Details?" />
@@ -126,22 +127,21 @@
                             </VBox> -->
                         </VBox>
                     </IconTabFilter>
-                   <!--  <IconTabFilter text="{i18n>packingLists}" key="idPackingListTab">
+                    <IconTabFilter text="MDCC" key="idPackingListTab">
                         <VBox renderType="Bare">
-                            <Table id="id" width="auto" items="{path : 'packing_list',
-                                parameters : {
-                                    $orderby : 'createdAt desc'
-                                }
-                            }" noDataText="{i18n>noPackingLists}" growing="true" growingScrollToLoad="true">
+                            <Table id="idTblMDCC" width="auto" items="{ManageMDCCModel>/MDCCItems}" noDataText="{i18n>noPackingLists}" 
+                                growing="true" growingScrollToLoad="true">
                                 <headerToolbar>
                                     <OverflowToolbar>
-                                        <Title text="Packing List" level="H4" id="idPackingListTitle"/>
+                                        <Title text="Manage MDCC" level="H4" id="idPackingListTitle"/>
                                         <ToolbarSpacer />
-                                        <SearchField tooltip="{i18n>searchItem}" placeholder="{i18n>searchItem}" visible="false">
+                                        <Button text="Add" tooltip="{i18n>sort}" icon="sap-icon://add" press="onAddMdccItem" 
+                                            type="Transparent"/>
+                                        <!-- <SearchField tooltip="{i18n>searchItem}" placeholder="{i18n>searchItem}" visible="false">
                                             <layoutData>
                                                 <OverflowToolbarLayoutData maxWidth="200px" priority="NeverOverflow" group="1"/>
                                             </layoutData>
-                                        </SearchField>
+                                        </SearchField> -->
                                         <Button tooltip="{i18n>sort}" icon="sap-icon://sort" press="handleSortButtonPressed" type="Transparent" visible="false"/>
                                         <Button tooltip="{i18n>filter}" icon="sap-icon://filter" press="handleFilterButtonPressed" type="Transparent" visible="false"/>
                                         <Button press=".onExportParentItemsExportPress" icon="sap-icon://download" visible="false"/>
@@ -149,33 +149,55 @@
                                 </headerToolbar>
                                 <columns>
                                     <Column>
-                                        <Text text="{i18n>name}"/>
+                                        <Text text="{i18n>MDCCNumber}"/>
                                     </Column>
                                     <Column>
-                                        <Text text="{i18n>vehicleNo}"/>
+                                        <Text text="{i18n>POitem}"/>
                                     </Column>
                                     <Column>
-                                        <Text text="{i18n>createdAt}"/>
+                                        <Text text="{i18n>Upload}"/>
                                     </Column>
                                     <Column>
-                                        <Text text="{i18n>status}"/>
+                                        <Text text="{i18n>action}"/>
+                                    </Column>
+                                    <Column>
+                                        <Text text="{i18n>Items}"/>
+                                    </Column>
+                                    <Column>
+                                        <Text text="{i18n>approval}"/>
+                                    </Column>
+                                    <Column>
+                                        <Text text="{i18n>packingList}"/>
                                     </Column>
                                 </columns>
-
                                 <items>
-                                    <ColumnListItem type="Navigation" press="onPackingListItemPress">
+                                    <ColumnListItem type="Navigation">
                                         <cells>
-                                            <Text text="{name}"/>
-                                            <Text text="{vehicle_no}"/>
-                                            <Text text="{createdAt}"/>
-                                            <ObjectStatus text="{status}" state="{path:'status', formatter: '.formatter.getPackingListStatusColor'}"/>
+                                            <Text text="{ManageMDCCModel>MDCCNumber}"/>
+                                            <Text text="{ManageMDCCModel>PONumber}"/>
+                                            <VBox>
+                                                <Text id="idFileName" text="{FileName}" binding="{Attachments}" visible="true"/>
+                                                <unified:FileUploader id="idInvoiceUploader" buttonOnly="true"
+                                                 buttonText="Upload Invoice" sameFilenameAllowed="true"  multiple="false"                                                 
+                                                 style="Emphasized" change="onInvoiceFileSelectedForUpload"
+                                                 enabled="{= ${ManageMDCCModel>ViewUpload} ? true : false }" />
+                                            </VBox>
+                                            <Link text="Map Items for MDCC" press="onMapMDCCCItems" enabled="{= ${ManageMDCCModel>MapItems} ? true :false }"/>
+                                            <Link text="View Items" press="onViewPress" enabled="{= ${ManageMDCCModel>ViewItems}.length > 0 ? true : false}"/>
+                                            <VBox>
+                                                <ObjectStatus text="{ManageMDCCModel>Status}" state="{= ${ManageMDCCModel>Status} === 'Approved' ? 'Success' : ${Status} === 'REJECTED' ? 'Error' : 'Warning'}"
+                                                 visible="{= ${ManageMDCCModel>Status}.length>0 ? true : false }"/>
+                                                <Button text="Send For Approval" press="onSendForApprovalPress" 
+                                                        visible="{= ${ManageMDCCModel>Status}.length>0 ?  false : true  }" 
+                                                        enabled="{= ${ManageMDCCModel>ViewStatus}.length > 0 ? true : false}"/>
+                                            </VBox>
+                                            <Link text="Manage" press="onManagePress" enabled="{= ${ManageMDCCModel>Status}  !== 'Approved' ? false :  true }"/>
                                         </cells>
                                     </ColumnListItem>
                                 </items>
-
                             </Table>
                         </VBox>
-                    </IconTabFilter> -->
+                    </IconTabFilter>
                 </items>
             </IconTabBar>
         </f:content>

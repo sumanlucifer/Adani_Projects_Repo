@@ -1,0 +1,2255 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<edmx:Edmx xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" Version="1.0">
+    <edmx:DataServices m:DataServiceVersion="1.0" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata">
+        <Schema Namespace="com.agel.mmts.entity.edmentity" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="BOQCalculationModel">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="QTY" Type="Edm.Double" Nullable="true"/>
+                <Property Name="PCGroupId" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="ParentLineItemId" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="IsOne2OneLineItem" Type="Edm.Boolean" Nullable="true"/>
+                <Property Name="Message" Type="Edm.String" Nullable="true"/>
+                <Property Name="Code" Type="Edm.Int32" Nullable="true"/>
+                <Property Name="Success" Type="Edm.Boolean" Nullable="true"/>
+            </EntityType>
+            <EntityType Name="InnerPackagingEdmModel">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="PackagingType" Type="Edm.String" Nullable="true"/>
+                <Property Name="LineNumber" Type="Edm.String" Nullable="true"/>
+                <Property Name="PackagingQty" Type="Edm.Double" Nullable="true"/>
+                <Property Name="UOM" Type="Edm.String" Nullable="true"/>
+            </EntityType>
+            <EntityType Name="MDCCBOQItemEdmModel">
+                <Key>
+                    <PropertyRef Name="BOQItemID"/>
+                </Key>
+                <Property Name="BOQItemID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="MDCCApprovedQty" Type="Edm.Double" Nullable="true"/>
+                <Property Name="IsDeleted" Type="Edm.Boolean" Nullable="true"/>
+                <Property Name="RemainingQty" Type="Edm.Double" Nullable="true"/>
+                <Property Name="DispatchQty" Type="Edm.Double" Nullable="true"/>
+            </EntityType>
+            <EntityType Name="MDCCBOQRequestModel">
+                <Key>
+                    <PropertyRef Name="MDCCID"/>
+                </Key>
+                <Property Name="MDCCID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="MDCCName" Type="Edm.String" Nullable="true"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.String" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.String" Nullable="true"/>
+                <Property Name="Message" Type="Edm.String" Nullable="true"/>
+                <Property Name="Code" Type="Edm.Int32" Nullable="true"/>
+                <Property Name="Success" Type="Edm.Boolean" Nullable="true"/>
+                <NavigationProperty Name="MDCCParentLineItem" Relationship="com.agel.mmts.entity.edmentity.MDCCBOQRequestModel_2_r_MdccParentLineItems" FromRole="MDCCBOQRequestModel" ToRole="r_MdccParentLineItems"/>
+            </EntityType>
+            <EntityType Name="MDCCStatusEdmModel">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Status" Type="Edm.String" Nullable="true"/>
+                <Property Name="ApprovedBy" Type="Edm.String" Nullable="true"/>
+                <Property Name="ApprovedOn" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="Comment" Type="Edm.String" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="true"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.String" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.String" Nullable="true"/>
+                <Property Name="MDCCID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Message" Type="Edm.String" Nullable="true"/>
+                <Property Name="Code" Type="Edm.Int32" Nullable="true"/>
+                <Property Name="Success" Type="Edm.Boolean" Nullable="true"/>
+            </EntityType>
+            <EntityType Name="PackingListBOQItemEdmModel">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Name" Type="Edm.String" Nullable="true"/>
+                <Property Name="Description" Type="Edm.String" Nullable="true"/>
+                <Property Name="MaterialCode" Type="Edm.String" Nullable="true"/>
+                <Property Name="Qty" Type="Edm.Double" Nullable="true"/>
+                <Property Name="UOM" Type="Edm.String" Nullable="true"/>
+                <Property Name="MDCCApprovedQty" Type="Edm.Double" Nullable="true"/>
+                <Property Name="DispatchQty" Type="Edm.Double" Nullable="true"/>
+                <Property Name="RemainingQty" Type="Edm.Double" Nullable="true"/>
+                <Property Name="LineNumber" Type="Edm.String" Nullable="true"/>
+                <Property Name="MDCCBOQItemId" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Message" Type="Edm.String" Nullable="true"/>
+                <Property Name="Code" Type="Edm.Int32" Nullable="true"/>
+                <Property Name="Success" Type="Edm.Boolean" Nullable="true"/>
+            </EntityType>
+            <EntityType Name="ParentLineItemTCApprovalListModel">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="PurchaseOrderId" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="BOQGroupId" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Message" Type="Edm.String" Nullable="true"/>
+                <Property Name="Code" Type="Edm.Int32" Nullable="true"/>
+                <Property Name="Success" Type="Edm.Boolean" Nullable="true"/>
+            </EntityType>
+            <EntityType Name="QRCodeGenerationModel">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int32" Nullable="true"/>
+                <Property Name="PONumber" Type="Edm.String" Nullable="true"/>
+                <Property Name="PackingListId" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="UserName" Type="Edm.String" Nullable="true"/>
+                <Property Name="Message" Type="Edm.String" Nullable="true"/>
+                <Property Name="Code" Type="Edm.Int32" Nullable="true"/>
+                <Property Name="Success" Type="Edm.Boolean" Nullable="true"/>
+            </EntityType>
+            <EntityType Name="TCBOQResponseModel">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Message" Type="Edm.String" Nullable="true"/>
+                <Property Name="Code" Type="Edm.Int32" Nullable="true"/>
+                <Property Name="Success" Type="Edm.Boolean" Nullable="true"/>
+                <NavigationProperty Name="Responses" Relationship="com.agel.mmts.entity.edmentity.TCBOQResponseModel_2_r_Responses" FromRole="TCBOQResponseModel" ToRole="r_Responses"/>
+            </EntityType>
+            <EntityType Name="VehicleNumberUpdateModel">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int32" Nullable="true"/>
+                <Property Name="QRCodeId" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="PackingListId" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="VehicleNumber" Type="Edm.String" Nullable="true"/>
+                <Property Name="ScannedMaterialId" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Message" Type="Edm.String" Nullable="true"/>
+                <Property Name="Code" Type="Edm.Int32" Nullable="true"/>
+                <Property Name="Success" Type="Edm.Boolean" Nullable="true"/>
+            </EntityType>
+            <EntityType Name="DownloadQRCodeModel">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int32" Nullable="true"/>
+                <Property Name="PackingListId" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Base64String" Type="Edm.String" Nullable="true"/>
+                <Property Name="Message" Type="Edm.String" Nullable="true"/>
+                <Property Name="Code" Type="Edm.Int32" Nullable="true"/>
+                <Property Name="Success" Type="Edm.Boolean" Nullable="true"/>
+            </EntityType>
+            <EntityType Name="MDCCBOQResponseModel">
+                <Property Name="MDCCID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="MDCCName" Type="Edm.String" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.String" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.String" Nullable="true"/>
+                <Property Name="Message" Type="Edm.String" Nullable="true"/>
+                <Property Name="Code" Type="Edm.Int32" Nullable="true"/>
+                <Property Name="Success" Type="Edm.Boolean" Nullable="true"/>
+                <NavigationProperty Name="MDCCParentLineItem" Relationship="com.agel.mmts.entity.edmentity.MDCCBOQResponseModel_2_r_MdccParentLineItems" FromRole="MDCCBOQResponseModel" ToRole="r_MdccParentLineItems"/>
+            </EntityType>
+            <EntityType Name="OauthTokenResponseEntityModel">
+                <Key>
+                    <PropertyRef Name="access_token"/>
+                </Key>
+                <Property Name="access_token" Type="Edm.String" Nullable="true"/>
+                <Property Name="refresh_token" Type="Edm.String" Nullable="true"/>
+                <Property Name="token_type" Type="Edm.String" Nullable="true"/>
+                <Property Name="expires_in" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="grant_type" Type="Edm.String" Nullable="true"/>
+                <Property Name="client_id" Type="Edm.String" Nullable="true"/>
+                <Property Name="client_secret" Type="Edm.String" Nullable="true"/>
+            </EntityType>
+            <EntityType Name="PackingListContainEdmModel">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Name" Type="Edm.String" Nullable="true"/>
+                <Property Name="DispatchQty" Type="Edm.Double" Nullable="true"/>
+                <Property Name="UOM" Type="Edm.String" Nullable="true"/>
+                <Property Name="PackagingType" Type="Edm.String" Nullable="true"/>
+                <Property Name="NumberOfPackages" Type="Edm.Int32" Nullable="true"/>
+                <Property Name="LineNumber" Type="Edm.String" Nullable="true"/>
+                <Property Name="PackagingTypeId" Type="Edm.Int32" Nullable="true"/>
+                <Property Name="Message" Type="Edm.String" Nullable="true"/>
+                <Property Name="Code" Type="Edm.Int32" Nullable="true"/>
+                <Property Name="Success" Type="Edm.Boolean" Nullable="true"/>
+            </EntityType>
+            <EntityType Name="PCGroupItemListModel">
+                <Key>
+                    <PropertyRef Name="ParentLineItemID"/>
+                </Key>
+                <Property Name="ParentLineItemID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="VendorID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Message" Type="Edm.String" Nullable="true"/>
+                <Property Name="Code" Type="Edm.Int32" Nullable="true"/>
+                <Property Name="Success" Type="Edm.Boolean" Nullable="true"/>
+                <NavigationProperty Name="PCGroupItems" Relationship="com.agel.mmts.entity.edmentity.PCGroupItemListModel_2_r_PcGroupItems" FromRole="PCGroupItemListModel" ToRole="r_PcGroupItems"/>
+            </EntityType>
+            <EntityType Name="UpdatePackingListStatusModel">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int32" Nullable="true"/>
+                <Property Name="TotalWeight" Type="Edm.Double" Nullable="true"/>
+                <Property Name="PackingListId" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="UserName" Type="Edm.String" Nullable="true"/>
+                <Property Name="Message" Type="Edm.String" Nullable="true"/>
+                <Property Name="Code" Type="Edm.Int32" Nullable="true"/>
+                <Property Name="Success" Type="Edm.Boolean" Nullable="true"/>
+            </EntityType>
+            <EntityType Name="DocumentDetailEdmModel">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Type" Type="Edm.String" Nullable="true"/>
+                <Property Name="ContentType" Type="Edm.String" Nullable="true"/>
+                <Property Name="FileName" Type="Edm.String" Nullable="true"/>
+                <Property Name="Content" Type="Edm.String" Nullable="true"/>
+                <Property Name="UploadedBy" Type="Edm.String" Nullable="true"/>
+                <Property Name="FileSize" Type="Edm.String" Nullable="true"/>
+                <Property Name="SubType" Type="Edm.String" Nullable="true"/>
+                <Property Name="UploadTypeId" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Message" Type="Edm.String" Nullable="true"/>
+                <Property Name="Code" Type="Edm.Int32" Nullable="true"/>
+                <Property Name="Success" Type="Edm.Boolean" Nullable="true"/>
+            </EntityType>
+            <EntityType Name="DocumentUploadEdmModel">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Message" Type="Edm.String" Nullable="true"/>
+                <Property Name="Code" Type="Edm.Int32" Nullable="true"/>
+                <Property Name="Success" Type="Edm.Boolean" Nullable="true"/>
+                <NavigationProperty Name="Documents" Relationship="com.agel.mmts.entity.edmentity.DocumentUploadEdmModel_2_r_Documents" FromRole="DocumentUploadEdmModel" ToRole="r_Documents"/>
+            </EntityType>
+            <EntityType Name="InspectedParentLineItemRequestModel">
+                <Property Name="ParentLineItemId" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="InspectionQty" Type="Edm.Double" Nullable="true"/>
+                <NavigationProperty Name="InspectedBOQItemRequests" Relationship="com.agel.mmts.entity.edmentity.InspectedParentLineItemRequestModel_2_r_InspectedBOQItemRequests" FromRole="InspectedParentLineItemRequestModel" ToRole="r_InspectedBOQItemRequests"/>
+            </EntityType>
+            <EntityType Name="InspectionCallIdRequestModel">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="PONumber" Type="Edm.String" Nullable="true"/>
+                <Property Name="PurchaseOrderId" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="InspectionDate" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="Comment" Type="Edm.String" Nullable="true"/>
+                <Property Name="Message" Type="Edm.String" Nullable="true"/>
+                <Property Name="Code" Type="Edm.Int32" Nullable="true"/>
+                <Property Name="Success" Type="Edm.Boolean" Nullable="true"/>
+                <NavigationProperty Name="InspectedParentLineItemRequests" Relationship="com.agel.mmts.entity.edmentity.InspectionCallIdRequestModel_2_r_InspectedParentLineItemRequests" FromRole="InspectionCallIdRequestModel" ToRole="r_InspectedParentLineItemRequests"/>
+            </EntityType>
+            <EntityType Name="MDCCEdmModel">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Message" Type="Edm.String" Nullable="true"/>
+                <Property Name="Code" Type="Edm.Int32" Nullable="true"/>
+                <Property Name="Success" Type="Edm.Boolean" Nullable="true"/>
+                <NavigationProperty Name="MDCCParentItems" Relationship="com.agel.mmts.entity.edmentity.MDCCEdmModel_2_r_MdccParentItems" FromRole="MDCCEdmModel" ToRole="r_MdccParentItems"/>
+            </EntityType>
+            <EntityType Name="OuterPackagingEdmModel">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="PackagingType" Type="Edm.String" Nullable="true"/>
+                <Property Name="PackagingDimensions" Type="Edm.String" Nullable="true"/>
+                <Property Name="Remarks" Type="Edm.String" Nullable="true"/>
+                <Property Name="OuterPackagingTypeId" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Message" Type="Edm.String" Nullable="true"/>
+                <Property Name="Code" Type="Edm.Int32" Nullable="true"/>
+                <Property Name="Success" Type="Edm.Boolean" Nullable="true"/>
+                <NavigationProperty Name="InnerPackagings" Relationship="com.agel.mmts.entity.edmentity.OuterPackagingEdmModel_2_r_InnerPackagings" FromRole="OuterPackagingEdmModel" ToRole="r_InnerPackagings"/>
+            </EntityType>
+            <EntityType Name="OuterPackagingRequestEdmModel">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="PackingListId" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="IsOuterPackagingRequired" Type="Edm.Boolean" Nullable="true"/>
+                <Property Name="VehicleNumber" Type="Edm.String" Nullable="true"/>
+                <Property Name="PackagingReferenceNumber" Type="Edm.String" Nullable="true"/>
+                <Property Name="InvoiceNumber" Type="Edm.String" Nullable="true"/>
+                <Property Name="InvoiceDate" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="IsDraft" Type="Edm.Boolean" Nullable="true"/>
+                <Property Name="IsProcessOneCompletes" Type="Edm.Boolean" Nullable="true"/>
+                <Property Name="IsProcessTwoCompletes" Type="Edm.Boolean" Nullable="true"/>
+                <Property Name="Message" Type="Edm.String" Nullable="true"/>
+                <Property Name="Code" Type="Edm.Int32" Nullable="true"/>
+                <Property Name="Success" Type="Edm.Boolean" Nullable="true"/>
+                <NavigationProperty Name="OuterPackagings" Relationship="com.agel.mmts.entity.edmentity.OuterPackagingRequestEdmModel_2_r_OuterPackagings" FromRole="OuterPackagingRequestEdmModel" ToRole="r_OuterPackagings"/>
+            </EntityType>
+            <EntityType Name="PackingListParentItemEdmModel">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Name" Type="Edm.String" Nullable="true"/>
+                <Property Name="Description" Type="Edm.String" Nullable="true"/>
+                <Property Name="MaterialCode" Type="Edm.String" Nullable="true"/>
+                <Property Name="Qty" Type="Edm.Double" Nullable="true"/>
+                <Property Name="UOM" Type="Edm.String" Nullable="true"/>
+                <Property Name="MDCCApprovedQty" Type="Edm.Double" Nullable="true"/>
+                <Property Name="DispatchQty" Type="Edm.Double" Nullable="true"/>
+                <Property Name="RemainingQty" Type="Edm.Double" Nullable="true"/>
+                <Property Name="PONumber" Type="Edm.String" Nullable="true"/>
+                <Property Name="MovementType" Type="Edm.String" Nullable="true"/>
+                <Property Name="BatchNumber" Type="Edm.String" Nullable="true"/>
+                <Property Name="Valuation" Type="Edm.String" Nullable="true"/>
+                <Property Name="BatchUnit" Type="Edm.String" Nullable="true"/>
+                <Property Name="Currency" Type="Edm.String" Nullable="true"/>
+                <Property Name="AmountInLocalCurrency" Type="Edm.Double" Nullable="true"/>
+                <Property Name="MaterialDoucmentNumber" Type="Edm.String" Nullable="true"/>
+                <Property Name="LineNumber" Type="Edm.String" Nullable="true"/>
+                <Property Name="MDCCParentItemId" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Message" Type="Edm.String" Nullable="true"/>
+                <Property Name="Code" Type="Edm.Int32" Nullable="true"/>
+                <Property Name="Success" Type="Edm.Boolean" Nullable="true"/>
+                <NavigationProperty Name="PackingListBOQItems" Relationship="com.agel.mmts.entity.edmentity.PackingListParentItemEdmModel_2_r_PackingListBOQItems" FromRole="PackingListParentItemEdmModel" ToRole="r_PackingListBOQItems"/>
+            </EntityType>
+            <EntityType Name="SendQRPrintingRequestModel">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int32" Nullable="true"/>
+                <Property Name="PackingListId" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="UserName" Type="Edm.String" Nullable="true"/>
+                <Property Name="Description" Type="Edm.String" Nullable="true"/>
+                <Property Name="Reason" Type="Edm.String" Nullable="true"/>
+                <Property Name="Message" Type="Edm.String" Nullable="true"/>
+                <Property Name="Code" Type="Edm.Int32" Nullable="true"/>
+                <Property Name="Success" Type="Edm.Boolean" Nullable="true"/>
+            </EntityType>
+            <EntityType Name="TCResponseModel">
+                <Key>
+                    <PropertyRef Name="BOQApprovedRequestId"/>
+                </Key>
+                <Property Name="BOQApprovedRequestId" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Status" Type="Edm.String" Nullable="true"/>
+                <Property Name="Comment" Type="Edm.String" Nullable="true"/>
+                <Property Name="BOQGroupId" Type="Edm.Int64" Nullable="true"/>
+            </EntityType>
+            <EntityType Name="InspectedBOQItemsRequestModel">
+                <Property Name="BOQItemId" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="InspectionQty" Type="Edm.Double" Nullable="true"/>
+            </EntityType>
+            <EntityType Name="MDCCParentLineItemEdmModel">
+                <Key>
+                    <PropertyRef Name="ParentLineItemID"/>
+                </Key>
+                <Property Name="ParentLineItemID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="RemainingQty" Type="Edm.Double" Nullable="true"/>
+                <Property Name="IsDeleted" Type="Edm.Boolean" Nullable="true"/>
+                <Property Name="MDCCApprovedQty" Type="Edm.Double" Nullable="true"/>
+                <Property Name="DispatchQty" Type="Edm.Double" Nullable="true"/>
+                <NavigationProperty Name="MDCCBOQItem" Relationship="com.agel.mmts.entity.edmentity.MDCCParentLineItemEdmModel_2_r_MdccBOQItem" FromRole="MDCCParentLineItemEdmModel" ToRole="r_MdccBOQItem"/>
+            </EntityType>
+            <EntityType Name="PackingListEdmModel">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="VehicleNumber" Type="Edm.String" Nullable="true"/>
+                <Property Name="Name" Type="Edm.String" Nullable="true"/>
+                <Property Name="InvoiceNumber" Type="Edm.String" Nullable="true"/>
+                <Property Name="GateEntryNumber" Type="Edm.String" Nullable="true"/>
+                <Property Name="Status" Type="Edm.String" Nullable="true"/>
+                <Property Name="UDStatus" Type="Edm.String" Nullable="true"/>
+                <Property Name="TotalWeight" Type="Edm.Double" Nullable="true"/>
+                <Property Name="PONumber" Type="Edm.String" Nullable="true"/>
+                <Property Name="QRCodeId" Type="Edm.Int32" Nullable="true"/>
+                <Property Name="IsDraft" Type="Edm.Boolean" Nullable="true"/>
+                <Property Name="MDCC_Id" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="IsProcessOneCompletes" Type="Edm.Boolean" Nullable="true"/>
+                <Property Name="IsProcessTwoCompletes" Type="Edm.Boolean" Nullable="true"/>
+                <Property Name="Message" Type="Edm.String" Nullable="true"/>
+                <Property Name="Code" Type="Edm.Int32" Nullable="true"/>
+                <Property Name="Success" Type="Edm.Boolean" Nullable="true"/>
+                <NavigationProperty Name="PackingListParentItems" Relationship="com.agel.mmts.entity.edmentity.PackingListEdmModel_2_r_PackingListParentItems" FromRole="PackingListEdmModel" ToRole="r_PackingListParentItems"/>
+                <NavigationProperty Name="PackingListContains" Relationship="com.agel.mmts.entity.edmentity.PackingListEdmModel_2_r_PackingListContains" FromRole="PackingListEdmModel" ToRole="r_PackingListContains"/>
+                <NavigationProperty Name="InnerPackagings" Relationship="com.agel.mmts.entity.edmentity.PackingListEdmModel_2_r_InnerPackagings" FromRole="PackingListEdmModel" ToRole="r_InnerPackagings"/>
+            </EntityType>
+            <EntityType Name="PCGroupItemResponseModel">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Name" Type="Edm.String" Nullable="true"/>
+                <Property Name="Description" Type="Edm.String" Nullable="true"/>
+                <Property Name="MaterialCode" Type="Edm.String" Nullable="true"/>
+                <Property Name="Qty" Type="Edm.Double" Nullable="true"/>
+                <Property Name="UOM" Type="Edm.String" Nullable="true"/>
+                <Property Name="PCGroupID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Remarks" Type="Edm.String" Nullable="true"/>
+                <Property Name="MasterBOQItemId" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="MasterUOMItemId" Type="Edm.Int64" Nullable="true"/>
+            </EntityType>
+            <EntityType Name="TCParentItemModel">
+                <Key>
+                    <PropertyRef Name="ParentLineItemId"/>
+                </Key>
+                <Property Name="ParentLineItemId" Type="Edm.Int64" Nullable="true"/>
+            </EntityType>
+            <Association Name="TCBOQResponseModel_2_r_Responses">
+                <End Type="com.agel.mmts.entity.edmentity.TCBOQResponseModel" Multiplicity="1" Role="TCBOQResponseModel"/>
+                <End Type="com.agel.mmts.entity.edmentity.TCResponseModel" Multiplicity="*" Role="r_Responses"/>
+            </Association>
+            <Association Name="PackingListEdmModel_2_r_InnerPackagings">
+                <End Type="com.agel.mmts.entity.edmentity.PackingListEdmModel" Multiplicity="1" Role="PackingListEdmModel"/>
+                <End Type="com.agel.mmts.entity.edmentity.InnerPackagingEdmModel" Multiplicity="*" Role="r_InnerPackagings"/>
+            </Association>
+            <Association Name="OuterPackagingEdmModel_2_r_InnerPackagings">
+                <End Type="com.agel.mmts.entity.edmentity.OuterPackagingEdmModel" Multiplicity="1" Role="OuterPackagingEdmModel"/>
+                <End Type="com.agel.mmts.entity.edmentity.InnerPackagingEdmModel" Multiplicity="*" Role="r_InnerPackagings"/>
+            </Association>
+            <Association Name="PackingListParentItemEdmModel_2_r_PackingListBOQItems">
+                <End Type="com.agel.mmts.entity.edmentity.PackingListParentItemEdmModel" Multiplicity="1" Role="PackingListParentItemEdmModel"/>
+                <End Type="com.agel.mmts.entity.edmentity.PackingListBOQItemEdmModel" Multiplicity="*" Role="r_PackingListBOQItems"/>
+            </Association>
+            <Association Name="PackingListEdmModel_2_r_PackingListParentItems">
+                <End Type="com.agel.mmts.entity.edmentity.PackingListEdmModel" Multiplicity="1" Role="PackingListEdmModel"/>
+                <End Type="com.agel.mmts.entity.edmentity.PackingListParentItemEdmModel" Multiplicity="*" Role="r_PackingListParentItems"/>
+            </Association>
+            <Association Name="MDCCBOQResponseModel_2_r_MdccParentLineItems">
+                <End Type="com.agel.mmts.entity.edmentity.MDCCBOQResponseModel" Multiplicity="1" Role="MDCCBOQResponseModel"/>
+                <End Type="com.agel.mmts.entity.edmentity.MDCCParentLineItemEdmModel" Multiplicity="*" Role="r_MdccParentLineItems"/>
+            </Association>
+            <Association Name="InspectedParentLineItemRequestModel_2_r_InspectedBOQItemRequests">
+                <End Type="com.agel.mmts.entity.edmentity.InspectedParentLineItemRequestModel" Multiplicity="1" Role="InspectedParentLineItemRequestModel"/>
+                <End Type="com.agel.mmts.entity.edmentity.InspectedBOQItemsRequestModel" Multiplicity="*" Role="r_InspectedBOQItemRequests"/>
+            </Association>
+            <Association Name="MDCCEdmModel_2_r_MdccParentItems">
+                <End Type="com.agel.mmts.entity.edmentity.MDCCEdmModel" Multiplicity="1" Role="MDCCEdmModel"/>
+                <End Type="com.agel.mmts.entity.edmentity.MDCCParentLineItemEdmModel" Multiplicity="*" Role="r_MdccParentItems"/>
+            </Association>
+            <Association Name="MDCCParentLineItemEdmModel_2_r_MdccBOQItem">
+                <End Type="com.agel.mmts.entity.edmentity.MDCCParentLineItemEdmModel" Multiplicity="1" Role="MDCCParentLineItemEdmModel"/>
+                <End Type="com.agel.mmts.entity.edmentity.MDCCBOQItemEdmModel" Multiplicity="*" Role="r_MdccBOQItem"/>
+            </Association>
+            <Association Name="MDCCBOQRequestModel_2_r_MdccParentLineItems">
+                <End Type="com.agel.mmts.entity.edmentity.MDCCBOQRequestModel" Multiplicity="1" Role="MDCCBOQRequestModel"/>
+                <End Type="com.agel.mmts.entity.edmentity.MDCCParentLineItemEdmModel" Multiplicity="*" Role="r_MdccParentLineItems"/>
+            </Association>
+            <Association Name="PackingListEdmModel_2_r_PackingListContains">
+                <End Type="com.agel.mmts.entity.edmentity.PackingListEdmModel" Multiplicity="1" Role="PackingListEdmModel"/>
+                <End Type="com.agel.mmts.entity.edmentity.PackingListContainEdmModel" Multiplicity="*" Role="r_PackingListContains"/>
+            </Association>
+            <Association Name="InspectionCallIdRequestModel_2_r_InspectedParentLineItemRequests">
+                <End Type="com.agel.mmts.entity.edmentity.InspectionCallIdRequestModel" Multiplicity="1" Role="InspectionCallIdRequestModel"/>
+                <End Type="com.agel.mmts.entity.edmentity.InspectedParentLineItemRequestModel" Multiplicity="*" Role="r_InspectedParentLineItemRequests"/>
+            </Association>
+            <Association Name="PCGroupItemListModel_2_r_PcGroupItems">
+                <End Type="com.agel.mmts.entity.edmentity.PCGroupItemListModel" Multiplicity="1" Role="PCGroupItemListModel"/>
+                <End Type="com.agel.mmts.entity.edmentity.PCGroupItemResponseModel" Multiplicity="*" Role="r_PcGroupItems"/>
+            </Association>
+            <Association Name="DocumentUploadEdmModel_2_r_Documents">
+                <End Type="com.agel.mmts.entity.edmentity.DocumentUploadEdmModel" Multiplicity="1" Role="DocumentUploadEdmModel"/>
+                <End Type="com.agel.mmts.entity.edmentity.DocumentDetailEdmModel" Multiplicity="*" Role="r_Documents"/>
+            </Association>
+            <Association Name="OuterPackagingRequestEdmModel_2_r_OuterPackagings">
+                <End Type="com.agel.mmts.entity.edmentity.OuterPackagingRequestEdmModel" Multiplicity="1" Role="OuterPackagingRequestEdmModel"/>
+                <End Type="com.agel.mmts.entity.edmentity.OuterPackagingEdmModel" Multiplicity="*" Role="r_OuterPackagings"/>
+            </Association>
+        </Schema>
+        <Schema Namespace="com.agel.mmts.entity" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="AttachmentModel" m:HasStream="true">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Type" Type="Edm.String" Nullable="true"/>
+                <Property Name="ContentType" Type="Edm.String" Nullable="true"/>
+                <Property Name="FileName" Type="Edm.String" Nullable="true"/>
+                <Property Name="Content" Type="Edm.Binary" Nullable="true"/>
+                <Property Name="UploadedBy" Type="Edm.String" Nullable="true"/>
+                <Property Name="UploadedOn" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UploadTypeId" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="FileSize" Type="Edm.String" Nullable="true"/>
+                <Property Name="SubType" Type="Edm.String" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.String" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.String" Nullable="true"/>
+                <NavigationProperty Name="PackingList" Relationship="com.agel.mmts.entity.r_Attachments_2_r_PackingList" FromRole="r_Attachments" ToRole="r_PackingList"/>
+                <NavigationProperty Name="InspectionCall" Relationship="com.agel.mmts.entity.r_Attachments_2_r_InspectionCall" FromRole="r_Attachments" ToRole="r_InspectionCall"/>
+                <NavigationProperty Name="MDCC" Relationship="com.agel.mmts.entity.r_Attachments_2_r_Mdcc" FromRole="r_Attachments" ToRole="r_Mdcc"/>
+            </EntityType>
+            <EntityType Name="BOQItemUOMModel">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Name" Type="Edm.String" Nullable="true"/>
+                <Property Name="MasterUOMId" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.String" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.String" Nullable="true"/>
+                <NavigationProperty Name="BOQItem" Relationship="com.agel.mmts.entity.r_BoqItem_2_r_Uoms" FromRole="r_Uoms" ToRole="r_BoqItem"/>
+            </EntityType>
+            <EntityType Name="ManualEntryModel">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="PONumber" Type="Edm.String" Nullable="true"/>
+                <Property Name="VehicleNumber" Type="Edm.String" Nullable="true"/>
+                <Property Name="ContainerNumber" Type="Edm.String" Nullable="true"/>
+                <Property Name="InvoiceNumber" Type="Edm.String" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.String" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.String" Nullable="true"/>
+            </EntityType>
+            <EntityType Name="MasterLineItemStateModel">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Name" Type="Edm.String" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.String" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.String" Nullable="true"/>
+            </EntityType>
+            <EntityType Name="MasterQrCodeAssistanceReasonModel">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Reason" Type="Edm.String" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.String" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.String" Nullable="true"/>
+            </EntityType>
+            <EntityType Name="MaterialReturnApprovalRequestModel">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="RequestedBy" Type="Edm.String" Nullable="true"/>
+                <Property Name="RequestedOn" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="Status" Type="Edm.String" Nullable="true"/>
+                <Property Name="ApprovedBy" Type="Edm.String" Nullable="true"/>
+                <Property Name="ApprovedOn" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="LineItemId" Type="Edm.Int32" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.String" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.String" Nullable="true"/>
+            </EntityType>
+            <EntityType Name="MDCCModel" m:HasStream="true">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="MDCCNumber" Type="Edm.String" Nullable="true"/>
+                <Property Name="NotificationNumber" Type="Edm.String" Nullable="true"/>
+                <Property Name="Version" Type="Edm.String" Nullable="true"/>
+                <Property Name="PONumber" Type="Edm.String" Nullable="true"/>
+                <Property Name="Status" Type="Edm.String" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.String" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.String" Nullable="true"/>
+                <NavigationProperty Name="Attachments" Relationship="com.agel.mmts.entity.r_Attachments_2_r_Mdcc" FromRole="r_Mdcc" ToRole="r_Attachments"/>
+                <NavigationProperty Name="MDCCStatuses" Relationship="com.agel.mmts.entity.r_Mdcc_2_r_MdccStatuses" FromRole="r_Mdcc" ToRole="r_MdccStatuses"/>
+                <NavigationProperty Name="InspectionCall" Relationship="com.agel.mmts.entity.r_InspectionCallId_2_r_Mdcc" FromRole="r_Mdcc" ToRole="r_InspectionCallId"/>
+                <NavigationProperty Name="MDCCParentLineItems" Relationship="com.agel.mmts.entity.r_Mdcc_2_r_MdccParentLineItems" FromRole="r_Mdcc" ToRole="r_MdccParentLineItems"/>
+            </EntityType>
+            <EntityType Name="MDCCStoreModel">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="PONumber" Type="Edm.String" Nullable="true"/>
+                <Property Name="Name" Type="Edm.String" Nullable="true"/>
+                <Property Name="Description" Type="Edm.String" Nullable="true"/>
+                <Property Name="Item" Type="Edm.Int32" Nullable="true"/>
+                <Property Name="MaterialCode" Type="Edm.String" Nullable="true"/>
+                <Property Name="NotificationNumber" Type="Edm.String" Nullable="true"/>
+                <Property Name="MDCCNumber" Type="Edm.String" Nullable="true"/>
+                <Property Name="MDCCVersionNumber" Type="Edm.String" Nullable="true"/>
+                <Property Name="MDCCQuantity" Type="Edm.Double" Nullable="true"/>
+                <Property Name="UOM" Type="Edm.String" Nullable="true"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+            </EntityType>
+            <EntityType Name="PackingListBOQItemModel">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Name" Type="Edm.String" Nullable="true"/>
+                <Property Name="Description" Type="Edm.String" Nullable="true"/>
+                <Property Name="MaterialCode" Type="Edm.String" Nullable="true"/>
+                <Property Name="Qty" Type="Edm.Double" Nullable="true"/>
+                <Property Name="UOM" Type="Edm.String" Nullable="true"/>
+                <Property Name="MDCCApprovedQty" Type="Edm.Double" Nullable="true"/>
+                <Property Name="DispatchQty" Type="Edm.Double" Nullable="true"/>
+                <Property Name="RemainingQty" Type="Edm.Double" Nullable="true"/>
+                <Property Name="LineNumber" Type="Edm.String" Nullable="true"/>
+                <Property Name="MDCCBOQItemId" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.String" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.String" Nullable="true"/>
+                <NavigationProperty Name="PackingListParentItem" Relationship="com.agel.mmts.entity.r_PackingListBOQItems_2_r_PackingListParentItem" FromRole="r_PackingListBOQItems" ToRole="r_PackingListParentItem"/>
+                <NavigationProperty Name="PackingListContain" Relationship="com.agel.mmts.entity.r_PackingListBOQItems_2_r_PackingListContain" FromRole="r_PackingListBOQItems" ToRole="r_PackingListContain"/>
+                <NavigationProperty Name="QrCode" Relationship="com.agel.mmts.entity.r_PackingListBoqItemId_2_r_QrCode" FromRole="r_PackingListBoqItemId" ToRole="r_QrCode"/>
+            </EntityType>
+            <EntityType Name="ParentLineItemTCApprovalModel">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Qty" Type="Edm.Double" Nullable="true"/>
+            </EntityType>
+            <EntityType Name="POBOQApprovalModel">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="POBOQStatus" Type="Edm.String" Nullable="true"/>
+                <NavigationProperty Name="PurchaseOrder" Relationship="com.agel.mmts.entity.POBOQApprovalModel_2_r_PurchaseOrder" FromRole="POBOQApprovalModel" ToRole="r_PurchaseOrder"/>
+                <NavigationProperty Name="BOQApprovalRequests" Relationship="com.agel.mmts.entity.r_BoqApprovalRequests_2_r_PoBOQApproval" FromRole="r_PoBOQApproval" ToRole="r_BoqApprovalRequests"/>
+            </EntityType>
+            <EntityType Name="PurchaseOrderStoreResponseEntityModel">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int32" Nullable="true"/>
+                <NavigationProperty Name="data" Relationship="com.agel.mmts.entity.PurchaseOrderStoreResponseEntityModel_2_r_Data" FromRole="PurchaseOrderStoreResponseEntityModel" ToRole="r_Data"/>
+            </EntityType>
+            <EntityType Name="ScannedMaterialModel">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="QRNumber" Type="Edm.String" Nullable="true"/>
+                <Property Name="QRCodeId" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="PackingListId" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="UserId" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="EntryDate" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="VehicleNumber" Type="Edm.String" Nullable="true"/>
+                <Property Name="GateEntryNumber" Type="Edm.String" Nullable="true"/>
+                <Property Name="PONumber" Type="Edm.String" Nullable="true"/>
+                <Property Name="VendorCode" Type="Edm.String" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.String" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.String" Nullable="true"/>
+            </EntityType>
+            <EntityType Name="StoreStockModel">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.String" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.String" Nullable="true"/>
+                <NavigationProperty Name="StockParentItem" Relationship="com.agel.mmts.entity.r_StockParentItem_2_r_StoreStock" FromRole="r_StoreStock" ToRole="r_StockParentItem"/>
+            </EntityType>
+            <EntityType Name="VendorStoreModel">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="VendorCode" Type="Edm.String" Nullable="true"/>
+                <Property Name="VendorName" Type="Edm.String" Nullable="true"/>
+                <Property Name="GSTNumber" Type="Edm.String" Nullable="true"/>
+                <Property Name="AddressNumber" Type="Edm.String" Nullable="true"/>
+                <Property Name="Street" Type="Edm.String" Nullable="true"/>
+                <Property Name="City" Type="Edm.String" Nullable="true"/>
+                <Property Name="StateCode" Type="Edm.String" Nullable="true"/>
+                <Property Name="CountryCode" Type="Edm.String" Nullable="true"/>
+                <Property Name="PostalCode" Type="Edm.String" Nullable="true"/>
+                <Property Name="PhoneNumber" Type="Edm.String" Nullable="true"/>
+                <Property Name="EmailAddress" Type="Edm.String" Nullable="true"/>
+                <Property Name="PANNumber" Type="Edm.String" Nullable="true"/>
+                <Property Name="FAX" Type="Edm.String" Nullable="true"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+            </EntityType>
+            <EntityType Name="ApiLogModel">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int32" Nullable="true"/>
+                <Property Name="api_name" Type="Edm.String" Nullable="true"/>
+                <Property Name="api_request" Type="Edm.String" Nullable="true"/>
+                <Property Name="status" Type="Edm.String" Nullable="true"/>
+                <Property Name="type" Type="Edm.String" Nullable="true"/>
+                <Property Name="err_message" Type="Edm.String" Nullable="true"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+            </EntityType>
+            <EntityType Name="BOQItemModel">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Name" Type="Edm.String" Nullable="true"/>
+                <Property Name="Description" Type="Edm.String" Nullable="true"/>
+                <Property Name="MaterialCode" Type="Edm.String" Nullable="true"/>
+                <Property Name="Qty" Type="Edm.Double" Nullable="true"/>
+                <Property Name="UOM" Type="Edm.String" Nullable="true"/>
+                <Property Name="Remarks" Type="Edm.String" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.String" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.String" Nullable="true"/>
+                <NavigationProperty Name="ParentLineItem" Relationship="com.agel.mmts.entity.r_BoqItems_2_r_ParentLineItem" FromRole="r_BoqItems" ToRole="r_ParentLineItem"/>
+                <NavigationProperty Name="PCGroup" Relationship="com.agel.mmts.entity.BOQItemModel_2_r_PcGroup" FromRole="BOQItemModel" ToRole="r_PcGroup"/>
+                <NavigationProperty Name="BOQGroup" Relationship="com.agel.mmts.entity.r_BoqGroup_2_r_BoqItems" FromRole="r_BoqItems" ToRole="r_BoqGroup"/>
+            </EntityType>
+            <EntityType Name="GoodReceiptNoteModel">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="DocumentDate" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="PostingDate" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="HeaderText" Type="Edm.String" Nullable="true"/>
+                <Property Name="BillOfLading" Type="Edm.String" Nullable="true"/>
+                <Property Name="DeliveryNote" Type="Edm.String" Nullable="true"/>
+                <Property Name="PONumber" Type="Edm.String" Nullable="true"/>
+                <Property Name="RefMatDocItem" Type="Edm.String" Nullable="true"/>
+                <Property Name="ReasonForMovement" Type="Edm.String" Nullable="true"/>
+                <Property Name="ChallanNumber" Type="Edm.String" Nullable="true"/>
+                <Property Name="InvoiceNumber" Type="Edm.String" Nullable="true"/>
+                <Property Name="BENumber" Type="Edm.String" Nullable="true"/>
+                <Property Name="Date" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="GRNNumber" Type="Edm.String" Nullable="true"/>
+                <Property Name="LRNumber" Type="Edm.String" Nullable="true"/>
+                <Property Name="ActAsmt" Type="Edm.String" Nullable="true"/>
+                <Property Name="ProjectCode" Type="Edm.String" Nullable="true"/>
+                <Property Name="SLOC" Type="Edm.String" Nullable="true"/>
+                <Property Name="StrBin" Type="Edm.String" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.String" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.String" Nullable="true"/>
+                <NavigationProperty Name="PackingList" Relationship="com.agel.mmts.entity.r_GoodReceiptNote_2_r_PackingList" FromRole="r_GoodReceiptNote" ToRole="r_PackingList"/>
+            </EntityType>
+            <EntityType Name="InspectedParentItemModel">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Name" Type="Edm.String" Nullable="true"/>
+                <Property Name="Description" Type="Edm.String" Nullable="true"/>
+                <Property Name="MaterialCode" Type="Edm.String" Nullable="true"/>
+                <Property Name="Qty" Type="Edm.Double" Nullable="true"/>
+                <Property Name="UOM" Type="Edm.String" Nullable="true"/>
+                <Property Name="MDCCApprovedQty" Type="Edm.Double" Nullable="true"/>
+                <Property Name="RemainingQty" Type="Edm.Double" Nullable="true"/>
+                <Property Name="PONumber" Type="Edm.String" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.String" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.String" Nullable="true"/>
+                <NavigationProperty Name="InspectionCall" Relationship="com.agel.mmts.entity.r_InspectedParentItems_2_r_InspectionCall" FromRole="r_InspectedParentItems" ToRole="r_InspectionCall"/>
+                <NavigationProperty Name="InspectedBOQItems" Relationship="com.agel.mmts.entity.r_InspectedBOQItems_2_r_InspectedParentItem" FromRole="r_InspectedParentItem" ToRole="r_InspectedBOQItems"/>
+            </EntityType>
+            <EntityType Name="InspectionCallIdModel">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="SAPInspectionCallId" Type="Edm.String" Nullable="true"/>
+                <Property Name="InspectionDate" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="Type" Type="Edm.String" Nullable="true"/>
+                <Property Name="Comments" Type="Edm.String" Nullable="true"/>
+                <Property Name="OfflineInspectionCallId" Type="Edm.String" Nullable="true"/>
+                <Property Name="PONumber" Type="Edm.String" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.String" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.String" Nullable="true"/>
+                <NavigationProperty Name="PurchaseOrder" Relationship="com.agel.mmts.entity.r_InspectionCalls_2_r_PurchaseOrder" FromRole="r_InspectionCalls" ToRole="r_PurchaseOrder"/>
+                <NavigationProperty Name="MDCC" Relationship="com.agel.mmts.entity.r_InspectionCallId_2_r_Mdcc" FromRole="r_InspectionCallId" ToRole="r_Mdcc"/>
+                <NavigationProperty Name="InspectedParentItems" Relationship="com.agel.mmts.entity.r_InspectedParentItems_2_r_InspectionCall" FromRole="r_InspectionCall" ToRole="r_InspectedParentItems"/>
+                <NavigationProperty Name="Attachments" Relationship="com.agel.mmts.entity.r_Attachments_2_r_InspectionCall" FromRole="r_InspectionCall" ToRole="r_Attachments"/>
+                <NavigationProperty Name="PackingList" Relationship="com.agel.mmts.entity.r_InspectionCall_2_r_PackingList" FromRole="r_InspectionCall" ToRole="r_PackingList"/>
+            </EntityType>
+            <EntityType Name="MasterBoQItemModel">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Name" Type="Edm.String" Nullable="true"/>
+                <Property Name="Description" Type="Edm.String" Nullable="true"/>
+                <Property Name="MaterialCode" Type="Edm.String" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.String" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.String" Nullable="true"/>
+                <NavigationProperty Name="UOMs" Relationship="com.agel.mmts.entity.r_BoqItem_2_r_Uoms" FromRole="r_BoqItem" ToRole="r_Uoms"/>
+            </EntityType>
+            <EntityType Name="MasterOuterPackagingTypeModel">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Name" Type="Edm.String" Nullable="true"/>
+                <Property Name="Dimension" Type="Edm.String" Nullable="true"/>
+                <Property Name="Remarks" Type="Edm.String" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.String" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.String" Nullable="true"/>
+            </EntityType>
+            <EntityType Name="MasterRoleModel">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Role" Type="Edm.String" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.String" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.String" Nullable="true"/>
+            </EntityType>
+            <EntityType Name="MaterialReturnBOQItemModel">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Name" Type="Edm.String" Nullable="true"/>
+                <Property Name="Description" Type="Edm.String" Nullable="true"/>
+                <Property Name="MaterialCode" Type="Edm.String" Nullable="true"/>
+                <Property Name="Qty" Type="Edm.Double" Nullable="true"/>
+                <Property Name="UOM" Type="Edm.String" Nullable="true"/>
+                <Property Name="IssuedQty" Type="Edm.Double" Nullable="true"/>
+                <Property Name="QtyRequestedForReturn" Type="Edm.Double" Nullable="true"/>
+                <Property Name="QtyApprovedForReturn" Type="Edm.Double" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.String" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.String" Nullable="true"/>
+                <NavigationProperty Name="MaterialReturnParetnItem" Relationship="com.agel.mmts.entity.r_MaterialReturnBOQItems_2_r_MaterialReturnParetnItem" FromRole="r_MaterialReturnBOQItems" ToRole="r_MaterialReturnParetnItem"/>
+            </EntityType>
+            <EntityType Name="MDCCBOQItemModel">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Name" Type="Edm.String" Nullable="true"/>
+                <Property Name="Description" Type="Edm.String" Nullable="true"/>
+                <Property Name="MaterialCode" Type="Edm.String" Nullable="true"/>
+                <Property Name="Qty" Type="Edm.Double" Nullable="true"/>
+                <Property Name="UOM" Type="Edm.String" Nullable="true"/>
+                <Property Name="MDCCApprovedQty" Type="Edm.Double" Nullable="true"/>
+                <Property Name="DispatchQty" Type="Edm.Double" Nullable="true"/>
+                <Property Name="InspectedBOQItemID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.String" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.String" Nullable="true"/>
+                <NavigationProperty Name="MDCCParentLineItem" Relationship="com.agel.mmts.entity.r_MDCCParentLineItem_2_r_MdccBOQItems" FromRole="r_MdccBOQItems" ToRole="r_MDCCParentLineItem"/>
+            </EntityType>
+            <EntityType Name="PackingListContainModel">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Name" Type="Edm.String" Nullable="true"/>
+                <Property Name="DispatchQty" Type="Edm.Double" Nullable="true"/>
+                <Property Name="UOM" Type="Edm.String" Nullable="true"/>
+                <Property Name="PackagingType" Type="Edm.String" Nullable="true"/>
+                <Property Name="NumberOfPackages" Type="Edm.Int32" Nullable="true"/>
+                <Property Name="LineNumber" Type="Edm.String" Nullable="true"/>
+                <Property Name="PackagingTypeId" Type="Edm.Int32" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.String" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.String" Nullable="true"/>
+                <NavigationProperty Name="PackingList" Relationship="com.agel.mmts.entity.r_PackingList_2_r_PackingListContains" FromRole="r_PackingListContains" ToRole="r_PackingList"/>
+                <NavigationProperty Name="PackingListParentItems" Relationship="com.agel.mmts.entity.r_PackingListContain_2_r_PackingListParentItems" FromRole="r_PackingListContain" ToRole="r_PackingListParentItems"/>
+                <NavigationProperty Name="PackingListBOQItems" Relationship="com.agel.mmts.entity.r_PackingListBOQItems_2_r_PackingListContain" FromRole="r_PackingListContain" ToRole="r_PackingListBOQItems"/>
+            </EntityType>
+            <EntityType Name="PCGroupModel">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Name" Type="Edm.String" Nullable="true"/>
+                <Property Name="TotalChildItemCount" Type="Edm.Int32" Nullable="true"/>
+                <Property Name="GroupNo" Type="Edm.Int32" Nullable="true"/>
+                <Property Name="RecentlyUsedOn" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="VendorID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="ParentLineItemID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.String" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.String" Nullable="true"/>
+                <NavigationProperty Name="PCGroupItems" Relationship="com.agel.mmts.entity.PCGroupModel_2_r_PcGroupItems" FromRole="PCGroupModel" ToRole="r_PcGroupItems"/>
+            </EntityType>
+            <EntityType Name="PurchaseOrderModel">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="PONumber" Type="Edm.String" Nullable="true"/>
+                <Property Name="POReleaseDate" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="Currency" Type="Edm.String" Nullable="true"/>
+                <Property Name="ValidityStartDate" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="ValidityEndDate" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="PlantCode" Type="Edm.String" Nullable="true"/>
+                <Property Name="AmendmentDate" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="AmendmentBy" Type="Edm.String" Nullable="true"/>
+                <Property Name="AmendmentReason" Type="Edm.String" Nullable="true"/>
+                <Property Name="Status" Type="Edm.String" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.String" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.String" Nullable="true"/>
+                <NavigationProperty Name="Vendor" Relationship="com.agel.mmts.entity.r_PurchaseOrders_2_r_Vendor" FromRole="r_PurchaseOrders" ToRole="r_Vendor"/>
+                <NavigationProperty Name="ParentLineItems" Relationship="com.agel.mmts.entity.r_ParentLineItems_2_r_PurchaseOrder" FromRole="r_PurchaseOrder" ToRole="r_ParentLineItems"/>
+                <NavigationProperty Name="PackingList" Relationship="com.agel.mmts.entity.r_PackingList_2_r_PurchaseOrder" FromRole="r_PurchaseOrder" ToRole="r_PackingList"/>
+                <NavigationProperty Name="Buyer" Relationship="com.agel.mmts.entity.r_Buyer_2_r_PurchaseOrders" FromRole="r_PurchaseOrders" ToRole="r_Buyer"/>
+                <NavigationProperty Name="SOW" Relationship="com.agel.mmts.entity.r_PurchaseOrders_2_r_Sow" FromRole="r_PurchaseOrders" ToRole="r_Sow"/>
+                <NavigationProperty Name="InspectionCalls" Relationship="com.agel.mmts.entity.r_InspectionCalls_2_r_PurchaseOrder" FromRole="r_PurchaseOrder" ToRole="r_InspectionCalls"/>
+            </EntityType>
+            <EntityType Name="PurchaseOrderStoreListModel">
+                <Key>
+                    <PropertyRef Name="ListId"/>
+                </Key>
+                <Property Name="ListId" Type="Edm.Int32" Nullable="true"/>
+            </EntityType>
+            <EntityType Name="StockBOQItemModel">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Name" Type="Edm.String" Nullable="true"/>
+                <Property Name="Description" Type="Edm.String" Nullable="true"/>
+                <Property Name="MaterialCode" Type="Edm.String" Nullable="true"/>
+                <Property Name="Qty" Type="Edm.Double" Nullable="true"/>
+                <Property Name="UOM" Type="Edm.String" Nullable="true"/>
+                <Property Name="IssuedQty" Type="Edm.Double" Nullable="true"/>
+                <Property Name="QtyRequestedForReturn" Type="Edm.Double" Nullable="true"/>
+                <Property Name="QtyApprovedForReturn" Type="Edm.Double" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.String" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.String" Nullable="true"/>
+                <NavigationProperty Name="StockParentItem" Relationship="com.agel.mmts.entity.r_StockBoqItems_2_r_StockParentItem" FromRole="r_StockBoqItems" ToRole="r_StockParentItem"/>
+            </EntityType>
+            <EntityType Name="UDDetailStoreModel">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="PONumber" Type="Edm.String" Nullable="true"/>
+                <Property Name="InspectionLotNo" Type="Edm.String" Nullable="true"/>
+                <Property Name="Plant" Type="Edm.String" Nullable="true"/>
+                <Property Name="MaterialDocuemnt" Type="Edm.String" Nullable="true"/>
+                <Property Name="InspectionLotQty" Type="Edm.Double" Nullable="true"/>
+                <Property Name="PostingDate" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="Characterstic" Type="Edm.String" Nullable="true"/>
+                <Property Name="MasterInspCharac" Type="Edm.String" Nullable="true"/>
+                <Property Name="ShortText" Type="Edm.String" Nullable="true"/>
+                <Property Name="CodeGroup" Type="Edm.String" Nullable="true"/>
+                <Property Name="UDSelectedSet" Type="Edm.String" Nullable="true"/>
+                <Property Name="UDCodeGroup" Type="Edm.String" Nullable="true"/>
+                <Property Name="UDCode" Type="Edm.String" Nullable="true"/>
+                <Property Name="LongText" Type="Edm.String" Nullable="true"/>
+                <Property Name="UDCodeDate" Type="Edm.String" Nullable="true"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+            </EntityType>
+            <EntityType Name="AdminModel">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Name" Type="Edm.String" Nullable="true"/>
+                <Property Name="Email" Type="Edm.String" Nullable="true"/>
+                <Property Name="Mobile" Type="Edm.String" Nullable="true"/>
+                <Property Name="CountryCode" Type="Edm.String" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.String" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.String" Nullable="true"/>
+            </EntityType>
+            <EntityType Name="BOQGroupModel">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Name" Type="Edm.String" Nullable="true"/>
+                <Property Name="GroupNo" Type="Edm.Int32" Nullable="true"/>
+                <Property Name="TotalChildItemCount" Type="Edm.Int32" Nullable="true"/>
+                <Property Name="Status" Type="Edm.String" Nullable="true"/>
+                <Property Name="GeneratedBOQQty" Type="Edm.Double" Nullable="true"/>
+                <Property Name="Comment" Type="Edm.String" Nullable="true"/>
+                <NavigationProperty Name="ParentLineItem" Relationship="com.agel.mmts.entity.r_BoqGroups_2_r_ParentLineItem" FromRole="r_BoqGroups" ToRole="r_ParentLineItem"/>
+                <NavigationProperty Name="BOQItems" Relationship="com.agel.mmts.entity.r_BoqGroup_2_r_BoqItems" FromRole="r_BoqGroup" ToRole="r_BoqItems"/>
+            </EntityType>
+            <EntityType Name="ConfigurationModel">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int32" Nullable="true"/>
+                <Property Name="Name" Type="Edm.String" Nullable="true"/>
+                <Property Name="Value" Type="Edm.String" Nullable="true"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+            </EntityType>
+            <EntityType Name="ContractorModel">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Name" Type="Edm.String" Nullable="true"/>
+                <Property Name="PlantSiteLocation" Type="Edm.String" Nullable="true"/>
+                <Property Name="ActivePeriod" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="Materials" Type="Edm.String" Nullable="true"/>
+                <Property Name="Description" Type="Edm.String" Nullable="true"/>
+                <Property Name="ServicesCovered" Type="Edm.String" Nullable="true"/>
+                <Property Name="SONumber" Type="Edm.String" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.String" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.String" Nullable="true"/>
+                <NavigationProperty Name="MaterialToissue" Relationship="com.agel.mmts.entity.r_Contractor_2_r_MaterialToissue" FromRole="r_Contractor" ToRole="r_MaterialToissue"/>
+            </EntityType>
+            <EntityType Name="ConversionBOQItemModel">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Name" Type="Edm.String" Nullable="true"/>
+                <Property Name="Description" Type="Edm.String" Nullable="true"/>
+                <Property Name="MaterialCode" Type="Edm.String" Nullable="true"/>
+                <Property Name="Qty" Type="Edm.Double" Nullable="true"/>
+                <Property Name="UOM" Type="Edm.String" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.String" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.String" Nullable="true"/>
+                <NavigationProperty Name="ConversionItem" Relationship="com.agel.mmts.entity.r_ConversionBOQItems_2_r_ConversionItem" FromRole="r_ConversionBOQItems" ToRole="r_ConversionItem"/>
+            </EntityType>
+            <EntityType Name="InspectedBOQItemModel">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Name" Type="Edm.String" Nullable="true"/>
+                <Property Name="Description" Type="Edm.String" Nullable="true"/>
+                <Property Name="MaterialCode" Type="Edm.String" Nullable="true"/>
+                <Property Name="Qty" Type="Edm.Double" Nullable="true"/>
+                <Property Name="UOM" Type="Edm.String" Nullable="true"/>
+                <Property Name="MDCCApprovedQty" Type="Edm.Double" Nullable="true"/>
+                <Property Name="RemainingQty" Type="Edm.Double" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.String" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.String" Nullable="true"/>
+                <NavigationProperty Name="MDCC" Relationship="com.agel.mmts.entity.InspectedBOQItemModel_2_r_Mdcc" FromRole="InspectedBOQItemModel" ToRole="r_Mdcc"/>
+                <NavigationProperty Name="InspectedParentItem" Relationship="com.agel.mmts.entity.r_InspectedBOQItems_2_r_InspectedParentItem" FromRole="r_InspectedBOQItems" ToRole="r_InspectedParentItem"/>
+            </EntityType>
+            <EntityType Name="InspectionStoreModel">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Notification" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="VendorCode" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="PurchasingDoc" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="MDCCRelevant" Type="Edm.String" Nullable="true"/>
+                <Property Name="InspectionType" Type="Edm.String" Nullable="true"/>
+                <Property Name="DateOfInspection" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="InspectionDays" Type="Edm.Int32" Nullable="true"/>
+                <Property Name="Category" Type="Edm.String" Nullable="true"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <NavigationProperty Name="InspectionItems" Relationship="com.agel.mmts.entity.r_InspectionItems_2_r_InspectionStore" FromRole="r_InspectionStore" ToRole="r_InspectionItems"/>
+            </EntityType>
+            <EntityType Name="MasterFeatureModel">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Name" Type="Edm.String" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.String" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.String" Nullable="true"/>
+            </EntityType>
+            <EntityType Name="MasterPlantDetailModel">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Name" Type="Edm.String" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.String" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.String" Nullable="true"/>
+            </EntityType>
+            <EntityType Name="MaterialReturnModel">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Comment" Type="Edm.String" Nullable="true"/>
+                <Property Name="Status" Type="Edm.String" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.String" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.String" Nullable="true"/>
+                <NavigationProperty Name="MaterialReturnParentItems" Relationship="com.agel.mmts.entity.r_MaterialReturn_2_r_MaterialReturnParentItems" FromRole="r_MaterialReturn" ToRole="r_MaterialReturnParentItems"/>
+            </EntityType>
+            <EntityType Name="MaterialToIssueModel">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="IssuedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="IssuedBy" Type="Edm.String" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.String" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.String" Nullable="true"/>
+                <NavigationProperty Name="Contractor" Relationship="com.agel.mmts.entity.r_Contractor_2_r_MaterialToissue" FromRole="r_MaterialToissue" ToRole="r_Contractor"/>
+                <NavigationProperty Name="StockParentItem" Relationship="com.agel.mmts.entity.r_MaterialToissues_2_r_StockParentItem" FromRole="r_MaterialToissues" ToRole="r_StockParentItem"/>
+            </EntityType>
+            <EntityType Name="MDCCStatusModel">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Status" Type="Edm.String" Nullable="true"/>
+                <Property Name="ApprovedBy" Type="Edm.String" Nullable="true"/>
+                <Property Name="ApprovedOn" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="Comment" Type="Edm.String" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.String" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.String" Nullable="true"/>
+                <NavigationProperty Name="MDCC" Relationship="com.agel.mmts.entity.r_Mdcc_2_r_MdccStatuses" FromRole="r_MdccStatuses" ToRole="r_Mdcc"/>
+            </EntityType>
+            <EntityType Name="PackingListModel" m:HasStream="true">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="VehicleNumber" Type="Edm.String" Nullable="true"/>
+                <Property Name="Name" Type="Edm.String" Nullable="true"/>
+                <Property Name="InvoiceNumber" Type="Edm.String" Nullable="true"/>
+                <Property Name="GateEntryNumber" Type="Edm.String" Nullable="true"/>
+                <Property Name="Status" Type="Edm.String" Nullable="true"/>
+                <Property Name="UDStatus" Type="Edm.String" Nullable="true"/>
+                <Property Name="TotalWeight" Type="Edm.Double" Nullable="true"/>
+                <Property Name="PONumber" Type="Edm.String" Nullable="true"/>
+                <Property Name="IsDraft" Type="Edm.Boolean" Nullable="true"/>
+                <Property Name="PackagingReferenceNumber" Type="Edm.String" Nullable="true"/>
+                <Property Name="InvoiceDate" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="IsOuterPackagingRequired" Type="Edm.Boolean" Nullable="true"/>
+                <Property Name="MDCC_Id" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="IsProcessOneCompletes" Type="Edm.Boolean" Nullable="true"/>
+                <Property Name="IsProcessTwoCompletes" Type="Edm.Boolean" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.String" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.String" Nullable="true"/>
+                <NavigationProperty Name="QRCodeId" Relationship="com.agel.mmts.entity.r_PackingList_2_r_QrCodeId" FromRole="r_PackingList" ToRole="r_QrCodeId"/>
+                <NavigationProperty Name="PurchaseOrder" Relationship="com.agel.mmts.entity.r_PackingList_2_r_PurchaseOrder" FromRole="r_PackingList" ToRole="r_PurchaseOrder"/>
+                <NavigationProperty Name="GoodReceiptNote" Relationship="com.agel.mmts.entity.r_GoodReceiptNote_2_r_PackingList" FromRole="r_PackingList" ToRole="r_GoodReceiptNote"/>
+                <NavigationProperty Name="PackingListParentItems" Relationship="com.agel.mmts.entity.r_PackingList_2_r_PackingListParentItems" FromRole="r_PackingList" ToRole="r_PackingListParentItems"/>
+                <NavigationProperty Name="Attachments" Relationship="com.agel.mmts.entity.r_Attachments_2_r_PackingList" FromRole="r_PackingList" ToRole="r_Attachments"/>
+                <NavigationProperty Name="InspectionCall" Relationship="com.agel.mmts.entity.r_InspectionCall_2_r_PackingList" FromRole="r_PackingList" ToRole="r_InspectionCall"/>
+                <NavigationProperty Name="PackingListContains" Relationship="com.agel.mmts.entity.r_PackingList_2_r_PackingListContains" FromRole="r_PackingList" ToRole="r_PackingListContains"/>
+                <NavigationProperty Name="OuterPackagings" Relationship="com.agel.mmts.entity.r_OuterPackagings_2_r_PackingList" FromRole="r_PackingList" ToRole="r_OuterPackagings"/>
+                <NavigationProperty Name="InnerPackagings" Relationship="com.agel.mmts.entity.r_InnerPackagings_2_r_PackingList" FromRole="r_PackingList" ToRole="r_InnerPackagings"/>
+                <NavigationProperty Name="PrintAssistance" Relationship="com.agel.mmts.entity.r_PackingList_2_r_PrintAssistance" FromRole="r_PackingList" ToRole="r_PrintAssistance"/>
+            </EntityType>
+            <EntityType Name="ParentLineItemModel">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Name" Type="Edm.String" Nullable="true"/>
+                <Property Name="Description" Type="Edm.String" Nullable="true"/>
+                <Property Name="MaterialCode" Type="Edm.String" Nullable="true"/>
+                <Property Name="Quantity" Type="Edm.Double" Nullable="true"/>
+                <Property Name="UoM" Type="Edm.String" Nullable="true"/>
+                <Property Name="Price" Type="Edm.Double" Nullable="true"/>
+                <Property Name="Value" Type="Edm.Double" Nullable="true"/>
+                <Property Name="Status" Type="Edm.String" Nullable="true"/>
+                <Property Name="OverseasQrCode" Type="Edm.String" Nullable="true"/>
+                <Property Name="LineNumber" Type="Edm.String" Nullable="true"/>
+                <Property Name="StorageLocation" Type="Edm.String" Nullable="true"/>
+                <Property Name="HSNCode" Type="Edm.String" Nullable="true"/>
+                <Property Name="TaxCode" Type="Edm.String" Nullable="true"/>
+                <Property Name="TaxIndicator" Type="Edm.String" Nullable="true"/>
+                <Property Name="PONumber" Type="Edm.String" Nullable="true"/>
+                <Property Name="PlantCode" Type="Edm.String" Nullable="true"/>
+                <Property Name="DeliveryDate" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="Comment" Type="Edm.String" Nullable="true"/>
+                <Property Name="InspectedQty" Type="Edm.Double" Nullable="true"/>
+                <Property Name="PendingQty" Type="Edm.Double" Nullable="true"/>
+                <Property Name="IsBOQApplicable" Type="Edm.Boolean" Nullable="true"/>
+                <NavigationProperty Name="PurchaseOrder" Relationship="com.agel.mmts.entity.r_ParentLineItems_2_r_PurchaseOrder" FromRole="r_ParentLineItems" ToRole="r_PurchaseOrder"/>
+                <NavigationProperty Name="ConversionItems" Relationship="com.agel.mmts.entity.r_ConversionItems_2_r_ParentLineItem" FromRole="r_ParentLineItem" ToRole="r_ConversionItems"/>
+                <NavigationProperty Name="BOQItems" Relationship="com.agel.mmts.entity.r_BoqItems_2_r_ParentLineItem" FromRole="r_ParentLineItem" ToRole="r_BoqItems"/>
+                <NavigationProperty Name="PCGroups" Relationship="com.agel.mmts.entity.ParentLineItemModel_2_r_PcGroups" FromRole="ParentLineItemModel" ToRole="r_PcGroups"/>
+                <NavigationProperty Name="BOQApprovalRequests" Relationship="com.agel.mmts.entity.r_BoqApprovalRequests_2_r_ParentLineItem" FromRole="r_ParentLineItem" ToRole="r_BoqApprovalRequests"/>
+                <NavigationProperty Name="BOQGroups" Relationship="com.agel.mmts.entity.r_BoqGroups_2_r_ParentLineItem" FromRole="r_ParentLineItem" ToRole="r_BoqGroups"/>
+            </EntityType>
+            <EntityType Name="PrintAssistanceModel">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="RequestedBy" Type="Edm.String" Nullable="true"/>
+                <Property Name="RequestedOn" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="Reason" Type="Edm.String" Nullable="true"/>
+                <Property Name="Description" Type="Edm.String" Nullable="true"/>
+                <Property Name="Status" Type="Edm.String" Nullable="true"/>
+                <Property Name="ApprovedBy" Type="Edm.String" Nullable="true"/>
+                <Property Name="ApprovedOn" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.String" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.String" Nullable="true"/>
+                <NavigationProperty Name="PackingList" Relationship="com.agel.mmts.entity.r_PackingList_2_r_PrintAssistance" FromRole="r_PrintAssistance" ToRole="r_PackingList"/>
+            </EntityType>
+            <EntityType Name="PurchaseOrderStoreModel">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="PONumber" Type="Edm.String" Nullable="true"/>
+                <Property Name="VendorCode" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="POReleaseDate" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CompanyCode" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="DocumentType" Type="Edm.String" Nullable="true"/>
+                <Property Name="DeletionIndicator" Type="Edm.String" Nullable="true"/>
+                <Property Name="PurchasingOrg" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="PurchasingQroup" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Currency" Type="Edm.String" Nullable="true"/>
+                <Property Name="ValidityStartDate" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="ValidityEndDate" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="PaymentTerms" Type="Edm.String" Nullable="true"/>
+                <Property Name="DeliveryTerms" Type="Edm.String" Nullable="true"/>
+                <Property Name="DeliveryPoint" Type="Edm.String" Nullable="true"/>
+                <Property Name="DispatchDocuments" Type="Edm.String" Nullable="true"/>
+                <Property Name="InvoicingAddress" Type="Edm.String" Nullable="true"/>
+                <Property Name="EffectiveDate" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="LiquidatedDamages" Type="Edm.String" Nullable="true"/>
+                <Property Name="DefectLiabilityPeriod" Type="Edm.String" Nullable="true"/>
+                <Property Name="SpecificAgreedTerms" Type="Edm.String" Nullable="true"/>
+                <Property Name="NoticeAndCommunications" Type="Edm.String" Nullable="true"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="ReleaseIndicator" Type="Edm.String" Nullable="true"/>
+                <NavigationProperty Name="PurchaseOrderItems" Relationship="com.agel.mmts.entity.r_PurchaseOrderItems_2_r_PurchseOrder" FromRole="r_PurchseOrder" ToRole="r_PurchaseOrderItems"/>
+            </EntityType>
+            <EntityType Name="SOWModel">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="EffectiveDate" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="DeliveryTerm" Type="Edm.String" Nullable="true"/>
+                <Property Name="DeliveryPoint" Type="Edm.String" Nullable="true"/>
+                <Property Name="PaymentTerms" Type="Edm.String" Nullable="true"/>
+                <Property Name="DispatchDocuments" Type="Edm.String" Nullable="true"/>
+                <Property Name="DocumentType" Type="Edm.String" Nullable="true"/>
+                <Property Name="LiquidatedDamages" Type="Edm.String" Nullable="true"/>
+                <Property Name="DefectLiabilityPeriod" Type="Edm.String" Nullable="true"/>
+                <Property Name="InvoicingAddress" Type="Edm.String" Nullable="true"/>
+                <Property Name="SpecificAgreedTerms" Type="Edm.String" Nullable="true"/>
+                <Property Name="NoticeAndCommunications" Type="Edm.String" Nullable="true"/>
+                <Property Name="DeliverySchedule" Type="Edm.String" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.String" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.String" Nullable="true"/>
+                <NavigationProperty Name="PurchaseOrders" Relationship="com.agel.mmts.entity.r_PurchaseOrders_2_r_Sow" FromRole="r_Sow" ToRole="r_PurchaseOrders"/>
+            </EntityType>
+            <EntityType Name="UDDetailModel">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="poNumber" Type="Edm.String" Nullable="true"/>
+                <Property Name="InspectionLotNumber" Type="Edm.String" Nullable="true"/>
+                <Property Name="Plant" Type="Edm.String" Nullable="true"/>
+                <Property Name="MaterialDocuemntNumber" Type="Edm.String" Nullable="true"/>
+                <Property Name="InspectionLotQty" Type="Edm.Double" Nullable="true"/>
+                <Property Name="PostingDate" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="Characterstic" Type="Edm.String" Nullable="true"/>
+                <Property Name="MasterInspCharac" Type="Edm.String" Nullable="true"/>
+                <Property Name="ShortText" Type="Edm.String" Nullable="true"/>
+                <Property Name="CodeGroup" Type="Edm.String" Nullable="true"/>
+                <Property Name="UDSelectedSet" Type="Edm.String" Nullable="true"/>
+                <Property Name="UDCode" Type="Edm.String" Nullable="true"/>
+                <Property Name="LongText" Type="Edm.String" Nullable="true"/>
+                <Property Name="UDCodeDate" Type="Edm.String" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.String" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.String" Nullable="true"/>
+            </EntityType>
+            <EntityType Name="AddressModel">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Street" Type="Edm.String" Nullable="true"/>
+                <Property Name="City" Type="Edm.String" Nullable="true"/>
+                <Property Name="State" Type="Edm.String" Nullable="true"/>
+                <Property Name="pinCode" Type="Edm.String" Nullable="true"/>
+                <Property Name="Country" Type="Edm.String" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.String" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.String" Nullable="true"/>
+            </EntityType>
+            <EntityType Name="BOQApprovalRequestModel">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Status" Type="Edm.String" Nullable="true"/>
+                <Property Name="PurchaseOrderId" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="BOQGroupName" Type="Edm.String" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.String" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.String" Nullable="true"/>
+                <NavigationProperty Name="POBOQApprovalId" Relationship="com.agel.mmts.entity.r_BoqApprovalRequests_2_r_PoBOQApproval" FromRole="r_BoqApprovalRequests" ToRole="r_PoBOQApproval"/>
+                <NavigationProperty Name="ParentLineItem" Relationship="com.agel.mmts.entity.r_BoqApprovalRequests_2_r_ParentLineItem" FromRole="r_BoqApprovalRequests" ToRole="r_ParentLineItem"/>
+                <NavigationProperty Name="BOQGroup" Relationship="com.agel.mmts.entity.BOQApprovalRequestModel_2_r_BoqGroup" FromRole="BOQApprovalRequestModel" ToRole="r_BoqGroup"/>
+            </EntityType>
+            <EntityType Name="BuyerModel">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="BuyerCode" Type="Edm.String" Nullable="true"/>
+                <Property Name="PurchasingGroup" Type="Edm.String" Nullable="true"/>
+                <Property Name="PurchasingOrg" Type="Edm.String" Nullable="true"/>
+                <Property Name="GSTIN" Type="Edm.String" Nullable="true"/>
+                <Property Name="Pan" Type="Edm.String" Nullable="true"/>
+                <Property Name="Cin" Type="Edm.String" Nullable="true"/>
+                <Property Name="Phone" Type="Edm.String" Nullable="true"/>
+                <Property Name="Email" Type="Edm.String" Nullable="true"/>
+                <Property Name="ContactPerson" Type="Edm.String" Nullable="true"/>
+                <Property Name="IECNo" Type="Edm.String" Nullable="true"/>
+                <Property Name="CompanyCode" Type="Edm.String" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.String" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.String" Nullable="true"/>
+                <NavigationProperty Name="Address" Relationship="com.agel.mmts.entity.BuyerModel_2_r_Address" FromRole="BuyerModel" ToRole="r_Address"/>
+                <NavigationProperty Name="PurchaseOrders" Relationship="com.agel.mmts.entity.r_Buyer_2_r_PurchaseOrders" FromRole="r_Buyer" ToRole="r_PurchaseOrders"/>
+            </EntityType>
+            <EntityType Name="ConversionItemModel">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Name" Type="Edm.String" Nullable="true"/>
+                <Property Name="Description" Type="Edm.String" Nullable="true"/>
+                <Property Name="MaterialCode" Type="Edm.String" Nullable="true"/>
+                <Property Name="Qty" Type="Edm.Double" Nullable="true"/>
+                <Property Name="UOM" Type="Edm.String" Nullable="true"/>
+                <Property Name="PONumber" Type="Edm.String" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.String" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.String" Nullable="true"/>
+                <NavigationProperty Name="ConversionBOQItems" Relationship="com.agel.mmts.entity.r_ConversionBOQItems_2_r_ConversionItem" FromRole="r_ConversionItem" ToRole="r_ConversionBOQItems"/>
+                <NavigationProperty Name="ParentLineItem" Relationship="com.agel.mmts.entity.r_ConversionItems_2_r_ParentLineItem" FromRole="r_ConversionItems" ToRole="r_ParentLineItem"/>
+            </EntityType>
+            <EntityType Name="InnerPackagingModel">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="PackagingType" Type="Edm.String" Nullable="true"/>
+                <Property Name="LineNumber" Type="Edm.String" Nullable="true"/>
+                <Property Name="PackagingQty" Type="Edm.Double" Nullable="true"/>
+                <Property Name="UOM" Type="Edm.String" Nullable="true"/>
+                <Property Name="OuterPackagingId" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.String" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.String" Nullable="true"/>
+                <NavigationProperty Name="PackingList" Relationship="com.agel.mmts.entity.r_InnerPackagings_2_r_PackingList" FromRole="r_InnerPackagings" ToRole="r_PackingList"/>
+                <NavigationProperty Name="OuterPackaging" Relationship="com.agel.mmts.entity.r_InnerPackagings_2_r_OuterPackaging" FromRole="r_InnerPackagings" ToRole="r_OuterPackaging"/>
+                <NavigationProperty Name="QrCode" Relationship="com.agel.mmts.entity.r_InnerPackaging_2_r_QrCode" FromRole="r_InnerPackaging" ToRole="r_QrCode"/>
+            </EntityType>
+            <EntityType Name="InspectionItemStoreModel">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Name" Type="Edm.String" Nullable="true"/>
+                <Property Name="Description" Type="Edm.String" Nullable="true"/>
+                <Property Name="Item" Type="Edm.Int32" Nullable="true"/>
+                <Property Name="ShortText" Type="Edm.String" Nullable="true"/>
+                <Property Name="Quantity" Type="Edm.Double" Nullable="true"/>
+                <Property Name="BaseUnit" Type="Edm.String" Nullable="true"/>
+                <Property Name="InspQuantity" Type="Edm.Double" Nullable="true"/>
+                <Property Name="AcceptQuantity" Type="Edm.Double" Nullable="true"/>
+                <Property Name="RejectQuantity" Type="Edm.Double" Nullable="true"/>
+                <Property Name="HoldQuantity" Type="Edm.Double" Nullable="true"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <NavigationProperty Name="InspectionStore" Relationship="com.agel.mmts.entity.r_InspectionItems_2_r_InspectionStore" FromRole="r_InspectionItems" ToRole="r_InspectionStore"/>
+            </EntityType>
+            <EntityType Name="MasterDispatchTypeModel">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Type" Type="Edm.String" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.String" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.String" Nullable="true"/>
+            </EntityType>
+            <EntityType Name="MasterPackagingTypeModel">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Name" Type="Edm.String" Nullable="true"/>
+            </EntityType>
+            <EntityType Name="MasterUOMModel">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Name" Type="Edm.String" Nullable="true"/>
+                <Property Name="Description" Type="Edm.String" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.String" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.String" Nullable="true"/>
+            </EntityType>
+            <EntityType Name="MaterialReturnParentItemModel">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Name" Type="Edm.String" Nullable="true"/>
+                <Property Name="Description" Type="Edm.String" Nullable="true"/>
+                <Property Name="MaterialCode" Type="Edm.String" Nullable="true"/>
+                <Property Name="Qty" Type="Edm.Double" Nullable="true"/>
+                <Property Name="UOM" Type="Edm.String" Nullable="true"/>
+                <Property Name="IssuedQty" Type="Edm.Double" Nullable="true"/>
+                <Property Name="QtyRequestedForReturn" Type="Edm.Double" Nullable="true"/>
+                <Property Name="QtyApprovedForReturn" Type="Edm.Double" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.String" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.String" Nullable="true"/>
+                <NavigationProperty Name="MaterialReturn" Relationship="com.agel.mmts.entity.r_MaterialReturn_2_r_MaterialReturnParentItems" FromRole="r_MaterialReturnParentItems" ToRole="r_MaterialReturn"/>
+                <NavigationProperty Name="MaterialReturnBOQItems" Relationship="com.agel.mmts.entity.r_MaterialReturnBOQItems_2_r_MaterialReturnParetnItem" FromRole="r_MaterialReturnParetnItem" ToRole="r_MaterialReturnBOQItems"/>
+            </EntityType>
+            <EntityType Name="MDCCParentLineItemModel">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Name" Type="Edm.String" Nullable="true"/>
+                <Property Name="Description" Type="Edm.String" Nullable="true"/>
+                <Property Name="MaterialCode" Type="Edm.String" Nullable="true"/>
+                <Property Name="Qty" Type="Edm.Double" Nullable="true"/>
+                <Property Name="UOM" Type="Edm.String" Nullable="true"/>
+                <Property Name="MDCCApprovedQty" Type="Edm.Double" Nullable="true"/>
+                <Property Name="DispatchQty" Type="Edm.Double" Nullable="true"/>
+                <Property Name="InspectedParenLineItemID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.String" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.String" Nullable="true"/>
+                <NavigationProperty Name="MDCC" Relationship="com.agel.mmts.entity.r_Mdcc_2_r_MdccParentLineItems" FromRole="r_MdccParentLineItems" ToRole="r_Mdcc"/>
+                <NavigationProperty Name="MDCCBOQItems" Relationship="com.agel.mmts.entity.r_MDCCParentLineItem_2_r_MdccBOQItems" FromRole="r_MDCCParentLineItem" ToRole="r_MdccBOQItems"/>
+            </EntityType>
+            <EntityType Name="OuterPackagingModel">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="PackagingType" Type="Edm.String" Nullable="true"/>
+                <Property Name="PackagingDimensions" Type="Edm.String" Nullable="true"/>
+                <Property Name="Remarks" Type="Edm.String" Nullable="true"/>
+                <Property Name="OuterPackagingTypeId" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.String" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.String" Nullable="true"/>
+                <NavigationProperty Name="InnerPackagings" Relationship="com.agel.mmts.entity.r_InnerPackagings_2_r_OuterPackaging" FromRole="r_OuterPackaging" ToRole="r_InnerPackagings"/>
+                <NavigationProperty Name="PackingList" Relationship="com.agel.mmts.entity.r_OuterPackagings_2_r_PackingList" FromRole="r_OuterPackagings" ToRole="r_PackingList"/>
+                <NavigationProperty Name="QrCode" Relationship="com.agel.mmts.entity.r_OuterPackaging_2_r_QrCode" FromRole="r_OuterPackaging" ToRole="r_QrCode"/>
+            </EntityType>
+            <EntityType Name="PackingListParentItemModel">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Name" Type="Edm.String" Nullable="true"/>
+                <Property Name="Description" Type="Edm.String" Nullable="true"/>
+                <Property Name="MaterialCode" Type="Edm.String" Nullable="true"/>
+                <Property Name="Qty" Type="Edm.Double" Nullable="true"/>
+                <Property Name="UOM" Type="Edm.String" Nullable="true"/>
+                <Property Name="MDCCApprovedQty" Type="Edm.Double" Nullable="true"/>
+                <Property Name="DispatchQty" Type="Edm.Double" Nullable="true"/>
+                <Property Name="RemainingQty" Type="Edm.Double" Nullable="true"/>
+                <Property Name="PONumber" Type="Edm.String" Nullable="true"/>
+                <Property Name="MovementType" Type="Edm.String" Nullable="true"/>
+                <Property Name="BatchNumber" Type="Edm.String" Nullable="true"/>
+                <Property Name="Valuation" Type="Edm.String" Nullable="true"/>
+                <Property Name="BatchUnit" Type="Edm.String" Nullable="true"/>
+                <Property Name="Currency" Type="Edm.String" Nullable="true"/>
+                <Property Name="AmountInLocalCurrency" Type="Edm.Double" Nullable="true"/>
+                <Property Name="MaterialDoucmentNumber" Type="Edm.String" Nullable="true"/>
+                <Property Name="LineNumber" Type="Edm.String" Nullable="true"/>
+                <Property Name="MDCCParentItemId" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.String" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.String" Nullable="true"/>
+                <NavigationProperty Name="PackingListContain" Relationship="com.agel.mmts.entity.r_PackingListContain_2_r_PackingListParentItems" FromRole="r_PackingListParentItems" ToRole="r_PackingListContain"/>
+                <NavigationProperty Name="PackingList" Relationship="com.agel.mmts.entity.r_PackingList_2_r_PackingListParentItems" FromRole="r_PackingListParentItems" ToRole="r_PackingList"/>
+                <NavigationProperty Name="PackingListBOQItems" Relationship="com.agel.mmts.entity.r_PackingListBOQItems_2_r_PackingListParentItem" FromRole="r_PackingListParentItem" ToRole="r_PackingListBOQItems"/>
+                <NavigationProperty Name="QrCode" Relationship="com.agel.mmts.entity.r_PackingListParentItemId_2_r_QrCode" FromRole="r_PackingListParentItemId" ToRole="r_QrCode"/>
+            </EntityType>
+            <EntityType Name="PCGroupItemModel">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Name" Type="Edm.String" Nullable="true"/>
+                <Property Name="Description" Type="Edm.String" Nullable="true"/>
+                <Property Name="MaterialCode" Type="Edm.String" Nullable="true"/>
+                <Property Name="Qty" Type="Edm.Double" Nullable="true"/>
+                <Property Name="UOM" Type="Edm.String" Nullable="true"/>
+                <Property Name="PCGroupID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Remarks" Type="Edm.String" Nullable="true"/>
+                <Property Name="MasterBOQItemId" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="MasterUOMItemId" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.String" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.String" Nullable="true"/>
+            </EntityType>
+            <EntityType Name="PurchaseOrderItemStoreModel">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Name" Type="Edm.String" Nullable="true"/>
+                <Property Name="Description" Type="Edm.String" Nullable="true"/>
+                <Property Name="LineNo" Type="Edm.Int32" Nullable="true"/>
+                <Property Name="MaterialCode" Type="Edm.String" Nullable="true"/>
+                <Property Name="Plant" Type="Edm.String" Nullable="true"/>
+                <Property Name="StorageLocation" Type="Edm.String" Nullable="true"/>
+                <Property Name="Quantity" Type="Edm.Double" Nullable="true"/>
+                <Property Name="OrderUnit" Type="Edm.String" Nullable="true"/>
+                <Property Name="NetPrice" Type="Edm.Double" Nullable="true"/>
+                <Property Name="NetValue" Type="Edm.Double" Nullable="true"/>
+                <Property Name="TaxCode" Type="Edm.String" Nullable="true"/>
+                <Property Name="TaxIndicator" Type="Edm.String" Nullable="true"/>
+                <Property Name="HSNCode" Type="Edm.String" Nullable="true"/>
+                <Property Name="DeliveryDate" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="DeletionIndicator" Type="Edm.String" Nullable="true"/>
+                <NavigationProperty Name="PurchaseOrder" Relationship="com.agel.mmts.entity.r_PurchaseOrderItems_2_r_PurchseOrder" FromRole="r_PurchaseOrderItems" ToRole="r_PurchseOrder"/>
+            </EntityType>
+            <EntityType Name="QRCodeModel">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Content" Type="Edm.String" Nullable="true"/>
+                <Property Name="PlantCode" Type="Edm.String" Nullable="true"/>
+                <Property Name="PONumber" Type="Edm.String" Nullable="true"/>
+                <Property Name="GeneratedBy" Type="Edm.String" Nullable="true"/>
+                <Property Name="Stage" Type="Edm.String" Nullable="true"/>
+                <Property Name="QRNumber" Type="Edm.String" Nullable="true"/>
+                <Property Name="Type" Type="Edm.String" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.String" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.String" Nullable="true"/>
+                <NavigationProperty Name="PackingListParentItem" Relationship="com.agel.mmts.entity.r_PackingListParentItemId_2_r_QrCode" FromRole="r_QrCode" ToRole="r_PackingListParentItemId"/>
+                <NavigationProperty Name="PackingListBOQItemId" Relationship="com.agel.mmts.entity.r_PackingListBoqItemId_2_r_QrCode" FromRole="r_QrCode" ToRole="r_PackingListBoqItemId"/>
+                <NavigationProperty Name="PackingList" Relationship="com.agel.mmts.entity.r_PackingList_2_r_QrCodeId" FromRole="r_QrCodeId" ToRole="r_PackingList"/>
+                <NavigationProperty Name="OuterPackagingId" Relationship="com.agel.mmts.entity.r_OuterPackaging_2_r_QrCode" FromRole="r_QrCode" ToRole="r_OuterPackaging"/>
+                <NavigationProperty Name="InnerPackagingId" Relationship="com.agel.mmts.entity.r_InnerPackaging_2_r_QrCode" FromRole="r_QrCode" ToRole="r_InnerPackaging"/>
+            </EntityType>
+            <EntityType Name="StockParentItemModel">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="Name" Type="Edm.String" Nullable="true"/>
+                <Property Name="Description" Type="Edm.String" Nullable="true"/>
+                <Property Name="MaterialCode" Type="Edm.String" Nullable="true"/>
+                <Property Name="Qty" Type="Edm.Double" Nullable="true"/>
+                <Property Name="UOM" Type="Edm.String" Nullable="true"/>
+                <Property Name="IssuedQty" Type="Edm.Double" Nullable="true"/>
+                <Property Name="QtyRequestedForReturn" Type="Edm.Double" Nullable="true"/>
+                <Property Name="QtyApprovedForReturn" Type="Edm.Double" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.String" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.String" Nullable="true"/>
+                <NavigationProperty Name="MaterialToissues" Relationship="com.agel.mmts.entity.r_MaterialToissues_2_r_StockParentItem" FromRole="r_StockParentItem" ToRole="r_MaterialToissues"/>
+                <NavigationProperty Name="stockBoqItems" Relationship="com.agel.mmts.entity.r_StockBoqItems_2_r_StockParentItem" FromRole="r_StockParentItem" ToRole="r_StockBoqItems"/>
+                <NavigationProperty Name="StoreStock" Relationship="com.agel.mmts.entity.r_StockParentItem_2_r_StoreStock" FromRole="r_StockParentItem" ToRole="r_StoreStock"/>
+            </EntityType>
+            <EntityType Name="VendorModel">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int64" Nullable="true"/>
+                <Property Name="VendorCode" Type="Edm.String" Nullable="true"/>
+                <Property Name="Name" Type="Edm.String" Nullable="true"/>
+                <Property Name="GSTIN" Type="Edm.String" Nullable="true"/>
+                <Property Name="Phone" Type="Edm.String" Nullable="true"/>
+                <Property Name="Email" Type="Edm.String" Nullable="true"/>
+                <Property Name="Fax" Type="Edm.String" Nullable="true"/>
+                <Property Name="Pan" Type="Edm.String" Nullable="true"/>
+                <Property Name="IsArchived" Type="Edm.Boolean" Nullable="false"/>
+                <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="CreatedBy" Type="Edm.String" Nullable="true"/>
+                <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.String" Nullable="true"/>
+                <NavigationProperty Name="Address" Relationship="com.agel.mmts.entity.VendorModel_2_r_Address" FromRole="VendorModel" ToRole="r_Address"/>
+                <NavigationProperty Name="PurchaseOrders" Relationship="com.agel.mmts.entity.r_PurchaseOrders_2_r_Vendor" FromRole="r_Vendor" ToRole="r_PurchaseOrders"/>
+                <NavigationProperty Name="BOQItemGroups" Relationship="com.agel.mmts.entity.VendorModel_2_r_BoqItemGroups" FromRole="VendorModel" ToRole="r_BoqItemGroups"/>
+            </EntityType>
+            <Association Name="r_Mdcc_2_r_MdccParentLineItems">
+                <End Type="com.agel.mmts.entity.MDCCModel" Multiplicity="1" Role="r_Mdcc"/>
+                <End Type="com.agel.mmts.entity.MDCCParentLineItemModel" Multiplicity="*" Role="r_MdccParentLineItems"/>
+            </Association>
+            <Association Name="InspectedBOQItemModel_2_r_Mdcc">
+                <End Type="com.agel.mmts.entity.InspectedBOQItemModel" Multiplicity="1" Role="InspectedBOQItemModel"/>
+                <End Type="com.agel.mmts.entity.MDCCModel" Multiplicity="1" Role="r_Mdcc"/>
+            </Association>
+            <Association Name="r_InnerPackaging_2_r_QrCode">
+                <End Type="com.agel.mmts.entity.InnerPackagingModel" Multiplicity="1" Role="r_InnerPackaging"/>
+                <End Type="com.agel.mmts.entity.QRCodeModel" Multiplicity="1" Role="r_QrCode"/>
+            </Association>
+            <Association Name="r_BoqItems_2_r_ParentLineItem">
+                <End Type="com.agel.mmts.entity.BOQItemModel" Multiplicity="*" Role="r_BoqItems"/>
+                <End Type="com.agel.mmts.entity.ParentLineItemModel" Multiplicity="1" Role="r_ParentLineItem"/>
+            </Association>
+            <Association Name="r_PackingListBOQItems_2_r_PackingListParentItem">
+                <End Type="com.agel.mmts.entity.PackingListBOQItemModel" Multiplicity="*" Role="r_PackingListBOQItems"/>
+                <End Type="com.agel.mmts.entity.PackingListParentItemModel" Multiplicity="1" Role="r_PackingListParentItem"/>
+            </Association>
+            <Association Name="r_InnerPackagings_2_r_OuterPackaging">
+                <End Type="com.agel.mmts.entity.InnerPackagingModel" Multiplicity="*" Role="r_InnerPackagings"/>
+                <End Type="com.agel.mmts.entity.OuterPackagingModel" Multiplicity="1" Role="r_OuterPackaging"/>
+            </Association>
+            <Association Name="r_MaterialReturn_2_r_MaterialReturnParentItems">
+                <End Type="com.agel.mmts.entity.MaterialReturnModel" Multiplicity="1" Role="r_MaterialReturn"/>
+                <End Type="com.agel.mmts.entity.MaterialReturnParentItemModel" Multiplicity="*" Role="r_MaterialReturnParentItems"/>
+            </Association>
+            <Association Name="r_InspectedBOQItems_2_r_InspectedParentItem">
+                <End Type="com.agel.mmts.entity.InspectedParentItemModel" Multiplicity="1" Role="r_InspectedParentItem"/>
+                <End Type="com.agel.mmts.entity.InspectedBOQItemModel" Multiplicity="*" Role="r_InspectedBOQItems"/>
+            </Association>
+            <Association Name="r_InspectionCall_2_r_PackingList">
+                <End Type="com.agel.mmts.entity.InspectionCallIdModel" Multiplicity="1" Role="r_InspectionCall"/>
+                <End Type="com.agel.mmts.entity.PackingListModel" Multiplicity="*" Role="r_PackingList"/>
+            </Association>
+            <Association Name="r_OuterPackagings_2_r_PackingList">
+                <End Type="com.agel.mmts.entity.PackingListModel" Multiplicity="1" Role="r_PackingList"/>
+                <End Type="com.agel.mmts.entity.OuterPackagingModel" Multiplicity="*" Role="r_OuterPackagings"/>
+            </Association>
+            <Association Name="r_BoqGroups_2_r_ParentLineItem">
+                <End Type="com.agel.mmts.entity.BOQGroupModel" Multiplicity="*" Role="r_BoqGroups"/>
+                <End Type="com.agel.mmts.entity.ParentLineItemModel" Multiplicity="1" Role="r_ParentLineItem"/>
+            </Association>
+            <Association Name="r_Attachments_2_r_PackingList">
+                <End Type="com.agel.mmts.entity.AttachmentModel" Multiplicity="*" Role="r_Attachments"/>
+                <End Type="com.agel.mmts.entity.PackingListModel" Multiplicity="1" Role="r_PackingList"/>
+            </Association>
+            <Association Name="r_PurchaseOrders_2_r_Sow">
+                <End Type="com.agel.mmts.entity.PurchaseOrderModel" Multiplicity="*" Role="r_PurchaseOrders"/>
+                <End Type="com.agel.mmts.entity.SOWModel" Multiplicity="1" Role="r_Sow"/>
+            </Association>
+            <Association Name="r_PurchaseOrderItems_2_r_PurchseOrder">
+                <End Type="com.agel.mmts.entity.PurchaseOrderStoreModel" Multiplicity="0..1" Role="r_PurchseOrder"/>
+                <End Type="com.agel.mmts.entity.PurchaseOrderItemStoreModel" Multiplicity="*" Role="r_PurchaseOrderItems"/>
+            </Association>
+            <Association Name="r_InspectionCalls_2_r_PurchaseOrder">
+                <End Type="com.agel.mmts.entity.InspectionCallIdModel" Multiplicity="*" Role="r_InspectionCalls"/>
+                <End Type="com.agel.mmts.entity.PurchaseOrderModel" Multiplicity="1" Role="r_PurchaseOrder"/>
+            </Association>
+            <Association Name="r_PackingList_2_r_PackingListContains">
+                <End Type="com.agel.mmts.entity.PackingListContainModel" Multiplicity="*" Role="r_PackingListContains"/>
+                <End Type="com.agel.mmts.entity.PackingListModel" Multiplicity="1" Role="r_PackingList"/>
+            </Association>
+            <Association Name="r_BoqGroup_2_r_BoqItems">
+                <End Type="com.agel.mmts.entity.BOQItemModel" Multiplicity="*" Role="r_BoqItems"/>
+                <End Type="com.agel.mmts.entity.BOQGroupModel" Multiplicity="1" Role="r_BoqGroup"/>
+            </Association>
+            <Association Name="VendorModel_2_r_Address">
+                <End Type="com.agel.mmts.entity.VendorModel" Multiplicity="1" Role="VendorModel"/>
+                <End Type="com.agel.mmts.entity.AddressModel" Multiplicity="1" Role="r_Address"/>
+            </Association>
+            <Association Name="r_PackingList_2_r_PurchaseOrder">
+                <End Type="com.agel.mmts.entity.PurchaseOrderModel" Multiplicity="1" Role="r_PurchaseOrder"/>
+                <End Type="com.agel.mmts.entity.PackingListModel" Multiplicity="*" Role="r_PackingList"/>
+            </Association>
+            <Association Name="r_Attachments_2_r_InspectionCall">
+                <End Type="com.agel.mmts.entity.AttachmentModel" Multiplicity="*" Role="r_Attachments"/>
+                <End Type="com.agel.mmts.entity.InspectionCallIdModel" Multiplicity="1" Role="r_InspectionCall"/>
+            </Association>
+            <Association Name="r_PackingListParentItemId_2_r_QrCode">
+                <End Type="com.agel.mmts.entity.PackingListParentItemModel" Multiplicity="1" Role="r_PackingListParentItemId"/>
+                <End Type="com.agel.mmts.entity.QRCodeModel" Multiplicity="1" Role="r_QrCode"/>
+            </Association>
+            <Association Name="r_ConversionBOQItems_2_r_ConversionItem">
+                <End Type="com.agel.mmts.entity.ConversionBOQItemModel" Multiplicity="*" Role="r_ConversionBOQItems"/>
+                <End Type="com.agel.mmts.entity.ConversionItemModel" Multiplicity="1" Role="r_ConversionItem"/>
+            </Association>
+            <Association Name="r_PackingListBOQItems_2_r_PackingListContain">
+                <End Type="com.agel.mmts.entity.PackingListBOQItemModel" Multiplicity="*" Role="r_PackingListBOQItems"/>
+                <End Type="com.agel.mmts.entity.PackingListContainModel" Multiplicity="1" Role="r_PackingListContain"/>
+            </Association>
+            <Association Name="r_OuterPackaging_2_r_QrCode">
+                <End Type="com.agel.mmts.entity.OuterPackagingModel" Multiplicity="1" Role="r_OuterPackaging"/>
+                <End Type="com.agel.mmts.entity.QRCodeModel" Multiplicity="1" Role="r_QrCode"/>
+            </Association>
+            <Association Name="r_BoqApprovalRequests_2_r_ParentLineItem">
+                <End Type="com.agel.mmts.entity.ParentLineItemModel" Multiplicity="1" Role="r_ParentLineItem"/>
+                <End Type="com.agel.mmts.entity.BOQApprovalRequestModel" Multiplicity="*" Role="r_BoqApprovalRequests"/>
+            </Association>
+            <Association Name="r_ParentLineItems_2_r_PurchaseOrder">
+                <End Type="com.agel.mmts.entity.PurchaseOrderModel" Multiplicity="1" Role="r_PurchaseOrder"/>
+                <End Type="com.agel.mmts.entity.ParentLineItemModel" Multiplicity="*" Role="r_ParentLineItems"/>
+            </Association>
+            <Association Name="r_Contractor_2_r_MaterialToissue">
+                <End Type="com.agel.mmts.entity.ContractorModel" Multiplicity="*" Role="r_Contractor"/>
+                <End Type="com.agel.mmts.entity.MaterialToIssueModel" Multiplicity="*" Role="r_MaterialToissue"/>
+            </Association>
+            <Association Name="r_PackingList_2_r_PackingListParentItems">
+                <End Type="com.agel.mmts.entity.PackingListModel" Multiplicity="1" Role="r_PackingList"/>
+                <End Type="com.agel.mmts.entity.PackingListParentItemModel" Multiplicity="*" Role="r_PackingListParentItems"/>
+            </Association>
+            <Association Name="PCGroupModel_2_r_PcGroupItems">
+                <End Type="com.agel.mmts.entity.PCGroupModel" Multiplicity="1" Role="PCGroupModel"/>
+                <End Type="com.agel.mmts.entity.PCGroupItemModel" Multiplicity="*" Role="r_PcGroupItems"/>
+            </Association>
+            <Association Name="r_MaterialReturnBOQItems_2_r_MaterialReturnParetnItem">
+                <End Type="com.agel.mmts.entity.MaterialReturnBOQItemModel" Multiplicity="*" Role="r_MaterialReturnBOQItems"/>
+                <End Type="com.agel.mmts.entity.MaterialReturnParentItemModel" Multiplicity="1" Role="r_MaterialReturnParetnItem"/>
+            </Association>
+            <Association Name="r_GoodReceiptNote_2_r_PackingList">
+                <End Type="com.agel.mmts.entity.GoodReceiptNoteModel" Multiplicity="1" Role="r_GoodReceiptNote"/>
+                <End Type="com.agel.mmts.entity.PackingListModel" Multiplicity="1" Role="r_PackingList"/>
+            </Association>
+            <Association Name="r_InspectionCallId_2_r_Mdcc">
+                <End Type="com.agel.mmts.entity.MDCCModel" Multiplicity="*" Role="r_Mdcc"/>
+                <End Type="com.agel.mmts.entity.InspectionCallIdModel" Multiplicity="1" Role="r_InspectionCallId"/>
+            </Association>
+            <Association Name="BuyerModel_2_r_Address">
+                <End Type="com.agel.mmts.entity.BuyerModel" Multiplicity="1" Role="BuyerModel"/>
+                <End Type="com.agel.mmts.entity.AddressModel" Multiplicity="1" Role="r_Address"/>
+            </Association>
+            <Association Name="r_Attachments_2_r_Mdcc">
+                <End Type="com.agel.mmts.entity.AttachmentModel" Multiplicity="*" Role="r_Attachments"/>
+                <End Type="com.agel.mmts.entity.MDCCModel" Multiplicity="1" Role="r_Mdcc"/>
+            </Association>
+            <Association Name="r_MaterialToissues_2_r_StockParentItem">
+                <End Type="com.agel.mmts.entity.MaterialToIssueModel" Multiplicity="*" Role="r_MaterialToissues"/>
+                <End Type="com.agel.mmts.entity.StockParentItemModel" Multiplicity="*" Role="r_StockParentItem"/>
+            </Association>
+            <Association Name="BOQApprovalRequestModel_2_r_BoqGroup">
+                <End Type="com.agel.mmts.entity.BOQApprovalRequestModel" Multiplicity="1" Role="BOQApprovalRequestModel"/>
+                <End Type="com.agel.mmts.entity.BOQGroupModel" Multiplicity="1" Role="r_BoqGroup"/>
+            </Association>
+            <Association Name="r_PackingListBoqItemId_2_r_QrCode">
+                <End Type="com.agel.mmts.entity.PackingListBOQItemModel" Multiplicity="1" Role="r_PackingListBoqItemId"/>
+                <End Type="com.agel.mmts.entity.QRCodeModel" Multiplicity="1" Role="r_QrCode"/>
+            </Association>
+            <Association Name="r_StockParentItem_2_r_StoreStock">
+                <End Type="com.agel.mmts.entity.StoreStockModel" Multiplicity="1" Role="r_StoreStock"/>
+                <End Type="com.agel.mmts.entity.StockParentItemModel" Multiplicity="*" Role="r_StockParentItem"/>
+            </Association>
+            <Association Name="PurchaseOrderStoreResponseEntityModel_2_r_Data">
+                <End Type="com.agel.mmts.entity.PurchaseOrderStoreResponseEntityModel" Multiplicity="1" Role="PurchaseOrderStoreResponseEntityModel"/>
+                <End Type="com.agel.mmts.entity.PurchaseOrderStoreModel" Multiplicity="*" Role="r_Data"/>
+            </Association>
+            <Association Name="r_Buyer_2_r_PurchaseOrders">
+                <End Type="com.agel.mmts.entity.PurchaseOrderModel" Multiplicity="*" Role="r_PurchaseOrders"/>
+                <End Type="com.agel.mmts.entity.BuyerModel" Multiplicity="1" Role="r_Buyer"/>
+            </Association>
+            <Association Name="r_PurchaseOrders_2_r_Vendor">
+                <End Type="com.agel.mmts.entity.PurchaseOrderModel" Multiplicity="*" Role="r_PurchaseOrders"/>
+                <End Type="com.agel.mmts.entity.VendorModel" Multiplicity="1" Role="r_Vendor"/>
+            </Association>
+            <Association Name="r_BoqApprovalRequests_2_r_PoBOQApproval">
+                <End Type="com.agel.mmts.entity.POBOQApprovalModel" Multiplicity="1" Role="r_PoBOQApproval"/>
+                <End Type="com.agel.mmts.entity.BOQApprovalRequestModel" Multiplicity="*" Role="r_BoqApprovalRequests"/>
+            </Association>
+            <Association Name="r_InspectedParentItems_2_r_InspectionCall">
+                <End Type="com.agel.mmts.entity.InspectedParentItemModel" Multiplicity="*" Role="r_InspectedParentItems"/>
+                <End Type="com.agel.mmts.entity.InspectionCallIdModel" Multiplicity="1" Role="r_InspectionCall"/>
+            </Association>
+            <Association Name="r_PackingListContain_2_r_PackingListParentItems">
+                <End Type="com.agel.mmts.entity.PackingListContainModel" Multiplicity="1" Role="r_PackingListContain"/>
+                <End Type="com.agel.mmts.entity.PackingListParentItemModel" Multiplicity="*" Role="r_PackingListParentItems"/>
+            </Association>
+            <Association Name="r_PackingList_2_r_QrCodeId">
+                <End Type="com.agel.mmts.entity.PackingListModel" Multiplicity="1" Role="r_PackingList"/>
+                <End Type="com.agel.mmts.entity.QRCodeModel" Multiplicity="*" Role="r_QrCodeId"/>
+            </Association>
+            <Association Name="VendorModel_2_r_BoqItemGroups">
+                <End Type="com.agel.mmts.entity.VendorModel" Multiplicity="1" Role="VendorModel"/>
+                <End Type="com.agel.mmts.entity.PCGroupModel" Multiplicity="*" Role="r_BoqItemGroups"/>
+            </Association>
+            <Association Name="r_Mdcc_2_r_MdccStatuses">
+                <End Type="com.agel.mmts.entity.MDCCModel" Multiplicity="1" Role="r_Mdcc"/>
+                <End Type="com.agel.mmts.entity.MDCCStatusModel" Multiplicity="*" Role="r_MdccStatuses"/>
+            </Association>
+            <Association Name="BOQItemModel_2_r_PcGroup">
+                <End Type="com.agel.mmts.entity.BOQItemModel" Multiplicity="1" Role="BOQItemModel"/>
+                <End Type="com.agel.mmts.entity.PCGroupModel" Multiplicity="1" Role="r_PcGroup"/>
+            </Association>
+            <Association Name="r_InspectionItems_2_r_InspectionStore">
+                <End Type="com.agel.mmts.entity.InspectionStoreModel" Multiplicity="1" Role="r_InspectionStore"/>
+                <End Type="com.agel.mmts.entity.InspectionItemStoreModel" Multiplicity="*" Role="r_InspectionItems"/>
+            </Association>
+            <Association Name="r_InnerPackagings_2_r_PackingList">
+                <End Type="com.agel.mmts.entity.PackingListModel" Multiplicity="1" Role="r_PackingList"/>
+                <End Type="com.agel.mmts.entity.InnerPackagingModel" Multiplicity="*" Role="r_InnerPackagings"/>
+            </Association>
+            <Association Name="r_StockBoqItems_2_r_StockParentItem">
+                <End Type="com.agel.mmts.entity.StockBOQItemModel" Multiplicity="*" Role="r_StockBoqItems"/>
+                <End Type="com.agel.mmts.entity.StockParentItemModel" Multiplicity="*" Role="r_StockParentItem"/>
+            </Association>
+            <Association Name="r_ConversionItems_2_r_ParentLineItem">
+                <End Type="com.agel.mmts.entity.ParentLineItemModel" Multiplicity="1" Role="r_ParentLineItem"/>
+                <End Type="com.agel.mmts.entity.ConversionItemModel" Multiplicity="*" Role="r_ConversionItems"/>
+            </Association>
+            <Association Name="r_PackingList_2_r_PrintAssistance">
+                <End Type="com.agel.mmts.entity.PackingListModel" Multiplicity="1" Role="r_PackingList"/>
+                <End Type="com.agel.mmts.entity.PrintAssistanceModel" Multiplicity="1" Role="r_PrintAssistance"/>
+            </Association>
+            <Association Name="r_BoqItem_2_r_Uoms">
+                <End Type="com.agel.mmts.entity.BOQItemUOMModel" Multiplicity="*" Role="r_Uoms"/>
+                <End Type="com.agel.mmts.entity.MasterBoQItemModel" Multiplicity="1" Role="r_BoqItem"/>
+            </Association>
+            <Association Name="ParentLineItemModel_2_r_PcGroups">
+                <End Type="com.agel.mmts.entity.ParentLineItemModel" Multiplicity="1" Role="ParentLineItemModel"/>
+                <End Type="com.agel.mmts.entity.PCGroupModel" Multiplicity="*" Role="r_PcGroups"/>
+            </Association>
+            <Association Name="POBOQApprovalModel_2_r_PurchaseOrder">
+                <End Type="com.agel.mmts.entity.POBOQApprovalModel" Multiplicity="1" Role="POBOQApprovalModel"/>
+                <End Type="com.agel.mmts.entity.PurchaseOrderModel" Multiplicity="1" Role="r_PurchaseOrder"/>
+            </Association>
+            <Association Name="r_MDCCParentLineItem_2_r_MdccBOQItems">
+                <End Type="com.agel.mmts.entity.MDCCBOQItemModel" Multiplicity="*" Role="r_MdccBOQItems"/>
+                <End Type="com.agel.mmts.entity.MDCCParentLineItemModel" Multiplicity="1" Role="r_MDCCParentLineItem"/>
+            </Association>
+            <EntityContainer Name="DefaultContainer" m:IsDefaultEntityContainer="true">
+                <EntitySet Name="AttachmentSet" EntityType="com.agel.mmts.entity.AttachmentModel"/>
+                <EntitySet Name="BOQItemUOMSet" EntityType="com.agel.mmts.entity.BOQItemUOMModel"/>
+                <EntitySet Name="ManualEntrySet" EntityType="com.agel.mmts.entity.ManualEntryModel"/>
+                <EntitySet Name="MasterLineItemStateSet" EntityType="com.agel.mmts.entity.MasterLineItemStateModel"/>
+                <EntitySet Name="MasterQrCodeAssistanceReasonSet" EntityType="com.agel.mmts.entity.MasterQrCodeAssistanceReasonModel"/>
+                <EntitySet Name="MaterialReturnApprovalRequestSet" EntityType="com.agel.mmts.entity.MaterialReturnApprovalRequestModel"/>
+                <EntitySet Name="MDCCSet" EntityType="com.agel.mmts.entity.MDCCModel"/>
+                <EntitySet Name="MDCCStoreSet" EntityType="com.agel.mmts.entity.MDCCStoreModel"/>
+                <EntitySet Name="PackingListBOQItemSet" EntityType="com.agel.mmts.entity.PackingListBOQItemModel"/>
+                <EntitySet Name="ParentLineItemTCApprovalSet" EntityType="com.agel.mmts.entity.ParentLineItemTCApprovalModel"/>
+                <EntitySet Name="POBOQApprovalSet" EntityType="com.agel.mmts.entity.POBOQApprovalModel"/>
+                <EntitySet Name="PurchaseOrderStoreResponseEntitySet" EntityType="com.agel.mmts.entity.PurchaseOrderStoreResponseEntityModel"/>
+                <EntitySet Name="ScannedMaterialSet" EntityType="com.agel.mmts.entity.ScannedMaterialModel"/>
+                <EntitySet Name="StoreStockSet" EntityType="com.agel.mmts.entity.StoreStockModel"/>
+                <EntitySet Name="VendorStoreSet" EntityType="com.agel.mmts.entity.VendorStoreModel"/>
+                <EntitySet Name="ApiLogSet" EntityType="com.agel.mmts.entity.ApiLogModel"/>
+                <EntitySet Name="BOQItemSet" EntityType="com.agel.mmts.entity.BOQItemModel"/>
+                <EntitySet Name="GoodReceiptNoteSet" EntityType="com.agel.mmts.entity.GoodReceiptNoteModel"/>
+                <EntitySet Name="InspectedParentItemSet" EntityType="com.agel.mmts.entity.InspectedParentItemModel"/>
+                <EntitySet Name="InspectionCallIdSet" EntityType="com.agel.mmts.entity.InspectionCallIdModel"/>
+                <EntitySet Name="MasterBoQItemSet" EntityType="com.agel.mmts.entity.MasterBoQItemModel"/>
+                <EntitySet Name="MasterOuterPackagingTypeSet" EntityType="com.agel.mmts.entity.MasterOuterPackagingTypeModel"/>
+                <EntitySet Name="MasterRoleSet" EntityType="com.agel.mmts.entity.MasterRoleModel"/>
+                <EntitySet Name="MaterialReturnBOQItemSet" EntityType="com.agel.mmts.entity.MaterialReturnBOQItemModel"/>
+                <EntitySet Name="MDCCBOQItemSet" EntityType="com.agel.mmts.entity.MDCCBOQItemModel"/>
+                <EntitySet Name="PackingListContainSet" EntityType="com.agel.mmts.entity.PackingListContainModel"/>
+                <EntitySet Name="PCGroupSet" EntityType="com.agel.mmts.entity.PCGroupModel"/>
+                <EntitySet Name="PurchaseOrderSet" EntityType="com.agel.mmts.entity.PurchaseOrderModel"/>
+                <EntitySet Name="PurchaseOrderStoreListSet" EntityType="com.agel.mmts.entity.PurchaseOrderStoreListModel"/>
+                <EntitySet Name="StockBOQItemSet" EntityType="com.agel.mmts.entity.StockBOQItemModel"/>
+                <EntitySet Name="UDDetailStoreSet" EntityType="com.agel.mmts.entity.UDDetailStoreModel"/>
+                <EntitySet Name="AdminSet" EntityType="com.agel.mmts.entity.AdminModel"/>
+                <EntitySet Name="BOQGroupSet" EntityType="com.agel.mmts.entity.BOQGroupModel"/>
+                <EntitySet Name="ConfigurationSet" EntityType="com.agel.mmts.entity.ConfigurationModel"/>
+                <EntitySet Name="ContractorSet" EntityType="com.agel.mmts.entity.ContractorModel"/>
+                <EntitySet Name="ConversionBOQItemSet" EntityType="com.agel.mmts.entity.ConversionBOQItemModel"/>
+                <EntitySet Name="InspectedBOQItemSet" EntityType="com.agel.mmts.entity.InspectedBOQItemModel"/>
+                <EntitySet Name="InspectionStoreSet" EntityType="com.agel.mmts.entity.InspectionStoreModel"/>
+                <EntitySet Name="MasterFeatureSet" EntityType="com.agel.mmts.entity.MasterFeatureModel"/>
+                <EntitySet Name="MasterPlantDetailSet" EntityType="com.agel.mmts.entity.MasterPlantDetailModel"/>
+                <EntitySet Name="MaterialReturnSet" EntityType="com.agel.mmts.entity.MaterialReturnModel"/>
+                <EntitySet Name="MaterialToIssueSet" EntityType="com.agel.mmts.entity.MaterialToIssueModel"/>
+                <EntitySet Name="MDCCStatusSet" EntityType="com.agel.mmts.entity.MDCCStatusModel"/>
+                <EntitySet Name="PackingListSet" EntityType="com.agel.mmts.entity.PackingListModel"/>
+                <EntitySet Name="ParentLineItemSet" EntityType="com.agel.mmts.entity.ParentLineItemModel"/>
+                <EntitySet Name="PrintAssistanceSet" EntityType="com.agel.mmts.entity.PrintAssistanceModel"/>
+                <EntitySet Name="PurchaseOrderStoreSet" EntityType="com.agel.mmts.entity.PurchaseOrderStoreModel"/>
+                <EntitySet Name="SOWSet" EntityType="com.agel.mmts.entity.SOWModel"/>
+                <EntitySet Name="UDDetailSet" EntityType="com.agel.mmts.entity.UDDetailModel"/>
+                <EntitySet Name="AddressSet" EntityType="com.agel.mmts.entity.AddressModel"/>
+                <EntitySet Name="BOQApprovalRequestSet" EntityType="com.agel.mmts.entity.BOQApprovalRequestModel"/>
+                <EntitySet Name="BuyerSet" EntityType="com.agel.mmts.entity.BuyerModel"/>
+                <EntitySet Name="ConversionItemSet" EntityType="com.agel.mmts.entity.ConversionItemModel"/>
+                <EntitySet Name="InnerPackagingSet" EntityType="com.agel.mmts.entity.InnerPackagingModel"/>
+                <EntitySet Name="InspectionItemStoreSet" EntityType="com.agel.mmts.entity.InspectionItemStoreModel"/>
+                <EntitySet Name="MasterDispatchTypeSet" EntityType="com.agel.mmts.entity.MasterDispatchTypeModel"/>
+                <EntitySet Name="MasterPackagingTypeSet" EntityType="com.agel.mmts.entity.MasterPackagingTypeModel"/>
+                <EntitySet Name="MasterUOMSet" EntityType="com.agel.mmts.entity.MasterUOMModel"/>
+                <EntitySet Name="MaterialReturnParentItemSet" EntityType="com.agel.mmts.entity.MaterialReturnParentItemModel"/>
+                <EntitySet Name="MDCCParentLineItemSet" EntityType="com.agel.mmts.entity.MDCCParentLineItemModel"/>
+                <EntitySet Name="OuterPackagingSet" EntityType="com.agel.mmts.entity.OuterPackagingModel"/>
+                <EntitySet Name="PackingListParentItemSet" EntityType="com.agel.mmts.entity.PackingListParentItemModel"/>
+                <EntitySet Name="PCGroupItemSet" EntityType="com.agel.mmts.entity.PCGroupItemModel"/>
+                <EntitySet Name="PurchaseOrderStoreItemSet" EntityType="com.agel.mmts.entity.PurchaseOrderItemStoreModel"/>
+                <EntitySet Name="QRCodeSet" EntityType="com.agel.mmts.entity.QRCodeModel"/>
+                <EntitySet Name="StockParentItemSet" EntityType="com.agel.mmts.entity.StockParentItemModel"/>
+                <EntitySet Name="VendorSet" EntityType="com.agel.mmts.entity.VendorModel"/>
+                <EntitySet Name="BOQCalculationSet" EntityType="com.agel.mmts.entity.edmentity.BOQCalculationModel"/>
+                <EntitySet Name="InnerPackagingEdmSet" EntityType="com.agel.mmts.entity.edmentity.InnerPackagingEdmModel"/>
+                <EntitySet Name="MDCCBOQItemEdmSet" EntityType="com.agel.mmts.entity.edmentity.MDCCBOQItemEdmModel"/>
+                <EntitySet Name="MDCCBOQRequestSet" EntityType="com.agel.mmts.entity.edmentity.MDCCBOQRequestModel"/>
+                <EntitySet Name="MDCCStatusEdmSet" EntityType="com.agel.mmts.entity.edmentity.MDCCStatusEdmModel"/>
+                <EntitySet Name="PackingListBOQItemEdmSet" EntityType="com.agel.mmts.entity.edmentity.PackingListBOQItemEdmModel"/>
+                <EntitySet Name="ParentLineItemTCApprovalListSet" EntityType="com.agel.mmts.entity.edmentity.ParentLineItemTCApprovalListModel"/>
+                <EntitySet Name="QRCodeGenerationSet" EntityType="com.agel.mmts.entity.edmentity.QRCodeGenerationModel"/>
+                <EntitySet Name="TCBOQResponseSet" EntityType="com.agel.mmts.entity.edmentity.TCBOQResponseModel"/>
+                <EntitySet Name="VehicleNumberUpdateSet" EntityType="com.agel.mmts.entity.edmentity.VehicleNumberUpdateModel"/>
+                <EntitySet Name="DownloadQRCodeSet" EntityType="com.agel.mmts.entity.edmentity.DownloadQRCodeModel"/>
+                <EntitySet Name="MDCCBOQResponse" EntityType="com.agel.mmts.entity.edmentity.MDCCBOQResponseModel"/>
+                <EntitySet Name="OauthTokenResponseEntitySet" EntityType="com.agel.mmts.entity.edmentity.OauthTokenResponseEntityModel"/>
+                <EntitySet Name="PackingListContainEdmSet" EntityType="com.agel.mmts.entity.edmentity.PackingListContainEdmModel"/>
+                <EntitySet Name="PCGroupItemListSet" EntityType="com.agel.mmts.entity.edmentity.PCGroupItemListModel"/>
+                <EntitySet Name="UpdatePackingListStatusSet" EntityType="com.agel.mmts.entity.edmentity.UpdatePackingListStatusModel"/>
+                <EntitySet Name="DocumentDetailEdmSet" EntityType="com.agel.mmts.entity.edmentity.DocumentDetailEdmModel"/>
+                <EntitySet Name="DocumentUploadEdmSet" EntityType="com.agel.mmts.entity.edmentity.DocumentUploadEdmModel"/>
+                <EntitySet Name="InspectedParentLineItemRequestItemsSet" EntityType="com.agel.mmts.entity.edmentity.InspectedParentLineItemRequestModel"/>
+                <EntitySet Name="InspectionCallIdRequestSet" EntityType="com.agel.mmts.entity.edmentity.InspectionCallIdRequestModel"/>
+                <EntitySet Name="MDCCEdmSet" EntityType="com.agel.mmts.entity.edmentity.MDCCEdmModel"/>
+                <EntitySet Name="OuterPackagingEdmSet" EntityType="com.agel.mmts.entity.edmentity.OuterPackagingEdmModel"/>
+                <EntitySet Name="OuterPackagingRequestEdmSet" EntityType="com.agel.mmts.entity.edmentity.OuterPackagingRequestEdmModel"/>
+                <EntitySet Name="PackingListParentItemEdmSet" EntityType="com.agel.mmts.entity.edmentity.PackingListParentItemEdmModel"/>
+                <EntitySet Name="SendQRPrintingRequestSet" EntityType="com.agel.mmts.entity.edmentity.SendQRPrintingRequestModel"/>
+                <EntitySet Name="TCResponseSet" EntityType="com.agel.mmts.entity.edmentity.TCResponseModel"/>
+                <EntitySet Name="InspectedBOQItemsRequestSet" EntityType="com.agel.mmts.entity.edmentity.InspectedBOQItemsRequestModel"/>
+                <EntitySet Name="MDCCParentLineItemEdmSet" EntityType="com.agel.mmts.entity.edmentity.MDCCParentLineItemEdmModel"/>
+                <EntitySet Name="PackingListEdmSet" EntityType="com.agel.mmts.entity.edmentity.PackingListEdmModel"/>
+                <EntitySet Name="PCGroupItemResponseSet" EntityType="com.agel.mmts.entity.edmentity.PCGroupItemResponseModel"/>
+                <EntitySet Name="TCParentItemSet" EntityType="com.agel.mmts.entity.edmentity.TCParentItemModel"/>
+                <AssociationSet Name="r_Mdcc_2_r_MdccParentLineItems" Association="com.agel.mmts.entity.r_Mdcc_2_r_MdccParentLineItems">
+                    <End EntitySet="MDCCSet" Role="r_Mdcc"/>
+                    <End EntitySet="MDCCParentLineItemSet" Role="r_MdccParentLineItems"/>
+                </AssociationSet>
+                <AssociationSet Name="InspectedBOQItemModel_2_r_Mdcc" Association="com.agel.mmts.entity.InspectedBOQItemModel_2_r_Mdcc">
+                    <End EntitySet="InspectedBOQItemSet" Role="InspectedBOQItemModel"/>
+                    <End EntitySet="MDCCSet" Role="r_Mdcc"/>
+                </AssociationSet>
+                <AssociationSet Name="r_InnerPackaging_2_r_QrCode" Association="com.agel.mmts.entity.r_InnerPackaging_2_r_QrCode">
+                    <End EntitySet="InnerPackagingSet" Role="r_InnerPackaging"/>
+                    <End EntitySet="QRCodeSet" Role="r_QrCode"/>
+                </AssociationSet>
+                <AssociationSet Name="r_BoqItems_2_r_ParentLineItem" Association="com.agel.mmts.entity.r_BoqItems_2_r_ParentLineItem">
+                    <End EntitySet="BOQItemSet" Role="r_BoqItems"/>
+                    <End EntitySet="ParentLineItemSet" Role="r_ParentLineItem"/>
+                </AssociationSet>
+                <AssociationSet Name="r_PackingListBOQItems_2_r_PackingListParentItem" Association="com.agel.mmts.entity.r_PackingListBOQItems_2_r_PackingListParentItem">
+                    <End EntitySet="PackingListBOQItemSet" Role="r_PackingListBOQItems"/>
+                    <End EntitySet="PackingListParentItemSet" Role="r_PackingListParentItem"/>
+                </AssociationSet>
+                <AssociationSet Name="r_InnerPackagings_2_r_OuterPackaging" Association="com.agel.mmts.entity.r_InnerPackagings_2_r_OuterPackaging">
+                    <End EntitySet="InnerPackagingSet" Role="r_InnerPackagings"/>
+                    <End EntitySet="OuterPackagingSet" Role="r_OuterPackaging"/>
+                </AssociationSet>
+                <AssociationSet Name="r_MaterialReturn_2_r_MaterialReturnParentItems" Association="com.agel.mmts.entity.r_MaterialReturn_2_r_MaterialReturnParentItems">
+                    <End EntitySet="MaterialReturnSet" Role="r_MaterialReturn"/>
+                    <End EntitySet="MaterialReturnParentItemSet" Role="r_MaterialReturnParentItems"/>
+                </AssociationSet>
+                <AssociationSet Name="r_InspectedBOQItems_2_r_InspectedParentItem" Association="com.agel.mmts.entity.r_InspectedBOQItems_2_r_InspectedParentItem">
+                    <End EntitySet="InspectedParentItemSet" Role="r_InspectedParentItem"/>
+                    <End EntitySet="InspectedBOQItemSet" Role="r_InspectedBOQItems"/>
+                </AssociationSet>
+                <AssociationSet Name="r_InspectionCall_2_r_PackingList" Association="com.agel.mmts.entity.r_InspectionCall_2_r_PackingList">
+                    <End EntitySet="InspectionCallIdSet" Role="r_InspectionCall"/>
+                    <End EntitySet="PackingListSet" Role="r_PackingList"/>
+                </AssociationSet>
+                <AssociationSet Name="r_OuterPackagings_2_r_PackingList" Association="com.agel.mmts.entity.r_OuterPackagings_2_r_PackingList">
+                    <End EntitySet="PackingListSet" Role="r_PackingList"/>
+                    <End EntitySet="OuterPackagingSet" Role="r_OuterPackagings"/>
+                </AssociationSet>
+                <AssociationSet Name="r_BoqGroups_2_r_ParentLineItem" Association="com.agel.mmts.entity.r_BoqGroups_2_r_ParentLineItem">
+                    <End EntitySet="BOQGroupSet" Role="r_BoqGroups"/>
+                    <End EntitySet="ParentLineItemSet" Role="r_ParentLineItem"/>
+                </AssociationSet>
+                <AssociationSet Name="r_Attachments_2_r_PackingList" Association="com.agel.mmts.entity.r_Attachments_2_r_PackingList">
+                    <End EntitySet="AttachmentSet" Role="r_Attachments"/>
+                    <End EntitySet="PackingListSet" Role="r_PackingList"/>
+                </AssociationSet>
+                <AssociationSet Name="r_PurchaseOrders_2_r_Sow" Association="com.agel.mmts.entity.r_PurchaseOrders_2_r_Sow">
+                    <End EntitySet="PurchaseOrderSet" Role="r_PurchaseOrders"/>
+                    <End EntitySet="SOWSet" Role="r_Sow"/>
+                </AssociationSet>
+                <AssociationSet Name="r_PurchaseOrderItems_2_r_PurchseOrder" Association="com.agel.mmts.entity.r_PurchaseOrderItems_2_r_PurchseOrder">
+                    <End EntitySet="PurchaseOrderStoreSet" Role="r_PurchseOrder"/>
+                    <End EntitySet="PurchaseOrderStoreItemSet" Role="r_PurchaseOrderItems"/>
+                </AssociationSet>
+                <AssociationSet Name="r_InspectionCalls_2_r_PurchaseOrder" Association="com.agel.mmts.entity.r_InspectionCalls_2_r_PurchaseOrder">
+                    <End EntitySet="InspectionCallIdSet" Role="r_InspectionCalls"/>
+                    <End EntitySet="PurchaseOrderSet" Role="r_PurchaseOrder"/>
+                </AssociationSet>
+                <AssociationSet Name="r_PackingList_2_r_PackingListContains" Association="com.agel.mmts.entity.r_PackingList_2_r_PackingListContains">
+                    <End EntitySet="PackingListContainSet" Role="r_PackingListContains"/>
+                    <End EntitySet="PackingListSet" Role="r_PackingList"/>
+                </AssociationSet>
+                <AssociationSet Name="r_BoqGroup_2_r_BoqItems" Association="com.agel.mmts.entity.r_BoqGroup_2_r_BoqItems">
+                    <End EntitySet="BOQItemSet" Role="r_BoqItems"/>
+                    <End EntitySet="BOQGroupSet" Role="r_BoqGroup"/>
+                </AssociationSet>
+                <AssociationSet Name="VendorModel_2_r_Address" Association="com.agel.mmts.entity.VendorModel_2_r_Address">
+                    <End EntitySet="VendorSet" Role="VendorModel"/>
+                    <End EntitySet="AddressSet" Role="r_Address"/>
+                </AssociationSet>
+                <AssociationSet Name="r_PackingList_2_r_PurchaseOrder" Association="com.agel.mmts.entity.r_PackingList_2_r_PurchaseOrder">
+                    <End EntitySet="PurchaseOrderSet" Role="r_PurchaseOrder"/>
+                    <End EntitySet="PackingListSet" Role="r_PackingList"/>
+                </AssociationSet>
+                <AssociationSet Name="r_Attachments_2_r_InspectionCall" Association="com.agel.mmts.entity.r_Attachments_2_r_InspectionCall">
+                    <End EntitySet="AttachmentSet" Role="r_Attachments"/>
+                    <End EntitySet="InspectionCallIdSet" Role="r_InspectionCall"/>
+                </AssociationSet>
+                <AssociationSet Name="r_PackingListParentItemId_2_r_QrCode" Association="com.agel.mmts.entity.r_PackingListParentItemId_2_r_QrCode">
+                    <End EntitySet="PackingListParentItemSet" Role="r_PackingListParentItemId"/>
+                    <End EntitySet="QRCodeSet" Role="r_QrCode"/>
+                </AssociationSet>
+                <AssociationSet Name="r_ConversionBOQItems_2_r_ConversionItem" Association="com.agel.mmts.entity.r_ConversionBOQItems_2_r_ConversionItem">
+                    <End EntitySet="ConversionBOQItemSet" Role="r_ConversionBOQItems"/>
+                    <End EntitySet="ConversionItemSet" Role="r_ConversionItem"/>
+                </AssociationSet>
+                <AssociationSet Name="r_PackingListBOQItems_2_r_PackingListContain" Association="com.agel.mmts.entity.r_PackingListBOQItems_2_r_PackingListContain">
+                    <End EntitySet="PackingListBOQItemSet" Role="r_PackingListBOQItems"/>
+                    <End EntitySet="PackingListContainSet" Role="r_PackingListContain"/>
+                </AssociationSet>
+                <AssociationSet Name="r_OuterPackaging_2_r_QrCode" Association="com.agel.mmts.entity.r_OuterPackaging_2_r_QrCode">
+                    <End EntitySet="OuterPackagingSet" Role="r_OuterPackaging"/>
+                    <End EntitySet="QRCodeSet" Role="r_QrCode"/>
+                </AssociationSet>
+                <AssociationSet Name="r_BoqApprovalRequests_2_r_ParentLineItem" Association="com.agel.mmts.entity.r_BoqApprovalRequests_2_r_ParentLineItem">
+                    <End EntitySet="ParentLineItemSet" Role="r_ParentLineItem"/>
+                    <End EntitySet="BOQApprovalRequestSet" Role="r_BoqApprovalRequests"/>
+                </AssociationSet>
+                <AssociationSet Name="r_ParentLineItems_2_r_PurchaseOrder" Association="com.agel.mmts.entity.r_ParentLineItems_2_r_PurchaseOrder">
+                    <End EntitySet="PurchaseOrderSet" Role="r_PurchaseOrder"/>
+                    <End EntitySet="ParentLineItemSet" Role="r_ParentLineItems"/>
+                </AssociationSet>
+                <AssociationSet Name="r_Contractor_2_r_MaterialToissue" Association="com.agel.mmts.entity.r_Contractor_2_r_MaterialToissue">
+                    <End EntitySet="ContractorSet" Role="r_Contractor"/>
+                    <End EntitySet="MaterialToIssueSet" Role="r_MaterialToissue"/>
+                </AssociationSet>
+                <AssociationSet Name="r_PackingList_2_r_PackingListParentItems" Association="com.agel.mmts.entity.r_PackingList_2_r_PackingListParentItems">
+                    <End EntitySet="PackingListSet" Role="r_PackingList"/>
+                    <End EntitySet="PackingListParentItemSet" Role="r_PackingListParentItems"/>
+                </AssociationSet>
+                <AssociationSet Name="PCGroupModel_2_r_PcGroupItems" Association="com.agel.mmts.entity.PCGroupModel_2_r_PcGroupItems">
+                    <End EntitySet="PCGroupSet" Role="PCGroupModel"/>
+                    <End EntitySet="PCGroupItemSet" Role="r_PcGroupItems"/>
+                </AssociationSet>
+                <AssociationSet Name="r_MaterialReturnBOQItems_2_r_MaterialReturnParetnItem" Association="com.agel.mmts.entity.r_MaterialReturnBOQItems_2_r_MaterialReturnParetnItem">
+                    <End EntitySet="MaterialReturnBOQItemSet" Role="r_MaterialReturnBOQItems"/>
+                    <End EntitySet="MaterialReturnParentItemSet" Role="r_MaterialReturnParetnItem"/>
+                </AssociationSet>
+                <AssociationSet Name="r_GoodReceiptNote_2_r_PackingList" Association="com.agel.mmts.entity.r_GoodReceiptNote_2_r_PackingList">
+                    <End EntitySet="GoodReceiptNoteSet" Role="r_GoodReceiptNote"/>
+                    <End EntitySet="PackingListSet" Role="r_PackingList"/>
+                </AssociationSet>
+                <AssociationSet Name="r_InspectionCallId_2_r_Mdcc" Association="com.agel.mmts.entity.r_InspectionCallId_2_r_Mdcc">
+                    <End EntitySet="MDCCSet" Role="r_Mdcc"/>
+                    <End EntitySet="InspectionCallIdSet" Role="r_InspectionCallId"/>
+                </AssociationSet>
+                <AssociationSet Name="BuyerModel_2_r_Address" Association="com.agel.mmts.entity.BuyerModel_2_r_Address">
+                    <End EntitySet="BuyerSet" Role="BuyerModel"/>
+                    <End EntitySet="AddressSet" Role="r_Address"/>
+                </AssociationSet>
+                <AssociationSet Name="r_Attachments_2_r_Mdcc" Association="com.agel.mmts.entity.r_Attachments_2_r_Mdcc">
+                    <End EntitySet="AttachmentSet" Role="r_Attachments"/>
+                    <End EntitySet="MDCCSet" Role="r_Mdcc"/>
+                </AssociationSet>
+                <AssociationSet Name="r_MaterialToissues_2_r_StockParentItem" Association="com.agel.mmts.entity.r_MaterialToissues_2_r_StockParentItem">
+                    <End EntitySet="MaterialToIssueSet" Role="r_MaterialToissues"/>
+                    <End EntitySet="StockParentItemSet" Role="r_StockParentItem"/>
+                </AssociationSet>
+                <AssociationSet Name="BOQApprovalRequestModel_2_r_BoqGroup" Association="com.agel.mmts.entity.BOQApprovalRequestModel_2_r_BoqGroup">
+                    <End EntitySet="BOQApprovalRequestSet" Role="BOQApprovalRequestModel"/>
+                    <End EntitySet="BOQGroupSet" Role="r_BoqGroup"/>
+                </AssociationSet>
+                <AssociationSet Name="r_PackingListBoqItemId_2_r_QrCode" Association="com.agel.mmts.entity.r_PackingListBoqItemId_2_r_QrCode">
+                    <End EntitySet="PackingListBOQItemSet" Role="r_PackingListBoqItemId"/>
+                    <End EntitySet="QRCodeSet" Role="r_QrCode"/>
+                </AssociationSet>
+                <AssociationSet Name="r_StockParentItem_2_r_StoreStock" Association="com.agel.mmts.entity.r_StockParentItem_2_r_StoreStock">
+                    <End EntitySet="StoreStockSet" Role="r_StoreStock"/>
+                    <End EntitySet="StockParentItemSet" Role="r_StockParentItem"/>
+                </AssociationSet>
+                <AssociationSet Name="PurchaseOrderStoreResponseEntityModel_2_r_Data" Association="com.agel.mmts.entity.PurchaseOrderStoreResponseEntityModel_2_r_Data">
+                    <End EntitySet="PurchaseOrderStoreResponseEntitySet" Role="PurchaseOrderStoreResponseEntityModel"/>
+                    <End EntitySet="PurchaseOrderStoreSet" Role="r_Data"/>
+                </AssociationSet>
+                <AssociationSet Name="r_Buyer_2_r_PurchaseOrders" Association="com.agel.mmts.entity.r_Buyer_2_r_PurchaseOrders">
+                    <End EntitySet="PurchaseOrderSet" Role="r_PurchaseOrders"/>
+                    <End EntitySet="BuyerSet" Role="r_Buyer"/>
+                </AssociationSet>
+                <AssociationSet Name="r_PurchaseOrders_2_r_Vendor" Association="com.agel.mmts.entity.r_PurchaseOrders_2_r_Vendor">
+                    <End EntitySet="PurchaseOrderSet" Role="r_PurchaseOrders"/>
+                    <End EntitySet="VendorSet" Role="r_Vendor"/>
+                </AssociationSet>
+                <AssociationSet Name="r_BoqApprovalRequests_2_r_PoBOQApproval" Association="com.agel.mmts.entity.r_BoqApprovalRequests_2_r_PoBOQApproval">
+                    <End EntitySet="POBOQApprovalSet" Role="r_PoBOQApproval"/>
+                    <End EntitySet="BOQApprovalRequestSet" Role="r_BoqApprovalRequests"/>
+                </AssociationSet>
+                <AssociationSet Name="r_InspectedParentItems_2_r_InspectionCall" Association="com.agel.mmts.entity.r_InspectedParentItems_2_r_InspectionCall">
+                    <End EntitySet="InspectedParentItemSet" Role="r_InspectedParentItems"/>
+                    <End EntitySet="InspectionCallIdSet" Role="r_InspectionCall"/>
+                </AssociationSet>
+                <AssociationSet Name="r_PackingListContain_2_r_PackingListParentItems" Association="com.agel.mmts.entity.r_PackingListContain_2_r_PackingListParentItems">
+                    <End EntitySet="PackingListContainSet" Role="r_PackingListContain"/>
+                    <End EntitySet="PackingListParentItemSet" Role="r_PackingListParentItems"/>
+                </AssociationSet>
+                <AssociationSet Name="r_PackingList_2_r_QrCodeId" Association="com.agel.mmts.entity.r_PackingList_2_r_QrCodeId">
+                    <End EntitySet="PackingListSet" Role="r_PackingList"/>
+                    <End EntitySet="QRCodeSet" Role="r_QrCodeId"/>
+                </AssociationSet>
+                <AssociationSet Name="VendorModel_2_r_BoqItemGroups" Association="com.agel.mmts.entity.VendorModel_2_r_BoqItemGroups">
+                    <End EntitySet="VendorSet" Role="VendorModel"/>
+                    <End EntitySet="PCGroupSet" Role="r_BoqItemGroups"/>
+                </AssociationSet>
+                <AssociationSet Name="r_Mdcc_2_r_MdccStatuses" Association="com.agel.mmts.entity.r_Mdcc_2_r_MdccStatuses">
+                    <End EntitySet="MDCCSet" Role="r_Mdcc"/>
+                    <End EntitySet="MDCCStatusSet" Role="r_MdccStatuses"/>
+                </AssociationSet>
+                <AssociationSet Name="BOQItemModel_2_r_PcGroup" Association="com.agel.mmts.entity.BOQItemModel_2_r_PcGroup">
+                    <End EntitySet="BOQItemSet" Role="BOQItemModel"/>
+                    <End EntitySet="PCGroupSet" Role="r_PcGroup"/>
+                </AssociationSet>
+                <AssociationSet Name="r_InspectionItems_2_r_InspectionStore" Association="com.agel.mmts.entity.r_InspectionItems_2_r_InspectionStore">
+                    <End EntitySet="InspectionStoreSet" Role="r_InspectionStore"/>
+                    <End EntitySet="InspectionItemStoreSet" Role="r_InspectionItems"/>
+                </AssociationSet>
+                <AssociationSet Name="r_InnerPackagings_2_r_PackingList" Association="com.agel.mmts.entity.r_InnerPackagings_2_r_PackingList">
+                    <End EntitySet="PackingListSet" Role="r_PackingList"/>
+                    <End EntitySet="InnerPackagingSet" Role="r_InnerPackagings"/>
+                </AssociationSet>
+                <AssociationSet Name="r_StockBoqItems_2_r_StockParentItem" Association="com.agel.mmts.entity.r_StockBoqItems_2_r_StockParentItem">
+                    <End EntitySet="StockBOQItemSet" Role="r_StockBoqItems"/>
+                    <End EntitySet="StockParentItemSet" Role="r_StockParentItem"/>
+                </AssociationSet>
+                <AssociationSet Name="r_ConversionItems_2_r_ParentLineItem" Association="com.agel.mmts.entity.r_ConversionItems_2_r_ParentLineItem">
+                    <End EntitySet="ParentLineItemSet" Role="r_ParentLineItem"/>
+                    <End EntitySet="ConversionItemSet" Role="r_ConversionItems"/>
+                </AssociationSet>
+                <AssociationSet Name="r_PackingList_2_r_PrintAssistance" Association="com.agel.mmts.entity.r_PackingList_2_r_PrintAssistance">
+                    <End EntitySet="PackingListSet" Role="r_PackingList"/>
+                    <End EntitySet="PrintAssistanceSet" Role="r_PrintAssistance"/>
+                </AssociationSet>
+                <AssociationSet Name="r_BoqItem_2_r_Uoms" Association="com.agel.mmts.entity.r_BoqItem_2_r_Uoms">
+                    <End EntitySet="BOQItemUOMSet" Role="r_Uoms"/>
+                    <End EntitySet="MasterBoQItemSet" Role="r_BoqItem"/>
+                </AssociationSet>
+                <AssociationSet Name="ParentLineItemModel_2_r_PcGroups" Association="com.agel.mmts.entity.ParentLineItemModel_2_r_PcGroups">
+                    <End EntitySet="ParentLineItemSet" Role="ParentLineItemModel"/>
+                    <End EntitySet="PCGroupSet" Role="r_PcGroups"/>
+                </AssociationSet>
+                <AssociationSet Name="POBOQApprovalModel_2_r_PurchaseOrder" Association="com.agel.mmts.entity.POBOQApprovalModel_2_r_PurchaseOrder">
+                    <End EntitySet="POBOQApprovalSet" Role="POBOQApprovalModel"/>
+                    <End EntitySet="PurchaseOrderSet" Role="r_PurchaseOrder"/>
+                </AssociationSet>
+                <AssociationSet Name="r_MDCCParentLineItem_2_r_MdccBOQItems" Association="com.agel.mmts.entity.r_MDCCParentLineItem_2_r_MdccBOQItems">
+                    <End EntitySet="MDCCBOQItemSet" Role="r_MdccBOQItems"/>
+                    <End EntitySet="MDCCParentLineItemSet" Role="r_MDCCParentLineItem"/>
+                </AssociationSet>
+                <FunctionImport Name="GetLoggedInAdmin" ReturnType="Collection(com.agel.mmts.entity.AdminModel)" EntitySet="AdminSet" m:HttpMethod="GET"/>
+            </EntityContainer>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

@@ -10,4 +10,12 @@ archive.zip
 # auto generated wildcard
 agel-mmts-web/vendor-packinglist-create/.env1
 # auto generated wildcard
+<<<<<<< HEAD
 vendor-packinglist-create/.env3
+=======
+
+vendorPersona/.env11
+# auto generated wildcard
+agel-mmts-web/vendor-mdcc/.env1
+
+>>>>>>> develop

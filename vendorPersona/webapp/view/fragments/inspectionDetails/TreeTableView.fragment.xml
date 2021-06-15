@@ -1,0 +1,67 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:core="sap.ui.core"
+
+    displayBlock="true"
+	xmlns:ui="sap.ui.table">
+	<Dialog title="">
+		<ui:TreeTable id="TreeTableBasicView"
+
+                            rows="{path:'TreeTableModelView>/', parameters: {arrayNames:['ChildItemsView']}}"
+
+                            selectionMode="MultiToggle"  enableSelectAll="false"
+
+                            title="{i18n>TreeTableViewTitle}" ariaLabelledBy="title">
+			<ui:columns>
+				<ui:Column width="5%">
+					<Label text="ID"/>
+					<ui:template>
+						<Text text="{TreeTableModelView>ID}" wrapping="false" />
+					</ui:template>
+				</ui:Column>
+				<ui:Column width="8%">
+					<Label text="Material Code"/>
+					<ui:template>
+						<Text text="{TreeTableModelView>MaterialCode}" wrapping="false" />
+					</ui:template>
+				</ui:Column>
+				<ui:Column width="8%">
+					<Label text="Name"/>
+					<ui:template>
+						<Text text="{TreeTableModelView>Name}" wrapping="false" />
+					</ui:template>
+				</ui:Column>
+				<ui:Column width="12%">
+					<Label text="Description"/>
+					<ui:template>
+						<Text text="{TreeTableModelView>Description}" wrapping="false" />
+					</ui:template>
+				</ui:Column>
+				<ui:Column width="5%">
+					<Label text="Qty"/>
+					<ui:template>
+						<Text text="{TreeTableModelView>Qty}" wrapping="false" />
+					</ui:template>
+				</ui:Column>
+				<ui:Column width="8%">
+					<Label text="MDCC Approved Qty"/>
+					<ui:template>
+						<HBox justifyContent="SpaceAround" visible="{= ${TreeTableModelView>isStandAlone} ? false : true}">
+							<Text text="{TreeTableModelView>MDCCApprovedQty}" />
+						</HBox>
+					</ui:template>
+				</ui:Column>
+				<ui:Column width="5%">
+					<Label text="UOM"/>
+					<ui:template>
+						<Text text="{TreeTableModelView>UOM}" wrapping="false" />
+					</ui:template>
+				</ui:Column>
+			</ui:columns>
+		</ui:TreeTable>
+        <endButton>
+        <Button text="Close" type="Emphasized" press="onViewChildDialogClose"/> 
+        </endButton>
+	</Dialog>
+</core:FragmentDefinition>

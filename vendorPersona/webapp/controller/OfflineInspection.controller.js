@@ -31,7 +31,7 @@ sap.ui.define([
         _onObjectMatched: function (oEvent) {
             var sObjectId = oEvent.getParameter("arguments").POId;
             this._bindView("/PurchaseOrderSet(" + sObjectId + ")");
-            this._getLineItemData("/PurchaseOrderSet(" + sObjectId + ")/ParentLineItems")
+            this._getLineItemData("/PurchaseOrderSet(" + sObjectId + ")/ParentLineItems");
         },
 
         _bindView: function (sObjectPath) {
@@ -96,10 +96,9 @@ sap.ui.define([
         },
 
         onSaveButtonPress: function (oEvent) {
-            debugger;
+            //debugger;
             var aTableData = this.byId("idParentItemTable").getModel("ParentItemModel").getData();
             var aSelectedItemsFromTable = aTableData.filter(item => item.inspectionQuantity !== null);
-            debugger;
         }
 
 

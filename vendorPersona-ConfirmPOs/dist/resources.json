@@ -1,10 +1,20 @@
 {
     "resources": [
         {
+<<<<<<< HEAD
+            "name": "controller/LandingPage-dbg.controller.js",
+            "isDebug": true
+=======
+<<<<<<< HEAD
+            "name": "i18n/i18n.properties",
+            "raw": "i18n/i18n.properties"
+=======
             "name": "css/style.css"
+>>>>>>> develop
+>>>>>>> 950a1aa2bd6c8bd656c54d5fc443a646f0a6b70f
         },
         {
-            "name": "manifest.json"
+            "name": "Component.js"
         },
         {
             "name": "model/models.js"
@@ -13,7 +23,7 @@
             "name": "controller/LandingPage.controller.js"
         },
         {
-            "name": "Component.js"
+            "name": "manifest.json"
         },
         {
             "name": "manifest-bundle.zip"
@@ -23,15 +33,15 @@
             "merged": true
         },
         {
-            "name": "model/models-dbg.js",
-            "isDebug": true
-        },
-        {
-            "name": "controller/LandingPage-dbg.controller.js",
-            "isDebug": true
-        },
-        {
             "name": "Component-dbg.js",
+            "isDebug": true
+        },
+        {
+            "name": "i18n/i18n.properties",
+            "raw": "i18n/i18n.properties"
+        },
+        {
+            "name": "model/models-dbg.js",
             "isDebug": true
         },
         {
@@ -41,8 +51,16 @@
             "name": "view/LandingPage.view.xml"
         },
         {
+<<<<<<< HEAD
+            "name": "css/style.css"
+=======
+<<<<<<< HEAD
+            "name": "css/style.css"
+=======
             "name": "i18n/i18n.properties",
             "raw": "i18n/i18n.properties"
+>>>>>>> develop
+>>>>>>> 950a1aa2bd6c8bd656c54d5fc443a646f0a6b70f
         },
         {
             "name": "index.html"
