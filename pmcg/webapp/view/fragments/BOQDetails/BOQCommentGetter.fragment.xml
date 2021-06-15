@@ -1,0 +1,16 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" 
+xmlns:core="sap.ui.core">
+	<Dialog title="{BOQApprovalModel>/Label}" id="materialFragment">
+        <content>
+        <FlexBox wrap="Wrap" renderType="Bare" class="sapUiSmallMargin" justifyContent="Center">
+            <TextArea value="{BOQApprovalModel>/Comment}" liveChange="onCommentLiveChange" cols="80"></TextArea>
+        </FlexBox>
+        </content>
+		<beginButton>
+            <Button id="idPostButton" text="Post" press="onPostButtonPress" type="Emphasized" enabled="{BOQApprovalModel>/isPostButtonEnabled}"></Button>
+        </beginButton>
+		<endButton>
+			<Button text="cancel" press="onCancelBOQApprovalProcess"></Button>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

@@ -1,0 +1,19 @@
+node_modules/
+dist/
+.scp/
+.env
+Makefile*.mta
+mta_archives
+mta-*
+resources
+archive.zip
+# auto generated wildcard
+agel-mmts-web/tcengineer/.env1
+# auto generated wildcard
+agel-mmts-web/pmcg/.env1
+# auto generated wildcard
+pmcg/.env2
+# auto generated wildcard
+vendorPersona/.env11
+# auto generated wildcard
+agel-mmts-web/vendor-mdcc/.env1
