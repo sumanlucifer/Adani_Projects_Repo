@@ -26,13 +26,20 @@ agel-mmts-web/tcengineer/.env2
 agel-mmts-web/vendor-managemdcc/.env1
 # auto generated wildcard
 agel-mmts-web/vendor-mdcc/.env1
-=======
+
 
 # auto generated wildcard
 vendorPersona/.env10
 # auto generated wildcard
 agel-mmts-web/vendor-packinglist-create/.env1
->>>>>>> develop
+
 
 # auto generated wildcard
 agel-mmts-web/securityPerson-ScanQR/.env4
+
+
+# auto generated wildcard
+vendorPersona/.env11
+# auto generated wildcard
+agel-mmts-web/vendor-mdcc/.env1
+

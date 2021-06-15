@@ -38,7 +38,15 @@ agel-mmts-web/vendor-mdcc/.env1
 vendorPersona/.env10
 # auto generated wildcard
 agel-mmts-web/vendor-packinglist-create/.env1
+<<<<<<< HEAD
 >>>>>>> develop
 
 # auto generated wildcard
 agel-mmts-web/securityPerson-ScanQR/.env4
+=======
+
+# auto generated wildcard
+vendorPersona/.env11
+# auto generated wildcard
+agel-mmts-web/vendor-mdcc/.env1
+>>>>>>> develop
