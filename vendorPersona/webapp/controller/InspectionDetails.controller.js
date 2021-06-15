@@ -235,20 +235,6 @@ sap.ui.define([
         onMDCCYesSelect: function () {
             this.byId("idMDCCUploadArea").setVisible(true);
         },
-        onMDCCNOSelect: function () {
-            this.byId("idMDCCUploadArea").setVisible(false);
-        },
-
-        onBeforeUploadStarts: function () {
-        },
-
-        onUploadComplete: function (oEvent) {
-          
-        },
-
-        onUploadTerminated: function (oEvent) {
-        
-        },
 
         ///--------------------- Send For Approval ----------------------------------//
         
@@ -282,11 +268,6 @@ sap.ui.define([
                 });
         },
 
-        /////----------------------------------------------View Items-------------------------//
-        _arrangeData: function () {
-            var oModel = new JSONModel({ "ChildItems": this.ParentData });
-            this.getView().setModel(oModel, "TreeTableModel");
-        },
 
         onViewPress: function (oEvent) {
             //  var oItem = oEvent.getSource();
@@ -346,56 +327,81 @@ sap.ui.define([
             
         },
 
-        onViewChildDialogClose: function (oEvent) {
-            this.pDialog.then(function (oDialog) {
-                oDialog.close();
-            });
+		onMDCCNOSelect: function() {
+			this.byId("idMDCCUploadArea").setVisible(false);
+		},
+		onBeforeUploadStarts: function() {
+			//    var objectViewModel = this.getViewModel("objectViewModel");
+			//   objectViewModel.setProperty("/busy", true);
+			//    BusyIndicator.show();
+			// this.busyIndicator = new sap.m.BusyIndicator();
+			//  this.busyIndicator.open();
+		},
+		onUploadTerminated: function(oEvent) {
+			/* this.busyIndicator.close();
 
-        },
+			  var objectViewModel = this.getViewModel("objectViewModel");
 
-        // Parent Data View Fetch / Model Set
-        _getParentDataViewMDCC: function (sObjectId) {
-            // debugger;
-            this.ParentDataView = [];
-            var sPath = "/MDCCSet(" + sObjectId + ")/MDCCParentLineItems";
-            this.MainModel.read(sPath, {
-                success: function (oData, oResponse) {
-                    if (oData.results.length) {
-                        this._getChildItemsViewMDCC(oData.results, sObjectId);
-                    }
-
-                }.bind(this),
-                error: function (oError) {
-                    sap.m.MessageBox.Error(JSON.stringify(oError));
-                }
-            });
-        },
-
-        // Child Item View Fetch / Model Set
-        _getChildItemsViewMDCC: function (ParentDataView, sObjectId) {
-            this.ParentDataView = ParentDataView;
-            for (var i = 0; i < ParentDataView.length; i++) {
-                var sPath = "/MDCCSet(" + sObjectId + ")/MDCCParentLineItems(" + ParentDataView[i].ID + ")/MDCCBOQItems";
-                this.MainModel.read(sPath, {
-                    success: function (i, oData, oResponse) {
-                        if (oData.results.length) {
-                            this.ParentDataView[i].isStandAlone = true;
-                            this.ParentDataView[i].ChildItemsView = oData.results;
-                        }
-                        else {
-                            this.ParentDataView[i].isStandAlone = false;
-                            this.ParentDataView[i].ChildItemsView = [];
-                        }
-
-                        if (i == this.ParentDataView.length - 1)
-                            this._arrangeDataView();
-                    }.bind(this, i),
-                    error: function (oError) {
-                        sap.m.MessageBox.Error(JSON.stringify(oError));
-                    }
-                });
-            }
-        },
+			 objectViewModel.setProperty("/busy", false);*/
+		},
+		
+		// Arrange Data For View / Model Set
+		
+		onViewChildDialogClose: function(oEvent) {
+			this.pDialog.then(function(oDialog) {
+				oDialog.close();
+			});
+		},
+		// Parent Data View Fetch / Model Set
+		_getParentDataViewMDCC: function(sObjectId) {
+			// debugger;
+			this.ParentDataView = [];
+			var sPath = "/MDCCSet(" + sObjectId + ")/MDCCParentLineItems";
+			this.MainModel.read(sPath, {
+				success: function(oData, oResponse) {
+					if(oData.results.length) {
+						this._getChildItemsViewMDCC(oData.results, sObjectId);
+					}
+				}.bind(this),
+				error: function(oError) {
+					sap.m.MessageBox.Error(JSON.stringify(oError));
+				}
+			});
+		},
+		// Child Item View Fetch / Model Set
+		_getChildItemsViewMDCC: function(ParentDataView, sObjectId) {
+			this.ParentDataView = ParentDataView;
+			for(var i = 0; i < ParentDataView.length; i++) {
+				var sPath = "/MDCCSet(" + sObjectId + ")/MDCCParentLineItems(" + ParentDataView[i].ID + ")/MDCCBOQItems";
+				this.MainModel.read(sPath, {
+					success: function(i, oData, oResponse) {
+						if(oData.results.length) {
+							this.ParentDataView[i].isStandAlone = true;
+							this.ParentDataView[i].ChildItemsView = oData.results;
+						} else {
+							this.ParentDataView[i].isStandAlone = false;
+							this.ParentDataView[i].ChildItemsView = [];
+						}
+						if(i == this.ParentDataView.length - 1) this._arrangeDataView();
+					}.bind(this, i),
+					error: function(oError) {
+						sap.m.MessageBox.Error(JSON.stringify(oError));
+					}
+				});
+			}
+		},
+		//-------------------- File Upload MDCC ----------------------//
+		onMDCCFileUpload: function(oEvent) {
+			// keep a reference of the uploaded file
+			var that = this;
+			BusyIndicator.show();
+			var oFiles = oEvent.getParameters().files;
+			var fileName = oFiles[0].name;
+			var fileType = "application/pdf";
+			this._getImageData(URL.createObjectURL(oFiles[0]), function(base64) {
+				that._addData(base64, fileName, fileType);
+			}, fileName);
+		},
 
          //-------------------- Read MDCC ----------------------//
 

@@ -8,7 +8,7 @@
     controllerName="com.agel.mmts.pmcg.view.blocks.BOQDetails.boqItemsTable.BOQItemsTableController">
 
     <ui:TreeTable id="TreeTableBasicView" rows="{path:'TreeTableModelView>/', parameters: {arrayNames:['ChildItemsView']}}"
-        selectionMode="MultiToggle"  enableSelectAll="false" title="{i18n>TreeTableViewTitle}" ariaLabelledBy="title">
+        selectionMode="None"  enableSelectAll="false" ariaLabelledBy="title">
         <ui:extension>
             <m:OverflowToolbar style="Clear">
                 <m:ToolbarSpacer/>
