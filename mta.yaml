@@ -145,12 +145,12 @@ modules:
       name: mdm-boqitems
       target-path: resources/
     - artifacts:
-      - user-roleassignment-content.zip
-      name: user-roleassignment
+      - comagelmmtsvendormanagemdcc.zip
+      name: comagelmmtsvendormanagemdcc
       target-path: resources/
     - artifacts:
-      - comagelmmtsvendorpackinglistcreate.zip
-      name: comagelmmtsvendorpackinglistcreate
+      - comagelmmtsvendormdcc.zip
+      name: comagelmmtsvendormdcc
       target-path: resources/
     - artifacts:
       - comagelmmtssecurityinternationalimport.zip
@@ -403,21 +403,25 @@ modules:
     commands:
     - npm run build
     supported-platforms: []
-- name: user-roleassignment
+- name: comagelmmtsvendormanagemdcc
   type: html5
-  path: user-roleassignment
+  path: vendor-managemdcc
   build-parameters:
-    builder: custom
-    commands:
-    - npm run build
-    supported-platforms: []
-- name: comagelmmtsvendorpackinglistcreate
-  type: html5
-  path: vendor-packinglist-create
-  build-parameters:
+    build-result: dist
     builder: custom
     commands:
     - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: comagelmmtsvendormdcc
+  type: html5
+  path: vendor-mdcc
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
     supported-platforms: []
 - name: comagelmmtssecurityinternationalimport
   type: html5

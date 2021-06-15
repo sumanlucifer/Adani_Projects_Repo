@@ -1,0 +1,86 @@
+<mvc:View
+    controllerName="com.agel.mmts.vendormdcc.controller.Main"
+	xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    displayBlock="true"
+	xmlns="sap.m"
+	xmlns:ui="sap.ui.table">
+	<Shell id="shell">
+		<App id="app">
+			<pages>
+				<Page id="page" title="{i18n>ManageMDCC}">
+					<content>
+                        <OverflowToolbar>
+                            <ToolbarSpacer width="80%"/>
+                            <Button id="idBtnSave" text="Save" type="Emphasized" press="onSave"/>
+                        <!--    <Button text="View" type="Emphasized" press="onViewPress"/> -->
+                            <Button text="Disptach View" type="Emphasized" press="onDispatchViewPress"/>
+                        </OverflowToolbar>
+						<ui:TreeTable id="TreeTableBasic"
+                            rows="{path:'TreeTableModel>/', parameters: {arrayNames:['ChildItems']}}"
+                            selectionMode="None"  enableSelectAll="false"
+                            title="{i18n>ManageMDCC}" ariaLabelledBy="title">
+							<ui:columns>
+                              <ui:Column width="7rem">
+									<Label text="Select"/>
+									<ui:template>
+										 <CheckBox selected="{TreeTableModel>isSelected}" 
+                                           select="onSelectionOfRow" />
+									</ui:template>
+								</ui:Column>
+
+								<ui:Column width="5rem">
+									<Label text="ID"/>
+									<ui:template>
+										<Text text="{TreeTableModel>ID}" wrapping="false" />
+									</ui:template>
+								</ui:Column>
+								<ui:Column width="13rem">
+									<Label text="Name"/>
+									<ui:template>
+										<Text text="{TreeTableModel>Name}" wrapping="false" />
+									</ui:template>
+								</ui:Column>
+								<ui:Column width="13rem">
+									<Label text="Description"/>
+									<ui:template>
+										<Text text="{TreeTableModel>Description}" wrapping="false" />
+									</ui:template>
+								</ui:Column>
+								<ui:Column width="13rem">
+									<Label text="MaterialCode"/>
+									<ui:template>
+										<Text text="{TreeTableModel>MaterialCode}" wrapping="false" />
+									</ui:template>
+								</ui:Column>
+								<ui:Column width="5rem">
+									<Label text="Qty"/>
+									<ui:template>
+										<Text text="{TreeTableModel>Qty}" wrapping="false" />
+									</ui:template>
+								</ui:Column>
+								<ui:Column width="10rem">
+									<Label text="MDCCApprovedQty"/>
+									<ui:template>
+                                        
+										    <Input value="{TreeTableModel>MDCCApprovedQty}" 
+                                                editable="{= ${TreeTableModel>isSelected} ? true : false }"
+                                                liveChange="onLiveChangeApprovedQty" />
+                                          <!--  <Button icon="sap-icon://edit" type="Transparent" press="onEditQuantity"/>-->
+                                       
+									</ui:template>
+								</ui:Column>
+								<ui:Column width="13rem">
+									<Label text="UOM"/>
+									<ui:template>
+										<Text text="{TreeTableModel>UOM}" wrapping="false" />
+									</ui:template>
+								</ui:Column>
+							</ui:columns>
+						</ui:TreeTable>
+					</content>
+				</Page>
+			</pages>
+		</App>
+	</Shell>
+</mvc:View>

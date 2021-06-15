@@ -1,7 +1,12 @@
 {
     "resources": [
         {
+<<<<<<< HEAD
+            "name": "i18n/i18n.properties",
+            "raw": "i18n/i18n.properties"
+=======
             "name": "css/style.css"
+>>>>>>> develop
         },
         {
             "name": "manifest.json"
@@ -41,8 +46,12 @@
             "name": "view/LandingPage.view.xml"
         },
         {
+<<<<<<< HEAD
+            "name": "css/style.css"
+=======
             "name": "i18n/i18n.properties",
             "raw": "i18n/i18n.properties"
+>>>>>>> develop
         },
         {
             "name": "index.html"
