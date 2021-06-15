@@ -129,6 +129,10 @@ modules:
       name: tcengineer
       target-path: resources/
     - artifacts:
+      - pmcg-content.zip
+      name: pmcg
+      target-path: resources/
+    - artifacts:
       - mdm-packinglisttype-content.zip
       name: mdm-packinglisttype
       target-path: resources/
@@ -370,6 +374,14 @@ modules:
 - name: tcengineer
   type: html5
   path: tcengineer
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []
+- name: pmcg
+  type: html5
+  path: pmcg
   build-parameters:
     builder: custom
     commands:

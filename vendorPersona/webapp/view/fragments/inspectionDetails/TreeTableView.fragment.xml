@@ -10,7 +10,7 @@
 
                             rows="{path:'TreeTableModelView>/', parameters: {arrayNames:['ChildItemsView']}}"
 
-                            selectionMode="MultiToggle"  enableSelectAll="false"
+                            selectionMode="None"  enableSelectAll="false"
 
                             title="{i18n>TreeTableViewTitle}" ariaLabelledBy="title">
 			<ui:columns>

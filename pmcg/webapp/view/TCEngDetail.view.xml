@@ -112,12 +112,46 @@
                 </uxap:subSections>
             </uxap:ObjectPageSection>
 
-            <!-- Line Items Section -->
-            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>boqItems}">
+            <!-- MDCC Documents -->
+            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>mdccDocuments}">
                 <uxap:subSections>
-                    <uxap:ObjectPageSubSection title="{i18n>boqItems}">
+                    <uxap:ObjectPageSubSection title="{i18n>mdccDocuments}">
                         <uxap:blocks>
-                            <boqItemsTable:BOQItemsTable class="sapUxAPObjectPageSubSectionAlignContent" OnApproveBOQPress="BOQApproval" OnRejectBOQPress="onRejectBOQPress"/>
+                            <VBox renderType="Bare" class="sapUiLargeMarginTop">
+                                <Title text="Uploaded Documents" level="H1"/>
+                                <VBox id="idMDCCUploadArea">
+                                    <UploadCollection id="idMDCCUploader" maximumFilenameLength="55" maximumFileSize="10" 
+                                    multiple="true"
+                                    items="{
+                                    path:'Attachments',
+                                    parameters : {
+                                        $filter : 'Type eq \'MDCC\''
+                                    },
+                                    templateShareable: false}" mode="None" uploadButtonInvisible="true"
+                                        >
+                                        <items>
+                                            <UploadCollectionItem documentId="{ID}" url="{parts: ['FileName','file'], 
+                                        formatter: '.formatter.fileContent' }" enableEdit="false" enableDelete="false" visibleDelete="false" visibleEdit="false" fileName="{FileName}">
+                                                <attributes>
+                                                    <ObjectAttribute title="Uploaded By" text="{UploadedBy}" class="sapUiSmallMarginEnd"/>
+                                                    <ObjectAttribute title="Uploaded On" text= "{path:'UploadedOn', type: 'sap.ui.model.type.Date', formatOptions: {pattern: 'MMMM dd, yyyy'}}"/>
+                                                </attributes>
+                                            </UploadCollectionItem>
+                                        </items>
+                                    </UploadCollection>
+                                </VBox>
+                            </VBox>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+            <!-- MDCC Section -->
+            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>mdcc}">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection title="{i18n>mdcc}">
+                        <uxap:blocks>
+                            <boqItemsTable:BOQItemsTable class="sapUxAPObjectPageSubSectionAlignContent" OnApproveBOQPress="onApproveBOQPress" OnRejectBOQPress="onRejectBOQPress"/>
                         </uxap:blocks>
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>
