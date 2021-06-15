@@ -140,7 +140,6 @@
       "preLaunchTask": "Build sapui5-1"
     },
     {
-      "name": "Run sapui5-1-pmcg",
       "type": "node",
       "request": "launch",
       "program": "${workspaceFolder}/agel-mmts-web-approuter/node_modules/@sap/html5-repo-mock/index.js",
