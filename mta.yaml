@@ -152,6 +152,14 @@ modules:
       - comagelmmtsvendorpackinglistcreate.zip
       name: comagelmmtsvendorpackinglistcreate
       target-path: resources/
+    - artifacts:
+      - comagelmmtssecurityinternationalimport.zip
+      name: comagelmmtssecurityinternationalimport
+      target-path: resources/
+    - artifacts:
+      - comagelmmtssecurityscanhistory.zip
+      name: comagelmmtssecurityscanhistory
+      target-path: resources/
 - name: vendorPersona
   type: html5
   path: vendorPersona
@@ -411,6 +419,26 @@ modules:
     commands:
     - npm install
     supported-platforms: []
+- name: comagelmmtssecurityinternationalimport
+  type: html5
+  path: security-international-import
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: comagelmmtssecurityscanhistory
+  type: html5
+  path: security-scan-history
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
 resources:
 - name: uaa_agel-mmts-web
   type: org.cloudfoundry.managed-service
@@ -453,6 +481,7 @@ resources:
     service-plan: lite
 parameters:
   -enable-parallel-deployments: true
+  deploy_mode: html5-repo
 build-parameters:
   before-all:
   - builder: custom
