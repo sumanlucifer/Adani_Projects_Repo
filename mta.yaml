@@ -160,6 +160,10 @@ modules:
       - comagelmmtssecurityscanhistory.zip
       name: comagelmmtssecurityscanhistory
       target-path: resources/
+    - artifacts:
+      - security-scanqr-content.zip
+      name: security-scanqr
+      target-path: resources/
 - name: vendorPersona
   type: html5
   path: vendorPersona
@@ -442,6 +446,14 @@ modules:
     commands:
     - npm install
     - npm run build:cf
+    supported-platforms: []
+- name: security-scanqr
+  type: html5
+  path: security-scanqr
+  build-parameters:
+    builder: custom
+    commands:
+    - npm install
     supported-platforms: []
 resources:
 - name: uaa_agel-mmts-web

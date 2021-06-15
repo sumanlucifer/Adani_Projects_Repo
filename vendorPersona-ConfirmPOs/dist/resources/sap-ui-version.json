@@ -2,6 +2,9 @@
 	"name": "vendorPersona-ConfirmPOs",
 	"version": "0.0.1",
 <<<<<<< HEAD
+	"buildTimestamp": "202106091101",
+=======
+<<<<<<< HEAD
 <<<<<<< HEAD
 	"buildTimestamp": "202106030603",
 =======
@@ -10,6 +13,7 @@
 =======
 	"buildTimestamp": "202106070746",
 >>>>>>> develop
+>>>>>>> 950a1aa2bd6c8bd656c54d5fc443a646f0a6b70f
 	"scmRevision": "",
 	"libraries": []
 }
