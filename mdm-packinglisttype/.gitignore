@@ -13,15 +13,23 @@ agel-mmts-web/vendorPersona/.env17
 tcengineer/.env1
 
 # auto generated wildcard
-agel-mmts-web/user-roleassignment/.env1
+agel-mmts-web/vendor-managemdcc/.env1
 # auto generated wildcard
-user-roleassignment/.env2
+agel-mmts-web/vendor-mdcc/.env1
+
 
 # auto generated wildcard
 vendorPersona/.env10
 # auto generated wildcard
 agel-mmts-web/vendor-packinglist-create/.env1
+
+
 # auto generated wildcard
-agel-mmts-web/security-international-import/.env1
+agel-mmts-web/securityPerson-ScanQR/.env4
+
+
 # auto generated wildcard
-agel-mmts-web/security-scan-history/.env1
+vendorPersona/.env11
+# auto generated wildcard
+agel-mmts-web/vendor-mdcc/.env1
+

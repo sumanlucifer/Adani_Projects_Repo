@@ -25,13 +25,37 @@ agel-mmts-web/vendor-manageboq/.env1
 agel-mmts-web/tcengineer/.env2
 
 # auto generated wildcard
+<<<<<<< HEAD
+agel-mmts-web/mdm-packinglisttype/.env1
+=======
 user-roleassignment/.env2
+<<<<<<< HEAD
+>>>>>>> develop
 
 # auto generated wildcard
-vendorPersona/.env10
+agel-mmts-web/vendor-managemdcc/.env1
 # auto generated wildcard
+agel-mmts-web/vendor-mdcc/.env1
+=======
+
+# auto generated wildcard
+
+
+# auto generated wildcard
+<<<<<<< HEAD
 agel-mmts-web/vendor-packinglist-create/.env1
+>>>>>>> develop
+
+# auto generated wildcard
+agel-mmts-web/securityPerson-ScanQR/.env4
+=======
+vendorPersona/.env11
+# auto generated wildcard
+agel-mmts-web/vendor-mdcc/.env1
+
 # auto generated wildcard
 agel-mmts-web/security-international-import/.env1
 # auto generated wildcard
 agel-mmts-web/security-scan-history/.env1
+
+>>>>>>> develop

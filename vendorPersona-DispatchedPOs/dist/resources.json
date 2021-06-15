@@ -24,11 +24,15 @@
             "merged": true
         },
         {
+<<<<<<< HEAD
+            "name": "controller/LandingPage-dbg.controller.js",
+=======
             "name": "Component-dbg.js",
+>>>>>>> develop
             "isDebug": true
         },
         {
-            "name": "controller/LandingPage-dbg.controller.js",
+            "name": "model/models-dbg.js",
             "isDebug": true
         },
         {
