@@ -30,18 +30,10 @@
         },
         "dataSources": {
             "default": {
-                "uri": "/AGEL_MMTS_API/odata/v4/SecurityPersonService/",
+                "uri": "/AGEL_MMTS_API/api/v2/odata.svc/",
                 "type": "OData",
                 "settings": {
-                    "odataVersion": "4.0",
-                    "localUri": "localService/metadata.xml"
-                }
-            },
-            "uploadService": {
-                "uri": "/AGEL_MMTS_API/odata/v4/AttachmentsService/",
-                "type": "OData",
-                "settings": {
-                    "odataVersion": "4.0",
+                    "odataVersion": "2.0",
                     "localUri": "localService/metadata.xml"
                 }
             }
@@ -93,23 +85,15 @@
 				}
             },
             "": {
+                "type": "sap.ui.model.odata.v2.ODataModel",
                 "settings": {
-                    "operationMode": "Server",
-                    "groupId": "$direct",
-                    "synchronizationMode": "None",
-                    "autoExpandSelect": true
+                    "defaultOperationMode": "Server",
+                    "defaultBindingMode": "TwoWay",
+                    "defaultCountMode": "Inline",
+                    "refreshAfterChange": true,
+                    "useBatch": false
                 },
                 "dataSource": "default",
-                "preload": true
-            },
-            "DocumentUploadModel": {
-                "settings": {
-                    "operationMode": "Server",
-                    "groupId": "$direct",
-                    "synchronizationMode": "None",
-                    "autoExpandSelect": true
-                },
-                "dataSource": "uploadService",
                 "preload": true
             }
 		},

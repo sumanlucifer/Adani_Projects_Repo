@@ -1,0 +1,64 @@
+<mvc:View controllerName="com.agel.mmts.vendormanagemdcc.controller.Master"
+	xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+	xmlns:f="sap.f"
+	xmlns="sap.m"
+	xmlns:smartList="sap.ui.comp.smartlist">
+	<f:DynamicPage toggleHeaderOnTitleClick="false" showFooter="true">
+		<f:title>
+			<f:DynamicPageTitle>
+				<f:heading>
+					<Title text="{i18n>managemdccTitle}"/>
+				</f:heading>
+			</f:DynamicPageTitle>
+		</f:title>
+		<f:content>
+			<!--  <List id="idListMaster" items="{path: 'MDCCParentLineItems'}"><headerToolbar><OverflowToolbar><Title id="idTitle" text="{i18n>mdccList}"/><ToolbarSpacer/><SearchField id="searchField" showRefreshButton="true"
+							tooltip="{i18n>masterSearchTooltip}" search=".onSearch" width="auto"><layoutData><OverflowToolbarLayoutData minWidth="150px"
+									maxWidth="240px" shrinkable="true"
+									priority="NeverOverflow"/></layoutData></SearchField><Button id="groupButton" press=".onOpenViewSettings"
+							icon="sap-icon://action-settings" type="Transparent"/><Button icon="sap-icon://add" 
+                            press="onCreatePress"/></OverflowToolbar></headerToolbar><items><StandardListItem title="{Name}" description="{Description}"
+                type="Navigation" press="onPackingListTypePress"/></items></List>-->
+			<Table width="auto" growing="true" id="idViewMDCCLineItemsTable" 
+              growingThreshold="10" items="{path: 'InspectionCall/InspectedParentItems'}" 
+              class="sapUiResponsiveMargin" fixedLayout="false" >
+                <headerToolbar>
+					<OverflowToolbar>
+                        <Title id="idTitle" text="{i18n>mdccList}"/>
+                        <ToolbarSpacer/>
+						<SearchField id="searchField" showRefreshButton="true"
+							tooltip="{i18n>masterSearchTooltip}" search=".onSearch" width="auto">
+							<layoutData>
+								<OverflowToolbarLayoutData minWidth="150px"
+									maxWidth="240px" shrinkable="true"
+									priority="NeverOverflow"/>
+							</layoutData>
+						</SearchField>
+						<Button id="groupButton" press=".onOpenViewSettings"
+							icon="sap-icon://action-settings" type="Transparent"/>
+					</OverflowToolbar>
+				</headerToolbar>
+				<columns>
+					<Column>
+						<Text text="{i18n>materialCode}" wrapping="true" wrappingType="Hyphenated"/>
+					</Column>
+					<Column>
+						<Text text="{i18n>name}" wrapping="true"/>
+					</Column>
+					<Column hAlign="Center">
+						<Text text="{i18n>orderUnit}"/>
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem type="Navigation" press="onPackingListTypePress">
+						<cells>
+							<ObjectIdentifier title="{MaterialCode}"/>
+							<Text text="{Name}"/>
+							<Text text="{UOM}"/>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+		</f:content>
+	</f:DynamicPage>
+</mvc:View>

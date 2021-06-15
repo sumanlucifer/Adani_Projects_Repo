@@ -1,0 +1,65 @@
+<mvc:View
+    controllerName="com.agel.mmts.securityinternationalimport.controller.Main"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+    xmlns="sap.m"
+    xmlns:uxap="sap.uxap"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+    xmlns:unified="sap.ui.unified"
+>
+<uxap:ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true" upperCaseAnchorBar="false" headerContentPinnable="true" toggleHeaderOnTitleClick="true" busy="{objectViewModel>/busy}">
+        <uxap:headerTitle>
+            <uxap:ObjectPageDynamicHeaderTitle>
+                <uxap:breadcrumbs>
+                  
+                </uxap:breadcrumbs>
+                <uxap:expandedHeading>
+                    <Title text="International Import Entry" wrapping="true" titleStyle="H3" />
+                </uxap:expandedHeading>
+                <uxap:snappedHeading>
+                   
+                </uxap:snappedHeading>
+                <uxap:expandedContent></uxap:expandedContent>
+                <uxap:snappedTitleOnMobile>
+                    
+                </uxap:snappedTitleOnMobile>
+                <uxap:actions>
+                    <Button text="Submit" press="onCreateEntry" type="Emphasized"/>
+                </uxap:actions>
+            </uxap:ObjectPageDynamicHeaderTitle>
+        </uxap:headerTitle>
+        <uxap:headerContent>
+            <FlexBox direction="Row" renderType="Bare" class="sapUiTinyMarginBottom">
+                <VBox renderType="Bare" class="sapUiMediumMarginEnd">
+                    
+                </VBox>
+            </FlexBox>
+        </uxap:headerContent>
+        <uxap:sections>
+         <uxap:ObjectPageSection>
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection>
+                            <f:SimpleForm layout="ColumnLayout" columnsM="2" columnsL="3" columnsXL="4"
+                              labelSpanL="4" labelSpanXL="4"	labelSpanM="12"	labelSpanS="12"
+                                  singleContainerFullSize="false" binding="{oImportModel>/}" >
+                                <f:content>
+                                    <!-- <core:Title  /> -->
+                                    <Label text="PO Number:" />
+                                    <Input id="idInpPoNob" liveChange="onLiveChangePoNob" value="{oImportModel>PONumber}" />
+                                    <Label text="Container Number:" />
+                                    <Input id="idInpContNob" liveChange="onLiveChangeContNob" value="{oImportModel>ContainerNumber}" />
+                                    <!-- <core:Title ></core:Title> -->
+                                    <Label text="Vehicle Number:" />
+                                    <Input id="idInpVehicleNob" liveChange="onLiveChangeVehicleNob" value="{oImportModel>VehicleNumber}" />
+                                    <Label text="Invoice Number:" />
+                                    <Input id="idInvoiceNob" liveChange="onLiveChangeInvoiceNob" value="{oImportModel>InvoiceNumber}" />
+                                </f:content>
+                            </f:SimpleForm> 
+                   </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+        </uxap:sections>
+    </uxap:ObjectPageLayout>
+</mvc:View>

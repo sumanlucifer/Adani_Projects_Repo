@@ -10,16 +10,7 @@ archive.zip
 # auto generated wildcard
 vendor-manageboq/.env1
 # auto generated wildcard
-agel-mmts-web/user-roleassignment/.env1
-# auto generated wildcard
-user-roleassignment/.env2
+
 
 # auto generated wildcard
-vendorPersona/.env10
-# auto generated wildcard
-agel-mmts-web/vendor-packinglist-create/.env1
-
-# auto generated wildcard
-vendorPersona/.env11
-# auto generated wildcard
-pmcg/.env3
+agel-mmts-web/securityPerson-ScanQR/.env4

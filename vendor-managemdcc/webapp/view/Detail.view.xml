@@ -1,0 +1,105 @@
+<mvc:View
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:uxap="sap.uxap"
+	xmlns:l="sap.ui.layout"
+	xmlns:f="sap.ui.layout.form"
+	xmlns:core="sap.ui.core"
+	xmlns:unified="sap.ui.unified"
+	xmlns:data="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+	xmlns="sap.m" controllerName="com.agel.mmts.vendormanagemdcc.controller.Detail" height="100%">
+	<uxap:ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true" showFooter="{objectViewModel>/showFooter}"
+         upperCaseAnchorBar="false" headerContentPinnable="true" toggleHeaderOnTitleClick="true" busy="{objectViewModel>/busy}">
+		<uxap:headerTitle>
+			<uxap:ObjectPageDynamicHeaderTitle>
+                <uxap:breadcrumbs>
+                    <Breadcrumbs id="breadcrumbsId" currentLocationText="{i18n>ManageMDCC}">
+                        <Link text="{i18n>ManageMDCC}" press=".handleToAllPOBreadcrumPress"/>
+                        <Link text="{i18n>ManageMDCC}" press=".handleToAllPOBreadcrumPress"/>
+                    </Breadcrumbs>
+                </uxap:breadcrumbs>
+				<uxap:expandedHeading>
+					<Title text="{PONumber}" wrapping="true" titleStyle="H3" />
+				</uxap:expandedHeading>
+				<uxap:expandedContent>
+                    <Title text="{MDCCNumber}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
+                </uxap:expandedContent>
+				<uxap:snappedTitleOnMobile>
+					<Title text="{MDCCNumber}" wrapping="true" titleStyle="Auto"/>
+				</uxap:snappedTitleOnMobile>
+				<uxap:actions>
+					<Button id="idBtnEdit" text="Edit" icon="sap-icon://edit" press="onEdit" 
+                                    visible="{= ${objectViewModel>/idBtnEdit}}"/>
+					<Button text="Delete" type="Reject" visible="{= ${objectViewModel>/idBtnDelete}}"
+                         press="onDeletePress"/>
+				</uxap:actions>
+			</uxap:ObjectPageDynamicHeaderTitle>
+		</uxap:headerTitle>
+		<uxap:headerContent>
+			<FlexBox direction="Row" renderType="Bare" class="sapUiTinyMarginBottom">
+				<VBox renderType="Bare" class="sapUiMediumMarginEnd">
+					<!-- <Label text="{i18n>name}" class="sapUiTinyMarginBottom"/><Text text="{Name}"/> -->
+				</VBox>
+			</FlexBox>
+		</uxap:headerContent>
+		<uxap:sections>
+			<uxap:ObjectPageSection>
+				<uxap:subSections>
+					<uxap:ObjectPageSubSection>
+						<Table id="idParentItemTable" width="auto" growing="true" growingThreshold="5" 
+                            items="{path: 'ParentItemModel>/'}" fixedLayout="false" mode="MultiSelect" 
+                            selectionChange="onSelectionChange">
+                            <headerToolbar>
+                                    <OverflowToolbar>
+                                        <ToolbarSpacer/>
+                                        <Button text="Add Row" icon="sap-icon://add" press="onAddItemPress"></Button>
+                                    </OverflowToolbar>
+                                </headerToolbar>
+							<columns>
+								<Column importance="High">
+									<Text text="{i18n>materialCode}" wrapping="true" wrappingType="Hyphenated"/>
+								</Column>
+								<Column>
+									<Text text="Name" wrapping="true"/>
+								</Column>
+								<Column demandPopin="true" minScreenWidth="Desktop">
+									<Text text="{i18n>description}"/>
+								</Column>
+                                <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center">
+									<Text text="{i18n>quantity}" />
+								</Column>
+								<Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center">
+									<Text text="{i18n>approvedQuantity}" />
+								</Column>								
+								<Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center">
+									<Text text="{i18n>orderUnit}"/>
+								</Column>
+							</columns>
+							<items>
+								<ColumnListItem>
+									<cells>
+										<ObjectIdentifier title="{ParentItemModel>MaterialCode}"/>
+										<Text text="{ParentItemModel>Name}" wrappingType="Hyphenated"/>
+										<ExpandableText text="{ParentItemModel>Description}" maxCharacters="20" overflowMode="Popover"/>
+										<Text text="{ParentItemModel>Qty}"/>
+										<Input value="{ParentItemModel>MDCCApprovedQty1}" width="30%" type="Number" enabled="false"/>
+										<Text text="{ParentItemModel>UOM}"/>
+									</cells>
+								</ColumnListItem>
+							</items>
+						</Table>
+						<uxap:actions></uxap:actions>
+					</uxap:ObjectPageSubSection>
+				</uxap:subSections>
+			</uxap:ObjectPageSection>
+		</uxap:sections>
+		<uxap:footer>
+			<OverflowToolbar>
+				<ToolbarSpacer/>
+				<Button id="idBtnSave" text="Save" icon="sap-icon://save" press="onSave"
+                         type="Accept"  visible="{= ${objectViewModel>/idBtnSave}}"/>
+				<Button id="idBtnCancel" text="Cancel" icon="sap-icon://cancel" press="onCancel" 
+                                    visible="{= ${objectViewModel>/idBtnCancel}}"/>
+			</OverflowToolbar>
+		</uxap:footer>
+	</uxap:ObjectPageLayout>
+</mvc:View>

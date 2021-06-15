@@ -1,11 +1,4 @@
 {
-  "inputs": [
-    {
-      "id": "UI5Version",
-      "type": "command",
-      "command": "sap.ux.appGenerator.ui5Version"
-    }
-  ],
   "configurations": [
     {
       "name": "Run sapui5-vendorPersona",
@@ -168,5 +161,12 @@
     }
   ],
   "compounds": [],
+  "inputs": [
+    {
+      "id": "UI5Version",
+      "type": "command",
+      "command": "sap.ux.appGenerator.ui5Version"
+    }
+  ],
   "version": "0.2.0"
 }

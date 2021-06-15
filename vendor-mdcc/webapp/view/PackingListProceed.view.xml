@@ -1,0 +1,155 @@
+<mvc:View xmlns:f2="sap.f"
+    xmlns:vbm="sap.ui.vbm"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:uxap="sap.uxap"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+    xmlns:unified="sap.ui.unified"
+    xmlns:ui="sap.ui.table"
+    xmlns:smartTable="sap.ui.comp.smarttable"
+    xmlns="sap.m" 
+    controllerName="com.agel.mmts.vendormdcc.controller.PackingListProceed"
+    height="100%">
+
+  <uxap:ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true" upperCaseAnchorBar="false"
+         headerContentPinnable="true" toggleHeaderOnTitleClick="true" preserveHeaderStateOnScroll="true"
+         busy="{objectViewModel>/busy}">
+        <uxap:headerTitle>
+            <uxap:ObjectPageDynamicHeaderTitle>
+                <uxap:breadcrumbs>
+                    <!-- <Breadcrumbs id="breadcrumbsId" currentLocationText="{i18n>confirmedPODetails}">
+                        <Link text="{i18n>assignedPOList}" press=".handleToAllPOBreadcrumPress"/>
+                    </Breadcrumbs> -->
+                </uxap:breadcrumbs>
+                <uxap:expandedHeading>
+                    <FlexBox direction="Column" renderType="Bare">
+                        <Title text="MDCC No." wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
+                        <Title text="{MDCCNumber}" wrapping="true" titleStyle="H3"/>
+                    </FlexBox>
+                </uxap:expandedHeading>
+                <uxap:snappedHeading>
+                    <FlexBox direction="Column" renderType="Bare">
+                      <!--  <Title text="Date" wrapping="true" titleStyle="H4"/>
+                        <Title text="{CreatedAt}"  wrapping="true" titleStyle="H3"/> -->
+                    </FlexBox>
+                </uxap:snappedHeading>
+                <uxap:expandedContent></uxap:expandedContent>
+                <uxap:snappedTitleOnMobile>
+                   
+                </uxap:snappedTitleOnMobile>
+                <uxap:actions>
+                    <Button text="Proceed" type="Emphasized" press="onPressProccedSave"/>
+                </uxap:actions>
+            </uxap:ObjectPageDynamicHeaderTitle>
+        </uxap:headerTitle>
+        <uxap:headerContent>
+            <FlexBox wrap="Wrap" height="100%" renderType="Bare" direction="Column">
+                <VBox renderType="Bare">
+                    <FlexBox direction="Row" renderType="Bare" class="sapUiTinyMarginBottom">
+                        <VBox renderType="Bare" class="sapUiMediumMarginEnd">
+                            <Title text="Date" wrapping="true" titleStyle="H4"/>
+                            <Title text="{path:'CreatedAt',
+                                     type: 'sap.ui.model.type.Date',
+				                     formatOptions: {
+				                        pattern: 'MMMM dd, yyyy'
+				                     }}"  wrapping="true" titleStyle="H3"/>
+                        </VBox>
+                        <VBox renderType="Bare">
+                            
+                        </VBox>
+                    </FlexBox>
+                </VBox>
+            </FlexBox>
+        </uxap:headerContent>
+        <uxap:sections>
+            
+            <!-- Packing List Items Section -->
+            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>packingList}">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection title="{i18n>packingList}">
+                        <VBox renderType="Bare">
+                        <Label text="Select items that you want to send with this packing list"/>
+
+						<ui:TreeTable id="TreeTableBasic"
+                            rows="{path:'TreeTableModel>/', parameters: {arrayNames:['ChildItems']}}"
+                            selectionMode="None"  enableSelectAll="false" 
+                            title="{i18n>lineItems}" ariaLabelledBy="title"
+                            visibleRowCountMode="Fixed"
+                            rowSelectionChange="onSelectionOfRow">
+							<ui:columns>
+                                <ui:Column width="7rem">
+									<Label text="Select"/>
+									<ui:template>
+										 <CheckBox selected="{TreeTableModel>isSelected}" 
+                                            select="onSelectionOfRow" visible="{= ${TreeTableModel>isStandAlone} ? false : true}" />
+									</ui:template>
+								</ui:Column>
+                           
+								<ui:Column width="5rem">
+									<Label text="ID"/>
+									<ui:template>
+										<Text text="{TreeTableModel>ID}" wrapping="false" />
+									</ui:template>
+								</ui:Column>
+                                <ui:Column width="13rem">
+									<Label text="MaterialCode"/>
+									<ui:template>
+										<Text text="{TreeTableModel>MaterialCode}" wrapping="false" />
+									</ui:template>
+								</ui:Column>
+								<ui:Column width="13rem">
+									<Label text="Name"/>
+									<ui:template>
+										<Text text="{TreeTableModel>Name}" wrapping="false" />
+									</ui:template>
+								</ui:Column>
+								<ui:Column width="13rem">
+									<Label text="Description"/>
+									<ui:template>
+										<Text text="{TreeTableModel>Description}" wrapping="false" />
+									</ui:template>
+								</ui:Column>
+								
+								<ui:Column width="5rem">
+									<Label text="Qty"/>
+									<ui:template>
+										<Text text="{TreeTableModel>Qty}" wrapping="false" />
+									</ui:template>
+								</ui:Column>
+
+								<ui:Column width="10rem">
+									<Label text="MDCCApproved Qty"/>
+									<ui:template>
+                                        
+										    <Text text="{TreeTableModel>MDCCApprovedQty}" />
+                                        
+									</ui:template>
+								</ui:Column>
+
+                                <ui:Column width="10rem">
+									<Label text="Dispatch Qty"/>
+									<ui:template>
+                                        
+										    <Input value="{TreeTableModel>DispatchQty}" editable="false" visible="{= ${TreeTableModel>isStandAlone} ? false : true}" />
+                                       
+									</ui:template>
+								</ui:Column>
+
+								<ui:Column width="13rem">
+									<Label text="UOM"/>
+									<ui:template>
+										<Text text="{TreeTableModel>UOM}" wrapping="false" />
+									</ui:template>
+								</ui:Column>
+							</ui:columns>
+						</ui:TreeTable>
+                        </VBox>
+					 </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+          </uxap:sections>
+    </uxap:ObjectPageLayout>
+
+</mvc:View>

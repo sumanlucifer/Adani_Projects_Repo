@@ -149,12 +149,24 @@ modules:
       name: mdm-boqitems
       target-path: resources/
     - artifacts:
-      - user-roleassignment-content.zip
-      name: user-roleassignment
+      - comagelmmtsvendormanagemdcc.zip
+      name: comagelmmtsvendormanagemdcc
       target-path: resources/
     - artifacts:
-      - comagelmmtsvendorpackinglistcreate.zip
-      name: comagelmmtsvendorpackinglistcreate
+      - comagelmmtsvendormdcc.zip
+      name: comagelmmtsvendormdcc
+      target-path: resources/
+    - artifacts:
+      - comagelmmtssecurityinternationalimport.zip
+      name: comagelmmtssecurityinternationalimport
+      target-path: resources/
+    - artifacts:
+      - comagelmmtssecurityscanhistory.zip
+      name: comagelmmtssecurityscanhistory
+      target-path: resources/
+    - artifacts:
+      - security-scanqr-content.zip
+      name: security-scanqr
       target-path: resources/
 - name: vendorPersona
   type: html5
@@ -407,17 +419,49 @@ modules:
     commands:
     - npm run build
     supported-platforms: []
-- name: user-roleassignment
+- name: comagelmmtsvendormanagemdcc
   type: html5
-  path: user-roleassignment
+  path: vendor-managemdcc
   build-parameters:
+    build-result: dist
     builder: custom
     commands:
-    - npm run build
+    - npm install
+    - npm run build:cf
     supported-platforms: []
-- name: comagelmmtsvendorpackinglistcreate
+- name: comagelmmtsvendormdcc
   type: html5
-  path: vendor-packinglist-create
+  path: vendor-mdcc
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: comagelmmtssecurityinternationalimport
+  type: html5
+  path: security-international-import
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: comagelmmtssecurityscanhistory
+  type: html5
+  path: security-scan-history
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: security-scanqr
+  type: html5
+  path: security-scanqr
   build-parameters:
     builder: custom
     commands:
@@ -465,6 +509,7 @@ resources:
     service-plan: lite
 parameters:
   -enable-parallel-deployments: true
+  deploy_mode: html5-repo
 build-parameters:
   before-all:
   - builder: custom
