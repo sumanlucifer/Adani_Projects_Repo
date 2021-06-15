@@ -43,7 +43,7 @@ tcengineer/.env1
 agel-mmts-web/tcengineer/.env1
 # auto generated wildcard
 agel-mmts-web/pmcg/.env1
-=======
+
 
 # auto generated wildcard
 vendor-manageboq/.env1
@@ -53,20 +53,14 @@ vendor-manageboq/.env2
 
 # auto generated wildcard
 agel-mmts-web/user-roleassignment/.env1
-=======
+
 vendorPersona/.env21
 
-<<<<<<< HEAD
-# auto generated wildcard
-agel-mmts-web/vendor-managemdcc/.env1
-# auto generated wildcard
-agel-mmts-web/vendor-mdcc/.env1
-=======
 
 
 # auto generated wildcard
 agel-mmts-web/securityPerson-ScanQR/.env4
-=======
+
 
 # auto generated wildcard
 user-roleassignment/.env2
@@ -74,24 +68,36 @@ user-roleassignment/.env2
 
 # auto generated wildcard
 pmcg/.env2
-=======
+
 
 # auto generated wildcard
 vendorPersona/.env10
 # auto generated wildcard
 agel-mmts-web/vendor-packinglist-create/.env1
+<<<<<<< HEAD
+# auto generated wildcard
+vendor-packinglist-create/.env3
+=======
+
+# auto generated wildcard
+securityPerson-ScanQR/.env1
+# auto generated wildcard
+securityPerson-ScanQR/.env2
+# auto generated wildcard
+securityPerson-ScanQR/.env3
+# auto generated wildcard
+securityPerson-ScanQR/.env4
+# auto generated wildcard
+security-scanqr/.env1
+
 
 
 # auto generated wildcard
 vendorPersona/.env11
 # auto generated wildcard
-<<<<<<< HEAD
-agel-mmts-web/vendor-mdcc/.env1
-=======
 agel-mmts-web/vendor-packinglist-create/.env1
 # auto generated wildcard
 agel-mmts-web/security-international-import/.env1
 # auto generated wildcard
 agel-mmts-web/security-scan-history/.env1
->>>>>>> develop
 >>>>>>> develop

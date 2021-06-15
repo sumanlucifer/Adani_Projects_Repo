@@ -1,16 +1,110 @@
-<mvc:View
-    controllerName="com.agel.mmts.vendorpackinglistcreate.controller.CreateView"
+<mvc:View xmlns:f2="sap.f"
+    xmlns:vbm="sap.ui.vbm"
     xmlns:mvc="sap.ui.core.mvc"
-    displayBlock="true"
-    xmlns="sap.m"
->
-	<Shell id="shell">
-		<App id="app">
-			<pages>
-				<Page id="page" title="{i18n>title}">
-					<content />
-				</Page>
-			</pages>
-		</App>
-	</Shell>
+    xmlns:uxap="sap.uxap"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+    xmlns:unified="sap.ui.unified"
+    xmlns:tt="sap.ui.table"
+    xmlns:smartTable="sap.ui.comp.smarttable"
+    xmlns="sap.m" controllerName="com.agel.mmts.vendorpackinglistcreate.controller.CreateView"
+    xmlns:lineItemsTable="com.agel.mmts.vendorpackinglistcreate.view.blocks.createView.lineItemsTable.block"
+    xmlns:packingListContainsTable="com.agel.mmts.vendorpackinglistcreate.view.blocks.createView.packingListContainsTable.block" height="100%">
+    <uxap:ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true" upperCaseAnchorBar="false" headerContentPinnable="true" toggleHeaderOnTitleClick="true" busy="{objectViewModel>/busy}">
+        <uxap:headerTitle>
+            <uxap:ObjectPageDynamicHeaderTitle>
+                <uxap:breadcrumbs>
+                    <!-- <Breadcrumbs id="breadcrumbsId" currentLocationText="{i18n>PODetails}">
+                        <Link text="{i18n>assignedPOList}" press=".handleToAllPOBreadcrumPress"/>
+                    </Breadcrumbs> -->
+                </uxap:breadcrumbs>
+                <uxap:expandedHeading>
+                    <FlexBox direction="Column" renderType="Bare">
+                        <Title text="{i18n>packingList}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
+                        <Title text="{PackagingReferenceNumber}" wrapping="true" titleStyle="H3" />
+                    </FlexBox>
+                </uxap:expandedHeading>
+                <uxap:snappedHeading>
+                    <FlexBox direction="Column" renderType="Bare">
+                        <Title text="{i18n>packingList}" wrapping="true" titleStyle="H4"/>
+                        <Title text="{PackagingReferenceNumber}" wrapping="true" titleStyle="H3"/>
+                    </FlexBox>
+                </uxap:snappedHeading>
+                <uxap:expandedContent></uxap:expandedContent>
+                <uxap:snappedTitleOnMobile>
+                    <Title text="{i18n>packingList}- {PackagingReferenceNumber}" wrapping="true" titleStyle="Auto"/>
+                </uxap:snappedTitleOnMobile>
+                <uxap:actions>
+                    <Button text="Save" press="onSavePackingListPress" type="Emphasized" visible="{= ${objectViewModel>/isPackingListInEditModel} ? true : false}"/>
+                    <Button text="Edit" press="onEditPackingListPress" type="Emphasized" visible="{= ${objectViewModel>/isPackingListInEditModel} ? false : true}"/>
+                    <Button text="Proceed" press="onProceedStep1Press" type="Emphasized" visible="{= ${objectViewModel>/isPackingListInEditModel} ? false : true}"/>
+                    
+                </uxap:actions>
+            </uxap:ObjectPageDynamicHeaderTitle>
+        </uxap:headerTitle>
+        <uxap:headerContent>
+            <FlexBox wrap="Wrap" height="100%" renderType="Bare" direction="Column">
+                <VBox renderType="Bare">
+                    <FlexBox direction="Row" renderType="Bare" class="sapUiTinyMarginBottom">
+                        <VBox renderType="Bare" class="sapUiMediumMarginEnd">
+                            <Label text="{i18n>issuedDate}" />
+                            <!-- missing -->
+                            <Text text="{path:'CreatedAt',
+                                     type: 'sap.ui.model.type.Date',
+				                     formatOptions: {
+				                        pattern: 'MMMM dd, yyyy'
+				                     }
+                            }"/>
+                        </VBox>
+                        <VBox renderType="Bare" class="sapUiMediumMarginEnd">
+                            <Label text="{i18n>targetDate}" />
+                            <!-- missing -->
+                            <Text text="{path:'UpdatedAt',
+                                     type: 'sap.ui.model.type.Date',
+				                     formatOptions: {
+				                        pattern: 'MMMM dd, yyyy'
+				                     }
+                            }"/>
+                        </VBox>
+                        <VBox renderType="Bare">
+                            <Label text="{i18n>status}" />
+                            <!-- missing -->
+                            <ObjectStatus text="{Status}"/>
+                        </VBox>
+                    </FlexBox>
+                </VBox>
+                <!-- <VBox renderType="Bare">
+                    <Label text="{i18n>instruction}" design="Bold"/>
+                    <ObjectAttribute text="Please raise the inspection call through SIMS portal." />
+                </VBox> -->
+            </FlexBox>
+        </uxap:headerContent>
+        <uxap:sections>
+
+            <!-- Line Items Section -->
+            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>lineItems}">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection title="{i18n>lineItems}">
+                        <uxap:blocks>
+                            <lineItemsTable:LineItemsTable class="sapUxAPObjectPageSubSectionAlignContent" OnViewBOQItemsPress="onViewBOQItemsPress"/>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+            <!-- Line Items Section -->
+            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>lineItems}">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection title="{i18n>lineItems}">
+                        <uxap:blocks>
+                            <packingListContainsTable:PackingListContainsTable class="sapUxAPObjectPageSubSectionAlignContent" OnGeneratePackingList="onGeneratePackingList"/>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+
+        </uxap:sections>
+    </uxap:ObjectPageLayout>
 </mvc:View>

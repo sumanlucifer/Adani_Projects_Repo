@@ -56,10 +56,10 @@
     "sap.ui5": {
         "flexEnabled": false,
         "rootView": {
-            "viewName": "com.agel.mmts.vendorpackinglistcreate.view.CreateView",
+            "viewName": "com.agel.mmts.vendorpackinglistcreate.view.App",
             "type": "XML",
             "async": true,
-            "id": "CreateView"
+            "id": "app"
         },
         "dependencies": {
             "minUI5Version": "1.66.0",
@@ -113,9 +113,30 @@
             "routes": [
                 {
                     "name": "RouteCreateView",
-                    "pattern": "RouteCreateView",
+                    "pattern": "",
                     "target": [
                         "TargetCreateView"
+                    ]
+                },
+                {
+                    "name": "RouteCreateViewStep2",
+                    "pattern": "step2",
+                    "target": [
+                        "TargetCreateViewStep2"
+                    ]
+                },
+                {
+                    "name": "RoutePackingListDetails",
+                    "pattern": "step3",
+                    "target": [
+                        "TargetPackingListDetails"
+                    ]
+                },
+                 {
+                    "name": "RouteQRCodeDetails",
+                    "pattern": "step4",
+                    "target": [
+                        "TargetQRCodeDetails"
                     ]
                 }
             ],
@@ -124,8 +145,25 @@
                     "viewType": "XML",
                     "transition": "slide",
                     "clearControlAggregation": false,
-                    "viewId": "CreateView",
                     "viewName": "CreateView"
+                },
+                "TargetCreateViewStep2": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewName": "CreateViewStep2"
+                },
+                "TargetPackingListDetails": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewName": "PackingListDetails"
+                },
+                "TargetQRCodeDetails": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewName": "QRCodeDetails"
                 }
             }
         }
