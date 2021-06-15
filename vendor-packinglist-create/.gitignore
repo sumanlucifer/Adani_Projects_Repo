@@ -9,3 +9,7 @@ resources
 archive.zip
 # auto generated wildcard
 agel-mmts-web/vendor-packinglist-create/.env1
+# auto generated wildcard
+agel-mmts-web/security-international-import/.env1
+# auto generated wildcard
+agel-mmts-web/security-scan-history/.env1
