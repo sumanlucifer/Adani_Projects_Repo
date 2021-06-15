@@ -140,84 +140,23 @@
       "preLaunchTask": "Build sapui5-1"
     },
     {
-      "name": "Start security-scanqr",
-      "type": "node",
-      "request": "launch",
-      "runtimeExecutable": "npm",
-      "cwd": "${workspaceFolder}/security-scanqr",
-      "windows": {
-        "runtimeExecutable": "npm.cmd"
-      },
-      "runtimeArgs": [
-        "run-script",
-        "start"
-      ],
-      "console": "integratedTerminal",
-      "internalConsoleOptions": "neverOpen",
-      "port": 9229,
-      "env": {
-        "DEBUG": "--inspect",
-        "run.config": "{\"handlerId\":\"fiori_tools\",\"runnableId\":\"/home/user/projects/sapui5-1/security-scanqr\"}"
-      }
-    },
-    {
-      "name": "Start security-scanqr Mock",
-      "type": "node",
-      "request": "launch",
-      "cwd": "${workspaceFolder}/security-scanqr",
-      "runtimeExecutable": "npm",
-      "windows": {
-        "runtimeExecutable": "npm.cmd"
-      },
-      "runtimeArgs": [
-        "run-script",
-        "start-mock"
-      ],
-      "console": "integratedTerminal",
-      "internalConsoleOptions": "neverOpen",
-      "port": 9229,
-      "env": {
-        "run.config": "{\"handlerId\":\"fiori_tools\",\"runnableId\":\"/home/user/projects/sapui5-1/security-scanqr\"}"
-      }
-    },
-    {
-      "name": "Start security-scanqr Local",
-      "type": "node",
-      "request": "launch",
-      "cwd": "${workspaceFolder}/security-scanqr",
-      "runtimeExecutable": "npm",
-      "windows": {
-        "runtimeExecutable": "npm.cmd"
-      },
-      "runtimeArgs": [
-        "run-script",
-        "start-local"
-      ],
-      "console": "integratedTerminal",
-      "internalConsoleOptions": "neverOpen",
-      "port": 9229,
-      "env": {
-        "run.config": "{\"handlerId\":\"fiori_tools\",\"runnableId\":\"/home/user/projects/sapui5-1/security-scanqr\"}"
-      }
-    },
-    {
-      "name": "Run sapui5-1-security-scanqr",
+      "name": "Run sapui5-1-vendorPersona",
       "type": "node",
       "request": "launch",
       "program": "${workspaceFolder}/agel-mmts-web-approuter/node_modules/@sap/html5-repo-mock/index.js",
       "args": [
         "--standalone",
-        "/comagelmmtssecurityscanqr/index.html",
+        "/comagelmmtsvendorPersona/index.html",
         "--ui5",
         "{\"version\":\".\"}"
       ],
-      "cwd": "${workspaceFolder}/security-scanqr",
+      "cwd": "${workspaceFolder}/vendorPersona",
       "env": {
         "PORT": "6004",
         "MOCK_LOOKUP_DIRS": "[\"webapp\"]",
-        "run.config": "{\"handlerId\":\"ui5_run_config_handler_id\",\"runnableId\":\"/home/user/projects/sapui5-1/security-scanqr\"}"
+        "run.config": "{\"handlerId\":\"ui5_run_config_handler_id\",\"runnableId\":\"/home/user/projects/sapui5-1/vendorPersona\"}"
       },
-      "envFile": "${workspaceFolder}/security-scanqr/.env1",
+      "envFile": "${workspaceFolder}/vendorPersona/.env11",
       "preLaunchTask": "Build sapui5-1"
     }
   ],

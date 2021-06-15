@@ -1,0 +1,93 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:smartTable="sap.ui.comp.smarttable"
+    xmlns:core="sap.ui.core">
+
+    <smartTable:SmartTable class="sapUiResponsiveContentPadding" id="idBOQRequestTable"
+             editable="false" placeToolbarInTable="true" enableAutoBinding="true" 
+             entitySet="MDCCSet" showFullScreenButton="true" showRowCount="false"
+              tableType="ResponsiveTable" demandPopin="false" useExportToExcel="false" 
+              useTablePersonalisation="true" useVariantManagement="false" 
+              beforeRebindTable="onBeforeRebindBOQTable" enableAutoColumnWidth="true">
+
+        <smartTable:layoutData><FlexItemData growFactor="1" /></smartTable:layoutData>
+        <Table sticky="ColumnHeaders,HeaderToolbar">
+            <columns>
+
+                <Column >
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "PONumber", "leadingProperty": "PONumber",
+                                                 "columnIndex": 0 ,"sortProperty": "PONumber","filterProperty": "PONumber"}'/>
+                    </customData>
+                    <Text text="{i18n>ponum}"/>
+                </Column>
+
+                 <Column demandPopin="true" minScreenWidth="Desktop"> 
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "MDCCNumber", "leadingProperty": "MDCCNumber",
+                                                 "columnIndex": 1 ,"sortProperty": "MDCCNumber","filterProperty": "MDCCNumber"}'/>
+                    </customData>
+                    <Text text="{i18n>mdccNUm}"/>
+                </Column>
+                
+                <Column demandPopin="true" minScreenWidth="Tablet">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "NotificationNumber", "leadingProperty": "NotificationNumber",
+                                                 "columnIndex": 2 ,"sortProperty": "NotificationNumber","filterProperty": "NotificationNumber"}'/>
+                    </customData>
+                    <Text text="{i18n>notNum}"/>
+                </Column>
+
+                <Column demandPopin="true" minScreenWidth="Tablet">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "CreatedAt", "leadingProperty": "CreatedAt",
+                                                 "columnIndex": 3}'/>
+                    </customData>
+                    <Text text="{i18n>crtdDate}"/>
+                </Column>
+
+                <Column demandPopin="true" minScreenWidth="Desktop"> 
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "UpdatedAt", "leadingProperty": "UpdatedAt",
+                                                 "columnIndex": 4 }'/>
+                    </customData>
+                    <Text text="{i18n>uptdDate}"/>
+                </Column>
+
+               <Column demandPopin="true" minScreenWidth="Desktop"> 
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Status", "leadingProperty": "Status",
+                                                 "columnIndex": 5 }'/>
+                    </customData>
+                    <Text text="{i18n>status}"/>
+                </Column>
+
+            </columns>
+            <items>
+
+                <ColumnListItem type="Navigation" press="onBOQRequestPress">
+                    <cells>
+                        <Text text="{PONumber}"/>
+                        <Text text="{MDCCNumber}"/>
+                        <Text text="{NotificationNumber}"/>
+                        
+                        <Text text="{path:'CreatedAt',
+                                    type: 'sap.ui.model.type.Date',
+				                     formatOptions: {
+				                        pattern: 'MMMM dd, yyyy'
+				                     }    
+                        }"/>
+                        <Text text="{path:'UpdatedAt',
+                                     type: 'sap.ui.model.type.Date',
+				                     formatOptions: {
+				                        pattern: 'MMMM dd, yyyy'
+				                     }
+                        }"/>
+                        <ObjectStatus text="{Status}" state="{= ${Status} === 'PENDING' ? 'Warning' : ${Status} === 'REJECTED' ? 'Error' : 'Success'}"/>
+                    </cells>
+                </ColumnListItem>
+
+            </items>
+        </Table>
+    </smartTable:SmartTable>
+
+</core:FragmentDefinition>

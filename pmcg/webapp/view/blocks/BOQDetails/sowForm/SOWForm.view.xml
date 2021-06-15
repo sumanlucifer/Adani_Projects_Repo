@@ -1,0 +1,41 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns:f="sap.ui.layout.form"
+    xmlns="sap.m">
+
+    <f:SimpleForm singleContainerFullSize="true" layout="ColumnLayout" columnsM="2" columnsL="3" 
+        columnsXL="4" binding="{InspectionCall/PurchaseOrder/SOW}" class="style-RemoveTitleHeight">
+        <f:content>
+            <!-- <core:Title/> -->
+            <Label text="{i18n>delivertTerm}" />
+            <Text text="{DeliveryTerm}" />
+            <!--  <Text text="{path:'DeliveryTerm',
+                                     type: 'sap.ui.model.type.Date',
+				                     formatOptions: {
+				                        pattern: 'MMMM dd, yyyy'
+				                     }
+                                }"/> -->
+            <Label text="{i18n>delieryPoint}" />
+            <Text text="{DeliveryPoint}"/>
+            <Label text="{i18n>paymentTerms}" />
+            <Text text="{PaymentTerms}"/>
+            <Label text="{i18n>noticeAndCommunication}" />
+            <Text text="{NoticeAndCommunications}"/>
+            <!-- <core:Title/> -->
+            <Label text="{i18n>liquidatedDamages}" />
+            <Text text="{LiquidatedDamages}"/>
+            <Label text="{i18n>deliverySchedule}" />
+            <Text text="{DeliverySchedule}"/>
+            <Label text="{i18n>specificAgreedTems}" />
+            <Text text="{SpecificAgreedTerms}"/>
+            <!-- <core:Title/> -->
+            <Label text="{i18n>defect_liability_period}" />
+            <Text text="{DefectLiabilityPeriod}"/>
+            <Label text="{i18n>address}" />
+            <Text text="{InvoicingAddress}"/>
+            <Label text="{i18n>dispatchDocuments}" />
+            <Text text="{DispatchDocuments}" />
+        </f:content>
+    </f:SimpleForm>
+
+</mvc:View>
