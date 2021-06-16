@@ -26,12 +26,8 @@
                     "action": "Vendor",
                     "title": "{{appTileTitle}}",
                     "subTitle": "{{appTileSubTitle}}",
-                    "icon": "sap-icon://supplier",
-                    "indicatorDataSource": {
-                        "dataSource": "default",
-                        "path": "/AGEL_MMTS_API/api/v2/odata.svc/PurchaseOrderSet/$count",
-                        "refresh": 0
-                    }
+                    "icon": "sap-icon://supplier"
+                    
                 }
             }
         },
@@ -65,10 +61,10 @@
     "sap.ui5": {
         "flexEnabled": false,
         "rootView": {
-            "viewName": "com.agel.mmts.securityscanqr.view.LandingPage",
+            "viewName": "com.agel.mmts.securityscanqr.view.App",
             "type": "XML",
             "async": true,
-            "id": "LandingPage"
+            "id": "App"
         },
         "dependencies": {
             "minUI5Version": "1.66.0",
@@ -92,11 +88,11 @@
             "": {
                 "type": "sap.ui.model.odata.v2.ODataModel",
                 "settings": {
-                    "defaultOperationMode": "Server",
-                    "defaultBindingMode": "TwoWay",
-                    "defaultCountMode": "Inline",
-                    "refreshAfterChange": true,
-                    "useBatch": false
+                    "defaultOperationMode": "Server",	
+                    "defaultBindingMode": "TwoWay",	
+                    "defaultCountMode": "Inline",	
+                    "refreshAfterChange": true,	
+                    "useBatch": false	
                 },
                 "dataSource": "default",
                 "preload": true
@@ -121,51 +117,37 @@
             },
             "routes": [
                 {
-                    "name": "RouteLandingPage",
-                    "pattern": "RouteLandingPage",
-                    "target": [
-                        "TargetLandingPage"
-                    ]
-                },
-                {
-                    "name": "QRCodeDetailPage",
+                    "name": "ScanQrCodePage",
                     "pattern": "",
                     "target": [
-                        "QRCodePage"
+                        "ScanQRCodePage"
                     ]
                 },
                 {
-                    "name": "BarCodeDetailsPage",
-                    "pattern": "BarCodeDetails/{QRCode}",
+                    "name": "QRCodeDetailsPage",
+                    "pattern": "QRCodeDetails/{QRCode}",
                     "target": [
-                        "BarCodeDetailsPage"
+                        "QRCodeDetailsPage"
                     ]
                 }
             ],
             "targets": {
-                "TargetLandingPage": {
+                "ScanQRCodePage": {
                     "viewType": "XML",
                     "transition": "slide",
                     "clearControlAggregation": false,
-                    "viewId": "LandingPage",
-                    "viewName": "LandingPage",
+                    "viewId": "ScanQrCode",
+                    "viewName": "ScanQrCode",
                     "viewLevel": 1
                 },
-                "QRCodePage": {
+               
+                "QRCodeDetailsPage": {
                     "viewType": "XML",
                     "transition": "slide",
                     "clearControlAggregation": false,
-                    "viewId": "QRDetails",
-                    "viewName": "QRDetails",
+                    "viewId": "QRCodeDetails",
+                    "viewName": "QRCodeDetails",
                     "viewLevel": 2
-                },
-                "BarCodeDetailsPage": {
-                    "viewType": "XML",
-                    "transition": "slide",
-                    "clearControlAggregation": false,
-                    "viewId": "BarCodeDetails",
-                    "viewName": "BarCodeDetails",
-                    "viewLevel": 3
                 }
             }
         }

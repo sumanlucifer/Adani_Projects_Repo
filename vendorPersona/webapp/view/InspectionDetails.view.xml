@@ -1,17 +1,11 @@
 <mvc:View controllerName="com.agel.mmts.vendorPersona.controller.InspectionDetails" height="100%"
-
     xmlns:mvc="sap.ui.core.mvc"
-
     xmlns:core="sap.ui.core"
-
     xmlns:layout="sap.ui.layout"
-
     xmlns="sap.m"
-
     xmlns:f="sap.f"
     xmlns:unified="sap.ui.unified"
     xmlns:fb="sap.ui.comp.filterbar"
-
     xmlns:vm="sap.ui.comp.variants">
     <f:DynamicPage headerExpanded="true" busy="{objectViewModel>/busy}">
         <!--        DynamicPage Title -->
@@ -145,7 +139,7 @@
                     </IconTabFilter>
                     <IconTabFilter text="MDCC" key="idPackingListTab">
                         <VBox renderType="Bare">
-                            <Table id="idTblMDCC" width="auto" items="{ManageMDCCModel>/MDCCItems}" noDataText="{i18n>noPackingLists}" 
+                        <!--    <Table id="idTblMDCC" width="auto" items="{ManageMDCCModel>/MDCCItems}" noDataText="{i18n>noPackingLists}" 
                                 growing="true" growingScrollToLoad="true">
                                 <headerToolbar>
                                     <OverflowToolbar>
@@ -153,11 +147,6 @@
                                         <ToolbarSpacer />
                                         <Button text="Add" tooltip="{i18n>sort}" icon="sap-icon://add" press="onAddMdccItem" 
                                             type="Transparent"/>
-                                        <!-- <SearchField tooltip="{i18n>searchItem}" placeholder="{i18n>searchItem}" visible="false">
-                                            <layoutData>
-                                                <OverflowToolbarLayoutData maxWidth="200px" priority="NeverOverflow" group="1"/>
-                                            </layoutData>
-                                        </SearchField> -->
                                         <Button tooltip="{i18n>sort}" icon="sap-icon://sort" press="handleSortButtonPressed" type="Transparent" visible="false"/>
                                         <Button tooltip="{i18n>filter}" icon="sap-icon://filter" press="handleFilterButtonPressed" type="Transparent" visible="false"/>
                                         <Button press=".onExportParentItemsExportPress" icon="sap-icon://download" visible="false"/>
@@ -196,7 +185,7 @@
                                                 <unified:FileUploader id="idInvoiceUploader" buttonOnly="true"
                                                  buttonText="Upload Invoice" sameFilenameAllowed="true"  multiple="false"                                                 
                                                  style="Emphasized" change="onInvoiceFileSelectedForUpload"
-                                                 enabled="{= ${ManageMDCCModel>ViewUpload} ? true : false }" />
+                                                 enabled="{= ${ManageMDCCModel>Status} ? true : false }" />
                                             </VBox>
                                             <Link text="Map Items for MDCC" press="onMapMDCCCItems" enabled="{= ${ManageMDCCModel>MapItems} ? true :false }"/>
                                             <Link text="View Items" press="onViewPress" enabled="{= ${ManageMDCCModel>ViewItems}.length > 0 ? true : false}"/>
@@ -208,6 +197,78 @@
                                                         enabled="{= ${ManageMDCCModel>ViewStatus}.length > 0 ? true : false}"/>
                                             </VBox>
                                             <Link text="Manage" press="onManagePress" enabled="{= ${ManageMDCCModel>Status}  !== 'Approved' ? false :  true }"/>
+                                        </cells>
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
+                            -->
+
+                            <Table id="idTblMDCC" width="auto" growing="true" growingScrollToLoad="true"
+                            items="{path:'MDCC',parameters:{expand:'MDCCParentLineItems,Attachments'}}" 
+                            noDataText="{i18n>noPackingLists}" >
+                                <headerToolbar>
+                                    <OverflowToolbar>
+                                        <Title text="Manage MDCC" level="H4" id="idPackingListTitle"/>
+                                        <ToolbarSpacer />
+                                        <Button text="Add" tooltip="{i18n>sort}" icon="sap-icon://add" press="onAddMdccItem" 
+                                            type="Transparent"/>
+                                        <Button tooltip="{i18n>sort}" icon="sap-icon://sort" press="handleSortButtonPressed" type="Transparent" visible="false"/>
+                                        <Button tooltip="{i18n>filter}" icon="sap-icon://filter" press="handleFilterButtonPressed" type="Transparent" visible="false"/>
+                                        <Button press=".onExportParentItemsExportPress" icon="sap-icon://download" visible="false"/>
+                                    </OverflowToolbar>
+                                </headerToolbar>
+                                <columns>
+                                    <Column>
+                                        <Text text="{i18n>MDCCNumber}"/>
+                                    </Column>
+                                    <Column>
+                                        <Text text="{i18n>POitem}"/>
+                                    </Column>
+                                    <Column>
+                                        <Text text="{i18n>Upload}"/>
+                                    </Column>
+                                    <Column>
+                                        <Text text="{i18n>action}"/>
+                                    </Column>
+                                    <Column>
+                                        <Text text="{i18n>Items}"/>
+                                    </Column>
+                                    <Column>
+                                        <Text text="{i18n>approval}"/>
+                                    </Column>
+                                    <Column>
+                                        <Text text="{i18n>packingList}"/>
+                                    </Column>
+                                </columns>
+                                <items>
+                                    <ColumnListItem type="Navigation">
+                                        <cells>
+                                            <Text text="{MDCCNumber}"/>
+                                            <Text text="{PONumber}"/>
+                                            <VBox>
+                                                <Link id="idFileName" text="{path:'Attachments',formatter:'.formatter.viewFileName'}"
+                                                      press="onFileUrlClick"
+                                                    visible="{path:'Attachments',formatter:'.formatter.viewItemsFileUploader'}"/>
+                                                                                        
+                                                <unified:FileUploader id="idInvoiceUploader" buttonOnly="true" 
+                                                  buttonText="Upload Invoice" sameFilenameAllowed="true"  multiple="false"                                                 
+                                                  style="Emphasized" change="onInvoiceFileSelectedForUpload"
+                                                  visible="{path:'Attachments',formatter:'.formatter.viewItemsFileUploader'}" />
+                                            </VBox>
+
+                                            <Link text="Map Items for MDCC" press="onMapMDCCCItems" 
+                                                enabled="{path:'Attachments',formatter:'.formatter.testFunction2'}"/>
+                                            
+                                            <Link text="View Items" press="onViewPress" 
+                                                    visible="{path:'MDCCParentLineItems',formatter:'.formatter.viewItemsVisible'}" />  
+                                            <VBox>
+                                                <ObjectStatus text="{Status}" state="{= ${Status} === 'Approved' ? 'Success' : ${Status} === 'REJECTED' ? 'Error' : 'Warning'}"
+                                                        visible="{= ${Status}.length>0 ? true : false }"/>
+                                                <Button text="Send For Approval" press="onSendForApprovalPress" 
+                                                        visible="{= ${Status}.length > 0 ?  false : true  }" 
+                                                        enabled="{= ${Status}.length > 0 ? true : false}"/>
+                                            </VBox>
+                                            <Link text="Manage" press="onManagePress" enabled="{= ${Status}  !== 'Approved' ? false :  true }"/>
                                         </cells>
                                     </ColumnListItem>
                                 </items>

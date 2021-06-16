@@ -17,7 +17,7 @@ sap.ui.define([
 	function (BaseController , JSONModel, Filter, FilterOperator, Fragment, Sorter, Device, History, ColumnListItem, Input,ValueState ) {
 		"use strict";
 
-		return BaseController.extend("com.agel.mmts.securityscanqr.controller.QRDetails", {
+		return BaseController.extend("com.agel.mmts.securityscanqr.controller.ScanQrCode", {
             
             onInit: function () {
                 
@@ -28,9 +28,13 @@ sap.ui.define([
                 });
                 this.setModel(oViewModel, "objectViewModel");
                 
+                // Main Model Set
+                this.MainModel = this.getComponentModel();
+                this.getView().setModel(this.MainModel);
+                
                 //Router Object
                 this.oRouter = this.getRouter();
-                this.oRouter.getRoute("QRCodeDetailPage").attachPatternMatched(this._onObjectMatched, this);
+                this.oRouter.getRoute("ScanQrCodePage").attachPatternMatched(this._onObjectMatched, this);
             },
 
          /* onPressSubmitQRCode : function(){
@@ -47,7 +51,7 @@ sap.ui.define([
 
             _onObjectMatched: function (oEvent) {
                // var sObjectId = "XLj52SRDpM";
-               // this._bindView("/enterQRNumber");                
+               //this._bindView("/ScannedMaterialSet");                
             },
 
             _bindView: function(sObjectPath) {
@@ -67,7 +71,7 @@ sap.ui.define([
             
             onQRCodeSuggestionSelected : function(oEvent){
                 var that = this;
-                var qrCodeInput =this.byId("idInputScanCode");
+                var qrCodeInput =this.byId("idInputQRCode");
                 var qrCodeID = oEvent.getSource().getSelectedKey();
                 var oBindingObject = oEvent.getSource().getObjectBinding();
                 oEvent.getSource().setSelectedItem(oEvent.getSource().getSelectedItem());
@@ -81,7 +85,7 @@ sap.ui.define([
             },
 
             
-            onSubmitInvNum : function(oEvent){
+         /*   onSubmitInvNum : function(oEvent){
                 var that = this;
                 var invoiceInput =this.byId("idInvoiceNum");
                 var invoiceID = oEvent.getSource().getSelectedKey();
@@ -93,7 +97,7 @@ sap.ui.define([
                      invoiceInput.setValueState(ValueState.None);
                      that.getRouter().navTo("BarCodeDetailsPage", {InvoiceNumber:invoiceID});
                 }                
-            },
+            }, */
 
             onSubmitQRCode : function(oEvent) {
                 var that = this;
@@ -108,39 +112,57 @@ sap.ui.define([
                      that.getRouter().navTo("BarCodeDetailsPage", {QRNumber:qrCodeID});
                 } 
             },
-            
+
             // On Submit QR Histroy
             onPressSubmitQRCode : function(){
-                var oBindingObject = oEvent.getSource().getObjectBinding();
-                var qrCodeInput =this.byId("idInputScanCode");
-                var qr_number = qrCodeInput.getValue();
                 var that = this;
-                var userInfo = sap.ushell.Container.getService("UserInfo");
-                var userId = userInfo.getId();
-                // var userEmail = userInfo.getEmail();  
-                
-                userId = "1";
-                // userEmail = "venkatesh.hulekal@extentia.com"
-                //set the parameters//
-                oBindingObject.getParameterContext().setProperty("QRCodeId", qr_number);
-                oBindingObject.getParameterContext().setProperty("user_id",userId );
-                // oBindingObject.getParameterContext().setProperty("email", userEmail);
-                oBindingObject.getParameterContext().setProperty("user_id",userId );
-
-                
-                //execute the action
-                oBindingObject.execute().then(
-                    function () {
-                    //    sap.m.MessageToast.show("Submited Successfully");
-                      //  that.getView().getModel().refresh();
-                    },
-                    function (oError) {
-                            sap.m.MessageBox.alert(oError.message, {
-                            title: "Error"
-                        });
-                    }
-                );
+                this.validateQRCode();
             },
+
+            // Validate QR Code
+            validateQRCode : function(){
+                var that = this;
+               
+                var qrCodeId = this.getView().byId("idInputQRCode").getValue();
+                var QRNumberFilter = new sap.ui.model.Filter({
+                        path: "QRNumber",
+                        operator: sap.ui.model.FilterOperator.EQ,
+                        value1: qrCodeId
+                });
+
+                var PACKINGLISTFilter = new sap.ui.model.Filter({
+                        path: "Type",
+                        operator: sap.ui.model.FilterOperator.EQ,
+                        value1: 'PACKINGLIST'
+                });
+                var filter = [];
+                filter.push(QRNumberFilter);
+                filter.push(PACKINGLISTFilter);
+              //  var sPath = "/QRCodeSet?$filter=QRNumber eq '"+qrCodeId+"' and Type eq 'PACKINGLIST'&$expand=PackingList"
+                            
+              
+                this.MainModel.read("/QRCodeSet", {
+                    filters:[filter],
+				    success: function(oData, oResponse) {
+					    if(oData){
+                            debugger;
+                            if(oData.results.length){
+                                that.oRouter.navTo("QRCodeDetailsPage", {
+                                    QRCode : oData.results[0].ID
+                                },false);
+                            }else{
+                                sap.m.MessageBox.error("Please Enter Valid QR Code");    
+                            }
+                        }else{
+                            sap.m.MessageBox.error("Please Enter Valid QR Code");
+                        }
+				    }.bind(this),
+				    error: function(oError) {
+					    MessageBox.error(JSON.stringify(oError));
+				    }
+			    });                            
+            },
+           
 
             onSubmitInvNum : function(oEvent){
                 var that = this;
