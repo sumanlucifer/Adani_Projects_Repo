@@ -51,15 +51,15 @@ sap.ui.define([
                             var bIsOuterPackagingRequired = this.getBoundContext().getObject().IsOuterPackagingRequired;
                             if (!bIsOuterPackagingRequired.length)
                                 objectViewModel.setProperty("/isOuterPackagingRequired", true);
-                            if (bIsProcessTwoCompletes){
+                            if (bIsProcessTwoCompletes) {
                                 objectViewModel.setProperty("/isViewQRMode", false);
                                 objectViewModel.setProperty("/isPackingListInEditMode", false);
-                            }    
-                            else{
+                            }
+                            else {
                                 objectViewModel.setProperty("/isViewQRMode", false);
                                 objectViewModel.setProperty("/isPackingListInEditMode", true);
                             }
-                                
+
                             objectViewModel.setProperty("/busy", false);
                         }
                     }
@@ -100,7 +100,7 @@ sap.ui.define([
                     this.mainModel.read(path, {
                         success: function (i, oData, oError) {
                             console.log("Inner packaging get");
-                            this.getView().getModel("outerPackagingModel").setProperty("/"+i+"/InnerPackagings", oData.results);
+                            this.getView().getModel("outerPackagingModel").setProperty("/" + i + "/InnerPackagings", oData.results);
                             // debugger;
                         }.bind(this, i),
                         error: function (oError) {
@@ -273,19 +273,20 @@ sap.ui.define([
 
             onSavePackingListPress: function (oEvent) {
                 this._getPackingListOuterPackagingData();
+                var oBindingContextData = this.getView().getBindingContext().getObject();
                 var oAdditionalData = this.getViewModel("AdditionalDetialsModel").getData();
                 var oPayload = {};
-                oPayload.PackingListId = this.getView().getBindingContext().getObject().ID;
+                oPayload.PackingListId = oBindingContextData.ID;
                 oPayload.IsDraft = true;
                 oPayload.IsProcessTwoCompletes = true;
                 oPayload.IsOuterPackagingRequired = this.getViewModel("objectViewModel").getProperty("/isOuterPackagingRequired");
-                oPayload.VehicleNumber = oAdditionalData.VehicleNumber;
-                oPayload.PackagingReferenceNumber = oAdditionalData.PackagingReferenceNumber;
-                oPayload.InvoiceNumber = oAdditionalData.InvoiceNumber;
-                oPayload.InvoiceDate = oAdditionalData.InvoiceDate;
+                oPayload.VehicleNumber = oBindingContextData.VehicleNumber;
+                oPayload.PackagingReferenceNumber = oBindingContextData.PackagingReferenceNumber;
+                oPayload.InvoiceNumber = oBindingContextData.InvoiceNumber;
+                oPayload.InvoiceDate = oBindingContextData.InvoiceDate;
                 var aOuterPackagingData = this.getViewModel("outerPackagingModel").getData();
                 for (let i = 0; i < aOuterPackagingData.length; i++) {
-                    if(!aOuterPackagingData[i].ID){
+                    if (!aOuterPackagingData[i].ID) {
                         aOuterPackagingData[i].InnerPackagings = [];
                     }
                 }
@@ -296,7 +297,7 @@ sap.ui.define([
                     success: function (oData, oResponse) {
                         var objectViewModel = this.getViewModel("objectViewModel");
                         objectViewModel.setProperty("/isPackingListInEditMode", false);
-                        objectViewModel.setProperty("/isViewQRMode", true);         
+                        objectViewModel.setProperty("/isViewQRMode", true);
                     }.bind(this),
                     error: function (oError) {
                         var objectViewModel = this.getViewModel("objectViewModel");
@@ -467,28 +468,40 @@ sap.ui.define([
                 var oAdditionalData = this.getView().getBindingContext().getObject();
                 var poNum = oAdditionalData.PONumber;
                 var userName = oAdditionalData.Name;
-                var packingListId = oAdditionalData.PackagingReferenceNumber || 5;
+                var packingListId = oAdditionalData.ID || 5;
                 oPayload.UserName = userName;
                 oPayload.PackingListId = packingListId;
                 oPayload.PONumber = poNum;
 
                 MessageBox.warning("Are you sure you want to view the QR Code? Once viewed, no changes can be made to the packing list.", {
-				actions: [MessageBox.Action.OK, MessageBox.Action.CANCEL],
-                emphasizedAction: MessageBox.Action.OK,
+                    actions: [MessageBox.Action.OK, MessageBox.Action.CANCEL],
+                    emphasizedAction: MessageBox.Action.OK,
                     onClose: function (oAction) {
-                                if (oAction == "OK") {
-                                    that.mainModel.create("/QRCodeGenerationSet", oPayload, {
-                                        success: function (oData, oResponse) {
-                                            MessageToast.show("QR Code created successfully");
-                                            that.onProceedStep2Press(oEvent);
-                                        }.bind(this),
-                                        error: function (oError) {
-                                            sap.m.MessageBox.error(JSON.stringify(oError));
-                                        }
-                                    });
+                        if (oAction == "OK") {
+                            that.mainModel.create("/QRCodeGenerationSet", oPayload, {
+                                success: function (oData, oResponse) {
+                                    that._makePackingListNonEditable();
+                                    MessageToast.show("QR Code generated successfully");
+                                    that.onProceedStep2Press(oEvent);
+                                }.bind(that),
+                                error: function (oError) {
+                                    sap.m.MessageBox.error(JSON.stringify(oError));
                                 }
-                            }
-			    });
+                            });
+                        }
+                    }
+                });
+            },
+
+            _makePackingListNonEditable: function () {
+                var oPayload = { IsDraft: false };
+                this.mainModel.update("/PackingListSet(5)", oPayload, {
+                    success: function (oData, oResponse) {
+                    }.bind(this),
+                    error: function (oError) {
+                        sap.m.MessageBox.error(JSON.stringify(oError));
+                    }
+                });
             }
         });
     });

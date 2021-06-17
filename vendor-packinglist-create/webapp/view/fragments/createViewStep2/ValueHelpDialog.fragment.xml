@@ -17,7 +17,7 @@
                 <Text text="Packaging Type" />
             </Column>
             <Column>
-                <Text text="Line Number" />
+                <Text text="Line Item" />
             </Column>
             <Column hAlign="Center">
                 <Text text="Packaging Quantity" />

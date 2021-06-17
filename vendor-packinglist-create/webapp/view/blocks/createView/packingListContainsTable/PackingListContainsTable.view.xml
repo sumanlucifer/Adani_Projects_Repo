@@ -5,7 +5,7 @@
     xmlns:smartTable="sap.ui.comp.smarttable"
     xmlns:tt="sap.ui.table" controllerName="com.agel.mmts.vendorpackinglistcreate.view.blocks.createView.packingListContainsTable.PackingListContainsTableController">
 
-    <Table id="idBOQItemTable" items="{path: 'packingListContainsModel>/items'}" autoPopinMode="true" growingThreshold="5" growing="true" fixedLayout="true">
+    <Table id="idBOQItemTable" items="{path: 'packingListContainsModel>/items'}" autoPopinMode="true" growingThreshold="5" growing="true" fixedLayout="false">
         <headerToolbar>
             <OverflowToolbar >
                 <content>
@@ -21,16 +21,16 @@
             <Column>
                 <Text text="Name"/>
             </Column>
-            <Column>
-                <Text text="DispatchQty"/>
+            <Column hAlign="Center">
+                <Text text="Dispatch Quantity"/>
             </Column>
             <Column>
-                <Text text="Order Unit"/>
+                <Text text="UOM"/>
             </Column>
             <Column>
                 <Text text="Packaging Type"/>
             </Column>
-            <Column width="8%">
+            <Column>
                 <Text text="No Of Packages"/>
             </Column>
         </columns>
@@ -47,29 +47,28 @@
                             }" change="onPackingListTypeChange" editable="{= ${objectViewModel>/isPackingListInEditModel} ? true : false}">
                         <core:Item key="{ID}" text="{Name}" />
                     </Select>
-                    <Input value="{packingListContainsModel>NumberOfPackages}" editable="{= ${objectViewModel>/isPackingListInEditModel} ? true : false}" type="Number"/>
+                    <Input value="{packingListContainsModel>NumberOfPackages}" editable="{= ${objectViewModel>/isPackingListInEditModel} ? true : false}" type="Number" width="40%"/>
                 </cells>
             </ColumnListItem>
         </items>
     </Table>
 
-    <Table id="idPackagingTable" items="{path: 'InnerPackagingModel>/items'}" autoPopinMode="true" growingThreshold="5" growing="true" fixedLayout="true" class="sapUiLargeMarginTop">
-        <!-- <headerToolbar>
+    <Table id="idPackagingTable" items="{path: 'InnerPackagingModel>/items'}" autoPopinMode="true" growingThreshold="5" growing="true" fixedLayout="false" class="sapUiLargeMarginTop">
+        <headerToolbar>
             <OverflowToolbar >
                 <content>
-                    <ToolbarSpacer></ToolbarSpacer>
-                    <Button text="Generate Packing List" press="onGeneratePackingList"></Button>
+                    <Title text="Generated Inner Packaging" level="H2"></Title>
                 </content>
             </OverflowToolbar>
-        </headerToolbar> -->
+        </headerToolbar>
         <columns>
             <Column>
                 <Text text="Packaging Type"/>
             </Column>
             <Column>
-                <Text text="Name"/>
+                <Text text="Line Item"/>
             </Column>
-            <Column >
+            <Column hAlign="Center">
                 <Text text="Packaging Quantity"/>
             </Column>
             <Column>
@@ -79,9 +78,9 @@
         <items>
             <ColumnListItem>
                 <cells>
-                    <ObjectIdentifier title="{InnerPackagingModel>PackagingType}"/>
+                    <Text text="{InnerPackagingModel>PackagingType}"/>
                     <Text text="{InnerPackagingModel>LineNumber}"/>
-                    <Input value="{InnerPackagingModel>PackagingQty}" width="50%" editable="{= ${objectViewModel>/isPackingListInEditModel} ? true : false}"/>
+                    <Input value="{InnerPackagingModel>PackagingQty}" width="20%" editable="{= ${objectViewModel>/isPackingListInEditModel} ? true : false}"/>
                     <Text text="{InnerPackagingModel>UOM}"/>
                 </cells>
             </ColumnListItem>

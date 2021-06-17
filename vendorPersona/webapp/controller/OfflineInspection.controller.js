@@ -32,6 +32,7 @@ sap.ui.define([
             var sObjectId = oEvent.getParameter("arguments").POId;
             this._bindView("/PurchaseOrderSet(" + sObjectId + ")");
             this._getLineItemData("/PurchaseOrderSet(" + sObjectId + ")/ParentLineItems");
+            this._createAttachmentModel();
         },
 
         _bindView: function (sObjectPath) {
@@ -63,10 +64,21 @@ sap.ui.define([
             })
         },
 
-        _prepareDataForView: function(data){
-            if(data.length){
+        _createAttachmentModel: function () {
+            var model = new JSONModel({
+                items: [],
+                Comment: null,
+                InspectionDate: null
+            });
+            this.getView().setModel(model, "localAttachmentModel");
+        },
+
+        _prepareDataForView: function (data) {
+            if (data.length) {
                 data.forEach(element => {
-                    element.inspectionQuantity= null;
+                    element.InspectionQty = null;
+                    element.ParentLineItemId = element.ID;
+                    element.InspectedBOQItemRequests = [];
                 });
             }
             var oModel = new JSONModel(data);
@@ -96,11 +108,90 @@ sap.ui.define([
         },
 
         onSaveButtonPress: function (oEvent) {
-            //debugger;
             var aTableData = this.byId("idParentItemTable").getModel("ParentItemModel").getData();
-            var aSelectedItemsFromTable = aTableData.filter(item => item.inspectionQuantity !== null);
-        }
+            var aSelectedItemsFromTable = aTableData.filter(item => item.InspectionQty !== null);
+            var oBindingContextData = this.getView().getBindingContext().getObject();
+            var creationModelData = this.getViewModel("localAttachmentModel").getData();
+            var oPayload = {
+                "PONumber": oBindingContextData.PONumber,
+                "InspectionDate": creationModelData.InspectionDate,
+                "PurchaseOrderId": oBindingContextData.ID,
+                "Comment": creationModelData.Comment,
+                "InspectedParentLineItemRequests": aSelectedItemsFromTable,
+                "Documents": creationModelData.items
+            };
 
+            this.getComponentModel().create("/InspectionCallIdRequestSet", oPayload, {
+                success: function (oData, oResponse) {
+                    this.getComponentModel().refresh();
+                    sap.m.MessageBox.success("Offline Inspection Call raised successfully!", {
+                        title: "Success",
+                        onClose: function (oAction1) {
+                            if (oAction1 === sap.m.MessageBox.Action.OK) {
+                                this._navToDetailsPage();
+                            }
+                        }.bind(this)
+                    });
+                }.bind(this),
+                error: function (oError) {
+                    sap.m.MessageBox.error(JSON.stringify(oError));
+                }
+            })
+
+        },
+
+        _navToDetailsPage: function () {
+            
+            this.oRouter.navTo("RoutePODetailPage", {
+                POId: "(" + this.getView().getBindingContext().getObject().ID + ")"
+            })
+        },
+
+        onAttachmentChange: function (oEvent) {
+            // keep a reference of the uploaded file
+            var that = this
+            var oFiles = oEvent.getParameters().files;
+            var SubType = "inpsection_doc";
+            var Type = "INSPECTION";
+            for (var i = 0; i < oFiles.length; i++) {
+                var fileName = oFiles[i].name;
+                var fileSize = oFiles[i].size;
+                this._getImageData(URL.createObjectURL(oFiles[i]), function (base64) {
+                    that._addData(base64, fileName, SubType, Type, fileSize);
+                }, fileName);
+            }
+        },
+
+        _getImageData: function (url, callback) {
+            var xhr = new XMLHttpRequest();
+            xhr.onload = function () {
+                var reader = new FileReader();
+                reader.onloadend = function () {
+                    callback(reader.result);
+                };
+                reader.readAsDataURL(xhr.response);
+            };
+            xhr.open('GET', url);
+            xhr.responseType = 'blob';
+            xhr.send();
+        },
+
+        _addData: function (data, fileName, SubType, Type, fileSize) {
+            var that = this,
+                oViewContext = this.getView().getBindingContext().getObject();
+
+            var document = {
+                "Type": "INSPECTION",
+                "SubType": "inpsection_doc",
+                "FileName": fileName,
+                "Content": data.split(",")[1],
+                "ContentType": "application/pdf",
+                "UploadedBy": "vendor-1",
+                "FileSize": fileSize
+            };
+
+            this.getView().getModel("localAttachmentModel").getData().items.push(document);
+        }
 
     });
 });

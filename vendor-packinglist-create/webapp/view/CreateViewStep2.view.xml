@@ -21,62 +21,43 @@
                 <uxap:expandedHeading>
                     <FlexBox direction="Column" renderType="Bare">
                         <Title text="{i18n>packingList}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
-                        <Title text="{PackagingReferenceNumber}" wrapping="true" titleStyle="H3" />
+                        <!-- <Title text="{PackagingReferenceNumber}" wrapping="true" titleStyle="H3" /> -->
                     </FlexBox>
                 </uxap:expandedHeading>
                 <uxap:snappedHeading>
                     <FlexBox direction="Column" renderType="Bare">
                         <Title text="{i18n>packingList}" wrapping="true" titleStyle="H4"/>
-                        <Title text="{PackagingReferenceNumber}" wrapping="true" titleStyle="H3"/>
+                        <!-- <Title text="{PackagingReferenceNumber}" wrapping="true" titleStyle="H3"/> -->
                     </FlexBox>
                 </uxap:snappedHeading>
                 <uxap:expandedContent></uxap:expandedContent>
                 <uxap:snappedTitleOnMobile>
-                    <Title text="{i18n>packingList}- {PackagingReferenceNumber}" wrapping="true" titleStyle="Auto"/>
+                    <Title text="{i18n>packingList}" wrapping="true" titleStyle="Auto"/>
                 </uxap:snappedTitleOnMobile>
                 <uxap:actions>
-                    <Button text="Save" press="onSavePackingListPress" type="Emphasized" visible="{= ${objectViewModel>/isPackingListInEditMode} ? true : false}"/>
-                    <Button text="View QR Code" press="onViewQRCodePress" type="Emphasized" visible="{= ${objectViewModel>/isViewQRMode} ? true : false}"/>
-                    <Button text="Edit" press="onEditPackingListPress" type="Emphasized" visible="{= ${objectViewModel>/isPackingListInEditMode} ? false : true}"/>
-                    <!-- <Button text="Proceed" press="onProceedStep2Press" type="Emphasized" visible="{= ${objectViewModel>/isPackingListInEditMode} ? false : true}"/> -->
+                    <Button text="Save" press="onSavePackingListPress" icon="sap-icon://save" type="Emphasized" visible="{= ${objectViewModel>/isPackingListInEditMode} ? true : false &amp;&amp; ${IsDraft} ? true : false}"/>
+                    <Button text="View QR Code" press="onViewQRCodePress" type="Emphasized" visible="{= ${objectViewModel>/isPackingListInEditMode} ? false : true &amp;&amp; ${IsDraft} }"/>
+                    <Button text="Edit" icon="sap-icon://edit" press="onEditPackingListPress" type="Default" visible="{= ${objectViewModel>/isPackingListInEditMode} ? false : true &amp;&amp; ${IsDraft} ? true : false}"/>
+                    <Button text="Proceed" press="onProceedStep2Press" type="Emphasized" visible="{= ${objectViewModel>/isPackingListInEditModel} ? false : true &amp;&amp; ${IsDraft} ? false : true}"/>
                 </uxap:actions>
             </uxap:ObjectPageDynamicHeaderTitle>
         </uxap:headerTitle>
         <uxap:headerContent>
-            <FlexBox wrap="Wrap" height="100%" renderType="Bare" direction="Column">
+            <FlexBox wrap="Wrap" height="100%" renderType="Bare" direction="Column" binding="{PurchaseOrder}">
                 <VBox renderType="Bare">
                     <FlexBox direction="Row" renderType="Bare" class="sapUiTinyMarginBottom">
                         <VBox renderType="Bare" class="sapUiMediumMarginEnd">
-                            <Label text="{i18n>issuedDate}" />
+                            <Label text="{i18n>poNumber}" />
                             <!-- missing -->
-                            <Text text="{path:'CreatedAt',
-                                     type: 'sap.ui.model.type.Date',
-				                     formatOptions: {
-				                        pattern: 'MMMM dd, yyyy'
-				                     }
-                            }"/>
+                            <Text text="{PONumber}"/>
                         </VBox>
                         <VBox renderType="Bare" class="sapUiMediumMarginEnd">
-                            <Label text="{i18n>targetDate}" />
+                            <Label text="{i18n>plantCode}" />
                             <!-- missing -->
-                            <Text text="{path:'UpdatedAt',
-                                     type: 'sap.ui.model.type.Date',
-				                     formatOptions: {
-				                        pattern: 'MMMM dd, yyyy'
-				                     }
-                            }"/>
-                        </VBox>
-                        <VBox renderType="Bare">
-                            <Label text="{i18n>status}" />
-                            <!-- missing -->
-                            <ObjectStatus text="{Status}"/>
+                            <Text text="{PlantCode}"/>
                         </VBox>
                     </FlexBox>
                 </VBox>
-                <!-- <VBox renderType="Bare">
-                    <Label text="{i18n>instruction}" design="Bold"/>
-                    <ObjectAttribute text="Please raise the inspection call through SIMS portal." />
-                </VBox> -->
             </FlexBox>
         </uxap:headerContent>
         <uxap:sections>
@@ -111,7 +92,7 @@
                                         <Text text="Outer Packaging Dimention"/>
                                     </Column>
                                     <Column>
-                                        <Text text="Define Inner Packaging"/>
+                                        <Text text="Action"/>
                                     </Column>
                                     <Column width="5%">
                                     </Column>
@@ -138,10 +119,34 @@
                 </uxap:subSections>
             </uxap:ObjectPageSection>
 
+            <uxap:ObjectPageSection titleUppercase="false" title="Additional Details">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection title="Additional Details">
+                        <uxap:blocks>
+                            <f:SimpleForm layout="ColumnLayout" binding="{AdditionalDetialsModel>/}" columnsM="2" columnsL="3" columnsXL="4" singleContainerFullSize="true" class="style-RemoveTitleHeight">
+                                <f:content>
+                                    <!-- <core:Title  /> -->
+                                    <Label text="Vehicle Number" />
+                                    <Input value="{VehicleNumber}" editable="{= ${objectViewModel>/isPackingListInEditMode} ? true : false}"/>
+                                    <Label text="Invoice Number" />
+                                    <Input value="{InvoiceNumber}" editable="{= ${objectViewModel>/isPackingListInEditMode} ? true : false}"/>
+                                    <!-- <core:Title ></core:Title> -->
+                                    <Label text="Packaging Ref. No" />
+                                    <Input value="{PackagingReferenceNumber}" editable="{= ${objectViewModel>/isPackingListInEditMode} ? true : false}"/>
+                                    <Label text="Invoice Date" />
+                                    <DatePicker value="{InvoiceDate}" valueFormat="yyyy-MM-dd" displayFormat="yyyy-MM-dd" editable="{= ${objectViewModel>/isPackingListInEditMode} ? true : false}"/>
+                                </f:content>
+                            </f:SimpleForm>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
             <!-- Line Items Section -->
             <uxap:ObjectPageSection titleUppercase="false" title="Attachments">
                 <uxap:subSections>
-                    <uxap:ObjectPageSubSection title="Material Documents">
+                    <uxap:ObjectPageSubSection title="{i18n>materialDetails}">
                         <uxap:blocks>
                             <UploadCollection id="idMaterialFileUploader" maximumFilenameLength="55" maximumFileSize="10" multiple="true" fileSizeExceed="onFileSizeExceed" typeMissmatch="onTypeMissmatch" uploadComplete="onUploadComplete" beforeUploadStarts="onBeforeUploadStarts" items="{
                                     path:'Attachments',
@@ -155,7 +160,12 @@
                                         formatter: '.formatter.fileContent' }" enableEdit="false" enableDelete="{= ${objectViewModel>/isPackingListInEditMode} ? true : false}" visibleDelete="true" visibleEdit="false" fileName="{FileName}" deletePress="onDeleteDocumentPress">
                                         <attributes>
                                             <ObjectAttribute title="Material Documnets" text="{ID}" class="sapUiSmallMarginEnd"/>
-                                            <ObjectAttribute title="Invoice Date" text="{CreatedAt}"/>
+                                            <ObjectAttribute title="Invoice Date" text="{path:'CreatedAt',
+                                                    type: 'sap.ui.model.type.Date',
+                                                    formatOptions: {
+                                                        pattern: 'MMMM dd, yyyy'
+                                                    }
+                                            }"/>
                                             <ObjectAttribute title="Size" text="{path : 'FileSize', formatter : '.formatter.formatFileSize'}"/>
                                         </attributes>
                                     </UploadCollectionItem>
@@ -164,7 +174,7 @@
                         </uxap:blocks>
                     </uxap:ObjectPageSubSection>
 
-                    <uxap:ObjectPageSubSection title="Invoice Documents">
+                    <uxap:ObjectPageSubSection title="{i18n>invoiceDetails}">
                         <uxap:blocks>
                             <UploadCollection id="idInvoiceFileUploader" maximumFilenameLength="55" maximumFileSize="10" multiple="true" fileSizeExceed="onFileSizeExceed" typeMissmatch="onTypeMissmatch" uploadComplete="onUploadComplete" beforeUploadStarts="onBeforeUploadStarts" items="{
                                     path:'Attachments',
@@ -178,7 +188,12 @@
                                         formatter: '.formatter.fileContent' }" enableEdit="false" enableDelete="{= ${objectViewModel>/isPackingListInEditMode} ? true : false}" visibleDelete="true" deletePress="onDeleteDocumentPress" visibleEdit="false" fileName="{FileName}">
                                         <attributes>
                                             <ObjectAttribute title="Material Documnets" text="{ID}" class="sapUiSmallMarginEnd"/>
-                                            <ObjectAttribute title="Invoice Date" text="{CreatedAt}"/>
+                                            <ObjectAttribute title="Invoice Date" text="{path:'CreatedAt',
+                                                    type: 'sap.ui.model.type.Date',
+                                                    formatOptions: {
+                                                        pattern: 'MMMM dd, yyyy'
+                                                    }
+                                            }"/>
                                             <ObjectAttribute title="Size" text="{path : 'FileSize', formatter : '.formatter.formatFileSize'}"/>
                                         </attributes>
                                     </UploadCollectionItem>
@@ -188,7 +203,7 @@
                     </uxap:ObjectPageSubSection>
 
 
-                    <uxap:ObjectPageSubSection title="Packing List Documnets">
+                    <uxap:ObjectPageSubSection title="{i18n>otherDetails}">
                         <uxap:blocks>
                             <UploadCollection id="idOtherFileUploader" maximumFilenameLength="55" maximumFileSize="10" multiple="true" fileSizeExceed="onFileSizeExceed" typeMissmatch="onTypeMissmatch" uploadComplete="onUploadComplete" beforeUploadStarts="onBeforeUploadStarts" items="{
                                     path:'Attachments',
@@ -202,7 +217,12 @@
                                         formatter: '.formatter.fileContent' }" enableEdit="false" enableDelete="{= ${objectViewModel>/isPackingListInEditMode} ? true : false}" visibleDelete="true" visibleEdit="false" fileName="{FileName}" deletePress="onDeleteDocumentPress">
                                         <attributes>
                                             <ObjectAttribute title="Material Documnets" text="{ID}" class="sapUiSmallMarginEnd"/>
-                                            <ObjectAttribute title="Invoice Date" text="{CreatedAt}"/>
+                                            <ObjectAttribute title="Invoice Date" text="{path:'CreatedAt',
+                                                    type: 'sap.ui.model.type.Date',
+                                                    formatOptions: {
+                                                        pattern: 'MMMM dd, yyyy'
+                                                    }
+                                            }"/>
                                             <ObjectAttribute title="Size" text="{path : 'FileSize', formatter : '.formatter.formatFileSize'}"/>
                                         </attributes>
                                     </UploadCollectionItem>
@@ -214,30 +234,6 @@
                 </uxap:subSections>
             </uxap:ObjectPageSection>
 
-            <!-- Line Items Section -->
-            <uxap:ObjectPageSection titleUppercase="false" title="Additional Details">
-                <uxap:subSections>
-                    <uxap:ObjectPageSubSection title="Additional Details">
-                        <uxap:blocks>
-                            <f:SimpleForm layout="ColumnLayout"  binding="{AdditionalDetialsModel>/}" columnsM="2" columnsL="3" columnsXL="4" singleContainerFullSize="true" class="style-RemoveTitleHeight">
-                                <f:content>
-                                    <!-- <core:Title  /> -->
-                                    <Label text="Vehicle Number" />
-                                    <Input value="{AdditionalDetialsModel>/VehicleNumber}" editable="{= ${objectViewModel>/isPackingListInEditMode} ? true : false}"/>
-                                    <Label text="Invoice Number" />
-                                    <Input value="{AdditionalDetialsModel>/InvoiceNumber}" editable="{= ${objectViewModel>/isPackingListInEditMode} ? true : false}"/>
-                                    <!-- <core:Title ></core:Title> -->
-                                    <Label text="Packaging Ref. No." />
-                                    <Input value="{AdditionalDetialsModel>/PackagingReferenceNumber}" editable="{= ${objectViewModel>/isPackingListInEditMode} ? true : false}"/>
-                                    <Label text="Invoice Date" />
-                                    <DatePicker value="{AdditionalDetialsModel>/InvoiceDate}" valueFormat="yyyy-MM-dd" editable="{= ${objectViewModel>/isPackingListInEditMode} ? true : false}"/>
-                                </f:content>
-                            </f:SimpleForm>
-                        </uxap:blocks>
-                    </uxap:ObjectPageSubSection>
-
-                </uxap:subSections>
-            </uxap:ObjectPageSection>
         </uxap:sections>
     </uxap:ObjectPageLayout>
 </mvc:View>

@@ -168,6 +168,10 @@ modules:
       - security-scanqr-content.zip
       name: security-scanqr
       target-path: resources/
+    - artifacts:
+      - comagelmmtsvendorpackinglistcreate-content.zip
+      name: comagelmmtsvendorpackinglistcreate
+      target-path: resources/  
 - name: vendorPersona
   type: html5
   path: vendorPersona
@@ -427,7 +431,6 @@ modules:
     builder: custom
     commands:
     - npm install
-    - npm run build:cf
     supported-platforms: []
 - name: comagelmmtsvendormdcc
   type: html5
@@ -437,7 +440,6 @@ modules:
     builder: custom
     commands:
     - npm install
-    - npm run build:cf
     supported-platforms: []
 - name: comagelmmtssecurityinternationalimport
   type: html5
@@ -447,7 +449,6 @@ modules:
     builder: custom
     commands:
     - npm install
-    - npm run build:cf
     supported-platforms: []
 - name: comagelmmtssecurityscanhistory
   type: html5
@@ -457,7 +458,6 @@ modules:
     builder: custom
     commands:
     - npm install
-    - npm run build:cf
     supported-platforms: []
 - name: security-scanqr
   type: html5
@@ -467,6 +467,14 @@ modules:
     commands:
     - npm install
     supported-platforms: []
+- name: comagelmmtsvendorpackinglistcreate
+  type: html5
+  path: vendor-packinglist-create
+  build-parameters:
+    builder: custom
+    commands:
+    - npm install
+    supported-platforms: []    
 resources:
 - name: uaa_agel-mmts-web
   type: org.cloudfoundry.managed-service
@@ -509,7 +517,6 @@ resources:
     service-plan: lite
 parameters:
   -enable-parallel-deployments: true
-  deploy_mode: html5-repo
 build-parameters:
   before-all:
   - builder: custom

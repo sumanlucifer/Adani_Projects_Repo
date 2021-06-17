@@ -6,13 +6,6 @@
     xmlns:tt="sap.ui.table" controllerName="com.agel.mmts.vendorpackinglistcreate.view.blocks.createView.lineItemsTable.LineItemsTableController">
 
     <Table id="idBOQItemTable" items="{path: 'PackingListParentItems'}" autoPopinMode="true" growingThreshold="5" growing="true" fixedLayout="false">
-        <headerToolbar>
-            <OverflowToolbar >
-                <content>
-                    <ToolbarSpacer></ToolbarSpacer>
-                </content>
-            </OverflowToolbar>
-        </headerToolbar>
         <columns>
             <Column>
                 <Text text="Line Number"/>
@@ -30,10 +23,10 @@
                 <Text text="Quantity"/>
             </Column>
             <Column>
-                <Text text="Order Unit"/>
+                <Text text="UOM"/>
             </Column>
             <Column>
-                <Text text="View Child"/>
+                <Text text="Action"/>
             </Column>
             <!-- <Column>
                 <Text text="Name"/>
@@ -42,21 +35,13 @@
         <items>
             <ColumnListItem>
                 <cells>
-                    <ObjectIdentifier title="{LineNumber}"/>
+                    <Text text="{LineNumber}"/>
                     <ObjectIdentifier title="{MaterialCode}"/>
                     <Text text="{Name}"/>
-                    <ExpandableText text="{Description}" overflowMode="InPlace" maxCharacters="20" />
+                    <ExpandableText text="{Description}" overflowMode="Popover" maxCharacters="70" />
                     <Text text="{Qty}"/>
                     <Text text="{UOM}"/>
                     <Link text="View BOQ items" press="onViewBOQItemsPress"/>
-                    <!-- <ExpandableText text="{Remarks}" overflowMode="InPlace" maxCharacters="50" /> -->
-                    <!-- <Text text="{path:'CreatedAt',
-                                     type: 'sap.ui.model.type.Date',
-				                     formatOptions: {
-				                        pattern: 'MMMM dd, yyyy'
-				                     }
-                        }"/> -->
-
                 </cells>
             </ColumnListItem>
         </items>

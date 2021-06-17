@@ -5,135 +5,41 @@
     xmlns:smartTable="sap.ui.comp.smarttable"
     xmlns:tt="sap.ui.table" controllerName="com.agel.mmts.vendorpackinglistcreate.view.blocks.packingListDetails.packagingListContains.LineItemsTableController">
 
-    <Table id="idBOQItemTable" items="{path: 'PackingListContains'}" autoPopinMode="true" growingThreshold="5" growing="true" fixedLayout="false">
-        <headerToolbar>
-            <OverflowToolbar >
-                <content>
-                    <ToolbarSpacer></ToolbarSpacer>
-                </content>
-            </OverflowToolbar>
-        </headerToolbar>
+    <Table id="idBOQItemTable" items="{path: 'PackingListContains'}" autoPopinMode="true" growingThreshold="5" growing="true" fixedLayout="true">
         <columns>
             <Column>
                 <Text text="Line Number"/>
             </Column>
-            <Column>
+           <!--  <Column>
                 <Text text="Line Item ID"/>
-            </Column>
-            <Column>
-                <Text text="Dispatch Qty."/>
-            </Column>
-            <Column>
+            </Column> -->
+             <Column>
                 <Text text="UOM"/>
+            </Column>
+            <Column hAlign="Begin">
+                <Text text="Dispatch Qty."/>
             </Column>
             <Column>
                 <Text text="Packaging Type"/>
             </Column>
-            <Column>
+            <Column hAlign="Center">
                 <Text text="No. of Packages"/>
             </Column>
-            <Column>
-                <Text text=""/>
-            </Column>
+            <!-- <Column>
+                <Text text="Action"/>
+            </Column> -->
         </columns>
         <items>
             <ColumnListItem>
                 <cells>
                     <ObjectIdentifier title="{LineNumber}"/>
-                    <ObjectIdentifier title="{ID}"/>
-                    <Text text="{DispatchQty}"/>
+                    <!-- <ObjectIdentifier title="{ID}"/> -->
                     <Text text="{UOM}"/>
+                    <Text text="{DispatchQty}"/>
                     <Text text="{PackagingType}"/>
                     <Text text="{NumberOfPackages}"/>
                     <!-- <Link text="View QR Code" press="onViewQRCode"/> -->
-                    <Button text="View QR Code" press="onViewQRCode"/>
-                </cells>
-            </ColumnListItem>
-        </items>
-    </Table>
-
-
-    <Table id="idOuterPackaging" items="{path: 'OuterPackagings'}" autoPopinMode="true" growingThreshold="5" growing="true" fixedLayout="false">
-        <headerToolbar>
-            <OverflowToolbar >
-                <content>
-                    <Text text="Outer Packaging"/>
-                </content>
-            </OverflowToolbar>
-        </headerToolbar>
-        <columns>
-            <Column>
-                <Text text="Packaging Type"/>
-            </Column>
-            <Column>
-                <Text text="Line Item ID"/>
-            </Column>
-            <Column>
-                <Text text="Dispatch Qty."/>
-            </Column>
-            <Column>
-                <Text text="Packaging Dimensions"/>
-            </Column>
-            <Column>
-                <Text text="UOM"/>
-            </Column>
-            <Column>
-               <Text text=""/>
-            </Column>
-        </columns>
-        <items>
-            <ColumnListItem>
-                <cells>
-                    <ObjectIdentifier title="{PackagingType}"/>
-                    <ObjectIdentifier title="{ID}"/>
-                    <Text text="{DispatchQty}"/>
-                    <Text text="{PackagingDimensions}"/>
-                    <Text text="{UOM}"/>
-                    <Link text="View QR Code" press="onViewQRCode1"/>
-                </cells>
-            </ColumnListItem>
-        </items>
-    </Table>
-
-
-
-    <Table id="idInnerPackaging" items="{path: 'InnerPackagings'}" autoPopinMode="true" growingThreshold="5" growing="true" fixedLayout="false">
-        <headerToolbar>
-            <OverflowToolbar >
-                <content>
-                    <Text text="Inner Packaging"/>
-                </content>
-            </OverflowToolbar>
-        </headerToolbar>
-        <columns>
-            <Column>
-                <Text text="Packaging Type"/>
-            </Column>
-            <Column>
-                <Text text="Line Number"/>
-            </Column>
-            <Column>
-                <Text text="Dispatch Qty."/>
-            </Column>
-            <Column>
-                <Text text="Packaging Qty"/>
-            </Column>
-            <Column>
-                <Text text="UOM"/>
-            </Column>
-            <Column>
-              <Text text=""/>
-            </Column>
-        </columns>
-        <items>
-            <ColumnListItem>
-                <cells>
-                    <ObjectIdentifier title="{PackagingType}"/>
-                    <ObjectIdentifier title="{LineNumber}"/>
-                    <Text text="{DispatchQty}"/>
-                    <Text text="{PackagingQty}"/>
-                    <Text text="{UOM}"/>
-                    <Link text="View QR Code" press="onViewQRCode2"/>
+                     <!-- <Link text="View QR Code" binding="{QrCode}" visible="{= ${QRNumber}}" press="onViewQRPress"/> -->
                 </cells>
             </ColumnListItem>
         </items>
