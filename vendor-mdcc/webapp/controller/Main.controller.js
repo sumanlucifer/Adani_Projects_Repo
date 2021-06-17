@@ -34,11 +34,12 @@ sap.ui.define([
             _onObjectMatched: function (oEvent) {
                 
                 //debugger;
-                var startupParams = this.getOwnerComponent().getComponentData().startupParameters; 
-              //  var startupParams;
+              //  var startupParams = this.getOwnerComponent().getComponentData().startupParameters; 
+                var startupParams={MDCCId:1,manage:"true"};
+                
                // startupParams.manage=false;
                 // get Startup params from Owner Component
-                if (startupParams.manage ) {
+                if (startupParams.manage === "true" ) {
                     this.oRouter.navTo("RouteInitiateDispatchPage", {
                         MDCCId:startupParams.MDCCId
                     },false);
