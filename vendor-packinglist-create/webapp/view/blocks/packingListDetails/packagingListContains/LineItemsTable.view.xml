@@ -5,7 +5,7 @@
     xmlns:smartTable="sap.ui.comp.smarttable"
     xmlns:tt="sap.ui.table" controllerName="com.agel.mmts.vendorpackinglistcreate.view.blocks.packingListDetails.packagingListContains.LineItemsTableController">
 
-    <Table id="idBOQItemTable" items="{path: 'PackingListContains'}" autoPopinMode="true" growingThreshold="5" growing="true" fixedLayout="false">
+        <Table id="idBOQItemTable" items="{path: 'PackingListContains'}" autoPopinMode="true" growingThreshold="5" growing="true" fixedLayout="false">
         <headerToolbar>
             <OverflowToolbar >
                 <content>
@@ -37,8 +37,8 @@
             </Column>
         </columns>
         <items>
-            <ColumnListItem>
-                <cells>
+                <ColumnListItem>
+                    <cells>
                     <ObjectIdentifier title="{LineNumber}"/>
                     <ObjectIdentifier title="{ID}"/>
                     <Text text="{DispatchQty}"/>
@@ -47,10 +47,10 @@
                     <Text text="{NumberOfPackages}"/>
                     <!-- <Link text="View QR Code" press="onViewQRCode"/> -->
                     <Button text="View QR Code" press="onViewQRCode"/>
-                </cells>
-            </ColumnListItem>
-        </items>
-    </Table>
+                    </cells>
+                </ColumnListItem>
+            </items>
+        </Table>
 
 
     <Table id="idOuterPackaging" items="{path: 'OuterPackagings'}" autoPopinMode="true" growingThreshold="5" growing="true" fixedLayout="false">

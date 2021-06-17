@@ -43,7 +43,7 @@ sap.ui.define([
             
             _onObjectMatched: function (oEvent) {
                 this.sObjectId = oEvent.getParameter("arguments").MDCCId;
-                this.sObjectId = 3;
+                this.sObjectId = this.sObjectId;
                 this._getMDCCData();
                 this._getParentDataViewMDCC();
              //   that.dataForSave = [];
@@ -166,6 +166,7 @@ sap.ui.define([
                       //  that.getComponentModel("app").setProperty("/busy", false);
                     
                         MessageBox.success("selected items processed successfully");
+
                       //  that.onCancel();
                     }.bind(this),
                     error: function (oError) {

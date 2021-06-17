@@ -56,10 +56,10 @@
     "sap.ui5": {
         "flexEnabled": false,
         "rootView": {
-            "viewName": "com.agel.mmts.securityscanhistory.view.LandingPage",
+            "viewName": "com.agel.mmts.securityscanhistory.view.App",
             "type": "XML",
             "async": true,
-            "id": "LandingPage"
+            "id": "app"
         },
         "dependencies": {
             "minUI5Version": "1.66.0",
@@ -108,14 +108,24 @@
                 "viewPath": "com.agel.mmts.securityscanhistory.view",
                 "controlAggregation": "pages",
                 "controlId": "app",
-                "clearControlAggregation": false
+                "clearControlAggregation": false,
+                "bypassed": {
+                    "target": []
+                }
             },
             "routes": [
                 {
                     "name": "RouteLandingPage",
-                    "pattern": "RouteLandingPage",
+                    "pattern": "",
                     "target": [
                         "TargetLandingPage"
+                    ]
+                },
+                {
+                    "name": "RouteQRCodeDetail",
+                    "pattern": "step3",
+                    "target": [
+                        "TargetQRCodeDetail"
                     ]
                 }
             ],
@@ -126,6 +136,13 @@
                     "clearControlAggregation": false,
                     "viewId": "LandingPage",
                     "viewName": "LandingPage"
+                },
+                "TargetQRCodeDetail": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    
+                    "viewName": "QRCodeDetail"
                 }
             }
         }

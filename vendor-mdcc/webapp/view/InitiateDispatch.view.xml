@@ -64,6 +64,93 @@
             </FlexBox>
         </uxap:headerContent>
         <uxap:sections>
+          
+            <!-- Line Items Section -->
+            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>lineItems}">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection title="{i18n>lineItems}">                        
+                         <core:Fragment fragmentName="com.agel.mmts.vendormdcc.view.fragments.DispatchView.TreeTableView" type="XML"/> 
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+            
+            <!-- Reason Approve / Reject Items Section -->
+            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>Reason}">
+                <uxap:subSections>
+                    
+                    <uxap:ObjectPageSubSection title="{i18n>Reason}">
+                       <VBox alignContent="SpaceAround" renderType="List"> 
+                        <Title text="Reason Approve / Reject Will Be Shown Here"  wrapping="true" titleStyle="H5"/>
+                        <Title text="{Comment}" binding="{MDCCStatuses}"/>
+                        <Label text="Lorem ipsum dolor sit amet, consectetur adipiscing elit.\b 
+                            Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.
+                             Proin sodales pulvinar sic tempor.\b Sociis natoque penatibus et magnis dis parturient montes, 
+                                nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate,
+                             felis tellus mollis orci, sed rhoncus pronin sapien nunc accuan eget."/>
+                        </VBox>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+            <!-- Packing List Items Section -->
+            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>packingList}">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection title="{i18n>packingList}">
+                        <uxap:blocks>
+                        <smartTable:SmartTable class="sapUiSizeCompact" id="idPackingListTable" 
+                        editable="false" placeToolbarInTable="true" enableAutoBinding="true" 
+                        entitySet="PackingListSet" showFullScreenButton="true" 
+                        showRowCount="false" tableType="ResponsiveTable" demandPopin="false" 
+                        useExportToExcel="false" useTablePersonalisation="true" 
+                        useVariantManagement="false" beforeRebindTable="onBeforeRebindPackingListTable">
+
+                         <Table sticky="ColumnHeaders,HeaderToolbar">
+                            <columns>
+                                 <Column >
+                                    <customData>
+                                        <core:CustomData key="p13nData" value='\{"columnKey": "ID", "leadingProperty": "ID",
+                                                 "columnIndex": 0 ,"sortProperty": "ID","filterProperty": "ID"}'/>
+                                    </customData>
+                                    <Text text="{i18n>id}"/>
+                                </Column>
+                
+                                <Column demandPopin="true" minScreenWidth="Tablet">
+                                    <customData>
+                                        <core:CustomData key="p13nData" value='\{"columnKey": "CreatedAt", "leadingProperty": "CreatedAt",
+                                                 "columnIndex": 1 ,"sortProperty": "CreatedAt","filterProperty": "CreatedAt"}'/>
+                                    </customData>
+                                    <Text text="{i18n>createdAt}"/>
+                                </Column>
+
+                                <Column demandPopin="true" minScreenWidth="Tablet">
+                                    <customData>
+                                        <core:CustomData key="p13nData" value='\{"columnKey": "Status", "leadingProperty": "Status",
+                                                 "columnIndex": 2 ,"sortProperty": "Status","filterProperty": "Status"}'/>
+                                    </customData>
+                                    <Text text="{i18n>status}"/>
+                                </Column> 
+                            </columns>
+                            <items>
+                                <ColumnListItem type="Navigation">
+                                    <cells>
+                                        <Text text="{ID}"/>
+                                        <Text text="{path:'CreatedAt',
+                                            type: 'sap.ui.model.type.Date',
+				                                formatOptions: {
+				                                    pattern: 'MMMM dd, yyyy'
+				                                }    
+                                        }"/>
+                                        <ObjectStatus text="{Status}"/>
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                    </smartTable:SmartTable>
+                </uxap:blocks>
+
+                </uxap:ObjectPageSubSection>
+            </uxap:subSections>
+            </uxap:ObjectPageSection>
 
             <!-- Uploaded Items Section -->
             <uxap:ObjectPageSection titleUppercase="false" title="{i18n>Uploaded}">
@@ -92,94 +179,6 @@
                                 </VBox>
                           
                 
-                    </uxap:ObjectPageSubSection>
-                </uxap:subSections>
-            </uxap:ObjectPageSection>
-           
-            <!-- Line Items Section -->
-            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>lineItems}">
-                <uxap:subSections>
-                    <uxap:ObjectPageSubSection title="{i18n>lineItems}">                        
-                         <core:Fragment fragmentName="com.agel.mmts.vendormdcc.view.fragments.DispatchView.TreeTableView" type="XML"/> 
-                    </uxap:ObjectPageSubSection>
-                </uxap:subSections>
-            </uxap:ObjectPageSection>
-            
-            <!-- Reason Approve / Reject Items Section -->
-            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>Reason}">
-                <uxap:subSections>
-                    
-                    <uxap:ObjectPageSubSection title="{i18n>Reason}">
-                       <VBox alignContent="SpaceAround" renderType="List"> 
-                        <Title text="Reason Approve / Reject Will Be Shown Here"  wrapping="true" titleStyle="H5"/>
-                        <Label text="Lorem ipsum dolor sit amet, consectetur adipiscing elit.\b 
-                            Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.
-                             Proin sodales pulvinar sic tempor.\b Sociis natoque penatibus et magnis dis parturient montes, 
-                                nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate,
-                             felis tellus mollis orci, sed rhoncus pronin sapien nunc accuan eget."/>
-                        </VBox>
-                    </uxap:ObjectPageSubSection>
-                </uxap:subSections>
-            </uxap:ObjectPageSection>
-
-            <!-- Packing List Items Section -->
-            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>packingList}">
-                <uxap:subSections>
-                    <uxap:ObjectPageSubSection title="{i18n>packingList}">
-                        <uxap:blocks>
-                        <smartTable:SmartTable class="sapUiSizeCompact" id="idPackingListTable" 
-                        editable="false" placeToolbarInTable="true" enableAutoBinding="true" 
-                        entitySet="PackingListSet" showFullScreenButton="true" 
-                        showRowCount="false" tableType="ResponsiveTable" demandPopin="false" 
-                        useExportToExcel="false" useTablePersonalisation="true" 
-                        useVariantManagement="false" beforeRebindTable="onBeforeRebindPackingListTable">
-
-        <Table sticky="ColumnHeaders,HeaderToolbar">
-            <columns>
-                <Column >
-                    <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "ID", "leadingProperty": "ID",
-                                                 "columnIndex": 0 ,"sortProperty": "ID","filterProperty": "ID"}'/>
-                    </customData>
-                    <Text text="{i18n>ponum}"/>
-                </Column>
-                
-               <Column demandPopin="true" minScreenWidth="Tablet">
-                    <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "CreatedAt", "leadingProperty": "CreatedAt",
-                                                 "columnIndex": 1 ,"sortProperty": "CreatedAt","filterProperty": "CreatedAt"}'/>
-                    </customData>
-                    <Text text="{i18n>issuedate}"/>
-                </Column>
-
-                <Column demandPopin="true" minScreenWidth="Tablet">
-                    <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "Status", "leadingProperty": "Status",
-                                                 "columnIndex": 2 ,"sortProperty": "Status","filterProperty": "Status"}'/>
-                    </customData>
-                    <Text text="{i18n>releaseDate}"/>
-                </Column> 
-            </columns>
-            <items>
-
-                <ColumnListItem type="Navigation">
-                    <cells>
-                        <Text text="{ID}"/>
-                       <Text text="{path:'CreatedAt',
-                                    type: 'sap.ui.model.type.Date',
-				                     formatOptions: {
-				                        pattern: 'MMMM dd, yyyy'
-				                     }    
-                        }"/>
-                        <ObjectStatus text="{Status}"/>
-                    </cells>
-                </ColumnListItem>
-
-            </items>
-        </Table>
-    </smartTable:SmartTable>
-    </uxap:blocks>
-
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>
             </uxap:ObjectPageSection>
