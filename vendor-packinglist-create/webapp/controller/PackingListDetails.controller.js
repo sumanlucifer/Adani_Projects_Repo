@@ -37,9 +37,10 @@ sap.ui.define([
 
         _onObjectMatched: function (oEvent) {
             var objectViewModel = this.getViewModel("objectViewModel");
+            this.packingListId = oEvent.getParameter("arguments").packingListId;
             var that = this;
             this.getView().bindElement({
-                path: "/PackingListSet(5)",
+                path: "/PackingListSet(" + this.packingListId + ")",
                 events: {
                     dataRequested: function () {
                         objectViewModel.setProperty("/busy", true);
@@ -198,7 +199,7 @@ sap.ui.define([
         onDispatchPackingListPress: function (oEvent) {
             var oPayload = {
                 "PackingListId": this.getView().getBindingContext().getObject().ID,
-                "TotalWeight":  this.getViewModel("packingListDispatchModel").getProperty("/weight"),
+                "TotalWeight": this.getViewModel("packingListDispatchModel").getProperty("/weight"),
                 "UserName": "Agel"
             };
 

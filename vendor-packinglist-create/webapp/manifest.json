@@ -120,14 +120,14 @@
                 },
                 {
                     "name": "RouteCreateViewStep2",
-                    "pattern": "step2",
+                    "pattern": "step2/{packingListId}",
                     "target": [
                         "TargetCreateViewStep2"
                     ]
                 },
                 {
                     "name": "RoutePackingListDetails",
-                    "pattern": "step3",
+                    "pattern": "step3/{packingListId}",
                     "target": [
                         "TargetPackingListDetails"
                     ]

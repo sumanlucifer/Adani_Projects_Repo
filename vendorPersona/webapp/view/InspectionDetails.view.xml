@@ -241,7 +241,7 @@
                                     </Column>
                                 </columns>
                                 <items>
-                                    <ColumnListItem type="Navigation">
+                                    <ColumnListItem>
                                         <cells>
                                             <Text text="{MDCCNumber}"/>
                                             <Text text="{PONumber}"/>
@@ -262,13 +262,13 @@
                                             <Link text="View Items" press="onViewPress" 
                                                     visible="{path:'MDCCParentLineItems',formatter:'.formatter.viewItemsVisible'}" />  
                                             <VBox>
-                                                <ObjectStatus text="{Status}" state="{= ${Status} === 'Approved' ? 'Success' : ${Status} === 'REJECTED' ? 'Error' : 'Warning'}"
+                                                <ObjectStatus text="{Status}" state="{= ${Status} === 'APPROVED' ? 'Success' : ${Status} === 'REJECTED' ? 'Error' : 'Warning'}"
                                                         visible="{= ${Status}.length>0 ? true : false }"/>
                                                 <Button text="Send For Approval" press="onSendForApprovalPress" 
                                                         visible="{= ${Status}.length > 0 ?  false : true  }" 
                                                         enabled="{= ${Status}.length > 0 ? true : false}"/>
                                             </VBox>
-                                            <Link text="Manage" press="onManagePress" enabled="{= ${Status}  !== 'Approved' ? false :  true }"/>
+                                            <Link text="Manage" press="onManagePress"/>
                                         </cells>
                                     </ColumnListItem>
                                 </items>

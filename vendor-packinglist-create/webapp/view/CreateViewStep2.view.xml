@@ -35,10 +35,15 @@
                     <Title text="{i18n>packingList}" wrapping="true" titleStyle="Auto"/>
                 </uxap:snappedTitleOnMobile>
                 <uxap:actions>
-                    <Button text="Save" press="onSavePackingListPress" icon="sap-icon://save" type="Emphasized" visible="{= ${objectViewModel>/isPackingListInEditMode} ? true : false &amp;&amp; ${IsDraft} ? true : false}"/>
+                   <!--  <Button text="Save" press="onSavePackingListPress" icon="sap-icon://save" type="Emphasized" visible="{= ${objectViewModel>/isPackingListInEditMode} ? true : false &amp;&amp; ${IsDraft} ? true : false}"/>
                     <Button text="View QR Code" press="onViewQRCodePress" type="Emphasized" visible="{= ${objectViewModel>/isPackingListInEditMode} ? false : true &amp;&amp; ${IsDraft} }"/>
                     <Button text="Edit" icon="sap-icon://edit" press="onEditPackingListPress" type="Default" visible="{= ${objectViewModel>/isPackingListInEditMode} ? false : true &amp;&amp; ${IsDraft} ? true : false}"/>
-                    <Button text="Proceed" press="onProceedStep2Press" type="Emphasized" visible="{= ${objectViewModel>/isPackingListInEditModel} ? false : true &amp;&amp; ${IsDraft} ? false : true}"/>
+                    <Button text="Proceed" press="onProceedStep2Press" type="Emphasized" visible="{= ${objectViewModel>/isPackingListInEditModel} ? false : true &amp;&amp; ${IsDraft} ? false : true}"/> -->
+
+                     <Button text="Save" press="onSavePackingListPress" icon="sap-icon://save" type="Emphasized"/>
+                    <Button text="View QR Code" press="onViewQRCodePress" type="Emphasized" />
+                    <Button text="Edit" icon="sap-icon://edit" press="onEditPackingListPress" type="Default"/>
+                    <Button text="Proceed" press="onProceedStep2Press" type="Emphasized" />
                 </uxap:actions>
             </uxap:ObjectPageDynamicHeaderTitle>
         </uxap:headerTitle>
