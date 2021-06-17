@@ -44,7 +44,13 @@ sap.ui.define([
         },
 
         _onObjectMatched: function (oEvent) {
-
+            var startupParams = this.getOwnerComponent().getComponentData().startupParameters;
+            // get Startup params from Owner Component
+            if ((startupParams.type)) {
+                //this.type = startupParams.type;
+                this.byId("idIconTabBar").setSelectedKey(startupParams.type);
+                this.onIconTabBarChanged(startupParams.type);
+            }
         },
 
         // Open Po Table Before Bind
@@ -90,19 +96,30 @@ sap.ui.define([
         },
 
         // On Icon Tab Select
-        onIconTabSelect: function (oEvent) {
-            /*  var sKey = oEvent.getParameter("key");
-             
-             if (sKey === "OpenPOKey") {
+        onIconTabBarChanged: function (sKey) {
+             if (sKey === "OPEN") {
                  this.byId("pageTitle").setText(this.getResourceBundle().getText("OpenPOs"));
-             } else if (sKey == "ConfirmPOKey") {
+             } else if (sKey === "CONFIRMED") {
                  this.byId("pageTitle").setText(this.getResourceBundle().getText("ConfirmedPOs"));
-             } else {
+             } else if(sKey === "CLOSED") {
                  this.byId("pageTitle").setText(this.getResourceBundle().getText("DispatchedPOs"));
-             } */
+             }
         },
 
-        //triggers on press of a PO cheveron item from the list
+        // On Icon Tab Select
+        onIconTabSelect: function (oEvent) {
+             var sKey = oEvent.getParameter("key");
+             
+             if (sKey === "OPEN") {
+                 this.byId("pageTitle").setText(this.getResourceBundle().getText("OpenPOs"));
+             } else if (sKey === "CONFIRMED") {
+                 this.byId("pageTitle").setText(this.getResourceBundle().getText("ConfirmedPOs"));
+             } else if(sKey === "CLOSED") {
+                 this.byId("pageTitle").setText(this.getResourceBundle().getText("DispatchedPOs"));
+             }
+        },
+
+        //triggers on press of a PO cheveron item from the Flist
         onPurchaseOrderPress: function (oEvent) {
             // The source is the list item that got pressed
             this._showObject(oEvent.getSource());
@@ -145,7 +162,7 @@ sap.ui.define([
             var PlantCode = this.byId("idPlantCode").getValue();
             var MaterialCode = this.byId("idMaterialCode").getValue();
             var CompanyCode = this.byId("idCompanyCode").getValue();
-          //  var CompanyCode = this.byId("idCompanyCode").getValue();
+            //  var CompanyCode = this.byId("idCompanyCode").getValue();
             var orFilters = [];
             var andFilters = [];
 
@@ -184,15 +201,15 @@ sap.ui.define([
             var idOpenPOTableBinding = this.getView().byId("idPurchaseOrdersTable").getTable().getBinding("items");
             var idConfirmPOTableBinding = this.getView().byId("idConfirmPOTable").getTable().getBinding("items");
             var idDispatchedPOTableBinding = this.getView().byId("idDispatchedPOTable").getTable().getBinding("items");
-            
-            if (andFilters.length == 0){
+
+            if (andFilters.length == 0) {
                 andFilters.push(new Filter("PONumber", FilterOperator.NE, ""));
                 idOpenPOTableBinding.filter(new Filter(andFilters, true));
                 idConfirmPOTableBinding.filter(new Filter(andFilters, true));
                 idDispatchedPOTableBinding.filter(new Filter(andFilters, true));
             }
 
-            if (andFilters.length > 0){
+            if (andFilters.length > 0) {
                 idOpenPOTableBinding.filter(new Filter(andFilters, true));
                 idConfirmPOTableBinding.filter(new Filter(andFilters, true));
                 idDispatchedPOTableBinding.filter(new Filter(andFilters, true));
@@ -207,7 +224,7 @@ sap.ui.define([
             this.byId("dateRangeSelectionId").setValue("");
             this.byId("idPlantCode").setValue("");
             this.byId("idCompanyCode").setValue("");
-            
+
             var idOpenPOTableBinding = this.getView().byId("idPurchaseOrdersTable").getTable().getBinding("items");
             var idConfirmPOTableBinding = this.getView().byId("idConfirmPOTable").getTable().getBinding("items");
             var idDispatchedPOTableBinding = this.getView().byId("idDispatchedPOTable").getTable().getBinding("items");
@@ -241,8 +258,8 @@ sap.ui.define([
                     // connect dialog to the root view of this component (models, lifecycle)
                     oDetails.view.addDependent(oDialog);
                     if (Device.system.desktop) {
-						oDialog.addStyleClass("sapUiSizeCompact");
-					}
+                        oDialog.addStyleClass("sapUiSizeCompact");
+                    }
                     oDialog.bindElement({
                         path: oDetails.sParentItemPath,
                         parameters: {

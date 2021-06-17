@@ -38,9 +38,9 @@ sap.ui.define([
               //  var startupParams;
                // startupParams.manage=false;
                 // get Startup params from Owner Component
-                if (startupParams.manage ) {
+                if (startupParams.manage === "true") {
                     this.oRouter.navTo("RouteInitiateDispatchPage", {
-                        MDCCId:startupParams.MDCCId
+                        MDCCId:parseInt(startupParams.MDCCId)
                     },false);
                 }         
                 else{

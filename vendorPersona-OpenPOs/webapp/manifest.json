@@ -51,10 +51,10 @@
 	"sap.ui5": {
 		"flexEnabled": false,
 		"rootView": {
-			"viewName": "com.agel.mmts.vendorPersona-OpenPOs.view.LandingPage",
+			"viewName": "com.agel.mmts.vendorPersona-OpenPOs.view.App",
 			"type": "XML",
 			"async": true,
-			"id": "LandingPage"
+			"id": "app"
 		},
 		"dependencies": {
 			"minUI5Version": "1.60.1",
@@ -93,7 +93,7 @@
 			},
 			"routes": [{
 				"name": "RouteLandingPage",
-				"pattern": "RouteLandingPage",
+				"pattern": "",
 				"target": ["TargetLandingPage"]
 			}],
 			"targets": {
