@@ -36,7 +36,7 @@ sap.ui.define([], function () {
         },
 
         viewItemsVisible : function(oData){
-            debugger;
+           
             if ( oData )
             {
                 if ( oData.length > 0)
@@ -49,7 +49,7 @@ sap.ui.define([], function () {
         },
 
          viewItemsFileUploader : function(oData){
-            debugger;
+           
             if ( oData )
             {
                 if ( oData.length > 0)
@@ -62,12 +62,12 @@ sap.ui.define([], function () {
         },
 
         viewFileName : function(oData){
-            debugger;
-            return oData[0].FileName
+           
+            return "";
         },
 
         testFunction2 : function(oData){
-            debugger;
+            
             return true;
         },
 
@@ -135,7 +135,7 @@ sap.ui.define([], function () {
         },
 
         test: function(value){
-            debugger;
+            
         }
         
 

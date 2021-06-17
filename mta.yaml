@@ -89,6 +89,10 @@ modules:
       name: admin-POSummary
       target-path: resources/
     - artifacts:
+      - user-roleassignment-content.zip
+      name: user-roleassignment
+      target-path: resources/
+    - artifacts:
       - admin-UserManagement-content.zip
       name: admin-UserManagement
       target-path: resources/
@@ -149,11 +153,7 @@ modules:
       name: mdm-boqitems
       target-path: resources/
     - artifacts:
-      - comagelmmtsvendormanagemdcc.zip
-      name: comagelmmtsvendormanagemdcc
-      target-path: resources/
-    - artifacts:
-      - comagelmmtsvendormdcc.zip
+      - vendor-mdcc-content.zip
       name: comagelmmtsvendormdcc
       target-path: resources/
     - artifacts:
@@ -168,6 +168,10 @@ modules:
       - security-scanqr-content.zip
       name: security-scanqr
       target-path: resources/
+    - artifacts:
+      - comagelmmtsvendorpackinglistcreate-content.zip
+      name: comagelmmtsvendorpackinglistcreate
+      target-path: resources/  
 - name: vendorPersona
   type: html5
   path: vendorPersona
@@ -299,6 +303,14 @@ modules:
     commands:
     - npm run build
     supported-platforms: []
+- name: user-roleassignment
+  type: html5
+  path: user-roleassignment
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []
 - name: admin-UserManagement
   type: html5
   path: admin-UserManagement
@@ -419,45 +431,29 @@ modules:
     commands:
     - npm run build
     supported-platforms: []
-- name: comagelmmtsvendormanagemdcc
-  type: html5
-  path: vendor-managemdcc
-  build-parameters:
-    build-result: dist
-    builder: custom
-    commands:
-    - npm install
-    - npm run build:cf
-    supported-platforms: []
 - name: comagelmmtsvendormdcc
   type: html5
   path: vendor-mdcc
   build-parameters:
-    build-result: dist
     builder: custom
     commands:
     - npm install
-    - npm run build:cf
     supported-platforms: []
 - name: comagelmmtssecurityinternationalimport
   type: html5
   path: security-international-import
   build-parameters:
-    build-result: dist
     builder: custom
     commands:
     - npm install
-    - npm run build:cf
     supported-platforms: []
 - name: comagelmmtssecurityscanhistory
   type: html5
   path: security-scan-history
   build-parameters:
-    build-result: dist
     builder: custom
     commands:
     - npm install
-    - npm run build:cf
     supported-platforms: []
 - name: security-scanqr
   type: html5
@@ -467,6 +463,14 @@ modules:
     commands:
     - npm install
     supported-platforms: []
+- name: comagelmmtsvendorpackinglistcreate
+  type: html5
+  path: vendor-packinglist-create
+  build-parameters:
+    builder: custom
+    commands:
+    - npm install
+    supported-platforms: []    
 resources:
 - name: uaa_agel-mmts-web
   type: org.cloudfoundry.managed-service
@@ -509,7 +513,6 @@ resources:
     service-plan: lite
 parameters:
   -enable-parallel-deployments: true
-  deploy_mode: html5-repo
 build-parameters:
   before-all:
   - builder: custom

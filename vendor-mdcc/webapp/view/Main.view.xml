@@ -11,10 +11,10 @@
 				<Page id="page">
 					<content>
                         <OverflowToolbar>
-                            <ToolbarSpacer width="80%"/>
+                            <ToolbarSpacer width="95%"/>
                             <Button id="idBtnSave" text="Save" type="Emphasized" press="onSave"/>
                         <!--    <Button text="View" type="Emphasized" press="onViewPress"/> -->
-                            <Button text="Disptach View" type="Emphasized" press="onDispatchViewPress"/>
+                            <!-- <Button text="Disptach View" type="Emphasized" press="onDispatchViewPress"/> -->
                         </OverflowToolbar>
 						<ui:TreeTable id="TreeTableBasic"
                             rows="{path:'TreeTableModel>/', parameters: {arrayNames:['ChildItems']}}"

@@ -44,8 +44,9 @@ sap.ui.define([
                     },false);
                 }         
                 else{
-                    this.sObjectId = oEvent.getParameter("arguments").POId;
-                    this.sObjectId = this.sObjectId;
+                 //   this.sObjectId = oEvent.getParameter("arguments").MDCCId;
+                    this.sObjectId = startupParams.MDCCId;
+                   // this.sObjectId = this.sObjectId;
                     this._getMDCCData();
                     this._getParentData();
                 }
