@@ -34,13 +34,14 @@ sap.ui.define([
             _onObjectMatched: function (oEvent) {
                 
                 //debugger;
-                var startupParams = this.getOwnerComponent().getComponentData().startupParameters; 
-              //  var startupParams;
+            //   var startupParams = this.getOwnerComponent().getComponentData().startupParameters; 
+                 var startupParams={MDCCId:1,manage:"false"};
+                
                // startupParams.manage=false;
                 // get Startup params from Owner Component
-                if (startupParams.manage ) {
+                if (startupParams.manage === "true" ) {
                     this.oRouter.navTo("RouteInitiateDispatchPage", {
-                        MDCCId:startupParams.MDCCId
+                        MDCCId:parseInt(startupParams.MDCCId)
                     },false);
                 }         
                 else{
@@ -96,7 +97,8 @@ sap.ui.define([
                         success:function(i,oData,oResponse){   
                             
                             // Is Deleted - Check based on quantity is present or not then push it.
-                            if( ParentData[i].MDCCApprovedQty != null && ParentData[i].MDCCApprovedQty != ""){
+                            if( ParentData[i].MDCCApprovedQty != null && ParentData[i].MDCCApprovedQty != ""
+                                && ParentData[i].MDCCApprovedQty != "0.0"){
                                 this.ParentData[i].isSelected=true;
                                 this.ParentData[i].isPreviouslySelected=true;
                             }else{
@@ -110,7 +112,8 @@ sap.ui.define([
                                 this.ParentData[i].IsDeleted=false;
 
                                 for ( var j = 0 ; j < ParentData[i].ChildItems.length ; j++ ){
-                                    if( ParentData[i].ChildItems[j].MDCCApprovedQty != null && ParentData[i].ChildItems[j].MDCCApprovedQty != ""){
+                                    if( ParentData[i].ChildItems[j].MDCCApprovedQty != null && ParentData[i].ChildItems[j].MDCCApprovedQty != ""
+                                        && ParentData[i].ChildItems[j].MDCCApprovedQty != "0.0"){
                                         this.ParentData[i].ChildItems[j].isSelected=true;
                                         this.ParentData[i].ChildItems[j].isPreviouslySelected=true;
                                         this.ParentData[i].ChildItems[j].IsDeleted=false;
@@ -199,12 +202,12 @@ sap.ui.define([
                         childObj.RemainingQty = parseInt(data[i].ChildItems[j].RemainingQty);
                         childObj.IsDeleted = data[i].ChildItems[j].IsDeleted;
                         
-                        if(childObj.MDCCApprovedQty){
+                        if(childObj.MDCCApprovedQty || childObj.IsDeleted == true ){
                             obj.MDCCBOQItem.push(childObj);
                             flag = 1;
                         }
                     }
-                    if(obj.MDCCApprovedQty || flag == 1)
+                    if(obj.MDCCApprovedQty || flag == 1 || obj.IsDeleted == true )
                         oPayload.MDCCParentLineItem.push(obj);
                 }
              //   debugger;
