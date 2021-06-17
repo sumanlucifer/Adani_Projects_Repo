@@ -1,285 +1,227 @@
 {
-    "_version": "3.0.0",
-    "identification": {
-        "id": "f5ca39f5-64f7-415c-9b3d-cb3dcd84fbc3",
-        "entityType": "bundle"
-    },
-    "payload": {
-        "catalogs": [
-            {
-                "_version": "3.0.0",
-                "identification": {
-                    "id": "defaultCatalogId",
-                    "title": "{{title}}",
-                    "entityType": "catalog",
-                    "i18n": "i18n/defaultCatalogId.properties"
-                },
-                "payload": {
-                    "viz": []
-                }
-            }
-        ],
-        "groups": [
-            {
-                "_version": "3.0.0",
-                "identification": {
-                    "id": "defaultGroupId",
-                    "title": "{{title}}",
-                    "entityType": "group",
-                    "i18n": "i18n/defaultGroupId.properties"
-                },
-                "payload": {
-                    "viz": [
-                        {
-                            "appId": "com.agel.mmts.vendorPersona-ConfirmPOs",
-                            "vizId": "confirmedPO-Vendor"
-                        },
-                        {
-                            "appId": "com.agel.mmts.vendorPersona-DispatchedPOs",
-                            "vizId": "dispatchedPO-Vendor"
-                        },
-                        {
-                            "appId": "com.agel.mmts.vendorPersona-OpenPOs",
-                            "vizId": "openPO-Vendor"
-                        },
-                        {
-                            "appId": "com.agel.mmts.vendorPersona",
-                            "vizId": "Actions-Vendor"
-                        },
-                        {
-                            "id": "com.agel.mmts.vendormanageboq-4-1622101044538",
-                            "appId": "com.agel.mmts.vendormanageboq",
-                            "vizId": "boq-manage"
-                        }
-                    ]
-                }
-            },
-            {
-                "_version": "3.0.0",
-                "identification": {
-                    "id": "material-tracker",
-                    "title": "{{title}}",
-                    "entityType": "group",
-                    "i18n": "i18n/material-tracker.properties"
-                },
-                "payload": {
-                    "viz": [
-                        {
-                            "appId": "com.agel.mmts.storeInCharge-TotalOrder",
-                            "vizId": "TotalOrders-StoreInCharge"
-                        },
-                        {
-                            "appId": "com.agel.mmts.storeInCharge-RaisedOrder",
-                            "vizId": "RaisedOrders-StoreInCharge"
-                        },
-                        {
-                            "appId": "com.agel.mmts.storeInCharge-UpcomingOrders",
-                            "vizId": "UpcomingOrders-StoreInCharge"
-                        },
-                        {
-                            "appId": "com.agel.mmts.storeInCharge-Inventory",
-                            "vizId": "Inventory-StoreInCharge"
-                        },
-                        {
-                            "appId": "com.agel.mmts.storeInCharge-ReturnMaterialRequests",
-                            "vizId": "ReturnRequests-StoreInCharge"
-                        }
-                    ]
-                }
-            },
-            {
-                "_version": "3.0.0",
-                "identification": {
-                    "id": "qr-tracker",
-                    "title": "{{title}}",
-                    "entityType": "group",
-                    "i18n": "i18n/qr-tracker.properties"
-                },
-                "payload": {
-                    "viz": [
-                        {
-                            "appId": "com.agel.mmts.securityPerson-ScanQR",
-                            "vizId": "ScanQR-SecurityPerson"
-                        },
-                        {
-                            "appId": "com.agel.mmts.securityPerson-History",
-                            "vizId": "History-SecurityPerson"
-                        }
-                    ]
-                }
-            },
-            {
-                "_version": "3.0.0",
-                "identification": {
-                    "id": "order-tracker",
-                    "title": "{{title}}",
-                    "entityType": "group",
-                    "i18n": "i18n/order-tracker.properties"
-                },
-                "payload": {
-                    "viz": [
-                        {
-                            "appId": "com.agel.mmts.engineerInCharge-ReturnOrder",
-                            "vizId": "ReturnOrder-EngineerInCharge"
-                        },
-                        {
-                            "appId": "com.agel.mmts.engineerInCharge-Inventory",
-                            "vizId": "Inventory-EngineerInCharge"
-                        }
-                    ]
-                }
-            },
-            {
-                "_version": "3.0.0",
-                "identification": {
-                    "id": "admin",
-                    "title": "{{title}}",
-                    "entityType": "group",
-                    "i18n": "i18n/admin.properties"
-                },
-                "payload": {
-                    "viz": [
-                        {
-                            "appId": "com.agel.mmts.admin-POSummary",
-                            "vizId": "POSummary-Admin"
-                        },
-                        {
-                            "appId": "com.agel.mmts.admin-Reports",
-                            "vizId": "Reports-Admin"
-                        },
-                        {
-                            "appId": "com.agel.mmts.admin-UserManagement",
-                            "vizId": "UserMgmt-Admin"
-                        },
-                        {
-                            "appId": "com.agel.mmts.mdmuom",
-                            "vizId": "uommaster-manage"
-                        },
-                        {
-                            "appId": "com.agel.mmts.mdmpackinglisttype",
-                            "vizId": "PackingListType-Manage"
-                        },
-                        {
-                            "appId": "com.agel.mmts.mdmboqitems",
-                            "vizId": "mdmBOQ-manage"
-                        },
-                        {
-                            "appId": "com.agel.mmts.userroleassignment",
-                            "vizId": "userRoleAssignment-manage"
-                        }
-                    ]
-                }
-            },
-            {
-                "_version": "3.0.0",
-                "identification": {
-                    "id": "quick-access",
-                    "title": "{{title}}",
-                    "entityType": "group",
-                    "i18n": "i18n/quick-access.properties"
-                },
-                "payload": {
-                    "viz": [
-                        {
-                            "appId": "com.agel.mmts.quickAccess-History",
-                            "vizId": "vendorHistory-quickAccess"
-                        },
-                        {
-                            "appId": "com.agel.mmts.quickAccess-IssueMaterial",
-                            "vizId": "IssueMaterial-quickAccess"
-                        },
-                        {
-                            "appId": "com.agel.mmts.quickAccess-Reports",
-                            "vizId": "vendorReports-quickAccess"
-                        },
-                        {
-                            "appId": "com.agel.mmts.quickAccess-storeInCharge-Reports",
-                            "vizId": "storeInChargeReports-quickAccess"
-                        },
-                        {
-                            "appId": "com.agel.mmts.quickAccess-TransferStock",
-                            "vizId": "TransferStock-quickAccess"
-                        },
-                        {
-                            "appId": "com.agel.mmts.quickAccess-UnloadMaterial",
-                            "vizId": "UnloadMaterial-quickAccess"
-                        }
-                    ]
-                }
-            },
-            {
-                "_version": "3.0.0",
-                "identification": {
-                    "id": "tc-engineer",
-                    "title": "{{title}}",
-                    "entityType": "group",
-                    "i18n": "i18n/tc-engineer.properties"
-                },
-                "payload": {
-                    "viz": [
-                        {
-                            "id": "com.agel.mmts.tcengineer-0-1622109848831",
-                            "appId": "com.agel.mmts.tcengineer",
-                            "vizId": "boqApprovals-manage"
-                        }
-                    ]
-                }
-            }
-        ],
-        "sites": [
-            {
-                "_version": "3.0.0",
-                "identification": {
-                    "id": "80f5ade6-863c-4570-9305-4b4d352d3936",
-                    "entityType": "site",
-                    "title": "SAP Fiori launchpad site on Cloud Foundry",
-                    "description": "SAP Fiori launchpad site on Cloud Foundry, deployed from WING"
-                },
-                "payload": {
-                    "config": {
-                        "ushellConfig": {
-                            "renderers": {
-                                "fiori2": {
-                                    "componentData": {
-                                        "config": {
-                                            "applications": {
-                                                "Shell-home": {}
-                                            },
-                                            "enableSearch": false,
-                                            "enablePersonalization": true,
-                                            "enableSetTheme": true,
-                                            "enableSetLanguage": true,
-                                            "enableAutomaticSignout": true,
-                                            "sessionTimeoutIntervalInMinutes": 15,
-                                            "sessionTimeoutReminderInMinutes": 3
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "groupsOrder": [
-                        "defaultGroupId",
-                        "material-tracker",
-                        "qr-tracker",
-                        "order-tracker",
-                        "admin",
-                        "quick-access",
-                        "tc-engineer"
-                    ],
-                    "sap.cloud.portal": {
-                        "config": {
-                            "theme.id": "sap_fiori_3",
-                            "theme.active": [
-                                "sap_fiori_3",
-                                "sap_fiori_3_dark",
-                                "sap_belize_hcb",
-                                "sap_belize_hcw"
-                            ]
-                        }
-                    }
-                }
-            }
-        ]
-    }
+	"_version": "3.0.0",
+	"identification": {
+		"id": "f5ca39f5-64f7-415c-9b3d-cb3dcd84fbc3",
+		"entityType": "bundle"
+	},
+	"payload": {
+		"catalogs": [{
+			"_version": "3.0.0",
+			"identification": {
+				"id": "defaultCatalogId",
+				"title": "{{title}}",
+				"entityType": "catalog",
+				"i18n": "i18n/defaultCatalogId.properties"
+			},
+			"payload": {
+				"viz": []
+			}
+		}],
+		"groups": [{
+			"_version": "3.0.0",
+			"identification": {
+				"id": "defaultGroupId",
+				"title": "{{title}}",
+				"entityType": "group",
+				"i18n": "i18n/defaultGroupId.properties"
+			},
+			"payload": {
+				"viz": [{
+					"appId": "com.agel.mmts.vendorPersona-ConfirmPOs",
+					"vizId": "confirmedPO-Vendor"
+				}, {
+					"appId": "com.agel.mmts.vendorPersona-DispatchedPOs",
+					"vizId": "dispatchedPO-Vendor"
+				}, {
+					"appId": "com.agel.mmts.vendorPersona-OpenPOs",
+					"vizId": "openPO-Vendor"
+				}, {
+					"appId": "com.agel.mmts.vendorPersona",
+					"vizId": "Actions-Vendor"
+				}, {
+					"appId": "com.agel.mmts.vendormanageboq",
+					"vizId": "boq-manage"
+				}, {
+					"appId": "com.agel.mmts.vendormdcc",
+					"vizId": "mdcc-manage"
+				}]
+			}
+		}, {
+			"_version": "3.0.0",
+			"identification": {
+				"id": "material-tracker",
+				"title": "{{title}}",
+				"entityType": "group",
+				"i18n": "i18n/material-tracker.properties"
+			},
+			"payload": {
+				"viz": [{
+					"appId": "com.agel.mmts.storeInCharge-TotalOrder",
+					"vizId": "TotalOrders-StoreInCharge"
+				}, {
+					"appId": "com.agel.mmts.storeInCharge-RaisedOrder",
+					"vizId": "RaisedOrders-StoreInCharge"
+				}, {
+					"appId": "com.agel.mmts.storeInCharge-UpcomingOrders",
+					"vizId": "UpcomingOrders-StoreInCharge"
+				}, {
+					"appId": "com.agel.mmts.storeInCharge-Inventory",
+					"vizId": "Inventory-StoreInCharge"
+				}, {
+					"appId": "com.agel.mmts.storeInCharge-ReturnMaterialRequests",
+					"vizId": "ReturnRequests-StoreInCharge"
+				}]
+			}
+		}, {
+			"_version": "3.0.0",
+			"identification": {
+				"id": "qr-tracker",
+				"title": "{{title}}",
+				"entityType": "group",
+				"i18n": "i18n/qr-tracker.properties"
+			},
+			"payload": {
+				"viz": [{
+					"appId": "com.agel.mmts.securityPerson-ScanQR",
+					"vizId": "ScanQR-SecurityPerson"
+				}, {
+					"appId": "com.agel.mmts.securityPerson-History",
+					"vizId": "History-SecurityPerson"
+				}]
+			}
+		}, {
+			"_version": "3.0.0",
+			"identification": {
+				"id": "order-tracker",
+				"title": "{{title}}",
+				"entityType": "group",
+				"i18n": "i18n/order-tracker.properties"
+			},
+			"payload": {
+				"viz": [{
+					"appId": "com.agel.mmts.engineerInCharge-ReturnOrder",
+					"vizId": "ReturnOrder-EngineerInCharge"
+				}, {
+					"appId": "com.agel.mmts.engineerInCharge-Inventory",
+					"vizId": "Inventory-EngineerInCharge"
+				}]
+			}
+		}, {
+			"_version": "3.0.0",
+			"identification": {
+				"id": "admin",
+				"title": "{{title}}",
+				"entityType": "group",
+				"i18n": "i18n/admin.properties"
+			},
+			"payload": {
+				"viz": [{
+					"appId": "com.agel.mmts.admin-POSummary",
+					"vizId": "POSummary-Admin"
+				}, {
+					"appId": "com.agel.mmts.admin-Reports",
+					"vizId": "Reports-Admin"
+				}, {
+					"appId": "com.agel.mmts.admin-UserManagement",
+					"vizId": "UserMgmt-Admin"
+				}, {
+					"appId": "com.agel.mmts.mdmuom",
+					"vizId": "uommaster-manage"
+				}, {
+					"appId": "com.agel.mmts.mdmpackinglisttype",
+					"vizId": "PackingListType-Manage"
+				}, {
+					"appId": "com.agel.mmts.mdmboqitems",
+					"vizId": "mdmBOQ-manage"
+				}, {
+					"appId": "com.agel.mmts.userroleassignment",
+					"vizId": "userRoleAssignment-manage"
+				}]
+			}
+		}, {
+			"_version": "3.0.0",
+			"identification": {
+				"id": "quick-access",
+				"title": "{{title}}",
+				"entityType": "group",
+				"i18n": "i18n/quick-access.properties"
+			},
+			"payload": {
+				"viz": [{
+					"appId": "com.agel.mmts.quickAccess-History",
+					"vizId": "vendorHistory-quickAccess"
+				}, {
+					"appId": "com.agel.mmts.quickAccess-IssueMaterial",
+					"vizId": "IssueMaterial-quickAccess"
+				}, {
+					"appId": "com.agel.mmts.quickAccess-Reports",
+					"vizId": "vendorReports-quickAccess"
+				}, {
+					"appId": "com.agel.mmts.quickAccess-storeInCharge-Reports",
+					"vizId": "storeInChargeReports-quickAccess"
+				}, {
+					"appId": "com.agel.mmts.quickAccess-TransferStock",
+					"vizId": "TransferStock-quickAccess"
+				}, {
+					"appId": "com.agel.mmts.quickAccess-UnloadMaterial",
+					"vizId": "UnloadMaterial-quickAccess"
+				}]
+			}
+		}, {
+			"_version": "3.0.0",
+			"identification": {
+				"id": "tc-engineer",
+				"title": "{{title}}",
+				"entityType": "group",
+				"i18n": "i18n/tc-engineer.properties"
+			},
+			"payload": {
+				"viz": [{
+					"id": "com.agel.mmts.tcengineer-0-1622109848831",
+					"appId": "com.agel.mmts.tcengineer",
+					"vizId": "boqApprovals-manage"
+				}]
+			}
+		}],
+		"sites": [{
+			"_version": "3.0.0",
+			"identification": {
+				"id": "80f5ade6-863c-4570-9305-4b4d352d3936",
+				"entityType": "site",
+				"title": "SAP Fiori launchpad site on Cloud Foundry",
+				"description": "SAP Fiori launchpad site on Cloud Foundry, deployed from WING"
+			},
+			"payload": {
+				"config": {
+					"ushellConfig": {
+						"renderers": {
+							"fiori2": {
+								"componentData": {
+									"config": {
+										"applications": {
+											"Shell-home": {}
+										},
+										"enableSearch": false,
+										"enablePersonalization": true,
+										"enableSetTheme": true,
+										"enableSetLanguage": true,
+										"enableAutomaticSignout": true,
+										"sessionTimeoutIntervalInMinutes": 15,
+										"sessionTimeoutReminderInMinutes": 3
+									}
+								}
+							}
+						}
+					}
+				},
+				"groupsOrder": ["defaultGroupId", "material-tracker", "qr-tracker", "order-tracker", "admin", "quick-access", "tc-engineer"],
+				"sap.cloud.portal": {
+					"config": {
+						"theme.id": "sap_fiori_3",
+						"theme.active": ["sap_fiori_3", "sap_fiori_3_dark", "sap_belize_hcb", "sap_belize_hcw"]
+					}
+				}
+			}
+		}]
+	}
 }

@@ -1,17 +1,8 @@
 {
     "resources": [
         {
-<<<<<<< HEAD
-            "name": "controller/LandingPage-dbg.controller.js",
-            "isDebug": true
-=======
-<<<<<<< HEAD
             "name": "i18n/i18n.properties",
             "raw": "i18n/i18n.properties"
-=======
-            "name": "css/style.css"
->>>>>>> develop
->>>>>>> 950a1aa2bd6c8bd656c54d5fc443a646f0a6b70f
         },
         {
             "name": "Component.js"
@@ -37,8 +28,8 @@
             "isDebug": true
         },
         {
-            "name": "i18n/i18n.properties",
-            "raw": "i18n/i18n.properties"
+            "name": "controller/LandingPage-dbg.controller.js",
+            "isDebug": true
         },
         {
             "name": "model/models-dbg.js",
@@ -51,16 +42,7 @@
             "name": "view/LandingPage.view.xml"
         },
         {
-<<<<<<< HEAD
             "name": "css/style.css"
-=======
-<<<<<<< HEAD
-            "name": "css/style.css"
-=======
-            "name": "i18n/i18n.properties",
-            "raw": "i18n/i18n.properties"
->>>>>>> develop
->>>>>>> 950a1aa2bd6c8bd656c54d5fc443a646f0a6b70f
         },
         {
             "name": "index.html"

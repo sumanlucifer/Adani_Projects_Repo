@@ -35,6 +35,42 @@ sap.ui.define([], function () {
             return _url;
         },
 
+        viewItemsVisible : function(oData){
+           
+            if ( oData )
+            {
+                if ( oData.length > 0)
+                    return true;
+                else
+                    return false;
+            }else{
+                return false;
+            }
+        },
+
+         viewItemsFileUploader : function(oData){
+           
+            if ( oData )
+            {
+                if ( oData.length > 0)
+                    return false;
+                else
+                    return true;
+            }else{
+                return true;
+            }
+        },
+
+        viewFileName : function(oData){
+           
+            return "";
+        },
+
+        testFunction2 : function(oData){
+            
+            return true;
+        },
+
         fileContent: function (fileName, fileContent) {
 
             if (fileName && fileContent) {
@@ -99,7 +135,7 @@ sap.ui.define([], function () {
         },
 
         test: function(value){
-            debugger;
+            
         }
         
 

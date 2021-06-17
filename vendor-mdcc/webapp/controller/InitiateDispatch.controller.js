@@ -39,7 +39,7 @@ sap.ui.define([
         _onObjectMatched: function (oEvent) {
             var that = this;
             var sObjectId = oEvent.getParameter("arguments").MDCCId;
-            this.sObjectId=3;
+            this.sObjectId=sObjectId;
             this._bindView("/MDCCSet("+this.sObjectId+")");   
 
               this._getParentDataViewMDCC();
@@ -66,7 +66,7 @@ sap.ui.define([
         onPressInitiateDispatch : function(oEvent){
             var that = this;
             this.oRouter.navTo("RoutePackingListProceedPage", {
-                MDCCId:3
+                MDCCId:this.sObjectId
             },false);
 
         },

@@ -89,6 +89,10 @@ modules:
       name: admin-POSummary
       target-path: resources/
     - artifacts:
+      - user-roleassignment-content.zip
+      name: user-roleassignment
+      target-path: resources/
+    - artifacts:
       - admin-UserManagement-content.zip
       name: admin-UserManagement
       target-path: resources/
@@ -149,12 +153,8 @@ modules:
       name: mdm-boqitems
       target-path: resources/
     - artifacts:
-      - comagelmmtsvendormanagemdcc.zip
-      name: comagelmmtsvendormanagemdcc
-      target-path: resources/
-    - artifacts:
-      - comagelmmtsvendormdcc.zip
-      name: comagelmmtsvendormdcc
+      - vendor-mdcc-content.zip
+      name: vendormdcc
       target-path: resources/
     - artifacts:
       - comagelmmtssecurityinternationalimport.zip
@@ -303,6 +303,14 @@ modules:
     commands:
     - npm run build
     supported-platforms: []
+- name: user-roleassignment
+  type: html5
+  path: user-roleassignment
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []
 - name: admin-UserManagement
   type: html5
   path: admin-UserManagement
@@ -423,41 +431,29 @@ modules:
     commands:
     - npm run build
     supported-platforms: []
-- name: comagelmmtsvendormanagemdcc
-  type: html5
-  path: vendor-managemdcc
-  build-parameters:
-    build-result: dist
-    builder: custom
-    commands:
-    - npm install
-    supported-platforms: []
-- name: comagelmmtsvendormdcc
+- name: vendormdcc
   type: html5
   path: vendor-mdcc
   build-parameters:
-    build-result: dist
     builder: custom
     commands:
-    - npm install
+    - npm run build
     supported-platforms: []
 - name: comagelmmtssecurityinternationalimport
   type: html5
   path: security-international-import
   build-parameters:
-    build-result: dist
     builder: custom
     commands:
-    - npm install
+    - npm run build
     supported-platforms: []
 - name: comagelmmtssecurityscanhistory
   type: html5
   path: security-scan-history
   build-parameters:
-    build-result: dist
     builder: custom
     commands:
-    - npm install
+    - npm run build
     supported-platforms: []
 - name: security-scanqr
   type: html5
@@ -465,7 +461,7 @@ modules:
   build-parameters:
     builder: custom
     commands:
-    - npm install
+    - npm run build
     supported-platforms: []
 - name: comagelmmtsvendorpackinglistcreate
   type: html5
@@ -473,7 +469,7 @@ modules:
   build-parameters:
     builder: custom
     commands:
-    - npm install
+    - npm run build
     supported-platforms: []    
 resources:
 - name: uaa_agel-mmts-web

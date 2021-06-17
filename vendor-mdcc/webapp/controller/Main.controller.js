@@ -32,10 +32,24 @@ sap.ui.define([
             },
             
             _onObjectMatched: function (oEvent) {
-                this.sObjectId = oEvent.getParameter("arguments").POId;
-                this.sObjectId = 3;
-                this._getMDCCData();
-                this._getParentData();
+                
+                //debugger;
+                var startupParams = this.getOwnerComponent().getComponentData().startupParameters; 
+              //  var startupParams;
+               // startupParams.manage=false;
+                // get Startup params from Owner Component
+                if (startupParams.manage ) {
+                    this.oRouter.navTo("RouteInitiateDispatchPage", {
+                        MDCCId:startupParams.MDCCId
+                    },false);
+                }         
+                else{
+                 //   this.sObjectId = oEvent.getParameter("arguments").MDCCId;
+                    this.sObjectId = startupParams.MDCCId;
+                   // this.sObjectId = this.sObjectId;
+                    this._getMDCCData();
+                    this._getParentData();
+                }
              //   this._bindView("/PurchaseOrderSet" + sObjectId);
             },
 
@@ -193,14 +207,15 @@ sap.ui.define([
                     if(obj.MDCCApprovedQty || flag == 1)
                         oPayload.MDCCParentLineItem.push(obj);
                 }
-                debugger;
-                return;
+             //   debugger;
+            //    return;
                 // Create Call 
                 that.MainModel.create("/MDCCBOQRequestSet", oPayload, {
                     success: function (oData, oResponse) {
                       //  that.getComponentModel("app").setProperty("/busy", false);
                        // debbuger;
                         MessageBox.success("MDCC items mapped successfully");
+                        window.history.go(-1);
                       //  that.onCancel();
                     }.bind(this),
                     error: function (oError) {

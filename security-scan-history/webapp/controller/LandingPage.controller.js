@@ -40,7 +40,13 @@ sap.ui.define([
             
             _onObjectMatched:function(oEvent){
 
-            }
+            },
+
+            onDomesticEntryPress : function(oEvent){
+                this.oRouter.navTo("RouteQRCodeDetail");
+            },
+            
+            
 
 		});
 	});
