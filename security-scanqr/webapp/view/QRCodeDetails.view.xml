@@ -16,7 +16,7 @@
                             <VBox renderType="Bare">
                                 <Title text="{i18n>qRCodeDetails}" titleStyle="H3" class="sapUiTinyMarginBottom"/>
                                 <Text text="{QRNumber}" />
-                                <Text text="Packing List Name - {PackingListId}" />
+                                <Text text="Packing List Name - {Name}" />
                             </VBox>
                             <HBox renderType="Bare" class="sapUiSmallMarginTopBottom">
                                 <items>
@@ -73,8 +73,9 @@
                     </VBox>
                 </uxap:content>
                 <uxap:actions>
-                    <HBox visible="{= %{packing_list/gate/entry_id} ? false : true}">
-                        <Button text="{i18n>submit}"  press="onVehiclleNumberSubmit" type="Emphasized" visible="{= %{gate/ID} ? false : true}"/>
+                    <HBox visible="{= %{GateEntryNumber} ? false : true}">
+                        <Button text="{i18n>submit}"  press="onVehiclleNumberSubmit" type="Emphasized"
+                             visible="{= %{GateEntryNumber} ? false : true}"/>
                     </HBox>
                 </uxap:actions>
             </uxap:ObjectPageDynamicHeaderTitle>

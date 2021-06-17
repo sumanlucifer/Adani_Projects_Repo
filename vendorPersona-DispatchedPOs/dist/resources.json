@@ -1,8 +1,12 @@
 {
     "resources": [
         {
+<<<<<<< HEAD
             "name": "Component-preload.js",
             "merged": true
+=======
+            "name": "controller/LandingPage.controller.js"
+>>>>>>> develop
         },
         {
             "name": "model/models.js"
@@ -11,7 +15,12 @@
             "name": "manifest.json"
         },
         {
+<<<<<<< HEAD
             "name": "controller/LandingPage.controller.js"
+=======
+            "name": "i18n/i18n.properties",
+            "raw": "i18n/i18n.properties"
+>>>>>>> develop
         },
         {
             "name": "Component.js"
@@ -24,15 +33,15 @@
             "raw": "i18n/i18n.properties"
         },
         {
+            "name": "Component-dbg.js",
+            "isDebug": true
+        },
+        {
             "name": "controller/LandingPage-dbg.controller.js",
             "isDebug": true
         },
         {
             "name": "model/models-dbg.js",
-            "isDebug": true
-        },
-        {
-            "name": "Component-dbg.js",
             "isDebug": true
         },
         {
