@@ -99,7 +99,7 @@ sap.ui.define([
 
             // On change vehicle number
             onChangeVehicleNumberPress: function () {
-                var bWantCeNumberPress: function () {
+                //var bWantCeNumberPress: function () {
                 var bWantChange = this.getViewModel("oViewHandlingModel").getProperty("/wantChange");
                 if (bWantChange) {
                     this.getViewModel("oViewHandlingModel").setProperty("/wantChange", false);

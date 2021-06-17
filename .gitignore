@@ -74,10 +74,6 @@ pmcg/.env2
 vendorPersona/.env10
 # auto generated wildcard
 agel-mmts-web/vendor-packinglist-create/.env1
-<<<<<<< HEAD
-# auto generated wildcard
-vendor-packinglist-create/.env3
-=======
 
 # auto generated wildcard
 securityPerson-ScanQR/.env1
@@ -100,7 +96,8 @@ agel-mmts-web/vendor-packinglist-create/.env1
 agel-mmts-web/security-international-import/.env1
 # auto generated wildcard
 agel-mmts-web/security-scan-history/.env1
->>>>>>> develop
 
 # auto generated wildcard
 agel-mmts-web/vendorPersona/.env23
+# auto generated wildcard
+agel-mmts-web/vendorPersona-OpenPOs/.env1

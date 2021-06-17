@@ -29,14 +29,17 @@ sap.ui.define([
                 var objectViewModel = this.getViewModel("objectViewModel");
                 var that = this;
 
+                var startupParams = this.getOwnerComponent().getComponentData().startupParameters;
+
+                this.packingListId = startupParams.packingListID[0];
+
                 this.getView().bindElement({
-                    path: "/PackingListSet(5)",
+                    path: "/PackingListSet(" + this.packingListId + ")",
                     events: {
                         dataRequested: function () {
                             objectViewModel.setProperty("/busy", true);
                         },
                         dataReceived: function () {
-                            
                             var bIsProcessOneCompletes = this.getBoundContext().getObject().IsProcessOneCompletes;
                             if (bIsProcessOneCompletes)
                                 objectViewModel.setProperty("/isPackingListInEditModel", false);
@@ -92,7 +95,7 @@ sap.ui.define([
             },
 
             _getPackingListContainsData: function () {
-                this.mainModel.read("/PackingListSet(5)/PackingListContains", {
+                this.mainModel.read("/PackingListSet(" + this.packingListId + ")/PackingListContains", {
                     success: function (oData, oResponse) {
                         if (oData.results.length)
                             this._setPackingListContainsData(oData.results);
@@ -104,7 +107,7 @@ sap.ui.define([
             },
 
             _getPackingListInnerPackagingData: function () {
-                this.mainModel.read("/PackingListSet(5)/InnerPackagings", {
+                this.mainModel.read("/PackingListSet(" + this.packingListId + ")/InnerPackagings", {
                     success: function (oData, oResponse) {
                         if (oData.results.length)
                             this._setPackingListInnerPackagingData(oData.results);
@@ -143,7 +146,7 @@ sap.ui.define([
                 var oModel = new JSONModel({ items: items });
                 this.getView().setModel(oModel, "InnerPackagingModel");
                 this.getView().getModel("objectViewModel").setProperty("/isPackagingTableVisible", true);
-                
+
             },
 
             onSavePackingListPress: function (oEvent) {
@@ -165,7 +168,9 @@ sap.ui.define([
             },
 
             onProceedStep1Press: function (oEvent) {
-                this.oRouter.navTo("RouteCreateViewStep2");
+                this.oRouter.navTo("RouteCreateViewStep2", {
+                    packingListId: this.packingListId
+                });
             },
 
             onEditPackingListPress: function (oEvent) {

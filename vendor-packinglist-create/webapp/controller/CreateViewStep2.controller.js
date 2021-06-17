@@ -39,9 +39,10 @@ sap.ui.define([
 
             _onObjectMatched: function (oEvent) {
                 var objectViewModel = this.getViewModel("objectViewModel");
+                this.packingListId = oEvent.getParameter("arguments").packingListId[0];
                 var that = this;
                 this.getView().bindElement({
-                    path: "/PackingListSet(5)",
+                    path: "/PackingListSet(" + this.packingListId + ")",
                     events: {
                         dataRequested: function () {
                             objectViewModel.setProperty("/busy", true);
@@ -80,7 +81,7 @@ sap.ui.define([
             },
 
             _getPackingListOuterPackagingData: function () {
-                this.mainModel.read("/PackingListSet(5)/OuterPackagings", {
+                this.mainModel.read("/PackingListSet(" + this.packingListId + ")/OuterPackagings", {
                     success: function (oData, oError) {
                         console.log("Outer packaging get");
                         var oModel = new JSONModel(oData.results);
@@ -113,7 +114,7 @@ sap.ui.define([
             },
 
             _getPackingListInnerPackagingData: function () {
-                this.mainModel.read("/PackingListSet(5)/InnerPackagings", {
+                this.mainModel.read("/PackingListSet(" + this.packingListId + ")/InnerPackagings", {
                     success: function (oData, oError) {
                         console.log("Total Inner get");
                         var oModel = new JSONModel(oData.results);
@@ -459,7 +460,9 @@ sap.ui.define([
             },
 
             onProceedStep2Press: function (oEvent) {
-                this.oRouter.navTo("RoutePackingListDetails");
+                this.oRouter.navTo("RoutePackingListDetails",{
+                    packingListId: this.packingListId
+                });
             },
 
             onViewQRCodePress: function (oEvent) {
@@ -468,7 +471,7 @@ sap.ui.define([
                 var oAdditionalData = this.getView().getBindingContext().getObject();
                 var poNum = oAdditionalData.PONumber;
                 var userName = oAdditionalData.Name;
-                var packingListId = oAdditionalData.ID || 5;
+                var packingListId = oAdditionalData.ID;
                 oPayload.UserName = userName;
                 oPayload.PackingListId = packingListId;
                 oPayload.PONumber = poNum;
@@ -495,7 +498,7 @@ sap.ui.define([
 
             _makePackingListNonEditable: function () {
                 var oPayload = { IsDraft: false };
-                this.mainModel.update("/PackingListSet(5)", oPayload, {
+                this.mainModel.update("/PackingListSet(" + this.packingListId + ")", oPayload, {
                     success: function (oData, oResponse) {
                     }.bind(this),
                     error: function (oError) {

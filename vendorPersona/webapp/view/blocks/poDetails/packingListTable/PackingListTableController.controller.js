@@ -15,6 +15,26 @@ sap.ui.define(["sap/ui/core/mvc/Controller"], function (Controller) {
 
         onPackingListTableUpdateFinished: function(oEvent){
             
-        }
+        },
+
+
+        onPackingListItemPress: function (oEvent) {
+            var poNumber = oEvent.getSource().getBindingContext().getObject().PONumber; // read SupplierID from OData path Product/SupplierID
+            var oCrossAppNavigator = sap.ushell.Container.getService("CrossApplicationNavigation"); // get a handle on the global XAppNav service
+            var hash = (oCrossAppNavigator && oCrossAppNavigator.hrefForExternal({
+                target: {
+                    semanticObject: "boq",
+                    action: "manage"
+                },
+                params: {
+                    "poNumber": poNumber
+                }
+            })) || ""; // generate the Hash to display a Supplier
+            oCrossAppNavigator.toExternal({
+                target: {
+                    shellHash: hash
+                }
+            }); // navigate to Supplier application
+        },
     });
 });

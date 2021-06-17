@@ -26,15 +26,15 @@
             <IconTabBar id="idIconTabBar" select="onIconTabSelect" headerMode="Inline" expanded="true" class="sapUiResponsiveContentPadding">
                 <items>
 
-                    <IconTabFilter id="idOpenPOTabTitle" text="{i18n>OpenPO}" key="OpenPOKey" count="{oIconTabCountModel>/openCount}">
+                    <IconTabFilter id="idOpenPOTabTitle" text="{i18n>OpenPO}" key="OPEN" count="{oIconTabCountModel>/openCount}">
                         <core:Fragment fragmentName="com.agel.mmts.vendorPersona.view.fragments.detailPage.OpenPOTable" type="XML"/>
                     </IconTabFilter>
 
-                     <IconTabFilter text="{i18n>ConfirmedPO}" key="ConfirmPOKey" count="{oIconTabCountModel>/confirmCount}">
+                     <IconTabFilter text="{i18n>ConfirmedPO}" key="CONFIRMED" count="{oIconTabCountModel>/confirmCount}">
                           <core:Fragment fragmentName="com.agel.mmts.vendorPersona.view.fragments.detailPage.ConfirmedPOTable" type="XML"/>
                     </IconTabFilter>
                     
-                    <IconTabFilter text="{i18n>ClosedPO}" key="DispatchPOKey" count="{oIconTabCountModel>/dispatchCount}">
+                    <IconTabFilter text="{i18n>ClosedPO}" key="CLOSED" count="{oIconTabCountModel>/dispatchCount}">
                        <core:Fragment fragmentName="com.agel.mmts.vendorPersona.view.fragments.detailPage.DispatchedPOTable" type="XML"/>
                     </IconTabFilter>
 

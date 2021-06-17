@@ -14,3 +14,5 @@ agel-mmts-web/security-international-import/.env1
 agel-mmts-web/security-scan-history/.env1
 # auto generated wildcard
 agel-mmts-web/vendorPersona/.env23
+# auto generated wildcard
+agel-mmts-web/vendorPersona-OpenPOs/.env1
