@@ -39,13 +39,11 @@
 					"appId": "com.agel.mmts.vendorPersona",
 					"vizId": "Actions-Vendor"
 				}, {
-					"id": "com.agel.mmts.vendormanageboq-4-1622101044538",
 					"appId": "com.agel.mmts.vendormanageboq",
 					"vizId": "boq-manage"
 				}, {
-					"id": "com.agel.mmts.vendormdcc-5-1623911375181",
 					"appId": "com.agel.mmts.vendormdcc",
-					"vizId": "vendor_mdcc-manage"
+					"vizId": "mdcc-manage"
 				}]
 			}
 		}, {

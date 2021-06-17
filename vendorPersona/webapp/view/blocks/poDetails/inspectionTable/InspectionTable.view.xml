@@ -3,28 +3,28 @@
     xmlns:smartTable="sap.ui.comp.smarttable"
     xmlns="sap.m" controllerName="com.agel.mmts.vendorPersona.view.blocks.poDetails.inspectionTable.InspectionTableController">
 
-    <smartTable:SmartTable class="sapUiSizeCompact" id="idPackingListTable" editable="false" placeToolbarInTable="true" enableAutoBinding="true" entitySet="InspectionCallIdSet" showFullScreenButton="true" showRowCount="false" tableType="ResponsiveTable" demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" beforeRebindTable="onBeforeRenderingInspectionTable" enableAutoColumnWidth="true" ignoreFromPersonalisation="CreatedBy,ID,IsArchived,PONumber,Type,UpdatedAt,UpdatedBy">
+    <smartTable:SmartTable class="sapUiSizeCompact" id="idPackingListTable" editable="false" placeToolbarInTable="true" enableAutoBinding="true" entitySet="InspectionCallIdSet" showFullScreenButton="true" showRowCount="false" tableType="ResponsiveTable" demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" beforeRebindTable="onBeforeRenderingInspectionTable" enableAutoColumnWidth="true" ignoreFromPersonalisation="CreatedBy,ID,IsArchived,PONumber,UpdatedAt,UpdatedBy">
 
-     <smartTable:customToolbar>
-			<OverflowToolbar design="Transparent">
-				<ToolbarSpacer/>
-				<Button text="Offline inspection raised?" press="onOfflineInspectionPress"></Button>
-			</OverflowToolbar>
-		</smartTable:customToolbar>
+        <smartTable:customToolbar>
+            <OverflowToolbar design="Transparent">
+                <ToolbarSpacer/>
+                <Button text="Offline inspection raised?" press="onOfflineInspectionPress"></Button>
+            </OverflowToolbar>
+        </smartTable:customToolbar>
 
         <Table sticky="ColumnHeaders,HeaderToolbar">
             <columns>
                 <Column >
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "SAPInspectionCallId", "leadingProperty": "SAPInspectionCallId",
-                                                 "columnIndex": 0 ,"sortProperty": "SAPInspectionCallId","filterProperty": "SAPInspectionCallId"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "SAPInspectionCallId, OfflineInspectionCallId", "leadingProperty": "SAPInspectionCallId, OfflineInspectionCallId" ,
+                                                 "columnIndex": 0 }'/>
                     </customData>
                     <Text text="{i18n>inspectionNumber}"/>
                 </Column>
 
                 <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "InspectionDate", "leadingProperty": "SAPInspectionCallId",
+                        <core:CustomData key="p13nData" value='\{"columnKey": "InspectionDate", "leadingProperty": "InspectionDate",
                                                  "columnIndex": 1 ,"sortProperty": "InspectionDate","filterProperty": "InspectionDate"}'/>
                     </customData>
                     <Text text="{i18n>inspectionDate}"/>
@@ -33,7 +33,7 @@
                 <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "Comments", "leadingProperty": "Comments",
-                                                 "columnIndex": 2 ,"sortProperty": "Comments","filterProperty": "Comments"}'/>
+                                                 "columnIndex": 2,"sortProperty": "Comments","filterProperty": "Comments"}'/>
                     </customData>
                     <Text text="{i18n>comments}"/>
                 </Column>
@@ -42,7 +42,7 @@
 
                 <ColumnListItem type="Navigation" press="onInspectionIDPress">
                     <cells>
-                        <ObjectIdentifier title="{SAPInspectionCallId}"></ObjectIdentifier>
+                        <ObjectIdentifier title="{= ${SAPInspectionCallId}!== '0' ? ${SAPInspectionCallId} : ${OfflineInspectionCallId}}" />
                         <Text text="{path:'InspectionDate',
                                     type: 'sap.ui.model.type.Date',
 				                     formatOptions: {

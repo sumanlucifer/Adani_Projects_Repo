@@ -28,7 +28,7 @@
                         "parameters": {},
                         "additionalParameters": "allowed"
                     },
-                    "semanticObject": "vendor_mdcc",
+                    "semanticObject": "mdcc",
                     "action": "manage",
                     "title": "Manage MDCC",
                     "subTitle": "",

@@ -6,6 +6,10 @@ sap.ui.define(["sap/ui/core/mvc/Controller"], function (Controller) {
 
         onViewBOQItemsPress: function (oEvent) {
             this.oParentBlock.fireOnViewBOQItemsPress(oEvent);
+        },
+
+        onViewQRPress: function(oEvent){
+            this.oParentBlock.fireOnViewQRCodePress(oEvent);
         }
 
     });
