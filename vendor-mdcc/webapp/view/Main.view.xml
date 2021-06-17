@@ -8,63 +8,76 @@
 	<Shell id="shell">
 		<App id="app">
 			<pages>
-				<Page id="page">
+				<Page id="page" >
+                    <customHeader>
+                        <Bar>
+                            <contentLeft>
+                                <Title text="{i18n>MapMDCC}" titleStyle="H3"/>
+                            </contentLeft>
+                            <contentRight>
+                                <Button id="idBtnSave" text="Save" type="Emphasized" press="onSave"/>
+                            </contentRight>
+                        </Bar>                    
+                    </customHeader>
 					<content>
-                        <OverflowToolbar>
-                            <ToolbarSpacer width="95%"/>
-                            <Button id="idBtnSave" text="Save" type="Emphasized" press="onSave"/>
-                        <!--    <Button text="View" type="Emphasized" press="onViewPress"/> -->
-                            <!-- <Button text="Disptach View" type="Emphasized" press="onDispatchViewPress"/> -->
-                        </OverflowToolbar>
 						<ui:TreeTable id="TreeTableBasic"
                             rows="{path:'TreeTableModel>/', parameters: {arrayNames:['ChildItems']}}"
                             selectionMode="None"  enableSelectAll="false"
-                            title="{i18n>ManageMDCC}" ariaLabelledBy="title">
+                             ariaLabelledBy="title" class="sapUiSmallMargin">
 							<ui:columns>
                                 
-                                <ui:Column width="7rem">
-									<Label text="Select"/>
+                                <ui:Column width="8%" hAlign="Center">
+									<Label text="Select" />
 									<ui:template>
 										 <CheckBox selected="{TreeTableModel>isSelected}" 
                                            select="onSelectionOfRow" />
 									</ui:template>
 								</ui:Column>
-
-								<ui:Column width="5rem">
+<!-- 
+								<ui:Column>
 									<Label text="ID"/>
 									<ui:template>
-										<Text text="{TreeTableModel>ID}" wrapping="false" />
+										<Text text="{TreeTableModel>ID}"  />
 									</ui:template>
-								</ui:Column>
+								</ui:Column> -->
                                 
-                                <ui:Column width="13rem">
+                                <ui:Column>
 									<Label text="MaterialCode"/>
 									<ui:template>
-										<Text text="{TreeTableModel>MaterialCode}" wrapping="false" />
+										<Text text="{TreeTableModel>MaterialCode}"  />
 									</ui:template>
 								</ui:Column>
 
-								<ui:Column width="13rem">
+								<ui:Column>
 									<Label text="Name"/>
 									<ui:template>
-										<Text text="{TreeTableModel>Name}" wrapping="false" />
+										<Text text="{TreeTableModel>Name}"  />
 									</ui:template>
 								</ui:Column>
-								<ui:Column width="13rem">
+
+								<ui:Column>
 									<Label text="Description"/>
 									<ui:template>
-										<Text text="{TreeTableModel>Description}" wrapping="false" />
+										<Text text="{TreeTableModel>Description}"  />
 									</ui:template>
 								</ui:Column>
 								
-								<ui:Column width="5rem">
-									<Label text="Qty"/>
+								<ui:Column>
+									<Label text="Total Quantity"/>
 									<ui:template>
-										<Text text="{TreeTableModel>Qty}" wrapping="false" />
+										<Text text="{TreeTableModel>Qty}"  />
 									</ui:template>
 								</ui:Column>
-								<ui:Column width="10rem">
-									<Label text="MDCCApprovedQty"/>
+
+                                <ui:Column>
+									<Label text="Remaining Quantity"/>
+									<ui:template>
+										<Text text="{TreeTableModel>RemainingQty}"  />
+									</ui:template>
+								</ui:Column>
+
+								<ui:Column>
+									<Label text="MDCC Approved Quantity"/>
 									<ui:template>
                                         
 										    <Input value="{TreeTableModel>MDCCApprovedQty}" 
@@ -74,12 +87,14 @@
                                        
 									</ui:template>
 								</ui:Column>
-								<ui:Column width="13rem">
+
+								<ui:Column hAlign="Center">
 									<Label text="UOM"/>
 									<ui:template>
-										<Text text="{TreeTableModel>UOM}" wrapping="false" />
+										<Text text="{TreeTableModel>UOM}"  />
 									</ui:template>
 								</ui:Column>
+
 							</ui:columns>
 						</ui:TreeTable>
 					</content>

@@ -4,14 +4,14 @@
             "name": "controller/LandingPage.controller.js"
         },
         {
-            "name": "i18n/i18n.properties",
-            "raw": "i18n/i18n.properties"
-        },
-        {
             "name": "model/models.js"
         },
         {
             "name": "manifest.json"
+        },
+        {
+            "name": "i18n/i18n.properties",
+            "raw": "i18n/i18n.properties"
         },
         {
             "name": "Component.js"
@@ -24,15 +24,15 @@
             "merged": true
         },
         {
+            "name": "Component-dbg.js",
+            "isDebug": true
+        },
+        {
             "name": "controller/LandingPage-dbg.controller.js",
             "isDebug": true
         },
         {
             "name": "model/models-dbg.js",
-            "isDebug": true
-        },
-        {
-            "name": "Component-dbg.js",
             "isDebug": true
         },
         {
