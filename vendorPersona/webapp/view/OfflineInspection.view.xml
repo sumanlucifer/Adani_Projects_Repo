@@ -28,7 +28,7 @@
                     <Title text="{i18n>offlineInspectionCall}- {PONumber}" wrapping="true" titleStyle="Auto"/>
                 </uxap:snappedTitleOnMobile>
                 <uxap:actions>
-                    <Button text="{i18n>close}"></Button>
+                    <Button text="{i18n>close}" press="_navToDetailsPage"></Button>
                     <Button text="{i18n>save}" type="Emphasized" press="onSaveButtonPress"></Button>
                 </uxap:actions>
             </uxap:ObjectPageDynamicHeaderTitle>
@@ -47,7 +47,7 @@
             <uxap:ObjectPageSection titleUppercase="false" title="{i18n>basicDetails}">
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection title="{i18n>buyerDetails}">
-                       
+                        <uxap:blocks>
                             <Table id="idParentItemTable" width="auto" growing="true" growingThreshold="5" items="{path: 'ParentItemModel>/'}" fixedLayout="false" mode="MultiSelect" selectionChange="onSelectionChange">
                                 <columns>
                                     <Column importance="High">
@@ -62,7 +62,7 @@
                                     <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center">
                                         <Text text="{i18n>quantity}" />
                                     </Column>
-                                     <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center">
+                                    <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center">
                                         <Text text="{i18n>inspectionQuantity}" />
                                     </Column>
                                     <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center">
@@ -76,13 +76,45 @@
                                             <Text text="{ParentItemModel>Name}" wrappingType="Hyphenated"/>
                                             <ExpandableText text="{ParentItemModel>Description}" maxCharacters="20" overflowMode="Popover"/>
                                             <Text text="{ParentItemModel>Quantity}"/>
-                                            <Input value="{ParentItemModel>inspectionQuantity}" width="30%" type="Number" enabled="false"/>
+                                            <Input value="{ParentItemModel>InspectionQty}" width="30%" type="Number" enabled="false"/>
                                             <Text text="{ParentItemModel>UoM}"/>
                                         </cells>
                                     </ColumnListItem>
                                 </items>
                             </Table>
-                       
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>additionalDetails}">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection title="{i18n>additionalDetails}">
+                        <uxap:blocks>
+                            <VBox>
+                                <Label text="Comments"></Label>
+                                <TextArea width="100%" value="{localAttachmentModel>/Comment}"></TextArea>
+                                <Label text="Inspection Date"></Label>
+                                <DatePicker width="20%" value="{localAttachmentModel>/InspectionDate}" valueFormat="yyyy-MM-dd"/>
+                            </VBox>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>attachments}">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection title="{i18n>attachments}">
+                        <uxap:blocks>
+                            <UploadCollection multiple="true" fileSizeExceed="onFileSizeExceed" typeMissmatch="onTypeMissmatch" uploadComplete="onUploadComplete" beforeUploadStarts="onBeforeUploadStarts" items="{
+                                    path:'localAttachmentModel>/items',
+                                    templateShareable: false}" mode="None" selectionChange="onAttachmentChange" instantUpload="false" change="onAttachmentChange">
+                                <items>
+                                    <UploadCollectionItem url="{parts: ['localAttachmentModel>/FileName','localAttachmentModel>/Content']}" enableEdit="false" enableDelete="false" visibleDelete="false" visibleEdit="false" fileName="{localAttachmentModel>FileName}" deletePress="onDeleteDocumentPress">
+                                    </UploadCollectionItem>
+                                </items>
+                            </UploadCollection>
+                        </uxap:blocks>
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>
             </uxap:ObjectPageSection>

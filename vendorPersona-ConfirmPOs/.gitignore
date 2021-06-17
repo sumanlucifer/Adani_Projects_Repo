@@ -60,3 +60,6 @@ vendor-packinglist-create/.env3
 agel-mmts-web/security-scan-history/.env1
 
 >>>>>>> develop
+
+# auto generated wildcard
+agel-mmts-web/vendorPersona/.env23

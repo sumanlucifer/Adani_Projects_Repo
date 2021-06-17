@@ -17,3 +17,6 @@ pmcg/.env2
 vendorPersona/.env11
 # auto generated wildcard
 agel-mmts-web/vendor-mdcc/.env1
+
+# auto generated wildcard
+agel-mmts-web/vendorPersona/.env23

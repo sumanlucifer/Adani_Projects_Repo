@@ -5,6 +5,9 @@
     xmlns:smartTable="sap.ui.comp.smarttable"
     xmlns:tt="sap.ui.table" controllerName="com.agel.mmts.vendorpackinglistcreate.view.blocks.packingListDetails.packagingListContains.LineItemsTableController">
 
+<<<<<<< HEAD
+    <Table id="idBOQItemTable" items="{path: 'PackingListContains'}" autoPopinMode="true" growingThreshold="5" growing="true" fixedLayout="true">
+=======
         <Table id="idBOQItemTable" items="{path: 'PackingListContains'}" autoPopinMode="true" growingThreshold="5" growing="true" fixedLayout="false">
         <headerToolbar>
             <OverflowToolbar >
@@ -13,39 +16,43 @@
                 </content>
             </OverflowToolbar>
         </headerToolbar>
+>>>>>>> develop
         <columns>
             <Column>
                 <Text text="Line Number"/>
             </Column>
-            <Column>
+           <!--  <Column>
                 <Text text="Line Item ID"/>
-            </Column>
-            <Column>
-                <Text text="Dispatch Qty."/>
-            </Column>
-            <Column>
+            </Column> -->
+             <Column>
                 <Text text="UOM"/>
+            </Column>
+            <Column hAlign="Begin">
+                <Text text="Dispatch Qty."/>
             </Column>
             <Column>
                 <Text text="Packaging Type"/>
             </Column>
-            <Column>
+            <Column hAlign="Center">
                 <Text text="No. of Packages"/>
             </Column>
-            <Column>
-                <Text text=""/>
-            </Column>
+            <!-- <Column>
+                <Text text="Action"/>
+            </Column> -->
         </columns>
         <items>
                 <ColumnListItem>
                     <cells>
                     <ObjectIdentifier title="{LineNumber}"/>
-                    <ObjectIdentifier title="{ID}"/>
-                    <Text text="{DispatchQty}"/>
+                    <!-- <ObjectIdentifier title="{ID}"/> -->
                     <Text text="{UOM}"/>
+                    <Text text="{DispatchQty}"/>
                     <Text text="{PackagingType}"/>
                     <Text text="{NumberOfPackages}"/>
                     <!-- <Link text="View QR Code" press="onViewQRCode"/> -->
+<<<<<<< HEAD
+                     <!-- <Link text="View QR Code" binding="{QrCode}" visible="{= ${QRNumber}}" press="onViewQRPress"/> -->
+=======
                     <Button text="View QR Code" press="onViewQRCode"/>
                     </cells>
                 </ColumnListItem>
@@ -134,6 +141,7 @@
                     <Text text="{PackagingQty}"/>
                     <Text text="{UOM}"/>
                     <Link text="View QR Code" press="onViewQRCode2"/>
+>>>>>>> develop
                 </cells>
             </ColumnListItem>
         </items>

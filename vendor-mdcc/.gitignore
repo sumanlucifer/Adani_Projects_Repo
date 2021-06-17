@@ -11,3 +11,5 @@ archive.zip
 agel-mmts-web/vendor-mdcc/.env1
 # auto generated wildcard
 agel-mmts-web/securityPerson-ScanQR/.env4
+# auto generated wildcard
+agel-mmts-web/vendorPersona/.env23

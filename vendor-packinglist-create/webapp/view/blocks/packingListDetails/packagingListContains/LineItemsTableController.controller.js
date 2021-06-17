@@ -14,6 +14,11 @@ sap.ui.define(["sap/ui/core/mvc/Controller"], function (Controller) {
         },
         onViewQRCode1: function (oEvent) {
             this.oParentBlock.fireOnViewQRCode1(oEvent);
+        },
+
+        //venkatesh
+        onViewQRPress: function(oEvent){
+            this.oParentBlock.fireOnViewQRCodePress(oEvent);
         }
       
 

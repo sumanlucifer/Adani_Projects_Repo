@@ -56,3 +56,6 @@ agel-mmts-web/security-international-import/.env1
 # auto generated wildcard
 agel-mmts-web/security-scan-history/.env1
 >>>>>>> develop
+
+# auto generated wildcard
+agel-mmts-web/vendorPersona/.env23

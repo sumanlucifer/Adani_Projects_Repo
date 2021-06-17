@@ -240,6 +240,9 @@ sap.ui.define([
                 }).then(function (oDialog) {
                     // connect dialog to the root view of this component (models, lifecycle)
                     oDetails.view.addDependent(oDialog);
+                    if (Device.system.desktop) {
+						oDialog.addStyleClass("sapUiSizeCompact");
+					}
                     oDialog.bindElement({
                         path: oDetails.sParentItemPath,
                         parameters: {

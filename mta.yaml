@@ -154,7 +154,7 @@ modules:
       target-path: resources/
     - artifacts:
       - vendor-mdcc-content.zip
-      name: comagelmmtsvendormdcc
+      name: vendormdcc
       target-path: resources/
     - artifacts:
       - comagelmmtssecurityinternationalimport.zip
@@ -431,13 +431,13 @@ modules:
     commands:
     - npm run build
     supported-platforms: []
-- name: comagelmmtsvendormdcc
+- name: vendormdcc
   type: html5
   path: vendor-mdcc
   build-parameters:
     builder: custom
     commands:
-    - npm install
+    - npm run build
     supported-platforms: []
 - name: comagelmmtssecurityinternationalimport
   type: html5
@@ -445,7 +445,7 @@ modules:
   build-parameters:
     builder: custom
     commands:
-    - npm install
+    - npm run build
     supported-platforms: []
 - name: comagelmmtssecurityscanhistory
   type: html5
@@ -453,7 +453,7 @@ modules:
   build-parameters:
     builder: custom
     commands:
-    - npm install
+    - npm run build
     supported-platforms: []
 - name: security-scanqr
   type: html5
@@ -461,7 +461,7 @@ modules:
   build-parameters:
     builder: custom
     commands:
-    - npm install
+    - npm run build
     supported-platforms: []
 - name: comagelmmtsvendorpackinglistcreate
   type: html5
@@ -469,7 +469,7 @@ modules:
   build-parameters:
     builder: custom
     commands:
-    - npm install
+    - npm run build
     supported-platforms: []    
 resources:
 - name: uaa_agel-mmts-web

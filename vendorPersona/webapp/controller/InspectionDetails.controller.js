@@ -514,7 +514,7 @@ sap.ui.define([
             var oCrossAppNavigator = sap.ushell.Container.getService("CrossApplicationNavigation"); // get a handle on the global XAppNav service
             var hash = (oCrossAppNavigator && oCrossAppNavigator.hrefForExternal({
                 target: {
-                    semanticObject: "vendor_mdcc",
+                    semanticObject: "mdcc",
                     action: "manage"
                 },
                 params: {
@@ -535,7 +535,7 @@ sap.ui.define([
             var oCrossAppNavigator = sap.ushell.Container.getService("CrossApplicationNavigation"); // get a handle on the global XAppNav service
             var hash = (oCrossAppNavigator && oCrossAppNavigator.hrefForExternal({
                 target: {
-                    semanticObject: "vendor_mdcc",
+                    semanticObject: "mdcc",
                     action: "manage"
                 },
                 params: {
