@@ -448,7 +448,7 @@ sap.ui.define([
            // this.busyIndicator.close();
          //    var objectViewModel = this.getViewModel("objectViewModel");
          //   objectViewModel.setProperty("/busy", false);
-        },
+        }
 
     });
 }

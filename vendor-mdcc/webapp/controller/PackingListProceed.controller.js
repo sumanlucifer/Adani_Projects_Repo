@@ -253,8 +253,8 @@ sap.ui.define([
                 var sPath = "/MDCCSet(" + this.sObjectId + ")/MDCCParentLineItems";
                 that.getComponentModel("app").setProperty("/busy", true);
                 this.MainModel.read(sPath, {
-                    that.getComponentModel("app").setProperty("/busy", false);
                     success: function (oData, oResponse) {
+                        that.getComponentModel("app").setProperty("/busy", false);
                         if (oData.results.length) {
                             this._getChildItemsViewMDCC(oData.results);
                         }

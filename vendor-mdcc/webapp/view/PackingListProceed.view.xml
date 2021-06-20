@@ -77,13 +77,13 @@
                             visibleRowCountMode="Interactive"  expandFirstLevel="true"
                             rowSelectionChange="onSelectionOfRow">
 							<ui:columns>
-                                <!-- <ui:Column width="7rem">
+                                 <ui:Column width="7rem">
 									<Label text="Select"/>
 									<ui:template>
 										 <CheckBox selected="{TreeTableModel>isSelected}" 
                                             select="onSelectionOfRow" visible="{= ${TreeTableModel>isStandAlone} ? false : true}" />
 									</ui:template>
-								</ui:Column> -->
+								</ui:Column> 
                            
                                 <ui:Column>
 									<Label text="MaterialCode"/>
