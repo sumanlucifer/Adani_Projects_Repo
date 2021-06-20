@@ -113,6 +113,7 @@ sap.ui.define([
 
             // Parent Data View Fetch / Model Set
         _getParentDataViewMDCC : function(){
+                var that = this;
                 this.ParentDataView = [];
                 var sPath = "/MDCCSet("+this.sObjectId+")/MDCCParentLineItems";
                 that.getComponentModel("app").setProperty("/busy", true);
