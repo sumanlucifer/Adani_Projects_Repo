@@ -23,6 +23,27 @@ sap.ui.define([
         return BaseController.extend("com.agel.mmts.vendormdcc.controller.Main", {
             onInit: function () {
 
+                var oAppModel,
+                fnSetAppNotBusy,
+                iOriginalBusyDelay = this.getView().getBusyIndicatorDelay();
+ 
+                oAppModel = new JSONModel({
+                    busy : false,
+                    delay : 1000
+                });
+                this.oAppModel = oAppModel;
+                this.getOwnerComponent().setModel(oAppModel, "app");
+ 
+                fnSetAppNotBusy = function() {
+                    oAppModel.setProperty("/busy", false);
+                    oAppModel.setProperty("/delay", iOriginalBusyDelay);
+                };
+ 
+                // disable busy indication when the metadata is loaded and in case of errors
+                this.getOwnerComponent().getModel().metadataLoaded().
+                    then(fnSetAppNotBusy);
+                this.getOwnerComponent().getModel().attachMetadataFailed(fnSetAppNotBusy);
+
                 this.MainModel = this.getOwnerComponent().getModel();
                 //Router Object
                 this.oRouter = this.getOwnerComponent().getRouter();
@@ -58,8 +79,10 @@ sap.ui.define([
             _getMDCCData: function () {
                 var that = this;
                 var sPath = "/MDCCSet(" + this.sObjectId + ")";
+                that.getComponentModel("app").setProperty("/busy", true);
                 this.MainModel.read(sPath, {
                     success: function (oData, oResponse) {
+                        that.getComponentModel("app").setProperty("/busy", false);
                         if (oData) {
                             that.MDCCData = oData;
                         } else {
@@ -67,6 +90,7 @@ sap.ui.define([
                         }
                     }.bind(this),
                     error: function (oError) {
+                        that.getComponentModel("app").setProperty("/busy", false);
                         sap.m.MessageBox.Error(JSON.stringify(oError));
                     }
                 });
@@ -75,13 +99,16 @@ sap.ui.define([
             // Read Inspected Parent Items
             _getParentData: function () {
                 var sPath = "/MDCCSet(" + this.sObjectId + ")/InspectionCall/InspectedParentItems";
+                that.getComponentModel("app").setProperty("/busy", true);
                 this.MainModel.read(sPath, {
                     success: function (oData, oResponse) {
+                        that.getComponentModel("app").setProperty("/busy", false);
                         if (oData.results.length) {
                             this._getChildItems(oData.results);
                         }
                     }.bind(this),
                     error: function (oError) {
+                        that.getComponentModel("app").setProperty("/busy", false);
                         sap.m.MessageBox.Error(JSON.stringify(oError));
                     }
                 });
@@ -212,13 +239,16 @@ sap.ui.define([
                 //   debugger;
                 //    return;
                 // Create Call 
+                that.getComponentModel("app").setProperty("/busy", true);
                 that.MainModel.create("/MDCCBOQRequestSet", oPayload, {
                     success: function (oData, oResponse) {
                         //  that.getComponentModel("app").setProperty("/busy", false);
                         // debbuger;
+                        that.getComponentModel("app").setProperty("/busy", false);
                         sap.m.MessageBox.success("MDCC items mapped successfully!", {
                             title: "Success",
                             onClose: function (oAction1) {
+                                
                                 if (oAction1 === sap.m.MessageBox.Action.OK) {
                                     window.history.go(-1);
                                 }
@@ -228,8 +258,7 @@ sap.ui.define([
                         //  that.onCancel();
                     }.bind(this),
                     error: function (oError) {
-                        // debbuger;
-                        // that.getComponentModel("app").setProperty("/busy", false);
+                        that.getComponentModel("app").setProperty("/busy", false);
                         MessageBox.error(JSON.stringify(oError));
                     }
                 });
@@ -248,13 +277,16 @@ sap.ui.define([
             _getParentDataViewMDCC: function () {
                 this.ParentDataView = [];
                 var sPath = "/MDCCSet(" + this.sObjectId + ")/MDCCParentLineItems";
+                that.getComponentModel("app").setProperty("/busy", true);
                 this.MainModel.read(sPath, {
                     success: function (oData, oResponse) {
+                        that.getComponentModel("app").setProperty("/busy", false);
                         if (oData.results.length) {
                             this._getChildItemsViewMDCC(oData.results);
                         }
                     }.bind(this),
                     error: function (oError) {
+                        that.getComponentModel("app").setProperty("/busy", false);
                         sap.m.MessageBox.Error(JSON.stringify(oError));
                     }
                 });

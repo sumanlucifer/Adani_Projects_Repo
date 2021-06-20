@@ -72,8 +72,10 @@ sap.ui.define([
             _getMDCCData: function () {
                 var that = this;
                 var sPath = "/MDCCSet(" + this.sObjectId + ")";
+                that.getComponentModel("app").setProperty("/busy", true);
                 this.MainModel.read(sPath, {
                     success: function (oData, oResponse) {
+                        that.getComponentModel("app").setProperty("/busy", false);
                         if (oData) {
                             that.MDCCData = oData;
                         } else {
@@ -81,6 +83,7 @@ sap.ui.define([
                         }
                     }.bind(this),
                     error: function (oError) {
+                        that.getComponentModel("app").setProperty("/busy", false);
                         sap.m.MessageBox.Error(JSON.stringify(oError));
                     }
                 });
@@ -174,8 +177,10 @@ sap.ui.define([
                 };
 
                 // Create Call 
+                that.getComponentModel("app").setProperty("/busy", true);
                 that.MainModel.create("/MDCCEdmSet", oPayload, {
                     success: function (oData, oResponse) {
+                        that.getComponentModel("app").setProperty("/busy", false);
                         //  that.getComponentModel("app").setProperty("/busy", false);
 
                         sap.m.MessageBox.success("Selected items processed successfully", {
@@ -186,12 +191,9 @@ sap.ui.define([
                                 }
                             }.bind(this)
                         });
-        
-                        //  that.onCancel();
                     }.bind(this),
                     error: function (oError) {
-
-                        // that.getComponentModel("app").setProperty("/busy", false);
+                        that.getComponentModel("app").setProperty("/busy", false);
                         MessageBox.error(JSON.stringify(oError));
                     }
                 });
@@ -246,9 +248,12 @@ sap.ui.define([
 
             // Parent Data View Fetch / Model Set
             _getParentDataViewMDCC: function () {
+                var that = this;
                 this.ParentDataView = [];
                 var sPath = "/MDCCSet(" + this.sObjectId + ")/MDCCParentLineItems";
+                that.getComponentModel("app").setProperty("/busy", true);
                 this.MainModel.read(sPath, {
+                    that.getComponentModel("app").setProperty("/busy", false);
                     success: function (oData, oResponse) {
                         if (oData.results.length) {
                             this._getChildItemsViewMDCC(oData.results);
