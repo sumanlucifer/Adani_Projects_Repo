@@ -255,15 +255,16 @@ sap.ui.define([
                             "IsArchived": false,
                             "MDCCID": obj.ID
                 };
-
+                BusyIndicator.show();
                 this.MainModel.create(sPath,oPayload,{
                     success:function(oData,oResponse){
-                        //debugger;
+                        BusyIndicator.hide();
                         MessageBox.success("Send for approval successfully");
                         this.getView().getContent()[0].getContent().rerender();
                         this.getView().getModel().refresh();
                     }.bind(this),
                     error:function (oError){
+                        BusyIndicator.hide();
                         MessageBox.error(JSON.stringify(oError));
                     }
                 });
@@ -275,8 +276,6 @@ sap.ui.define([
              var sObjectId=oEvent.getSource().getBindingContext().getObject().ID;
             var that = this;
             this._getParentDataViewMDCC(sObjectId);
-            //that.sPath = oEvent.getSource().getParent().getBindingContextPath();
-            // that.handleViewDialogOpen();
         },
 
         // Arrange Data For View / Model Set
@@ -285,16 +284,11 @@ sap.ui.define([
             var that = this;
             var oModel = new JSONModel({ "ChildItemsView": this.ParentDataView });
             this.getView().setModel(oModel, "TreeTableModelView");
-            // var sPath = oEvent.getSource().getParent().getBindingContextPath();
-            // sPath=  ;
-            that.handleViewDialogOpen();
-            //debugger;
+            that.handleViewDialogOpen();            
         },
 
         // Child Line Items Dialog Open
         handleViewDialogOpen: function () {
-            // create dialog lazily
-            // debugger;
             var that = this;
             var oDetails = {};
             oDetails.controller = this;
@@ -308,23 +302,15 @@ sap.ui.define([
                 }).then(function (oDialog) {
                     // connect dialog to the root view of this component (models, lifecycle)
                     oDetails.view.addDependent(oDialog);
-                    /* oDialog.bindElement({
-                         path: oDetails.sParentItemPath,
-                     });*/
                     oDialog.setModel(that.getView().getModel("TreeTableModelView"));
                     return oDialog;
                 });
             }
             this.pDialog.then(function (oDialog) {
                 oDetails.view.addDependent(oDialog);
-                /*  oDialog.bindElement({
-                      path: oDetails.sParentItemPath,
-                  });*/
-
                 oDialog.setModel(that.getView().getModel("TreeTableModelView"));
                 oDialog.open();
-            });
-            
+            });            
         },
 
         // Child Dialog Close
@@ -346,9 +332,7 @@ sap.ui.define([
 		},
 		onUploadTerminated: function(oEvent) {
 			/* this.busyIndicator.close();
-
 			  var objectViewModel = this.getViewModel("objectViewModel");
-
 			 objectViewModel.setProperty("/busy", false);*/
 		},
 		
@@ -357,7 +341,6 @@ sap.ui.define([
 		
 		// Parent Data View Fetch / Model Set
 		_getParentDataViewMDCC: function(sObjectId) {
-			// debugger;
 			this.ParentDataView = [];
 			var sPath = "/MDCCSet(" + sObjectId + ")/MDCCParentLineItems";
 			this.MainModel.read(sPath, {
@@ -443,13 +426,16 @@ sap.ui.define([
             };
 
             var sPath = "/MDCCSet";
+            BusyIndicator.show();
             this.MainModel.create(sPath,oPayload ,{
                 success: function (oData, oResponse) {
+                    BusyIndicator.hide();
                     this.getView().getModel().refresh();
                     //that.getView().( "ManageMDCCModel");
                    // that.getView().getModel("ManageMDCCModel").getData().MDCCItems = oData.results;
                 }.bind(this),
                 error: function (oError) {
+                    BusyIndicator.hide();
                     sap.m.MessageBox.Error(JSON.stringify(oError));
                 }
             });
@@ -594,7 +580,7 @@ sap.ui.define([
 			this.pDialog.then(function(oDialog) {
 				oDialog.close();
 			});
-		},
+		}
 
     });
 }
