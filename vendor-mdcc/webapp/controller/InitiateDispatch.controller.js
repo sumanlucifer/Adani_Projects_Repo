@@ -173,8 +173,8 @@ sap.ui.define([
          onBeforeRebindPackingListTable: function (oEvent) {
             var MDCC_Id ;
             var mBindingParams = oEvent.getParameter("bindingParams");
-            if (this.getView().getBindingContext().getObject())
-               MDCC_Id  = this.getView().getBindingContext().getObject().MDCC_Id ;
+            if (this.sObjectId)
+               MDCC_Id  = this.sObjectId ;
 
             mBindingParams.filters.push(new sap.ui.model.Filter("MDCC_Id ", sap.ui.model.FilterOperator.EQ, MDCC_Id ));
 

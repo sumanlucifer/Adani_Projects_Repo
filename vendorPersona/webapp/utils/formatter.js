@@ -61,9 +61,17 @@ sap.ui.define([], function () {
             }
         },
 
-        viewFileName : function(oData){
+        viewFileNames : function(oData){
            
-            return "";
+             if ( oData )
+            {
+                if ( oData.length > 0)
+                    return true;
+                else
+                    return false;
+            }else{
+                return false;
+            }
         },
 
         testFunction2 : function(oData){
