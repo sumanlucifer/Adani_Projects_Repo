@@ -91,7 +91,15 @@ sap.ui.define([
 
             // Live Change On Dispatch Quantity
             onLiveChangeDispatchQty : function (oEvent) {
-                var oValue = oEvent.getSource();
+                oEvent.getSource().setValueState("None");
+                var oValue = oEvent.getSource().getValue();
+                var mdccQty = oEvent.getSource().getParent().getCells()[5].getText();
+                if ( parseInt(oValue) > parseInt(mdccQty) ){
+                //    oEvent.getSource().setValue("");
+                    oEvent.getSource().setValueState("Error");
+                    oEvent.getSource().setValueStateText("Please enter less dispatch quantity than approved quantity");
+                }
+
             },
 
             // On Selection Of Row 

@@ -79,14 +79,14 @@
                 <uxap:subSections>
                     
                     <uxap:ObjectPageSubSection title="{i18n>Reason}">
-                       <VBox alignContent="SpaceAround" renderType="List"> 
+                       <VBox alignContent="SpaceAround" renderType="List"  > 
                         <Title text="Reason Approve / Reject Will Be Shown Here"  wrapping="true" titleStyle="H5"/>
-                        <Title text="{Comment}" binding="{MDCCStatuses}"/>
-                        <Label text="Lorem ipsum dolor sit amet, consectetur adipiscing elit.\b 
+                        <Text text="{Comment}" binding="{MDCCStatuses}"/>
+                        <!-- <Label text="Lorem ipsum dolor sit amet, consectetur adipiscing elit.\b 
                             Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.
                              Proin sodales pulvinar sic tempor.\b Sociis natoque penatibus et magnis dis parturient montes, 
                                 nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate,
-                             felis tellus mollis orci, sed rhoncus pronin sapien nunc accuan eget."/>
+                             felis tellus mollis orci, sed rhoncus pronin sapien nunc accuan eget."/> -->
                         </VBox>
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>
@@ -160,7 +160,7 @@
                                     <UploadCollection id="idMDCCUploader" maximumFilenameLength="55" maximumFileSize="10" 
                                     multiple="true"
                                     items="{
-                                    path:'/MDCCSet(3)/Attachments',
+                                    path:'Attachments',
                                     parameters : {
                                         $filter : 'Type eq \'MDCC\''
                                     },
