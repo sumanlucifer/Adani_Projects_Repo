@@ -1,12 +1,12 @@
 <core:FragmentDefinition
 	xmlns="sap.m"
 	xmlns:core="sap.ui.core">
-	<Dialog contentHeight="50%" contentWidth="50%" title="Child Items Detail">
+	<Dialog contentHeight="50%" contentWidth="50%" title="MDCC File Items">
 		<content>
 			<VBox id="idMDCCUploadArea">
 				<UploadCollection id="idMDCCUploader" maximumFilenameLength="55" maximumFileSize="10" 
                      multiple="true"
-                    items="{ path:'/Attachments',
+                    items="{ path:'/MDCCSet(3)/Attachments',
                                 parameters : {
                                     $filter : 'Type eq \'MDCC\''
                                 },

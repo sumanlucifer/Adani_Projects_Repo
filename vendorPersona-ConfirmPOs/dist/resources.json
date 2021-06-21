@@ -1,7 +1,11 @@
 {
     "resources": [
         {
-            "name": "Component.js"
+            "name": "controller/LandingPage-dbg.controller.js",
+            "isDebug": true
+        },
+        {
+            "name": "controller/LandingPage.controller.js"
         },
         {
             "name": "model/models.js"
@@ -10,11 +14,7 @@
             "name": "manifest.json"
         },
         {
-            "name": "controller/LandingPage.controller.js"
-        },
-        {
-            "name": "i18n/i18n.properties",
-            "raw": "i18n/i18n.properties"
+            "name": "Component.js"
         },
         {
             "name": "manifest-bundle.zip"
@@ -28,8 +28,8 @@
             "isDebug": true
         },
         {
-            "name": "controller/LandingPage-dbg.controller.js",
-            "isDebug": true
+            "name": "i18n/i18n.properties",
+            "raw": "i18n/i18n.properties"
         },
         {
             "name": "Component-dbg.js",
