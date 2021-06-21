@@ -185,7 +185,8 @@ sap.ui.define([
             var sPath = "/MDCCStatusSet"
             var obj = oEvent.getSource().getBindingContext().getObject();
             var oPayload = {
-                            "Status" : obj.Status,
+                     //     "Status" : obj.Status,
+                            "Status" :"PENDING",
                     //      "ApprovedOn": obj.,
                     //      "ApprovedBy": obj.,
                             "CreatedAt": obj.CreatedAt,
