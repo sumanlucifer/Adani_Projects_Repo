@@ -72,8 +72,10 @@ sap.ui.define([
             _getMDCCData: function () {
                 var that = this;
                 var sPath = "/MDCCSet(" + this.sObjectId + ")";
+                that.getComponentModel("app").setProperty("/busy", true);
                 this.MainModel.read(sPath, {
                     success: function (oData, oResponse) {
+                        that.getComponentModel("app").setProperty("/busy", false);
                         if (oData) {
                             that.MDCCData = oData;
                         } else {
@@ -81,24 +83,29 @@ sap.ui.define([
                         }
                     }.bind(this),
                     error: function (oError) {
+                        that.getComponentModel("app").setProperty("/busy", false);
                         sap.m.MessageBox.Error(JSON.stringify(oError));
                     }
                 });
             },
 
-
-            onEditQuantity: function (oEvent) {
-
+            // Live Change On Dispatch Quantity
+            onLiveChangeDispatchQty : function (oEvent) {
+                var oValue = oEvent.getSource();
             },
 
+            // On Selection Of Row 
             onSelectionOfRow: function (oEvent) {
                 var bSelected = oEvent.getParameter("selected");
-
+                var dispatchQty = oEvent.getSource().getParent().getCells()[7].getValue();
                 if (bSelected) {
                     oEvent.getSource().getParent().getCells()[7].setEditable(true);
+                    oEvent.getSource().getParent().getRowBindingContext().getObject().isSelected = true;             
                 } else {
                     oEvent.getSource().getParent().getCells()[7].setEditable(false);
-                    oEvent.getSource().getParent().getCells()[7].setValue(null);
+                    oEvent.getSource().getParent().getRowBindingContext().getObject().isSelected = false;
+
+                   // oEvent.getSource().getParent().getCells()[7].setValue(null);
                 }
 
                 /*  var that = this;
@@ -116,7 +123,8 @@ sap.ui.define([
               */
             },
 
-            onPressProccedSave: function (oEvent) {
+            // on Save - Proceed Click
+            onPressProccedSave: function (oEvent) { 
                 var that = this;
                 var oModel = this.getView().getModel("TreeTableModel");
                 var ParentData = oModel.getData().ChildItems;
@@ -135,7 +143,9 @@ sap.ui.define([
                         "MDCCBOQItem": []
                     };
                     for (var j = 0; j < ParentData[i].ChildItems.length; j++) {
-                        if (ParentData[i].ChildItems[j].DispatchQty != null && ParentData[i].ChildItems[j].DispatchQty != "") {
+                        if (ParentData[i].ChildItems[j].DispatchQty != null && 
+                                ParentData[i].ChildItems[j].DispatchQty != "" && 
+                                ParentData[i].ChildItems[j].isSelected == true ) {
                             childObj = {
                                 "BOQItemID": ParentData[i].ChildItems[j].ID,
                                 "MDCCApprovedQty": ParentData[i].ChildItems[j].MDCCApprovedQty,
@@ -150,10 +160,16 @@ sap.ui.define([
                         saveData.MDCCParentItems.push(parentObj);
                     }
                     // Only Parent Object Insert - No Child Present
-                    if (ParentData[i].DispatchQty != null && ParentData[i].DispatchQty != "") {
+                    if (ParentData[i].DispatchQty != null && ParentData[i].DispatchQty != "" &&
+                            ParentData[i].isSelected == true) {
                         saveData.MDCCParentItems.push(parentObj);
                     }
                 } // i end
+
+                if ( saveData.MDCCParentItems.length < 1){
+                    sap.m.MessageBox.error("Please select at least one item and enter dispatch quantity");
+                    return 0;
+                };
 
                 var oPayload = {
                     "ID": that.MDCCData.ID,
@@ -161,14 +177,31 @@ sap.ui.define([
                 };
 
                 // Create Call 
+                that.getComponentModel("app").setProperty("/busy", true);
                 that.MainModel.create("/MDCCEdmSet", oPayload, {
                     success: function (oData, oResponse) {
+                        that.getComponentModel("app").setProperty("/busy", false);
                         //  that.getComponentModel("app").setProperty("/busy", false);
 
-                        MessageBox.success("selected items processed successfully");
+                        sap.m.MessageBox.success("Selected items processed successfully", {
+                            title: "Success",
+                            onClose: function (oAction1) {
+                                if (oAction1 === sap.m.MessageBox.Action.OK) {
+                                    that.onPackingListAppNavigation();
+                                }
+                            }.bind(this)
+                        });
+                    }.bind(this),
+                    error: function (oError) {
+                        that.getComponentModel("app").setProperty("/busy", false);
+                        MessageBox.error(JSON.stringify(oError));
+                    }
+                });
+            },
 
-        
-                        var oCrossAppNavigator = sap.ushell.Container.getService("CrossApplicationNavigation"); // get a handle on the global XAppNav service
+            // On Navigate To PackingList Create
+            onNavigateToPackingList : function(oEvent){
+                var oCrossAppNavigator = sap.ushell.Container.getService("CrossApplicationNavigation"); // get a handle on the global XAppNav service
                         var hash = (oCrossAppNavigator && oCrossAppNavigator.hrefForExternal({
                             target: {
                                 semanticObject: "PackingList",
@@ -183,16 +216,6 @@ sap.ui.define([
                                 shellHash: hash
                             }
                         }); // navigate to Manage MDCC application - Initiate Dispatch Screen
-
-
-                        //  that.onCancel();
-                    }.bind(this),
-                    error: function (oError) {
-
-                        // that.getComponentModel("app").setProperty("/busy", false);
-                        MessageBox.error(JSON.stringify(oError));
-                    }
-                });
             },
 
             // Model Data Set To Table
@@ -225,10 +248,13 @@ sap.ui.define([
 
             // Parent Data View Fetch / Model Set
             _getParentDataViewMDCC: function () {
+                var that = this;
                 this.ParentDataView = [];
                 var sPath = "/MDCCSet(" + this.sObjectId + ")/MDCCParentLineItems";
+                that.getComponentModel("app").setProperty("/busy", true);
                 this.MainModel.read(sPath, {
                     success: function (oData, oResponse) {
+                        that.getComponentModel("app").setProperty("/busy", false);
                         if (oData.results.length) {
                             this._getChildItemsViewMDCC(oData.results);
                         }

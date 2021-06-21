@@ -255,14 +255,16 @@ sap.ui.define([
                             "IsArchived": false,
                             "MDCCID": obj.ID
                 };
-
+                BusyIndicator.show();
                 this.MainModel.create(sPath,oPayload,{
                     success:function(oData,oResponse){
-                        //debugger;
+                        BusyIndicator.hide();
                         MessageBox.success("Send for approval successfully");
                         this.getView().getContent()[0].getContent().rerender();
+                        this.getView().getModel().refresh();
                     }.bind(this),
                     error:function (oError){
+                        BusyIndicator.hide();
                         MessageBox.error(JSON.stringify(oError));
                     }
                 });
@@ -274,8 +276,6 @@ sap.ui.define([
              var sObjectId=oEvent.getSource().getBindingContext().getObject().ID;
             var that = this;
             this._getParentDataViewMDCC(sObjectId);
-            //that.sPath = oEvent.getSource().getParent().getBindingContextPath();
-            // that.handleViewDialogOpen();
         },
 
         // Arrange Data For View / Model Set
@@ -284,17 +284,11 @@ sap.ui.define([
             var that = this;
             var oModel = new JSONModel({ "ChildItemsView": this.ParentDataView });
             this.getView().setModel(oModel, "TreeTableModelView");
-            // var sPath = oEvent.getSource().getParent().getBindingContextPath();
-            // sPath=  ;
-            that.handleViewDialogOpen();
-            //debugger;
+            that.handleViewDialogOpen();            
         },
 
         // Child Line Items Dialog Open
-
         handleViewDialogOpen: function () {
-            // create dialog lazily
-            // debugger;
             var that = this;
             var oDetails = {};
             oDetails.controller = this;
@@ -308,24 +302,23 @@ sap.ui.define([
                 }).then(function (oDialog) {
                     // connect dialog to the root view of this component (models, lifecycle)
                     oDetails.view.addDependent(oDialog);
-                    /* oDialog.bindElement({
-                         path: oDetails.sParentItemPath,
-                     });*/
                     oDialog.setModel(that.getView().getModel("TreeTableModelView"));
                     return oDialog;
                 });
             }
             this.pDialog.then(function (oDialog) {
                 oDetails.view.addDependent(oDialog);
-                /*  oDialog.bindElement({
-                      path: oDetails.sParentItemPath,
-                  });*/
-
                 oDialog.setModel(that.getView().getModel("TreeTableModelView"));
                 oDialog.open();
-            });
-            
+            });            
         },
+
+        // Child Dialog Close
+        onViewChildDialogClose: function(oEvent) {
+			this.pDialog.then(function(oDialog) {
+				oDialog.close();
+			});
+		},
 
 		onMDCCNOSelect: function() {
 			this.byId("idMDCCUploadArea").setVisible(false);
@@ -339,22 +332,15 @@ sap.ui.define([
 		},
 		onUploadTerminated: function(oEvent) {
 			/* this.busyIndicator.close();
-
 			  var objectViewModel = this.getViewModel("objectViewModel");
-
 			 objectViewModel.setProperty("/busy", false);*/
 		},
 		
 		// Arrange Data For View / Model Set
 		
-		onViewChildDialogClose: function(oEvent) {
-			this.pDialog.then(function(oDialog) {
-				oDialog.close();
-			});
-		},
+		
 		// Parent Data View Fetch / Model Set
 		_getParentDataViewMDCC: function(sObjectId) {
-			// debugger;
 			this.ParentDataView = [];
 			var sPath = "/MDCCSet(" + sObjectId + ")/MDCCParentLineItems";
 			this.MainModel.read(sPath, {
@@ -440,20 +426,23 @@ sap.ui.define([
             };
 
             var sPath = "/MDCCSet";
+            BusyIndicator.show();
             this.MainModel.create(sPath,oPayload ,{
                 success: function (oData, oResponse) {
+                    BusyIndicator.hide();
                     this.getView().getModel().refresh();
                     //that.getView().( "ManageMDCCModel");
                    // that.getView().getModel("ManageMDCCModel").getData().MDCCItems = oData.results;
                 }.bind(this),
                 error: function (oError) {
+                    BusyIndicator.hide();
                     sap.m.MessageBox.Error(JSON.stringify(oError));
                 }
             });
         },
 
         //-------------------- File Upload MDCC ----------------------//
-         onInvoiceFileSelectedForUpload: function (oEvent) {
+         onMDCCFileSelectedForUpload: function (oEvent) {
             // keep a reference of the uploaded file
             var that = this;
             var rowId = oEvent.getSource().getParent().getParent().getBindingContextPath().split('/').pop();
@@ -489,7 +478,7 @@ sap.ui.define([
                 success: function(oData,oResponse) {
                     BusyIndicator.hide();
                     sap.m.MessageToast.show("MDCC Details Uploaded!");
-                 //   this.getView().getModel().refresh();
+                    this.getView().getModel().refresh();
                  //   this.getView().getModel("ManageMDCCModel").getData().MDCCItems[rowId].MapItems = true;
                  //   this.getView().getModel("ManageMDCCModel").refresh();
                 }.bind(this),
@@ -548,7 +537,50 @@ sap.ui.define([
                     shellHash: hash
                 }
             }); // navigate to Manage MDCC application - Initiate Dispatch Screen
-        }
+        },
+
+         // Show File Name Dialog 
+        onShowFileNameDialog : function (oEvent) {
+            // create dialog lazily
+            // debugger;
+            var that = this;
+            var sParentItemPath = oEvent.getSource().getBindingContext().getPath();
+            var oDetails = {};
+            oDetails.controller = this;
+            oDetails.view = this.getView();
+            oDetails.sParentItemPath = sParentItemPath;
+            if (!this.pDialog) {
+                this.pDialog = Fragment.load({
+                    id: oDetails.view.getId(),
+                    name: "com.agel.mmts.vendorPersona.view.fragments.inspectionDetails.ShowFileNamesMDCC",
+                    controller: oDetails.controller
+                }).then(function (oDialog) {
+                    // connect dialog to the root view of this component (models, lifecycle)
+                    oDetails.view.addDependent(oDialog);
+                     oDialog.bindElement({
+                         path: oDetails.sParentItemPath,
+                     });
+                  //  oDialog.setModel(that.getView().getModel("TreeTableModelView"));
+                    return oDialog;
+                });
+            }
+            this.pDialog.then(function (oDialog) {
+                oDetails.view.addDependent(oDialog);
+                  oDialog.bindElement({
+                      path: oDetails.sParentItemPath,
+                  });
+
+                //oDialog.setModel(that.getView().getModel("TreeTableModelView"));
+                oDialog.open();
+            });
+        },
+
+        // Child Dialog Close
+        onViewChildDialogClose: function(oEvent) {
+			this.pDialog.then(function(oDialog) {
+				oDialog.close();
+			});
+		}
 
     });
 }
