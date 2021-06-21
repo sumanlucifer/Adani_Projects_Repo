@@ -1,23 +1,23 @@
 {
     "resources": [
         {
-            "name": "i18n/i18n.properties",
-            "raw": "i18n/i18n.properties"
-        },
-        {
-            "name": "model/models.js"
-        },
-        {
-            "name": "manifest.json"
-        },
-        {
-            "name": "controller/LandingPage.controller.js"
+            "name": "manifest-bundle.zip"
         },
         {
             "name": "Component.js"
         },
         {
-            "name": "manifest-bundle.zip"
+            "name": "model/models.js"
+        },
+        {
+            "name": "controller/LandingPage.controller.js"
+        },
+        {
+            "name": "manifest.json"
+        },
+        {
+            "name": "i18n/i18n.properties",
+            "raw": "i18n/i18n.properties"
         },
         {
             "name": "Component-preload.js",

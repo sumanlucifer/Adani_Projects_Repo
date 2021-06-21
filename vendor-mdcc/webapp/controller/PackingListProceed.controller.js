@@ -97,30 +97,16 @@ sap.ui.define([
             // On Selection Of Row 
             onSelectionOfRow: function (oEvent) {
                 var bSelected = oEvent.getParameter("selected");
-                var dispatchQty = oEvent.getSource().getParent().getCells()[7].getValue();
+                var dispatchQty = oEvent.getSource().getParent().getCells()[6].getValue();
                 if (bSelected) {
-                    oEvent.getSource().getParent().getCells()[7].setEditable(true);
+                    oEvent.getSource().getParent().getCells()[6].setEditable(true);
                     oEvent.getSource().getParent().getRowBindingContext().getObject().isSelected = true;             
                 } else {
-                    oEvent.getSource().getParent().getCells()[7].setEditable(false);
+                    oEvent.getSource().getParent().getCells()[6].setEditable(false);
                     oEvent.getSource().getParent().getRowBindingContext().getObject().isSelected = false;
 
-                   // oEvent.getSource().getParent().getCells()[7].setValue(null);
+                   // oEvent.getSource().getParent().getCells()[6].setValue(null);
                 }
-
-                /*  var that = this;
-                  that.dataForSave = [];
-               //   var isIndexSelected = oEvent.getSource().isIndexSelected();
-                  var selectedRows = oEvent.getSource().getSelectedIndices();
-               //   var selectedObj = this.ParentDataView[rowIndex];
-                  var tableData = this.getView().getModel("TreeTableModel").oData.ChildItems;
-  
-                  if(selectedRows.length){
-                      for(var i = 0 ; i < selectedRows.length ; i++ ){                
-                          that.dataForSave.push(tableData[selectedRows[i]]);
-                      }
-                  }
-              */
             },
 
             // on Save - Proceed Click
@@ -187,7 +173,7 @@ sap.ui.define([
                             title: "Success",
                             onClose: function (oAction1) {
                                 if (oAction1 === sap.m.MessageBox.Action.OK) {
-                                    that.onPackingListAppNavigation();
+                                    that.onNavigateToPackingList();
                                 }
                             }.bind(this)
                         });

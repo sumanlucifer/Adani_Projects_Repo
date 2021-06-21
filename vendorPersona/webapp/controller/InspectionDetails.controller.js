@@ -142,66 +142,7 @@ sap.ui.define([
         onCreateClose: function (oEvent) {
             this._oPackingListNameGetterDialog.close();
         },
-
-        onCreatePress: function (oEvent) {
-            var oParentLineItemTable = this.byId("idInspectedParentLineItems")
-            var aSelectedItems = oParentLineItemTable.getSelectedContexts()[0].getObject();
-            var oViewContextObject = this.getView().getBindingContext().getObject();
-            var aParentItems = aSelectedItems;
-            var selectedChildLineItems = aParentItems.inspected_child_line_items;
-
-            delete aParentItems.inspected_child_line_items;
-            // New code added 26/04/2021
-            if (selectedChildLineItems.length > 0) {
-                delete selectedChildLineItems[0].ID;
-            }
-            delete aParentItems.ID;
-
-            var oPayload = {
-                "status": "Saved",
-                "vehicle_no": "",
-                "purchase_order_ID": oViewContextObject.purchase_order_ID,
-                "insp_call_id": oViewContextObject.ID,
-                "po_number": oViewContextObject.po_number,
-                "name": this.getView().getModel("PackingListInputModel").getProperty("/name"),
-                "packinglist_parent_line_items": [
-                    {
-                        "name": aParentItems.name,
-                        "description": aParentItems.description,
-                        "material_code": aParentItems.material_code,
-                        "uom": aParentItems.uom,
-                        "approved_qty": aParentItems.approved_qty,
-                        "packinglist_child_items": selectedChildLineItems
-                    }
-                ]
-            };
-
-            $.ajax({
-                "async": true,
-                "crossDomain": true,
-                "url": "/AGEL_MMTS_API/odata/v4/VendorsService/PackingLists",
-                "method": "POST",
-                "headers": {
-                    "content-type": "application/json"
-                },
-                "processData": false,
-                "data": JSON.stringify(oPayload),
-                success: function (oData, oResponse) {
-                    // @ts-ignore
-                    this._oPackingListNameGetterDialog.close();
-                    sap.m.MessageToast.show("packing List Created with ID " + oData.name);
-                    this.getView().getModel().refresh();
-                    /* this.getRouter().navTo("RoutePackingDeatilsPage", {
-                        packingListID: "(" + oData.ID + ")"
-                    }); */
-                    this.byId("idIcnTabBar").setSelectedKey("idPackingListTab");
-                }.bind(this),
-                error: function (oError) {
-                    sap.m.MessageBox.error("Error creating Packing List");
-                }
-            });
-
-        },
+    
 
         MDCCFileSelectedForUpload: function (oEvent) {
             // keep a reference of the uploaded file
@@ -244,7 +185,8 @@ sap.ui.define([
             var sPath = "/MDCCStatusSet"
             var obj = oEvent.getSource().getBindingContext().getObject();
             var oPayload = {
-                            "Status" : obj.Status,
+                     //     "Status" : obj.Status,
+                            "Status" :"PENDING",
                     //      "ApprovedOn": obj.,
                     //      "ApprovedBy": obj.,
                             "CreatedAt": obj.CreatedAt,
@@ -539,10 +481,10 @@ sap.ui.define([
             }); // navigate to Manage MDCC application - Initiate Dispatch Screen
         },
 
+        
          // Show File Name Dialog 
         onShowFileNameDialog : function (oEvent) {
             // create dialog lazily
-            // debugger;
             var that = this;
             var sParentItemPath = oEvent.getSource().getBindingContext().getPath();
             var oDetails = {};
