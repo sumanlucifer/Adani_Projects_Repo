@@ -44,7 +44,7 @@ sap.ui.define([
                 var that = this;
                var sObjectPath = oItem.getBindingContext().sPath;
                 that.getRouter().navTo("TCEngDetailPage", {
-                    TCEngId: sObjectPath.slice("/MDCCSet".length)
+                    TCEngId: oItem.getBindingContext().getObject().ID
                 });
             },
             

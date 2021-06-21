@@ -52,7 +52,7 @@ sap.ui.define([
             var sObjectId = oEvent.getParameter("arguments").TCEngId;
             this.sObjectId =sObjectId;
  
-            this._bindView("/MDCCSet" + sObjectId);
+            this._bindView("/MDCCSet(" + sObjectId +")");
             this._getParentDataViewMDCC(sObjectId);
         },
 
@@ -282,7 +282,7 @@ sap.ui.define([
         _getParentDataViewMDCC : function(sObjectId){
                 var patt1 = /[0-9]/g;
                 var sObject =sObjectId;
-                sObjectId = parseInt(sObject.match(patt1));
+           //     sObjectId = parseInt(sObject.match(patt1));
 
                 this.ParentDataView = [];
                 var sPath = "/MDCCSet("+sObjectId+")/MDCCParentLineItems";
