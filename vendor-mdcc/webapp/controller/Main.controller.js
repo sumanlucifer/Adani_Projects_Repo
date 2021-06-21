@@ -98,6 +98,7 @@ sap.ui.define([
 
             // Read Inspected Parent Items
             _getParentData: function () {
+                var that = this;
                 var sPath = "/MDCCSet(" + this.sObjectId + ")/InspectionCall/InspectedParentItems";
                 that.getComponentModel("app").setProperty("/busy", true);
                 this.MainModel.read(sPath, {

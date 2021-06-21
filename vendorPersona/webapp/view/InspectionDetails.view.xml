@@ -165,7 +165,7 @@
                                                         enabled="{= ${Status}.length > 0 ? true : false}"/>
                                             </VBox>
                                             <Link text="Manage" press="onManagePress"
-                                                enabled="{= ${Status}.length > 0 ? false : true }"/>
+                                                enabled="{= ${Status} === 'APPROVED' ? true : false }"/>
                                         </cells>
                                     </ColumnListItem>
                                 </items>
