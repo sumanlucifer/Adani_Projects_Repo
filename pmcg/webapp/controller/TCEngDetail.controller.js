@@ -206,7 +206,19 @@ sap.ui.define([
                 boqApprovalModel.setProperty("/isPostButtonEnabled", false);
         },
 
-        onPostButtonPress: function (oEvent) {
+        onReadId : function(){
+            var that = this;
+            this.getComponentModel().read("/MDCCSet(" + this.sObjectId +")/MDCCStatuses", {
+                success: function (oData, oResponse) {
+                   that.onPostButtonPress(oData.results[0].ID);
+                }.bind(this),
+                error: function (oError) {
+                    sap.m.MessageBox.success(JSON.stringify(oError));
+                }
+            })
+        },
+
+        onPostButtonPress: function (MDCCStatusSetID) {
             this._oBOQApprovalDialog.close();
             var oData = this.getViewModel("BOQApprovalModel").getData();
             var boqApprovalModel = this.getViewModel("BOQApprovalModel");
@@ -218,10 +230,10 @@ sap.ui.define([
             var aPayload = 
             // {"Responses": 
                 {
-                    "ID": boqApprovalModel.getProperty("/ID"),
+                    "ID": MDCCStatusSetID,
                     "Status": boqApprovalModel.getProperty("/Status"),
                     "Comment": boqApprovalModel.getProperty("/Comment"),
-                    "MDCCID": boqApprovalModel.getProperty("/MDCCID"),
+                    "MDCCID": boqApprovalModel.getProperty("/ID"),
                     "UpdatedAt": boqApprovalModel.getProperty("/UpdatedAt"),
                     "UpdatedBy": boqApprovalModel.getProperty("/UpdatedBy"),
                     "ApprovedOn": boqApprovalModel.getProperty("/ApprovedOn"),
@@ -229,7 +241,7 @@ sap.ui.define([
                 };
             // };
 
-            this.getComponentModel().update("/MDCCStatusSet(" + sObjectId +")", aPayload, {
+            this.getComponentModel().update("/MDCCStatusSet(" + MDCCStatusSetID +")", aPayload, {
                 success: function (oData, oResponse) {
                     var message;
                     if ( aPayload.Status === "APPROVED"){

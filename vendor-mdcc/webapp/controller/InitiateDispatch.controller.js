@@ -8,12 +8,13 @@ sap.ui.define([
     "sap/m/MessageBox",
     "sap/m/ObjectIdentifier",
     "sap/m/Text",
-    "sap/m/Button"
-], function (BaseController, JSONModel, Filter, FilterOperator, Fragment, MessageToast, MessageBox, ObjectIdentifier, Text, Button) {
+    "sap/m/Button",
+    '../utils/formatter',
+], function (BaseController, JSONModel, Filter, FilterOperator, Fragment, MessageToast, MessageBox, ObjectIdentifier, Text, Button,formatter) {
     "use strict";
 
     return BaseController.extend("com.agel.mmts.vendormdcc.controller.InitiateDispatch", {
-
+        formatter: formatter,
         onInit: function () {   
 
             this.MainModel = this.getOwnerComponent().getModel();
@@ -87,6 +88,7 @@ sap.ui.define([
                 var that = this;
                 var oModel = new JSONModel({"ChildItemsView":this.ParentDataView});
                 this.getView().setModel(oModel,"TreeTableModelView");
+                this.getView().getModel("TreeTableModelView").refresh();
                // var sPath = oEvent.getSource().getParent().getBindingContextPath();
               // sPath=  ;
              //   that.handleViewDialogOpen();
@@ -182,8 +184,11 @@ sap.ui.define([
             var mBindingParams = oEvent.getParameter("bindingParams");
             if (this.sObjectId){
                MDCC_Id  = this.sObjectId ;
-               mBindingParams.filters.push(new sap.ui.model.Filter("MDCC_Id ", sap.ui.model.FilterOperator.EQ, MDCC_Id ));
+               mBindingParams.filters.push(new sap.ui.model.Filter("MDCC_Id", sap.ui.model.FilterOperator.EQ, MDCC_Id ));
             }
+        },
+        onRowsUpdated :function(oEvent){
+            //debugger;
         }
     });
 });

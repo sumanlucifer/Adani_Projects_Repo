@@ -7,8 +7,9 @@
     <Dialog title="">
 	<ui:TreeTable id="TreeTableBasicView"
                             rows="{path:'TreeTableModelView>/', parameters: {arrayNames:['ChildItemsView']}}"
-                            selectionMode="MultiToggle"  enableSelectAll="false"
-                            title="{i18n>TreeTableViewTitle}" ariaLabelledBy="title">
+                            selectionMode="None" enableSelectAll="false"
+                            title="{i18n>TreeTableViewTitle}" ariaLabelledBy="title" expandFirstLevel="true" 
+                            rowsUpdated="onRowsUpdated">
 		<ui:columns>
 			<ui:Column width="5%">
 				<Label text="ID"/>

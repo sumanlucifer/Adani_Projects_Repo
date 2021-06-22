@@ -56,7 +56,7 @@ sap.ui.define([
 
                // debugger;
                 var startupParams = this.getOwnerComponent().getComponentData().startupParameters;
-             //   var startupParams={MDCCId:30,manage:"false"};
+                //var startupParams={MDCCId:35,manage:"false"};
 
                 // startupParams.manage=false;
                 // get Startup params from Owner Component
