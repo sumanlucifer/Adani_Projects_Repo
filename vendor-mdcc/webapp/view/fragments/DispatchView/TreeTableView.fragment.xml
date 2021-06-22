@@ -7,15 +7,16 @@
     
 	<ui:TreeTable id="TreeTableBasicViewDispatch"
                             rows="{path:'TreeTableModelView>/', parameters: {arrayNames:['ChildItemsView']}}"
-                            selectionMode="MultiToggle"  enableSelectAll="false"
-                            title="{i18n>TreeTableViewTitle}" ariaLabelledBy="title">
+                            selectionMode="None"  enableSelectAll="false"
+                            title="{i18n>TreeTableViewTitle}" ariaLabelledBy="title"
+                            expandFirstLevel="true" rowsUpdated="onRowsUpdated">
 		<ui:columns>
-			<ui:Column width="5%">
+			<!-- <ui:Column width="5%">
 				<Label text="ID"/>
 				<ui:template>
 					<Text text="{TreeTableModelView>ID}" wrapping="false" />
 				</ui:template>
-			</ui:Column>
+			</ui:Column> -->
 
             <ui:Column width="8%">
 				<Label text="Material Code"/>
@@ -32,21 +33,22 @@
 			</ui:Column>
 
 			<ui:Column width="12%">
-				<Label text="Description"/>
+				<Label text="Description" />
 				<ui:template>
-					<Text text="{TreeTableModelView>Description}" wrapping="false" />
+                    <ExpandableText text="{TreeTableModelView>Description}" overflowMode="Popover" maxCharacters="32"/>
+					<!-- <Text text="{TreeTableModelView>Description}" wrapping="false" /> -->
 				</ui:template>
 			</ui:Column>	
 
 			<ui:Column width="5%">
-				<Label text="Qty"/>
+				<Label text="Quantity"/>
 				<ui:template>
 					<Text text="{TreeTableModelView>Qty}" wrapping="false" />
 				</ui:template>
 			</ui:Column>
 
 			<ui:Column width="8%">
-				<Label text="MDCC Approved Qty"/>
+				<Label text="MDCC Approved Quantity"/>
 				<ui:template>
 					<HBox justifyContent="SpaceAround" visible="{= ${TreeTableModelView>isStandAlone} ? false : true}">
 						<Text text="{TreeTableModelView>MDCCApprovedQty}" />

@@ -31,10 +31,10 @@ sap.ui.define([
                 var objectViewModel = this.getViewModel("objectViewModel");
                 var that = this;
 
-                //var startupParams = this.getOwnerComponent().getComponentData().startupParameters;
+                var startupParams = this.getOwnerComponent().getComponentData().startupParameters;
 
-                //this.packingListId = startupParams.packingListID[0];
-                this.packingListId = 45;
+                this.packingListId = startupParams.packingListID[0];
+               // this.packingListId = 43;
 
                 this.getView().bindElement({
                     path: "/PackingListSet(" + this.packingListId + ")",

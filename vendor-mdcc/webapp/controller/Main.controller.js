@@ -54,9 +54,9 @@ sap.ui.define([
 
             _onObjectMatched: function (oEvent) {
 
-                debugger;
+               // debugger;
                 var startupParams = this.getOwnerComponent().getComponentData().startupParameters;
-                //var startupParams={MDCCId:1,manage:"false"};
+                //var startupParams={MDCCId:35,manage:"false"};
 
                 // startupParams.manage=false;
                 // get Startup params from Owner Component
@@ -229,16 +229,22 @@ sap.ui.define([
                         childObj.RemainingQty = parseInt(data[i].ChildItems[j].RemainingQty);
                         childObj.IsDeleted = data[i].ChildItems[j].IsDeleted;
 
+                        if ( childObj.IsDeleted == true ){
+                            childObj.MDCCApprovedQty = 0;
+                        }
                         if (childObj.MDCCApprovedQty || childObj.IsDeleted == true) {
                             obj.MDCCBOQItem.push(childObj);
                             flag = 1;
                         }
                     }
-                    if (obj.MDCCApprovedQty || flag == 1 || obj.IsDeleted == true)
+                    if (obj.MDCCApprovedQty || flag == 1 || obj.IsDeleted == true){
                         oPayload.MDCCParentLineItem.push(obj);
+                    }
+                    if ( obj.IsDeleted == true ){
+                        obj.MDCCApprovedQty = 0;
+                    }
                 }
-                //   debugger;
-                //    return;
+            
                 // Create Call 
                 that.getComponentModel("app").setProperty("/busy", true);
                 that.MainModel.create("/MDCCBOQRequestSet", oPayload, {

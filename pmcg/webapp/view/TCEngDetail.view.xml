@@ -121,17 +121,16 @@
                                 <Title text="Uploaded Documents" level="H1"/>
                                 <VBox id="idMDCCUploadArea">
                                     <UploadCollection id="idMDCCUploader" maximumFilenameLength="55" maximumFileSize="10" 
-                                    multiple="true"
-                                    items="{
-                                    path:'Attachments',
-                                    parameters : {
-                                        $filter : 'Type eq \'MDCC\''
-                                    },
-                                    templateShareable: false}" mode="None" uploadButtonInvisible="true"
-                                        >
+                                        multiple="true"
+                                        items="{
+                                                path:'Attachments',
+                                                parameters : {
+                                                        $filter : 'Type eq \'MDCC\''
+                                                },
+                                                templateShareable: false}" mode="None" uploadButtonInvisible="true">
                                         <items>
                                             <UploadCollectionItem documentId="{ID}" url="{parts: ['FileName','file'], 
-                                        formatter: '.formatter.fileContent' }" enableEdit="false" enableDelete="false" visibleDelete="false" visibleEdit="false" fileName="{FileName}">
+                                                formatter: '.formatter.fileContent' }" enableEdit="false" enableDelete="false" visibleDelete="false" visibleEdit="false" fileName="{FileName}">
                                                 <attributes>
                                                     <ObjectAttribute title="Uploaded By" text="{UploadedBy}" class="sapUiSmallMarginEnd"/>
                                                     <ObjectAttribute title="Uploaded On" text= "{path:'UploadedOn', type: 'sap.ui.model.type.Date', formatOptions: {pattern: 'MMMM dd, yyyy'}}"/>

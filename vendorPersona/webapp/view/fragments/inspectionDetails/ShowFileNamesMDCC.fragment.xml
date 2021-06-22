@@ -6,7 +6,7 @@
 			<VBox id="idMDCCUploadArea">
 				<UploadCollection id="idMDCCUploader" maximumFilenameLength="55" maximumFileSize="10" 
                      multiple="true"
-                    items="{ path:'/MDCCSet(3)/Attachments',
+                    items="{ path:'Attachments',
                                 parameters : {
                                     $filter : 'Type eq \'MDCC\''
                                 },
@@ -25,7 +25,7 @@
 			</VBox>
 		</content>
 		<endButton>
-			<Button text="Close" press="onViewChildDialogClose" type="Emphasized" />
+			<Button text="Close" press="onViewFileDialogClose" type="Emphasized" />
 		</endButton>
 	</Dialog>
 </core:FragmentDefinition>
