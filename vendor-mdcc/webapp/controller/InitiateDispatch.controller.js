@@ -96,13 +96,16 @@ sap.ui.define([
         _getPackingListData : function(){
                 this.ParentDataView = [];
                 var sPath = "/MDCCSet("+this.sObjectId+")/MDCCParentLineItems";
+                that.getComponentModel("app").setProperty("/busy", true);
                 this.MainModel.read(sPath,{
                     success:function(oData,oResponse){
+                        that.getComponentModel("app").setProperty("/busy", false);
                         if(oData.results.length){
                             this._getChildItemsViewMDCC(oData.results);
                         }
                     }.bind(this),
                     error:function(oError){
+                        that.getComponentModel("app").setProperty("/busy", false);
                         sap.m.MessageBox.Error(JSON.stringify(oError));
                     }
                 });
@@ -110,15 +113,19 @@ sap.ui.define([
 
             // Parent Data View Fetch / Model Set
         _getParentDataViewMDCC : function(){
+                var that = this;
                 this.ParentDataView = [];
                 var sPath = "/MDCCSet("+this.sObjectId+")/MDCCParentLineItems";
+                that.getComponentModel("app").setProperty("/busy", true);
                 this.MainModel.read(sPath,{
                     success:function(oData,oResponse){
+                        that.getComponentModel("app").setProperty("/busy", false);
                         if(oData.results.length){
                             this._getChildItemsViewMDCC(oData.results);
                         }
                     }.bind(this),
                     error:function(oError){
+                        that.getComponentModel("app").setProperty("/busy", false);
                         sap.m.MessageBox.Error(JSON.stringify(oError));
                     }
                 });
@@ -173,12 +180,10 @@ sap.ui.define([
          onBeforeRebindPackingListTable: function (oEvent) {
             var MDCC_Id ;
             var mBindingParams = oEvent.getParameter("bindingParams");
-            if (this.getView().getBindingContext().getObject())
-               MDCC_Id  = this.getView().getBindingContext().getObject().MDCC_Id ;
-
-            mBindingParams.filters.push(new sap.ui.model.Filter("MDCC_Id ", sap.ui.model.FilterOperator.EQ, MDCC_Id ));
-
-        },
-
+            if (this.sObjectId){
+               MDCC_Id  = this.sObjectId ;
+               mBindingParams.filters.push(new sap.ui.model.Filter("MDCC_Id ", sap.ui.model.FilterOperator.EQ, MDCC_Id ));
+            }
+        }
     });
 });

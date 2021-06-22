@@ -39,7 +39,7 @@
                    
                 </uxap:snappedTitleOnMobile>
                 <uxap:actions>
-                    <Button text="Proceed" type="Emphasized" press="onPressProccedSave"/>
+                    <Button id="idBtnProceed" text="Proceed" type="Emphasized" press="onPressProccedSave"/>
                 </uxap:actions>
             </uxap:ObjectPageDynamicHeaderTitle>
         </uxap:headerTitle>
@@ -71,54 +71,47 @@
                         <VBox renderType="Bare">
                         <Label text="Select items that you want to send with this packing list"/>
 
-						<ui:TreeTable id="TreeTableBasic"
+						<ui:TreeTable id="TreeTableBasic" title="{i18n>lineItems}"
                             rows="{path:'TreeTableModel>/', parameters: {arrayNames:['ChildItems']}}"
-                            selectionMode="None"  enableSelectAll="false" 
-                            title="{i18n>lineItems}" ariaLabelledBy="title"
-                            visibleRowCountMode="Fixed"
+                            selectionMode="None"  enableColumnReordering="true"                             
+                            visibleRowCountMode="Interactive"  expandFirstLevel="true"
                             rowSelectionChange="onSelectionOfRow">
 							<ui:columns>
-                                <ui:Column width="7rem">
+                                 <ui:Column width="7rem">
 									<Label text="Select"/>
 									<ui:template>
 										 <CheckBox selected="{TreeTableModel>isSelected}" 
                                             select="onSelectionOfRow" visible="{= ${TreeTableModel>isStandAlone} ? false : true}" />
 									</ui:template>
-								</ui:Column>
+								</ui:Column> 
                            
-								<ui:Column width="5rem">
-									<Label text="ID"/>
-									<ui:template>
-										<Text text="{TreeTableModel>ID}" wrapping="false" />
-									</ui:template>
-								</ui:Column>
-                                <ui:Column width="13rem">
+                                <ui:Column>
 									<Label text="MaterialCode"/>
 									<ui:template>
 										<Text text="{TreeTableModel>MaterialCode}" wrapping="false" />
 									</ui:template>
 								</ui:Column>
-								<ui:Column width="13rem">
+								<ui:Column>
 									<Label text="Name"/>
 									<ui:template>
 										<Text text="{TreeTableModel>Name}" wrapping="false" />
 									</ui:template>
 								</ui:Column>
-								<ui:Column width="13rem">
+								<ui:Column>
 									<Label text="Description"/>
 									<ui:template>
 										<Text text="{TreeTableModel>Description}" wrapping="false" />
 									</ui:template>
 								</ui:Column>
 								
-								<ui:Column width="5rem">
+								<ui:Column>
 									<Label text="Qty"/>
 									<ui:template>
 										<Text text="{TreeTableModel>Qty}" wrapping="false" />
 									</ui:template>
 								</ui:Column>
 
-								<ui:Column width="10rem">
+								<ui:Column>
 									<Label text="MDCCApproved Qty"/>
 									<ui:template>
                                         
@@ -127,16 +120,14 @@
 									</ui:template>
 								</ui:Column>
 
-                                <ui:Column width="10rem">
+                                <ui:Column>
 									<Label text="Dispatch Qty"/>
 									<ui:template>
-                                        
-										    <Input value="{TreeTableModel>DispatchQty}" editable="false" visible="{= ${TreeTableModel>isStandAlone} ? false : true}" />
-                                       
+										<Input value="{TreeTableModel>DispatchQty}" liveChange="onLiveChangeDispatchQty" editable="false" visible="{= ${TreeTableModel>isStandAlone} ? false : true}" />
 									</ui:template>
 								</ui:Column>
 
-								<ui:Column width="13rem">
+								<ui:Column>
 									<Label text="UOM"/>
 									<ui:template>
 										<Text text="{TreeTableModel>UOM}" wrapping="false" />
