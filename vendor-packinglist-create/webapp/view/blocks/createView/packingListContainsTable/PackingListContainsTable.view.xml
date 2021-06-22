@@ -10,7 +10,7 @@
             <OverflowToolbar >
                 <content>
                     <ToolbarSpacer></ToolbarSpacer>
-                    <Button text="Generate Packing List" press="onGeneratePackingList" visible="{= ${objectViewModel>/isPackingListInEditModel} ? true : false}"></Button>
+                    <Button text="{= ${IsProcessOneCompletes} ? 'Regenerate Packing List' : 'Generate Packing List'}" press="onGeneratePackingList" visible="{= ${objectViewModel>/isPackingListInEditModel} ? true : false}"></Button>
                 </content>
             </OverflowToolbar>
         </headerToolbar>
@@ -37,7 +37,7 @@
         <items>
             <ColumnListItem>
                 <cells>
-                    <ObjectIdentifier title="{packingListContainsModel>LineNumber}"/>
+                    <ObjectIdentifier title="{packingListContainsModel>MaterialCode}"/>
                     <Text text="{packingListContainsModel>Name}"/>
                     <Text text="{packingListContainsModel>DispatchQty}" />
                     <Text text="{packingListContainsModel>UOM}"/>

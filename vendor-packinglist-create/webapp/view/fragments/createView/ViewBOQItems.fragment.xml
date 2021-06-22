@@ -3,39 +3,43 @@
     <Dialog >
         <content>
             <Table width="auto" growing="true" id="idViewBOQItemTable" growingThreshold="2" items="{path: 'PackingListBOQItems'}" fixedLayout="false" class="sapUiResponsiveMargin">
-        <columns>
-            <Column>
-                <Text text="{i18n>materialCode}" wrapping="true" wrappingType="Hyphenated"/>
-            </Column>
-            <Column>
-                <Text text="{i18n>name}" wrapping="true"/>
-            </Column>
-            <Column demandPopin="true" minScreenWidth="Desktop">
-                <Text text="{i18n>description}"/>
-            </Column>
-            <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center">
-                <Text text="{i18n>quantity}" />
-            </Column>
-            <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center">
-                <Text text="{i18n>orderUnit}"/>
-            </Column>
-            <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center">
-                <Text text="{i18n>remarks}"/>
-            </Column>
-        </columns>
-        <items>
-            <ColumnListItem>
-                <cells>
-                    <ObjectIdentifier title="{MaterialCode}"/>
-                    <Text text="{Name}"/>
-                    <ExpandableText text="{Description}" maxCharacters="50" overflowMode="Popover"/>
-                    <Text text="{Qty}"/>
-                    <Text text="{UOM}"/>
-                    <ExpandableText text="{Remarks}" maxCharacters="50" overflowMode="Popover"/>
-                </cells>
-            </ColumnListItem>
-        </items>
-    </Table>
+                <columns>
+                    <Column>
+                        <Text text="Material Code" wrapping="true" wrappingType="Hyphenated"/>
+                    </Column>
+                    <Column>
+                        <Text text="Name" wrapping="true"/>
+                    </Column>
+                    <Column demandPopin="true" minScreenWidth="Desktop">
+                        <Text text="Description"/>
+                    </Column>
+                    <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center">
+                        <Text text="Total Quantity" />
+                    </Column>
+                    <!-- <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center">
+                        <Text text="MDCC Approved Quantity"/>
+                    </Column> -->
+                    <Column demandPopin="true" minScreenWidth="Tablet">
+                        <Text text="Dispatch Quantity"/>
+                    </Column>
+                    <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center">
+                        <Text text="UOM"/>
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem>
+                        <cells>
+                            <ObjectIdentifier title="{MaterialCode}"/>
+                            <Text text="{Name}"/>
+                            <ExpandableText text="{Description}" maxCharacters="50" overflowMode="Popover"/>
+                            <Text text="{Qty}"/>
+                            <!-- <Text text="{MDCCApprovedQty}"/> -->
+                            <Text text="{DispatchQty}"/>
+                            <Text text="{UOM}"/>
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
         </content>
         <endButton>
             <Button text="Close" press="onViewBOQItemDialogClose" type="Emphasized" />

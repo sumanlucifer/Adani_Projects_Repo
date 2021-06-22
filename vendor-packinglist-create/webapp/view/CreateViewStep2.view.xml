@@ -40,10 +40,23 @@
                     <Button text="Edit" icon="sap-icon://edit" press="onEditPackingListPress" type="Default" visible="{= ${objectViewModel>/isPackingListInEditMode} ? false : true &amp;&amp; ${IsDraft} ? true : false}"/>
                     <Button text="Proceed" press="onProceedStep2Press" type="Emphasized" visible="{= ${objectViewModel>/isPackingListInEditModel} ? false : true &amp;&amp; ${IsDraft} ? false : true}"/> -->
 
-                     <Button text="Save" press="onSavePackingListPress" icon="sap-icon://save" type="Emphasized"/>
+                  <!--    <Button text="Save" press="onSavePackingListPress" icon="sap-icon://save" type="Emphasized"/>
                     <Button text="View QR Code" press="onViewQRCodePress" type="Emphasized" />
                     <Button text="Edit" icon="sap-icon://edit" press="onEditPackingListPress" type="Default"/>
-                    <Button text="Proceed" press="onProceedStep2Press" type="Emphasized" />
+                    <Button text="Proceed" press="onProceedStep2Press" type="Emphasized" /> -->
+
+                     <HBox visible="{= ${IsDraft} ? true : false}">
+                        <items>
+                            <Button text="Save" icon="sap-icon://save" press="onSavePackingListPress" type="Emphasized" visible="{= ${objectViewModel>/isPackingListInEditMode} ? true : false}" class="sapUiTinyMarginEnd" enabled="{= ${objectViewModel>/isEnteredValuesValid}}"/>
+                            <Button text="View QR Code" press="onViewQRCodePress" type="Emphasized" visible="{= ${objectViewModel>/isPackingListInEditMode} ? false : true}" class="sapUiTinyMarginEnd"/>
+                            <Button text="Edit" icon="sap-icon://edit" press="onEditPackingListPress" type="Default" visible="{= ${objectViewModel>/isPackingListInEditMode} ? false : true}" class="sapUiTinyMarginEnd"/>
+                          <!--   <Button text="Proceed" press="onProceedStep2Press" type="Emphasized" visible="{= ${objectViewModel>/isPackingListInEditMode} ? false : true}" enabled="{= ${IsProcessTwoCompletes}}"/> -->
+                        </items>
+                    </HBox>
+
+                    <Button text="Proceed" class="sapUiTinyMarginBegin" press="onProceedStep2Press" type="Emphasized" visible="{= ${IsDraft} ? false : true}"/>
+
+
                 </uxap:actions>
             </uxap:ObjectPageDynamicHeaderTitle>
         </uxap:headerTitle>
