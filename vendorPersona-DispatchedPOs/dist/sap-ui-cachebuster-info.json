@@ -1,5 +1,10 @@
 {
 <<<<<<< HEAD
+  "css/style.css": 1616998545410,
+  "model/models.js": 1616998545410,
+  "manifest.json": 1624277067456,
+=======
+<<<<<<< HEAD
   "index.html": 1617100223285,
   "manifest.json": 1623996220620,
   "model/models.js": 1617100223285,
@@ -15,19 +20,17 @@
   "css/style.css": 1617100223285,
   "i18n/i18n.properties": 1617100223285
 =======
+>>>>>>> develop
   "controller/LandingPage.controller.js": 1616998545410,
   "Component.js": 1616998545410,
-  "model/models.js": 1616998545410,
-  "i18n/i18n.properties": 1616998545410,
-  "manifest.json": 1624259623213,
-  "manifest-bundle.zip": 1624259623067,
-  "Component-preload.js": 1624259623184,
-  "model/models-dbg.js": 1616998545410,
-  "controller/LandingPage-dbg.controller.js": 1616998545410,
+  "manifest-bundle.zip": 1624277067128,
+  "Component-preload.js": 1624277067416,
   "Component-dbg.js": 1616998545410,
-  "resources.json": 1624259623216,
+  "controller/LandingPage-dbg.controller.js": 1616998545410,
+  "model/models-dbg.js": 1616998545410,
+  "resources.json": 1624277067460,
   "view/LandingPage.view.xml": 1616998545410,
-  "css/style.css": 1616998545410,
+  "i18n/i18n.properties": 1616998545410,
   "index.html": 1616998545410
 >>>>>>> develop
 }

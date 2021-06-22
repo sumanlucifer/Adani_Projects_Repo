@@ -160,9 +160,10 @@
                                             <VBox>
                                                 <ObjectStatus text="{Status}" state="{= ${Status} === 'APPROVED' ? 'Success' : ${Status} === 'REJECTED' ? 'Error' : 'Warning'}"
                                                         visible="{= ${Status}.length>0 ? true : false }"/>
+
                                                 <Button text="Send For Approval" press="onSendForApprovalPress" 
                                                         visible="{= ${Status}.length > 0 ?  false : true  }" 
-                                                        enabled="{= ${Status}.length > 0 ? true : false}"/>
+                                                        enabled="{path:'Attachments',formatter:'.formatter.viewFileNames'}"/>
                                             </VBox>
                                             <Link text="Manage" press="onManagePress"
                                                 enabled="{= ${Status} === 'APPROVED' ? true : false }"/>

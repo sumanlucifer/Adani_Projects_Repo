@@ -39,7 +39,7 @@
                    
                 </uxap:snappedTitleOnMobile>
                 <uxap:actions>
-                    <Button id="idBtnProceed" text="Proceed" type="Emphasized" press="onPressProccedSave"/>
+                    <Button id="idBtnProceed" text="Proceed"  type="Emphasized" press="onConfirmProceedSave"/>
                 </uxap:actions>
             </uxap:ObjectPageDynamicHeaderTitle>
         </uxap:headerTitle>
@@ -105,23 +105,21 @@
 								</ui:Column>
 								
 								<ui:Column>
-									<Label text="Qty"/>
+									<Label text="Quantity"/>
 									<ui:template>
 										<Text text="{TreeTableModel>Qty}" wrapping="false" />
 									</ui:template>
 								</ui:Column>
 
 								<ui:Column>
-									<Label text="MDCCApproved Qty"/>
-									<ui:template>
-                                        
+									<Label text="MDCCApproved Quantity"/>
+									<ui:template>                                        
 										    <Text text="{TreeTableModel>MDCCApprovedQty}" />
-                                        
 									</ui:template>
 								</ui:Column>
 
                                 <ui:Column>
-									<Label text="Dispatch Qty"/>
+									<Label text="Dispatch Quantity"/>
 									<ui:template>
 										<Input value="{TreeTableModel>DispatchQty}" liveChange="onLiveChangeDispatchQty" editable="false" visible="{= ${TreeTableModel>isStandAlone} ? false : true}" />
 									</ui:template>
