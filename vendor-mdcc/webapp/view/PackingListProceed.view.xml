@@ -24,7 +24,7 @@
                 </uxap:breadcrumbs>
                 <uxap:expandedHeading>
                     <FlexBox direction="Column" renderType="Bare">
-                        <Title text="MDCC No." wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
+                        <Title text="MDCC Details" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
                         <Title text="{MDCCNumber}" wrapping="true" titleStyle="H3"/>
                     </FlexBox>
                 </uxap:expandedHeading>
@@ -48,7 +48,7 @@
                 <VBox renderType="Bare">
                     <FlexBox direction="Row" renderType="Bare" class="sapUiTinyMarginBottom">
                         <VBox renderType="Bare" class="sapUiMediumMarginEnd">
-                            <Title text="Date" wrapping="true" titleStyle="H4"/>
+                            <Title text="Created On" wrapping="true" titleStyle="H4"/>
                             <Title text="{path:'CreatedAt',
                                      type: 'sap.ui.model.type.Date',
 				                     formatOptions: {
@@ -65,13 +65,16 @@
         <uxap:sections>
             
             <!-- Packing List Items Section -->
-            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>packingList}">
+            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>lineItems}">
                 <uxap:subSections>
-                    <uxap:ObjectPageSubSection title="{i18n>packingList}">
+                    <uxap:ObjectPageSubSection title="{i18n>lineItems}">
                         <VBox renderType="Bare">
-                        <Label text="Select items that you want to send with this packing list"/>
+                        	<MessageStrip text="Select items that you want to send with this packing list"
+				                enableFormattedText="true" showIcon="true" 	showCloseButton="false"
+                                	class="sapUiMediumMarginBottom"/>
+                        <!-- <Label text="Select items that you want to send with this packing list"/> -->
 
-						<ui:TreeTable id="TreeTableBasic" title="{i18n>lineItems}"
+						<ui:TreeTable id="TreeTableBasic"
                             rows="{path:'TreeTableModel>/', parameters: {arrayNames:['ChildItems']}}"
                             selectionMode="None"  enableColumnReordering="true"                             
                             visibleRowCountMode="Interactive"  expandFirstLevel="true"
@@ -88,6 +91,7 @@
                                 <ui:Column>
 									<Label text="MaterialCode"/>
 									<ui:template>
+                                        <!-- <ObjectAttribute title="{TreeTableModel>MaterialCode}"/> -->
 										<Text text="{TreeTableModel>MaterialCode}" wrapping="false" />
 									</ui:template>
 								</ui:Column>
@@ -100,7 +104,8 @@
 								<ui:Column>
 									<Label text="Description"/>
 									<ui:template>
-										<Text text="{TreeTableModel>Description}" wrapping="false" />
+										<!-- <Text text="{TreeTableModel>Description}" wrapping="false" /> -->
+                                        <ExpandableText  text="{TreeTableModel>Description}" maxCharacters="20" overflowMode="Popover"/>
 									</ui:template>
 								</ui:Column>
 								
@@ -112,7 +117,7 @@
 								</ui:Column>
 
 								<ui:Column>
-									<Label text="MDCCApproved Quantity"/>
+									<Label text="MDCC Approved Quantity"/>
 									<ui:template>                                        
 										    <Text text="{TreeTableModel>MDCCApprovedQty}" />
 									</ui:template>

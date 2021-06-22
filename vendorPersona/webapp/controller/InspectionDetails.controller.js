@@ -491,8 +491,8 @@ sap.ui.define([
             oDetails.controller = this;
             oDetails.view = this.getView();
             oDetails.sParentItemPath = sParentItemPath;
-            if (!this.pDialog) {
-                this.pDialog = Fragment.load({
+            if (!this.pDialogFileName) {
+                this.pDialogFileName = Fragment.load({
                     id: oDetails.view.getId(),
                     name: "com.agel.mmts.vendorPersona.view.fragments.inspectionDetails.ShowFileNamesMDCC",
                     controller: oDetails.controller
@@ -506,7 +506,7 @@ sap.ui.define([
                     return oDialog;
                 });
             }
-            this.pDialog.then(function (oDialog) {
+            this.pDialogFileName.then(function (oDialog) {
                 oDetails.view.addDependent(oDialog);
                   oDialog.bindElement({
                       path: oDetails.sParentItemPath,
@@ -518,8 +518,8 @@ sap.ui.define([
         },
 
         // Child Dialog Close
-        onViewChildDialogClose: function(oEvent) {
-			this.pDialog.then(function(oDialog) {
+        onViewFileDialogClose: function(oEvent) {
+			this.pDialogFileName.then(function(oDialog) {
 				oDialog.close();
 			});
 		}

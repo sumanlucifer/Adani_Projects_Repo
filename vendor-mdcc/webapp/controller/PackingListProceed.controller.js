@@ -134,7 +134,7 @@ sap.ui.define([
               // on Save Confirm - Proceed Click
             onConfirmProceedSave : function(oEvent){
                 var that = this;
-                 MessageBox.confirm("Do you proceed for create packing list?",{
+                 MessageBox.confirm("Do you want to proceed ahead for create packing list?",{
 				    icon: MessageBox.Icon.INFORMATION,
 				    title: "Confirm",
 				    actions: [MessageBox.Action.YES, MessageBox.Action.NO],

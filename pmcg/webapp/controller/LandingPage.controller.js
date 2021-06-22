@@ -137,13 +137,14 @@ sap.ui.define([
                 } else {
                     oEventSource.setValueState(ValueState.Error);
                 }
-
                 this.oFilterBar.fireFilterChange(oEvent);
             },
 
             onBeforeRebindBOQTable: function (oEvent) {
                 var mBindingParams = oEvent.getParameter("bindingParams");
                 mBindingParams.sorter.push(new sap.ui.model.Sorter("CreatedAt", true));
+                mBindingParams.filters.push(new sap.ui.model.Filter("Status",sap.ui.model.FilterOperator.NE,""));
+              //mBindingParams.filters.push(new sap.ui.model.Filter("MDCC_Id",sap.ui.model.FilterOperator.EQ, MDCC_Id ));
             }
         
 		});

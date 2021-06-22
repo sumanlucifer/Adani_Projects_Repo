@@ -23,7 +23,7 @@
                 </uxap:breadcrumbs>
                 <uxap:expandedHeading>
                     <FlexBox direction="Column" renderType="Bare">
-                        <Title text="MDCC No." wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
+                        <Title text="MDCC Details" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
                         <Title text="{MDCCNumber}" wrapping="true" titleStyle="H3"/>
                     </FlexBox>                                  
                 </uxap:expandedHeading>
@@ -49,12 +49,12 @@
                         <VBox renderType="Bare" class="sapUiMediumMarginEnd">
                          <!--   <Label text="MDCC Number" />-->
                             <!-- missing -->
-                            <Title text="Date" wrapping="true" titleStyle="H4"/>
+                            <Title text="Created On" wrapping="true" titleStyle="H4"/>
                             <Title text="{path:'CreatedAt',
                                      type: 'sap.ui.model.type.Date',
 				                     formatOptions: {
 				                        pattern: 'MMMM dd, yyyy'
-				                     }}"  wrapping="true" titleStyle="H3"/>
+				                     }}"  wrapping="true" titleStyle="H5"/>
                         </VBox>
                         <VBox renderType="Bare">
                             
@@ -79,15 +79,16 @@
                 <uxap:subSections>
                     
                     <uxap:ObjectPageSubSection title="{i18n>Reason}">
-                       <VBox alignContent="SpaceAround" renderType="List"  > 
-                        <Title text="Reason Approve / Reject Will Be Shown Here"  wrapping="true" titleStyle="H5"/>
-                        <Text text="{Comment}" binding="{MDCCStatuses}"/>
+                        <uxap:blocks>
+                       <VBox alignContent="SpaceAround" items="{MDCCStatuses}" >
+                        <ObjectAttribute title="Reason For Approve / Reject" text="{Comment}"/>
                         <!-- <Label text="Lorem ipsum dolor sit amet, consectetur adipiscing elit.\b 
                             Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.
                              Proin sodales pulvinar sic tempor.\b Sociis natoque penatibus et magnis dis parturient montes, 
                                 nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate,
                              felis tellus mollis orci, sed rhoncus pronin sapien nunc accuan eget."/> -->
                         </VBox>
+                        </uxap:blocks>
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>
             </uxap:ObjectPageSection>
@@ -153,9 +154,9 @@
             </uxap:ObjectPageSection>
 
             <!-- Uploaded Items Section -->
-            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>Uploaded}">
+            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>Attachments}">
                 <uxap:subSections>
-                    <uxap:ObjectPageSubSection title="{i18n>Uploaded}">                    
+                    <uxap:ObjectPageSubSection title="{i18n>Attachments}">                    
                                 <VBox id="idMDCCUploadArea">
                                     <UploadCollection id="idMDCCUploader" maximumFilenameLength="55" maximumFileSize="10" 
                                     multiple="true"
@@ -172,6 +173,7 @@
                                                 <attributes>
                                                     <ObjectAttribute title="Uploaded By" text="{UploadedBy}" class="sapUiSmallMarginEnd"/>
                                                     <ObjectAttribute title="Uploaded On" text= "{path:'UploadedOn', type: 'sap.ui.model.type.Date', formatOptions: {pattern: 'MMMM dd, yyyy'}}"/>
+                                                    <ObjectAttribute title="Size" text="{path : 'FileSize', formatter : '.formatter.formatFileSize'}"/>
                                                 </attributes>
                                             </UploadCollectionItem>
                                         </items>

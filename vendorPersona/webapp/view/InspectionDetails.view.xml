@@ -12,7 +12,7 @@
         <f:title>
             <f:DynamicPageTitle>
                 <f:heading>
-                    <Title  text="{SAPInspectionCallId}" wrapping="true"/>
+                    <Title  text="Inspection - {SAPInspectionCallId}" wrapping="true"/>
                 </f:heading>
                 <f:breadcrumbs>
                     <Breadcrumbs  currentLocationText="{inspection_call_id} - {i18n>inspectionDetails}">
@@ -35,7 +35,12 @@
         <f:header>
             <f:DynamicPageHeader pinnable="true">
                 <f:content>
-                    <Label  text="Created on - {createdAt}"/>
+                    <Label  text="Created On - {path:'CreatedAt',
+                                     type: 'sap.ui.model.type.Date',
+				                     formatOptions: {
+				                        pattern: 'MMMM dd, yyyy'
+				                     }}"/>
+                                    
                 </f:content>
             </f:DynamicPageHeader>
         </f:header>
@@ -43,12 +48,11 @@
         <f:content>
             <IconTabBar  expanded="{device>/isNoPhone}" class="sapUiResponsiveContentPadding" id="idIcnTabBar">
                 <items>
-                    <IconTabFilter  text="{i18n>itemDetails}">
+                    <IconTabFilter  text="{i18n>lineItems}">
                         <VBox  renderType="Bare">
                             <Table  id="idInspectedParentLineItems" width="auto" items="{InspectedParentItems}" noDataText="{i18n>noParentItems}" growing="true" growingScrollToLoad="true">
                                 <headerToolbar>
                                     <OverflowToolbar>
-                                        <Title  text="Inspected Parent Items" level="H4" id="idInspectedParentItems"/>
                                         <ToolbarSpacer  />
                                         <SearchField  tooltip="{i18n>searchItem}" placeholder="{i18n>searchItem}" visible="false">
                                             <layoutData>
@@ -69,7 +73,7 @@
                                     <Column>
                                         <Text  text="{i18n>name}"/>
                                     </Column>
-                                    <Column>
+                                    <Column demandPopin="true" minScreenWidth="Desktop">
                                         <Text  text="{i18n>description}"/>
                                     </Column>
                                     <Column>
@@ -85,7 +89,7 @@
                                             <ObjectIdentifier  title="{MaterialCode}"/>
                                             <Text  text="{Name}">
                                             </Text>
-                                            <Text  text="{Description}"/>
+                                            <ExpandableText  text="{Description}" maxCharacters="20" overflowMode="Popover"/>
                                             <Text  text="{Qty}"/>
                                             <Text  text="{UOM}"/>
                                         </cells>
@@ -114,9 +118,9 @@
                                     <Column>
                                         <Text text="{i18n>MDCCNumber}"/>
                                     </Column>
-                                    <Column>
+                                    <!-- <Column>
                                         <Text text="{i18n>POitem}"/>
-                                    </Column>
+                                    </Column> -->
                                     <Column>
                                         <Text text="{i18n>Upload}"/>
                                     </Column>
@@ -127,7 +131,7 @@
                                         <Text text="{i18n>Items}"/>
                                     </Column>
                                     <Column>
-                                        <Text text="{i18n>approval}"/>
+                                        <Text text="{i18n>status}"/>
                                     </Column>
                                     <Column>
                                         <Text text="{i18n>packingList}"/>
@@ -137,7 +141,7 @@
                                     <ColumnListItem>
                                         <cells>
                                             <Text text="{MDCCNumber}"/>
-                                            <Text text="{PONumber}"/>
+                                            <!-- <Text text="{PONumber}"/> -->
                                             <VBox>
                                                 <Link id="idFileName" text="View Files"
                                                       press="onShowFileNameDialog" 
