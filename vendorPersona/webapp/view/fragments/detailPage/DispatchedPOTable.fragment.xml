@@ -1,7 +1,7 @@
 <core:FragmentDefinition xmlns="sap.m"
     xmlns:smartTable="sap.ui.comp.smarttable"
     xmlns:core="sap.ui.core">
-    <smartTable:SmartTable class="sapUiResponsiveContentPadding" id="idDispatchedPOTable" editable="false" placeToolbarInTable="true" enableAutoBinding="true" entitySet="PurchaseOrderSet" showFullScreenButton="true" showRowCount="false" tableType="ResponsiveTable" demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" beforeRebindTable="onbeforeRebindDispatchPoTable" initiallyVisibleFields="po_number,plantcode,status,CreatedAt">
+    <smartTable:SmartTable class="sapUiResponsiveContentPadding" id="idDispatchedPOTable" editable="false" placeToolbarInTable="true" enableAutoBinding="true" entitySet="PurchaseOrderSet" showFullScreenButton="true" showRowCount="false" tableType="ResponsiveTable" demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" beforeRebindTable="onbeforeRebindDispatchPoTable">
         <Table sticky="ColumnHeaders,HeaderToolbar" updateFinished="onDispatchPOTableUpdateFinished">
             <columns>
                 <Column >
@@ -42,11 +42,18 @@
                     </customData>
                     <Text text="{i18n>releaseDate}"/>
                 </Column>
+                 <Column demandPopin="true" minScreenWidth="Tablet">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "ConfirmedDate", "leadingProperty": "UpdatedAt",
+                                                 "columnIndex": 5 }'/>
+                    </customData>
+                    <Text text="{i18n>confirmdate}"/>
+                </Column> 
                 <!-- missing closed date -->
                 <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "ClosedDate", "leadingProperty": "POReleaseDate",
-                                                 "columnIndex": 5 }'/>
+                                                 "columnIndex": 6 }'/>
                     </customData>
                     <Text text="{i18n>closedDate}"/>
                 </Column>
@@ -72,6 +79,12 @@
 				                     }    
                         }"/>
                         <Text text="{path:'POReleaseDate',
+                                     type: 'sap.ui.model.type.Date',
+				                     formatOptions: {
+				                        pattern: 'MMMM dd, yyyy'
+				                     }
+                        }"/>
+                           <Text text="{path:'UpdatedAt',
                                      type: 'sap.ui.model.type.Date',
 				                     formatOptions: {
 				                        pattern: 'MMMM dd, yyyy'

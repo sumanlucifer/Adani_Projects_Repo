@@ -10,6 +10,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller"], function (Controller) {
                 PONumber = this.getView().getBindingContext().getObject().PONumber;
 
             mBindingParams.filters.push(new sap.ui.model.Filter("PONumber", sap.ui.model.FilterOperator.EQ, PONumber));
+            mBindingParams.sorter.push(new sap.ui.model.Sorter("CreatedAt", true));
 
         },
 

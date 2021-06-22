@@ -34,7 +34,7 @@ sap.ui.define([
                 //var startupParams = this.getOwnerComponent().getComponentData().startupParameters;
 
                 //this.packingListId = startupParams.packingListID[0];
-                this.packingListId = 43;
+                this.packingListId = 45;
 
                 this.getView().bindElement({
                     path: "/PackingListSet(" + this.packingListId + ")",

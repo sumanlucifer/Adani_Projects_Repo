@@ -32,7 +32,7 @@
                 <Text text="Quantity"/>
             </Column>
             <Column>
-                <Text text="Order Unit"/>
+                <Text text="UOM"/>
             </Column>
             <Column>
                 <Text text="Remarks"/>

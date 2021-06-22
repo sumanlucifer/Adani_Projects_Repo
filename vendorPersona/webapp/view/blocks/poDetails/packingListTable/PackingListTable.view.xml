@@ -11,10 +11,10 @@
             <columns>
                 <Column >
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "Name", "leadingProperty": "Name",
-                                                 "columnIndex": 0 ,"sortProperty": "Name","filterProperty": "Name"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "PackagingReferenceNumber", "leadingProperty": "PackagingReferenceNumber",
+                                                 "columnIndex": 0 ,"sortProperty": "PackagingReferenceNumber","filterProperty": "PackagingReferenceNumber"}'/>
                     </customData>
-                    <Text text="{i18n>ponum}"/>
+                    <Text text="Packaging Reference Number"/>
                 </Column>
                 
                 <Column demandPopin="true" minScreenWidth="Tablet">
@@ -44,7 +44,7 @@
 				                        pattern: 'MMMM dd, yyyy'
 				                     }    
                         }"/>
-                        <ObjectStatus text="{Status}"/>
+                        <ObjectStatus text="{Status}" state="{= ${Status}=== 'SAVED' ? 'Indication05' : ${Status}=== 'DISPATCHED' ? 'Indication06' : 'Indication08'}"/>
                     </cells>
                 </ColumnListItem>
 
