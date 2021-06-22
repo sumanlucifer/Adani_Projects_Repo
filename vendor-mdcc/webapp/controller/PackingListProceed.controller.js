@@ -92,14 +92,25 @@ sap.ui.define([
             // Live Change On Dispatch Quantity
             onLiveChangeDispatchQty : function (oEvent) {
                 oEvent.getSource().setValueState("None");
+                this.getView().byId("idBtnProceed").setEnabled(true);
                 var oValue = oEvent.getSource().getValue();
                 var mdccQty = oEvent.getSource().getParent().getCells()[5].getText();
+                var flag = 0 ;
                 if ( parseInt(oValue) > parseInt(mdccQty) ){
-                //    oEvent.getSource().setValue("");
                     oEvent.getSource().setValueState("Error");
                     oEvent.getSource().setValueStateText("Please enter less dispatch quantity than approved quantity");
+                    this.getView().byId("idBtnProceed").setEnabled(false);
+                    flag = 1;
                 }
 
+                if (parseInt(oValue) < 0 || oValue == "" ){
+                    oEvent.getSource().setValueState("Error");
+                    oEvent.getSource().setValueStateText("Please enter dispatch quantity");
+                    this.getView().byId("idBtnProceed").setEnabled(false);
+                }else if(flag != 1){
+                    oEvent.getSource().setValueState("None");
+                    this.getView().byId("idBtnProceed").setEnabled(true);
+                }
             },
 
             // On Selection Of Row 
@@ -107,14 +118,33 @@ sap.ui.define([
                 var bSelected = oEvent.getParameter("selected");
                 var dispatchQty = oEvent.getSource().getParent().getCells()[6].getValue();
                 if (bSelected) {
+                    if ( dispatchQty == ""){
+                        this.getView().byId("idBtnProceed").setEnabled(false);
+                    }else{
+                        this.getView().byId("idBtnProceed").setEnabled(true);
+                    }
                     oEvent.getSource().getParent().getCells()[6].setEditable(true);
                     oEvent.getSource().getParent().getRowBindingContext().getObject().isSelected = true;             
                 } else {
                     oEvent.getSource().getParent().getCells()[6].setEditable(false);
                     oEvent.getSource().getParent().getRowBindingContext().getObject().isSelected = false;
-
-                   // oEvent.getSource().getParent().getCells()[6].setValue(null);
                 }
+            },
+
+              // on Save Confirm - Proceed Click
+            onConfirmProceedSave : function(oEvent){
+                var that = this;
+                 MessageBox.confirm("Do you proceed for create packing list?",{
+				    icon: MessageBox.Icon.INFORMATION,
+				    title: "Confirm",
+				    actions: [MessageBox.Action.YES, MessageBox.Action.NO],
+				    emphasizedAction: MessageBox.Action.YES,
+				    onClose: function (oAction) { 
+                        if ( oAction == "YES" ){
+                            that.onPressProccedSave(oEvent);
+                        }
+                    }
+			    });
             },
 
             // on Save - Proceed Click
@@ -147,7 +177,6 @@ sap.ui.define([
                             };
                             parentObj.MDCCBOQItem.push(childObj)
                             flag = 1;
-                            // break;
                         }
                     }  // j end 
                     if (flag == 1) {
@@ -175,13 +204,12 @@ sap.ui.define([
                 that.MainModel.create("/MDCCEdmSet", oPayload, {
                     success: function (oData, oResponse) {
                         that.getComponentModel("app").setProperty("/busy", false);
-                        //  that.getComponentModel("app").setProperty("/busy", false);
-
+                        
                         sap.m.MessageBox.success("Selected items processed successfully", {
                             title: "Success",
                             onClose: function (oAction1) {
                                 if (oAction1 === sap.m.MessageBox.Action.OK) {
-                                    that.onNavigateToPackingList();
+                                    that.onNavigateToPackingList(oData.ID);
                                 }
                             }.bind(this)
                         });
@@ -194,7 +222,7 @@ sap.ui.define([
             },
 
             // On Navigate To PackingList Create
-            onNavigateToPackingList : function(oEvent){
+            onNavigateToPackingList : function(PackingListId){
                 var oCrossAppNavigator = sap.ushell.Container.getService("CrossApplicationNavigation"); // get a handle on the global XAppNav service
                         var hash = (oCrossAppNavigator && oCrossAppNavigator.hrefForExternal({
                             target: {
@@ -202,7 +230,7 @@ sap.ui.define([
                                 action: "manage"
                             },
                             params: {
-                                "packingListID": 11
+                                "packingListID": PackingListId
                             }
                         })) || ""; // generate the Hash to display a MDCC Number
                         oCrossAppNavigator.toExternal({
