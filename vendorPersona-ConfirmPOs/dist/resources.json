@@ -1,22 +1,10 @@
 {
     "resources": [
         {
-<<<<<<< HEAD
-            "name": "index.html"
-=======
-<<<<<<< HEAD
-            "name": "i18n/i18n.properties",
-            "raw": "i18n/i18n.properties"
-        },
-        {
-            "name": "Component.js"
-=======
             "name": "../../../../sap-ui-version.json"
->>>>>>> develop
         },
         {
             "name": "manifest.json"
->>>>>>> develop
         },
         {
             "name": "model/models.js"
@@ -25,11 +13,7 @@
             "name": "controller/LandingPage.controller.js"
         },
         {
-<<<<<<< HEAD
-            "name": "manifest.json"
-=======
             "name": "Component.js"
->>>>>>> develop
         },
         {
             "name": "manifest-bundle.zip"
@@ -39,11 +23,7 @@
             "merged": true
         },
         {
-<<<<<<< HEAD
-            "name": "Component-dbg.js",
-=======
             "name": "controller/LandingPage-dbg.controller.js",
->>>>>>> develop
             "isDebug": true
         },
         {
@@ -51,11 +31,12 @@
             "isDebug": true
         },
         {
-            "name": "model/models-dbg.js",
+            "name": "Component-dbg.js",
             "isDebug": true
         },
         {
-            "name": "../../../../sap-ui-version.json"
+            "name": "i18n/i18n.properties",
+            "raw": "i18n/i18n.properties"
         },
         {
             "name": "view/LandingPage.view.xml"
@@ -64,8 +45,7 @@
             "name": "css/style.css"
         },
         {
-            "name": "i18n/i18n.properties",
-            "raw": "i18n/i18n.properties"
+            "name": "index.html"
         }
     ]
 }
