@@ -37,21 +37,23 @@
                     <Text text="{i18n>issuedate}"/>
                 </Column>
                 <!--  confirmed date -->
-                <Column demandPopin="true" minScreenWidth="Tablet">
-                    <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "ConfirmedDate", "leadingProperty": "UpdatedAt",
-                                                 "columnIndex": 4 }'/>
-                    </customData>
-                    <Text text="{i18n>confirmdate}"/>
-                </Column> 
+                
                 <!-- released  date -->
                 <Column demandPopin="true" minScreenWidth="Desktop">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "ReleaseDate", "leadingProperty": "POReleaseDate",
-                                                 "columnIndex": 5}'/>
+                                                 "columnIndex": 4}'/>
                     </customData>
                     <Text text="{i18n>releaseDate}"/>
                 </Column>
+
+                <Column demandPopin="true" minScreenWidth="Tablet">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "ConfirmedDate", "leadingProperty": "UpdatedAt",
+                                                 "columnIndex": 5 }'/>
+                    </customData>
+                    <Text text="{i18n>confirmdate}"/>
+                </Column> 
 
                 <Column>
                     <customData>
@@ -73,13 +75,13 @@
 				                        pattern: 'MMMM dd, yyyy'
 				                     }
                         }"/>
-                        <Text text="{path:'UpdatedAt',
+                        <Text text="{path:'POReleaseDate',
                                      type: 'sap.ui.model.type.Date',
 				                     formatOptions: {
 				                        pattern: 'MMMM dd, yyyy'
 				                     }
                         }"/>
-                        <Text text="{path:'POReleaseDate',
+                         <Text text="{path:'UpdatedAt',
                                      type: 'sap.ui.model.type.Date',
 				                     formatOptions: {
 				                        pattern: 'MMMM dd, yyyy'

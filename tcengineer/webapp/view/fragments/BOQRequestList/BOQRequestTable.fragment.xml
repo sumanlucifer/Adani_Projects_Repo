@@ -89,7 +89,7 @@
                         <Text text="{PONumber}" binding="{ParentLineItem}"/>
                         <ObjectIdentifier title="{BOQGroupName}"/>
                         <Text text="{VendorCode}" binding="{ParentLineItem/PurchaseOrder/Vendor}"/>
-                        <Text text="{Name}" binding="{ParentLineItem/PurchaseOrder/Vendor}" wrapping="false"/>
+                        <Text text="{Name}" binding="{ParentLineItem/PurchaseOrder/Vendor}" wrapping="true"/>
                         <Text text="{CompanyCode}" binding="{BOQGroup/ParentLineItem/PurchaseOrder/Buyer}"/>                        
                         <Text text="{PlantCode}" binding="{ParentLineItem/PurchaseOrder}"/>
                        <Text text="{path:'CreatedAt',

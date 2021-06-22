@@ -54,8 +54,8 @@ sap.ui.define([
                                 objectViewModel.setProperty("/isOuterPackagingRequired", true);
 
                             //if (bIsProcessTwoCompletes) {
-                                //objectViewModel.setProperty("/isViewQRMode", false);
-                                objectViewModel.setProperty("/isPackingListInEditMode", false);
+                            //objectViewModel.setProperty("/isViewQRMode", false);
+                            objectViewModel.setProperty("/isPackingListInEditMode", false);
                             //}
                             /* else {
                                 //objectViewModel.setProperty("/isViewQRMode", false);
@@ -117,7 +117,7 @@ sap.ui.define([
             _getPackingListInnerPackagingData: function () {
                 this.mainModel.read("/PackingListSet(" + this.packingListId + ")/InnerPackagings", {
                     success: function (oData, oError) {
-                        console.log("Total Inner get");
+                        this.aInnerPackagingData = oData.results;
                         var oModel = new JSONModel(oData.results);
                         this.getView().setModel(oModel, "valueHelpModel");
                     }.bind(this),
@@ -179,14 +179,25 @@ sap.ui.define([
             },
 
             _prepareData: function (aSelctedData) {
-                var aAllData = this.getView().getModel("valueHelpModel").getData();
-                for (let i = 0; i < aAllData.length; i++) {
-                    for (let j = 0; j < aSelctedData.length; j++) {
-                        if (aAllData[i].ID == aSelctedData[j].ID)
-                            aAllData[i].selected = true;
+                this.aSelctedDataOfInnerPackaging = aSelctedData;
+                this.mainModel.read("/PackingListSet(" + this.packingListId + ")/InnerPackagings", {
+                    success: function (oData, oError) {
+                        var aAllData = oData.results;
+                        for (let i = 0; i < aAllData.length; i++) {
+                            for (let j = 0; j < this.aSelctedDataOfInnerPackaging.length; j++) {
+                                if (aAllData[i].ID == this.aSelctedDataOfInnerPackaging[j].ID)
+                                    aAllData[i].selected = true;
+                            }
+                        }
+                        aAllData = aAllData.filter((item) => item.OuterPackagingId == null || item.selected);
+                        this.getView().getModel("valueHelpModel").setData(aAllData);
+                    }.bind(this),
+                    error: function (oError) {
+                        sap.m.MessageBox.error(JSON.stringify(oError));
                     }
-                }
-                this.getView().getModel("valueHelpModel").setData(aAllData);
+                });
+
+
             },
 
             onAddOuterPackagingPress: function (oEvent) {
@@ -279,7 +290,7 @@ sap.ui.define([
                 console.log(oBindingContextData);
                 var oAdditionalData = this.getViewModel("AdditionalDetialsModel").getData();
 
-                 if (this.getView().getModel("outerPackagingModel"))
+                if (this.getView().getModel("outerPackagingModel"))
                     var aOuterPackaging = this.getViewModel("outerPackagingModel").getData();
                 else
                     var aOuterPackaging = [];
@@ -288,7 +299,7 @@ sap.ui.define([
                 oPayload.PackingListId = oBindingContextData.ID;
                 oPayload.IsDraft = true;
 
-                 if (aOuterPackaging.length)
+                if (aOuterPackaging.length)
                     oPayload.IsProcessTwoCompletes = true;
                 else
                     oPayload.IsProcessTwoCompletes = false;
@@ -354,25 +365,27 @@ sap.ui.define([
                 // keep a reference of the uploaded file
                 var that = this;
                 var oFiles = oEvent.getParameters().files;
-                var fileName = oFiles[0].name;
-                var fileSize = oFiles[0].size;
+
                 var SubType = "INVOICE";
                 var Type = "PACKING_LIST";
-                this._getImageData(URL.createObjectURL(oFiles[0]), function (base64) {
-                    that._addData(base64, fileName, SubType, Type, fileSize);
-                }, fileName);
+                for (var i = 0; i < oFiles.length; i++) {
+                    var fileName = oFiles[i].name;
+                    var fileSize = oFiles[i].size;
+                    this._getImageData(URL.createObjectURL(oFiles[0]), function (base64) {
+                        that._addData(base64, fileName, SubType, Type, fileSize);
+                    }, fileName);
+                }
             },
 
             onMaterialFileSelectedForUpload: function (oEvent) {
                 // keep a reference of the uploaded file
                 var that = this;
                 var oFiles = oEvent.getParameters().files;
-                var fileName = oFiles[0].name;
                 var SubType = "MATERIAL";
                 var Type = "PACKING_LIST";
-                var fileSize = oFiles[0].size;
                 for (var i = 0; i < oFiles.length; i++) {
                     var fileName = oFiles[i].name;
+                    var fileSize = oFiles[i].size;
                     this._getImageData(URL.createObjectURL(oFiles[i]), function (base64) {
                         that._addData(base64, fileName, SubType, Type, fileSize);
                     }, fileName);
@@ -383,12 +396,11 @@ sap.ui.define([
                 // keep a reference of the uploaded file
                 var that = this
                 var oFiles = oEvent.getParameters().files;
-                var fileName = oFiles[0].name;
                 var SubType = "OTHERS";
                 var Type = "PACKING_LIST";
-                var fileSize = oFiles[0].size;
                 for (var i = 0; i < oFiles.length; i++) {
-                    var fileName = oFiles[0].name;
+                    var fileName = oFiles[i].name;
+                    var fileSize = oFiles[i].size;
                     this._getImageData(URL.createObjectURL(oFiles[i]), function (base64) {
                         that._addData(base64, fileName, SubType, Type, fileSize);
                     }, fileName);
@@ -473,7 +485,7 @@ sap.ui.define([
             },
 
             onProceedStep2Press: function (oEvent) {
-                this.oRouter.navTo("RoutePackingListDetails",{
+                this.oRouter.navTo("RoutePackingListDetails", {
                     packingListId: this.packingListId
                 });
             },
