@@ -12,5 +12,12 @@ sap.ui.define(["sap/ui/core/mvc/Controller"], function (Controller) {
             this.oParentBlock.fireOnGeneratePackingList(oEvent);
         },
 
+        onPackingListTypeChange: function(oEvent){
+            var sPackingListType = oEvent.getSource().getSelectedItem().getText();
+            var oPackingListContainsModel = this.getView().getModel("packingListContainsModel");
+            var sPath = oEvent.getSource().getBindingContext("packingListContainsModel").getPath();
+            oPackingListContainsModel.setProperty(sPath + "/PackagingType", sPackingListType);
+        }
+
     });
 });

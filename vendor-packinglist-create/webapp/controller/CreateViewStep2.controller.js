@@ -39,7 +39,7 @@ sap.ui.define([
 
             _onObjectMatched: function (oEvent) {
                 var objectViewModel = this.getViewModel("objectViewModel");
-                this.packingListId = oEvent.getParameter("arguments").packingListId[0];
+                this.packingListId = oEvent.getParameter("arguments").packingListId;
                 var that = this;
                 this.getView().bindElement({
                     path: "/PackingListSet(" + this.packingListId + ")",
@@ -50,16 +50,17 @@ sap.ui.define([
                         dataReceived: function () {
                             var bIsProcessTwoCompletes = this.getBoundContext().getObject().IsProcessTwoCompletes;
                             var bIsOuterPackagingRequired = this.getBoundContext().getObject().IsOuterPackagingRequired;
-                            if (!bIsOuterPackagingRequired.length)
+                            if (!bIsOuterPackagingRequired)
                                 objectViewModel.setProperty("/isOuterPackagingRequired", true);
-                            if (bIsProcessTwoCompletes) {
-                                objectViewModel.setProperty("/isViewQRMode", false);
+
+                            //if (bIsProcessTwoCompletes) {
+                                //objectViewModel.setProperty("/isViewQRMode", false);
                                 objectViewModel.setProperty("/isPackingListInEditMode", false);
-                            }
-                            else {
-                                objectViewModel.setProperty("/isViewQRMode", false);
-                                objectViewModel.setProperty("/isPackingListInEditMode", true);
-                            }
+                            //}
+                            /* else {
+                                //objectViewModel.setProperty("/isViewQRMode", false);
+                                objectViewModel.setProperty("/isPackingListInEditMode", false);
+                            } */
 
                             objectViewModel.setProperty("/busy", false);
                         }
@@ -275,11 +276,23 @@ sap.ui.define([
             onSavePackingListPress: function (oEvent) {
                 this._getPackingListOuterPackagingData();
                 var oBindingContextData = this.getView().getBindingContext().getObject();
+                console.log(oBindingContextData);
                 var oAdditionalData = this.getViewModel("AdditionalDetialsModel").getData();
+
+                 if (this.getView().getModel("outerPackagingModel"))
+                    var aOuterPackaging = this.getViewModel("outerPackagingModel").getData();
+                else
+                    var aOuterPackaging = [];
+
                 var oPayload = {};
                 oPayload.PackingListId = oBindingContextData.ID;
                 oPayload.IsDraft = true;
-                oPayload.IsProcessTwoCompletes = true;
+
+                 if (aOuterPackaging.length)
+                    oPayload.IsProcessTwoCompletes = true;
+                else
+                    oPayload.IsProcessTwoCompletes = false;
+
                 oPayload.IsOuterPackagingRequired = this.getViewModel("objectViewModel").getProperty("/isOuterPackagingRequired");
                 oPayload.VehicleNumber = oBindingContextData.VehicleNumber;
                 oPayload.PackagingReferenceNumber = oBindingContextData.PackagingReferenceNumber;
@@ -472,7 +485,7 @@ sap.ui.define([
                 var poNum = oAdditionalData.PONumber;
                 var userName = oAdditionalData.Name;
                 var packingListId = oAdditionalData.ID;
-                oPayload.UserName = userName;
+                oPayload.UserName = "Venkatesh";
                 oPayload.PackingListId = packingListId;
                 oPayload.PONumber = poNum;
 

@@ -36,13 +36,20 @@
                     <Title text="{i18n>packingList}" wrapping="true" titleStyle="Auto"/>
                 </uxap:snappedTitleOnMobile>
                 <uxap:actions>
-                    <!-- <Button text="Save" icon="sap-icon://save" press="onSavePackingListPress" type="Emphasized" visible="{= ${objectViewModel>/isPackingListInEditMode} ? true : false &amp;&amp; ${IsDraft}}" />
-                    <Button text="Edit" icon="sap-icon://edit" press="onEditPackingListPress" type="Default" visible="{= ${objectViewModel>/isPackingListInEditModel} ? false : true &amp;&amp; ${IsDraft}}"/>
-                    <Button text="Proceed" press="onProceedStep1Press" type="Emphasized" visible="{= ${objectViewModel>/isPackingListInEditModel} ? false : true}"/> -->
-                    
-                     <Button text="Save" icon="sap-icon://save" press="onSavePackingListPress" type="Emphasized" />
+                    <HBox visible="{= ${IsDraft} ? true : false}">
+                        <items>
+                            <Button text="Save" icon="sap-icon://save" press="onSavePackingListPress" type="Emphasized" visible="{= ${objectViewModel>/isPackingListInEditModel} ? true : false}" class="sapUiTinyMarginEnd" enabled="{= ${objectViewModel>/isEnteredValuesValid}}"/>
+                            <Button text="Edit" icon="sap-icon://edit" press="onEditPackingListPress" type="Default" visible="{= ${objectViewModel>/isPackingListInEditModel} ? false : true}" />
+                            <Button text="Proceed" class="sapUiTinyMarginBegin" press="onProceedStep1Press" type="Emphasized" visible="{= ${objectViewModel>/isPackingListInEditModel} ? false : true}" enabled="{= ${IsProcessOneCompletes}}"/>
+                        </items>
+                    </HBox>
+
+                    <Button text="Proceed" class="sapUiTinyMarginBegin" press="onProceedStep1Press" type="Emphasized" visible="{= ${IsDraft} ? false : true}"/>
+
+
+                    <!--  <Button text="Save" icon="sap-icon://save" press="onSavePackingListPress" type="Emphasized" />
                     <Button text="Edit" icon="sap-icon://edit" press="onEditPackingListPress" type="Default"/>
-                    <Button text="Proceed" press="onProceedStep1Press" type="Emphasized"/>
+                    <Button text="Proceed" press="onProceedStep1Press" type="Emphasized"/> -->
                 </uxap:actions>
             </uxap:ObjectPageDynamicHeaderTitle>
         </uxap:headerTitle>

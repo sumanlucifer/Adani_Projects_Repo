@@ -2,9 +2,10 @@ sap.ui.define([
     "./BaseController",
     "sap/ui/core/Fragment",
     "sap/ui/Device",
-    "sap/ui/model/json/JSONModel"
+    "sap/ui/model/json/JSONModel",
+    "sap/m/MessageBox"
 ],
-    function (BaseController, Fragment, Device, JSONModel) {
+    function (BaseController, Fragment, Device, JSONModel, MessageBox) {
         "use strict";
 
         return BaseController.extend("com.agel.mmts.vendorpackinglistcreate.controller.CreateView", {
@@ -19,7 +20,8 @@ sap.ui.define([
                     busy: false,
                     delay: 0,
                     isPackagingTableVisible: false,
-                    isPackingListInEditModel: false
+                    isPackingListInEditModel: false,
+                    isEnteredValuesValid: true
                 });
                 this.setModel(oViewModel, "objectViewModel");
 
@@ -29,9 +31,10 @@ sap.ui.define([
                 var objectViewModel = this.getViewModel("objectViewModel");
                 var that = this;
 
-                var startupParams = this.getOwnerComponent().getComponentData().startupParameters;
+                //var startupParams = this.getOwnerComponent().getComponentData().startupParameters;
 
-                this.packingListId = startupParams.packingListID[0];
+                //this.packingListId = startupParams.packingListID[0];
+                this.packingListId = 43;
 
                 this.getView().bindElement({
                     path: "/PackingListSet(" + this.packingListId + ")",
@@ -40,11 +43,11 @@ sap.ui.define([
                             objectViewModel.setProperty("/busy", true);
                         },
                         dataReceived: function () {
-                            var bIsProcessOneCompletes = this.getBoundContext().getObject().IsProcessOneCompletes;
-                            if (bIsProcessOneCompletes)
-                                objectViewModel.setProperty("/isPackingListInEditModel", false);
-                            else
-                                objectViewModel.setProperty("/isPackingListInEditModel", true);
+                            // var bIsProcessOneCompletes = this.getBoundContext().getObject().IsProcessOneCompletes;
+                            // if (bIsProcessOneCompletes)
+                            objectViewModel.setProperty("/isPackingListInEditModel", false);
+                            // else
+                            // objectViewModel.setProperty("/isPackingListInEditModel", true);
                             objectViewModel.setProperty("/busy", false);
                         }
                     }
@@ -129,6 +132,111 @@ sap.ui.define([
             },
 
             onGeneratePackingList: function (oEvent) {
+                var that = this;
+                if (oEvent.mParameters.getSource().getText() === "Regenerate Packing List") {
+                    MessageBox.warning("This action would reset the previosly created Inner Packaging table. Once done cannot be restored. Do you wish to continue?", {
+                        actions: [MessageBox.Action.OK, MessageBox.Action.CANCEL],
+                        emphasizedAction: MessageBox.Action.OK,
+                        onClose: function (sAction) {
+                            if (sAction === "OK"){
+                                var isFirstTime = false;
+                                that._generatePackagingListConfirmed(isFirstTime);
+                            }
+                        }
+                    });
+                } else {
+                    var isFirstTime = true;
+                    that._generatePackagingListConfirmed(isFirstTime);
+                }
+            },
+
+            onSavePackingListPress: function (oEvent) {
+                if (!this._validateProceedData()) {
+                    return;
+                }
+                if (this.getView().getModel("InnerPackagingModel"))
+                    var aInnerPackaging = this.getView().getModel("InnerPackagingModel").getData().items;
+                else
+                    var aInnerPackaging = [];
+
+                var payload = {};
+                payload.ID = parseInt(this.getView().getBindingContext().getObject().ID);
+                if (aInnerPackaging.length)
+                    payload.IsProcessOneCompletes = true;
+                else
+                    payload.IsProcessOneCompletes = false;
+                payload.IsDraft = true;
+                payload.PackingListContains = this.getView().getModel("packingListContainsModel").getData().items;
+                payload.InnerPackagings = aInnerPackaging;
+
+                this.mainModel.create("/PackingListEdmSet", payload, {
+                    success: function (oData, oResponse) {
+                        //this.getViewModel("objectViewModel").setProperty("/isPackingListInEditModel", false);
+                        sap.m.MessageToast.show("Packing List saved successfully!");
+                        this.getViewModel("objectViewModel").setProperty("/isPackingListInEditModel", false);
+                        this.getView().getModel().refresh();
+                    }.bind(this),
+                    error: function (oError) {
+                        sap.m.MessageBox.error(JSON.stringify(oError));
+                        this.getViewModel("objectViewModel").setProperty("/isPackingListInEditModel", false);
+                    }.bind(this)
+                });
+
+            },
+
+            onProceedStep1Press: function (oEvent) {
+                // if (this.getView().getBindingContext().getObject().IsProcessOneCompletes)
+                if (!this._validateProceedData()) {
+                    return;
+                }
+                this.oRouter.navTo("RouteCreateViewStep2", {
+                    packingListId: this.packingListId
+                });
+            },
+
+            _validateProceedData: function () {
+                var bValid = true;
+                if (this.getView().getModel("packingListContainsModel")) {
+                    var aPackingListContainsData = this.getView().getModel("packingListContainsModel").getData().items;
+
+                    for (let i = 0; i < aPackingListContainsData.length; i++) {
+                        if (!aPackingListContainsData[i].PackagingType || !aPackingListContainsData[i].PackagingTypeId) {
+                            bValid = false;
+                            sap.m.MessageBox.alert("Please Select the Packaging Types before proceeding");
+                            return;
+                        }
+
+                        if (!aPackingListContainsData[i].NumberOfPackages) {
+                            bValid = false;
+                            sap.m.MessageBox.alert("Please fill in all the number of packages.");
+                            return;
+                        }
+
+                    }
+                }
+
+                if (this.getView().getModel("InnerPackagingModel")) {
+                    var aInnerPackagingData = this.getView().getModel("InnerPackagingModel").getData().items;
+
+                    for (let i = 0; i < aInnerPackagingData.length; i++) {
+                        if (!aInnerPackagingData[i].PackagingQty) {
+                            bValid = false;
+                            sap.m.MessageBox.alert("Please fill in all the Packaging Qunatities before proceeding");
+                            return;
+                        }
+                    }
+                }
+
+                return bValid;
+            },
+
+            _generatePackagingListConfirmed: function (isFirstTime) {
+                if (!isFirstTime) {
+                    if (!this._validateGenerateData()) {
+                        return;
+                    }
+                }
+
                 var data = this.getView().getModel("packingListContainsModel").getData().items;
                 console.log({ data })
                 var items = [];
@@ -136,7 +244,8 @@ sap.ui.define([
                     for (var j = 0; j < data[i].NumberOfPackages; j++) {
                         var oEntry = {};
                         oEntry.PackagingType = data[i].PackagingType;
-                        oEntry.LineNumber = data[i].Name.substr(0, 5);
+                        oEntry.LineNumber = data[i].Name;
+                        oEntry.materialUniqueIDForValidation = data[i].ID;
                         oEntry.PackagingQty = null;
                         oEntry.UOM = data[i].UOM;
                         items.push(oEntry);
@@ -146,31 +255,30 @@ sap.ui.define([
                 var oModel = new JSONModel({ items: items });
                 this.getView().setModel(oModel, "InnerPackagingModel");
                 this.getView().getModel("objectViewModel").setProperty("/isPackagingTableVisible", true);
-
             },
 
-            onSavePackingListPress: function (oEvent) {
-                var payload = {};
-                payload.ID = parseInt(this.getView().getBindingContext().getObject().ID);
-                payload.IsProcessOneCompletes = true;
-                payload.IsDraft = true;
-                payload.PackingListContains = this.getView().getModel("packingListContainsModel").getData().items;
-                payload.InnerPackagings = this.getView().getModel("InnerPackagingModel").getData().items;
+            _validateGenerateData: function () {
+                var bValid = true;
 
-                this.mainModel.create("/PackingListEdmSet", payload, {
-                    success: function (oData, oResponse) {
-                        //this.getViewModel("objectViewModel").setProperty("/isPackingListInEditModel", false);
-                    }.bind(this),
-                    error: function (oError) {
-                        sap.m.MessageBox.error(JSON.stringify(oError));
+                var aPackingListContainsData = this.getView().getModel("packingListContainsModel").getData().items;
+                var aInnerPackagingData = this.getView().getModel("InnerPackagingModel").getData().items;
+
+                for (let i = 0; i < aPackingListContainsData.length; i++) {
+                    if (!aPackingListContainsData[i].PackagingType || !aPackingListContainsData[i].PackagingTypeId) {
+                        bValid = false;
+                        sap.m.MessageBox.alert("Please Select the Packaging Types before proceeding");
+                        return;
                     }
-                });
-            },
 
-            onProceedStep1Press: function (oEvent) {
-                this.oRouter.navTo("RouteCreateViewStep2", {
-                    packingListId: this.packingListId
-                });
+                    if (!aPackingListContainsData[i].NumberOfPackages) {
+                        bValid = false;
+                        sap.m.MessageBox.alert("Please fill in all the number of packages.");
+                        return;
+                    }
+                }
+
+                //bValid = false;
+                return bValid;
             },
 
             onEditPackingListPress: function (oEvent) {
