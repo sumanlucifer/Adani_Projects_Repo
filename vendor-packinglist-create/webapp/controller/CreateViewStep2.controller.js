@@ -285,6 +285,7 @@ sap.ui.define([
             },
 
             onSavePackingListPress: function (oEvent) {
+                debugger;
                 this._getPackingListOuterPackagingData();
                 var oBindingContextData = this.getView().getBindingContext().getObject();
                 console.log(oBindingContextData);
@@ -315,6 +316,7 @@ sap.ui.define([
                         aOuterPackagingData[i].InnerPackagings = [];
                     }
                 }
+
                 oPayload.OuterPackagings = aOuterPackagingData;
 
 
@@ -333,6 +335,7 @@ sap.ui.define([
             },
 
             onSaveInnerPackagingListPress: function (oEvent) {
+                debugger;
                 var aTotalInnerPackagingData = this.getViewModel("valueHelpModel").getData();
                 var aSelectedInnerPackagingData = aTotalInnerPackagingData.filter(item => item.selected === true);
                 var payload = {};
@@ -352,6 +355,7 @@ sap.ui.define([
 
                 this.mainModel.create("/OuterPackagingRequestEdmSet", payload, {
                     success: function (oData, oResponse) {
+                        this.getView().getModel();
                         sap.m.MessageBox.success("Outer Packaging managed succesfully!")
                     }.bind(this),
                     error: function (oError) {
