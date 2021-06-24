@@ -13,7 +13,7 @@
                 <Text text="Packaging Type"/>
             </Column>
             <Column>
-                <Text text="Line Number"/>
+                <Text text="Material Name"/>
             </Column>
             <!-- <Column>
                 <Text text="Dispatch Qty."/>

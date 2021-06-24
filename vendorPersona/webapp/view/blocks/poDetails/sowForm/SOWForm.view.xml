@@ -18,6 +18,7 @@
             <Text text="{DeliveryPoint}"/>
             <Label text="{i18n>paymentTerms}" />
             <Text text="{PaymentTerms}"/>
+            
             <Label text="{i18n>noticeAndCommunication}" />
             <Text text="{NoticeAndCommunications}"/>
             <!-- <core:Title/> -->

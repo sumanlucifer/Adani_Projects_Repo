@@ -1,14 +1,48 @@
-<mvc:View
-    controllerName="com.agel.mmts.vendormanageboq.controller.DetailDetail"
-    xmlns:mvc="sap.ui.core.mvc"
-    displayBlock="true"
-    xmlns="sap.m">
-	<Page id="page" title="BOQ List for {Name}">
-		<content>
-            <List items="{path: 'BOQGroups', sorter : {
+<mvc:View controllerName="com.agel.mmts.vendormanageboq.controller.DetailDetail"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m"
+    xmlns:tnt="sap.tnt">
+    <Page id="page" title="BOQ List for {Name}">
+        <content>
+            <!--  <List items="{path: 'BOQGroups', sorter : {
                             path : 'ID', descending: 'true'}}">
                 <StandardListItem title="{Name}" description="Total child items: {TotalChildItemCount}" info="BOQ quantity: {GeneratedBOQQty}" type="Navigation" press="onBOQGroupItemPress" highlight="{= ${Status} === 'PENDING' ? 'Warning' : ${Status} === 'REJECTED' ? 'Error' : ${Status} === 'APPROVED' ? 'Success' : 'Information' }"/>
-            </List>
+            </List> -->
+            <Table inset="false" items="{
+			path: 'BOQGroups',
+			sorter: {
+				path: 'ID',
+                descending: 'true'}
+		}">
+                <columns>
+                    <Column width="12em">
+                        <Text text="Name" />
+                    </Column>
+                    <Column minScreenWidth="Phone" demandPopin="true" hAlign="Center">
+                        <Text text="Total child items" />
+                    </Column>
+                    <Column minScreenWidth="Phone" demandPopin="true" hAlign="Center">
+                        <Text text="BOQ quantity" />
+                    </Column>
+                    <Column minScreenWidth="Desktop" demandPopin="true">
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem>
+                        <cells>
+                            <ObjectIdentifier title="{Name}"/>
+                            <Text text="{TotalChildItemCount}" />
+                            <Text text="{GeneratedBOQQty}" />
+                            <tnt:InfoLabel text="{Status}" displayOnly="true" colorScheme= "{
+							parts: [
+								{path: 'Status'}
+							],
+							formatter: '.formatter.availableState'
+						}" />
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
         </content>
-	</Page>
+    </Page>
 </mvc:View>

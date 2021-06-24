@@ -243,7 +243,7 @@ sap.ui.define([
 
         onViewLineItemsPress: function (oEvent) {
             var sParentItemPath = oEvent.getSource().getParent().getBindingContextPath();
-            var sDialogTitle = "PO " + oEvent.getSource().getBindingContext().getObject().PONumber;
+            var sDialogTitle = "PO - " + oEvent.getSource().getBindingContext().getObject().PONumber;
             var oDetails = {};
             oDetails.controller = this;
             oDetails.view = this.getView();
