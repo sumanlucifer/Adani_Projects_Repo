@@ -171,7 +171,11 @@ modules:
     - artifacts:
       - comagelmmtsvendorpackinglistcreate-content.zip
       name: comagelmmtsvendorpackinglistcreate
-      target-path: resources/  
+      target-path: resources/
+    - artifacts:
+      - comagelmmtsstoretotalorderstoretotalorder.zip
+      name: comagelmmtsstoretotalorderstoretotalorder
+      target-path: resources/
 - name: vendorPersona
   type: html5
   path: vendorPersona
@@ -470,7 +474,17 @@ modules:
     builder: custom
     commands:
     - npm run build
-    supported-platforms: []    
+    supported-platforms: []
+- name: comagelmmtsstoretotalorderstoretotalorder
+  type: html5
+  path: store_totalorder
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
 resources:
 - name: uaa_agel-mmts-web
   type: org.cloudfoundry.managed-service
@@ -513,6 +527,7 @@ resources:
     service-plan: lite
 parameters:
   -enable-parallel-deployments: true
+  deploy_mode: html5-repo
 build-parameters:
   before-all:
   - builder: custom
