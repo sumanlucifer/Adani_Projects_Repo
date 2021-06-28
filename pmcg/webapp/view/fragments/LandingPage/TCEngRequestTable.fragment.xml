@@ -4,7 +4,7 @@
 
     <smartTable:SmartTable class="sapUiResponsiveContentPadding" id="idBOQRequestTable"
              editable="false" placeToolbarInTable="true" enableAutoBinding="true" 
-             entitySet="MDCCSet" showFullScreenButton="true" showRowCount="false"
+             entitySet="MDCCStatusSet" showFullScreenButton="true" showRowCount="false"
               tableType="ResponsiveTable" demandPopin="false" useExportToExcel="false" 
               useTablePersonalisation="true" useVariantManagement="false" 
               beforeRebindTable="onBeforeRebindBOQTable" enableAutoColumnWidth="true">
@@ -15,24 +15,24 @@
 
                 <Column >
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "PONumber", "leadingProperty": "PONumber",
-                                                 "columnIndex": 0 ,"sortProperty": "PONumber","filterProperty": "PONumber"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "PONumber", "leadingProperty": "MDCC/PONumber",
+                                                 "columnIndex": 0 ,"sortProperty": "MDCC/PONumber","filterProperty": "MDCC/PONumber"}'/>
                     </customData>
                     <Text text="{i18n>ponum}"/>
                 </Column>
 
                  <Column demandPopin="true" minScreenWidth="Desktop"> 
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "MDCCNumber", "leadingProperty": "MDCCNumber",
-                                                 "columnIndex": 1 ,"sortProperty": "MDCCNumber","filterProperty": "MDCCNumber"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "MDCCNumber", "leadingProperty": "MDCC/MDCCNumber",
+                                                 "columnIndex": 1 ,"sortProperty": "MDCC/MDCCNumber","filterProperty": "MDCC/MDCCNumber"}'/>
                     </customData>
                     <Text text="{i18n>mdccNUm}"/>
                 </Column>
                 
                 <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "NotificationNumber", "leadingProperty": "NotificationNumber",
-                                                 "columnIndex": 2 ,"sortProperty": "NotificationNumber","filterProperty": "NotificationNumber"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "NotificationNumber", "leadingProperty": "MDCC/NotificationNumber",
+                                                 "columnIndex": 2 ,"sortProperty": "MDCC/NotificationNumber","filterProperty": "MDCC/NotificationNumber"}'/>
                     </customData>
                     <Text text="{i18n>notNum}"/>
                 </Column>
@@ -66,9 +66,9 @@
 
                 <ColumnListItem type="Navigation" press="onBOQRequestPress">
                     <cells>
-                        <Text text="{PONumber}"/>
-                        <Text text="{MDCCNumber}"/>
-                        <Text text="{NotificationNumber}"/>
+                        <Text text="{PONumber}" binding="{MDCC}"/>
+                        <Text text="{MDCCNumber}" binding="{MDCC}"/>
+                        <Text text="{NotificationNumber}" binding="{MDCC}"/>
                         
                         <Text text="{path:'CreatedAt',
                                     type: 'sap.ui.model.type.Date',
