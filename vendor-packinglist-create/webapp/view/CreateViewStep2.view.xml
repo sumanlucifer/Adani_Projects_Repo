@@ -74,6 +74,17 @@
                             <!-- missing -->
                             <Text text="{PlantCode}"/>
                         </VBox>
+                        <VBox renderType="Bare" class="sapUiMediumMarginEnd">
+                            <Label text="Created On" />
+                            <!-- missing -->
+
+                            <Text text="{path:'CreatedAt',
+                                     type: 'sap.ui.model.type.Date',
+				                     formatOptions: {
+				                        pattern: 'MMMM dd, yyyy'
+				                     }
+                            }"/>
+                        </VBox>
                     </FlexBox>
                 </VBox>
             </FlexBox>
@@ -147,12 +158,12 @@
                                     <Label text="Vehicle Number" />
                                     <Input value="{VehicleNumber}" editable="{= ${objectViewModel>/isPackingListInEditMode} ? true : false}"/>
                                     <Label text="Invoice Number" />
-                                    <Input value="{InvoiceNumber}" editable="{= ${objectViewModel>/isPackingListInEditMode} ? true : false}"/>
+                                    <Input id="idVehicleNumber" value="{InvoiceNumber}" editable="{= ${objectViewModel>/isPackingListInEditMode} ? true : false}"/>
                                     <!-- <core:Title ></core:Title> -->
                                     <Label text="Packaging Ref. No" />
-                                    <Input value="{PackagingReferenceNumber}" editable="{= ${objectViewModel>/isPackingListInEditMode} ? true : false}"/>
+                                    <Input id="idPackagagingRefNumber" value="{PackagingReferenceNumber}" editable="{= ${objectViewModel>/isPackingListInEditMode} ? true : false}"/>
                                     <Label text="Invoice Date" />
-                                    <DatePicker value="{InvoiceDate}" valueFormat="yyyy-MM-dd" displayFormat="yyyy-MM-dd" editable="{= ${objectViewModel>/isPackingListInEditMode} ? true : false}"/>
+                                    <DatePicker id="idInvoiceDate" value="{InvoiceDate}" valueFormat="yyyy-MM-dd" displayFormat="yyyy-MM-dd" editable="{= ${objectViewModel>/isPackingListInEditMode} ? true : false}"/>
                                 </f:content>
                             </f:SimpleForm>
                         </uxap:blocks>

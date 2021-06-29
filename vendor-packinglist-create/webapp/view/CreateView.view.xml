@@ -67,6 +67,17 @@
                             <!-- missing -->
                             <Text text="{PlantCode}"/>
                         </VBox>
+                        <VBox renderType="Bare" class="sapUiMediumMarginEnd">
+                            <Label text="Created On" />
+                            <!-- missing -->
+
+                            <Text text="{path:'CreatedAt',
+                                     type: 'sap.ui.model.type.Date',
+				                     formatOptions: {
+				                        pattern: 'MMMM dd, yyyy'
+				                     }
+                            }"/>
+                        </VBox>
                     </FlexBox>
                 </VBox>
             </FlexBox>
@@ -85,9 +96,9 @@
             </uxap:ObjectPageSection>
 
             <!-- Line Items Section -->
-            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>packagingListContains}">
+            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>packingListContains}">
                 <uxap:subSections>
-                    <uxap:ObjectPageSubSection title="{i18n>packagingListContains}">
+                    <uxap:ObjectPageSubSection title="{i18n>packingListContains}">
                         <uxap:blocks>
                             <packingListContainsTable:PackingListContainsTable class="sapUxAPObjectPageSubSectionAlignContent" OnGeneratePackingList="onGeneratePackingList"/>
                         </uxap:blocks>
