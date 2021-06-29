@@ -166,32 +166,32 @@ sap.ui.define([
 
         onConfirmPO: function () {
             var poNumber = this.getView().getBindingContext().getObject().PONumber;
-			MessageBox.confirm("Do you want to confirm purchase order "+poNumber +"?", {
+            MessageBox.confirm("Do you want to confirm purchase order " + poNumber + "?", {
                 styleClass: "sapUiResponsivePadding--header sapUiResponsivePadding--content sapUiResponsivePadding--footer",
-				actions: [MessageBox.Action.OK, MessageBox.Action.CANCEL],
-				emphasizedAction: MessageBox.Action.OK,
-				onClose: function (sAction) {
-					if(sAction == "OK"){
+                actions: [MessageBox.Action.OK, MessageBox.Action.CANCEL],
+                emphasizedAction: MessageBox.Action.OK,
+                onClose: function (sAction) {
+                    if (sAction == "OK") {
                         this.confirmPO();
                     }
-				}.bind(this)
-			});
-		},
+                }.bind(this)
+            });
+        },
 
 
         confirmPO: function (oEvent) {
             var sPath = this.getView().getBindingContext().getPath();
             var oPayload = {
-                "Status":"CONFIRMED",
+                "Status": "CONFIRMED",
                 "UpdatedAt": new Date()
             };
 
-            this.getComponentModel().update(sPath, oPayload,{
-                success: function(oData, oResponse){
+            this.getComponentModel().update(sPath, oPayload, {
+                success: function (oData, oResponse) {
                     sap.m.MessageBox.success("Purchase order has been confirmed! Please raise the inspection call through SIMS portal.");
                     this.getComponentModel().refresh();
                 }.bind(this),
-                error: function(oError){
+                error: function (oError) {
                     sap.m.MessageBox.error(JSON.stringify(oError));
                 }
             })
@@ -308,12 +308,30 @@ sap.ui.define([
 
 
         _showPackingDetails: function (oItem) {
-            var that = this;
-            oItem.getBindingContext().requestCanonicalPath().then(function (sObjectPath) {
-                that.getRouter().navTo("RoutePackingDeatilsPage", {
-                    packingListID: sObjectPath.slice("/PackingLists".length) // /PurchaseOrders(123)->(123)
-                });
-            });
+            /*  var that = this;
+             oItem.getBindingContext().requestCanonicalPath().then(function (sObjectPath) {
+                 that.getRouter().navTo("RoutePackingDeatilsPage", {
+                     packingListID: sObjectPath.slice("/PackingLists".length) // /PurchaseOrders(123)->(123)
+                 });
+             }); */
+             console.log(oItem.getBindingContext().getObject().ID)
+
+          /*   var oCrossAppNavigator = sap.ushell.Container.getService("CrossApplicationNavigation"); // get a handle on the global XAppNav service
+            var hash = (oCrossAppNavigator && oCrossAppNavigator.hrefForExternal({
+                target: {
+                    semanticObject: "PackingList",
+                    action: "manage"
+                },
+                params: {
+                    "packingListID": oItem.getBindingContext().getObject().ID,
+                    "status": "SAVED"
+                }
+            })) || ""; // generate the Hash to display a MDCC Number
+            oCrossAppNavigator.toExternal({
+                target: {
+                    shellHash: hash
+                }
+            }); // navigate to Manage MDCC application - Initiate Dispatch Screen */
         },
 
         getViewSettingsDialog: function (sDialogFragmentName) {
@@ -347,9 +365,9 @@ sap.ui.define([
 
         onBeforeShow: function (evt) {
             this.getView().getContent()[0].getSections()[1].rerender();
-            this.getView().getContent()[0].getSections()[2].rerender();
             this.getView().getContent()[0].getSections()[3].rerender();
             this.getView().getContent()[0].getSections()[4].rerender();
+            this.getView().getContent()[0].getSections()[2].rerender();
         },
 
         onSendForApprovalPress: function (oEvent) {
@@ -402,7 +420,7 @@ sap.ui.define([
                         sap.m.MessageBox.success(oData.Message);
                     else
                         sap.m.MessageBox.error(oData.Message);
-                     this.getView().getContent()[0].getSections()[2].rerender();
+                    this.getView().getContent()[0].getSections()[2].rerender();
                 }.bind(this),
                 error: function (oError) {
                     sap.m.MessageBox.success(JSON.stringify(oError));
@@ -431,8 +449,8 @@ sap.ui.define([
                     });
                     oDialog.setTitle(oDetails.title)
                     if (Device.system.desktop) {
-						oDialog.addStyleClass("sapUiSizeCompact");
-					}
+                        oDialog.addStyleClass("sapUiSizeCompact");
+                    }
                     return oDialog;
                 });
             }
@@ -445,7 +463,7 @@ sap.ui.define([
             });
         },
 
-         onViewBOQItemDialogClose: function (oEvent) {
+        onViewBOQItemDialogClose: function (oEvent) {
             this.boqDialog.then(function (oDialog) {
                 oDialog.close();
             });

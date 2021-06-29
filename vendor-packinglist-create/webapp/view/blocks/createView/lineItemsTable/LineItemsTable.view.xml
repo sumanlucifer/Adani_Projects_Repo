@@ -45,7 +45,9 @@
                     <Text text="{Qty}"/>
                     <Text text="{DispatchQty}"/>
                     <Text text="{UOM}"/>
-                    <Link text="View BOQ items" press="onViewBOQItemsPress"/>
+                    <VBox items="{PackingListBOQItems}">
+                        <Link text="View BOQ items" press="onViewBOQItemsPress" visible="{= ${PackingListBOQItems/items}.length>0 }"/>
+                    </VBox>
                 </cells>
             </ColumnListItem>
         </items>

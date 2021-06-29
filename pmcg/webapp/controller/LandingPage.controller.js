@@ -64,27 +64,27 @@ sap.ui.define([
 
             var FreeTextSearch = this.byId("filterbar").getBasicSearchValue();
             if (FreeTextSearch) {
-                orFilters.push(new Filter("PONumber", FilterOperator.Contains, FreeTextSearch));
-                orFilters.push(new Filter("MDCCNumber", FilterOperator.Contains, FreeTextSearch));
-                orFilters.push(new Filter("NotificationNumber", FilterOperator.EQ, FreeTextSearch));
-                orFilters.push(new Filter("Version", FilterOperator.EQ, FreeTextSearch));
+                orFilters.push(new Filter("MDCC/PONumber", FilterOperator.Contains, FreeTextSearch));
+                orFilters.push(new Filter("MDCC/MDCCNumber", FilterOperator.Contains, FreeTextSearch));
+                orFilters.push(new Filter("MDCC/NotificationNumber", FilterOperator.EQ, FreeTextSearch));
+                orFilters.push(new Filter("MDCC/Version", FilterOperator.EQ, FreeTextSearch));
 
                 andFilters.push(new Filter(orFilters, false));
             }
 
             // Po Number
             if (poNumber != "") {
-                andFilters.push(new Filter("PONumber", FilterOperator.EQ, poNumber));
+                andFilters.push(new Filter("MDCC/PONumber", FilterOperator.EQ, poNumber));
             }
 
              // MDCC Number
             if (mdccNumber != "") {
-                andFilters.push(new Filter("MDCCNumber", FilterOperator.EQ, mdccNumber));
+                andFilters.push(new Filter("MDCC/MDCCNumber", FilterOperator.EQ, mdccNumber));
             }
 
             // Notification Number
             if (notNumber != "") {
-                andFilters.push(new Filter("NotificationNumber", FilterOperator.EQ, notNumber));
+                andFilters.push(new Filter("MDCC/NotificationNumber", FilterOperator.EQ, notNumber));
             }
 
             // Created At
@@ -96,7 +96,7 @@ sap.ui.define([
 
              var idBOQRequestTableBinding = this.getView().byId("idBOQRequestTable").getTable().getBinding("items");
              if (andFilters.length == 0){
-                andFilters.push(new Filter("ParentLineItem/PONumber", FilterOperator.NE, ""));
+                andFilters.push(new Filter("MDCC/ParentLineItem/PONumber", FilterOperator.NE, ""));
                 idBOQRequestTableBinding.filter(new Filter(andFilters, true));
             }
 

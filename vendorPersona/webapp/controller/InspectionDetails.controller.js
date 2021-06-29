@@ -362,9 +362,9 @@ sap.ui.define([
                             "Status": null,
                             "InspectionCall": { 
                                     "__metadata":{
-                                        "uri":"InspectionCallIdSet(1)"
+                                        "uri":"InspectionCallIdSet("+object.ID+")"
                                     }
-                                }
+                            }
             };
 
             var sPath = "/MDCCSet";

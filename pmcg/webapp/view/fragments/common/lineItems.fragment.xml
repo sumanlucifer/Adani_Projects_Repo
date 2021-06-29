@@ -22,7 +22,7 @@
                 <Text text="{i18n>quantity}" />
             </Column>
             <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center">
-                <Text text="{i18n>UOM}"/>
+                <Text text="{i18n>UOM}" tooltip="{i18n>uomtooltip}"/>
             </Column>
             <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center">
                 <Text text="{i18n>netPrice}"/>

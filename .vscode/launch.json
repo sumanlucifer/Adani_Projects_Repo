@@ -159,43 +159,23 @@
       "preLaunchTask": "Build sapui5-1"
     },
     {
-      "name": "Run sapui5-1-security-international-import",
+      "name": "Run sapui5-1-pmcg",
       "type": "node",
       "request": "launch",
       "program": "${workspaceFolder}/agel-mmts-web-approuter/node_modules/@sap/html5-repo-mock/index.js",
       "args": [
         "--standalone",
-        "/comagelmmtssecurityinternationalimport/index.html",
+        "/comagelmmtspmcg/index.html",
         "--ui5",
         "{\"version\":\".\"}"
       ],
-      "cwd": "${workspaceFolder}/security-international-import",
+      "cwd": "${workspaceFolder}/pmcg",
       "env": {
         "PORT": "6004",
         "MOCK_LOOKUP_DIRS": "[\"webapp\"]",
-        "run.config": "{\"handlerId\":\"ui5_run_config_handler_id\",\"runnableId\":\"/home/user/projects/sapui5-1/security-international-import\"}"
+        "run.config": "{\"handlerId\":\"ui5_run_config_handler_id\",\"runnableId\":\"/home/user/projects/sapui5-1/pmcg\"}"
       },
-      "envFile": "${workspaceFolder}/security-international-import/.env2",
-      "preLaunchTask": "Build sapui5-1"
-    },
-    {
-      "name": "Run sapui5-1-security-scan-history",
-      "type": "node",
-      "request": "launch",
-      "program": "${workspaceFolder}/agel-mmts-web-approuter/node_modules/@sap/html5-repo-mock/index.js",
-      "args": [
-        "--standalone",
-        "/comagelmmtssecurityscanhistory/index.html",
-        "--ui5",
-        "{\"version\":\".\"}"
-      ],
-      "cwd": "${workspaceFolder}/security-scan-history",
-      "env": {
-        "PORT": "6004",
-        "MOCK_LOOKUP_DIRS": "[\"webapp\"]",
-        "run.config": "{\"handlerId\":\"ui5_run_config_handler_id\",\"runnableId\":\"/home/user/projects/sapui5-1/security-scan-history\"}"
-      },
-      "envFile": "${workspaceFolder}/security-scan-history/.env2",
+      "envFile": "${workspaceFolder}/pmcg/.env5",
       "preLaunchTask": "Build sapui5-1"
     }
   ],

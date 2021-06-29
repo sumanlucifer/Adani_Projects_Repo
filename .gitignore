@@ -110,4 +110,9 @@ security-scan-history/.env2
 agel-mmts-web/vendor-manageboq/.env3
 # auto generated wildcard
 agel-mmts-web/tcengineer/.env3
+<<<<<<< HEAD
+>>>>>>> develop
+=======
+# auto generated wildcard
+pmcg/.env5
 >>>>>>> develop
