@@ -6,27 +6,27 @@
         <fb:filterGroupItems>
             <fb:FilterGroupItem groupName="__$INTERNAL$" name="PONOs" label="{i18n>PONOs}" visibleInFilterBar="true" class="searchFieldLabelHidden" >
                 <fb:control>
-                    <Input id="idPono" liveChange="onFilterChange" placeholder="{i18n>EnterPoNos}" showSuggestion="true" showValueHelp="false" suggestionItems="{/MDCCSet}">
+                    <Input id="idPono" liveChange="onFilterChange" placeholder="{i18n>EnterPoNos}" showSuggestion="true" showValueHelp="false" suggestionItems="{/MDCCStatusSet}">
                         <suggestionItems>
-                            <core:Item text="{PONumber}"/>
+                            <core:Item text="{MDCC/PONumber}"/>
                         </suggestionItems>
                     </Input>
                 </fb:control>
             </fb:FilterGroupItem>
                         <fb:FilterGroupItem groupName="__$INTERNAL$" name="mdccNos" label="{i18n>mdccNos}" visibleInFilterBar="true" class="searchFieldLabelHidden" >
                 <fb:control>
-                    <Input id="idMdccNo" liveChange="onFilterChange" placeholder="{i18n>EntermdccNos}" showSuggestion="true" showValueHelp="false" suggestionItems="{/MDCCSet}">
+                    <Input id="idMdccNo" liveChange="onFilterChange" placeholder="{i18n>EntermdccNos}" showSuggestion="true" showValueHelp="false" suggestionItems="{/MDCCStatusSet}">
                         <suggestionItems>
-                            <core:Item text="{MDCCNumber}"/>
+                            <core:Item text="{MDCC/MDCCNumber}"/>
                         </suggestionItems>
                     </Input>
                 </fb:control>
             </fb:FilterGroupItem>
                         <fb:FilterGroupItem groupName="__$INTERNAL$" name="notftnNo" label="{i18n>NotificationNumber}" visibleInFilterBar="true" class="searchFieldLabelHidden" >
                 <fb:control>
-                    <Input id="idNotNo" liveChange="onFilterChange" placeholder="{i18n>EnterNotificationNumber}" showSuggestion="true" showValueHelp="false" suggestionItems="{/MDCCSet}">
+                    <Input id="idNotNo" liveChange="onFilterChange" placeholder="{i18n>EnterNotificationNumber}" showSuggestion="true" showValueHelp="false" suggestionItems="{/MDCCStatusSet}">
                         <suggestionItems>
-                            <core:Item text="{NotificationNumber}"/>
+                            <core:Item text="{MDCC/NotificationNumber}"/>
                         </suggestionItems>
                     </Input>
                 </fb:control>

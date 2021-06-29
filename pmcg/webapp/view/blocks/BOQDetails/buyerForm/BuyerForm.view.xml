@@ -11,9 +11,9 @@
             <Text text="{ContactPerson}"  />
             <Label text="{i18n>buyerCode}" />
             <Text text="{BuyerCode}" />
-             <Label text="{i18n>gstin}" />
+             <Label text="{i18n>gstin}" tooltip="{i18n>gsttooltip}"/>
             <Text text="{GSTIN}"/>
-            <Label text="{i18n>pan}" />
+            <Label text="{i18n>pan}" tooltip="{i18n>pantooltip}" />
             <Text text="{Pan}"/>
             <Label text="{i18n>emailID}" />
             <Link text="{Email}"/>
@@ -22,7 +22,7 @@
             <!-- <core:Title  /> -->
             <Label text="{i18n>pinCode}" />
             <Text text="{pinCode}" binding="{Address}"/>
-            <Label text="{i18n>cin}" />
+            <Label text="{i18n>cin}" tooltip="{i18n>cintooltip}"/>
             <Text text="{Cin}"/>
             <!-- <core:Title /> -->
             <Label text="{i18n>address}" />
@@ -34,7 +34,7 @@
             <Text text="{PurchasingGroup}"/>
             <Label text="{i18n>CompanyCode}" />
             <Text text="{CompanyCode}"/>
-            <Label text="{i18n>ifcNo}" />
+            <Label text="{i18n>ifcNo}" tooltip="{i18n>ifstooltip}"/>
             <Text text="{IECNo}"/>
         </f:content>
     </f:SimpleForm>

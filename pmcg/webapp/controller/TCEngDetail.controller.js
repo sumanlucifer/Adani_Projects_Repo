@@ -52,7 +52,8 @@ sap.ui.define([
             var sObjectId = oEvent.getParameter("arguments").TCEngId;
             this.sObjectId =sObjectId;
  
-            this._bindView("/MDCCSet(" + sObjectId +")");
+            // this._bindView("/MDCCSet(" + sObjectId +")");
+            this._bindView("/MDCCStatusSet(" + sObjectId +")/MDCC");
             this._getParentDataViewMDCC(sObjectId);
         },
 
@@ -186,8 +187,8 @@ sap.ui.define([
                 boqApprovalModel.setProperty("/MDCCID", mDCCID);
                 boqApprovalModel.setProperty("/Status", "APPROVED");
                 boqApprovalModel.setProperty("/UpdatedAt", updatedAt);
-                boqApprovalModel.setProperty("/UpdatedBy", "Test");
-                boqApprovalModel.setProperty("/ApprovedBy", "Test");
+                boqApprovalModel.setProperty("/UpdatedBy", updatedBy);
+                boqApprovalModel.setProperty("/ApprovedBy", approvedBy);
                 boqApprovalModel.setProperty("/ApprovedAt", approvedAt);
             }
 
@@ -208,7 +209,8 @@ sap.ui.define([
 
         onReadId : function(){
             var that = this;
-            this.getComponentModel().read("/MDCCSet(" + this.sObjectId +")/MDCCStatuses", {
+            // this.getComponentModel().read("/MDCCSet(" + this.sObjectId +")/MDCCStatuses", {
+            this.getComponentModel().read("/MDCCStatusSet(" + this.sObjectId +")/MDCC/MDCCStatuses", {
                 success: function (oData, oResponse) {
                    that.onPostButtonPress(oData.results[0].ID);
                 }.bind(this),
@@ -283,8 +285,8 @@ sap.ui.define([
                 boqApprovalModel.setProperty("/MDCCID", mDCCID);
                 boqApprovalModel.setProperty("/Status", "REJECTED");
                 boqApprovalModel.setProperty("/UpdatedAt", updatedAt);
-                boqApprovalModel.setProperty("/UpdatedBy", "Test");
-                boqApprovalModel.setProperty("/ApprovedBy", "Test");
+                boqApprovalModel.setProperty("/UpdatedBy", updatedBy);
+                boqApprovalModel.setProperty("/ApprovedBy", approvedBy);
                 boqApprovalModel.setProperty("/ApprovedAt", approvedAt);
             }
 
@@ -298,7 +300,6 @@ sap.ui.define([
         onCancelBOQApprovalProcess: function (oEvent) {
             this._oBOQApprovalDialog.close();
         },
-
         		
 		//---------------------------------------------Tree Table-------------------------------------------------------------//
         _arrangeData : function(){        
@@ -311,7 +312,8 @@ sap.ui.define([
            //     sObjectId = parseInt(sObject.match(patt1));
 
                 this.ParentDataView = [];
-                var sPath = "/MDCCSet("+sObjectId+")/MDCCParentLineItems";
+                // var sPath = "/MDCCSet("+sObjectId+")/MDCCParentLineItems";
+                var sPath = "/MDCCStatusSet("+sObjectId+")/MDCC/MDCCParentLineItems";
                 this.MainModel.read(sPath,{
                     success:function(oData,oResponse){
                         if(oData.results.length){
@@ -326,7 +328,8 @@ sap.ui.define([
         _getChildItemsViewMDCC : function(ParentDataView, sObjectId){
             this.ParentDataView = ParentDataView;
             for( var i=0; i < ParentDataView.length; i++){
-                var sPath = "/MDCCSet("+sObjectId+")/MDCCParentLineItems("+ ParentDataView[i].ID +")/MDCCBOQItems";
+                // var sPath = "/MDCCSet("+sObjectId+")/MDCCParentLineItems("+ ParentDataView[i].ID +")/MDCCBOQItems";
+                var sPath = "/MDCCStatusSet("+sObjectId+")/MDCC/MDCCParentLineItems("+ ParentDataView[i].ID +")/MDCCBOQItems";
                 this.MainModel.read(sPath,{
                     success:function(i,oData,oResponse){
                         if(oData.results.length){
