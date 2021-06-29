@@ -6,3 +6,17 @@
 .sapMObjectIdentifierTitle .sapMLnk, .sapMObjectIdentifierTitle .sapMText {
     font-size: .875rem !important;
 }
+
+.BasicDetalFormTitleStyle .sapUxAPObjectPageSubSectionHeaderTitle{
+color: black !important;
+font-size: 1.2rem !important;
+}
+
+.BasicDetalFormTitleStyle{
+border-style: none none ridge none !important;
+}
+
+.BasicDetalFormTitleStyleLast .sapUxAPObjectPageSubSectionHeaderTitle{
+color: black !important;
+font-size: 1.2rem !important;
+}

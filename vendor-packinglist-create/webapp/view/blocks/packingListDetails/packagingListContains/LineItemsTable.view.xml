@@ -8,16 +8,19 @@
     <Table id="idBOQItemTable" items="{path: 'PackingListContains'}" autoPopinMode="true" growingThreshold="5" growing="true" fixedLayout="true">
         <columns>
             <Column>
-                <Text text="Line Number"/>
+                <Text text="Material Code"/>
             </Column>
-           <!--  <Column>
+            <Column>
+                <Text text="Name"/>
+            </Column>
+            <!--  <Column>
                 <Text text="Line Item ID"/>
             </Column> -->
-             <Column>
-                <Text text="UOM"/>
-            </Column>
-            <Column hAlign="Begin">
+            <Column hAlign="Center">
                 <Text text="Dispatch Qty."/>
+            </Column>
+            <Column>
+                <Text text="UOM"/>
             </Column>
             <Column>
                 <Text text="Packaging Type"/>
@@ -30,16 +33,17 @@
             </Column> -->
         </columns>
         <items>
-                <ColumnListItem>
-                    <cells>
-                    <ObjectIdentifier title="{LineNumber}"/>
+            <ColumnListItem>
+                <cells>
+                <ObjectIdentifier title="{MaterialCode}"/>
+                    <Text text="{Name}"/>
                     <!-- <ObjectIdentifier title="{ID}"/> -->
+                     <Text text="{DispatchQty}"/>
                     <Text text="{UOM}"/>
-                    <Text text="{DispatchQty}"/>
                     <Text text="{PackagingType}"/>
                     <Text text="{NumberOfPackages}"/>
                     <!-- <Link text="View QR Code" press="onViewQRCode"/> -->
-                     <!-- <Link text="View QR Code" binding="{QrCode}" visible="{= ${QRNumber}}" press="onViewQRPress"/> -->
+                    <!-- <Link text="View QR Code" binding="{QrCode}" visible="{= ${QRNumber}}" press="onViewQRPress"/> -->
                 </cells>
             </ColumnListItem>
         </items>

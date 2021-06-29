@@ -95,17 +95,17 @@
             <!-- Basic Details Section -->
             <uxap:ObjectPageSection titleUppercase="false" title="{i18n>basicDetails}">
                 <uxap:subSections>
-                    <uxap:ObjectPageSubSection title="{i18n>buyerDetails}" titleLevel="H6">
+                    <uxap:ObjectPageSubSection title="{i18n>buyerDetails}" titleLevel="H6" class="BasicDetalFormTitleStyle"> 
                         <uxap:blocks>
                             <buyerForm:BuyerForm class="sapUxAPObjectPageSubSectionAlignContent"/>
                         </uxap:blocks>
                     </uxap:ObjectPageSubSection>
-                    <uxap:ObjectPageSubSection title="{i18n>sellerDetials}">
+                    <uxap:ObjectPageSubSection title="{i18n>sellerDetials}" class="BasicDetalFormTitleStyle">
                         <uxap:blocks>
                             <sellerForm:SellerForm class="sapUxAPObjectPageSubSectionAlignContent"/>
                         </uxap:blocks>
                     </uxap:ObjectPageSubSection>
-                    <uxap:ObjectPageSubSection title="{i18n>sow}">
+                    <uxap:ObjectPageSubSection title="{i18n>sow}" class="BasicDetalFormTitleStyleLast">
                         <uxap:blocks>
                             <sowForm:SOWForm class="sapUxAPObjectPageSubSectionAlignContent"/>
                         </uxap:blocks>

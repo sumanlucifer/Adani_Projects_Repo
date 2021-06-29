@@ -182,7 +182,8 @@ sap.ui.define([
         confirmPO: function (oEvent) {
             var sPath = this.getView().getBindingContext().getPath();
             var oPayload = {
-                "Status":"CONFIRMED"
+                "Status":"CONFIRMED",
+                "UpdatedAt": new Date()
             };
 
             this.getComponentModel().update(sPath, oPayload,{

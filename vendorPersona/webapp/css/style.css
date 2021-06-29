@@ -11,3 +11,22 @@
 .sapMObjectIdentifierTitle .sapMLnk, .sapMObjectIdentifierTitle .sapMText {
     font-size: .875rem !important;
 }
+
+.testTitle>header.sapMDialogTitle .sapMTitle{
+    color: black !important;
+    font-weight: 700 !important;
+}
+
+.BasicDetalFormTitleStyle .sapUxAPObjectPageSubSectionHeaderTitle{
+color: black !important;
+font-size: 1.2rem !important;
+}
+
+.BasicDetalFormTitleStyle{
+border-style: none none ridge none !important;
+}
+
+.BasicDetalFormTitleStyleLast .sapUxAPObjectPageSubSectionHeaderTitle{
+color: black !important;
+font-size: 1.2rem !important;
+}

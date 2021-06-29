@@ -2,15 +2,18 @@ sap.ui.define([
     "./BaseController",
     "sap/ui/model/json/JSONModel",
     "sap/ui/core/Fragment",
-    "sap/ui/Device"
+    "sap/ui/Device",
+    "../utils/formatter"
 ],
 	/**
 	 * @param {typeof sap.ui.core.mvc.Controller} Controller
 	 */
-    function (BaseController, JSONModel, Fragment,Device) {
+    function (BaseController, JSONModel, Fragment,Device, formatter) {
         "use strict";
 
         return BaseController.extend("com.agel.mmts.vendormanageboq.controller.DetailDetail", {
+            formatter: formatter,
+            
             onInit: function () {
 
                 //view model instatiation
