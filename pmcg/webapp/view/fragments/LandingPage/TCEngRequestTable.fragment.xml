@@ -56,7 +56,7 @@
                <Column demandPopin="true" minScreenWidth="Desktop"> 
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "Status", "leadingProperty": "Status",
-                                                 "columnIndex": 5 }'/>
+                                                 "columnIndex": 5, "sortProperty": "Status","filterProperty": "Status"}'/>
                     </customData>
                     <Text text="{i18n>status}"/>
                 </Column>

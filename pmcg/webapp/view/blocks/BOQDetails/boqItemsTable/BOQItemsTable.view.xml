@@ -49,9 +49,9 @@
             </ui:Column>
             
             <ui:Column width="5%">
-                <Label text="UOM"/>
+                <Label text="UOM"  tooltip="{i18n>uomtooltip}"/>
                 <ui:template>
-                    <Text text="{TreeTableModelView>UOM}" wrapping="false" />
+                    <Text text="{TreeTableModelView>UOM}" wrapping="false"/>
                 </ui:template>
             </ui:Column>
         </ui:columns>
