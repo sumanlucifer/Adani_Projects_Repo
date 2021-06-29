@@ -30,7 +30,7 @@
                         <core:CustomData key="p13nData" value='\{"columnKey": "Status", "leadingProperty": "Status",
                                                  "columnIndex": 2 ,"sortProperty": "Status","filterProperty": "Status"}'/>
                     </customData>
-                    <Text text="{i18n>releaseDate}"/>
+                    <Text text="Status"/>
                 </Column>
             </columns>
             <items>

@@ -20,22 +20,25 @@ sap.ui.define(["sap/ui/core/mvc/Controller"], function (Controller) {
 
 
         onPackingListItemPress: function (oEvent) {
-            var poNumber = oEvent.getSource().getBindingContext().getObject().PONumber; // read SupplierID from OData path Product/SupplierID
+            var packingListId = oEvent.getSource().getBindingContext().getPath().slice("/PackingListSet".length);
+            packingListId = packingListId.substr(1,packingListId.length-2);
+            var status = oEvent.getSource().getBindingContext().getObject().Status;
             var oCrossAppNavigator = sap.ushell.Container.getService("CrossApplicationNavigation"); // get a handle on the global XAppNav service
             var hash = (oCrossAppNavigator && oCrossAppNavigator.hrefForExternal({
                 target: {
-                    semanticObject: "boq",
+                    semanticObject: "PackingList",
                     action: "manage"
                 },
                 params: {
-                    "poNumber": poNumber
+                    "packingListID": packingListId,
+                    "status": status
                 }
-            })) || ""; // generate the Hash to display a Supplier
+            })) || ""; // generate the Hash to display a MDCC Number
             oCrossAppNavigator.toExternal({
                 target: {
                     shellHash: hash
                 }
-            }); // navigate to Supplier application
+            }); // navigate to Manage MDCC application - Initiate Dispatch Screen 
         },
     });
 });

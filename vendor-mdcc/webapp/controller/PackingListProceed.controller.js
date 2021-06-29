@@ -230,7 +230,8 @@ sap.ui.define([
                                 action: "manage"
                             },
                             params: {
-                                "packingListID": PackingListId
+                                "packingListID": PackingListId,
+                                "status": "NOTSAVED"
                             }
                         })) || ""; // generate the Hash to display a MDCC Number
                         oCrossAppNavigator.toExternal({

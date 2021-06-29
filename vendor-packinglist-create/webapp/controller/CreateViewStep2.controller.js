@@ -17,7 +17,7 @@ sap.ui.define([
         return BaseController.extend("com.agel.mmts.vendorpackinglistcreate.controller.CreateViewStep2", {
             formatter: formatter,
             onInit: function () {
-                jQuery.sap.addUrlWhitelist("blob");
+                //jQuery.sap.addUrlWhitelist("blob");
                 this.mainModel = this.getOwnerComponent().getModel();
                 //Router Object
                 this.oRouter = this.getOwnerComponent().getRouter();
@@ -66,6 +66,7 @@ sap.ui.define([
                         }
                     }
                 });
+
                 this._getPackingListOuterPackagingData();
                 this._getPackingListInnerPackagingData();
                 this._createAdditionalDetailsModel();
@@ -103,7 +104,7 @@ sap.ui.define([
                         success: function (i, oData, oError) {
                             console.log("Inner packaging get");
                             this.getView().getModel("outerPackagingModel").setProperty("/" + i + "/InnerPackagings", oData.results);
-                            // debugger;
+                            debugger;
                         }.bind(this, i),
                         error: function (oError) {
                             sap.m.MessageBox.error(JSON.stringify(oError));
@@ -322,6 +323,8 @@ sap.ui.define([
 
                 this.mainModel.create("/OuterPackagingRequestEdmSet", oPayload, {
                     success: function (oData, oResponse) {
+                        this.getView().getModel();
+                        this._getPackingListOuterPackagingData();
                         var objectViewModel = this.getViewModel("objectViewModel");
                         objectViewModel.setProperty("/isPackingListInEditMode", false);
                         objectViewModel.setProperty("/isViewQRMode", true);
@@ -335,7 +338,6 @@ sap.ui.define([
             },
 
             onSaveInnerPackagingListPress: function (oEvent) {
-                debugger;
                 var aTotalInnerPackagingData = this.getViewModel("valueHelpModel").getData();
                 var aSelectedInnerPackagingData = aTotalInnerPackagingData.filter(item => item.selected === true);
                 var payload = {};
@@ -356,7 +358,8 @@ sap.ui.define([
                 this.mainModel.create("/OuterPackagingRequestEdmSet", payload, {
                     success: function (oData, oResponse) {
                         this.getView().getModel();
-                        sap.m.MessageBox.success("Outer Packaging managed succesfully!")
+                        sap.m.MessageBox.success("Outer Packaging managed succesfully!");
+                        this._getPackingListOuterPackagingData();
                     }.bind(this),
                     error: function (oError) {
                         sap.m.MessageBox.error(JSON.oError);
@@ -505,6 +508,10 @@ sap.ui.define([
                 oPayload.PackingListId = packingListId;
                 oPayload.PONumber = poNum;
 
+                if (!this._validateData(oAdditionalData)) {
+                    return;
+                }
+
                 MessageBox.warning("Are you sure you want to view the QR Code? Once viewed, no changes can be made to the packing list.", {
                     actions: [MessageBox.Action.OK, MessageBox.Action.CANCEL],
                     emphasizedAction: MessageBox.Action.OK,
@@ -534,6 +541,55 @@ sap.ui.define([
                         sap.m.MessageBox.error(JSON.stringify(oError));
                     }
                 });
+            },
+
+            _validateData: function (data) {
+                var bValid = true;
+
+                /* if (!data.InvoiceNumber) {
+                    this.byId("idVehicleNumber").setValueState("Error");
+                    this.byId("idVehicleNumber").setValueStateText("Please enter the Invoice Number");
+                    bValid = false;
+                } else {
+                    this.byId("idVehicleNumber").setValueState("None");
+                    this.byId("idVehicleNumber").setValueStateText(null);
+                }
+
+                if (!data.PackagingReferenceNumber) {
+                    this.byId("idPackagagingRefNumber").setValueState("Error");
+                    this.byId("idPackagagingRefNumber").setValueStateText("Please enter the Packaging Reference Number");
+                    bValid = false;
+                } else {
+                    this.byId("idPackagagingRefNumber").setValueState("None");
+                    this.byId("idPackagagingRefNumber").setValueStateText(null);
+                }
+
+                if (!data.InvoiceDate) {
+                    this.byId("idInvoiceDate").setValueState("Error");
+                    this.byId("idInvoiceDate").setValueStateText("Please select the Invoice Date");
+                    bValid = false;
+                } else {
+                    this.byId("idInvoiceDate").setValueState("None");
+                    this.byId("idInvoiceDate").setValueStateText(null);
+                } */
+
+                if (!data.InvoiceNumber) {
+                    bValid = false;
+                    sap.m.MessageBox.alert("Please enter the Invoice Number before viewing the QR.");
+                    return;
+                }
+                if (!data.PackagingReferenceNumber) {
+                    bValid = false;
+                    sap.m.MessageBox.alert("Please enter the Packaging Reference Number before viewing the QR.");
+                    return;
+                }
+                if (!data.InvoiceDate) {
+                    bValid = false;
+                    sap.m.MessageBox.alert("Please select the Invoice Date before viewing the QR.");
+                    return;
+                }
+
+                return bValid;
             }
         });
     });
