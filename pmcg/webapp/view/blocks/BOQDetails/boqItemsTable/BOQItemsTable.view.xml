@@ -42,6 +42,12 @@
                 </ui:template>
             </ui:Column>
             <ui:Column width="5%">
+                <Label text="MDCC Approved Quantity"/>
+                <ui:template>
+                    <Text text="{TreeTableModelView>MDCCApprovedQty}" wrapping="false" />
+                </ui:template>
+            </ui:Column>
+            <ui:Column width="5%">
                 <Label text="Dispatch Quantity"/>
                 <ui:template>
                     <Text text="{TreeTableModelView>DispatchQty}" wrapping="false" />
