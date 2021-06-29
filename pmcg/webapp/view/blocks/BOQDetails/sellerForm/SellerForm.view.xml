@@ -10,10 +10,10 @@
             <Text text="{Name}" />
             <Label text="{i18n>vendorCode}" />
             <Text text="{VendorCode}"/>
-            <Label text="{i18n>gstIN}" />
+            <Label text="{i18n>gstIN}" tooltip="{i18n>gsttooltip}"/>
             <Text text="{GSTIN}"/>
 
-            <Label text="{i18n>pan}" />
+            <Label text="{i18n>pan}"  tooltip="{i18n>pantooltip}"/>
             <Text text="{Pan}"/>
             <Label text="{i18n>emailID}" />
             <Link text="{Email}"/>

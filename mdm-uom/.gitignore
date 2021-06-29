@@ -50,3 +50,5 @@ agel-mmts-web/vendorPersona/.env23
 agel-mmts-web/vendor-manageboq/.env3
 # auto generated wildcard
 agel-mmts-web/tcengineer/.env3
+# auto generated wildcard
+pmcg/.env5
