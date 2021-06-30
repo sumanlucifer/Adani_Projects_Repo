@@ -22,13 +22,13 @@
                 <uxap:expandedHeading>
                     <FlexBox direction="Column" renderType="Bare">
                         <Title text="{i18n>packingList}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
-                        <!-- <Title text="{PackagingReferenceNumber}" wrapping="true" titleStyle="H3" /> -->
+                        <Title text="{Name}" wrapping="true" titleStyle="H3" />
                     </FlexBox>
                 </uxap:expandedHeading>
                 <uxap:snappedHeading>
                     <FlexBox direction="Column" renderType="Bare">
                         <Title text="{i18n>packingList}" wrapping="true" titleStyle="H4"/>
-                        <!-- <Title text="{PackagingReferenceNumber}" wrapping="true" titleStyle="H3"/> -->
+                        <Title text="{Name}" wrapping="true" titleStyle="H3"/>
                     </FlexBox>
                 </uxap:snappedHeading>
                 <uxap:expandedContent></uxap:expandedContent>
