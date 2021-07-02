@@ -22,7 +22,7 @@
                     </Input>
                 </fb:control>
             </fb:FilterGroupItem>
-                        <fb:FilterGroupItem groupName="__$INTERNAL$" name="notftnNo" label="{i18n>NotificationNumber}" visibleInFilterBar="true" class="searchFieldLabelHidden" >
+            <!-- <fb:FilterGroupItem groupName="__$INTERNAL$" name="notftnNo" label="{i18n>NotificationNumber}" visibleInFilterBar="true" class="searchFieldLabelHidden" >
                 <fb:control>
                     <Input id="idNotNo" liveChange="onFilterChange" placeholder="{i18n>EnterNotificationNumber}" showSuggestion="true" showValueHelp="false" suggestionItems="{/MDCCStatusSet}">
                         <suggestionItems>
@@ -30,7 +30,7 @@
                         </suggestionItems>
                     </Input>
                 </fb:control>
-            </fb:FilterGroupItem>
+            </fb:FilterGroupItem> -->
             <fb:FilterGroupItem groupName="__$INTERNAL$" name="CreatedAt" label="{i18n>creatdAt}" visibleInFilterBar="true" class="searchFieldLabelHidden">
                 <fb:control>
                     <DateRangeSelection id="dateRangeSelectionId" displayFormat="dd/MM/yyyy" change="onDateRangeSelectionChange"/>

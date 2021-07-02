@@ -38,9 +38,9 @@ sap.ui.define([
               // on Go Search 
         onSearch: function (oEvent) {
             var poNumber = this.byId("idNameInput").getValue();
-            var boqName = this.byId("idBoqName").getValue();
             var DateRange = this.byId("dateRangeSelectionId");
             var DateRangeValue = this.byId("dateRangeSelectionId").getValue();
+            var boqName = this.byId("idBoqName").getValue();
             var PlantCode = this.byId("idPlantCode").getValue();
             var VendorCode = this.byId("idVendorCode").getValue();
             var CompanyCode = this.byId("idCompanyCode").getValue();
@@ -55,18 +55,13 @@ sap.ui.define([
                 orFilters.push(new Filter("ParentLineItem/PurchaseOrder/Vendor/VendorCode", FilterOperator.EQ, FreeTextSearch));
                 orFilters.push(new Filter("ParentLineItem/PurchaseOrder/PlantCode", FilterOperator.EQ, FreeTextSearch));
                 //   aFilters.push(new Filter("purchase_order/parent_line_items/qty", FilterOperator.EQ, FreeTextSearch));
-                orFilters.push(new Filter("BOQGroup/ParentLineItem/PurchaseOrder/Buyer/CompanyCode", FilterOperator.EQ, CompanyCode));
+                orFilters.push(new Filter("BOQGroup/ParentLineItem/PurchaseOrder/Buyer/CompanyCode", FilterOperator.EQ, FreeTextSearch));
                 andFilters.push(new Filter(orFilters, false));
             }
 
             // Po Number
             if (poNumber != "") {
                 andFilters.push(new Filter("ParentLineItem/PONumber", FilterOperator.EQ, poNumber));
-            }
-
-             // BOQ Name
-            if (boqName != "") {
-                andFilters.push(new Filter("BOQGroupName", FilterOperator.EQ, boqName));
             }
             
             // Po Release Date
@@ -75,15 +70,20 @@ sap.ui.define([
                 var To = new Date(DateRange.getTo());
                 andFilters.push(new Filter("ParentLineItem/PurchaseOrder/CreatedAt", FilterOperator.BT, From.toISOString(), To.toISOString()));
             }
-
-            // Vendor Code
-            if (VendorCode != "") {
-                andFilters.push(new Filter("ParentLineItem/PurchaseOrder/Vendor/VendorCode", FilterOperator.EQ, VendorCode));
+            
+            // BOQ Name
+            if (boqName != "") {
+                andFilters.push(new Filter("BOQGroupName", FilterOperator.EQ, boqName));
             }
 
             // Plant Code
             if (PlantCode != "") {
                 andFilters.push(new Filter("ParentLineItem/PurchaseOrder/PlantCode", FilterOperator.EQ, PlantCode));
+            }
+
+            // Vendor Code
+            if (VendorCode != "") {
+                andFilters.push(new Filter("ParentLineItem/PurchaseOrder/Vendor/VendorCode", FilterOperator.EQ, VendorCode));
             }
 
             // Company Code
@@ -102,13 +102,14 @@ sap.ui.define([
                 idBOQRequestTableBinding.filter(new Filter(andFilters, true));
             }
             // oTableBinding.filter(mFilters);
+            this.oFilterBar.fireFilterChange();
         },
 
         onResetFilters: function (oEvent) {
             this.oFilterBar._oBasicSearchField.setValue("");
             this.byId("idNameInput").setValue("");
-            this.byId("idBoqName").setValue("");
             this.byId("dateRangeSelectionId").setValue("");
+            this.byId("idBoqName").setValue("");
             this.byId("idPlantCode").setValue("");
             this.byId("idVendorCode").setValue("");
             this.byId("idCompanyCode").setValue("");

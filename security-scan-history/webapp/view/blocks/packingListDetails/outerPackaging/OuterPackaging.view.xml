@@ -1,0 +1,46 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns:f="sap.ui.layout.form"
+    xmlns="sap.m"
+    xmlns:smartTable="sap.ui.comp.smarttable"
+    xmlns:tt="sap.ui.table" controllerName="com.agel.mmts.securityscanhistory.view.blocks.packingListDetails.outerPackaging.OuterPackagingController">
+
+
+    <Table id="idOuterPackaging" items="{path: 'OuterPackagings'}" autoPopinMode="true" growingThreshold="5" growing="true" fixedLayout="false">
+        <columns>
+            <Column>
+                <Text text="Outer Packaging"/>
+            </Column>
+            <!-- <Column>
+                <Text text="Line Item ID"/>
+            </Column> -->
+            <!-- <Column>
+                <Text text="Dispatch Qty."/>
+            </Column> -->
+            <!-- <Column>
+                <Text text="Packaging Dimensions"/>
+            </Column> -->
+            <!-- <Column>
+                <Text text="UOM"/>
+            </Column> -->
+            <Column>
+               <Text text="Action"/>
+            </Column>
+        </columns>
+        <items>
+            <ColumnListItem>
+                <cells>
+                    <ObjectIdentifier title="{PackagingType}"/>
+                    <!-- <ObjectIdentifier title="{ID}"/> -->
+                    <!-- <Text text="{DispatchQty}"/> -->
+                    <!-- <Text text="{PackagingDimensions}"/> -->
+                    <!-- <Text text="{UOM}"/> -->
+                    <Link text="View QR Code" binding="{QrCode}" visible="{= ${QRNumber}}" press="onViewQRCodePress"/>
+                </cells>
+            </ColumnListItem>
+        </items>
+    </Table>
+    
+</mvc:View>
+
+
