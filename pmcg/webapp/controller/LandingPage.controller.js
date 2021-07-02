@@ -56,7 +56,7 @@ sap.ui.define([
           onSearch: function (oEvent) {
             var poNumber = this.byId("idPono").getValue();
             var mdccNumber = this.byId("idMdccNo").getValue();
-            var notNumber = this.byId("idNotNo").getValue();
+            // var notNumber = this.byId("idNotNo").getValue();
             var DateRange = this.byId("dateRangeSelectionId");
             var DateRangeValue = this.byId("dateRangeSelectionId").getValue();
             var orFilters = [];
@@ -66,7 +66,7 @@ sap.ui.define([
             if (FreeTextSearch) {
                 orFilters.push(new Filter("MDCC/PONumber", FilterOperator.Contains, FreeTextSearch));
                 orFilters.push(new Filter("MDCC/MDCCNumber", FilterOperator.Contains, FreeTextSearch));
-                orFilters.push(new Filter("MDCC/NotificationNumber", FilterOperator.EQ, FreeTextSearch));
+                // orFilters.push(new Filter("MDCC/NotificationNumber", FilterOperator.EQ, FreeTextSearch));
                 orFilters.push(new Filter("MDCC/Version", FilterOperator.EQ, FreeTextSearch));
 
                 andFilters.push(new Filter(orFilters, false));
@@ -83,9 +83,9 @@ sap.ui.define([
             }
 
             // Notification Number
-            if (notNumber != "") {
-                andFilters.push(new Filter("MDCC/NotificationNumber", FilterOperator.EQ, notNumber));
-            }
+            // if (notNumber != "") {
+            //     andFilters.push(new Filter("MDCC/NotificationNumber", FilterOperator.EQ, notNumber));
+            // }
 
             // Created At
             if (DateRangeValue != "") {
@@ -111,7 +111,7 @@ sap.ui.define([
          //   this.byId("filterbar").setBasicSearchValue("");
             this.byId("idPono").setValue("");
             this.byId("idMdccNo").setValue("");
-            this.byId("idNotNo").setValue("");
+            // this.byId("idNotNo").setValue("");
             this.byId("dateRangeSelectionId").setValue("");
             var oTable = this.getView().byId("idBOQRequestTable").getTable();
             var oBinding = oTable.getBinding("items");
