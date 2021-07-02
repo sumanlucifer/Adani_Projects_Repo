@@ -7,7 +7,7 @@
              demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" 
              useVariantManagement="false" beforeRebindTable="onbeforeRebindOpenPoTable">
 
-        <Table sticky="ColumnHeaders,HeaderToolbar" updateFinished="onPurchaseOrderTableUpdateFinished"
+        <Table sticky="ColumnHeaders,HeaderToolbar" updateFinished="onInternationalTableUpdateFinished"
              alternateRowColors="true">
             <columns>
 
@@ -76,7 +76,7 @@
             </columns>
             <items>
 
-                <ColumnListItem type="Navigation" press="onDomesticEntryPress">
+                <ColumnListItem>
                     <cells>
                         <Text text="{PONumber}"/>
                        <!-- <Text text="{VendorCode}"/>-->

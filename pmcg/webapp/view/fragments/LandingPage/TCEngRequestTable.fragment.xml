@@ -29,13 +29,13 @@
                     <Text text="{i18n>mdccNUm}"/>
                 </Column>
                 
-                <Column demandPopin="true" minScreenWidth="Tablet">
+                <!-- <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "NotificationNumber", "leadingProperty": "MDCC/NotificationNumber",
                                                  "columnIndex": 2 ,"sortProperty": "MDCC/NotificationNumber","filterProperty": "MDCC/NotificationNumber"}'/>
                     </customData>
                     <Text text="{i18n>notNum}"/>
-                </Column>
+                </Column> -->
 
                 <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
@@ -68,7 +68,7 @@
                     <cells>
                         <Text text="{PONumber}" binding="{MDCC}"/>
                         <Text text="{MDCCNumber}" binding="{MDCC}"/>
-                        <Text text="{NotificationNumber}" binding="{MDCC}"/>
+                        <!-- <Text text="{NotificationNumber}" binding="{MDCC}"/> -->
                         
                         <Text text="{path:'CreatedAt',
                                     type: 'sap.ui.model.type.Date',
