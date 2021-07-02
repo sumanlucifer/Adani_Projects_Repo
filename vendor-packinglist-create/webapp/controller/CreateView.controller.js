@@ -31,34 +31,48 @@ sap.ui.define([
                 var objectViewModel = this.getViewModel("objectViewModel");
                 var that = this;
 
-                var startupParams = this.getOwnerComponent().getComponentData().startupParameters;
-                this.packingListId = startupParams.packingListID[0];
+                //var startupParams = this.getOwnerComponent().getComponentData().startupParameters;
+                //this.packingListId = startupParams.packingListID[0];
+
 
                 /* if (startupParams.status[0] !== "SAVED") {
                     this.oRouter.navTo("RoutePackingListDetails", {
                         packingListId: this.packingListId
                     });
                 } else { */
-                    //this.packingListId = 58;
-                    this.getView().bindElement({
-                        path: "/PackingListSet(" + this.packingListId + ")",
-                        events: {
-                            dataRequested: function () {
-                                objectViewModel.setProperty("/busy", true);
-                            },
-                            dataReceived: function () {
-                                // var bIsProcessOneCompletes = this.getBoundContext().getObject().IsProcessOneCompletes;
-                                // if (bIsProcessOneCompletes)
-                                objectViewModel.setProperty("/isPackingListInEditModel", false);
-                                // else
-                                // objectViewModel.setProperty("/isPackingListInEditModel", true);
-                                objectViewModel.setProperty("/busy", false);
-                            }
+                this.packingListId = 62;
+                this.getView().bindElement({
+                    path: "/PackingListSet(" + this.packingListId + ")",
+                    events: {
+                        change: this._onBindingChange.bind(this),
+                        dataRequested: function () {
+                            objectViewModel.setProperty("/busy", true);
+                        },
+                        dataReceived: function () {
+                            // var bIsProcessOneCompletes = this.getBoundContext().getObject().IsProcessOneCompletes;
+                            // if (bIsProcessOneCompletes)
+                            objectViewModel.setProperty("/isPackingListInEditModel", false);
+                            // else
+                            // objectViewModel.setProperty("/isPackingListInEditModel", true);
+                            objectViewModel.setProperty("/busy", false);
+                            that._getPackingListContainsData();
+                            that._getPackingListInnerPackagingData();
                         }
-                    });
-                    this._getPackingListContainsData();
-                    this._getPackingListInnerPackagingData();
+                    }
+                });
+
                 // }
+            },
+
+            _onBindingChange: function () {
+                var oView = this.getView(),
+                    oViewModel = this.getViewModel("objectViewModel"),
+                    oElementBinding = oView.getElementBinding();
+                // No data for the binding
+                if (!oElementBinding.getBoundContext()) {
+                    this.getRouter().getTargets().display("notFound");
+                    return;
+                }
             },
 
             onViewBOQItemsPress: function (oEvent) {
@@ -236,13 +250,21 @@ sap.ui.define([
                     var aPackingListContainsData = this.getView().getModel("packingListContainsModel").getData().items;
                     var aInnerPackagingData = this.getView().getModel("InnerPackagingModel").getData().items;
 
-                    /* for (let i = 0; i < aPackingListContainsData.length; i++) {
-                        let dispatchQuantity = aPackingListContainsData[i].DispatchQty;
-                        let userEnteredQuantity=null;
+                    for (let i = 0; i < aPackingListContainsData.length; i++) {
+                        var totalQuantityToDispatch = 0.0;
                         for (let j = 0; j < aInnerPackagingData.length; j++) {
-                           userEnteredQuantity = userEnteredQuantity + aInnerPackagingData[j].PackagingQty;
+                            if (aPackingListContainsData[i].ID === aInnerPackagingData[j].PackingListContainsId)
+                                totalQuantityToDispatch = totalQuantityToDispatch + parseFloat(aInnerPackagingData[j].PackagingQty);
                         }
-                    } */
+                        if (parseFloat(aPackingListContainsData[i].DispatchQty) === totalQuantityToDispatch)
+                            console.log("Matched" + aPackingListContainsData[i].Name);
+                        else {
+                            bValid = false;
+                            sap.m.MessageBox.alert("Dispatch quantity mismatch with Materil " + aPackingListContainsData[i].Name);
+                            return;
+                            //console.log("Unmatched" + aPackingListContainsData[i].Name);
+                        }
+                    }
 
                 }
 
@@ -265,7 +287,7 @@ sap.ui.define([
                         var oEntry = {};
                         oEntry.PackagingType = data[i].PackagingType;
                         oEntry.LineNumber = data[i].Name;
-                        oEntry.materialUniqueIDForValidation = data[i].ID;
+                        oEntry.PackingListContainsId = data[i].ID;
                         oEntry.PackagingQty = null;
                         oEntry.UOM = data[i].UOM;
                         items.push(oEntry);
