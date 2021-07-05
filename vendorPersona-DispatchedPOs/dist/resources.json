@@ -4,20 +4,21 @@
             "name": "Component.js"
         },
         {
+            "name": "controller/LandingPage.controller.js"
+        },
+        {
             "name": "model/models.js"
         },
         {
             "name": "manifest.json"
         },
         {
-            "name": "controller/LandingPage.controller.js"
-        },
-        {
             "name": "i18n/i18n.properties",
             "raw": "i18n/i18n.properties"
         },
         {
-            "name": "manifest-bundle.zip"
+            "name": "i18n/i18n.properties",
+            "raw": "i18n/i18n.properties"
         },
         {
             "name": "Component-preload.js",
@@ -28,11 +29,11 @@
             "isDebug": true
         },
         {
-            "name": "model/models-dbg.js",
+            "name": "controller/LandingPage-dbg.controller.js",
             "isDebug": true
         },
         {
-            "name": "Component-dbg.js",
+            "name": "model/models-dbg.js",
             "isDebug": true
         },
         {

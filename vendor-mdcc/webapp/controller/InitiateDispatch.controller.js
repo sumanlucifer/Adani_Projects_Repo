@@ -73,8 +73,7 @@ sap.ui.define([
         },
 
          //---------------------- View Data Fragment operation -----------------------//
-            // Fragment/Dialog Open
-
+        // Fragment/Dialog Open
         onViewPress: function (oEvent) {
               //  var oItem = oEvent.getSource();
               var that = this;
@@ -83,17 +82,25 @@ sap.ui.define([
                // that.handleViewDialogOpen();
         },
 
-            // Arrange Data For View / Model Set
+        // Arrange Data For View / Model Set
         _arrangeDataView : function(){        
                 var that = this;
                 var oModel = new JSONModel({"ChildItemsView":this.ParentDataView});
                 this.getView().setModel(oModel,"TreeTableModelView");
                 this.getView().getModel("TreeTableModelView").refresh();
+              //  this.doExpandAllRow();
                // var sPath = oEvent.getSource().getParent().getBindingContextPath();
               // sPath=  ;
              //   that.handleViewDialogOpen();
                 //debugger;
         },
+
+        doExpandAllRow : function() {
+            var oTTbl = this.getView().byId("TreeTableBasicViewDispatch");
+            for (var i=0; i<oTTbl.getRows().length; i++) {
+                oTTbl.expand(i);
+            }
+        },   
 
         _getPackingListData : function(){
                 this.ParentDataView = [];
@@ -133,7 +140,7 @@ sap.ui.define([
                 });
         },
 
-            // Child Item View Fetch / Model Set
+        // Child Item View Fetch / Model Set
         _getChildItemsViewMDCC : function(ParentDataView){
                 this.ParentDataView = ParentDataView;
                 for( var i=0; i < ParentDataView.length; i++){
@@ -187,8 +194,17 @@ sap.ui.define([
                mBindingParams.filters.push(new sap.ui.model.Filter("MDCC_Id", sap.ui.model.FilterOperator.EQ, MDCC_Id ));
             }
         },
+        
         onRowsUpdated :function(oEvent){
-            //debugger;
+           //   debugger;
+           //   var oTreeTable = this.getView().byId("TreeTableBasicViewDispatch");
+           //   this.getView().getContent()[1].expandToLevel(3); 
+        },
+
+        onAfterRendering: function(){
+            //   var oTreeTable = this.getView().byId("TreeTableBasicViewDispatch");
+            //   oTreeTable.expandToLevel(3); //number of the levels of the tree table.
         }
+
     });
 });

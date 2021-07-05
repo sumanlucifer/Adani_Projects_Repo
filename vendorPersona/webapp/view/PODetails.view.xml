@@ -32,8 +32,8 @@
                 </uxap:expandedHeading>
                 <uxap:snappedHeading>
                     <FlexBox direction="Column" renderType="Bare">
-                        <Title text="{i18n>PODetails}" wrapping="true" titleStyle="H4"/>
-                        <Title text="{PONumber}" wrapping="true" titleStyle="H3"/>
+                        <Title text="{i18n>PODetails}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
+                        <Title text="{PONumber}" wrapping="true" titleStyle="H3" class="sapUiTinyMarginTopBottom"/>
                     </FlexBox>
                 </uxap:snappedHeading>
                 <uxap:expandedContent></uxap:expandedContent>
