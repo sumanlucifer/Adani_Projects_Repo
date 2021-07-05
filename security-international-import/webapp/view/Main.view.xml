@@ -42,18 +42,18 @@
                     <uxap:ObjectPageSubSection>
                             <f:SimpleForm layout="ColumnLayout" columnsM="2" columnsL="2" columnsXL="4"
                               labelSpanL="2" labelSpanXL="4"	labelSpanM="12"	labelSpanS="12"
-                                  singleContainerFullSize="false" binding="{oImportModel>/}" >
+                                  singleContainerFullSize="false" binding="{oImportModel>/}" editable="true">
                                 <f:content>
                                     <core:Title  text="Enter Details"/>
                                     <Label text="{i18n>ponum}" required="true"/>
-                                    <Input id="idInpPoNob" liveChange="onLiveChangePoNob" value="{oImportModel>PONumber}" placeholder="{i18n>enterpo}" />
+                                    <Input id="idInpPoNob" liveChange="onLiveChangePoNob" value="{oImportModel>PONumber}" placeholder="{i18n>enterpo}" width="17rem"/>
                                     <Label text="{i18n>contno}"  required="true"/>
-                                    <Input id="idInpContNob" liveChange="onLiveChangeContNob" value="{oImportModel>ContainerNumber}" placeholder="{i18n>entercont}" />
+                                    <Input id="idInpContNob" liveChange="onLiveChangeContNob" value="{oImportModel>ContainerNumber}" placeholder="{i18n>entercont}" width="17rem"/>
                                     <!-- <core:Title ></core:Title> -->
                                     <Label text="{i18n>vehno}"  required="true"/>
-                                    <Input id="idInpVehicleNob" liveChange="onLiveChangeVehicleNob" value="{oImportModel>VehicleNumber}" placeholder="{i18n>entervehicle}" />
+                                    <Input id="idInpVehicleNob" liveChange="onLiveChangeVehicleNob" value="{oImportModel>VehicleNumber}" placeholder="{i18n>entervehicle}" width="17rem"/>
                                     <Label text="{i18n>invno}"  required="true"/>
-                                    <Input id="idInvoiceNob" liveChange="onLiveChangeInvoiceNob" value="{oImportModel>InvoiceNumber}" placeholder="{i18n>enterinvoice}"/>
+                                    <Input id="idInvoiceNob" liveChange="onLiveChangeInvoiceNob" value="{oImportModel>InvoiceNumber}" placeholder="{i18n>enterinvoice}" width="17rem"/>
                                 </f:content>
                             </f:SimpleForm> 
                    </uxap:ObjectPageSubSection>

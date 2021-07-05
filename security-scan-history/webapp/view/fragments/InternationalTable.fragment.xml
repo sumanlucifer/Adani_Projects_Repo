@@ -5,8 +5,7 @@
             placeToolbarInTable="true" enableAutoBinding="true" entitySet="ManualEntrySet"
              showFullScreenButton="true" showRowCount="false" tableType="ResponsiveTable"
              demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" 
-             useVariantManagement="false" beforeRebindTable="onbeforeRebindOpenPoTable">
-
+             useVariantManagement="false" beforeRebindTable="onbeforeRebindOpenPoTable" ignoreFromPersonalisation="CreatedBy, ID, IsArchived, VehicleNumber, UpdatedAt, UpdatedBy">
         <Table sticky="ColumnHeaders,HeaderToolbar" updateFinished="onInternationalTableUpdateFinished"
              alternateRowColors="true">
             <columns>
@@ -78,7 +77,7 @@
 
                 <ColumnListItem>
                     <cells>
-                        <Text text="{PONumber}"/>
+                        <ObjectIdentifier title="{PONumber}"/>
                        <!-- <Text text="{VendorCode}"/>-->
                         <Text text="{path:'CreatedAt',
                                      type: 'sap.ui.model.type.Date',

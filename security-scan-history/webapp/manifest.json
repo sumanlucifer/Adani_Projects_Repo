@@ -141,7 +141,6 @@
                     "viewType": "XML",
                     "transition": "slide",
                     "clearControlAggregation": false,
-                    
                     "viewName": "QRCodeDetail"
                 }
             }
