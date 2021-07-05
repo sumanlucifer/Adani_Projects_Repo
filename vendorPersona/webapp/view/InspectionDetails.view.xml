@@ -12,7 +12,10 @@
         <f:title>
             <f:DynamicPageTitle>
                 <f:heading>
-                    <Title  text="Inspection - {= ${SAPInspectionCallId}!== '0' ? ${SAPInspectionCallId} : ${OfflineInspectionCallId}}" wrapping="true"/>
+                    <FlexBox direction="Column" renderType="Bare">
+                        <Title  text="Inspection" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
+                        <Title  text="{= ${SAPInspectionCallId}!== '0' ? ${SAPInspectionCallId} : ${OfflineInspectionCallId}}" wrapping="true"/>
+                    </FlexBox>
                 </f:heading>
                 <f:breadcrumbs>
                     <Breadcrumbs  currentLocationText="{inspection_call_id} - {i18n>inspectionDetails}">
@@ -21,13 +24,24 @@
                     </Breadcrumbs>
                 </f:breadcrumbs>
                 <f:expandedContent>
-                    <Label  text="PO Number - {PONumber}"/>                    
+                    <!-- <Label  text="PO Number - {PONumber}"/>      -->
+                    <FlexBox direction="Column" renderType="Bare">
+                        <Title text="PO Number" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
+                        <Title text="{PONumber}" wrapping="true" titleStyle="H4" />
+                    </FlexBox>               
                 </f:expandedContent>
                 <f:snappedContent>
-                    <Label  text="PO Number - {PONumber}"/>
+                    <FlexBox direction="Column" renderType="Bare">
+                        <Title text="PO Number" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
+                        <Title text="{PONumber}" wrapping="true" titleStyle="H4"/>
+                    </FlexBox>  
                 </f:snappedContent>
                 <f:snappedTitleOnMobile>
-                    <Title  text="{= ${SAPInspectionCallId}!== '0' ? ${SAPInspectionCallId} : ${OfflineInspectionCallId}}"/>
+                    <!-- <FlexBox direction="Column" renderType="Bare"> -->
+                        <!-- <Title  text="Inspection" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/> -->
+                        <Title  text="Inspection - {= ${SAPInspectionCallId}!== '0' ? ${SAPInspectionCallId} : ${OfflineInspectionCallId}}" wrapping="true"/>
+                    <!-- </FlexBox> -->
+                    <!-- <Title  text="{= ${SAPInspectionCallId}!== '0' ? ${SAPInspectionCallId} : ${OfflineInspectionCallId}}"/> -->
                 </f:snappedTitleOnMobile>
             </f:DynamicPageTitle>
         </f:title>
@@ -35,11 +49,24 @@
         <f:header>
             <f:DynamicPageHeader pinnable="true">
                 <f:content>
-                    <Label  text="Created On - {path:'CreatedAt',
+                    <!-- <Label  text="Created On - {path:'CreatedAt',
                                      type: 'sap.ui.model.type.Date',
 				                     formatOptions: {
 				                        pattern: 'MMMM dd, yyyy'
-				                     }}"/>                                    
+				                     }}"/>  -->
+                     <FlexBox direction="Row" renderType="Bare" class="sapUiTinyMarginBottom">
+                        <VBox renderType="Bare" class="sapUiMediumMarginEnd">
+                            <Label text="Created On" />
+                            <!-- missing -->
+                            <Text text="{path:'CreatedAt',
+                                     type: 'sap.ui.model.type.Date',
+				                     formatOptions: {
+				                        pattern: 'MMMM dd, yyyy'
+				                     }
+                            }"/>
+                        </VBox>
+                    </FlexBox>
+                                                      
                 </f:content>
             </f:DynamicPageHeader>
         </f:header>
@@ -108,7 +135,8 @@
                     <IconTabFilter text="MDCC" key="idPackingListTab">
                         <VBox renderType="Bare">
                             <Table id="idTblMDCC" width="auto" growing="true" growingScrollToLoad="true"
-                            items="{path:'MDCC',parameters:{expand:'MDCCParentLineItems,Attachments'}}" 
+                            items="{path:'MDCC',parameters:{expand:'MDCCParentLineItems,Attachments'},
+                                        sorter:{path:'CreatedAt',descending: true}}" 
                             noDataText="{i18n>noPackingLists}" fixedLayout="false">
                                 <headerToolbar>
                                     <OverflowToolbar>

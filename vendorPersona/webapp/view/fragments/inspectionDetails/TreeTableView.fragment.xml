@@ -7,16 +7,16 @@
 	<Dialog>
 		<ui:TreeTable id="TreeTableBasicView"
                 rows="{path:'TreeTableModelView>/',parameters: {arrayNames:['ChildItemsView']}}"
-                collapseRecursive="true" rowsUpdated="onRowsUpdated"
+                collapseRecursive="true" 
                 selectionMode="None" enableSelectAll="false"
                  ariaLabelledBy="title">
 			<ui:columns>
-				<ui:Column width="5%">
+				<!-- <ui:Column width="5%">
 					<Label text="ID"/>
 					<ui:template>
 						<Text text="{TreeTableModelView>ID}" wrapping="false" />
 					</ui:template>
-				</ui:Column>
+				</ui:Column> -->
                 <ui:Column width="5%">
 					<Label text="Line Number"/>
 					<ui:template>

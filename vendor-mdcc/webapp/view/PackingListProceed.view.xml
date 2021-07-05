@@ -26,12 +26,16 @@
                     <FlexBox direction="Column" renderType="Bare">
                         <Title text="{i18n>mdccDetails}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
                         <Title text="{MDCCNumber}" wrapping="true" titleStyle="H3"/>
+                        <Title text="{i18n>PODetails}" wrapping="true" titleStyle="H4"/>
+                        <Title text="{PONumber}" wrapping="true" titleStyle="H3"/>
                     </FlexBox>
                 </uxap:expandedHeading>
                 <uxap:snappedHeading>
                     <FlexBox direction="Column" renderType="Bare">
                       <Title text="{i18n>mdccDetails}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
                         <Title text="{MDCCNumber}" wrapping="true" titleStyle="H3"/>
+                        <Title text="{i18n>PODetails}" wrapping="true" titleStyle="H4"/>
+                        <Title text="{PONumber}" wrapping="true" titleStyle="H3"/>
                     </FlexBox>
                 </uxap:snappedHeading>
                 <uxap:expandedContent></uxap:expandedContent>
@@ -48,12 +52,12 @@
                 <VBox renderType="Bare">
                     <FlexBox direction="Row" renderType="Bare" class="sapUiTinyMarginBottom">
                         <VBox renderType="Bare" class="sapUiMediumMarginEnd">
-                            <Title text="{i18n>createdOn}" wrapping="true" titleStyle="H4"/>
-                            <Title text="{path:'CreatedAt',
+                            <Label text="{i18n>createdOn}" />
+                            <Text text="{path:'CreatedAt',
                                      type: 'sap.ui.model.type.Date',
 				                     formatOptions: {
 				                        pattern: 'MMMM dd, yyyy'
-				                     }}"  wrapping="true" titleStyle="H5"/>
+				                     }}" />
                         </VBox>
                         <VBox renderType="Bare">
                             
@@ -88,7 +92,7 @@
 									</ui:template>
 								</ui:Column> 
 
-                                <ui:Column width="5%">
+                                <ui:Column width="10%">
 				                    <Label text="Line Number"/>
 				                    <ui:template>
 					                    <Text text="{TreeTableModel>LineNumber}"  />
@@ -133,7 +137,7 @@
                                 <ui:Column>
 				                    <Label text="{i18n>remainQty}"/>
 				                        <ui:template>
-					                        <Text text="{TreeTableModel>RemainingDispatchedQty}" wrapping="false" />
+					                        <Text text="{TreeTableModel>RemainingDispatchedQty}" />
                         				</ui:template>
 			                    </ui:Column>  
 
