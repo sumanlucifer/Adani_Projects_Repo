@@ -9,7 +9,8 @@
                             rows="{path:'TreeTableModelView>/', parameters: {arrayNames:['ChildItemsView']}}"
                             selectionMode="None"  enableSelectAll="false"
                             title="{i18n>TreeTableViewTitle}" ariaLabelledBy="title"
-                            expandFirstLevel="true" rowsUpdated="onRowsUpdated">
+                             rowsUpdated="onRowsUpdated"
+                            >
 		<ui:columns>
 			<!-- <ui:Column width="5%">
 				<Label text="ID"/>
@@ -17,38 +18,51 @@
 					<Text text="{TreeTableModelView>ID}" wrapping="false" />
 				</ui:template>
 			</ui:Column> -->
-
-            <ui:Column width="8%">
-				<Label text="Material Code"/>
+            <ui:Column>
+				<Label text="Line Number"/>
 				<ui:template>
-					<Text text="{TreeTableModelView>MaterialCode}" wrapping="false" />
+					<Text text="{TreeTableModelView>LineNumber}"  />
 				</ui:template>
 			</ui:Column>
 
-			<ui:Column width="8%">
-				<Label text="Name"/>
+            <ui:Column>
+				<Label text="{i18n>materialCode}"/>
+				<ui:template>
+					<ObjectIdentifier title="{TreeTableModelView>MaterialCode}" />
+				</ui:template>
+			</ui:Column>
+
+			<ui:Column>
+				<Label text="{i18n>name}"/>
 				<ui:template>
 					<Text text="{TreeTableModelView>Name}" wrapping="false" />
 				</ui:template>
 			</ui:Column>
 
-			<ui:Column width="12%">
-				<Label text="Description" />
+			<ui:Column >
+				<Label text="{i18n>desc}" />
 				<ui:template>
                     <ExpandableText text="{TreeTableModelView>Description}" overflowMode="Popover" maxCharacters="32"/>
 					<!-- <Text text="{TreeTableModelView>Description}" wrapping="false" /> -->
 				</ui:template>
 			</ui:Column>	
 
-			<ui:Column width="5%">
-				<Label text="Quantity"/>
+			<ui:Column width="7%">
+				<Label text="{i18n>quantity}" />
 				<ui:template>
 					<Text text="{TreeTableModelView>Qty}" wrapping="false" />
 				</ui:template>
 			</ui:Column>
 
-			<ui:Column width="8%">
-				<Label text="MDCC Approved Quantity"/>
+            <ui:Column>
+				<Label text="{i18n>remainQty}"/>
+				<ui:template>
+					<Text text="{TreeTableModelView>RemainingDispatchedQty}"  />
+				</ui:template>
+			</ui:Column>            
+
+			<ui:Column>
+				<Label text="{i18n>mdccApprovedQty}"/>
 				<ui:template>
 					<HBox justifyContent="SpaceAround" visible="{= ${TreeTableModelView>isStandAlone} ? false : true}">
 						<Text text="{TreeTableModelView>MDCCApprovedQty}" />
@@ -56,10 +70,10 @@
 				</ui:template>
 			</ui:Column>
 
-			<ui:Column width="5%">
-				<Label text="UOM"/>
+			<ui:Column width="7%">
+				<Label text="{i18n>uom}" />
 				<ui:template>
-					<Text text="{TreeTableModelView>UOM}" wrapping="false" />
+					<Text text="{TreeTableModelView>UOM}" />
 				</ui:template>
 			</ui:Column>
 

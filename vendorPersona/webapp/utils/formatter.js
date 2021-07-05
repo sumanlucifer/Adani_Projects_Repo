@@ -48,8 +48,7 @@ sap.ui.define([], function () {
             }
         },
 
-         viewItemsFileUploader : function(oData){
-           
+         viewItemsFileUploader : function(oData){           
             if ( oData )
             {
                 if ( oData.length > 0)
@@ -61,8 +60,43 @@ sap.ui.define([], function () {
             }
         },
 
-        viewFileNames : function(oData){
-           
+         viewMapItems : function(oData,status){       
+          
+            if ( oData )
+            {
+                if ( oData.length < 1){
+                    return false;
+                }
+                else{
+                    if (status==null){
+                        return true;
+                    }else{
+                         return false;
+                    }
+                }
+            }else{
+                return true;
+            }
+        },
+
+        viewSendForApproval : function(oData,status){           
+            //debugger;    
+            if ( oData )
+            {
+                if ( oData.length > 0 && status == null ){
+                    return true;
+                }
+                else{
+                    //  if (status){
+                    return false;
+                    //   }
+                }                   
+            }else{
+                return false;
+            }
+        },
+
+        viewFileNames : function(oData){           
              if ( oData )
             {
                 if ( oData.length > 0)

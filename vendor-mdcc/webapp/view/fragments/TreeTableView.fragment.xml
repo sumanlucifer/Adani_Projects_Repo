@@ -8,7 +8,7 @@
 	<ui:TreeTable id="TreeTableBasicView"
                             rows="{path:'TreeTableModelView>/', parameters: {arrayNames:['ChildItemsView']}}"
                             selectionMode="None" enableSelectAll="false"
-                            title="{i18n>TreeTableViewTitle}" ariaLabelledBy="title" expandFirstLevel="true" 
+                            title="{i18n>TreeTableViewTitle}" ariaLabelledBy="title" 
                             rowsUpdated="onRowsUpdated">
 		<ui:columns>
 			<ui:Column width="5%">
@@ -35,7 +35,7 @@
 			<ui:Column width="12%">
 				<Label text="Description"/>
 				<ui:template>
-					<Text text="{TreeTableModelView>Description}" wrapping="false" />
+                    <ExpandableText text="{TreeTableModelView>Description}" overflowMode="Popover" maxCharacters="32"/>
 				</ui:template>
 			</ui:Column>	
 
@@ -47,7 +47,7 @@
 			</ui:Column>
 
 			<ui:Column width="8%">
-				<Label text="MDCC Approved Qty"/>
+				<Label text="Approved Qty"/>
 				<ui:template>
 					<HBox justifyContent="SpaceAround">
 						<Text text="{TreeTableModelView>MDCCApprovedQty}" />

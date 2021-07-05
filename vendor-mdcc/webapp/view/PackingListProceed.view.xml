@@ -24,14 +24,18 @@
                 </uxap:breadcrumbs>
                 <uxap:expandedHeading>
                     <FlexBox direction="Column" renderType="Bare">
-                        <Title text="MDCC Details" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
+                        <Title text="{i18n>mdccDetails}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
                         <Title text="{MDCCNumber}" wrapping="true" titleStyle="H3"/>
+                        <Title text="{i18n>PODetails}" wrapping="true" titleStyle="H4"/>
+                        <Title text="{PONumber}" wrapping="true" titleStyle="H3"/>
                     </FlexBox>
                 </uxap:expandedHeading>
                 <uxap:snappedHeading>
                     <FlexBox direction="Column" renderType="Bare">
-                      <!--  <Title text="Date" wrapping="true" titleStyle="H4"/>
-                        <Title text="{CreatedAt}"  wrapping="true" titleStyle="H3"/> -->
+                      <Title text="{i18n>mdccDetails}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
+                        <Title text="{MDCCNumber}" wrapping="true" titleStyle="H3"/>
+                        <Title text="{i18n>PODetails}" wrapping="true" titleStyle="H4"/>
+                        <Title text="{PONumber}" wrapping="true" titleStyle="H3"/>
                     </FlexBox>
                 </uxap:snappedHeading>
                 <uxap:expandedContent></uxap:expandedContent>
@@ -48,12 +52,12 @@
                 <VBox renderType="Bare">
                     <FlexBox direction="Row" renderType="Bare" class="sapUiTinyMarginBottom">
                         <VBox renderType="Bare" class="sapUiMediumMarginEnd">
-                            <Title text="Created On" wrapping="true" titleStyle="H4"/>
-                            <Title text="{path:'CreatedAt',
+                            <Label text="{i18n>createdOn}" />
+                            <Text text="{path:'CreatedAt',
                                      type: 'sap.ui.model.type.Date',
 				                     formatOptions: {
 				                        pattern: 'MMMM dd, yyyy'
-				                     }}"  wrapping="true" titleStyle="H3"/>
+				                     }}" />
                         </VBox>
                         <VBox renderType="Bare">
                             
@@ -80,58 +84,72 @@
                             visibleRowCountMode="Interactive"  expandFirstLevel="true"
                             rowSelectionChange="onSelectionOfRow">
 							<ui:columns>
-                                 <ui:Column width="7rem">
+                                 <ui:Column width="8%">
 									<Label text="Select"/>
 									<ui:template>
 										 <CheckBox selected="{TreeTableModel>isSelected}" 
                                             select="onSelectionOfRow" visible="{= ${TreeTableModel>isStandAlone} ? false : true}" />
 									</ui:template>
 								</ui:Column> 
+
+                                <ui:Column width="10%">
+				                    <Label text="Line Number"/>
+				                    <ui:template>
+					                    <Text text="{TreeTableModel>LineNumber}"  />
+				                    </ui:template>
+			                    </ui:Column>
                            
                                 <ui:Column>
-									<Label text="MaterialCode"/>
+									<Label text="{i18n>materialCode}"/>
 									<ui:template>
                                         <!-- <ObjectAttribute title="{TreeTableModel>MaterialCode}"/> -->
-										<Text text="{TreeTableModel>MaterialCode}" wrapping="false" />
+										<ObjectIdentifier title="{TreeTableModel>MaterialCode}"/>
 									</ui:template>
 								</ui:Column>
 								<ui:Column>
-									<Label text="Name"/>
+									<Label text="{i18n>name}"/>
 									<ui:template>
 										<Text text="{TreeTableModel>Name}" wrapping="false" />
 									</ui:template>
 								</ui:Column>
 								<ui:Column>
-									<Label text="Description"/>
+									<Label text="{i18n>desc}"/>
 									<ui:template>
 										<!-- <Text text="{TreeTableModel>Description}" wrapping="false" /> -->
-                                        <ExpandableText  text="{TreeTableModel>Description}" maxCharacters="20" overflowMode="Popover"/>
+                                        <ExpandableText  text="{TreeTableModel>Description}" maxCharacters="32" overflowMode="Popover"/>
 									</ui:template>
 								</ui:Column>
 								
-								<ui:Column>
-									<Label text="Quantity"/>
+								<ui:Column width="7%">
+									<Label text="{i18n>quantity}"/>
 									<ui:template>
 										<Text text="{TreeTableModel>Qty}" wrapping="false" />
 									</ui:template>
 								</ui:Column>
 
 								<ui:Column>
-									<Label text="MDCC Approved Quantity"/>
+									<Label text="{i18n>mdccApprovedQty}"/>
 									<ui:template>                                        
 										    <Text text="{TreeTableModel>MDCCApprovedQty}" />
 									</ui:template>
 								</ui:Column>
 
                                 <ui:Column>
-									<Label text="Dispatch Quantity"/>
+				                    <Label text="{i18n>remainQty}"/>
+				                        <ui:template>
+					                        <Text text="{TreeTableModel>RemainingDispatchedQty}" />
+                        				</ui:template>
+			                    </ui:Column>  
+
+                                <ui:Column>
+									<Label text="{i18n>dispatchQty}"/>
 									<ui:template>
 										<Input value="{TreeTableModel>DispatchQty}" liveChange="onLiveChangeDispatchQty" editable="false" visible="{= ${TreeTableModel>isStandAlone} ? false : true}" />
 									</ui:template>
 								</ui:Column>
 
-								<ui:Column>
-									<Label text="UOM"/>
+								<ui:Column width="8%">
+									<Label text="{i18n>uom}"/>
 									<ui:template>
 										<Text text="{TreeTableModel>UOM}" wrapping="false" />
 									</ui:template>
