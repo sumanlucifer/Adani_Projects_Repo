@@ -1,20 +1,28 @@
 {
     "resources": [
         {
-            "name": "controller/LandingPage.controller.js"
-        },
-        {
-            "name": "model/models.js"
-        },
-        {
-            "name": "manifest.json"
-        },
-        {
             "name": "i18n/i18n.properties",
             "raw": "i18n/i18n.properties"
         },
         {
             "name": "Component.js"
+        },
+        {
+            "name": "model/models.js"
+        },
+        {
+            "name": "controller/LandingPage.controller.js"
+        },
+        {
+<<<<<<< HEAD
+            "name": "i18n/i18n.properties",
+            "raw": "i18n/i18n.properties"
+        },
+        {
+            "name": "Component.js"
+=======
+            "name": "manifest.json"
+>>>>>>> develop
         },
         {
             "name": "manifest-bundle.zip"

@@ -1,9 +1,9 @@
 <core:FragmentDefinition xmlns="sap.m"
     xmlns:core="sap.ui.core"
     xmlns:fb="sap.ui.comp.filterbar">
-
     <fb:FilterBar id="filterbar" reset="onResetFilters" search="onSearch" useToolbar="false" showGoOnFB="true"
     showRestoreOnFB="true">
+    
         <fb:filterGroupItems>
             <fb:FilterGroupItem groupName="__$INTERNAL$" name="PONOs" label="{i18n>PONOs}" visibleInFilterBar="true" class="searchFieldLabelHidden" >
                 <fb:control>
@@ -37,7 +37,7 @@
                     </Input>
                 </fb:control>
             </fb:FilterGroupItem>
-                        <fb:FilterGroupItem groupName="__$INTERNAL$" name="CompanyCode" label="{i18n>CompanyCode}" visibleInFilterBar="true" class="searchFieldLabelHidden">
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="CompanyCode" label="{i18n>CompanyCode}" visibleInFilterBar="true" class="searchFieldLabelHidden">
                 <fb:control>
                     <Input id="idCompanyCode" placeholder="{i18n>EnterCompanyCode}" showValueHelp="false">
                     </Input>

@@ -8,7 +8,7 @@
              demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" 
              useVariantManagement="false" beforeRebindTable="onbeforeRebindOpenPoTable">
 
-        <Table sticky="ColumnHeaders,HeaderToolbar" updateFinished="onPurchaseOrderTableUpdateFinished"
+        <Table sticky="ColumnHeaders,HeaderToolbar" updateFinished="onDomesticTableUpdateFinished"
              alternateRowColors="true">
             <columns>
 
@@ -63,7 +63,7 @@
                           <core:CustomData key="p13nData" value='\{"columnKey": "GateEntryNumber", "leadingProperty": "GateEntryNumber",
                                                  "columnIndex": 4 }'/>
                     </customData>
-                    <Text text="{i18n>GateEntryNumber}"/>
+                    <Text text="{i18n>gateEntryNumber}"/>
                 </Column>
 
                 <!-- Quantity 

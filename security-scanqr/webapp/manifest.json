@@ -125,7 +125,7 @@
                 },
                 {
                     "name": "QRCodeDetailsPage",
-                    "pattern": "QRCodeDetails/{QRCode}",
+                    "pattern": "QRCodeDetails/{QRNo}/{Type}",
                     "target": [
                         "QRCodeDetailsPage"
                     ]

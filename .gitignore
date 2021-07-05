@@ -102,10 +102,32 @@ agel-mmts-web/vendorPersona/.env23
 # auto generated wildcard
 agel-mmts-web/vendorPersona-OpenPOs/.env1
 # auto generated wildcard
+<<<<<<< HEAD
+security-international-import/.env2
+# auto generated wildcard
+security-scan-history/.env2
+=======
 agel-mmts-web/vendor-manageboq/.env3
 # auto generated wildcard
 agel-mmts-web/tcengineer/.env3
+<<<<<<< HEAD
+>>>>>>> develop
+=======
 # auto generated wildcard
+pmcg/.env5
+<<<<<<< HEAD
+>>>>>>> develop
+=======
+# auto generated wildcard
+security-international-import/.env2
+# auto generated wildcard
+security-scan-history/.env2
+# auto generated wildcard
+security-scanqr/.env2
+# auto generated wildcard
+pmcg/.env6
+# auto generated wildcard
+<<<<<<< HEAD
 pmcg/.env5
 # auto generated wildcard
 agel-mmts-web/vendorPersona/.env22
@@ -113,3 +135,7 @@ agel-mmts-web/vendorPersona/.env22
 agel-mmts-web/vendor-mdcc/.env2
 # auto generated wildcard
 agel-mmts-web/vendor-map-mdcc/.env1
+=======
+tcengineer/.env4
+>>>>>>> develop
+>>>>>>> develop
