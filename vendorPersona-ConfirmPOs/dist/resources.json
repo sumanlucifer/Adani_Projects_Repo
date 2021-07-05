@@ -4,14 +4,14 @@
             "name": "controller/LandingPage.controller.js"
         },
         {
-            "name": "i18n/i18n.properties",
-            "raw": "i18n/i18n.properties"
-        },
-        {
             "name": "model/models.js"
         },
         {
             "name": "manifest.json"
+        },
+        {
+            "name": "i18n/i18n.properties",
+            "raw": "i18n/i18n.properties"
         },
         {
             "name": "Component.js"

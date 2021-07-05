@@ -1,7 +1,7 @@
 <core:FragmentDefinition
 	xmlns="sap.m"
 	xmlns:core="sap.ui.core">
-	<Dialog contentHeight="50%" contentWidth="50%" title="MDCC File Items">
+	<Dialog contentHeight="50%" contentWidth="50%" >
 		<content>
 			<VBox id="idMDCCUploadArea">
 				<UploadCollection id="idMDCCUploader" maximumFilenameLength="55" maximumFileSize="10" 

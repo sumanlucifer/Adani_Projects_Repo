@@ -2,17 +2,14 @@
 	xmlns="sap.m"
 	xmlns:mvc="sap.ui.core.mvc"
 	xmlns:core="sap.ui.core"
-
     displayBlock="true"
 	xmlns:ui="sap.ui.table">
-	<Dialog title="">
+	<Dialog>
 		<ui:TreeTable id="TreeTableBasicView"
-
-                            rows="{path:'TreeTableModelView>/', parameters: {arrayNames:['ChildItemsView']}}"
-
-                            selectionMode="None"  enableSelectAll="false"
-
-                            title="{i18n>TreeTableViewTitle}" ariaLabelledBy="title">
+                rows="{path:'TreeTableModelView>/',parameters: {arrayNames:['ChildItemsView']}}"
+                collapseRecursive="true" rowsUpdated="onRowsUpdated"
+                selectionMode="None" enableSelectAll="false"
+                 ariaLabelledBy="title">
 			<ui:columns>
 				<ui:Column width="5%">
 					<Label text="ID"/>
@@ -20,10 +17,16 @@
 						<Text text="{TreeTableModelView>ID}" wrapping="false" />
 					</ui:template>
 				</ui:Column>
+                <ui:Column width="5%">
+					<Label text="Line Number"/>
+					<ui:template>
+						<Text text="{TreeTableModelView>LineNumber}" wrapping="false" />
+					</ui:template>
+				</ui:Column>
 				<ui:Column width="8%">
 					<Label text="Material Code"/>
 					<ui:template>
-						<Text text="{TreeTableModelView>MaterialCode}" wrapping="false" />
+						<ObjectIdentifier title="{TreeTableModelView>MaterialCode}" />
 					</ui:template>
 				</ui:Column>
 				<ui:Column width="8%">
@@ -35,21 +38,19 @@
 				<ui:Column width="12%">
 					<Label text="Description"/>
 					<ui:template>
-						<Text text="{TreeTableModelView>Description}" wrapping="false" />
+			            <ExpandableText text="{TreeTableModelView>Description}" overflowMode="Popover" maxCharacters="32"/>
 					</ui:template>
 				</ui:Column>
 				<ui:Column width="5%">
-					<Label text="Qty"/>
+					<Label text="Total Qty"/>
 					<ui:template>
 						<Text text="{TreeTableModelView>Qty}" wrapping="false" />
 					</ui:template>
 				</ui:Column>
 				<ui:Column width="8%">
 					<Label text="MDCC Approved Qty"/>
-					<ui:template>
-						<HBox justifyContent="SpaceAround">
-							<Text text="{TreeTableModelView>MDCCApprovedQty}" />
-						</HBox>
+					<ui:template>						
+						<Text text="{TreeTableModelView>MDCCApprovedQty}" />
 					</ui:template>
 				</ui:Column>
 				<ui:Column width="5%">

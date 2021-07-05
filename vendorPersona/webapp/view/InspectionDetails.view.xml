@@ -12,7 +12,7 @@
         <f:title>
             <f:DynamicPageTitle>
                 <f:heading>
-                    <Title  text="Inspection - {SAPInspectionCallId}" wrapping="true"/>
+                    <Title  text="Inspection - {= ${SAPInspectionCallId}!== '0' ? ${SAPInspectionCallId} : ${OfflineInspectionCallId}}" wrapping="true"/>
                 </f:heading>
                 <f:breadcrumbs>
                     <Breadcrumbs  currentLocationText="{inspection_call_id} - {i18n>inspectionDetails}">
@@ -21,13 +21,13 @@
                     </Breadcrumbs>
                 </f:breadcrumbs>
                 <f:expandedContent>
-                    <Label  text="PO Number - {PONumber}"/>
+                    <Label  text="PO Number - {PONumber}"/>                    
                 </f:expandedContent>
                 <f:snappedContent>
                     <Label  text="PO Number - {PONumber}"/>
                 </f:snappedContent>
                 <f:snappedTitleOnMobile>
-                    <Title  text="{SAPInspectionCallId}"/>
+                    <Title  text="{= ${SAPInspectionCallId}!== '0' ? ${SAPInspectionCallId} : ${OfflineInspectionCallId}}"/>
                 </f:snappedTitleOnMobile>
             </f:DynamicPageTitle>
         </f:title>
@@ -39,18 +39,18 @@
                                      type: 'sap.ui.model.type.Date',
 				                     formatOptions: {
 				                        pattern: 'MMMM dd, yyyy'
-				                     }}"/>
-                                    
+				                     }}"/>                                    
                 </f:content>
             </f:DynamicPageHeader>
         </f:header>
-        <!--        DynamicPage Content -->
+        <!-- DynamicPage Content -->
         <f:content>
-            <IconTabBar  expanded="{device>/isNoPhone}" class="sapUiResponsiveContentPadding" id="idIcnTabBar">
+            <IconTabBar id="idIcnTabBar" expanded="{device>/isNoPhone}" class="sapUiResponsiveContentPadding">
                 <items>
-                    <IconTabFilter  text="{i18n>lineItems}">
+                    <IconTabFilter id="inspectedItems" key="idInspectedListTab" text="{i18n>lineItems}">
                         <VBox  renderType="Bare">
-                            <Table  id="idInspectedParentLineItems" width="auto" items="{InspectedParentItems}" noDataText="{i18n>noParentItems}" growing="true" growingScrollToLoad="true">
+                            <Table  id="idInspectedParentLineItems" width="auto" items="{InspectedParentItems}" noDataText="{i18n>noParentItems}" 
+                                growing="true" growingScrollToLoad="true" fixedLayout="false">
                                 <headerToolbar>
                                     <OverflowToolbar>
                                         <ToolbarSpacer  />
@@ -68,8 +68,11 @@
                                 </headerToolbar>
                                 <columns>
                                     <Column>
-                                        <Text  text="{i18n>materialCode}"/>
+                                        <Text  text="{i18n>lineNumber}"/>
                                     </Column>
+                                    <Column>
+                                        <Text  text="{i18n>materialCode}"/>
+                                    </Column>                                                                        
                                     <Column>
                                         <Text  text="{i18n>name}"/>
                                     </Column>
@@ -77,7 +80,10 @@
                                         <Text  text="{i18n>description}"/>
                                     </Column>
                                     <Column>
-                                        <Text  text="{i18n>approvedQty}"/>
+                                        <Text  text="{i18n>qty}"/>
+                                    </Column>
+                                    <Column hAlign="Center">
+                                        <Text  text="{i18n>mdccApprovedQty}"/>
                                     </Column>
                                     <Column>
                                         <Text  text="{i18n>uom}"/>
@@ -86,11 +92,12 @@
                                 <items>
                                     <ColumnListItem  type="Active">
                                         <cells>
+                                            <ObjectIdentifier  title="{LineNumber}"/>
                                             <ObjectIdentifier  title="{MaterialCode}"/>
-                                            <Text  text="{Name}">
-                                            </Text>
-                                            <ExpandableText  text="{Description}" maxCharacters="20" overflowMode="Popover"/>
-                                            <Text  text="{Qty}"/>
+                                            <Text  text="{Name}"/>                        
+                                            <ExpandableText  text="{Description}" maxCharacters="32" overflowMode="Popover"/>
+                                            <Text text="{Qty}"/>
+                                            <Text  text="{MDCCApprovedQty}"/>                                            
                                             <Text  text="{UOM}"/>
                                         </cells>
                                     </ColumnListItem>
@@ -102,19 +109,19 @@
                         <VBox renderType="Bare">
                             <Table id="idTblMDCC" width="auto" growing="true" growingScrollToLoad="true"
                             items="{path:'MDCC',parameters:{expand:'MDCCParentLineItems,Attachments'}}" 
-                            noDataText="{i18n>noPackingLists}" >
+                            noDataText="{i18n>noPackingLists}" fixedLayout="false">
                                 <headerToolbar>
                                     <OverflowToolbar>
                                         <Title text="Manage MDCC" level="H4" id="idPackingListTitle"/>
                                         <ToolbarSpacer />
-                                        <Button text="Add" tooltip="{i18n>sort}" icon="sap-icon://add" press="onAddMdccItem" 
+                                        <Button text="Add" tooltip="{i18n>add}" icon="sap-icon://add" press="onAddMdccItem" 
                                             type="Transparent"/>
                                         <Button tooltip="{i18n>sort}" icon="sap-icon://sort" press="handleSortButtonPressed" type="Transparent" visible="false"/>
                                         <Button tooltip="{i18n>filter}" icon="sap-icon://filter" press="handleFilterButtonPressed" type="Transparent" visible="false"/>
                                         <Button press=".onExportParentItemsExportPress" icon="sap-icon://download" visible="false"/>
                                     </OverflowToolbar>
                                 </headerToolbar>
-                                <columns>
+                                <columns>        
                                     <Column>
                                         <Text text="{i18n>MDCCNumber}"/>
                                     </Column>
@@ -122,7 +129,7 @@
                                         <Text text="{i18n>POitem}"/>
                                     </Column> -->
                                     <Column>
-                                        <Text text="{i18n>Upload}"/>
+                                        <Text text="{i18n>attachment}"/>
                                     </Column>
                                     <Column>
                                         <Text text="{i18n>action}"/>
@@ -139,11 +146,11 @@
                                 </columns>
                                 <items>
                                     <ColumnListItem>
-                                        <cells>
+                                        <cells>                                            
                                             <Text text="{MDCCNumber}"/>
                                             <!-- <Text text="{PONumber}"/> -->
                                             <VBox>
-                                                <Link id="idFileName" text="View Files"
+                                                <Link id="idFileName" text="{i18n>viewAttachment}"
                                                       press="onShowFileNameDialog" 
                                                     visible="{path:'Attachments',formatter:'.formatter.viewFileNames'}"/>
                                                                                 <!-- onFileUrlClick      -->
@@ -153,12 +160,12 @@
                                                   visible="{path:'Attachments',formatter:'.formatter.viewItemsFileUploader'}" />
                                             </VBox>
 
-                                            <Link text="Map Items for MDCC" press="onMapMDCCCItems" 
-                                                enabled="{= ${Status}.length > 0 ? false : true }"/>
-                                            
+                                            <Link text="{i18n>mapItemsForMDCC}" press="onMapMDCCCItems" 
+                                                enabled="{parts:[{path:'Attachments'},{path:'Status'}],formatter:'.formatter.viewMapItems'}"/>
+                                                         
                                             <!-- enabled="{path:'Attachments',formatter:'.formatter.testFunction2'}" -->
                                             
-                                            <Link text="View Items" press="onViewPress" 
+                                            <Link text="{i18n>viewItems}" press="onViewPress" 
                                                     visible="{path:'MDCCParentLineItems',formatter:'.formatter.viewItemsVisible'}" />  
                                                     
                                             <VBox>
@@ -166,8 +173,9 @@
                                                         visible="{= ${Status}.length>0 ? true : false }"/>
 
                                                 <Button text="Send For Approval" press="onSendForApprovalPress" 
-                                                        visible="{= ${Status}.length > 0 ?  false : true  }" 
-                                                        enabled="{path:'Attachments',formatter:'.formatter.viewFileNames'}"/>
+                                                        visible="{= ${Status}.length > 0 ?  false : true  }"                                         
+                                                        enabled="{parts:[{path:'MDCCParentLineItems'},{path:'Status'}],formatter:'.formatter.viewSendForApproval'}"
+                                                        />
                                             </VBox>
                                             <Link text="Manage" press="onManagePress"
                                                 enabled="{= ${Status} === 'APPROVED' ? true : false }"/>
