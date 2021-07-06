@@ -7,9 +7,9 @@
 
     <Table items="{path: 'PackingListParentItems'}" autoPopinMode="true" growingThreshold="5" growing="true" fixedLayout="false">
         <columns>
-            <!-- <Column hAlign="Begin">
+            <Column>
                 <Text text="Line Number"/>
-            </Column> -->
+            </Column>
             <Column>
                 <Text text="Material Code"/>
             </Column>
@@ -35,7 +35,7 @@
         <items>
             <ColumnListItem>
                 <cells>
-                    <!-- <Text text="{LineNumber}"/> -->
+                    <Text text="{LineNumber}"/>
                     <ObjectIdentifier title="{MaterialCode}"/>
                     <Text text="{Name}"/>
                     <Text text="{Qty}"/>

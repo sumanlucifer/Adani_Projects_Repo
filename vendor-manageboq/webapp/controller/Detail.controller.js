@@ -141,7 +141,7 @@ sap.ui.define([
                 Remarks: "",
                 UOM: "",
                 MasterBOQItemId: "",
-                MasterUOMItemId:"",
+                masterUOMItemId:"",
                 UOMSuggestions: null
             });
 

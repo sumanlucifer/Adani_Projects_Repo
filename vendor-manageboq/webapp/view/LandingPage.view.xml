@@ -12,8 +12,7 @@
             </f:DynamicPageTitle>
         </f:title>
         <f:content>
-            <List items="{path: '/ParentLineItemSet',
-                                                sorter: {path: 'Name'}}" updateFinished="onUpdateListFinished">
+           <!-- <List items="{path: '/ParentLineItemSet'}" updateFinished="onUpdateListFinished">
                 <headerToolbar>
                     <OverflowToolbar>
                     <content>
@@ -22,7 +21,9 @@
                     </OverflowToolbar>
                 </headerToolbar>
                 <StandardListItem title="{Name}" description="Description: {Description}" info="Material Code: {MaterialCode}" type="Navigation" press="onParentLineItemPress"/>
-            </List>
+            </List>-->
+<List id="idParentLineItemList"/>
+
         </f:content>
     </f:DynamicPage>
 </mvc:View>

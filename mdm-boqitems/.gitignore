@@ -25,3 +25,6 @@ security-international-import/.env2
 agel-mmts-web/tcengineer/.env3
 # auto generated wildcard
 
+
+# auto generated wildcard
+vendor-manageboq/.env4

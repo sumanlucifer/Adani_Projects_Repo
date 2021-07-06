@@ -10,3 +10,5 @@ archive.zip
 .*_mta_build_tmp
 # auto generated wildcard
 agel-mmts-web/vendor-map-mdcc/.env1
+# auto generated wildcard
+vendor-manageboq/.env4
