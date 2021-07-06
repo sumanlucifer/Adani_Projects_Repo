@@ -172,6 +172,10 @@ modules:
       - comagelmmtsvendorpackinglistcreate-content.zip
       name: comagelmmtsvendorpackinglistcreate
       target-path: resources/  
+    - artifacts:
+      - vendor-map-mdcc-content.zip
+      name: vendor-map-mdcc
+      target-path: resources/
 - name: vendorPersona
   type: html5
   path: vendorPersona
@@ -470,7 +474,15 @@ modules:
     builder: custom
     commands:
     - npm run build
-    supported-platforms: []    
+    supported-platforms: []  
+- name: vendor-map-mdcc
+  type: html5
+  path: vendor-map-mdcc
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []  
 resources:
 - name: uaa_agel-mmts-web
   type: org.cloudfoundry.managed-service

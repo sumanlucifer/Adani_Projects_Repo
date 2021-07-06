@@ -286,7 +286,8 @@ sap.ui.define([
                     for (var j = 0; j < data[i].NumberOfPackages; j++) {
                         var oEntry = {};
                         oEntry.PackagingType = data[i].PackagingType;
-                        oEntry.LineNumber = data[i].Name;
+                        oEntry.LineNumber = data[i].LineNumber;
+                        oEntry.Name = data[i].Name;
                         oEntry.PackingListContainsId = data[i].ID;
                         oEntry.PackagingQty = null;
                         oEntry.UOM = data[i].UOM;

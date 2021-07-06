@@ -127,5 +127,18 @@ security-scanqr/.env2
 # auto generated wildcard
 pmcg/.env6
 # auto generated wildcard
+<<<<<<< HEAD
+pmcg/.env5
+# auto generated wildcard
+agel-mmts-web/vendorPersona/.env22
+# auto generated wildcard
+agel-mmts-web/vendor-mdcc/.env2
+# auto generated wildcard
+agel-mmts-web/vendor-map-mdcc/.env1
+=======
 tcengineer/.env4
 >>>>>>> develop
+>>>>>>> develop
+
+# auto generated wildcard
+vendor-manageboq/.env4

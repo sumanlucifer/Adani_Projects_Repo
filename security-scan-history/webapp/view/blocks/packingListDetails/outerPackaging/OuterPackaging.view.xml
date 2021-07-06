@@ -17,9 +17,9 @@
             <!-- <Column>
                 <Text text="Dispatch Qty."/>
             </Column> -->
-            <!-- <Column>
+            <Column>
                 <Text text="Packaging Dimensions"/>
-            </Column> -->
+            </Column>
             <!-- <Column>
                 <Text text="UOM"/>
             </Column> -->
@@ -33,7 +33,7 @@
                     <ObjectIdentifier title="{PackagingType}"/>
                     <!-- <ObjectIdentifier title="{ID}"/> -->
                     <!-- <Text text="{DispatchQty}"/> -->
-                    <!-- <Text text="{PackagingDimensions}"/> -->
+                    <Text text="{PackagingDimensions}"/>
                     <!-- <Text text="{UOM}"/> -->
                     <Link text="View QR Code" binding="{QrCode}" visible="{= ${QRNumber}}" press="onViewQRCodePress"/>
                 </cells>

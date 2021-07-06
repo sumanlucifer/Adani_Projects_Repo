@@ -30,7 +30,7 @@ sap.ui.define([
                 
                 var oViewModel = new JSONModel({
                     "submitQRCode": false,
-                    "scanQRCode": false,
+                    "scanQRCode": true,
                     "submitInvoiceCode": false
 
                 });
@@ -83,10 +83,10 @@ sap.ui.define([
                 oEvent.getSource().setSelectedItem(oEvent.getSource().getSelectedItem());
                 if ( qrCodeID == "" ){
                     qrCodeInput.setValueState(ValueState.Error);
-                    this.getView().byId("idVenBtn").setProperty("enabled", false);
+                    // this.getView().byId("idVenBtn").setProperty("enabled", false);
                 }else{
                      qrCodeInput.setValueState(ValueState.None);
-                     this.getView().byId("idVenBtn").setProperty("enabled", true);
+                    //  this.getView().byId("idVenBtn").setProperty("enabled", true);
                      
                     //  this.onPressSubmitQRCode(oBindingObject,qrCodeInput.getValue());
                     //  that.getRouter().navTo("QRCodeDetailsPage", {QRCode:qrCodeID});
@@ -101,15 +101,41 @@ sap.ui.define([
                 oEvent.getSource().setSelectedItem(oEvent.getSource().getSelectedItem());
                 if ( invoiceID == "" ){
                     invoiceInput.setValueState(ValueState.Error);
-                    this.getView().byId("idInvBtn").setProperty("enabled", false);
+                    // this.getView().byId("idInvBtn").setProperty("enabled", false);
                 }else{
                      invoiceInput.setValueState(ValueState.None);
-                     this.getView().byId("idInvBtn").setProperty("enabled", true);
+                    //  this.getView().byId("idInvBtn").setProperty("enabled", true);
 
                 }                
             },
+
+            onLiveChangeQR : function(oEvent) {
+                var qrcodeID = this.byId("idInputQRCode").getSelectedKey();
+                if ( qrcodeID == "" ){
+                      this.getView().byId("idVenBtn").setProperty("enabled", false);
+                      this.getView().byId("idQRSubmit").setProperty("enabled", true);
+                }else{
+                      this.getView().byId("idVenBtn").setProperty("enabled", true);
+                      this.getView().byId("idQRSubmit").setProperty("enabled", false);
+                }         
+            },
+
+            onLiveChangeInvoice : function(oEvent) {
+                var invoiceID = this.byId("idInvoiceNum").getSelectedKey();
+                if ( invoiceID == "" ){
+                      this.getView().byId("idInvBtn").setProperty("enabled", false);
+                      this.getView().byId("idQRSubmit").setProperty("enabled", true);
+                }else{
+                      this.getView().byId("idInvBtn").setProperty("enabled", true);
+                      this.getView().byId("idQRSubmit").setProperty("enabled", false);
+                }         
+            },
+
+            // On Press QR Histroy
             onPressScanQRCode : function(){
                 var that = this;
+                this.getView().byId("idVenBtn").setProperty("enabled", false);
+                this.getView().byId("idInvBtn").setProperty("enabled", false);
                 this.validateQRCode();
             },
 

@@ -98,11 +98,11 @@ sap.ui.define([
         // On Icon Tab Select
         onIconTabBarChanged: function (sKey) {
              if (sKey === "OPEN") {
-                 this.byId("pageTitle").setText(this.getResourceBundle().getText("OpenPOs"));
+                 this.byId("pageTitle").setText(this.getResourceBundle().getText("OpenPO"));
              } else if (sKey === "CONFIRMED") {
-                 this.byId("pageTitle").setText(this.getResourceBundle().getText("ConfirmedPOs"));
+                 this.byId("pageTitle").setText(this.getResourceBundle().getText("ConfirmedPO"));
              } else if(sKey === "CLOSED") {
-                 this.byId("pageTitle").setText(this.getResourceBundle().getText("DispatchedPOs"));
+                 this.byId("pageTitle").setText(this.getResourceBundle().getText("ClosedPO"));
              }
         },
 
@@ -111,11 +111,11 @@ sap.ui.define([
              var sKey = oEvent.getParameter("key");
              
              if (sKey === "OPEN") {
-                 this.byId("pageTitle").setText(this.getResourceBundle().getText("OpenPOs"));
+                 this.byId("pageTitle").setText(this.getResourceBundle().getText("OpenPO"));
              } else if (sKey === "CONFIRMED") {
-                 this.byId("pageTitle").setText(this.getResourceBundle().getText("ConfirmedPOs"));
+                 this.byId("pageTitle").setText(this.getResourceBundle().getText("ConfirmedPO"));
              } else if(sKey === "CLOSED") {
-                 this.byId("pageTitle").setText(this.getResourceBundle().getText("DispatchedPOs"));
+                 this.byId("pageTitle").setText(this.getResourceBundle().getText("ClosedPO"));
              }
         },
 

@@ -32,7 +32,7 @@
                 <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "IssueDate", "leadingProperty": "CreatedAt",
-                                                 "columnIndex": 3 }'/>
+                                                 "columnIndex": 3,  "sortProperty": "IssueDate"  }'/>
                     </customData>
                     <Text text="{i18n>issuedate}"/>
                 </Column>
@@ -42,7 +42,7 @@
                 <Column demandPopin="true" minScreenWidth="Desktop">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "ReleaseDate", "leadingProperty": "POReleaseDate",
-                                                 "columnIndex": 4}'/>
+                                                 "columnIndex": 4,  "sortProperty": "ReleaseDate" }'/>
                     </customData>
                     <Text text="{i18n>releaseDate}"/>
                 </Column>
@@ -50,7 +50,7 @@
                 <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "ConfirmedDate", "leadingProperty": "UpdatedAt",
-                                                 "columnIndex": 5 }'/>
+                                                 "columnIndex": 5,  "sortProperty": "ConfirmedDate"  }'/>
                     </customData>
                     <Text text="{i18n>confirmdate}"/>
                 </Column> 

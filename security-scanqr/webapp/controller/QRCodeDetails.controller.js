@@ -38,7 +38,7 @@ sap.ui.define([
                     "wantChange": false,
                     "closeButton": false,
                     "submitButton": true,
-                    "ReEnterVehicleNob": null
+                    "ReEnterVehicleNoNew": null
 
                 });
                 this.setModel(oViewHandlingModel, "oViewHandlingModel");
@@ -86,20 +86,21 @@ sap.ui.define([
             onSaveScanQrCode: function () {
                 var that = this;
                 var PackingListId = this.getView().getBindingContext().getObject().ID;
+                var userInfo = sap.ushell.Container.getService("UserInfo").getId();
                 var oPayload = {
                     "QRCodeId": that.QRCode,
                     "PackingListId": PackingListId,
-                    "UserId": "1"
+                    "UserId":  userInfo      // "1"
                 };
 
                 this.MainModel.create("/ScannedMaterialSet", oPayload, {
                     success: function (oData, oResponse) {
                         that.scannedMaterialID= oData.ID;
-                        objectViewModel.setProperty("/busy", false);
+                        // objectViewModel.setProperty("/busy", false);
                         // sap.m.MessageBox.success("Scanned QR Code Stored Successfully");
                     }.bind(this),
                     error: function (oError) {
-                        objectViewModel.setProperty("/busy", false);
+                        // objectViewModel.setProperty("/busy", false);
                         sap.m.MessageBox.error(JSON.stringify(oError));
                     }
                 });
@@ -119,12 +120,12 @@ sap.ui.define([
 
             // On Approve Press Vehicle Number
             onPressApproveVehicleNumber: function () {
-                this.byId("idHboxReEnterVehicleNob").setVisible(false);
+                this.byId("idHboxReEnterVehicleNo").setVisible(false);
             },
 
             // On Reject Press Vehicle Number
             // onPressRejectVehicleNumber: function () {
-            //     this.byId("idHboxReEnterVehicleNob").setVisible(true);             
+            //     this.byId("idHboxReEnterVehicleNo").setVisible(true);             
             // },
 
             // On Submit Press - 
@@ -135,7 +136,7 @@ sap.ui.define([
 
                 // var obj = oEvent.getSource().getBindingContext().getObject();
                 // if(!obj.VehicleNumber){
-                //     var vechno = this.byId("idReEnterInputVehcileNob1").getValue();
+                //     var vechno = this.byId("idReEnterInputVehcileNoNew").getValue();
                 //     if (vechno == "") {
                 //         sap.m.MessageBox.error("Please enter Vehicle Number");
                 //         return;
@@ -145,7 +146,7 @@ sap.ui.define([
                 var that = this;
                 var obj = oEvent.getSource().getBindingContext().getObject();
                 var newVehiclenumber = this.getView().getModel("oViewHandlingModel").oData.ReEnterVehicleNo;
-                var emptyVehiclenumber = this.getView().getModel("oViewHandlingModel").oData.ReEnterVehicleNob;
+                var emptyVehiclenumber = this.getView().getModel("oViewHandlingModel").oData.ReEnterVehicleNoNew;
                 if (newVehiclenumber) {
                     var oVehicleNob = newVehiclenumber;
                 }

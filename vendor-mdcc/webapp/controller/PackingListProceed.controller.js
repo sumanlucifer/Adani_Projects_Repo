@@ -94,11 +94,11 @@ sap.ui.define([
                 oEvent.getSource().setValueState("None");
                 this.getView().byId("idBtnProceed").setEnabled(true);
                 var oValue = oEvent.getSource().getValue();
-                var mdccQty = oEvent.getSource().getParent().getCells()[5].getText();
+                var remainingQty = oEvent.getSource().getParent().getCells()[6].getText();
                 var flag = 0 ;
-                if ( parseInt(oValue) > parseInt(mdccQty) ){
+                if ( parseInt(oValue) > parseInt(remainingQty) || remainingQty == "" ){
                     oEvent.getSource().setValueState("Error");
-                    oEvent.getSource().setValueStateText("Please enter less dispatch quantity than approved quantity");
+                    oEvent.getSource().setValueStateText("Please enter less dispatch quantity than remaining quantity");
                     this.getView().byId("idBtnProceed").setEnabled(false);
                     flag = 1;
                 }
@@ -116,18 +116,19 @@ sap.ui.define([
             // On Selection Of Row 
             onSelectionOfRow: function (oEvent) {
                 var bSelected = oEvent.getParameter("selected");
-                var dispatchQty = oEvent.getSource().getParent().getCells()[6].getValue();
+                var dispatchQty = oEvent.getSource().getParent().getCells()[8].getValue();
                 if (bSelected) {
                     if ( dispatchQty == ""){
                         this.getView().byId("idBtnProceed").setEnabled(false);
                     }else{
                         this.getView().byId("idBtnProceed").setEnabled(true);
                     }
-                    oEvent.getSource().getParent().getCells()[6].setEditable(true);
+                    oEvent.getSource().getParent().getCells()[8].setEditable(true);
                     oEvent.getSource().getParent().getRowBindingContext().getObject().isSelected = true;             
                 } else {
-                    oEvent.getSource().getParent().getCells()[6].setEditable(false);
+                    oEvent.getSource().getParent().getCells()[8].setEditable(false);
                     oEvent.getSource().getParent().getRowBindingContext().getObject().isSelected = false;
+                    oEvent.getSource().getParent().getCells()[8].setValue("");
                 }
             },
 
