@@ -8,7 +8,7 @@
 	<Shell id="shell">
 		<App id="app">
 			<pages>
-				<Page id="page" >
+				<Page id="page">
                     <customHeader>
                         <Bar>
                             <contentLeft>
@@ -41,7 +41,7 @@
 									</ui:template>
 								</ui:Column> -->
 
-                                <ui:Column width="7%">
+                                <ui:Column width="9%">
 									<Label text="Line Number"/>
 									<ui:template>
 										<Text text="{TreeTableModel>LineNumber}"  />
@@ -71,7 +71,7 @@
 								</ui:Column>
 								
 								<ui:Column>
-									<Label text="Quantity"/>
+									<Label text="Total Quantity"/>
 									<ui:template>
 										<Text text="{TreeTableModel>Qty}"  />
 									</ui:template>

@@ -18,7 +18,7 @@
 					<Text text="{TreeTableModelView>ID}" wrapping="false" />
 				</ui:template>
 			</ui:Column> -->
-            <ui:Column>
+            <ui:Column width="7%">
 				<Label text="Line Number"/>
 				<ui:template>
 					<Text text="{TreeTableModelView>LineNumber}"  />
@@ -48,7 +48,7 @@
 			</ui:Column>	
 
 			<ui:Column width="7%">
-				<Label text="{i18n>quantity}" />
+				<Label text="{i18n>totalQuantity}" />
 				<ui:template>
 					<Text text="{TreeTableModelView>Qty}" wrapping="false" />
 				</ui:template>

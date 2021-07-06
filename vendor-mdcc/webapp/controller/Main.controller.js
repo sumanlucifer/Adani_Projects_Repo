@@ -55,8 +55,8 @@ sap.ui.define([
             _onObjectMatched: function (oEvent) {
 
                 //debugger;
-                var startupParams = this.getOwnerComponent().getComponentData().startupParameters;
-               // var startupParams={MDCCId:163,manage:"false"};
+               // var startupParams = this.getOwnerComponent().getComponentData().startupParameters;
+                var startupParams={MDCCId:163,manage:"false"};
 
                 // startupParams.manage=false;
                 // get Startup params from Owner Component
@@ -169,11 +169,11 @@ sap.ui.define([
 
             onLiveChangeApprovedQty: function (oEvent) {
                 var rowObj = oEvent.getSource().getParent().getRowBindingContext().getObject();
-                var MDCCApprovedQty = oEvent.getSource().getParent().getCells()[6].getValue();
-                var aCell = oEvent.getSource().getParent().getCells()[6];
+                var MDCCApprovedQty = oEvent.getSource().getParent().getCells()[7].getValue();
+                var aCell = oEvent.getSource().getParent().getCells()[7];
                 if (parseInt(MDCCApprovedQty) > parseInt(rowObj.Qty)) {
                     aCell.setValueState("Error");
-                    aCell.setValueStateText("Please do not enter more quantity than total quantity")
+                    aCell.setValueStateText("Please do not enter more quantity than remaining quantity")
                     this.getView().byId("idBtnSave").setEnabled(false);
                 } else {
                     aCell.setValueState("None");
@@ -185,13 +185,13 @@ sap.ui.define([
                 var bSelected = oEvent.getParameter("selected");
 
                 if (bSelected) {
-                    oEvent.getSource().getParent().getCells()[6].setEditable(true);
+                    oEvent.getSource().getParent().getCells()[7].setEditable(true);
                     if (oEvent.getSource().getParent().getRowBindingContext().getObject().isPreviouslySelected) {
                         oEvent.getSource().getParent().getRowBindingContext().getObject().IsDeleted = false;
                     }
                 } else {
-                    oEvent.getSource().getParent().getCells()[6].setEditable(false);
-                    oEvent.getSource().getParent().getCells()[6].setValue(null);
+                    oEvent.getSource().getParent().getCells()[7].setEditable(false);
+                    oEvent.getSource().getParent().getCells()[7].setValue(null);
 
                     // Is Deleted - If User unselect the previous saved item
                     if (oEvent.getSource().getParent().getRowBindingContext().getObject().isPreviouslySelected) {
