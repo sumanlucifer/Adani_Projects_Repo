@@ -34,6 +34,7 @@ sap.ui.define([
             
             _onObjectMatched : function(oEvent){
                // debugger;
+               this.getView().getModel().setProperty("/busy", false);
             },
 
             onLiveChangePoNob : function(oEvent){
@@ -82,11 +83,14 @@ sap.ui.define([
                     "VehicleNumber": oModel.VehicleNumber,
                     "InvoiceNumber": oModel.InvoiceNumber,
                 };
+                that.getComponentModel("app").setProperty("/busy", true);
                 that.MainModel.create("/ManualEntrySet", oPayload, {
                     success: function (oData, oResponse) {
+                        that.getComponentModel("app").setProperty("/busy", false);
                         sap.m.MessageBox.success("Import entry created successfully");        
                     }.bind(this),
                     error: function (oError) {
+                        that.getComponentModel("app").setProperty("/busy", false);
                         sap.m.MessageBox.error(JSON.stringify(oError));
                     }
                 });

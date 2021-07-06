@@ -21,13 +21,13 @@
                 <uxap:expandedHeading>
                     <FlexBox direction="Column" renderType="Bare">
                         <Title text="{i18n>packingList}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
-                        <!-- <Title text="{PackagingReferenceNumber}" wrapping="true" titleStyle="H3" /> -->
+                        <Title text="{Name}" wrapping="true" titleStyle="H3" />
                     </FlexBox>
                 </uxap:expandedHeading>
                 <uxap:snappedHeading>
                     <FlexBox direction="Column" renderType="Bare">
                         <Title text="{i18n>packingList}" wrapping="true" titleStyle="H4"/>
-                        <!-- <Title text="{PackagingReferenceNumber}" wrapping="true" titleStyle="H3"/> -->
+                        <Title text="{Name}" wrapping="true" titleStyle="H3"/>
                     </FlexBox>
                 </uxap:snappedHeading>
                 <uxap:expandedContent></uxap:expandedContent>
@@ -73,6 +73,17 @@
                             <Label text="{i18n>plantCode}" />
                             <!-- missing -->
                             <Text text="{PlantCode}"/>
+                        </VBox>
+                        <VBox renderType="Bare" class="sapUiMediumMarginEnd">
+                            <Label text="Created On" />
+                            <!-- missing -->
+
+                            <Text text="{path:'CreatedAt',
+                                     type: 'sap.ui.model.type.Date',
+				                     formatOptions: {
+				                        pattern: 'MMMM dd, yyyy'
+				                     }
+                            }"/>
                         </VBox>
                     </FlexBox>
                 </VBox>
@@ -147,12 +158,12 @@
                                     <Label text="Vehicle Number" />
                                     <Input value="{VehicleNumber}" editable="{= ${objectViewModel>/isPackingListInEditMode} ? true : false}"/>
                                     <Label text="Invoice Number" />
-                                    <Input value="{InvoiceNumber}" editable="{= ${objectViewModel>/isPackingListInEditMode} ? true : false}"/>
+                                    <Input id="idVehicleNumber" value="{InvoiceNumber}" editable="{= ${objectViewModel>/isPackingListInEditMode} ? true : false}"/>
                                     <!-- <core:Title ></core:Title> -->
                                     <Label text="Packaging Ref. No" />
-                                    <Input value="{PackagingReferenceNumber}" editable="{= ${objectViewModel>/isPackingListInEditMode} ? true : false}"/>
+                                    <Input id="idPackagagingRefNumber" value="{PackagingReferenceNumber}" editable="{= ${objectViewModel>/isPackingListInEditMode} ? true : false}"/>
                                     <Label text="Invoice Date" />
-                                    <DatePicker value="{InvoiceDate}" valueFormat="yyyy-MM-dd" displayFormat="yyyy-MM-dd" editable="{= ${objectViewModel>/isPackingListInEditMode} ? true : false}"/>
+                                    <DatePicker id="idInvoiceDate" value="{InvoiceDate}" valueFormat="yyyy-MM-dd" displayFormat="yyyy-MM-dd" editable="{= ${objectViewModel>/isPackingListInEditMode} ? true : false}"/>
                                 </f:content>
                             </f:SimpleForm>
                         </uxap:blocks>

@@ -23,13 +23,18 @@
                 </uxap:breadcrumbs>
                 <uxap:expandedHeading>
                     <FlexBox direction="Column" renderType="Bare">
-                        <Title text="MDCC Details" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
+                        <Title text="{i18n>mdccDetails}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
                         <Title text="{MDCCNumber}" wrapping="true" titleStyle="H3"/>
+                         <Title text="{i18n>PODetails}" wrapping="true" titleStyle="H4"/>
+                        <Title text="{PONumber}" wrapping="true" titleStyle="H3"/>
                     </FlexBox>                                  
                 </uxap:expandedHeading>
                 <uxap:snappedHeading>
                     <FlexBox direction="Column" renderType="Bare">
-                        
+                        <Title text="{i18n>mdccDetails}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
+                        <Title text="{MDCCNumber}" wrapping="true" titleStyle="H3"/>
+                        <Title text="{i18n>PODetails}" wrapping="true" titleStyle="H4"/>
+                        <Title text="{PONumber}" wrapping="true" titleStyle="H3"/>
                     </FlexBox>
                 </uxap:snappedHeading>
                 <uxap:expandedContent>
@@ -38,7 +43,7 @@
                    <!-- <Title text="MDCC" wrapping="true" titleStyle="Auto"/>-->
                 </uxap:snappedTitleOnMobile>
                 <uxap:actions>
-                    <Button text="Initiate Dispatch" type="Emphasized" press="onPressInitiateDispatch"/>
+                    <Button text="{i18n>initiateDispatch}" type="Emphasized" press="onPressInitiateDispatch"/>
                 </uxap:actions>
             </uxap:ObjectPageDynamicHeaderTitle>
         </uxap:headerTitle>
@@ -49,12 +54,12 @@
                         <VBox renderType="Bare" class="sapUiMediumMarginEnd">
                          <!--   <Label text="MDCC Number" />-->
                             <!-- missing -->
-                            <Title text="Created On" wrapping="true" titleStyle="H4"/>
-                            <Title text="{path:'CreatedAt',
+                            <Label text="{i18n>createdOn}" />
+                            <Text text="{path:'CreatedAt',
                                      type: 'sap.ui.model.type.Date',
 				                     formatOptions: {
 				                        pattern: 'MMMM dd, yyyy'
-				                     }}"  wrapping="true" titleStyle="H5"/>
+				                     }}" />
                         </VBox>
                         <VBox renderType="Bare">
                             
@@ -75,19 +80,15 @@
             </uxap:ObjectPageSection>
             
             <!-- Reason Approve / Reject Items Section -->
-            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>Reason}">
+            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>reasonApproveReject}">
                 <uxap:subSections>
-                    
-                    <uxap:ObjectPageSubSection title="{i18n>Reason}">
+                    <uxap:ObjectPageSubSection title="{i18n>reasonApproveReject}">
                         <uxap:blocks>
-                       <VBox alignContent="SpaceAround" items="{MDCCStatuses}" >
-                        <ObjectAttribute title="Reason For Approve / Reject" text="{Comment}"/>
-                        <!-- <Label text="Lorem ipsum dolor sit amet, consectetur adipiscing elit.\b 
-                            Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.
-                             Proin sodales pulvinar sic tempor.\b Sociis natoque penatibus et magnis dis parturient montes, 
-                                nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate,
-                             felis tellus mollis orci, sed rhoncus pronin sapien nunc accuan eget."/> -->
-                        </VBox>
+                            <VBox alignContent="SpaceAround" items="{MDCCStatuses}" >
+                                <TextArea value="{Comment}" rows="3" cols="100%" enabled="false" width="100%"
+                                 class="sapUiTinyMarginTop"/>
+                                <!-- <ObjectAttribute title="{i18n>reasonApproveReject}" text="{Comment}"/> -->
+                            </VBox>
                         </uxap:blocks>
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>
@@ -107,12 +108,13 @@
 
                          <Table sticky="ColumnHeaders,HeaderToolbar">
                             <columns>
-                                 <Column >
+                
+                                <Column >
                                     <customData>
-                                        <core:CustomData key="p13nData" value='\{"columnKey": "ID", "leadingProperty": "ID",
-                                                 "columnIndex": 0 ,"sortProperty": "ID","filterProperty": "ID"}'/>
+                                        <core:CustomData key="p13nData" value='\{"columnKey": "Name", "leadingProperty": "Name",
+                                                 "columnIndex": 0 ,"sortProperty": "Name","filterProperty": "Name"}'/>
                                     </customData>
-                                    <Text text="{i18n>id}"/>
+                                    <Text text="{i18n>name}"/>
                                 </Column>
                 
                                 <Column demandPopin="true" minScreenWidth="Tablet">
@@ -134,7 +136,8 @@
                             <items>
                                 <ColumnListItem type="Navigation">
                                     <cells>
-                                        <Text text="{ID}"/>
+                                        
+                                        <Text text="{Name}"/>
                                         <Text text="{path:'CreatedAt',
                                             type: 'sap.ui.model.type.Date',
 				                                formatOptions: {
@@ -159,7 +162,7 @@
                     <uxap:ObjectPageSubSection title="{i18n>Attachments}">                    
                                 <VBox id="idMDCCUploadArea">
                                     <UploadCollection id="idMDCCUploader" maximumFilenameLength="55" maximumFileSize="10" 
-                                    multiple="true"
+                                    multiple="true" numberOfAttachmentsText=""
                                     items="{
                                     path:'Attachments',
                                     parameters : {

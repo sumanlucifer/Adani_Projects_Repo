@@ -28,12 +28,17 @@
                     </Column>
                 </columns>
                 <items>
-                    <ColumnListItem>
+                    <ColumnListItem type="Navigation" press="onBOQGroupItemPress">
                         <cells>
                             <ObjectIdentifier title="{Name}"/>
                             <Text text="{TotalChildItemCount}" />
                             <Text text="{GeneratedBOQQty}" />
-                            <tnt:InfoLabel text="{Status}" displayOnly="true" colorScheme= "{
+                            <tnt:InfoLabel text="{
+                                parts: [
+                                    {path: 'Status'}
+                                ],
+                                formatter: '.formatter.StatusText'
+                                }" displayOnly="true" colorScheme= "{
 							parts: [
 								{path: 'Status'}
 							],

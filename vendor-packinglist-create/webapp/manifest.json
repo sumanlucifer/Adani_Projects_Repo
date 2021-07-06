@@ -108,7 +108,12 @@
                 "viewPath": "com.agel.mmts.vendorpackinglistcreate.view",
                 "controlAggregation": "pages",
                 "controlId": "app",
-                "clearControlAggregation": false
+                "clearControlAggregation": false,
+                "bypassed": {
+					"target": [
+						"notFound"
+					]
+				}
             },
             "routes": [
                 {
@@ -164,7 +169,10 @@
                     "transition": "slide",
                     "clearControlAggregation": false,
                     "viewName": "QRCodeDetails"
-                }
+                },
+                "notFound": {
+					"viewName": "NotFound"
+				}
             }
         }
     }

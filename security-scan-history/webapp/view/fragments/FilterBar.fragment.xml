@@ -7,10 +7,10 @@
                   
             <fb:FilterGroupItem groupName="__$INTERNAL$" name="poNo" label="{i18n>poNo}" visibleInFilterBar="true" class="searchFieldLabelHidden" >
                 <fb:control>
-                    <Input id="idInpPoNo" liveChange="onFilterChange" placeholder="{i18n>EnterPoNos}" showSuggestion="true" showValueHelp="false">
-                        <suggestionItems>
+                    <Input id="idInpPoNo" placeholder="{i18n>EnterPoNos}" showSuggestion="true" showValueHelp="false">
+                        <!-- <suggestionItems>  suggestionItems="{/ManualEntrySet}" liveChange="onFilterChange"
                             <core:Item text="{PONumber}"/>
-                        </suggestionItems>
+                        </suggestionItems> -->
                     </Input>
                 </fb:control>
             </fb:FilterGroupItem>

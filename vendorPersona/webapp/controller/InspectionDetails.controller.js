@@ -31,6 +31,7 @@ sap.ui.define([
             var that = this;
             var sObjectId = oEvent.getParameter("arguments").inspectionID;
             that.sObjectId=sObjectId;
+             this.getView().byId("idIcnTabBar").setSelectedKey("idInspectedListTab");
             this._bindView("/InspectionCallIdSet" + sObjectId);
         },
 
@@ -201,9 +202,11 @@ sap.ui.define([
                 this.MainModel.create(sPath,oPayload,{
                     success:function(oData,oResponse){
                         BusyIndicator.hide();
-                        MessageBox.success("Send for approval successfully");
-                        this.getView().getContent()[0].getContent().rerender();
-                        this.getView().getModel().refresh();
+                        if(oData.ID){
+                            MessageBox.success("MDCC Number "+oData.ID+" Sent for approval successfully");
+                            this.getView().getContent()[0].getContent().rerender();
+                            this.getView().getModel().refresh();
+                        }
                     }.bind(this),
                     error:function (oError){
                         BusyIndicator.hide();
@@ -215,22 +218,23 @@ sap.ui.define([
 
         onViewPress: function (oEvent) {
             //  var oItem = oEvent.getSource();
-             var sObjectId=oEvent.getSource().getBindingContext().getObject().ID;
             var that = this;
-            this._getParentDataViewMDCC(sObjectId);
+            var sObjectId=oEvent.getSource().getBindingContext().getObject().ID;
+            var mdccNobb =  oEvent.getSource().getBindingContext().getObject().MDCCNumber;
+            this._getParentDataViewMDCC(sObjectId,mdccNobb);
         },
 
         // Arrange Data For View / Model Set
 
-        _arrangeDataView: function () {
+        _arrangeDataView: function (mdccNobb) {
             var that = this;
             var oModel = new JSONModel({ "ChildItemsView": this.ParentDataView });
             this.getView().setModel(oModel, "TreeTableModelView");
-            that.handleViewDialogOpen();            
+            that.handleViewDialogOpen(mdccNobb);            
         },
 
         // Child Line Items Dialog Open
-        handleViewDialogOpen: function () {
+        handleViewDialogOpen: function (mdccNobb) {
             var that = this;
             var oDetails = {};
             oDetails.controller = this;
@@ -251,6 +255,7 @@ sap.ui.define([
             this.pDialog.then(function (oDialog) {
                 oDetails.view.addDependent(oDialog);
                 oDialog.setModel(that.getView().getModel("TreeTableModelView"));
+                oDialog.setTitle("MDCC "+mdccNobb+" Mapped Items")
                 oDialog.open();
             });            
         },
@@ -282,13 +287,13 @@ sap.ui.define([
 		
 		
 		// Parent Data View Fetch / Model Set
-		_getParentDataViewMDCC: function(sObjectId) {
+		_getParentDataViewMDCC: function(sObjectId,mdccNobb) {
 			this.ParentDataView = [];
 			var sPath = "/MDCCSet(" + sObjectId + ")/MDCCParentLineItems";
 			this.MainModel.read(sPath, {
 				success: function(oData, oResponse) {
 					if(oData.results.length) {
-						this._getChildItemsViewMDCC(oData.results, sObjectId);
+						this._getChildItemsViewMDCC(oData.results, sObjectId , mdccNobb);
 					}
 				}.bind(this),
 				error: function(oError) {
@@ -298,7 +303,7 @@ sap.ui.define([
         },
         
 		// Child Item View Fetch / Model Set
-		_getChildItemsViewMDCC: function(ParentDataView, sObjectId) {
+		_getChildItemsViewMDCC: function(ParentDataView, sObjectId , mdccNobb) {
 			this.ParentDataView = ParentDataView;
 			for(var i = 0; i < ParentDataView.length; i++) {
 				var sPath = "/MDCCSet(" + sObjectId + ")/MDCCParentLineItems(" + ParentDataView[i].ID + ")/MDCCBOQItems";
@@ -311,7 +316,7 @@ sap.ui.define([
 							this.ParentDataView[i].isStandAlone = false;
 							this.ParentDataView[i].ChildItemsView = [];
 						}
-						if(i == this.ParentDataView.length - 1) this._arrangeDataView();
+						if(i == this.ParentDataView.length - 1) this._arrangeDataView(mdccNobb);
 					}.bind(this, i),
 					error: function(oError) {
 						sap.m.MessageBox.Error(JSON.stringify(oError));
@@ -355,16 +360,16 @@ sap.ui.define([
             var object = this.getView().getBindingContext().getObject();
 
             var oPayload = {
-                            "MDCCNumber": "",
+                          //  "MDCCNumber": "", // as shubham informed
                             "NotificationNumber": "",
                             "Version": "",
                             "PONumber": object.PONumber,
                             "Status": null,
                             "InspectionCall": { 
                                     "__metadata":{
-                                        "uri":"InspectionCallIdSet(1)"
+                                        "uri":"InspectionCallIdSet("+object.ID+")"
                                     }
-                                }
+                            }
             };
 
             var sPath = "/MDCCSet";
@@ -487,6 +492,7 @@ sap.ui.define([
             // create dialog lazily
             var that = this;
             var sParentItemPath = oEvent.getSource().getBindingContext().getPath();
+            var mdccNobb = oEvent.getSource().getParent().getBindingContext().getObject().MDCCNumber;
             var oDetails = {};
             oDetails.controller = this;
             oDetails.view = this.getView();
@@ -513,6 +519,7 @@ sap.ui.define([
                   });
 
                 //oDialog.setModel(that.getView().getModel("TreeTableModelView"));
+                oDialog.setTitle("MDCC "+mdccNobb+" Attachment");
                 oDialog.open();
             });
         },
@@ -522,7 +529,16 @@ sap.ui.define([
 			this.pDialogFileName.then(function(oDialog) {
 				oDialog.close();
 			});
-		}
+        },
+        
+        onRowsUpdated : function(oEvent) {
+          //  debugger;
+          //  var oTable = this.getView().byId("TreeTableBasicView");
+        },
+
+        onExit : function(){
+            
+        }
 
     });
 }

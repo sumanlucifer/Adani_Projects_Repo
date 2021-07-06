@@ -16,19 +16,19 @@
                 </HBox> 
                 <HBox alignItems="Center">                           
                     <Input id="idInputQRCode" width="100%" showSuggestion="true" showValueHelp="false" 
-                        suggestionItems="{/ScannedMaterialSet}" placeholder="Scan QR Code"
-                         suggestionItemSelected="onQRCodeSuggestionSelected" class="sapUiSmallMarginEnd">
+                        suggestionItems="{/QRCodeSet}" placeholder="Enter QR Number"
+                         suggestionItemSelected="onQRCodeSuggestionSelected" class="sapUiSmallMarginEnd" liveChange="onLiveChangeQR">
                         <suggestionItems>
-                            <core:Item text="{QRCodeId}" key="{QRCodeId}" />
+                            <core:Item text="{QRNumber}" key="{QRNumber}" />
                         </suggestionItems>
                     </Input>
-                    <Button id="idVenBtn" text="Submit" type="Emphasized" press="onPressSubmitQRCode" class="sapUiSmallMarginEnd"/>                 
+                    <Button id="idVenBtn" text="Submit" type="Emphasized" press="onPressSubmitQRCode" class="sapUiSmallMarginEnd" enabled="{oViewModel>/submitQRCode}"/>                 
                 </HBox> 
                 <HBox alignItems="Center"> 
                     <Text text="OR" class="sapUiSmallMarginEnd"/> 
                 </HBox>
                 <HBox alignItems="Center">
-                <Button id="idQRSubmit" text="Scan OR Code" type="Emphasized" press="onQRCodeSuggestionSelected" class="sapUiSmallMarginEnd"/>
+                <Button id="idQRSubmit" text="Scan QR Code" type="Emphasized" press="onPressScanQRCode" class="sapUiSmallMarginEnd" enabled="{oViewModel>/scanQRCode}"/>
                 </HBox>
                 <HBox alignItems="Center">  
                     <Text text="OR" class="sapUiSmallMarginEnd"/> 
@@ -36,12 +36,12 @@
                 
                 <HBox alignItems="Center">
                     <Input id="idInvoiceNum" width="100%" suggestionItems="{/PackingListSet}" showSuggestion="true" placeholder="Enter Invoice Number" showValueHelp="false" 
-                        class="sapUiSmallMarginEnd"  suggestionItemSelected="onQRCodeSuggestionSelected">
+                        class="sapUiSmallMarginEnd" suggestionItemSelected="onInvoiceSuggestionSelected"  liveChange="onLiveChangeInvoice">
                         <suggestionItems>
                             <core:Item text="{InvoiceNumber}" key="{InvoiceNumber}" />
                         </suggestionItems>
                     </Input>
-                    <Button id="idInvBtn" text="Submit" type="Emphasized" press="onSubmitInvNum" class="sapUiSmallMarginEnd"/>
+                    <Button id="idInvBtn" text="Submit" type="Emphasized" press="onPressSubmitInvoiceNumber" class="sapUiSmallMarginEnd" enabled="{oViewModel>/submitInvoiceCode}"/>
                 </HBox>                   
                 </uxap:content>
             </uxap:ObjectPageDynamicHeaderTitle>

@@ -6,9 +6,9 @@
             placeToolbarInTable="true" enableAutoBinding="true" entitySet="ScannedMaterialSet"
              showFullScreenButton="true" showRowCount="false" tableType="ResponsiveTable"
              demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" 
-             useVariantManagement="false" beforeRebindTable="onbeforeRebindOpenPoTable">
+             useVariantManagement="false" beforeRebindTable="onbeforeRebindOpenPoTable" ignoreFromPersonalisation="CreatedAt, CreatedBy, ID, IsArchived, QRCodeId, QRNumber, UpdatedAt, UpdatedBy, UserId">
 
-        <Table sticky="ColumnHeaders,HeaderToolbar" updateFinished="onPurchaseOrderTableUpdateFinished"
+        <Table sticky="ColumnHeaders,HeaderToolbar" updateFinished="onDomesticTableUpdateFinished"
              alternateRowColors="true">
             <columns>
 
@@ -63,7 +63,7 @@
                           <core:CustomData key="p13nData" value='\{"columnKey": "GateEntryNumber", "leadingProperty": "GateEntryNumber",
                                                  "columnIndex": 4 }'/>
                     </customData>
-                    <Text text="{i18n>GateEntryNumber}"/>
+                    <Text text="{i18n>gateEntryNumber}"/>
                 </Column>
 
                 <!-- Quantity 
@@ -80,8 +80,7 @@
                 <ColumnListItem type="Navigation" press="onDomesticEntryPress">
                     <cells>
                         <Text text="{PONumber}"/>
-                        <ObjectIdentifier text="{PackingListId}"/> 
-
+                        <ObjectIdentifier title="{PackingListId}"/> 
                         <Text text="{VendorCode}"/>
                         <Text text="{path:'EntryDate',
                                      type: 'sap.ui.model.type.Date',

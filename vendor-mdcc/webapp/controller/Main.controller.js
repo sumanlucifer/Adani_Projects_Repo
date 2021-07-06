@@ -54,9 +54,9 @@ sap.ui.define([
 
             _onObjectMatched: function (oEvent) {
 
-               // debugger;
+                //debugger;
                 var startupParams = this.getOwnerComponent().getComponentData().startupParameters;
-                //var startupParams={MDCCId:35,manage:"false"};
+               // var startupParams={MDCCId:163,manage:"false"};
 
                 // startupParams.manage=false;
                 // get Startup params from Owner Component

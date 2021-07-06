@@ -23,18 +23,18 @@
                 </uxap:breadcrumbs>
                 <uxap:expandedHeading>
                     <FlexBox direction="Column" renderType="Bare">
-                        <Title text="Packing List Details" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
+                        <Title text="Packing List Details - {Name}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
                         <ObjectStatus text="{Status}" state="{= ${Status}=== 'DISPATCHED' ? 'Warning' : 'None'}" visible="{= ${Status}=== 'DISPATCHED'}"></ObjectStatus>
                     </FlexBox>
                 </uxap:expandedHeading>
                 <uxap:snappedHeading>
                     <FlexBox direction="Column" renderType="Bare">
-                        <Title text="Packing List Details" wrapping="true" titleStyle="H4"/>
+                        <Title text="Packing List Details - {Name}" wrapping="true" titleStyle="H4"/>
                     </FlexBox>
                 </uxap:snappedHeading>
                 <uxap:expandedContent></uxap:expandedContent>
                 <uxap:snappedTitleOnMobile>
-                    <Title text="Packing List Details" wrapping="true" titleStyle="Auto"/>
+                    <Title text="Packing List Details - {Name}" wrapping="true" titleStyle="Auto"/>
                 </uxap:snappedTitleOnMobile>
                 <uxap:actions>
                     <Button icon="sap-icon://download" type="Emphasized" press="onDownloadPackingListPress"/>
@@ -156,7 +156,7 @@
                                     <Text text="{InvoiceNumber}" />
                                     <!-- <core:Title ></core:Title> -->
                                     <Label text="Packaging Ref. No." />
-                                    <Text text="{PackingReferenceNumber}" />
+                                    <Text text="{PackagingReferenceNumber}" />
                                     <Label text="Invoice Date" />
                                     <Text text="{InvoiceDate}" />
                                 </f:content>
@@ -229,7 +229,7 @@
                             <UploadCollection id="idOtherFileUploader" maximumFilenameLength="55" maximumFileSize="10" multiple="true" items="{
                                     path:'Attachments',
                                     filters : [
-                                        { path : 'SubType', operator : 'EQ', value1 : 'MATERIAL'},
+                                        { path : 'SubType', operator : 'EQ', value1 : 'OTHERS'},
                                         { path : 'Type', operator : 'EQ', value1 : 'PACKING_LIST'}
                                     ],
                                     templateShareable: false}" mode="None" uploadButtonInvisible="true" instantUpload="false">

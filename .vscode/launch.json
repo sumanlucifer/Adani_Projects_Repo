@@ -159,65 +159,64 @@
       "preLaunchTask": "Build sapui5-1"
     },
     {
-      "name": "Start store_totalorder",
+      "name": "Run sapui5-1-security-international-import",
       "type": "node",
       "request": "launch",
-      "runtimeExecutable": "npm",
-      "cwd": "${workspaceFolder}/store_totalorder",
-      "windows": {
-        "runtimeExecutable": "npm.cmd"
-      },
-      "runtimeArgs": [
-        "run-script",
-        "start"
+      "program": "${workspaceFolder}/agel-mmts-web-approuter/node_modules/@sap/html5-repo-mock/index.js",
+      "args": [
+        "--standalone",
+        "/comagelmmtssecurityinternationalimport/index.html",
+        "--ui5",
+        "{\"version\":\".\"}"
       ],
-      "console": "integratedTerminal",
-      "internalConsoleOptions": "neverOpen",
-      "port": 9229,
+      "cwd": "${workspaceFolder}/security-international-import",
       "env": {
-        "DEBUG": "--inspect",
-        "run.config": "{\"handlerId\":\"fiori_tools\",\"runnableId\":\"/home/user/projects/sapui5-1/store_totalorder\"}"
-      }
+        "PORT": "6004",
+        "MOCK_LOOKUP_DIRS": "[\"webapp\"]",
+        "run.config": "{\"handlerId\":\"ui5_run_config_handler_id\",\"runnableId\":\"/home/user/projects/sapui5-1/security-international-import\"}"
+      },
+      "envFile": "${workspaceFolder}/security-international-import/.env2",
+      "preLaunchTask": "Build sapui5-1"
     },
     {
-      "name": "Start store_totalorder Mock",
+      "name": "Run sapui5-1-security-scan-history",
       "type": "node",
       "request": "launch",
-      "cwd": "${workspaceFolder}/store_totalorder",
-      "runtimeExecutable": "npm",
-      "windows": {
-        "runtimeExecutable": "npm.cmd"
-      },
-      "runtimeArgs": [
-        "run-script",
-        "start-mock"
+      "program": "${workspaceFolder}/agel-mmts-web-approuter/node_modules/@sap/html5-repo-mock/index.js",
+      "args": [
+        "--standalone",
+        "/comagelmmtssecurityscanhistory/index.html",
+        "--ui5",
+        "{\"version\":\".\"}"
       ],
-      "console": "integratedTerminal",
-      "internalConsoleOptions": "neverOpen",
-      "port": 9229,
+      "cwd": "${workspaceFolder}/security-scan-history",
       "env": {
-        "run.config": "{\"handlerId\":\"fiori_tools\",\"runnableId\":\"/home/user/projects/sapui5-1/store_totalorder\"}"
-      }
+        "PORT": "6004",
+        "MOCK_LOOKUP_DIRS": "[\"webapp\"]",
+        "run.config": "{\"handlerId\":\"ui5_run_config_handler_id\",\"runnableId\":\"/home/user/projects/sapui5-1/security-scan-history\"}"
+      },
+      "envFile": "${workspaceFolder}/security-scan-history/.env2",
+      "preLaunchTask": "Build sapui5-1"
     },
     {
-      "name": "Start store_totalorder Local",
+      "name": "Run sapui5-1-security-scanqr",
       "type": "node",
       "request": "launch",
-      "cwd": "${workspaceFolder}/store_totalorder",
-      "runtimeExecutable": "npm",
-      "windows": {
-        "runtimeExecutable": "npm.cmd"
-      },
-      "runtimeArgs": [
-        "run-script",
-        "start-local"
+      "program": "${workspaceFolder}/agel-mmts-web-approuter/node_modules/@sap/html5-repo-mock/index.js",
+      "args": [
+        "--standalone",
+        "/comagelmmtssecurityscanqr/index.html",
+        "--ui5",
+        "{\"version\":\".\"}"
       ],
-      "console": "integratedTerminal",
-      "internalConsoleOptions": "neverOpen",
-      "port": 9229,
+      "cwd": "${workspaceFolder}/security-scanqr",
       "env": {
-        "run.config": "{\"handlerId\":\"fiori_tools\",\"runnableId\":\"/home/user/projects/sapui5-1/store_totalorder\"}"
-      }
+        "PORT": "6004",
+        "MOCK_LOOKUP_DIRS": "[\"webapp\"]",
+        "run.config": "{\"handlerId\":\"ui5_run_config_handler_id\",\"runnableId\":\"/home/user/projects/sapui5-1/security-scanqr\"}"
+      },
+      "envFile": "${workspaceFolder}/security-scanqr/.env2",
+      "preLaunchTask": "Build sapui5-1"
     },
     {
       "name": "Run sapui5-1-pmcg",
@@ -236,8 +235,48 @@
         "MOCK_LOOKUP_DIRS": "[\"webapp\"]",
         "run.config": "{\"handlerId\":\"ui5_run_config_handler_id\",\"runnableId\":\"/home/user/projects/sapui5-1/pmcg\"}"
       },
-      "envFile": "${workspaceFolder}/pmcg/.env4",
+      "envFile": "${workspaceFolder}/pmcg/.env6",
       "preLaunchTask": "Build sapui5-1"
+    },
+    {
+      "name": "Run sapui5-1-tcengineer",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/agel-mmts-web-approuter/node_modules/@sap/html5-repo-mock/index.js",
+      "args": [
+        "--standalone",
+        "/comagelmmtstcengineer/index.html",
+        "--ui5",
+        "{\"version\":\".\"}"
+      ],
+      "cwd": "${workspaceFolder}/tcengineer",
+      "env": {
+        "PORT": "6004",
+        "MOCK_LOOKUP_DIRS": "[\"webapp\"]",
+        "run.config": "{\"handlerId\":\"ui5_run_config_handler_id\",\"runnableId\":\"/home/user/projects/sapui5-1/tcengineer\"}"
+      },
+      "envFile": "${workspaceFolder}/tcengineer/.env4",
+      "preLaunchTask": "Build sapui5-1"
+    },
+    {
+      "name": "Run sapui5-vendor-manageboq",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/agel-mmts-web-approuter/node_modules/@sap/html5-repo-mock/index.js",
+      "args": [
+        "--standalone",
+        "/comagelmmtsvendormanageboq/index.html",
+        "--ui5",
+        "{\"version\":\".\"}"
+      ],
+      "cwd": "${workspaceFolder}/vendor-manageboq",
+      "env": {
+        "PORT": "6004",
+        "MOCK_LOOKUP_DIRS": "[\"webapp\"]",
+        "run.config": "{\"handlerId\":\"ui5_run_config_handler_id\",\"runnableId\":\"/home/user/projects/sapui5/vendor-manageboq\"}"
+      },
+      "envFile": "${workspaceFolder}/vendor-manageboq/.env4",
+      "preLaunchTask": "Build sapui5"
     }
   ],
   "compounds": [],

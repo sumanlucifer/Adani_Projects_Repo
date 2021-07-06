@@ -16,7 +16,7 @@ modules:
     properties:
       forwardAuthToken: true
       name: AGEL_MMTS_API
-      url: https://agel-mmts-api.cfapps.ap11.hana.ondemand.com/
+      url: https://qa-agel-mmts-api.cfapps.ap11.hana.ondemand.com/
   parameters:
     buildpack: nodejs_buildpack
     disk-quota: 256M
@@ -171,10 +171,17 @@ modules:
     - artifacts:
       - comagelmmtsvendorpackinglistcreate-content.zip
       name: comagelmmtsvendorpackinglistcreate
+<<<<<<< HEAD
       target-path: resources/
     - artifacts:
       - comagelmmtsstoretotalorderstoretotalorder.zip
       name: comagelmmtsstoretotalorderstoretotalorder
+=======
+      target-path: resources/  
+    - artifacts:
+      - vendor-map-mdcc-content.zip
+      name: vendor-map-mdcc
+>>>>>>> develop
       target-path: resources/
 - name: vendorPersona
   type: html5
@@ -474,17 +481,15 @@ modules:
     builder: custom
     commands:
     - npm run build
-    supported-platforms: []
-- name: comagelmmtsstoretotalorderstoretotalorder
+    supported-platforms: []  
+- name: vendor-map-mdcc
   type: html5
-  path: store_totalorder
+  path: vendor-map-mdcc
   build-parameters:
-    build-result: dist
     builder: custom
     commands:
-    - npm install
-    - npm run build:cf
-    supported-platforms: []
+    - npm run build
+    supported-platforms: []  
 resources:
 - name: uaa_agel-mmts-web
   type: org.cloudfoundry.managed-service

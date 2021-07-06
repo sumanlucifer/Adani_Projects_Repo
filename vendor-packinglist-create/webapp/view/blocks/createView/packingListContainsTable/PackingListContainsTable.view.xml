@@ -10,7 +10,7 @@
             <OverflowToolbar >
                 <content>
                     <ToolbarSpacer></ToolbarSpacer>
-                    <Button text="{= ${IsProcessOneCompletes} ? 'Regenerate Packing List' : 'Generate Packing List'}" press="onGeneratePackingList" visible="{= ${objectViewModel>/isPackingListInEditModel} ? true : false}"></Button>
+                    <Button text="{= ${IsProcessOneCompletes} ? 'Regenerate Inner Packaging List' : 'Generate Inner Packaging List'}" press="onGeneratePackingList" visible="{= ${objectViewModel>/isPackingListInEditModel} ? true : false}"></Button>
                 </content>
             </OverflowToolbar>
         </headerToolbar>
@@ -31,7 +31,7 @@
                 <Text text="Packaging Type"/>
             </Column>
             <Column>
-                <Text text="No Of Packages"/>
+                <Text text="No. of Packages"/>
             </Column>
         </columns>
         <items>
@@ -65,8 +65,8 @@
             <Column>
                 <Text text="Packaging Type"/>
             </Column>
-            <Column>
-                <Text text="Line Item"/>
+            <Column >
+                <Text text="Material Name"/>
             </Column>
             <Column hAlign="Center">
                 <Text text="Packaging Quantity"/>
@@ -79,7 +79,7 @@
             <ColumnListItem>
                 <cells>
                     <Text text="{InnerPackagingModel>PackagingType}"/>
-                    <Text text="{InnerPackagingModel>LineNumber}"/>
+                    <Text text="{InnerPackagingModel>Name}"/>
                     <Input value="{InnerPackagingModel>PackagingQty}" width="20%" editable="{= ${objectViewModel>/isPackingListInEditModel} ? true : false}"/>
                     <Text text="{InnerPackagingModel>UOM}"/>
                 </cells>

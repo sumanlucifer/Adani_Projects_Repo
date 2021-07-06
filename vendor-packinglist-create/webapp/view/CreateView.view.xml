@@ -22,13 +22,13 @@
                 <uxap:expandedHeading>
                     <FlexBox direction="Column" renderType="Bare">
                         <Title text="{i18n>packingList}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
-                        <!-- <Title text="{PackagingReferenceNumber}" wrapping="true" titleStyle="H3" /> -->
+                        <Title text="{Name}" wrapping="true" titleStyle="H3" />
                     </FlexBox>
                 </uxap:expandedHeading>
                 <uxap:snappedHeading>
                     <FlexBox direction="Column" renderType="Bare">
                         <Title text="{i18n>packingList}" wrapping="true" titleStyle="H4"/>
-                        <!-- <Title text="{PackagingReferenceNumber}" wrapping="true" titleStyle="H3"/> -->
+                        <Title text="{Name}" wrapping="true" titleStyle="H3"/>
                     </FlexBox>
                 </uxap:snappedHeading>
                 <uxap:expandedContent></uxap:expandedContent>
@@ -67,6 +67,17 @@
                             <!-- missing -->
                             <Text text="{PlantCode}"/>
                         </VBox>
+                        <VBox renderType="Bare" class="sapUiMediumMarginEnd">
+                            <Label text="Created On" />
+                            <!-- missing -->
+
+                            <Text text="{path:'CreatedAt',
+                                     type: 'sap.ui.model.type.Date',
+				                     formatOptions: {
+				                        pattern: 'MMMM dd, yyyy'
+				                     }
+                            }"/>
+                        </VBox>
                     </FlexBox>
                 </VBox>
             </FlexBox>
@@ -85,9 +96,9 @@
             </uxap:ObjectPageSection>
 
             <!-- Line Items Section -->
-            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>packagingListContains}">
+            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>packingListContains}">
                 <uxap:subSections>
-                    <uxap:ObjectPageSubSection title="{i18n>packagingListContains}">
+                    <uxap:ObjectPageSubSection title="{i18n>packingListContains}">
                         <uxap:blocks>
                             <packingListContainsTable:PackingListContainsTable class="sapUxAPObjectPageSubSectionAlignContent" OnGeneratePackingList="onGeneratePackingList"/>
                         </uxap:blocks>

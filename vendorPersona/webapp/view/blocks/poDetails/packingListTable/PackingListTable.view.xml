@@ -11,10 +11,10 @@
             <columns>
                 <Column >
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "PackagingReferenceNumber", "leadingProperty": "PackagingReferenceNumber",
-                                                 "columnIndex": 0 ,"sortProperty": "PackagingReferenceNumber","filterProperty": "PackagingReferenceNumber"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Name", "leadingProperty": "Name",
+                                                 "columnIndex": 0 ,"sortProperty": "Name","filterProperty": "Name"}'/>
                     </customData>
-                    <Text text="Packaging Reference Number"/>
+                    <Text text="Name"/>
                 </Column>
                 
                 <Column demandPopin="true" minScreenWidth="Tablet">
@@ -30,7 +30,7 @@
                         <core:CustomData key="p13nData" value='\{"columnKey": "Status", "leadingProperty": "Status",
                                                  "columnIndex": 2 ,"sortProperty": "Status","filterProperty": "Status"}'/>
                     </customData>
-                    <Text text="{i18n>releaseDate}"/>
+                    <Text text="Status"/>
                 </Column>
             </columns>
             <items>

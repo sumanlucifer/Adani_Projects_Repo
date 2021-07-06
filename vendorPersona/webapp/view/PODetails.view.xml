@@ -32,7 +32,7 @@
                 </uxap:expandedHeading>
                 <uxap:snappedHeading>
                     <FlexBox direction="Column" renderType="Bare">
-                        <Title text="{i18n>PODetails}" wrapping="true" titleStyle="H4"/>
+                        <Title text="{i18n>PODetails}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
                         <Title text="{PONumber}" wrapping="true" titleStyle="H3"/>
                     </FlexBox>
                 </uxap:snappedHeading>
@@ -57,7 +57,17 @@
                         <VBox renderType="Bare" class="sapUiMediumMarginEnd">
                             <Label text="{i18n>issuedDate}" />
                             <!-- missing -->
-                            <Text text="{path:'ValidityStartDate',
+                            <Text text="{path:'CreatedAt',
+                                     type: 'sap.ui.model.type.Date',
+				                     formatOptions: {
+				                        pattern: 'MMMM dd, yyyy'
+				                     }
+                            }"/>
+                        </VBox>
+                         <VBox renderType="Bare" class="sapUiMediumMarginEnd" visible="{= ${Status}==='CONFIRMED'}">
+                            <Label text="{i18n>confirmedDate}" />
+                            <!-- missing -->
+                            <Text text="{path:'UpdatedAt',
                                      type: 'sap.ui.model.type.Date',
 				                     formatOptions: {
 				                        pattern: 'MMMM dd, yyyy'

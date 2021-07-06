@@ -38,7 +38,7 @@
                 <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "CreatedAt", "leadingProperty": "CreatedAt",
-                                                 "columnIndex": 3}'/>
+                                                 "columnIndex": 3, "sortProperty": "CreatedAt"}'/>
                     </customData>
                     <Text text="{i18n>issuedate}"/>
                 </Column>
@@ -47,7 +47,7 @@
                 <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "POReleaseDate", "leadingProperty": "POReleaseDate",
-                                                 "columnIndex": 4 }'/>
+                                                 "columnIndex": 4, "sortProperty": "POReleaseDate"}'/>
                     </customData>
                     <Text text="{i18n>releaseDate}"/>
                 </Column>              
