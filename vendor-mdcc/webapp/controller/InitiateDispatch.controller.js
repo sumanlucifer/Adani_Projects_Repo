@@ -39,8 +39,11 @@ sap.ui.define([
 
         _onObjectMatched: function (oEvent) {
             var that = this;
-            var sObjectId = oEvent.getParameter("arguments").MDCCId;
-            this.sObjectId=sObjectId;
+            var startupParams = this.getOwnerComponent().getComponentData().startupParameters;
+            //   var startupParams={MDCCId:163,manage:"false"};
+
+        
+            this.sObjectId=parseInt(startupParams.MDCCId[0]);
             this._bindView("/MDCCSet("+this.sObjectId+")");   
 
               this._getParentDataViewMDCC();

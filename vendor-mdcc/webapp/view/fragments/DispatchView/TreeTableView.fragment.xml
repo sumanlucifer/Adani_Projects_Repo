@@ -54,7 +54,7 @@
 				</ui:template>
 			</ui:Column>
 
-            <ui:Column>
+            <ui:Column wrapping="true" width="10%">
 				<Label text="{i18n>remainQty}"/>
 				<ui:template>
 					<Text text="{TreeTableModelView>RemainingDispatchedQty}"  />

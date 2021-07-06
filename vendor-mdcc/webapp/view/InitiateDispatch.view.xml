@@ -11,6 +11,8 @@
     xmlns="sap.m" 
     controllerName="com.agel.mmts.vendormdcc.controller.InitiateDispatch"
     height="100%">
+    <Shell id="shell">
+		<App id="app">
     <uxap:ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true" upperCaseAnchorBar="false"
          headerContentPinnable="true" toggleHeaderOnTitleClick="true" preserveHeaderStateOnScroll="true"
           busy="{objectViewModel>/busy}">
@@ -195,4 +197,6 @@
 
         </uxap:sections>
     </uxap:ObjectPageLayout>
+    </App>
+	</Shell>
 </mvc:View>
