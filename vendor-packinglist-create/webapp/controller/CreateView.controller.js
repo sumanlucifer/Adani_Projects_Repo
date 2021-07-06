@@ -31,8 +31,8 @@ sap.ui.define([
                 var objectViewModel = this.getViewModel("objectViewModel");
                 var that = this;
 
-                //var startupParams = this.getOwnerComponent().getComponentData().startupParameters;
-                //this.packingListId = startupParams.packingListID[0];
+                var startupParams = this.getOwnerComponent().getComponentData().startupParameters;
+                this.packingListId = startupParams.packingListID[0];
 
 
                 /* if (startupParams.status[0] !== "SAVED") {
@@ -40,7 +40,7 @@ sap.ui.define([
                         packingListId: this.packingListId
                     });
                 } else { */
-                this.packingListId = 62;
+                //this.packingListId = 62;
                 this.getView().bindElement({
                     path: "/PackingListSet(" + this.packingListId + ")",
                     events: {
@@ -286,7 +286,8 @@ sap.ui.define([
                     for (var j = 0; j < data[i].NumberOfPackages; j++) {
                         var oEntry = {};
                         oEntry.PackagingType = data[i].PackagingType;
-                        oEntry.LineNumber = data[i].Name;
+                        oEntry.LineNumber = data[i].LineNumber;
+                        oEntry.Name = data[i].Name;
                         oEntry.PackingListContainsId = data[i].ID;
                         oEntry.PackagingQty = null;
                         oEntry.UOM = data[i].UOM;

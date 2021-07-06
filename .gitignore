@@ -139,3 +139,6 @@ agel-mmts-web/vendor-map-mdcc/.env1
 tcengineer/.env4
 >>>>>>> develop
 >>>>>>> develop
+
+# auto generated wildcard
+vendor-manageboq/.env4

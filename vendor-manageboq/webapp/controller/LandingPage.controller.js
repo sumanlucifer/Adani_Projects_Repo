@@ -27,20 +27,28 @@ sap.ui.define([
                 this.getView().getModel("layoutModel").setProperty("/layout", sLayout);
                 //this._bindView("/ParentLineItemSet" + this.sParentID);
                 var poNumber;
-                var startupParams = this.getOwnerComponent().getComponentData().startupParameters; 
+                this.recievedPONumber="";
+                var startupParams = this.getOwnerComponent().getComponentData().startupParameters;
                 // get Startup params from Owner Component
                 if ((startupParams.poNumber && startupParams.poNumber[0])) {
                     this.recievedPONumber = startupParams.poNumber;
                 }
-            },
 
-            onUpdateListFinished: function (oEvent) {
-                var oBinding = oEvent.getSource().getBinding("items");
-                var aFilter = [];
-                if (this.recievedPONumber) {
-                    aFilter.push(new Filter("PONumber", FilterOperator.EQ, this.recievedPONumber));
+                var list = this.byId("idParentLineItemList");
+                if (list) {
+                    var oItems = new sap.m.StandardListItem({
+                        title: "{Name}",
+                        description: "Description: {Description}",
+                        info: "Material Code: {MaterialCode}",
+                        type: "Navigation"
+                    }).attachPress(this.onParentLineItemPress, this);
+                    var oFilters = [new sap.ui.model.Filter("PONumber", sap.ui.model.FilterOperator.EQ, this.recievedPONumber)];
+                    list.bindAggregation("items", {
+                        path: '/ParentLineItemSet',
+                        template: oItems,
+                        filters: oFilters
+                    });
                 }
-                oBinding.filter(aFilter);
             },
 
             //triggers on press of a PO cheveron item from the list

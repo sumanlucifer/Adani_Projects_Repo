@@ -18,8 +18,8 @@
                     <VBox renderType="Bare">
                         <items>
                             <VBox renderType="Bare">
-                                <Title text="{i18n>qRCodeDetails}" titleStyle="H3" class="sapUiTinyMarginBottom"/>
-                                <Text text="{QRCodeId}" />
+                                <Title text="Packing List Details - {Name}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
+                                <ObjectStatus text="{Status}" state="{= ${Status}=== 'DISPATCHED' ? 'Warning' : 'None'}" visible="{= ${Status}=== 'DISPATCHED'}"></ObjectStatus>
                                 <!-- <Text text="Packing List Name - {Name}" /> -->
                             </VBox>
 
@@ -33,21 +33,27 @@
                                 <Text text="{VehicleNumber}"/>
                             </VBox>
 
-                            <VBox id="idHboxReEnterVehicleNob" renderType="Bare" visible="{oViewHandlingModel>/wantChange}">
+                            <VBox id="idHboxReEnterVehicleNo" renderType="Bare" visible="{oViewHandlingModel>/wantChange}">
                                 <!-- <Text text="{i18n>VehicleNumberEnter}" class="sapUiSmallMarginEnd"/>
                                 <Input value="{VehicleNumber}" width="80%" editable="false"/> -->
                                 <Text text="{i18n>reEnterVehicleNumber}" class="sapUiSmallMarginEnd"/>
                                 <Input id="idReEnterInputVehcileNob" value="{oViewHandlingModel>/ReEnterVehicleNo}" width="80%" />
                             </VBox>
 
-                            <VBox id="idHboxReEnterVehicleNob1" renderType="Bare" visible="{= %{VehicleNumber} ? false : true}">
-                             <Input id="idReEnterInputVehcileNob1" value="{oViewHandlingModel>ReEnterVehicleNob}" width="80%" />
+                            <VBox id="idHboxReEnterVehicleNoNew" renderType="Bare" visible="{= %{VehicleNumber} ? false : true}">
+                             <Input id="idReEnterInputVehcileNoNew" value="{oViewHandlingModel>ReEnterVehicleNoNew}" width="80%" />
                             </VBox>   
                              
-                            <VBox visible="{= %{GateEntryNumber} ? false : true}">
+                            <!-- <VBox visible="{= %{GateEntryNumber} ? false : true}">
                                 <HBox id="idHboxApproveReject1" alignItems="Start" visible="{oViewHandlingModel>/wantChange}">
                                     <Button text="{i18n>submitVehicleNumber}" press="onPressApproveVehicleNumber" type="Accept" class="sapUiSmallMarginEnd"/>
-                                    <!-- <Button text="{i18n>rejectChange}" press="onPressRejectVehicleNumber" type="Reject"/> -->
+                                </HBox>
+                            </VBox> -->
+
+                            <VBox visible="{= ${GateEntryNumber} ? false : true}">
+                                <HBox id="idHboxApproveReject1" alignItems="Start" visible="{oViewHandlingModel>/wantChange}">
+                                    <Button text="{i18n>submitVehicleNumber}" press="onPressApproveVehicleNumber" type="Accept" class="sapUiSmallMarginEnd"/>
+                                    <!-- <Button text="{= ${oViewHandlingModel>/wantChange} ? 'Cancel' : 'Change Vehicle Number'}" press="onChangeVehicleNumberPress" type="Emphasized" class="sapUiSmallMarginEnd"/> -->
                                 </HBox>
                             </VBox>
                             
@@ -63,13 +69,15 @@
                 <uxap:actions>
                     <HBox>
                         <Button text="{i18n>submit}"  press="onVehicleNumberSubmit" type="Emphasized"
-                             visible="{= %{GateEntryNumber} ? false : true}"/>
+                             visible="{= ${GateEntryNumber}!== null ? false : true}"/>
+
                         <!-- <Button text="{i18n>submit}"  press="onVehicleNumberSubmit" type="Emphasized"
                              visible="{parts:[{path:'GateEntryNumber'},{path:'oViewHandlingModel>/submitButton'}],formatter:'.formatter.viewMapItems'}​​​​​​​​"/> -->
                         <!-- <Button text="{i18n>submit}"  press="onVehicleNumberSubmit" type="Emphasized"
                              visible="{oViewHandlingModel>/submitButton}"/> -->
+
                         <Button text="{i18n>close}"  press="onClose" type="Emphasized"
-                             visible="{oViewHandlingModel>/closeButton}"/>
+                             visible="{= ${GateEntryNumber}!== null ? true : false}"/>
                     </HBox>
                 </uxap:actions>
             </uxap:ObjectPageDynamicHeaderTitle>
@@ -97,7 +105,7 @@
                                     </Avatar>
                                     <Text text="{QRNumber}" id="idQRNumber"/>
                                 </VBox>
-                                <!-- <Text text="Av÷atar of a product with border" class="sapUiSmallMarginTop"/> -->
+                                <!-- <Text text="Avatar of a product with border" class="sapUiSmallMarginTop"/> -->
                             </FlexBox>
                         </FlexBox>
                     </VBox>

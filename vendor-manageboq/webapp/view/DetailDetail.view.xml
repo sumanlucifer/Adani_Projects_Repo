@@ -28,7 +28,7 @@
                     </Column>
                 </columns>
                 <items>
-                    <ColumnListItem>
+                    <ColumnListItem type="Navigation" press="onBOQGroupItemPress">
                         <cells>
                             <ObjectIdentifier title="{Name}"/>
                             <Text text="{TotalChildItemCount}" />
