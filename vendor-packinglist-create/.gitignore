@@ -36,3 +36,6 @@ security-scanqr/.env2
 pmcg/.env6
 # auto generated wildcard
 tcengineer/.env4
+
+# auto generated wildcard
+vendor-manageboq/.env4

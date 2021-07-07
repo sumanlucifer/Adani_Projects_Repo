@@ -6,7 +6,7 @@
         <ColumnListItem selected="{valueHelpModel>selected}">
             <cells>
                 <ObjectIdentifier title="{valueHelpModel>PackagingType}" />
-                <Text text="{valueHelpModel>LineNumber}"></Text>
+                <Text text="{valueHelpModel>Name}"></Text>
                 <Text text="{valueHelpModel>PackagingQty}"></Text>
                 <Text text="{valueHelpModel>UOM}"></Text>
             </cells>
@@ -17,7 +17,7 @@
                 <Text text="Packaging Type" />
             </Column>
             <Column>
-                <Text text="Line Item" />
+                <Text text="Material Name" />
             </Column>
             <Column hAlign="Center">
                 <Text text="Packaging Quantity" />
