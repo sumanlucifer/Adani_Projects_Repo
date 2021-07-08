@@ -1,40 +1,51 @@
-<mvc:View
-    controllerName="com.agel.mmts.securityinternationalimport.controller.Main"
-    xmlns:mvc="sap.ui.core.mvc"
-    displayBlock="true"
+<mvc:View controllerName="com.agel.mmts.securityinternationalimport.controller.Main"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
     xmlns="sap.m"
     xmlns:uxap="sap.uxap"
     xmlns:l="sap.ui.layout"
     xmlns:f="sap.ui.layout.form"
     xmlns:core="sap.ui.core"
-    xmlns:unified="sap.ui.unified"
->
-<uxap:ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true" upperCaseAnchorBar="false" headerContentPinnable="true" toggleHeaderOnTitleClick="true" busy="{objectViewModel>/busy}">
-        <uxap:headerTitle>
-            <uxap:ObjectPageDynamicHeaderTitle>
-                <uxap:breadcrumbs>
-                  
-                </uxap:breadcrumbs>
-                <uxap:expandedHeading>
-                    <Title text="{i18n>titleText}" wrapping="true" titleStyle="H3" />
-                </uxap:expandedHeading>
-                <uxap:snappedHeading>
-                   
-                </uxap:snappedHeading>
-                <uxap:expandedContent></uxap:expandedContent>
-                <uxap:snappedTitleOnMobile>
-                    
-                </uxap:snappedTitleOnMobile>
-                <uxap:actions>
-                    <Button text="Submit" press="onCreateEntry" type="Emphasized"/>
-                </uxap:actions>
-            </uxap:ObjectPageDynamicHeaderTitle>
-        </uxap:headerTitle>
-        <uxap:headerContent>
-            <FlexBox direction="Row" renderType="Bare" class="sapUiTinyMarginBottom">
-                <VBox renderType="Bare" class="sapUiMediumMarginEnd"> 
-                </VBox>
+    xmlns:semantic="sap.f.semantic"
+    xmlns:unified="sap.ui.unified">
+
+    <semantic:SemanticPage headerPinnable="false" toggleHeaderOnTitleClick="true" preserveHeaderStateOnScroll="false" titleAreaShrinkRatio="1:1.6:1.6" showFooter="true" floatingFooter="true" busy="{objectViewModel>/busy}">
+
+        <!-- Title Heading-->
+        <semantic:titleHeading>
+            <Title text="{i18n>titleText}" class="sapUiLargeMarginBottom"/>
+        </semantic:titleHeading>
+
+        <!-- TitleExpanded content-->
+        <semantic:titleSnappedContent/>
+
+        <!-- TitleSnapped content-->
+        <semantic:titleExpandedContent/>
+        <!-- Header Content -->
+        <semantic:headerContent>
+            <!-- <VBox height="4%"></VBox> -->
+        </semantic:headerContent>
+
+        <!-- Content -->
+        <semantic:content>
+            <FlexBox justifyContent="Center" width="100%" class="sapUiSmallMarginTop">
+                <FlexBox width="80%">
+                    <f:SimpleForm layout="ColumnLayout" columnsM="2" columnsL="2" columnsXL="4" labelSpanXL="4" labelSpanL="3" labelSpanM="4" labelSpanS="12" singleContainerFullSize="false" binding="{oImportModel>/}" editable="true">
+                        <f:content>
+                            <!-- <core:Title text="Enter Details"/> -->
+                            <Label text="{i18n>ponum}" required="true"/>
+                            <Input id="idInpPoNob" liveChange="onLiveChangePoNob" value="{oImportModel>PONumber}" placeholder="{i18n>enterpo}" class="sapUiSmallMarginBottom"/>
+                            <Label text="{i18n>contno}" required="true"/>
+                            <Input id="idInpContNob" liveChange="onLiveChangeContNob" value="{oImportModel>ContainerNumber}" placeholder="{i18n>entercont}"/>
+                            <!-- <core:Title /> -->
+                            <Label text="{i18n>vehno}" required="true"/>
+                            <Input id="idInpVehicleNob" liveChange="onLiveChangeVehicleNob" value="{oImportModel>VehicleNumber}" placeholder="{i18n>entervehicle}" class="sapUiSmallMarginBottom"/>
+                            <Label text="{i18n>invno}" required="true"/>
+                            <Input id="idInvoiceNob" liveChange="onLiveChangeInvoiceNob" value="{oImportModel>InvoiceNumber}" placeholder="{i18n>enterinvoice}"/>
+                        </f:content>
+                    </f:SimpleForm>
+                </FlexBox>
             </FlexBox>
+<<<<<<< HEAD
         </uxap:headerContent>
         <uxap:sections>
          <uxap:ObjectPageSection>
@@ -62,3 +73,12 @@
         </uxap:sections>
     </uxap:ObjectPageLayout>
 </mvc:View>
+=======
+        </semantic:content>
+        <semantic:footerMainAction>
+            <semantic:FooterMainAction id="submitButton" text="Submit" press="onCreateEntry"/>
+        </semantic:footerMainAction>
+
+    </semantic:SemanticPage>
+</mvc:View>
+>>>>>>> develop

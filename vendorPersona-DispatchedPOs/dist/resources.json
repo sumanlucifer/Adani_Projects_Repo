@@ -1,8 +1,13 @@
 {
     "resources": [
         {
+<<<<<<< HEAD
             "name": "i18n/i18n.properties",
             "raw": "i18n/i18n.properties"
+=======
+            "name": "controller/LandingPage-dbg.controller.js",
+            "isDebug": true
+>>>>>>> develop
         },
         {
             "name": "controller/LandingPage.controller.js"
@@ -28,7 +33,7 @@
             "isDebug": true
         },
         {
-            "name": "controller/LandingPage-dbg.controller.js",
+            "name": "model/models-dbg.js",
             "isDebug": true
         },
         {

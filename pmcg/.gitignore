@@ -42,4 +42,8 @@ tcengineer/.env4
 # auto generated wildcard
 vendor-manageboq/.env4
 # auto generated wildcard
+<<<<<<< HEAD
 storeincharge-totaldetails/.env2
+=======
+agel-mmts-web/security-international-import/.env2
+>>>>>>> develop

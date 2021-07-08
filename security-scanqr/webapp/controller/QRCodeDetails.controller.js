@@ -86,11 +86,11 @@ sap.ui.define([
             onSaveScanQrCode: function () {
                 var that = this;
                 var PackingListId = this.getView().getBindingContext().getObject().ID;
-                var userInfo = sap.ushell.Container.getService("UserInfo").getId();
+                // var userInfo = sap.ushell.Container.getService("UserInfo").getEmail();
                 var oPayload = {
-                    "QRCodeId": that.QRCode,
+                    "QRCodeId": that.qrCodeID,
                     "PackingListId": PackingListId,
-                    "UserId":  userInfo      // "1"
+                    "UserId": "1"       //userInfo
                 };
 
                 this.MainModel.create("/ScannedMaterialSet", oPayload, {
@@ -174,6 +174,7 @@ sap.ui.define([
                     }.bind(this),
                     error: function (oError) {
                         MessageBox.error(JSON.stringify(oError));
+                        
                     }
                 });
             },

@@ -13,4 +13,8 @@ agel-mmts-web/vendor-map-mdcc/.env1
 # auto generated wildcard
 vendor-manageboq/.env4
 # auto generated wildcard
+<<<<<<< HEAD
 storeincharge-totaldetails/.env2
+=======
+agel-mmts-web/security-international-import/.env2
+>>>>>>> develop

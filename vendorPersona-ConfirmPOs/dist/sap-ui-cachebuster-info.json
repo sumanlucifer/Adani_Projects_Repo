@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "manifest-bundle.zip": 1625648762281,
   "Component.js": 1621941636133,
   "model/models.js": 1621941636133,
@@ -13,4 +14,20 @@
   "view/LandingPage.view.xml": 1621941636133,
   "css/style.css": 1621941636133,
   "index.html": 1621941636133
+=======
+  "manifest.json": 1625735238732,
+  "Component.js": 1618289995786,
+  "model/models.js": 1617100221877,
+  "controller/LandingPage.controller.js": 1617100221877,
+  "i18n/i18n.properties": 1617100221877,
+  "manifest-bundle.zip": 1625735238357,
+  "Component-preload.js": 1625735238691,
+  "controller/LandingPage-dbg.controller.js": 1617100221877,
+  "model/models-dbg.js": 1617100221877,
+  "Component-dbg.js": 1618289995786,
+  "resources.json": 1625735238735,
+  "view/LandingPage.view.xml": 1617100221877,
+  "css/style.css": 1617100221877,
+  "index.html": 1617100221877
+>>>>>>> develop
 }
