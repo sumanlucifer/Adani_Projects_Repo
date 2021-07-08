@@ -10,3 +10,5 @@ archive.zip
 .*_mta_build_tmp
 # auto generated wildcard
 storeincharge-totaldetails/.env2
+# auto generated wildcard
+agel-mmts-web/security-scanqr/.env2

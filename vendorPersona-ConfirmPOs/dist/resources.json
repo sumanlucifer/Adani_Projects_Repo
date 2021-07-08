@@ -1,12 +1,7 @@
 {
     "resources": [
         {
-<<<<<<< HEAD
-            "name": "Component-preload.js",
-            "merged": true
-=======
-            "name": "view/LandingPage.view.xml"
->>>>>>> develop
+            "name": "controller/LandingPage.controller.js"
         },
         {
             "name": "Component.js"
@@ -15,7 +10,8 @@
             "name": "model/models.js"
         },
         {
-            "name": "manifest.json"
+            "name": "i18n/i18n.properties",
+            "raw": "i18n/i18n.properties"
         },
         {
             "name": "manifest.json"
@@ -24,8 +20,8 @@
             "name": "manifest-bundle.zip"
         },
         {
-            "name": "i18n/i18n.properties",
-            "raw": "i18n/i18n.properties"
+            "name": "Component-preload.js",
+            "merged": true
         },
         {
             "name": "controller/LandingPage-dbg.controller.js",
@@ -43,8 +39,7 @@
             "name": "../../../../sap-ui-version.json"
         },
         {
-            "name": "i18n/i18n.properties",
-            "raw": "i18n/i18n.properties"
+            "name": "view/LandingPage.view.xml"
         },
         {
             "name": "css/style.css"

@@ -17,7 +17,7 @@
                         <Text text="{i18n>quantity}" />
                     </Column>
                     <Column demandPopin="true" minScreenWidth="Tablet">
-                        <Text text="{i18n>orderUnit}"/>
+                        <Text text="UOM"/>
                     </Column>
                 </columns>
                 <items>

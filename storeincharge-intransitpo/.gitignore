@@ -14,3 +14,5 @@ storeincharge-intransitpo/.env1
 storeincharge-receivedpo/.env1
 # auto generated wildcard
 security-scanqr/.env2
+# auto generated wildcard
+agel-mmts-web/security-scanqr/.env2
