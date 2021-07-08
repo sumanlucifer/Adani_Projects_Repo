@@ -28,11 +28,11 @@
             <IconTabBar id="idIconTabBar" select="onIconTabSelect" headerMode="Inline" expanded="true" class="sapUiResponsiveContentPadding">
                 <items>
 
-                    <IconTabFilter id="idDomesticTitle" text="{i18n>domestic}" key="DomesticKey" count="{oIconTabCountModel>/openCount}">
+                    <IconTabFilter id="idDomesticTitle" text="{i18n>domestic}" key="DomesticKey" count="{oIconTabCountModel>/confirmCount}">
                         <core:Fragment fragmentName="com.agel.mmts.securityscanhistory.view.fragments.DomesticTable" type="XML"/>
                     </IconTabFilter>
 
-                     <IconTabFilter id="idInternationalTitle" text="{i18n>internationalImport}" key="InternationalKey" count="{oIconTabCountModel>/confirmCount}">
+                     <IconTabFilter id="idInternationalTitle" text="{i18n>internationalImport}" key="InternationalKey" count="{oIconTabCountModel>/openCount}">
                           <core:Fragment fragmentName="com.agel.mmts.securityscanhistory.view.fragments.InternationalTable" type="XML"/>
                     </IconTabFilter>
 
