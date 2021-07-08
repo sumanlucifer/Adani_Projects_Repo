@@ -277,6 +277,26 @@
       },
       "envFile": "${workspaceFolder}/vendor-manageboq/.env4",
       "preLaunchTask": "Build sapui5"
+    },
+    {
+      "name": "Run sapui5-1-storeincharge-totaldetails",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/agel-mmts-web-approuter/node_modules/@sap/html5-repo-mock/index.js",
+      "args": [
+        "--standalone",
+        "/comagelmmtsstoreinchargetotaldetails/index.html",
+        "--ui5",
+        "{\"version\":\".\"}"
+      ],
+      "cwd": "${workspaceFolder}/storeincharge-totaldetails",
+      "env": {
+        "PORT": "6004",
+        "MOCK_LOOKUP_DIRS": "[\"webapp\"]",
+        "run.config": "{\"handlerId\":\"ui5_run_config_handler_id\",\"runnableId\":\"/home/user/projects/sapui5-1/storeincharge-totaldetails\"}"
+      },
+      "envFile": "${workspaceFolder}/storeincharge-totaldetails/.env2",
+      "preLaunchTask": "Build sapui5-1"
     }
   ],
   "compounds": [],

@@ -169,9 +169,13 @@ modules:
       name: security-scanqr
       target-path: resources/
     - artifacts:
-      - comagelmmtsvendorpackinglistcreate-content.zip
-      name: comagelmmtsvendorpackinglistcreate
+      - storeincharge-totaldetails-content.zip
+      name: storeinchargetotaldetails
       target-path: resources/  
+    - artifacts: 
+      - vendor-map-mdcc-content.zip
+      name: vendor-map-mdcc
+      target-path: resources/
     - artifacts:
       - vendor-map-mdcc-content.zip
       name: vendor-map-mdcc
@@ -474,7 +478,15 @@ modules:
     builder: custom
     commands:
     - npm run build
-    supported-platforms: []  
+    supported-platforms: []
+- name: storeinchargetotaldetails
+  type: html5
+  path: storeincharge-totaldetails
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []    
 - name: vendor-map-mdcc
   type: html5
   path: vendor-map-mdcc

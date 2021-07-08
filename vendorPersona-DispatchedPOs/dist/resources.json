@@ -1,17 +1,17 @@
 {
     "resources": [
         {
-            "name": "model/models-dbg.js",
-            "isDebug": true
+            "name": "i18n/i18n.properties",
+            "raw": "i18n/i18n.properties"
         },
         {
-            "name": "manifest.json"
+            "name": "controller/LandingPage.controller.js"
         },
         {
             "name": "model/models.js"
         },
         {
-            "name": "controller/LandingPage.controller.js"
+            "name": "manifest.json"
         },
         {
             "name": "Component.js"
@@ -24,8 +24,8 @@
             "merged": true
         },
         {
-            "name": "i18n/i18n.properties",
-            "raw": "i18n/i18n.properties"
+            "name": "model/models-dbg.js",
+            "isDebug": true
         },
         {
             "name": "controller/LandingPage-dbg.controller.js",
