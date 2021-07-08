@@ -2,8 +2,15 @@
     "resources": [
         {
 <<<<<<< HEAD
+<<<<<<< HEAD
+            "name": "manifest-bundle.zip"
+        },
+        {
+            "name": "Component.js"
+=======
             "name": "i18n/i18n.properties",
             "raw": "i18n/i18n.properties"
+>>>>>>> develop
 =======
             "name": "controller/LandingPage-dbg.controller.js",
             "isDebug": true
@@ -11,6 +18,7 @@
         },
         {
             "name": "controller/LandingPage.controller.js"
+>>>>>>> develop
         },
         {
             "name": "model/models.js"
@@ -19,17 +27,22 @@
             "name": "manifest.json"
         },
         {
-            "name": "Component.js"
+            "name": "manifest.json"
         },
         {
-            "name": "manifest-bundle.zip"
+            "name": "i18n/i18n.properties",
+            "raw": "i18n/i18n.properties"
         },
         {
             "name": "Component-preload.js",
             "merged": true
         },
         {
+<<<<<<< HEAD
+            "name": "controller/LandingPage-dbg.controller.js",
+=======
             "name": "model/models-dbg.js",
+>>>>>>> develop
             "isDebug": true
         },
         {

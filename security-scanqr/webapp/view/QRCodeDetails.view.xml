@@ -33,11 +33,16 @@
                                 <Text text="{VehicleNumber}"/>
                             </VBox>
 
+                            <VBox renderType="Bare" visible="{= %{GateEntryNumber} !== null ? true : false}">
+                                <Label text="{i18n>GateEntryNumber}" design="Bold"/>
+                                <Text text="{GateEntryNumber}"/>
+                            </VBox>
+
                             <VBox id="idHboxReEnterVehicleNo" renderType="Bare" visible="{oViewHandlingModel>/wantChange}">
                                 <!-- <Text text="{i18n>VehicleNumberEnter}" class="sapUiSmallMarginEnd"/>
                                 <Input value="{VehicleNumber}" width="80%" editable="false"/> -->
                                 <Text text="{i18n>reEnterVehicleNumber}" class="sapUiSmallMarginEnd"/>
-                                <Input id="idReEnterInputVehcileNob" value="{oViewHandlingModel>/ReEnterVehicleNo}" width="80%" />
+                                <Input id="idReEnterInputVehcileNob" value="{oViewHandlingModel>/ReEnterVehicleNo}" width="80%" valueLiveUpdate="true" liveChange="onVechileNumerValueUpdate"/>
                             </VBox>
 
                             <VBox id="idHboxReEnterVehicleNoNew" renderType="Bare" visible="{= %{VehicleNumber} ? false : true}">
@@ -46,7 +51,7 @@
                              
                             <HBox visible="{= ${GateEntryNumber} ? false : true}">
                                 <VBox id="idHboxApproveReject1" alignItems="Start" visible="{oViewHandlingModel>/wantChange}">
-                                    <Button text="{i18n>submitVehicleNumber}" press="onPressApproveVehicleNumber" type="Accept" class="sapUiSmallMarginEnd"/>
+                                    <!-- <Button text="{i18n>submitVehicleNumber}" press="onPressApproveVehicleNumber" type="Accept" class="sapUiSmallMarginEnd"/> -->
                                 </VBox>
                                 <VBox id="idHboxApproveReject" alignItems="Start" visible="{= %{VehicleNumber} ? true : false}">
                                     <Button text="{= ${oViewHandlingModel>/wantChange} ? 'Cancel' : 'Change Vehicle Number'}" press="onChangeVehicleNumberPress" type="Emphasized" class="sapUiSmallMarginEnd"/>
@@ -59,13 +64,9 @@
                 <uxap:actions>
                     <HBox>
                         <Button text="{i18n>submit}" press="onVehicleNumberSubmit" type="Emphasized"
-                             visible="{= ${GateEntryNumber}!== null ? false : true}"/>
-
-                        <!-- <Button text="{i18n>submit}"  press="onVehicleNumberSubmit" type="Emphasized"
-                             visible="{parts:[{path:'GateEntryNumber'},{path:'oViewHandlingModel>/submitButton'}],formatter:'.formatter.viewMapItems'}​​​​​​​​"/> -->
-                        <!-- <Button text="{i18n>submit}"  press="onVehicleNumberSubmit" type="Emphasized"
-                             visible="{oViewHandlingModel>/submitButton}"/> -->
-
+                            enabled="{= ${oViewHandlingModel>/wantChange} ? ${oViewHandlingModel>/ReEnterVehicleNo}!== null ? true : false : ${GateEntryNumber}!== null ? false : true}"
+                            visible="{= ${GateEntryNumber}!== null ? false : true}"/>
+                             
                         <Button text="{i18n>close}"  press="onClose" type="Emphasized"
                              visible="{= ${GateEntryNumber}!== null ? true : false}"/>
                     </HBox>

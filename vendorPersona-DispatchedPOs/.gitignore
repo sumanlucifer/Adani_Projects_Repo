@@ -59,6 +59,9 @@ security-international-import/.env2
 # auto generated wildcard
 agel-mmts-web/tcengineer/.env3
 # auto generated wildcard
+
+pmcg/.env4
+=======
 pmcg/.env5
 # auto generated wildcard
 security-international-import/.env2
@@ -73,9 +76,27 @@ tcengineer/.env4
 
 # auto generated wildcard
 vendor-manageboq/.env4
+
+
 # auto generated wildcard
+storeInCharge-TotalOrder/.env1
+# auto generated wildcard
+storeInCharge-TotalOrder/.env3
+# auto generated wildcard
+<<<<<<< HEAD
+storeincharge-raisedpo/.env1
+# auto generated wildcard
+storeincharge-intransitpo/.env1
+# auto generated wildcard
+storeincharge-receivedpo/.env1
+=======
+# auto generated wildcard
+agel-mmts-web/security-international-import/.env2
+
+=======
 <<<<<<< HEAD
 storeincharge-totaldetails/.env2
 =======
 agel-mmts-web/security-international-import/.env2
+>>>>>>> develop
 >>>>>>> develop
