@@ -1,0 +1,99 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:smartTable="sap.ui.comp.smarttable"
+    xmlns:core="sap.ui.core">
+    <smartTable:SmartTable class="sapUiResponsiveContentPadding" id="idInTransitPOTable" editable="false" placeToolbarInTable="true" enableAutoBinding="true" entitySet="PurchaseOrderSet" showFullScreenButton="true" showRowCount="false" tableType="ResponsiveTable" demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" beforeRebindTable="onbeforeRebindDispatchPoTable">
+        <Table sticky="ColumnHeaders,HeaderToolbar" updateFinished="onInTransitPOTableUpdateFinished">
+            <columns>
+                <Column >
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "PONumber", "leadingProperty": "PONumber",
+                                                 "columnIndex": 0 ,"sortProperty": "PONumber","filterProperty": "PONumber"}'/>
+                    </customData>
+                    <Text text="{i18n>ponumber}"/>
+                </Column>
+        
+                <Column demandPopin="true" minScreenWidth="Desktop">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "companyCode",
+                                 "columnIndex": 1}'/>
+                    </customData>
+                    <Text text="{i18n>companyCode}"/>
+                </Column>
+
+                <Column demandPopin="true" minScreenWidth="Tablet">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "IssuedDate", "leadingProperty": "POReleaseDate",
+                                                 "columnIndex": 2 }'/>
+                    </customData>
+                    <Text text="{i18n>issueddate}"/>
+                </Column>
+
+                <Column demandPopin="true" minScreenWidth="Tablet">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "ConfirmedDate", "leadingProperty": "POReleaseDate",
+                                                 "columnIndex": 3 }'/>
+                    </customData>
+                    <Text text="{i18n>confirmeddate}"/>
+                </Column>
+
+                <Column demandPopin="true" minScreenWidth="Tablet">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "POReleaseDate", "leadingProperty": "POReleaseDate",
+                                                 "columnIndex": 4 }'/>
+                    </customData>
+                    <Text text="{i18n>releasedDate}"/>
+                </Column>
+
+                <Column demandPopin="true" minScreenWidth="Tablet">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "OrderQty", "leadingProperty": "OrderQty",
+                                                 "columnIndex": 5}'/>
+                    </customData>
+                    <Text text="{i18n>orderQty}"/>
+                </Column>
+
+                <Column>
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Action"}'/>
+                    </customData>
+                    <Text text="{i18n>action}"/>
+                </Column>
+            </columns>
+            <items>
+                <ColumnListItem type="Navigation" press="onPurchaseOrderPress"> 
+                    <cells>
+                        <Text text="{PONumber}"/>
+                        <Text text="missing"/>
+                        <Text text="{PlantCode}"/>
+
+                        <Text text="{path:'POReleaseDate',
+                                    type: 'sap.ui.model.type.Date',
+				                     formatOptions: {
+				                        pattern: 'MMMM dd, yyyy'
+				                     }    
+                        }"/>
+                        <Text text="{path:'POReleaseDate',
+                                     type: 'sap.ui.model.type.Date',
+				                     formatOptions: {
+				                        pattern: 'MMMM dd, yyyy'
+				                     }
+                        }"/>
+                           <Text text="{path:'UpdatedAt',
+                                     type: 'sap.ui.model.type.Date',
+				                     formatOptions: {
+				                        pattern: 'MMMM dd, yyyy'
+				                     }
+                        }"/>
+                        <Text text="{path:'POReleaseDate',
+                                     type: 'sap.ui.model.type.Date',
+				                     formatOptions: {
+				                        pattern: 'MMMM dd, yyyy'
+				                     }
+                        }"/>
+                        <Link text="{i18n>viewLineItems}" press="onViewLineItemsPress"></Link>
+                    </cells>
+                </ColumnListItem>
+            </items>
+        </Table>
+    </smartTable:SmartTable>
+</core:FragmentDefinition>

@@ -119,9 +119,9 @@ sap.ui.define([
             },
 
             // On Approve Press Vehicle Number
-            onPressApproveVehicleNumber: function () {
-                this.byId("idHboxReEnterVehicleNo").setVisible(false);
-            },
+            // onPressApproveVehicleNumber: function () {
+            //     this.byId("idHboxReEnterVehicleNo").setVisible(false);
+            // },
 
             // On Reject Press Vehicle Number
             // onPressRejectVehicleNumber: function () {
@@ -130,7 +130,6 @@ sap.ui.define([
 
             // On Submit Press - 
             onVehicleNumberSubmit: function (oEvent) {
-                debugger;
 
                 // validationforblankVehicleNumber
 
@@ -228,6 +227,12 @@ sap.ui.define([
                 this.qrDialog.then(function (oDialog) {
                     oDialog.close();
                 });
+            },
+
+            onVechileNumerValueUpdate: function(oEvent) {              
+                var Vehiclenumber = this.getView().getModel("oViewHandlingModel").oData.ReEnterVehicleNo;
+                if(Vehiclenumber === "")
+                    this.getViewModel("oViewHandlingModel").setProperty("/ReEnterVehicleNo", null);
             }
 
         });

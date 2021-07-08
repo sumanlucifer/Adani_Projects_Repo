@@ -161,12 +161,28 @@ modules:
       name: security-scanqr
       target-path: resources/
     - artifacts:
-      - comagelmmtsvendorpackinglistcreate-content.zip
-      name: comagelmmtsvendorpackinglistcreate
+      - storeincharge-totaldetails-content.zip
+      name: storeinchargetotaldetails
       target-path: resources/  
+    - artifacts: 
+      - vendor-map-mdcc-content.zip
+      name: vendor-map-mdcc
+      target-path: resources/
     - artifacts:
       - vendor-map-mdcc-content.zip
       name: vendor-map-mdcc
+      target-path: resources/
+    - artifacts:
+      - storeincharge-raisedpo-content.zip
+      name: storeincharge-raisedpo
+      target-path: resources/
+    - artifacts:
+      - storeincharge-intransitpo-content.zip
+      name: storeincharge-intransitpo
+      target-path: resources/
+    - artifacts:
+      - storeincharge-receivedpo-content.zip
+      name: storeincharge-receivedpo
       target-path: resources/
 - name: vendorPersona
   type: html5
@@ -450,7 +466,15 @@ modules:
     builder: custom
     commands:
     - npm run build
-    supported-platforms: []  
+    supported-platforms: []
+- name: storeinchargetotaldetails
+  type: html5
+  path: storeincharge-totaldetails
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []    
 - name: vendor-map-mdcc
   type: html5
   path: vendor-map-mdcc
@@ -459,6 +483,30 @@ modules:
     commands:
     - npm run build
     supported-platforms: []  
+- name: storeincharge-raisedpo
+  type: html5
+  path: storeincharge-raisedpo
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []  
+- name: storeincharge-intransitpo
+  type: html5
+  path: storeincharge-intransitpo
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []  
+- name: storeincharge-receivedpo
+  type: html5
+  path: storeincharge-receivedpo
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []    
 resources:
 - name: uaa_agel-mmts-web
   type: org.cloudfoundry.managed-service
