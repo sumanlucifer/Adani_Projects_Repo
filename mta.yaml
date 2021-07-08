@@ -16,7 +16,7 @@ modules:
     properties:
       forwardAuthToken: true
       name: AGEL_MMTS_API
-      url: https://qa-agel-mmts-api.cfapps.ap11.hana.ondemand.com/
+      url: https://agel-mmts-api.cfapps.ap11.hana.ondemand.com/
   parameters:
     buildpack: nodejs_buildpack
     disk-quota: 256M
@@ -67,14 +67,6 @@ modules:
     - artifacts:
       - storeInCharge-ReturnMaterialRequests-content.zip
       name: storeInCharge-ReturnMaterialRequests
-      target-path: resources/
-    - artifacts:
-      - securityPerson-ScanQR-content.zip
-      name: securityPerson-ScanQR
-      target-path: resources/
-    - artifacts:
-      - securityPerson-History-content.zip
-      name: securityPerson-History
       target-path: resources/
     - artifacts:
       - engineerInCharge-ReturnOrder-content.zip
@@ -157,11 +149,11 @@ modules:
       name: vendormdcc
       target-path: resources/
     - artifacts:
-      - comagelmmtssecurityinternationalimport.zip
+      - security-international-import-content.zip
       name: comagelmmtssecurityinternationalimport
       target-path: resources/
     - artifacts:
-      - comagelmmtssecurityscanhistory.zip
+      - security-scan-history-content.zip
       name: comagelmmtssecurityscanhistory
       target-path: resources/
     - artifacts:
@@ -262,22 +254,6 @@ modules:
 - name: storeInCharge-ReturnMaterialRequests
   type: html5
   path: storeInCharge-ReturnMaterialRequests
-  build-parameters:
-    builder: custom
-    commands:
-    - npm run build
-    supported-platforms: []
-- name: securityPerson-ScanQR
-  type: html5
-  path: securityPerson-ScanQR
-  build-parameters:
-    builder: custom
-    commands:
-    - npm run build
-    supported-platforms: []
-- name: securityPerson-History
-  type: html5
-  path: securityPerson-History
   build-parameters:
     builder: custom
     commands:

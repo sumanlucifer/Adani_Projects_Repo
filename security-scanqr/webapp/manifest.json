@@ -22,8 +22,8 @@
                         "parameters": {},
                         "additionalParameters": "allowed"
                     },
-                    "semanticObject": "Actions",
-                    "action": "Vendor",
+                    "semanticObject": "securityScanQR",
+                    "action": "manage",
                     "title": "{{appTileTitle}}",
                     "subTitle": "{{appTileSubTitle}}",
                     "icon": "sap-icon://supplier"
