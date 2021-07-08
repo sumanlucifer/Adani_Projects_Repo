@@ -13,7 +13,8 @@
     xmlns:sellerForm="com.agel.mmts.storeinchargetotaldetails.view.blocks.LandingPage.sellerForm"
     xmlns:sowForm="com.agel.mmts.storeinchargetotaldetails.view.blocks.LandingPage.sowForm"
     xmlns:lineItemsForm="com.agel.mmts.storeinchargetotaldetails.view.blocks.LandingPage.lineItemsForm" 
-    xmlns:packingItemsForm="com.agel.mmts.storeinchargetotaldetails.view.blocks.LandingPage.packingItemsForm" height="100%">
+    xmlns:packingItemsForm="com.agel.mmts.storeinchargetotaldetails.view.blocks.LandingPage.packingItemsForm"
+    xmlns:packingListItemsForm="com.agel.mmts.storeinchargetotaldetails.view.blocks.LandingPage.packingListItemsForm" height="100%">
     <uxap:ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true" upperCaseAnchorBar="false" headerContentPinnable="true" toggleHeaderOnTitleClick="true" busy="{objectViewModel>/busy}">
         <uxap:headerTitle>
             <uxap:ObjectPageDynamicHeaderTitle>
@@ -104,20 +105,20 @@
                             <lineItemsForm:LineItemsForm class="sapUxAPObjectPageSubSectionAlignContent"/>
                         </uxap:blocks>
                     </uxap:ObjectPageSubSection>
-                    <uxap:ObjectPageSubSection title="{i18n>packingListID}" visible="{detailsModel>/packingListTable}">
-                        <uxap:blocks>
-                            <packingItemsForm:PackingItemsForm class="sapUxAPObjectPageSubSectionAlignContent"/>
-                        </uxap:blocks>
-                    </uxap:ObjectPageSubSection>
                 </uxap:subSections>
             </uxap:ObjectPageSection>
             
             <!-- Packing List Section -->
             <uxap:ObjectPageSection titleUppercase="false" title="{i18n>packingList}">
                 <uxap:subSections>
+                    <uxap:ObjectPageSubSection title="{i18n>packingListID}" visible="{detailsModel>/packingListTable}">
+                        <uxap:blocks>
+                            <packingItemsForm:PackingItemsForm class="sapUxAPObjectPageSubSectionAlignContent"/>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
                    <uxap:ObjectPageSubSection title="{i18n>packingList}">
                         <uxap:blocks>
-                            <!-- <packingItemsListForm:PackingItemsListForm class="sapUxAPObjectPageSubSectionAlignContent"/> -->
+                            <!-- <packingListItemsForm:PackingListItemsForm class="sapUxAPObjectPageSubSectionAlignContent"/> -->
                         </uxap:blocks>
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>

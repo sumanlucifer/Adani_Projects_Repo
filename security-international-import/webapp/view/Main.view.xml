@@ -41,8 +41,8 @@
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection>
                             <f:SimpleForm layout="ColumnLayout" columnsM="2" columnsL="2" columnsXL="4"
-                              labelSpanL="2" labelSpanXL="4"	labelSpanM="12"	labelSpanS="12"
-                                  singleContainerFullSize="false" binding="{oImportModel>/}" editable="true">
+                              labelSpanL="3" labelSpanXL="4" labelSpanM="4"	labelSpanS="12" adjustLabelSpan="true"
+                                  singleContainerFullSize="true" binding="{oImportModel>/}" editable="true">
                                 <f:content>
                                     <core:Title  text="Enter Details"/>
                                     <Label text="{i18n>ponum}" required="true"/>
