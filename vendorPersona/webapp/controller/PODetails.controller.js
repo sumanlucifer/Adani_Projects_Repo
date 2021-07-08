@@ -166,7 +166,7 @@ sap.ui.define([
 
         onConfirmPO: function () {
             var poNumber = this.getView().getBindingContext().getObject().PONumber;
-            MessageBox.confirm("Do you want to confirm purchase order " + poNumber + "?", {
+            MessageBox.confirm("Do you want to confirm Purchase Order " + poNumber + "?", {
                 styleClass: "sapUiResponsivePadding--header sapUiResponsivePadding--content sapUiResponsivePadding--footer",
                 actions: [MessageBox.Action.OK, MessageBox.Action.CANCEL],
                 emphasizedAction: MessageBox.Action.OK,
@@ -181,6 +181,7 @@ sap.ui.define([
 
         confirmPO: function (oEvent) {
             var sPath = this.getView().getBindingContext().getPath();
+            var poNumber = this.getView().getBindingContext().getObject().PONumber;
             var oPayload = {
                 "Status": "CONFIRMED",
                 "UpdatedAt": new Date()
@@ -188,7 +189,7 @@ sap.ui.define([
 
             this.getComponentModel().update(sPath, oPayload, {
                 success: function (oData, oResponse) {
-                    sap.m.MessageBox.success("Purchase order has been confirmed! Please raise the inspection call through SIMS portal.");
+                    sap.m.MessageBox.success("Purchase Order "+ poNumber +" has been confirmed! Please raise the inspection call through SIMS portal.");
                     this.getComponentModel().refresh();
                 }.bind(this),
                 error: function (oError) {

@@ -125,9 +125,9 @@
             </uxap:ObjectPageSection>
 
             <!-- Line Items Section -->
-            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>boqItems}">
+            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>boqItemsSectionTitle}">
                 <uxap:subSections>
-                    <uxap:ObjectPageSubSection title="{i18n>boqItems}">
+                    <uxap:ObjectPageSubSection title="{i18n>boqItemsSectionTitle}">
                         <uxap:blocks>
                             <boqItemsTable:BOQItemsTable class="sapUxAPObjectPageSubSectionAlignContent" OnApproveBOQPress="BOQApproval" OnRejectBOQPress="onRejectBOQPress"/>
                         </uxap:blocks>
