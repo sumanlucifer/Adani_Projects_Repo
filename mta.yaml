@@ -1,6 +1,6 @@
 _schema-version: "3.2"
 ID: agel-mmts-web
-version: 0.0.2
+version: 1.0.0
 modules:
 - name: agel-mmts-web-approuter
   type: approuter.nodejs
@@ -18,7 +18,6 @@ modules:
       name: AGEL_MMTS_API
       url: https://agel-mmts-api.cfapps.ap11.hana.ondemand.com/
   parameters:
-    buildpack: nodejs_buildpack
     disk-quota: 256M
     keep-existing-routes: true
     memory: 256M
@@ -548,7 +547,7 @@ resources:
     service: destination
     service-plan: lite
 parameters:
-  -enable-parallel-deployments: true
+  enable-parallel-deployments: true
 build-parameters:
   before-all:
   - builder: custom
