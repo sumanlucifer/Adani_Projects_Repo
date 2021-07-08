@@ -86,11 +86,17 @@
 			},
 			"payload": {
 				"viz": [{
-					"appId": "com.agel.mmts.securityPerson-ScanQR",
-					"vizId": "ScanQR-SecurityPerson"
+					"id": "com.agel.mmts.securityinternationalimport-0-1625732458745",
+					"appId": "com.agel.mmts.securityinternationalimport",
+					"vizId": "securityInternationImport-manage"
 				}, {
-					"appId": "com.agel.mmts.securityPerson-History",
-					"vizId": "History-SecurityPerson"
+					"id": "com.agel.mmts.securityscanhistory-1-1625732458745",
+					"appId": "com.agel.mmts.securityscanhistory",
+					"vizId": "secuirityScanHistory-manage"
+				}, {
+					"id": "com.agel.mmts.securityscanqr-2-1625732458745",
+					"appId": "com.agel.mmts.securityscanqr",
+					"vizId": "securityScanQR-manage"
 				}]
 			}
 		}, {

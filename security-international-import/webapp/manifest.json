@@ -11,16 +11,6 @@
         "description": "{{appDescription}}",
         "resources": "resources.json",
         "ach": "ach",
-        "dataSources": {
-            "default": {
-                "uri": "/AGEL_MMTS_API/api/v2/odata.svc/",
-                "type": "OData",
-                "settings": {
-                    "odataVersion": "2.0",
-                    "localUri": "localService/metadata.xml"
-                }
-            }
-        },
         "crossNavigation": {
             "inbounds": {
                 "com-agel-mmts-securityinternationalimport-inbound": {
@@ -28,11 +18,21 @@
                         "parameters": {},
                         "additionalParameters": "allowed"
                     },
-                    "semanticObject": "security-internationimport",
+                    "semanticObject": "securityInternationImport",
                     "action": "manage",
                     "title": "International Import",
                     "subTitle": "",
                     "icon": ""
+                }
+            }
+        },
+        "dataSources": {
+            "default": {
+                "uri": "/AGEL_MMTS_API/api/v2/odata.svc/",
+                "type": "OData",
+                "settings": {
+                    "odataVersion": "2.0",
+                    "localUri": "localService/metadata.xml"
                 }
             }
         }
