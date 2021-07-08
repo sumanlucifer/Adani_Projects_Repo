@@ -16,8 +16,8 @@
                 </HBox> 
                 <HBox alignItems="Center">                           
                     <Input id="idInputQRCode" width="100%" showSuggestion="true" showValueHelp="false" 
-                        suggestionItems="{/QRCodeSet}" placeholder="Enter QR Number"
-                         suggestionItemSelected="onQRCodeSuggestionSelected" class="sapUiSmallMarginEnd" liveChange="onLiveChangeQR" enabled="{oViewModel>/inputQRCode}">
+                        suggestionItems="{/QRCodeSet}" placeholder="Enter QR Number" valueLiveUpdate="true"
+                        suggestionItemSelected="onQRCodeSuggestionSelected" liveChange="onQRCodeSuggestionSelected" class="sapUiSmallMarginEnd" enabled="{oViewModel>/inputQRCode}">
                         <suggestionItems>
                             <core:Item text="{QRNumber}" key="{QRNumber}" />
                         </suggestionItems>
@@ -35,8 +35,8 @@
                 </HBox>
                 
                 <HBox alignItems="Center">
-                    <Input id="idInvoiceNum" width="100%" suggestionItems="{/PackingListSet}" showSuggestion="true" placeholder="Enter Invoice Number" showValueHelp="false" 
-                        class="sapUiSmallMarginEnd" suggestionItemSelected="onInvoiceSuggestionSelected"  liveChange="onLiveChangeInvoice" enabled="{oViewModel>/inputInvoiceCode}">
+                    <Input id="idInvoiceNum" width="100%" valueLiveUpdate="true" suggestionItems="{/PackingListSet}" showSuggestion="true" placeholder="Enter Invoice Number" showValueHelp="false" 
+                        class="sapUiSmallMarginEnd" suggestionItemSelected="onInvoiceSuggestionSelected" liveChange="onInvoiceSuggestionSelected" enabled="{oViewModel>/inputInvoiceCode}">
                         <suggestionItems>
                             <core:Item text="{InvoiceNumber}" key="{InvoiceNumber}" />
                         </suggestionItems>
