@@ -1,27 +1,10 @@
-node_modules/
-dist/
-.scp/
-.env
-Makefile*.mta
-mta_archives
-mta-*
-resources
-archive.zip
-.*_mta_build_tmp
-# auto generated wildcard
-agel-mmts-web/vendor-map-mdcc/.env1
-# auto generated wildcard
-vendor-manageboq/.env4
-# auto generated wildcard
-<<<<<<< HEAD
-agel-mmts-web/security-international-import/.env2
-=======
-<<<<<<< HEAD
-storeincharge-totaldetails/.env2
-=======
-agel-mmts-web/security-international-import/.env2
->>>>>>> develop
->>>>>>> develop
+/node_modules/
+package-lock.json
+/dist/
+/.vscode/
+/mta_archives/
+/resources/
 
-# auto generated wildcard
-agel-mmts-web/security-scanqr/.env2
+
+*.zip
+*.env
