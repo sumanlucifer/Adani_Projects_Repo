@@ -1,10 +1,10 @@
 {
     "resources": [
         {
-            "name": "Component.js"
+            "name": "view/LandingPage.view.xml"
         },
         {
-            "name": "controller/LandingPage.controller.js"
+            "name": "Component.js"
         },
         {
             "name": "model/models.js"
@@ -13,8 +13,7 @@
             "name": "manifest.json"
         },
         {
-            "name": "i18n/i18n.properties",
-            "raw": "i18n/i18n.properties"
+            "name": "manifest.json"
         },
         {
             "name": "manifest-bundle.zip"
@@ -24,11 +23,11 @@
             "merged": true
         },
         {
-            "name": "model/models-dbg.js",
+            "name": "controller/LandingPage-dbg.controller.js",
             "isDebug": true
         },
         {
-            "name": "controller/LandingPage-dbg.controller.js",
+            "name": "model/models-dbg.js",
             "isDebug": true
         },
         {
@@ -39,7 +38,8 @@
             "name": "../../../../sap-ui-version.json"
         },
         {
-            "name": "view/LandingPage.view.xml"
+            "name": "i18n/i18n.properties",
+            "raw": "i18n/i18n.properties"
         },
         {
             "name": "css/style.css"

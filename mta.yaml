@@ -69,14 +69,6 @@ modules:
       name: storeInCharge-ReturnMaterialRequests
       target-path: resources/
     - artifacts:
-      - securityPerson-ScanQR-content.zip
-      name: securityPerson-ScanQR
-      target-path: resources/
-    - artifacts:
-      - securityPerson-History-content.zip
-      name: securityPerson-History
-      target-path: resources/
-    - artifacts:
       - engineerInCharge-ReturnOrder-content.zip
       name: engineerInCharge-ReturnOrder
       target-path: resources/
@@ -157,11 +149,11 @@ modules:
       name: vendormdcc
       target-path: resources/
     - artifacts:
-      - comagelmmtssecurityinternationalimport.zip
+      - security-international-import-content.zip
       name: comagelmmtssecurityinternationalimport
       target-path: resources/
     - artifacts:
-      - comagelmmtssecurityscanhistory.zip
+      - security-scan-history-content.zip
       name: comagelmmtssecurityscanhistory
       target-path: resources/
     - artifacts:
@@ -274,22 +266,6 @@ modules:
 - name: storeInCharge-ReturnMaterialRequests
   type: html5
   path: storeInCharge-ReturnMaterialRequests
-  build-parameters:
-    builder: custom
-    commands:
-    - npm run build
-    supported-platforms: []
-- name: securityPerson-ScanQR
-  type: html5
-  path: securityPerson-ScanQR
-  build-parameters:
-    builder: custom
-    commands:
-    - npm run build
-    supported-platforms: []
-- name: securityPerson-History
-  type: html5
-  path: securityPerson-History
   build-parameters:
     builder: custom
     commands:

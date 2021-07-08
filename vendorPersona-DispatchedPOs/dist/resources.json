@@ -1,16 +1,24 @@
 {
     "resources": [
         {
+<<<<<<< HEAD
             "name": "manifest-bundle.zip"
         },
         {
             "name": "Component.js"
+=======
+            "name": "controller/LandingPage-dbg.controller.js",
+            "isDebug": true
+        },
+        {
+            "name": "controller/LandingPage.controller.js"
+>>>>>>> develop
         },
         {
             "name": "model/models.js"
         },
         {
-            "name": "controller/LandingPage.controller.js"
+            "name": "manifest.json"
         },
         {
             "name": "manifest.json"

@@ -345,7 +345,6 @@ sap.ui.define([
                     }.bind(this,i),
                     error:function(oError){
                         sap.m.MessageBox.Error(JSON.stringify(oError));
-
                     }
                 });
             }

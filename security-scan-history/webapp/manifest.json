@@ -11,16 +11,6 @@
         "description": "{{appDescription}}",
         "resources": "resources.json",
         "ach": "ach",
-        "dataSources": {
-            "default": {
-                "uri": "/AGEL_MMTS_API/api/v2/odata.svc/",
-                "type": "OData",
-                "settings": {
-                    "odataVersion": "2.0",
-                    "localUri": "localService/metadata.xml"
-                }
-            }
-        },
         "crossNavigation": {
             "inbounds": {
                 "com-agel-mmts-securityscanhistory-inbound": {
@@ -28,11 +18,21 @@
                         "parameters": {},
                         "additionalParameters": "allowed"
                     },
-                    "semanticObject": "secuirity-scan-history",
+                    "semanticObject": "secuirityScanHistory",
                     "action": "manage",
                     "title": "Scan History",
                     "subTitle": "",
                     "icon": ""
+                }
+            }
+        },
+        "dataSources": {
+            "default": {
+                "uri": "/AGEL_MMTS_API/api/v2/odata.svc/",
+                "type": "OData",
+                "settings": {
+                    "odataVersion": "2.0",
+                    "localUri": "localService/metadata.xml"
                 }
             }
         }
