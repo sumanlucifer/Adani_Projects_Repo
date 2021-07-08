@@ -1,0 +1,76 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:core="sap.ui.core" xmlns:u="sap.ui.unified">
+
+    <Table width="auto" growing="true" growingThreshold="2" items="{path: 'ParentLineItems'}" fixedLayout="false">
+        <columns>
+            <Column>
+                <Text text="{i18n>LineNumber}" wrapping="true" wrappingType="Hyphenated"/>
+            </Column>
+            <Column importance="High">
+                <Text text="{i18n>materialCode}" wrapping="true" wrappingType="Hyphenated"/>
+            </Column>
+            <Column>
+                <Text text="Name" wrapping="true"/>
+            </Column>
+            <Column demandPopin="true" minScreenWidth="Desktop">
+                <Text text="{i18n>description}"/>
+            </Column>
+            <Column demandPopin="true" minScreenWidth="Desktop">
+                <Text text="{i18n>plant}" />
+            </Column>
+            <Column demandPopin="true" minScreenWidth="Desktop" hAlign="Center">
+                <Text text="{i18n>storageloc}" />
+            </Column>
+            <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center">
+                <Text text="{i18n>quantity}" />
+            </Column>
+            <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center">
+                <Text text="{i18n>orderUnit}"/>
+            </Column>
+            <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center">
+                <Text text="{i18n>netPrice}"/>
+            </Column>
+            <Column demandPopin="true" minScreenWidth="Desktop" hAlign="Center">
+                <Text text="{i18n>netValue}"/>
+            </Column>
+            <Column demandPopin="true" minScreenWidth="Desktop" hAlign="Center">
+                <Text text="{i18n>taxCode}"/>
+            </Column>
+            <Column demandPopin="true" minScreenWidth="Desktop" hAlign="Center">
+                <Text text="{i18n>taxIndicator}"/>
+            </Column>
+            <Column demandPopin="true" minScreenWidth="Desktop">
+                <Text text="{i18n>hsncode}"/>
+            </Column>
+            <Column demandPopin="true" minScreenWidth="Desktop">
+                <Text text="{i18n>deliveryDate}"/>
+            </Column>
+        </columns>
+        <items>
+            <ColumnListItem>
+                <cells>
+                    <Text text="{LineNumber}" wrappingType="Hyphenated"/>
+                    <ObjectIdentifier title="{MaterialCode}"/>
+                    <Text text="{Name}" wrappingType="Hyphenated"/>
+                    <ExpandableText text="{Description}" maxCharacters="20" overflowMode="Popover"/>
+                    <Text text="{PlantCode}"/>
+                    <Text text="{StorageLocation}"/>
+                    <Text text="{Quantity}"/>
+                    <Text text="{UoM}"/>
+                    <u:Currency stringValue="{Price}" currency="{Currency}" useSymbol="true"/>
+                    <u:Currency stringValue="{Value}" currency="{Currency}" useSymbol="true"/>
+                    <Text text="{TaxCode}"/>
+                    <Text text="{TaxIndicator}"/>
+                    <Text text="{HSNCode}"/>
+                    <Text text="{path:'DeliveryDate',
+                                     type: 'sap.ui.model.type.Date',
+				                     formatOptions: {
+				                        pattern: 'MMMM dd, yyyy'
+				                     }
+                        }"/>
+                </cells>
+            </ColumnListItem>
+        </items>
+    </Table>
+
+</core:FragmentDefinition>

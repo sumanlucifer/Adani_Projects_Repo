@@ -93,5 +93,11 @@ storeincharge-intransitpo/.env1
 storeincharge-receivedpo/.env1
 =======
 # auto generated wildcard
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+storeincharge-totaldetails/.env2
+=======
+>>>>>>> develop
 agel-mmts-web/security-international-import/.env2
 >>>>>>> develop

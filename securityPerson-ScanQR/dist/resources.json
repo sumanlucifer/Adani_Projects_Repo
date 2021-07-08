@@ -1,14 +1,13 @@
 {
     "resources": [
         {
-            "name": "utils/formatter-dbg.js",
-            "isDebug": true
-        },
-        {
-            "name": "manifest.json"
+            "name": "index.html"
         },
         {
             "name": "utils/formatter.js"
+        },
+        {
+            "name": "manifest.json"
         },
         {
             "name": "model/models.js"
@@ -42,7 +41,7 @@
             "merged": true
         },
         {
-            "name": "Component-dbg.js",
+            "name": "controller/BarCodeDetails-dbg.controller.js",
             "isDebug": true
         },
         {
@@ -66,7 +65,7 @@
             "isDebug": true
         },
         {
-            "name": "controller/BarCodeDetails-dbg.controller.js",
+            "name": "utils/formatter-dbg.js",
             "isDebug": true
         },
         {
@@ -74,8 +73,8 @@
             "isDebug": true
         },
         {
-            "name": "i18n/i18n.properties",
-            "raw": "i18n/i18n.properties"
+            "name": "Component-dbg.js",
+            "isDebug": true
         },
         {
             "name": "../../../../sap-ui-version.json"
@@ -99,7 +98,8 @@
             "name": "css/style.css"
         },
         {
-            "name": "index.html"
+            "name": "i18n/i18n.properties",
+            "raw": "i18n/i18n.properties"
         }
     ]
 }

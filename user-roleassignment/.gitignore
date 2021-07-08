@@ -75,6 +75,7 @@ storeInCharge-TotalOrder/.env1
 # auto generated wildcard
 storeInCharge-TotalOrder/.env3
 # auto generated wildcard
+<<<<<<< HEAD
 storeincharge-raisedpo/.env1
 # auto generated wildcard
 storeincharge-intransitpo/.env1
@@ -84,3 +85,10 @@ storeincharge-receivedpo/.env1
 # auto generated wildcard
 agel-mmts-web/security-international-import/.env2
 
+=======
+<<<<<<< HEAD
+storeincharge-totaldetails/.env2
+=======
+agel-mmts-web/security-international-import/.env2
+>>>>>>> develop
+>>>>>>> develop

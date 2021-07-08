@@ -6,7 +6,7 @@
             placeToolbarInTable="true" enableAutoBinding="true" entitySet="ScannedMaterialSet"
              showFullScreenButton="true" showRowCount="false" tableType="ResponsiveTable"
              demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" 
-             useVariantManagement="false" beforeRebindTable="onbeforeRebindOpenPoTable" ignoreFromPersonalisation="CreatedAt, CreatedBy, ID, IsArchived, QRCodeId, QRNumber, UpdatedAt, UpdatedBy, UserId">
+             useVariantManagement="false" beforeRebindTable="onbeforeRebindDomesticPoTable" ignoreFromPersonalisation="CreatedAt, CreatedBy, ID, IsArchived, QRCodeId, QRNumber, UpdatedAt, UpdatedBy, UserId">
 
         <Table sticky="ColumnHeaders,HeaderToolbar" updateFinished="onDomesticTableUpdateFinished"
              alternateRowColors="true">
