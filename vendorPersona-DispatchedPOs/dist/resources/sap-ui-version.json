@@ -1,7 +1,11 @@
 {
 	"name": "vendorPersona-DispatchedPOs",
 	"version": "0.0.1",
+<<<<<<< HEAD
+	"buildTimestamp": "202107070906",
+=======
 	"buildTimestamp": "202107080907",
+>>>>>>> develop
 	"scmRevision": "",
 	"libraries": []
 }

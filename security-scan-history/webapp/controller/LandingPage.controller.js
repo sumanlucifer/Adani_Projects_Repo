@@ -55,6 +55,7 @@ sap.ui.define([
                 }
                 this.oFilterBar.fireFilterChange(oEvent);
             },
+
             // on Go Search 
             onSearch: function (oEvent) {
                 var ponum = this.byId("idInpPoNo").getValue();
@@ -138,7 +139,23 @@ sap.ui.define([
                 }
             },
 
-
+            onbeforeRebindDomesticPoTable: function (oEvent) {
+                var PONumber;
+                var mBindingParams = oEvent.getParameter("bindingParams");
+                if (this.getView().getBindingContext().getObject())
+                    PONumber = this.getView().getBindingContext().getObject().PONumber;
+                mBindingParams.filters.push(newsap.ui.model.Filter("PONumber", sap.ui.model.FilterOperator.EQ, PONumber));
+                mBindingParams.sorter.push(newsap.ui.model.Sorter("CreatedAt", true));
+            },
+            
+            onbeforeRebindInternationalPoTable: function (oEvent) {
+                var PONumber;
+                var mBindingParams = oEvent.getParameter("bindingParams");
+                if (this.getView().getBindingContext().getObject())
+                    PONumber = this.getView().getBindingContext().getObject().PONumber;
+                mBindingParams.filters.push(newsap.ui.model.Filter("PONumber", sap.ui.model.FilterOperator.EQ, PONumber));
+                mBindingParams.sorter.push(newsap.ui.model.Sorter("CreatedAt", true));
+            },
 
             // On Icon Tab Select
             onIconTabBarChanged: function (sKey) {

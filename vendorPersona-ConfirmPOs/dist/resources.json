@@ -1,7 +1,12 @@
 {
     "resources": [
         {
+<<<<<<< HEAD
+            "name": "Component-preload.js",
+            "merged": true
+=======
             "name": "view/LandingPage.view.xml"
+>>>>>>> develop
         },
         {
             "name": "Component.js"
@@ -19,8 +24,8 @@
             "name": "manifest-bundle.zip"
         },
         {
-            "name": "Component-preload.js",
-            "merged": true
+            "name": "i18n/i18n.properties",
+            "raw": "i18n/i18n.properties"
         },
         {
             "name": "controller/LandingPage-dbg.controller.js",

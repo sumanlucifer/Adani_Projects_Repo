@@ -1,0 +1,34 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns:f="sap.ui.layout.form"
+    xmlns="sap.m" xmlns:u="sap.ui.unified">
+
+    <Table width="auto" growing="true" growingThreshold="2" items="{path: 'PackingList'}" fixedLayout="true">
+        <columns>
+            <Column demandPopin="true" minScreenWidth="Desktop">
+                <Text text="{i18n>id}" wrapping="true" wrappingType="Hyphenated"/>
+            </Column>
+            <Column demandPopin="true" minScreenWidth="Desktop">
+                <Text text="{i18n>invoiceDate}" wrapping="true" wrappingType="Hyphenated"/>
+            </Column>
+            <Column demandPopin="true" minScreenWidth="Desktop">
+                <Text text="{i18n>status}"/>
+            </Column>
+        </columns>
+        <items>
+            <ColumnListItem>
+                <cells>
+                    <Text text="{ID}"/>
+                    <Text text="{path:'InvoiceDate',
+                                     type: 'sap.ui.model.type.Date',
+				                     formatOptions: {
+				                        pattern: 'MMMM dd, yyyy'
+				                     }
+                        }"/>
+                    <ObjectIdentifier title="{Status}"/>
+                </cells>
+            </ColumnListItem>
+        </items>
+    </Table>
+
+</mvc:View>
