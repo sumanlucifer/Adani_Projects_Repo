@@ -85,14 +85,5 @@ tcengineer/.env4
 
 # auto generated wildcard
 vendor-manageboq/.env4
-
 # auto generated wildcard
-storeInCharge-TotalOrder/.env1
-# auto generated wildcard
-storeInCharge-TotalOrder/.env3
-# auto generated wildcard
-storeincharge-raisedpo/.env1
-# auto generated wildcard
-storeincharge-intransitpo/.env1
-# auto generated wildcard
-storeincharge-receivedpo/.env1
+agel-mmts-web/security-international-import/.env2

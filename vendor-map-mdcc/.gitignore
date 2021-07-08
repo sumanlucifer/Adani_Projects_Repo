@@ -13,6 +13,7 @@ agel-mmts-web/vendor-map-mdcc/.env1
 # auto generated wildcard
 vendor-manageboq/.env4
 # auto generated wildcard
+<<<<<<< HEAD
 storeInCharge-TotalOrder/.env1
 # auto generated wildcard
 storeInCharge-TotalOrder/.env3
@@ -24,3 +25,6 @@ storeincharge-intransitpo/.env1
 storeincharge-receivedpo/.env1
 # auto generated wildcard
 security-scanqr/.env2
+=======
+agel-mmts-web/security-international-import/.env2
+>>>>>>> develop
