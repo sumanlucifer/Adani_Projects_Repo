@@ -16,7 +16,7 @@ modules:
     properties:
       forwardAuthToken: true
       name: AGEL_MMTS_API
-      url: https://qa-agel-mmts-api.cfapps.ap11.hana.ondemand.com/
+      url: https://agel-mmts-api.cfapps.ap11.hana.ondemand.com/
   parameters:
     buildpack: nodejs_buildpack
     disk-quota: 256M
@@ -171,17 +171,22 @@ modules:
     - artifacts:
       - comagelmmtsvendorpackinglistcreate-content.zip
       name: comagelmmtsvendorpackinglistcreate
-<<<<<<< HEAD
-      target-path: resources/
-    - artifacts:
-      - comagelmmtsstoretotalorderstoretotalorder.zip
-      name: comagelmmtsstoretotalorderstoretotalorder
-=======
       target-path: resources/  
     - artifacts:
       - vendor-map-mdcc-content.zip
       name: vendor-map-mdcc
->>>>>>> develop
+      target-path: resources/
+    - artifacts:
+      - storeincharge-raisedpo-content.zip
+      name: storeincharge-raisedpo
+      target-path: resources/
+    - artifacts:
+      - storeincharge-intransitpo-content.zip
+      name: storeincharge-intransitpo
+      target-path: resources/
+    - artifacts:
+      - storeincharge-receivedpo-content.zip
+      name: storeincharge-receivedpo
       target-path: resources/
 - name: vendorPersona
   type: html5
@@ -490,6 +495,30 @@ modules:
     commands:
     - npm run build
     supported-platforms: []  
+- name: storeincharge-raisedpo
+  type: html5
+  path: storeincharge-raisedpo
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []  
+- name: storeincharge-intransitpo
+  type: html5
+  path: storeincharge-intransitpo
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []  
+- name: storeincharge-receivedpo
+  type: html5
+  path: storeincharge-receivedpo
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []    
 resources:
 - name: uaa_agel-mmts-web
   type: org.cloudfoundry.managed-service
@@ -532,7 +561,6 @@ resources:
     service-plan: lite
 parameters:
   -enable-parallel-deployments: true
-  deploy_mode: html5-repo
 build-parameters:
   before-all:
   - builder: custom

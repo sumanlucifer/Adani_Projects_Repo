@@ -30,7 +30,7 @@
                         <core:Fragment fragmentName="com.agel.mmts.storetotalorder.storetotalorder.view.fragments.landingPage.RaisedPOTable" type="XML"/>
                     </IconTabFilter>
 
-                     <IconTabFilter text="{i18n>inTransitPO}" key="CONFIRMED" count="{oIconTabCountModel>/confirmCount}">
+                    <!--  <IconTabFilter text="{i18n>inTransitPO}" key="CONFIRMED" count="{oIconTabCountModel>/confirmCount}">
                           <core:Fragment fragmentName="com.agel.mmts.storetotalorder.storetotalorder.view.fragments.landingPage.InTransitPOTable" type="XML"/>
                     </IconTabFilter>
                     
@@ -38,9 +38,9 @@
                        <core:Fragment fragmentName="com.agel.mmts.storetotalorder.storetotalorder.view.fragments.landingPage.ReceivedPOTable" type="XML"/>
                     </IconTabFilter>
 
-                    <IconTabFilter text="{i18n>closedPO}" key="CLOSED" count="{oIconTabCountModel>/closedCount}">
+                   <IconTabFilter text="{i18n>closedPO}" key="CLOSED" count="{oIconTabCountModel>/closedCount}">
                        <core:Fragment fragmentName="com.agel.mmts.storetotalorder.storetotalorder.view.fragments.landingPage.ClosedPOTable" type="XML"/>
-                    </IconTabFilter>
+                    </IconTabFilter> -->
 
                 </items>
             </IconTabBar>
