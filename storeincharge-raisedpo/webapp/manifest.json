@@ -24,6 +24,21 @@
                     "localUri": "localService/metadata.xml"
                 }
             }
+        },
+        "crossNavigation": {
+            "inbounds": {
+                "com-agel-mmts-storeinchargetotaldetails-inbound": {
+                    "signature": {
+                        "parameters": {},
+                        "additionalParameters": "allowed"
+                    },
+                    "semanticObject": "TotalOrder",
+                    "action": "raised",
+                    "title": "Raised Order",
+                    "subTitle": "",
+                    "icon": "sap-icon://add-activity-2"
+                }
+            }
         }
     },
     "sap.ui": {
