@@ -8,12 +8,4 @@ package-lock.json
 
 *.zip
 *.env
-
-# auto generated wildcard
-security-scanqr/.env4
-# auto generated wildcard
-security-scan-history/.env3
-# auto generated wildcard
-storeincharge-totaldetails/.env1
-# auto generated wildcard
-user-roleassignment/.env3
+.env*

@@ -11,6 +11,8 @@
     xmlns="sap.m" 
     controllerName="com.agel.mmts.vendormdcc.controller.InitiateDispatch"
     height="100%">
+    <Shell id="shell">
+		<App id="app">
     <uxap:ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true" upperCaseAnchorBar="false"
          headerContentPinnable="true" toggleHeaderOnTitleClick="true" preserveHeaderStateOnScroll="true"
           busy="{objectViewModel>/busy}">
@@ -25,16 +27,16 @@
                     <FlexBox direction="Column" renderType="Bare">
                         <Title text="{i18n>mdccDetails}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
                         <Title text="{MDCCNumber}" wrapping="true" titleStyle="H3"/>
-                         <Title text="{i18n>PODetails}" wrapping="true" titleStyle="H4"/>
-                        <Title text="{PONumber}" wrapping="true" titleStyle="H3"/>
+                        <!-- <Title text="{i18n>PODetails}" wrapping="true" titleStyle="H4"/>
+                        <Title text="{PONumber}" wrapping="true" titleStyle="H3"/> -->
                     </FlexBox>                                  
                 </uxap:expandedHeading>
                 <uxap:snappedHeading>
                     <FlexBox direction="Column" renderType="Bare">
                         <Title text="{i18n>mdccDetails}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
                         <Title text="{MDCCNumber}" wrapping="true" titleStyle="H3"/>
-                        <Title text="{i18n>PODetails}" wrapping="true" titleStyle="H4"/>
-                        <Title text="{PONumber}" wrapping="true" titleStyle="H3"/>
+                        <!-- <Title text="{i18n>PODetails}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
+                        <Title text="{PONumber}" wrapping="true" titleStyle="H3"/> -->
                     </FlexBox>
                 </uxap:snappedHeading>
                 <uxap:expandedContent>
@@ -51,6 +53,12 @@
             <FlexBox wrap="Wrap" height="100%" renderType="Bare" direction="Column">
                 <VBox renderType="Bare">
                     <FlexBox direction="Row" renderType="Bare" class="sapUiTinyMarginBottom">
+
+                        <VBox renderType="Bare" class="sapUiMediumMarginEnd">
+                            <Label text="{i18n>PODetails}" />
+                            <Text text="{PONumber}" />
+                        </VBox>
+
                         <VBox renderType="Bare" class="sapUiMediumMarginEnd">
                          <!--   <Label text="MDCC Number" />-->
                             <!-- missing -->
@@ -61,9 +69,8 @@
 				                        pattern: 'MMMM dd, yyyy'
 				                     }}" />
                         </VBox>
-                        <VBox renderType="Bare">
-                            
-                        </VBox>
+
+                        
                     </FlexBox>
                 </VBox>
             </FlexBox>
@@ -190,4 +197,6 @@
 
         </uxap:sections>
     </uxap:ObjectPageLayout>
+    </App>
+	</Shell>
 </mvc:View>
