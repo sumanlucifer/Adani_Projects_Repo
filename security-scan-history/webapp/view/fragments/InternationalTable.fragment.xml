@@ -5,7 +5,7 @@
             placeToolbarInTable="true" enableAutoBinding="true" entitySet="ManualEntrySet"
              showFullScreenButton="true" showRowCount="false" tableType="ResponsiveTable"
              demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" 
-             useVariantManagement="false" beforeRebindTable="onbeforeRebindOpenPoTable" ignoreFromPersonalisation="CreatedBy, ID, IsArchived, VehicleNumber, UpdatedAt, UpdatedBy">
+             useVariantManagement="false" beforeRebindTable="onbeforeRebindInternationalPoTable" ignoreFromPersonalisation="CreatedBy, ID, IsArchived, VehicleNumber, UpdatedAt, UpdatedBy">
         <Table sticky="ColumnHeaders,HeaderToolbar" updateFinished="onInternationalTableUpdateFinished"
              alternateRowColors="true">
             <columns>
@@ -43,14 +43,22 @@
                         <core:CustomData key="p13nData" value='\{"columnKey": "ContainerNumber", "leadingProperty": "ContainerNumber",
                                                  "columnIndex": 3 ,"sortProperty": "ContainerNumber","filterProperty": "ContainerNumber"}'/>
                     </customData>
-                    <Text text="{i18n>containerNob}"/>
+                    <Text text="{i18n>containerNo}"/>
+                </Column>
+
+                  <Column>
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "VehicleNumber", "leadingProperty": "VehicleNumber",
+                                                 "columnIndex": 4 ,"sortProperty": "VehicleNumber","filterProperty": "VehicleNumber"}'/>
+                    </customData>
+                    <Text text="{i18n>VehicleNumber}"/>
                 </Column>
 
                 <!-- Invoice Number -->
                 <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "InvoiceNumber", "leadingProperty": "InvoiceNumber",
-                                                 "columnIndex": 4 }'/>
+                                                 "columnIndex": 5 }'/>
                     </customData>
                     <Text text="{i18n>invNob}"/>
                 </Column>     

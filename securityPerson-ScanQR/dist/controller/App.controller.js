@@ -1,0 +1,1 @@
+sap.ui.define(["com/agel/mmts/vendorPersona/controller/BaseController","sap/ui/model/json/JSONModel"],function(e,n){"use strict";return e.extend("com.agel.mmts.securityPerson-ScanQR.controller.App",{onInit:function(){this.getView().addStyleClass(this.getOwnerComponent().getContentDensityClass())}})});

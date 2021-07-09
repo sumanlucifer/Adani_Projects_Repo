@@ -1,0 +1,105 @@
+{
+    "resources": [
+        {
+            "name": "controller/BaseController-dbg.js",
+            "isDebug": true
+        },
+        {
+            "name": "controller/LandingPage.controller.js"
+        },
+        {
+            "name": "utils/formatter.js"
+        },
+        {
+            "name": "model/models.js"
+        },
+        {
+            "name": "controller/QRDetails.controller.js"
+        },
+        {
+            "name": "manifest.json"
+        },
+        {
+            "name": "controller/ErrorHandler.js"
+        },
+        {
+            "name": "controller/BaseController.js"
+        },
+        {
+            "name": "controller/BarCodeDetails.controller.js"
+        },
+        {
+            "name": "controller/App.controller.js"
+        },
+        {
+            "name": "Component.js"
+        },
+        {
+            "name": "manifest-bundle.zip"
+        },
+        {
+            "name": "Component-preload.js",
+            "merged": true
+        },
+        {
+            "name": "model/models-dbg.js",
+            "isDebug": true
+        },
+        {
+            "name": "utils/formatter-dbg.js",
+            "isDebug": true
+        },
+        {
+            "name": "controller/QRDetails-dbg.controller.js",
+            "isDebug": true
+        },
+        {
+            "name": "controller/LandingPage-dbg.controller.js",
+            "isDebug": true
+        },
+        {
+            "name": "controller/ErrorHandler-dbg.js",
+            "isDebug": true
+        },
+        {
+            "name": "i18n/i18n.properties",
+            "raw": "i18n/i18n.properties"
+        },
+        {
+            "name": "controller/BarCodeDetails-dbg.controller.js",
+            "isDebug": true
+        },
+        {
+            "name": "controller/App-dbg.controller.js",
+            "isDebug": true
+        },
+        {
+            "name": "Component-dbg.js",
+            "isDebug": true
+        },
+        {
+            "name": "../../../../sap-ui-version.json"
+        },
+        {
+            "name": "view/fragments/ViewQR.fragment.xml"
+        },
+        {
+            "name": "view/QRDetails.view.xml"
+        },
+        {
+            "name": "view/LandingPage.view.xml"
+        },
+        {
+            "name": "view/BarCodeDetails.view.xml"
+        },
+        {
+            "name": "view/App.view.xml"
+        },
+        {
+            "name": "css/style.css"
+        },
+        {
+            "name": "index.html"
+        }
+    ]
+}

@@ -21,6 +21,9 @@ sap.ui.define([
 			// call the base component's init function
 			UIComponent.prototype.init.apply(this, arguments);
 
+            //initialize the error handler with the component	
+            this._oErrorHandler = new ErrorHandler(this);
+
 			// enable routing
 			this.getRouter().initialize();
 

@@ -2,30 +2,10 @@
 package-lock.json
 /dist/
 /.vscode/
-/*-content.zip/ 
+/mta_archives/
+/resources/
 
-# auto generated wildcard
-LibraryDemoApp/DemoApp/.env2
-# auto generated wildcard
-agel-mmts-web/vendorPersona/.env18
-# auto generated wildcard
-agel-mmts-web/vendorPersona/.env19
-# auto generated wildcard
-vendorPersona/.env2
-# auto generated wildcard
-vendorPersona/.env20
-# auto generated wildcard
-agel-mmts-web/vendorPersona/.env17
-# auto generated wildcard
-tcengineer/.env1
 
-# auto generated wildcard
-
-# auto generated wildcard
-agel-mmts-web/vendor-managemdcc/.env1
-# auto generated wildcard
-agel-mmts-web/vendor-mdcc/.env1
-=======
 
 # auto generated wildcard
 vendorPersona/.env10
@@ -69,3 +49,6 @@ vendor-manageboq/.env4
 agel-mmts-web/mdm-outerpackinglist/.env1
 # auto generated wildcard
 agel-mmts-web/mdm-outerpackinglist/.env2
+=======
+*.zip
+*.env

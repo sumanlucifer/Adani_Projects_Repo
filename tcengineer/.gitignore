@@ -1,18 +1,12 @@
-node_modules/
-dist/
-.scp/
-.env
-Makefile*.mta
-mta_archives
-mta-*
-resources
-archive.zip
-# auto generated wildcard
-agel-mmts-web/vendorPersona/.env17
-# auto generated wildcard
-tcengineer/.env1
+/node_modules/
+package-lock.json
+/dist/
+/.vscode/
+/mta_archives/
+/resources/
 
 
+<<<<<<< HEAD
 # auto generated wildcard
 agel-mmts-web/vendor-managemdcc/.env1
 # auto generated wildcard
@@ -62,3 +56,7 @@ vendor-manageboq/.env4
 agel-mmts-web/mdm-outerpackinglist/.env1
 # auto generated wildcard
 agel-mmts-web/mdm-outerpackinglist/.env2
+=======
+*.zip
+*.env
+>>>>>>> develop

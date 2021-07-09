@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 node_modules/
 dist/
 .scp/
@@ -16,3 +17,15 @@ vendor-manageboq/.env4
 agel-mmts-web/mdm-outerpackinglist/.env1
 # auto generated wildcard
 agel-mmts-web/mdm-outerpackinglist/.env2
+=======
+/node_modules/
+package-lock.json
+/dist/
+/.vscode/
+/mta_archives/
+/resources/
+
+
+*.zip
+*.env
+>>>>>>> develop

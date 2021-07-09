@@ -18,6 +18,18 @@
         </ui:extension>
        <ui:columns>
             <ui:Column width="8%">
+                <Label text="Line No."/>
+                <ui:template>
+                    <Text text="{TreeTableModelView>LineNumber}" wrapping="false" />
+                </ui:template>
+            </ui:Column>
+            <ui:Column width="8%">
+                <Label text="Material Code"/>
+                <ui:template>
+                    <Text text="{TreeTableModelView>MaterialCode}" wrapping="false" />
+                </ui:template>
+            </ui:Column>
+            <ui:Column width="8%">
                 <Label text="Material Code"/>
                 <ui:template>
                     <Text text="{TreeTableModelView>MaterialCode}" wrapping="false" />
@@ -32,7 +44,7 @@
             <ui:Column width="12%">
                 <Label text="Description"/>
                 <ui:template>
-                    <Text text="{TreeTableModelView>Description}" wrapping="false" />
+                    <ExpandableText text="{TreeTableModelView>Description}" maxCharacters="32" overflowMode="Popover"/>
                 </ui:template>
             </ui:Column>    
             <ui:Column width="5%">
@@ -42,17 +54,17 @@
                 </ui:template>
             </ui:Column>
             <ui:Column width="5%">
-                <Label text="MDCC Approved Quantity"/>
+                <Label text="MDCC Approved Quantity" tooltip="{i18n>MDCCApprovedQty}"/>
                 <ui:template>
                     <Text text="{TreeTableModelView>MDCCApprovedQty}" wrapping="false" />
                 </ui:template>
             </ui:Column>
-            <ui:Column width="5%">
+            <!-- <ui:Column width="5%">
                 <Label text="Dispatch Quantity"/>
                 <ui:template>
                     <Text text="{TreeTableModelView>DispatchQty}" wrapping="false" />
                 </ui:template>
-            </ui:Column>
+            </ui:Column> -->
             
             <ui:Column width="5%">
                 <Label text="UOM"  tooltip="{i18n>uomtooltip}"/>

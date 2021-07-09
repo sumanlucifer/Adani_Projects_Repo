@@ -1,0 +1,1 @@
+sap.ui.define(["sap/ui/core/mvc/Controller","sap/ui/model/json/JSONModel"],function(e,n){"use strict";return e.extend("com.agel.mmts.vendorPersona-OpenPOs.controller.App",{onInit:function(){}})});
