@@ -2,6 +2,10 @@
 package-lock.json
 /dist/
 /.vscode/
+/mta_archives/
+/resources/
+
 
 *.zip
 *.env
+.env*
