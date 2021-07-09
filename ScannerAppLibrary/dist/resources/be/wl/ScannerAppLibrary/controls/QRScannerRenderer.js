@@ -1,0 +1,1 @@
+sap.ui.define([],function(){"use strict";var e={apiVersion:2,render:function(e,t){e.openStart("div",t).style("width","100%").style("height","100%").openEnd();e.renderControl(t.getAggregation("_toolbar"));e.openStart("video",t).style("width","100%").style("height","100%").openEnd().close("video");e.close("div")}};return e},true);
