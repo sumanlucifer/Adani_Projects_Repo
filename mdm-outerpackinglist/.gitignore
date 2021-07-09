@@ -1,16 +1,11 @@
-node_modules/
-dist/
-.scp/
-.env
-Makefile*.mta
-mta_archives
-mta-*
-resources
-archive.zip
-.*_mta_build_tmp
-# auto generated wildcard
-agel-mmts-web/mdm-outerpackinglist/.env1
-# auto generated wildcard
-agel-mmts-web/mdm-outerpackinglist/.env2
-# auto generated wildcard
-agel-mmts-web/vendor-map-mdcc/.env1
+/node_modules/
+package-lock.json
+/dist/
+/.vscode/
+/mta_archives/
+/resources/
+
+
+*.zip
+*.env
+.env*

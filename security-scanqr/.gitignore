@@ -5,18 +5,7 @@ package-lock.json
 /mta_archives/
 /resources/
 
-<<<<<<< HEAD
-# auto generated wildcard
-vendor-manageboq/.env4
-# auto generated wildcard
-agel-mmts-web/mdm-outerpackinglist/.env1
-# auto generated wildcard
-agel-mmts-web/mdm-outerpackinglist/.env2
-=======
-
 *.zip
 *.env
->>>>>>> develop
+.env*
 
-# auto generated wildcard
-agel-mmts-web/vendor-map-mdcc/.env1

@@ -2,8 +2,10 @@
 package-lock.json
 /dist/
 /.vscode/
+/mta_archives/
+/resources/
+
 
 *.zip
 *.env
-# auto generated wildcard
-agel-mmts-web/vendor-map-mdcc/.env1
+.env*

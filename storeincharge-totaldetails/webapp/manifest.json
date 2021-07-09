@@ -126,6 +126,13 @@
                     "target": [
                         "TargetLandingPage"
                     ]
+                },
+                {
+                    "name": "RouteDetailsPage",
+                    "pattern": "PackingListDetail/{RequestId}",
+                    "target": [
+                        "TargetDetailsPage"
+                    ]
                 }
             ],
             "targets": {
@@ -135,6 +142,13 @@
                     "clearControlAggregation": false,
                     "viewId": "LandingPage",
                     "viewName": "LandingPage"
+                },
+                "TargetDetailsPage": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewName": "PackingListDetails",
+                    "viewLevel": 2
                 },
                 "notFound": {
 					"viewName": "NotFound"
