@@ -1,9 +1,10 @@
 /mta_archives/
 /node_modules/
 /resources/
-/*-content.zip/ 
+*.zip 
 package-lock.json
 /dist/
+<<<<<<< HEAD
 /.vscode/
 
 
@@ -149,3 +150,5 @@ agel-mmts-web/security-international-import/.env2
 
 # auto generated wildcard
 security-scanqr/.env4
+=======
+>>>>>>> develop

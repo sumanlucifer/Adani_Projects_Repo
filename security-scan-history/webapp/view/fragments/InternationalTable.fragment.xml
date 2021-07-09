@@ -43,14 +43,22 @@
                         <core:CustomData key="p13nData" value='\{"columnKey": "ContainerNumber", "leadingProperty": "ContainerNumber",
                                                  "columnIndex": 3 ,"sortProperty": "ContainerNumber","filterProperty": "ContainerNumber"}'/>
                     </customData>
-                    <Text text="{i18n>containerNob}"/>
+                    <Text text="{i18n>containerNo}"/>
+                </Column>
+
+                  <Column>
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "VehicleNumber", "leadingProperty": "VehicleNumber",
+                                                 "columnIndex": 4 ,"sortProperty": "VehicleNumber","filterProperty": "VehicleNumber"}'/>
+                    </customData>
+                    <Text text="{i18n>VehicleNumber}"/>
                 </Column>
 
                 <!-- Invoice Number -->
                 <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "InvoiceNumber", "leadingProperty": "InvoiceNumber",
-                                                 "columnIndex": 4 }'/>
+                                                 "columnIndex": 5 }'/>
                     </customData>
                     <Text text="{i18n>invNob}"/>
                 </Column>     

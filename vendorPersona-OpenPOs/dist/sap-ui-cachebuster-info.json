@@ -1,0 +1,19 @@
+{
+  "manifest-bundle.zip": 1625648155000,
+  "manifest.json": 1625648155216,
+  "model/models.js": 1625047572349,
+  "controller/LandingPage.controller.js": 1625047572349,
+  "controller/App.controller.js": 1625047572349,
+  "Component.js": 1625047572349,
+  "i18n/i18n.properties": 1625047572349,
+  "Component-preload.js": 1625648155171,
+  "model/models-dbg.js": 1625047572349,
+  "controller/LandingPage-dbg.controller.js": 1625047572349,
+  "controller/App-dbg.controller.js": 1625047572349,
+  "Component-dbg.js": 1625047572349,
+  "resources.json": 1625648155219,
+  "view/LandingPage.view.xml": 1625047572349,
+  "view/App.view.xml": 1625047572349,
+  "css/style.css": 1625047572349,
+  "index.html": 1625047572349
+}

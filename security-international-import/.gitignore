@@ -1,40 +1,11 @@
-node_modules/
-dist/
-.scp/
-.env
-Makefile*.mta
-mta_archives
-mta-*
-resources
-archive.zip
-.*_mta_build_tmp
-# auto generated wildcard
-agel-mmts-web/security-international-import/.env1
-# auto generated wildcard
-agel-mmts-web/security-scan-history/.env1
-# auto generated wildcard
-agel-mmts-web/vendorPersona/.env23
-# auto generated wildcard
-agel-mmts-web/vendorPersona-OpenPOs/.env1
-# auto generated wildcard
-security-international-import/.env2
-# auto generated wildcard
-agel-mmts-web/tcengineer/.env3
-# auto generated wildcard
-pmcg/.env5
-# auto generated wildcard
-security-international-import/.env2
-# auto generated wildcard
-security-scan-history/.env2
-# auto generated wildcard
-vendorPersona/.env11
-# auto generated wildcard
-security-scanqr/.env2
-# auto generated wildcard
-pmcg/.env6
-# auto generated wildcard
-tcengineer/.env4
+/node_modules/
+package-lock.json
+/dist/
+/.vscode/
+/mta_archives/
+/resources/
 
+<<<<<<< HEAD
 # auto generated wildcard
 vendor-manageboq/.env4
 # auto generated wildcard
@@ -42,3 +13,8 @@ agel-mmts-web/security-international-import/.env2
 
 # auto generated wildcard
 security-scanqr/.env4
+=======
+
+*.zip
+*.env
+>>>>>>> develop

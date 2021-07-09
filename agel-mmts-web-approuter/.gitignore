@@ -1,92 +1,10 @@
 /node_modules/
 package-lock.json
+/dist/
+/.vscode/
+/mta_archives/
+/resources/
 
 
-
-
-
-# auto generated wildcard
-vendorPersona/.env
-# auto generated wildcard
-vendorPersona/.env2
-# auto generated wildcard
-agel-mmts-web/vendorPersona/.env3
-# auto generated wildcard
-agel-mmts-web/vendorPersona/.env5
-# auto generated wildcard
-agel-mmts-web/vendorPersona/.env6
-# auto generated wildcard
-agel-mmts-web/vendorPersona/.env7
-# auto generated wildcard
-agel-mmts-web/vendorPersona/.env8
-# auto generated wildcard
-agel-mmts-web/vendorPersona/.env14
-
-# auto generated wildcard
-agel-mmts-web/vendorPersona/.env15
-# auto generated wildcard
-agel-mmts-web/vendorPersona/.env16
-# auto generated wildcard
-agel-mmts-web/vendorPersona/.env18
-# auto generated wildcard
-agel-mmts-web/vendorPersona/.env19
-# auto generated wildcard
-vendorPersona/.env20
-# auto generated wildcard
-agel-mmts-web/vendorPersona/.env17
-# auto generated wildcard
-tcengineer/.env1
-
-# auto generated wildcard
-
-
-# auto generated wildcard
-agel-mmts-web/vendor-managemdcc/.env1
-# auto generated wildcard
-agel-mmts-web/vendor-mdcc/.env1
-
-
-# auto generated wildcard
-vendorPersona/.env10
-# auto generated wildcard
-agel-mmts-web/vendor-packinglist-create/.env1
-
-
-# auto generated wildcard
-agel-mmts-web/securityPerson-ScanQR/.env4
-
-
-# auto generated wildcard
-vendorPersona/.env11
-# auto generated wildcard
-agel-mmts-web/vendor-mdcc/.env1
-
-
-# auto generated wildcard
-agel-mmts-web/vendorPersona/.env23
-# auto generated wildcard
-agel-mmts-web/vendorPersona-OpenPOs/.env1
-# auto generated wildcard
-security-international-import/.env2
-# auto generated wildcard
-agel-mmts-web/tcengineer/.env3
-# auto generated wildcard
-pmcg/.env5
-# auto generated wildcard
-security-international-import/.env2
-# auto generated wildcard
-security-scan-history/.env2
-# auto generated wildcard
-security-scanqr/.env2
-# auto generated wildcard
-pmcg/.env6
-# auto generated wildcard
-tcengineer/.env4
-
-# auto generated wildcard
-vendor-manageboq/.env4
-# auto generated wildcard
-agel-mmts-web/security-international-import/.env2
-
-# auto generated wildcard
-security-scanqr/.env4
+*.zip
+*.env

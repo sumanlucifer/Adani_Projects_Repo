@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 node_modules/
 dist/
 .scp/
@@ -12,3 +13,15 @@ archive.zip
 storeincharge-totaldetails/.env2
 # auto generated wildcard
 security-scanqr/.env4
+=======
+/node_modules/
+package-lock.json
+/dist/
+/.vscode/
+/mta_archives/
+/resources/
+
+
+*.zip
+*.env
+>>>>>>> develop
