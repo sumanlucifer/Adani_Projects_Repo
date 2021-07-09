@@ -44,7 +44,7 @@ sap.ui.define([
 
         _onObjectMatched: function (oEvent) {
             // var sObjectId = oEvent.getParameter("arguments").ID;
-            var sObjectId = "15";
+            var sObjectId = "1";
             this._bindView("/PurchaseOrderSet(" + sObjectId +")");
         },
 
@@ -57,8 +57,6 @@ sap.ui.define([
 
             this.setModel(oModel, "detailsModel");
         },
-
-
 
         _bindView: function (sObjectPath) {
             var objectViewModel = this.getViewModel("objectViewModel");
@@ -84,19 +82,17 @@ sap.ui.define([
             oEvent.getSource().setBusy(false);
         },
 
-        onpressPackingListDetails: function(oEvent){
-
-            this._showObject(oEvent.getSource());
-
-        },
+        // onpressPackingListDetails: function(oEvent){
+        //     this._showObject(oEvent.getSource());
+        // },
         
-        _showObject: function (oItem) {
-            var that = this;
-            var sObjectPath = oItem.getBindingContext().sPath;
-            that.getRouter().navTo("RouteDetailsPage", {
-                RequestId: sObjectPath.slice("/PurchaseOrderSet/PackingList".length)
-            });
-        }
+        // _showObject: function (oItem) {
+        //     var that = this;
+        //     var sObjectPath = oItem.getBindingContext().sPath;
+        //     that.getRouter().navTo("RouteDetailsPage", {
+        //         RequestId: sObjectPath.slice("/PackingList".length)
+        //     });
+        // }
 
 		});
 	});
