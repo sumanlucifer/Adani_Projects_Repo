@@ -7,6 +7,4 @@ package-lock.json
 
 *.zip
 *.env
-
-# auto generated wildcard
-security-scanqr/.env5
+.env*

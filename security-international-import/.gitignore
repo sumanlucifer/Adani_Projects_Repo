@@ -5,9 +5,6 @@ package-lock.json
 /mta_archives/
 /resources/
 
-
 *.zip
 *.env
-
-# auto generated wildcard
-security-scanqr/.env5
+.env*

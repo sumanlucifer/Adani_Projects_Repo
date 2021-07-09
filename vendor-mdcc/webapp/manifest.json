@@ -56,7 +56,7 @@
     "sap.ui5": {
         "flexEnabled": false,
         "rootView": {
-            "viewName": "com.agel.mmts.vendormdcc.view.Main",
+            "viewName": "com.agel.mmts.vendormdcc.view.InitiateDispatch",
             "type": "XML",
             "async": true,
             "id": "app"
@@ -112,15 +112,8 @@
             },
             "routes": [
                 {
-                    "name": "RouteMain",
-                    "pattern": "",
-                    "target": [
-                        "TargetMain"
-                    ]
-                },
-                {
                     "name": "RouteInitiateDispatchPage",
-                    "pattern": "InitiateDispatch/{MDCCId}",
+                    "pattern": "",
                     "target": [
                         "TargetInitiateDispatchPage"                     
                     ]
@@ -134,12 +127,6 @@
                 }
             ],
             "targets": {
-                "TargetMain": {
-                    "viewType": "XML",
-                    "transition": "slide",
-                    "clearControlAggregation": false,
-                    "viewName": "Main"
-                },
                  "TargetInitiateDispatchPage": {
                     "viewType": "XML",
                     "transition": "slide",
