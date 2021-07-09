@@ -56,6 +56,10 @@ modules:
       name: mdm-packinglisttype
       target-path: resources/
     - artifacts:
+      - mdm-outerpackinglist-content.zip
+      name: mdm-outerpackinglist
+      target-path: resources/
+    - artifacts:
       - mdm-uom-content.zip
       name: mdm-uom
       target-path: resources/
@@ -179,6 +183,14 @@ modules:
 - name: mdm-packinglisttype
   type: html5
   path: mdm-packinglisttype
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []
+- name: mdm-outerpackinglist
+  type: html5
+  path: mdm-outerpackinglist
   build-parameters:
     builder: custom
     commands:

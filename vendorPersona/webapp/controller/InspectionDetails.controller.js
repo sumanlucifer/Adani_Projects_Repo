@@ -444,28 +444,28 @@ sap.ui.define([
             window.open(url,"_blank");        
         },
 
-        // Navigating to Manage MDCC Application
+        // Navigating to Map MDCC Application
         onMapMDCCCItems :   function(oEvent){
             var mdccID = oEvent.getSource().getBindingContext().getObject().ID; // read MDCCIId from OData path MDCCSet
             var oCrossAppNavigator = sap.ushell.Container.getService("CrossApplicationNavigation"); // get a handle on the global XAppNav service
             var hash = (oCrossAppNavigator && oCrossAppNavigator.hrefForExternal({
                 target: {
-                    semanticObject: "mdcc",
+                    semanticObject: "mapmdcc",
                     action: "manage"
                 },
                 params: {
-                    "MDCCId": mdccID,
-                    "manage":false
-                    
+                    "MDCCId": mdccID
+                 //   "manage":false 
                 }
             })) || ""; // generate the Hash to display a MDCC Number
             oCrossAppNavigator.toExternal({
                 target: {
                     shellHash: hash
                 }
-            }); // navigate to Manage MDCC application - Initiate Dispatch Screen
+            }); // navigate to Map MDCC application - MapView
         },
 
+         // Navigating to Manage MDCC Application
         onManagePress : function(oEvent){
             var mdccID = oEvent.getSource().getBindingContext().getObject().ID; // read MDCCIId from OData path MDCCSet
             var oCrossAppNavigator = sap.ushell.Container.getService("CrossApplicationNavigation"); // get a handle on the global XAppNav service
@@ -475,8 +475,8 @@ sap.ui.define([
                     action: "manage"
                 },
                 params: {
-                    "MDCCId": mdccID,
-                    "manage":true
+                    "MDCCId": mdccID
+                  //  "manage":true
                 }
             })) || ""; // generate the Hash to display a MDCC Number
             oCrossAppNavigator.toExternal({
@@ -519,7 +519,7 @@ sap.ui.define([
                   });
 
                 //oDialog.setModel(that.getView().getModel("TreeTableModelView"));
-                oDialog.setTitle("MDCC "+mdccNobb+" Attachment");
+                oDialog.setTitle("MDCC - "+mdccNobb+" - Attachment");
                 oDialog.open();
             });
         },

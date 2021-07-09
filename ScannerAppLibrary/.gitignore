@@ -1,9 +1,0 @@
-/node_modules/
-package-lock.json
-/dist/
-/.vscode/
-/mta_archives/
-/resources/
-
-*.zip
-*.env
