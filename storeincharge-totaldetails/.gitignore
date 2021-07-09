@@ -8,3 +8,5 @@ package-lock.json
 
 *.zip
 *.env
+# auto generated wildcard
+agel-mmts-web/vendor-map-mdcc/.env1

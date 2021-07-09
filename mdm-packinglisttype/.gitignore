@@ -55,3 +55,6 @@ agel-mmts-web/mdm-outerpackinglist/.env2
 *.zip
 *.env
 >>>>>>> develop
+
+# auto generated wildcard
+agel-mmts-web/vendor-map-mdcc/.env1

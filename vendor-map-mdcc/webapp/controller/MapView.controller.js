@@ -281,8 +281,8 @@ sap.ui.define([
                     flag = 0;
                     var obj = {};
                     obj.ParentLineItemID = data[i].ID;
-                    obj.InspectedParenLineItemID = data[i].InspectedParenLineItemID;  // newlly added
-                    obj.MDCCId = that.MDCCData.ID; // newly added 
+                 //   obj.InspectedParenLineItemID = data[i].InspectedParenLineItemID;  // newlly added
+                 //   obj.MDCCId = that.MDCCData.ID; // newly added 
                     obj.MDCCApprovedQty = parseInt(data[i].MDCCApprovedQty);
                     obj.RemainingQty = parseInt(data[i].RemainingQty);
                     obj.IsDeleted = data[i].IsDeleted;
@@ -295,9 +295,9 @@ sap.ui.define([
                         childObj.RemainingQty = parseInt(data[i].ChildItems[j].RemainingQty);
                         childObj.IsDeleted = data[i].ChildItems[j].IsDeleted;
 
-                        childObj.InspectedBOQItemID=data[i].ChildItems[j].ID; // newly added
-                        childObj.MDCCId = that.MDCCData.ID;                   // newly added         
-                        childObj.MDCCParentLineItemId = data[i].ID;           // newly added
+                      //  childObj.InspectedBOQItemID=data[i].ChildItems[j].ID; // newly added
+                //        childObj.MDCCId = that.MDCCData.ID;                   // newly added         
+                //        childObj.MDCCParentLineItemId = data[i].ID;           // newly added
                         
                         if ( childObj.IsDeleted == true ){
                             childObj.MDCCApprovedQty = 0;

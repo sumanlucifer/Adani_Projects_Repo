@@ -77,3 +77,5 @@ vendor-manageboq/.env4
 agel-mmts-web/mdm-outerpackinglist/.env1
 # auto generated wildcard
 agel-mmts-web/mdm-outerpackinglist/.env2
+# auto generated wildcard
+agel-mmts-web/vendor-map-mdcc/.env1
