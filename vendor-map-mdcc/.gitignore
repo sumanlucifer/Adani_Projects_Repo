@@ -22,3 +22,6 @@ storeincharge-totaldetails/.env2
 agel-mmts-web/security-international-import/.env2
 >>>>>>> develop
 >>>>>>> develop
+
+# auto generated wildcard
+security-scanqr/.env4
