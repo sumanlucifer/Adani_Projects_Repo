@@ -140,21 +140,16 @@ sap.ui.define([
             },
 
             onbeforeRebindDomesticPoTable: function (oEvent) {
-                var PONumber;
                 var mBindingParams = oEvent.getParameter("bindingParams");
-                if (this.getView().getBindingContext().getObject())
-                    PONumber = this.getView().getBindingContext().getObject().PONumber;
-                mBindingParams.filters.push(newsap.ui.model.Filter("PONumber", sap.ui.model.FilterOperator.EQ, PONumber));
-                mBindingParams.sorter.push(newsap.ui.model.Sorter("CreatedAt", true));
+                mBindingParams.sorter.push(new sap.ui.model.Sorter("CreatedAt", true));
+
             },
             
             onbeforeRebindInternationalPoTable: function (oEvent) {
-                var PONumber;
+              
                 var mBindingParams = oEvent.getParameter("bindingParams");
-                if (this.getView().getBindingContext().getObject())
-                    PONumber = this.getView().getBindingContext().getObject().PONumber;
-                mBindingParams.filters.push(newsap.ui.model.Filter("PONumber", sap.ui.model.FilterOperator.EQ, PONumber));
-                mBindingParams.sorter.push(newsap.ui.model.Sorter("CreatedAt", true));
+                mBindingParams.sorter.push(new sap.ui.model.Sorter("CreatedAt", true));
+
             },
 
             // On Icon Tab Select

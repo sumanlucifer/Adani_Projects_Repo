@@ -94,7 +94,7 @@
 
             <!-- Line Items Section -->
             <uxap:ObjectPageSection titleUppercase="false" title="{i18n>lineItems}">
-                <!-- <uxap:subSections>
+                <uxap:subSections>
                     <uxap:ObjectPageSubSection title="{i18n>lineItems}" titleLevel="H6">
                         <uxap:blocks>
 	                        <Table id="idBOQItemTable" items="{path: 'PackingListParentItems'}" 
@@ -146,7 +146,7 @@
 	                        </Table>
                         </uxap:blocks>                       
                     </uxap:ObjectPageSubSection>
-                </uxap:subSections> -->
+                </uxap:subSections>
             </uxap:ObjectPageSection>
 
             <!-- Packing List Contains -->
@@ -154,17 +154,17 @@
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection title="{i18n>PackListContains}">
                         <uxap:blocks>
-                            <!-- <linePackingItems:LineItemsTable class="sapUxAPObjectPageSubSectionAlignContent" OnViewQRCodePress = "onViewQRCodePress"/> -->
+                            <linePackingItems:LineItemsTable class="sapUxAPObjectPageSubSectionAlignContent" OnViewQRCodePress = "onViewQRCodePress"/>
                         </uxap:blocks>
                     </uxap:ObjectPageSubSection>
                     <uxap:ObjectPageSubSection title="Outer Packaging">
                         <uxap:blocks>
-                            <!-- <outerPackaging:OuterPackaging OnViewQRCodePress="onViewQRCodePress" class="sapUxAPObjectPageSubSectionAlignContent"/> -->
+                            <outerPackaging:OuterPackaging OnViewQRCodePress="onViewQRCodePress" class="sapUxAPObjectPageSubSectionAlignContent"/>
                         </uxap:blocks>
                     </uxap:ObjectPageSubSection>
                     <uxap:ObjectPageSubSection title="Inner Packaging">
                         <uxap:blocks>
-                            <!-- <innerPackaging:InnerPackaging class="sapUxAPObjectPageSubSectionAlignContent" OnViewQRCodePress = "onViewQRCodePress"/> -->
+                            <innerPackaging:InnerPackaging class="sapUxAPObjectPageSubSectionAlignContent" OnViewQRCodePress = "onViewQRCodePress"/>
                         </uxap:blocks>
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>
@@ -172,7 +172,7 @@
 
             <!-- Additional Details -->
             <uxap:ObjectPageSection titleUppercase="false" title="{i18n>addtnlDetails}">
-                <!-- <uxap:subSections>
+                <uxap:subSections>
                     <uxap:ObjectPageSubSection title="{i18n>addtnlDetails}">
                         <uxap:blocks>
                             <f:SimpleForm layout="ColumnLayout" columnsM="2" columnsL="3" columnsXL="4" 
@@ -194,12 +194,12 @@
                             </f:SimpleForm>                       
                         </uxap:blocks>
                     </uxap:ObjectPageSubSection>
-                </uxap:subSections> -->
+                </uxap:subSections>
             </uxap:ObjectPageSection>
 
             <!-- Attachments -->
             <uxap:ObjectPageSection titleUppercase="false" title="{i18n>attachments}">
-                <!-- <uxap:subSections>
+                <uxap:subSections>
                     <uxap:ObjectPageSubSection title="{i18n>materialDetails}">
                         <uxap:blocks>
                         <UploadCollection id="idMaterialFileUploader" maximumFilenameLength="55" 
@@ -275,7 +275,7 @@
                             </UploadCollection>
                         </uxap:blocks>
                     </uxap:ObjectPageSubSection>
-                </uxap:subSections> -->
+                </uxap:subSections>
             </uxap:ObjectPageSection>
         </uxap:sections>
     </uxap:ObjectPageLayout>

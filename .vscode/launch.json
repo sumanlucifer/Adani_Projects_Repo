@@ -2,7 +2,7 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Run sapui5-security-scanqr",
+      "name": "Run sapui5-1-security-scanqr",
       "type": "node",
       "request": "launch",
       "program": "${workspaceFolder}/agel-mmts-web-approuter/node_modules/@sap/html5-repo-mock/index.js",
@@ -16,10 +16,70 @@
       "env": {
         "PORT": "6004",
         "MOCK_LOOKUP_DIRS": "[\"webapp\"]",
-        "run.config": "{\"handlerId\":\"ui5_run_config_handler_id\",\"runnableId\":\"/home/user/projects/sapui5/security-scanqr\"}"
+        "run.config": "{\"handlerId\":\"ui5_run_config_handler_id\",\"runnableId\":\"/home/user/projects/sapui5-1/security-scanqr\"}"
       },
-      "envFile": "${workspaceFolder}/security-scanqr/.env5",
-      "preLaunchTask": "Build sapui5"
+      "envFile": "${workspaceFolder}/security-scanqr/.env4",
+      "preLaunchTask": "Build sapui5-1"
+    },
+    {
+      "name": "Run sapui5-1-security-scan-history",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/agel-mmts-web-approuter/node_modules/@sap/html5-repo-mock/index.js",
+      "args": [
+        "--standalone",
+        "/comagelmmtssecurityscanhistory/index.html",
+        "--ui5",
+        "{\"version\":\".\"}"
+      ],
+      "cwd": "${workspaceFolder}/security-scan-history",
+      "env": {
+        "PORT": "6004",
+        "MOCK_LOOKUP_DIRS": "[\"webapp\"]",
+        "run.config": "{\"handlerId\":\"ui5_run_config_handler_id\",\"runnableId\":\"/home/user/projects/sapui5-1/security-scan-history\"}"
+      },
+      "envFile": "${workspaceFolder}/security-scan-history/.env3",
+      "preLaunchTask": "Build sapui5-1"
+    },
+    {
+      "name": "Run sapui5-1-storeincharge-totaldetails",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/agel-mmts-web-approuter/node_modules/@sap/html5-repo-mock/index.js",
+      "args": [
+        "--standalone",
+        "/comagelmmtsstoreinchargetotaldetails/index.html",
+        "--ui5",
+        "{\"version\":\".\"}"
+      ],
+      "cwd": "${workspaceFolder}/storeincharge-totaldetails",
+      "env": {
+        "PORT": "6004",
+        "MOCK_LOOKUP_DIRS": "[\"webapp\"]",
+        "run.config": "{\"handlerId\":\"ui5_run_config_handler_id\",\"runnableId\":\"/home/user/projects/sapui5-1/storeincharge-totaldetails\"}"
+      },
+      "envFile": "${workspaceFolder}/storeincharge-totaldetails/.env1",
+      "preLaunchTask": "Build sapui5-1"
+    },
+    {
+      "name": "Run sapui5-1-user-roleassignment",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/agel-mmts-web-approuter/node_modules/@sap/html5-repo-mock/index.js",
+      "args": [
+        "--standalone",
+        "/comagelmmtsuserroleassignment/index.html",
+        "--ui5",
+        "{\"version\":\".\"}"
+      ],
+      "cwd": "${workspaceFolder}/user-roleassignment",
+      "env": {
+        "PORT": "6004",
+        "MOCK_LOOKUP_DIRS": "[\"webapp\"]",
+        "run.config": "{\"handlerId\":\"ui5_run_config_handler_id\",\"runnableId\":\"/home/user/projects/sapui5-1/user-roleassignment\"}"
+      },
+      "envFile": "${workspaceFolder}/user-roleassignment/.env3",
+      "preLaunchTask": "Build sapui5-1"
     }
   ]
 }

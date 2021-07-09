@@ -10,5 +10,3 @@ package-lock.json
 *.env
 .env
 
-# auto generated wildcard
-security-scanqr/.env5
