@@ -131,6 +131,7 @@ sap.ui.define([
 
         
         onSave: function(oEvent) {
+            var that = this;
             var Roles=[];
             var oBOQGroupSelected = oEvent.getSource().getBindingContext().getObject();
             var userID = parseInt(oBOQGroupSelected.ID);
@@ -156,14 +157,16 @@ sap.ui.define([
             };
             this.getComponentModel().create("/UserRoleAssignmentSet", aPayload, {
                 success: function (oData, oResponse) {
-                    if(oData.Success)
-                    sap.m.MessageBox.success(oData.Message);
-                    else
-                    sap.m.MessageBox.error(oData.Message);  
+                    // if(oData.Success)
+                        sap.m.MessageBox.success("User Role Assigned");
+                    // else
+                        // sap.m.MessageBox.error(oData.Message);  
                     this.getComponentModel().refresh();
+                    that.onClose();
                 }.bind(this),
                 error: function (oError) {
-                    sap.m.MessageBox.success(JSON.stringify(oError));
+                    sap.m.MessageBox.error(JSON.stringify(oError));
+                    that.onClose();
                 }
             })
         }

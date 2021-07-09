@@ -1,7 +1,8 @@
 <mvc:View xmlns:mvc="sap.ui.core.mvc"
     xmlns:core="sap.ui.core"
     xmlns:f="sap.ui.layout.form"
-    xmlns="sap.m" xmlns:u="sap.ui.unified">
+    xmlns="sap.m" xmlns:u="sap.ui.unified"
+    controllerName="com.agel.mmts.storeinchargetotaldetails.view.blocks.LandingPage.packingItemsForm.PackingItemsFormController">
 
     <Table width="auto" growing="true" growingThreshold="2" items="{path: 'PackingList'}" fixedLayout="true">
         <columns>
