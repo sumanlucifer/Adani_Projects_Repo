@@ -1,6 +1,6 @@
 _schema-version: "3.2"
 ID: agel-mmts-web
-version: 0.0.2
+version: 1.0.0
 modules:
 - name: agel-mmts-web-approuter
   type: approuter.nodejs
@@ -18,7 +18,6 @@ modules:
       name: AGEL_MMTS_API
       url: https://agel-mmts-api.cfapps.ap11.hana.ondemand.com/
   parameters:
-    buildpack: nodejs_buildpack
     disk-quota: 256M
     keep-existing-routes: true
     memory: 256M
@@ -37,84 +36,8 @@ modules:
       name: vendorPersona
       target-path: resources/
     - artifacts:
-      - vendorPersona-ConfirmPOs-content.zip
-      name: vendorPersona-ConfirmPOs
-      target-path: resources/
-    - artifacts:
-      - vendorPersona-DispatchedPOs-content.zip
-      name: vendorPersona-DispatchedPOs
-      target-path: resources/
-    - artifacts:
-      - vendorPersona-OpenPOs-content.zip
-      name: vendorPersona-OpenPOs
-      target-path: resources/
-    - artifacts:
-      - storeInCharge-TotalOrder-content.zip
-      name: storeInCharge-TotalOrder
-      target-path: resources/
-    - artifacts:
-      - storeInCharge-RaisedOrder-content.zip
-      name: storeInCharge-RaisedOrder
-      target-path: resources/
-    - artifacts:
-      - storeInCharge-UpcomingOrders-content.zip
-      name: storeInCharge-UpcomingOrders
-      target-path: resources/
-    - artifacts:
-      - storeInCharge-Inventory-content.zip
-      name: storeInCharge-Inventory
-      target-path: resources/
-    - artifacts:
-      - storeInCharge-ReturnMaterialRequests-content.zip
-      name: storeInCharge-ReturnMaterialRequests
-      target-path: resources/
-    - artifacts:
-      - engineerInCharge-ReturnOrder-content.zip
-      name: engineerInCharge-ReturnOrder
-      target-path: resources/
-    - artifacts:
-      - engineerInCharge-Inventory-content.zip
-      name: engineerInCharge-Inventory
-      target-path: resources/
-    - artifacts:
-      - admin-POSummary-content.zip
-      name: admin-POSummary
-      target-path: resources/
-    - artifacts:
       - user-roleassignment-content.zip
       name: user-roleassignment
-      target-path: resources/
-    - artifacts:
-      - admin-UserManagement-content.zip
-      name: admin-UserManagement
-      target-path: resources/
-    - artifacts:
-      - admin-Reports-content.zip
-      name: admin-Reports
-      target-path: resources/
-    - artifacts:
-      - quickAccess-History-content.zip
-      name: quickAccess-History
-      target-path: resources/
-    - artifacts:
-      - quickAccess-Reports-content.zip
-      name: quickAccess-Reports
-      target-path: resources/
-    - artifacts:
-      - quickAccess-UnloadMaterial-content.zip
-      name: quickAccess-UnloadMaterial
-      target-path: resources/
-    - artifacts:
-      - quickAccess-IssueMaterial-content.zip
-      name: quickAccess-IssueMaterial
-      target-path: resources/
-    - artifacts:
-      - quickAccess-TransferStock-content.zip
-      name: quickAccess-TransferStock
-      target-path: resources/
-    - artifacts:
-      - quickAccess-storeInCharge-Reports-content.zip
-      name: quickAccess-storeInCharge-Reports
       target-path: resources/
     - artifacts:
       - ScannerAppLibrary-content.zip
@@ -172,14 +95,19 @@ modules:
       - vendor-map-mdcc-content.zip
       name: vendor-map-mdcc
       target-path: resources/
-- name: vendorPersona
-  type: html5
-  path: vendorPersona
-  build-parameters:
-    builder: custom
-    commands:
-    - npm run build
-    supported-platforms: []
+    - artifacts:
+      - storeincharge-raisedpo-content.zip
+      name: storeincharge-raisedpo
+      target-path: resources/
+    - artifacts:
+      - storeincharge-intransitpo-content.zip
+      name: storeincharge-intransitpo
+      target-path: resources/
+    - artifacts:
+      - storeincharge-receivedpo-content.zip
+      name: storeincharge-receivedpo
+      target-path: resources/
+
 - name: launchpad
   type: com.sap.application.content
   path: launchpad
@@ -199,89 +127,10 @@ modules:
       TENANT_HOST_PATTERN: ^(.*)-agel-mmts-web-approuter.${default-domain}
   deployed-after:
   - agel-mmts-web_ui_deployer
-- name: vendorPersona-ConfirmPOs
+
+- name: vendorPersona
   type: html5
-  path: vendorPersona-ConfirmPOs
-  build-parameters:
-    builder: custom
-    commands:
-    - npm run build
-    supported-platforms: []
-- name: vendorPersona-DispatchedPOs
-  type: html5
-  path: vendorPersona-DispatchedPOs
-  build-parameters:
-    builder: custom
-    commands:
-    - npm run build
-    supported-platforms: []
-- name: vendorPersona-OpenPOs
-  type: html5
-  path: vendorPersona-OpenPOs
-  build-parameters:
-    builder: custom
-    commands:
-    - npm run build
-    supported-platforms: []
-- name: storeInCharge-TotalOrder
-  type: html5
-  path: storeInCharge-TotalOrder
-  build-parameters:
-    builder: custom
-    commands:
-    - npm run build
-    supported-platforms: []
-- name: storeInCharge-RaisedOrder
-  type: html5
-  path: storeInCharge-RaisedOrder
-  build-parameters:
-    builder: custom
-    commands:
-    - npm run build
-    supported-platforms: []
-- name: storeInCharge-UpcomingOrders
-  type: html5
-  path: storeInCharge-UpcomingOrders
-  build-parameters:
-    builder: custom
-    commands:
-    - npm run build
-    supported-platforms: []
-- name: storeInCharge-Inventory
-  type: html5
-  path: storeInCharge-Inventory
-  build-parameters:
-    builder: custom
-    commands:
-    - npm run build
-    supported-platforms: []
-- name: storeInCharge-ReturnMaterialRequests
-  type: html5
-  path: storeInCharge-ReturnMaterialRequests
-  build-parameters:
-    builder: custom
-    commands:
-    - npm run build
-    supported-platforms: []
-- name: engineerInCharge-ReturnOrder
-  type: html5
-  path: engineerInCharge-ReturnOrder
-  build-parameters:
-    builder: custom
-    commands:
-    - npm run build
-    supported-platforms: []
-- name: engineerInCharge-Inventory
-  type: html5
-  path: engineerInCharge-Inventory
-  build-parameters:
-    builder: custom
-    commands:
-    - npm run build
-    supported-platforms: []
-- name: admin-POSummary
-  type: html5
-  path: admin-POSummary
+  path: vendorPersona
   build-parameters:
     builder: custom
     commands:
@@ -290,70 +139,6 @@ modules:
 - name: user-roleassignment
   type: html5
   path: user-roleassignment
-  build-parameters:
-    builder: custom
-    commands:
-    - npm run build
-    supported-platforms: []
-- name: admin-UserManagement
-  type: html5
-  path: admin-UserManagement
-  build-parameters:
-    builder: custom
-    commands:
-    - npm run build
-    supported-platforms: []
-- name: admin-Reports
-  type: html5
-  path: admin-Reports
-  build-parameters:
-    builder: custom
-    commands:
-    - npm run build
-    supported-platforms: []
-- name: quickAccess-History
-  type: html5
-  path: quickAccess-History
-  build-parameters:
-    builder: custom
-    commands:
-    - npm run build
-    supported-platforms: []
-- name: quickAccess-Reports
-  type: html5
-  path: quickAccess-Reports
-  build-parameters:
-    builder: custom
-    commands:
-    - npm run build
-    supported-platforms: []
-- name: quickAccess-UnloadMaterial
-  type: html5
-  path: quickAccess-UnloadMaterial
-  build-parameters:
-    builder: custom
-    commands:
-    - npm run build
-    supported-platforms: []
-- name: quickAccess-IssueMaterial
-  type: html5
-  path: quickAccess-IssueMaterial
-  build-parameters:
-    builder: custom
-    commands:
-    - npm run build
-    supported-platforms: []
-- name: quickAccess-TransferStock
-  type: html5
-  path: quickAccess-TransferStock
-  build-parameters:
-    builder: custom
-    commands:
-    - npm run build
-    supported-platforms: []
-- name: quickAccess-storeInCharge-Reports
-  type: html5
-  path: quickAccess-storeInCharge-Reports
   build-parameters:
     builder: custom
     commands:
@@ -471,6 +256,30 @@ modules:
     commands:
     - npm run build
     supported-platforms: []  
+- name: storeincharge-raisedpo
+  type: html5
+  path: storeincharge-raisedpo
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []  
+- name: storeincharge-intransitpo
+  type: html5
+  path: storeincharge-intransitpo
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []  
+- name: storeincharge-receivedpo
+  type: html5
+  path: storeincharge-receivedpo
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []    
 resources:
 - name: uaa_agel-mmts-web
   type: org.cloudfoundry.managed-service
@@ -512,7 +321,7 @@ resources:
     service: destination
     service-plan: lite
 parameters:
-  -enable-parallel-deployments: true
+  enable-parallel-deployments: true
 build-parameters:
   before-all:
   - builder: custom

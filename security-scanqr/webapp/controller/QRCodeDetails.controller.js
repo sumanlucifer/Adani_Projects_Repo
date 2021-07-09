@@ -20,7 +20,7 @@ sap.ui.define([
     function (BaseController, JSONModel, Filter, FilterOperator, Fragment, Sorter, Device, History, ColumnListItem, Input, jquery, MessageBox, MessageToast, formatter) {
         "use strict";
         return BaseController.extend("com.agel.mmts.securityscanqr.controller.QRCodeDetails", {
-        formatter: formatter,
+            formatter: formatter,
 
             onInit: function () {
                 jquery.sap.addUrlWhitelist("blob");
@@ -85,25 +85,35 @@ sap.ui.define([
 
             onSaveScanQrCode: function () {
                 var that = this;
-                var PackingListId = this.getView().getBindingContext().getObject().ID;
-                // var userInfo = sap.ushell.Container.getService("UserInfo").getEmail();
-                var oPayload = {
-                    "QRCodeId": that.qrCodeID,
-                    "PackingListId": PackingListId,
-                    "UserId": "1"       //userInfo
-                };
+                if (this.getView().getBindingContext().getObject().ID.length) {
+                    var PackingListId = this.getView().getBindingContext().getObject().ID;
+                    var PONumber = this.getView().getBindingContext().getObject().PONumber;
+                    var userInfo = "1";
+                    /* if (sap.ushell !== "undefined") {
+                         userInfo = sap.ushell.Container.getService("UserInfo").getEmail() || "Default User";
+                    } */
 
-                this.MainModel.create("/ScannedMaterialSet", oPayload, {
-                    success: function (oData, oResponse) {
-                        that.scannedMaterialID= oData.ID;
-                        // objectViewModel.setProperty("/busy", false);
-                        // sap.m.MessageBox.success("Scanned QR Code Stored Successfully");
-                    }.bind(this),
-                    error: function (oError) {
-                        // objectViewModel.setProperty("/busy", false);
-                        sap.m.MessageBox.error(JSON.stringify(oError));
-                    }
-                });
+                    var oPayload = {
+                        "QRCodeId": that.qrCodeID,
+                        "PackingListId": PackingListId,
+                        "UserId": userInfo,
+                        "PONumber": PONumber
+                    };
+
+                    this.MainModel.create("/ScannedMaterialSet", oPayload, {
+                        success: function (oData, oResponse) {
+                            that.scannedMaterialID = oData.ID;
+                            // objectViewModel.setProperty("/busy", false);
+                            // sap.m.MessageBox.success("Scanned QR Code Stored Successfully");
+                        }.bind(this),
+                        error: function (oError) {
+                            // objectViewModel.setProperty("/busy", false);
+                            sap.m.MessageBox.error(JSON.stringify(oError));
+                        }
+                    });
+                } else {
+                    sap.m.MessageBox.error("Oops! Error occured please try again in sometime.");
+                }
 
             },
 
@@ -119,9 +129,9 @@ sap.ui.define([
             },
 
             // On Approve Press Vehicle Number
-            onPressApproveVehicleNumber: function () {
-                this.byId("idHboxReEnterVehicleNo").setVisible(false);
-            },
+            // onPressApproveVehicleNumber: function () {
+            //     this.byId("idHboxReEnterVehicleNo").setVisible(false);
+            // },
 
             // On Reject Press Vehicle Number
             // onPressRejectVehicleNumber: function () {
@@ -130,7 +140,6 @@ sap.ui.define([
 
             // On Submit Press - 
             onVehicleNumberSubmit: function (oEvent) {
-                debugger;
 
                 // validationforblankVehicleNumber
 
@@ -174,7 +183,7 @@ sap.ui.define([
                     }.bind(this),
                     error: function (oError) {
                         MessageBox.error(JSON.stringify(oError));
-                        
+
                     }
                 });
             },
@@ -228,6 +237,12 @@ sap.ui.define([
                 this.qrDialog.then(function (oDialog) {
                     oDialog.close();
                 });
+            },
+
+            onVechileNumerValueUpdate: function (oEvent) {
+                var Vehiclenumber = this.getView().getModel("oViewHandlingModel").oData.ReEnterVehicleNo;
+                if (Vehiclenumber === "")
+                    this.getViewModel("oViewHandlingModel").setProperty("/ReEnterVehicleNo", null);
             }
 
         });

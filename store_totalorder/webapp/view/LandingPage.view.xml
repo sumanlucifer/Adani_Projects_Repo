@@ -1,0 +1,49 @@
+<mvc:View controllerName="com.agel.mmts.storetotalorder.storetotalorder.controller.LandingPage"
+ height="100%"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+    xmlns:f="sap.f">
+    <f:DynamicPage headerExpanded="true" busy="{objectViewModel>/busy}">
+        <!-- DynamicPage Title -->
+        <f:title>
+            <f:DynamicPageTitle>
+                <f:heading>
+                    <Title id="pageTitle" text="{i18n>TotalOrder}"/>
+                </f:heading>
+            </f:DynamicPageTitle>
+        </f:title>
+        <!-- DynamicPage Header -->
+        <f:header>
+            <f:DynamicPageHeader pinnable="true">
+                <f:content>
+                    <core:Fragment fragmentName="com.agel.mmts.storetotalorder.storetotalorder.view.fragments.landingPage.FilterBar" type="XML"/>
+                </f:content>
+            </f:DynamicPageHeader>
+        </f:header>
+        <!-- DynamicPage Content -->
+        <f:content>
+            <IconTabBar id="idIconTabBar" select="onIconTabSelect" headerMode="Inline" expanded="true" class="sapUiResponsiveContentPadding">
+                <items>
+
+                    <IconTabFilter id="idOpenPOTabTitle" text="{i18n>raisedPO}" key="OPEN" count="{oIconTabCountModel>/openCount}">
+                        <core:Fragment fragmentName="com.agel.mmts.storetotalorder.storetotalorder.view.fragments.landingPage.RaisedPOTable" type="XML"/>
+                    </IconTabFilter>
+
+                    <!--  <IconTabFilter text="{i18n>inTransitPO}" key="CONFIRMED" count="{oIconTabCountModel>/confirmCount}">
+                          <core:Fragment fragmentName="com.agel.mmts.storetotalorder.storetotalorder.view.fragments.landingPage.InTransitPOTable" type="XML"/>
+                    </IconTabFilter>
+                    
+                    <IconTabFilter text="{i18n>receivedPO}" key="CLOSED" count="{oIconTabCountModel>/dispatchCount}">
+                       <core:Fragment fragmentName="com.agel.mmts.storetotalorder.storetotalorder.view.fragments.landingPage.ReceivedPOTable" type="XML"/>
+                    </IconTabFilter>
+
+                   <IconTabFilter text="{i18n>closedPO}" key="CLOSED" count="{oIconTabCountModel>/closedCount}">
+                       <core:Fragment fragmentName="com.agel.mmts.storetotalorder.storetotalorder.view.fragments.landingPage.ClosedPOTable" type="XML"/>
+                    </IconTabFilter> -->
+
+                </items>
+            </IconTabBar>
+        </f:content>
+    </f:DynamicPage>
+</mvc:View>

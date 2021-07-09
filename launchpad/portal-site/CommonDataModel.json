@@ -27,15 +27,6 @@
 			},
 			"payload": {
 				"viz": [{
-					"appId": "com.agel.mmts.vendorPersona-ConfirmPOs",
-					"vizId": "confirmedPO-Vendor"
-				}, {
-					"appId": "com.agel.mmts.vendorPersona-DispatchedPOs",
-					"vizId": "dispatchedPO-Vendor"
-				}, {
-					"appId": "com.agel.mmts.vendorPersona-OpenPOs",
-					"vizId": "openPO-Vendor"
-				}, {
 					"appId": "com.agel.mmts.vendorPersona",
 					"vizId": "Actions-Vendor"
 				}, {
@@ -59,22 +50,7 @@
 				"i18n": "i18n/material-tracker.properties"
 			},
 			"payload": {
-				"viz": [{
-					"appId": "com.agel.mmts.storeInCharge-TotalOrder",
-					"vizId": "TotalOrders-StoreInCharge"
-				}, {
-					"appId": "com.agel.mmts.storeInCharge-RaisedOrder",
-					"vizId": "RaisedOrders-StoreInCharge"
-				}, {
-					"appId": "com.agel.mmts.storeInCharge-UpcomingOrders",
-					"vizId": "UpcomingOrders-StoreInCharge"
-				}, {
-					"appId": "com.agel.mmts.storeInCharge-Inventory",
-					"vizId": "Inventory-StoreInCharge"
-				}, {
-					"appId": "com.agel.mmts.storeInCharge-ReturnMaterialRequests",
-					"vizId": "ReturnRequests-StoreInCharge"
-				}]
+				"viz": []
 			}
 		}, {
 			"_version": "3.0.0",
@@ -108,13 +84,7 @@
 				"i18n": "i18n/order-tracker.properties"
 			},
 			"payload": {
-				"viz": [{
-					"appId": "com.agel.mmts.engineerInCharge-ReturnOrder",
-					"vizId": "ReturnOrder-EngineerInCharge"
-				}, {
-					"appId": "com.agel.mmts.engineerInCharge-Inventory",
-					"vizId": "Inventory-EngineerInCharge"
-				}]
+				"viz": []
 			}
 		}, {
 			"_version": "3.0.0",
@@ -126,15 +96,6 @@
 			},
 			"payload": {
 				"viz": [{
-					"appId": "com.agel.mmts.admin-POSummary",
-					"vizId": "POSummary-Admin"
-				}, {
-					"appId": "com.agel.mmts.admin-Reports",
-					"vizId": "Reports-Admin"
-				}, {
-					"appId": "com.agel.mmts.admin-UserManagement",
-					"vizId": "UserMgmt-Admin"
-				}, {
 					"appId": "com.agel.mmts.mdmuom",
 					"vizId": "uommaster-manage"
 				}, {
@@ -157,25 +118,7 @@
 				"i18n": "i18n/quick-access.properties"
 			},
 			"payload": {
-				"viz": [{
-					"appId": "com.agel.mmts.quickAccess-History",
-					"vizId": "vendorHistory-quickAccess"
-				}, {
-					"appId": "com.agel.mmts.quickAccess-IssueMaterial",
-					"vizId": "IssueMaterial-quickAccess"
-				}, {
-					"appId": "com.agel.mmts.quickAccess-Reports",
-					"vizId": "vendorReports-quickAccess"
-				}, {
-					"appId": "com.agel.mmts.quickAccess-storeInCharge-Reports",
-					"vizId": "storeInChargeReports-quickAccess"
-				}, {
-					"appId": "com.agel.mmts.quickAccess-TransferStock",
-					"vizId": "TransferStock-quickAccess"
-				}, {
-					"appId": "com.agel.mmts.quickAccess-UnloadMaterial",
-					"vizId": "UnloadMaterial-quickAccess"
-				}]
+				"viz": []
 			}
 		}, {
 			"_version": "3.0.0",

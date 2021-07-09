@@ -110,30 +110,30 @@ sap.ui.define([
             //     }                
             // },
 
-            onLiveChangeQR : function(oEvent) {
+            onQRCodeSuggestionSelected : function(oEvent) {
                 var qrcodeID = this.byId("idInputQRCode").getSelectedKey();
                 if ( qrcodeID !== "" ){
-                      this.getView().byId("idQRBtn").setProperty("enabled", false);
-                      this.getView().byId("idQRSubmit").setProperty("enabled", true);
+                      this.getView().byId("idQRBtn").setProperty("enabled", true);
+                      this.getView().byId("idQRSubmit").setProperty("enabled", false);
                       this.getView().byId("idInvoiceNum").setProperty("enabled", false);
                       
                 }else{
-                      this.getView().byId("idQRBtn").setProperty("enabled", true);
-                      this.getView().byId("idQRSubmit").setProperty("enabled", false);
+                      this.getView().byId("idQRBtn").setProperty("enabled", false);
+                      this.getView().byId("idQRSubmit").setProperty("enabled", true);
                       this.getView().byId("idInvoiceNum").setProperty("enabled", true);
                 }         
             },
 
-            onLiveChangeInvoice : function(oEvent) {
+            onInvoiceSuggestionSelected : function(oEvent) {
                 var invoiceID = this.byId("idInvoiceNum").getSelectedKey();
                 if ( invoiceID !== "" ){
-                      this.getView().byId("idInvBtn").setProperty("enabled", false);
-                      this.getView().byId("idQRSubmit").setProperty("enabled", true);
+                      this.getView().byId("idInvBtn").setProperty("enabled", true);
+                      this.getView().byId("idQRSubmit").setProperty("enabled", false);
                       this.getView().byId("idInputQRCode").setProperty("enabled", false);
 
                 }else{  
-                      this.getView().byId("idInvBtn").setProperty("enabled", true);
-                      this.getView().byId("idQRSubmit").setProperty("enabled", false);
+                      this.getView().byId("idInvBtn").setProperty("enabled", false);
+                      this.getView().byId("idQRSubmit").setProperty("enabled", true);
                       this.getView().byId("idInputQRCode").setProperty("enabled", true);
                 }         
             },

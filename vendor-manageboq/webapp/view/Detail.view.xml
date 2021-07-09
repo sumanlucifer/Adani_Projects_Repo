@@ -17,7 +17,7 @@
                 <uxap:snappedHeading>
                     <VBox>
                         <Title text="{Name}" wrapping="true" titleStyle="H3"/>
-                        <CheckBox text="No Parent-Child relation applicable." selected="{objectViewModel>/noParentChildRelationFlag}" />
+                        <CheckBox text="No Parent-Child Relation Applicable." selected="{objectViewModel>/noParentChildRelationFlag}" />
                     </VBox>
                 </uxap:snappedHeading>
                 <uxap:expandedContent></uxap:expandedContent>
@@ -64,9 +64,9 @@
                             <headerToolbar>
                                 <OverflowToolbar>
                                     <content>
-                                        <Title text="PC list"/>
+                                        <Title text="PC List"/>
                                         <ToolbarSpacer />
-                                        <Button text="Create new" icon="sap-icon://add" press="onCreateNewPCListPress"></Button>
+                                        <Button text="Create" icon="sap-icon://add" press="onCreateNewPCListPress"></Button>
                                         <Button text="Use Selected" press="onUseSelectedPress" type="Emphasized" visible="{= ${objectViewModel>/isPCListSelected}}"/>
                                     </content>
                                 </OverflowToolbar>
@@ -76,13 +76,13 @@
                                     <Text text="Name"/>
                                 </Column>
                                 <Column>
-                                    <Text text="Created on"/>
+                                    <Text text="Created On"/>
                                 </Column>
                                 <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center">
-                                    <Text text="Child item count"/>
+                                    <Text text="Child Item Count"/>
                                 </Column>
                                 <Column demandPopin="true" minScreenWidth="Desktop">
-                                    <Text text="Recently used on"/>
+                                    <Text text="Recently Used On"/>
                                 </Column>
                                 <Column demandPopin="true" minScreenWidth="Desktop">
                                     <Text text="Action"/>
