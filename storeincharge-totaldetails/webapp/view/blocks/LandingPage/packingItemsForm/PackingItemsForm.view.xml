@@ -16,7 +16,7 @@
             </Column>
         </columns>
         <items>
-            <ColumnListItem>
+           <ColumnListItem type="Navigation" press="onpressPackingListDetails">
                 <cells>
                     <Text text="{ID}"/>
                     <Text text="{path:'InvoiceDate',
