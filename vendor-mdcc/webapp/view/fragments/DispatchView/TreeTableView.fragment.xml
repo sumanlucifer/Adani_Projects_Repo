@@ -19,7 +19,7 @@
 				</ui:template>
 			</ui:Column> -->
             <ui:Column width="7%">
-				<Label text="Line Number"/>
+				<Label text="Line Number" wrapping="true"/>
 				<ui:template>
 					<Text text="{TreeTableModelView>LineNumber}"  />
 				</ui:template>
@@ -48,21 +48,21 @@
 			</ui:Column>	
 
 			<ui:Column width="7%">
-				<Label text="{i18n>totalQuantity}" />
+				<Label text="{i18n>totalQuantity}" wrapping="true"/>
 				<ui:template>
 					<Text text="{TreeTableModelView>Qty}" wrapping="false" />
 				</ui:template>
 			</ui:Column>
 
-            <ui:Column wrapping="true" width="10%">
-				<Label text="{i18n>remainQty}"/>
+            <ui:Column  width="10%">
+				<Label text="{i18n>remainQty}" wrapping="true"/>
 				<ui:template>
 					<Text text="{TreeTableModelView>RemainingDispatchedQty}"  />
 				</ui:template>
 			</ui:Column>            
 
 			<ui:Column>
-				<Label text="{i18n>mdccApprovedQty}"/>
+				<Label text="{i18n>mdccApprovedQty}" wrapping="true"/>
 				<ui:template>
 					<HBox justifyContent="SpaceAround" visible="{= ${TreeTableModelView>isStandAlone} ? false : true}">
 						<Text text="{TreeTableModelView>MDCCApprovedQty}" />

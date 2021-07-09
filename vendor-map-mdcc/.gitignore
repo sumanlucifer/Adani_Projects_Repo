@@ -12,3 +12,7 @@ archive.zip
 agel-mmts-web/vendor-map-mdcc/.env1
 # auto generated wildcard
 vendor-manageboq/.env4
+# auto generated wildcard
+agel-mmts-web/mdm-outerpackinglist/.env1
+# auto generated wildcard
+agel-mmts-web/mdm-outerpackinglist/.env2

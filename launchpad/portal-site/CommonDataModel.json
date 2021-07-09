@@ -48,6 +48,10 @@
 					"id": "com.agel.mmts.vendorpackinglistcreate-6-1623960016368",
 					"appId": "com.agel.mmts.vendorpackinglistcreate",
 					"vizId": "PackingList-manage"
+				}, {
+					"id": "com.agel.mmts.vendormapmdcc-7-1625575007512",
+					"appId": "com.agel.mmts.vendormapmdcc",
+					"vizId": "mapmdcc-manage"
 				}]
 			}
 		}, {

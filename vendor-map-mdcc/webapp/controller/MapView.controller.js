@@ -55,8 +55,8 @@ sap.ui.define([
             _onObjectMatched: function (oEvent) {
 
                 //debugger;
-                var startupParams = this.getOwnerComponent().getComponentData().startupParameters;
-             //   var startupParams={MDCCId:163,manage:"false"};
+             //   var startupParams = this.getOwnerComponent().getComponentData().startupParameters;
+                var startupParams={MDCCId:176,manage:"false"};
 
                 // startupParams.manage=false;
                 // get Startup params from Owner Component
@@ -70,8 +70,9 @@ sap.ui.define([
                     this.sObjectId = startupParams.MDCCId;
                     // this.sObjectId = this.sObjectId;
                     this._getMDCCData();
-                    this._getParentData();
-            //    }
+                    this.getInspectedData();
+                  //  this._getParentData();
+                //    }
                 //   this._bindView("/PurchaseOrderSet" + sObjectId);
             },
 
@@ -94,6 +95,70 @@ sap.ui.define([
                         sap.m.MessageBox.Error(JSON.stringify(oError));
                     }
                 });
+            },
+
+            getInspectedData : function(){
+                var that = this;
+                this.ParentData;                
+                var sPath = "/MDCCSet(" + this.sObjectId + ")/InspectionCall/InspectedParentItems";
+                that.getComponentModel("app").setProperty("/busy", true);
+                this.MainModel.read(sPath, {
+                    urlParameters: {
+                           "$expand": "InspectedBOQItems"
+                    },
+                    success: function (oData, oResponse) {
+                        that.getComponentModel("app").setProperty("/busy", false);
+                        if (oData.results.length) {
+                            this.ParentData = oData.results;
+                            this.dataBuilding(this.ParentData);
+                           // this._getChildItems(oData.results);
+                        }
+                    }.bind(this),
+                    error: function (oError) {
+                        that.getComponentModel("app").setProperty("/busy", false);
+                        sap.m.MessageBox.Error(JSON.stringify(oError));
+                    }
+                });
+            },
+
+            dataBuilding: function (ParentData) {
+                this.ParentData = ParentData;
+                for (var i = 0; i < ParentData.length; i++) {
+                    // Is Deleted - Check based on quantity is present or not then push it.
+                    if (ParentData[i].MDCCApprovedQty != null && ParentData[i].MDCCApprovedQty != ""
+                        && ParentData[i].MDCCApprovedQty != "0.0") {
+                        this.ParentData[i].isSelected = true;
+                        this.ParentData[i].isPreviouslySelected = true;
+                    } else {
+                        this.ParentData[i].isSelected = false;
+                        this.ParentData[i].isPreviouslySelected = false;
+                    }
+
+                    if (this.ParentData[i].InspectedBOQItems.results.length) {
+                        this.ParentData[i].isStandAlone = true;
+                        this.ParentData[i].ChildItems = this.ParentData[i].InspectedBOQItems.results;
+                        this.ParentData[i].IsDeleted = false;
+
+                        for (var j = 0; j < ParentData[i].ChildItems.length; j++) {
+                            if (ParentData[i].ChildItems[j].MDCCApprovedQty != null && ParentData[i].ChildItems[j].MDCCApprovedQty != ""
+                                && ParentData[i].ChildItems[j].MDCCApprovedQty != "0.0") {
+                                this.ParentData[i].ChildItems[j].isSelected = true;
+                                this.ParentData[i].ChildItems[j].isPreviouslySelected = true;
+                                this.ParentData[i].ChildItems[j].IsDeleted = false;
+                            } else {
+                                this.ParentData[i].ChildItems[j].isSelected = false;
+                                this.ParentData[i].ChildItems[j].isPreviouslySelected = false;
+                                this.ParentData[i].ChildItems[j].IsDeleted = false;
+                            }
+                        }
+                    }
+                    else {
+                        this.ParentData[i].isStandAlone = false;
+                        this.ParentData[i].IsDeleted = false;
+                        this.ParentData[i].ChildItems = [];
+                    }
+                }
+                this._arrangeData();
             },
 
             // Read Inspected Parent Items
@@ -119,7 +184,6 @@ sap.ui.define([
             _getChildItems: function (ParentData) {
                 this.ParentData = ParentData;
                 for (var i = 0; i < ParentData.length; i++) {
-
                     var sPath = "/MDCCSet(" + this.sObjectId + ")/InspectionCall/InspectedParentItems(" + ParentData[i].ID + ")/InspectedBOQItems";
                     this.MainModel.read(sPath, {
                         success: function (i, oData, oResponse) {
@@ -217,6 +281,8 @@ sap.ui.define([
                     flag = 0;
                     var obj = {};
                     obj.ParentLineItemID = data[i].ID;
+                    obj.InspectedParenLineItemID = data[i].InspectedParenLineItemID;  // newlly added
+                    obj.MDCCId = that.MDCCData.ID; // newly added 
                     obj.MDCCApprovedQty = parseInt(data[i].MDCCApprovedQty);
                     obj.RemainingQty = parseInt(data[i].RemainingQty);
                     obj.IsDeleted = data[i].IsDeleted;
@@ -229,6 +295,10 @@ sap.ui.define([
                         childObj.RemainingQty = parseInt(data[i].ChildItems[j].RemainingQty);
                         childObj.IsDeleted = data[i].ChildItems[j].IsDeleted;
 
+                        childObj.InspectedBOQItemID=data[i].ChildItems[j].ID; // newly added
+                        childObj.MDCCId = that.MDCCData.ID;                   // newly added         
+                        childObj.MDCCParentLineItemId = data[i].ID;           // newly added
+                        
                         if ( childObj.IsDeleted == true ){
                             childObj.MDCCApprovedQty = 0;
                         }

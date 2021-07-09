@@ -26,14 +26,13 @@
                 <f:expandedContent>
                     <!-- <Label  text="PO Number - {PONumber}"/>      -->
                     <FlexBox direction="Column" renderType="Bare">
-                        <Title text="PO Number" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
-                        <Title text="{PONumber}" wrapping="true" titleStyle="H4" />
+                        <!-- <Title text="PO Number" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
+                        <Title text="{PONumber}" wrapping="true" titleStyle="H4" /> -->
                     </FlexBox>               
                 </f:expandedContent>
                 <f:snappedContent>
                     <FlexBox direction="Column" renderType="Bare">
-                        <Title text="PO Number" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
-                        <Title text="{PONumber}" wrapping="true" titleStyle="H4"/>
+                        
                     </FlexBox>  
                 </f:snappedContent>
                 <f:snappedTitleOnMobile>
@@ -55,6 +54,12 @@
 				                        pattern: 'MMMM dd, yyyy'
 				                     }}"/>  -->
                      <FlexBox direction="Row" renderType="Bare" class="sapUiTinyMarginBottom">
+                      
+                       <VBox renderType="Bare" class="sapUiMediumMarginEnd">
+                           <Label text="PO Number" wrapping="true" />
+                           <Text text="{PONumber}" wrapping="true" />
+                        </VBox>
+
                         <VBox renderType="Bare" class="sapUiMediumMarginEnd">
                             <Label text="Created On" />
                             <!-- missing -->
@@ -65,6 +70,7 @@
 				                     }
                             }"/>
                         </VBox>
+                       
                     </FlexBox>
                                                       
                 </f:content>

@@ -97,7 +97,7 @@
 								</ui:Column> 
 
                                 <ui:Column width="10%">
-				                    <Label text="Line Number"/>
+				                    <Label text="Line Number" wrapping="true"/>
 				                    <ui:template>
 					                    <Text text="{TreeTableModel>LineNumber}"  />
 				                    </ui:template>
@@ -125,21 +125,21 @@
 								</ui:Column>
 								
 								<ui:Column width="10%">
-									<Label text="{i18n>totalQuantity}"/>
+									<Label text="{i18n>totalQuantity}" wrapping="true"/>
 									<ui:template>
 										<Text text="{TreeTableModel>Qty}" wrapping="false" />
 									</ui:template>
 								</ui:Column>
 
 								<ui:Column>
-									<Label text="{i18n>mdccApprovedQty}"/>
+									<Label text="{i18n>mdccApprovedQty}" wrapping="true"/>
 									<ui:template>                                        
 										    <Text text="{TreeTableModel>MDCCApprovedQty}" />
 									</ui:template>
 								</ui:Column>
 
                                 <ui:Column>
-				                    <Label text="{i18n>remainQty}"/>
+				                    <Label text="{i18n>remainQty}" wrapping="true"/>
 				                        <ui:template>
 					                        <Text text="{TreeTableModel>RemainingDispatchedQty}" />
                         				</ui:template>

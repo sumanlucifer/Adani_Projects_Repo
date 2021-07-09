@@ -16,7 +16,7 @@ modules:
     properties:
       forwardAuthToken: true
       name: AGEL_MMTS_API
-      url: https://qa-agel-mmts-api.cfapps.ap11.hana.ondemand.com/
+      url: https://agel-mmts-api.cfapps.ap11.hana.ondemand.com/
   parameters:
     buildpack: nodejs_buildpack
     disk-quota: 256M
@@ -139,6 +139,10 @@ modules:
     - artifacts:
       - mdm-packinglisttype-content.zip
       name: mdm-packinglisttype
+      target-path: resources/
+    - artifacts:
+      - mdm-outerpackinglist-content.zip
+      name: mdm-outerpackinglist
       target-path: resources/
     - artifacts:
       - mdm-uom-content.zip
@@ -414,6 +418,14 @@ modules:
 - name: mdm-packinglisttype
   type: html5
   path: mdm-packinglisttype
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []
+- name: mdm-outerpackinglist
+  type: html5
+  path: mdm-outerpackinglist
   build-parameters:
     builder: custom
     commands:

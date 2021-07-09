@@ -1,20 +1,20 @@
 {
     "resources": [
         {
-            "name": "i18n/i18n.properties",
-            "raw": "i18n/i18n.properties"
+            "name": "manifest.json"
+        },
+        {
+            "name": "Component.js"
         },
         {
             "name": "model/models.js"
         },
         {
-            "name": "manifest.json"
-        },
-        {
             "name": "controller/LandingPage.controller.js"
         },
         {
-            "name": "Component.js"
+            "name": "i18n/i18n.properties",
+            "raw": "i18n/i18n.properties"
         },
         {
             "name": "manifest-bundle.zip"
