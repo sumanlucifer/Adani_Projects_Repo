@@ -5,16 +5,6 @@ package-lock.json
 /mta_archives/
 /resources/
 
-<<<<<<< HEAD
-# auto generated wildcard
-vendor-manageboq/.env4
-# auto generated wildcard
-agel-mmts-web/security-international-import/.env2
-
-# auto generated wildcard
-security-scanqr/.env4
-=======
 
 *.zip
 *.env
->>>>>>> develop

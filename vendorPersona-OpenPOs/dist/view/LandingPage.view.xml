@@ -1,7 +1,0 @@
-<mvc:View controllerName="com.agel.mmts.vendorPersona-OpenPOs.controller.LandingPage"
-    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
-    xmlns="sap.m">
-    <Page showHeader="false">
-        <content></content>
-    </Page>
-</mvc:View>

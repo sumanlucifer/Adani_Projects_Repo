@@ -1,1 +1,0 @@
-sap.ui.define(["sap/ui/core/mvc/Controller"],function(e){"use strict";return e.extend("com.agel.mmts.engineerInCharge-ReturnOrder.controller.LandingPage",{onInit:function(){}})});

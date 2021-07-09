@@ -1,25 +1,3 @@
-<<<<<<< HEAD
-node_modules/
-dist/
-.scp/
-.env
-Makefile*.mta
-mta_archives
-mta-*
-resources
-archive.zip
-.*_mta_build_tmp
-# auto generated wildcard
-storeincharge-raisedpo/.env1
-# auto generated wildcard
-storeincharge-intransitpo/.env1
-# auto generated wildcard
-storeincharge-receivedpo/.env1
-# auto generated wildcard
-security-scanqr/.env2
-# auto generated wildcard
-security-scanqr/.env4
-=======
 /node_modules/
 package-lock.json
 /dist/
@@ -30,4 +8,4 @@ package-lock.json
 
 *.zip
 *.env
->>>>>>> develop
+.env*
