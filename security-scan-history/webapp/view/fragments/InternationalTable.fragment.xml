@@ -5,7 +5,7 @@
             placeToolbarInTable="true" enableAutoBinding="true" entitySet="ManualEntrySet"
              showFullScreenButton="true" showRowCount="false" tableType="ResponsiveTable"
              demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" 
-             useVariantManagement="false" beforeRebindTable="onbeforeRebindInternationalPoTable" ignoreFromPersonalisation="CreatedBy, ID, IsArchived, VehicleNumber, UpdatedAt, UpdatedBy">
+             useVariantManagement="false" beforeRebindTable="onbeforeRebindInternationalPoTable" ignoreFromPersonalisation="CreatedBy, ID, IsArchived, UpdatedAt, UpdatedBy">
         <Table sticky="ColumnHeaders,HeaderToolbar" updateFinished="onInternationalTableUpdateFinished"
              alternateRowColors="true">
             <columns>
@@ -58,7 +58,7 @@
                 <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "InvoiceNumber", "leadingProperty": "InvoiceNumber",
-                                                 "columnIndex": 5 }'/>
+                                                 "columnIndex": 5, "sortProperty": "InvoiceNumber","filterProperty": "InvoiceNumber"}'/>
                     </customData>
                     <Text text="{i18n>invNob}"/>
                 </Column>     
@@ -93,6 +93,7 @@
 				                        pattern: 'MMMM dd, yyyy'
 				                     }}"/>                       
                         <Text text="{ContainerNumber}"/>
+                        <Text text="{VehicleNumber}"/>
                         <Text text="{InvoiceNumber}"/>
                      <!--   <Text text="{GateEntryNumber}" />-->
                      <!--   <Text text="{Qty}" />-->

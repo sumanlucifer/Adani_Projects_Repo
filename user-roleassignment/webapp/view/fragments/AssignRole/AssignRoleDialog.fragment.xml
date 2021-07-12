@@ -4,12 +4,12 @@
     
      <Dialog >
         <content>
-            <ComboBox id= "roleEdit" placeholder= "Select" 
+            <MultiComboBox id= "roleEdit" placeholder= "Select" 
                 items="{
                     path: '/MasterRoleSet'
                 }">
                 <core:Item key="{ID}" text="{Role}"/> 
-            </ComboBox>
+            </MultiComboBox>
         </content>
         <beginButton>
             <Button text="Save" press="onSave" type="Emphasized" />

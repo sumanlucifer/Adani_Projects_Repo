@@ -12,6 +12,9 @@ sap.ui.define(['sap/uxap/BlockBase'], function (BlockBase) {
                     viewName: "com.agel.mmts.storeinchargetotaldetails.view.blocks.LandingPage.packingItemsForm.PackingItemsForm",
                     type: "XML"
                 }
+            },
+            events: {
+                "OnpressPackingListDetails":{}
             }
         }
     });
