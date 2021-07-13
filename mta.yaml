@@ -102,7 +102,7 @@ modules:
     - artifacts:
       - storeincharge-raisedpo-content.zip
       name: storeincharge-raisedpo
-      target-path: resources/
+      target-path: resources/ 
     - artifacts:
       - storeincharge-intransitpo-content.zip
       name: storeincharge-intransitpo
@@ -111,6 +111,10 @@ modules:
       - storeincharge-receivedpo-content.zip
       name: storeincharge-receivedpo
       target-path: resources/
+    - artifacts:
+      - unloadmaterial-content.zip
+      name: unloadmaterial
+      target-path: resources/ 
 
 - name: launchpad
   type: com.sap.application.content
@@ -292,6 +296,14 @@ modules:
     commands:
     - npm run build
     supported-platforms: []    
+- name: unloadmaterial
+  type: html5
+  path: unloadmaterial
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: [] 
 resources:
 - name: uaa_agel-mmts-web
   type: org.cloudfoundry.managed-service

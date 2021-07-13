@@ -43,16 +43,19 @@ sap.ui.define([
         },
 
         _onObjectMatched: function (oEvent) {
-            // var sObjectId = oEvent.getParameter("arguments").ID;
-            var sObjectId = "1";
-            this._bindView("/PurchaseOrderSet(" + sObjectId +")");
+            var sObjectId = oEvent.getParameter("arguments").ID;
+            var sObjectType = oEvent.getParameter("arguments").Type;
+            // var sObjectId = "1";
+            this._bindView("/PurchaseOrderSet" + sObjectId);
+            if(sObjectType === "INTRANSIT" || sObjectType === "RECEIVED")
+                this.getView().getModel("detailsModel").setProperty("/packingListTable",true);
         },
 
         _createPODetailsModel: function () {
 
             var oModel = new JSONModel({
                 Label: null,
-                packingListTable: true
+                packingListTable: false
             });
 
             this.setModel(oModel, "detailsModel");
