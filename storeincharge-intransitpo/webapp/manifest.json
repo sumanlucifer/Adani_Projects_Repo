@@ -24,6 +24,21 @@
                     "localUri": "localService/metadata.xml"
                 }
             }
+        },
+        "crossNavigation": {
+            "inbounds": {
+                "com-agel-mmts-storeinchargeintransitpo-inbound": {
+                    "signature": {
+                        "parameters": {},
+                        "additionalParameters": "allowed"
+                    },
+                    "semanticObject": "TotalOrder",
+                    "action": "intransit",
+                    "title": "In Transit",
+                    "subTitle": "",
+                    "icon": "sap-icon://shipping-status"
+                }
+            }
         }
     },
     "sap.ui": {

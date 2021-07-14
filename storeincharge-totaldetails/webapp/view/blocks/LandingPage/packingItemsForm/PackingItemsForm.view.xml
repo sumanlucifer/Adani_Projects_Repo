@@ -2,18 +2,38 @@
     xmlns:core="sap.ui.core"
     xmlns:f="sap.ui.layout.form"
     xmlns="sap.m" xmlns:u="sap.ui.unified"
+    xmlns:smartTable="sap.ui.comp.smarttable"
     controllerName="com.agel.mmts.storeinchargetotaldetails.view.blocks.LandingPage.packingItemsForm.PackingItemsFormController">
 
-    <Table width="auto" growing="true" growingThreshold="2" items="{path: 'PackingList'}" fixedLayout="true">
+
+<smartTable:SmartTable class="sapUiResponsiveContentPadding" id="idPurchasePackingListTable" editable="false"
+     placeToolbarInTable="true" enableAutoBinding="true" entitySet="PackingListSet" showFullScreenButton="true"
+     showRowCount="false" tableType="ResponsiveTable" demandPopin="false" useExportToExcel="false" 
+     useTablePersonalisation="true" useVariantManagement="false" beforeRebindTable="onbeforeRebindTable">
+
+
+    <Table id="idPackgingListItemTable" width="auto" growing="true" growingThreshold="5">
         <columns>
-            <Column demandPopin="true" minScreenWidth="Desktop">
-                <Text text="{i18n>id}" wrapping="true" wrappingType="Hyphenated"/>
+         <Column>
+              <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "ID", "leadingProperty": "ID",
+                                                 "columnIndex": 0 ,"sortProperty": "ID","filterProperty": "ID"}'/>
+                    </customData>
+                <Text text="ID"/>
             </Column>
-            <Column demandPopin="true" minScreenWidth="Desktop">
-                <Text text="{i18n>invoiceDate}" wrapping="true" wrappingType="Hyphenated"/>
+         <Column>
+              <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "InvoiceDate", "leadingProperty": "InvoiceDate",
+                                                 "columnIndex": 1 ,"sortProperty": "InvoiceDate","filterProperty": "InvoiceDate"}'/>
+                    </customData>
+                <Text text="InvoiceDate"/>
             </Column>
-            <Column demandPopin="true" minScreenWidth="Desktop">
-                <Text text="{i18n>status}"/>
+         <Column>
+              <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Status", "leadingProperty": "Status",
+                                                 "columnIndex": 2 ,"sortProperty": "Status","filterProperty": "Status"}'/>
+                    </customData>
+                <Text text="Status"/>
             </Column>
         </columns>
         <items>
@@ -31,5 +51,5 @@
             </ColumnListItem>
         </items>
     </Table>
-
+</smartTable:SmartTable>
 </mvc:View>

@@ -1,4 +1,11 @@
 {
+  "inputs": [
+    {
+      "id": "UI5Version",
+      "type": "command",
+      "command": "sap.ux.appGenerator.ui5Version"
+    }
+  ],
   "configurations": [
     {
       "name": "Run sapui5-1-security-scanqr",
@@ -81,53 +88,46 @@
       "preLaunchTask": "Build sapui5-1"
     },
     {
-      "name": "Run sapui5-1-storeincharge-scanqr",
+      "name": "Run sapui5-unloadmaterial",
       "type": "node",
       "request": "launch",
       "program": "${workspaceFolder}/agel-mmts-web-approuter/node_modules/@sap/html5-repo-mock/index.js",
       "args": [
         "--standalone",
-        "/comagelmmtsstoreinchargescanqr/index.html",
+        "/comagelmmtsunloadmaterial/index.html",
         "--ui5",
         "{\"version\":\".\"}"
       ],
-      "cwd": "${workspaceFolder}/storeincharge-scanqr",
+      "cwd": "${workspaceFolder}/unloadmaterial",
       "env": {
         "PORT": "6004",
         "MOCK_LOOKUP_DIRS": "[\"webapp\"]",
-        "run.config": "{\"handlerId\":\"ui5_run_config_handler_id\",\"runnableId\":\"/home/user/projects/sapui5-1/storeincharge-scanqr\"}"
+        "run.config": "{\"handlerId\":\"ui5_run_config_handler_id\",\"runnableId\":\"/home/user/projects/sapui5/unloadmaterial\"}"
       },
-      "envFile": "${workspaceFolder}/storeincharge-scanqr/.env1",
-      "preLaunchTask": "Build sapui5-1"
+      "envFile": "${workspaceFolder}/unloadmaterial/.env1",
+      "preLaunchTask": "Build sapui5"
     },
     {
-      "name": "Run sapui5-1-storeincharge-approvals",
+      "name": "Run sapui5-storeincharge-totaldetails",
       "type": "node",
       "request": "launch",
       "program": "${workspaceFolder}/agel-mmts-web-approuter/node_modules/@sap/html5-repo-mock/index.js",
       "args": [
         "--standalone",
-        "/comagelmmtsstoreinchargeapprovals/index.html",
+        "/comagelmmtsstoreinchargetotaldetails/index.html",
         "--ui5",
         "{\"version\":\".\"}"
       ],
-      "cwd": "${workspaceFolder}/storeincharge-approvals",
+      "cwd": "${workspaceFolder}/storeincharge-totaldetails",
       "env": {
         "PORT": "6004",
         "MOCK_LOOKUP_DIRS": "[\"webapp\"]",
-        "run.config": "{\"handlerId\":\"ui5_run_config_handler_id\",\"runnableId\":\"/home/user/projects/sapui5-1/storeincharge-approvals\"}"
+        "run.config": "{\"handlerId\":\"ui5_run_config_handler_id\",\"runnableId\":\"/home/user/projects/sapui5/storeincharge-totaldetails\"}"
       },
-      "envFile": "${workspaceFolder}/storeincharge-approvals/.env1",
-      "preLaunchTask": "Build sapui5-1"
+      "envFile": "${workspaceFolder}/storeincharge-totaldetails/.env1",
+      "preLaunchTask": "Build sapui5"
     }
   ],
   "compounds": [],
-  "inputs": [
-    {
-      "id": "UI5Version",
-      "type": "command",
-      "command": "sap.ux.appGenerator.ui5Version"
-    }
-  ],
   "version": "0.2.0"
 }

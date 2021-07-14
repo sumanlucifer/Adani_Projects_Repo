@@ -1,6 +1,7 @@
 <mvc:View xmlns:mvc="sap.ui.core.mvc"
     xmlns:core="sap.ui.core"
-    xmlns="sap.m">
+    xmlns="sap.m"
+    controllerName="com.agel.mmts.storeinchargetotaldetails.view.blocks.LandingPage.lineItemsForm.LineItemsFormcontroller">
 
     <core:Fragment fragmentName="com.agel.mmts.storeinchargetotaldetails.view.fragments.common.lineItems" type="XML"/>
 

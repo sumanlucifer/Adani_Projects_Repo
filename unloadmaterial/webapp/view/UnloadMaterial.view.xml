@@ -1,0 +1,65 @@
+<mvc:View 
+    xmlns="sap.m"
+    xmlns:f2="sap.f"
+    xmlns:vbm="sap.ui.vbm"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:uxap="sap.uxap"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+    xmlns:unified="sap.ui.unified"
+    xmlns:tt="sap.ui.table"
+    xmlns:smartTable="sap.ui.comp.smarttable"
+    height="100%" controllerName="com.agel.mmts.unloadmaterial.controller.UnloadMaterial"
+    xmlns:outerPackaging="com.agel.mmts.unloadmaterial.view.blocks.UnloadMaterial.outerPackaging.blocks"
+    xmlns:innerPackaging="com.agel.mmts.unloadmaterial.view.blocks.UnloadMaterial.innerPackaging.blocks">
+    <uxap:ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true" upperCaseAnchorBar="false" headerContentPinnable="true" toggleHeaderOnTitleClick="true" showFooter="true">
+        <uxap:headerTitle>
+            <uxap:ObjectPageDynamicHeaderTitle>
+                <uxap:breadcrumbs>
+                    <Breadcrumbs id="breadcrumbsId" currentLocationText="{i18n>packinglist}">
+                        <Link text="{i18n>unloadMaterial}" press=".handleToUnloadMaterialBreadcrumPress"/>
+                    </Breadcrumbs> 
+                </uxap:breadcrumbs>
+                <uxap:heading>
+                    <Title text="{i18n>unloadMaterial}" wrapping="true" titleStyle="H4"/>
+                </uxap:heading>
+                <uxap:snappedHeading>
+                    <FlexBox direction="Column" renderType="Bare">
+                        <Title text="{i18n>unloadMaterial}" wrapping="true" titleStyle="H4"/>
+                    </FlexBox>
+                </uxap:snappedHeading>
+                <uxap:expandedContent></uxap:expandedContent>
+                <uxap:snappedTitleOnMobile>
+                    <Title text="{i18n>unloadMaterial}" wrapping="true" titleStyle="Auto"/>
+                </uxap:snappedTitleOnMobile>
+                <uxap:actions>
+                   <Button id="idQRnotFound" text="{i18n>QRnotfound}" type="Ghost" press="onQrNotFoundPress"/>
+                   <Button id="idScanQR" text="{i18n>ScanQR}" type="Emphasized" press="onScanQRCodePress"/>
+                </uxap:actions>
+            </uxap:ObjectPageDynamicHeaderTitle>
+        </uxap:headerTitle>
+        <uxap:headerContent>
+        </uxap:headerContent>
+        <uxap:sections>
+
+            <!-- Packing List Contains -->
+            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>PackListContains}">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection title="Outer Packaging">
+                        <uxap:blocks>
+                            <outerPackaging:OuterPackaging OnViewQRCodePress="onViewQRCodePress" class="sapUxAPObjectPageSubSectionAlignContent"/>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                    <uxap:ObjectPageSubSection title="Inner Packaging">
+                        <uxap:blocks>
+                            <innerPackaging:InnerPackaging class="sapUxAPObjectPageSubSectionAlignContent" OnViewQRCodePress = "onViewQRCodePress"/>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+        </uxap:sections>
+    </uxap:ObjectPageLayout>
+
+</mvc:View>

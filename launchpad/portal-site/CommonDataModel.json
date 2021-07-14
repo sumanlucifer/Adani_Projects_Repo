@@ -54,7 +54,19 @@
 				"i18n": "i18n/material-tracker.properties"
 			},
 			"payload": {
-				"viz": []
+				"viz": [{
+					"id": "com.agel.mmts.storeinchargeraisedpo-1-1626263574160",
+					"appId": "com.agel.mmts.storeinchargeraisedpo",
+					"vizId": "TotalOrder-raised"
+				}, {
+					"id": "com.agel.mmts.storeinchargeintransitpo-1-1626263620939",
+					"appId": "com.agel.mmts.storeinchargeintransitpo",
+					"vizId": "TotalOrder-intransit"
+				}, {
+					"id": "com.agel.mmts.storeinchargetotaldetails-2-1626263620939",
+					"appId": "com.agel.mmts.storeinchargetotaldetails",
+					"vizId": "TotalDetails-manage"
+				}]
 			}
 		}, {
 			"_version": "3.0.0",

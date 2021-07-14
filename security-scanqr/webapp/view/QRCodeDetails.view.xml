@@ -23,17 +23,17 @@
                                 <!-- <Text text="Packing List Name - {Name}" /> -->
                             </VBox>
 
-                            <VBox renderType="Bare" visible="{= %{VehicleNumber} === '' ? true : false &amp;&amp; %{GateEntryNumber} !== '' ? true : false}">
+                            <VBox renderType="Bare" visible="{= ${VehicleNumber} === '' ? true : false &amp;&amp; ${GateEntryNumber} !== '' ? true : false}">
                                 <Label text="{i18n>VehicleNumber}" design="Bold"/>
                                 <Input value="{oViewHandlingModel>/ReEnterVehicleNo}" width="80%"/>
                             </VBox>
 
-                            <VBox renderType="Bare" visible="{= %{VehicleNumber} !== '' ? true : false}">
+                            <VBox renderType="Bare" visible="{= ${VehicleNumber} !== '' ? true : false}">
                                 <Label text="{i18n>VehicleNumber}" design="Bold"/>
                                 <Text text="{VehicleNumber}"/>
                             </VBox>
 
-                            <VBox renderType="Bare" visible="{= %{GateEntryNumber} !== null ? true : false}">
+                            <VBox renderType="Bare" visible="{= ${GateEntryNumber} !== null ? true : false}">
                                 <Label text="{i18n>GateEntryNumber}" design="Bold"/>
                                 <Text text="{GateEntryNumber}"/>
                             </VBox>
@@ -45,15 +45,15 @@
                                 <Input id="idReEnterInputVehcileNob" value="{oViewHandlingModel>/ReEnterVehicleNo}" width="80%" valueLiveUpdate="true" liveChange="onVechileNumerValueUpdate"/>
                             </VBox>
 
-                            <VBox id="idHboxReEnterVehicleNoNew" renderType="Bare" visible="{= %{VehicleNumber} ? false : true}">
-                             <Input id="idReEnterInputVehcileNoNew" value="{oViewHandlingModel>/ReEnterVehicleNoNew}" width="80%" />
+                            <VBox id="idHboxReEnterVehicleNoNew" renderType="Bare" visible="{= ${VehicleNumber} ? false : true}">
+                             <Input id="idReEnterInputVehcileNoNew" value="{oViewHandlingModel>/ReEnterVehicleNoNew}" width="80%" valueLiveUpdate="true"/>
                             </VBox>   
                              
                             <HBox visible="{= ${GateEntryNumber} ? false : true}">
                                 <VBox id="idHboxApproveReject1" alignItems="Start" visible="{oViewHandlingModel>/wantChange}">
                                     <!-- <Button text="{i18n>submitVehicleNumber}" press="onPressApproveVehicleNumber" type="Accept" class="sapUiSmallMarginEnd"/> -->
                                 </VBox>
-                                <VBox id="idHboxApproveReject" alignItems="Start" visible="{= %{VehicleNumber} ? true : false}">
+                                <VBox id="idHboxApproveReject" alignItems="Start" visible="{= ${VehicleNumber} ? true : false}">
                                     <Button text="{= ${oViewHandlingModel>/wantChange} ? 'Cancel' : 'Change Vehicle Number'}" press="onChangeVehicleNumberPress" type="Emphasized" class="sapUiSmallMarginEnd"/>
                                 </VBox>
                             </HBox>
@@ -63,9 +63,8 @@
                 </uxap:content>
                 <uxap:actions>
                     <HBox>
-                        <Button text="{i18n>submit}" press="onVehicleNumberSubmit" type="Emphasized"
-                            enabled="{= ${oViewHandlingModel>/wantChange} ? ${oViewHandlingModel>/ReEnterVehicleNo}!== null ? true : false : ${GateEntryNumber}!== null ? false : true}"
-                            visible="{= ${GateEntryNumber}!== null ? false : true}"/>
+                        <Button text="{i18n>submit}" press="onVehicleNumberSubmit" type="Emphasized" visible="{= ${GateEntryNumber}!== null ? false : true}"
+                            enabled="{= ${VehicleNumber} ? ${oViewHandlingModel>/wantChange} ? ${oViewHandlingModel>/ReEnterVehicleNo}!== null ? true : false : ${GateEntryNumber}!== null ? false : true : ${oViewHandlingModel>/ReEnterVehicleNoNew} ? true : false}" />
                              
                         <Button text="{i18n>close}"  press="onClose" type="Emphasized"
                              visible="{= ${GateEntryNumber}!== null ? true : false}"/>

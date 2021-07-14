@@ -24,6 +24,21 @@
                     "localUri": "localService/metadata.xml"
                 }
             }
+        },
+        "crossNavigation": {
+            "inbounds": {
+                "com-agel-mmts-storeinchargereceivedpo-inbound": {
+                    "signature": {
+                        "parameters": {},
+                        "additionalParameters": "allowed"
+                    },
+                    "semanticObject": "TotalOrder",
+                    "action": "received",
+                    "title": "Received",
+                    "subTitle": "",
+                    "icon": "sap-icon://order-status"
+                }
+            }
         }
   },
   "sap.ui": {

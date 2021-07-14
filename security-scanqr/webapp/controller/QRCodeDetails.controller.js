@@ -176,16 +176,18 @@ sap.ui.define([
 
                 this.MainModel.create("/VehicleNumberUpdateSet", oPayload, {
                     success: function (oData, oResponse) {
+                        this.MainModel.refresh();
                         MessageBox.success("Vehicle Number Submitted successfully");
+                        this.getViewModel("oViewHandlingModel").setProperty("/wantChange", false);
                         this.getViewModel("oViewHandlingModel").setProperty("/closeButton", true);
                         this.getViewModel("oViewHandlingModel").setProperty("/submitButton", false);
 
                     }.bind(this),
-                    error: function (oError) {
+                    error: function (oError) {                        
                         MessageBox.error(JSON.stringify(oError));
-
-                    }
-                });
+                    }.bind(this)
+                });                
+                this.getViewModel("oViewHandlingModel").setProperty("/ReEnterVehicleNo", null);
             },
 
             onClose: function (oEvent) {
