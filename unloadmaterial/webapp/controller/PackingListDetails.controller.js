@@ -76,7 +76,12 @@ sap.ui.define([
 
             // QR Code View 
             onViewQRCodePress: function (oEvent) {
-                var sParentItemPath = oEvent.getSource()._getBindingContext().getPath();
+                try{
+                var sParentItemPath = oEvent.getParameter("oSource").getBindingContext().getPath();
+                }
+                catch(e){
+                    sParentItemPath = oEvent.getSource().getBindingContext().getPath();
+                }
                 var sDialogTitleObject = oEvent.getSource()._getBindingContext().getProperty();
                 var oDetails = {};
                 oDetails.controller = this;

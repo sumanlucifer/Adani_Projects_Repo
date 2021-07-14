@@ -54,7 +54,8 @@ sap.ui.define([
         // Dispatched Po Table Before Bind
         onbeforeRebindDispatchPoTable: function (oEvent) {
             var mBindingParams = oEvent.getParameter("bindingParams");
-            mBindingParams.filters.push(new Filter("Status", sap.ui.model.FilterOperator.EQ, "DISPATCHED"));
+            mBindingParams.filters.push(new Filter("POStatusAsPerPackingList", sap.ui.model.FilterOperator.EQ, 3));
+            mBindingParams.filters.push(new Filter("POStatusAsPerPackingList", sap.ui.model.FilterOperator.EQ, 4));
         },
 
         onReceivedPOTableUpdateFinished: function (oEvent) {

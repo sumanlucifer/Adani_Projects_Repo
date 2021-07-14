@@ -50,7 +50,6 @@ sap.ui.define([
 
         // on Go Search 
         onSearch: function (oEvent) {
-            var poNumber = this.byId("idNameInput").getValue();
             var DateRange = this.byId("dateRangeSelectionId");
             var DateRangeValue = this.byId("dateRangeSelectionId").getValue();
             var CompanyCode = this.byId("idCompanyCode").getValue();
@@ -60,48 +59,43 @@ sap.ui.define([
 
             var FreeTextSearch = this.byId("filterbar").getBasicSearchValue();
             if (FreeTextSearch) {
-                orFilters.push(new Filter("PONumber", FilterOperator.Contains, FreeTextSearch));
-                orFilters.push(new Filter("Buyer/CompanyCode", FilterOperator.EQ, FreeTextSearch));
-                orFilters.push(new Filter("ParentLineItems/Name", FilterOperator.Contains, FreeTextSearch));
+                orFilters.push(new Filter("Name", FilterOperator.Contains, FreeTextSearch));
+                orFilters.push(new Filter("MapVendorCode", FilterOperator.EQ, FreeTextSearch));
+                // orFilters.push(new Filter("ParentLineItems/Name", FilterOperator.Contains, FreeTextSearch));
                 andFilters.push(new Filter(orFilters, false));
-            }
-
-            if (poNumber != "") {
-                andFilters.push(new Filter("PONumber", FilterOperator.EQ, poNumber));
             }
 
             if (DateRangeValue != "") {
                 var From = new Date(DateRange.getFrom());
                 var To = new Date(DateRange.getTo());
-                andFilters.push(new Filter("POReleaseDate", FilterOperator.BT, From.toISOString(), To.toISOString()));
+                andFilters.push(new Filter("UnloadedDate", FilterOperator.BT, From.toISOString(), To.toISOString()));
             }
 
             if (CompanyCode != "") {
-                andFilters.push(new Filter("Buyer/CompanyCode", FilterOperator.EQ, CompanyCode));
+                andFilters.push(new Filter("MapVendorCode", FilterOperator.EQ, CompanyCode));
             }
 
-           var idReceivedPOTableBinding = this.getView().byId("idReceivedPOTable").getTable().getBinding("items");
+           var idUnloadMaterialTableBinding = this.getView().byId("idUnloadMaterialTable").getTable().getBinding("items");
            
             if (andFilters.length == 0) {
-                andFilters.push(new Filter("PONumber", FilterOperator.NE, ""));
-                idReceivedPOTableBinding.filter(new Filter(andFilters, true));
+                andFilters.push(new Filter("ID", FilterOperator.NE, 0));
+                idUnloadMaterialTableBinding.filter(new Filter(andFilters, true));
             }
 
             if (andFilters.length > 0) {
-                idReceivedPOTableBinding.filter(new Filter(andFilters, true));
+                idUnloadMaterialTableBinding.filter(new Filter(andFilters, true));
             }
             // oTableBinding.filter(mFilters);
         },
 
         onResetFilters: function () {
             this.oFilterBar._oBasicSearchField.setValue("");
-            this.byId("idNameInput").setValue("");
             this.byId("dateRangeSelectionId").setValue("");
             this.byId("idCompanyCode").setValue("");
 
-            var idReceivedPOTableBinding = this.getView().byId("idReceivedPOTable").getTable().getBinding("items");
+            var idUnloadMaterialTableBinding = this.getView().byId("idUnloadMaterialTable").getTable().getBinding("items");
 
-            idReceivedPOTableBinding.filter([]);
+            idUnloadMaterialTableBinding.filter([]);
             this.oFilterBar.fireFilterChange();
         },
 

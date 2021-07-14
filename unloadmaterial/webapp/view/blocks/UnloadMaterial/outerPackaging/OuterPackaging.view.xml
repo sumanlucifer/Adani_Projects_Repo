@@ -12,16 +12,19 @@
                 <Text text="Outer Packaging"/>
             </Column>
             <Column>
+                <Text text="Inner Packaging"/>
+            </Column>
+            <Column>
+                <Text text="Received Inner Packaging"/>
+            </Column>
+            <Column>
                 <Text text="Line Item"/>
             </Column>
             <Column>
-                <Text text="Packaging Qty"/>
-            </Column>
-            <Column>
-                <Text text="Received Qty"/>
-            </Column>
-            <Column>
                 <Text text="UOM"/>
+            </Column>
+            <Column>
+                <Text text="Status"/>
             </Column>
         </columns>
         <items>
@@ -32,6 +35,11 @@
                     <Text text="{PackagingQty}"/>
                     <Text text=""/>
                     <Text text="{UOM}"/>
+                    <core:Icon src="sap-icon://accept" class="size1" color="#087137" >
+                        <core:layoutData>
+                            <FlexItemData growFactor="1" />
+                        </core:layoutData>
+                    </core:Icon>
                 </cells>
             </ColumnListItem>
         </items>
