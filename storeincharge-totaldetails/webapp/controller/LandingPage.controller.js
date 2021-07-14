@@ -43,18 +43,24 @@ sap.ui.define([
         },
 
         _onObjectMatched: function (oEvent) {
-            var sObjectId = oEvent.getParameter("arguments").ID;
-            var sObjectType = oEvent.getParameter("arguments").Type;
             // var sObjectType = "RECEIVED";
             // var sObjectId = "(1)";
+
+            var startupParams = this.getOwnerComponent().getComponentData().startupParameters;
+            var sObjectId = startupParams.ID[0];
+            var sObjectType = startupParams.Type[0];
+
             this._bindView("/PurchaseOrderSet" + sObjectId);
             this.getView().getModel("detailsModel").setProperty("/Type",sObjectType);
-             if(sObjectType === "INTRANSIT")
+
+            if(sObjectType === "INTRANSIT" || sObjectType === "RECEIVED")
+                this.getView().getModel("detailsModel").setProperty("/packingListTable",true);
+                
+            if(sObjectType === "INTRANSIT")
                 this.getView().getModel("detailsModel").setProperty("/packingListItemFilter",'DISPATCHED');
             else if(sObjectType === "RECEIVED")
                 this.getView().getModel("detailsModel").setProperty("/packingListItemFilter",'SAVED');
-            if(sObjectType === "INTRANSIT" || sObjectType === "RECEIVED")
-                this.getView().getModel("detailsModel").setProperty("/packingListTable",true);
+
         },
 
         _createPODetailsModel: function () {
