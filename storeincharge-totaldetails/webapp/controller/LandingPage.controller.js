@@ -20,57 +20,6 @@ sap.ui.define([
 	/**
 	 * @param {typeof sap.ui.core.mvc.Controller} Controller
 	 */
-<<<<<<< HEAD
-	function (BaseController, JSONModel, Filter, FilterOperator, Fragment, Sorter, Device, History, ColumnListItem, Input, deepExtend, Spreadsheet, MessageToast, MessageBox, ObjectIdentifier, Text, Button) {
-		"use strict";
-
-		return BaseController.extend("com.agel.mmts.storeinchargetotaldetails.controller.LandingPage", {
-        onInit: function () {
-            this.getView().addEventDelegate({
-                onAfterShow: this.onBeforeShow,
-            }, this);
-            //view model instatiation
-            var oViewModel = new JSONModel({
-                busy: false,
-                delay: 0
-            });
-            this.setModel(oViewModel, "objectViewModel");
-
-            this._createPODetailsModel();
-
-            //Router Object
-            this.oRouter = this.getRouter();
-            this.oRouter.getRoute("RouteLandingPage").attachPatternMatched(this._onObjectMatched, this);
-        },
-
-        _onObjectMatched: function (oEvent) {
-            var sObjectId = oEvent.getParameter("arguments").ID;
-            // var sObjectId = "1";
-            this._bindView("/PurchaseOrderSet(" + sObjectId +")");
-        },
-
-        _createPODetailsModel: function () {
-
-            var oModel = new JSONModel({
-                Label: null,
-                packingListTable: true
-            });
-
-            this.setModel(oModel, "detailsModel");
-        },
-
-        _bindView: function (sObjectPath) {
-            var objectViewModel = this.getViewModel("objectViewModel");
-            var that = this;
-            this.getView().bindElement({
-                path: sObjectPath,
-                events: {
-                    dataRequested: function () {
-                        objectViewModel.setProperty("/busy", true);
-                    },
-                    dataReceived: function () {
-                        objectViewModel.setProperty("/busy", false);
-=======
     function (BaseController, JSONModel, Filter, FilterOperator, Fragment, Sorter, Device, History, ColumnListItem, Input, deepExtend, Spreadsheet, MessageToast, MessageBox, ObjectIdentifier, Text, Button) {
         "use strict";
 
@@ -148,7 +97,6 @@ sap.ui.define([
                         dataReceived: function () {
                             objectViewModel.setProperty("/busy", false);
                         }
->>>>>>> develop
                     }
                 });
             },
