@@ -27,7 +27,7 @@
         },
         "crossNavigation": {
             "inbounds": {
-                "com-agel-mmts-storeinchargetotaldetails-inbound": {
+                "com-agel-mmts-storeinchargeraisedpo-inbound": {
                     "signature": {
                         "parameters": {},
                         "additionalParameters": "allowed"
