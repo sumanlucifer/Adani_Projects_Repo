@@ -43,10 +43,10 @@ sap.ui.define([
         },
 
         _onObjectMatched: function (oEvent) {
-            // var sObjectId = oEvent.getParameter("arguments").ID;
-            // var sObjectType = oEvent.getParameter("arguments").Type;
-            var sObjectType = "RECEIVED";
-            var sObjectId = "(1)";
+            var sObjectId = oEvent.getParameter("arguments").ID;
+            var sObjectType = oEvent.getParameter("arguments").Type;
+            // var sObjectType = "RECEIVED";
+            // var sObjectId = "(1)";
             this._bindView("/PurchaseOrderSet" + sObjectId);
             this.getView().getModel("detailsModel").setProperty("/Type",sObjectType);
              if(sObjectType === "INTRANSIT")
