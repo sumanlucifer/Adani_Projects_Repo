@@ -4,7 +4,8 @@
     xmlns="sap.m" xmlns:u="sap.ui.unified"
     controllerName="com.agel.mmts.storeinchargetotaldetails.view.blocks.LandingPage.packingItemsForm.PackingItemsFormController">
 
-    <Table width="auto" growing="true" growingThreshold="2" items="{path: 'PackingList'}" fixedLayout="true">
+    <Table id="idPackgingListItemTable" width="auto" growing="true" growingThreshold="2" 
+    items="{path: 'PackingList'}" fixedLayout="true" updateFinished="onbeforeRebindPackagingItemTable">
         <columns>
             <Column demandPopin="true" minScreenWidth="Desktop">
                 <Text text="{i18n>id}" wrapping="true" wrappingType="Hyphenated"/>

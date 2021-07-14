@@ -146,31 +146,22 @@ sap.ui.define([
                 this.qrNotFoundDialog.then(function (oDialog) {
                     oDialog.close();
                 });
+                this.onPackingListContainsPress();
             },
 
-             onViewQRCodePress: function (oEvent) {
-                var sParentItemPath = oEvent.getSource()._getBindingContext().getPath();
-                var sDialogTitleObject = oEvent.getSource()._getBindingContext().getProperty();
+            onPackingListContainsPress: function () {
                 var oDetails = {};
                 oDetails.controller = this;
                 oDetails.view = this.getView();
-                oDetails.sParentItemPath = sParentItemPath;
-                oDetails.title = "QR Code";
-                if (sDialogTitleObject.Name)
-                    oDetails.title = sDialogTitleObject.Name;
-                else if (sDialogTitleObject.PackagingType)
-                    oDetails.title = sDialogTitleObject.PackagingType;
-                if (!this.qrDialog) {
-                    this.qrDialog = Fragment.load({
+                oDetails.title = "Packing List Contains";
+                if (!this.packingListContainsDialog) {
+                    this.packingListContainsDialog = Fragment.load({
                         id: oDetails.view.getId(),
-                        name: "com.agel.mmts.unloadmaterial.view.fragments.QRCodeViewer",
+                        name: "com.agel.mmts.unloadmaterial.view.fragments.unloadMaterial.packingListContains",
                         controller: oDetails.controller
                     }).then(function (oDialog) {
                         // connect dialog to the root view of this component (models, lifecycle)
                         oDetails.view.addDependent(oDialog);
-                        oDialog.bindElement({
-                            path: oDetails.sParentItemPath,
-                        });
                         if (Device.system.desktop) {
                             oDialog.addStyleClass("sapUiSizeCompact");
                         }
@@ -178,18 +169,13 @@ sap.ui.define([
                         return oDialog;
                     });
                 }
-                this.qrDialog.then(function (oDialog) {
-                    oDetails.view.addDependent(oDialog);
-                    oDialog.bindElement({
-                        path: oDetails.sParentItemPath,
-                    });
-                    oDialog.setTitle(oDetails.title);
+                this.packingListContainsDialog.then(function (oDialog) {
                     oDialog.open();
                 });
             },
 
-            onQRCodeViewerDialogClosePress: function (oEvent) {
-                this.qrDialog.then(function (oDialog) {
+            onPackingListContainsClosePress: function (oEvent) {
+                this.packingListContainsDialog.then(function (oDialog) {
                     oDialog.close();
                 });
             },

@@ -54,7 +54,8 @@ sap.ui.define([
         // Confirm Po Table Before Bind
         onbeforeRebindConfirmPoTable: function (oEvent) {
             var mBindingParams = oEvent.getParameter("bindingParams");
-            mBindingParams.filters.push(new Filter("Status", sap.ui.model.FilterOperator.EQ, "CONFIRMED"));
+            mBindingParams.filters.push(new Filter("POStatusAsPerPackingList", sap.ui.model.FilterOperator.EQ, 2));
+            mBindingParams.filters.push(new Filter("POStatusAsPerPackingList", sap.ui.model.FilterOperator.EQ, 3));
         },
 
         onInTransitPOTableUpdateFinished: function (oEvent) {
