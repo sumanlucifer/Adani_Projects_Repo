@@ -130,7 +130,8 @@ sap.ui.define([
                         action: "manage"
                     },
                     params: {
-                        "type": sObjectPath.slice("/PurchaseOrderSet".length)
+                        "ID": sObjectPath.slice("/PurchaseOrderSet".length),
+                        "Type": "RAISED"
                     }
                 })) || ""; // generate the Hash to display PO Number
                 oCrossAppNavigator.toExternal({

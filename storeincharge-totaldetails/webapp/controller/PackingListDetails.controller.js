@@ -34,7 +34,6 @@ sap.ui.define([
                 var oViewHandlingModel = new JSONModel({
                     "closeButton": false,
                     "submitButton": true
-
                 });
                 this.setModel(oViewHandlingModel, "oViewHandlingModel");
 
@@ -43,13 +42,13 @@ sap.ui.define([
 
                 //Router Object
                 this.oRouter = this.getRouter();
-                this.oRouter.getRoute("RouteDetailsPage").attachPatternMatched(this._onObjectMatched, this);
             },
 
             // On Object Matched 
             _onObjectMatched: function (oEvent) {
                     this.RequestId = oEvent.getParameter("arguments").RequestId;
                     this._bindView("/PackingListSet" + this.RequestId );
+                    this.getView().getModel("oViewHandlingModel").setProperty("/type",)
                
 
             },

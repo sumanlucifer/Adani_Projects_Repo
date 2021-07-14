@@ -108,9 +108,9 @@
             </uxap:ObjectPageSection>
             
             <!-- Packing List Section -->
-            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>packingList}">
+            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>packingList}" visible="{detailsModel>/packingListTable}">
                 <uxap:subSections>
-                    <uxap:ObjectPageSubSection title="{i18n>packingListID}" visible="{detailsModel>/packingListTable}">
+                    <uxap:ObjectPageSubSection title="{i18n>packingListID}">
                         <uxap:blocks>
                             <packingItemsForm:PackingItemsForm class="sapUxAPObjectPageSubSectionAlignContent" OnpressPackingListDetails = "onpressPackingListDetails"/>
                         </uxap:blocks>
