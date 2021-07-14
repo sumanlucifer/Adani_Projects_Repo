@@ -1,0 +1,84 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:smartTable="sap.ui.comp.smarttable"
+    xmlns:core="sap.ui.core">
+
+    <smartTable:SmartTable class="sapUiResponsiveContentPadding" id="idListTable" editable="false" 
+            placeToolbarInTable="true" enableAutoBinding="true" entitySet="PrintAssistanceSet"
+             showFullScreenButton="true" showRowCount="false" tableType="ResponsiveTable"
+             demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" 
+             useVariantManagement="false" beforeRebindTable="onbeforeRebindListPoTable" ignoreFromPersonalisation="CreatedAt, CreatedBy, ID, IsArchived, QRCodeId, QRNumber, UpdatedAt, UpdatedBy, UserId">
+
+        <Table sticky="ColumnHeaders,HeaderToolbar" updateFinished="onListTableUpdateFinished"
+             alternateRowColors="true">
+            <columns>
+                
+                <!-- packing List Name -->
+                <Column>
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "PackingList/ID", "leadingProperty": "PackingList/ID",
+                                                 "columnIndex": 0 ,"sortProperty": "PackingList/ID","filterProperty": "PackingList/ID"}'/>
+                    </customData>
+                    <Text text="{i18n>packingListID}"/>
+                </Column>
+
+                <!-- PO Number -->
+                <Column >
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "PONumber", "leadingProperty": "PONumber",
+                                                 "columnIndex": 1 ,"sortProperty": "PONumber","filterProperty": "PONumber"}'/>
+                    </customData>
+                    <Text text="{i18n>pONumber}"/>
+                </Column>
+
+                <!-- Vendor Code -->
+                <Column demandPopin="true" minScreenWidth="Desktop"> 
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "VendorCode", "leadingProperty": "VendorCode",
+                                                 "columnIndex": 2 ,"sortProperty": "VendorCode","filterProperty": "VendorCode"}'/>
+                    </customData>
+                    <Text text="{i18n>vendorCode}"/>
+                </Column>
+
+                <!-- Requested On -->
+                <Column demandPopin="true" minScreenWidth="Tablet">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "RequestedOn", "leadingProperty": "RequestedOn",
+                                                 "columnIndex": 3}'/>
+                    </customData>
+                    <Text text="{i18n>requestedOn}"/>
+                </Column>
+
+                <!-- Vehicle Number -->
+                <Column demandPopin="true" minScreenWidth="Tablet">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Status", "leadingProperty": "Status",
+                                                 "columnIndex": 4 }'/>
+                    </customData>
+                    <Text text="{i18n>status}"/>
+                </Column>     
+
+            </columns>
+            <items>
+
+                <ColumnListItem type="Navigation" press="onListEntryPress">
+                    <cells>
+                        <Text text="{PONumber}"/>
+                        <ObjectIdentifier title="{PackingListName}"/> 
+                        <Text text="{VendorCode}"/>
+                        <Text text="{path:'EntryDate',
+                                     type: 'sap.ui.model.type.Date',
+				                     formatOptions: {
+				                        pattern: 'MMMM dd, yyyy'
+				                     }
+                        }"/>                       
+
+                        <Text text="{Status}"/>
+
+                    </cells>
+                </ColumnListItem>
+
+            </items>
+        </Table>
+    </smartTable:SmartTable>
+
+</core:FragmentDefinition>

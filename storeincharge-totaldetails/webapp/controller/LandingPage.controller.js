@@ -43,8 +43,8 @@ sap.ui.define([
         },
 
         _onObjectMatched: function (oEvent) {
-            // var sObjectId = oEvent.getParameter("arguments").ID;
-            var sObjectId = "1";
+            var sObjectId = oEvent.getParameter("arguments").ID;
+            // var sObjectId = "1";
             this._bindView("/PurchaseOrderSet(" + sObjectId +")");
         },
 
