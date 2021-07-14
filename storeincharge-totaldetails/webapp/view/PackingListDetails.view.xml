@@ -139,7 +139,7 @@
 					                        <Text text="{MDCCApprovedQty}"/>
 					                        <Text text="{DispatchQty}"/>
 					                        <Text text="{UOM}"/>
-                                            <Link text="View QR Code" press="onViewQRCodePress"/>				                        
+                                            <Link text="View QR Code" binding="{QrCode}" visible="{= ${QRNumber}}" press="onViewQRCodePress"/>				                        
                                         </cells>
 			                        </ColumnListItem>
 		                        </items>
@@ -154,17 +154,17 @@
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection title="{i18n>PackListContains}">
                         <uxap:blocks>
-                            <linePackingItems:LineItemsTable class="sapUxAPObjectPageSubSectionAlignContent" OnViewQRCodePress = "onViewQRCodePress"/>
+                            <linePackingItems:LineItemsTable class="sapUxAPObjectPageSubSectionAlignContent" OnViewQRCodePressSmart = "onViewQRCodePressSmart"/>
                         </uxap:blocks>
                     </uxap:ObjectPageSubSection>
                     <uxap:ObjectPageSubSection title="Outer Packaging">
                         <uxap:blocks>
-                            <outerPackaging:OuterPackaging OnViewQRCodePress="onViewQRCodePress" class="sapUxAPObjectPageSubSectionAlignContent"/>
+                            <outerPackaging:OuterPackaging OnViewQRCodePressSmart="onViewQRCodePressSmart" class="sapUxAPObjectPageSubSectionAlignContent"/>
                         </uxap:blocks>
                     </uxap:ObjectPageSubSection>
                     <uxap:ObjectPageSubSection title="Inner Packaging">
                         <uxap:blocks>
-                            <innerPackaging:InnerPackaging class="sapUxAPObjectPageSubSectionAlignContent" OnViewQRCodePress = "onViewQRCodePress"/>
+                            <innerPackaging:InnerPackaging class="sapUxAPObjectPageSubSectionAlignContent" OnViewQRCodePressSmart = "onViewQRCodePressSmart"/>
                         </uxap:blocks>
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>

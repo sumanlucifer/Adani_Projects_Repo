@@ -5,8 +5,8 @@
     xmlns:l="sap.ui.layout"
     xmlns:f="sap.ui.layout.form"
     xmlns:core="sap.ui.core"
-    xmlns:unified="sap.ui.unified"
     xmlns:tt="sap.ui.table"
+    xmlns:u="sap.ui.unified"
     xmlns:smartTable="sap.ui.comp.smarttable"
     xmlns="sap.m" controllerName="com.agel.mmts.storeinchargetotaldetails.controller.LandingPage"
     xmlns:buyerForm="com.agel.mmts.storeinchargetotaldetails.view.blocks.LandingPage.buyerForm"
@@ -101,7 +101,7 @@
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection title="{i18n>lineItems}">
                         <uxap:blocks>
-                            <lineItemsForm:LineItemsForm class="sapUxAPObjectPageSubSectionAlignContent"/>
+                            <lineItemsForm:LineItemsForm class="sapUxAPObjectPageSubSectionAlignContent"/>                       
                         </uxap:blocks>
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>
