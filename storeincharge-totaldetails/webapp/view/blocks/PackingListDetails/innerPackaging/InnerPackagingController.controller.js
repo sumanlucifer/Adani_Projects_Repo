@@ -4,8 +4,8 @@ sap.ui.define(["sap/ui/core/mvc/Controller"], function (Controller) {
 
     return Controller.extend("com.agel.mmts.storeinchargetotaldetails.view.blocks.PackingListDetails.innerPackaging.InnerPackaging", {
         //venkatesh
-        onViewQRCodePress: function(oEvent){
-            this.oParentBlock.fireOnViewQRCodePress(oEvent);
+        onViewQRCodePressSmart: function(oEvent){
+            this.oParentBlock.fireOnViewQRCodePressSmart(oEvent);
         }
       
 

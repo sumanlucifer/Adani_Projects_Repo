@@ -14,7 +14,7 @@ sap.ui.define(['sap/uxap/BlockBase'], function (BlockBase) {
                 }
             },
              events: {
-                 "OnViewQRCodePress":{}
+                 "OnViewQRCodePressSmart":{}
 			}
         }
     });

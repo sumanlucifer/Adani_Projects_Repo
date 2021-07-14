@@ -54,8 +54,8 @@ sap.ui.define([
 
         // Raised Po Table Before Bind
         onbeforeRebindRaisedPoTable: function (oEvent) {
-            var mBindingParams = oEvent.getParameter("bindingParams");
-            mBindingParams.filters.push(new Filter("POStatusAsPerPackingList", sap.ui.model.FilterOperator.EQ, 1));
+            // var mBindingParams = oEvent.getParameter("bindingParams");
+            // mBindingParams.filters.push(new Filter("POStatusAsPerPackingList", sap.ui.model.FilterOperator.EQ, 1));
         },
 
         // Closed Po Table Before Bind
