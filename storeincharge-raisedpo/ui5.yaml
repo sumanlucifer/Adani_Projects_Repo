@@ -1,6 +1,6 @@
 specVersion: '1.0'
 metadata:
-  name: 'storeincharge-raisedpo'
+  name: storeincharge-raisedpo
 type: application
 resources:
   configuration:
