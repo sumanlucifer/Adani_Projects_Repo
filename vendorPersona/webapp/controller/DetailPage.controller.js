@@ -46,11 +46,11 @@ sap.ui.define([
         _onObjectMatched: function (oEvent) {
             var startupParams = this.getOwnerComponent().getComponentData().startupParameters;
             // get Startup params from Owner Component
-            if (startupParams.Kind[0]) {
+            //if (startupParams.Kind[0]) {
                 this.type = startupParams.Kind[0];
-                this.byId("idIconTabBar").setSelectedKey(startupParams.type);
-                this.onIconTabBarChanged(startupParams.type);
-            }
+                this.byId("idIconTabBar").setSelectedKey(this.type);
+                this.onIconTabBarChanged(this.type);
+            //}
         },
 
         // Open Po Table Before Bind

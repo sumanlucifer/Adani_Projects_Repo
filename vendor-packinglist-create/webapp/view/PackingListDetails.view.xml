@@ -102,7 +102,7 @@
                     <VBox class="sapUiMediumMarginBeginEnd">
                         <Title text="{i18n>from}" titleStyle="H6"/>
                         <ObjectAttribute title="{Name}" binding="{PurchaseOrder/Vendor}"/>
-                        <ObjectAttribute text="{VendorCode}" binding="{PurchaseOrder/Vendor}"/>
+                        <ObjectAttribute id="idObjVendorCode" text="{VendorCode}" binding="{PurchaseOrder/Vendor}"/>
                         <Link text="{Email}" binding="{PurchaseOrder/Vendor}"/>
                     </VBox>
                 </HBox>

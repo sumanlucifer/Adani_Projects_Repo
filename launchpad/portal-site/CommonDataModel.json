@@ -123,6 +123,10 @@
 				}, {
 					"appId": "com.agel.mmts.userroleassignment",
 					"vizId": "userRoleAssignment-manage"
+				}, {
+					"id": "com.agel.mmts.mdmouterpackinglist-4-1626346826302",
+					"appId": "com.agel.mmts.mdmouterpackinglist",
+					"vizId": "OuterPackingListType-Manage"
 				}]
 			}
 		}, {

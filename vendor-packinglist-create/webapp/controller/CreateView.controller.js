@@ -33,14 +33,14 @@ sap.ui.define([
 
                 var startupParams = this.getOwnerComponent().getComponentData().startupParameters;
                 this.packingListId = startupParams.packingListID[0];
-
+               // this.packingListId = 62;
 
                 /* if (startupParams.status[0] !== "SAVED") {
                     this.oRouter.navTo("RoutePackingListDetails", {
                         packingListId: this.packingListId
                     });
                 } else { */
-                //this.packingListId = 62;
+              //  this.packingListId = 62;
                 this.getView().bindElement({
                     path: "/PackingListSet(" + this.packingListId + ")",
                     events: {
