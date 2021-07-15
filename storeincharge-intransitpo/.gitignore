@@ -23,3 +23,8 @@ storeincharge-approvals/.env1
 =======
 storeincharge-totaldetails/.env1
 >>>>>>> develop
+
+# auto generated wildcard
+storeincharge-totaldetails/.env2
+# auto generated wildcard
+storeincharge-approvals/.env2

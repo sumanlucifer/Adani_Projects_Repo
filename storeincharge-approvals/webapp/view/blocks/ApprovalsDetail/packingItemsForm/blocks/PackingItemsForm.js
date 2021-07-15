@@ -1,15 +1,15 @@
 sap.ui.define(['sap/uxap/BlockBase'], function (BlockBase) {
     "use strict";
 
-    var PackingItemsFormBlock = BlockBase.extend("com.agel.mmts.storeinchargetotaldetails.view.blocks.LandingPage.packingItemsForm.PackingItemsForm", {
+    var PackingItemsFormBlock = BlockBase.extend("com.agel.mmts.storeinchargeapprovals.view.blocks.ApprovalsDetail.packingItemsForm.PackingItemsForm", {
         metadata: {
             views: {
                 Collapsed: {
-                    viewName: "com.agel.mmts.storeinchargetotaldetails.view.blocks.LandingPage.packingItemsForm.PackingItemsForm",
+                    viewName: "com.agel.mmts.storeinchargeapprovals.view.blocks.ApprovalsDetail.packingItemsForm.PackingItemsForm",
                     type: "XML"
                 },
                 Expanded: {
-                    viewName: "com.agel.mmts.storeinchargetotaldetails.view.blocks.LandingPage.packingItemsForm.PackingItemsForm",
+                    viewName: "com.agel.mmts.storeinchargeapprovals.view.blocks.ApprovalsDetail.packingItemsForm.PackingItemsForm",
                     type: "XML"
                 }
             },

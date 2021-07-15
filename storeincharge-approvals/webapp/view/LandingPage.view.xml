@@ -25,13 +25,13 @@
         </f:header>
         <!-- DynamicPage Content -->
         <f:content>
-            <IconTabBar id="idIconTabBar" select="onIconTabSelect" headerMode="Inline" expanded="true" class="sapUiResponsiveContentPadding">
+            <!-- <IconTabBar id="idIconTabBar" select="onIconTabSelect" headerMode="Inline" expanded="true" class="sapUiResponsiveContentPadding">
                 <items>
-                    <IconTabFilter id="idListTitle" text="{i18n>approvals}" key="ListKey" count="{oIconTabCountModel>/confirmCount}">
+                    <IconTabFilter id="idListTitle" text="{i18n>approvals}" key="ListKey" count="{oIconTabCountModel>/confirmCount}"> -->
                         <core:Fragment fragmentName="com.agel.mmts.storeinchargeapprovals.view.fragments.ListTable" type="XML"/>
-                    </IconTabFilter>
+                    <!-- </IconTabFilter>
                 </items>
-            </IconTabBar>
+            </IconTabBar> -->
         </f:content>
     </f:DynamicPage>
 </mvc:View>

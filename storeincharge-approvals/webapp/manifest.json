@@ -34,7 +34,7 @@
                     },
                     "semanticObject": "Approvals",
                     "action": "manage",
-                    "title": "Approve",
+                    "title": "Printing Approvals",
                     "subTitle": "",
                     "icon": "sap-icon://approvals"
                 }

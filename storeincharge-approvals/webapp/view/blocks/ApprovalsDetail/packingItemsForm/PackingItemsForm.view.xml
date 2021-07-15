@@ -2,7 +2,7 @@
     xmlns:core="sap.ui.core"
     xmlns:f="sap.ui.layout.form"
     xmlns="sap.m" xmlns:u="sap.ui.unified"
-    controllerName="com.agel.mmts.storeinchargetotaldetails.view.blocks.LandingPage.packingItemsForm.PackingItemsFormController">
+    controllerName="com.agel.mmts.storeinchargeapprovals.view.blocks.ApprovalsDetail.packingItemsForm.PackingItemsFormController">
 
     <Table width="auto" growing="true" growingThreshold="2" items="{path: 'PackingList'}" fixedLayout="true">
         <columns>

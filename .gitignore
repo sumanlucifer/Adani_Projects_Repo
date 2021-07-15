@@ -4,3 +4,8 @@
 *.zip 
 package-lock.json
 /dist/
+
+# auto generated wildcard
+storeincharge-totaldetails/.env2
+# auto generated wildcard
+storeincharge-approvals/.env2

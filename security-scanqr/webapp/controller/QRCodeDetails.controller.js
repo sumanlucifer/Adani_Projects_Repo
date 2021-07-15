@@ -89,9 +89,7 @@ sap.ui.define([
                     var PackingListId = this.getView().getBindingContext().getObject().ID;
                     var PONumber = this.getView().getBindingContext().getObject().PONumber;
                     var userInfo = "1";
-                    /* if (sap.ushell !== "undefined") {
-                         userInfo = sap.ushell.Container.getService("UserInfo").getEmail() || "Default User";
-                    } */
+                    // var userInfo = sap.ushell.Container.getService("UserInfo").getId();
 
                     var oPayload = {
                         "QRCodeId": that.qrCodeID,

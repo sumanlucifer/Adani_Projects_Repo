@@ -1,7 +1,7 @@
 <core:FragmentDefinition xmlns="sap.m"
     xmlns:core="sap.ui.core" xmlns:u="sap.ui.unified">
 
-    <Table width="auto" growing="true" growingThreshold="2" items="{path: 'PackingListParentItems'}" fixedLayout="false">
+    <Table width="auto" growing="true" growingThreshold="2" items="{path: 'PackingList/PackingListParentItems'}" fixedLayout="false">
         <columns>
             <Column>
                 <Text text="{i18n>LineNumber}" wrapping="true" wrappingType="Hyphenated"/>

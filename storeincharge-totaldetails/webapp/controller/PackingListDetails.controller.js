@@ -51,8 +51,7 @@ sap.ui.define([
 
                 this.RequestId = oEvent.getParameter("arguments").RequestId;
                 this._bindView("/PackingListSet" + this.RequestId);
-                this.getView().getModel("oViewHandlingModel").setProperty("/type")
-
+                // this.getView().getModel("oViewHandlingModel").setProperty("/type");
 
             },
 

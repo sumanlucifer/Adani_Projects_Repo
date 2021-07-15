@@ -145,7 +145,7 @@
 				                        <Text text="UOM"/>
 			                        </Column>
                                     <Column>
-				                        <Text text=""/>
+				                        <Text text="Action"/>
 			                        </Column>
 		                        </columns>
 		                        <items>

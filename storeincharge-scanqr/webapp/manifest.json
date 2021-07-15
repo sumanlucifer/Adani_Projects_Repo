@@ -34,7 +34,7 @@
                     },
                     "semanticObject": "ScanQR",
                     "action": "manage",
-                    "title": "Details",
+                    "title": "Scan QR",
                     "subTitle": "",
                     "icon": "sap-icon://qr-code"
                 }

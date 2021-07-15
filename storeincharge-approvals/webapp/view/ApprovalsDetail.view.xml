@@ -12,8 +12,12 @@
     xmlns:buyerForm="com.agel.mmts.storeinchargeapprovals.view.blocks.ApprovalsDetail.buyerForm"
     xmlns:sellerForm="com.agel.mmts.storeinchargeapprovals.view.blocks.ApprovalsDetail.sellerForm"
     xmlns:sowForm="com.agel.mmts.storeinchargeapprovals.view.blocks.ApprovalsDetail.sowForm"
-    xmlns:lineItemsForm="com.agel.mmts.storeinchargeapprovals.view.blocks.ApprovalsDetail.lineItemsForm" 
-    xmlns:packingItemsForm="com.agel.mmts.storeinchargeapprovals.view.blocks.ApprovalsDetail.packingItemsForm.blocks" height="100%">
+    xmlns:lineItemsForm="com.agel.mmts.storeinchargeapprovals.view.blocks.ApprovalsDetail.lineItemsForm"
+    xmlns:packingItemsForm="com.agel.mmts.storeinchargeapprovals.view.blocks.ApprovalsDetail.packingItemsForm.blocks"
+    xmlns:lineItemsTable="com.agel.mmts.storeinchargeapprovals.view.blocks.ApprovalsDetail.lineItemsTable.blocks"
+    xmlns:linePackingItems="com.agel.mmts.storeinchargeapprovals.view.blocks.ApprovalsDetail.packagingListContains.blocks"
+    xmlns:outerPackaging="com.agel.mmts.storeinchargeapprovals.view.blocks.ApprovalsDetail.outerPackaging.blocks"
+    xmlns:innerPackaging="com.agel.mmts.storeinchargeapprovals.view.blocks.ApprovalsDetail.innerPackaging.blocks" height="100%">
     <uxap:ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true" upperCaseAnchorBar="false" headerContentPinnable="true" toggleHeaderOnTitleClick="true" busy="{objectViewModel>/busy}">
         <uxap:headerTitle>
             <uxap:ObjectPageDynamicHeaderTitle>
@@ -39,6 +43,7 @@
                     <Title text="PO Details - {PONumber}" binding="{PurchaseOrder/ParentLineItems}" wrapping="true" titleStyle="Auto"/>
                 </uxap:snappedTitleOnMobile>
                 <uxap:actions>
+                    <Button text="Close" type="Back" press="onClose"/>
                 </uxap:actions>
             </uxap:ObjectPageDynamicHeaderTitle>
         </uxap:headerTitle>
@@ -46,11 +51,7 @@
             <FlexBox wrap="Wrap" height="100%" renderType="Bare" direction="Column">
                 <VBox renderType="Bare">
                     <FlexBox direction="Row" renderType="Bare" class="sapUiTinyMarginBottom">
-                        <VBox renderType="Bare" class="sapUiMediumMarginEnd" binding="{PurchaseOrder/ParentLineItems}">
-                            <Label text="PO Number" />
-                            <Text text="{PONumber}"/>
-                        </VBox>
-                        <VBox renderType="Bare" class="sapUiMediumMarginEnd" binding="{PurchaseOrder/ParentLineItems}">
+                        <VBox renderType="Bare" class="sapUiMediumMarginEnd" binding="{PurchaseOrder}">
                             <Label text="PO Release Date" />
                             <Text text="{path:'POReleaseDate',
                                      type: 'sap.ui.model.type.Date',
@@ -59,17 +60,23 @@
 				                     }
                             }"/>
                         </VBox>
-                        <VBox renderType="Bare" class="sapUiMediumMarginEnd" binding="{PurchaseOrder/ParentLineItems}">
-                            <Label text="PO Target Date" />
-                            <!-- missing -->
-                            <Text text="{path:'POTargetDate',
+                        <VBox renderType="Bare" class="sapUiMediumMarginEnd" binding="{PurchaseOrder}">
+                            <Label text="Confirmed Date" />
+                            <Text text="{path:'ConfirmedDate',
                                      type: 'sap.ui.model.type.Date',
 				                     formatOptions: {
 				                        pattern: 'MMMM dd, yyyy'
 				                     }
                             }"/>
                         </VBox>
-
+                        <VBox renderType="Bare" class="sapUiMediumMarginEnd">
+                            <Label text="Status" />
+                            <ObjectStatus text="{Status}" state="{= ${Status} === 'PENDING' ? 'Warning' : ${Status} === 'REJECTED' ? 'Error' : 'Success'}"/>
+                        </VBox>
+                        <VBox id="vBoxid" renderType="Bare" class="sapUiMediumMarginEnd" binding="{PackingList}">
+                            <Label text="Name" />
+                            <ObjectIdentifier title="{Name}" />
+                        </VBox>
                     </FlexBox>
                 </VBox>
             </FlexBox>
@@ -78,7 +85,7 @@
             <!-- Basic Details Section -->
             <uxap:ObjectPageSection titleUppercase="false" title="{i18n>basicDetails}">
                 <uxap:subSections>
-                    <uxap:ObjectPageSubSection title="{i18n>buyerDetails}" titleLevel="H6" class="BasicDetalFormTitleStyle"> 
+                    <uxap:ObjectPageSubSection title="{i18n>buyerDetails}" titleLevel="H6" class="BasicDetalFormTitleStyle">
                         <uxap:blocks>
                             <buyerForm:BuyerForm class="sapUxAPObjectPageSubSectionAlignContent"/>
                         </uxap:blocks>
@@ -106,18 +113,234 @@
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>
             </uxap:ObjectPageSection>
-            
+
             <!-- Packing List Section -->
             <uxap:ObjectPageSection titleUppercase="false" title="{i18n>packingList}">
                 <uxap:subSections>
-                    <uxap:ObjectPageSubSection title="{i18n>packingListID}">
+                    <uxap:ObjectPageSubSection>
                         <uxap:blocks>
-                            <!-- <packingItemsForm:PackingItemsForm class="sapUxAPObjectPageSubSectionAlignContent" OnpressPackingListDetails = "onpressPackingListDetails"/> -->
+                            <FlexBox wrap="Wrap" height="100%" renderType="Bare" direction="Column">
+
+                                <HBox >
+                                    <VBox class="sapUiMediumMarginEnd" visible="{= ${objectViewModel>/viewQrCode}}">
+                                        <FlexBox fitContainer="true" alignItems="Center">
+                                            <FlexBox items="{path: 'PackingList/QRCodeId', 
+                                                                filters: [
+                                                                {
+                                                                    path: 'Type', 
+                                                                    operator: 'EQ', 
+                                                                    value1: 'PACKINGLIST' }
+                                                                ] }">
+                                                <VBox>
+                                                    <Avatar displaySize="XL" badgeIcon="sap-icon://edit" displayShape="Square" src="data:image/jpg;base64,{Content}">
+                                                        <detailBox>
+                                                            <LightBox>
+                                                                <LightBoxItem imageSrc="data:image/jpg;base64,{Content}" title="{QRNumber}">
+                                                                </LightBoxItem>
+                                                            </LightBox>
+                                                        </detailBox>
+                                                    </Avatar>
+                                                    <Text text="{QRNumber}" id="idQRNumber"/>
+                                                </VBox>
+                                                <!-- <Text text="Av÷atar of a product with border" class="sapUiSmallMarginTop"/> -->
+                                            </FlexBox>
+                                        </FlexBox>
+                                    </VBox>
+                                    <VBox class="sapUiMediumMarginBeginEnd">
+                                        <Title text="{i18n>pOandASNDetails}" titleStyle="H6"/>
+                                        <!-- <ObjectStatus title="Invoice Number" text="{InvoiceNumber}"/> -->
+                                        <ObjectStatus title="ASN Number" text="Missing"/>
+                                        <ObjectStatus title="PO Number" text="{PONumber}"/>
+                                        <ObjectStatus title="ASN Creation Date" text="Missing"/>
+                                        <!-- <ObjectStatus title="Invoice Date" text="{InvoiceDate}"/> -->
+                                        <!-- <ObjectStatus title="Status" text="{Status}"/> -->
+                                    </VBox>
+                                    <VBox class="sapUiMediumMarginBeginEnd">
+                                        <Title text="{i18n>shipTo}" titleStyle="H6"/>
+                                        <ObjectAttribute title="{Name}" binding="{PurchaseOrder/Buyer}"/>
+                                        <ObjectAttribute text="{Street}" binding="{PurchaseOrder/Buyer/Address}"/>
+                                        <ObjectAttribute text="{City} - {State} - {Country}" binding="{PurchaseOrder/Buyer/Address}"/>
+                                        <ObjectAttribute text="{pinCode}" binding="{PurchaseOrder/Buyer/Address}"/>
+                                    </VBox>
+                                    <VBox class="sapUiMediumMarginBeginEnd">
+                                        <Title text="{i18n>from}" titleStyle="H6"/>
+                                        <ObjectAttribute title="{Name}" binding="{PurchaseOrder/Vendor}"/>
+                                        <ObjectAttribute text="{VendorCode}" binding="{PurchaseOrder/Vendor}"/>
+                                        <Link text="{Email}" binding="{PurchaseOrder/Vendor}"/>
+                                    </VBox>
+                                </HBox>
+                            </FlexBox>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                    <uxap:ObjectPageSubSection>
+                        <uxap:blocks>
+                            <Table id="idBOQItemTable" items="{path: 'PackingList/PackingListParentItems'}" autoPopinMode="true" growingThreshold="5" growing="true" fixedLayout="false">
+                                <headerToolbar>
+                                    <OverflowToolbar >
+                                        <content>
+                                            <Text text="{i18n>lineItems}"/>
+                                            <ToolbarSpacer width="80%">
+                                            </ToolbarSpacer>
+                                            <Button text="Approve" type="Accept" press="onApprovePress" visible="{= ${Status} === 'PENDING' }"/>
+                                            <Button text="Reject" type="Reject" press="onRejectPress" visible="{= ${Status} === 'PENDING' }"/>
+                                            <HBox  visible="{= ${Status} === 'APPROVED'}" justifyContent="Center" alignItems="Center">
+                                                <Label text="View QR Code" class= "sapUiTinyMarginEnd"/>
+                                                <Switch state="false" change="onViewQRCodePackingList">
+                                                    <layoutData>
+                                                        <FlexItemData growFactor="1" />
+                                                    </layoutData>
+                                                </Switch>
+                                            </HBox>
+
+                                        </content>
+                                    </OverflowToolbar>
+                                </headerToolbar>
+                                <columns>
+                                    <Column>
+                                        <Text text="Line Number"/>
+                                    </Column>
+                                    <Column>
+                                        <Text text="Line Item ID"/>
+                                    </Column>
+                                    <Column>
+                                        <Text text="PO Qty."/>
+                                    </Column>
+                                    <Column>
+                                        <Text text="MDCC Approved Qty."/>
+                                    </Column>
+                                    <Column>
+                                        <Text text="Dispatch Qty"/>
+                                    </Column>
+                                    <Column>
+                                        <Text text="UOM"/>
+                                    </Column>
+                                    <Column visible="{= ${objectViewModel>/viewQrCode}}">
+                                        <Text text="Action"/>
+                                    </Column>
+                                </columns>
+                                <items>
+                                    <ColumnListItem>
+                                        <cells>
+                                            <ObjectIdentifier title="{LineNumber}"/>
+                                            <ObjectIdentifier title="{ID}"/>
+                                            <Text text="{Qty}"/>
+                                            <Text text="{MDCCApprovedQty}"/>
+                                            <Text text="{DispatchQty}"/>
+                                            <Text text="{UOM}"/>
+                                            <Link text="View QR Code" binding="{QrCode}" visible="{= ${QRNumber}}" press="onViewQRCodePress"/>
+                                        </cells>
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                    <uxap:ObjectPageSubSection title="{i18n>PackListContains}">
+                        <uxap:blocks>
+                            <linePackingItems:LineItemsTable class="sapUxAPObjectPageSubSectionAlignContent" OnViewQRCodePressSmart = "onViewQRCodePressSmart"/>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                    <uxap:ObjectPageSubSection title="Outer Packaging">
+                        <uxap:blocks>
+                            <outerPackaging:OuterPackaging OnViewQRCodePressSmart="onViewQRCodePressSmart" class="sapUxAPObjectPageSubSectionAlignContent"/>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                    <uxap:ObjectPageSubSection title="Inner Packaging">
+                        <uxap:blocks>
+                            <innerPackaging:InnerPackaging class="sapUxAPObjectPageSubSectionAlignContent" OnViewQRCodePressSmart = "onViewQRCodePressSmart"/>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+
+                    <uxap:ObjectPageSubSection title="{i18n>addtnlDetails}">
+                        <uxap:blocks>
+                            <f:SimpleForm layout="ColumnLayout" columnsM="2" columnsL="3" columnsXL="4" singleContainerFullSize="true" class="style-RemoveTitleHeight" binding="{PackingList}">
+                                <f:content>
+                                    <Label text="Vehicle Number" />
+                                    <Text text="{VehicleNumber}" />
+                                    <Label text="Invoice Number" />
+                                    <Text text="{InvoiceNumber}" />
+                                    <Label text="Packaging Ref. No." />
+                                    <Text text="{PackagingReferenceNumber}" />
+                                    <Label text="Invoice Date" />
+                                    <Text text="{path:'InvoiceDate',
+                                     type: 'sap.ui.model.type.Date',
+				                     formatOptions: {
+				                        pattern: 'MMMM dd, yyyy'
+				                     }}" />
+                                </f:content>
+                            </f:SimpleForm>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                    <uxap:ObjectPageSubSection title="{i18n>materialDetails}">
+                        <uxap:blocks>
+                            <UploadCollection id="idMaterialFileUploader" maximumFilenameLength="55" maximumFileSize="10" multiple="true" items="{
+                                    path:'PackingList/Attachments',
+                                    filters : [
+                                        { path : 'SubType', operator : 'EQ', value1 : 'MATERIAL'},
+                                        { path : 'Type', operator : 'EQ', value1 : 'PACKING_LIST'}
+                                    ],
+                                    templateShareable: false}" mode="None" uploadButtonInvisible="true" instantUpload="false">
+                                <items>
+                                    <UploadCollectionItem documentId="{ID}" url="{parts: ['FileName','Content'], 
+                                        formatter: '.formatter.fileContent' }" enableEdit="false" enableDelete="false" visibleDelete="false" visibleEdit="false" fileName="{FileName}">
+                                        <attributes>
+                                            <ObjectAttribute title="Material Documnets" text="{ID}" class="sapUiSmallMarginEnd"/>
+                                            <ObjectAttribute title="Invoice Date" text="{path:'CreatedAt', type: 'sap.ui.model.type.Date',
+				                                            formatOptions: {pattern: 'MMMM dd, yyyy'}}"/>
+                                            <ObjectAttribute title="Size" text="{path : 'FileSize', formatter : '.formatter.formatFileSize'}"/>
+                                        </attributes>
+                                    </UploadCollectionItem>
+                                </items>
+                            </UploadCollection>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                    <uxap:ObjectPageSubSection title="{i18n>invoiceDetails}">
+                        <uxap:blocks>
+                            <UploadCollection id="idInvoiceFileUploader" maximumFilenameLength="55" maximumFileSize="10" multiple="true" items="{
+                                    path:'PackingList/Attachments',
+                                    filters : [
+                                        { path : 'SubType', operator : 'EQ', value1 : 'INVOICE'},
+                                        { path : 'Type', operator : 'EQ', value1 : 'PACKING_LIST'}
+                                    ],
+                                    templateShareable: false}" mode="None" uploadButtonInvisible="true" instantUpload="false">
+                                <items>
+                                    <UploadCollectionItem documentId="{ID}" url="{parts: ['FileName','Content'], 
+                                        formatter: '.formatter.fileContent' }" enableEdit="false" enableDelete="false" visibleDelete="false" visibleEdit="false" fileName="{FileName}">
+                                        <attributes>
+                                            <ObjectAttribute title="Material Documnets" text="{ID}" class="sapUiSmallMarginEnd"/>
+                                            <ObjectAttribute title="Invoice Date" text="{path:'CreatedAt', type: 'sap.ui.model.type.Date',
+				                                            formatOptions: {pattern: 'MMMM dd, yyyy'}}"/>
+                                            <ObjectAttribute title="Size" text="{path : 'FileSize', formatter : '.formatter.formatFileSize'}"/>
+                                        </attributes>
+                                    </UploadCollectionItem>
+                                </items>
+                            </UploadCollection>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                    <uxap:ObjectPageSubSection title="{i18n>otherDetails}">
+                        <uxap:blocks>
+                            <UploadCollection id="idOtherFileUploader" maximumFilenameLength="55" maximumFileSize="10" multiple="true" items="{
+                                    path:'PackingList/Attachments',
+                                    filters : [
+                                        { path : 'SubType', operator : 'EQ', value1 : 'MATERIAL'},
+                                        { path : 'Type', operator : 'EQ', value1 : 'PACKING_LIST'}
+                                    ],
+                                    templateShareable: false}" mode="None" uploadButtonInvisible="true" instantUpload="false">
+                                <items>
+                                    <UploadCollectionItem documentId="{ID}" url="{parts: ['FileName','Content'], 
+                                        formatter: '.formatter.fileContent' }" enableEdit="false" enableDelete="false" visibleDelete="false" visibleEdit="false" fileName="{FileName}">
+                                        <attributes>
+                                            <ObjectAttribute title="Material Documents" text="{ID}" class="sapUiSmallMarginEnd"/>
+                                            <ObjectAttribute title="Invoice Date" text="{path:'CreatedAt', type: 'sap.ui.model.type.Date',
+				                                            formatOptions: {pattern: 'MMMM dd, yyyy'}}"/>
+                                            <ObjectAttribute title="Size" text="{path : 'FileSize', formatter : '.formatter.formatFileSize'}"/>
+                                        </attributes>
+                                    </UploadCollectionItem>
+                                </items>
+                            </UploadCollection>
                         </uxap:blocks>
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>
             </uxap:ObjectPageSection>
-
         </uxap:sections>
     </uxap:ObjectPageLayout>
 </mvc:View>
