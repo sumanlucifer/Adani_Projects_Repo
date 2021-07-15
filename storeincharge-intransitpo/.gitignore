@@ -12,6 +12,6 @@ package-lock.json
 
 
 # auto generated wildcard
-agel-mmts-web/vendor-mdcc/.env2
+unloadmaterial/.env1
 # auto generated wildcard
-agel-mmts-web/vendor-packinglist-create/.env1
+storeincharge-totaldetails/.env1

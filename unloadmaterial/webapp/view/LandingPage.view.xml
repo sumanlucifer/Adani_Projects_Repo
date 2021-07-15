@@ -1,0 +1,127 @@
+<mvc:View controllerName="com.agel.mmts.unloadmaterial.controller.LandingPage"
+ height="100%"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:fb="sap.ui.comp.filterbar"
+    xmlns:smartTable="sap.ui.comp.smarttable">
+    <f:DynamicPage headerExpanded="true" busy="{objectViewModel>/busy}">
+        <!-- DynamicPage Title -->
+        <f:title>
+            <f:DynamicPageTitle>
+                <f:heading>
+                    <Title id="pageTitle" text="{i18n>UnloadedMaterial}"/>
+                </f:heading>
+                <f:actions>
+					<Button text="{i18n>unloadnewconsignment}" type="Emphasized" press="onUnloadNewConsignment"/>
+                </f:actions>
+            </f:DynamicPageTitle>
+        </f:title>
+        <!-- DynamicPage Header -->
+        <f:header>
+            <f:DynamicPageHeader pinnable="true">
+                <f:content>
+                    <fb:FilterBar id="filterbar" reset="onResetFilters" search="onSearch" useToolbar="false" showGoOnFB="true" showRestoreOnFB="true" >
+                        <fb:filterGroupItems>
+                            <fb:FilterGroupItem groupName="__$INTERNAL$" name="unload_date" label="{i18n>issuedate}" visibleInFilterBar="true" class="searchFieldLabelHidden">
+                                <fb:control>
+                                    <DateRangeSelection id="dateRangeSelectionId" displayFormat="dd/MM/yyyy" change="onDateRangeSelectionChange"/>
+                                </fb:control>
+                            </fb:FilterGroupItem>
+                            <fb:FilterGroupItem groupName="__$INTERNAL$" name="CompCode" label="{i18n>vendorCode}" visibleInFilterBar="true" class="searchFieldLabelHidden">
+                                <fb:control>
+                                    <Input id="idCompanyCode" placeholder="{i18n>EnterVendorCode}" liveChange="onFilterChange" showValueHelp="false">
+                                    </Input>
+                                </fb:control>
+                            </fb:FilterGroupItem>
+                        </fb:filterGroupItems>
+                    </fb:FilterBar>
+                </f:content>
+            </f:DynamicPageHeader>
+        </f:header>
+
+        <!-- DynamicPage Content -->
+        <f:content>
+            <smartTable:SmartTable class="sapUiResponsiveContentPadding" id="idUnloadMaterialTable" editable="false" placeToolbarInTable="true" 
+            enableAutoBinding="true" entitySet="UnloadMaterialSet"  showFullScreenButton="true" showRowCount="false" tableType="ResponsiveTable" 
+            demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" 
+            ignoreFromPersonalisation="ID,MaterialCode,Description,Type,DispatchType,DispatchQty,QRNumber,IsArchived,CreatedAt,CreatedBy,UpdatedAt,UpdatedBy">
+                <Table sticky="ColumnHeaders,HeaderToolbar">
+                    <columns>
+                        <Column >
+                            <customData>
+                                <core:CustomData key="p13nData" value='\{"columnKey": "Name", "leadingProperty": "Name",
+                                                        "columnIndex": 0 ,"sortProperty": "Name"}'/>
+                            </customData>
+                            <Text text="{i18n>Name}"/>
+                        </Column>
+
+                        <Column demandPopin="true" minScreenWidth="Desktop">
+                            <customData>
+                                <core:CustomData key="p13nData" value='\{"columnKey": "MapVendorCode", "leadingProperty": "MapVendorCode",
+                                        "columnIndex": 1}'/>
+                            </customData>
+                            <Text text="{i18n>MapVendorCode}"/>
+                        </Column>
+
+                        <Column demandPopin="true" minScreenWidth="Tablet">
+                            <customData>
+                                <core:CustomData key="p13nData" value='\{"columnKey": "UnloadedDate", "leadingProperty": "UnloadedDate",
+                                        "columnIndex": 2}'/>
+                            </customData>
+                            <Text text="{i18n>UnloadedDate}"/>
+                        </Column>
+
+                        <Column demandPopin="true" minScreenWidth="Tablet">
+                            <customData>
+                                <core:CustomData key="p13nData" value='\{"columnKey": "GateEntryDate", "leadingProperty": "GateEntryDate",
+                                        "columnIndex": 3}'/>
+                            </customData>
+                            <Text text="{i18n>GateEntryDate}"/>
+                        </Column>
+
+                        <Column demandPopin="true" minScreenWidth="Tablet">
+                            <customData>
+                                <core:CustomData key="p13nData" value='\{"columnKey": "ReceivedQty", "leadingProperty": "ReceivedQty",
+                                        "columnIndex": 4}'/>
+                            </customData>
+                            <Text text="{i18n>TotRcvdQty}"/>
+                        </Column>
+
+                        <Column demandPopin="true" minScreenWidth="Desktop">
+                            <customData>
+                                <core:CustomData key="p13nData" value='\{"columnKey": "UOM", "leadingProperty": "UOM",
+                                                        "columnIndex": 5 }'/>
+                            </customData>
+                            <Text text="{i18n>UOM}"/>
+                        </Column>
+
+                    </columns>
+                    <items>
+                        <ColumnListItem type="Inactive"> 
+                            <cells>
+                                <Text text="{Name}"/>
+                                <Text text="{MapVendorCode}"/>
+                                <Text text="{path:'UnloadedDate',
+                                            type: 'sap.ui.model.type.Date',
+                                            formatOptions: {
+                                                pattern: 'MMMM dd, yyyy'
+                                            }    
+                                }"/>
+                                <Text text="{path:'GateEntryDate',
+                                            type: 'sap.ui.model.type.Date',
+                                            formatOptions: {
+                                                pattern: 'MMMM dd, yyyy'
+                                            }
+                                }"/>
+                                <Text text="{ReceivedQty}"/>
+                                <Text text="{UOM}"/>
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
+            </smartTable:SmartTable>    
+        </f:content>
+    </f:DynamicPage>
+</mvc:View>

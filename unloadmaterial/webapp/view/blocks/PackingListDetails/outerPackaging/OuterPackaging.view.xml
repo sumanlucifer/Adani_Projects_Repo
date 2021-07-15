@@ -1,0 +1,6 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"controllerName="com.agel.mmts.unloadmaterial.view.blocks.PackingListDetails.outerPackaging.OuterPackagingController">
+ <core:Fragment fragmentName="com.agel.mmts.unloadmaterial.view.fragments.common.outerPackagingTable" type="XML" />    
+</mvc:View>
+
+

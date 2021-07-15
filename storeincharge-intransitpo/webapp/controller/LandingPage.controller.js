@@ -53,8 +53,9 @@ sap.ui.define([
 
         // Confirm Po Table Before Bind
         onbeforeRebindConfirmPoTable: function (oEvent) {
-            var mBindingParams = oEvent.getParameter("bindingParams");
-            mBindingParams.filters.push(new Filter("Status", sap.ui.model.FilterOperator.EQ, "CONFIRMED"));
+            // var mBindingParams = oEvent.getParameter("bindingParams");
+            // mBindingParams.filters.push(new Filter("POStatusAsPerPackingList", sap.ui.model.FilterOperator.EQ, 2));
+            // mBindingParams.filters.push(new Filter("POStatusAsPerPackingList", sap.ui.model.FilterOperator.EQ, 3));
         },
 
         onInTransitPOTableUpdateFinished: function (oEvent) {
@@ -88,7 +89,8 @@ sap.ui.define([
                         action: "manage"
                     },
                     params: {
-                        "type": sObjectPath.slice("/PurchaseOrderSet".length)
+                        "ID": sObjectPath.slice("/PurchaseOrderSet".length),
+                        "Type": "INTRANSIT"
                     }
                 })) || ""; // generate the Hash to display PO Number
                 oCrossAppNavigator.toExternal({

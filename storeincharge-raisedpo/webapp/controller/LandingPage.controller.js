@@ -54,9 +54,8 @@ sap.ui.define([
 
         // Raised Po Table Before Bind
         onbeforeRebindRaisedPoTable: function (oEvent) {
-            var mBindingParams = oEvent.getParameter("bindingParams");
-            mBindingParams.filters.push(new Filter("Status", sap.ui.model.FilterOperator.EQ, "CONFIRMED"));
-            mBindingParams.filters.push(new Filter("Status", sap.ui.model.FilterOperator.EQ, "PENDING"));
+            // var mBindingParams = oEvent.getParameter("bindingParams");
+            // mBindingParams.filters.push(new Filter("POStatusAsPerPackingList", sap.ui.model.FilterOperator.EQ, 1));
         },
 
         // Closed Po Table Before Bind
@@ -130,7 +129,8 @@ sap.ui.define([
                         action: "manage"
                     },
                     params: {
-                        "type": sObjectPath.slice("/PurchaseOrderSet".length)
+                        "ID": sObjectPath.slice("/PurchaseOrderSet".length),
+                        "Type": "RAISED"
                     }
                 })) || ""; // generate the Hash to display PO Number
                 oCrossAppNavigator.toExternal({

@@ -34,7 +34,6 @@ sap.ui.define([
                 var oViewHandlingModel = new JSONModel({
                     "closeButton": false,
                     "submitButton": true
-
                 });
                 this.setModel(oViewHandlingModel, "oViewHandlingModel");
 
@@ -44,13 +43,16 @@ sap.ui.define([
                 //Router Object
                 this.oRouter = this.getRouter();
                 this.oRouter.getRoute("RouteDetailsPage").attachPatternMatched(this._onObjectMatched, this);
+
             },
 
             // On Object Matched 
             _onObjectMatched: function (oEvent) {
-                    this.RequestId = oEvent.getParameter("arguments").RequestId;
-                    this._bindView("/PackingListSet" + this.RequestId );
-               
+
+                this.RequestId = oEvent.getParameter("arguments").RequestId;
+                this._bindView("/PackingListSet" + this.RequestId);
+                this.getView().getModel("oViewHandlingModel").setProperty("/type")
+
 
             },
 
@@ -76,9 +78,51 @@ sap.ui.define([
                 this.oRouter.navTo("RouteLandingPage");
             },
 
+
             // QR Code View 
             onViewQRCodePress: function (oEvent) {
-                var sParentItemPath = oEvent.getSource()._getBindingContext().getPath();
+                var sParentItemPath = oEvent.getSource().getBindingContext().getPath();
+                var sDialogTitleObject = oEvent.getSource()._getBindingContext().getProperty();
+                var oDetails = {};
+                oDetails.controller = this;
+                oDetails.view = this.getView();
+                oDetails.sParentItemPath = sParentItemPath;
+                oDetails.title = "QR Code";
+                if (sDialogTitleObject.Name)
+                    oDetails.title = sDialogTitleObject.Name;
+                else if (sDialogTitleObject.PackagingType)
+                    oDetails.title = sDialogTitleObject.PackagingType;
+                if (!this.qrDialog) {
+                    this.qrDialog = Fragment.load({
+                        id: oDetails.view.getId(),
+                        name: "com.agel.mmts.storeinchargetotaldetails.view.fragments.QRCodeViewer",
+                        controller: oDetails.controller
+                    }).then(function (oDialog) {
+                        // connect dialog to the root view of this component (models, lifecycle)
+                        oDetails.view.addDependent(oDialog);
+                        oDialog.bindElement({
+                            path: oDetails.sParentItemPath,
+                        });
+                        if (Device.system.desktop) {
+                            oDialog.addStyleClass("sapUiSizeCompact");
+                        }
+                        oDialog.setTitle(oDetails.title);
+                        return oDialog;
+                    });
+                }
+                this.qrDialog.then(function (oDialog) {
+                    oDetails.view.addDependent(oDialog);
+                    oDialog.bindElement({
+                        path: oDetails.sParentItemPath,
+                    });
+                    oDialog.setTitle(oDetails.title);
+                    oDialog.open();
+                });
+            },
+
+            // QR Code View 
+            onViewQRCodePressSmart: function (oEvent) {
+                var sParentItemPath = oEvent.getParameter("oSource").getBindingContext().getPath();
                 var sDialogTitleObject = oEvent.getSource()._getBindingContext().getProperty();
                 var oDetails = {};
                 oDetails.controller = this;

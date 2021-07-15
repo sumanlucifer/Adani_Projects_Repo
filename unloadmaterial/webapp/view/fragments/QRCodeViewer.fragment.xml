@@ -1,0 +1,20 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core">
+    <Dialog>
+        <l:Grid defaultSpan="L12 M12 S12" width="auto">
+            <l:content>
+                <FlexBox justifyContent="Center" alignItems="Center">
+                    <Image src="data:image/jpg;base64,{Content}">
+                    </Image>
+                </FlexBox>
+            </l:content>
+        </l:Grid>
+        <beginButton>
+        </beginButton>
+        <endButton>
+            <Button text="Close" press="onQRCodeViewerDialogClosePress" type="Emphasized"></Button>
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>
