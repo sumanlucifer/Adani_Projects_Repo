@@ -7,6 +7,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller",
 
 
             onbeforeRebindTable: function (oEvent) {
+                debugger;
                 var PONumber;
                 var mBindingParams = oEvent.getParameter("bindingParams");
                 if (this.getView().getBindingContext().getObject())

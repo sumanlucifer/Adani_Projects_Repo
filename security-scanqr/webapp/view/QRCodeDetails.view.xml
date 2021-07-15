@@ -170,7 +170,7 @@
 					                        <Text text="{MDCCApprovedQty}"/>
 					                        <Text text="{DispatchQty}"/>
 					                        <Text text="{UOM}"/>
-                                            <Link text="View QR Code" press="onViewQRCodePress"/>				                        
+                                            <Link text="View QR Code" binding="{QrCode}" visible="{= ${QRNumber}}" press="onViewQRCodePress1"/>				                        
                                         </cells>
 			                        </ColumnListItem>
 		                        </items>
