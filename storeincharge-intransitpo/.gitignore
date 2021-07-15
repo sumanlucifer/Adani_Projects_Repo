@@ -11,20 +11,4 @@ package-lock.json
 .env
 
 
-# auto generated wildcard
-unloadmaterial/.env1
-# auto generated wildcard
-<<<<<<< HEAD
-user-roleassignment/.env3
-# auto generated wildcard
-storeincharge-scanqr/.env1
-# auto generated wildcard
-storeincharge-approvals/.env1
-=======
-storeincharge-totaldetails/.env1
->>>>>>> develop
 
-# auto generated wildcard
-storeincharge-totaldetails/.env2
-# auto generated wildcard
-storeincharge-approvals/.env2

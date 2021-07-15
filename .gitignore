@@ -6,6 +6,18 @@ package-lock.json
 /dist/
 
 # auto generated wildcard
+<<<<<<< HEAD
+<<<<<<< HEAD
+agel-mmts-web/vendor-mdcc/.env2
+# auto generated wildcard
+agel-mmts-web/vendor-packinglist-create/.env1
+=======
+unloadmaterial/.env1
+# auto generated wildcard
+storeincharge-totaldetails/.env1
+>>>>>>> develop
+=======
 storeincharge-totaldetails/.env2
 # auto generated wildcard
 storeincharge-approvals/.env2
+>>>>>>> develop
