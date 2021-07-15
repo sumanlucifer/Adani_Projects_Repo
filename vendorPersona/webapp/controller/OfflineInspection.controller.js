@@ -125,6 +125,19 @@ sap.ui.define([
             }
         },
 
+        onLiveChangeInspectionQty : function(oEvent){
+            var InspectQuantity = parseInt(oEvent.getSource().getValue());
+            var Quantity = parseInt(oEvent.getSource().getParent().getCells()[3].getText());
+
+            if ( InspectQuantity > Quantity ){
+                oEvent.getSource().setValueState("Error");
+                oEvent.getSource().setValueStateText("Please enter less inspected quantity than quantity");
+            }
+            else{
+                oEvent.getSource().setValueState("None");
+            }
+        },
+
         onSaveValidation : function(){
             var flag = 0;
             var aTableData = this.byId("idParentItemTable").getModel("ParentItemModel").getData();
