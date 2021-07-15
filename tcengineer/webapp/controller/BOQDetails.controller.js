@@ -159,7 +159,7 @@ sap.ui.define([
         },
 
         BOQApproval: function (oEvent) {
-            debugger;
+            // debugger;
             var BOQApprovedRequestId = this.getView().getBindingContext().getObject().ID;
             //var BOQGroupId = oEvent.getSource().getBindingContext().getObject().BOQGroupId;
             var boqApprovalModel = this.getViewModel("BOQApprovalModel");

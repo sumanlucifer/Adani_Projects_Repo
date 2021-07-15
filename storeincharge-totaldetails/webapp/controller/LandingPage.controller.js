@@ -65,10 +65,10 @@ sap.ui.define([
                 if (sObjectType === "INTRANSIT" || sObjectType === "RECEIVED")
                     this.getView().getModel("detailsModel").setProperty("/packingListTable", true);
 
-                if (sObjectType === "INTRANSIT")
-                    this.getView().getModel("detailsModel").setProperty("/packingListItemFilter", 'DISPATCHED');
-                else if (sObjectType === "RECEIVED")
-                    this.getView().getModel("detailsModel").setProperty("/packingListItemFilter", 'SAVED');
+                // if (sObjectType === "INTRANSIT")
+                //     this.getView().getModel("detailsModel").setProperty("/packingListItemFilter", 'DISPATCHED');
+                // else if (sObjectType === "RECEIVED")
+                //     this.getView().getModel("detailsModel").setProperty("/packingListItemFilter", 'SAVED');
 
             },
 

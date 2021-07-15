@@ -112,6 +112,14 @@ modules:
       name: storeincharge-receivedpo
       target-path: resources/
     - artifacts:
+      - storeincharge-scanqr-content.zip
+      name: storeincharge-scanqr
+      target-path: resources/
+    - artifacts:
+      - storeincharge-approvals-content.zip
+      name: storeincharge-approvals
+      target-path: resources/
+    - artifacts:  
       - unloadmaterial-content.zip
       name: unloadmaterial
       target-path: resources/ 
@@ -295,6 +303,14 @@ modules:
     builder: custom
     commands:
     - npm run build
+    supported-platforms: []
+- name: storeincharge-scanqr
+  type: html5
+  path: storeincharge-scanqr
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
     supported-platforms: []    
 - name: unloadmaterial
   type: html5
@@ -303,7 +319,15 @@ modules:
     builder: custom
     commands:
     - npm run build
-    supported-platforms: [] 
+    supported-platforms: []  
+- name: storeincharge-approvals
+  type: html5
+  path: storeincharge-approvals
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []       
 resources:
 - name: uaa_agel-mmts-web
   type: org.cloudfoundry.managed-service

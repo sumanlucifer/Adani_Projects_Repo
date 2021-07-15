@@ -145,7 +145,7 @@
 				                        <Text text="UOM"/>
 			                        </Column>
                                     <Column>
-				                        <Text text=""/>
+				                        <Text text="Action"/>
 			                        </Column>
 		                        </columns>
 		                        <items>
@@ -157,10 +157,10 @@
 					                        <Text text="{MDCCApprovedQty}"/>
 					                        <Text text="{DispatchQty}"/>
 					                        <Text text="{UOM}"/>
-                                            <Link text="View QR Code" press="onViewQRCodePress1"/>				                        
+                                            <Link text="View QR Code" binding="{QrCode}" visible="{= ${QRNumber}}" press="onViewQRCodePress1"/>				                        
                                         </cells>
 			                        </ColumnListItem>
-		                        </items>
+		                        </items> 
 	                        </Table>
                         </uxap:blocks>                       
                     </uxap:ObjectPageSubSection>

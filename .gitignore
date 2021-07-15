@@ -6,6 +6,6 @@ package-lock.json
 /dist/
 
 # auto generated wildcard
-unloadmaterial/.env1
+storeincharge-totaldetails/.env2
 # auto generated wildcard
-storeincharge-totaldetails/.env1
+storeincharge-approvals/.env2
