@@ -1,14 +1,16 @@
 sap.ui.define([
     "./BaseController",
+    "jquery.sap.global",
     "sap/ui/model/json/JSONModel",
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator",
     "sap/ui/core/Fragment",
     "sap/ui/model/Sorter",
     "sap/ui/Device",
+    "sap/m/MessageBox",
     'sap/ui/core/ValueState',
     '../utils/formatter',
-], function (BaseController, JSONModel, Filter, FilterOperator, Fragment, Sorter, Device, ValueState, formatter) {
+], function (BaseController, jQuery, JSONModel, Filter, FilterOperator, Fragment, Sorter, Device, ValueState, formatter) {
     "use strict";
 
     return BaseController.extend("com.agel.mmts.vendorPersona.controller.OfflineInspection", {
@@ -106,8 +108,59 @@ sap.ui.define([
                 oEvent.getParameter("listItem").getCells()[4].setEnabled(false);
             }
         },
+        
+        onLiveChangeComment : function(oEvent){
+            if ( oEvent.getSource().getValue().length < 1 ){
+                oEvent.getSource().setValueState("Error");
+            }else{
+                oEvent.getSource().setValueState("None");
+            }
+        },
+
+        onLiveChangeDate : function(oEvent){
+            if ( oEvent.getSource().getValue().length < 1 ){
+                oEvent.getSource().setValueState("Error");
+            }else{
+                oEvent.getSource().setValueState("None");
+            }
+        },
+
+        onSaveValidation : function(){
+            var flag = 0;
+            var aTableData = this.byId("idParentItemTable").getModel("ParentItemModel").getData();
+            var aSelectedItemsFromTable = aTableData.filter(item => item.InspectionQty !== null);
+            var creationModelData = this.getViewModel("localAttachmentModel").getData();
+
+            if(aSelectedItemsFromTable.length < 1){
+                sap.m.MessageBox.error("Please select at least one line item detail and fill the inspection quantity");
+                return 1;
+            }
+
+            if(creationModelData.Comment == null || creationModelData.Comment == "" ){
+                flag = 1;
+                this.getView().byId("idTxtComment").setValueState("Error");                
+            }
+
+            if(creationModelData.InspectionDate == null || creationModelData.InspectionDate == ""){
+                flag = 1;
+                this.getView().byId("idDpInspectionDate").setValueState("Error");
+            }
+            
+            if(flag == 1){
+                sap.m.MessageBox.error("Please fill mandatory fields");
+                return 1;
+            }
+
+            if(creationModelData.items < 1){
+                sap.m.MessageBox.error("Please select at least one attachment");
+                return 1;
+            }
+        },
 
         onSaveButtonPress: function (oEvent) {
+            if ( this.onSaveValidation() == 1 ){
+                return 0;
+            }
             var aTableData = this.byId("idParentItemTable").getModel("ParentItemModel").getData();
             var aSelectedItemsFromTable = aTableData.filter(item => item.InspectionQty !== null);
             var oBindingContextData = this.getView().getBindingContext().getObject();
@@ -146,6 +199,23 @@ sap.ui.define([
                 POId: "(" + this.getView().getBindingContext().getObject().ID + ")"
             })
         },
+
+        onFileDeleted: function(oEvent) {
+			this.deleteItemById(oEvent.getParameter("documentId"));
+		//	MessageToast.show("FileDeleted event triggered.");
+        },
+        
+        deleteItemById: function(sItemToDeleteId) {
+			var sCurrentPath = this.getCurrentFolderPath();
+			var oData = this.oModel.getProperty(sCurrentPath);
+			var aItems = oData && oData.items;
+			jQuery.each(aItems, function(index) {
+				if (aItems[index] && aItems[index].documentId === sItemToDeleteId) {
+					aItems.splice(index, 1);
+				}
+			});
+			this.oModel.setProperty(sCurrentPath + "/items", aItems);
+		},
 
         onAttachmentChange: function (oEvent) {
             // keep a reference of the uploaded file
