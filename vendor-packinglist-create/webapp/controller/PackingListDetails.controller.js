@@ -193,6 +193,7 @@ sap.ui.define([
                 success: function (oData, oResults) {
                     sap.m.MessageBox.success("Request for QR printing sent successfully!")
                     this._oQRAssistantDialog.close();
+                    this.byId("idHeader").getModel().refresh();
                 }.bind(this), error: function (oError) {
                     sap.m.MessageBox.error(JSON.parse(oError));
                 }

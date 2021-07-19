@@ -184,12 +184,12 @@ sap.ui.define([
             var poNumber = this.getView().getBindingContext().getObject().PONumber;
             var oPayload = {
                 "Status": "CONFIRMED",
-                "UpdatedAt": new Date()
+                "ConfirmedDate": new Date()
             };
 
             this.getComponentModel().update(sPath, oPayload, {
                 success: function (oData, oResponse) {
-                    sap.m.MessageBox.success("Purchase Order "+ poNumber +" has been confirmed! Please raise the inspection call through SIMS portal.");
+                    sap.m.MessageBox.success("Purchase Order " + poNumber + " has been confirmed! Please raise the inspection call through SIMS portal.");
                     this.getComponentModel().refresh();
                 }.bind(this),
                 error: function (oError) {
@@ -315,24 +315,24 @@ sap.ui.define([
                      packingListID: sObjectPath.slice("/PackingLists".length) // /PurchaseOrders(123)->(123)
                  });
              }); */
-             console.log(oItem.getBindingContext().getObject().ID)
+            console.log(oItem.getBindingContext().getObject().ID)
 
-          /*   var oCrossAppNavigator = sap.ushell.Container.getService("CrossApplicationNavigation"); // get a handle on the global XAppNav service
-            var hash = (oCrossAppNavigator && oCrossAppNavigator.hrefForExternal({
-                target: {
-                    semanticObject: "PackingList",
-                    action: "manage"
-                },
-                params: {
-                    "packingListID": oItem.getBindingContext().getObject().ID,
-                    "status": "SAVED"
-                }
-            })) || ""; // generate the Hash to display a MDCC Number
-            oCrossAppNavigator.toExternal({
-                target: {
-                    shellHash: hash
-                }
-            }); // navigate to Manage MDCC application - Initiate Dispatch Screen */
+            /*   var oCrossAppNavigator = sap.ushell.Container.getService("CrossApplicationNavigation"); // get a handle on the global XAppNav service
+              var hash = (oCrossAppNavigator && oCrossAppNavigator.hrefForExternal({
+                  target: {
+                      semanticObject: "PackingList",
+                      action: "manage"
+                  },
+                  params: {
+                      "packingListID": oItem.getBindingContext().getObject().ID,
+                      "status": "SAVED"
+                  }
+              })) || ""; // generate the Hash to display a MDCC Number
+              oCrossAppNavigator.toExternal({
+                  target: {
+                      shellHash: hash
+                  }
+              }); // navigate to Manage MDCC application - Initiate Dispatch Screen */
         },
 
         getViewSettingsDialog: function (sDialogFragmentName) {

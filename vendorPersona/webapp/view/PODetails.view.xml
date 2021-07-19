@@ -67,7 +67,7 @@
                          <VBox renderType="Bare" class="sapUiMediumMarginEnd" visible="{= ${Status}==='CONFIRMED'}">
                             <Label text="{i18n>confirmedDate}" />
                             <!-- missing -->
-                            <Text text="{path:'UpdatedAt',
+                            <Text text="{path:'ConfirmedDate',
                                      type: 'sap.ui.model.type.Date',
 				                     formatOptions: {
 				                        pattern: 'MMMM dd, yyyy'
