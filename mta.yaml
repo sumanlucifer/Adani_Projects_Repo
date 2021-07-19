@@ -16,7 +16,7 @@ modules:
     properties:
       forwardAuthToken: true
       name: AGEL_MMTS_API
-      url: https://qa-agel-mmts-api.cfapps.ap11.hana.ondemand.com/
+      url: https://agel-mmts-api.cfapps.ap11.hana.ondemand.com/
   parameters:
     disk-quota: 256M
     keep-existing-routes: true
@@ -123,6 +123,10 @@ modules:
       - unloadmaterial-content.zip
       name: unloadmaterial
       target-path: resources/ 
+    - artifacts:  
+      - comagelmmtsvendorpackinglistcreate-content.zip
+      name: packingListCreate
+      target-path: resources/   
 
 - name: launchpad
   type: com.sap.application.content
@@ -256,7 +260,7 @@ modules:
     commands:
     - npm run build
     supported-platforms: []
-- name: comagelmmtsvendorpackinglistcreate
+- name: packingListCreate
   type: html5
   path: vendor-packinglist-create
   build-parameters:
