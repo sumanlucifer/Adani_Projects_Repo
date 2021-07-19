@@ -40,6 +40,46 @@
       },
       "envFile": "${workspaceFolder}/storeincharge-approvals/.env2",
       "preLaunchTask": "Build sapui5-1"
+    },
+    {
+      "name": "Run sapui5-1-storeincharge-raisedpo",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/agel-mmts-web-approuter/node_modules/@sap/html5-repo-mock/index.js",
+      "args": [
+        "--standalone",
+        "/comagelmmtsstoreinchargeraisedpo/index.html",
+        "--ui5",
+        "{\"version\":\".\"}"
+      ],
+      "cwd": "${workspaceFolder}/storeincharge-raisedpo",
+      "env": {
+        "PORT": "6004",
+        "MOCK_LOOKUP_DIRS": "[\"webapp\"]",
+        "run.config": "{\"handlerId\":\"ui5_run_config_handler_id\",\"runnableId\":\"/home/user/projects/sapui5-1/storeincharge-raisedpo\"}"
+      },
+      "envFile": "${workspaceFolder}/storeincharge-raisedpo/.env3",
+      "preLaunchTask": "Build sapui5-1"
+    },
+    {
+      "name": "Run sapui5-1-user-roleassignment",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/agel-mmts-web-approuter/node_modules/@sap/html5-repo-mock/index.js",
+      "args": [
+        "--standalone",
+        "/comagelmmtsuserroleassignment/index.html",
+        "--ui5",
+        "{\"version\":\".\"}"
+      ],
+      "cwd": "${workspaceFolder}/user-roleassignment",
+      "env": {
+        "PORT": "6004",
+        "MOCK_LOOKUP_DIRS": "[\"webapp\"]",
+        "run.config": "{\"handlerId\":\"ui5_run_config_handler_id\",\"runnableId\":\"/home/user/projects/sapui5-1/user-roleassignment\"}"
+      },
+      "envFile": "${workspaceFolder}/user-roleassignment/.env4",
+      "preLaunchTask": "Build sapui5-1"
     }
   ]
 }

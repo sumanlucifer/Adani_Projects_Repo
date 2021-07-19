@@ -29,6 +29,8 @@ sap.ui.define([
             // Icon Tab Count Model
             var oIconTabCountModel = new JSONModel({
                 openCount: null,
+                confirmCount: null,
+                dispatchCount: null,
                 closedCount: null
             });
             this.setModel(oIconTabCountModel, "oIconTabCountModel");
@@ -54,26 +56,48 @@ sap.ui.define([
 
         // Raised Po Table Before Bind
         onbeforeRebindRaisedPoTable: function (oEvent) {
-            // var mBindingParams = oEvent.getParameter("bindingParams");
-            // mBindingParams.filters.push(new Filter("POStatusAsPerPackingList", sap.ui.model.FilterOperator.EQ, 1));
+            var mBindingParams = oEvent.getParameter("bindingParams");
+            mBindingParams.filters.push(new Filter("POStatusAsPerPackingList", sap.ui.model.FilterOperator.EQ, 1));
+        },
+
+        // InTransit Po Table Before Bind
+        onbeforeRebindInTransitPoTable: function (oEvent) {
+            var mBindingParams = oEvent.getParameter("bindingParams");
+            mBindingParams.filters.push(new Filter("POStatusAsPerPackingList", sap.ui.model.FilterOperator.EQ, 2));
+            mBindingParams.filters.push(new Filter("POStatusAsPerPackingList", sap.ui.model.FilterOperator.EQ, 3));
+
+        },
+
+        // Received Po Table Before Bind
+        onbeforeRebindReceivedPoTable: function (oEvent) {
+            var mBindingParams = oEvent.getParameter("bindingParams");
+            mBindingParams.filters.push(new Filter("POStatusAsPerPackingList", sap.ui.model.FilterOperator.EQ, 3));
+            mBindingParams.filters.push(new Filter("POStatusAsPerPackingList", sap.ui.model.FilterOperator.EQ, 4));
         },
 
         // Closed Po Table Before Bind
-        // onbeforeRebindDispatchPoTable: function (oEvent) {
-        //     var mBindingParams = oEvent.getParameter("bindingParams");
-        //     mBindingParams.filters.push(new Filter("Status", sap.ui.model.FilterOperator.EQ, "CLOSED"));
-        //     //mBindingParams.filters.push(new Filter("Vendor/Email", sap.ui.model.FilterOperator.EQ, "symantic.engineering@testemail.com"));
-        // },
+        onbeforeRebindClosedPoTable: function (oEvent) {
+            var mBindingParams = oEvent.getParameter("bindingParams");
+            mBindingParams.filters.push(new Filter("POStatusAsPerPackingList", sap.ui.model.FilterOperator.EQ, 5));
+        },
+
 
         onRaisedPOTableUpdateFinished: function (oEvent) {
             //Setting the header context for a property binding to $count
             this.setIconTabCount(oEvent, oEvent.getParameter("total"), "/openCount");
         },
-
-        // onConfirmPOTableUpdateFinished: function (oEvent) {
-        //     //Setting the header context for a property binding to $count               
-        //     this.setIconTabCount(oEvent, oEvent.getParameter("total"), "/closedCount");
-        // },
+        onInTransitPOTableUpdateFinished: function (oEvent) {
+            //Setting the header context for a property binding to $count                       
+            this.setIconTabCount(oEvent, oEvent.getParameter("total"), "/confirmCount");
+        },
+        onReceivedPOTableUpdateFinished: function (oEvent) {
+            //Setting the header context for a property binding to $count                       
+            this.setIconTabCount(oEvent, oEvent.getParameter("total"), "/dispatchCount");
+        },
+        onClosedPOTableUpdateFinished: function (oEvent) {
+            //Setting the header context for a property binding to $count                       
+            this.setIconTabCount(oEvent, oEvent.getParameter("total"), "/closedCount");
+        },
 
         setIconTabCount: function (oEvent, total, property) {
             if (oEvent.getSource().getBinding("items").isLengthFinal()) {
@@ -82,32 +106,32 @@ sap.ui.define([
         },
 
         // On Icon Tab Select
-        // onIconTabBarChanged: function (sKey) {
-        //      if (sKey === "OPEN") {
-        //          this.byId("pageTitle").setText(this.getResourceBundle().getText("raisedPO"));
-        //      } else if (sKey === "CONFIRMED") {
-        //          this.byId("pageTitle").setText(this.getResourceBundle().getText("inTransitPO"));
-        //      } else if(sKey === "DISPATCHED") {
-        //          this.byId("pageTitle").setText(this.getResourceBundle().getText("receivedPO"));
-        //      } else if(sKey === "CLOSED") {
-        //          this.byId("pageTitle").setText(this.getResourceBundle().getText("closedPO"));
-        //      }
-        // },
+        onIconTabBarChanged: function (sKey) {
+             if (sKey === "RAISED") {
+                 this.byId("pageTitle").setText(this.getResourceBundle().getText("raisedPO"));
+             } else if (sKey === "INTRANSIT") {
+                 this.byId("pageTitle").setText(this.getResourceBundle().getText("inTransitPO"));
+             } else if(sKey === "RECEIVED") {
+                 this.byId("pageTitle").setText(this.getResourceBundle().getText("receivedPO"));
+             } else if(sKey === "CLOSED") {
+                 this.byId("pageTitle").setText(this.getResourceBundle().getText("closedPO"));
+             }
+        },
 
         // On Icon Tab Select
-        // onIconTabSelect: function (oEvent) {
-        //      var sKey = oEvent.getParameter("key");
+        onIconTabSelect: function (oEvent) {
+             var sKey = oEvent.getParameter("key");
 
-        //      if (sKey === "OPEN") {
-        //          this.byId("pageTitle").setText(this.getResourceBundle().getText("raisedPO"));
-        //      } else if (sKey === "CONFIRMED") {
-        //          this.byId("pageTitle").setText(this.getResourceBundle().getText("inTransitPO"));
-        //      } else if(sKey === "DISPATCHED") {
-        //          this.byId("pageTitle").setText(this.getResourceBundle().getText("receivedPO"));
-        //      } else if(sKey === "CLOSED") {
-        //          this.byId("pageTitle").setText(this.getResourceBundle().getText("closedPO"));
-        //      }
-        // },
+             if (sKey === "RAISED") {
+                 this.byId("pageTitle").setText(this.getResourceBundle().getText("raisedPO"));
+             } else if (sKey === "INTRANSIT") {
+                 this.byId("pageTitle").setText(this.getResourceBundle().getText("inTransitPO"));
+             } else if(sKey === "RECEIVED") {
+                 this.byId("pageTitle").setText(this.getResourceBundle().getText("receivedPO"));
+             } else if(sKey === "CLOSED") {
+                 this.byId("pageTitle").setText(this.getResourceBundle().getText("closedPO"));
+             }
+        },
 
         //triggers on press of a PO cheveron item from the Flist
         onPurchaseOrderPress: function (oEvent) {
@@ -118,34 +142,11 @@ sap.ui.define([
         _showObject: function (oItem) {
             var that = this;
             var sObjectPath = oItem.getBindingContext().sPath;
-            // that.getRouter().navTo("RoutePODetailPage", {
-            //     POId: sObjectPath.slice("/PurchaseOrderSet".length) 
-            // });
-            if (sap.ushell && sap.ushell.Container && sap.ushell.Container.getService) {
-                var oCrossAppNavigator = sap.ushell.Container.getService("CrossApplicationNavigation"); // get a handle on the global XAppNav service
-                var hash = (oCrossAppNavigator && oCrossAppNavigator.hrefForExternal({
-                    target: {
-                        semanticObject: "TotalDetails",
-                        action: "manage"
-                    },
-                    params: {
-                        "ID": sObjectPath.slice("/PurchaseOrderSet".length),
-                        "Type": "RAISED"
-                    }
-                })) || ""; // generate the Hash to display PO Number
-                oCrossAppNavigator.toExternal({
-                    target: {
-                        shellHash: hash
-                    } //Navigate to details page
+            var sKey = this.byId("idIconTabBar").getSelectedKey();
+            that.getRouter().navTo("RoutePODetailsPage", {
+                    POId: sObjectPath.slice("/PurchaseOrderSet".length),
+                    Type: sKey
                 });
-            }
-            else {
-                jQuery.sap.log.info("Navigating as Standalone Application");
-                // var sOrigin = window.parent.location.origin;
-                // var sNavPath = sOrigin + "/comagelmmtsstoreinchargetotaldetails/index.html/" ;// + sObjectPath.slice("/PurchaseOrderSet".length);
-                // window.location.replace(sNavPath);
-            }
-
         },
 
         //Breadcrum pressed
@@ -202,17 +203,23 @@ sap.ui.define([
             }
 
             var idRaisedPOTableBinding = this.getView().byId("idRaisedPOTable").getTable().getBinding("items");
-            // var idClosedPOTableBinding = this.getView().byId("idClosedPOTable").getTable().getBinding("items");
+            var idInTransitPOTableBinding = this.getView().byId("idInTransitPOTable").getTable().getBinding("items");
+            var idReceivedPOTableBinding = this.getView().byId("idReceivedPOTable").getTable().getBinding("items");
+            var idClosedPOTableBinding = this.getView().byId("idClosedPOTable").getTable().getBinding("items");
 
             if (andFilters.length == 0) {
                 andFilters.push(new Filter("PONumber", FilterOperator.NE, ""));
                 idRaisedPOTableBinding.filter(new Filter(andFilters, true));
-                // idClosedPOTableBinding.filter(new Filter(andFilters, true));
+                idInTransitPOTableBinding.filter(new Filter(andFilters, true));
+                idReceivedPOTableBinding.filter(new Filter(andFilters, true));
+                idClosedPOTableBinding.filter(new Filter(andFilters, true));
             }
 
             if (andFilters.length > 0) {
                 idRaisedPOTableBinding.filter(new Filter(andFilters, true));
-                // idClosedPOTableBinding.filter(new Filter(andFilters, true));
+                idInTransitPOTableBinding.filter(new Filter(andFilters, true));
+                idReceivedPOTableBinding.filter(new Filter(andFilters, true));
+                idClosedPOTableBinding.filter(new Filter(andFilters, true));
             }
             // oTableBinding.filter(mFilters);
         },
@@ -224,11 +231,16 @@ sap.ui.define([
             this.byId("idCompanyCode").setValue("");
 
             var idRaisedPOTableBinding = this.getView().byId("idRaisedPOTable").getTable().getBinding("items");
-            // var idClosedPOTableBinding = this.getView().byId("idClosedPOTable").getTable().getBinding("items");
+            var idInTransitPOTableBinding = this.getView().byId("idInTransitPOTable").getTable().getBinding("items");
+            var idReceivedPOTableBinding = this.getView().byId("idReceivedPOTable").getTable().getBinding("items");
+            var idClosedPOTableBinding = this.getView().byId("idClosedPOTable").getTable().getBinding("items");
 
 
             idRaisedPOTableBinding.filter([]);
-            // idClosedPOTableBinding.filter([]);
+            idInTransitPOTableBinding.filter([]);
+            idReceivedPOTableBinding.filter([]);
+            idClosedPOTableBinding.filter([]);
+
             this.oFilterBar.fireFilterChange();
         },
 

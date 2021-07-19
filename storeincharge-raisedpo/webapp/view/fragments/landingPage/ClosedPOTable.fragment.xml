@@ -1,18 +1,27 @@
 <core:FragmentDefinition xmlns="sap.m"
     xmlns:smartTable="sap.ui.comp.smarttable"
     xmlns:core="sap.ui.core">
-    <smartTable:SmartTable class="sapUiResponsiveContentPadding" id="idClosedPOTable" editable="false" placeToolbarInTable="true" enableAutoBinding="true" entitySet="PurchaseOrderSet"  showFullScreenButton="true" showRowCount="false" tableType="ResponsiveTable" demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" beforeRebindTable="onbeforeRebindConfirmPoTable" ignoreFromPersonalisation="AmendmentBy,AmendmentDate,AmendmentReason,CreatedBy,ID,Currency,IsArchived,UpdatedAt,UpdatedBy,ValidityEndDate,ValidityStartDate,Status,CreatedAt">
-        <Table sticky="ColumnHeaders,HeaderToolbar" updateFinished="onConfirmPOTableUpdateFinished">
+<smartTable:SmartTable class="sapUiResponsiveContentPadding" id="idClosedPOTable" editable="false" 
+    placeToolbarInTable="true" enableAutoBinding="true" entitySet="PurchaseOrderSet" 
+    showFullScreenButton="true" showRowCount="false" tableType="ResponsiveTable" demandPopin="false" 
+    useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" 
+    beforeRebindTable="onbeforeRebindClosedPoTable" 
+    ignoreFromPersonalisation="AmendmentBy,AmendmentDate,AmendmentReason,CreatedBy,ID,Currency,IsArchived,UpdatedAt,UpdatedBy,ValidityEndDate,ValidityStartDate,ConfirmedDate,PlantCode">
+
+        <!-- <smartTable:layoutData><FlexItemData growFactor="1" /></smartTable:layoutData> -->
+        <Table sticky="ColumnHeaders,HeaderToolbar" updateFinished="onClosedPOTableUpdateFinished" alternateRowColors="true">
             <columns>
-                <Column>
+
+                <Column >
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "PONumber", "leadingProperty": "PONumber",
-                            "columnIndex": 0 ,"sortProperty": "PONumber","filterProperty": "PONumber"}'/>
+                                                 "columnIndex": 0 ,"sortProperty": "PONumber","filterProperty": "PONumber"}'/>
                     </customData>
                     <Text text="{i18n>ponum}"/>
                 </Column>
-                <!-- missing company code -->
-                <Column demandPopin="true" minScreenWidth="Tablet">
+
+                 <!-- Company Code -->
+                <Column>
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "CompanyCode", "leadingProperty": "Buyer/CompanyCode",
                                                  "columnIndex": 1 ,"sortProperty": "Buyer/CompanyCode","filterProperty": "Buyer/CompanyCode"}'/>
@@ -20,40 +29,33 @@
                     <Text text="{i18n>companyCode}"/>
                 </Column>
 
+                <!-- Issue Date -->
                 <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "PlantCode", "leadingProperty": "PlantCode",
-                            "columnIndex": 2 ,"sortProperty": "PlantCode","filterProperty": "PlantCode"}'/>
-                    </customData>
-                    <Text text="{i18n>plantcode}"/>
-                </Column>
-
-                <!--  issued date -->
-                <Column demandPopin="true" minScreenWidth="Tablet">
-                    <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "IssueDate", "leadingProperty": "CreatedAt",
-                                                 "columnIndex": 3 }'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "CreatedAt", "leadingProperty": "CreatedAt",
+                                                 "columnIndex": 2}'/>
                     </customData>
                     <Text text="{i18n>issuedate}"/>
                 </Column>
-                <!--  confirmed date -->
-                
-                <!-- released  date -->
-                <Column demandPopin="true" minScreenWidth="Desktop">
-                    <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "ReleaseDate", "leadingProperty": "POReleaseDate",
-                                                 "columnIndex": 4}'/>
-                    </customData>
-                    <Text text="{i18n>releaseDate}"/>
-                </Column>
 
+                <!-- Release Date -->
                 <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "ConfirmedDate", "leadingProperty": "UpdatedAt",
-                                                 "columnIndex": 5 }'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "POReleaseDate", "leadingProperty": "POReleaseDate",
+                                                 "columnIndex": 3}'/>
                     </customData>
-                    <Text text="{i18n>confirmdate}"/>
+                    <Text text="{i18n>releaseDate}"/>
                 </Column> 
+
+                
+                <!-- Status -->
+                <Column demandPopin="true" minScreenWidth="Desktop"> 
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Status", "leadingProperty": "Status",
+                                                 "columnIndex": 4 ,"sortProperty": "Status","filterProperty": "Status"}'/>
+                    </customData>
+                    <Text text="{i18n>status}"/>
+                </Column>             
 
                 <Column>
                     <customData>
@@ -64,33 +66,30 @@
 
             </columns>
             <items>
-                <ColumnListItem type="Navigation" press="onPurchaseOrderPress">
+
+                <ColumnListItem>
                     <cells>
                         <Text text="{PONumber}"/>
-                         <Text text="{CompanyCode}" binding="{Buyer}"/>
-                        <Text text="{PlantCode}"/>
+                        <Text text="{CompanyCode}" binding="{Buyer}"/>
+
                         <Text text="{path:'CreatedAt',
-                                     type: 'sap.ui.model.type.Date',
+                                    type: 'sap.ui.model.type.Date',
 				                     formatOptions: {
 				                        pattern: 'MMMM dd, yyyy'
-				                     }
+				                     }    
                         }"/>
                         <Text text="{path:'POReleaseDate',
                                      type: 'sap.ui.model.type.Date',
 				                     formatOptions: {
 				                        pattern: 'MMMM dd, yyyy'
 				                     }
-                        }"/>
-                         <Text text="{path:'UpdatedAt',
-                                     type: 'sap.ui.model.type.Date',
-				                     formatOptions: {
-				                        pattern: 'MMMM dd, yyyy'
-				                     }
-                        }"/>
-                       <Link text="{i18n>viewLineItems}" press="onViewLineItemsPress"></Link>
+                        }"/> 
+                        <Text text="{Status}"/>                      
+                        <Link text="{i18n>viewLineItems}" press="onViewLineItemsPress"></Link>
                     </cells>
                 </ColumnListItem>
+
             </items>
         </Table>
-    </smartTable:SmartTable>
+</smartTable:SmartTable>
 </core:FragmentDefinition>
