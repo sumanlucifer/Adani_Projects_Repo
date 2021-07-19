@@ -5,6 +5,3 @@
 package-lock.json
 /dist/
 
-
-# auto generated wildcard
-vendor-packinglist-create/.env1

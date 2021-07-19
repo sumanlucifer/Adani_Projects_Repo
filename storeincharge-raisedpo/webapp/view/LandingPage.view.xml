@@ -26,21 +26,21 @@
             <IconTabBar id="idIconTabBar" select="onIconTabSelect" headerMode="Inline" expanded="true" class="sapUiResponsiveContentPadding">
                 <items>
 
-                    <IconTabFilter id="idOpenPOTabTitle" text="{i18n>raisedPO}" key="OPEN" count="{oIconTabCountModel>/openCount}">
+                    <IconTabFilter id="idRaisedPOTabTitle" text="{i18n>raisedPO}" key="RAISED" count="{oIconTabCountModel>/openCount}">
                         <core:Fragment fragmentName="com.agel.mmts.storeinchargeraisedpo.view.fragments.landingPage.RaisedPOTable" type="XML"/>
                     </IconTabFilter>
 
-                    <!--  <IconTabFilter text="{i18n>inTransitPO}" key="CONFIRMED" count="{oIconTabCountModel>/confirmCount}">
+                     <IconTabFilter text="{i18n>inTransitPO}" key="INTRANSIT" count="{oIconTabCountModel>/confirmCount}">
                           <core:Fragment fragmentName="com.agel.mmts.storeinchargeraisedpo.view.fragments.landingPage.InTransitPOTable" type="XML"/>
                     </IconTabFilter>
                     
-                    <IconTabFilter text="{i18n>receivedPO}" key="CLOSED" count="{oIconTabCountModel>/dispatchCount}">
+                    <IconTabFilter text="{i18n>receivedPO}" key="RECEIVED" count="{oIconTabCountModel>/dispatchCount}">
                        <core:Fragment fragmentName="com.agel.mmts.storeinchargeraisedpo.view.fragments.landingPage.ReceivedPOTable" type="XML"/>
                     </IconTabFilter>
 
                    <IconTabFilter text="{i18n>closedPO}" key="CLOSED" count="{oIconTabCountModel>/closedCount}">
                        <core:Fragment fragmentName="com.agel.mmts.storeinchargeraisedpo.view.fragments.landingPage.ClosedPOTable" type="XML"/>
-                    </IconTabFilter> -->
+                    </IconTabFilter>
 
                 </items>
             </IconTabBar>

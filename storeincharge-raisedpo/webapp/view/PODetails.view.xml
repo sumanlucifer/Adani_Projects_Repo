@@ -1,0 +1,140 @@
+<mvc:View xmlns:f2="sap.f"
+    xmlns:vbm="sap.ui.vbm"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:uxap="sap.uxap"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+    xmlns:tt="sap.ui.table"
+    xmlns:u="sap.ui.unified"
+    xmlns:smartTable="sap.ui.comp.smarttable"
+    xmlns="sap.m" controllerName="com.agel.mmts.storeinchargeraisedpo.controller.PODetails"
+    xmlns:buyerForm="com.agel.mmts.storeinchargeraisedpo.view.blocks.PODetails.buyerForm"
+    xmlns:sellerForm="com.agel.mmts.storeinchargeraisedpo.view.blocks.PODetails.sellerForm"
+    xmlns:sowForm="com.agel.mmts.storeinchargeraisedpo.view.blocks.PODetails.sowForm"
+    xmlns:lineItemsForm="com.agel.mmts.storeinchargeraisedpo.view.blocks.PODetails.lineItemsForm" 
+    xmlns:packingItemsForm="com.agel.mmts.storeinchargeraisedpo.view.blocks.PODetails.packingItemsForm.blocks" 
+    xmlns:packingItemsFormReceived="com.agel.mmts.storeinchargeraisedpo.view.blocks.PODetails.packingItemsFormReceived.blocks" height="100%">
+    <uxap:ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true" upperCaseAnchorBar="false" headerContentPinnable="true" toggleHeaderOnTitleClick="true" busy="{objectViewModel>/busy}">
+        <uxap:headerTitle>
+            <uxap:ObjectPageDynamicHeaderTitle>
+                <uxap:breadcrumbs>
+                    <!-- <Breadcrumbs id="breadcrumbsId" currentLocationText="{i18n>confirmedPODetails}">
+                        <Link text="{i18n>assignedPOList}" press=".handleToAllPOBreadcrumPress"/>
+                    </Breadcrumbs> -->
+                </uxap:breadcrumbs>
+                <uxap:expandedHeading>
+                    <FlexBox direction="Column" renderType="Bare">
+                        <Title text="PO Details" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
+                        <Title text="{PONumber}" wrapping="true" titleStyle="H3" />
+                    </FlexBox>
+                </uxap:expandedHeading>
+                <uxap:snappedHeading>
+                    <FlexBox direction="Column" renderType="Bare">
+                        <Title text="PO Details" wrapping="true" titleStyle="H4"/>
+                        <Title text="{PONumber}"  wrapping="true" titleStyle="H3"/>
+                    </FlexBox>
+                </uxap:snappedHeading>
+                <uxap:expandedContent></uxap:expandedContent>
+                <uxap:snappedTitleOnMobile>
+                    <Title text="PO Details - {PONumber}"  wrapping="true" titleStyle="Auto"/>
+                </uxap:snappedTitleOnMobile>
+                <uxap:actions>
+                </uxap:actions>
+            </uxap:ObjectPageDynamicHeaderTitle>
+        </uxap:headerTitle>
+        <uxap:headerContent>
+            <FlexBox wrap="Wrap" height="100%" renderType="Bare" direction="Column">
+                <VBox renderType="Bare">
+                    <FlexBox direction="Row" renderType="Bare" class="sapUiTinyMarginBottom">
+                        <!-- <VBox renderType="Bare" class="sapUiMediumMarginEnd">
+                            <Label text="PO Number" />
+                            <Text text="{PONumber}"/>
+                        </VBox> -->
+                        <VBox renderType="Bare" class="sapUiMediumMarginEnd">
+                            <Label text="PO Release Date" />
+                            <Text text="{path:'POReleaseDate',
+                                     type: 'sap.ui.model.type.Date',
+				                     formatOptions: {
+				                        pattern: 'MMMM dd, yyyy'
+				                     }
+                            }"/>
+                        </VBox>
+                        <VBox renderType="Bare" class="sapUiMediumMarginEnd">
+                            <Label text="Confirmed Date" />
+                            <!-- missing -->
+                            <Text text="{path:'ConfirmedDate',
+                                     type: 'sap.ui.model.type.Date',
+				                     formatOptions: {
+				                        pattern: 'MMMM dd, yyyy'
+				                     }
+                            }"/>
+                        </VBox>
+                        <VBox renderType="Bare" class="sapUiMediumMarginEnd">
+                            <Label text="Status" />
+                            <Text text="{Status}"/>
+                        </VBox>
+
+                    </FlexBox>
+                </VBox>
+            </FlexBox>
+        </uxap:headerContent>
+        <uxap:sections>
+            <!-- Basic Details Section -->
+            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>basicDetails}">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection title="{i18n>buyerDetails}" titleLevel="H6" class="BasicDetalFormTitleStyle"> 
+                        <uxap:blocks>
+                            <buyerForm:BuyerForm class="sapUxAPObjectPageSubSectionAlignContent"/>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                    <uxap:ObjectPageSubSection title="{i18n>sellerDetials}" class="BasicDetalFormTitleStyle">
+                        <uxap:blocks>
+                            <sellerForm:SellerForm class="sapUxAPObjectPageSubSectionAlignContent"/>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                    <uxap:ObjectPageSubSection title="{i18n>sow}" class="BasicDetalFormTitleStyleLast">
+                        <uxap:blocks>
+                            <sowForm:SOWForm class="sapUxAPObjectPageSubSectionAlignContent"/>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+            <!-- Line Item Section -->
+            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>lineItems}">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection title="{i18n>lineItems}">
+                        <uxap:blocks>
+                            <lineItemsForm:LineItemsForm class="sapUxAPObjectPageSubSectionAlignContent"/>                       
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+            
+            <!-- Packing List Section -->
+            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>packingList}" visible="{detailsModel>/packingListTable}">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection title="{i18n>packingListID}">
+                        <uxap:blocks>
+                            <packingItemsForm:PackingItemsForm class="sapUxAPObjectPageSubSectionAlignContent"/>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+            <!-- Packing List Received Section -->
+            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>packingList}" visible="{detailsModel>/packingListReceivedTable}">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection title="{i18n>packingListID}">
+                        <uxap:blocks>
+                            <packingItemsFormReceived:PackingItemsFormReceived class="sapUxAPObjectPageSubSectionAlignContent"/>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+        </uxap:sections>
+    </uxap:ObjectPageLayout>
+</mvc:View>
+
