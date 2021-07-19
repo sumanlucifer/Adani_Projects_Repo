@@ -40,13 +40,15 @@ sap.ui.define([
         _onObjectMatched: function (oEvent) {
             var that = this;
             var startupParams = this.getOwnerComponent().getComponentData().startupParameters;
-            //   var startupParams={MDCCId:163,manage:"false"};
-
-        
             this.sObjectId=parseInt(startupParams.MDCCId[0]);
+
+            //  var startupParams={MDCCId:163,manage:"false"};       
+            
+            //this.sObjectId=parseInt(startupParams.MDCCId);
             this._bindView("/MDCCSet("+this.sObjectId+")");   
 
-              this._getParentDataViewMDCC();
+            this.getMDCCData();
+           //   this._getParentDataViewMDCC();
            //   this._getPackingListData();
         },
 
@@ -74,101 +76,102 @@ sap.ui.define([
             },false);
 
         },
+         
+        getMDCCData : function(){
+                var that = this;
+                this.ParentData;                
+                var sPath = "/MDCCSet(" + this.sObjectId + ")/MDCCParentLineItems";
+                that.getComponentModel("app").setProperty("/busy", true);
+                this.MainModel.read(sPath, {
+                    urlParameters: {
+                           "$expand": "MDCCBOQItems"
+                    },
+                    success: function (oData, oResponse) {
+                        that.getComponentModel("app").setProperty("/busy", false);
+                        if (oData.results.length) {
+                            this.ParentData = oData.results;
+                            this.dataBuilding(this.ParentData);
+                           // this._getChildItems(oData.results);
+                        }
+                    }.bind(this),
+                    error: function (oError) {
+                        that.getComponentModel("app").setProperty("/busy", false);
+                        sap.m.MessageBox.Error(JSON.stringify(oError));
+                    }
+                });
+            },
 
-         //---------------------- View Data Fragment operation -----------------------//
-        // Fragment/Dialog Open
-        onViewPress: function (oEvent) {
-              //  var oItem = oEvent.getSource();
-              var that = this;
-             // this._getParentDataViewMDCC();
-              //that.sPath = oEvent.getSource().getParent().getBindingContextPath();
-               // that.handleViewDialogOpen();
-        },
+            dataBuilding: function (ParentData) {
+                this.ParentDataView = ParentData;
+                for (var i = 0; i < ParentData.length; i++) {
+                  //  for (var j = 0; j < ParentData[i].MDCCBOQItems.length; j++) {
+                        if (ParentData[i].MDCCBOQItems.results.length) {
+                            this.ParentDataView[i].isStandAlone = true;
+                            this.ParentDataView[i].ChildItemsView = ParentData[i].MDCCBOQItems.results;
+                        }
+                        else {
+                            this.ParentDataView[i].isStandAlone = false;
+                            this.ParentDataView[i].ChildItemsView = [];
+                        }
+                 //   }
+                }
+                this._arrangeDataView();
+            },
 
         // Arrange Data For View / Model Set
-        _arrangeDataView : function(){        
-                var that = this;
-                var oModel = new JSONModel({"ChildItemsView":this.ParentDataView});
-                this.getView().setModel(oModel,"TreeTableModelView");
-                this.getView().getModel("TreeTableModelView").refresh();
-              //  this.doExpandAllRow();
-               // var sPath = oEvent.getSource().getParent().getBindingContextPath();
-              // sPath=  ;
-             //   that.handleViewDialogOpen();
-                //debugger;
+        _arrangeDataView: function () {
+            var that = this;
+            var oModel = new JSONModel({ "ChildItemsView": this.ParentDataView });
+            this.getView().setModel(oModel, "TreeTableModelView");
+            this.getView().getModel("TreeTableModelView").refresh();
         },
-
-        doExpandAllRow : function() {
-            var oTTbl = this.getView().byId("TreeTableBasicViewDispatch");
-            for (var i=0; i<oTTbl.getRows().length; i++) {
-                oTTbl.expand(i);
-            }
-        },   
-
-        _getPackingListData : function(){
-                this.ParentDataView = [];
-                var sPath = "/MDCCSet("+this.sObjectId+")/MDCCParentLineItems";
-                that.getComponentModel("app").setProperty("/busy", true);
-                this.MainModel.read(sPath,{
-                    success:function(oData,oResponse){
-                        that.getComponentModel("app").setProperty("/busy", false);
-                        if(oData.results.length){
-                            this._getChildItemsViewMDCC(oData.results);
-                        }
-                    }.bind(this),
-                    error:function(oError){
-                        that.getComponentModel("app").setProperty("/busy", false);
-                        sap.m.MessageBox.Error(JSON.stringify(oError));
-                    }
-                });
-        },
-
+        
             // Parent Data View Fetch / Model Set
-        _getParentDataViewMDCC : function(){
-                var that = this;
-                this.ParentDataView = [];
-                var sPath = "/MDCCSet("+this.sObjectId+")/MDCCParentLineItems";
-                that.getComponentModel("app").setProperty("/busy", true);
-                this.MainModel.read(sPath,{
-                    success:function(oData,oResponse){
-                        that.getComponentModel("app").setProperty("/busy", false);
-                        if(oData.results.length){
-                            this._getChildItemsViewMDCC(oData.results);
-                        }
-                    }.bind(this),
-                    error:function(oError){
-                        that.getComponentModel("app").setProperty("/busy", false);
-                        sap.m.MessageBox.Error(JSON.stringify(oError));
-                    }
-                });
-        },
+        // _getParentDataViewMDCC : function(){
+        //         var that = this;
+        //         this.ParentDataView = [];
+        //         var sPath = "/MDCCSet("+this.sObjectId+")/MDCCParentLineItems";
+        //         that.getComponentModel("app").setProperty("/busy", true);
+        //         this.MainModel.read(sPath,{
+        //             success:function(oData,oResponse){
+        //                 that.getComponentModel("app").setProperty("/busy", false);
+        //                 if(oData.results.length){
+        //                     this._getChildItemsViewMDCC(oData.results);
+        //                 }
+        //             }.bind(this),
+        //             error:function(oError){
+        //                 that.getComponentModel("app").setProperty("/busy", false);
+        //                 sap.m.MessageBox.Error(JSON.stringify(oError));
+        //             }
+        //         });
+        // },
 
         // Child Item View Fetch / Model Set
-        _getChildItemsViewMDCC : function(ParentDataView){
-                this.ParentDataView = ParentDataView;
-                for( var i=0; i < ParentDataView.length; i++){
+        // _getChildItemsViewMDCC : function(ParentDataView){
+        //         this.ParentDataView = ParentDataView;
+        //         for( var i=0; i < ParentDataView.length; i++){
                 
-                    var sPath = "/MDCCSet("+this.sObjectId+")/MDCCParentLineItems("+ ParentDataView[i].ID +")/MDCCBOQItems";
-                    this.MainModel.read(sPath,{
-                        success:function(i,oData,oResponse){
+        //             var sPath = "/MDCCSet("+this.sObjectId+")/MDCCParentLineItems("+ ParentDataView[i].ID +")/MDCCBOQItems";
+        //             this.MainModel.read(sPath,{
+        //                 success:function(i,oData,oResponse){
                                                         
-                            if(oData.results.length){
-                                this.ParentDataView[i].isStandAlone=true;
-                                this.ParentDataView[i].ChildItemsView=oData.results;
-                            }
-                            else{
-                                this.ParentDataView[i].isStandAlone=false;
-                                this.ParentDataView[i].ChildItemsView=[];
-                            }
-                            if(i==this.ParentDataView.length-1)
-                                this._arrangeDataView();
-                        }.bind(this,i),
-                        error:function(oError){
-                            sap.m.MessageBox.Error(JSON.stringify(oError));
-                        }
-                    });
-                }
-        },
+        //                     if(oData.results.length){
+        //                         this.ParentDataView[i].isStandAlone=true;
+        //                         this.ParentDataView[i].ChildItemsView=oData.results;
+        //                     }
+        //                     else{
+        //                         this.ParentDataView[i].isStandAlone=false;
+        //                         this.ParentDataView[i].ChildItemsView=[];
+        //                     }
+        //                     if(i==this.ParentDataView.length-1)
+        //                         this._arrangeDataView();
+        //                 }.bind(this,i),
+        //                 error:function(oError){
+        //                     sap.m.MessageBox.Error(JSON.stringify(oError));
+        //                 }
+        //             });
+        //         }
+        // },
 
         getViewSettingsDialog: function (sDialogFragmentName) {
             var pDialog = this._mViewSettingsDialogs[sDialogFragmentName];
@@ -188,6 +191,13 @@ sap.ui.define([
             }
             return pDialog;
         },
+
+        doExpandAllRow : function() {
+            var oTTbl = this.getView().byId("TreeTableBasicViewDispatch");
+            for (var i=0; i<oTTbl.getRows().length; i++) {
+                oTTbl.expand(i);
+            }
+        },  
 
          onBeforeRebindPackingListTable: function (oEvent) {
             var MDCC_Id ;

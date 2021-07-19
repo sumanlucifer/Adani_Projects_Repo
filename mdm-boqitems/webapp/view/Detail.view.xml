@@ -44,7 +44,7 @@
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection>
                     <uxap:blocks>
-                      	<f:SimpleForm id="idSFDisplay"	editable="false"
+                      	<f:SimpleForm id="idSFDisplay"	editable="true"
                           visible="{= ${objectViewModel>/idSFDisplay}}" 
                             layout="ResponsiveGridLayout"  title="Details" 
                         	labelSpanXL="3"	labelSpanL="3" labelSpanM="3" labelSpanS="12"

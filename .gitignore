@@ -5,11 +5,3 @@
 package-lock.json
 /dist/
 
-# auto generated wildcard
-storeincharge-totaldetails/.env2
-# auto generated wildcard
-storeincharge-approvals/.env2
-# auto generated wildcard
-storeincharge-raisedpo/.env3
-# auto generated wildcard
-user-roleassignment/.env4

@@ -6,15 +6,27 @@
         <l:Grid defaultSpan="L12 M12 S12" width="auto">
             <l:content>
                 <f:SimpleForm minWidth="1024" maxContainerCols="2" editable="false" layout="ResponsiveGridLayout" labelSpanL="3" labelSpanM="3" emptySpanL="4" emptySpanM="4" columnsL="2" columnsM="2">
-                    <Label text="Enter Reason"></Label>
-                    <Input value="{qrAssistantModel>/reason}"></Input>
-                    <Label text="Comments"></Label>
+                    <Label text="Enter Reason" required="true"></Label>
+                    <!-- <Input value="{qrAssistantModel>/reason}"></Input> -->
+
+                    <Select id="idSelReason" forceSelection="false"  selectedKey="{qrAssistantModel>/reason}"
+					    items="{
+						    path: '/MasterQrCodeAssistanceReasonSet'						    
+					    }">
+					        <core:Item key="{Reason}" text="{Reason}" />
+				    </Select>
+
+                    <Label text="Comments" required="true"></Label>
                     <TextArea value="{qrAssistantModel>/comment}"></TextArea>
                 </f:SimpleForm>
             </l:content>
         </l:Grid>
-        <endButton>
-            <Button text="Go" press="onSendAssistanceRequestPress"></Button>
+        
+        <beginButton>
+            <Button text="Send" press="onSendAssistanceRequestPress"></Button>
+        </beginButton>
+        <endButton>           
+            <Button text="Cancel" press="onCancelAssistanceRequestPress"></Button>            
         </endButton>
     </Dialog>
 </core:FragmentDefinition>

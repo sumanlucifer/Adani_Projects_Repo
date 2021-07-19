@@ -6,22 +6,28 @@ sap.ui.define(["sap/ui/core/mvc/Controller"], function (Controller) {
         onBeforeRebindPackingListTable: function (oEvent) {
             var PONumber;
             var mBindingParams = oEvent.getParameter("bindingParams");
-            if (this.getView().getBindingContext().getObject())
-                PONumber = this.getView().getBindingContext().getObject().PONumber;
 
-            mBindingParams.filters.push(new sap.ui.model.Filter("PONumber", sap.ui.model.FilterOperator.EQ, PONumber));
-            mBindingParams.sorter.push(new sap.ui.model.Sorter("CreatedAt", true));
-
+            var that = this;
+            this.getOwnerComponent().getModel().metadataLoaded(true).then(
+                function () {
+                    // model is ready now
+                    PONumber = that.getView().getBindingContext().getObject().PONumber;
+                    mBindingParams.filters.push(new sap.ui.model.Filter("PONumber", sap.ui.model.FilterOperator.EQ, PONumber));
+                    mBindingParams.sorter.push(new sap.ui.model.Sorter("CreatedAt", true));
+                },
+                function () {
+                    //Error Handler Display error information so that the user knows that the application does not work.
+                });
         },
 
-        onPackingListTableUpdateFinished: function(oEvent){
-            
+        onPackingListTableUpdateFinished: function (oEvent) {
+
         },
 
 
         onPackingListItemPress: function (oEvent) {
             var packingListId = oEvent.getSource().getBindingContext().getPath().slice("/PackingListSet".length);
-            packingListId = packingListId.substr(1,packingListId.length-2);
+            packingListId = packingListId.substr(1, packingListId.length - 2);
             var status = oEvent.getSource().getBindingContext().getObject().Status;
             var oCrossAppNavigator = sap.ushell.Container.getService("CrossApplicationNavigation"); // get a handle on the global XAppNav service
             var hash = (oCrossAppNavigator && oCrossAppNavigator.hrefForExternal({
