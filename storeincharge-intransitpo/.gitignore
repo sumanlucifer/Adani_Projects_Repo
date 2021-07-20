@@ -28,3 +28,11 @@ storeincharge-totaldetails/.env1
 storeincharge-totaldetails/.env2
 # auto generated wildcard
 storeincharge-approvals/.env2
+# auto generated wildcard
+sapui5/storeincharge-issuematerial/.env1
+# auto generated wildcard
+sapui5/vendorPersona/.env23
+# auto generated wildcard
+sapui5/storestock/.env1
+# auto generated wildcard
+sapui5/storeincharge-totaldetails/.env1

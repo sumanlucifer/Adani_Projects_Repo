@@ -1,0 +1,36 @@
+<mvc:View
+    controllerName="com.agel.mmts.storestock.controller.App"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+    xmlns="sap.m"
+    xmlns:viz="sap.viz.ui5.controls"
+xmlns:vizFeeds="sap.viz.ui5.controls.common.feeds"
+xmlns:vizData="sap.viz.ui5.data"
+>
+	<Shell id="shell">
+		<App id="app">
+			<pages>
+				<Page id="page" title="store stock">
+					<!-- <content /> -->
+                    <viz:VizFrame xmlns="sap.viz" id="idDonutChart" selectData="onPressSegment" vizType="donut" width="100%" height="100%"
+						vizProperties="{plotArea: { drawingEffect: 'glossy' },title:{ text:'Donut Chart Example'}}">
+						<viz:dataset>
+							<vizData:FlattenedDataset data="{/vizdata/items}">
+								<vizData:dimensions>
+									<vizData:DimensionDefinition name="Department" value="{Department}"/>
+								</vizData:dimensions>
+								<vizData:measures>
+									<vizData:MeasureDefinition name="Employee Count" value="{EmployeeCount}"/>
+								</vizData:measures>
+							</vizData:FlattenedDataset>
+						</viz:dataset>
+						<viz:feeds>
+							<vizFeeds:FeedItem uid="size" type="Measure" values='Employee Count'/>
+							<vizFeeds:FeedItem uid="color" type="Dimension" values="Department"/>
+						</viz:feeds>
+					</viz:VizFrame>
+				</Page>
+			</pages>
+		</App>
+	</Shell>
+</mvc:View>

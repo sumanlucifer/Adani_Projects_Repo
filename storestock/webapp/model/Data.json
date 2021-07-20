@@ -1,0 +1,18 @@
+{
+	"items": [{
+		"Department": "R & D",
+		"EmployeeCount": "20"
+	}, {
+		"Department": "Syngenta",
+		"EmployeeCount": "30"
+	}, {
+		"Department": "Volvo",
+		"EmployeeCount": "35"
+	}, {
+		"Department": "NIKE",
+		"EmployeeCount": "60"
+	}, {
+		"Department": "ADIDAS",
+		"EmployeeCount": "70"
+	}]
+}
