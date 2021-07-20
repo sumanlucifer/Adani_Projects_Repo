@@ -123,6 +123,10 @@ modules:
       - unloadmaterial-content.zip
       name: unloadmaterial
       target-path: resources/ 
+    - artifacts:  
+      - comagelmmtsvendorpackinglistcreate-content.zip
+      name: packingListCreate
+      target-path: resources/   
 
 - name: launchpad
   type: com.sap.application.content
@@ -256,7 +260,7 @@ modules:
     commands:
     - npm run build
     supported-platforms: []
-- name: comagelmmtsvendorpackinglistcreate
+- name: packingListCreate
   type: html5
   path: vendor-packinglist-create
   build-parameters:

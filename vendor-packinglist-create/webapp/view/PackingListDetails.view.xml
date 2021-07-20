@@ -15,7 +15,7 @@
     xmlns:innerPackaging="com.agel.mmts.vendorpackinglistcreate.view.blocks.packingListDetails.innerPackaging.blocks" height="100%">
     <uxap:ObjectPageLayout id="ObjectPageLayout" preserveHeaderStateOnScroll="false" showTitleInHeaderContent="true" upperCaseAnchorBar="false" headerContentPinnable="true" toggleHeaderOnTitleClick="true" busy="{objectViewModel>/busy}">
         <uxap:headerTitle>
-            <uxap:ObjectPageDynamicHeaderTitle>
+            <uxap:ObjectPageDynamicHeaderTitle id="idHeader"> 
                 <uxap:breadcrumbs>
                     <!-- <Breadcrumbs id="breadcrumbsId" currentLocationText="{i18n>confirmedPODetails}">
                         <Link text="{i18n>assignedPOList}" press=".handleToAllPOBreadcrumPress"/>
@@ -24,7 +24,7 @@
                 <uxap:expandedHeading>
                     <FlexBox direction="Column" renderType="Bare">
                         <Title text="Packing List Details - {Name}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
-                        <ObjectStatus text="{Status}" state="{= ${Status}=== 'DISPATCHED' ? 'Warning' : 'None'}" visible="{= ${Status}=== 'DISPATCHED'}"></ObjectStatus>
+                        <ObjectStatus id="idStatus" text="{Status}" state="{= ${Status}=== 'SAVED' ? 'Indication05' : ${Status}=== 'DISPATCHED' ? 'Indication06' : 'Indication08'}"/>
                     </FlexBox>
                 </uxap:expandedHeading>
                 <uxap:snappedHeading>
@@ -38,7 +38,7 @@
                 </uxap:snappedTitleOnMobile>
                 <uxap:actions>
                     <Button icon="sap-icon://download" type="Emphasized" press="onDownloadPackingListPress"/>
-                    <Link text="need QR code printing assistantace" press="onNeedQRPrintingAsistancePress" visible="{= ${Status}!== 'DISPATCHED'}"></Link>
+                    <Link text="need QR code printing assistantace" press="onNeedQRPrintingAsistancePress" visible="{= ${Status}!== 'SENT FOR QR CODE APPROVAL' &amp;&amp; ${Status}!== 'QR_CODE_REQUEST_APPROVED' &amp;&amp; ${Status}!== 'DISPATCHED'}"></Link>
                     <Button text="Mark consignment as dispatched" press="onMarkConsignmentAsDispatched" type="Emphasized" visible="{= ${Status}!== 'DISPATCHED'}"/>
                 </uxap:actions>
             </uxap:ObjectPageDynamicHeaderTitle>

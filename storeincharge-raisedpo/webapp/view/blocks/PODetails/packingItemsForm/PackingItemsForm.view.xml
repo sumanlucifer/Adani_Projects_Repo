@@ -1,0 +1,36 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns:f="sap.ui.layout.form"
+    xmlns="sap.m" xmlns:u="sap.ui.unified"
+    xmlns:smartTable="sap.ui.comp.smarttable"
+    controllerName="com.agel.mmts.storeinchargeraisedpo.view.blocks.PODetails.packingItemsForm.PackingItemsFormController">
+
+  <Table width="auto" growing="true" growingThreshold="5" fixedLayout="false" items="{PackingList}">
+        <columns>
+     <Column demandPopin="true" minScreenWidth="Desktop" hAlign="Center">
+                <Text text="ID" wrapping="true" wrappingType="Hyphenated"/>
+            </Column>
+                 <Column demandPopin="true" minScreenWidth="Desktop" hAlign="Center">
+                <Text text="InvoiceDate" wrapping="true" wrappingType="Hyphenated"/>
+            </Column>
+                 <Column demandPopin="true" minScreenWidth="Desktop" hAlign="Center">
+                <Text text="Status" wrapping="true" wrappingType="Hyphenated"/>
+            </Column>
+        </columns>
+        <items>
+           <ColumnListItem type="Navigation" press="onpressPackingListDetails">
+                <cells>
+                    <Text text="{ID}"/>
+                    <Text text="{path:'InvoiceDate',
+                                     type: 'sap.ui.model.type.Date',
+				                     formatOptions: {
+				                        pattern: 'MMMM dd, yyyy'
+				                     }
+                        }"/>
+                    <ObjectIdentifier title="{Status}"/>
+                </cells>
+            </ColumnListItem>
+        </items>
+    </Table>
+
+</mvc:View>

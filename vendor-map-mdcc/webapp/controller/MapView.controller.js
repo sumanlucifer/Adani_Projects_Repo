@@ -67,7 +67,7 @@ sap.ui.define([
               //  }
               //  else {
                     //   this.sObjectId = oEvent.getParameter("arguments").MDCCId;
-                    this.sObjectId = startupParams.MDCCId;
+                    this.sObjectId = startupParams.MDCCId[0];
                     // this.sObjectId = this.sObjectId;
                     this._getMDCCData();
                     this.getInspectedData();
