@@ -1,0 +1,54 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns:f="sap.ui.layout.form"
+    xmlns="sap.m"
+    xmlns:smartTable="sap.ui.comp.smarttable"
+    xmlns:tt="sap.ui.table" controllerName="com.agel.mmts.storeinchargeraisedpo.view.blocks.PackingListReceivedDetails.packagingListContains.LineItemsTableController">
+
+    <Table id="idBOQItemTable" items="{path: 'PackingListContains'}" autoPopinMode="true" growingThreshold="5" growing="true" fixedLayout="true">
+        <columns>
+            <Column>
+                <Text text="Material Code"/>
+            </Column>
+            <Column>
+                <Text text="Name"/>
+            </Column>
+            <!--  <Column>
+                <Text text="Line Item ID"/>
+            </Column> -->
+            <Column hAlign="Center">
+                <Text text="Dispatch Qty."/>
+            </Column>
+            <Column>
+                <Text text="UOM"/>
+            </Column>
+            <Column>
+                <Text text="Packaging Type"/>
+            </Column>
+            <Column hAlign="Center">
+                <Text text="No. of Packages"/>
+            </Column>
+            <!-- <Column>
+                <Text text="Action"/>
+            </Column> -->
+        </columns>
+        <items>
+            <ColumnListItem>
+                <cells>
+                <ObjectIdentifier title="{MaterialCode}"/>
+                    <Text text="{Name}"/>
+                    <!-- <ObjectIdentifier title="{ID}"/> -->
+                     <Text text="{DispatchQty}"/>
+                    <Text text="{UOM}"/>
+                    <Text text="{PackagingType}"/>
+                    <Text text="{NumberOfPackages}"/>
+                    <!-- <Link text="View QR Code" press="onViewQRCode"/> -->
+                    <!-- <Link text="View QR Code" binding="{QrCode}" visible="{= ${QRNumber}}" press="onViewQRPress"/> -->
+                </cells>
+            </ColumnListItem>
+        </items>
+    </Table>
+
+</mvc:View>
+
+

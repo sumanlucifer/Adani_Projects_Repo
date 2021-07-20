@@ -123,6 +123,10 @@
 				}, {
 					"appId": "com.agel.mmts.userroleassignment",
 					"vizId": "userRoleAssignment-manage"
+				}, {
+					"id": "com.agel.mmts.mdmouterpackinglist-4-1626346826302",
+					"appId": "com.agel.mmts.mdmouterpackinglist",
+					"vizId": "OuterPackingListType-Manage"
 				}]
 			}
 		}, {
@@ -134,7 +138,15 @@
 				"i18n": "i18n/quick-access.properties"
 			},
 			"payload": {
-				"viz": []
+				"viz": [{
+					"id": "com.agel.mmts.storeinchargeapprovals-0-1626337384831",
+					"appId": "com.agel.mmts.storeinchargeapprovals",
+					"vizId": "Approvals-manage"
+				}, {
+					"id": "com.agel.mmts.storeinchargescanqr-1-1626337384831",
+					"appId": "com.agel.mmts.storeinchargescanqr",
+					"vizId": "ScanQR-manage"
+				}]
 			}
 		}, {
 			"_version": "3.0.0",

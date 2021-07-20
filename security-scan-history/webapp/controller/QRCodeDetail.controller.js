@@ -9,15 +9,17 @@ sap.ui.define([
     "sap/ui/core/routing/History",
     'sap/m/ColumnListItem',
     'sap/m/Input',
-    "jquery.sap.global"
+    "jquery.sap.global",
+        "../utils/formatter"
+
 ],
 	/**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (BaseController, JSONModel, Filter, FilterOperator, Fragment, Sorter, Device, History, ColumnListItem, Input, jquery) {
+    function (BaseController, JSONModel, Filter, FilterOperator, Fragment, Sorter, Device, History, ColumnListItem, Input, jquery, formatter) {
         "use strict";
         return BaseController.extend("com.agel.mmts.securityscanhistory.controller.QRCodeDetail", {
-
+            formatter:formatter,
 
             onInit: function () {
                 jquery.sap.addUrlWhitelist("blob");

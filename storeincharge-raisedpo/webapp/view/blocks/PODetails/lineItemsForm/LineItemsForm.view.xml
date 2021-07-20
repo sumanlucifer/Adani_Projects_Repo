@@ -1,0 +1,8 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+    controllerName="com.agel.mmts.storeinchargeraisedpo.view.blocks.PODetails.lineItemsForm.LineItemsFormcontroller">
+
+    <core:Fragment fragmentName="com.agel.mmts.storeinchargeraisedpo.view.fragments.common.lineItems" type="XML"/>
+
+</mvc:View>
