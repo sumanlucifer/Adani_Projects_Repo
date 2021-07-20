@@ -83,8 +83,8 @@ sap.ui.define([
                 oDetails.view = this.getView();
                 oDetails.sParentItemPath = sParentItemPath;
                 oDetails.title = "QR Code";
-                if (!this.qrDialog) {
-                    this.qrDialog = Fragment.load({
+                if (!this.scanqrDialog) {
+                    this.scanqrDialog = Fragment.load({
                         id: oDetails.view.getId(),
                         name: "com.agel.mmts.unloadmaterial.view.fragments.unloadMaterial.scanqr",
                         controller: oDetails.controller
@@ -101,7 +101,7 @@ sap.ui.define([
                         return oDialog;
                     });
                 }
-                this.qrDialog.then(function (oDialog) {
+                this.scanqrDialog.then(function (oDialog) {
                     oDetails.view.addDependent(oDialog);
                     oDialog.bindElement({
                         path: oDetails.sParentItemPath,
@@ -112,7 +112,7 @@ sap.ui.define([
             },
 
             onQRCodeScanDialogClosePress: function (oEvent) {
-                this.qrDialog.then(function (oDialog) {
+                this.scanqrDialog.then(function (oDialog) {
                     oDialog.close();
                 });
             },
@@ -182,6 +182,64 @@ sap.ui.define([
 
             handleToUnloadMaterialBreadcrumPress: function() {
                 this.getRouter().navTo("RouteNewConsignment");
+            },
+
+            // QR Code View 
+            onViewQRCodePress: function (oEvent) {
+                var sParentItemPath = oEvent.getSource().getBindingContext().getPath();
+                var sDialogTitleObject = oEvent.getSource()._getBindingContext().getProperty();
+                var oDetails = {};
+                oDetails.controller = this;
+                oDetails.view = this.getView();
+                oDetails.sParentItemPath = sParentItemPath;
+                oDetails.title = "QR Code";
+                if (sDialogTitleObject.Name)
+                    oDetails.title = sDialogTitleObject.Name;
+                else if (sDialogTitleObject.PackagingType)
+                    oDetails.title = sDialogTitleObject.PackagingType;
+                //Close current dialog
+                if(this.packingListContainsDialog){  
+                    this.packingListContainsDialog.then(function (oDialog) {
+                        oDialog.close();
+                    });
+                }
+                if (!this.qrDialog) {
+                    this.qrDialog = Fragment.load({
+                        id: oDetails.view.getId(),
+                        name: "com.agel.mmts.unloadmaterial.view.fragments.QRCodeViewer",
+                        controller: oDetails.controller
+                    }).then(function (oDialog) {
+                        // connect dialog to the root view of this component (models, lifecycle)
+                        oDetails.view.addDependent(oDialog);
+                        oDialog.bindElement({
+                            path: oDetails.sParentItemPath,
+                        });
+                        if (Device.system.desktop) {
+                            oDialog.addStyleClass("sapUiSizeCompact");
+                        }
+                        oDialog.setTitle(oDetails.title);
+                        return oDialog;
+                    });
+                }
+                this.qrDialog.then(function (oDialog) {
+                    oDetails.view.addDependent(oDialog);
+                    oDialog.bindElement({
+                        path: oDetails.sParentItemPath,
+                    });
+                    oDialog.setTitle(oDetails.title);
+                    oDialog.open();
+                });
+            },
+
+            onQRCodeViewerDialogClosePress: function (oEvent) {
+                this.qrDialog.then(function (oDialog) {
+                    oDialog.close();
+                });
+                if(this.packingListContainsDialog){  
+                    this.packingListContainsDialog.then(function (oDialog) {
+                        oDialog.open();
+                    });
+                }
             }
 
         });
