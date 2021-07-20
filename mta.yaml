@@ -122,15 +122,12 @@ modules:
     - artifacts:
       - unloadmaterial-content.zip
       name: unloadmaterial
-      target-path: resources/
-    - artifacts:
-      - comagelmmtsstoreinchargeissuematerial.zip
-      name: comagelmmtsstoreinchargeissuematerial
-      target-path: resources/
-    - artifacts:
-      - comagelmmtsstorestock.zip
-      name: comagelmmtsstorestock
-      target-path: resources/
+      target-path: resources/ 
+    - artifacts:  
+      - comagelmmtsvendorpackinglistcreate-content.zip
+      name: packingListCreate
+      target-path: resources/   
+
 - name: launchpad
   type: com.sap.application.content
   path: launchpad
@@ -262,7 +259,7 @@ modules:
     commands:
     - npm run build
     supported-platforms: []
-- name: comagelmmtsvendorpackinglistcreate
+- name: packingListCreate
   type: html5
   path: vendor-packinglist-create
   build-parameters:

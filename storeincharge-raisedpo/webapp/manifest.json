@@ -33,8 +33,8 @@
                         "additionalParameters": "allowed"
                     },
                     "semanticObject": "TotalOrder",
-                    "action": "raised",
-                    "title": "Raised Order",
+                    "action": "details",
+                    "title": "Total Order",
                     "subTitle": "",
                     "icon": "sap-icon://add-activity-2"
                 }
@@ -126,6 +126,27 @@
                     "target": [
                         "TargetLandingPage"
                     ]
+                },
+                {
+                    "name": "RoutePODetailsPage",
+                    "pattern": "PODetail/{POId}/{Type}",
+                    "target": [
+                        "TargetDetailsPage"
+                    ]
+                },
+                {
+                    "name": "RouteDetailsPage",
+                    "pattern": "PackingListDetail/{RequestId}",
+                    "target": [
+                        "TargetPackingListDetailsPage"
+                    ]
+                },
+                {
+                    "name": "RouteDetailsReceivedPage",
+                    "pattern": "PackingListReceivedDetail/{RequestId}",
+                    "target": [
+                        "TargetPackingListDetailsReceivedPage"
+                    ]
                 }
             ],
             "targets": {
@@ -135,6 +156,27 @@
                     "clearControlAggregation": false,
                     "viewId": "",
                     "viewName": "LandingPage"
+                },
+                "TargetDetailsPage": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewName": "PODetails",
+                    "viewLevel": 2
+                },
+                "TargetPackingListDetailsPage": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewName": "PackingListDetails",
+                    "viewLevel": 3
+                },
+                "TargetPackingListDetailsReceivedPage": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewName": "PackingListReceivedDetails",
+                    "viewLevel": 4
                 },
                 "notFound": {
                     "viewName": "NotFound"

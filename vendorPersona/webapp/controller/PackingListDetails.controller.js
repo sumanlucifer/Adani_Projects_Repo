@@ -395,21 +395,6 @@ sap.ui.define([
             );
         },
 
-        onQRAssistantPress: function (oEvent) {
-            //initialize the action
-            var oModel = new JSONModel({
-                "reason": null,
-                "comment": null
-            });
-            this.getView().setModel(oModel, "qrAssistantModel")
-            if (!this._oQRAssistantDialog) {
-                this._oQRAssistantDialog = sap.ui.xmlfragment("com.agel.mmts.vendorPersona.view.fragments.packingListDetails.QRassistant", this);
-                this.getView().addDependent(this._oQRAssistantDialog);
-            }
-            this._oQRAssistantDialog.open();
-
-        },
-
         onCreateAssistantPress: function (oEvent) {
             var that = this,
                 oViewContext = this.getView().getBindingContext().getObject(),
