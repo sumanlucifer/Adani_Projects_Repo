@@ -519,7 +519,7 @@ sap.ui.define([
                   });
 
                 //oDialog.setModel(that.getView().getModel("TreeTableModelView"));
-                oDialog.setTitle("MDCC - "+mdccNobb+" - Attachment");
+                oDialog.setTitle("MDCC - "+mdccNobb+" ");
                 oDialog.open();
             });
         },
