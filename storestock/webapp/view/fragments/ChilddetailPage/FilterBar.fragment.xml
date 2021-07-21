@@ -28,8 +28,12 @@
            
             <fb:FilterGroupItem groupName="__$INTERNAL$" name="PlantCode" label="{i18n>PlantCode}" visibleInFilterBar="true" class="searchFieldLabelHidden">
                 <fb:control>
-                    <Input id="idPlantCode" placeholder="{i18n>EnterPlantCode}" liveChange="onFilterChange" showValueHelp="false">
-                    </Input>
+                    
+                        <Select width="6rem" id="idSelReason" forceSelection="false" selectedKey="{qrAssistantModel>/reason}" items="{
+						    path: '/MasterQrCodeAssistanceReasonSet'						    
+					    }">
+                            <core:Item key="{Reason}" text="{Reason}" />
+                        </Select>
                 </fb:control>
             </fb:FilterGroupItem>
             

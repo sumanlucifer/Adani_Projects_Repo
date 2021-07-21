@@ -29,3 +29,8 @@ sapui5/storeincharge-totaldetails/.env1
 =======
 vendor-packinglist-create/.env1
 >>>>>>> develop
+
+# auto generated wildcard
+sapui5/storestock/.env2
+# auto generated wildcard
+sapui5/storestock/.env3

@@ -12,7 +12,7 @@ sap.ui.define([
 
     function (BaseController, JSONModel, Filter, FilterOperator, Fragment, Sorter, Device, ValueState) {
         "use strict";
-        return BaseController.extend("com.agel.mmts.storestock.controller.storeStockParentDetail", {
+        return BaseController.extend("com.agel.mmts.storestock.controller.storeStockChildDetail", {
 
             onInit: function () {
 

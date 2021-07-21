@@ -15,7 +15,13 @@ sap.ui.define([
 		},
 		getRouter: function () {
 			return sap.ui.core.UIComponent.getRouterFor(this);
-		}
+        },
+           getResourceBundle: function () {
+            return this.getOwnerComponent().getModel("i18n").getResourceBundle();
+        },
+      addContentDensityClass: function () {
+            return this.getView().addStyleClass(this.getOwnerComponent().getContentDensityClass());
+        },
 
 	});
 });

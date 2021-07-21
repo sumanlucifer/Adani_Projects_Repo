@@ -1,0 +1,72 @@
+<mvc:View controllerName="com.agel.mmts.storestock.controller.chartDisplay" height="100%"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.f"
+    xmlns:fm="sap.ui.layout.form"
+    xmlns:viz="sap.viz.ui5.controls"
+    xmlns:vizFeeds="sap.viz.ui5.controls.common.feeds"
+    xmlns:vizData="sap.viz.ui5.data">
+    <f:DynamicPage headerExpanded="true" busy="{objectViewModel>/busy}">
+        <!-- DynamicPage Title -->
+        <f:title>
+            <f:DynamicPageTitle>
+                <f:heading>
+                    <Title id="pageTitle" text="{i18n>Store-Stock}"/>
+                </f:heading>
+            </f:DynamicPageTitle>
+        </f:title>
+
+        <f:content>
+            <l:Grid defaultSpan="L12 M12 S12" width="auto">
+
+                <fm:SimpleForm minWidth="1024" maxContainerCols="2" editable="false" layout="ResponsiveGridLayout" labelSpanL="3" labelSpanM="3" emptySpanL="4" emptySpanM="4" columnsL="2" columnsM="2">
+                    <HBox alignItems="Stretch" class="sapUiMediumMargin">
+
+                        <Label text="Plant Code" required="true"></Label>
+
+
+                        <Select width="6rem" id="idSelReason" forceSelection="false" selectedKey="{qrAssistantModel>/reason}" items="{
+						    path: '/MasterQrCodeAssistanceReasonSet'						    
+					    }">
+                            <core:Item key="{Reason}" text="{Reason}" />
+                        </Select>
+                        <Button type="Emphasized" text="Submit" press="onPress" />
+
+                    </HBox>
+
+
+
+                </fm:SimpleForm>
+
+                <viz:VizFrame id="idVizFrame1" uiConfig="{applicationSet:'fiori'}" vizType='donut' vizProperties="{title: { text : ' '}}" selectData="onPressSegment" deselectData="2">
+                    <viz:dataset>
+                        <vizData:FlattenedDataset data="{/vizdata/items}">
+                            <vizData:dimensions>
+                                <vizData:DimensionDefinition name="Department" value="{Department}"/>
+                            </vizData:dimensions>
+                            <vizData:measures>
+                                <vizData:MeasureDefinition name="Employee Count" value="{EmployeeCount}"/>
+                            </vizData:measures>
+                        </vizData:FlattenedDataset>
+                    </viz:dataset>
+                    <viz:feeds>
+                        <vizFeeds:FeedItem uid="size" type="Measure" values='Employee Count'/>
+                        <vizFeeds:FeedItem uid="color" type="Dimension" values="Department"/>
+                    </viz:feeds>
+                </viz:VizFrame>
+
+
+
+            </l:Grid>
+
+
+
+        </f:content>
+    </f:DynamicPage>
+</mvc:View>
+
+
+
+
