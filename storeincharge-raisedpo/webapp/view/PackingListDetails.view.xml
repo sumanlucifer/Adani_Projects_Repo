@@ -154,12 +154,12 @@
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection title="{i18n>PackListContains}">
                         <uxap:blocks>
-                            <linePackingItems:LineItemsTable class="sapUxAPObjectPageSubSectionAlignContent" OnViewQRCodePressSmart = "onViewQRCodePressSmart"/>
+                            <linePackingItems:LineItemsTable class="sapUxAPObjectPageSubSectionAlignContent"/>
                         </uxap:blocks>
                     </uxap:ObjectPageSubSection>
                     <uxap:ObjectPageSubSection title="Outer Packaging">
                         <uxap:blocks>
-                            <outerPackaging:OuterPackaging OnViewQRCodePressSmart="onViewQRCodePressSmart" class="sapUxAPObjectPageSubSectionAlignContent"/>
+                            <outerPackaging:OuterPackaging  class="sapUxAPObjectPageSubSectionAlignContent" OnViewQRCodePressSmart="onViewQRCodePressSmart"/>
                         </uxap:blocks>
                     </uxap:ObjectPageSubSection>
                     <uxap:ObjectPageSubSection title="Inner Packaging">

@@ -20,13 +20,13 @@
                                 <core:Item text="{QRNumber}" key="{QRNumber}" />
                             </suggestionItems>
                         </Input>
-                        <Button id="idQRBtn" text="Submit" type="Emphasized" press="onPressSubmitQRCode" class="sapUiSmallMarginEnd" enabled="{oViewModel>/submitQRCode}"/>
+                        <Button id="idQRBtn" text="Submit" type="Emphasized" press="onPressSubmitQRCode" class="sapUiSmallMarginBegin" enabled="{oViewModel>/submitQRCode}"/>
                     </HBox>
                     <HBox alignItems="Center">
                         <Text text="OR" class="sapUiTinyMargin"/>
                     </HBox>
                     <HBox alignItems="Center">
-                        <Button id="idQRSubmit" text="Scan QR Code" type="Emphasized" press="onPressScanQRCode" class="sapUiSmallMarginEnd" enabled="{oViewModel>/scanQRCode}"/>
+                        <Button id="idQRSubmit" text="Scan QR Code" type="Emphasized" press="onPressScanQRCode" class="sapUiSmallMarginBegin" enabled="{oViewModel>/scanQRCode}"/>
                     </HBox>
                     <HBox alignItems="Center">
                         <Text text="OR" class="sapUiTinyMargin"/>
@@ -38,7 +38,7 @@
                                 <core:Item text="{InvoiceNumber}" key="{InvoiceNumber}" />
                             </suggestionItems>
                         </Input>
-                        <Button id="idInvBtn" text="Submit" type="Emphasized" press="onPressSubmitInvoiceNumber" class="sapUiSmallMarginEnd" enabled="{oViewModel>/submitInvoiceCode}"/>
+                        <Button id="idInvBtn" text="Submit" type="Emphasized" press="onPressSubmitInvoiceNumber" class="sapUiSmallMarginBegin" enabled="{oViewModel>/submitInvoiceCode}"/>
                     </HBox>
                 </uxap:content>
             </uxap:ObjectPageDynamicHeaderTitle>
