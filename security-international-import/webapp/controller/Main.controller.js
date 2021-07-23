@@ -57,25 +57,42 @@ sap.ui.define([
                 var flag = 0 ;
                 if ( oModel.PONumber == "" ){
                     this.getView().byId("idInpPoNob").setValueState("Error");
+                    this.getView().byId("idInpPoNob").setValueStateText("Enter PO Number");
                     flag = 1;
                 }
                 if ( oModel.ContainerNumber == "" ){
                     this.getView().byId("idInpContNob").setValueState("Error");
-                    flag = 1;
+                    this.getView().byId("idInpContNob").setValueStateText("Enter Container Number");
+
+                    flag = 2;
                 }
                 if ( oModel.VehicleNumber == "" ){
                     this.getView().byId("idInpVehicleNob").setValueState("Error");
-                    flag = 1;
+                    this.getView().byId("idInpVehicleNob").setValueStateText("Enter Vehicle Number");
+                    flag = 3;
                 }
                 if ( oModel.InvoiceNumber == "" ){
                     this.getView().byId("idInvoiceNob").setValueState("Error");
-                    flag = 1;
+                    this.getView().byId("idInvoiceNob").setValueStateText("Enter Invoice Number");
+                    flag = 4;
                 }
 
                 if ( flag == 1){
-                    sap.m.MessageBox.error("Please fill mandatory fields");
+                    sap.m.MessageBox.error("Please fill PO Number");
                     return 0;
-                };
+                }
+                else if ( flag == 2){
+                    sap.m.MessageBox.error("Please fill Container Number");
+                    return 0;
+                }
+                else if ( flag == 3){
+                    sap.m.MessageBox.error("Please fill Vehicle Number");
+                    return 0;
+                }
+                else if ( flag == 4){
+                    sap.m.MessageBox.error("Please fill Invoice Number");
+                    return 0;
+                }
 
                 var oPayload = {
                     "PONumber": oModel.PONumber,
@@ -87,12 +104,14 @@ sap.ui.define([
                 that.MainModel.create("/ManualEntrySet", oPayload, {
                     success: function (oData, oResponse) {
                         that.getComponentModel("app").setProperty("/busy", false);
-                        sap.m.MessageBox.success("Import entry created successfully");        
-                    }.bind(this),
-                    error: function (oError) {
-                        that.getComponentModel("app").setProperty("/busy", false);
-                        sap.m.MessageBox.error(JSON.stringify(oError));
-                    }
+                        that.getView().getModel("oImportModel").refresh();
+                        sap.m.MessageBox.success("Import entry created successfully"); 
+                    }       
+                    // }.bind(this),
+                    // error: function (oError) {
+                    //     that.getComponentModel("app").setProperty("/busy", false);
+                    //     sap.m.MessageBox.error(JSON.stringify(oError));
+                    // }
                 });
             }
 

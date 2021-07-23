@@ -10,10 +10,10 @@
             </FlexBox>
         </content>
         <beginButton>
-            <Button id="idCreateBOQButton" text="confirm" press="onConfirmCreateBOQPress" type="Emphasized" enabled="{boqCreationModel>/isConfirmButtonEnabled}"></Button>
+            <Button id="idCreateBOQButton" text="Confirm" press="onConfirmCreateBOQPress" type="Emphasized" enabled="{boqCreationModel>/isConfirmButtonEnabled}"></Button>
         </beginButton>
         <endButton>
-            <Button text="cancel" press="onCancelBOQCreationProcess"></Button>
+            <Button text="Cancel" press="onCancelBOQCreationProcess"></Button>
         </endButton>
     </Dialog>
 </core:FragmentDefinition>
