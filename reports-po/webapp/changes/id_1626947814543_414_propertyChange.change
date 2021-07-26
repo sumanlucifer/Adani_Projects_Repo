@@ -1,0 +1,41 @@
+{
+    "fileName": "id_1626947814543_414_propertyChange",
+    "fileType": "change",
+    "changeType": "propertyChange",
+    "moduleName": "",
+    "reference": "com.agel.mmts.reportspo",
+    "packageName": "",
+    "content": {
+        "property": "fitContent",
+        "newValue": true
+    },
+    "selector": {
+        "id": "com.agel.mmts.reportspo::sap.suite.ui.generic.template.ListReport.view.ListReport::PurchaseOrderSet--page",
+        "idIsLocal": false,
+        "type": "sap.f.DynamicPage"
+    },
+    "layer": "VENDOR",
+    "texts": {},
+    "namespace": "apps/com.agel.mmts.reportspo/changes/",
+    "projectId": "com.agel.mmts.reportspo",
+    "creation": 1626953394101,
+    "originalLanguage": "",
+    "support": {
+        "generator": "changeUtils: SAPFioriTools",
+        "service": "",
+        "user": "",
+        "sapui5Version": "latest",
+        "sourceChangeFileName": "",
+        "compositeCommand": ""
+    },
+    "oDataInformation": {},
+    "dependentSelector": {},
+    "validAppVersions": {
+        "from": "1.0.0",
+        "to": "1.0.0",
+        "creation": "1.0.0"
+    },
+    "jsOnly": false,
+    "variantReference": "",
+    "appDescriptorChange": false
+}
