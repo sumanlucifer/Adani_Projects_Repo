@@ -34,3 +34,5 @@ vendor-packinglist-create/.env1
 sapui5/storestock/.env2
 # auto generated wildcard
 sapui5/storestock/.env3
+# auto generated wildcard
+sapui5/storestock/.env4

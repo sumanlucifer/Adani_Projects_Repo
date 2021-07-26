@@ -10,9 +10,7 @@ sap.ui.define([
 
             onInit: function () {
                 jQuery.sap.addUrlWhitelist("blob");
-				// apply content density mode to root view
-				//this.addStyleClass(this.getContentDensityClass());
-
+                	this.getView().addStyleClass(this.getOwnerComponent().getContentDensityClass());
             }
 
 

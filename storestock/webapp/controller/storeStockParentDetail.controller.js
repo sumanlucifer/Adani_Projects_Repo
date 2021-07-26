@@ -15,10 +15,57 @@ sap.ui.define([
         return BaseController.extend("com.agel.mmts.storestock.controller.storeStockParentDetail", {
 
             onInit: function () {
-
                 this.oRouter = this.getRouter();
-                //this.oRouter.getRoute("RouteDetailPage").attachPatternMatched(this._onObjectMatched, this);
+                 this.initializeFilterBar();
+                var sampleDatajson = new sap.ui.model.json.JSONModel("model/Data.json");
 
+
+                this.getModel().setData({
+
+                    segement: {
+                        dept: null,
+                        count: null
+                    },
+
+                    vizdata: []
+
+
+
+                });
+
+                var data = {
+                    "items": [{
+                        "Department": "R & D",
+                        "EmployeeCount": "20"
+                    }, {
+                        "Department": "Syngenta",
+                        "EmployeeCount": "30"
+                    }, {
+                        "Department": "Volvo",
+                        "EmployeeCount": "35"
+                    }, {
+                        "Department": "NIKE",
+                        "EmployeeCount": "60"
+                    }, {
+                        "Department": "ADIDAS",
+                        "EmployeeCount": "70"
+                    }]
+                };
+                this.getModel().setProperty("/vizdata", data);
+
+            },
+
+            onPressSegment: function (eve) {
+                var dept = eve.getParameters().data[0].data.Department;
+                var count = eve.getParameters().data[0].data.count;
+                this.getModel().setProperty("/segement/dept", dept);
+                this.getModel().setProperty("/segement/dept", count);
+                this.segmentPage();
+            },
+
+
+            segmentPage: function (oEvent) {
+                this.getRouter().navTo("storeStockParentDetail");
             },
 
             _onObjectMatched: function (oEvent) {
@@ -32,13 +79,11 @@ sap.ui.define([
             },
             // on Go Search 
             onSearch: function (oEvent) {
-                var poNumber = this.byId("idNameInput").getValue();
-                var DateRange = this.byId("dateRangeSelectionId");
-                var DateRangeValue = this.byId("dateRangeSelectionId").getValue();
-                var PlantCode = this.byId("idPlantCode").getValue();
+                var searchField = this.byId("idSearchInput").getValue();
+                var DateValue = this.byId("DP1");
                 var MaterialCode = this.byId("idMaterialCode").getValue();
-                var CompanyCode = this.byId("idCompanyCode").getValue();
-                //  var CompanyCode = this.byId("idCompanyCode").getValue();
+                var PlantCode = this.byId("idSelPlant").getValue();
+
                 var orFilters = [];
                 var andFilters = [];
 
@@ -101,7 +146,7 @@ sap.ui.define([
             _showObject: function (oItem) {
                 var that = this;
                 var sObjectPath = oItem.getBindingContext().sPath;
-                that.getRouter().navTo("RoutePODetailPage", {
+                that.getRouter().navTo("storeStockChildDetail", {
                     POId: sObjectPath.slice("/PurchaseOrderSet".length) // /PurchaseOrders(123)->(123)
                 });
             }

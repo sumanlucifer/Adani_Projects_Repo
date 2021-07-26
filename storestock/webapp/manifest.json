@@ -1,144 +1,138 @@
 {
-  "_version": "1.32.0",
-  "sap.app": {
-    "id": "com.agel.mmts.storestock",
-    "type": "application",
-    "i18n": "i18n/i18n.properties",
-    "applicationVersion": {
-      "version": "1.0.0"
-    },
-    "title": "{{appTitle}}",
-    "description": "{{appDescription}}",
-    "resources": "resources.json",
-    "ach": "ach",
-    "dataSources": {
-      "mainService": {
-        "uri": "/api/v2/odata.svc/",
-        "type": "OData",
-        "settings": {
-          "odataVersion": "2.0",
-          "localUri": "localService/metadata.xml"
-        }
-      }
-		}
-  },
-  "sap.ui": {
-    "technology": "UI5",
-    "icons": {
-      "icon": "sap-icon://task",
-      "favIcon": "",
-      "phone": "",
-      "phone@2": "",
-      "tablet": "",
-      "tablet@2": ""
-    },
-    "deviceTypes": {
-      "desktop": true,
-      "tablet": true,
-      "phone": true
-    }
-  },
-
-  "sap.ui5": {
-    "flexEnabled": false,
-    "rootView": {
-      "viewName": "com.agel.mmts.storestock.view.App",
-      "type": "XML",
-      "async": true,
-      "id": "App"
-    },
-    "dependencies": {
-      "minUI5Version": "1.66.0",
-      "libs": {
-        "sap.ui.core": {},
-        "sap.m": {},
-        "sap.ui.layout": {}
-      }
-    },
-    "contentDensities": {
-      "compact": true,
-      "cozy": true
-    },
-    "models": {
-      "i18n": {
-        "type": "sap.ui.model.resource.ResourceModel",
-        "settings": {
-          "bundleName": "com.agel.mmts.storestock.i18n.i18n"
-        }
-      },
-      "": {
-				"type": "sap.ui.model.json.JSONModel",
-				"settings": {},
-				"preload": true
-            },
-            
-      "Data": {
-				
-				"type": "sap.ui.model.json.JSONModel",
-				"uri": "model/Data.json"
-				
-			},
-			"serverModel": {
-				"dataSource": "mainService",
-				"preload": true
-			}
-    },
-    "resources": {
-      "css": [
-        {
-          "uri": "css/style.css"
-        }
-      ]
-    },
-    "routing": {
-      "config": {
-        "routerClass": "sap.m.routing.Router",
-        "viewType": "XML",
-        "async": true,
-        "viewPath": "com.agel.mmts.storestock.view",
-        "controlAggregation": "pages",
-        "controlId": "app",
-        "clearControlAggregation": false,
-        "bypassed": {
-					"target": [
-						"notFound"
-					]
-				}
-      },
-      "routes": [
-        {
-          "name": "RouteApp",
-          "pattern": "",
-          "target": ["TargetApp"]
+    "_version": "1.32.0",
+    "sap.app": {
+        "id": "com.agel.mmts.storestock",
+        "type": "application",
+        "i18n": "i18n/i18n.properties",
+        "applicationVersion": {
+            "version": "1.0.0"
         },
-        
-
-        {
+        "title": "{{appTitle}}",
+        "description": "{{appDescription}}",
+        "resources": "resources.json",
+        "ach": "ach",
+        "dataSources": {
+            "mainService": {
+                "uri": "/api/v2/odata.svc/",
+                "type": "OData",
+                "settings": {
+                    "odataVersion": "2.0",
+                    "localUri": "localService/metadata.xml"
+                }
+            }
+        }
+    },
+    "sap.ui": {
+        "technology": "UI5",
+        "icons": {
+            "icon": "sap-icon://task",
+            "favIcon": "",
+            "phone": "",
+            "phone@2": "",
+            "tablet": "",
+            "tablet@2": ""
+        },
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": true
+        }
+    },
+    "sap.ui5": {
+        "flexEnabled": false,
+        "rootView": {
+            "viewName": "com.agel.mmts.storestock.view.App",
+            "type": "XML",
+            "async": true,
+            "id": "app"
+        },
+        "dependencies": {
+            "minUI5Version": "1.66.0",
+            "libs": {
+                "sap.ui.core": {},
+                "sap.m": {},
+                "sap.ui.layout": {}
+            }
+        },
+        "contentDensities": {
+            "compact": true,
+            "cozy": true
+        },
+        "models": {
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "settings": {
+                    "bundleName": "com.agel.mmts.storestock.i18n.i18n"
+                }
+            },
+            "": {
+                "type": "sap.ui.model.json.JSONModel",
+                "settings": {},
+                "preload": true
+            },
+            "Data": {
+                "type": "sap.ui.model.json.JSONModel",
+                "uri": "model/Data.json"
+            },
+            "serverModel": {
+                "dataSource": "mainService",
+                "preload": true
+            }
+        },
+        "resources": {
+            "css": [
+                {
+                    "uri": "css/style.css"
+                }
+            ]
+        },
+        "routing": {
+            "config": {
+                "routerClass": "sap.m.routing.Router",
+                "viewType": "XML",
+                "async": true,
+                "viewPath": "com.agel.mmts.storestock.view",
+                "controlAggregation": "pages",
+                "controlId": "app",
+                "clearControlAggregation": false,
+                "bypassed": {
+                    "target": [
+                        "notFound"
+                    ]
+                }
+            },
+            "routes": [
+                {
+                    "name": "RouteApp",
+                    "pattern": "",
+                    "target": [
+                        "TargetApp"
+                    ]
+                },
+                {
                     "name": "storeStockParentDetail",
                     "pattern": "storeParentPage",
                     "target": [
                         "storeStockParentDetail"
                     ]
                 },
-                   {
+                {
                     "name": "storeStockChildDetail",
                     "pattern": "storeChildPage",
                     "target": [
                         "storeStockChildDetail"
                     ]
                 }
-      ],
-      "targets": {
-        "TargetApp": {
-          "viewType": "XML",
-          "transition": "slide",
-          "clearControlAggregation": false,
-          "viewId": "chartDisplay",
-          "viewName": "chartDisplay",
-           "viewLevel": 1
-        },
-
-        "storeStockParentDetail": {
+            ],
+            "targets": {
+                "TargetApp": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewName": "storeStockParentDetail",
+                    "viewLevel": 1
+                },
+                "storeStockParentDetail": {
                     "viewType": "XML",
                     "transition": "slide",
                     "clearControlAggregation": false,
@@ -152,10 +146,10 @@
                     "viewName": "storeStockChildDetail",
                     "viewLevel": 2
                 },
-                 "notFound": {
-					"viewName": "NotFound"
-				}
-      }
+                "notFound": {
+                    "viewName": "NotFound"
+                }
+            }
+        }
     }
-  }
 }

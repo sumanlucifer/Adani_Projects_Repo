@@ -24,6 +24,10 @@
         <f:content>
             <IconTabBar id="idIconTabBar" select="onIconTabSelect" headerMode="Inline" expanded="true" class="sapUiResponsiveContentPadding">
                 <items>
+
+                  <IconTabFilter id="idOpenPOTabdwTitle" text="{i18n>OverView}" key="OPEN" count="{oIconTabCountModel>/openCount}">
+                        <core:Fragment fragmentName="com.agel.mmts.storestock.view.fragments.ParentdetailPage.ChartOverview" type="XML"/>
+                    </IconTabFilter>
                     <IconTabFilter id="idOpenPOTabTitle" text="{i18n>Unrestricted}" key="OPEN" count="{oIconTabCountModel>/openCount}">
                         <core:Fragment fragmentName="com.agel.mmts.storestock.view.fragments.ParentdetailPage.UnRestricted" type="XML"/>
                     </IconTabFilter>
