@@ -18,7 +18,7 @@
                         <Input id="idInputQRCode" width="100%" showSuggestion="true" showValueHelp="false" 
                             placeholder="Enter QR Number" valueLiveUpdate="true" class="sapUiSmallMarginEnd" enabled="{oViewModel>/inputQRCode}">
                         </Input>
-                        <Button id="idQRBtn" text="Submit" type="Emphasized" press="onPressSubmitQRCode" class="sapUiSmallMarginEnd" enabled="{oViewModel>/submitQRCode}"/>
+                        <Button id="idQRBtn" text="Submit" type="Emphasized" press="onPressSubmitQRCode" class="sapUiSmallMarginBegin" enabled="{oViewModel>/submitQRCode}"/>
                     </HBox>
                     <HBox alignItems="Center">
                         <Text text="OR" class="sapUiTinyMargin"/>

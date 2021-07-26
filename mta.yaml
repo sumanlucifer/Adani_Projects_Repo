@@ -16,7 +16,7 @@ modules:
     properties:
       forwardAuthToken: true
       name: AGEL_MMTS_API
-      url: https://agel-mmts-api.cfapps.ap11.hana.ondemand.com/
+      url: https://qa-agel-mmts-api.cfapps.ap11.hana.ondemand.com/
   parameters:
     disk-quota: 256M
     keep-existing-routes: true
@@ -87,11 +87,7 @@ modules:
       - security-scanqr-content.zip
       name: security-scanqr
       target-path: resources/
-    - artifacts:
-      - storeincharge-totaldetails-content.zip
-      name: storeinchargetotaldetails
-      target-path: resources/
-    - artifacts:
+    - artifacts: 
       - vendor-map-mdcc-content.zip
       name: vendor-map-mdcc
       target-path: resources/
@@ -102,14 +98,6 @@ modules:
     - artifacts:
       - storeincharge-raisedpo-content.zip
       name: storeincharge-raisedpo
-      target-path: resources/
-    - artifacts:
-      - storeincharge-intransitpo-content.zip
-      name: storeincharge-intransitpo
-      target-path: resources/
-    - artifacts:
-      - storeincharge-receivedpo-content.zip
-      name: storeincharge-receivedpo
       target-path: resources/
     - artifacts:
       - storeincharge-scanqr-content.zip
@@ -269,15 +257,7 @@ modules:
     builder: custom
     commands:
     - npm run build
-    supported-platforms: []
-- name: storeinchargetotaldetails
-  type: html5
-  path: storeincharge-totaldetails
-  build-parameters:
-    builder: custom
-    commands:
-    - npm run build
-    supported-platforms: []
+    supported-platforms: []   
 - name: vendor-map-mdcc
   type: html5
   path: vendor-map-mdcc
@@ -293,23 +273,7 @@ modules:
     builder: custom
     commands:
     - npm run build
-    supported-platforms: []
-- name: storeincharge-intransitpo
-  type: html5
-  path: storeincharge-intransitpo
-  build-parameters:
-    builder: custom
-    commands:
-    - npm run build
-    supported-platforms: []
-- name: storeincharge-receivedpo
-  type: html5
-  path: storeincharge-receivedpo
-  build-parameters:
-    builder: custom
-    commands:
-    - npm run build
-    supported-platforms: []
+    supported-platforms: []  
 - name: storeincharge-scanqr
   type: html5
   path: storeincharge-scanqr

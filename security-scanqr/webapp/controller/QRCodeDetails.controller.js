@@ -93,12 +93,12 @@ sap.ui.define([
 
                     var oPayload = {
                         "QRCodeId": that.qrCodeID,
-                        "PackingListId": PackingListId,
+                        // "PackingListId": PackingListId,
                         "UserId": userInfo,
-                        "PONumber": PONumber
+                        // "PONumber": PONumber
                     };
 
-                    this.MainModel.create("/ScannedMaterialSet", oPayload, {
+                    this.MainModel.create("/ScannedMaterialEdmSet", oPayload, {
                         success: function (oData, oResponse) {
                             that.scannedMaterialID = oData.ID;
                             // objectViewModel.setProperty("/busy", false);

@@ -5,6 +5,3 @@
 package-lock.json
 /dist/
 
-
-# auto generated wildcard
-agel-mmts-web/admin-po_summary/.env1

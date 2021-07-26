@@ -9,11 +9,3 @@ package-lock.json
 *.zip
 *.env
 .env
-
-
-
-
-# auto generated wildcard
-vendor-packinglist-create/.env1
-# auto generated wildcard
-agel-mmts-web/admin-po_summary/.env1
