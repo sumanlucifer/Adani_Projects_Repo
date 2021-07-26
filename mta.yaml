@@ -98,7 +98,7 @@ modules:
     - artifacts:
       - storeincharge-raisedpo-content.zip
       name: storeincharge-raisedpo
-      target-path: resources/ 
+      target-path: resources/
     - artifacts:
       - storeincharge-scanqr-content.zip
       name: storeincharge-scanqr
@@ -107,15 +107,18 @@ modules:
       - storeincharge-approvals-content.zip
       name: storeincharge-approvals
       target-path: resources/
-    - artifacts:  
+    - artifacts:
       - unloadmaterial-content.zip
       name: unloadmaterial
-      target-path: resources/ 
-    - artifacts:  
+      target-path: resources/
+    - artifacts:
       - comagelmmtsvendorpackinglistcreate-content.zip
       name: packingListCreate
-      target-path: resources/   
-
+      target-path: resources/
+    - artifacts:
+      - comagelmmtsadminposummary.zip
+      name: comagelmmtsadminposummary
+      target-path: resources/
 - name: launchpad
   type: com.sap.application.content
   path: launchpad
@@ -135,7 +138,6 @@ modules:
       TENANT_HOST_PATTERN: ^(.*)-agel-mmts-web-approuter.${default-domain}
   deployed-after:
   - agel-mmts-web_ui_deployer
-
 - name: vendorPersona
   type: html5
   path: vendorPersona
@@ -263,7 +265,7 @@ modules:
     builder: custom
     commands:
     - npm run build
-    supported-platforms: []  
+    supported-platforms: []
 - name: storeincharge-raisedpo
   type: html5
   path: storeincharge-raisedpo
@@ -279,7 +281,7 @@ modules:
     builder: custom
     commands:
     - npm run build
-    supported-platforms: []    
+    supported-platforms: []
 - name: unloadmaterial
   type: html5
   path: unloadmaterial
@@ -287,7 +289,7 @@ modules:
     builder: custom
     commands:
     - npm run build
-    supported-platforms: []  
+    supported-platforms: []
 - name: storeincharge-approvals
   type: html5
   path: storeincharge-approvals
@@ -295,7 +297,17 @@ modules:
     builder: custom
     commands:
     - npm run build
-    supported-platforms: []       
+    supported-platforms: []
+- name: comagelmmtsadminposummary
+  type: html5
+  path: admin-po_summary
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build
+    supported-platforms: []
 resources:
 - name: uaa_agel-mmts-web
   type: org.cloudfoundry.managed-service

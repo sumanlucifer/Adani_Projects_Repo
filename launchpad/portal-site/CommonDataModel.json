@@ -119,6 +119,10 @@
 					"id": "com.agel.mmts.mdmouterpackinglist-4-1626346826302",
 					"appId": "com.agel.mmts.mdmouterpackinglist",
 					"vizId": "OuterPackingListType-Manage"
+				}, {
+					"id": "com.agel.mmts.adminposummary-5-1627278970509",
+					"appId": "com.agel.mmts.adminposummary",
+					"vizId": "PO_Summary-Display"
 				}]
 			}
 		}, {
