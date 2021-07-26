@@ -9,27 +9,3 @@ package-lock.json
 *.zip
 *.env
 .env
-
-
-
-
-# auto generated wildcard
-vendor-packinglist-create/.env1
-# auto generated wildcard
-storeincharge-raisedpo/.env4
-# auto generated wildcard
-storeincharge-scanqr/.env3
-# auto generated wildcard
-security-scan-history/.env4
-# auto generated wildcard
-security-scanqr/.env6
-# auto generated wildcard
-pmcg/.env7
-# auto generated wildcard
-security-international-import/.env3
-# auto generated wildcard
-tcengineer/.env5
-# auto generated wildcard
-vendor-manageboq/.env1
-# auto generated wildcard
-vendor-manageboq/.env2
