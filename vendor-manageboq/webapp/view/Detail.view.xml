@@ -32,7 +32,7 @@
         </uxap:headerTitle>
         <uxap:headerContent>
             <FlexBox class="sapUiSmallMarginBottom">
-                <CheckBox text="No Parent-Child relation applicable." selected="{objectViewModel>/noParentChildRelationFlag}" />
+                <CheckBox text="{i18n>parentChild}" selected="{objectViewModel>/noParentChildRelationFlag}" />
             </FlexBox>
             <FlexBox direction="Row" renderType="Bare" class="sapUiTinyMarginBottom">
                 <VBox renderType="Bare" class="sapUiMediumMarginEnd">
@@ -120,7 +120,7 @@
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection visible="{= ${objectViewModel>/isCreatingPCList}}">
                         <VBox renderType="Bare">
-                            <MessageStrip text="BOQ items for 1 quantity of {Name}." type="Information" showIcon="true" class="sapUiMediumMarginBottom" visible="{= ${objectViewModel>/noParentChildRelationFlag} ? false : true }" />
+                            <MessageStrip text="BOQ Items for 1 quantity of {Name}." type="Information" showIcon="true" class="sapUiMediumMarginBottom" visible="{= ${objectViewModel>/noParentChildRelationFlag} ? false : true }" />
 
 
                             <Table id="idManageBOQTable" growing="true" growingThreshold="10" items="{ManageBOQModel>/boqItems}" visible="{= ${objectViewModel>/noParentChildRelationFlag} ? false : true }">
@@ -128,7 +128,7 @@
                                     <OverflowToolbar>
                                         <content>
                                             <ToolbarSpacer/>
-                                            <Button text="Add row" icon="sap-icon://add" press="onAddItemPress"></Button>
+                                            <Button text="Add Row" icon="sap-icon://add" press="onAddItemPress"></Button>
                                             <Button text="Save" icon="sap-icon://save" iconFirst="true" press="onSaveManagedBOQItemsPress" type="Emphasized"/>
                                             <Button text="Cancel" icon="sap-icon://cancel" iconFirst="true" press="onCancelPCListCreationPress"/>
                                         </content>
@@ -136,10 +136,10 @@
                                 </headerToolbar>
                                 <columns>
                                     <Column>
-                                        <Text text="Child name"/>
+                                        <Text text="Child Name"/>
                                     </Column>
                                     <Column>
-                                        <Text text="Material code"/>
+                                        <Text text="Material Code"/>
                                     </Column>
                                     <Column>
                                         <Text text="Description"/>
@@ -168,7 +168,7 @@
                                             </Select>
                                             <Text data:p="MaterialCode" text="{ManageBOQModel>MaterialCode}"/>
                                             <Text data:p="Description" text="{ManageBOQModel>Description}"/>
-                                            <Input value="{ManageBOQModel>Qty}"/>
+                                            <Input value="{ManageBOQModel>Qty}"  liveChange="onLiveChangeQty" type="Number"/>
                                             <VBox>
                                                 <Link text="{= ${ManageBOQModel>Remarks}.length ? 'View remarks' : 'Add remarks'}" press="openAddRemarksPopupPress"/>
                                                 <!--  <ExpandableText text="{ManageBOQModel>Remarks}" overflowMode="Popover" visible="{= ${ManageBOQModel>Remarks}.length ? true : false}"/> -->

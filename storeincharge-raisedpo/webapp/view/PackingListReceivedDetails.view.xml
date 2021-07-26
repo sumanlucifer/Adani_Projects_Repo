@@ -117,44 +117,48 @@
                     <uxap:ObjectPageSubSection title="{i18n>UDDetails}">
                         <uxap:blocks>
                             <f:SimpleForm layout="ColumnLayout" columnsM="2" columnsL="3" columnsXL="4" 
-                                  singleContainerFullSize="true" class="style-RemoveTitleHeight" binding="{UDDetail}">
+                                  singleContainerFullSize="true" class="style-RemoveTitleHeight">
                                 <f:content>
+                                    <Label text="Gate Entry ID" />
+                                    <Text text="{GateEntryNumber}" />
+                                    <Label text="Unloading Status" />
+                                    <Text text="{UDStatus}" />
                                     <Label text="PO Number"/>
-                                    <Text text="{poNumber}"/>
+                                    <Text text="{poNumber}"  binding="{UDDetail}"/>
                                     <Label text="Inspection IoT Number"/>
-                                    <Text text="{InspectionLotNumber}"/>
+                                    <Text text="{InspectionLotNumber}"  binding="{UDDetail}"/>
                                     <Label text="Plant" />
-                                    <Text text="{PackagingReferenceNumber}"/>
+                                    <Text text="{PackagingReferenceNumber}"  binding="{UDDetail}"/>
                                     <Label text="Material Document"/>
-                                    <Text text="{MaterialDocuemntNumber}"/>
+                                    <Text text="{MaterialDocuemntNumber}"  binding="{UDDetail}"/>
                                     <Label text="Code group/ sel. set"/>
-                                    <Text text="{CodeGroup}"/>
+                                    <Text text="{CodeGroup}"  binding="{UDDetail}"/>
                                     <Label text="PO Date"/>
                                     <Text text="{path:'PostingDate',
                                      type: 'sap.ui.model.type.Date',
 				                     formatOptions: {
 				                        pattern: 'MMMM dd, yyyy'
-				                     }}" />
+				                     }}"  binding="{UDDetail}"/>
                                     <Label text="Charcterstic"/>
-                                    <Text text="{Characteristic}"/>
+                                    <Text text="{Characteristic}"  binding="{UDDetail}"/>
                                     <Label text="Mater insp.charac."/>
-                                    <Text text="{MasterInspCharac}"/>
+                                    <Text text="{MasterInspCharac}"  binding="{UDDetail}"/>
                                     <Label text="Short Text"/>
-                                    <Text text="{ShortText}"/>
+                                    <Text text="{ShortText}"  binding="{UDDetail}"/>
                                     <Label text="UD Selected Set"/>
-                                    <Text text="{UDSelectedSet}"/>
+                                    <Text text="{UDSelectedSet}"  binding="{UDDetail}"/>
                                     <Label text="UD Code Group"/>
-                                    <Text text="{CodeGroup}"/>
+                                    <Text text="{CodeGroup}" binding="{UDDetail}"/>
                                     <Label text="UD Code"/>
-                                    <Text text="{UDCode}"/>
+                                    <Text text="{UDCode}" binding="{UDDetail}"/>
                                     <Label text="Long Text"/>
-                                    <Text text="{LongText}"/>
+                                    <Text text="{LongText}" binding="{UDDetail}"/>
                                     <Label text="UD Code Date"/>
                                     <Text text="{path:'UDCodeDate',
                                      type: 'sap.ui.model.type.Date',
 				                     formatOptions: {
 				                        pattern: 'MMMM dd, yyyy'
-				                     }}" />
+				                     }}" binding="{UDDetail}"/>
                                 </f:content>
                             </f:SimpleForm>    
                         </uxap:blocks>
@@ -224,12 +228,12 @@
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection title="{i18n>PackListContains}">
                         <uxap:blocks>
-                            <linePackingItems:LineItemsTable class="sapUxAPObjectPageSubSectionAlignContent" OnViewQRCodePressSmart = "onViewQRCodePressSmart"/>
+                            <linePackingItems:LineItemsTable class="sapUxAPObjectPageSubSectionAlignContent"/>
                         </uxap:blocks>
                     </uxap:ObjectPageSubSection>
                     <uxap:ObjectPageSubSection title="Outer Packaging">
                         <uxap:blocks>
-                            <outerPackaging:OuterPackaging OnViewQRCodePressSmart="onViewQRCodePressSmart" class="sapUxAPObjectPageSubSectionAlignContent"/>
+                            <outerPackaging:OuterPackaging  class="sapUxAPObjectPageSubSectionAlignContent" OnViewQRCodePressSmart="onViewQRCodePressSmart"/>
                         </uxap:blocks>
                     </uxap:ObjectPageSubSection>
                     <uxap:ObjectPageSubSection title="Inner Packaging">
