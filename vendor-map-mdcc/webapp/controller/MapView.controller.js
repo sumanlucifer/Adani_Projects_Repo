@@ -48,32 +48,18 @@ sap.ui.define([
                 //Router Object
                 this.oRouter = this.getOwnerComponent().getRouter();
                 this.oRouter.getRoute("RouteMapView").attachPatternMatched(this._onObjectMatched, this);
-
                 this.getView().setModel(this.getOwnerComponent().getModel("i18n").getResourceBundle());
             },
 
             _onObjectMatched: function (oEvent) {
 
-                //debugger;
-                var startupParams = this.getOwnerComponent().getComponentData().startupParameters;
-             //   var startupParams={MDCCId:176,manage:"false"};
+               var startupParams = this.getOwnerComponent().getComponentData().startupParameters;
+              //  var startupParams={MDCCId:176,manage:"false"};
 
-                // startupParams.manage=false;
-                // get Startup params from Owner Component
-              //  if (startupParams.manage[0] === "true") {
-              //      this.oRouter.navTo("RouteInitiateDispatchPage", {
-              //          MDCCId: parseInt(startupParams.MDCCId[0])
-              //      }, false);
-              //  }
-              //  else {
-                    //   this.sObjectId = oEvent.getParameter("arguments").MDCCId;
                     this.sObjectId = startupParams.MDCCId[0];
                     // this.sObjectId = this.sObjectId;
                     this._getMDCCData();
                     this.getInspectedData();
-                  //  this._getParentData();
-                //    }
-                //   this._bindView("/PurchaseOrderSet" + sObjectId);
             },
 
             // Get MDCC Set Level Data For Post Operation
@@ -235,7 +221,7 @@ sap.ui.define([
                 var rowObj = oEvent.getSource().getParent().getRowBindingContext().getObject();
                 var MDCCApprovedQty = oEvent.getSource().getParent().getCells()[7].getValue();
                 var aCell = oEvent.getSource().getParent().getCells()[7];
-                if (parseInt(MDCCApprovedQty) > parseInt(rowObj.Qty)) {
+                if (parseInt(MDCCApprovedQty) > parseInt(rowObj.RemainingQty)) {
                     aCell.setValueState("Error");
                     aCell.setValueStateText("Please do not enter more quantity than remaining quantity")
                     this.getView().byId("idBtnSave").setEnabled(false);

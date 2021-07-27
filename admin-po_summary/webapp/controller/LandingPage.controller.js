@@ -141,20 +141,20 @@ sap.ui.define([
             }
 
             var idOpenPOTableBinding = this.getView().byId("idPurchaseOrdersTable").getTable().getBinding("items");
-            var idConfirmPOTableBinding = this.getView().byId("idConfirmPOTable").getTable().getBinding("items");
-            var idDispatchedPOTableBinding = this.getView().byId("idDispatchedPOTable").getTable().getBinding("items");
+           // var idConfirmPOTableBinding = this.getView().byId("idConfirmPOTable").getTable().getBinding("items");
+           // var idDispatchedPOTableBinding = this.getView().byId("idDispatchedPOTable").getTable().getBinding("items");
 
             if (andFilters.length == 0) {
                 andFilters.push(new Filter("PONumber", FilterOperator.NE, ""));
                 idOpenPOTableBinding.filter(new Filter(andFilters, true));
-                idConfirmPOTableBinding.filter(new Filter(andFilters, true));
-                idDispatchedPOTableBinding.filter(new Filter(andFilters, true));
+            //    idConfirmPOTableBinding.filter(new Filter(andFilters, true));
+            //    idDispatchedPOTableBinding.filter(new Filter(andFilters, true));
             }
 
             if (andFilters.length > 0) {
                 idOpenPOTableBinding.filter(new Filter(andFilters, true));
-                idConfirmPOTableBinding.filter(new Filter(andFilters, true));
-                idDispatchedPOTableBinding.filter(new Filter(andFilters, true));
+           //     idConfirmPOTableBinding.filter(new Filter(andFilters, true));
+           //     idDispatchedPOTableBinding.filter(new Filter(andFilters, true));
             }
             // oTableBinding.filter(mFilters);
         },
@@ -168,11 +168,11 @@ sap.ui.define([
             this.byId("idCompanyCode").setValue("");
 
             var idOpenPOTableBinding = this.getView().byId("idPurchaseOrdersTable").getTable().getBinding("items");
-            var idConfirmPOTableBinding = this.getView().byId("idConfirmPOTable").getTable().getBinding("items");
-            var idDispatchedPOTableBinding = this.getView().byId("idDispatchedPOTable").getTable().getBinding("items");
+//            var idConfirmPOTableBinding = this.getView().byId("idConfirmPOTable").getTable().getBinding("items");
+ //           var idDispatchedPOTableBinding = this.getView().byId("idDispatchedPOTable").getTable().getBinding("items");
             idOpenPOTableBinding.filter([]);
-            idConfirmPOTableBinding.filter([]);
-            idDispatchedPOTableBinding.filter([]);
+  //          idConfirmPOTableBinding.filter([]);
+  //          idDispatchedPOTableBinding.filter([]);
             this.oFilterBar.fireFilterChange();
         },
 

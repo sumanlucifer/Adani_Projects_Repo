@@ -258,15 +258,21 @@ sap.ui.define([
                 that.MainModel.create("/MDCCEdmSet", oPayload, {
                     success: function (oData, oResponse) {
                         that.getComponentModel("app").setProperty("/busy", false);
-                        
-                        sap.m.MessageBox.success("Selected items processed successfully", {
-                            title: "Success",
-                            onClose: function (oAction1) {
-                                if (oAction1 === sap.m.MessageBox.Action.OK) {
-                                    that.onNavigateToPackingList(oData.ID);
-                                }
-                            }.bind(this)
-                        });
+                        if (oData.Sucess == true) {
+                            sap.m.MessageBox.success("Selected items processed successfully", {
+                                title: "Success",
+                                onClose: function (oAction1) {
+                                    if (oAction1 === sap.m.MessageBox.Action.OK) {
+                                        that.onNavigateToPackingList(oData.ID);
+                                    }
+                                }.bind(this)
+                            });
+                        }
+                        else {
+                            sap.m.MessageBox.Error(oData.Message, {
+                                title: "Error"
+                            });
+                        }
                     }.bind(this),
                     error: function (oError) {
                         that.getComponentModel("app").setProperty("/busy", false);
