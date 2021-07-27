@@ -128,7 +128,11 @@ sap.ui.define([
         onLiveChangeInspectionQty : function(oEvent){
             var InspectQuantity = parseInt(oEvent.getSource().getValue());
             var Quantity = parseInt(oEvent.getSource().getParent().getCells()[3].getText());
-
+            if( InspectQuantity < 0 ){
+                oEvent.getSource().setValueState("Error");
+                oEvent.getSource().setValueStateText("Please enter positive value");
+                return 0;
+            }
             if ( InspectQuantity > Quantity ){
                 oEvent.getSource().setValueState("Error");
                 oEvent.getSource().setValueStateText("Please enter less inspected quantity than quantity");
