@@ -5,3 +5,6 @@
 package-lock.json
 /dist/
 
+
+# auto generated wildcard
+unloadmaterial/.env2

@@ -1,0 +1,248 @@
+{
+    "resources": [
+        {
+            "name": "../storeinchargetotaldetails/utils/formatter.js"
+        },
+        {
+            "name": "../storeinchargetotaldetails/i18n/i18n_en_US.properties",
+            "raw": "i18n/i18n.properties",
+            "locale": "_en_US"
+        },
+        {
+            "name": "../storeinchargetotaldetails/i18n/i18n_en.properties",
+            "raw": "i18n/i18n.properties",
+            "locale": "_en"
+        },
+        {
+            "name": "../storeinchargetotaldetails/i18n/i18n.properties",
+            "raw": "i18n/i18n.properties"
+        },
+        {
+            "name": "../storeinchargetotaldetails/view/blocks/PackingListDetails/packagingListContains/LineItemsTableController.controller.js"
+        },
+        {
+            "name": "../storeinchargetotaldetails/view/blocks/PackingListDetails/packagingListContains/blocks/LineItemsTable.js"
+        },
+        {
+            "name": "../storeinchargetotaldetails/view/blocks/PackingListDetails/outerPackaging/blocks/OuterPackaging.js"
+        },
+        {
+            "name": "../storeinchargetotaldetails/view/blocks/PackingListDetails/lineItemsTable/blocks/LineItemsTable.js"
+        },
+        {
+            "name": "../storeinchargetotaldetails/view/blocks/PackingListDetails/innerPackaging/blocks/InnerPackaging.js"
+        },
+        {
+            "name": "../storeinchargetotaldetails/view/blocks/LandingPage/packingItemsForm/blocks/PackingItemsForm.js"
+        },
+        {
+            "name": "../storeinchargetotaldetails/manifest.json"
+        },
+        {
+            "name": "../storeinchargetotaldetails/view/blocks/PackingListDetails/outerPackaging/OuterPackagingController.controller.js"
+        },
+        {
+            "name": "../storeinchargetotaldetails/view/blocks/PackingListDetails/lineItemsTable/LineItemsTableController.controller.js"
+        },
+        {
+            "name": "../storeinchargetotaldetails/view/blocks/PackingListDetails/innerPackaging/InnerPackagingController.controller.js"
+        },
+        {
+            "name": "../storeinchargetotaldetails/view/blocks/LandingPage/sowForm/SOWForm.js"
+        },
+        {
+            "name": "../storeinchargetotaldetails/view/blocks/LandingPage/sellerForm/SellerForm.js"
+        },
+        {
+            "name": "../storeinchargetotaldetails/view/blocks/LandingPage/packingItemsForm/PackingItemsFormController.controller.js"
+        },
+        {
+            "name": "../storeinchargetotaldetails/view/blocks/LandingPage/lineItemsForm/LineItemsForm.js"
+        },
+        {
+            "name": "../storeinchargetotaldetails/view/blocks/LandingPage/buyerForm/BuyerForm.js"
+        },
+        {
+            "name": "../storeinchargetotaldetails/i18n/i18n_en_GB.properties",
+            "raw": "i18n/i18n.properties",
+            "locale": "_en_GB"
+        },
+        {
+            "name": "../storeinchargetotaldetails/model/models.js"
+        },
+        {
+            "name": "../storeinchargetotaldetails/controller/PackingListDetails.controller.js"
+        },
+        {
+            "name": "../storeinchargetotaldetails/controller/NotFound.controller.js"
+        },
+        {
+            "name": "../storeinchargetotaldetails/controller/LandingPage.controller.js"
+        },
+        {
+            "name": "../storeinchargetotaldetails/controller/ErrorHandler.js"
+        },
+        {
+            "name": "../storeinchargetotaldetails/controller/BaseController.js"
+        },
+        {
+            "name": "../storeinchargetotaldetails/controller/App.controller.js"
+        },
+        {
+            "name": "../storeinchargetotaldetails/Component.js"
+        },
+        {
+            "name": "../storeinchargetotaldetails/manifest-bundle.zip"
+        },
+        {
+            "name": "../storeinchargetotaldetails/Component-preload.js",
+            "merged": true
+        },
+        {
+            "name": "../storeinchargetotaldetails/view/blocks/LandingPage/packingItemsForm/PackingItemsFormController-dbg.controller.js",
+            "isDebug": true
+        },
+        {
+            "name": "../storeinchargetotaldetails/view/blocks/PackingListDetails/outerPackaging/blocks/OuterPackaging-dbg.js",
+            "isDebug": true
+        },
+        {
+            "name": "../storeinchargetotaldetails/view/blocks/PackingListDetails/lineItemsTable/blocks/LineItemsTable-dbg.js",
+            "isDebug": true
+        },
+        {
+            "name": "../storeinchargetotaldetails/view/blocks/PackingListDetails/innerPackaging/blocks/InnerPackaging-dbg.js",
+            "isDebug": true
+        },
+        {
+            "name": "../storeinchargetotaldetails/view/blocks/LandingPage/packingItemsForm/blocks/PackingItemsForm-dbg.js",
+            "isDebug": true
+        },
+        {
+            "name": "../storeinchargetotaldetails/view/blocks/PackingListDetails/packagingListContains/LineItemsTableController-dbg.controller.js",
+            "isDebug": true
+        },
+        {
+            "name": "../storeinchargetotaldetails/view/blocks/LandingPage/sellerForm/SellerForm-dbg.js",
+            "isDebug": true
+        },
+        {
+            "name": "../storeinchargetotaldetails/view/blocks/LandingPage/sowForm/SOWForm-dbg.js",
+            "isDebug": true
+        },
+        {
+            "name": "../storeinchargetotaldetails/view/blocks/PackingListDetails/outerPackaging/OuterPackagingController-dbg.controller.js",
+            "isDebug": true
+        },
+        {
+            "name": "../storeinchargetotaldetails/view/blocks/PackingListDetails/lineItemsTable/LineItemsTableController-dbg.controller.js",
+            "isDebug": true
+        },
+        {
+            "name": "../storeinchargetotaldetails/view/blocks/PackingListDetails/innerPackaging/InnerPackagingController-dbg.controller.js",
+            "isDebug": true
+        },
+        {
+            "name": "../storeinchargetotaldetails/view/blocks/PackingListDetails/packagingListContains/blocks/LineItemsTable-dbg.js",
+            "isDebug": true
+        },
+        {
+            "name": "../storeinchargetotaldetails/view/blocks/LandingPage/lineItemsForm/LineItemsForm-dbg.js",
+            "isDebug": true
+        },
+        {
+            "name": "../storeinchargetotaldetails/view/blocks/LandingPage/buyerForm/BuyerForm-dbg.js",
+            "isDebug": true
+        },
+        {
+            "name": "../storeinchargetotaldetails/utils/formatter-dbg.js",
+            "isDebug": true
+        },
+        {
+            "name": "../storeinchargetotaldetails/model/models-dbg.js",
+            "isDebug": true
+        },
+        {
+            "name": "../storeinchargetotaldetails/controller/PackingListDetails-dbg.controller.js",
+            "isDebug": true
+        },
+        {
+            "name": "../storeinchargetotaldetails/controller/NotFound-dbg.controller.js",
+            "isDebug": true
+        },
+        {
+            "name": "../storeinchargetotaldetails/controller/LandingPage-dbg.controller.js",
+            "isDebug": true
+        },
+        {
+            "name": "../storeinchargetotaldetails/controller/ErrorHandler-dbg.js",
+            "isDebug": true
+        },
+        {
+            "name": "../storeinchargetotaldetails/controller/BaseController-dbg.js",
+            "isDebug": true
+        },
+        {
+            "name": "../storeinchargetotaldetails/controller/App-dbg.controller.js",
+            "isDebug": true
+        },
+        {
+            "name": "../storeinchargetotaldetails/Component-dbg.js",
+            "isDebug": true
+        },
+        {
+            "name": "../../../../sap-ui-version.json"
+        },
+        {
+            "name": "../storeinchargetotaldetails/view/blocks/PackingListDetails/packagingListContains/LineItemsTable.view.xml"
+        },
+        {
+            "name": "../storeinchargetotaldetails/view/blocks/PackingListDetails/outerPackaging/OuterPackaging.view.xml"
+        },
+        {
+            "name": "../storeinchargetotaldetails/view/blocks/PackingListDetails/lineItemsTable/LineItemsTable.view.xml"
+        },
+        {
+            "name": "../storeinchargetotaldetails/view/blocks/PackingListDetails/innerPackaging/InnerPackaging.view.xml"
+        },
+        {
+            "name": "../storeinchargetotaldetails/view/blocks/LandingPage/sowForm/SOWForm.view.xml"
+        },
+        {
+            "name": "../storeinchargetotaldetails/view/blocks/LandingPage/sellerForm/SellerForm.view.xml"
+        },
+        {
+            "name": "../storeinchargetotaldetails/view/blocks/LandingPage/packingItemsForm/PackingItemsForm.view.xml"
+        },
+        {
+            "name": "../storeinchargetotaldetails/view/blocks/LandingPage/lineItemsForm/LineItemsForm.view.xml"
+        },
+        {
+            "name": "../storeinchargetotaldetails/view/blocks/LandingPage/buyerForm/BuyerForm.view.xml"
+        },
+        {
+            "name": "../storeinchargetotaldetails/view/fragments/common/lineItems.fragment.xml"
+        },
+        {
+            "name": "../storeinchargetotaldetails/view/fragments/QRCodeViewer.fragment.xml"
+        },
+        {
+            "name": "../storeinchargetotaldetails/view/PackingListDetails.view.xml"
+        },
+        {
+            "name": "../storeinchargetotaldetails/view/NotFound.view.xml"
+        },
+        {
+            "name": "../storeinchargetotaldetails/view/LandingPage.view.xml"
+        },
+        {
+            "name": "../storeinchargetotaldetails/view/App.view.xml"
+        },
+        {
+            "name": "../storeinchargetotaldetails/css/style.css"
+        },
+        {
+            "name": "../storeinchargetotaldetails/index.html"
+        }
+    ]
+}

@@ -30,8 +30,8 @@
         <items>
             <ColumnListItem>
                 <cells>
-                    <ObjectIdentifier title="{PackagingType}"/>
-                    <ObjectIdentifier title="{LineNumber}"/>
+                    <Text text="{PackagingType}"/>
+                    <Text text="{Name}"/>
                     <!-- <Text text="{DispatchQty}"/> -->
                     <Text text="{PackagingQty}"/>
                     <Text text="{UOM}"/>

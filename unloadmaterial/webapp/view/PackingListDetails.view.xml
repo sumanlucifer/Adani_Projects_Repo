@@ -38,7 +38,7 @@
                     <Title text="Packing List Details - {Name}" wrapping="true" titleStyle="Auto"/>
                 </uxap:snappedTitleOnMobile>
                 <uxap:actions>
-                   <Button id="idStartUnloadingMat" text="{i18n>startunloadingmat}" type="Emphasized" press="onStartUnloading"/>
+                   <Button id="idStartUnloadingMat" text="{i18n>startunloadingmat}" type="Emphasized" press="onStartUnloading" visible="{= ${Status}!== 'UNLOADING COMPLETED'}"/>
                 </uxap:actions>
             </uxap:ObjectPageDynamicHeaderTitle>
         </uxap:headerTitle>
