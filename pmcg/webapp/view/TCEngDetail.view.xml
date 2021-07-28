@@ -117,7 +117,7 @@
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection title="{i18n>mdccDocuments}">
                         <uxap:blocks>
-                            <VBox renderType="Bare" class="sapUiLargeMarginTop">
+                            <VBox renderType="Bare" class="sapUiLargeMarginBegin">
                                 <!-- <Title text="Uploaded Documents" level="H1"/> -->
                                 <VBox id="idMDCCUploadArea">
                                     <UploadCollection id="idMDCCUploader" maximumFilenameLength="55" maximumFileSize="10" 

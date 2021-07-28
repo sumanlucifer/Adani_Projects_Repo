@@ -16,7 +16,7 @@ modules:
     properties:
       forwardAuthToken: true
       name: AGEL_MMTS_API
-      url: https://agel-mmts-api.cfapps.ap11.hana.ondemand.com/
+      url: https://qa-agel-mmts-api.cfapps.ap11.hana.ondemand.com/
   parameters:
     disk-quota: 256M
     keep-existing-routes: true
@@ -87,10 +87,6 @@ modules:
       - security-scanqr-content.zip
       name: security-scanqr
       target-path: resources/
-    - artifacts:
-      - storeincharge-totaldetails-content.zip
-      name: storeinchargetotaldetails
-      target-path: resources/  
     - artifacts: 
       - vendor-map-mdcc-content.zip
       name: vendor-map-mdcc
@@ -102,14 +98,6 @@ modules:
     - artifacts:
       - storeincharge-raisedpo-content.zip
       name: storeincharge-raisedpo
-      target-path: resources/ 
-    - artifacts:
-      - storeincharge-intransitpo-content.zip
-      name: storeincharge-intransitpo
-      target-path: resources/
-    - artifacts:
-      - storeincharge-receivedpo-content.zip
-      name: storeincharge-receivedpo
       target-path: resources/
     - artifacts:
       - storeincharge-scanqr-content.zip
@@ -119,15 +107,18 @@ modules:
       - storeincharge-approvals-content.zip
       name: storeincharge-approvals
       target-path: resources/
-    - artifacts:  
+    - artifacts:
       - unloadmaterial-content.zip
       name: unloadmaterial
-      target-path: resources/ 
-    - artifacts:  
+      target-path: resources/
+    - artifacts:
       - comagelmmtsvendorpackinglistcreate-content.zip
       name: packingListCreate
-      target-path: resources/   
-
+      target-path: resources/
+    - artifacts:
+      - comagelmmtsadminposummary.zip
+      name: comagelmmtsadminposummary
+      target-path: resources/
 - name: launchpad
   type: com.sap.application.content
   path: launchpad
@@ -147,7 +138,6 @@ modules:
       TENANT_HOST_PATTERN: ^(.*)-agel-mmts-web-approuter.${default-domain}
   deployed-after:
   - agel-mmts-web_ui_deployer
-
 - name: vendorPersona
   type: html5
   path: vendorPersona
@@ -267,15 +257,7 @@ modules:
     builder: custom
     commands:
     - npm run build
-    supported-platforms: []
-- name: storeinchargetotaldetails
-  type: html5
-  path: storeincharge-totaldetails
-  build-parameters:
-    builder: custom
-    commands:
-    - npm run build
-    supported-platforms: []    
+    supported-platforms: []   
 - name: vendor-map-mdcc
   type: html5
   path: vendor-map-mdcc
@@ -283,7 +265,7 @@ modules:
     builder: custom
     commands:
     - npm run build
-    supported-platforms: []  
+    supported-platforms: []
 - name: storeincharge-raisedpo
   type: html5
   path: storeincharge-raisedpo
@@ -292,22 +274,6 @@ modules:
     commands:
     - npm run build
     supported-platforms: []  
-- name: storeincharge-intransitpo
-  type: html5
-  path: storeincharge-intransitpo
-  build-parameters:
-    builder: custom
-    commands:
-    - npm run build
-    supported-platforms: []  
-- name: storeincharge-receivedpo
-  type: html5
-  path: storeincharge-receivedpo
-  build-parameters:
-    builder: custom
-    commands:
-    - npm run build
-    supported-platforms: []
 - name: storeincharge-scanqr
   type: html5
   path: storeincharge-scanqr
@@ -315,7 +281,7 @@ modules:
     builder: custom
     commands:
     - npm run build
-    supported-platforms: []    
+    supported-platforms: []
 - name: unloadmaterial
   type: html5
   path: unloadmaterial
@@ -323,7 +289,7 @@ modules:
     builder: custom
     commands:
     - npm run build
-    supported-platforms: []  
+    supported-platforms: []
 - name: storeincharge-approvals
   type: html5
   path: storeincharge-approvals
@@ -331,7 +297,17 @@ modules:
     builder: custom
     commands:
     - npm run build
-    supported-platforms: []       
+    supported-platforms: []
+- name: comagelmmtsadminposummary
+  type: html5
+  path: admin-po_summary
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build
+    supported-platforms: []
 resources:
 - name: uaa_agel-mmts-web
   type: org.cloudfoundry.managed-service

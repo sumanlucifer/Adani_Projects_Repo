@@ -9,6 +9,7 @@ package-lock.json
 *.zip
 *.env
 .env
+<<<<<<< HEAD
 
 
 
@@ -17,3 +18,5 @@ package-lock.json
 vendor-packinglist-create/.env1
 # auto generated wildcard
 unloadmaterial/.env2
+=======
+>>>>>>> develop
