@@ -50,7 +50,7 @@
                         <uxap:blocks>
                             <Table id="idParentItemTable" width="auto" growing="true" growingThreshold="5" items="{path: 'ParentItemModel>/'}" fixedLayout="false" mode="MultiSelect" selectionChange="onSelectionChange">
                                 <columns>
-                                    <Column importance="High">
+                                    <Column>
                                         <Text text="{i18n>materialCode}" wrapping="true" wrappingType="Hyphenated"/>
                                     </Column>
                                     <Column>
@@ -96,7 +96,7 @@
                                 <Label text="Inspection Date" required="true"/>
                                 <DatePicker id="idDpInspectionDate" width="20%" value="{localAttachmentModel>/InspectionDate}" 
                                     valueFormat="yyyy-MM-dd" change="onLiveChangeDate"
-                                     placeholder="MMM/DD/YYYY"/>
+                                     placeholder="MM/DD/YYYY"/>
                                 <Title text="{i18n>additionalDetails}"/>
                                 <Label text="Comments" required="true"/>
                                 <TextArea id="idTxtComment" width="100%" value="{localAttachmentModel>/Comment}" 
