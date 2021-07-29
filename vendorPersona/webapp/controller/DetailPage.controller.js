@@ -30,6 +30,7 @@ sap.ui.define([
             var oIconTabCountModel = new JSONModel({
                 openCount: null,
                 confirmCount: null,
+                inProgressCount: null,
                 dispatchCount: null
             });
             this.setModel(oIconTabCountModel, "oIconTabCountModel");
@@ -41,16 +42,18 @@ sap.ui.define([
 
             //adding searchfield association to filterbar and initialize the filter bar -> added in base controller
             this.initializeFilterBar();
-        },
 
-        _onObjectMatched: function (oEvent) {
             var startupParams = this.getOwnerComponent().getComponentData().startupParameters;
             // get Startup params from Owner Component
             //if (startupParams.Kind[0]) {
                 this.type = startupParams.Kind[0];
                 this.byId("idIconTabBar").setSelectedKey(this.type);
-                this.onIconTabBarChanged(this.type);
+                
             //}
+        },
+
+        _onObjectMatched: function (oEvent) {
+            this.onIconTabBarChanged();
         },
 
         // Open Po Table Before Bind
@@ -64,6 +67,13 @@ sap.ui.define([
         onbeforeRebindConfirmPoTable: function (oEvent) {
             var mBindingParams = oEvent.getParameter("bindingParams");
             mBindingParams.filters.push(new Filter("Status", sap.ui.model.FilterOperator.EQ, "CONFIRMED"));
+            //mBindingParams.filters.push(new Filter("Vendor/Email", sap.ui.model.FilterOperator.EQ, "symantic.engineering@testemail.com"));
+        },
+
+        //InProgress PO Table
+        onBeforeRebindInProgressPOTable: function (oEvent) {
+            var mBindingParams = oEvent.getParameter("bindingParams");
+            mBindingParams.filters.push(new Filter("Status", sap.ui.model.FilterOperator.EQ, "IN PROGRESS"));
             //mBindingParams.filters.push(new Filter("Vendor/Email", sap.ui.model.FilterOperator.EQ, "symantic.engineering@testemail.com"));
         },
 
@@ -84,6 +94,11 @@ sap.ui.define([
             this.setIconTabCount(oEvent, oEvent.getParameter("total"), "/confirmCount");
         },
 
+        onInProgressTableUpdateFinished: function (oEvent) {
+            //Setting the header context for a property binding to $count                       
+            this.setIconTabCount(oEvent, oEvent.getParameter("total"), "/inProgressCount");
+        },
+
         onDispatchPOTableUpdateFinished: function (oEvent) {
             //Setting the header context for a property binding to $count               
             this.setIconTabCount(oEvent, oEvent.getParameter("total"), "/dispatchCount");
@@ -96,11 +111,14 @@ sap.ui.define([
         },
 
         // On Icon Tab Select
-        onIconTabBarChanged: function (sKey) {
+        onIconTabBarChanged: function () {
+            var sKey = this.byId("idIconTabBar").getSelectedKey();
              if (sKey === "OPEN") {
                  this.byId("pageTitle").setText(this.getResourceBundle().getText("OpenPO"));
              } else if (sKey === "CONFIRMED") {
                  this.byId("pageTitle").setText(this.getResourceBundle().getText("ConfirmedPO"));
+             } else if (sKey === "IN PROGRESS") {
+                 this.byId("pageTitle").setText(this.getResourceBundle().getText("inProgressPO"));
              } else if(sKey === "CLOSED") {
                  this.byId("pageTitle").setText(this.getResourceBundle().getText("ClosedPO"));
              }
@@ -114,6 +132,8 @@ sap.ui.define([
                  this.byId("pageTitle").setText(this.getResourceBundle().getText("OpenPO"));
              } else if (sKey === "CONFIRMED") {
                  this.byId("pageTitle").setText(this.getResourceBundle().getText("ConfirmedPO"));
+             } else if (sKey === "IN PROGRESS") {
+                 this.byId("pageTitle").setText(this.getResourceBundle().getText("inProgressPO"));
              } else if(sKey === "CLOSED") {
                  this.byId("pageTitle").setText(this.getResourceBundle().getText("ClosedPO"));
              }

@@ -33,6 +33,10 @@
                      <IconTabFilter text="{i18n>ConfirmedPO}" key="CONFIRMED" count="{oIconTabCountModel>/confirmCount}">
                           <core:Fragment fragmentName="com.agel.mmts.vendorPersona.view.fragments.detailPage.ConfirmedPOTable" type="XML"/>
                     </IconTabFilter>
+
+                    <IconTabFilter id="idInProgressPOTabTitle" text="{i18n>inProgressPO}" key="IN PROGRESS" count="{oIconTabCountModel>/inProgressCount}">
+                        <core:Fragment fragmentName="com.agel.mmts.vendorPersona.view.fragments.detailPage.InProgressPOTable" type="XML"/>
+                    </IconTabFilter>
                     
                     <IconTabFilter text="{i18n>ClosedPO}" key="CLOSED" count="{oIconTabCountModel>/dispatchCount}">
                        <core:Fragment fragmentName="com.agel.mmts.vendorPersona.view.fragments.detailPage.DispatchedPOTable" type="XML"/>

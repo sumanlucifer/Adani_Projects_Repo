@@ -2,7 +2,7 @@
     xmlns:l="sap.ui.layout"
     xmlns:f="sap.ui.layout.form"
     xmlns:core="sap.ui.core">
-    <Dialog title="Do you want to create this BOQ for {boqCreationModel>/selectedItemData/Name}?" id="materialFragment" >
+    <Dialog title="Do you want to create this BOQ for {boqCreationModel>/dialogTitle}?" id="materialFragment" contentWidth="50%">
         <content>
             <FlexBox wrap="Wrap" renderType="Bare" class="sapUiSmallMargin">
                 <Label text="Please enter the quantity"></Label>
