@@ -131,7 +131,7 @@
             </uxap:ObjectPageSection>
 
             <!-- Line Items Section -->
-            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>boqItems}" visible="{= ${Status}==='CONFIRMED' ? true : false}">
+            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>boqItems}" visible="{= ${Status}==='CONFIRMED' ? true : false || ${Status}==='IN PROGRESS' ? true : false}">
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection title="{i18n>boqItems}">
                         <uxap:blocks>
@@ -142,7 +142,7 @@
             </uxap:ObjectPageSection>
 
             <!-- Packing List Section -->
-            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>inspectionDetails}" visible="{= ${Status}==='CONFIRMED' ? true : false}">
+            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>inspectionDetails}" visible="{= ${Status}==='CONFIRMED' ? true : false || ${Status}==='IN PROGRESS' ? true : false}">
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection title="{i18n>inspectionDetails}">
                         <uxap:blocks>
@@ -153,7 +153,7 @@
             </uxap:ObjectPageSection>
 
             <!-- Packing List Section -->
-            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>packingLists}" visible="{= ${Status}==='CONFIRMED' ? true : false}">
+            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>packingLists}" visible="{= ${Status}==='IN PROGRESS' ? true : false}">
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection title="{i18n>packingLists}">
                         <uxap:blocks>

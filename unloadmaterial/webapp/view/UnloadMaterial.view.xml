@@ -35,7 +35,10 @@
                 </uxap:snappedTitleOnMobile>
                 <uxap:actions>
                    <Button id="idQRnotFound" text="{i18n>QRnotfound}" type="Ghost" press="onQrNotFoundPress"/>
+                   <Button id="idUnloadingComplete" visible="false" text="{i18n>UnloadingComplete}" type="Ghost" press="onUnloadingComplete"/>
+                   <Button id="idDoitLater" visible="false" text="{i18n>doitlater}" type="Ghost" press="onDoItLaterPress"/>
                    <Button id="idScanQR" text="{i18n>ScanQR}" type="Emphasized" press="onScanQRCodePress"/>
+                   <Button id="idRequestGRN" text="{i18n>ReqAutoGRN}" type="Emphasized" visible="false" press=""/>
                 </uxap:actions>
             </uxap:ObjectPageDynamicHeaderTitle>
         </uxap:headerTitle>

@@ -11,7 +11,6 @@
     xmlns="sap.m" 
     controllerName="com.agel.mmts.vendormdcc.controller.InitiateDispatch"
     height="100%">
-    <Shell id="shell">
 		<App id="app">
     <uxap:ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true" upperCaseAnchorBar="false"
          headerContentPinnable="true" toggleHeaderOnTitleClick="true" preserveHeaderStateOnScroll="true"
@@ -91,7 +90,9 @@
                     <uxap:ObjectPageSubSection title="{i18n>reasonApproveReject}">
                         <uxap:blocks>
                             <VBox alignContent="SpaceAround" items="{MDCCStatuses}" >
-                                <TextArea value="{Comment}" rows="3" cols="100%" enabled="false" width="100%"
+                                <!--<TextArea value="{Comment}" rows="3" cols="100%" enabled="false" width="100%"
+                                 class="sapUiTinyMarginTop"/>-->
+                                 <Text text="{Comment}" width="100%"
                                  class="sapUiTinyMarginTop"/>
                                 <!-- <ObjectAttribute title="{i18n>reasonApproveReject}" text="{Comment}"/> -->
                             </VBox>
@@ -197,5 +198,4 @@
         </uxap:sections>
     </uxap:ObjectPageLayout>
     </App>
-	</Shell>
 </mvc:View>

@@ -7,6 +7,7 @@ package-lock.json
 
 
 # auto generated wildcard
+<<<<<<< HEAD
 sapui5/storestock/.env2
 # auto generated wildcard
 sapui5/storestock/.env3
@@ -22,3 +23,6 @@ sapui5/raise-returnmaterial/.env1
 sapui5/returnmaterial/.env1
 # auto generated wildcard
 sapui5/fieldstock/.env1
+=======
+unloadmaterial/.env2
+>>>>>>> develop

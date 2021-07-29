@@ -116,7 +116,7 @@ modules:
       name: packingListCreate
       target-path: resources/
     - artifacts:
-      - comagelmmtsadminposummary.zip
+      - admin-po_summary-content.zip
       name: comagelmmtsadminposummary
       target-path: resources/
     - artifacts:
@@ -318,10 +318,8 @@ modules:
   type: html5
   path: admin-po_summary
   build-parameters:
-    build-result: dist
     builder: custom
     commands:
-    - npm install
     - npm run build
     supported-platforms: []
 - name: comagelmmtsstoreinchargereturnmaterial

@@ -30,12 +30,12 @@
         <items>
             <ColumnListItem>
                 <cells>
-                    <ObjectIdentifier title="{PackagingType}"/>
-                    <ObjectIdentifier title="{LineNumber}"/>
+                    <Text text="{PackagingType}"/>
+                    <Text text="{Name}"/>
                     <!-- <Text text="{DispatchQty}"/> -->
                     <Text text="{PackagingQty}"/>
                     <Text text="{UOM}"/>
-                    <Link text="View QR Code" binding="{QrCode}" visible="{= ${QRNumber}}" press="onViewQRCodePress"/>
+                    <Link text="View QR Code" binding="{QrCode}" visible="{= ${QRNumber} ? true : false}" press="onViewQRCodePress"/>
                 </cells>
             </ColumnListItem>
         </items>

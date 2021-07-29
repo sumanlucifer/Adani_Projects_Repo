@@ -5,41 +5,6 @@ package-lock.json
 /mta_archives/
 /resources/
 
-
-*.zip
-*.env
-.env
-<<<<<<< HEAD
-
-
-
-
-# auto generated wildcard
-<<<<<<< HEAD
-storeincharge-totaldetails/.env2
-# auto generated wildcard
-storeincharge-approvals/.env2
-# auto generated wildcard
-sapui5/storeincharge-issuematerial/.env1
-# auto generated wildcard
-sapui5/vendorPersona/.env23
-# auto generated wildcard
-sapui5/storestock/.env1
-# auto generated wildcard
-sapui5/storeincharge-totaldetails/.env1
-=======
-vendor-packinglist-create/.env1
->>>>>>> develop
-
-# auto generated wildcard
-sapui5/storestock/.env2
-# auto generated wildcard
-sapui5/storestock/.env3
-# auto generated wildcard
-sapui5/storestock/.env4
-=======
->>>>>>> develop
-
 # auto generated wildcard
 sapui5/vendorPersona/.env24
 # auto generated wildcard
