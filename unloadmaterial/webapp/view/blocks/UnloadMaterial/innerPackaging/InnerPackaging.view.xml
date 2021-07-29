@@ -5,8 +5,7 @@
     xmlns:smartTable="sap.ui.comp.smarttable"
     xmlns:tt="sap.ui.table" controllerName="com.agel.mmts.unloadmaterial.view.blocks.UnloadMaterial.innerPackaging.InnerPackagingController">
     
-  <Table id="idInnerPackaging" items="{path: 'InnerPackagings'}" autoPopinMode="true" growingThreshold="5" growing="true" fixedLayout="false">
-    
+  <Table id="idInnerPackaging" items="{JSONModelData>/InnerPackings}" autoPopinMode="true" growingThreshold="5" growing="true" fixedLayout="false" alternateRowColors="true">
         <columns>
             <Column>
                 <Text text="Inner Packaging"/>
@@ -30,22 +29,23 @@
         <items>
             <ColumnListItem>
                 <cells>
-                    <ObjectIdentifier title="{PackagingType}"/>
-                    <ObjectIdentifier title="{LineNumber}"/>
-                    <Text text="{PackagingQty}"/>
-                    <Text text=""/>
-                    <Text text="{UOM}"/>
+                    <Text text="{JSONModelData>InnerPackingLabel}"/>
+                    <Text text="{JSONModelData>LineItemLabel}"/>
+                    <Text text="{JSONModelData>PackagingQty}"/>
+                    <Text text="{JSONModelData>ReceivedQty}"/>
+                    <Text text="{JSONModelData>UOM}"/>
                     <!-- <core:Icon
                         src="sap-icon://sys-help-2" class="size1" binding="{QrCode}" visible="{= ${QRNumber}}" color="#031E48" press="onViewQRCodePress">
                         <core:layoutData>
                             <FlexItemData growFactor="1" />
                         </core:layoutData>
                     </core:Icon> -->
-                    <core:Icon src="sap-icon://accept" class="size1" color="#087137" >
+                    <!-- <core:Icon src="sap-icon://accept" class="size1" color="#087137" >
                         <core:layoutData>
                             <FlexItemData growFactor="1" />
                         </core:layoutData>
-                    </core:Icon>
+                    </core:Icon> -->
+                    <Link visible="{= ${JSONModelData>ReceivedQty} ? true : false }" text="{= ${JSONModelData>ExternalQRCodeInfo} === '' ? 'Map Vendor QR Code' : 'Vendor Information Mapped' }"/>
                 </cells>
             </ColumnListItem>
         </items>

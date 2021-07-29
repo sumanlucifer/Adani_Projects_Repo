@@ -1,4 +1,5 @@
-sap.ui.define([], function () {
+sap.ui.define([
+    "sap/ui/core/format/FileSizeFormat"], function (FileSizeFormat) {
     "use strict";
 
     return {
@@ -142,12 +143,18 @@ sap.ui.define([], function () {
             return date.toDateString();
         },
 
-        test: function(value){
-            
-        }
         
-
-
+        formatFileSize: function (sValue) {
+            if (jQuery.isNumeric(sValue)) {
+                return FileSizeFormat.getInstance({
+                    binaryFilesize: false,
+                    maxFractionDigits: 1,
+                    maxIntegerDigits: 3
+                }).format(sValue);
+            } else {
+                return sValue;
+            }
+        },
 
     };
 
