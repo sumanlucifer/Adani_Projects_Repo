@@ -16,7 +16,7 @@ modules:
     properties:
       forwardAuthToken: true
       name: AGEL_MMTS_API
-      url: https://agel-mmts-api.cfapps.ap11.hana.ondemand.com/
+      url: https://qa-agel-mmts-api.cfapps.ap11.hana.ondemand.com/
   parameters:
     disk-quota: 256M
     keep-existing-routes: true
@@ -88,10 +88,6 @@ modules:
       name: security-scanqr
       target-path: resources/
     - artifacts:
-      - storeincharge-totaldetails-content.zip
-      name: storeinchargetotaldetails
-      target-path: resources/
-    - artifacts:
       - vendor-map-mdcc-content.zip
       name: vendor-map-mdcc
       target-path: resources/
@@ -104,14 +100,6 @@ modules:
       name: storeincharge-raisedpo
       target-path: resources/
     - artifacts:
-      - storeincharge-intransitpo-content.zip
-      name: storeincharge-intransitpo
-      target-path: resources/
-    - artifacts:
-      - storeincharge-receivedpo-content.zip
-      name: storeincharge-receivedpo
-      target-path: resources/
-    - artifacts:
       - storeincharge-scanqr-content.zip
       name: storeincharge-scanqr
       target-path: resources/
@@ -122,12 +110,31 @@ modules:
     - artifacts:
       - unloadmaterial-content.zip
       name: unloadmaterial
-      target-path: resources/ 
-    - artifacts:  
+      target-path: resources/
+    - artifacts:
       - comagelmmtsvendorpackinglistcreate-content.zip
       name: packingListCreate
-      target-path: resources/   
-
+      target-path: resources/
+    - artifacts:
+      - comagelmmtsadminposummary.zip
+      name: comagelmmtsadminposummary
+      target-path: resources/
+    - artifacts:
+      - comagelmmtsstoreinchargereturnmaterial.zip
+      name: comagelmmtsstoreinchargereturnmaterial
+      target-path: resources/
+    - artifacts:
+      - comagelmmtsraisereturnmaterial.zip
+      name: comagelmmtsraisereturnmaterial
+      target-path: resources/
+    - artifacts:
+      - comagelmmtsreturnmaterial.zip
+      name: comagelmmtsreturnmaterial
+      target-path: resources/
+    - artifacts:
+      - comagelmmtsfieldstock.zip
+      name: comagelmmtsfieldstock
+      target-path: resources/
 - name: launchpad
   type: com.sap.application.content
   path: launchpad
@@ -267,14 +274,6 @@ modules:
     commands:
     - npm run build
     supported-platforms: []
-- name: storeinchargetotaldetails
-  type: html5
-  path: storeincharge-totaldetails
-  build-parameters:
-    builder: custom
-    commands:
-    - npm run build
-    supported-platforms: []
 - name: vendor-map-mdcc
   type: html5
   path: vendor-map-mdcc
@@ -286,22 +285,6 @@ modules:
 - name: storeincharge-raisedpo
   type: html5
   path: storeincharge-raisedpo
-  build-parameters:
-    builder: custom
-    commands:
-    - npm run build
-    supported-platforms: []
-- name: storeincharge-intransitpo
-  type: html5
-  path: storeincharge-intransitpo
-  build-parameters:
-    builder: custom
-    commands:
-    - npm run build
-    supported-platforms: []
-- name: storeincharge-receivedpo
-  type: html5
-  path: storeincharge-receivedpo
   build-parameters:
     builder: custom
     commands:
@@ -331,9 +314,19 @@ modules:
     commands:
     - npm run build
     supported-platforms: []
-- name: comagelmmtsstoreinchargeissuematerial
+- name: comagelmmtsadminposummary
   type: html5
-  path: storeincharge-issuematerial
+  path: admin-po_summary
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build
+    supported-platforms: []
+- name: comagelmmtsstoreinchargereturnmaterial
+  type: html5
+  path: storeincharge-returnmaterial
   build-parameters:
     build-result: dist
     builder: custom
@@ -341,9 +334,29 @@ modules:
     - npm install
     - npm run build:cf
     supported-platforms: []
-- name: comagelmmtsstorestock
+- name: comagelmmtsraisereturnmaterial
   type: html5
-  path: storestock
+  path: raise-returnmaterial
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: comagelmmtsreturnmaterial
+  type: html5
+  path: returnmaterial
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: comagelmmtsfieldstock
+  type: html5
+  path: fieldstock
   build-parameters:
     build-result: dist
     builder: custom

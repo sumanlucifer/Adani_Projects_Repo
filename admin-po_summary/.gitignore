@@ -1,0 +1,22 @@
+node_modules/
+dist/
+.scp/
+.env
+Makefile*.mta
+mta_archives
+mta-*
+resources
+archive.zip
+.*_mta_build_tmp
+# auto generated wildcard
+agel-mmts-web/admin-po_summary/.env1
+# auto generated wildcard
+sapui5/vendorPersona/.env24
+# auto generated wildcard
+sapui5/storeincharge-returnmaterial/.env1
+# auto generated wildcard
+sapui5/raise-returnmaterial/.env1
+# auto generated wildcard
+sapui5/returnmaterial/.env1
+# auto generated wildcard
+sapui5/fieldstock/.env1

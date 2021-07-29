@@ -12,13 +12,7 @@ sap.ui.define(['sap/uxap/BlockBase'], function (BlockBase) {
                     viewName: "com.agel.mmts.storeinchargeraisedpo.view.blocks.PackingListReceivedDetails.lineItemsTable.LineItemsTable",
                     type: "XML"
                 }
-            },
-             events: {
-                 "OnViewBOQItemsPress":{},
-                 "OnViewQRCode" : {},
-                 "OnViewQRCode1" : {},
-                 "OnViewQRCodePress":{}
-			}
+            }
         }
     });
 

@@ -90,15 +90,18 @@
 
             <uxap:ObjectPageSection titleUppercase="false" title="{i18n>additionalDetails}">
                 <uxap:subSections>
-                    <uxap:ObjectPageSubSection title="{i18n>additionalDetails}">
+                    <uxap:ObjectPageSubSection title="{i18n>Details}">
                         <uxap:blocks>
                             <VBox>
+                                <Label text="Inspection Date" required="true"/>
+                                <DatePicker id="idDpInspectionDate" width="20%" value="{localAttachmentModel>/InspectionDate}" 
+                                    valueFormat="yyyy-MM-dd" change="onLiveChangeDate"
+                                     placeholder="MMM/DD/YYYY"/>
+                                <Title text="{i18n>additionalDetails}"/>
                                 <Label text="Comments" required="true"/>
                                 <TextArea id="idTxtComment" width="100%" value="{localAttachmentModel>/Comment}" 
                                     liveChange="onLiveChangeComment"/>
-                                <Label text="Inspection Date" required="true"/>
-                                <DatePicker id="idDpInspectionDate" width="20%" value="{localAttachmentModel>/InspectionDate}" 
-                                    valueFormat="yyyy-MM-dd" change="onLiveChangeDate" placeholder="MMM/DD/YYYY"/>
+                                
                             </VBox>
                         </uxap:blocks>
                     </uxap:ObjectPageSubSection>
@@ -118,7 +121,9 @@
                                     selectionChange="onAttachmentChange" instantUpload="false" 
                                     change="onAttachmentChange" fileDeleted="onFileDeleted">
                                 <items>
-                                    <UploadCollectionItem url="{parts: ['localAttachmentModel>/FileName','localAttachmentModel>/Content']}" enableEdit="false" enableDelete="false" visibleDelete="false" visibleEdit="false" fileName="{localAttachmentModel>FileName}" deletePress="onDeleteDocumentPress">
+                                    <UploadCollectionItem url="{parts: ['localAttachmentModel>/FileName','localAttachmentModel>/Content']}" 
+                                    enableEdit="false" enableDelete="false" visibleDelete="false" visibleEdit="false" 
+                                    fileName="{localAttachmentModel>FileName}" deletePress="onDeleteDocumentPress">
                                     </UploadCollectionItem>
                                 </items>
                             </UploadCollection>

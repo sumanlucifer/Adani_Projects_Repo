@@ -1,8 +1,9 @@
 sap.ui.define([
 	"sap/ui/core/UIComponent",
 	"sap/ui/Device",
-	"com/agel/mmts/storestock/model/models"
-], function (UIComponent, Device, models) {
+    "com/agel/mmts/storestock/model/models",
+    "com/agel/mmts/storestock/controller/ErrorHandler"
+], function (UIComponent, Device, models, ErrorHandler) {
 	"use strict";
 
 	return UIComponent.extend("com.agel.mmts.storestock.Component", {
@@ -24,7 +25,8 @@ sap.ui.define([
 			this.getRouter().initialize();
 
 			// set the device model
-			this.setModel(models.createDeviceModel(), "device");
+            this.setModel(models.createDeviceModel(), "device");
+              this.setModel(models.createLayoutModel(), "layoutModel");
         },
          getContentDensityClass: function () {
             if (this._sContentDensityClass === undefined) {

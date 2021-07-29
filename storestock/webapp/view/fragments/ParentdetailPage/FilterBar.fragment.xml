@@ -6,11 +6,7 @@
     <fb:FilterBar id="filterbar" reset="onResetFilters" search="onSearch" useToolbar="false" showGoOnFB="true" showRestoreOnFB="true">
         <fb:filterGroupItems>
            
-            <fb:FilterGroupItem groupName="__$INTERNAL$" name="po_release_date" label="{i18n>Date}" visibleInFilterBar="true" class="searchFieldLabelHidden">
-                <fb:control>
-                    <DatePicker displayFormat="dd/MM/YYYY" id="DP1" placeholder="Enter Date" change="handleChange" class="sapUiSmallMarginBottom"/>
-                </fb:control>
-            </fb:FilterGroupItem>
+         
             <fb:FilterGroupItem groupName="__$INTERNAL$" name="MatCode" label="{i18n>MaterialID}" visibleInFilterBar="true" class="searchFieldLabelHidden">
                 <fb:control>
                     <Input id="idMaterialCode" placeholder="{i18n>EnterMatCode}" liveChange="onFilterChange" showValueHelp="false">

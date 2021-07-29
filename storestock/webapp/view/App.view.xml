@@ -1,9 +1,14 @@
 <mvc:View controllerName="com.agel.mmts.storestock.controller.App"
-    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
-    xmlns="sap.m">
+  xmlns="sap.f"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:m="sap.m"
+    displayBlock="true"
+    height="100%">
 
-    <App id="app">
-
-    </App>
+     <m:App>
+        <m:pages>
+           <FlexibleColumnLayout id="fcl" stateChange="onStateChanged" layout="{layoutModel>/layout}" backgroundDesign="Solid"/>
+        </m:pages>
+    </m:App>
 
 </mvc:View>

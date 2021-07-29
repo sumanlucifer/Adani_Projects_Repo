@@ -2,25 +2,24 @@
     xmlns:smartTable="sap.ui.comp.smarttable"
     xmlns:core="sap.ui.core">
 
-    <smartTable:SmartTable class="sapUiResponsiveContentPadding" id="idPurchaseOrdersTable" editable="false" placeToolbarInTable="true" enableAutoBinding="true" entitySet="PurchaseOrderSet" showFullScreenButton="true" showRowCount="false" tableType="ResponsiveTable" demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" beforeRebindTable="onbeforeRebindOpenPoTable" ignoreFromPersonalisation="AmendmentBy,AmendmentDate,AmendmentReason,CreatedBy,ID,Currency,IsArchived,UpdatedAt,UpdatedBy,ValidityEndDate,ValidityStartDate,Status">
+    <smartTable:SmartTable class="sapUiResponsiveContentPadding" id="idParentUnRestrictedTable" editable="false" placeToolbarInTable="true" enableAutoBinding="false" beforeRebindTable="onBeforeRebindUnrestTable" entitySet="StockParentItemSet" showFullScreenButton="true" showRowCount="false" tableType="ResponsiveTable" demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false">
 
         <!-- <smartTable:layoutData><FlexItemData growFactor="1" /></smartTable:layoutData> -->
-        <Table sticky="ColumnHeaders,HeaderToolbar" updateFinished="onPurchaseOrderTableUpdateFinished" alternateRowColors="true">
+        <Table sticky="ColumnHeaders,HeaderToolbar" alternateRowColors="true">
             <columns>
 
                 <Column >
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "PONumber", "leadingProperty": "PONumber",
-                                                 "columnIndex": 0 ,"sortProperty": "PONumber","filterProperty": "PONumber"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "ID", "leadingProperty": "ID",
+                                                 "columnIndex": 0 ,"sortProperty": "ID","filterProperty": "ID"}'/>
                     </customData>
                     <Text text="{i18n>ParentName}"/>
                 </Column>
-
-                 <!-- Company Code -->
+                <!-- Company Code -->
                 <Column>
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "CompanyCode", "leadingProperty": "Buyer/CompanyCode",
-                                                 "columnIndex": 1 ,"sortProperty": "Buyer/CompanyCode","filterProperty": "Buyer/CompanyCode"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "MaterialCode", "leadingProperty": "MaterialCode",
+                                                 "columnIndex": 1 ,"sortProperty": "MaterialCode","filterProperty": "MaterialCode"}'/>
                     </customData>
                     <Text text="{i18n>MaterialID}"/>
                 </Column>
@@ -28,8 +27,8 @@
                 <!-- Plant Code -->
                 <Column demandPopin="true" minScreenWidth="Desktop"> 
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "PlantCode", "leadingProperty": "PlantCode",
-                                                 "columnIndex": 2 ,"sortProperty": "PlantCode","filterProperty": "PlantCode"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Qty", "leadingProperty": "Qty",
+                                                 "columnIndex": 2 ,"sortProperty": "Qty","filterProperty": "Qty"}'/>
                     </customData>
                     <Text text="{i18n>Quantity}"/>
                 </Column>
@@ -37,26 +36,29 @@
                 <!-- Issue Date -->
                 <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "CreatedAt", "leadingProperty": "CreatedAt",
-                                                 "columnIndex": 3, "sortProperty": "CreatedAt"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "UOM", "leadingProperty": "UOM",
+                                                 "columnIndex": 3, "sortProperty": "UOM"}'/>
                     </customData>
                     <Text text="{i18n>UOM}"/>
                 </Column>
+                
+                
+
             </columns>
             <items>
 
-                <ColumnListItem type="Navigation" press="onPurchaseOrderPress">
+                <ColumnListItem type="Navigation" press="onRestrictdParentTablePress">
                     <cells>
-                        <Text text="{PONumber}"/>
-                        <Text text="{CompanyCode}" binding="{Buyer}"/>
-                        <ObjectIdentifier text="{PlantCode}"/> 
 
-                        <Text text="{path:'CreatedAt',
-                                    type: 'sap.ui.model.type.Date',
-				                     formatOptions: {
-				                        pattern: 'MMMM dd, yyyy'
-				                     }    
-                        }"/>          
+
+
+                      
+                        <ObjectIdentifier text="{ID}"/>
+                        <ObjectIdentifier text="{MaterialCode}"/>
+                        <ObjectIdentifier text="{Qty}"/>
+                        <ObjectIdentifier text="{UOM}"/>
+
+                        
                     </cells>
                 </ColumnListItem>
 

@@ -13,7 +13,7 @@
         "ach": "ach",
         "dataSources": {
             "mainService": {
-                "uri": "/api/v2/odata.svc/",
+                "uri": "/AGEL_MMTS_API/api/v2/odata.svc/",
                 "type": "OData",
                 "settings": {
                     "odataVersion": "2.0",
@@ -44,15 +44,19 @@
             "viewName": "com.agel.mmts.storestock.view.App",
             "type": "XML",
             "async": true,
-            "id": "app"
+            "id": "fcl"
         },
         "dependencies": {
             "minUI5Version": "1.66.0",
             "libs": {
                 "sap.ui.core": {},
                 "sap.m": {},
+                "sap.f": {},
                 "sap.ui.layout": {}
             }
+        },
+        "config": {
+            "fullWidth": true
         },
         "contentDensities": {
             "compact": true,
@@ -65,16 +69,21 @@
                     "bundleName": "com.agel.mmts.storestock.i18n.i18n"
                 }
             },
-            "": {
+            "local": {
                 "type": "sap.ui.model.json.JSONModel",
                 "settings": {},
                 "preload": true
             },
-            "Data": {
-                "type": "sap.ui.model.json.JSONModel",
-                "uri": "model/Data.json"
-            },
-            "serverModel": {
+          
+               "": {
+                "type": "sap.ui.model.odata.v2.ODataModel",
+                "settings": {
+                    "defaultOperationMode": "Server",
+                    "defaultBindingMode": "TwoWay",
+                    "defaultCountMode": "Inline",
+                    "refreshAfterChange": true,
+                    "useBatch": false
+                },
                 "dataSource": "mainService",
                 "preload": true
             }
@@ -88,12 +97,12 @@
         },
         "routing": {
             "config": {
-                "routerClass": "sap.m.routing.Router",
+                "routerClass": "sap.f.routing.Router",
                 "viewType": "XML",
                 "async": true,
                 "viewPath": "com.agel.mmts.storestock.view",
                 "controlAggregation": "pages",
-                "controlId": "app",
+                "controlId": "fcl",
                 "clearControlAggregation": false,
                 "bypassed": {
                     "target": [
@@ -110,41 +119,30 @@
                     ]
                 },
                 {
-                    "name": "storeStockParentDetail",
-                    "pattern": "storeParentPage",
-                    "target": [
-                        "storeStockParentDetail"
-                    ]
-                },
-                {
+                    "pattern": "storeChildPage/{parentMaterial}/{layout}",
                     "name": "storeStockChildDetail",
-                    "pattern": "storeChildPage",
+                    "titleTarget": "",
+                    "greedy": false,
                     "target": [
+                        "TargetApp",
                         "storeStockChildDetail"
                     ]
                 }
             ],
             "targets": {
                 "TargetApp": {
+                    "viewName": "storeStockParentDetail",
+                    "viewLevel": 1,
                     "viewType": "XML",
                     "transition": "slide",
-                    "clearControlAggregation": false,
-                    "viewName": "storeStockParentDetail",
-                    "viewLevel": 1
-                },
-                "storeStockParentDetail": {
-                    "viewType": "XML",
-                    "transition": "slide",
-                    "clearControlAggregation": false,
-                    "viewName": "storeStockParentDetail",
-                    "viewLevel": 2
+                    "controlAggregation": "beginColumnPages"
                 },
                 "storeStockChildDetail": {
+                    "viewName": "storeStockChildDetail",
+                    "viewLevel": 2,
                     "viewType": "XML",
                     "transition": "slide",
-                    "clearControlAggregation": false,
-                    "viewName": "storeStockChildDetail",
-                    "viewLevel": 2
+                    "controlAggregation": "midColumnPages"
                 },
                 "notFound": {
                     "viewName": "NotFound"
