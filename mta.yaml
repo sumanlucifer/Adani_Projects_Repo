@@ -135,6 +135,10 @@ modules:
       - comagelmmtsfieldstock.zip
       name: comagelmmtsfieldstock
       target-path: resources/
+    - artifacts:
+      - comagelmmtsstorestock.zip
+      name: comagelmmtsstorestock
+      target-path: resources/
 - name: launchpad
   type: com.sap.application.content
   path: launchpad
@@ -326,41 +330,41 @@ modules:
   type: html5
   path: storeincharge-returnmaterial
   build-parameters:
-    build-result: dist
     builder: custom
     commands:
-    - npm install
-    - npm run build:cf
+    - npm run build
     supported-platforms: []
 - name: comagelmmtsraisereturnmaterial
   type: html5
   path: raise-returnmaterial
   build-parameters:
-    build-result: dist
     builder: custom
     commands:
-    - npm install
-    - npm run build:cf
+    - npm run build
     supported-platforms: []
 - name: comagelmmtsreturnmaterial
   type: html5
   path: returnmaterial
   build-parameters:
-    build-result: dist
     builder: custom
     commands:
-    - npm install
-    - npm run build:cf
+    - npm run build
     supported-platforms: []
 - name: comagelmmtsfieldstock
   type: html5
   path: fieldstock
   build-parameters:
-    build-result: dist
     builder: custom
     commands:
-    - npm install
-    - npm run build:cf
+    - npm run build
+    supported-platforms: []
+- name: comagelmmtsstorestock
+  type: html5
+  path: storestock
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
     supported-platforms: []
 resources:
 - name: uaa_agel-mmts-web
