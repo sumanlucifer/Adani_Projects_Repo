@@ -242,9 +242,9 @@ sap.ui.define([
                 var aBoqItemData = this.getView().getModel("ManageBOQModel").getData().boqItems;
 
                 for (let i = 0; i < aBoqItemData.length; i++) {
-                    if (!aBoqItemData[i].Qty || !aBoqItemData[i].MasterBOQItemId || !aBoqItemData[i].MasterUOMId) {
+                    if (!aBoqItemData[i].Qty || !aBoqItemData[i].MasterBOQItemId || !aBoqItemData[i].masterUOMItemId) {
                         bValid = false;
-                        sap.m.MessageBox.alert("Please fill all the required fields before saving");
+                        sap.m.MessageBox.alert("Please fill all the required fields before saving.");
                         return;
                     }
                 }
@@ -257,6 +257,25 @@ sap.ui.define([
             if (!this._validateProceedData()) {
                 return;
             }
+            this._handleMessageBoxForPCListCreationProcess("Do you want to Save these BOQ items?");
+        },
+
+        _handleMessageBoxForPCListCreationProcess: function (sMessage) {
+            var that = this;
+            sap.m.MessageBox.confirm(sMessage, {
+                icon: MessageBox.Icon.INFORMATION,
+                title: "Confirm",
+                actions: [MessageBox.Action.YES, MessageBox.Action.NO],
+                emphasizedAction: MessageBox.Action.YES,
+                onClose: function (oAction) {
+                    if (oAction == "YES") {
+                        that._createPCList();
+                    }
+                }
+            });
+        },
+
+        _createPCList: function () {
             var oPayload = {};
             var aTableData = this.getViewModel("ManageBOQModel").getProperty("/boqItems");
             var aPayloadSelectedItem = aTableData;
@@ -282,6 +301,7 @@ sap.ui.define([
             });
         },
 
+
         onCreateNewPCListPress: function (oEvent) {
             this.getViewModel("objectViewModel").setProperty("/isCreatingPCList", true)
         },
@@ -289,7 +309,7 @@ sap.ui.define([
         onCancelPCListCreationPress: function (oEvent) {
             //   this.getViewModel("objectViewModel").setProperty("/isCreatingPCList", false);
             var that = this;
-            sap.m.MessageBox.confirm("Added child items data will get discard? ", {
+            sap.m.MessageBox.confirm("Added BOQ item details will be discarded. Do you really want to Cancel the PC List?", {
                 icon: MessageBox.Icon.INFORMATION,
                 title: "Confirm",
                 actions: [MessageBox.Action.YES, MessageBox.Action.NO],
@@ -310,6 +330,7 @@ sap.ui.define([
         onCreateBOQPress: function (oEvent) {
             var isMaterialStandAlone = this.getViewModel("objectViewModel").getProperty("/noParentChildRelationFlag");
             var boqCreationModel = new JSONModel({
+                dialogTitle: isMaterialStandAlone ? this.getView().getBindingContext().getObject().Name : this.byId("idPCListTable").getSelectedItem().getBindingContext().getObject().Name,
                 selectedItemData: isMaterialStandAlone ? null : this.byId("idPCListTable").getSelectedItem().getBindingContext().getObject(),
                 quantity: null,
                 isConfirmButtonEnabled: false,
@@ -327,21 +348,26 @@ sap.ui.define([
 
         onQuantityLiveChange: function (oEvent) {
             var oPOData = this.getView().getBindingContext().getObject();
-            if (oEvent.getSource().getValue().length && parseInt(oEvent.getSource().getValue()) > 0)
+            if (oEvent.getSource().getValue().length && parseInt(oEvent.getSource().getValue()) > 0) {
                 this.getViewModel("boqCreationModel").setProperty("/isConfirmButtonEnabled", true);
-            else
-                this.getViewModel("boqCreationModel").setProperty("/isConfirmButtonEnabled", false);
-
-            if (parseInt(oEvent.getSource().getValue()) > parseInt(oPOData.PendingQty)) {
-                this.getViewModel("boqCreationModel").setProperty("/valueState", "Error");
-                this.getViewModel("boqCreationModel").setProperty("/valueStateText", "BOQ quantity should not exceed PO's pending quantity.");
-                this.getViewModel("boqCreationModel").setProperty("/isConfirmButtonEnabled", false);
+                if (parseInt(oEvent.getSource().getValue()) > parseInt(oPOData.PendingQty)) {
+                    this.getViewModel("boqCreationModel").setProperty("/valueState", "Error");
+                    this.getViewModel("boqCreationModel").setProperty("/valueStateText", "BOQ quantity should not exceed PO's pending quantity.");
+                    this.getViewModel("boqCreationModel").setProperty("/isConfirmButtonEnabled", false);
+                }
+                else {
+                    this.getViewModel("boqCreationModel").setProperty("/valueState", null);
+                    this.getViewModel("boqCreationModel").setProperty("/valueStateText", "");
+                    this.getViewModel("boqCreationModel").setProperty("/isConfirmButtonEnabled", true);
+                }
             }
             else {
-                this.getViewModel("boqCreationModel").setProperty("/valueState", null);
-                this.getViewModel("boqCreationModel").setProperty("/valueStateText", "");
-                this.getViewModel("boqCreationModel").setProperty("/isConfirmButtonEnabled", true);
+                this.getViewModel("boqCreationModel").setProperty("/isConfirmButtonEnabled", false);
+                this.getViewModel("boqCreationModel").setProperty("/valueState", "Error");
+                this.getViewModel("boqCreationModel").setProperty("/valueStateText", "Please enter the correct value for Quantity.");
             }
+
+
         },
 
         onCancelBOQCreationProcess: function (oEvent) {
@@ -361,7 +387,6 @@ sap.ui.define([
                         "ParentLineItemId": this.getView().getBindingContext().getObject().ID,
                         "IsOne2OneLineItem": true
                     };
-                    sap.m.MessageBox.error("PC List created with no Quantity!");
                 } else {
                     var oSelectedItemData = this.byId("idPCListTable").getSelectedItem().getBindingContext().getObject();
 

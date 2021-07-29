@@ -4,23 +4,25 @@
         <content>
             <VBox class="sapUiResponsiveMargin">
                 <HBox alignItems="Center">
-                    <Input id="idInputQRCode" width="100%" showSuggestion="true" showValueHelp="false" suggestionItems="{/QRCodeSet}" placeholder="Enter QR Number" valueLiveUpdate="true" suggestionItemSelected="onQRCodeSuggestionSelected" liveChange="onQRCodeSuggestionSelected" class="sapUiSmallMarginEnd" enabled="{oViewModel>/inputQRCode}">
+                    <Input id="idInputQRCode" value="{= ${oViewHandlingModel>/unloadQrCode} ? ${oViewHandlingModel>/unloadQrCode} : '' }" 
+                    width="100%" showSuggestion="true" showValueHelp="false" suggestionItems="{/QRCodeSet}" placeholder="Enter QR Number" 
+                    valueLiveUpdate="true" suggestionItemSelected="onQRCodeSuggestionSelected" liveChange="_filterQrSuggestion" class="sapUiSmallMargin">
                         <suggestionItems>
                             <core:Item text="{QRNumber}" key="{QRNumber}" />
                         </suggestionItems>
                     </Input>
-                    <Button id="idQRBtn" text="Submit" type="Emphasized" press="onPressSubmitQRCode" class="sapUiSmallMarginEnd" enabled="{oViewModel>/submitQRCode}"/>
+                    <Button id="idQRBtn" text="Submit" type="Emphasized" press="onPressSubmitQRCode" class="sapUiSmallMargin" enabled="{= ${oViewHandlingModel>/unloadQrCode} ? true : false}"/>
                 </HBox>
                 <HBox alignItems="Center">
-                    <Text text="OR" class="sapUiTinyMargin"/>
+                    <Text text="OR" class="sapUiSmallMarginBegin"/>
                 </HBox>
                 <HBox alignItems="Center">
-                    <Button id="idQRSubmit" text="Scan QR Code" type="Emphasized" press="onPressScanQRCode" class="sapUiSmallMarginEnd" enabled="{oViewModel>/scanQRCode}"/>
+                    <Button id="idQRSubmit" text="Scan QR Code" type="Emphasized" press="onPressScanQRCode" class="sapUiSmallMargin" enabled="{= ${oViewHandlingModel>/unloadQrCode} ? false : true}"/>
                 </HBox>
             </VBox>
         </content>
         <endButton>
-            <Button text="Close" press="onQRCodeScanDialogClosePress" type="Emphasized" />
+            <Button text="{i18n>close}" press="onQRCodeScanDialogClosePress" type="Emphasized"/>
         </endButton>
     </Dialog>
 </core:FragmentDefinition>

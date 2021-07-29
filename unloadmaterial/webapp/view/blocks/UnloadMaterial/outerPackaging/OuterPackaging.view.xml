@@ -5,8 +5,7 @@
     xmlns:smartTable="sap.ui.comp.smarttable"
     xmlns:tt="sap.ui.table" controllerName="com.agel.mmts.unloadmaterial.view.blocks.UnloadMaterial.outerPackaging.OuterPackagingController">
 
-
-    <Table id="idOuterPackaging" items="{path: 'OuterPackagings'}" autoPopinMode="true" growingThreshold="5" growing="true" fixedLayout="false">
+    <Table id="idOuterPackaging" items="{JSONModelData>/OuterPackings}"  autoPopinMode="true" growingThreshold="5" growing="true" fixedLayout="false" alternateRowColors="true">
         <columns>
             <Column>
                 <Text text="Outer Packaging"/>
@@ -17,12 +16,12 @@
             <Column>
                 <Text text="Received Inner Packaging"/>
             </Column>
-            <Column>
+            <!-- <Column>
                 <Text text="Line Item"/>
             </Column>
             <Column>
                 <Text text="UOM"/>
-            </Column>
+            </Column> -->
             <Column>
                 <Text text="Status"/>
             </Column>
@@ -30,12 +29,12 @@
         <items>
             <ColumnListItem>
                 <cells>
-                    <ObjectIdentifier title="{PackagingType}"/>
-                    <ObjectIdentifier title="{LineNumber}"/>
-                    <Text text="{PackagingQty}"/>
-                    <Text text=""/>
-                    <Text text="{UOM}"/>
-                    <core:Icon src="sap-icon://accept" class="size1" color="#087137" >
+                    <Text text="{JSONModelData>OuterPackagingLabel}"/>
+                    <Text text="{JSONModelData>InnerPackagingCount}"/>
+                    <Text text="{JSONModelData>ReceivedInnerCount}"/>
+                    <!-- <Text text=""/>
+                    <Text text="{UOM}"/> -->
+                    <core:Icon src="sap-icon://accept" class="size1" color="#087137" visible="{= ${JSONModelData>ReceivedInnerCount} ? true : false }">
                         <core:layoutData>
                             <FlexItemData growFactor="1" />
                         </core:layoutData>

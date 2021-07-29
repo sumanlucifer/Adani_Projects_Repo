@@ -49,9 +49,9 @@ sap.ui.define([
 
                 this._getMDCCData();
                 this.getMDCCData();
-              //  this._getParentDataViewMDCC();
-               
-               
+                //  this._getParentDataViewMDCC();
+
+
             },
 
             _bindView: function (sObjectPath) {
@@ -92,28 +92,28 @@ sap.ui.define([
                 });
             },
 
-             // Arrange Data For View / Model Set
+            // Arrange Data For View / Model Set
             _arrangeDataView: function () {
                 var that = this;
                 var oModel = new JSONModel({ "ChildItems": this.ParentDataView });
                 this.getView().setModel(oModel, "TreeTableModel");
             },
 
-            getMDCCData : function(){
+            getMDCCData: function () {
                 var that = this;
-                this.ParentData;                
+                this.ParentData;
                 var sPath = "/MDCCSet(" + this.sObjectId + ")/MDCCParentLineItems";
                 that.getComponentModel("app").setProperty("/busy", true);
                 this.MainModel.read(sPath, {
                     urlParameters: {
-                           "$expand": "MDCCBOQItems"
+                        "$expand": "MDCCBOQItems"
                     },
                     success: function (oData, oResponse) {
                         that.getComponentModel("app").setProperty("/busy", false);
                         if (oData.results.length) {
                             this.ParentData = oData.results;
                             this.dataBuilding(this.ParentData);
-                           // this._getChildItems(oData.results);
+                            // this._getChildItems(oData.results);
                         }
                     }.bind(this),
                     error: function (oError) {
@@ -126,41 +126,41 @@ sap.ui.define([
             dataBuilding: function (ParentData) {
                 this.ParentDataView = ParentData;
                 for (var i = 0; i < ParentData.length; i++) {
-                  //  for (var j = 0; j < ParentData[i].MDCCBOQItems.length; j++) {
-                        if (ParentData[i].MDCCBOQItems.results.length) {
-                            this.ParentDataView[i].isStandAlone = true;
-                            this.ParentDataView[i].isSelected = false;
-                            this.ParentDataView[i].ChildItems = ParentData[i].MDCCBOQItems.results;
-                        }
-                        else {
-                            this.ParentDataView[i].isStandAlone = false;
-                            this.ParentDataView[i].isSelected = false;
-                            this.ParentDataView[i].ChildItems = [];
-                        }
-                 //   }
+                    //  for (var j = 0; j < ParentData[i].MDCCBOQItems.length; j++) {
+                    if (ParentData[i].MDCCBOQItems.results.length) {
+                        this.ParentDataView[i].isStandAlone = true;
+                        this.ParentDataView[i].isSelected = false;
+                        this.ParentDataView[i].ChildItems = ParentData[i].MDCCBOQItems.results;
+                    }
+                    else {
+                        this.ParentDataView[i].isStandAlone = false;
+                        this.ParentDataView[i].isSelected = false;
+                        this.ParentDataView[i].ChildItems = [];
+                    }
+                    //   }
                 }
                 this._arrangeDataView();
             },
 
             // Live Change On Dispatch Quantity
-            onLiveChangeDispatchQty : function (oEvent) {
+            onLiveChangeDispatchQty: function (oEvent) {
                 oEvent.getSource().setValueState("None");
                 this.getView().byId("idBtnProceed").setEnabled(true);
                 var oValue = oEvent.getSource().getValue();
                 var remainingQty = oEvent.getSource().getParent().getCells()[7].getText();
-                var flag = 0 ;
-                if ( parseInt(oValue) > parseInt(remainingQty) || remainingQty == "" ){
+                var flag = 0;
+                if (parseInt(oValue) > parseInt(remainingQty) || remainingQty == "") {
                     oEvent.getSource().setValueState("Error");
                     oEvent.getSource().setValueStateText("Please enter less dispatch quantity than approved remaining quantity");
                     this.getView().byId("idBtnProceed").setEnabled(false);
                     flag = 1;
                 }
 
-                if (parseInt(oValue) < 0 || oValue == "" ){
+                if (parseInt(oValue) < 0 || oValue == "") {
                     oEvent.getSource().setValueState("Error");
                     oEvent.getSource().setValueStateText("Please enter dispatch quantity");
                     this.getView().byId("idBtnProceed").setEnabled(false);
-                }else if(flag != 1){
+                } else if (flag != 1) {
                     oEvent.getSource().setValueState("None");
                     this.getView().byId("idBtnProceed").setEnabled(true);
                 }
@@ -171,13 +171,13 @@ sap.ui.define([
                 var bSelected = oEvent.getParameter("selected");
                 var dispatchQty = oEvent.getSource().getParent().getCells()[8].getValue();
                 if (bSelected) {
-                    if ( dispatchQty == ""){
+                    if (dispatchQty == "") {
                         this.getView().byId("idBtnProceed").setEnabled(false);
-                    }else{
+                    } else {
                         this.getView().byId("idBtnProceed").setEnabled(true);
                     }
                     oEvent.getSource().getParent().getCells()[8].setEditable(true);
-                    oEvent.getSource().getParent().getRowBindingContext().getObject().isSelected = true;             
+                    oEvent.getSource().getParent().getRowBindingContext().getObject().isSelected = true;
                 } else {
                     oEvent.getSource().getParent().getCells()[8].setEditable(false);
                     oEvent.getSource().getParent().getRowBindingContext().getObject().isSelected = false;
@@ -185,24 +185,24 @@ sap.ui.define([
                 }
             },
 
-              // on Save Confirm - Proceed Click
-            onConfirmProceedSave : function(oEvent){
+            // on Save Confirm - Proceed Click
+            onConfirmProceedSave: function (oEvent) {
                 var that = this;
-                 MessageBox.confirm("Do you want to proceed ahead for create packing list?",{
-				    icon: MessageBox.Icon.INFORMATION,
-				    title: "Confirm",
-				    actions: [MessageBox.Action.YES, MessageBox.Action.NO],
-				    emphasizedAction: MessageBox.Action.YES,
-				    onClose: function (oAction) { 
-                        if ( oAction == "YES" ){
+                MessageBox.confirm("Do you want to proceed ahead for create packing list?", {
+                    icon: MessageBox.Icon.INFORMATION,
+                    title: "Confirm",
+                    actions: [MessageBox.Action.YES, MessageBox.Action.NO],
+                    emphasizedAction: MessageBox.Action.YES,
+                    onClose: function (oAction) {
+                        if (oAction == "YES") {
                             that.onPressProccedSave(oEvent);
                         }
                     }
-			    });
+                });
             },
 
             // on Save - Proceed Click
-            onPressProccedSave: function (oEvent) { 
+            onPressProccedSave: function (oEvent) {
                 var that = this;
                 var oModel = this.getView().getModel("TreeTableModel");
                 var ParentData = oModel.getData().ChildItems;
@@ -221,9 +221,9 @@ sap.ui.define([
                         "MDCCBOQItem": []
                     };
                     for (var j = 0; j < ParentData[i].ChildItems.length; j++) {
-                        if (ParentData[i].ChildItems[j].DispatchQty != null && 
-                                ParentData[i].ChildItems[j].DispatchQty != "" && 
-                                ParentData[i].ChildItems[j].isSelected == true ) {
+                        if (ParentData[i].ChildItems[j].DispatchQty != null &&
+                            ParentData[i].ChildItems[j].DispatchQty != "" &&
+                            ParentData[i].ChildItems[j].isSelected == true) {
                             childObj = {
                                 "BOQItemID": ParentData[i].ChildItems[j].ID,
                                 "MDCCApprovedQty": ParentData[i].ChildItems[j].MDCCApprovedQty,
@@ -238,12 +238,12 @@ sap.ui.define([
                     }
                     // Only Parent Object Insert - No Child Present
                     if (ParentData[i].DispatchQty != null && ParentData[i].DispatchQty != "" &&
-                            ParentData[i].isSelected == true) {
+                        ParentData[i].isSelected == true) {
                         saveData.MDCCParentItems.push(parentObj);
                     }
                 } // i end
 
-                if ( saveData.MDCCParentItems.length < 1){
+                if (saveData.MDCCParentItems.length < 1) {
                     sap.m.MessageBox.error("Please select at least one item and enter dispatch quantity");
                     return 0;
                 };
@@ -258,8 +258,8 @@ sap.ui.define([
                 that.MainModel.create("/MDCCEdmSet", oPayload, {
                     success: function (oData, oResponse) {
                         that.getComponentModel("app").setProperty("/busy", false);
-                        if (oData.Sucess == true) {
-                            sap.m.MessageBox.success("Selected items processed successfully", {
+                        if (oData.Success == true) {
+                            sap.m.MessageBox.success(oData.Message, {
                                 title: "Success",
                                 onClose: function (oAction1) {
                                     if (oAction1 === sap.m.MessageBox.Action.OK) {
@@ -269,7 +269,7 @@ sap.ui.define([
                             });
                         }
                         else {
-                            sap.m.MessageBox.Error(oData.Message, {
+                            sap.m.MessageBox.error(oData.Message, {
                                 title: "Error"
                             });
                         }
@@ -282,28 +282,28 @@ sap.ui.define([
             },
 
             // On Navigate To PackingList Create
-            onNavigateToPackingList : function(PackingListId){
+            onNavigateToPackingList: function (PackingListId) {
                 var oCrossAppNavigator = sap.ushell.Container.getService("CrossApplicationNavigation"); // get a handle on the global XAppNav service
-                        var hash = (oCrossAppNavigator && oCrossAppNavigator.hrefForExternal({
-                            target: {
-                                semanticObject: "PackingList",
-                                action: "manage"
-                            },
-                            params: {
-                                "packingListID": PackingListId,
-                                "status": "NOTSAVED"
-                            }
-                        })) || ""; // generate the Hash to display a MDCC Number
-                        oCrossAppNavigator.toExternal({
-                            target: {
-                                shellHash: hash
-                            }
-                        }); // navigate to Manage MDCC application - Initiate Dispatch Screen
+                var hash = (oCrossAppNavigator && oCrossAppNavigator.hrefForExternal({
+                    target: {
+                        semanticObject: "PackingList",
+                        action: "manage"
+                    },
+                    params: {
+                        "packingListID": PackingListId,
+                        "status": "NOTSAVED"
+                    }
+                })) || ""; // generate the Hash to display a MDCC Number
+                oCrossAppNavigator.toExternal({
+                    target: {
+                        shellHash: hash
+                    }
+                }); // navigate to Manage MDCC application - Initiate Dispatch Screen
             },
-         
-           
 
-                // Parent Data View Fetch / Model Set
+
+
+            // Parent Data View Fetch / Model Set
             // _getParentDataViewMDCC: function () {
             //     var that = this;
             //     this.ParentDataView = [];
@@ -323,7 +323,7 @@ sap.ui.define([
             // },
 
             // Child Item View Fetch / Model Set
-                // 
+            // 
             // _getChildItemsViewMDCC: function (ParentDataView) {
             //     this.ParentDataView = ParentDataView;
             //     for (var i = 0; i < ParentDataView.length; i++) {

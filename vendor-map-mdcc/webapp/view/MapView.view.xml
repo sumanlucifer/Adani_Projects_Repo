@@ -5,7 +5,6 @@
     displayBlock="true"
 	xmlns="sap.m"
 	xmlns:ui="sap.ui.table">
-	<Shell id="shell">
 		<App id="app">
 			<pages>
 				<Page id="page">
@@ -109,5 +108,4 @@
 				</Page>
 			</pages>
 		</App>
-	</Shell>
 </mvc:View>
