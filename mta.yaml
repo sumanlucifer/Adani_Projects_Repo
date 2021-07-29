@@ -87,7 +87,7 @@ modules:
       - security-scanqr-content.zip
       name: security-scanqr
       target-path: resources/
-    - artifacts: 
+    - artifacts:
       - vendor-map-mdcc-content.zip
       name: vendor-map-mdcc
       target-path: resources/
@@ -118,6 +118,26 @@ modules:
     - artifacts:
       - admin-po_summary-content.zip
       name: comagelmmtsadminposummary
+      target-path: resources/
+    - artifacts:
+      - comagelmmtsstoreinchargereturnmaterial.zip
+      name: comagelmmtsstoreinchargereturnmaterial
+      target-path: resources/
+    - artifacts:
+      - comagelmmtsraisereturnmaterial.zip
+      name: comagelmmtsraisereturnmaterial
+      target-path: resources/
+    - artifacts:
+      - comagelmmtsreturnmaterial.zip
+      name: comagelmmtsreturnmaterial
+      target-path: resources/
+    - artifacts:
+      - comagelmmtsfieldstock.zip
+      name: comagelmmtsfieldstock
+      target-path: resources/
+    - artifacts:
+      - comagelmmtsstorestock.zip
+      name: comagelmmtsstorestock
       target-path: resources/
 - name: launchpad
   type: com.sap.application.content
@@ -257,7 +277,7 @@ modules:
     builder: custom
     commands:
     - npm run build
-    supported-platforms: []   
+    supported-platforms: []
 - name: vendor-map-mdcc
   type: html5
   path: vendor-map-mdcc
@@ -273,7 +293,7 @@ modules:
     builder: custom
     commands:
     - npm run build
-    supported-platforms: []  
+    supported-platforms: []
 - name: storeincharge-scanqr
   type: html5
   path: storeincharge-scanqr
@@ -301,6 +321,46 @@ modules:
 - name: comagelmmtsadminposummary
   type: html5
   path: admin-po_summary
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []
+- name: comagelmmtsstoreinchargereturnmaterial
+  type: html5
+  path: storeincharge-returnmaterial
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []
+- name: comagelmmtsraisereturnmaterial
+  type: html5
+  path: raise-returnmaterial
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []
+- name: comagelmmtsreturnmaterial
+  type: html5
+  path: returnmaterial
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []
+- name: comagelmmtsfieldstock
+  type: html5
+  path: fieldstock
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []
+- name: comagelmmtsstorestock
+  type: html5
+  path: storestock
   build-parameters:
     builder: custom
     commands:
