@@ -1,0 +1,52 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:u="sap.ui.unified"
+    xmlns:f="sap.ui.layout.form">
+    <Dialog class="testTitle">
+        <content>
+            <f:SimpleForm layout="ColumnLayout" columnsM="2" columnsL="3" columnsXL="4" singleContainerFullSize="true" class="style-RemoveTitleHeight">
+                <f:content>
+                    <Label text="{i18n>PONo}"/>
+                    <Text text="{poNumber}" binding="{UDDetail}"/>
+                    <Label text="{i18n>Inpection}"/>
+                    <Text text="{InspectionLotNumber}" binding="{UDDetail}"/>
+                    <Label text="{i18n>Plant}" />
+                    <Text text="{Plant}" binding="{UDDetail}"/>
+                    <Label text="{i18n>Material}"/>
+                    <Text text="{MaterialDocuemntNumber}" binding="{UDDetail}"/>
+                    <Label text="Code group/ sel. set"/>
+                    <Text text="{CodeGroup}" binding="{UDDetail}"/>
+                    <Label text="PO Date"/>
+                    <Text text="{path:'CreatedAt',
+                                     type: 'sap.ui.model.type.Date',
+				                     formatOptions: {
+				                        pattern: 'MMMM dd, yyyy'
+				                     }}" binding="{UDDetail}"/>
+                    <Label text="Charcterstic"/>
+                    <Text text="{Characteristic}" binding="{UDDetail}"/>
+                    <Label text="Mater insp.charac."/>
+                    <Text text="{MasterInspCharac}" binding="{UDDetail}"/>
+                    <Label text="Short Text"/>
+                    <Text text="{ShortText}" binding="{UDDetail}"/>
+                    <Label text="UD Selected Set"/>
+                    <Text text="{UDSelectedSet}" binding="{UDDetail}"/>
+                    <!-- <Label text="UD Code Group"/>
+                    <Text text="{UDCodeGroup}" binding="{UDDetail}"/> -->
+                    <Label text="UD Code"/>
+                    <Text text="{UDCode}" binding="{UDDetail}"/>
+                    <Label text="Long Text"/>
+                    <Text text="{LongText}" binding="{UDDetail}"/>
+                    <Label text="UD Code Date"/>
+                    <Text text="{path:'UDCodeDate',
+                                     type: 'sap.ui.model.type.Date',
+				                     formatOptions: {
+				                        pattern: 'MMMM dd, yyyy'
+				                     }}" binding="{UDDetail}"/>
+                </f:content>
+            </f:SimpleForm>
+        </content>
+        <endButton>
+            <Button text="Close" press="onViewUDDetailsDialogClose" type="Emphasized" />
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

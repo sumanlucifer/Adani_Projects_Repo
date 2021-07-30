@@ -16,6 +16,18 @@
                  <Column demandPopin="true" minScreenWidth="Desktop" hAlign="Center">
                 <Text text="Status" wrapping="true" wrappingType="Hyphenated"/>
             </Column>
+            <Column demandPopin="true" minScreenWidth="Desktop" hAlign="Center">
+                <Text text="Gate Entry Number" wrapping="true" wrappingType="Hyphenated"/>
+            </Column>
+            <Column demandPopin="true" minScreenWidth="Desktop" hAlign="Center">
+                <Text text="Unloading Date" wrapping="true" wrappingType="Hyphenated"/>
+            </Column>
+            <!-- <Column demandPopin="true" minScreenWidth="Desktop" hAlign="Center">
+                <Text text="GRN Status" wrapping="true" wrappingType="Hyphenated"/>
+            </Column>
+            <Column demandPopin="true" minScreenWidth="Desktop" hAlign="Center">
+                <Text text="UD Status" wrapping="true" wrappingType="Hyphenated"/>
+            </Column> -->
         </columns>
         <items>
            <ColumnListItem type="Navigation" press="onpressPackingListDetails">
@@ -28,6 +40,17 @@
 				                     }
                         }"/>
                     <ObjectIdentifier title="{Status}"/>
+                    <Text text="{GateEntryNumber}"/>
+                    <Text text="missing"/>
+                    <!-- <Text text="{path:'UnloadingDate',
+                                     type: 'sap.ui.model.type.Date',
+				                     formatOptions: {
+				                        pattern: 'MMMM dd, yyyy'
+				                     }
+                        }"/> -->
+                    <!-- <Text text="missing"/> -->
+                    <!-- <ObjectIdentifier title="{GRNStatus}"/> -->
+                    <!-- <ObjectIdentifier title="{UDStatus}"/> -->
                 </cells>
             </ColumnListItem>
         </items>

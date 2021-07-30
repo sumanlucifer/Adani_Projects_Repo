@@ -13,8 +13,7 @@
     xmlns:sellerForm="com.agel.mmts.storeinchargeraisedpo.view.blocks.PODetails.sellerForm"
     xmlns:sowForm="com.agel.mmts.storeinchargeraisedpo.view.blocks.PODetails.sowForm"
     xmlns:lineItemsForm="com.agel.mmts.storeinchargeraisedpo.view.blocks.PODetails.lineItemsForm" 
-    xmlns:packingItemsForm="com.agel.mmts.storeinchargeraisedpo.view.blocks.PODetails.packingItemsForm.blocks" 
-    xmlns:packingItemsFormReceived="com.agel.mmts.storeinchargeraisedpo.view.blocks.PODetails.packingItemsFormReceived.blocks" height="100%">
+    xmlns:packingItemsForm="com.agel.mmts.storeinchargeraisedpo.view.blocks.PODetails.packingItemsForm.blocks" height="100%">
     <uxap:ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true" upperCaseAnchorBar="false" headerContentPinnable="true" toggleHeaderOnTitleClick="true" busy="{objectViewModel>/busy}">
         <uxap:headerTitle>
             <uxap:ObjectPageDynamicHeaderTitle>
@@ -118,17 +117,6 @@
                     <uxap:ObjectPageSubSection title="{i18n>packingListID}">
                         <uxap:blocks>
                             <packingItemsForm:PackingItemsForm class="sapUxAPObjectPageSubSectionAlignContent"/>
-                        </uxap:blocks>
-                    </uxap:ObjectPageSubSection>
-                </uxap:subSections>
-            </uxap:ObjectPageSection>
-
-            <!-- Packing List Received Section -->
-            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>packingList}" visible="{detailsModel>/packingListReceivedTable}">
-                <uxap:subSections>
-                    <uxap:ObjectPageSubSection title="{i18n>packingListID}">
-                        <uxap:blocks>
-                            <packingItemsFormReceived:PackingItemsFormReceived class="sapUxAPObjectPageSubSectionAlignContent"/>
                         </uxap:blocks>
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>

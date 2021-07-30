@@ -48,14 +48,10 @@ sap.ui.define([
                 this._bindView("/PurchaseOrderSet" + sObjectId);
                 this.getView().getModel("detailsModel").setProperty("/Type", sObjectType);
 
-                if (sObjectType === "INTRANSIT"){
-                    this.getView().getModel("detailsModel").setProperty("/packingListTable", true);
-                    this.getView().getModel("detailsModel").setProperty("/packingListReceivedTable", false);
-                }
-
-                if (sObjectType === "RECEIVED"){
-                    this.getView().getModel("detailsModel").setProperty("/packingListReceivedTable", true);
+                if (sObjectType === "RAISED"){
                     this.getView().getModel("detailsModel").setProperty("/packingListTable", false);
+                } else if (sObjectType === "INPROGRESS"){
+                    this.getView().getModel("detailsModel").setProperty("/packingListTable", true);
                 }
 
             },
@@ -64,7 +60,6 @@ sap.ui.define([
                 var oModel = new JSONModel({
                     Label: null,
                     packingListTable: false,
-                    packingListReceivedTable: false,
                     Type: null
                 });
                 this.setModel(oModel, "detailsModel");

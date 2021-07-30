@@ -3,12 +3,13 @@ sap.ui.define([
     "sap/ui/model/json/JSONModel",
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator",
+    'sap/ui/core/ValueState',
     "sap/ui/core/Fragment",
 ],
 	/**
 	 * @param {typeof sap.ui.core.mvc.Controller} Controller
 	 */
-    function (BaseController, JSONModel, Filter, FilterOperator, Fragment) {
+    function (BaseController, JSONModel, Filter, FilterOperator, ValueState, Fragment) {
         "use strict";
 
         return BaseController.extend("com.agel.mmts.securityscanhistory.controller.LandingPage", {
