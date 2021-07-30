@@ -16,8 +16,8 @@ sap.ui.define([
 
         onInit: function () {
             //Router Object
-            // this.oRouter = this.getRouter();
-            // this.oRouter.getRoute("RouteLandingPage").attachPatternMatched(this._onObjectMatched, this);
+            this.oRouter = this.getRouter();
+            this.oRouter.getRoute("RouteLandingPage").attachPatternMatched(this._onObjectMatched, this);
 
             //view model instatiation
             var oViewModel = new JSONModel({
@@ -42,18 +42,17 @@ sap.ui.define([
 
             //adding searchfield association to filterbar and initialize the filter bar -> added in base controller
             this.initializeFilterBar();
+
+            var startupParams = this.getOwnerComponent().getComponentData().startupParameters;
+            // get Startup params from Owner Component
+            //if (startupParams.Kind[0]) {
+                this.type = startupParams.Kind[0];
+                this.byId("idIconTabBar").setSelectedKey(this.type);
         },
 
-        // _onObjectMatched: function (oEvent) {
-        //     var startupParams = this.getOwnerComponent().getComponentData().startupParameters;
-        //     // get Startup params from Owner Component
-        //     if ((startupParams.type)) {
-        //         //this.type = startupParams.type;
-        //         this.byId("idIconTabBar").setSelectedKey(startupParams.type);
-        //         this.onIconTabBarChanged(startupParams.type);
-        //     }
-        // },
-
+        _onObjectMatched: function (oEvent) {
+            this.onIconTabBarChanged();
+        },
 
         // Raised Po Table Before Bind
         onbeforeRebindRaisedPoTable: function (oEvent) {

@@ -247,9 +247,9 @@ sap.ui.define([
                 success: function (oData, oResponse) {
                     var message;
                     if ( aPayload.Status === "APPROVED"){
-                        message = "PMCG has been approved successfully!";
+                        message = "MDCC request has been Approved successfully!";
                     }else{
-                         message = "PMCG has been rejected successfully!"
+                         message = "MDCC request has been Rejected successfully!"
                     }
                      sap.m.MessageBox.success(message, {
                             title: "Success",
