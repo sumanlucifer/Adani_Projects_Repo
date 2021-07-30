@@ -51,16 +51,16 @@
                     <columns>
                         <Column >
                             <customData>
-                                <core:CustomData key="p13nData" value='\{"columnKey": "Name", "leadingProperty": "Name",
-                                                        "columnIndex": 0 ,"sortProperty": "Name"}'/>
+                                <core:CustomData key="p13nData" value='\{"columnKey": "Name", "leadingProperty": "PackingList/Name",
+                                                        "columnIndex": 0 ,"sortProperty": "PackingList/Name", "filterProperty": "PackingList/Name"}'/>
                             </customData>
                             <Text text="{i18n>Name}"/>
                         </Column>
 
                         <Column demandPopin="true" minScreenWidth="Desktop">
                             <customData>
-                                <core:CustomData key="p13nData" value='\{"columnKey": "MapVendorCode", "leadingProperty": "MapVendorCode",
-                                        "columnIndex": 1}'/>
+                                <core:CustomData key="p13nData" value='\{"columnKey": "VendorCode", "leadingProperty": "VendorCode",
+                                        "columnIndex": 1,"sortProperty": "VendorCode", "filterProperty": "VendorCode"}'/>
                             </customData>
                             <Text text="{i18n>MapVendorCode}"/>
                         </Column>
@@ -68,7 +68,7 @@
                         <Column demandPopin="true" minScreenWidth="Tablet">
                             <customData>
                                 <core:CustomData key="p13nData" value='\{"columnKey": "UnloadedDate", "leadingProperty": "UnloadedDate",
-                                        "columnIndex": 2}'/>
+                                        "columnIndex": 2, "sortProperty": "UnloadedDate"}'/>
                             </customData>
                             <Text text="{i18n>UnloadedDate}"/>
                         </Column>
@@ -76,15 +76,15 @@
                         <Column demandPopin="true" minScreenWidth="Tablet">
                             <customData>
                                 <core:CustomData key="p13nData" value='\{"columnKey": "GateEntryDate", "leadingProperty": "GateEntryDate",
-                                        "columnIndex": 3}'/>
+                                        "columnIndex": 3, "sortProperty": "GateEntryDate"}'/>
                             </customData>
                             <Text text="{i18n>GateEntryDate}"/>
                         </Column>
 
                         <Column demandPopin="true" minScreenWidth="Tablet">
                             <customData>
-                                <core:CustomData key="p13nData" value='\{"columnKey": "ReceivedQty", "leadingProperty": "ReceivedQty",
-                                        "columnIndex": 4}'/>
+                                <core:CustomData key="p13nData" value='\{"columnKey": "TotalReceivedQty", "leadingProperty": "TotalReceivedQty",
+                                        "columnIndex": 4,"sortProperty": "TotalReceivedQty", "filterProperty": "TotalReceivedQty"}'/>
                             </customData>
                             <Text text="{i18n>TotRcvdQty}"/>
                         </Column>
@@ -92,7 +92,7 @@
                         <Column demandPopin="true" minScreenWidth="Desktop">
                             <customData>
                                 <core:CustomData key="p13nData" value='\{"columnKey": "UOM", "leadingProperty": "UOM",
-                                                        "columnIndex": 5 }'/>
+                                                        "columnIndex": 5,"sortProperty": "UOM", "filterProperty": "UOM" }'/>
                             </customData>
                             <Text text="{i18n>UOM}"/>
                         </Column>
@@ -101,8 +101,8 @@
                     <items>
                         <ColumnListItem type="Inactive"> 
                             <cells>
-                                <Text text="{Name}"/>
-                                <Text text="{MapVendorCode}"/>
+                                <Text text="{Name}" binding="{PackingList}"/>
+                                <Text text="{VendorCode}"/>
                                 <Text text="{path:'UnloadedDate',
                                             type: 'sap.ui.model.type.Date',
                                             formatOptions: {
@@ -115,7 +115,7 @@
                                                 pattern: 'MMMM dd, yyyy'
                                             }
                                 }"/>
-                                <Text text="{ReceivedQty}"/>
+                                <Text text="{TotalReceivedQty}"/>
                                 <Text text="{UOM}"/>
                             </cells>
                         </ColumnListItem>

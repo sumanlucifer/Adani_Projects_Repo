@@ -11,13 +11,13 @@
                             <core:Item text="{QRNumber}" key="{QRNumber}" />
                         </suggestionItems>
                     </Input>
-                    <Button id="idQRBtn" text="Submit" type="Emphasized" press="onPressSubmitQRCode" class="sapUiSmallMargin" enabled="{= ${oViewHandlingModel>/unloadQrCode} ? true : false}"/>
+                    <Button id="idQRBtn" text="{i18n>submit}" type="Emphasized" press="onPressSubmitQRCode" class="sapUiSmallMargin" enabled="{= ${oViewHandlingModel>/unloadQrCode} ? true : false}"/>
                 </HBox>
                 <HBox alignItems="Center">
-                    <Text text="OR" class="sapUiSmallMarginBegin"/>
+                    <Text text="{i18n>or}" class="sapUiSmallMarginBegin"/>
                 </HBox>
                 <HBox alignItems="Center">
-                    <Button id="idQRSubmit" text="Scan QR Code" type="Emphasized" press="onPressScanQRCode" class="sapUiSmallMargin" enabled="{= ${oViewHandlingModel>/unloadQrCode} ? false : true}"/>
+                    <Button id="idQRSubmit" text="{i18n>scanQrCode}" type="Emphasized" press="onPressScanQRCode" class="sapUiSmallMargin" enabled="{= ${oViewHandlingModel>/unloadQrCode} ? false : true}"/>
                 </HBox>
             </VBox>
         </content>
