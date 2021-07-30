@@ -24,7 +24,7 @@
                 <uxap:expandedHeading>
                     <FlexBox direction="Column" renderType="Bare">
                         <Title text="Packing List Details - {Name}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
-                        <ObjectStatus text="{Status}" state="{= ${Status}=== 'DISPATCHED' ? 'Warning' : 'None'}" visible="{= ${Status}=== 'DISPATCHED'}"></ObjectStatus>
+                        <ObjectStatus id="idStatus" text="{Status}" state="{= ${Status}=== 'SAVED' ? 'Indication05' : ${Status}=== 'DISPATCHED' ? 'Indication06' : 'Indication07'}"/>
                     </FlexBox>
                 </uxap:expandedHeading>
                 <uxap:snappedHeading>
@@ -99,11 +99,11 @@
                         <uxap:blocks>
                             <f:SimpleForm layout="ColumnLayout" columnsM="2" columnsL="3" columnsXL="4" singleContainerFullSize="true" class="style-RemoveTitleHeight">
                                 <f:content>
-                                    <Label text="{​​​​​​​​​i18n>gateEntryNumber}​​​​​​​​​" />
+                                    <Label text="Gate Entry Number" />
                                     <Text text="{GateEntryNumber}" />
-                                    <Label text="{​​​​​​​​​i18n>UDStatus}​​​​​​​​​" />
+                                    <Label text="UD Status" />
                                     <Text text="{UDStatus}" />
-                                    <Label text="{​​​​​​​​​i18n>gateDate}​​​​​​​​​" />
+                                    <Label text="Gate Entry Date​​​​​​​​​" />
                                     <Text text="{path:'GateEntryDate',
                                             type: 'sap.ui.model.type.Date',
                                             formatOptions: {
@@ -129,15 +129,15 @@
                                             <ToolbarSpacer>
                                             </ToolbarSpacer>
                                             <VBox>
-                                                <Button text="Request GRN" id="idrequestGRNButton" press="onRequestGRNPress"  type="Accept"/>
+                                                <Button text="Request GRN" id="idrequestGRNButton" press="onRequestGRNPress" type="Accept"/>
                                             </VBox>
                                         </content>
                                     </OverflowToolbar>
                                 </headerToolbar>
                                 <columns>
-                                    <Column demandPopin="true" minScreenWidth="Tablet">
+                                    <!-- <Column demandPopin="true" minScreenWidth="Tablet">
                                         <Text text="GRN ID"/>
-                                    </Column>
+                                    </Column> -->
                                     <!-- <Column demandPopin="true" minScreenWidth="Tablet">
                                         <Text text="Gate Pass Number"/>
                                     </Column> -->
@@ -160,7 +160,7 @@
                                         <Text text="Document Date"/>
                                     </Column> -->
                                     <Column demandPopin="true" minScreenWidth="Tablet">
-                                        <Text text="Created Date"/>
+                                        <Text text="Posting Date"/>
                                     </Column>
                                     <Column demandPopin="true" minScreenWidth="Tablet">
                                         <Text text="Cancelled Date"/>
@@ -175,13 +175,16 @@
                                 <items>
                                     <ColumnListItem>
                                         <cells>
-                                            <ObjectIdentifier title="{ID}" />
+                                            <!-- <ObjectIdentifier title="{ID}" /> -->
                                             <!-- <Text text="{GatePassNumber}"/> -->
-                                            <Text text="{MaterialDocumentNumber}"/>
+                                            <ObjectIdentifier title="{MaterialDocumentNumber}"/>
                                             <Text text="{MovementType}"/>
                                             <Text text="{ValuationType}"/>
                                             <Text text="{PONumber}"/>
-                                            <Text text="{Status}" />
+                                            <ObjectStatus text="{Status}" state="{
+						path: 'Status',
+						formatter: '.formatter.getGRNListColor'
+					}"/>
                                             <!-- <Text text="{path:'DocumentDate',
                                                 type: 'sap.ui.model.type.Date',
                                                 formatOptions: {

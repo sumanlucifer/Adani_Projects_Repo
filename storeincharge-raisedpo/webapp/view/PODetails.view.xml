@@ -70,8 +70,11 @@
                             }"/>
                         </VBox>
                         <VBox renderType="Bare" class="sapUiMediumMarginEnd">
-                            <Label text="Status" />
-                            <Text text="{Status}"/>
+                        <Label text="Status" />
+                       <ObjectStatus text="{Status}" state="{
+                                path: 'Status',
+                                formatter: '.formatter.getListStatusColor'
+                            }"/>  
                         </VBox>
 
                     </FlexBox>

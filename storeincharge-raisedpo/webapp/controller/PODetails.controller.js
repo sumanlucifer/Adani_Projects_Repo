@@ -15,15 +15,18 @@ sap.ui.define([
     "sap/m/MessageBox",
     "sap/m/ObjectIdentifier",
     "sap/m/Text",
-    "sap/m/Button"
+    "sap/m/Button",
+    '../utils/formatter'
 ],
 	/**
 	 * @param {typeof sap.ui.core.mvc.Controller} Controller
 	 */
-    function (BaseController, JSONModel, Filter, FilterOperator, Fragment, Sorter, Device, History, ColumnListItem, Input, deepExtend, Spreadsheet, MessageToast, MessageBox, ObjectIdentifier, Text, Button) {
+    function (BaseController, JSONModel, Filter, FilterOperator, Fragment, Sorter, Device, History, ColumnListItem, Input, deepExtend, Spreadsheet, MessageToast, MessageBox, ObjectIdentifier, Text, Button, formatter) {
         "use strict";
 
         return BaseController.extend("com.agel.mmts.storeinchargeraisedpo.controller.PODetails", {
+            formatter: formatter,
+
             onInit: function () {
                 this.getView().addEventDelegate({
                     onAfterShow: this.onBeforeShow,

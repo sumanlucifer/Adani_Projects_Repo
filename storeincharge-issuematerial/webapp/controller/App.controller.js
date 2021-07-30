@@ -4,7 +4,7 @@ sap.ui.define([
 	], function (BaseController, JSONModel) {
 		"use strict";
 
-		return BaseController.extend("com.agel.mmts.securityscanhistory.controller.App", {
+		return BaseController.extend("com.agel.mmts.storeinchargeissuematerial.controller.App", {
 
 			onInit : function () {
 

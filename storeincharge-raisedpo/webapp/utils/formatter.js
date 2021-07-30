@@ -151,22 +151,57 @@ sap.ui.define([
             } else {
                 return sValue;
             }
+        },
+
+        getListStatusColor: function (status) {
+
+            if (status === "PENDING")
+                return 'Warning';
+            if (status === "IN PROGRESS")
+                return 'Information';
+            if (status === "CONFIRMED")
+                return 'Information';
+            if (status === "CLOSED")
+                return 'Success';
+
+        },
+
+        getListGRNStatusColor: function (status) {
+
+            if (status === "UNLOADING COMPLETED")
+                return 'Success';
+            if (status === "DISPATCHED")
+                return 'Information';
+            if (status === "SAVED")
+                return 'Information04';
+            if (status === "SENT FOR QR CODE APPROVAL")
+                return 'Information05';
+            if (status === "QR_CODE_REQUEST_APPROVED")
+                return 'Information06';
+
+        },
+
+        getGRNListColor: function (status) {
+            if (status === "CANCELLED")
+                return 'Warning';
+            if (status === "APPROVED")
+                return 'Success';
         }
 
         // viewRequestGRN: function (data) {
-            // this.MainModel.metadataLoaded(true).then(
-            //     function () {
-            //         debugger;
-            //         // model is ready now
-            //         // PONumber = that.getView().getBindingContext().getObject().PONumber;
-            //         // mBindingParams.filters.push(new sap.ui.model.Filter("PONumber", sap.ui.model.FilterOperator.EQ, PONumber));
-            //         // mBindingParams.sorter.push(new sap.ui.model.Sorter("CreatedAt", true));
-            //     },
-            //     function () {
-            //         //Error Handler Display error information so that the user knows that the application does not work.
-            //     });
+        // this.MainModel.metadataLoaded(true).then(
+        //     function () {
+        //         debugger;
+        //         // model is ready now
+        //         // PONumber = that.getView().getBindingContext().getObject().PONumber;
+        //         // mBindingParams.filters.push(new sap.ui.model.Filter("PONumber", sap.ui.model.FilterOperator.EQ, PONumber));
+        //         // mBindingParams.sorter.push(new sap.ui.model.Sorter("CreatedAt", true));
+        //     },
+        //     function () {
+        //         //Error Handler Display error information so that the user knows that the application does not work.
+        //     });
 
-            // visible="{path:'/', formatter:'.formatter.viewRequestGRN'}"
+        // visible="{path:'/', formatter:'.formatter.viewRequestGRN'}"
         // }
 
     };

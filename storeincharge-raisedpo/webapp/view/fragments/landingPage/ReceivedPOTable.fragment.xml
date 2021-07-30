@@ -2,12 +2,7 @@
     xmlns:smartTable="sap.ui.comp.smarttable"
     xmlns:core="sap.ui.core">
 
-<smartTable:SmartTable class="sapUiResponsiveContentPadding" id="idReceivedPOTable" editable="false" 
-    placeToolbarInTable="true" enableAutoBinding="true" entitySet="PurchaseOrderSet" 
-    showFullScreenButton="true" showRowCount="false" tableType="ResponsiveTable" demandPopin="false" 
-    useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" 
-    beforeRebindTable="onbeforeRebindReceivedPoTable" 
-    ignoreFromPersonalisation="AmendmentBy,AmendmentDate,AmendmentReason,CreatedBy,ID,Currency,IsArchived,UpdatedAt,UpdatedBy,ValidityEndDate,ValidityStartDate,ConfirmedDate,PlantCode">
+    <smartTable:SmartTable class="sapUiResponsiveContentPadding" id="idReceivedPOTable" editable="false" placeToolbarInTable="true" enableAutoBinding="true" entitySet="PurchaseOrderSet" showFullScreenButton="true" showRowCount="false" tableType="ResponsiveTable" demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" beforeRebindTable="onbeforeRebindReceivedPoTable" ignoreFromPersonalisation="AmendmentBy,AmendmentDate,AmendmentReason,CreatedBy,ID,Currency,IsArchived,UpdatedAt,UpdatedBy,ValidityEndDate,ValidityStartDate,ConfirmedDate,PlantCode">
 
         <!-- <smartTable:layoutData><FlexItemData growFactor="1" /></smartTable:layoutData> -->
         <Table sticky="ColumnHeaders,HeaderToolbar" updateFinished="onReceivedPOTableUpdateFinished" alternateRowColors="true">
@@ -21,7 +16,7 @@
                     <Text text="{i18n>ponum}"/>
                 </Column>
 
-                 <!-- Company Code -->
+                <!-- Company Code -->
                 <Column>
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "CompanyCode", "leadingProperty": "Buyer/CompanyCode",
@@ -46,17 +41,17 @@
                                                  "columnIndex": 3, "sortProperty": "POReleaseDate"}'/>
                     </customData>
                     <Text text="{i18n>releaseDate}"/>
-                </Column> 
+                </Column>
 
-                
+
                 <!-- Status -->
-                <Column demandPopin="true" minScreenWidth="Desktop"> 
+                <Column demandPopin="true" minScreenWidth="Desktop">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "Status", "leadingProperty": "Status",
                                                  "columnIndex": 4 ,"filterProperty": "Status"}'/>
                     </customData>
                     <Text text="{i18n>status}"/>
-                </Column>             
+                </Column>
 
                 <Column>
                     <customData>
@@ -70,7 +65,7 @@
 
                 <ColumnListItem type="Navigation" press="onPurchaseOrderPress">
                     <cells>
-                        <Text text="{PONumber}"/>
+                        <ObjectIdentifier title="{PONumber}"/>
                         <Text text="{CompanyCode}" binding="{Buyer}"/>
 
                         <Text text="{path:'CreatedAt',
@@ -84,14 +79,17 @@
 				                     formatOptions: {
 				                        pattern: 'MMMM dd, yyyy'
 				                     }
-                        }"/> 
-                        <Text text="{Status}"/>                      
+                        }"/>
+                        <ObjectStatus text="{Status}" state="{
+						path: 'Status',
+						formatter: '.formatter.getListStatusColor'
+					}"/>
                         <Link text="{i18n>viewLineItems}" press="onViewLineItemsPress"></Link>
                     </cells>
                 </ColumnListItem>
 
             </items>
         </Table>
-</smartTable:SmartTable>
+    </smartTable:SmartTable>
 
 </core:FragmentDefinition>

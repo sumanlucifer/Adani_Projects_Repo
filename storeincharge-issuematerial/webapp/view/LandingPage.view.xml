@@ -4,7 +4,7 @@
     displayBlock="true"
     xmlns="sap.m"
 >
-	<Shell id="shell">
+	<!-- <Shell id="shell">
 		<App id="app">
 			<pages>
 				<Page id="page" title="{i18n>title}">
@@ -12,5 +12,5 @@
 				</Page>
 			</pages>
 		</App>
-	</Shell>
+	</Shell> -->
 </mvc:View>

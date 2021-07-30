@@ -7,7 +7,7 @@ sap.ui.define([
     "sap/ui/model/Sorter",
     "sap/ui/Device",
     'sap/ui/core/ValueState',
-    '../utils/formatter',
+    '../utils/formatter'
 ], function (BaseController, JSONModel, Filter, FilterOperator, Fragment, Sorter, Device, ValueState, formatter) {
     "use strict";
 

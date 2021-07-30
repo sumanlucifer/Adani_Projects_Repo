@@ -43,9 +43,9 @@
                         <Text text="{Qty}" binding="{StockParentItem}"/>
                         <Label text="{i18n>UOM}"/>
                         <Text text="{UOM}" binding="{StockParentItem}"/>
-                        <Label text="{​​​​​​​​​i18n>DeliveryNote}​​​​​​​​​"></Label>
+                        <Label text="Delivery Note​​​​​​​​​"></Label>
                         <Input value="{requestModel>/delivery}" liveChange="onDeliveryNoteLiveChange" type="Text" valueState="{requestModel>/valueState}" valueStateText="{requestModel>/valueStateText}"></Input>
-                        <Label text="{​​​​​​​​​i18n>TotalPackagingWeight}"></Label>
+                        <Label text="Total Packaging Weight"></Label>
                         <Input value="{requestModel>/quantity}" liveChange="onQuantityLiveChange" type="Number" valueState="{requestModel>/valueState}" valueStateText="{requestModel>/valueStateText}"></Input>
                     </f:content>
                 </f:SimpleForm>
