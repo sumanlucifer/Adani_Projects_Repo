@@ -26,3 +26,6 @@ sapui5/fieldstock/.env1
 =======
 unloadmaterial/.env2
 >>>>>>> develop
+
+# auto generated wildcard
+issuematerial/.env1

@@ -58,8 +58,8 @@ sap.ui.define([
                     this._bindView("/QRCodeSet(" + this.qrCodeID + ")/PackingList");
                 }
                 else {
-                    this.packingListId = oEvent.getParameters().arguments.QRNo;
-                    this._bindView("/PackingListSet(" + this.packingListId + ")");
+                    this.qrCodeID = oEvent.getParameters().arguments.QRNo;
+                    this._bindView("/QRCodeSet(" + this.qrCodeID + ")/PackingList");
                 }
 
             },
@@ -88,16 +88,15 @@ sap.ui.define([
                 if (this.getView().getBindingContext().getObject().ID.length) {
                     var PackingListId = this.getView().getBindingContext().getObject().ID;
                     var PONumber = this.getView().getBindingContext().getObject().PONumber;
-                    var userInfo = "1";
+                    var userInfo = 1;
                     // var userInfo = sap.ushell.Container.getService("UserInfo").getId();
-
                     var oPayload = {
-                        "QRCodeId": that.qrCodeID,
+                        "QRCodeId": parseInt(that.qrCodeID),
                         // "PackingListId": PackingListId,
                         "UserId": userInfo,
                         // "PONumber": PONumber
                     };
-
+                    debugger;
                     this.MainModel.create("/ScannedMaterialEdmSet", oPayload, {
                         success: function (oData, oResponse) {
                             that.scannedMaterialID = oData.ID;
@@ -181,10 +180,10 @@ sap.ui.define([
                         this.getViewModel("oViewHandlingModel").setProperty("/submitButton", false);
 
                     }.bind(this),
-                    error: function (oError) {                        
+                    error: function (oError) {
                         MessageBox.error(JSON.stringify(oError));
                     }.bind(this)
-                });                
+                });
                 this.getViewModel("oViewHandlingModel").setProperty("/ReEnterVehicleNo", null);
             },
 

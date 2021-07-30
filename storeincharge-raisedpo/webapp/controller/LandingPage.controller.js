@@ -7,7 +7,7 @@ sap.ui.define([
     "sap/ui/model/Sorter",
     "sap/ui/Device",
     'sap/ui/core/ValueState',
-    '../utils/formatter',
+    '../utils/formatter'
 ], function (BaseController, JSONModel, Filter, FilterOperator, Fragment, Sorter, Device, ValueState, formatter) {
     "use strict";
 
@@ -30,7 +30,7 @@ sap.ui.define([
             var oIconTabCountModel = new JSONModel({
                 openCount: null,
                 confirmCount: null,
-                dispatchCount: null,
+                // dispatchCount: null,
                 closedCount: null
             });
             this.setModel(oIconTabCountModel, "oIconTabCountModel");
@@ -54,48 +54,41 @@ sap.ui.define([
         //     }
         // },
 
+
         // Raised Po Table Before Bind
         onbeforeRebindRaisedPoTable: function (oEvent) {
             var mBindingParams = oEvent.getParameter("bindingParams");
-            mBindingParams.filters.push(new Filter("POStatusAsPerPackingList", sap.ui.model.FilterOperator.EQ, 1));
+            mBindingParams.filters.push(new Filter("Status", sap.ui.model.FilterOperator.EQ, "PENDING"));
+            mBindingParams.filters.push(new Filter("Status", sap.ui.model.FilterOperator.EQ, "CONFIRMED"));
         },
 
         // InTransit Po Table Before Bind
         onbeforeRebindInTransitPoTable: function (oEvent) {
             var mBindingParams = oEvent.getParameter("bindingParams");
-            mBindingParams.filters.push(new Filter("POStatusAsPerPackingList", sap.ui.model.FilterOperator.EQ, 2));
-            mBindingParams.filters.push(new Filter("POStatusAsPerPackingList", sap.ui.model.FilterOperator.EQ, 3));
-
+            mBindingParams.filters.push(new Filter("Status", sap.ui.model.FilterOperator.EQ, "IN PROGRESS"));
         },
 
         // Received Po Table Before Bind
-        onbeforeRebindReceivedPoTable: function (oEvent) {
-            var mBindingParams = oEvent.getParameter("bindingParams");
-            mBindingParams.filters.push(new Filter("POStatusAsPerPackingList", sap.ui.model.FilterOperator.EQ, 3));
-            mBindingParams.filters.push(new Filter("POStatusAsPerPackingList", sap.ui.model.FilterOperator.EQ, 4));
-        },
+        // onbeforeRebindReceivedPoTable: function (oEvent) {
+        //     var mBindingParams = oEvent.getParameter("bindingParams");
+        //     mBindingParams.filters.push(new Filter("Status", sap.ui.model.FilterOperator.EQ, "CLOSED"));
+        // },
 
         // Closed Po Table Before Bind
         onbeforeRebindClosedPoTable: function (oEvent) {
             var mBindingParams = oEvent.getParameter("bindingParams");
-            mBindingParams.filters.push(new Filter("POStatusAsPerPackingList", sap.ui.model.FilterOperator.EQ, 5));
+            mBindingParams.filters.push(new Filter("Status", sap.ui.model.FilterOperator.EQ, "CLOSED"));   
         },
-
 
         onRaisedPOTableUpdateFinished: function (oEvent) {
-            //Setting the header context for a property binding to $count
             this.setIconTabCount(oEvent, oEvent.getParameter("total"), "/openCount");
         },
-        onInTransitPOTableUpdateFinished: function (oEvent) {
-            //Setting the header context for a property binding to $count                       
+
+        onInTransitPOTableUpdateFinished: function (oEvent) {                      
             this.setIconTabCount(oEvent, oEvent.getParameter("total"), "/confirmCount");
         },
-        onReceivedPOTableUpdateFinished: function (oEvent) {
-            //Setting the header context for a property binding to $count                       
-            this.setIconTabCount(oEvent, oEvent.getParameter("total"), "/dispatchCount");
-        },
-        onClosedPOTableUpdateFinished: function (oEvent) {
-            //Setting the header context for a property binding to $count                       
+
+        onClosedPOTableUpdateFinished: function (oEvent) {                       
             this.setIconTabCount(oEvent, oEvent.getParameter("total"), "/closedCount");
         },
 
@@ -109,10 +102,8 @@ sap.ui.define([
         onIconTabBarChanged: function (sKey) {
              if (sKey === "RAISED") {
                  this.byId("pageTitle").setText(this.getResourceBundle().getText("raisedPO"));
-             } else if (sKey === "INTRANSIT") {
-                 this.byId("pageTitle").setText(this.getResourceBundle().getText("inTransitPO"));
-             } else if(sKey === "RECEIVED") {
-                 this.byId("pageTitle").setText(this.getResourceBundle().getText("receivedPO"));
+             } else if (sKey === "INPROGRESS") {
+                 this.byId("pageTitle").setText(this.getResourceBundle().getText("inProgressPO"));
              } else if(sKey === "CLOSED") {
                  this.byId("pageTitle").setText(this.getResourceBundle().getText("closedPO"));
              }
@@ -124,10 +115,8 @@ sap.ui.define([
 
              if (sKey === "RAISED") {
                  this.byId("pageTitle").setText(this.getResourceBundle().getText("raisedPO"));
-             } else if (sKey === "INTRANSIT") {
-                 this.byId("pageTitle").setText(this.getResourceBundle().getText("inTransitPO"));
-             } else if(sKey === "RECEIVED") {
-                 this.byId("pageTitle").setText(this.getResourceBundle().getText("receivedPO"));
+             } else if (sKey === "INPROGRESS") {
+                 this.byId("pageTitle").setText(this.getResourceBundle().getText("inProgressPO"));
              } else if(sKey === "CLOSED") {
                  this.byId("pageTitle").setText(this.getResourceBundle().getText("closedPO"));
              }
@@ -176,7 +165,6 @@ sap.ui.define([
             var DateRange = this.byId("dateRangeSelectionId");
             var DateRangeValue = this.byId("dateRangeSelectionId").getValue();
             var CompanyCode = this.byId("idCompanyCode").getValue();
-            //  var CompanyCode = this.byId("idCompanyCode").getValue();
             var orFilters = [];
             var andFilters = [];
 
@@ -204,24 +192,21 @@ sap.ui.define([
 
             var idRaisedPOTableBinding = this.getView().byId("idRaisedPOTable").getTable().getBinding("items");
             var idInTransitPOTableBinding = this.getView().byId("idInTransitPOTable").getTable().getBinding("items");
-            var idReceivedPOTableBinding = this.getView().byId("idReceivedPOTable").getTable().getBinding("items");
             var idClosedPOTableBinding = this.getView().byId("idClosedPOTable").getTable().getBinding("items");
 
             if (andFilters.length == 0) {
                 andFilters.push(new Filter("PONumber", FilterOperator.NE, ""));
                 idRaisedPOTableBinding.filter(new Filter(andFilters, true));
                 idInTransitPOTableBinding.filter(new Filter(andFilters, true));
-                idReceivedPOTableBinding.filter(new Filter(andFilters, true));
                 idClosedPOTableBinding.filter(new Filter(andFilters, true));
             }
 
             if (andFilters.length > 0) {
                 idRaisedPOTableBinding.filter(new Filter(andFilters, true));
                 idInTransitPOTableBinding.filter(new Filter(andFilters, true));
-                idReceivedPOTableBinding.filter(new Filter(andFilters, true));
                 idClosedPOTableBinding.filter(new Filter(andFilters, true));
             }
-            // oTableBinding.filter(mFilters);
+            oTableBinding.filter(mFilters);
         },
 
         onResetFilters: function () {
@@ -232,13 +217,11 @@ sap.ui.define([
 
             var idRaisedPOTableBinding = this.getView().byId("idRaisedPOTable").getTable().getBinding("items");
             var idInTransitPOTableBinding = this.getView().byId("idInTransitPOTable").getTable().getBinding("items");
-            var idReceivedPOTableBinding = this.getView().byId("idReceivedPOTable").getTable().getBinding("items");
             var idClosedPOTableBinding = this.getView().byId("idClosedPOTable").getTable().getBinding("items");
 
 
             idRaisedPOTableBinding.filter([]);
             idInTransitPOTableBinding.filter([]);
-            idReceivedPOTableBinding.filter([]);
             idClosedPOTableBinding.filter([]);
 
             this.oFilterBar.fireFilterChange();

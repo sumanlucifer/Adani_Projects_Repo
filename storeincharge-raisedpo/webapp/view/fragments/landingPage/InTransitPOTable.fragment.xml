@@ -7,7 +7,7 @@
     showFullScreenButton="true" showRowCount="false" tableType="ResponsiveTable" demandPopin="false" 
     useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" 
     beforeRebindTable="onbeforeRebindInTransitPoTable" 
-    ignoreFromPersonalisation="AmendmentBy,AmendmentDate,AmendmentReason,CreatedBy,ID,Currency,IsArchived,UpdatedAt,UpdatedBy,ValidityEndDate,ValidityStartDate,ConfirmedDate,PlantCode">
+    ignoreFromPersonalisation="AmendmentBy,AmendmentDate,AmendmentReason,CreatedBy,ID,Currency,IsArchived,UpdatedAt,UpdatedBy,ValidityEndDate,ValidityStartDate,ConfirmedDate,PlantCode,  RemainingQtyToDeliver">
 
         <!-- <smartTable:layoutData><FlexItemData growFactor="1" /></smartTable:layoutData> -->
         <Table sticky="ColumnHeaders,HeaderToolbar" updateFinished="onInTransitPOTableUpdateFinished" alternateRowColors="true">
@@ -70,7 +70,7 @@
 
                 <ColumnListItem type="Navigation" press="onPurchaseOrderPress">
                     <cells>
-                        <Text text="{PONumber}"/>
+                        <ObjectIdentifier title="{PONumber}"/>
                         <Text text="{CompanyCode}" binding="{Buyer}"/>
 
                         <Text text="{path:'CreatedAt',
@@ -85,7 +85,10 @@
 				                        pattern: 'MMMM dd, yyyy'
 				                     }
                         }"/> 
-                        <Text text="{Status}"/>                      
+                        <ObjectStatus text="{Status}" state="{
+						path: 'Status',
+						formatter: '.formatter.getListStatusColor'
+					}"/>                           
                         <Link text="{i18n>viewLineItems}" press="onViewLineItemsPress"></Link>
                     </cells>
                 </ColumnListItem>
