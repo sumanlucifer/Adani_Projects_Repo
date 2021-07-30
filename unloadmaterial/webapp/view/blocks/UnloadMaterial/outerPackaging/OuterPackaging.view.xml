@@ -8,13 +8,13 @@
     <Table id="idOuterPackaging" items="{JSONModelData>/OuterPackings}"  autoPopinMode="true" growingThreshold="5" growing="true" fixedLayout="false" alternateRowColors="true">
         <columns>
             <Column>
-                <Text text="Outer Packaging"/>
+                <Text text="{i18n>OuterPackaging}"/>
             </Column>
             <Column>
-                <Text text="Inner Packaging"/>
+                <Text text="{i18n>InnerPackaging}"/>
             </Column>
             <Column>
-                <Text text="Received Inner Packaging"/>
+                <Text text="{i118n>RcvdInnerPackaging}"/>
             </Column>
             <!-- <Column>
                 <Text text="Line Item"/>
@@ -23,7 +23,7 @@
                 <Text text="UOM"/>
             </Column> -->
             <Column>
-                <Text text="Status"/>
+                <Text text="{i18n>Status}"/>
             </Column>
         </columns>
         <items>

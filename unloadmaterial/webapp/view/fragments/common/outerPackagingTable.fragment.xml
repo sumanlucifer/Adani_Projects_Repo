@@ -7,7 +7,7 @@
 <Table id="idOuterPackaging" items="{path: 'OuterPackagings'}" autoPopinMode="true" growingThreshold="5" growing="true" fixedLayout="false">
         <columns>
             <Column>
-                <Text text="Outer Packaging"/>
+                <Text text="{i18n>OuterPackaging}"/>
             </Column>
             <!-- <Column>
                 <Text text="Line Item ID"/>
@@ -16,19 +16,19 @@
                 <Text text="Dispatch Qty."/>
             </Column> -->
             <Column>
-                <Text text="Packaging Dimensions"/>
+                <Text text="{i18n>PackagingDimensions}"/>
             </Column>
             <!-- <Column>
                 <Text text="UOM"/>
             </Column> -->
             <Column>
-               <Text text="Action"/>
+               <Text text="{i18n>Action}"/>
             </Column>
         </columns>
         <items>
             <ColumnListItem>
                 <cells>
-                    <ObjectIdentifier title="{PackagingType}"/>
+                    <Text text="{PackagingType}"/>
                     <!-- <ObjectIdentifier title="{ID}"/> -->
                     <!-- <Text text="{DispatchQty}"/> -->
                     <Text text="{PackagingDimensions}"/>
