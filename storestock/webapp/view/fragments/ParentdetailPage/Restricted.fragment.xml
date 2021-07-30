@@ -3,12 +3,12 @@
     xmlns:core="sap.ui.core">
 
     <smartTable:SmartTable class="sapUiResponsiveContentPadding" id="idParentRestrictedTable" 
-    editable="false" placeToolbarInTable="true" enableAutoBinding="true" entitySet="StockParentItemSet" showFullScreenButton="true" showRowCount="false"
+    editable="false" placeToolbarInTable="true" enableAutoBinding="false" entitySet="StockParentItemSet" showFullScreenButton="true" showRowCount="false"
      tableType="ResponsiveTable" demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false"
-      beforeRebindTable="onBeforeRebindRestTable" ignoreFromPersonalisation="AmendmentBy,AmendmentDate,AmendmentReason,CreatedBy,ID,Currency,IsArchived,UpdatedAt,UpdatedBy,ValidityEndDate,ValidityStartDate,Status">
+      beforeRebindTable="onBeforeRebindRestTable">
 
         <!-- <smartTable:layoutData><FlexItemData growFactor="1" /></smartTable:layoutData> -->
-        <Table sticky="ColumnHeaders,HeaderToolbar" updateFinished="onPurchaseOrderTableUpdateFinished" alternateRowColors="true">
+        <Table id="restrictedTable" sticky="ColumnHeaders,HeaderToolbar" updateFinished="onPurchaseOrderTableUpdateFinished" alternateRowColors="true">
        <columns>
 
                 <Column >

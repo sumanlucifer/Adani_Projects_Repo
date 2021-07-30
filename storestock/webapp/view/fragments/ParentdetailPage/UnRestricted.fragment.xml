@@ -5,7 +5,7 @@
     <smartTable:SmartTable class="sapUiResponsiveContentPadding" id="idParentUnRestrictedTable" editable="false" placeToolbarInTable="true" enableAutoBinding="false" beforeRebindTable="onBeforeRebindUnrestTable" entitySet="StockParentItemSet" showFullScreenButton="true" showRowCount="false" tableType="ResponsiveTable" demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false">
 
         <!-- <smartTable:layoutData><FlexItemData growFactor="1" /></smartTable:layoutData> -->
-        <Table sticky="ColumnHeaders,HeaderToolbar" alternateRowColors="true">
+        <Table id="unrestrictedTable" sticky="ColumnHeaders,HeaderToolbar" alternateRowColors="true">
             <columns>
 
                 <Column >
