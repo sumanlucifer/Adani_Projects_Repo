@@ -7,20 +7,22 @@ package-lock.json
 
 
 # auto generated wildcard
-storeincharge-raisedpo/.env4
+<<<<<<< HEAD
+sapui5/storestock/.env2
 # auto generated wildcard
-storeincharge-scanqr/.env3
+sapui5/storestock/.env3
 # auto generated wildcard
-security-scan-history/.env4
+sapui5/storestock/.env4
 # auto generated wildcard
-security-scanqr/.env6
+sapui5/vendorPersona/.env24
 # auto generated wildcard
-pmcg/.env7
+sapui5/storeincharge-returnmaterial/.env1
 # auto generated wildcard
-security-international-import/.env3
+sapui5/raise-returnmaterial/.env1
 # auto generated wildcard
-tcengineer/.env5
+sapui5/returnmaterial/.env1
 # auto generated wildcard
-vendor-manageboq/.env1
-# auto generated wildcard
-vendor-manageboq/.env2
+sapui5/fieldstock/.env1
+=======
+unloadmaterial/.env2
+>>>>>>> develop

@@ -38,7 +38,7 @@
                     <Title text="Packing List Details - {Name}" wrapping="true" titleStyle="Auto"/>
                 </uxap:snappedTitleOnMobile>
                 <uxap:actions>
-                   <Button id="idStartUnloadingMat" text="{i18n>startunloadingmat}" type="Emphasized" press="onStartUnloading"/>
+                   <Button id="idStartUnloadingMat" text="{i18n>startunloadingmat}" type="Emphasized" press="onStartUnloading" visible="{= ${Status}!== 'UNLOADING COMPLETED'}"/>
                 </uxap:actions>
             </uxap:ObjectPageDynamicHeaderTitle>
         </uxap:headerTitle>
@@ -140,7 +140,7 @@
 					                        <Text text="{MDCCApprovedQty}"/>
 					                        <Text text="{DispatchQty}"/>
 					                        <Text text="{UOM}"/>
-                                            <Link text="View QR Code" binding="{QrCode}" visible="{= ${QRNumber}}" press="onViewQRCodePress"/>				                        
+                                            <Link text="View QR Code" binding="{QrCode}" visible="{= ${QRNumber} ? true : false}" press="onViewQRCodePress"/>				                        
                                         </cells>
 			                        </ColumnListItem>
 		                        </items>

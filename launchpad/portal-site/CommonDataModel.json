@@ -55,17 +55,9 @@
 			},
 			"payload": {
 				"viz": [{
-					"id": "com.agel.mmts.storeinchargeraisedpo-1-1626263574160",
+					"id": "com.agel.mmts.storeinchargeraisedpo-0-1626850513963",
 					"appId": "com.agel.mmts.storeinchargeraisedpo",
-					"vizId": "TotalOrder-raised"
-				}, {
-					"id": "com.agel.mmts.storeinchargeintransitpo-1-1626263620939",
-					"appId": "com.agel.mmts.storeinchargeintransitpo",
-					"vizId": "TotalOrder-intransit"
-				}, {
-					"id": "com.agel.mmts.storeinchargetotaldetails-2-1626263620939",
-					"appId": "com.agel.mmts.storeinchargetotaldetails",
-					"vizId": "TotalDetails-manage"
+					"vizId": "TotalOrder-details"
 				}]
 			}
 		}, {
@@ -127,6 +119,10 @@
 					"id": "com.agel.mmts.mdmouterpackinglist-4-1626346826302",
 					"appId": "com.agel.mmts.mdmouterpackinglist",
 					"vizId": "OuterPackingListType-Manage"
+				}, {
+					"id": "com.agel.mmts.adminposummary-5-1627278970509",
+					"appId": "com.agel.mmts.adminposummary",
+					"vizId": "PO_Summary-Display"
 				}]
 			}
 		}, {
