@@ -23,11 +23,11 @@
                 columnsM="1"
                 singleContainerFullSize="false" >
                 <f:content>
-                    <Label text="Outer Packaging" />
+                    <Label text="{i18n>OuterPackaging}" />
                     <Text text="{JSONModelData>OuterPackagingLabel}" />
-                    <Label text="Inner Packaging Qty" />
+                    <Label text="{i18n>InnerPackagingQty}" />
                     <Text id="idExpectedQtyOuter" text="{JSONModelData>InnerPackagingCount}" />
-                    <Label text="Received Inner Packaging" />
+                    <Label text="{i18n>RcvdInnerPackaging}" />
                     <Input id="idRcvdQtyOuter" value="{JSONModelData>ReceivedInnerCount}" type="Number" valueLiveUpdate="true" liveChange="onInputRcvdQtyOuter"/>
                 </f:content>
 		    </f:SimpleForm>
@@ -49,15 +49,15 @@
                 columnsM="1"
                 singleContainerFullSize="false" >
                 <f:content>
-                    <Label text="Inner Packaging" />
+                    <Label text="{i18n>InnerPackaging}" />
                     <Text text="{JSONModelData>InnerPackingLabel}" />
-                    <Label text="Line Item" />
+                    <Label text="{i18n>lineItem}" />
                     <Text text="{JSONModelData>LineItemLabel}" />
-                    <Label text="Packaging Qty" />
+                    <Label text="{i18n>PackagingQty}" />
                     <Text id="idExpectedQtyInner" text="{JSONModelData>PackagingQty}" />
-                    <Label text="Received Qty" />
+                    <Label text="{i18n>ReceivedQty}" />
                     <Input id="idRcvdQtyInner" value="{JSONModelData>ReceivedQty}" type="Number" valueLiveUpdate="true" liveChange="onInputRcvdQtyInner"/>
-                    <Label text="UOM" />
+                    <Label text="{i18n>UOM}" />
                     <Text text="{JSONModelData>UOM}" />
                 </f:content>
 		    </f:SimpleForm>

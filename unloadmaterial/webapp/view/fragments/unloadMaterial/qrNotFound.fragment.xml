@@ -3,8 +3,8 @@
     <Dialog class="testTitle">
         <content>
             <VBox class="sapUiResponsiveMargin">
-                <Text text="The Vendor may have forgotten to paste the QR Code or it may have got damaged in while in transport"/>
-                <Text text="Sorry for the inconvinence caused."/>                  
+                <Text text="{i18n>line1}"/>
+                <Text text="{i18n>line2}"/>                  
             </VBox>
         </content>
         <endButton>

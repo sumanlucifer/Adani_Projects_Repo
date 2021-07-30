@@ -8,7 +8,7 @@ sap.ui.define([
 		return BaseController.extend("com.agel.mmts.storeinchargeraisedpo.controller.App", {
             
 			onInit: function () {
-                // this.getView().addStyleClass(this.getOwnerComponent().getContentDensityClass());
+                this.getView().addStyleClass(this.getOwnerComponent().getContentDensityClass());
 
 			}
 		});
