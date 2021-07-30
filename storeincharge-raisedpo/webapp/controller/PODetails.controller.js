@@ -15,15 +15,18 @@ sap.ui.define([
     "sap/m/MessageBox",
     "sap/m/ObjectIdentifier",
     "sap/m/Text",
-    "sap/m/Button"
+    "sap/m/Button",
+    '../utils/formatter'
 ],
 	/**
 	 * @param {typeof sap.ui.core.mvc.Controller} Controller
 	 */
-    function (BaseController, JSONModel, Filter, FilterOperator, Fragment, Sorter, Device, History, ColumnListItem, Input, deepExtend, Spreadsheet, MessageToast, MessageBox, ObjectIdentifier, Text, Button) {
+    function (BaseController, JSONModel, Filter, FilterOperator, Fragment, Sorter, Device, History, ColumnListItem, Input, deepExtend, Spreadsheet, MessageToast, MessageBox, ObjectIdentifier, Text, Button, formatter) {
         "use strict";
 
         return BaseController.extend("com.agel.mmts.storeinchargeraisedpo.controller.PODetails", {
+            formatter: formatter,
+
             onInit: function () {
                 this.getView().addEventDelegate({
                     onAfterShow: this.onBeforeShow,
@@ -48,14 +51,10 @@ sap.ui.define([
                 this._bindView("/PurchaseOrderSet" + sObjectId);
                 this.getView().getModel("detailsModel").setProperty("/Type", sObjectType);
 
-                if (sObjectType === "INTRANSIT"){
-                    this.getView().getModel("detailsModel").setProperty("/packingListTable", true);
-                    this.getView().getModel("detailsModel").setProperty("/packingListReceivedTable", false);
-                }
-
-                if (sObjectType === "RECEIVED"){
-                    this.getView().getModel("detailsModel").setProperty("/packingListReceivedTable", true);
+                if (sObjectType === "RAISED"){
                     this.getView().getModel("detailsModel").setProperty("/packingListTable", false);
+                } else if (sObjectType === "INPROGRESS"){
+                    this.getView().getModel("detailsModel").setProperty("/packingListTable", true);
                 }
 
             },
@@ -64,7 +63,6 @@ sap.ui.define([
                 var oModel = new JSONModel({
                     Label: null,
                     packingListTable: false,
-                    packingListReceivedTable: false,
                     Type: null
                 });
                 this.setModel(oModel, "detailsModel");

@@ -1,0 +1,46 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:core="sap.ui.core" xmlns:u="sap.ui.unified">
+
+    <Table width="auto" growing="true" growingThreshold="5" items="{path: 'ParentLineItems'}" fixedLayout="false">
+        <columns>
+            <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center">
+                <Text text="{i18n>ChildName}" wrapping="true" wrappingType="Hyphenated"/>
+            </Column>
+            <Column demandPopin="true" minScreenWidth="Tablet">
+                <Text text="{i18n>MaterialID}" wrapping="true" wrappingType="Hyphenated"/>
+            </Column>
+            <Column demandPopin="true" minScreenWidth="Tablet">
+                <Text text="{i18n>Total-Recieved-Qty}" wrapping="true"/>
+            </Column>
+            <Column demandPopin="true" minScreenWidth="Tablet">
+                <Text text="{i18n>Issued-Qty}"/>
+            </Column>
+            <Column demandPopin="true" minScreenWidth="Tablet">
+                <Text text="{i18n>return-Qty}" />
+            </Column>
+            <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center">
+                <Text text="{i18n>Final-Qty}" />
+            </Column>
+            <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center">
+                <Text text="{i18n>UOM}" />
+            </Column>
+            
+        </columns>
+        <items>
+            <ColumnListItem>
+                <cells>
+            
+                    <Text text="{LineNumber}" wrappingType="Hyphenated"/>
+                    <ObjectIdentifier title="{MaterialCode}"/>
+                    <Text text="{Name}" wrappingType="Hyphenated"/>
+                    <ExpandableText text="{Description}" maxCharacters="20" overflowMode="Popover"/>
+                    <Text text="{PlantCode}" binding="{PurchaseOrder}"/>
+                    <Text text="{StorageLocation}"/>
+                    <Text text="{Quantity}"/>
+                   
+                </cells>
+            </ColumnListItem>
+        </items>
+    </Table>
+
+</core:FragmentDefinition>

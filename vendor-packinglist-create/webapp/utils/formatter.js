@@ -112,9 +112,7 @@ sap.ui.define([
             return date.toDateString();
         },
 
-        test: function (value) {
-            debugger;
-        }
+
 
 
 
