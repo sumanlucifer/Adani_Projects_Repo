@@ -595,9 +595,11 @@ sap.ui.define([
                     }
                 })
 
-                this.unloadConfirmDialog.then(function (oDialog) {
-                    oDialog.close();
-                });
+                if (this.unloadConfirmDialog) {
+                    this.unloadConfirmDialog.then(function (oDialog) {
+                        oDialog.close();
+                    });
+                }
             },
 
             _filterQrSuggestion: function (oEvent) {
@@ -622,7 +624,7 @@ sap.ui.define([
                 var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
                 oRouter.navTo("RouteDetailsPage", {
                     RequestId: this.RequestId,
-                    Type: ""
+                    Type: "QR"
                 }, true);
             },
 

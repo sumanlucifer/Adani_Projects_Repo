@@ -152,7 +152,6 @@ sap.ui.define([
             },
 
             onViewQRCodePress: function (oEvent) {
-                debugger;
                 try{
                 var sParentItemPath = oEvent.getParameter("oSource").getBindingContext().getPath();
                 }
