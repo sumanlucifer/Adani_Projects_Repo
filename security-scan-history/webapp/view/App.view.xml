@@ -1,6 +1,6 @@
 <mvc:View
 	xmlns:mvc="sap.ui.core.mvc"
-	controllerName="com.agel.mmts.storeinchargeissuematerial.controller.App"
+	controllerName="com.agel.mmts.securityscanhistory.controller.App"
 	displayBlock="true"
 	xmlns="sap.m"
     xmlns:f="sap.f">

@@ -1,5 +1,5 @@
 sap.ui.define([
-		"com/agel/mmts/storeinchargeissuematerial/controller/BaseController",
+		"com/agel/mmts/securityscanhistory/controller/BaseController",
 		"sap/ui/model/json/JSONModel"
 	], function (BaseController, JSONModel) {
 		"use strict";
