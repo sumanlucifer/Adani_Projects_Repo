@@ -79,7 +79,7 @@ sap.ui.define([
 
             onQRCodeSuggestionSelected: function (oEvent) {
                 var qrcodeID = this.byId("idInputQRCode").getValue();
-                var that =this;
+                var that = this;
                 if (qrcodeID !== "") {
                     that.getView().byId("idQRBtn").setProperty("enabled", true);
                     that.getView().byId("idQRSubmit").setProperty("enabled", false);
@@ -94,7 +94,7 @@ sap.ui.define([
 
             onInvoiceSuggestionSelected: function (oEvent) {
                 var invoiceID = this.byId("idInvoiceNum").getValue();
-                var that =this;
+                var that = this;
                 if (invoiceID !== "") {
                     that.getView().byId("idInvBtn").setProperty("enabled", true);
                     that.getView().byId("idQRSubmit").setProperty("enabled", false);
@@ -141,7 +141,7 @@ sap.ui.define([
                 var filter = [];
                 filter.push(QRNumberFilter);
                 filter.push(PACKINGLISTFilter);
-                var sPath = "/QRCodeSet?$filter=QRNumber eq '"+qrCodeId+"' and Type eq 'PACKINGLIST'&$expand=PackingList"
+                var sPath = "/QRCodeSet?$filter=QRNumber eq '" + qrCodeId + "' and Type eq 'PACKINGLIST'&$expand=PackingList"
 
                 this.MainModel.read("/QRCodeSet", {
                     filters: [filter],
@@ -197,18 +197,24 @@ sap.ui.define([
                     },
 
                     success: function (oData, oResponse) {
-                        var qrCodeId=oData.results[0].QRCodeId.results;
-                        for(var i =0; i<qrCodeId.length;i++){
-                            if(qrCodeId[i].Type === "PACKINGLIST"){
-                                that.QRNo= qrCodeId[i].ID;
-                            }
-                        }
-
+                        debugger;
                         if (oData.results.length) {
-                            that.oRouter.navTo("QRCodeDetailsPage", {
-                                QRNo: that.QRNo,
-                                Type: "INV"
-                            }, false);
+                            var qrCodeId = oData.results[0].QRCodeId.results;
+                            for (var i = 0; i < qrCodeId.length; i++) {
+                                if (qrCodeId[i].Type === "PACKINGLIST") {
+                                    that.QRNo = qrCodeId[i].ID;
+                                }
+                            }
+
+                            if (oData.results.length) {
+                                that.oRouter.navTo("QRCodeDetailsPage", {
+                                    QRNo: that.QRNo,
+                                    Type: "INV"
+                                }, false);
+                            }
+                            else {
+                                sap.m.MessageBox.error("Please Enter Valid Invoice Number");
+                            }
                         } else {
                             sap.m.MessageBox.error("Please Enter Valid Invoice Number");
                         }

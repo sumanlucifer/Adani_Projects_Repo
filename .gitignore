@@ -15,3 +15,11 @@ unloadmaterial/.env3
 security-scan-history/.env5
 # auto generated wildcard
 security-scan-history/.env6
+# auto generated wildcard
+issuematerial/.env4
+# auto generated wildcard
+storeincharge-raisedpo/.env5
+# auto generated wildcard
+security-scanqr/.env7
+# auto generated wildcard
+storeincharge-issuematerial/.env1

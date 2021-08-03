@@ -112,8 +112,8 @@ modules:
       name: unloadmaterial
       target-path: resources/
     - artifacts:
-      - issuematerial-content.zip
-      name: issuematerial
+      - storeincharge-issuematerial-content.zip
+      name: storeincharge-issuematerial
       target-path: resources/
     - artifacts:
       - comagelmmtsvendorpackinglistcreate-content.zip
@@ -314,9 +314,9 @@ modules:
     commands:
     - npm run build
     supported-platforms: []
-- name: issuematerial
+- name: storeincharge-issuematerial
   type: html5
-  path: issuematerial
+  path: storeincharge-issuematerial
   build-parameters:
     builder: custom
     commands:
