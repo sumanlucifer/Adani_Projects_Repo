@@ -1,16 +1,16 @@
 {
     "resources": [
         {
-            "name": "../raisereturnmaterial/manifest.json"
+            "name": "../raisereturnmaterial/view/RaiseRequestDetailPage.view.xml"
         },
         {
-            "name": "../raisereturnmaterial/controller/RaiseRequestDetailPage.controller.js"
+            "name": "../raisereturnmaterial/view/blocks/returnDetails/contractorForm/ContractorForm.js"
         },
         {
             "name": "../raisereturnmaterial/view/blocks/returnDetails/lineItemsForm/LineItemsForm.js"
         },
         {
-            "name": "../raisereturnmaterial/view/blocks/returnDetails/contractorForm/ContractorForm.js"
+            "name": "../raisereturnmaterial/manifest.json"
         },
         {
             "name": "../raisereturnmaterial/model/models.js"
@@ -19,8 +19,7 @@
             "name": "../raisereturnmaterial/controller/RaiseRequestPage.controller.js"
         },
         {
-            "name": "../raisereturnmaterial/i18n/i18n.properties",
-            "raw": "i18n/i18n.properties"
+            "name": "../raisereturnmaterial/controller/RaiseRequestDetailPage.controller.js"
         },
         {
             "name": "../raisereturnmaterial/controller/NotFound.controller.js"
@@ -45,7 +44,7 @@
             "merged": true
         },
         {
-            "name": "../raisereturnmaterial/model/models-dbg.js",
+            "name": "../raisereturnmaterial/view/blocks/returnDetails/lineItemsForm/LineItemsForm-dbg.js",
             "isDebug": true
         },
         {
@@ -53,7 +52,7 @@
             "isDebug": true
         },
         {
-            "name": "../raisereturnmaterial/view/blocks/returnDetails/lineItemsForm/LineItemsForm-dbg.js",
+            "name": "../raisereturnmaterial/model/models-dbg.js",
             "isDebug": true
         },
         {
@@ -100,7 +99,8 @@
             "name": "../raisereturnmaterial/view/RaiseRequestPage.view.xml"
         },
         {
-            "name": "../raisereturnmaterial/view/RaiseRequestDetailPage.view.xml"
+            "name": "../raisereturnmaterial/i18n/i18n.properties",
+            "raw": "i18n/i18n.properties"
         },
         {
             "name": "../raisereturnmaterial/view/NotFound.view.xml"
