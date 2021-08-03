@@ -78,7 +78,8 @@ sap.ui.define([
             },
 
             onQRCodeSuggestionSelected: function (oEvent) {
-                var qrcodeID = this.byId("idInputQRCode").getSelectedKey();
+                // var qrcodeID = this.byId("idInputQRCode").getSelectedKey();
+                var qrcodeID = this.byId("idInputQRCode").getValue();
                 if (qrcodeID !== "") {
                     this.getView().byId("idQRBtn").setProperty("enabled", true);
                     this.getView().byId("idQRSubmit").setProperty("enabled", false);
@@ -89,11 +90,11 @@ sap.ui.define([
                     this.getView().byId("idQRSubmit").setProperty("enabled", true);
                     this.getView().byId("idInvoiceNum").setProperty("enabled", true);
                 }
-                this._filterQrSuggestion(oEvent);
+                // this._filterQrSuggestion(oEvent);
             },
 
             onInvoiceSuggestionSelected: function (oEvent) {
-                var invoiceID = this.byId("idInvoiceNum").getSelectedKey();
+                var invoiceID = this.byId("idInvoiceNum").getValue();
                 if (invoiceID !== "") {
                     this.getView().byId("idInvBtn").setProperty("enabled", true);
                     this.getView().byId("idQRSubmit").setProperty("enabled", false);
@@ -149,7 +150,6 @@ sap.ui.define([
                     filters: [filter],
                     success: function (oData, oResponse) {
                         if (oData) {
-                             debugger;
                             if (oData.results.length) {
                                 that.oRouter.navTo("RouteDetailsPage", {
                                     RequestId: oData.results[0].PackingList.ID,
@@ -197,7 +197,6 @@ sap.ui.define([
 
                     success: function (oData, oResponse) {
                         if (oData) {
-                            // debugger;
                             if (oData.results.length) {
                                 that.oRouter.navTo("RouteDetailsPage", {
                                     RequestId: oData.results[0].ID,
@@ -230,14 +229,14 @@ sap.ui.define([
             },
 
 
-            _filterQrSuggestion: function (oEvent) {
-                var oInput = oEvent.getSource();
-                var oValue = oInput.getValue();
-                var aFilters = [];
-                if (oValue) {
-                    aFilters.push(new Filter("QRNumber", sap.ui.model.FilterOperator.Contains, oValue));
-                    oInput.getBinding("suggestionItems").filter(aFilters);
-                }
-            },
+            // _filterQrSuggestion: function (oEvent) {
+            //     var oInput = oEvent.getSource();
+            //     var oValue = oInput.getValue();
+            //     var aFilters = [];
+            //     if (oValue) {
+            //         aFilters.push(new Filter("QRNumber", sap.ui.model.FilterOperator.Contains, oValue));
+            //         oInput.getBinding("suggestionItems").filter(aFilters);
+            //     }
+            // },
         });
     });
