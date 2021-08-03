@@ -15,11 +15,12 @@
                         <Text text="Domestic Entry"/>
                     </HBox> -->
                     <HBox alignItems="Center">
-                        <Input id="idInputQRCode" width="100%" showSuggestion="true" showValueHelp="false" suggestionItems="{/QRCodeSet}" placeholder="Enter QR Number" valueLiveUpdate="true" suggestionItemSelected="onQRCodeSuggestionSelected" liveChange="onQRCodeSuggestionSelected" class="sapUiSmallMarginEnd" enabled="{oViewModel>/inputQRCode}">
+                        <!-- <Input id="idInputQRCode" width="100%" showSuggestion="true" showValueHelp="false" suggestionItems="{/QRCodeSet}" placeholder="Enter QR Number" valueLiveUpdate="true" suggestionItemSelected="onQRCodeSuggestionSelected" liveChange="onQRCodeSuggestionSelected" class="sapUiSmallMarginEnd" enabled="{oViewModel>/inputQRCode}">
                             <suggestionItems>
                                 <core:Item text="{QRNumber}" key="{QRNumber}" />
                             </suggestionItems>
-                        </Input>
+                        </Input> -->
+                         <Input id="idInputQRCode" width="100%" showSuggestion="false" showValueHelp="false" placeholder="Enter QR Number" valueLiveUpdate="true" liveChange="onQRCodeSuggestionSelected" class="sapUiSmallMarginEnd" enabled="{oViewModel>/inputQRCode}"/>
                         <Button id="idQRBtn" text="{i18n>submit}" type="Emphasized" press="onPressSubmitQRCode" class="sapUiSmallMarginBegin" enabled="{oViewModel>/submitQRCode}"/>
                     </HBox>
                     <HBox alignItems="Center">
@@ -33,11 +34,12 @@
                     </HBox>
 
                     <HBox alignItems="Center">
-                        <Input id="idInvoiceNum" width="100%" valueLiveUpdate="true" suggestionItems="{/PackingListSet}" showSuggestion="true" placeholder="Enter Invoice Number" showValueHelp="false" class="sapUiSmallMarginEnd" suggestionItemSelected="onInvoiceSuggestionSelected" liveChange="onInvoiceSuggestionSelected" enabled="{oViewModel>/inputInvoiceCode}">
+                        <!-- <Input id="idInvoiceNum" width="100%" valueLiveUpdate="true" suggestionItems="{/PackingListSet}" showSuggestion="true" placeholder="Enter Invoice Number" showValueHelp="false" class="sapUiSmallMarginEnd" suggestionItemSelected="onInvoiceSuggestionSelected" liveChange="onInvoiceSuggestionSelected" enabled="{oViewModel>/inputInvoiceCode}">
                             <suggestionItems>
                                 <core:Item text="{InvoiceNumber}" key="{InvoiceNumber}" />
                             </suggestionItems>
-                        </Input>
+                        </Input> -->
+                        <Input id="idInvoiceNum" width="100%" valueLiveUpdate="true" showSuggestion="false" placeholder="Enter Invoice Number" showValueHelp="false" class="sapUiSmallMarginEnd" liveChange="onInvoiceSuggestionSelected" enabled="{oViewModel>/inputInvoiceCode}"/>
                         <Button id="idInvBtn" text="{i18n>submit}" type="Emphasized" press="onPressSubmitInvoiceNumber" class="sapUiSmallMarginBegin" enabled="{oViewModel>/submitInvoiceCode}"/>
                     </HBox>
                 </uxap:content>

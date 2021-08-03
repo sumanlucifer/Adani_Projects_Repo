@@ -5,7 +5,7 @@
     xmlns:smartTable="sap.ui.comp.smarttable"
     xmlns:tt="sap.ui.table" controllerName="com.agel.mmts.unloadmaterial.view.blocks.UnloadMaterial.outerPackaging.OuterPackagingController">
 
-    <Table id="idOuterPackaging" items="{JSONModelData>/OuterPackings}"  autoPopinMode="true" growingThreshold="5" growing="true" fixedLayout="false" alternateRowColors="true">
+    <Table id="idOuterPackaging" items="{JSONModelData>/OuterPackings}" autoPopinMode="true" growingThreshold="5" growing="true" fixedLayout="false" alternateRowColors="true">
         <columns>
             <Column>
                 <Text text="{i18n>OuterPackaging}"/>
@@ -14,7 +14,7 @@
                 <Text text="{i18n>InnerPackaging}"/>
             </Column>
             <Column>
-                <Text text="{i118n>RcvdInnerPackaging}"/>
+                <Text text="{i18n>RcvdInnerPackaging}"/>
             </Column>
             <!-- <Column>
                 <Text text="Line Item"/>

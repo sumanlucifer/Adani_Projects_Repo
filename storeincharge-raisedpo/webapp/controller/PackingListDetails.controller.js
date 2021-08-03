@@ -13,11 +13,12 @@ sap.ui.define([
     "sap/m/MessageBox",
     "sap/m/MessageToast",
     "../utils/formatter",
+    "sap/m/PDFViewer"
 ],
 	/**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (BaseController, JSONModel, Filter, FilterOperator, Fragment, Sorter, Device, History, ColumnListItem, Input, jquery, MessageBox, MessageToast, formatter) {
+    function (BaseController, JSONModel, Filter, FilterOperator, Fragment, Sorter, Device, History, ColumnListItem, Input, jquery, MessageBox, MessageToast, formatter, PDFViewer) {
         "use strict";
         return BaseController.extend("com.agel.mmts.storeinchargeraisedpo.controller.PackingListDetails", {
             formatter: formatter,
@@ -93,92 +94,166 @@ sap.ui.define([
             },
 
 
-            // QR Code View 
+            // // QR Code View 
+            // onViewQRCodePress: function (oEvent) {
+            //     var sParentItemPath = oEvent.getSource().getBindingContext().getPath();
+            //     var sDialogTitleObject = oEvent.getSource()._getBindingContext().getProperty();
+            //     var oDetails = {};
+            //     oDetails.controller = this;
+            //     oDetails.view = this.getView();
+            //     oDetails.sParentItemPath = sParentItemPath;
+            //     oDetails.title = "QR Code";
+            //     if (sDialogTitleObject.Name)
+            //         oDetails.title = sDialogTitleObject.Name;
+            //     else if (sDialogTitleObject.PackagingType)
+            //         oDetails.title = sDialogTitleObject.PackagingType;
+            //     if (!this.qrDialog) {
+            //         this.qrDialog = Fragment.load({
+            //             id: oDetails.view.getId(),
+            //             name: "com.agel.mmts.storeinchargeraisedpo.view.fragments.QRCodeViewer",
+            //             controller: oDetails.controller
+            //         }).then(function (oDialog) {
+            //             // connect dialog to the root view of this component (models, lifecycle)
+            //             oDetails.view.addDependent(oDialog);
+            //             oDialog.bindElement({
+            //                 path: oDetails.sParentItemPath,
+            //             });
+            //             if (Device.system.desktop) {
+            //                 oDialog.addStyleClass("sapUiSizeCompact");
+            //             }
+            //             oDialog.setTitle(oDetails.title);
+            //             return oDialog;
+            //         });
+            //     }
+            //     this.qrDialog.then(function (oDialog) {
+            //         oDetails.view.addDependent(oDialog);
+            //         oDialog.bindElement({
+            //             path: oDetails.sParentItemPath,
+            //         });
+            //         oDialog.setTitle(oDetails.title);
+            //         oDialog.open();
+            //     });
+            // },
+
+            // // QR Code View 
+            // onViewQRCodePressSmart: function (oEvent) {
+            //     var sParentItemPath = oEvent.getParameter("oSource").getBindingContext().getPath();
+            //     var sDialogTitleObject = oEvent.getSource()._getBindingContext().getProperty();
+            //     var oDetails = {};
+            //     oDetails.controller = this;
+            //     oDetails.view = this.getView();
+            //     oDetails.sParentItemPath = sParentItemPath;
+            //     oDetails.title = "QR Code";
+            //     if (sDialogTitleObject.Name)
+            //         oDetails.title = sDialogTitleObject.Name;
+            //     else if (sDialogTitleObject.PackagingType)
+            //         oDetails.title = sDialogTitleObject.PackagingType;
+            //     if (!this.qrDialog) {
+            //         this.qrDialog = Fragment.load({
+            //             id: oDetails.view.getId(),
+            //             name: "com.agel.mmts.storeinchargeraisedpo.view.fragments.QRCodeViewer",
+            //             controller: oDetails.controller
+            //         }).then(function (oDialog) {
+            //             // connect dialog to the root view of this component (models, lifecycle)
+            //             oDetails.view.addDependent(oDialog);
+            //             oDialog.bindElement({
+            //                 path: oDetails.sParentItemPath,
+            //             });
+            //             if (Device.system.desktop) {
+            //                 oDialog.addStyleClass("sapUiSizeCompact");
+            //             }
+            //             oDialog.setTitle(oDetails.title);
+            //             return oDialog;
+            //         });
+            //     }
+            //     this.qrDialog.then(function (oDialog) {
+            //         oDetails.view.addDependent(oDialog);
+            //         oDialog.bindElement({
+            //             path: oDetails.sParentItemPath,
+            //         });
+            //         oDialog.setTitle(oDetails.title);
+            //         oDialog.open();
+            //     });
+            // },
+
+
             onViewQRCodePress: function (oEvent) {
-                var sParentItemPath = oEvent.getSource().getBindingContext().getPath();
-                var sDialogTitleObject = oEvent.getSource()._getBindingContext().getProperty();
-                var oDetails = {};
-                oDetails.controller = this;
-                oDetails.view = this.getView();
-                oDetails.sParentItemPath = sParentItemPath;
-                oDetails.title = "QR Code";
-                if (sDialogTitleObject.Name)
-                    oDetails.title = sDialogTitleObject.Name;
-                else if (sDialogTitleObject.PackagingType)
-                    oDetails.title = sDialogTitleObject.PackagingType;
-                if (!this.qrDialog) {
-                    this.qrDialog = Fragment.load({
-                        id: oDetails.view.getId(),
-                        name: "com.agel.mmts.storeinchargeraisedpo.view.fragments.QRCodeViewer",
-                        controller: oDetails.controller
-                    }).then(function (oDialog) {
-                        // connect dialog to the root view of this component (models, lifecycle)
-                        oDetails.view.addDependent(oDialog);
-                        oDialog.bindElement({
-                            path: oDetails.sParentItemPath,
-                        });
-                        if (Device.system.desktop) {
-                            oDialog.addStyleClass("sapUiSizeCompact");
-                        }
-                        oDialog.setTitle(oDetails.title);
-                        return oDialog;
-                    });
+
+                try {
+                    var sParentItemPath = oEvent.getParameter("oSource").getBindingContext().getPath();
                 }
-                this.qrDialog.then(function (oDialog) {
-                    oDetails.view.addDependent(oDialog);
-                    oDialog.bindElement({
-                        path: oDetails.sParentItemPath,
-                    });
-                    oDialog.setTitle(oDetails.title);
-                    oDialog.open();
-                });
+                catch (e) {
+                    sParentItemPath = oEvent.getSource().getBindingContext().getPath();
+                }
+                var qrcodeID = this.getViewModel().getProperty(sParentItemPath).QRNumber;
+                var aPayload = {
+                    "QRNumber": qrcodeID
+                };
+                this.getComponentModel().create("/QuickAccessQRCodeEdmSet", aPayload, {
+                    success: function (oData, oResponse) {
+                        if (oData.Success) {
+                            // sap.m.MessageBox.success(oData.Message);
+                            this._openPDFDownloadWindow(oData.Base64String);
+                        }
+
+                        else {
+                            sap.m.MessageBox.error("QR Code is wrong");
+                        }
+                        this.getComponentModel().refresh();
+                    }.bind(this),
+                    error: function (oError) {
+                        sap.m.MessageBox.success(JSON.stringify(oError));
+                    }
+                })
             },
 
-            // QR Code View 
             onViewQRCodePressSmart: function (oEvent) {
-                var sParentItemPath = oEvent.getParameter("oSource").getBindingContext().getPath();
-                var sDialogTitleObject = oEvent.getSource()._getBindingContext().getProperty();
-                var oDetails = {};
-                oDetails.controller = this;
-                oDetails.view = this.getView();
-                oDetails.sParentItemPath = sParentItemPath;
-                oDetails.title = "QR Code";
-                if (sDialogTitleObject.Name)
-                    oDetails.title = sDialogTitleObject.Name;
-                else if (sDialogTitleObject.PackagingType)
-                    oDetails.title = sDialogTitleObject.PackagingType;
-                if (!this.qrDialog) {
-                    this.qrDialog = Fragment.load({
-                        id: oDetails.view.getId(),
-                        name: "com.agel.mmts.storeinchargeraisedpo.view.fragments.QRCodeViewer",
-                        controller: oDetails.controller
-                    }).then(function (oDialog) {
-                        // connect dialog to the root view of this component (models, lifecycle)
-                        oDetails.view.addDependent(oDialog);
-                        oDialog.bindElement({
-                            path: oDetails.sParentItemPath,
-                        });
-                        if (Device.system.desktop) {
-                            oDialog.addStyleClass("sapUiSizeCompact");
-                        }
-                        oDialog.setTitle(oDetails.title);
-                        return oDialog;
-                    });
+                try {
+                    var sParentItemPath = oEvent.getParameter("oSource").getBindingContext().getPath();
                 }
-                this.qrDialog.then(function (oDialog) {
-                    oDetails.view.addDependent(oDialog);
-                    oDialog.bindElement({
-                        path: oDetails.sParentItemPath,
-                    });
-                    oDialog.setTitle(oDetails.title);
-                    oDialog.open();
-                });
+                catch (e) {
+                    sParentItemPath = oEvent.getSource().getBindingContext().getPath();
+                }
+                var qrcodeID = this.getViewModel().getProperty(sParentItemPath).QRNumber;
+                var aPayload = {
+                    "QRNumber": qrcodeID
+                };
+                this.getComponentModel().create("/QuickAccessQRCodeEdmSet", aPayload, {
+                    success: function (oData, oResponse) {
+                        if (oData.Success) {
+                            // sap.m.MessageBox.success(oData.Message);
+                            this._openPDFDownloadWindow(oData.Base64String);
+                        }
+
+                        else {
+                            sap.m.MessageBox.error("QR Code is wrong");
+                        }
+                        this.getComponentModel().refresh();
+                    }.bind(this),
+                    error: function (oError) {
+                        sap.m.MessageBox.success(JSON.stringify(oError));
+                    }
+                })
             },
 
-            onQRCodeViewerDialogClosePress: function (oEvent) {
-                this.qrDialog.then(function (oDialog) {
-                    oDialog.close();
-                });
+            _openPDFDownloadWindow: function (base64Data) {
+                var _pdfViewer = new PDFViewer();
+                this.getView().addDependent(_pdfViewer);
+                var decodedPdfContent = atob(base64Data);
+                var byteArray = new Uint8Array(decodedPdfContent.length)
+                for (var i = 0; i < decodedPdfContent.length; i++) {
+                    byteArray[i] = decodedPdfContent.charCodeAt(i);
+                }
+                var blob = new Blob([byteArray.buffer], { type: 'application/pdf' });
+                var _pdfurl = URL.createObjectURL(blob);
+                _pdfViewer.setSource(_pdfurl);
+                if (Device.system.desktop) {
+                    _pdfViewer.addStyleClass("sapUiSizeCompact");
+                }
+                // _pdfViewer.setTitle("QR Code " + this.getView().getBindingContext().getObject().Name);
+                _pdfViewer.setTitle("QR Code");
+                _pdfViewer.setShowDownloadButton(true);
+                _pdfViewer.open();
             },
 
             onUDDetailsPress: function (oEvent) {

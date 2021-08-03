@@ -96,7 +96,7 @@ sap.ui.define([
                         "UserId": userInfo,
                         // "PONumber": PONumber
                     };
-                    debugger;
+                    // debugger;
                     this.MainModel.create("/ScannedMaterialEdmSet", oPayload, {
                         success: function (oData, oResponse) {
                             that.scannedMaterialID = oData.ID;
