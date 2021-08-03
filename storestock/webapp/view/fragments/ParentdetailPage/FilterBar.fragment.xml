@@ -5,11 +5,18 @@
 
     <fb:FilterBar id="filterbar" reset="onResetFilters" search="onSearch" useToolbar="false" showGoOnFB="true" showRestoreOnFB="true">
         <fb:filterGroupItems>
-           
-         
-            <fb:FilterGroupItem groupName="__$INTERNAL$" name="MatCode" label="{i18n>MaterialID}" visibleInFilterBar="true" class="searchFieldLabelHidden">
+
+
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="ParentName" label="{i18n>MaterialName}" visibleInFilterBar="true" class="searchFieldLabelHidden">
                 <fb:control>
-                    <Input id="idMaterialCode" placeholder="{i18n>EnterMatCode}" liveChange="onFilterChange" showValueHelp="false">
+                    <Input id="idParentMaterialName" placeholder="{i18n>EnterMatName}" liveChange="onFilterChange" showValueHelp="false">
+                    </Input>
+                </fb:control>
+            </fb:FilterGroupItem>
+
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="ParentMatCode" label="{i18n>MaterialID}" visibleInFilterBar="true" class="searchFieldLabelHidden">
+                <fb:control>
+                    <Input id="idParentMaterialCode" placeholder="{i18n>EnterMatCode}" liveChange="onFilterChange" showValueHelp="false">
                     </Input>
                 </fb:control>
             </fb:FilterGroupItem>
@@ -18,10 +25,14 @@
                 <fb:control>
 
 
-                    <Select width="6rem" id="idSelPlant" forceSelection="false" selectedKey="{qrAssistantModel>/reason}" items="{
+                    <!-- <Select width="6rem" id="idSelPlant" forceSelection="false" selectedKey="{qrAssistantModel>/reason}" items="{
 						    path: '/MasterQrCodeAssistanceReasonSet'						    
 					    }">
                         <core:Item key="{Reason}" text="{Reason}" />
+                    </Select> -->
+
+                      <Select width="6rem" id="idSelPlant" forceSelection="false"  items="{PlantModel>/PlntItems}">
+                        <core:Item key="{PlantModel>key}" text="{PlantModel>value}" />
                     </Select>
                 </fb:control>
             </fb:FilterGroupItem>

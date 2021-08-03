@@ -10,6 +10,9 @@
                 <f:heading>
                     <Title id="pageTitle" text="{i18n>Store-Stock-Child}"/>
                 </f:heading>
+                 <f:actions>
+                   <Button text="Close" press="onCloseChildPage" type="Emphasized"/>
+                </f:actions>
             </f:DynamicPageTitle>
         </f:title>
         <!-- DynamicPage Header -->

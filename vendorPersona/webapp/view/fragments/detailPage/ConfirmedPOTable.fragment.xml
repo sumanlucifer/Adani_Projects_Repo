@@ -2,7 +2,7 @@
     xmlns:smartTable="sap.ui.comp.smarttable"
     xmlns:core="sap.ui.core">
     <smartTable:SmartTable class="sapUiResponsiveContentPadding" id="idConfirmPOTable" editable="false" placeToolbarInTable="true" enableAutoBinding="true" entitySet="PurchaseOrderSet"  showFullScreenButton="true" showRowCount="false" tableType="ResponsiveTable" demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" beforeRebindTable="onbeforeRebindConfirmPoTable" ignoreFromPersonalisation="AmendmentBy,AmendmentDate,AmendmentReason,CreatedBy,ID,Currency,IsArchived,UpdatedAt,UpdatedBy,ValidityEndDate,ValidityStartDate,Status,CreatedAt">
-        <Table sticky="ColumnHeaders,HeaderToolbar" updateFinished="onConfirmPOTableUpdateFinished">
+        <Table  sticky="ColumnHeaders,HeaderToolbar" updateFinished="onConfirmPOTableUpdateFinished">
             <columns>
                 <Column>
                     <customData>

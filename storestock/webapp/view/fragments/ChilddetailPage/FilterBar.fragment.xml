@@ -5,25 +5,21 @@
 
     <fb:FilterBar id="filterbar1" reset="onResetFilters" search="onSearch" useToolbar="false" showGoOnFB="true" showRestoreOnFB="true">
         <fb:filterGroupItems>
-         
-           
-            <fb:FilterGroupItem groupName="__$INTERNAL$" name="MatCode" label="{i18n>MaterialID}" visibleInFilterBar="true" class="searchFieldLabelHidden">
+          <fb:FilterGroupItem groupName="__$INTERNAL$" name="ChildMatName" label="{i18n>MaterialName}" visibleInFilterBar="true" class="searchFieldLabelHidden">
                 <fb:control>
-                    <Input id="idMaterialCode" placeholder="{i18n>EnterMatCode}" liveChange="onFilterChange" showValueHelp="false">
+                    <Input id="idChildMaterialName" placeholder="{i18n>EnterMatName}" liveChange="onFilterChange" showValueHelp="false">
                     </Input>
                 </fb:control>
             </fb:FilterGroupItem>
            
-            <fb:FilterGroupItem groupName="__$INTERNAL$" name="PlantCode" label="{i18n>PlantCode}" visibleInFilterBar="true" class="searchFieldLabelHidden">
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="ChildMatCode" label="{i18n>MaterialID}" visibleInFilterBar="true" class="searchFieldLabelHidden">
                 <fb:control>
-                    
-                        <Select width="6rem" id="idSelReason" forceSelection="false" selectedKey="{qrAssistantModel>/reason}" items="{
-						    path: '/MasterQrCodeAssistanceReasonSet'						    
-					    }">
-                            <core:Item key="{Reason}" text="{Reason}" />
-                        </Select>
+                    <Input id="idChildMaterialCode" placeholder="{i18n>EnterMatCode}" liveChange="onFilterChange" showValueHelp="false">
+                    </Input>
                 </fb:control>
             </fb:FilterGroupItem>
+           
+          
             
         </fb:filterGroupItems>
     </fb:FilterBar>
