@@ -1,8 +1,9 @@
 sap.ui.define([
 	"sap/ui/core/UIComponent",
 	"sap/ui/Device",
-	"com/agel/mmts/pmcg/model/models"
-], function (UIComponent, Device, models) {
+    "com/agel/mmts/pmcg/model/models",
+    "com/agel/mmts/pmcg/controller/ErrorHandler"
+], function (UIComponent, Device, models, ErrorHandler) {
 	"use strict";
 
 	return UIComponent.extend("com.agel.mmts.pmcg.Component", {
@@ -18,7 +19,10 @@ sap.ui.define([
 		 */
 		init: function () {
 			// call the base component's init function
-			UIComponent.prototype.init.apply(this, arguments);
+            UIComponent.prototype.init.apply(this, arguments);
+            
+            //initialize the error handler with the component
+            this._oErrorHandler = new ErrorHandler(this);
 
 			// enable routing
 			this.getRouter().initialize();

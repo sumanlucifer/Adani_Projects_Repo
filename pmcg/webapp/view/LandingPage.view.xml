@@ -1,35 +1,28 @@
-<mvc:View
-    controllerName="com.agel.mmts.pmcg.controller.LandingPage"
-	xmlns:mvc="sap.ui.core.mvc"
+<mvc:View controllerName="com.agel.mmts.pmcg.controller.LandingPage"
+    xmlns:mvc="sap.ui.core.mvc"
     xmlns:core="sap.ui.core"
     xmlns="sap.m"
     xmlns:f="sap.f">
-	<Shell id="shell">
-		<App id="app">
-			<pages>
-				<f:DynamicPage headerExpanded="true" busy="{objectViewModel>/busy}">
-					<!-- DynamicPage Title -->
-					<f:title>
-						<f:DynamicPageTitle>
-							<f:heading>
-								<Title text="{i18n>pmcgTitle}"/>
-							</f:heading>
-						</f:DynamicPageTitle>
-					</f:title>
-					<!-- DynamicPage Header -->
-					<f:header>
-						<f:DynamicPageHeader pinnable="true">
-							<f:content>
-							 <core:Fragment fragmentName="com.agel.mmts.pmcg.view.fragments.LandingPage.FilterBar" type="XML"/>
-							</f:content>
-						</f:DynamicPageHeader>
-					</f:header>
-					<!-- DynamicPage Content -->
-					<f:content>
-						   <core:Fragment fragmentName="com.agel.mmts.pmcg.view.fragments.LandingPage.TCEngRequestTable" type="XML"/>
-					</f:content>
-				</f:DynamicPage>
-			</pages>
-		</App>
-	</Shell>
+    <f:DynamicPage headerExpanded="true" busy="{objectViewModel>/busy}">
+        <!-- DynamicPage Title -->
+        <f:title>
+            <f:DynamicPageTitle>
+                <f:heading>
+                    <Title text="{i18n>pmcgTitle}"/>
+                </f:heading>
+            </f:DynamicPageTitle>
+        </f:title>
+        <!-- DynamicPage Header -->
+        <f:header>
+            <f:DynamicPageHeader pinnable="true">
+                <f:content>
+                    <core:Fragment fragmentName="com.agel.mmts.pmcg.view.fragments.LandingPage.FilterBar" type="XML"/>
+                </f:content>
+            </f:DynamicPageHeader>
+        </f:header>
+        <!-- DynamicPage Content -->
+        <f:content>
+            <core:Fragment fragmentName="com.agel.mmts.pmcg.view.fragments.LandingPage.TCEngRequestTable" type="XML"/>
+        </f:content>
+    </f:DynamicPage>
 </mvc:View>

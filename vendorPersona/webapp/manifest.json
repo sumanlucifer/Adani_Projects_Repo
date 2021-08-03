@@ -173,42 +173,36 @@
                 "TargetDetailPage": {
                     "viewType": "XML",
                     "transition": "slide",
-                    "clearControlAggregation": false,
                     "viewName": "DetailPage",
                     "viewLevel": 1
                 },
                 "TargetPODetailPage": {
                     "viewType": "XML",
                     "transition": "slide",
-                    "clearControlAggregation": false,
                     "viewName": "PODetails",
                     "viewLevel": 2
                 },
                 "TargetInspectionDetailsPage": {
                     "viewType": "XML",
                     "transition": "slide",
-                    "clearControlAggregation": false,
                     "viewName": "InspectionDetails",
                     "viewLevel": 3
                 },
                 "TargetPackingListDetailsPage": {
                     "viewType": "XML",
                     "transition": "slide",
-                    "clearControlAggregation": false,
                     "viewName": "PackingListDetails",
                     "viewLevel": 4
                 },
                 "TargetManageBOQ": {
                     "viewType": "XML",
                     "transition": "slide",
-                    "clearControlAggregation": false,
                     "viewName": "ManageBOQ",
                     "viewLevel": 5
                 },
                 "TargetOfflineInspection": {
                     "viewType": "XML",
                     "transition": "slide",
-                    "clearControlAggregation": false,
                     "viewName": "OfflineInspection",
                     "viewLevel": 6
                 }
