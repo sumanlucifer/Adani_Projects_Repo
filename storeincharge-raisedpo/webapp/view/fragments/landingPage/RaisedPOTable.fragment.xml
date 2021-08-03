@@ -7,7 +7,7 @@
     showFullScreenButton="true" showRowCount="false" tableType="ResponsiveTable" demandPopin="false" 
     useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" 
     beforeRebindTable="onbeforeRebindRaisedPoTable" 
-    ignoreFromPersonalisation="AmendmentBy,AmendmentDate,AmendmentReason,CreatedBy,ID,Currency,IsArchived,UpdatedAt,UpdatedBy,ValidityEndDate,ValidityStartDate,ConfirmedDate,PlantCode">
+    ignoreFromPersonalisation="AmendmentBy,AmendmentDate,AmendmentReason, RemainingQtyToDeliver,CreatedBy,ID,Currency,IsArchived,UpdatedAt,UpdatedBy,ValidityEndDate,ValidityStartDate,ConfirmedDate,PlantCode">
 
         <!-- <smartTable:layoutData><FlexItemData growFactor="1" /></smartTable:layoutData> -->
         <Table sticky="ColumnHeaders,HeaderToolbar" updateFinished="onRaisedPOTableUpdateFinished" alternateRowColors="true">
@@ -34,7 +34,7 @@
                 <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "CreatedAt", "leadingProperty": "CreatedAt",
-                                                 "columnIndex": 2}'/>
+                                                 "columnIndex": 2, "sortProperty": "CreatedAt"}'/>
                     </customData>
                     <Text text="{i18n>issuedate}"/>
                 </Column>
@@ -43,7 +43,7 @@
                 <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "POReleaseDate", "leadingProperty": "POReleaseDate",
-                                                 "columnIndex": 3}'/>
+                                                 "columnIndex": 3, "sortProperty": "POReleaseDate"}'/>
                     </customData>
                     <Text text="{i18n>releaseDate}"/>
                 </Column> 
@@ -53,7 +53,7 @@
                 <Column demandPopin="true" minScreenWidth="Desktop"> 
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "Status", "leadingProperty": "Status",
-                                                 "columnIndex": 4 ,"sortProperty": "Status","filterProperty": "Status"}'/>
+                                                 "columnIndex": 4 ,"filterProperty": "Status"}'/>
                     </customData>
                     <Text text="{i18n>status}"/>
                 </Column>             
@@ -70,7 +70,7 @@
 
                 <ColumnListItem type="Navigation" press="onPurchaseOrderPress">
                     <cells>
-                        <Text text="{PONumber}"/>
+                        <ObjectIdentifier title="{PONumber}"/>
                         <Text text="{CompanyCode}" binding="{Buyer}"/>
 
                         <Text text="{path:'CreatedAt',
@@ -85,7 +85,10 @@
 				                        pattern: 'MMMM dd, yyyy'
 				                     }
                         }"/> 
-                        <Text text="{Status}"/>                      
+                        <ObjectStatus text="{Status}" state="{
+						path: 'Status',
+						formatter: '.formatter.getListStatusColor'
+					}"/>                      
                         <Link text="{i18n>viewLineItems}" press="onViewLineItemsPress"></Link>
                     </cells>
                 </ColumnListItem>

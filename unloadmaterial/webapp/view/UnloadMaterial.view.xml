@@ -35,7 +35,10 @@
                 </uxap:snappedTitleOnMobile>
                 <uxap:actions>
                    <Button id="idQRnotFound" text="{i18n>QRnotfound}" type="Ghost" press="onQrNotFoundPress"/>
-                   <Button id="idScanQR" text="{i18n>ScanQR}" type="Emphasized" press="onScanQRCodePress"/>
+                   <Button id="idUnloadingComplete" visible="false" text="{i18n>UnloadingComplete}" type="Ghost" press="onUnloadingComplete"/>
+                   <Button id="idDoitLater" visible="false" text="{i18n>doitlater}" type="Ghost" press="onDoItLaterPress"/>
+                   <Button id="idScanQR" text="{i18n>ScanQR}" type="Emphasized" press="onScanQRCodePress" visible="{= ${Status} !== 'UNLOADING COMPLETED' &amp;&amp; ${GateEntryNumber} !== null }"/>
+                   <Button id="idRequestGRN" text="{i18n>ReqAutoGRN}" type="Emphasized" visible="false" press="onRequestGRNPress"/>
                 </uxap:actions>
             </uxap:ObjectPageDynamicHeaderTitle>
         </uxap:headerTitle>
@@ -46,12 +49,12 @@
             <!-- Packing List Contains -->
             <uxap:ObjectPageSection titleUppercase="false" title="{i18n>PackListContains}">
                 <uxap:subSections>
-                    <uxap:ObjectPageSubSection title="Outer Packaging">
+                    <uxap:ObjectPageSubSection title="{i18n>OuterPackaging}">
                         <uxap:blocks>
                             <outerPackaging:OuterPackaging OnViewQRCodePress="onViewQRCodePress" class="sapUxAPObjectPageSubSectionAlignContent"/>
                         </uxap:blocks>
                     </uxap:ObjectPageSubSection>
-                    <uxap:ObjectPageSubSection title="Inner Packaging">
+                    <uxap:ObjectPageSubSection title="{i18n>InnerPackaging}">
                         <uxap:blocks>
                             <innerPackaging:InnerPackaging class="sapUxAPObjectPageSubSectionAlignContent" OnViewQRCodePress = "onViewQRCodePress"/>
                         </uxap:blocks>

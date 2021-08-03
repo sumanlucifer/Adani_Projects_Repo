@@ -2,7 +2,7 @@
     xmlns:l="sap.ui.layout"
     xmlns:f="sap.ui.layout.form"
     xmlns:core="sap.ui.core">
-    <Dialog title="Do you want to create this BOQ for {boqCreationModel>/selectedItemData/Name}?" id="materialFragment" >
+    <Dialog title="Do you want to create this BOQ for {boqCreationModel>/dialogTitle}?" id="materialFragment" contentWidth="50%">
         <content>
             <FlexBox wrap="Wrap" renderType="Bare" class="sapUiSmallMargin">
                 <Label text="Please enter the quantity"></Label>
@@ -10,10 +10,10 @@
             </FlexBox>
         </content>
         <beginButton>
-            <Button id="idCreateBOQButton" text="confirm" press="onConfirmCreateBOQPress" type="Emphasized" enabled="{boqCreationModel>/isConfirmButtonEnabled}"></Button>
+            <Button id="idCreateBOQButton" text="Confirm" press="onConfirmCreateBOQPress" type="Emphasized" enabled="{boqCreationModel>/isConfirmButtonEnabled}"></Button>
         </beginButton>
         <endButton>
-            <Button text="cancel" press="onCancelBOQCreationProcess"></Button>
+            <Button text="Cancel" press="onCancelBOQCreationProcess"></Button>
         </endButton>
     </Dialog>
 </core:FragmentDefinition>

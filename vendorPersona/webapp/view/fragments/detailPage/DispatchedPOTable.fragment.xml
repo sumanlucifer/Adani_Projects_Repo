@@ -1,7 +1,7 @@
 <core:FragmentDefinition xmlns="sap.m"
     xmlns:smartTable="sap.ui.comp.smarttable"
     xmlns:core="sap.ui.core">
-    <smartTable:SmartTable class="sapUiResponsiveContentPadding" id="idDispatchedPOTable" editable="false" placeToolbarInTable="true" enableAutoBinding="true" entitySet="PurchaseOrderSet" showFullScreenButton="true" showRowCount="false" tableType="ResponsiveTable" demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" beforeRebindTable="onbeforeRebindDispatchPoTable">
+    <smartTable:SmartTable  class="sapUiResponsiveContentPadding" id="idDispatchedPOTable" editable="false" placeToolbarInTable="true" enableAutoBinding="true" entitySet="PurchaseOrderSet" showFullScreenButton="true" showRowCount="false" tableType="ResponsiveTable" demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" beforeRebindTable="onbeforeRebindDispatchPoTable">
         <Table sticky="ColumnHeaders,HeaderToolbar" updateFinished="onDispatchPOTableUpdateFinished">
             <columns>
                 <Column >
@@ -30,8 +30,8 @@
                 <!-- missing issued date -->
                 <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "IssuedDate", "leadingProperty": "POReleaseDate",
-                                                 "columnIndex": 3,  "sortProperty": "IssuedDate"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "IssuedDate", "leadingProperty": "CreatedAt",
+                                                 "columnIndex": 3,  "sortProperty": "CreatedAt"}'/>
                     </customData>
                     <Text text="{i18n>issuedate}"/>
                 </Column>
@@ -53,7 +53,7 @@
                 <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "ClosedDate", "leadingProperty": "POReleaseDate",
-                                                 "columnIndex": 6,  "sortProperty": "ClosedDate" }'/>
+                                                 "columnIndex": 6,  "sortProperty": "POReleaseDate" }'/>
                     </customData>
                     <Text text="{i18n>closedDate}"/>
                 </Column>
@@ -72,7 +72,7 @@
                         <Text text="missing"/>
                         <Text text="{PlantCode}"/>
 
-                        <Text text="{path:'POReleaseDate',
+                        <Text text="{path:'CreatedAt',
                                     type: 'sap.ui.model.type.Date',
 				                     formatOptions: {
 				                        pattern: 'MMMM dd, yyyy'

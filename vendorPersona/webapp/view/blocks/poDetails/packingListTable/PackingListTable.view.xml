@@ -5,7 +5,7 @@
     controllerName="com.agel.mmts.vendorPersona.view.blocks.poDetails.packingListTable.PackingListTableController">
 
     <smartTable:SmartTable class="sapUiSizeCompact" id="idPackingListTable" editable="false" placeToolbarInTable="true" enableAutoBinding="true"
-     entitySet="PackingListSet" showFullScreenButton="true" showRowCount="false" tableType="ResponsiveTable" demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" beforeRebindTable="onBeforeRebindPackingListTable" ignoreFromPersonalisation="ID,CreatedBy,IsArchived,PONumber,UpdatedAt,UpdatedBy">
+     entitySet="PurchaseOrderSet" tableBindingPath="PackingList" showFullScreenButton="true" showRowCount="false" tableType="ResponsiveTable" demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" beforeRebindTable="onBeforeRebindPackingListTable" ignoreFromPersonalisation="ID,CreatedBy,IsArchived,PONumber,UpdatedAt,UpdatedBy">
 
         <Table sticky="ColumnHeaders,HeaderToolbar" updateFinished="onPackingListTableUpdateFinished">
             <columns>

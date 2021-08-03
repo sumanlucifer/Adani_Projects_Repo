@@ -1,0 +1,72 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:u="sap.ui.unified"
+	xmlns:l="sap.ui.layout"
+	xmlns:f="sap.ui.layout.form">
+    <Dialog class="testTitle">
+        <content>
+            <!-- Qty for Outer Packaging -->
+            <f:SimpleForm visible="{= ${oViewHandlingModel>/unloadQrType} === 'OUTER' ? true : false}"
+                editable="false"
+                layout="ResponsiveGridLayout"
+                labelSpanXL="3"
+                labelSpanL="3"
+                labelSpanM="3"
+                labelSpanS="12"
+                adjustLabelSpan="false"
+                emptySpanXL="4"
+                emptySpanL="4"
+                emptySpanM="4"
+                emptySpanS="0"
+                columnsXL="1"
+                columnsL="1"
+                columnsM="1"
+                singleContainerFullSize="false" >
+                <f:content>
+                    <Label text="{i18n>OuterPackaging}" />
+                    <Text text="{JSONModelData>OuterPackagingLabel}" />
+                    <Label text="{i18n>InnerPackagingQty}" />
+                    <Text id="idExpectedQtyOuter" text="{JSONModelData>InnerPackagingCount}" />
+                    <Label text="{i18n>RcvdInnerPackaging}" />
+                    <Input id="idRcvdQtyOuter" value="{JSONModelData>ReceivedInnerCount}" type="Number" valueLiveUpdate="true" liveChange="onInputRcvdQtyOuter"/>
+                </f:content>
+		    </f:SimpleForm>
+            <!-- Qty for Inner Packaging -->
+            <f:SimpleForm visible="{= ${oViewHandlingModel>/unloadQrType} === 'INNER' ? true : false}"
+                editable="false"
+                layout="ResponsiveGridLayout"
+                labelSpanXL="3"
+                labelSpanL="3"
+                labelSpanM="3"
+                labelSpanS="12"
+                adjustLabelSpan="false"
+                emptySpanXL="4"
+                emptySpanL="4"
+                emptySpanM="4"
+                emptySpanS="0"
+                columnsXL="1"
+                columnsL="1"
+                columnsM="1"
+                singleContainerFullSize="false" >
+                <f:content>
+                    <Label text="{i18n>InnerPackaging}" />
+                    <Text text="{JSONModelData>InnerPackingLabel}" />
+                    <Label text="{i18n>lineItem}" />
+                    <Text text="{JSONModelData>LineItemLabel}" />
+                    <Label text="{i18n>PackagingQty}" />
+                    <Text id="idExpectedQtyInner" text="{JSONModelData>PackagingQty}" />
+                    <Label text="{i18n>ReceivedQty}" />
+                    <Input id="idRcvdQtyInner" value="{JSONModelData>ReceivedQty}" type="Number" valueLiveUpdate="true" liveChange="onInputRcvdQtyInner"/>
+                    <Label text="{i18n>UOM}" />
+                    <Text text="{JSONModelData>UOM}" />
+                </f:content>
+		    </f:SimpleForm>
+        </content>
+        <beginButton>
+            <Button text="{i18n>submit}" press="onRcvdQtySubmit" type="Emphasized"/>
+        </beginButton>
+        <endButton>
+            <Button text="{i18n>cancel}" press="onRcvdQtyCancel"/>
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

@@ -39,7 +39,7 @@ sap.ui.define([
                     Remarks: "",
                     UOM: "",
                     MasterBOQItemId: "",
-                    masterUOMItemId:"",
+                    masterUOMItemId: "",
                     UOMSuggestions: null
 
                 }]
@@ -93,12 +93,12 @@ sap.ui.define([
                 aRowCells = oEvent.getSource().getParent().getCells(),
                 sItemPath = oEvent.getSource().getBindingContext("ManageBOQModel").getPath();
 
-                 var sText = oEvent.getParameter("selectedItem").getText();
-                this.getView().getModel("ManageBOQModel").setProperty(sItemPath + "/Name", sText);
+            var sText = oEvent.getParameter("selectedItem").getText();
+            this.getView().getModel("ManageBOQModel").setProperty(sItemPath + "/Name", sText);
 
-                var sKey = oEvent.getParameter("selectedItem").getKey();
-                this.getView().getModel("ManageBOQModel").setProperty(sItemPath + "/MasterBOQItemId", sKey);
-                
+            var sKey = oEvent.getParameter("selectedItem").getKey();
+            this.getView().getModel("ManageBOQModel").setProperty(sItemPath + "/MasterBOQItemId", sKey);
+
 
             for (var i = 1; i < aRowCells.length; i++) {
                 if (aRowCells[i] instanceof sap.m.Text) {
@@ -141,11 +141,21 @@ sap.ui.define([
                 Remarks: "",
                 UOM: "",
                 MasterBOQItemId: "",
-                masterUOMItemId:"",
+                masterUOMItemId: "",
                 UOMSuggestions: null
             });
 
             oModel.setProperty("/boqItems", oItems);
+        },
+
+        onLiveChangeQty: function (oEvent) {
+            var oValue = oEvent.getSource().getValue();
+            if (parseInt(oValue) < 0) {
+                oEvent.getSource().setValueState("Error");
+                oEvent.getSource().setValueStateText("Please enter Positive and Non Zero Number");
+            }
+            else
+                oEvent.getSource().setValueState("None");
         },
 
         openAddRemarksPopupPress: function (oEvent) {
@@ -225,7 +235,47 @@ sap.ui.define([
             this.getView().getModel("ManageBOQModel").refresh();
         },
 
+        _validateProceedData: function () {
+            var bValid = true;
+
+            if (this.getView().getModel("ManageBOQModel")) {
+                var aBoqItemData = this.getView().getModel("ManageBOQModel").getData().boqItems;
+
+                for (let i = 0; i < aBoqItemData.length; i++) {
+                    if (!aBoqItemData[i].Qty || !aBoqItemData[i].MasterBOQItemId || !aBoqItemData[i].masterUOMItemId) {
+                        bValid = false;
+                        sap.m.MessageBox.alert("Please fill all the required fields before saving.");
+                        return;
+                    }
+                }
+            }
+
+            return bValid;
+        },
+
         onSaveManagedBOQItemsPress: function (oEvent) {
+            if (!this._validateProceedData()) {
+                return;
+            }
+            this._handleMessageBoxForPCListCreationProcess("Do you want to Save these BOQ items?");
+        },
+
+        _handleMessageBoxForPCListCreationProcess: function (sMessage) {
+            var that = this;
+            sap.m.MessageBox.confirm(sMessage, {
+                icon: MessageBox.Icon.INFORMATION,
+                title: "Confirm",
+                actions: [MessageBox.Action.YES, MessageBox.Action.NO],
+                emphasizedAction: MessageBox.Action.YES,
+                onClose: function (oAction) {
+                    if (oAction == "YES") {
+                        that._createPCList();
+                    }
+                }
+            });
+        },
+
+        _createPCList: function () {
             var oPayload = {};
             var aTableData = this.getViewModel("ManageBOQModel").getProperty("/boqItems");
             var aPayloadSelectedItem = aTableData;
@@ -236,8 +286,8 @@ sap.ui.define([
             var sParentID = this.getView().getBindingContext().getObject().ID;
             oPayload.ParentLineItemID = sParentID;
             oPayload.PCGroupItems = aPayloadSelectedItem;
+
             oPayload.VendorID = sVendorID;
-            debugger;
 
             this.mainModel.create("/PCGroupItemListSet", oPayload, {
                 success: function (oData, oResponse) {
@@ -251,12 +301,25 @@ sap.ui.define([
             });
         },
 
+
         onCreateNewPCListPress: function (oEvent) {
             this.getViewModel("objectViewModel").setProperty("/isCreatingPCList", true)
         },
 
         onCancelPCListCreationPress: function (oEvent) {
-            this.getViewModel("objectViewModel").setProperty("/isCreatingPCList", false)
+            //   this.getViewModel("objectViewModel").setProperty("/isCreatingPCList", false);
+            var that = this;
+            sap.m.MessageBox.confirm("Added BOQ item details will be discarded. Do you really want to Cancel the PC List?", {
+                icon: MessageBox.Icon.INFORMATION,
+                title: "Confirm",
+                actions: [MessageBox.Action.YES, MessageBox.Action.NO],
+                emphasizedAction: MessageBox.Action.YES,
+                onClose: function (oAction) {
+                    if (oAction == "YES") {
+                        that.getViewModel("objectViewModel").setProperty("/isCreatingPCList", false);
+                    }
+                }
+            });
         },
 
         onPCListSelectionChange: function (oEvent) {
@@ -267,6 +330,7 @@ sap.ui.define([
         onCreateBOQPress: function (oEvent) {
             var isMaterialStandAlone = this.getViewModel("objectViewModel").getProperty("/noParentChildRelationFlag");
             var boqCreationModel = new JSONModel({
+                dialogTitle: isMaterialStandAlone ? this.getView().getBindingContext().getObject().Name : this.byId("idPCListTable").getSelectedItem().getBindingContext().getObject().Name,
                 selectedItemData: isMaterialStandAlone ? null : this.byId("idPCListTable").getSelectedItem().getBindingContext().getObject(),
                 quantity: null,
                 isConfirmButtonEnabled: false,
@@ -284,21 +348,26 @@ sap.ui.define([
 
         onQuantityLiveChange: function (oEvent) {
             var oPOData = this.getView().getBindingContext().getObject();
-            if (oEvent.getSource().getValue().length)
+            if (oEvent.getSource().getValue().length && parseInt(oEvent.getSource().getValue()) > 0) {
                 this.getViewModel("boqCreationModel").setProperty("/isConfirmButtonEnabled", true);
-            else
-                this.getViewModel("boqCreationModel").setProperty("/isConfirmButtonEnabled", false);
-
-            if (parseInt(oEvent.getSource().getValue()) > parseInt(oPOData.PendingQty)) {
-                this.getViewModel("boqCreationModel").setProperty("/valueState", "Error");
-                this.getViewModel("boqCreationModel").setProperty("/valueStateText", "BOQ quantity should not exceed PO's pending quantity.");
-                this.getViewModel("boqCreationModel").setProperty("/isConfirmButtonEnabled", false);
+                if (parseInt(oEvent.getSource().getValue()) > parseInt(oPOData.PendingQty)) {
+                    this.getViewModel("boqCreationModel").setProperty("/valueState", "Error");
+                    this.getViewModel("boqCreationModel").setProperty("/valueStateText", "BOQ quantity should not exceed PO's pending quantity.");
+                    this.getViewModel("boqCreationModel").setProperty("/isConfirmButtonEnabled", false);
+                }
+                else {
+                    this.getViewModel("boqCreationModel").setProperty("/valueState", null);
+                    this.getViewModel("boqCreationModel").setProperty("/valueStateText", "");
+                    this.getViewModel("boqCreationModel").setProperty("/isConfirmButtonEnabled", true);
+                }
             }
             else {
-                this.getViewModel("boqCreationModel").setProperty("/valueState", null);
-                this.getViewModel("boqCreationModel").setProperty("/valueStateText", "");
-                this.getViewModel("boqCreationModel").setProperty("/isConfirmButtonEnabled", true);
+                this.getViewModel("boqCreationModel").setProperty("/isConfirmButtonEnabled", false);
+                this.getViewModel("boqCreationModel").setProperty("/valueState", "Error");
+                this.getViewModel("boqCreationModel").setProperty("/valueStateText", "Please enter the correct value for Quantity.");
             }
+
+
         },
 
         onCancelBOQCreationProcess: function (oEvent) {
@@ -310,15 +379,14 @@ sap.ui.define([
             var isMaterialStandAlone = this.getViewModel("objectViewModel").getProperty("/noParentChildRelationFlag");
             var sQuantity = this.getViewModel("boqCreationModel").getProperty("/quantity");
             var oModel = this.getComponentModel();
-            if (sQuantity !== "0" ) {
+            if (sQuantity !== "0") {
                 if (isMaterialStandAlone) {
                     var oPayload = {
                         "QTY": parseInt(sQuantity),
                         "PCGroupId": 0,
                         "ParentLineItemId": this.getView().getBindingContext().getObject().ID,
-                        "IsOne2OneLineItem":true
+                        "IsOne2OneLineItem": true
                     };
-                    sap.m.MessageBox.error("PC List created with no Quantity!");
                 } else {
                     var oSelectedItemData = this.byId("idPCListTable").getSelectedItem().getBindingContext().getObject();
 
@@ -340,7 +408,7 @@ sap.ui.define([
                     });
                 }
             } else {
-                sap.m.MessageBox.error("Please ")
+                sap.m.MessageBox.error("Please enter non zero number")
             }
 
         },
@@ -396,8 +464,8 @@ sap.ui.define([
                 boqItem.Remarks = data[i].Remarks;
                 boqItem.UOM = data[i].UOM;
                 boqItem.MasterBOQItemId = data[i].MasterBOQItemId,
-                boqItem.masterUOMItemId=data[i].MasterUOMItemId,
-                boqItem.UOMSuggestions = null;
+                    boqItem.masterUOMItemId = data[i].MasterUOMItemId,
+                    boqItem.UOMSuggestions = null;
                 aBOQItems.push(boqItem);
                 this._getUOMSuggestions(aBOQItems, data, i);
             }

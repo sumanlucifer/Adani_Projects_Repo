@@ -8,8 +8,8 @@ sap.ui.define([
 		return BaseController.extend("com.agel.mmts.unloadmaterial.controller.App", {
             
 			onInit: function () {
-                // this.getView().addStyleClass(this.getOwnerComponent().getContentDensityClass());
-
+                // apply content density mode to root view
+				this.getView().addStyleClass(this.getOwnerComponent().getContentDensityClass());
 			}
 		});
 	});

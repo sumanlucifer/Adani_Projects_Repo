@@ -155,14 +155,14 @@
                             <f:SimpleForm layout="ColumnLayout" binding="{AdditionalDetialsModel>/}" columnsM="2" columnsL="3" columnsXL="4" singleContainerFullSize="true" class="style-RemoveTitleHeight">
                                 <f:content>
                                     <!-- <core:Title  /> -->
-                                    <Label text="Vehicle Number" />
+                                    <Label text="Vehicle Number"/>
                                     <Input value="{VehicleNumber}" editable="{= ${objectViewModel>/isPackingListInEditMode} ? true : false}"/>
-                                    <Label text="Invoice Number" />
+                                    <Label text="Invoice Number" required="true"/>
                                     <Input id="idVehicleNumber" value="{InvoiceNumber}" editable="{= ${objectViewModel>/isPackingListInEditMode} ? true : false}"/>
                                     <!-- <core:Title ></core:Title> -->
-                                    <Label text="Packaging Ref. No" />
+                                    <Label text="Packaging Ref. No" required="true"/>
                                     <Input id="idPackagagingRefNumber" value="{PackagingReferenceNumber}" editable="{= ${objectViewModel>/isPackingListInEditMode} ? true : false}"/>
-                                    <Label text="Invoice Date" />
+                                    <Label text="Invoice Date" required="true"/>
                                     <DatePicker id="idInvoiceDate" value="{InvoiceDate}" valueFormat="yyyy-MM-dd" displayFormat="yyyy-MM-dd" editable="{= ${objectViewModel>/isPackingListInEditMode} ? true : false}"/>
                                 </f:content>
                             </f:SimpleForm>

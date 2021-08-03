@@ -3,12 +3,13 @@ sap.ui.define([
     "sap/ui/model/json/JSONModel",
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator",
+    'sap/ui/core/ValueState',
     "sap/ui/core/Fragment",
 ],
 	/**
 	 * @param {typeof sap.ui.core.mvc.Controller} Controller
 	 */
-    function (BaseController, JSONModel, Filter, FilterOperator, Fragment) {
+    function (BaseController, JSONModel, Filter, FilterOperator, ValueState, Fragment) {
         "use strict";
 
         return BaseController.extend("com.agel.mmts.securityscanhistory.controller.LandingPage", {
@@ -98,6 +99,7 @@ sap.ui.define([
                     idInternationalTableBinding.filter(new Filter(andFilters, true));
 
                 }
+                this.oFilterBar.fireFilterChange(oEvent);
             },
 
             onResetFilters: function (oEvent) {
@@ -111,17 +113,18 @@ sap.ui.define([
                     var oBinding = oTable.getBinding("items");
                     oBinding.filter([]);
                 }
-                else {
+                if (oTable1) {
                     var oBinding = oTable1.getBinding("items");
                     oBinding.filter([]);
                 }
+                this.oFilterBar.fireFilterChange(oEvent);
             },
 
-            // onFilterChange: function (oEvent) {
-            //     //   if (oEvent.getSource().getValue().length){
-            //     this.filterbar.fireFilterChange(oEvent);
-            //     //  }
-            // },
+            onFilterChange: function (oEvent) {
+                //   if (oEvent.getSource().getValue().length){
+                this.oFilterBar.fireFilterChange(oEvent);
+                //  }
+            },
 
             onInternationalTableUpdateFinished: function (oEvent) {
                 //Setting the header context for a property binding to $count
@@ -144,9 +147,8 @@ sap.ui.define([
                 mBindingParams.sorter.push(new sap.ui.model.Sorter("CreatedAt", true));
 
             },
-            
+
             onbeforeRebindInternationalPoTable: function (oEvent) {
-              
                 var mBindingParams = oEvent.getParameter("bindingParams");
                 mBindingParams.sorter.push(new sap.ui.model.Sorter("CreatedAt", true));
 
@@ -155,9 +157,9 @@ sap.ui.define([
             // On Icon Tab Select
             onIconTabBarChanged: function (sKey) {
                 if (sKey === "DomesticKey") {
-                    this.byId("pageTitle").setText(this.getResourceBundle().getText("domestic"));
+                    this.byId("pageTitle").setText(this.getResourceBundle().getText("PageTitle"));
                 } else if (sKey === "InternationalKey") {
-                    this.byId("pageTitle").setText(this.getResourceBundle().getText("international"));
+                    this.byId("pageTitle").setText(this.getResourceBundle().getText("PageTitle"));
                 }
 
             },
@@ -166,11 +168,10 @@ sap.ui.define([
             onIconTabSelect: function (oEvent) {
                 var that = this;
                 var sKey = oEvent.getParameter("key");
-
                 if (sKey === "DomesticKey") {
-                    this.byId("pageTitle").setText(this.getResourceBundle().getText("domestic"));
+                    this.byId("pageTitle").setText(this.getResourceBundle().getText("PageTitle"));
                 } else if (sKey === "InternationalKey") {
-                    this.byId("pageTitle").setText(this.getResourceBundle().getText("international"));
+                    this.byId("pageTitle").setText(this.getResourceBundle().getText("PageTitle"));
                 }
                 that.onResetFilters();
             },

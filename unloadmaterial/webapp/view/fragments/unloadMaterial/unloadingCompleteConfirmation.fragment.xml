@@ -1,0 +1,16 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:core="sap.ui.core" >
+    <Dialog class="testTitle">
+        <content>
+            <VBox class="sapUiSmallMargin">
+                <Text text="{i18n>confirmLine1}"/>          
+            </VBox>
+        </content>
+        <beginButton>
+            <Button text="{i18n>submit}" press="onUnloadingConfirmationSubmit" type="Emphasized" />
+        </beginButton>
+        <endButton>
+            <Button text="{i18n>cancel}" press="onUnloadingConfirmationCancel" />
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

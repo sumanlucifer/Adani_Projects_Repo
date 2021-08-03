@@ -21,25 +21,25 @@
             </fb:FilterGroupItem>
             <fb:FilterGroupItem groupName="__$INTERNAL$" name="BoqName" label="{i18n>BoqName}" visibleInFilterBar="true" class="searchFieldLabelHidden">
                 <fb:control>
-                    <Input id="idBoqName" placeholder="{i18n>EnterBoqName}" showValueHelp="false">
+                    <Input id="idBoqName" placeholder="{i18n>EnterBoqName}" showValueHelp="false" liveChange="onFilterChange">
                     </Input>
                 </fb:control>
             </fb:FilterGroupItem>
             <fb:FilterGroupItem groupName="__$INTERNAL$" name="PlantCode" label="{i18n>PlantCode}" visibleInFilterBar="true" class="searchFieldLabelHidden">
                 <fb:control>
-                    <Input id="idPlantCode" placeholder="{i18n>EnterPlantCode}" showValueHelp="false">
+                    <Input id="idPlantCode" placeholder="{i18n>EnterPlantCode}" showValueHelp="false" liveChange="onFilterChange">
                     </Input>
                 </fb:control>
             </fb:FilterGroupItem>
             <fb:FilterGroupItem groupName="__$INTERNAL$" name="VendorCode" label="{i18n>vendorCode}" visibleInFilterBar="true" class="searchFieldLabelHidden">
                 <fb:control>
-                    <Input id="idVendorCode" placeholder="{i18n>EnterVendorCode}" showValueHelp="false">
+                    <Input id="idVendorCode" placeholder="{i18n>EnterVendorCode}" showValueHelp="false" liveChange="onFilterChange">
                     </Input>
                 </fb:control>
             </fb:FilterGroupItem>
             <fb:FilterGroupItem groupName="__$INTERNAL$" name="CompanyCode" label="{i18n>CompanyCode}" visibleInFilterBar="true" class="searchFieldLabelHidden">
                 <fb:control>
-                    <Input id="idCompanyCode" placeholder="{i18n>EnterCompanyCode}" showValueHelp="false">
+                    <Input id="idCompanyCode" placeholder="{i18n>EnterCompanyCode}" showValueHelp="false" liveChange="onFilterChange">
                     </Input>
                 </fb:control>
             </fb:FilterGroupItem>

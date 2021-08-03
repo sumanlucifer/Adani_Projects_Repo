@@ -2,7 +2,7 @@
     xmlns:smartTable="sap.ui.comp.smarttable"
     xmlns:core="sap.ui.core">
     <smartTable:SmartTable class="sapUiResponsiveContentPadding" id="idConfirmPOTable" editable="false" placeToolbarInTable="true" enableAutoBinding="true" entitySet="PurchaseOrderSet"  showFullScreenButton="true" showRowCount="false" tableType="ResponsiveTable" demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" beforeRebindTable="onbeforeRebindConfirmPoTable" ignoreFromPersonalisation="AmendmentBy,AmendmentDate,AmendmentReason,CreatedBy,ID,Currency,IsArchived,UpdatedAt,UpdatedBy,ValidityEndDate,ValidityStartDate,Status,CreatedAt">
-        <Table sticky="ColumnHeaders,HeaderToolbar" updateFinished="onConfirmPOTableUpdateFinished">
+        <Table  sticky="ColumnHeaders,HeaderToolbar" updateFinished="onConfirmPOTableUpdateFinished">
             <columns>
                 <Column>
                     <customData>
@@ -32,7 +32,7 @@
                 <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "IssueDate", "leadingProperty": "CreatedAt",
-                                                 "columnIndex": 3,  "sortProperty": "IssueDate"  }'/>
+                                                 "columnIndex": 3,  "sortProperty": "CreatedAt"  }'/>
                     </customData>
                     <Text text="{i18n>issuedate}"/>
                 </Column>
@@ -42,7 +42,7 @@
                 <Column demandPopin="true" minScreenWidth="Desktop">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "ReleaseDate", "leadingProperty": "POReleaseDate",
-                                                 "columnIndex": 4,  "sortProperty": "ReleaseDate" }'/>
+                                                 "columnIndex": 4,  "sortProperty": "POReleaseDate" }'/>
                     </customData>
                     <Text text="{i18n>releaseDate}"/>
                 </Column>

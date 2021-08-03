@@ -183,6 +183,7 @@ sap.ui.define([
         onSendForApprovalPress : function(oEvent){
             //debugger;
            // return;
+            var that = this;
             var sPath = "/MDCCStatusSet"
             var obj = oEvent.getSource().getBindingContext().getObject();
             var oPayload = {
@@ -198,12 +199,13 @@ sap.ui.define([
                             "IsArchived": false,
                             "MDCCID": obj.ID
                 };
+                that.MDCCNumber = obj.MDCCNumber;
                 BusyIndicator.show();
                 this.MainModel.create(sPath,oPayload,{
                     success:function(oData,oResponse){
                         BusyIndicator.hide();
                         if(oData.ID){
-                            MessageBox.success("MDCC Number "+oData.ID+" Sent for approval successfully");
+                            MessageBox.success("MDCC Number "+that.MDCCNumber+" Sent for approval successfully");
                             this.getView().getContent()[0].getContent().rerender();
                             this.getView().getModel().refresh();
                         }

@@ -394,14 +394,6 @@ sap.ui.define([
                         }
                     });
                 }
-            },
-
-            onDispatchViewPress: function (oEvent) {
-                var that = this;
-                this.oRouter.navTo("RouteInitiateDispatchPage", {
-                    MDCCId: 3
-                }, false);
-
             }
 
         });
