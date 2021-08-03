@@ -16,7 +16,7 @@ modules:
     properties:
       forwardAuthToken: true
       name: AGEL_MMTS_API
-      url: https://qa-agel-mmts-api.cfapps.ap11.hana.ondemand.com/
+      url: https://agel-mmts-api.cfapps.ap11.hana.ondemand.com/
   parameters:
     disk-quota: 256M
     keep-existing-routes: true
