@@ -1,0 +1,103 @@
+{
+    "resources": [
+        {
+            "name": "../storeinchargeissuematerial/manifest-bundle.zip"
+        },
+        {
+            "name": "../storeinchargeissuematerial/i18n/i18n_en_GB.properties",
+            "raw": "i18n/i18n.properties",
+            "locale": "_en_GB"
+        },
+        {
+            "name": "../storeinchargeissuematerial/i18n/i18n_en.properties",
+            "raw": "i18n/i18n.properties",
+            "locale": "_en"
+        },
+        {
+            "name": "../storeinchargeissuematerial/i18n/i18n.properties",
+            "raw": "i18n/i18n.properties"
+        },
+        {
+            "name": "../storeinchargeissuematerial/controller/App.controller.js"
+        },
+        {
+            "name": "../storeinchargeissuematerial/model/models.js"
+        },
+        {
+            "name": "../storeinchargeissuematerial/controller/NotFound.controller.js"
+        },
+        {
+            "name": "../storeinchargeissuematerial/controller/LandingPage.controller.js"
+        },
+        {
+            "name": "../storeinchargeissuematerial/controller/ErrorHandler.js"
+        },
+        {
+            "name": "../storeinchargeissuematerial/controller/BaseController.js"
+        },
+        {
+            "name": "../storeinchargeissuematerial/manifest.json"
+        },
+        {
+            "name": "../storeinchargeissuematerial/Component.js"
+        },
+        {
+            "name": "../storeinchargeissuematerial/i18n/i18n_en_US.properties",
+            "raw": "i18n/i18n.properties",
+            "locale": "_en_US"
+        },
+        {
+            "name": "../storeinchargeissuematerial/Component-preload.js",
+            "merged": true
+        },
+        {
+            "name": "../storeinchargeissuematerial/model/models-dbg.js",
+            "isDebug": true
+        },
+        {
+            "name": "../storeinchargeissuematerial/controller/NotFound-dbg.controller.js",
+            "isDebug": true
+        },
+        {
+            "name": "../storeinchargeissuematerial/controller/LandingPage-dbg.controller.js",
+            "isDebug": true
+        },
+        {
+            "name": "../storeinchargeissuematerial/controller/ErrorHandler-dbg.js",
+            "isDebug": true
+        },
+        {
+            "name": "../storeinchargeissuematerial/controller/BaseController-dbg.js",
+            "isDebug": true
+        },
+        {
+            "name": "../storeinchargeissuematerial/controller/App-dbg.controller.js",
+            "isDebug": true
+        },
+        {
+            "name": "../storeinchargeissuematerial/Component-dbg.js",
+            "isDebug": true
+        },
+        {
+            "name": "../../../../sap-ui-version.json"
+        },
+        {
+            "name": "../storeinchargeissuematerial/view/fragments/ListTable.fragment.xml"
+        },
+        {
+            "name": "../storeinchargeissuematerial/view/NotFound.view.xml"
+        },
+        {
+            "name": "../storeinchargeissuematerial/view/LandingPage.view.xml"
+        },
+        {
+            "name": "../storeinchargeissuematerial/view/App.view.xml"
+        },
+        {
+            "name": "../storeinchargeissuematerial/css/style.css"
+        },
+        {
+            "name": "../storeinchargeissuematerial/index.html"
+        }
+    ]
+}

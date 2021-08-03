@@ -1,0 +1,128 @@
+{
+    "resources": [
+        {
+            "name": "controller/NotFound-dbg.controller.js",
+            "isDebug": true
+        },
+        {
+            "name": "utils/formatter.js"
+        },
+        {
+            "name": "view/blocks/returnDetails/lineItemsForm/LineItemsForm.js"
+        },
+        {
+            "name": "view/blocks/returnDetails/contractorForm/ContractorForm.js"
+        },
+        {
+            "name": "manifest.json"
+        },
+        {
+            "name": "model/models.js"
+        },
+        {
+            "name": "controller/returnMaterialPage.controller.js"
+        },
+        {
+            "name": "controller/ReturnMaterialDetailPage.controller.js"
+        },
+        {
+            "name": "controller/NotFound.controller.js"
+        },
+        {
+            "name": "controller/ErrorHandler.js"
+        },
+        {
+            "name": "controller/BaseController.js"
+        },
+        {
+            "name": "controller/App.controller.js"
+        },
+        {
+            "name": "Component.js"
+        },
+        {
+            "name": "manifest-bundle.zip"
+        },
+        {
+            "name": "Component-preload.js",
+            "merged": true
+        },
+        {
+            "name": "view/blocks/returnDetails/lineItemsForm/LineItemsForm-dbg.js",
+            "isDebug": true
+        },
+        {
+            "name": "view/blocks/returnDetails/contractorForm/ContractorForm-dbg.js",
+            "isDebug": true
+        },
+        {
+            "name": "utils/formatter-dbg.js",
+            "isDebug": true
+        },
+        {
+            "name": "model/models-dbg.js",
+            "isDebug": true
+        },
+        {
+            "name": "controller/returnMaterialPage-dbg.controller.js",
+            "isDebug": true
+        },
+        {
+            "name": "controller/ReturnMaterialDetailPage-dbg.controller.js",
+            "isDebug": true
+        },
+        {
+            "name": "i18n/i18n.properties",
+            "raw": "i18n/i18n.properties"
+        },
+        {
+            "name": "controller/ErrorHandler-dbg.js",
+            "isDebug": true
+        },
+        {
+            "name": "controller/BaseController-dbg.js",
+            "isDebug": true
+        },
+        {
+            "name": "controller/App-dbg.controller.js",
+            "isDebug": true
+        },
+        {
+            "name": "Component-dbg.js",
+            "isDebug": true
+        },
+        {
+            "name": "../../../../sap-ui-version.json"
+        },
+        {
+            "name": "view/blocks/returnDetails/lineItemsForm/LineItemsForm.view.xml"
+        },
+        {
+            "name": "view/blocks/returnDetails/contractorForm/ContractorForm.view.xml"
+        },
+        {
+            "name": "view/fragments/common/lineItems.fragment.xml"
+        },
+        {
+            "name": "view/fragments/RequestTable.fragment.xml"
+        },
+        {
+            "name": "view/returnMaterialPage.view.xml"
+        },
+        {
+            "name": "view/ReturnMaterialDetailPage.view.xml"
+        },
+        {
+            "name": "view/NotFound.view.xml"
+        },
+        {
+            "name": "view/App.view.xml"
+        },
+        {
+            "name": "css/style.css"
+        },
+        {
+            "name": "index.html"
+        }
+    ]
+}

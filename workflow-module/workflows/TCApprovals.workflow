@@ -24,6 +24,9 @@
 				},
 				"3fe975b1-e269-4746-9874-a41a5c83761f": {
 					"name": "BOQ Approval Request"
+				},
+				"855fa0dc-af6a-48fc-8a3f-4752c00e717e": {
+					"name": "MailTask2"
 				}
 			},
 			"sequenceFlows": {
@@ -38,6 +41,9 @@
 				},
 				"57d64470-cae6-49d3-8562-2639d4801314": {
 					"name": "SequenceFlow5"
+				},
+				"8f4d98fd-7de1-4cc7-abbb-266be8f9da67": {
+					"name": "SequenceFlow7"
 				}
 			},
 			"diagrams": {
@@ -122,7 +128,7 @@
 			"id": "sequenceflow5",
 			"name": "SequenceFlow5",
 			"sourceRef": "3fe975b1-e269-4746-9874-a41a5c83761f",
-			"targetRef": "2798f4e7-bc42-4fad-a248-159095a2f40a"
+			"targetRef": "855fa0dc-af6a-48fc-8a3f-4752c00e717e"
 		},
 		"42fa7a2d-c526-4a02-b3ba-49b5168ba644": {
 			"classDefinition": "com.sap.bpm.wfs.ui.Diagram",
@@ -135,7 +141,9 @@
 				"0cf64319-217d-4217-9250-153fb4767a17": {},
 				"63c2a2d3-eb46-4ba0-aa77-685ce4326afc": {},
 				"48b5e915-7adf-41ed-9be6-4e9437719b88": {},
-				"e922bc80-92fa-4106-a3f7-eb423633ffbe": {}
+				"e922bc80-92fa-4106-a3f7-eb423633ffbe": {},
+				"b4c66000-5b1a-4dd4-a0f2-20082c4764ee": {},
+				"52246f2a-37d4-4431-9301-97daf5dad104": {}
 			}
 		},
 		"3cc74a39-a9d0-4746-929f-cb021830ccf1": {
@@ -206,22 +214,58 @@
 		},
 		"e922bc80-92fa-4106-a3f7-eb423633ffbe": {
 			"classDefinition": "com.sap.bpm.wfs.ui.SequenceFlowSymbol",
-			"points": "62,344 62,539.5",
+			"points": "62,344 62,445",
 			"sourceSymbol": "48b5e915-7adf-41ed-9be6-4e9437719b88",
-			"targetSymbol": "53e54950-7757-4161-82c9-afa7e86cff2c",
+			"targetSymbol": "b4c66000-5b1a-4dd4-a0f2-20082c4764ee",
 			"object": "57d64470-cae6-49d3-8562-2639d4801314"
 		},
 		"62d7f4ed-4063-4c44-af8b-39050bd44926": {
 			"classDefinition": "com.sap.bpm.wfs.LastIDs",
-			"maildefinition": 1,
+			"maildefinition": 2,
 			"hubapireference": 1,
-			"sequenceflow": 6,
+			"sequenceflow": 7,
 			"startevent": 1,
 			"endevent": 1,
 			"usertask": 1,
 			"servicetask": 1,
 			"scripttask": 2,
-			"mailtask": 1
+			"mailtask": 2
+		},
+		"855fa0dc-af6a-48fc-8a3f-4752c00e717e": {
+			"classDefinition": "com.sap.bpm.wfs.MailTask",
+			"id": "mailtask2",
+			"name": "MailTask2",
+			"mailDefinitionRef": "fc6ead61-a0f3-4d24-bc29-91b915fafc57"
+		},
+		"b4c66000-5b1a-4dd4-a0f2-20082c4764ee": {
+			"classDefinition": "com.sap.bpm.wfs.ui.MailTaskSymbol",
+			"x": 12,
+			"y": 415,
+			"width": 100,
+			"height": 60,
+			"object": "855fa0dc-af6a-48fc-8a3f-4752c00e717e"
+		},
+		"8f4d98fd-7de1-4cc7-abbb-266be8f9da67": {
+			"classDefinition": "com.sap.bpm.wfs.SequenceFlow",
+			"id": "sequenceflow7",
+			"name": "SequenceFlow7",
+			"sourceRef": "855fa0dc-af6a-48fc-8a3f-4752c00e717e",
+			"targetRef": "2798f4e7-bc42-4fad-a248-159095a2f40a"
+		},
+		"52246f2a-37d4-4431-9301-97daf5dad104": {
+			"classDefinition": "com.sap.bpm.wfs.ui.SequenceFlowSymbol",
+			"points": "62,445 62,539.5",
+			"sourceSymbol": "b4c66000-5b1a-4dd4-a0f2-20082c4764ee",
+			"targetSymbol": "53e54950-7757-4161-82c9-afa7e86cff2c",
+			"object": "8f4d98fd-7de1-4cc7-abbb-266be8f9da67"
+		},
+		"fc6ead61-a0f3-4d24-bc29-91b915fafc57": {
+			"classDefinition": "com.sap.bpm.wfs.MailDefinition",
+			"name": "maildefinition2",
+			"to": "Venkatesh.Hulekal@extentia.com,Atul.Jain@extentia.com",
+			"subject": "Approval Testing",
+			"text": "${context.aBOQItems.d.Name} Approval",
+			"id": "maildefinition2"
 		}
 	}
 }

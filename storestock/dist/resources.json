@@ -1,0 +1,110 @@
+{
+    "resources": [
+        {
+            "name": "controller/BaseController.js"
+        },
+        {
+            "name": "Component.js"
+        },
+        {
+            "name": "model/models.js"
+        },
+        {
+            "name": "controller/storeStockParentDetail.controller.js"
+        },
+        {
+            "name": "controller/storeStockChildDetail.controller.js"
+        },
+        {
+            "name": "controller/NotFound.controller.js"
+        },
+        {
+            "name": "controller/ErrorHandler.js"
+        },
+        {
+            "name": "i18n/i18n.properties",
+            "raw": "i18n/i18n.properties"
+        },
+        {
+            "name": "controller/App.controller.js"
+        },
+        {
+            "name": "manifest.json"
+        },
+        {
+            "name": "manifest-bundle.zip"
+        },
+        {
+            "name": "Component-preload.js",
+            "merged": true
+        },
+        {
+            "name": "controller/App-dbg.controller.js",
+            "isDebug": true
+        },
+        {
+            "name": "controller/storeStockParentDetail-dbg.controller.js",
+            "isDebug": true
+        },
+        {
+            "name": "controller/storeStockChildDetail-dbg.controller.js",
+            "isDebug": true
+        },
+        {
+            "name": "controller/NotFound-dbg.controller.js",
+            "isDebug": true
+        },
+        {
+            "name": "controller/ErrorHandler-dbg.js",
+            "isDebug": true
+        },
+        {
+            "name": "controller/BaseController-dbg.js",
+            "isDebug": true
+        },
+        {
+            "name": "model/models-dbg.js",
+            "isDebug": true
+        },
+        {
+            "name": "Component-dbg.js",
+            "isDebug": true
+        },
+        {
+            "name": "../../../../sap-ui-version.json"
+        },
+        {
+            "name": "view/fragments/ParentdetailPage/UnRestricted.fragment.xml"
+        },
+        {
+            "name": "view/fragments/ParentdetailPage/Restricted.fragment.xml"
+        },
+        {
+            "name": "view/fragments/ParentdetailPage/FilterBar.fragment.xml"
+        },
+        {
+            "name": "view/fragments/ChilddetailPage/StoreStockChild.fragment.xml"
+        },
+        {
+            "name": "view/fragments/ChilddetailPage/FilterBar.fragment.xml"
+        },
+        {
+            "name": "view/storeStockParentDetail.view.xml"
+        },
+        {
+            "name": "view/storeStockChildDetail.view.xml"
+        },
+        {
+            "name": "view/NotFound.view.xml"
+        },
+        {
+            "name": "view/App.view.xml"
+        },
+        {
+            "name": "css/style.css"
+        },
+        {
+            "name": "index.html"
+        }
+    ]
+}
