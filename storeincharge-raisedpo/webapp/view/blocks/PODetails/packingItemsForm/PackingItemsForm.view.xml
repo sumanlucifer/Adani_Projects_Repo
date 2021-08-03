@@ -7,9 +7,9 @@
 
   <Table width="auto" growing="true" growingThreshold="5" fixedLayout="false" items="{PackingList}">
         <columns>
-            <!-- <Column demandPopin="true" minScreenWidth="Desktop" hAlign="Center">
-                <Text text="ID" wrapping="true" wrappingType="Hyphenated"/>
-            </Column> -->
+            <Column demandPopin="true" minScreenWidth="Desktop" hAlign="Center">
+                <Text text="Name" wrapping="true" wrappingType="Hyphenated"/>
+            </Column>
                  <Column demandPopin="true" minScreenWidth="Desktop" hAlign="Center">
                 <Text text="InvoiceDate" wrapping="true" wrappingType="Hyphenated"/>
             </Column>
@@ -22,38 +22,29 @@
             <Column demandPopin="true" minScreenWidth="Desktop" hAlign="Center">
                 <Text text="Unloading Date" wrapping="true" wrappingType="Hyphenated"/>
             </Column>
-            <!-- <Column demandPopin="true" minScreenWidth="Desktop" hAlign="Center">
-                <Text text="GRN Status" wrapping="true" wrappingType="Hyphenated"/>
-            </Column>
-            <Column demandPopin="true" minScreenWidth="Desktop" hAlign="Center">
-                <Text text="UD Status" wrapping="true" wrappingType="Hyphenated"/>
-            </Column> -->
         </columns>
         <items>
            <ColumnListItem type="Navigation" press="onpressPackingListDetails">
                 <cells>
-                    <!-- <Text text="{ID}"/> -->
+                    <ObjectAttribute title="{Name}"/>
                     <Text text="{path:'InvoiceDate',
                                      type: 'sap.ui.model.type.Date',
 				                     formatOptions: {
 				                        pattern: 'MMMM dd, yyyy'
 				                     }
                         }"/>
-                       <ObjectStatus text="{Status}" state="{
-                                path: 'Status',
-                                formatter: '.getListGRNStatusColor'
-                            }"/>  
+ 
+                        <ObjectStatus text="{Status}" state="{= ${Status}=== 'SAVED' ? 'Indication05' : ${Status}=== 'DISPATCHED' ? 'Indication06' : 'Indication08'}"/>
+
                     <Text text="{GateEntryNumber}"/>
-                    <Text text="missing"/>
-                    <!-- <Text text="{path:'UnloadingDate',
+                    <Text text="{path:'CreatedAt',
                                      type: 'sap.ui.model.type.Date',
 				                     formatOptions: {
 				                        pattern: 'MMMM dd, yyyy'
 				                     }
-                        }"/> -->
-                    <!-- <Text text="missing"/> -->
-                    <!-- <ObjectIdentifier title="{GRNStatus}"/> -->
-                    <!-- <ObjectIdentifier title="{UDStatus}"/> -->
+                        }" binding="{UnloadMaterial}"/>
+
+
                 </cells>
             </ColumnListItem>
         </items>
