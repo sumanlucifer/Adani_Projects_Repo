@@ -11,6 +11,16 @@
         "description": "{{appDescription}}",
         "resources": "resources.json",
         "ach": "ach",
+        "dataSources": {
+            "default": {
+                "uri": "/AGEL_MMTS_API/api/v2/odata.svc/",
+                "type": "OData",
+                "settings": {
+                    "odataVersion": "2.0",
+                    "localUri": "localService/metadata.xml"
+                }
+            }
+        },
         "crossNavigation": {
             "inbounds": {
                 "com-agel-mmts-storeinchargeissuematerial-inbound": {
@@ -23,16 +33,6 @@
                     "title": "Issue Material",
                     "subTitle": "",
                     "icon": ""
-                }
-            }
-        },
-        "dataSources": {
-            "default": {
-                "uri": "/AGEL_MMTS_API/api/v2/odata.svc/",
-                "type": "OData",
-                "settings": {
-                    "odataVersion": "2.0",
-                    "localUri": "localService/metadata.xml"
                 }
             }
         }
@@ -81,7 +81,15 @@
                 }
             },
             "": {
-                "dataSource": "mainService",
+                "type": "sap.ui.model.odata.v2.ODataModel",
+                "settings": {
+                    "defaultOperationMode": "Server",
+                    "defaultBindingMode": "TwoWay",
+                    "defaultCountMode": "Inline",
+                    "refreshAfterChange": true,
+                    "useBatch": false
+                },
+                "dataSource": "default",
                 "preload": true
             }
         },
@@ -100,7 +108,12 @@
                 "viewPath": "com.agel.mmts.storeinchargeissuematerial.view",
                 "controlAggregation": "pages",
                 "controlId": "app",
-                "clearControlAggregation": false
+                "clearControlAggregation": false,
+                                "bypassed": {
+                    "target": [
+                        "notFound"
+                    ]
+                }
             },
             "routes": [
                 {
@@ -131,6 +144,9 @@
                     "transition": "slide",
                     "clearControlAggregation": false,
                     "viewName": "IssueMatDetail"
+                },
+                "notFound": {
+                    "viewName": "NotFound"
                 }
             }
         }

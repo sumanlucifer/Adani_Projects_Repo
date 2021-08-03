@@ -6,6 +6,5 @@
     xmlns:f="sap.f">
 
 	<App id="app"/>
-         <!-- <f:FlexibleColumnLayout id="fcl" backgroundDesign="Solid"></f:FlexibleColumnLayout> -->
 
 </mvc:View>

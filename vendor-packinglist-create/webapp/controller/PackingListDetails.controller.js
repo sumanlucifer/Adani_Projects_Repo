@@ -228,6 +228,7 @@ sap.ui.define([
             this.mainModel.create("/UpdatePackingListStatusSet", oPayload, {
                 success: function (oData, oResults) {
                     sap.m.MessageBox.success("Packing list has been dispatched successfully!")
+                    this.byId("idHeader").getModel().refresh();
                     this._oPackingListDispatchDialog.close();
                 }.bind(this), error: function (oError) {
                     sap.m.MessageBox.error(JSON.parse(oError));

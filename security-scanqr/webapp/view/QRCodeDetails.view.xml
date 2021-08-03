@@ -39,8 +39,6 @@
                             </VBox>
 
                             <VBox id="idHboxReEnterVehicleNo" renderType="Bare" visible="{oViewHandlingModel>/wantChange}">
-                                <!-- <Text text="{i18n>VehicleNumberEnter}" class="sapUiSmallMarginEnd"/>
-                                <Input value="{VehicleNumber}" width="80%" editable="false"/> -->
                                 <Text text="{i18n>reEnterVehicleNumber}" class="sapUiSmallMarginEnd"/>
                                 <Input id="idReEnterInputVehcileNob" value="{oViewHandlingModel>/ReEnterVehicleNo}" width="80%" valueLiveUpdate="true" liveChange="onVechileNumerValueUpdate"/>
                             </VBox>
