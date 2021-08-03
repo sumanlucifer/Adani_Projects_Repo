@@ -443,7 +443,9 @@ sap.ui.define([
                                 });
                             }
                         }
-                        else { console.log("Please scan Inner or outer packaging QR"); }
+                        else { 
+                            MessageBox.Info("Please scan Inner or outer packaging QR"); 
+                        }
 
                     }.bind(this),
                     error: function (oError) { }
@@ -586,12 +588,15 @@ sap.ui.define([
                                     oView.byId("idScanQR").setVisible(false);
                                     oView.byId("idRequestGRN").setVisible(true);
                                 },
-                                error: (e) => { console.log(e) }
+                                error: (e) => { MessageBox.Error("Failed to Update Packing List Status.") }
                             })
+                        }
+                        else {
+                            MessageBox.Error(oResponse.Message);
                         }
                     },
                     error: (e) => {
-                        console.log(e);
+                        MessageBox.Error("Error while Unloading Material.");
                     }
                 })
 
