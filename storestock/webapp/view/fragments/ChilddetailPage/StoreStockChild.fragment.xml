@@ -35,7 +35,7 @@
 
 
 
-                <Column  visible="{= ${StockParentItemSet/ISRestricted} ? true : false }"  >
+                <Column  visible="{= ${StockParentItem>/ISRestricted} ? true : false }"  >
 
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "IssuedQty", "leadingProperty": "IssuedQty",
@@ -45,7 +45,7 @@
                 </Column>
 
 
-                <Column visible="{= ${StockParentItemSet/ISRestricted} ? true : false }"   >
+                <Column visible="{= ${StockParentItem>/ISRestricted} ? true : false }"   >
 
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "ReturnedQty", "leadingProperty": "ReturnedQty",
@@ -55,7 +55,7 @@
                 </Column>
 
 
-                <Column visible="{= ${StockParentItemSet/ISRestricted} ? true : false }"  >
+                <Column visible="{= ${StockParentItem>/ISRestricted} ? true : false }"  >
 
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "BalanceQty", "leadingProperty": "BalanceQty",

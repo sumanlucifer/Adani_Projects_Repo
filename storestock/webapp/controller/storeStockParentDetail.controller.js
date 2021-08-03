@@ -19,34 +19,41 @@ sap.ui.define([
                 var oModel = this.getOwnerComponent().getModel("layoutModel");
                 oModel.setProperty("/layout", "OneColumn");
 
+                // Icon Tab Count Model
+                var oIconTabCountModel = new JSONModel({
+                    restrictedCount: null,
+                    unrestrictedCount: null
+                });
+                this.setModel(oIconTabCountModel, "oIconTabCountModel");
+
                 var oPlantModel = new JSONModel({
                     PlntItems: []
                 });
                 this.setModel(oPlantModel, "PlantModel");
 
                 var mockPlantData = [{
-                        key: "4500327800",
-                        value: "AG-234"
-                      
+                    key: "4500327800",
+                    value: "AG-234"
 
-                    },
+
+                },
                 {
-                        key: "4500327801",
-                        value: "AG-34"
-                      
+                    key: "4500327801",
+                    value: "AG-34"
 
-                    },
+
+                },
                 {
-                        key: "4600327832",
-                        value: "AG-67"
-                      
-
-                    }
-
-            ];
+                    key: "4600327832",
+                    value: "AG-67"
 
 
-            this.getViewModel("PlantModel").setProperty("/PlntItems", mockPlantData);
+                }
+
+                ];
+
+
+                this.getViewModel("PlantModel").setProperty("/PlntItems", mockPlantData);
 
             },
 
@@ -146,6 +153,22 @@ sap.ui.define([
 
                     false
                 );
+            },
+
+            onRestrictedStockUpdateFinished: function (oEvent) {
+                //Setting the header context for a property binding to $count
+                this.setIconTabCount(oEvent, oEvent.getParameter("total"), "/restrictedCount");
+            },
+
+            onUnrestrictedStockUpdateFinished: function (oEvent) {
+                //Setting the header context for a property binding to $count
+                this.setIconTabCount(oEvent, oEvent.getParameter("total"), "/unrestrictedCount");
+            },
+
+            setIconTabCount: function (oEvent, total, property) {
+                if (oEvent.getSource().getBinding("items").isLengthFinal()) {
+                    this.getView().getModel("oIconTabCountModel").setProperty(property, total);
+                }
             }
 
 

@@ -124,10 +124,6 @@ modules:
       name: comagelmmtsadminposummary
       target-path: resources/
     - artifacts:
-      - comagelmmtsstoreinchargereturnmaterial.zip
-      name: comagelmmtsstoreinchargereturnmaterial
-      target-path: resources/
-    - artifacts:
       - comagelmmtsraisereturnmaterial.zip
       name: comagelmmtsraisereturnmaterial
       target-path: resources/
@@ -333,14 +329,6 @@ modules:
 - name: comagelmmtsadminposummary
   type: html5
   path: admin-po_summary
-  build-parameters:
-    builder: custom
-    commands:
-    - npm run build
-    supported-platforms: []
-- name: comagelmmtsstoreinchargereturnmaterial
-  type: html5
-  path: storeincharge-returnmaterial
   build-parameters:
     builder: custom
     commands:

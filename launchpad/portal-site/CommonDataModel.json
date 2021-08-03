@@ -142,6 +142,10 @@
 					"id": "com.agel.mmts.storeinchargescanqr-1-1626337384831",
 					"appId": "com.agel.mmts.storeinchargescanqr",
 					"vizId": "ScanQR-manage"
+				}, {
+					"id": "com.agel.mmts.storestock-2-1627989198137",
+					"appId": "com.agel.mmts.storestock",
+					"vizId": "StoreStock-Display"
 				}]
 			}
 		}, {

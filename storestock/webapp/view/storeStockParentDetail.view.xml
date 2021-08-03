@@ -26,10 +26,10 @@
                 <items>
 
                   
-                    <IconTabFilter id="idOpenPOTabTitle" text="{i18n>Unrestricted}" key="OPEN" count="{oIconTabCountModel>/openCount}">
+                    <IconTabFilter id="idOpenPOTabTitle" text="{i18n>Unrestricted}" key="OPEN" count="{oIconTabCountModel>/unrestrictedCount}">
                         <core:Fragment fragmentName="com.agel.mmts.storestock.view.fragments.ParentdetailPage.UnRestricted" type="XML"/>
                     </IconTabFilter>
-                    <IconTabFilter text="{i18n>Restricted}" key="RESTRICTED" count="{oIconTabCountModel>/confirmCount}">
+                    <IconTabFilter text="{i18n>Restricted}" key="RESTRICTED" count="{oIconTabCountModel>/restrictedCount}">
                         <core:Fragment fragmentName="com.agel.mmts.storestock.view.fragments.ParentdetailPage.Restricted" type="XML"/>
                     </IconTabFilter>
 
