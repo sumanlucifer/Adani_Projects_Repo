@@ -1,10 +1,10 @@
 {
     "resources": [
         {
-            "name": "../raisereturnmaterial/model/models.js"
+            "name": "../raisereturnmaterial/manifest.json"
         },
         {
-            "name": "../raisereturnmaterial/controller/BaseController.js"
+            "name": "../raisereturnmaterial/controller/RaiseRequestDetailPage.controller.js"
         },
         {
             "name": "../raisereturnmaterial/view/blocks/returnDetails/lineItemsForm/LineItemsForm.js"
@@ -13,14 +13,14 @@
             "name": "../raisereturnmaterial/view/blocks/returnDetails/contractorForm/ContractorForm.js"
         },
         {
-            "name": "../raisereturnmaterial/i18n/i18n.properties",
-            "raw": "i18n/i18n.properties"
+            "name": "../raisereturnmaterial/model/models.js"
         },
         {
             "name": "../raisereturnmaterial/controller/RaiseRequestPage.controller.js"
         },
         {
-            "name": "../raisereturnmaterial/controller/RaiseRequestDetailPage.controller.js"
+            "name": "../raisereturnmaterial/i18n/i18n.properties",
+            "raw": "i18n/i18n.properties"
         },
         {
             "name": "../raisereturnmaterial/controller/NotFound.controller.js"
@@ -29,7 +29,7 @@
             "name": "../raisereturnmaterial/controller/ErrorHandler.js"
         },
         {
-            "name": "../raisereturnmaterial/manifest.json"
+            "name": "../raisereturnmaterial/controller/BaseController.js"
         },
         {
             "name": "../raisereturnmaterial/controller/App.controller.js"
@@ -45,7 +45,7 @@
             "merged": true
         },
         {
-            "name": "../raisereturnmaterial/controller/NotFound-dbg.controller.js",
+            "name": "../raisereturnmaterial/model/models-dbg.js",
             "isDebug": true
         },
         {
@@ -53,7 +53,7 @@
             "isDebug": true
         },
         {
-            "name": "../raisereturnmaterial/model/models-dbg.js",
+            "name": "../raisereturnmaterial/view/blocks/returnDetails/lineItemsForm/LineItemsForm-dbg.js",
             "isDebug": true
         },
         {
@@ -65,7 +65,7 @@
             "isDebug": true
         },
         {
-            "name": "../raisereturnmaterial/view/blocks/returnDetails/lineItemsForm/LineItemsForm-dbg.js",
+            "name": "../raisereturnmaterial/controller/NotFound-dbg.controller.js",
             "isDebug": true
         },
         {

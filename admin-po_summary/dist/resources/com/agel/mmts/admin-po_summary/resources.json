@@ -1,20 +1,19 @@
 {
     "resources": [
         {
-            "name": "../adminposummary/manifest.json"
+            "name": "../adminposummary/index.html"
         },
         {
-            "name": "../adminposummary/controller/LandingPage.controller.js"
+            "name": "../adminposummary/controller/ErrorHandler.js"
         },
         {
             "name": "../adminposummary/model/models.js"
         },
         {
-            "name": "../adminposummary/i18n/i18n.properties",
-            "raw": "i18n/i18n.properties"
+            "name": "../adminposummary/controller/LandingPage.controller.js"
         },
         {
-            "name": "../adminposummary/controller/ErrorHandler.js"
+            "name": "../adminposummary/manifest.json"
         },
         {
             "name": "../adminposummary/controller/BaseController.js"
@@ -33,7 +32,7 @@
             "merged": true
         },
         {
-            "name": "../adminposummary/controller/App-dbg.controller.js",
+            "name": "../adminposummary/controller/ErrorHandler-dbg.js",
             "isDebug": true
         },
         {
@@ -41,7 +40,7 @@
             "isDebug": true
         },
         {
-            "name": "../adminposummary/controller/ErrorHandler-dbg.js",
+            "name": "../adminposummary/model/models-dbg.js",
             "isDebug": true
         },
         {
@@ -49,7 +48,7 @@
             "isDebug": true
         },
         {
-            "name": "../adminposummary/model/models-dbg.js",
+            "name": "../adminposummary/controller/App-dbg.controller.js",
             "isDebug": true
         },
         {
@@ -78,7 +77,8 @@
             "name": "../adminposummary/css/style.css"
         },
         {
-            "name": "../adminposummary/index.html"
+            "name": "../adminposummary/i18n/i18n.properties",
+            "raw": "i18n/i18n.properties"
         }
     ]
 }

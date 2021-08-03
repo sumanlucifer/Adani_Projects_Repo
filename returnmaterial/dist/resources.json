@@ -1,11 +1,10 @@
 {
     "resources": [
         {
-            "name": "controller/NotFound-dbg.controller.js",
-            "isDebug": true
+            "name": "view/ReturnMaterialDetailPage.view.xml"
         },
         {
-            "name": "utils/formatter.js"
+            "name": "controller/ReturnMaterialDetailPage.controller.js"
         },
         {
             "name": "view/blocks/returnDetails/lineItemsForm/LineItemsForm.js"
@@ -14,7 +13,7 @@
             "name": "view/blocks/returnDetails/contractorForm/ContractorForm.js"
         },
         {
-            "name": "manifest.json"
+            "name": "utils/formatter.js"
         },
         {
             "name": "model/models.js"
@@ -23,7 +22,7 @@
             "name": "controller/returnMaterialPage.controller.js"
         },
         {
-            "name": "controller/ReturnMaterialDetailPage.controller.js"
+            "name": "manifest.json"
         },
         {
             "name": "controller/NotFound.controller.js"
@@ -48,7 +47,7 @@
             "merged": true
         },
         {
-            "name": "view/blocks/returnDetails/lineItemsForm/LineItemsForm-dbg.js",
+            "name": "controller/ReturnMaterialDetailPage-dbg.controller.js",
             "isDebug": true
         },
         {
@@ -68,12 +67,12 @@
             "isDebug": true
         },
         {
-            "name": "controller/ReturnMaterialDetailPage-dbg.controller.js",
+            "name": "view/blocks/returnDetails/lineItemsForm/LineItemsForm-dbg.js",
             "isDebug": true
         },
         {
-            "name": "i18n/i18n.properties",
-            "raw": "i18n/i18n.properties"
+            "name": "controller/NotFound-dbg.controller.js",
+            "isDebug": true
         },
         {
             "name": "controller/ErrorHandler-dbg.js",
@@ -110,7 +109,8 @@
             "name": "view/returnMaterialPage.view.xml"
         },
         {
-            "name": "view/ReturnMaterialDetailPage.view.xml"
+            "name": "i18n/i18n.properties",
+            "raw": "i18n/i18n.properties"
         },
         {
             "name": "view/NotFound.view.xml"

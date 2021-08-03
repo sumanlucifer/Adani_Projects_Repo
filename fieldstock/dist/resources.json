@@ -1,10 +1,10 @@
 {
     "resources": [
         {
-            "name": "view/NotFound.view.xml"
+            "name": "Component.js"
         },
         {
-            "name": "controller/fieldStockChildDetail.controller.js"
+            "name": "controller/App.controller.js"
         },
         {
             "name": "model/models.js"
@@ -13,7 +13,7 @@
             "name": "controller/fieldStockParentDetail.controller.js"
         },
         {
-            "name": "manifest.json"
+            "name": "controller/fieldStockChildDetail.controller.js"
         },
         {
             "name": "controller/NotFound.controller.js"
@@ -25,10 +25,11 @@
             "name": "controller/BaseController.js"
         },
         {
-            "name": "controller/App.controller.js"
+            "name": "manifest.json"
         },
         {
-            "name": "Component.js"
+            "name": "i18n/i18n.properties",
+            "raw": "i18n/i18n.properties"
         },
         {
             "name": "manifest-bundle.zip"
@@ -38,11 +39,11 @@
             "merged": true
         },
         {
-            "name": "controller/fieldStockParentDetail-dbg.controller.js",
+            "name": "controller/App-dbg.controller.js",
             "isDebug": true
         },
         {
-            "name": "model/models-dbg.js",
+            "name": "controller/fieldStockParentDetail-dbg.controller.js",
             "isDebug": true
         },
         {
@@ -62,7 +63,7 @@
             "isDebug": true
         },
         {
-            "name": "controller/App-dbg.controller.js",
+            "name": "model/models-dbg.js",
             "isDebug": true
         },
         {
@@ -79,8 +80,7 @@
             "name": "view/fieldStockChildDetail.view.xml"
         },
         {
-            "name": "i18n/i18n.properties",
-            "raw": "i18n/i18n.properties"
+            "name": "view/NotFound.view.xml"
         },
         {
             "name": "view/App.view.xml"
