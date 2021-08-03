@@ -443,7 +443,9 @@ sap.ui.define([
                                 });
                             }
                         }
-                        else { console.log("Please scan Inner or outer packaging QR"); }
+                        else { 
+                            MessageBox.Info("Please scan Inner or outer packaging QR"); 
+                        }
 
                     }.bind(this),
                     error: function (oError) { }
@@ -586,18 +588,23 @@ sap.ui.define([
                                     oView.byId("idScanQR").setVisible(false);
                                     oView.byId("idRequestGRN").setVisible(true);
                                 },
-                                error: (e) => { console.log(e) }
+                                error: (e) => { MessageBox.Error("Failed to Update Packing List Status.") }
                             })
+                        }
+                        else {
+                            MessageBox.Error(oResponse.Message);
                         }
                     },
                     error: (e) => {
-                        console.log(e);
+                        MessageBox.Error("Error while Unloading Material.");
                     }
                 })
 
-                this.unloadConfirmDialog.then(function (oDialog) {
-                    oDialog.close();
-                });
+                if (this.unloadConfirmDialog) {
+                    this.unloadConfirmDialog.then(function (oDialog) {
+                        oDialog.close();
+                    });
+                }
             },
 
             _filterQrSuggestion: function (oEvent) {
@@ -622,7 +629,7 @@ sap.ui.define([
                 var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
                 oRouter.navTo("RouteDetailsPage", {
                     RequestId: this.RequestId,
-                    Type: ""
+                    Type: "QR"
                 }, true);
             },
 
