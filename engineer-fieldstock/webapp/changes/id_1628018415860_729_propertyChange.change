@@ -1,0 +1,41 @@
+{
+    "fileName": "id_1628018415860_729_propertyChange",
+    "fileType": "change",
+    "changeType": "propertyChange",
+    "moduleName": "",
+    "reference": "com.agel.mmts.engineerfieldstock",
+    "packageName": "",
+    "content": {
+        "property": "showTablePersonalisation",
+        "newValue": true
+    },
+    "selector": {
+        "id": "com.agel.mmts.engineerfieldstock::sap.suite.ui.generic.template.ListReport.view.ListReport::SONumberDetailsSet--listReport",
+        "idIsLocal": false,
+        "type": "sap.ui.comp.smarttable.SmartTable"
+    },
+    "layer": "VENDOR",
+    "texts": {},
+    "namespace": "apps/com.agel.mmts.engineerfieldstock/changes/",
+    "projectId": "com.agel.mmts.engineerfieldstock",
+    "creation": 1628018415860,
+    "originalLanguage": "",
+    "support": {
+        "generator": "changeUtils: SAPFioriTools",
+        "service": "",
+        "user": "",
+        "sapui5Version": "latest",
+        "sourceChangeFileName": "",
+        "compositeCommand": ""
+    },
+    "oDataInformation": {},
+    "dependentSelector": {},
+    "validAppVersions": {
+        "from": "1.0.0",
+        "to": "1.0.0",
+        "creation": "1.0.0"
+    },
+    "jsOnly": false,
+    "variantReference": "",
+    "appDescriptorChange": false
+}
