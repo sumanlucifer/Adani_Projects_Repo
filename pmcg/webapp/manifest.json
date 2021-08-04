@@ -132,15 +132,15 @@
                 "TargetLandingPage": {
                     "viewType": "XML",
                     "transition": "slide",
+                    "viewName": "LandingPage",
                     "clearControlAggregation": false,
-                    "viewId": "LandingPage",
-                    "viewName": "LandingPage"
+                    "viewId": "MDCCRequestList"
                 },
                  "TCEngDetailsPage": {	
                     "viewType": "XML",	
                     "transition": "slide",	
-                    "clearControlAggregation": false,	
                     "viewName": "TCEngDetail",	
+                    "clearControlAggregation": false,
                     "viewLevel": 2	
                 }
             }

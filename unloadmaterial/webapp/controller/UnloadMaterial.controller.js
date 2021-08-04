@@ -12,12 +12,13 @@ sap.ui.define([
     "jquery.sap.global",
     "sap/m/MessageBox",
     "sap/m/MessageToast",
+    "sap/m/PDFViewer",
     "../utils/formatter",
 ],
 	/**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (BaseController, JSONModel, Filter, FilterOperator, Fragment, Sorter, Device, History, ColumnListItem, Input, jquery, MessageBox, MessageToast, formatter) {
+    function (BaseController, JSONModel, Filter, FilterOperator, Fragment, Sorter, Device, History, ColumnListItem, Input, jquery, MessageBox, MessageToast, PDFViewer, formatter) {
         "use strict";
         return BaseController.extend("com.agel.mmts.unloadmaterial.controller.PackingListDetails", {
             formatter: formatter,
@@ -141,6 +142,7 @@ sap.ui.define([
                 this.getView().bindElement({
                     path: sObjectPath,
                     events: {
+                        change: this._onBindingChange.bind(this),
                         dataRequested: function () {
                             objectViewModel.setProperty("/busy", true);
                         },
@@ -149,6 +151,17 @@ sap.ui.define([
                         }
                     }
                 });
+            },
+
+            _onBindingChange: function () {
+                var oView = this.getView(),
+                    oViewModel = this.getViewModel("objectViewModel"),
+                    oElementBinding = oView.getElementBinding();
+                // No data for the binding
+                if (!oElementBinding.getBoundContext()) {
+                    this.getRouter().getTargets().display("notFound");
+                    return;
+                }
             },
 
             onClose: function (oEvent) {
@@ -266,61 +279,110 @@ sap.ui.define([
             },
 
             // QR Code View 
+            // onViewQRCodePress: function (oEvent) {
+            //     var sParentItemPath = oEvent.getSource().getBindingContext().getPath();
+            //     var sDialogTitleObject = oEvent.getSource()._getBindingContext().getProperty();
+            //     var oDetails = {};
+            //     oDetails.controller = this;
+            //     oDetails.view = this.getView();
+            //     oDetails.sParentItemPath = sParentItemPath;
+            //     oDetails.title = "QR Code";
+            //     if (sDialogTitleObject.Name)
+            //         oDetails.title = sDialogTitleObject.Name;
+            //     else if (sDialogTitleObject.PackagingType)
+            //         oDetails.title = sDialogTitleObject.PackagingType;
+            //     //Close current dialog
+            //     if (this.packingListContainsDialog) {
+            //         this.packingListContainsDialog.then(function (oDialog) {
+            //             oDialog.close();
+            //         });
+            //     }
+            //     if (!this.qrDialog) {
+            //         this.qrDialog = Fragment.load({
+            //             id: oDetails.view.getId(),
+            //             name: "com.agel.mmts.unloadmaterial.view.fragments.QRCodeViewer",
+            //             controller: oDetails.controller
+            //         }).then(function (oDialog) {
+            //             // connect dialog to the root view of this component (models, lifecycle)
+            //             oDetails.view.addDependent(oDialog);
+            //             oDialog.bindElement({
+            //                 path: oDetails.sParentItemPath,
+            //             });
+            //             if (Device.system.desktop) {
+            //                 oDialog.addStyleClass("sapUiSizeCompact");
+            //             }
+            //             oDialog.setTitle(oDetails.title);
+            //             return oDialog;
+            //         });
+            //     }
+            //     this.qrDialog.then(function (oDialog) {
+            //         oDetails.view.addDependent(oDialog);
+            //         oDialog.bindElement({
+            //             path: oDetails.sParentItemPath,
+            //         });
+            //         oDialog.setTitle(oDetails.title);
+            //         oDialog.open();
+            //     });
+            // },
+
+            // onQRCodeViewerDialogClosePress: function (oEvent) {
+            //     this.qrDialog.then(function (oDialog) {
+            //         oDialog.close();
+            //     });
+            //     if (this.packingListContainsDialog) {
+            //         this.packingListContainsDialog.then(function (oDialog) {
+            //             oDialog.open();
+            //         });
+            //     }
+            // },
+
             onViewQRCodePress: function (oEvent) {
-                var sParentItemPath = oEvent.getSource().getBindingContext().getPath();
-                var sDialogTitleObject = oEvent.getSource()._getBindingContext().getProperty();
-                var oDetails = {};
-                oDetails.controller = this;
-                oDetails.view = this.getView();
-                oDetails.sParentItemPath = sParentItemPath;
-                oDetails.title = "QR Code";
-                if (sDialogTitleObject.Name)
-                    oDetails.title = sDialogTitleObject.Name;
-                else if (sDialogTitleObject.PackagingType)
-                    oDetails.title = sDialogTitleObject.PackagingType;
-                //Close current dialog
-                if (this.packingListContainsDialog) {
-                    this.packingListContainsDialog.then(function (oDialog) {
-                        oDialog.close();
-                    });
+                try {
+                    var sParentItemPath = oEvent.getParameter("oSource").getBindingContext().getPath();
                 }
-                if (!this.qrDialog) {
-                    this.qrDialog = Fragment.load({
-                        id: oDetails.view.getId(),
-                        name: "com.agel.mmts.unloadmaterial.view.fragments.QRCodeViewer",
-                        controller: oDetails.controller
-                    }).then(function (oDialog) {
-                        // connect dialog to the root view of this component (models, lifecycle)
-                        oDetails.view.addDependent(oDialog);
-                        oDialog.bindElement({
-                            path: oDetails.sParentItemPath,
-                        });
-                        if (Device.system.desktop) {
-                            oDialog.addStyleClass("sapUiSizeCompact");
+                catch (e) {
+                    sParentItemPath = oEvent.getSource().getBindingContext().getPath();
+                }
+                var qrcodeID = this.getViewModel().getProperty(sParentItemPath).QRNumber;
+                var aPayload = {
+                    "QRNumber": qrcodeID
+                };
+                this.getComponentModel().create("/QuickAccessQRCodeEdmSet", aPayload, {
+                    success: function (oData, oResponse) {
+                        if (oData.Success) {
+                            // sap.m.MessageBox.success(oData.Message);
+                            this._openPDFDownloadWindow(oData.Base64String);
                         }
-                        oDialog.setTitle(oDetails.title);
-                        return oDialog;
-                    });
-                }
-                this.qrDialog.then(function (oDialog) {
-                    oDetails.view.addDependent(oDialog);
-                    oDialog.bindElement({
-                        path: oDetails.sParentItemPath,
-                    });
-                    oDialog.setTitle(oDetails.title);
-                    oDialog.open();
-                });
+
+                        else {
+                            sap.m.MessageBox.error("QR Code is wrong");
+                        }
+                        this.getComponentModel().refresh();
+                    }.bind(this),
+                    error: function (oError) {
+                        sap.m.MessageBox.success(JSON.stringify(oError));
+                    }
+                })
             },
 
-            onQRCodeViewerDialogClosePress: function (oEvent) {
-                this.qrDialog.then(function (oDialog) {
-                    oDialog.close();
-                });
-                if (this.packingListContainsDialog) {
-                    this.packingListContainsDialog.then(function (oDialog) {
-                        oDialog.open();
-                    });
+            _openPDFDownloadWindow: function (base64Data) {
+                var _pdfViewer = new PDFViewer();
+                this.getView().addDependent(_pdfViewer);
+                var decodedPdfContent = atob(base64Data);
+                var byteArray = new Uint8Array(decodedPdfContent.length)
+                for (var i = 0; i < decodedPdfContent.length; i++) {
+                    byteArray[i] = decodedPdfContent.charCodeAt(i);
                 }
+                var blob = new Blob([byteArray.buffer], { type: 'application/pdf' });
+                var _pdfurl = URL.createObjectURL(blob);
+                _pdfViewer.setSource(_pdfurl);
+                if (Device.system.desktop) {
+                    _pdfViewer.addStyleClass("sapUiSizeCompact");
+                }
+                // _pdfViewer.setTitle("QR Code " + this.getView().getBindingContext().getObject().Name);
+                _pdfViewer.setTitle("QR Code");
+                _pdfViewer.setShowDownloadButton(true);
+                _pdfViewer.open();
             },
 
             onQRCodeSuggestionSelected: function (oEvent) {
@@ -381,7 +443,9 @@ sap.ui.define([
                                 });
                             }
                         }
-                        else { console.log("Please scan Inner or outer packaging QR"); }
+                        else { 
+                            MessageBox.Info("Please scan Inner or outer packaging QR"); 
+                        }
 
                     }.bind(this),
                     error: function (oError) { }
@@ -507,37 +571,40 @@ sap.ui.define([
                 var oView = this.getView();
                 var oModel = this.getViewModel();
                 var oData = this.getViewModel("JSONModelData").getData();
-                var sPackingListPath = "/PackingListSet(" + this.RequestId + "l)";
+                var sStatusChangePath = "/PackingListEdmSet(" + this.RequestId + ")";
+                var oPayload = {
+                    "ID": this.RequestId,
+                    "Status": "UNLOADING COMPLETED"
+                }
                 oModel.create("/UnloadMaterialRequestSet", oData, {
                     success: (oResponse) => {
                         if (oResponse.Success) {
                             var oMainModel = oView.getModel();
-                            oMainModel.read(sPackingListPath, {
-                                success: (oRes) => {
-                                    oRes.Status = "UNLOADING COMPLETED";
-                                    oView.getModel().update(sPackingListPath, oRes, {
-                                        success: (oResp) => {
-                                            oView.byId("idQRnotFound").setVisible(false);
-                                            oView.byId("idUnloadingComplete").setVisible(false);
-                                            oView.byId("idDoitLater").setVisible(true);
-                                            oView.byId("idScanQR").setVisible(false);
-                                            oView.byId("idRequestGRN").setVisible(true);
-                                        },
-                                        error: (e) => { console.log(e) }
-                                    })
+                            oMainModel.update(sStatusChangePath, oPayload, {
+                                success: (oResp) => {
+                                    oView.byId("idQRnotFound").setVisible(false);
+                                    oView.byId("idUnloadingComplete").setVisible(false);
+                                    oView.byId("idDoitLater").setVisible(true);
+                                    oView.byId("idScanQR").setVisible(false);
+                                    oView.byId("idRequestGRN").setVisible(true);
                                 },
-                                error: (e) => { }
+                                error: (e) => { MessageBox.Error("Failed to Update Packing List Status.") }
                             })
+                        }
+                        else {
+                            MessageBox.Error(oResponse.Message);
                         }
                     },
                     error: (e) => {
-                        console.log(e);
+                        MessageBox.Error("Error while Unloading Material.");
                     }
                 })
 
-                this.unloadConfirmDialog.then(function (oDialog) {
-                    oDialog.close();
-                });
+                if (this.unloadConfirmDialog) {
+                    this.unloadConfirmDialog.then(function (oDialog) {
+                        oDialog.close();
+                    });
+                }
             },
 
             _filterQrSuggestion: function (oEvent) {
@@ -562,8 +629,107 @@ sap.ui.define([
                 var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
                 oRouter.navTo("RouteDetailsPage", {
                     RequestId: this.RequestId,
-                    Type: ""
+                    Type: "QR"
                 }, true);
-            }
+            },
+
+            onRequestGRNPress: function (oEvent) {
+                var sParentItemPath = this.getView().getBindingContext().sPath;
+                var requestModel = new JSONModel({
+                    quantity: null,
+                    delivery: null,
+                    valueState: null,
+                    isConfirmButtonEnabled: false,
+                    valueStateText: ""
+                });
+                this.getView().setModel(requestModel, "requestModel");
+
+                if (!this._oRequestDialog) {
+                    this._oRequestDialog = sap.ui.xmlfragment("com.agel.mmts.unloadmaterial.view.fragments.common.ViewRequestGRNDialog", this);
+                    var oDialog = this._oRequestDialog;
+                    this.getView().addDependent(oDialog);
+                    if (Device.system.desktop) {
+                        oDialog.addStyleClass("sapUiSizeCompact");
+                    }
+                    oDialog.bindElement({
+                        path: sParentItemPath,
+                        parameters: {
+                            "expand": 'StockParentItem, PurchaseOrder, PackingListParentItems'
+                        }
+                    });
+                    oDialog.setTitle("Request GRN");
+                    // return oDialog;
+                }
+                this._oRequestDialog.open();
+            },
+            onDeliveryNoteLiveChange: function (oEvent) {
+                var oPOData = this.getView().getBindingContext().getObject();
+                if (oEvent.getSource().getValue().length && parseInt(oEvent.getSource().getValue()) > 0)
+                    this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", true);
+                else
+                    this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", false);
+            },
+            onQuantityLiveChange: function (oEvent) {
+                var oGRNData = this.getView().getBindingContext().getObject();
+                if (oEvent.getSource().getValue().length && parseInt(oEvent.getSource().getValue()) > 0)
+                    this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", true);
+                else
+                    this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", false);
+
+                if (parseInt(oEvent.getSource().getValue()) > parseInt(oGRNData.TotalWeight) || parseInt(oEvent.getSource().getValue()) <= 0) {
+                    this.getViewModel("requestModel").setProperty("/valueState", "Error");
+                    this.getViewModel("requestModel").setProperty("/valueStateText", "Total Packaging Weight should not exceed Total Vendor Entered Weight.");
+                    this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", false);
+                }
+                else {
+                    this.getViewModel("requestModel").setProperty("/valueState", null);
+                    this.getViewModel("requestModel").setProperty("/valueStateText", "");
+                    this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", true);
+                }
+            },
+
+            onViewChildDialogClose: function (oEvent) {
+                this._oRequestDialog.close();
+            },
+
+            onRequestPress: function (oEvent) {
+                this._oRequestDialog.close();
+                var sDelivery = this.getViewModel("requestModel").getProperty("/delivery");
+                var sQuantity = this.getViewModel("requestModel").getProperty("/quantity");
+                var oModel = this.getComponentModel();
+                if (parseInt(sQuantity) > 0) {
+                    if (sDelivery !== null) {
+                        var oPayload = {
+                            "QTY": parseInt(sQuantity),
+                            "DeliveryNote": sDelivery,
+                            "PackingListId": this.getView().getBindingContext().getObject().ID
+                        };
+                    } else {
+                        var oSelectedItemData = this.byId("idGRNTable").getSelectedItem().getBindingContext().getObject();
+
+                        var oPayload = {
+                            "TotalPackagingWeight": parseInt(sQuantity),
+                            "DeliveryNote": sDelivery,
+                            "PackingListId": parseInt(oSelectedItemData.ID)
+                        };
+                    }
+                    if (oPayload) {
+                        oModel.create("/GRNEdmSet", oPayload, {
+                            success: function (oData) {
+                                this.onDoItLaterPress();
+                                sap.m.MessageBox.success(oData.Message);
+                                this.getComponentModel().refresh();
+                            }.bind(this),
+                            error: function (oError) {
+                                sap.m.MessageBox.error(JSON.stringify(oError));
+                            }
+                        });
+                    }
+                } else {
+                    sap.m.MessageBox.error("Please enter positive and a non zero number for Quantity")
+                }
+
+            },
+
         });
     });

@@ -16,7 +16,7 @@ modules:
     properties:
       forwardAuthToken: true
       name: AGEL_MMTS_API
-      url: https://qa-agel-mmts-api.cfapps.ap11.hana.ondemand.com/
+      url: https://agel-mmts-api.cfapps.ap11.hana.ondemand.com/
   parameters:
     disk-quota: 256M
     keep-existing-routes: true
@@ -112,16 +112,16 @@ modules:
       name: unloadmaterial
       target-path: resources/
     - artifacts:
+      - storeincharge-issuematerial-content.zip
+      name: storeincharge-issuematerial
+      target-path: resources/
+    - artifacts:
       - comagelmmtsvendorpackinglistcreate-content.zip
       name: packingListCreate
       target-path: resources/
     - artifacts:
       - admin-po_summary-content.zip
       name: comagelmmtsadminposummary
-      target-path: resources/
-    - artifacts:
-      - comagelmmtsstoreinchargereturnmaterial.zip
-      name: comagelmmtsstoreinchargereturnmaterial
       target-path: resources/
     - artifacts:
       - comagelmmtsraisereturnmaterial.zip
@@ -132,12 +132,12 @@ modules:
       name: comagelmmtsreturnmaterial
       target-path: resources/
     - artifacts:
-      - comagelmmtsfieldstock.zip
-      name: comagelmmtsfieldstock
-      target-path: resources/
-    - artifacts:
       - comagelmmtsstorestock.zip
       name: comagelmmtsstorestock
+      target-path: resources/
+    - artifacts:
+      - comagelmmtsengineerfieldstock.zip
+      name: comagelmmtsengineerfieldstock
       target-path: resources/
 - name: launchpad
   type: com.sap.application.content
@@ -158,6 +158,13 @@ modules:
       TENANT_HOST_PATTERN: ^(.*)-agel-mmts-web-approuter.${default-domain}
   deployed-after:
   - agel-mmts-web_ui_deployer
+- name: workflow-module
+  type: com.sap.application.content
+  path: workflow-module
+  requires:
+    - name: workflow
+      parameters:
+        content-target: true  
 - name: vendorPersona
   type: html5
   path: vendorPersona
@@ -310,6 +317,14 @@ modules:
     commands:
     - npm run build
     supported-platforms: []
+- name: storeincharge-issuematerial
+  type: html5
+  path: storeincharge-issuematerial
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []
 - name: storeincharge-approvals
   type: html5
   path: storeincharge-approvals
@@ -321,14 +336,6 @@ modules:
 - name: comagelmmtsadminposummary
   type: html5
   path: admin-po_summary
-  build-parameters:
-    builder: custom
-    commands:
-    - npm run build
-    supported-platforms: []
-- name: comagelmmtsstoreinchargereturnmaterial
-  type: html5
-  path: storeincharge-returnmaterial
   build-parameters:
     builder: custom
     commands:
@@ -350,14 +357,6 @@ modules:
     commands:
     - npm run build
     supported-platforms: []
-- name: comagelmmtsfieldstock
-  type: html5
-  path: fieldstock
-  build-parameters:
-    builder: custom
-    commands:
-    - npm run build
-    supported-platforms: []
 - name: comagelmmtsstorestock
   type: html5
   path: storestock
@@ -365,6 +364,16 @@ modules:
     builder: custom
     commands:
     - npm run build
+    supported-platforms: []
+- name: comagelmmtsengineerfieldstock
+  type: html5
+  path: engineer-fieldstock
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
     supported-platforms: []
 resources:
 - name: uaa_agel-mmts-web
@@ -406,6 +415,11 @@ resources:
       version: 1.0.0
     service: destination
     service-plan: lite
+- name: workflow
+  type: org.cloudfoundry.managed-service
+  parameters:
+      service: workflow
+      service-plan: standard    
 parameters:
   enable-parallel-deployments: true
 build-parameters:

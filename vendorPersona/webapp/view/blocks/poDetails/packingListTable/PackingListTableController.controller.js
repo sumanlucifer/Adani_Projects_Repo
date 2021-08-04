@@ -6,14 +6,15 @@ sap.ui.define(["sap/ui/core/mvc/Controller"], function (Controller) {
         onBeforeRebindPackingListTable: function (oEvent) {
             var PONumber;
             var mBindingParams = oEvent.getParameter("bindingParams");
+            mBindingParams.sorter.push(new sap.ui.model.Sorter("CreatedAt", true));
 
             var that = this;
             this.getOwnerComponent().getModel().metadataLoaded(true).then(
                 function () {
                     // model is ready now
                     PONumber = that.getView().getBindingContext().getObject().PONumber;
-                    mBindingParams.filters.push(new sap.ui.model.Filter("PONumber", sap.ui.model.FilterOperator.EQ, PONumber));
-                    mBindingParams.sorter.push(new sap.ui.model.Sorter("CreatedAt", true));
+                    //mBindingParams.filters.push(new sap.ui.model.Filter("PONumber", sap.ui.model.FilterOperator.EQ, PONumber));
+                    //mBindingParams.sorter.push(new sap.ui.model.Sorter("CreatedAt", true));
                 },
                 function () {
                     //Error Handler Display error information so that the user knows that the application does not work.

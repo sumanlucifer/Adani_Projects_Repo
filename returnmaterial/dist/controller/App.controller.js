@@ -1,0 +1,1 @@
+sap.ui.define(["sap/ui/core/mvc/Controller"],function(t){"use strict";return t.extend("com.agel.mmts.returnmaterial.controller.App",{onInit:function(){this.getView().addStyleClass(this.getOwnerComponent().getContentDensityClass())}})});

@@ -25,7 +25,7 @@
                 <uxap:expandedHeading>
                     <FlexBox direction="Column" renderType="Bare">
                         <Title text="Packing List Details - {Name}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
-                        <ObjectStatus text="{Status}" state="{= ${Status}=== 'DISPATCHED' ? 'Warning' : 'None'}" visible="{= ${Status}=== 'DISPATCHED'}"></ObjectStatus>
+                        <ObjectStatus text="{Status}" state="{= ${Status}=== 'DISPATCHED' ? 'Warning' : 'None'}"></ObjectStatus>
                     </FlexBox>
                 </uxap:expandedHeading>
                 <uxap:snappedHeading>
@@ -38,7 +38,8 @@
                     <Title text="Packing List Details - {Name}" wrapping="true" titleStyle="Auto"/>
                 </uxap:snappedTitleOnMobile>
                 <uxap:actions>
-                   <Button id="idStartUnloadingMat" text="{i18n>startunloadingmat}" type="Emphasized" press="onStartUnloading" visible="{= ${Status}!== 'UNLOADING COMPLETED'}"/>
+                   <Button id="idStartUnloadingMat" text="{i18n>startunloadingmat}" type="Emphasized" press="onStartUnloading" visible="{= ${Status} !== 'UNLOADING COMPLETED' &amp;&amp; ${GateEntryNumber} !== null }"/>
+                   <!-- <Button id="idStartUnloadingMat" text="{i18n>startunloadingmat}" type="Emphasized" press="onStartUnloading"/>  -->
                 </uxap:actions>
             </uxap:ObjectPageDynamicHeaderTitle>
         </uxap:headerTitle>
@@ -110,22 +111,22 @@
 		                        </headerToolbar>
 		                        <columns>
 			                        <Column>
-				                        <Text text="Line Number"/>
+				                        <Text text="{i18n>lineno}"/>
 			                        </Column>
 			                        <Column>
-				                        <Text text="Line Item ID"/>
+				                        <Text text="{i18n>lineItemId}"/>
 			                        </Column>
 			                        <Column>
-				                        <Text text="PO Qty."/>
+				                        <Text text="{i18n>POQty}"/>
 			                        </Column>
 			                        <Column>
-				                        <Text text="MDCC Approved Qty."/>
+				                        <Text text="{i18n>MDCCAppQty}"/>
 			                        </Column>
 			                        <Column>
-				                        <Text text="Dispatch Qty"/>
+				                        <Text text="{i18n>DispatchQty}"/>
 			                        </Column>
 			                        <Column>
-				                        <Text text="UOM"/>
+				                        <Text text="{i18n>UOM}"/>
 			                        </Column>
                                     <Column>
 				                        <Text text=""/>
@@ -134,8 +135,8 @@
 		                        <items>
 			                        <ColumnListItem>
 				                        <cells> 
-					                        <ObjectIdentifier title="{LineNumber}"/>
-					                        <ObjectIdentifier title="{ID}"/>
+					                        <Text text="{LineNumber}"/>
+					                        <Text text="{ID}"/>
 					                        <Text text="{Qty}"/>
 					                        <Text text="{MDCCApprovedQty}"/>
 					                        <Text text="{DispatchQty}"/>
@@ -158,12 +159,12 @@
                             <linePackingItems:LineItemsTable class="sapUxAPObjectPageSubSectionAlignContent" OnViewQRCodePress = "onViewQRCodePress"/>
                         </uxap:blocks>
                     </uxap:ObjectPageSubSection>
-                    <uxap:ObjectPageSubSection title="Outer Packaging">
+                    <uxap:ObjectPageSubSection title="{i18n>OuterPackaging}">
                         <uxap:blocks>
                             <outerPackaging:OuterPackaging OnViewQRCodePress="onViewQRCodePress" class="sapUxAPObjectPageSubSectionAlignContent"/>
                         </uxap:blocks>
                     </uxap:ObjectPageSubSection>
-                    <uxap:ObjectPageSubSection title="Inner Packaging">
+                    <uxap:ObjectPageSubSection title="{i18n>InnerPackaging}">
                         <uxap:blocks>
                             <innerPackaging:InnerPackaging class="sapUxAPObjectPageSubSectionAlignContent" OnViewQRCodePress = "onViewQRCodePress"/>
                         </uxap:blocks>

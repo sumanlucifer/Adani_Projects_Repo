@@ -1,0 +1,84 @@
+{
+    "resources": [
+        {
+            "name": "../adminposummary/controller/App.controller.js"
+        },
+        {
+            "name": "../adminposummary/model/models.js"
+        },
+        {
+            "name": "../adminposummary/manifest.json"
+        },
+        {
+            "name": "../adminposummary/controller/LandingPage.controller.js"
+        },
+        {
+            "name": "../adminposummary/controller/ErrorHandler.js"
+        },
+        {
+            "name": "../adminposummary/controller/BaseController.js"
+        },
+        {
+            "name": "../adminposummary/i18n/i18n.properties",
+            "raw": "i18n/i18n.properties"
+        },
+        {
+            "name": "../adminposummary/Component.js"
+        },
+        {
+            "name": "../adminposummary/manifest-bundle.zip"
+        },
+        {
+            "name": "../adminposummary/Component-preload.js",
+            "merged": true
+        },
+        {
+            "name": "../adminposummary/controller/LandingPage-dbg.controller.js",
+            "isDebug": true
+        },
+        {
+            "name": "../adminposummary/model/models-dbg.js",
+            "isDebug": true
+        },
+        {
+            "name": "../adminposummary/controller/ErrorHandler-dbg.js",
+            "isDebug": true
+        },
+        {
+            "name": "../adminposummary/controller/BaseController-dbg.js",
+            "isDebug": true
+        },
+        {
+            "name": "../adminposummary/controller/App-dbg.controller.js",
+            "isDebug": true
+        },
+        {
+            "name": "../adminposummary/Component-dbg.js",
+            "isDebug": true
+        },
+        {
+            "name": "../../../../sap-ui-version.json"
+        },
+        {
+            "name": "../adminposummary/view/fragments/ViewLineItemsDialog.fragment.xml"
+        },
+        {
+            "name": "../adminposummary/view/fragments/OpenPOTable.fragment.xml"
+        },
+        {
+            "name": "../adminposummary/view/fragments/FilterBar.fragment.xml"
+        },
+        {
+            "name": "../adminposummary/view/LandingPage.view.xml"
+        },
+        {
+            "name": "../adminposummary/view/App.view.xml"
+        },
+        {
+            "name": "../adminposummary/css/style.css"
+        },
+        {
+            "name": "../adminposummary/index.html"
+        }
+    ]
+}

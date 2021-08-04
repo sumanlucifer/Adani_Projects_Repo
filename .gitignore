@@ -4,6 +4,7 @@
 *.zip 
 package-lock.json
 /dist/
+<<<<<<< HEAD
 
 
 # auto generated wildcard
@@ -31,3 +32,5 @@ unloadmaterial/.env2
 agel-mmts-web/returnmaterial/.env1
 # auto generated wildcard
 agel-mmts-web/raise-returnmaterial/.env1
+=======
+>>>>>>> develop

@@ -59,8 +59,8 @@ sap.ui.define([
 
             var FreeTextSearch = this.byId("filterbar").getBasicSearchValue();
             if (FreeTextSearch) {
-                orFilters.push(new Filter("Name", FilterOperator.Contains, FreeTextSearch));
-                orFilters.push(new Filter("MapVendorCode", FilterOperator.EQ, FreeTextSearch));
+                orFilters.push(new Filter("PackingList/Name", FilterOperator.Contains, FreeTextSearch));
+                orFilters.push(new Filter("VendorCode", FilterOperator.EQ, FreeTextSearch));
                 // orFilters.push(new Filter("ParentLineItems/Name", FilterOperator.Contains, FreeTextSearch));
                 andFilters.push(new Filter(orFilters, false));
             }
@@ -72,7 +72,7 @@ sap.ui.define([
             }
 
             if (CompanyCode != "") {
-                andFilters.push(new Filter("MapVendorCode", FilterOperator.EQ, CompanyCode));
+                andFilters.push(new Filter("VendorCode", FilterOperator.EQ, CompanyCode));
             }
 
            var idUnloadMaterialTableBinding = this.getView().byId("idUnloadMaterialTable").getTable().getBinding("items");

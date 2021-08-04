@@ -1,0 +1,41 @@
+{
+    "fileName": "id_1628017719694_22_propertyChange",
+    "fileType": "change",
+    "changeType": "propertyChange",
+    "moduleName": "",
+    "reference": "com.agel.mmts.engineerfieldstock",
+    "packageName": "",
+    "content": {
+        "property": "fitContent",
+        "newValue": true
+    },
+    "selector": {
+        "id": "com.agel.mmts.engineerfieldstock::sap.suite.ui.generic.template.ListReport.view.ListReport::SONumberDetailsSet--page",
+        "idIsLocal": false,
+        "type": "sap.f.DynamicPage"
+    },
+    "layer": "VENDOR",
+    "texts": {},
+    "namespace": "apps/com.agel.mmts.engineerfieldstock/changes/",
+    "projectId": "com.agel.mmts.engineerfieldstock",
+    "creation": 1628017719694,
+    "originalLanguage": "",
+    "support": {
+        "generator": "changeUtils: SAPFioriTools",
+        "service": "",
+        "user": "",
+        "sapui5Version": "latest",
+        "sourceChangeFileName": "",
+        "compositeCommand": ""
+    },
+    "oDataInformation": {},
+    "dependentSelector": {},
+    "validAppVersions": {
+        "from": "1.0.0",
+        "to": "1.0.0",
+        "creation": "1.0.0"
+    },
+    "jsOnly": false,
+    "variantReference": "",
+    "appDescriptorChange": false
+}
