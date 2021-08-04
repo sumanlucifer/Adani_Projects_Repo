@@ -18,25 +18,25 @@ sap.ui.define([
                 delay: 0
             });
             this.setModel(oViewModel, "objectViewModel");
-            
+
             this.MainModel = this.getOwnerComponent().getModel();
 
             //Router Object
             this.oRouter = this.getRouter();
             this.oRouter.getRoute("RouteInspectionDetailsPage").attachPatternMatched(this._onObjectMatched, this);
-            
+
         },
 
         _onObjectMatched: function (oEvent) {
             var that = this;
             var sObjectId = oEvent.getParameter("arguments").inspectionID;
-            that.sObjectId=sObjectId;
-             this.getView().byId("idIcnTabBar").setSelectedKey("idInspectedListTab");
+            that.sObjectId = sObjectId;
+            this.getView().byId("idIcnTabBar").setSelectedKey("idInspectedListTab");
             this._bindView("/InspectionCallIdSet" + sObjectId);
         },
 
         _bindView: function (sObjectPath) {
-            
+
             var objectViewModel = this.getViewModel("objectViewModel");
             var that = this;
 
@@ -47,7 +47,7 @@ sap.ui.define([
                         objectViewModel.setProperty("/busy", true);
                     },
                     dataReceived: function () {
-                     //   that.onReadMDCCItems(that.sObjectId);
+                        //   that.onReadMDCCItems(that.sObjectId);
                         objectViewModel.setProperty("/busy", false);
                     }
                 }
@@ -143,7 +143,7 @@ sap.ui.define([
         onCreateClose: function (oEvent) {
             this._oPackingListNameGetterDialog.close();
         },
-    
+
 
         MDCCFileSelectedForUpload: function (oEvent) {
             // keep a reference of the uploaded file
@@ -179,51 +179,60 @@ sap.ui.define([
         },
 
         ///--------------------- Send For Approval ----------------------------------//
-        
-        onSendForApprovalPress : function(oEvent){
-            //debugger;
-           // return;
+
+        onSendForApprovalPress: function (oEvent) {
             var that = this;
-            var sPath = "/MDCCStatusSet"
             var obj = oEvent.getSource().getBindingContext().getObject();
-            var oPayload = {
-                     //     "Status" : obj.Status,
-                            "Status" :"PENDING",
-                    //      "ApprovedOn": obj.,
-                    //      "ApprovedBy": obj.,
+
+            MessageBox.confirm("Do you want to send "+ obj.MDCCNumber +" for approval?", {
+                icon: MessageBox.Icon.INFORMATION,
+                title: "Confirm",
+                actions: [MessageBox.Action.YES, MessageBox.Action.NO],
+                emphasizedAction: MessageBox.Action.YES,
+                onClose: function (oAction) {
+                    if (oAction == "YES") {
+                        var sPath = "/MDCCStatusSet";                        
+                        var oPayload = {
+                            //     "Status" : obj.Status,
+                            "Status": "PENDING",
+                            //      "ApprovedOn": obj.,
+                            //      "ApprovedBy": obj.,
                             "CreatedAt": obj.CreatedAt,
                             "CreatedBy": obj.CreatedBy,
-                    //        "UpdatedAt": obj.UpdatedAt,
-                    //        "UpdatedBy": obj.UpdatedBy,
-                    //    "Comment"  : obj.,
+                            //        "UpdatedAt": obj.UpdatedAt,
+                            //        "UpdatedBy": obj.UpdatedBy,
+                            //    "Comment"  : obj.,
                             "IsArchived": false,
                             "MDCCID": obj.ID
-                };
-                that.MDCCNumber = obj.MDCCNumber;
-                BusyIndicator.show();
-                this.MainModel.create(sPath,oPayload,{
-                    success:function(oData,oResponse){
-                        BusyIndicator.hide();
-                        if(oData.ID){
-                            MessageBox.success("MDCC Number "+that.MDCCNumber+" Sent for approval successfully");
-                            this.getView().getContent()[0].getContent().rerender();
-                            this.getView().getModel().refresh();
-                        }
-                    }.bind(this),
-                    error:function (oError){
-                        BusyIndicator.hide();
-                        MessageBox.error(JSON.stringify(oError));
+                        };
+                        that.MDCCNumber = obj.MDCCNumber;
+                        BusyIndicator.show();
+                        this.MainModel.create(sPath, oPayload, {
+                            success: function (oData, oResponse) {
+                                BusyIndicator.hide();
+                                if (oData.ID) {
+                                    MessageBox.success("MDCC Number " + that.MDCCNumber + " Sent for approval successfully");
+                                    this.getView().getContent()[0].getContent().rerender();
+                                    this.getView().getModel().refresh();
+                                }
+                            }.bind(this),
+                            error: function (oError) {
+                                BusyIndicator.hide();
+                                MessageBox.error(JSON.stringify(oError));
+                            }
+                        });
                     }
-                });
+                }
+            });
         },
 
 
         onViewPress: function (oEvent) {
             //  var oItem = oEvent.getSource();
             var that = this;
-            var sObjectId=oEvent.getSource().getBindingContext().getObject().ID;
-            var mdccNobb =  oEvent.getSource().getBindingContext().getObject().MDCCNumber;
-            this._getParentDataViewMDCC(sObjectId,mdccNobb);
+            var sObjectId = oEvent.getSource().getBindingContext().getObject().ID;
+            var mdccNobb = oEvent.getSource().getBindingContext().getObject().MDCCNumber;
+            this._getParentDataViewMDCC(sObjectId, mdccNobb);
         },
 
         // Arrange Data For View / Model Set
@@ -232,7 +241,7 @@ sap.ui.define([
             var that = this;
             var oModel = new JSONModel({ "ChildItemsView": this.ParentDataView });
             this.getView().setModel(oModel, "TreeTableModelView");
-            that.handleViewDialogOpen(mdccNobb);            
+            that.handleViewDialogOpen(mdccNobb);
         },
 
         // Child Line Items Dialog Open
@@ -257,131 +266,148 @@ sap.ui.define([
             this.pDialog.then(function (oDialog) {
                 oDetails.view.addDependent(oDialog);
                 oDialog.setModel(that.getView().getModel("TreeTableModelView"));
-                oDialog.setTitle("MDCC "+mdccNobb+" Mapped Items")
+                oDialog.setTitle("MDCC " + mdccNobb + " Mapped Items")
                 oDialog.open();
-            });            
+            });
         },
 
         // Child Dialog Close
-        onViewChildDialogClose: function(oEvent) {
-			this.pDialog.then(function(oDialog) {
-				oDialog.close();
-			});
-		},
+        onViewChildDialogClose: function (oEvent) {
+            this.pDialog.then(function (oDialog) {
+                oDialog.close();
+            });
+        },
 
-		onMDCCNOSelect: function() {
-			this.byId("idMDCCUploadArea").setVisible(false);
-		},
-		onBeforeUploadStarts: function() {
-			//    var objectViewModel = this.getViewModel("objectViewModel");
-			//   objectViewModel.setProperty("/busy", true);
-			//    BusyIndicator.show();
-			// this.busyIndicator = new sap.m.BusyIndicator();
-			//  this.busyIndicator.open();
-		},
-		onUploadTerminated: function(oEvent) {
+        onMDCCNOSelect: function () {
+            this.byId("idMDCCUploadArea").setVisible(false);
+        },
+        onBeforeUploadStarts: function () {
+            //    var objectViewModel = this.getViewModel("objectViewModel");
+            //   objectViewModel.setProperty("/busy", true);
+            //    BusyIndicator.show();
+            // this.busyIndicator = new sap.m.BusyIndicator();
+            //  this.busyIndicator.open();
+        },
+        onUploadTerminated: function (oEvent) {
 			/* this.busyIndicator.close();
 			  var objectViewModel = this.getViewModel("objectViewModel");
 			 objectViewModel.setProperty("/busy", false);*/
-		},
-		
-		// Arrange Data For View / Model Set
-		
-		
-		// Parent Data View Fetch / Model Set
-		_getParentDataViewMDCC: function(sObjectId,mdccNobb) {
-			this.ParentDataView = [];
-			var sPath = "/MDCCSet(" + sObjectId + ")/MDCCParentLineItems";
-			this.MainModel.read(sPath, {
-				success: function(oData, oResponse) {
-					if(oData.results.length) {
-						this._getChildItemsViewMDCC(oData.results, sObjectId , mdccNobb);
-					}
-				}.bind(this),
-				error: function(oError) {
-					sap.m.MessageBox.Error(JSON.stringify(oError));
-				}
-			});
         },
-        
-		// Child Item View Fetch / Model Set
-		_getChildItemsViewMDCC: function(ParentDataView, sObjectId , mdccNobb) {
-			this.ParentDataView = ParentDataView;
-			for(var i = 0; i < ParentDataView.length; i++) {
-				var sPath = "/MDCCSet(" + sObjectId + ")/MDCCParentLineItems(" + ParentDataView[i].ID + ")/MDCCBOQItems";
-				this.MainModel.read(sPath, {
-					success: function(i, oData, oResponse) {
-						if(oData.results.length) {
-							this.ParentDataView[i].isStandAlone = true;
-							this.ParentDataView[i].ChildItemsView = oData.results;
-						} else {
-							this.ParentDataView[i].isStandAlone = false;
-							this.ParentDataView[i].ChildItemsView = [];
-						}
-						if(i == this.ParentDataView.length - 1) this._arrangeDataView(mdccNobb);
-					}.bind(this, i),
-					error: function(oError) {
-						sap.m.MessageBox.Error(JSON.stringify(oError));
-					}
-				});
-			}
-        },
-        
-		//-------------------- File Upload MDCC ----------------------//
-		onMDCCFileUpload: function(oEvent) {
-			// keep a reference of the uploaded file
-			var that = this;
-			BusyIndicator.show();
-			var oFiles = oEvent.getParameters().files;
-			var fileName = oFiles[0].name;
-			var fileType = "application/pdf";
-			this._getImageData(URL.createObjectURL(oFiles[0]), function(base64) {
-				that._addData(base64, fileName, fileType);
-			}, fileName);
-		},
 
-         //-------------------- Read MDCC ----------------------//
+        // Arrange Data For View / Model Set
 
-    /*    onReadMDCCItems : function(sObjectId){
-            var that = this;
-            var sPath = "/InspectionCallIdSet" + sObjectId + "/MDCC";
+
+        // Parent Data View Fetch / Model Set
+        _getParentDataViewMDCC: function (sObjectId, mdccNobb) {
+            this.ParentDataView = [];
+            var sPath = "/MDCCSet(" + sObjectId + ")/MDCCParentLineItems";
             this.MainModel.read(sPath, {
                 success: function (oData, oResponse) {
-                    var oManageMDCCModel = new JSONModel({"MDCCItems" :oData.results })
-                    that.getView().setModel(oManageMDCCModel, "ManageMDCCModel");                  
+                    if (oData.results.length) {
+                        this._getChildItemsViewMDCC(oData.results, sObjectId, mdccNobb);
+                    }
                 }.bind(this),
                 error: function (oError) {
                     sap.m.MessageBox.Error(JSON.stringify(oError));
                 }
             });
-        },       */   
+        },
+
+        // Child Item View Fetch / Model Set
+        _getChildItemsViewMDCC: function (ParentDataView, sObjectId, mdccNobb) {
+            this.ParentDataView = ParentDataView;
+            for (var i = 0; i < ParentDataView.length; i++) {
+                var sPath = "/MDCCSet(" + sObjectId + ")/MDCCParentLineItems(" + ParentDataView[i].ID + ")/MDCCBOQItems";
+                this.MainModel.read(sPath, {
+                    success: function (i, oData, oResponse) {
+                        if (oData.results.length) {
+                            this.ParentDataView[i].isStandAlone = true;
+                            this.ParentDataView[i].ChildItemsView = oData.results;
+                        } else {
+                            this.ParentDataView[i].isStandAlone = false;
+                            this.ParentDataView[i].ChildItemsView = [];
+                        }
+                        if (i == this.ParentDataView.length - 1) this._arrangeDataView(mdccNobb);
+                    }.bind(this, i),
+                    error: function (oError) {
+                        sap.m.MessageBox.Error(JSON.stringify(oError));
+                    }
+                });
+            }
+        },
+
+        //-------------------- File Upload MDCC ----------------------//
+        onMDCCFileUpload: function (oEvent) {
+            // keep a reference of the uploaded file
+            var that = this;
+            BusyIndicator.show();
+            var oFiles = oEvent.getParameters().files;
+            var fileName = oFiles[0].name;
+            var fileType = "application/pdf";
+            this._getImageData(URL.createObjectURL(oFiles[0]), function (base64) {
+                that._addData(base64, fileName, fileType);
+            }, fileName);
+        },
+
+        //-------------------- Read MDCC ----------------------//
+
+        /*    onReadMDCCItems : function(sObjectId){
+                var that = this;
+                var sPath = "/InspectionCallIdSet" + sObjectId + "/MDCC";
+                this.MainModel.read(sPath, {
+                    success: function (oData, oResponse) {
+                        var oManageMDCCModel = new JSONModel({"MDCCItems" :oData.results })
+                        that.getView().setModel(oManageMDCCModel, "ManageMDCCModel");                  
+                    }.bind(this),
+                    error: function (oError) {
+                        sap.m.MessageBox.Error(JSON.stringify(oError));
+                    }
+                });
+            },       */
 
         // Add MDCC Item 
-        onAddMdccItem : function (oEvent) {
+        onAddMdccItem: function (oEvent) {
+
+            var that = this;
+            MessageBox.confirm("Do you want to create new mdcc item?", {
+                icon: MessageBox.Icon.INFORMATION,
+                title: "Confirm",
+                actions: [MessageBox.Action.YES, MessageBox.Action.NO],
+                emphasizedAction: MessageBox.Action.YES,
+                onClose: function (oAction) {
+                    if (oAction == "YES") {
+                        that.addMdccRow();
+                    }
+                }
+            });
+        },
+
+        addMdccRow: function () {
+
             var that = this;
             var object = this.getView().getBindingContext().getObject();
 
             var oPayload = {
-                          //  "MDCCNumber": "", // as shubham informed
-                            "NotificationNumber": "",
-                            "Version": "",
-                            "PONumber": object.PONumber,
-                            "Status": null,
-                            "InspectionCall": { 
-                                    "__metadata":{
-                                        "uri":"InspectionCallIdSet("+object.ID+")"
-                                    }
-                            }
+                //  "MDCCNumber": "", // as shubham informed
+                "NotificationNumber": "",
+                "Version": "",
+                "PONumber": object.PONumber,
+                "Status": null,
+                "InspectionCall": {
+                    "__metadata": {
+                        "uri": "InspectionCallIdSet(" + object.ID + ")"
+                    }
+                }
             };
 
             var sPath = "/MDCCSet";
             BusyIndicator.show();
-            this.MainModel.create(sPath,oPayload ,{
+            this.MainModel.create(sPath, oPayload, {
                 success: function (oData, oResponse) {
                     BusyIndicator.hide();
                     this.getView().getModel().refresh();
                     //that.getView().( "ManageMDCCModel");
-                   // that.getView().getModel("ManageMDCCModel").getData().MDCCItems = oData.results;
+                    // that.getView().getModel("ManageMDCCModel").getData().MDCCItems = oData.results;
                 }.bind(this),
                 error: function (oError) {
                     BusyIndicator.hide();
@@ -391,7 +417,7 @@ sap.ui.define([
         },
 
         //-------------------- File Upload MDCC ----------------------//
-         onMDCCFileSelectedForUpload: function (oEvent) {
+        onMDCCFileSelectedForUpload: function (oEvent) {
             // keep a reference of the uploaded file
             var that = this;
             var rowId = oEvent.getSource().getParent().getParent().getBindingContextPath().split('/').pop();
@@ -401,53 +427,53 @@ sap.ui.define([
             var fileName = oFiles[0].name;
             var fileType = "application/pdf";
             this._getImageData(URL.createObjectURL(oFiles[0]), function (base64) {
-                that._addData(base64, fileName, fileType , rowId,rowObj);
+                that._addData(base64, fileName, fileType, rowId, rowObj);
             }, fileName);
         },
 
-        _addData: function (data, fileName, fileType,rowId , rowObj) {
+        _addData: function (data, fileName, fileType, rowId, rowObj) {
             var that = this;
             var documents = {
                 "Documents": [
                     {
                         "UploadTypeId": rowObj.ID, // MDCC Id
                         "Type": "MDCC",
-                        "SubType":"",
+                        "SubType": "",
                         "FileName": fileName,
                         "Content": data, // base - 64 (Type)
-                        "ContentType":fileType, // application/pdf text/csv
-                        "UploadedBy": rowObj.UpdatedBy ? rowObj.UpdatedBy:"vendor1" ,
+                        "ContentType": fileType, // application/pdf text/csv
+                        "UploadedBy": rowObj.UpdatedBy ? rowObj.UpdatedBy : "vendor1",
                         "FileSize": "5"
                     }
                 ]
             };
             that.documents = documents;
             var sPath = "/DocumentUploadEdmSet"
-            this.MainModel.create(sPath,documents,{
-                success: function(oData,oResponse) {
+            this.MainModel.create(sPath, documents, {
+                success: function (oData, oResponse) {
                     BusyIndicator.hide();
                     sap.m.MessageToast.show("MDCC Details Uploaded!");
                     this.getView().getModel().refresh();
-                 //   this.getView().getModel("ManageMDCCModel").getData().MDCCItems[rowId].MapItems = true;
-                 //   this.getView().getModel("ManageMDCCModel").refresh();
+                    //   this.getView().getModel("ManageMDCCModel").getData().MDCCItems[rowId].MapItems = true;
+                    //   this.getView().getModel("ManageMDCCModel").refresh();
                 }.bind(this),
-                error:function(oError) {
+                error: function (oError) {
                     BusyIndicator.hide();
                     sap.m.MessageBox.error("Error uploading document");
                 }
             });
         },
 
-        onFileUrlClick : function(oEvent){
+        onFileUrlClick: function (oEvent) {
 
             var FileContent = oEvent.getSource().getBindingContext().getObject().FileContent;
             var FileName = oEvent.getSource().getBindingContext().getObject().FileName;
-            var url = formatter.fileContent(FileName,FileContent);
-            window.open(url,"_blank");        
+            var url = formatter.fileContent(FileName, FileContent);
+            window.open(url, "_blank");
         },
 
         // Navigating to Map MDCC Application
-        onMapMDCCCItems :   function(oEvent){
+        onMapMDCCCItems: function (oEvent) {
             var mdccID = oEvent.getSource().getBindingContext().getObject().ID; // read MDCCIId from OData path MDCCSet
             var oCrossAppNavigator = sap.ushell.Container.getService("CrossApplicationNavigation"); // get a handle on the global XAppNav service
             var hash = (oCrossAppNavigator && oCrossAppNavigator.hrefForExternal({
@@ -457,7 +483,7 @@ sap.ui.define([
                 },
                 params: {
                     "MDCCId": mdccID
-                 //   "manage":false 
+                    //   "manage":false 
                 }
             })) || ""; // generate the Hash to display a MDCC Number
             oCrossAppNavigator.toExternal({
@@ -467,8 +493,8 @@ sap.ui.define([
             }); // navigate to Map MDCC application - MapView
         },
 
-         // Navigating to Manage MDCC Application
-        onManagePress : function(oEvent){
+        // Navigating to Manage MDCC Application
+        onManagePress: function (oEvent) {
             var mdccID = oEvent.getSource().getBindingContext().getObject().ID; // read MDCCIId from OData path MDCCSet
             var oCrossAppNavigator = sap.ushell.Container.getService("CrossApplicationNavigation"); // get a handle on the global XAppNav service
             var hash = (oCrossAppNavigator && oCrossAppNavigator.hrefForExternal({
@@ -478,7 +504,7 @@ sap.ui.define([
                 },
                 params: {
                     "MDCCId": mdccID
-                  //  "manage":true
+                    //  "manage":true
                 }
             })) || ""; // generate the Hash to display a MDCC Number
             oCrossAppNavigator.toExternal({
@@ -488,9 +514,9 @@ sap.ui.define([
             }); // navigate to Manage MDCC application - Initiate Dispatch Screen
         },
 
-        
-         // Show File Name Dialog 
-        onShowFileNameDialog : function (oEvent) {
+
+        // Show File Name Dialog 
+        onShowFileNameDialog: function (oEvent) {
             // create dialog lazily
             var that = this;
             var sParentItemPath = oEvent.getSource().getBindingContext().getPath();
@@ -507,39 +533,39 @@ sap.ui.define([
                 }).then(function (oDialog) {
                     // connect dialog to the root view of this component (models, lifecycle)
                     oDetails.view.addDependent(oDialog);
-                     oDialog.bindElement({
-                         path: oDetails.sParentItemPath,
-                     });
-                  //  oDialog.setModel(that.getView().getModel("TreeTableModelView"));
+                    oDialog.bindElement({
+                        path: oDetails.sParentItemPath,
+                    });
+                    //  oDialog.setModel(that.getView().getModel("TreeTableModelView"));
                     return oDialog;
                 });
             }
             this.pDialogFileName.then(function (oDialog) {
                 oDetails.view.addDependent(oDialog);
-                  oDialog.bindElement({
-                      path: oDetails.sParentItemPath,
-                  });
+                oDialog.bindElement({
+                    path: oDetails.sParentItemPath,
+                });
 
                 //oDialog.setModel(that.getView().getModel("TreeTableModelView"));
-                oDialog.setTitle("MDCC - "+mdccNobb+" ");
+                oDialog.setTitle("MDCC - " + mdccNobb + " ");
                 oDialog.open();
             });
         },
 
         // Child Dialog Close
-        onViewFileDialogClose: function(oEvent) {
-			this.pDialogFileName.then(function(oDialog) {
-				oDialog.close();
-			});
-        },
-        
-        onRowsUpdated : function(oEvent) {
-          //  debugger;
-          //  var oTable = this.getView().byId("TreeTableBasicView");
+        onViewFileDialogClose: function (oEvent) {
+            this.pDialogFileName.then(function (oDialog) {
+                oDialog.close();
+            });
         },
 
-        onExit : function(){
-            
+        onRowsUpdated: function (oEvent) {
+            //  debugger;
+            //  var oTable = this.getView().byId("TreeTableBasicView");
+        },
+
+        onExit: function () {
+
         }
 
     });

@@ -148,7 +148,7 @@
                                 <ui:Column>
 									<Label text="{i18n>dispatchQty}"/>
 									<ui:template>
-										<Input value="{TreeTableModel>DispatchQty1}" liveChange="onLiveChangeDispatchQty" editable="false" visible="{= ${TreeTableModel>isStandAlone} ? false : true}" />
+										<Input value="{TreeTableModel>DispatchQty}" liveChange="onLiveChangeDispatchQty" editable="false" visible="{= ${TreeTableModel>isStandAlone} ? false : true}" />
 									</ui:template>
 								</ui:Column>
 

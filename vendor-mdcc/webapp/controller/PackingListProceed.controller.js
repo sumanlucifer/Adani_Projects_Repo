@@ -299,60 +299,6 @@ sap.ui.define([
                         shellHash: hash
                     }
                 }); // navigate to Manage MDCC application - Initiate Dispatch Screen
-            },
-
-
-
-            // Parent Data View Fetch / Model Set
-            // _getParentDataViewMDCC: function () {
-            //     var that = this;
-            //     this.ParentDataView = [];
-            //     var sPath = "/MDCCSet(" + this.sObjectId + ")/MDCCParentLineItems";
-            //     that.getComponentModel("app").setProperty("/busy", true);
-            //     this.MainModel.read(sPath, {
-            //         success: function (oData, oResponse) {
-            //             that.getComponentModel("app").setProperty("/busy", false);
-            //             if (oData.results.length) {
-            //                 this._getChildItemsViewMDCC(oData.results);
-            //             }
-            //         }.bind(this),
-            //         error: function (oError) {
-            //             sap.m.MessageBox.Error(JSON.stringify(oError));
-            //         }
-            //     });
-            // },
-
-            // Child Item View Fetch / Model Set
-            // 
-            // _getChildItemsViewMDCC: function (ParentDataView) {
-            //     this.ParentDataView = ParentDataView;
-            //     for (var i = 0; i < ParentDataView.length; i++) {
-
-            //         var sPath = "/MDCCSet(" + this.sObjectId + ")/MDCCParentLineItems(" + ParentDataView[i].ID + ")/MDCCBOQItems";
-            //         this.MainModel.read(sPath, {
-            //             success: function (i, oData, oResponse) {
-
-            //                 if (oData.results.length) {
-            //                     this.ParentDataView[i].isStandAlone = true;
-            //                     this.ParentDataView[i].isSelected = false;
-            //                     this.ParentDataView[i].ChildItems = oData.results;
-            //                 }
-            //                 else {
-            //                     this.ParentDataView[i].isStandAlone = false;
-            //                     this.ParentDataView[i].isSelected = false;
-            //                     this.ParentDataView[i].ChildItems = [];
-            //                 }
-            //                 if (i == this.ParentDataView.length - 1)
-            //                     this._arrangeDataView();
-            //             }.bind(this, i),
-            //             error: function (oError) {
-            //                 sap.m.MessageBox.Error(JSON.stringify(oError));
-            //             }
-            //         });
-            //     }
-            // },
-
-
-
+            }
         });
     });
