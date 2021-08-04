@@ -15,50 +15,31 @@ sap.ui.define([
         return BaseController.extend("com.agel.mmts.returnmaterial.controller.returnMaterialPage", {
 
             onInit: function () {
+               //Router Object
                 this.oRouter = this.getRouter();
-              //   this.initializeFilterBar();
-                var sampleDatajson = new sap.ui.model.json.JSONModel("model/Data.json");
+                this.oRouter.getRoute("RouteApp").attachPatternMatched(this._onObjectMatched, this);
 
-
-                this.getModel().setData({
-
-                    segement: {
-                        dept: null,
-                        count: null
-                    },
-
-                    vizdata: []
-
-
-
+                //view model instatiation
+                var oViewModel = new JSONModel({
+                    busy: false,
+                    delay: 0
                 });
+                this.setModel(oViewModel, "objectViewModel");
 
-               
+                // keeps the search state
+                this._aTableSearchState = [];
+                // Keeps reference to any of the created dialogs
+                this._mViewSettingsDialogs = {};
 
-            },
+                //adding searchfield association to filterbar and initialize the filter bar -> added in base controller
+            //    this.initializeFilterBar();            
 
-            onPressSegment: function (eve) {
-                var dept = eve.getParameters().data[0].data.Department;
-                var count = eve.getParameters().data[0].data.count;
-                this.getModel().setProperty("/segement/dept", dept);
-                this.getModel().setProperty("/segement/dept", count);
-                this.segmentPage();
-            },
-
-
-            segmentPage: function (oEvent) {
-                this.getRouter().navTo("storeStockParentDetail");
             },
 
             _onObjectMatched: function (oEvent) {
-                var startupParams = this.getOwnerComponent().getComponentData().startupParameters;
-                // get Startup params from Owner Component
-                //if (startupParams.Kind[0]) {
-                this.type = startupParams.Kind[0];
-                this.byId("idIconTabBar").setSelectedKey(this.type);
-                this.onIconTabBarChanged(this.type);
-                //}
+                
             },
+
             // on Go Search 
             onSearch: function (oEvent) {
                 var searchField = this.byId("idSearchInput").getValue();
@@ -132,9 +113,6 @@ sap.ui.define([
                     POId: sObjectPath.slice("/PurchaseOrderSet".length) // /PurchaseOrders(123)->(123)
                 });
             }
-
-
-
 
         });
     });

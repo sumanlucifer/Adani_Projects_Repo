@@ -26,3 +26,8 @@ sapui5/fieldstock/.env1
 =======
 unloadmaterial/.env2
 >>>>>>> develop
+
+# auto generated wildcard
+agel-mmts-web/returnmaterial/.env1
+# auto generated wildcard
+agel-mmts-web/raise-returnmaterial/.env1

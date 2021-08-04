@@ -8,89 +8,81 @@
     xmlns:unified="sap.ui.unified"
     xmlns:tt="sap.ui.table"
     xmlns:smartTable="sap.ui.comp.smarttable"
-    xmlns="sap.m" controllerName="com.agel.mmts.returnmaterial.controller.RaiseRequestDetailPage"
-    xmlns:contractorForm ="com.agel.mmts.returnmaterial.view.blocks.returnDetails.contractorForm"
-    xmlns:lineItemsForm="com.agel.mmts.returnmaterial.view.blocks.returnDetails.lineItemsForm"
-   height="100%">
+    xmlns="sap.m" controllerName="com.agel.mmts.raisereturnmaterial.controller.RaiseRequestDetailPage"
+	xmlns:contractorForm ="com.agel.mmts.raisereturnmaterial.view.blocks.returnDetails.contractorForm"
+    xmlns:lineItemsForm="com.agel.mmts.raisereturnmaterial.view.blocks.returnDetails.lineItemsForm" height="100%">
     <uxap:ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true" upperCaseAnchorBar="false" headerContentPinnable="true" toggleHeaderOnTitleClick="true" busy="{objectViewModel>/busy}">
         <uxap:headerTitle>
             <uxap:ObjectPageDynamicHeaderTitle>
                 <uxap:breadcrumbs>
                     <Breadcrumbs id="breadcrumbsId" currentLocationText="{i18n>returnMaterialSummary}">
-                        <Link text="{i18n>returnMaterial}" press=".handleToAllPOBreadcrumPress"/>
+                        <Link text="{i18n>RaiseReturnMaterialRequest}" press=".handleToAllPOBreadcrumPress"/>
                     </Breadcrumbs>
                 </uxap:breadcrumbs>
                 <uxap:expandedHeading>
                     <FlexBox direction="Column" renderType="Bare">
-                        <Title text="{i18n>returnSummary}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
-                        <Title text="{PONumber}" wrapping="true" titleStyle="H3" />
+                        <Title text="{i18n>RaiseReturnMaterialRequest}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
+                        <Title text="{SONumber}" wrapping="true" titleStyle="H3" />
                     </FlexBox>
                 </uxap:expandedHeading>
                 <uxap:snappedHeading>
                     <FlexBox direction="Column" renderType="Bare">
-                        <Title text="{i18n>returnSummary}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
-                        <Title text="{PONumber}" wrapping="true" titleStyle="H3"/>
+                        <Title text="{i18n>RaiseReturnMaterialRequest}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
+                        <Title text="{SONumber}" wrapping="true" titleStyle="H3"/>
                     </FlexBox>
                 </uxap:snappedHeading>
                 <uxap:expandedContent></uxap:expandedContent>
                 <uxap:snappedTitleOnMobile>
-                    <Title text="{i18n>PODetails}- {PONumber}" wrapping="true" titleStyle="Auto"/>
+                    <Title text="{i18n>SONumber}- {SONumber}" wrapping="true" titleStyle="Auto"/>
                 </uxap:snappedTitleOnMobile>
                 <uxap:actions>
-                    <VBox visible="{= %{Status}==='CONFIRMED' ? true : false}">
-                        
-                    </VBox>
                     <VBox visible="true">
-                        <Button text="Close" press="onConfirmPO" type="Emphasized"/>
+                        <Button text="Submit Request" press="onPressSubmitRequest" type="Emphasized"/>
                     </VBox>
                 </uxap:actions>
             </uxap:ObjectPageDynamicHeaderTitle>
         </uxap:headerTitle>
-        <uxap:headerContent>
-            <FlexBox wrap="Wrap" height="100%" renderType="Bare" direction="Column">
-                <VBox renderType="Bare">
-                    <FlexBox direction="Row" renderType="Bare" class="sapUiTinyMarginBottom">
-                        <VBox renderType="Bare" class="sapUiMediumMarginEnd">
-                            <Label text="{i18n>approvedDate}" />
-                            <!-- missing -->
-                            <Text text="{path:'CreatedAt',
-                                     type: 'sap.ui.model.type.Date',
-				                     formatOptions: {
-				                        pattern: 'MMMM dd, yyyy'
-				                     }
-                            }"/>
-                        </VBox>
-                         <VBox renderType="Bare" class="sapUiMediumMarginEnd" visible="true">
-                            <Label text="{i18n>order}" />
-                            <!-- missing -->
-                            <Text text="{path:'ConfirmedDate',
-                                     type: 'sap.ui.model.type.Date',
-				                     formatOptions: {
-				                        pattern: 'MMMM dd, yyyy'
-				                     }
-                            }"/>
-                        </VBox>
-                        
-                        <VBox renderType="Bare">
-                            <Label text="{i18n>status}" />
-                            <!-- missing -->
-                            <ObjectStatus text="{Status}" state="{= ${Status}==='CONFIRMED' ? 'Success' : 'Warning'}"/>
-                        </VBox>
-                    </FlexBox>
-                </VBox>
-               
-            </FlexBox>
-        </uxap:headerContent>
+        <uxap:headerContent></uxap:headerContent>
+
         <uxap:sections>
             <!-- Basic Details Section -->
             <uxap:ObjectPageSection titleUppercase="false" title="{i18n>basicDetails}">
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection title="{i18n>ContractorDetails}" class="BasicDetalFormTitleStyle">
-                        <uxap:blocks>
-                            <contractorForm:ContractorForm class="sapUxAPObjectPageSubSectionAlignContent"/>
-                        </uxap:blocks>
+                        <f:SimpleForm layout="ColumnLayout"  binding="{Contractor}" 
+                                singleContainerFullSize="true" class="style-RemoveTitleHeight">
+                            <f:content>
+                                <!-- <core:Title  /> -->
+                                <Label text="{i18n>ContractorName}" />
+                                <Text text="{Name}" />
+
+                                <Label text="{i18n>ContractorId}" />
+                                <Text text="{ID}" />
+
+                                <Label text="{i18n>PlantSite-Location}" />
+                                <Text text="{PlantSiteLocation}"/>
+
+                                <Label text="{i18n>ActivePeriod}" />
+                                <Text text="{path:'ActivePeriod',
+                                     type: 'sap.ui.model.type.Date',
+				                     formatOptions: {
+				                        pattern: 'MMMM dd, yyyy'
+				                     }
+                                }"/>
+
+                                <!-- <core:Title />  -->
+                                <Label text="{i18n>Materials}" />
+                                <Text text="{Materials}"/>
+                                <!-- <ExpandableText binding="{Address}" text="{parts: [{path: 'Street'}, {path: 'City'}, {path: 'State'}, {path: 'Country'}, {path: 'pinCode'}]}" overflowMode="InPlace"/> -->
+                                <Label text="{i18n>Description}" />
+                                <Text text="{Description}"/>
+
+                                <Label text="{i18n>Service-Covered}" />
+                                <Text text="{ServicesCovered}"/>
+
+                            </f:content>
+                        </f:SimpleForm>
                     </uxap:ObjectPageSubSection>
-              
                 </uxap:subSections>
             </uxap:ObjectPageSection>
 
@@ -98,18 +90,74 @@
             <uxap:ObjectPageSection titleUppercase="false" title="{i18n>lineItems}">
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection title="{i18n>lineItems}">
-                        <uxap:blocks>
-                            <lineItemsForm:LineItemsForm class="sapUxAPObjectPageSubSectionAlignContent"/>
-                        </uxap:blocks>
+                        <Table id="idTblIssueMaterialItems" width="auto" growing="true" 
+                            growingThreshold="5" items="{oIssueMaterialModel>/Items}" fixedLayout="false">
+                            <columns>
+                                <!-- <Column demandPopin="true" minScreenWidth="Desktop" hAlign="Center"><Text text="{i18n>LineItem}" wrapping="true" wrappingType="Hyphenated"/></Column><Column demandPopin="true" minScreenWidth="Desktop"><Text text="{i18n>LineItemCode}" wrapping="true" wrappingType="Hyphenated"/></Column> -->
+                                <Column demandPopin="true" minScreenWidth="Desktop">
+                                    <Text text="{i18n>MaterialCode}" wrapping="true" wrappingType="Hyphenated"/>
+                                </Column>
+                                <Column demandPopin="true" minScreenWidth="Desktop">
+                                    <Text text="{i18n>Name}" wrapping="true" wrappingType="Hyphenated"/>
+                                </Column>
+                                <Column demandPopin="true" minScreenWidth="Desktop">
+                                    <Text text="{i18n>Description}" wrapping="true" wrappingType="Hyphenated"/>
+                                </Column>
+
+                                <!-- <Column demandPopin="true" minScreenWidth="Desktop"><Text text="{i18n>QtyRecieved}" wrapping="true"/></Column> -->
+                                <Column demandPopin="true" minScreenWidth="Desktop">
+                                    <Text text="{i18n>IssuedQty}"/>
+                                </Column>
+
+                                <Column demandPopin="true" minScreenWidth="Desktop">
+                                    <Text text="{i18n>ReturnedQty}"/>
+                                </Column>
+
+                                <Column demandPopin="true" minScreenWidth="Desktop">
+                                    <Text text="{i18n>RemainingQty}"/>
+                                </Column>
+
+                                 <Column demandPopin="true" minScreenWidth="Desktop">
+                                    <Text text="{i18n>QuantityToReturn}"/>
+                                </Column>
+
+                                <Column demandPopin="true" minScreenWidth="Desktop" hAlign="Begin">
+                                    <Text text="{i18n>UOM}"/>
+                                </Column>
+                                <Column demandPopin="true" minScreenWidth="Desktop">
+                                    <Text text="{i18n>ReturnAsset}"/>
+                                </Column>
+                            </columns>
+                            <items>
+                                <ColumnListItem>
+                                    <cells>
+                                        <ObjectIdentifier title="{oIssueMaterialModel>MaterialCode}"/>
+                                        <Text text="{oIssueMaterialModel>Name}" wrappingType="Hyphenated"/>
+                                        <ExpandableText text="{oIssueMaterialModel>Description}" maxCharacters="20" overflowMode="Popover"/>
+
+                                        <Text text="{oIssueMaterialModel>Issued_Qty}" wrappingType="Hyphenated"/>
+                                        
+                                        <Text text="{oIssueMaterialModel>ReturnedQty}" />
+                                       
+                                        <Text text="{oIssueMaterialModel>RemainingQty}" wrappingType="Hyphenated"/>
+                                        
+                                        <HBox alignContent="Inherit">
+                                                 <Input value="{oIssueMaterialModel>ReturnQty}" liveChange="onLiveChangeReturnQty"
+                                                        width="80%" editable="false"/>
+                                                 <Button icon="sap-icon://save" visible="false" press="onPressSave"
+                                                        type="Emphasized"/>
+                                        </HBox>
+                                        <!-- <Text text="{Description}" wrappingType="Hyphenated"/>              -->
+                                        
+                                        <Text text="{oIssueMaterialModel>Uom}" />
+                                        <Link text="{i18n>ReturnAsset}" press="onPressRetrunAsset"/>
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>
             </uxap:ObjectPageSection>
-
-            
-
-          
-           
-
         </uxap:sections>
     </uxap:ObjectPageLayout>
 </mvc:View>
