@@ -139,6 +139,10 @@ modules:
       - comagelmmtsengineerfieldstock.zip
       name: comagelmmtsengineerfieldstock
       target-path: resources/
+    - artifacts:
+      - comagelmmtsreportspurchaseorder.zip
+      name: comagelmmtsreportspurchaseorder
+      target-path: resources/
 - name: launchpad
   type: com.sap.application.content
   path: launchpad
@@ -162,9 +166,9 @@ modules:
   type: com.sap.application.content
   path: workflow-module
   requires:
-    - name: workflow
-      parameters:
-        content-target: true  
+  - name: workflow
+    parameters:
+      content-target: true
 - name: vendorPersona
   type: html5
   path: vendorPersona
@@ -375,6 +379,16 @@ modules:
     - npm install
     - npm run build:cf
     supported-platforms: []
+- name: comagelmmtsreportspurchaseorder
+  type: html5
+  path: reports-purchase_order
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
 resources:
 - name: uaa_agel-mmts-web
   type: org.cloudfoundry.managed-service
@@ -418,8 +432,8 @@ resources:
 - name: workflow
   type: org.cloudfoundry.managed-service
   parameters:
-      service: workflow
-      service-plan: standard    
+    service: workflow
+    service-plan: standard
 parameters:
   enable-parallel-deployments: true
 build-parameters:
