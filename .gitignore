@@ -4,3 +4,6 @@
 *.zip 
 package-lock.json
 /dist/
+
+# auto generated wildcard
+agel-mmts-web/security-scanqr/.env4
