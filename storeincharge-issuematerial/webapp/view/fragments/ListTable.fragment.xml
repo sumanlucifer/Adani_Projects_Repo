@@ -4,7 +4,7 @@
 
     <smartTable:SmartTable class="sapUiResponsiveContentPadding" id="idListTable" editable="false" placeToolbarInTable="true" enableAutoBinding="true" entitySet="IssuedMaterialSet" 
     showFullScreenButton="true" header="Issue Material" showRowCount="true" tableType="ResponsiveTable" demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" 
-    beforeRebindTable="onbeforeRebindListPoTable" ignoreFromPersonalisation="ApprovedBy, ApprovedOn, Description, Reason, RequestedBy, UpdatedAt, UpdatedBy, CreatedAt, CreatedBy, ID, IsArchived">
+    beforeRebindTable="onbeforeRebindListPoTable" ignoreFromPersonalisation="ID, Status, TotalGrossWeight, CancelledAt, CancelledBy, UpdatedAt, UpdatedBy,CreatedBy, IsArchived">
 
         <Table sticky="ColumnHeaders,HeaderToolbar" updateFinished="onListTableUpdateFinished" alternateRowColors="true">
             <columns>
@@ -12,8 +12,8 @@
                 <!-- SO Number -->
                 <Column >
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "SONumber", "leadingProperty": "SONumber",
-                                                 "columnIndex": 0 ,"sortProperty": "SONumber","filterProperty": "SONumber"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "SONumberId/SONumber", "leadingProperty": "SONumberId/SONumber",
+                                                 "columnIndex": 0 ,"sortProperty": "SONumberId/SONumber","filterProperty": "SONumberId/SONumber"}'/>
                     </customData>
                     <Text text="{i18n>sONumber}"/>
                 </Column>
@@ -21,8 +21,8 @@
                 <!-- Contractor Name -->
                 <Column demandPopin="true" minScreenWidth="Desktop">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "ContractorName", "leadingProperty": "ContractorName",
-                                                 "columnIndex": 1 ,"sortProperty": "ContractorName","filterProperty": "ContractorName"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "SONumberId/Contractor/Name", "leadingProperty": "SONumberId/Contractor/Name",
+                                                 "columnIndex": 1 ,"sortProperty": "SONumberId/Contractor/Name","filterProperty": "SONumberId/Contractor/Name"}'/>
                     </customData>
                     <Text text="{i18n>contractorName}"/>
                 </Column>
@@ -30,8 +30,8 @@
                 <!-- Issued Date -->
                 <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "IssuedDate", "leadingProperty": "IssuedDate",
-                                                 "columnIndex": 2 ,"sortProperty": "IssuedDate"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "CreatedAt", "leadingProperty": "CreatedAt",
+                                                 "columnIndex": 2 ,"sortProperty": "CreatedAt"}'/>
                     </customData>
                     <Text text="{i18n>issuedDate}"/>
                 </Column>
@@ -41,9 +41,9 @@
 
                 <ColumnListItem type="Navigation" press="onDetailPress">
                     <cells>
-                        <ObjectIdentifier title="{SONumber}"/>
-                        <Text text="{ContractorName}"/>
-                        <Text text="{path:'IssuedDate',
+                        <ObjectIdentifier title="{SONumber}" binding="{SONumberId}"/>
+                        <Text text="{Name}" binding="{SONumberId/Contractor}"/>
+                        <Text text="{path:'CreatedAt',
                                      type: 'sap.ui.model.type.Date',
 				                     formatOptions: {
 				                        pattern: 'MMMM dd, yyyy'
