@@ -3,7 +3,7 @@
     xmlns:smartTable="sap.ui.comp.smarttable"
     xmlns="sap.m" controllerName="com.agel.mmts.vendorPersona.view.blocks.poDetails.inspectionTable.InspectionTableController">
 
-    <smartTable:SmartTable class="sapUiSizeCompact" id="idPackingListTable" editable="false" placeToolbarInTable="true" enableAutoBinding="true" entitySet="InspectionCallIdSet" showFullScreenButton="true" showRowCount="false" tableType="ResponsiveTable" demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" beforeRebindTable="onBeforeRebindInspectionTable" enableAutoColumnWidth="true" ignoreFromPersonalisation="CreatedBy,ID,IsArchived,PONumber,UpdatedAt,UpdatedBy">
+    <smartTable:SmartTable class="sapUiSizeCompact" id="idPackingListTable" editable="false" placeToolbarInTable="true" enableAutoBinding="true" entitySet="PurchaseOrderSet" tableBindingPath="InspectionCalls" showFullScreenButton="true" showRowCount="false" tableType="ResponsiveTable" demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" beforeRebindTable="onBeforeRebindInspectionTable" enableAutoColumnWidth="true" ignoreFromPersonalisation="CreatedBy,ID,IsArchived,PONumber,UpdatedAt,UpdatedBy">
 
         <smartTable:customToolbar>
             <OverflowToolbar design="Transparent">

@@ -114,7 +114,44 @@ sap.ui.define([
                 this.getView().byId("idInvBtn").setProperty("enabled", false);
                 this.getView().byId("idInputQRCode").setProperty("enabled", false);
                 this.getView().byId("idInvoiceNum").setProperty("enabled", false);
-                this.validateQRCode();
+                //this.validateQRCode();
+                //added by Venkatesh
+                this.openScanner();
+            },
+
+            openScanner: function () {
+                if (!this._oScannerDialog) {
+                    this._oScannerDialog = sap.ui.xmlfragment("com.agel.mmts.securityscanqr.view.fragments.common.Scanner", this);
+                    this.getView().addDependent(this._oScannerDialog);
+                }
+                this._oScannerDialog.open();
+            },
+
+            onCloseSgnnerDialog: function (oEvent) {
+                this._oScannerDialog.close();
+            },
+
+            onQRCodeScanned: function (oEvent) {
+                var sScannedValue = oEvent.getSource().getValue();
+                if (sScannedValue.length > 0) {
+                    var isValid = this.checkForValidJSON(sScannedValue);
+                    if (isValid) {
+                        sap.m.MessageToast.show(JSON.parse(JSON.parse(sScannedValue)).QRNumber);
+                        this.validateQRCode(JSON.parse(JSON.parse(sScannedValue)).QRNumber);
+                        this.onCloseSgnnerDialog();
+                    } else {
+                        sap.m.MessageBox.error("Not a valid QR! Please try again with a different QR code.")
+                    }
+                }
+                oEvent.getSource().scanner._camera.stop();
+            },
+
+            checkForValidJSON: function (sScannedValue) {
+                try {
+                    return (JSON.parse(JSON.parse(sScannedValue)) && !!sScannedValue);
+                } catch (e) {
+                    return false;
+                }
             },
 
             // On Submit QR Histroy
@@ -124,9 +161,9 @@ sap.ui.define([
             },
 
             // Validate QR Code
-            validateQRCode: function () {
+            validateQRCode: function (QRCode) {
                 var that = this;
-                var qrCodeId = this.getView().byId("idInputQRCode").getValue();
+                var qrCodeId = this.getView().byId("idInputQRCode").getValue() || QRCode;
                 var QRNumberFilter = new sap.ui.model.Filter({
                     path: "QRNumber",
                     operator: sap.ui.model.FilterOperator.EQ,
