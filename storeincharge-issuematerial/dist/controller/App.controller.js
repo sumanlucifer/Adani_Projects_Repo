@@ -1,0 +1,1 @@
+sap.ui.define(["com/agel/mmts/storeinchargeissuematerial/controller/BaseController","sap/ui/model/json/JSONModel"],function(e,t){"use strict";return e.extend("com.agel.mmts.storeinchargeissuematerial.controller.App",{onInit:function(){this.getView().addStyleClass(this.getOwnerComponent().getContentDensityClass())}})});

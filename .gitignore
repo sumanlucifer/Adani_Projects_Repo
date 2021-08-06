@@ -5,6 +5,7 @@
 package-lock.json
 /dist/
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 
 # auto generated wildcard
@@ -12,4 +13,9 @@ sapui5/raise-consumption-po-request/.env1
 # auto generated wildcard
 sapui5/vendorPersona/.env25
 =======
+>>>>>>> develop
+=======
+
+# auto generated wildcard
+agel-mmts-web/security-scanqr/.env4
 >>>>>>> develop

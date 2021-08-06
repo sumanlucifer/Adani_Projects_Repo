@@ -40,23 +40,23 @@
                 <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "CreatedAt", "leadingProperty": "CreatedAt",
-                                                 "columnIndex": 3}'/>
+                                                 "columnIndex": 2, "sortProperty": "CreatedAt"}'/>
                     </customData>
                     <Text text="{i18n>crtdDate}"/>
                 </Column>
 
-                <Column demandPopin="true" minScreenWidth="Desktop"> 
+             <!--    <Column demandPopin="true" minScreenWidth="Desktop"> 
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "UpdatedAt", "leadingProperty": "UpdatedAt",
                                                  "columnIndex": 4 }'/>
                     </customData>
                     <Text text="{i18n>uptdDate}"/>
-                </Column>
+                </Column> -->
 
                <Column demandPopin="true" minScreenWidth="Desktop"> 
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "Status", "leadingProperty": "Status",
-                                                 "columnIndex": 5, "sortProperty": "Status","filterProperty": "Status"}'/>
+                                                 "columnIndex": 3, "sortProperty": "Status","filterProperty": "Status"}'/>
                     </customData>
                     <Text text="{i18n>status}"/>
                 </Column>
@@ -76,12 +76,12 @@
 				                        pattern: 'MMMM dd, yyyy'
 				                     }    
                         }"/>
-                        <Text text="{path:'UpdatedAt',
+                       <!--  <Text text="{path:'UpdatedAt',
                                      type: 'sap.ui.model.type.Date',
 				                     formatOptions: {
 				                        pattern: 'MMMM dd, yyyy'
 				                     }
-                        }"/>
+                        }"/> -->
                         <ObjectStatus text="{Status}" state="{= ${Status} === 'PENDING' ? 'Warning' : ${Status} === 'REJECTED' ? 'Error' : 'Success'}"/>
                     </cells>
                 </ColumnListItem>
