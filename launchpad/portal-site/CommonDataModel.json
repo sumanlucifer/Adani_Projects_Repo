@@ -92,7 +92,11 @@
 				"i18n": "i18n/order-tracker.properties"
 			},
 			"payload": {
-				"viz": []
+				"viz": [{
+					"id": "com.agel.mmts.engineerfieldstock-0-1628021384308",
+					"appId": "com.agel.mmts.engineerfieldstock",
+					"vizId": "FieldStock-Display"
+				}]
 			}
 		}, {
 			"_version": "3.0.0",
@@ -123,6 +127,10 @@
 					"id": "com.agel.mmts.adminposummary-5-1627278970509",
 					"appId": "com.agel.mmts.adminposummary",
 					"vizId": "PO_Summary-Display"
+				}, {
+					"id": "com.agel.mmts.reportspurchaseorder-6-1628188397943",
+					"appId": "com.agel.mmts.reportspurchaseorder",
+					"vizId": "PurchaseOrderReports-Display"
 				}]
 			}
 		}, {
@@ -142,6 +150,10 @@
 					"id": "com.agel.mmts.storeinchargescanqr-1-1626337384831",
 					"appId": "com.agel.mmts.storeinchargescanqr",
 					"vizId": "ScanQR-manage"
+				}, {
+					"id": "com.agel.mmts.storestock-2-1627989198137",
+					"appId": "com.agel.mmts.storestock",
+					"vizId": "StoreStock-Display"
 				}]
 			}
 		}, {

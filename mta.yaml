@@ -128,10 +128,6 @@ modules:
       name: comagelmmtsadminposummary
       target-path: resources/
     - artifacts:
-      - comagelmmtsstoreinchargereturnmaterial.zip
-      name: comagelmmtsstoreinchargereturnmaterial
-      target-path: resources/
-    - artifacts:
       - comagelmmtsraisereturnmaterial.zip
       name: comagelmmtsraisereturnmaterial
       target-path: resources/
@@ -140,12 +136,16 @@ modules:
       name: comagelmmtsreturnmaterial
       target-path: resources/
     - artifacts:
-      - comagelmmtsfieldstock.zip
-      name: comagelmmtsfieldstock
-      target-path: resources/
-    - artifacts:
       - comagelmmtsstorestock.zip
       name: comagelmmtsstorestock
+      target-path: resources/
+    - artifacts:
+      - comagelmmtsengineerfieldstock.zip
+      name: comagelmmtsengineerfieldstock
+      target-path: resources/
+    - artifacts:
+      - comagelmmtsreportspurchaseorder.zip
+      name: comagelmmtsreportspurchaseorder
       target-path: resources/
 - name: launchpad
   type: com.sap.application.content
@@ -166,6 +166,13 @@ modules:
       TENANT_HOST_PATTERN: ^(.*)-agel-mmts-web-approuter.${default-domain}
   deployed-after:
   - agel-mmts-web_ui_deployer
+- name: workflow-module
+  type: com.sap.application.content
+  path: workflow-module
+  requires:
+  - name: workflow
+    parameters:
+      content-target: true
 - name: vendorPersona
   type: html5
   path: vendorPersona
@@ -350,25 +357,9 @@ modules:
     commands:
     - npm run build
     supported-platforms: []
-- name: comagelmmtsraisereturnmaterial
-  type: html5
-  path: raise-returnmaterial
-  build-parameters:
-    builder: custom
-    commands:
-    - npm run build
-    supported-platforms: []
 - name: comagelmmtsreturnmaterial
   type: html5
   path: returnmaterial
-  build-parameters:
-    builder: custom
-    commands:
-    - npm run build
-    supported-platforms: []
-- name: comagelmmtsfieldstock
-  type: html5
-  path: fieldstock
   build-parameters:
     builder: custom
     commands:
@@ -381,6 +372,26 @@ modules:
     builder: custom
     commands:
     - npm run build
+    supported-platforms: []
+- name: comagelmmtsengineerfieldstock
+  type: html5
+  path: engineer-fieldstock
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: comagelmmtsreportspurchaseorder
+  type: html5
+  path: reports-purchase_order
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
     supported-platforms: []
 resources:
 - name: uaa_agel-mmts-web
@@ -422,6 +433,11 @@ resources:
       version: 1.0.0
     service: destination
     service-plan: lite
+- name: workflow
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: workflow
+    service-plan: standard
 parameters:
   enable-parallel-deployments: true
 build-parameters:
