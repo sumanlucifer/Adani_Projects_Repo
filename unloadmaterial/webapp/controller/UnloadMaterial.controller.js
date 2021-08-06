@@ -355,12 +355,12 @@ sap.ui.define([
                         }
 
                         else {
-                            sap.m.MessageBox.error("QR Code is wrong");
+                            MessageBox.error("QR Code is wrong");
                         }
                         this.getComponentModel().refresh();
                     }.bind(this),
                     error: function (oError) {
-                        sap.m.MessageBox.success(JSON.stringify(oError));
+                        MessageBox.success(JSON.stringify(oError));
                     }
                 })
             },
@@ -444,7 +444,7 @@ sap.ui.define([
                             }
                         }
                         else { 
-                            MessageBox.Info("Please scan Inner or outer packaging QR"); 
+                            MessageBox.information("Please scan Inner or outer packaging QR"); 
                         }
 
                     }.bind(this),
@@ -588,15 +588,15 @@ sap.ui.define([
                                     oView.byId("idScanQR").setVisible(false);
                                     oView.byId("idRequestGRN").setVisible(true);
                                 },
-                                error: (e) => { MessageBox.Error("Failed to Update Packing List Status.") }
+                                error: (e) => { MessageBox.error("Failed to Update Packing List Status.") }
                             })
                         }
                         else {
-                            MessageBox.Error(oResponse.Message);
+                            MessageBox.error(oResponse.Message);
                         }
                     },
                     error: (e) => {
-                        MessageBox.Error("Error while Unloading Material.");
+                        MessageBox.error("Error while Unloading Material.");
                     }
                 })
 
@@ -717,16 +717,16 @@ sap.ui.define([
                         oModel.create("/GRNEdmSet", oPayload, {
                             success: function (oData) {
                                 this.onDoItLaterPress();
-                                sap.m.MessageBox.success(oData.Message);
+                                MessageBox.success(oData.Message);
                                 this.getComponentModel().refresh();
                             }.bind(this),
                             error: function (oError) {
-                                sap.m.MessageBox.error(JSON.stringify(oError));
+                                MessageBox.error(JSON.stringify(oError));
                             }
                         });
                     }
                 } else {
-                    sap.m.MessageBox.error("Please enter positive and a non zero number for Quantity")
+                    MessageBox.error("Please enter positive and a non zero number for Quantity")
                 }
 
             },
