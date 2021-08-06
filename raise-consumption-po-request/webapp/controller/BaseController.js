@@ -7,10 +7,10 @@ sap.ui.define([
     return Controller.extend("com.agel.mmts.raiseconsumptionporequest.controller.BaseController", {
 
 
-         getViewModel: function (sName) {
+        getViewModel: function (sName) {
             return this.getView().getModel(sName);
         },
-      setModel: function (oModel, sName) {
+        setModel: function (oModel, sName) {
             return this.getView().setModel(oModel, sName);
         },
         getRouter: function () {
@@ -18,6 +18,9 @@ sap.ui.define([
         },
         getResourceBundle: function () {
             return this.getOwnerComponent().getModel("i18n").getResourceBundle();
+        },
+        getComponentModel: function () {
+            return this.getOwnerComponent().getModel();
         },
         addContentDensityClass: function () {
             return this.getView().addStyleClass(this.getOwnerComponent().getContentDensityClass());
