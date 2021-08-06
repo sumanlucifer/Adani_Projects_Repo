@@ -344,7 +344,7 @@ sap.ui.define([
             }
             // _pdfViewer.setTitle("QR Code " + this.getView().getBindingContext().getObject().Name);
             _pdfViewer.setTitle("QR Code");
-            _pdfViewer.setShowDownloadButton(true);
+            _pdfViewer.setShowDownloadButton(false);
             _pdfViewer.open();
         },
 
