@@ -65,15 +65,18 @@
                     "bundleName": "com.agel.mmts.returnmaterial.i18n.i18n"
                 }
             },
-            "serverModel": {
+            "": {
+                "type": "sap.ui.model.odata.v2.ODataModel",	
+                "settings": {	
+                    "defaultOperationMode": "Server",	
+                    "defaultBindingMode": "TwoWay",	
+                    "defaultCountMode": "Request",	
+                    "refreshAfterChange": true,	
+                    "useBatch": false	
+                },
                 "dataSource": "mainService",
                 "preload": true
-            },
-            "": {
-                "type": "sap.ui.model.json.JSONModel",
-                "settings": {},
-                "preload": true
-            }
+            }            
         },
         "resources": {
             "css": [
@@ -114,7 +117,7 @@
                 },
                 {
                     "name": "RouteReturnDetailPage",
-                    "pattern": "retDet",
+                    "pattern": "RetDetPage/{Id}",
                     "target": [
                         "TargetReturnDetailPage"
                     ]

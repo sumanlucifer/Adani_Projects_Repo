@@ -49,8 +49,7 @@
             <uxap:ObjectPageSection titleUppercase="false" title="{i18n>basicDetails}">
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection title="{i18n>ContractorDetails}" class="BasicDetalFormTitleStyle">
-                        <f:SimpleForm layout="ColumnLayout"  binding="{Contractor}" 
-                                singleContainerFullSize="true" class="style-RemoveTitleHeight">
+                        <f:SimpleForm layout="ColumnLayout" binding="{Contractor}" singleContainerFullSize="true" class="style-RemoveTitleHeight">
                             <f:content>
                                 <!-- <core:Title  /> -->
                                 <Label text="{i18n>ContractorName}" />
@@ -90,8 +89,7 @@
             <uxap:ObjectPageSection titleUppercase="false" title="{i18n>lineItems}">
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection title="{i18n>lineItems}">
-                        <Table id="idTblIssueMaterialItems" width="auto" growing="true" 
-                            growingThreshold="5" items="{oIssueMaterialModel>/Items}" fixedLayout="false">
+                        <Table id="idTblIssueMaterialItems" width="auto" growing="true" growingThreshold="5" items="{oIssueMaterialModel>/Items}" fixedLayout="false">
                             <columns>
                                 <!-- <Column demandPopin="true" minScreenWidth="Desktop" hAlign="Center"><Text text="{i18n>LineItem}" wrapping="true" wrappingType="Hyphenated"/></Column><Column demandPopin="true" minScreenWidth="Desktop"><Text text="{i18n>LineItemCode}" wrapping="true" wrappingType="Hyphenated"/></Column> -->
                                 <Column demandPopin="true" minScreenWidth="Desktop">
@@ -117,7 +115,7 @@
                                     <Text text="{i18n>RemainingQty}"/>
                                 </Column>
 
-                                 <Column demandPopin="true" minScreenWidth="Desktop">
+                                <Column demandPopin="true" minScreenWidth="Desktop">
                                     <Text text="{i18n>QuantityToReturn}"/>
                                 </Column>
 
@@ -136,19 +134,17 @@
                                         <ExpandableText text="{oIssueMaterialModel>Description}" maxCharacters="20" overflowMode="Popover"/>
 
                                         <Text text="{oIssueMaterialModel>Issued_Qty}" wrappingType="Hyphenated"/>
-                                        
+
                                         <Text text="{oIssueMaterialModel>ReturnedQty}" />
-                                       
+
                                         <Text text="{oIssueMaterialModel>RemainingQty}" wrappingType="Hyphenated"/>
-                                        
+
                                         <HBox alignContent="Inherit">
-                                                 <Input value="{oIssueMaterialModel>ReturnQty}" liveChange="onLiveChangeReturnQty"
-                                                        width="80%" editable="false"/>
-                                                 <Button icon="sap-icon://save" visible="false" press="onPressSave"
-                                                        type="Emphasized"/>
+                                            <Input value="{oIssueMaterialModel>ReturnQty}" liveChange="onLiveChangeReturnQty" width="80%" editable="false"/>
+                                            <Button icon="sap-icon://save" visible="false" press="onPressSave" type="Emphasized"/>
                                         </HBox>
                                         <!-- <Text text="{Description}" wrappingType="Hyphenated"/>              -->
-                                        
+
                                         <Text text="{oIssueMaterialModel>Uom}" />
                                         <Link text="{i18n>ReturnAsset}" press="onPressRetrunAsset"/>
                                     </cells>

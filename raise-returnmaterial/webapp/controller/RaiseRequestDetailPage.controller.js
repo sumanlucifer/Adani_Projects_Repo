@@ -71,27 +71,13 @@ sap.ui.define([
                     },
                     dataReceived: function () {
                         objectViewModel.setProperty("/busy", false);
-                        that.onReadDataIssueMaterials();
+                       that.onReadDataIssueMaterials();
                     }
                 }
             });
         },
 
-        onReadDataIssueMaterials: function () {
-            var that = this;
-            var oTable = this.byId("idTblIssueMaterialItems");
-            that.oIssueMaterialModel = new JSONModel();
-            this.MainModel.read("/SONumberDetailsSet(" + that.sObjectId + ")/IssuedMaterialItems", {
-                success: function (oData, oResponse) {
-                    that.oIssueMaterialModel.setData({ "Items": oData.results });
-                    oTable.setModel(that.oIssueMaterialModel, "oIssueMaterialModel");
-                }.bind(this),
-                error: function (oError) {
-                    sap.m.MessageBox.error("Data Not Found");
-                }
-            });
-
-        },
+     
 
         onPressRetrunAsset: function (oEvent) {
             //  debugger;
@@ -164,7 +150,22 @@ sap.ui.define([
                     sap.m.MessageBox.error(oError.Message);
                 }
             });
-        }
+        },
+
+          onReadDataIssueMaterials: function () {
+                var that = this;
+                var oTable = this.byId("idTblIssueMaterialItems");
+                that.oIssueMaterialModel = new JSONModel();
+                this.MainModel.read("/SONumberDetailsSet(" + that.sObjectId + ")/IssuedMaterials", {
+                    success: function (oData, oResponse) {
+                        that.oIssueMaterialModel.setData({ "Items": oData.results });
+                        oTable.setModel(that.oIssueMaterialModel, "oIssueMaterialModel");
+                    }.bind(this),
+                    error: function (oError) {
+                        sap.m.MessageBox.error("Data Not Found");
+                    }
+                });
+            },
 
     });
 });

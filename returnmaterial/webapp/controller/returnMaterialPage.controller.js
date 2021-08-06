@@ -15,16 +15,19 @@ sap.ui.define([
         return BaseController.extend("com.agel.mmts.returnmaterial.controller.returnMaterialPage", {
 
             onInit: function () {
-               //Router Object
+                //Router Object
                 this.oRouter = this.getRouter();
                 this.oRouter.getRoute("RouteApp").attachPatternMatched(this._onObjectMatched, this);
 
                 //view model instatiation
                 var oViewModel = new JSONModel({
                     busy: false,
-                    delay: 0
+                    delay: 0,
+                    boqSelection: null,
+                    csvFile: "file"
                 });
-                this.setModel(oViewModel, "objectViewModel");
+                //this.setModel(oViewModel,"objectViewModel");
+                 this.getView().setModel(oViewModel,"objectViewModel");
 
                 // keeps the search state
                 this._aTableSearchState = [];
@@ -32,85 +35,41 @@ sap.ui.define([
                 this._mViewSettingsDialogs = {};
 
                 //adding searchfield association to filterbar and initialize the filter bar -> added in base controller
-            //    this.initializeFilterBar();            
+                //    this.initializeFilterBar();            
 
             },
 
             _onObjectMatched: function (oEvent) {
-                
+              //  this._bindView("/MaterialReturnSet");
             },
 
-            // on Go Search 
-            onSearch: function (oEvent) {
-                var searchField = this.byId("idSearchInput").getValue();
-                var DateValue = this.byId("DP1");
-                var MaterialCode = this.byId("idMaterialCode").getValue();
-                var PlantCode = this.byId("idSelPlant").getValue();
+            _bindView: function (sObjectPath) {
+                var that = this;
+                var objectViewModel = this.getView().getModel("objectViewModel");
 
-                var orFilters = [];
-                var andFilters = [];
-
-                var FreeTextSearch = this.byId("filterbar").getBasicSearchValue();
-                if (FreeTextSearch) {
-                    orFilters.push(new Filter("PONumber", FilterOperator.Contains, FreeTextSearch));
-                    orFilters.push(new Filter("Buyer/CompanyCode", FilterOperator.EQ, FreeTextSearch));
-                    orFilters.push(new Filter("ParentLineItems/MaterialCode", FilterOperator.EQ, FreeTextSearch));
-                    orFilters.push(new Filter("PlantCode", FilterOperator.EQ, FreeTextSearch));
-                    orFilters.push(new Filter("ParentLineItems/Name", FilterOperator.Contains, FreeTextSearch));
-                    andFilters.push(new Filter(orFilters, false));
-                }
-
-                if (poNumber != "") {
-                    andFilters.push(new Filter("PONumber", FilterOperator.EQ, poNumber));
-                }
-
-                if (DateRangeValue != "") {
-                    var From = new Date(DateRange.getFrom());
-                    var To = new Date(DateRange.getTo());
-                    andFilters.push(new Filter("POReleaseDate", FilterOperator.BT, From.toISOString(), To.toISOString()));
-                }
-
-                if (CompanyCode != "") {
-                    andFilters.push(new Filter("Buyer/CompanyCode", FilterOperator.EQ, CompanyCode));
-                }
-
-                if (MaterialCode != "") {
-                    andFilters.push(new Filter("ParentLineItems/MaterialCode", FilterOperator.EQ, MaterialCode));
-                }
-
-                if (PlantCode != "") {
-                    andFilters.push(new Filter("PlantCode", FilterOperator.EQ, PlantCode));
-                }
-
-                var idOpenPOTableBinding = this.getView().byId("idPurchaseOrdersTable").getTable().getBinding("items");
-                var idConfirmPOTableBinding = this.getView().byId("idConfirmPOTable").getTable().getBinding("items");
-                var idDispatchedPOTableBinding = this.getView().byId("idDispatchedPOTable").getTable().getBinding("items");
-
-                if (andFilters.length == 0) {
-                    andFilters.push(new Filter("PONumber", FilterOperator.NE, ""));
-                    idOpenPOTableBinding.filter(new Filter(andFilters, true));
-                    idConfirmPOTableBinding.filter(new Filter(andFilters, true));
-                    idDispatchedPOTableBinding.filter(new Filter(andFilters, true));
-                }
-
-                if (andFilters.length > 0) {
-                    idOpenPOTableBinding.filter(new Filter(andFilters, true));
-                    idConfirmPOTableBinding.filter(new Filter(andFilters, true));
-                    idDispatchedPOTableBinding.filter(new Filter(andFilters, true));
-                }
-                // oTableBinding.filter(mFilters);
+                this.getView().bindElement({
+                    path: sObjectPath,
+                    events: {
+                        dataRequested: function () {
+                            objectViewModel.setProperty("/busy", true);
+                        },
+                        dataReceived: function () {
+                            objectViewModel.setProperty("/busy", false);
+                        }
+                    }
+                });
             },
-
+          
             onPurchaseOrderPress: function (oEvent) {
                 // The source is the list item that got pressed
                 this._showObject(oEvent.getSource());
             },
 
             _showObject: function (oItem) {
-                var that = this;
-                var sObjectPath = oItem.getBindingContext().sPath;
-                that.getRouter().navTo("storeStockChildDetail", {
-                    POId: sObjectPath.slice("/PurchaseOrderSet".length) // /PurchaseOrders(123)->(123)
+               var that = this;
+                var sObjectPath = oItem.getBindingContext().getObject().ID;
+                that.getRouter().navTo("RouteReturnDetailPage", {
+                    Id: sObjectPath // /PurchaseOrders(123)->(123)
                 });
             }
 

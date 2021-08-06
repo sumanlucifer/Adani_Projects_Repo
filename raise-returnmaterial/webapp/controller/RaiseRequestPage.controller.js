@@ -15,7 +15,7 @@ sap.ui.define([
         return BaseController.extend("com.agel.mmts.raisereturnmaterial.controller.RaiseRequestPage", {
 
             onInit: function () {
-               //Router Object
+                //Router Object
                 this.oRouter = this.getRouter();
                 this.oRouter.getRoute("RaiseRequestPage").attachPatternMatched(this._onObjectMatched, this);
 
@@ -26,59 +26,73 @@ sap.ui.define([
                 });
                 this.setModel(oViewModel, "objectViewModel");
 
-                 // Main Model Set
+                // Main Model Set
                 this.MainModel = this.getComponentModel();
-                this.getView().setModel(this.MainModel);         
-
+                this.getView().setModel(this.MainModel);
             },
 
             _onObjectMatched: function (oEvent) {
-                
+
             },
 
             // on Go Search 
-            onSearch : function(){
+            onSearch: function () {
                 var that = this;
                 this.validateSONumber();
             },
 
             // Validate QR Code
-            validateSONumber : function(){
+            validateSONumber: function () {
                 var that = this;
                 var SoID = this.getView().byId("idSoNumber").getValue();
+                that.sObjectId = SoID+"l";
                 var SoIDFilter = new sap.ui.model.Filter({
-                        path: "ID",
-                        operator: sap.ui.model.FilterOperator.EQ,
-                        value1: SoID
+                    path: "ID",
+                    operator: sap.ui.model.FilterOperator.EQ,
+                    value1: SoID
                 });
 
                 var filter = [];
                 filter.push(SoIDFilter);
-                            
+
                 this.MainModel.read("/SONumberDetailsSet", {
-                    filters:[filter],
-				    success: function(oData, oResponse) {
-					    if(oData){
+                    filters: [filter],
+                    success: function (oData, oResponse) {
+                        if (oData) {
                             // debugger;
-                            if(oData.results.length){
-                                that.oRouter.navTo("RaiseRequestDetailPage", {
-                                    SOId : oData.results[0].ID,
-                                  //  Type: "QR"
-                                },false);
-                            }else{
-                                sap.m.MessageBox.error("Please Enter Valid SO Number");    
+                            if (oData.results.length) {
+                             //   that.onReadDataIssueMaterials();
+                                 that.oRouter.navTo("RaiseRequestDetailPage", {
+                                     SOId: oData.results[0].ID
+                                 }, false);
+                            } else {
+                                sap.m.MessageBox.error("Please Enter Valid SO Number");
                             }
-                        }else{
+                        } else {
                             sap.m.MessageBox.error("Please Enter Valid SO Number");
                         }
-				    }.bind(this),
-				    error: function(oError) {
-					    sap.m.MessageBox.error(JSON.stringify(oError));
-				    }
-			    });                            
+                    }.bind(this),
+                    error: function (oError) {
+                        sap.m.MessageBox.error(JSON.stringify(oError));
+                    }
+                });
             },
 
-
+            onReadDataIssueMaterials: function () {
+                var that = this;
+                var oTable = this.byId("idTblIssueMaterialItems");
+                oTable.setVisible(true);
+                that.oIssueMaterialModel = new JSONModel();
+                this.MainModel.read("/SONumberDetailsSet(" + that.sObjectId + ")/IssuedMaterials", {
+                    success: function (oData, oResponse) {
+                        that.oIssueMaterialModel.setData({ "Items": oData.results });
+                        oTable.setModel(that.oIssueMaterialModel, "oIssueMaterialModel");
+                    }.bind(this),
+                    error: function (oError) {
+                        sap.m.MessageBox.error("Data Not Found");
+                    }
+                });
+            },
 
         });
     });

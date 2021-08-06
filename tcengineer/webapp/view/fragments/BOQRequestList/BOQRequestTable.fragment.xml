@@ -2,7 +2,11 @@
     xmlns:smartTable="sap.ui.comp.smarttable"
     xmlns:core="sap.ui.core">
 
-    <smartTable:SmartTable class="sapUiResponsiveContentPadding" id="idBOQRequestTable" editable="false" placeToolbarInTable="true" enableAutoBinding="true" entitySet="BOQApprovalRequestSet" showFullScreenButton="true" showRowCount="false" tableType="ResponsiveTable" demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" beforeRebindTable="onBeforeRebindBOQTable" enableAutoColumnWidth="true">
+    <smartTable:SmartTable class="sapUiResponsiveContentPadding" id="idBOQRequestTable"
+     editable="false" placeToolbarInTable="true" enableAutoBinding="true" entitySet="BOQApprovalRequestSet"
+      showFullScreenButton="true" showRowCount="false" tableType="ResponsiveTable" demandPopin="false"
+       useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" 
+       beforeRebindTable="onBeforeRebindBOQTable" enableAutoColumnWidth="true">
 
         <smartTable:layoutData><FlexItemData growFactor="1" /></smartTable:layoutData>
         <Table sticky="ColumnHeaders,HeaderToolbar">
