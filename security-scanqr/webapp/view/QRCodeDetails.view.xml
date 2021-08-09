@@ -15,7 +15,7 @@
         <uxap:headerTitle>
             <uxap:ObjectPageDynamicHeaderTitle>
                 <uxap:content>
-                    <VBox renderType="Bare">
+                    <VBox renderType="Bare" id="idHeaderVBox">
                         <items>
                             <VBox renderType="Bare">
                                 <Title text="Packing List Details - {Name}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>

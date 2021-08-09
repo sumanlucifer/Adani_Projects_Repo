@@ -47,8 +47,9 @@ sap.ui.define([
         },
 
         _onObjectMatched: function (oEvent) {
-            var sObjectId = oEvent.getParameter("arguments").SOId;
-            this._bindView("/SONumberDetailsSet(" + sObjectId + ")");
+            var that = this;
+            that.sObjectId = oEvent.getParameter("arguments").SOId;
+            this._bindView("/SONumberDetailsSet(" + that.sObjectId + ")");
         },
 
         _bindView: function (sObjectPath) {
@@ -68,13 +69,11 @@ sap.ui.define([
             });
         },
 
-        onPressRetrunAsset: function (oEvent) {
-            debugger;
-            var sObjectId = oEvent.getSource();
-        },
-
         onPressSelectMaterials: function (oEvent) {
-            
+            var that = this;
+             this.getRouter().navTo("RaiseIssueScanQRCode", {
+                SOId : that.sObjectId,
+            });
         }
 
     });

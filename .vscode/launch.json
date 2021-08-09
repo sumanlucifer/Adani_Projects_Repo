@@ -2,23 +2,143 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Run sapui5-1-unloadmaterial",
+      "name": "Run sapui5-1-storeincharge-issuematerial",
       "type": "node",
       "request": "launch",
       "program": "${workspaceFolder}/agel-mmts-web-approuter/node_modules/@sap/html5-repo-mock/index.js",
       "args": [
         "--standalone",
-        "/comagelmmtsunloadmaterial/index.html",
+        "/comagelmmtsstoreinchargeissuematerial/index.html",
         "--ui5",
         "{\"version\":\".\"}"
       ],
-      "cwd": "${workspaceFolder}/unloadmaterial",
+      "cwd": "${workspaceFolder}/storeincharge-issuematerial",
       "env": {
         "PORT": "6004",
         "MOCK_LOOKUP_DIRS": "[\"webapp\"]",
-        "run.config": "{\"handlerId\":\"ui5_run_config_handler_id\",\"runnableId\":\"/home/user/projects/sapui5-1/unloadmaterial\"}"
+        "run.config": "{\"handlerId\":\"ui5_run_config_handler_id\",\"runnableId\":\"/home/user/projects/sapui5-1/storeincharge-issuematerial\"}"
       },
-      "envFile": "${workspaceFolder}/unloadmaterial/.env3",
+      "envFile": "${workspaceFolder}/storeincharge-issuematerial/.env6",
+      "preLaunchTask": "Build sapui5-1"
+    },
+    {
+      "name": "Run sapui5-1-storeincharge-raisedpo",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/agel-mmts-web-approuter/node_modules/@sap/html5-repo-mock/index.js",
+      "args": [
+        "--standalone",
+        "/comagelmmtsstoreinchargeraisedpo/index.html",
+        "--ui5",
+        "{\"version\":\".\"}"
+      ],
+      "cwd": "${workspaceFolder}/storeincharge-raisedpo",
+      "env": {
+        "PORT": "6004",
+        "MOCK_LOOKUP_DIRS": "[\"webapp\"]",
+        "run.config": "{\"handlerId\":\"ui5_run_config_handler_id\",\"runnableId\":\"/home/user/projects/sapui5-1/storeincharge-raisedpo\"}"
+      },
+      "envFile": "${workspaceFolder}/storeincharge-raisedpo/.env7",
+      "preLaunchTask": "Build sapui5-1"
+    },
+    {
+      "name": "Run sapui5-1-tcengineer",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/agel-mmts-web-approuter/node_modules/@sap/html5-repo-mock/index.js",
+      "args": [
+        "--standalone",
+        "/comagelmmtstcengineer/index.html",
+        "--ui5",
+        "{\"version\":\".\"}"
+      ],
+      "cwd": "${workspaceFolder}/tcengineer",
+      "env": {
+        "PORT": "6004",
+        "MOCK_LOOKUP_DIRS": "[\"webapp\"]",
+        "run.config": "{\"handlerId\":\"ui5_run_config_handler_id\",\"runnableId\":\"/home/user/projects/sapui5-1/tcengineer\"}"
+      },
+      "envFile": "${workspaceFolder}/tcengineer/.env6",
+      "preLaunchTask": "Build sapui5-1"
+    },
+    {
+      "name": "Run sapui5-1-storeincharge-approvals",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/agel-mmts-web-approuter/node_modules/@sap/html5-repo-mock/index.js",
+      "args": [
+        "--standalone",
+        "/comagelmmtsstoreinchargeapprovals/index.html",
+        "--ui5",
+        "{\"version\":\".\"}"
+      ],
+      "cwd": "${workspaceFolder}/storeincharge-approvals",
+      "env": {
+        "PORT": "6004",
+        "MOCK_LOOKUP_DIRS": "[\"webapp\"]",
+        "run.config": "{\"handlerId\":\"ui5_run_config_handler_id\",\"runnableId\":\"/home/user/projects/sapui5-1/storeincharge-approvals\"}"
+      },
+      "envFile": "${workspaceFolder}/storeincharge-approvals/.env3",
+      "preLaunchTask": "Build sapui5-1"
+    },
+    {
+      "name": "Run sapui5-1-security-international-import",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/agel-mmts-web-approuter/node_modules/@sap/html5-repo-mock/index.js",
+      "args": [
+        "--standalone",
+        "/comagelmmtssecurityinternationalimport/index.html",
+        "--ui5",
+        "{\"version\":\".\"}"
+      ],
+      "cwd": "${workspaceFolder}/security-international-import",
+      "env": {
+        "PORT": "6004",
+        "MOCK_LOOKUP_DIRS": "[\"webapp\"]",
+        "run.config": "{\"handlerId\":\"ui5_run_config_handler_id\",\"runnableId\":\"/home/user/projects/sapui5-1/security-international-import\"}"
+      },
+      "envFile": "${workspaceFolder}/security-international-import/.env4",
+      "preLaunchTask": "Build sapui5-1"
+    },
+    {
+      "name": "Run sapui5-1-security-scanqr",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/agel-mmts-web-approuter/node_modules/@sap/html5-repo-mock/index.js",
+      "args": [
+        "--standalone",
+        "/comagelmmtssecurityscanqr/index.html",
+        "--ui5",
+        "{\"version\":\".\"}"
+      ],
+      "cwd": "${workspaceFolder}/security-scanqr",
+      "env": {
+        "PORT": "6004",
+        "MOCK_LOOKUP_DIRS": "[\"webapp\",\"src\"]",
+        "run.config": "{\"handlerId\":\"ui5_run_config_handler_id\",\"runnableId\":\"/home/user/projects/sapui5-1/security-scanqr\"}"
+      },
+      "envFile": "${workspaceFolder}/security-scanqr/.env10",
+      "preLaunchTask": "Build sapui5-1"
+    },
+    {
+      "name": "Run sapui5-1-storeincharge-scanqr",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/agel-mmts-web-approuter/node_modules/@sap/html5-repo-mock/index.js",
+      "args": [
+        "--standalone",
+        "/comagelmmtsstoreinchargescanqr/index.html",
+        "--ui5",
+        "{\"version\":\".\"}"
+      ],
+      "cwd": "${workspaceFolder}/storeincharge-scanqr",
+      "env": {
+        "PORT": "6004",
+        "MOCK_LOOKUP_DIRS": "[\"webapp\"]",
+        "run.config": "{\"handlerId\":\"ui5_run_config_handler_id\",\"runnableId\":\"/home/user/projects/sapui5-1/storeincharge-scanqr\"}"
+      },
+      "envFile": "${workspaceFolder}/storeincharge-scanqr/.env5",
       "preLaunchTask": "Build sapui5-1"
     },
     {
@@ -38,67 +158,7 @@
         "MOCK_LOOKUP_DIRS": "[\"webapp\"]",
         "run.config": "{\"handlerId\":\"ui5_run_config_handler_id\",\"runnableId\":\"/home/user/projects/sapui5-1/security-scan-history\"}"
       },
-      "envFile": "${workspaceFolder}/security-scan-history/.env6",
-      "preLaunchTask": "Build sapui5-1"
-    },
-    {
-      "name": "Run sapui5-unloadmaterial",
-      "type": "node",
-      "request": "launch",
-      "program": "${workspaceFolder}/agel-mmts-web-approuter/node_modules/@sap/html5-repo-mock/index.js",
-      "args": [
-        "--standalone",
-        "/comagelmmtsunloadmaterial/index.html",
-        "--ui5",
-        "{\"version\":\".\"}"
-      ],
-      "cwd": "${workspaceFolder}/unloadmaterial",
-      "env": {
-        "PORT": "6004",
-        "MOCK_LOOKUP_DIRS": "[\"webapp\"]",
-        "run.config": "{\"handlerId\":\"ui5_run_config_handler_id\",\"runnableId\":\"/home/user/projects/sapui5/unloadmaterial\"}"
-      },
-      "envFile": "${workspaceFolder}/unloadmaterial/.env7",
-      "preLaunchTask": "Build sapui5"
-    },
-    {
-      "name": "Run sapui5-1-storeincharge-raisedpo",
-      "type": "node",
-      "request": "launch",
-      "program": "${workspaceFolder}/agel-mmts-web-approuter/node_modules/@sap/html5-repo-mock/index.js",
-      "args": [
-        "--standalone",
-        "/comagelmmtsstoreinchargeraisedpo/index.html",
-        "--ui5",
-        "{\"version\":\".\"}"
-      ],
-      "cwd": "${workspaceFolder}/storeincharge-raisedpo",
-      "env": {
-        "PORT": "6004",
-        "MOCK_LOOKUP_DIRS": "[\"webapp\"]",
-        "run.config": "{\"handlerId\":\"ui5_run_config_handler_id\",\"runnableId\":\"/home/user/projects/sapui5-1/storeincharge-raisedpo\"}"
-      },
-      "envFile": "${workspaceFolder}/storeincharge-raisedpo/.env6",
-      "preLaunchTask": "Build sapui5-1"
-    },
-    {
-      "name": "Run sapui5-1-storeincharge-issuematerial",
-      "type": "node",
-      "request": "launch",
-      "program": "${workspaceFolder}/agel-mmts-web-approuter/node_modules/@sap/html5-repo-mock/index.js",
-      "args": [
-        "--flp",
-        "relative",
-        "--ui5",
-        "{\"version\":\".\"}"
-      ],
-      "cwd": "${workspaceFolder}/storeincharge-issuematerial",
-      "env": {
-        "PORT": "6004",
-        "MOCK_LOOKUP_DIRS": "[\"webapp\"]",
-        "run.config": "{\"handlerId\":\"ui5_run_config_handler_id\",\"runnableId\":\"/home/user/projects/sapui5-1/storeincharge-issuematerial\"}"
-      },
-      "envFile": "${workspaceFolder}/storeincharge-issuematerial/.env3",
+      "envFile": "${workspaceFolder}/security-scan-history/.env7",
       "preLaunchTask": "Build sapui5-1"
     }
   ]

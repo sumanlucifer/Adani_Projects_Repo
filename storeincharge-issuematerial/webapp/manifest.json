@@ -143,6 +143,13 @@
                     "target": [
                         "TargetIssueSODetail"
                     ]
+                },
+                {
+                    "name": "RaiseIssueScanQRCode",
+                    "pattern": "IssueScanQRCode/{SOId}",
+                    "target": [
+                        "TargetIssueScanQRCode"
+                    ]
                 }
             ],
             "targets": {
@@ -170,6 +177,12 @@
                     "transition": "slide",
                     "clearControlAggregation": false,
                     "viewName": "IssueSODetail"
+                },
+                "TargetIssueScanQRCode": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewName": "IssueScanQRCode"
                 },
                 "notFound": {
                     "viewName": "NotFound"

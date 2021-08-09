@@ -8,9 +8,7 @@
     xmlns:unified="sap.ui.unified"
     xmlns:tt="sap.ui.table"
     xmlns:smartTable="sap.ui.comp.smarttable"
-    xmlns="sap.m" controllerName="com.agel.mmts.storeinchargeissuematerial.controller.IssueSODetail"
-	xmlns:contractorForm ="com.agel.mmts.storeinchargeissuematerial.view.blocks.returnDetails.contractorForm"
-    xmlns:lineItemsForm="com.agel.mmts.storeinchargeissuematerial.view.blocks.returnDetails.lineItemsForm" height="100%">
+    xmlns="sap.m" controllerName="com.agel.mmts.storeinchargeissuematerial.controller.IssueSODetail" height="100%">
     <uxap:ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true" upperCaseAnchorBar="false" headerContentPinnable="true" toggleHeaderOnTitleClick="true" busy="{objectViewModel>/busy}">
         <uxap:headerTitle>
             <uxap:ObjectPageDynamicHeaderTitle>
