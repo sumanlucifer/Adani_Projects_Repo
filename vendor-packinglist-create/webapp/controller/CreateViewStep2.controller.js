@@ -297,6 +297,11 @@ sap.ui.define([
                 else
                     var aOuterPackaging = [];
 
+                for(var i=0;i<aOuterPackaging.length;i++){
+                    if(aOuterPackaging[i].OuterPackagingTypeId === "")
+                        aOuterPackaging.splice(i);
+                }
+
                 var oPayload = {};
                 oPayload.PackingListId = oBindingContextData.ID;
                 oPayload.IsDraft = true;
@@ -463,11 +468,15 @@ sap.ui.define([
             },
 
             onDeleteDocumentPress: function (oEvent) {
+                var oInput = oEvent.getSource();
                 var documentID = oEvent.getSource().getBindingContext().getObject().ID;
                 this.mainModel.remove("/AttachmentSet(" + documentID + ")", {
                     success: function (oData, oResponse) {
                         sap.m.MessageBox.success("Document deleted successfully!");
-                        this.getView().getModel().refresh();
+                        // this.getView().getModel().refresh();
+                        // oInput.getModel().refresh();
+                        oInput.getParent().getBinding("items").refresh();
+                        // this.onEditPackingListPress();
                     }.bind(this),
                     error: function (oError) {
                         sap.m.MessageBox.error(JSON.stringify(oError));

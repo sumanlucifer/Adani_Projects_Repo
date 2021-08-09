@@ -37,45 +37,29 @@
                                 <core:CustomData key="p13nData" value='\{"columnKey": "SONumber", "leadingProperty": "SONumberDetails/SONumber",
                                                         "columnIndex": 0 ,"sortProperty": "SONumberDetails/SONumber", "filterProperty": "SONumberDetails/SONumber"}'/>
                             </customData>
-                            <Text text="{i18n>Name}"/>
+                            <Text text="{i18n>SONumber}"/>
                         </Column>
 
                         <Column demandPopin="true" minScreenWidth="Desktop">
                             <customData>
-                                <core:CustomData key="p13nData" value='\{"columnKey": "VendorCode", "leadingProperty": "VendorCode",
-                                        "columnIndex": 1,"sortProperty": "VendorCode", "filterProperty": "VendorCode"}'/>
+                                <core:CustomData key="p13nData" value='\{"columnKey": "CreatedBy", "leadingProperty": "CreatedBy",
+                                        "columnIndex": 1,"sortProperty": "CreatedBy", "filterProperty": "CreatedBy"}'/>
                             </customData>
-                            <Text text="{i18n>MapVendorCode}"/>
-                        </Column>
-
-                        <Column demandPopin="true" minScreenWidth="Tablet">
-                            <customData>
-                                <core:CustomData key="p13nData" value='\{"columnKey": "UnloadedDate", "leadingProperty": "UnloadedDate",
-                                        "columnIndex": 2, "sortProperty": "UnloadedDate"}'/>
-                            </customData>
-                            <Text text="{i18n>UnloadedDate}"/>
+                            <Text text="{i18n>EnggInCharge}"/>
                         </Column>
 
                         <Column demandPopin="true" minScreenWidth="Tablet">
                             <customData>
                                 <core:CustomData key="p13nData" value='\{"columnKey": "RequestDate", "leadingProperty": "RequestDate",
-                                        "columnIndex": 3, "sortProperty": "RequestDate", "filterProperty": "RequestDate"}'/>
+                                        "columnIndex": 2, "sortProperty": "RequestDate", "filterProperty": "RequestDate"}'/>
                             </customData>
                             <Text text="{i18n>RequestDate}"/>
-                        </Column>
-
-                        <Column demandPopin="true" minScreenWidth="Tablet">
-                            <customData>
-                                <core:CustomData key="p13nData" value='\{"columnKey": "TotalReceivedQty", "leadingProperty": "TotalReceivedQty",
-                                        "columnIndex": 4,"sortProperty": "TotalReceivedQty", "filterProperty": "TotalReceivedQty"}'/>
-                            </customData>
-                            <Text text="{i18n>TotRcvdQty}"/>
                         </Column>
 
                         <Column demandPopin="true" minScreenWidth="Desktop">
                             <customData>
                                 <core:CustomData key="p13nData" value='\{"columnKey": "Status", "leadingProperty": "Status",
-                                                        "columnIndex": 5, "filterProperty": "Status" }'/>
+                                                        "columnIndex": 4, "filterProperty": "Status" }'/>
                             </customData>
                             <Text text="{i18n>Status}"/>
                         </Column>
@@ -84,20 +68,13 @@
                         <ColumnListItem type="Navigation" press="onReturnMaterialSelect"> 
                             <cells>
                                 <Text text="{SONumber}" binding="{SONumberDetails}"/>
-                                <Text text="{VendorCode}"/>
-                                <Text text="{path:'UnloadedDate',
-                                            type: 'sap.ui.model.type.Date',
-                                            formatOptions: {
-                                                pattern: 'MMMM dd, yyyy'
-                                            }    
-                                }"/>
+                                <Text text="{CreatedBy}"/>
                                 <Text text="{path:'RequestDate',
                                             type: 'sap.ui.model.type.Date',
                                             formatOptions: {
                                                 pattern: 'MMMM dd, yyyy'
                                             }
                                 }"/>
-                                <Text text="{TotalReceivedQty}"/>
                                 <Text text="{Status}"/>
                             </cells>
                         </ColumnListItem>
