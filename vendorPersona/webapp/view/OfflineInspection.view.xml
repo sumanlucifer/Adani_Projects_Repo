@@ -76,8 +76,7 @@
                                             <Text text="{ParentItemModel>Name}" wrappingType="Hyphenated"/>
                                             <ExpandableText text="{ParentItemModel>Description}" maxCharacters="20" overflowMode="Popover"/>
                                             <Text text="{ParentItemModel>Quantity}"/>
-                                            <Input value="{ParentItemModel>InspectionQty}" width="30%" type="Number"
-                                                liveChange="onLiveChangeInspectionQty" enabled="false" />
+                                            <Input value="{ParentItemModel>InspectionQty}" width="30%" type="Number" liveChange="onLiveChangeInspectionQty" enabled="false" />
                                             <Text text="{ParentItemModel>UoM}"/>
                                         </cells>
                                     </ColumnListItem>
@@ -94,14 +93,11 @@
                         <uxap:blocks>
                             <VBox>
                                 <Label text="Inspection Date" required="true"/>
-                                <DatePicker id="idDpInspectionDate" width="20%" value="{localAttachmentModel>/InspectionDate}" 
-                                    valueFormat="yyyy-MM-dd" change="onLiveChangeDate"
-                                     placeholder="MM/DD/YYYY"/>
+                                <DatePicker id="idDpInspectionDate" width="20%" value="{localAttachmentModel>/InspectionDate}" valueFormat="yyyy-MM-dd" change="onLiveChangeDate" placeholder="MM/DD/YYYY"/>
                                 <Title text="{i18n>additionalDetails}"/>
                                 <Label text="Comments" required="true"/>
-                                <TextArea id="idTxtComment" width="100%" value="{localAttachmentModel>/Comment}" 
-                                    liveChange="onLiveChangeComment"/>
-                                
+                                <TextArea id="idTxtComment" width="100%" value="{localAttachmentModel>/Comment}" liveChange="onLiveChangeComment"/>
+
                             </VBox>
                         </uxap:blocks>
                     </uxap:ObjectPageSubSection>
@@ -112,21 +108,20 @@
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection title="{i18n>attachments}">
                         <uxap:blocks>
-                            <UploadCollection multiple="true" fileSizeExceed="onFileSizeExceed" 
-                                typeMissmatch="onTypeMissmatch" uploadComplete="onUploadComplete" 
-                                beforeUploadStarts="onBeforeUploadStarts" 
-                                items="{
+
+                            <VBox >
+
+                         <Text text="*" class="redColor" />
+                                <UploadCollection class="uploadClasstest" multiple="true" fileSizeExceed="onFileSizeExceed" typeMissmatch="onTypeMissmatch" uploadComplete="onUploadComplete" beforeUploadStarts="onBeforeUploadStarts" items="{
                                     path:'localAttachmentModel>/items',
-                                    templateShareable: false}" mode="None" 
-                                    selectionChange="onAttachmentChange" instantUpload="false" 
-                                    change="onAttachmentChange" fileDeleted="onFileDeleted">
-                                <items>
-                                    <UploadCollectionItem url="{parts: ['localAttachmentModel>/FileName','localAttachmentModel>/Content']}" 
-                                    enableEdit="false" enableDelete="false" visibleDelete="false" visibleEdit="false" 
-                                    fileName="{localAttachmentModel>FileName}" deletePress="onDeleteDocumentPress">
-                                    </UploadCollectionItem>
-                                </items>
-                            </UploadCollection>
+                                    templateShareable: false}" mode="None" selectionChange="onAttachmentChange" instantUpload="false" change="onAttachmentChange" fileDeleted="onFileDeleted">
+                                    <items>
+                                        <UploadCollectionItem url="{parts: ['localAttachmentModel>/FileName','localAttachmentModel>/Content']}" enableEdit="false" enableDelete="false" visibleDelete="false" visibleEdit="false" fileName="{localAttachmentModel>FileName}" deletePress="onDeleteDocumentPress">
+                                        </UploadCollectionItem>
+                                    </items>
+                                </UploadCollection>
+                            </VBox>
+
                         </uxap:blocks>
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>

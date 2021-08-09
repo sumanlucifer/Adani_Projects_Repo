@@ -6,4 +6,10 @@ package-lock.json
 /dist/
 
 # auto generated wildcard
+<<<<<<< HEAD
 vendor-packinglist-create/.env1
+=======
+agel-mmts-web/security-scanqr/.env4
+# auto generated wildcard
+sapui5/vendor-packinglist-create/.env1
+>>>>>>> develop
