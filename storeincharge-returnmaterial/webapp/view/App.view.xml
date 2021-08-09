@@ -1,5 +1,5 @@
 <mvc:View
-    controllerName="com.agel.mmts.unloadmaterial.controller.App"
+    controllerName="com.agel.mmts.storeinchargereturnmaterial.controller.App"
     xmlns:mvc="sap.ui.core.mvc"
     displayBlock="true"
     xmlns="sap.m"

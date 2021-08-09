@@ -1,7 +1,7 @@
 {
     "_version": "1.32.0",
     "sap.app": {
-        "id": "com.agel.mmts.unloadmaterial",
+        "id": "com.agel.mmts.storeinchargereturnmaterial",
         "type": "application",
         "i18n": "i18n/i18n.properties",
         "applicationVersion": {
@@ -27,22 +27,21 @@
         },
         "crossNavigation": {
             "inbounds": {
-                "com-agel-mmts-unloadmaterial-inbound": {
+                "com-agel-mmts-storeinchargereturnmaterial-inbound": {
                     "signature": {
                         "parameters": {},
                         "additionalParameters": "allowed"
                     },
                     "semanticObject": "QuickAccess",
-                    "action": "unload",
-                    "title": "Unload Material",
+                    "action": "return",
+                    "title": "Return Material",
                     "subTitle": "",
-                    "icon": "sap-icon://cart-2"
+                    "icon": "sap-icon://response"
                 }
             }
         }
     },
     "sap.ui": {
-        "fullWidth": true,
         "technology": "UI5",
         "icons": {
             "icon": "sap-icon://task",
@@ -61,7 +60,7 @@
     "sap.ui5": {
         "flexEnabled": false,
         "rootView": {
-            "viewName": "com.agel.mmts.unloadmaterial.view.App",
+            "viewName": "com.agel.mmts.storeinchargereturnmaterial.view.App",
             "type": "XML",
             "async": true,
             "id": "App"
@@ -82,7 +81,7 @@
             "i18n": {
                 "type": "sap.ui.model.resource.ResourceModel",
                 "settings": {
-                    "bundleName": "com.agel.mmts.unloadmaterial.i18n.i18n"
+                    "bundleName": "com.agel.mmts.storeinchargereturnmaterial.i18n.i18n"
                 }
             },
             "": {
@@ -110,7 +109,7 @@
                 "routerClass": "sap.m.routing.Router",
                 "viewType": "XML",
                 "async": true,
-                "viewPath": "com.agel.mmts.unloadmaterial.view",
+                "viewPath": "com.agel.mmts.storeinchargereturnmaterial.view",
                 "controlAggregation": "pages",
                 "controlId": "app",
                 "clearControlAggregation": false,
@@ -127,27 +126,6 @@
                     "target": [
                         "TargetApp"
                     ]
-                },
-                {
-                    "name": "RouteNewConsignment",
-                    "pattern": "NewConsignment",
-                    "target": [
-                        "TargetNewConsignment"
-                    ]
-                },
-                {
-                    "name": "RouteDetailsPage",
-                    "pattern": "PackingListDetail/{RequestId}",
-                    "target": [
-                        "TargetDetailsPage"
-                    ]
-                },                
-                {
-                    "name": "RouteUnloadMaterial",
-                    "pattern": "UnloadMaterial/{RequestId}",
-                    "target": [
-                        "TargetUnloadPage"
-                    ]
                 }
             ],
             "targets": {
@@ -157,27 +135,6 @@
                     "clearControlAggregation": false,
                     "viewId": "",
                     "viewName": "LandingPage"
-                },
-                "TargetNewConsignment": {
-                    "viewType": "XML",
-                    "transition": "slide",
-                    "clearControlAggregation": false,
-                    "viewName": "ScanQrCode",
-                    "viewLevel": 2
-                },
-                "TargetDetailsPage": {
-                    "viewType": "XML",
-                    "transition": "slide",
-                    "clearControlAggregation": false,
-                    "viewName": "PackingListDetails",
-                    "viewLevel": 3
-                },
-                "TargetUnloadPage": {
-                    "viewType": "XML",
-                    "transition": "slide",
-                    "clearControlAggregation": false,
-                    "viewName": "UnloadMaterial",
-                    "viewLevel": 4
                 },
                 "notFound": {
                     "viewName": "NotFound"

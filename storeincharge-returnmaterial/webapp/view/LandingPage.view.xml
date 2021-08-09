@@ -1,0 +1,86 @@
+<mvc:View controllerName="com.agel.mmts.storeinchargereturnmaterial.controller.LandingPage"
+ height="100%"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:fb="sap.ui.comp.filterbar"
+    xmlns:smartTable="sap.ui.comp.smarttable">
+    <f:DynamicPage headerExpanded="true" busy="{objectViewModel>/busy}">
+        <!-- DynamicPage Title -->
+        <f:title>
+            <f:DynamicPageTitle>
+                <f:heading>
+                    <Title id="pageTitle" text="Return Requests"/>
+                </f:heading>
+                <f:actions>
+                </f:actions>
+            </f:DynamicPageTitle>
+        </f:title>
+        <!-- DynamicPage Header -->
+        <f:header>
+            <f:DynamicPageHeader pinnable="true">
+                <f:content>
+                </f:content>
+            </f:DynamicPageHeader>
+        </f:header>
+        <!-- DynamicPage Content -->
+        <f:content>
+            <smartTable:SmartTable class="sapUiResponsiveContentPadding" id="idReturnMaterialTable" editable="false" placeToolbarInTable="true" 
+            enableAutoBinding="true" entitySet="ReturnMaterialRequestSet"  showFullScreenButton="true" showRowCount="true" tableType="ResponsiveTable" 
+            demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" header="List of Return Materials"
+            ignoreFromPersonalisation="">
+                <Table sticky="ColumnHeaders,HeaderToolbar" alternateRowColors="true" growing="true" growingThreshold="5">
+                    <columns>
+                        <Column >
+                            <customData>
+                                <core:CustomData key="p13nData" value='\{"columnKey": "SONumber", "leadingProperty": "SONumberDetails/SONumber",
+                                                        "columnIndex": 0 ,"sortProperty": "SONumberDetails/SONumber", "filterProperty": "SONumberDetails/SONumber"}'/>
+                            </customData>
+                            <Text text="{i18n>SONumber}"/>
+                        </Column>
+
+                        <Column demandPopin="true" minScreenWidth="Desktop">
+                            <customData>
+                                <core:CustomData key="p13nData" value='\{"columnKey": "CreatedBy", "leadingProperty": "CreatedBy",
+                                        "columnIndex": 1,"sortProperty": "CreatedBy", "filterProperty": "CreatedBy"}'/>
+                            </customData>
+                            <Text text="{i18n>EnggInCharge}"/>
+                        </Column>
+
+                        <Column demandPopin="true" minScreenWidth="Tablet">
+                            <customData>
+                                <core:CustomData key="p13nData" value='\{"columnKey": "RequestDate", "leadingProperty": "RequestDate",
+                                        "columnIndex": 2, "sortProperty": "RequestDate", "filterProperty": "RequestDate"}'/>
+                            </customData>
+                            <Text text="{i18n>RequestDate}"/>
+                        </Column>
+
+                        <Column demandPopin="true" minScreenWidth="Desktop">
+                            <customData>
+                                <core:CustomData key="p13nData" value='\{"columnKey": "Status", "leadingProperty": "Status",
+                                                        "columnIndex": 4, "filterProperty": "Status" }'/>
+                            </customData>
+                            <Text text="{i18n>Status}"/>
+                        </Column>
+                    </columns>
+                    <items>
+                        <ColumnListItem type="Navigation" press="onReturnMaterialSelect"> 
+                            <cells>
+                                <Text text="{SONumber}" binding="{SONumberDetails}"/>
+                                <Text text="{CreatedBy}"/>
+                                <Text text="{path:'RequestDate',
+                                            type: 'sap.ui.model.type.Date',
+                                            formatOptions: {
+                                                pattern: 'MMMM dd, yyyy'
+                                            }
+                                }"/>
+                                <Text text="{Status}"/>
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
+            </smartTable:SmartTable>    
+        </f:content>
+    </f:DynamicPage>
+</mvc:View>

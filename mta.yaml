@@ -116,6 +116,10 @@ modules:
       name: storeincharge-issuematerial
       target-path: resources/
     - artifacts:
+      - storeincharge-returnmaterial.zip
+      name: storeincharge-returnmaterial
+      target-path: resources/
+    - artifacts:
       - comagelmmtsvendorpackinglistcreate-content.zip
       name: packingListCreate
       target-path: resources/
@@ -329,6 +333,14 @@ modules:
     commands:
     - npm run build
     supported-platforms: []
+- name: storeincharge-returnmaterial
+  type: html5
+  path: storeincharge-returnmaterial
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []
 - name: storeincharge-approvals
   type: html5
   path: storeincharge-approvals
@@ -340,14 +352,6 @@ modules:
 - name: comagelmmtsadminposummary
   type: html5
   path: admin-po_summary
-  build-parameters:
-    builder: custom
-    commands:
-    - npm run build
-    supported-platforms: []
-- name: comagelmmtsraisereturnmaterial
-  type: html5
-  path: raise-returnmaterial
   build-parameters:
     builder: custom
     commands:
