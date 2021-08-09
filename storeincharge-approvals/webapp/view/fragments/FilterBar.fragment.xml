@@ -15,16 +15,23 @@
                 </fb:control>
             </fb:FilterGroupItem>
 
-            <fb:FilterGroupItem groupName="__$INTERNAL$" name="vendor" label="{i18n>vendor}" visibleInFilterBar="true" class="searchFieldLabelHidden" >
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="paclinglistname" label="{i18n>packinglistname}" visibleInFilterBar="true" class="searchFieldLabelHidden" >
                 <fb:control>
-                    <Input id="idInpVen" placeholder="{i18n>EnterVen}" showSuggestion="true" showValueHelp="false">
+                    <Input id="idInpPackingList" placeholder="{i18n>EnterPLN}" showSuggestion="true" showValueHelp="false" liveChange="onFilterChange">
+                    </Input>
+                </fb:control>
+            </fb:FilterGroupItem>
+
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="vendor" label="{i18n>vendor}" visibleInFilterBar="true" class="searchFieldLabelHidden">
+                <fb:control>
+                    <Input id="idInpVen" placeholder="{i18n>EnterVen}" showSuggestion="true" showValueHelp="false"  liveChange="onFilterChange">
                     </Input>
                 </fb:control>
             </fb:FilterGroupItem>
             
             <fb:FilterGroupItem groupName="__$INTERNAL$" name="po_release_date" label="{i18n>date}" visibleInFilterBar="true" class="searchFieldLabelHidden">
                 <fb:control>
-                    <DateRangeSelection id="dateRangeSelectionId" displayFormat="dd/MM/yyyy" change="onDateRangeSelectionChange"/>
+                    <DateRangeSelection id="dateRangeSelectionId" displayFormat="dd/MM/yyyy" change="onDateRangeSelectionChange" liveChange="onFilterChange"/>
                 </fb:control>
             </fb:FilterGroupItem>
             

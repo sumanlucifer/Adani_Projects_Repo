@@ -1,0 +1,28 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:core="sap.ui.core" >
+    <Dialog class="testTitle">
+        <content>
+            <VBox class="sapUiResponsiveMargin">
+                <HBox alignItems="Center">
+                    <Input id="idInputQRCode" value="{= ${oViewHandlingModel>/unloadQrCode} ? ${oViewHandlingModel>/unloadQrCode} : '' }" 
+                    width="100%" showSuggestion="true" showValueHelp="false" suggestionItems="{/QRCodeSet}" placeholder="Enter QR Number" 
+                    valueLiveUpdate="true" suggestionItemSelected="onQRCodeSuggestionSelected" liveChange="_filterQrSuggestion" class="sapUiSmallMargin">
+                        <suggestionItems>
+                            <core:Item text="{QRNumber}" key="{QRNumber}" />
+                        </suggestionItems>
+                    </Input>
+                    <Button id="idQRBtn" text="{i18n>submit}" type="Emphasized" press="onPressSubmitQRCode" class="sapUiSmallMargin" enabled="{= ${oViewHandlingModel>/unloadQrCode} ? true : false}"/>
+                </HBox>
+                <HBox alignItems="Center">
+                    <Text text="{i18n>or}" class="sapUiSmallMarginBegin"/>
+                </HBox>
+                <HBox alignItems="Center">
+                    <Button id="idQRSubmit" text="{i18n>scanQrCode}" type="Emphasized" press="onPressScanQRCode" class="sapUiSmallMargin" enabled="{= ${oViewHandlingModel>/unloadQrCode} ? false : true}"/>
+                </HBox>
+            </VBox>
+        </content>
+        <endButton>
+            <Button text="{i18n>close}" press="onQRCodeScanDialogClosePress" type="Emphasized"/>
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

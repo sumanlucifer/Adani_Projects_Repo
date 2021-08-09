@@ -24,12 +24,19 @@ sap.ui.define([
 
             onInit: function () {
                 jquery.sap.addUrlWhitelist("blob");
+
+                this.getView().addEventDelegate({
+                    onAfterShow: this.onViewLoaded,
+
+                }, this);
+
                 //view model instatiation
                 var oViewModel = new JSONModel({
                     busy: true,
                     delay: 0
                 });
                 this.setModel(oViewModel, "objectViewModel");
+                // this.isCreated = false;
 
                 var oViewHandlingModel = new JSONModel({
                     "EnterVehicleNo": null,
@@ -49,10 +56,18 @@ sap.ui.define([
                 //Router Object
                 this.oRouter = this.getRouter();
                 this.oRouter.getRoute("QRCodeDetailsPage").attachPatternMatched(this._onObjectMatched, this);
+
+            },
+
+            onViewLoaded: function (evt) {
+                this.onSaveScanQrCode();
             },
 
             // On Object Matched 
             _onObjectMatched: function (oEvent) {
+                var that = this;
+                // debugger;
+
                 if (oEvent.getParameters().arguments.Type === "QR") {
                     this.qrCodeID = oEvent.getParameters().arguments.QRNo;
                     this._bindView("/QRCodeSet(" + this.qrCodeID + ")/PackingList");
@@ -68,7 +83,6 @@ sap.ui.define([
             _bindView: function (sObjectPath) {
                 var that = this;
                 var objectViewModel = this.getViewModel("objectViewModel");
-
                 this.getView().bindElement({
                     path: sObjectPath,
                     events: {
@@ -76,8 +90,9 @@ sap.ui.define([
                             objectViewModel.setProperty("/busy", true);
                         },
                         dataReceived: function () {
+                            // if(!that.isCreated)
                             objectViewModel.setProperty("/busy", false);
-                            that.onSaveScanQrCode();
+                            // that.onSaveScanQrCode();
                         }
                     }
                 });
@@ -85,6 +100,7 @@ sap.ui.define([
 
             onSaveScanQrCode: function () {
                 var that = this;
+                // debugger;
                 if (this.getView().getBindingContext().getObject().ID.length) {
                     var PackingListId = this.getView().getBindingContext().getObject().ID;
                     var PONumber = this.getView().getBindingContext().getObject().PONumber;
@@ -125,29 +141,8 @@ sap.ui.define([
                 }
             },
 
-            // On Approve Press Vehicle Number
-            // onPressApproveVehicleNumber: function () {
-            //     this.byId("idHboxReEnterVehicleNo").setVisible(false);
-            // },
-
-            // On Reject Press Vehicle Number
-            // onPressRejectVehicleNumber: function () {
-            //     this.byId("idHboxReEnterVehicleNo").setVisible(true);             
-            // },
-
             // On Submit Press - 
             onVehicleNumberSubmit: function (oEvent) {
-
-                // validationforblankVehicleNumber
-
-                // var obj = oEvent.getSource().getBindingContext().getObject();
-                // if(!obj.VehicleNumber){
-                //     var vechno = this.byId("idReEnterInputVehcileNoNew").getValue();
-                //     if (vechno == "") {
-                //         sap.m.MessageBox.error("Please enter Vehicle Number");
-                //         return;
-                //     }
-                // }
 
                 var that = this;
                 var obj = oEvent.getSource().getBindingContext().getObject();
@@ -172,8 +167,9 @@ sap.ui.define([
                 };
 
                 this.MainModel.create("/VehicleNumberUpdateSet", oPayload, {
-                    success: function (oData, oResponse) {
-                        this.MainModel.refresh();
+
+                    success: function (oData, oResponse) {   
+                        this.MainModel.refresh();      
                         MessageBox.success("Vehicle Number Submitted successfully");
                         this.getViewModel("oViewHandlingModel").setProperty("/wantChange", false);
                         this.getViewModel("oViewHandlingModel").setProperty("/closeButton", true);
@@ -184,6 +180,7 @@ sap.ui.define([
                         MessageBox.error(JSON.stringify(oError));
                     }.bind(this)
                 });
+                // this.MainModel.refresh();
                 this.getViewModel("oViewHandlingModel").setProperty("/ReEnterVehicleNo", null);
             },
 

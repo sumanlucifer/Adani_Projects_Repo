@@ -78,19 +78,19 @@ sap.ui.define([
                 }
 
                 if ( flag == 1){
-                    sap.m.MessageBox.error("Please fill PO Number");
+                    sap.m.MessageBox.error("Please fill mandatory fields");
                     return 0;
                 }
                 else if ( flag == 2){
-                    sap.m.MessageBox.error("Please fill Container Number");
+                    sap.m.MessageBox.error("Please fill mandatory fields");
                     return 0;
                 }
                 else if ( flag == 3){
-                    sap.m.MessageBox.error("Please fill Vehicle Number");
+                    sap.m.MessageBox.error("Please fill mandatory fields");
                     return 0;
                 }
                 else if ( flag == 4){
-                    sap.m.MessageBox.error("Please fill Invoice Number");
+                    sap.m.MessageBox.error("Please fill mandatory fields");
                     return 0;
                 }
 

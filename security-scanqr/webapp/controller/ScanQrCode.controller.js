@@ -234,7 +234,7 @@ sap.ui.define([
                     },
 
                     success: function (oData, oResponse) {
-                        debugger;
+                        // debugger;
                         if (oData.results.length) {
                             var qrCodeId = oData.results[0].QRCodeId.results;
                             for (var i = 0; i < qrCodeId.length; i++) {

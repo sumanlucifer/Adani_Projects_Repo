@@ -1,0 +1,34 @@
+<mvc:View controllerName="com.agel.mmts.storeinchargeissuematerial.controller.IssueMaterial" height="100%"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+    xmlns:f="sap.f">
+    <f:DynamicPage headerExpanded="true" busy="{objectViewModel>/busy}">
+        <!-- DynamicPage Title -->
+        <f:title>
+            <f:DynamicPageTitle>
+                <f:heading>
+                    <Title id="pageTitle" text="{i18n>PageTitle}"/>
+                </f:heading>
+                <f:actions>
+                   <!-- <Button text="Raise Return Material Request" press="onConfirmRequest" type="Emphasized"/> -->
+                </f:actions>
+            </f:DynamicPageTitle>
+        </f:title>
+        <!-- DynamicPage Header -->
+        <f:header>
+            <f:DynamicPageHeader pinnable="true">
+                <f:content>
+                    <HBox alignContent="SpaceAround">
+                        <SearchField id="idSoNumber" width="90%" search="onSearch" ></SearchField>
+                        <Button text="Submit" press="onSearch" type="Emphasized"/>
+                    </HBox>
+                </f:content>              
+            </f:DynamicPageHeader>
+        </f:header>
+        <!-- DynamicPage Content -->
+        <f:content>
+            <!-- <core:Fragment fragmentName="com.agel.mmts.returnmaterial.view.fragments.RequestTable" type="XML"/> -->
+        </f:content>
+    </f:DynamicPage>
+</mvc:View>
