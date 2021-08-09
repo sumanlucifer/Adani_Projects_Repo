@@ -127,6 +127,10 @@
 					"id": "com.agel.mmts.adminposummary-5-1627278970509",
 					"appId": "com.agel.mmts.adminposummary",
 					"vizId": "PO_Summary-Display"
+				}, {
+					"id": "com.agel.mmts.reportspurchaseorder-6-1628188397943",
+					"appId": "com.agel.mmts.reportspurchaseorder",
+					"vizId": "PurchaseOrderReports-Display"
 				}]
 			}
 		}, {

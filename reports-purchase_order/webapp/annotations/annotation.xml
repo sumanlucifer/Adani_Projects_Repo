@@ -1,0 +1,438 @@
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Capabilities.V1.xml">
+        <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
+        <edmx:Include Namespace="com.sap.vocabularies.UI.v1" Alias="UI"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Communication.xml">
+        <edmx:Include Namespace="com.sap.vocabularies.Communication.v1" Alias="Communication"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/api/v2/odata.svc/$metadata">
+        <edmx:Include Namespace="com.agel.mmts.entity"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="com.agel.mmts">
+
+            <!-- For Restrictions -->
+            <Annotations Target="com.agel.mmts.entity.DefaultContainer/PurchaseOrderSet">
+                <Annotation Term="Capabilities.SearchRestrictions">
+                    <Record Type="Capabilities.SearchRestrictionsType">
+                        <PropertyValue Property="Searchable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record Type="Capabilities.InsertRestrictionsType">
+                        <PropertyValue Property="Insertable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue Property="Deletable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.UpdateRestrictions">
+                    <Record Type="Capabilities.UpdateRestrictionsType">
+                        <PropertyValue Property="Updatable" Bool="false"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+
+            <!-- For Common Labels -->
+            <Annotations Target="com.agel.mmts.entity.PurchaseOrderModel/PONumber">
+                <Annotation Term="Common.Label" String="{@i18n>poNumber}"/>
+            </Annotations>
+            <Annotations Target="com.agel.mmts.entity.PurchaseOrderModel/POReleaseDate">
+                <Annotation Term="Common.Label" String="{@i18n>releasedAt}"/>
+            </Annotations>
+            <Annotations Target="com.agel.mmts.entity.PurchaseOrderModel/CreatedAt">
+                <Annotation Term="Common.Label" String="{@i18n>createdAt}"/>
+            </Annotations>
+            <Annotations Target="com.agel.mmts.entity.PurchaseOrderModel/ConfirmedDate">
+                <Annotation Term="Common.Label" String="{@i18n>confirmedAt}"/>
+            </Annotations>
+            <Annotations Target="com.agel.mmts.entity.VendorModel/Name">
+                <Annotation Term="Common.Label" String="{@i18n>vendorName}"/>
+                <Annotation Term="Common.ValueList">
+                    <Record Type="Common.ValueListType">
+                        <PropertyValue Property="CollectionPath" String="VendorSet"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="Name"/>
+                                    <PropertyValue Property="ValueListProperty" String="Name"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.ValueListWithFixedValues"/>
+            </Annotations>
+            <Annotations Target="com.agel.mmts.entity.VendorModel/VendorCode">
+                <Annotation Term="Common.Label" String="{@i18n>vendorCode}"/>
+                <Annotation Term="Common.ValueList">
+                    <Record Type="Common.ValueListType">
+                        <PropertyValue Property="CollectionPath" String="VendorSet"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="VendorCode"/>
+                                    <PropertyValue Property="ValueListProperty" String="VendorCode"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.ValueListWithFixedValues"/>
+            </Annotations>
+            <Annotations Target="com.agel.mmts.entity.PurchaseOrderModel/PlantCode">
+                <Annotation Term="Common.Label" String="{@i18n>plantCode}"/>
+            </Annotations>
+            <Annotations Target="com.agel.mmts.entity.BuyerModel/BuyerCode">
+                <Annotation Term="Common.Label" String="{@i18n>buyerCode}"/>
+                <Annotation Term="Common.ValueList">
+                    <Record Type="Common.ValueListType">
+                        <PropertyValue Property="CollectionPath" String="BuyerSet"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="BuyerCode"/>
+                                    <PropertyValue Property="ValueListProperty" String="BuyerCode"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.ValueListWithFixedValues"/>
+            </Annotations>
+            <Annotations Target="com.agel.mmts.entity.BuyerModel/ContactPerson">
+                <Annotation Term="Common.Label" String="{@i18n>buyerContactPerson}"/>
+                <Annotation Term="Common.ValueList">
+                    <Record Type="Common.ValueListType">
+                        <PropertyValue Property="CollectionPath" String="BuyerSet"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="ContactPerson"/>
+                                    <PropertyValue Property="ValueListProperty" String="ContactPerson"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.ValueListWithFixedValues"/>
+            </Annotations>
+            <Annotations Target="com.agel.mmts.entity.BuyerModel/CompanyCode">
+                <Annotation Term="Common.Label" String="{@i18n>companyCode}"/>
+                <Annotation Term="Common.ValueList">
+                    <Record Type="Common.ValueListType">
+                        <PropertyValue Property="CollectionPath" String="BuyerSet"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="CompanyCode"/>
+                                    <PropertyValue Property="ValueListProperty" String="CompanyCode"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Common.ValueListWithFixedValues"/>
+            </Annotations>
+            <Annotations Target="com.agel.mmts.entity.ParentLineItemModel/Name">
+                <Annotation Term="Common.Label" String="{@i18n>materialName}"/>
+            </Annotations>
+            <Annotations Target="com.agel.mmts.entity.ParentLineItemModel/MaterialCode">
+                <Annotation Term="Common.Label" String="{@i18n>materialCode}"/>
+            </Annotations>
+            <Annotations Target="com.agel.mmts.entity.PurchaseOrderModel/Status">
+            <Annotation Term="Common.ValueList">
+                <Record Type="Common.ValueListType">
+                    <PropertyValue Property="CollectionPath" String="PurchaseOrderSet"/>
+                    <PropertyValue Property="Parameters">
+                        <Collection>
+                         <Record Type="Common.ValueListParameterInOut">
+                             <PropertyValue Property="LocalDataProperty" PropertyPath="Status"/>
+                             <PropertyValue Property="ValueListProperty" String="Status"/>
+                             <PropertyValue Property="InitialValueIsSignificant" Bool="false"/>
+                         </Record>
+                        </Collection>
+                    </PropertyValue>
+                </Record>
+            </Annotation>
+                <Annotation Term="Common.ValueListWithFixedValues"/>
+            </Annotations>
+
+
+            <!-- For List Page -->
+            <Annotations Target="com.agel.mmts.entity.PurchaseOrderModel">
+                <!-- For List Page Filters -->
+                <Annotation Term="UI.SelectionFields">
+                    <Collection>
+                        <PropertyPath>PONumber</PropertyPath>
+                        <PropertyPath>CreatedAt</PropertyPath>
+                        <PropertyPath>POReleaseDate</PropertyPath>
+                        <PropertyPath>ConfirmedDate</PropertyPath>
+                        <PropertyPath>PlantCode</PropertyPath>
+                        <PropertyPath>Buyer/CompanyCode</PropertyPath>
+                        <PropertyPath>Vendor/Name</PropertyPath>
+                        <PropertyPath>Vendor/VendorCode</PropertyPath>
+                        <PropertyPath>Buyer/ContactPerson</PropertyPath>
+                        <PropertyPath>Buyer/BuyerCode</PropertyPath>
+                        <PropertyPath>ParentLineItems/Name</PropertyPath>
+                        <PropertyPath>ParentLineItems/MaterialCode</PropertyPath>
+                        <PropertyPath>Status</PropertyPath>
+                    </Collection>
+                </Annotation>
+
+                <!-- For List Items Object Attribute -->
+                <Annotation Term="Common.SemanticKey">
+                    <Collection>
+                        <PropertyPath>PONumber</PropertyPath>
+                    </Collection>
+                </Annotation>
+
+                <Annotation Term="UI.HeaderInfo">
+                    <Record Type="UI.HeaderInfoType">
+                        <PropertyValue Property="TypeName" String="{@i18n>purchaseOrder}"/>
+                        <PropertyValue Property="TypeNamePlural" String="{@i18n>purchaseOrders}"/>
+                        <PropertyValue Property="Title">
+                            <Record Type="UI.DataField">
+                                <PropertyValue Property="Value" Path="PONumber"/>
+                                <PropertyValue Property="Label" String="{@i18n>purchaseOrder}"/>
+                                <PropertyValue Property="IconUrl" String="sap-icon://customer-order-entry"/>
+                            </Record>
+                            <Annotation Term="Common.Heading" String="{@i18n>purchaseOrder}"/>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+
+                <!-- For Displaying the List -->
+                <Annotation Term="UI.LineItem">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="PONumber"/>
+                            <PropertyValue Property="Label" String="{@i18n>poNumber}"/>
+                        </Record>
+
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="CreatedAt"/>
+                            <PropertyValue Property="Label" String="{@i18n>createdAt}"/>
+                        </Record>
+
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="POReleaseDate"/>
+                            <PropertyValue Property="Label" String="{@i18n>releasedAt}"/>
+                        </Record>
+
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="ConfirmedDate"/>
+                            <PropertyValue Property="Label" String="{@i18n>confirmedAt}"/>
+                        </Record>
+
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="PlantCode"/>
+                            <PropertyValue Property="Label" String="{@i18n>plantCode}"/>
+                        </Record>
+
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="Buyer/CompanyCode"/>
+                            <PropertyValue Property="Label" String="{@i18n>companyCode}"/>
+                        </Record>
+
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="Vendor/Name"/>
+                            <PropertyValue Property="Label" String="{@i18n>vendorName}"/>
+                        </Record>
+
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="Vendor/VendorCode"/>
+                            <PropertyValue Property="Label" String="{@i18n>vendorCode}"/>
+                        </Record>
+
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="Buyer/ContactPerson"/>
+                            <PropertyValue Property="Label" String="{@i18n>buyerContactPerson}"/>
+                        </Record>
+
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="Buyer/BuyerCode"/>
+                            <PropertyValue Property="Label" String="{@i18n>buyerCode}"/>
+                        </Record>
+
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="Status"/>
+                            <PropertyValue Property="Label" String="{@i18n>status}"/>
+                            <PropertyValue Property="Criticality" EnumMember="UI.CriticalityType/Neutral"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+
+                <!-- Object Page Facets -->
+                <Annotation Term="UI.Facets">
+                    <Collection>
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="Label" String="{@i18n>vendorDetails}"/>
+                            <PropertyValue Property="Target" AnnotationPath="Vendor/@UI.FieldGroup"/>
+                        </Record>
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="Label" String="{@i18n>buyerDetails}"/>
+                            <PropertyValue Property="Target" AnnotationPath="Buyer/@UI.FieldGroup"/>
+                        </Record>
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="Label" String="{@i18n>lineItems}"/>
+                            <PropertyValue Property="Target" AnnotationPath="ParentLineItems/@UI.LineItem#ParentLineItems"/>
+                        </Record>
+
+                    </Collection>
+                </Annotation>
+
+                <Annotation Term="UI.DataPoint" Qualifier="contractorNameDataPoint">
+                    <Record Type="UI.DataPointType">
+                        <PropertyValue Property="Title" String="{@i18n>createdAt}"/>
+                        <PropertyValue Property="Value" Path="CreatedAt"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.DataPoint">
+                    <Record Type="UI.DataPointType">
+                        <PropertyValue Property="Title" String="{@i18n>status}"/>
+                        <PropertyValue Property="Value" Path="Status"/>
+                        <PropertyValue Property="Description" String="{@i18n>status}"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+
+
+            <Annotations Target="com.agel.mmts.entity.DefaultContainer/ParentLineItemSet">
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue Property="Deletable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.SearchRestrictions">
+                    <Record Type="Capabilities.SearchRestrictionsType">
+                        <PropertyValue Property="Searchable" Bool="false"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+
+            <!-- For Object Page -->
+            <Annotations Target="com.agel.mmts.entity.ParentLineItemModel">
+
+                <Annotation Term="Common.SemanticKey">
+                    <Collection>
+                        <PropertyPath>MaterialCode</PropertyPath>
+                    </Collection>
+                </Annotation>
+
+                <!-- Object Page Parent Item Table -->
+                <Annotation Term="UI.LineItem" Qualifier="ParentLineItems">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="LineNumber"/>
+                            <PropertyValue Property="Label" String="{@i18n>lineNumber}"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="MaterialCode"/>
+                            <PropertyValue Property="Label" String="{@i18n>materialCode}"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="Name"/>
+                            <PropertyValue Property="Label" String="{@i18n>materialName}"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="Quantity"/>
+                            <PropertyValue Property="Label" String="{@i18n>quantity}"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="UoM"/>
+                            <PropertyValue Property="Label" String="{@i18n>uom}"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="Price"/>
+                            <PropertyValue Property="CriticalityRepresentation"/>
+                            <PropertyValue Property="Label" String="{@i18n>netPrice}"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="Value"/>
+                            <PropertyValue Property="Label" String="{@i18n>netValue}"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="HSNCode"/>
+                            <PropertyValue Property="Label" String="{@i18n>hsnCode}"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="StorageLocation"/>
+                            <PropertyValue Property="Label" String="{@i18n>storageLocation}"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="TaxCode"/>
+                            <PropertyValue Property="Label" String="{@i18n>taxCode}"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="TaxIndicator"/>
+                            <PropertyValue Property="Label" String="{@i18n>taxIndicator}"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+
+            <Annotations Target="com.agel.mmts.entity.VendorModel">
+                <Annotation Term="UI.FieldGroup">
+                    <Record Type="UI.FieldGroupType">
+                        <PropertyValue Property="Data">
+                            <Collection>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="Name"/>
+                                    <PropertyValue Property="Label" String="{@i18n>vendorName}"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="VendorCode"/>
+                                    <PropertyValue Property="Label" String="{@i18n>vendorCode}"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="Email"/>
+                                    <PropertyValue Property="Label" String="{@i18n>email}"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="Phone"/>
+                                    <PropertyValue Property="Label" String="{@i18n>phoneNumber}"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+
+            <Annotations Target="com.agel.mmts.entity.BuyerModel">
+                <Annotation Term="UI.FieldGroup">
+                    <Record Type="UI.FieldGroupType">
+                        <PropertyValue Property="Data">
+                            <Collection>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="ContactPerson"/>
+                                    <PropertyValue Property="Label" String="{@i18n>buyerContactPerson}"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="BuyerCode"/>
+                                    <PropertyValue Property="Label" String="{@i18n>buyerCode}"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="Email"/>
+                                    <PropertyValue Property="Label" String="{@i18n>email}"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="Phone"/>
+                                    <PropertyValue Property="Label" String="{@i18n>phoneNumber}"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

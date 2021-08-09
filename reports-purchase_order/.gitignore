@@ -1,0 +1,36 @@
+node_modules/
+dist/
+.scp/
+.env
+Makefile*.mta
+mta_archives
+mta-*
+resources
+archive.zip
+<<<<<<< HEAD:reports-po/.gitignore
+.*_mta_build_tmp
+# auto generated wildcard
+agel-mmts-web/security-scanqr/.env4
+# auto generated wildcard
+security-scanqr/.env8
+# auto generated wildcard
+storeincharge-issuematerial/.env5
+# auto generated wildcard
+storeincharge-issuematerial/.env6
+# auto generated wildcard
+storeincharge-raisedpo/.env7
+# auto generated wildcard
+tcengineer/.env6
+# auto generated wildcard
+storeincharge-approvals/.env3
+# auto generated wildcard
+security-scanqr/.env10
+# auto generated wildcard
+security-international-import/.env4
+# auto generated wildcard
+storeincharge-scanqr/.env5
+# auto generated wildcard
+security-scan-history/.env7
+=======
+.*_mta_build_tmp
+>>>>>>> develop:reports-purchase_order/.gitignore
