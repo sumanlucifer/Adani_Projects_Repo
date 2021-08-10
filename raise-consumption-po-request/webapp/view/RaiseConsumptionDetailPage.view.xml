@@ -11,15 +11,6 @@
     xmlns="sap.m" controllerName="com.agel.mmts.raiseconsumptionporequest.controller.RaiseConsumptionDetailPage" height="100%">
 
 
-
-
-
-
-
-
-
-
-
     <uxap:ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true" upperCaseAnchorBar="false" headerContentPinnable="true" toggleHeaderOnTitleClick="true" busy="{objectViewModel>/busy}">
         <uxap:headerTitle>
             <uxap:ObjectPageDynamicHeaderTitle>
@@ -101,7 +92,7 @@
                         <smartTable:SmartTable id="smartTreeTable" entitySet="SONumberDetailsSet" tableType="TreeTable" useExportToExcel="false" useVariantManagement="false" useTablePersonalisation="true" placeToolbarInTable="true" showRowCount="true" enableAutoBinding="true" enableAutoColumnWidth="true" useGroupMode="true" beforeRebindTable="onBeforeRebindTreeTable">
 
 
-                            <tt:TreeTable id="treeTable" selectionMode="None" enableColumnReordering="true"  visibleRowCountMode="Interactive">
+                            <tt:TreeTable id="treeTable" selectionMode="None" enableColumnReordering="true" visibleRowCountMode="Interactive">
                                 <tt:columns>
 
                                     <tt:Column hAlign="Center">

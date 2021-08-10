@@ -31,15 +31,15 @@ sap.ui.define([
                 var objectViewModel = this.getViewModel("objectViewModel");
                 var that = this;
 
-                // var startupParams = this.getOwnerComponent().getComponentData().startupParameters;
-                // this.packingListId = startupParams.packingListID[0];
-             this.packingListId = 60;
+                var startupParams = this.getOwnerComponent().getComponentData().startupParameters;
+                this.packingListId = startupParams.packingListID[0];
+           //  this.packingListId = 60;
 
-                /* if (startupParams.status[0] !== "SAVED") {
+                if (startupParams.status[0] !== "SAVED") {
                     this.oRouter.navTo("RoutePackingListDetails", {
                         packingListId: this.packingListId
                     });
-                } else { */
+                } else { 
               //  this.packingListId = 62;
                 this.getView().bindElement({
                     path: "/PackingListSet(" + this.packingListId + ")",
@@ -61,7 +61,7 @@ sap.ui.define([
                     }
                 });
 
-                // }
+                }
             },
 
             _onBindingChange: function () {
