@@ -4,6 +4,9 @@
 *.zip 
 package-lock.json
 /dist/
+<<<<<<< HEAD
 
 # auto generated wildcard
 sapui5/vendor-packinglist-create/.env3
+=======
+>>>>>>> develop

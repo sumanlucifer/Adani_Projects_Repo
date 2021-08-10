@@ -4,11 +4,12 @@ sap.ui.define([
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator",
     "sap/ui/core/Fragment",
+        'sap/ui/core/ValueState'
 ],
 	/**
 	 * @param {typeof sap.ui.core.mvc.Controller} Controller
 	 */
-    function (BaseController, JSONModel, Filter, FilterOperator, Fragment) {
+    function (BaseController, JSONModel, Filter, FilterOperator, Fragment, ValueState) {
         "use strict";
 
         return BaseController.extend("com.agel.mmts.storeinchargeapprovals.controller.LandingPage", {
@@ -59,6 +60,7 @@ sap.ui.define([
             onSearch: function (oEvent) {
                 var ponum = this.byId("idInpPoNo").getValue();
                 var vendor = this.byId("idInpVen").getValue();
+                var packinglistname = this.byId("idInpPackingList").getValue();
                 var DateRange = this.byId("dateRangeSelectionId");
                 var DateRangeValue = this.byId("dateRangeSelectionId").getValue();
 
@@ -68,6 +70,8 @@ sap.ui.define([
                 var FreeTextSearch = this.byId("filterbar").getBasicSearchValue();
                 if (FreeTextSearch) {
                     orFilters.push(new Filter("PONumber", FilterOperator.Contains, FreeTextSearch));
+                    orFilters.push(new Filter("VendorCode", FilterOperator.Contains, FreeTextSearch));
+                    orFilters.push(new Filter("PackingListName", FilterOperator.Contains, FreeTextSearch));
 
                     andFilters.push(new Filter(orFilters, false));
                 }
@@ -79,6 +83,10 @@ sap.ui.define([
                 // Vendor
                 if (vendor != "") {
                     andFilters.push(new Filter("VendorCode", FilterOperator.EQ, vendor));
+                }
+                // PackingListName
+                if (packinglistname != "") {
+                    andFilters.push(new Filter("PackingListName", FilterOperator.EQ, packinglistname));
                 }
                 // Created At
                 if (DateRangeValue != "") {
@@ -93,6 +101,14 @@ sap.ui.define([
                     andFilters.push(new Filter("PONumber", FilterOperator.NE, ""));
                     idListTableBinding.filter(new Filter(andFilters, true));
                 }
+                if (andFilters.length == 0) {
+                    andFilters.push(new Filter("VendorCode", FilterOperator.NE, ""));
+                    idListTableBinding.filter(new Filter(andFilters, true));
+                }
+                if (andFilters.length == 0) {
+                    andFilters.push(new Filter("PackingListName", FilterOperator.NE, ""));
+                    idListTableBinding.filter(new Filter(andFilters, true));
+                }
                 if (andFilters.length > 0) {
                     idListTableBinding.filter(new Filter(andFilters, true));
                 }
@@ -103,6 +119,7 @@ sap.ui.define([
             onResetFilters: function (oEvent) {
                 this.oFilterBar._oBasicSearchField.setValue("");
                 this.byId("idInpPoNo").setValue("");
+                this.byId("idInpPackingList").setValue("");
                 this.byId("idInpVen").setValue("");
                 this.byId("dateRangeSelectionId").setValue("");
 
@@ -147,6 +164,6 @@ sap.ui.define([
                     PLNo: oItem.getBindingContext().getObject().ID
                 });
             }
-            
+
         });
     });

@@ -33,7 +33,7 @@ sap.ui.define([
 
                 var startupParams = this.getOwnerComponent().getComponentData().startupParameters;
                 this.packingListId = startupParams.packingListID[0];
-           //  this.packingListId = 60;
+                // this.packingListId = 78;
 
                 if (startupParams.status[0] !== "SAVED") {
                     this.oRouter.navTo("RoutePackingListDetails", {

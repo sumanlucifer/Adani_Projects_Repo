@@ -1,12 +1,12 @@
 sap.ui.define([
 	"sap/ui/core/UIComponent",
 	"sap/ui/Device",
-	"com/agel/mmts/unloadmaterial/model/models",
-    "com/agel/mmts/unloadmaterial/controller/ErrorHandler"
+	"com/agel/mmts/storeinchargereturnmaterial/model/models",
+    "com/agel/mmts/storeinchargereturnmaterial/controller/ErrorHandler"
 ], function (UIComponent, Device, models, ErrorHandler) {
 	"use strict";
 
-	return UIComponent.extend("com.agel.mmts.unloadmaterial.Component", {
+	return UIComponent.extend("com.agel.mmts.storeinchargereturnmaterial.Component", {
 
 		metadata: {
 			manifest: "json"

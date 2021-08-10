@@ -234,8 +234,8 @@
                                     <UploadCollectionItem documentId="{ID}" url="{parts: ['FileName','Content'], 
                                         formatter: '.formatter.fileContent' }" enableEdit="false" enableDelete="false" visibleDelete="false" visibleEdit="false" fileName="{FileName}">
                                         <attributes>
-                                            <ObjectAttribute title="Material Documnets" text="{ID}" class="sapUiSmallMarginEnd"/>
-                                            <ObjectAttribute title="Invoice Date" text="{path:'CreatedAt', type: 'sap.ui.model.type.Date',
+                                            <ObjectAttribute title="Uploaded By" text="{UpdatedBy}" class="sapUiSmallMarginEnd"/>
+                                            <ObjectAttribute title="Uploaded On" text="{path:'CreatedAt', type: 'sap.ui.model.type.Date',
 				                                            formatOptions: {pattern: 'MMMM dd, yyyy'}}"/>
                                             <ObjectAttribute title="Size" text="{path : 'FileSize', formatter : '.formatter.formatFileSize'}"/>
                                         </attributes>
@@ -257,8 +257,8 @@
                                     <UploadCollectionItem documentId="{ID}" url="{parts: ['FileName','Content'], 
                                         formatter: '.formatter.fileContent' }" enableEdit="false" enableDelete="false" visibleDelete="false" visibleEdit="false" fileName="{FileName}">
                                         <attributes>
-                                            <ObjectAttribute title="Material Documnets" text="{ID}" class="sapUiSmallMarginEnd"/>
-                                            <ObjectAttribute title="Invoice Date" text="{path:'CreatedAt', type: 'sap.ui.model.type.Date',
+                                            <ObjectAttribute title="Uploaded By" text="{UpdatedBy}" class="sapUiSmallMarginEnd"/>
+                                            <ObjectAttribute title="Uploaded On" text="{path:'CreatedAt', type: 'sap.ui.model.type.Date',
 				                                            formatOptions: {pattern: 'MMMM dd, yyyy'}}"/>
                                             <ObjectAttribute title="Size" text="{path : 'FileSize', formatter : '.formatter.formatFileSize'}"/>
                                         </attributes>
@@ -280,8 +280,8 @@
                                     <UploadCollectionItem documentId="{ID}" url="{parts: ['FileName','Content'], 
                                         formatter: '.formatter.fileContent' }" enableEdit="false" enableDelete="false" visibleDelete="false" visibleEdit="false" fileName="{FileName}">
                                         <attributes>
-                                            <ObjectAttribute title="Material Documents" text="{ID}" class="sapUiSmallMarginEnd"/>
-                                            <ObjectAttribute title="Invoice Date" text="{path:'CreatedAt', type: 'sap.ui.model.type.Date',
+                                            <ObjectAttribute title="Uploaded By" text="{UpdatedBy}" class="sapUiSmallMarginEnd"/>
+                                            <ObjectAttribute title="Uploaded On" text="{path:'CreatedAt', type: 'sap.ui.model.type.Date',
 				                                            formatOptions: {pattern: 'MMMM dd, yyyy'}}"/>
                                             <ObjectAttribute title="Size" text="{path : 'FileSize', formatter : '.formatter.formatFileSize'}"/>
                                         </attributes>
