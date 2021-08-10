@@ -400,12 +400,13 @@ sap.ui.define([
             var oFiles = oEvent.getParameters().files;
             var fileName = oFiles[0].name;
             var fileType = "application/pdf";
+            var fileSize = oFiles[0].size;
             this._getImageData(URL.createObjectURL(oFiles[0]), function (base64) {
-                that._addData(base64, fileName, fileType , rowId,rowObj);
+                that._addData(base64, fileName, fileType , fileSize, rowId,rowObj);
             }, fileName);
         },
 
-        _addData: function (data, fileName, fileType,rowId , rowObj) {
+        _addData: function (data, fileName, fileType,fileSize, rowId , rowObj) {
             var that = this;
             var documents = {
                 "Documents": [
@@ -417,7 +418,7 @@ sap.ui.define([
                         "Content": data, // base - 64 (Type)
                         "ContentType":fileType, // application/pdf text/csv
                         "UploadedBy": rowObj.UpdatedBy ? rowObj.UpdatedBy:"vendor1" ,
-                        "FileSize": "5"
+                        "FileSize": fileSize
                     }
                 ]
             };

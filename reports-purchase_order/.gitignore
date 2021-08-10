@@ -34,3 +34,6 @@ security-scan-history/.env7
 =======
 .*_mta_build_tmp
 >>>>>>> develop:reports-purchase_order/.gitignore
+
+# auto generated wildcard
+pmcg/.env8
