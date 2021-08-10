@@ -39,7 +39,7 @@
                 <uxap:actions>
                     <Button icon="sap-icon://download" type="Emphasized" press="onDownloadPackingListPress" visible="{= ${Status} === 'SENT FOR QR CODE APPROVAL' || ${Status} === 'QR CODE REQUEST APPROVED' ? false : true}"/>
                     <!-- <Link text="need QR code printing assistance" press="onNeedQRPrintingAsistancePress" visible="{= ${Status} === 'SENT FOR QR CODE APPROVAL' || ${Status} === 'QR CODE REQUEST APPROVED' || ${Status} === 'QR CODE REQUEST REJECTED' || ${Status} === 'DISPATCHED' ? false}"></Link> -->
-                    <Link text="need QR code printing assistance" press="onNeedQRPrintingAsistancePress" visible="{= ${Status} === 'UNLOADING COMPLETED' ? true : false}"></Link>
+                    <Link text="need QR code printing assistance" press="onNeedQRPrintingAsistancePress" visible="{= ${Status} === 'SAVED' ? true : false}"></Link>
                     <Button text="Mark consignment as dispatched" press="onMarkConsignmentAsDispatched" type="Emphasized" visible="{= ${Status} === 'SENT FOR QR CODE APPROVAL' || ${Status} === 'DISPATCHED' ? false : true}"/>
                 </uxap:actions>
             </uxap:ObjectPageDynamicHeaderTitle>
