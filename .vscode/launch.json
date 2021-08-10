@@ -206,6 +206,26 @@
       },
       "envFile": "${workspaceFolder}/vendor-packinglist-create/.env1",
       "preLaunchTask": "Build sapui5"
+    },
+    {
+      "name": "Run sapui5-security-scanqr",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/agel-mmts-web-approuter/node_modules/@sap/html5-repo-mock/index.js",
+      "args": [
+        "--standalone",
+        "/comagelmmtssecurityscanqr/index.html",
+        "--ui5",
+        "{\"version\":\".\"}"
+      ],
+      "cwd": "${workspaceFolder}/security-scanqr",
+      "env": {
+        "PORT": "6004",
+        "MOCK_LOOKUP_DIRS": "[\"webapp\",\"src\"]",
+        "run.config": "{\"handlerId\":\"ui5_run_config_handler_id\",\"runnableId\":\"/home/user/projects/sapui5/security-scanqr\"}"
+      },
+      "envFile": "${workspaceFolder}/security-scanqr/.env6",
+      "preLaunchTask": "Build sapui5"
     }
   ],
   "compounds": [],

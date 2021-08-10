@@ -365,6 +365,14 @@ modules:
     commands:
     - npm run build
     supported-platforms: []
+- name: comagelmmtsraisereturnmaterial
+  type: html5
+  path: raise-returnmaterial
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []
 - name: comagelmmtsstorestock
   type: html5
   path: storestock
