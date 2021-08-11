@@ -411,6 +411,20 @@ modules:
     - npm install
     - npm run build:cf
     supported-platforms: []
+- name: workflow-PMCGApproval
+  type: com.sap.application.content
+  path: workflow-PMCGApproval
+  requires:
+  - name: workflow
+    parameters:
+      content-target: true
+- name: workflow-PMCGAppovals
+  type: com.sap.application.content
+  path: workflow-PMCGAppovals
+  requires:
+  - name: workflow
+    parameters:
+      content-target: true
 resources:
 - name: uaa_agel-mmts-web
   type: org.cloudfoundry.managed-service

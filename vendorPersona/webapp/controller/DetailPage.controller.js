@@ -50,7 +50,7 @@ sap.ui.define([
                 //    this.type = 1;
                 this.byId("idIconTabBar").setSelectedKey(this.type);
                 
-            //}
+            }
         },
 
         _onObjectMatched: function (oEvent) {
