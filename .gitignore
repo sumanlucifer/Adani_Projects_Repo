@@ -4,6 +4,3 @@
 *.zip 
 package-lock.json
 /dist/
-
-# auto generated wildcard
-pmcg/.env8

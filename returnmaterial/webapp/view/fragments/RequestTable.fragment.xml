@@ -2,78 +2,94 @@
     xmlns:smartTable="sap.ui.comp.smarttable"
     xmlns:core="sap.ui.core">
 
-    <smartTable:SmartTable class="sapUiResponsiveContentPadding" id="idPurchaseOrdersdsdTable" editable="false" placeToolbarInTable="true" enableAutoBinding="true" entitySet="PurchaseOrderSet" showFullScreenButton="true" showRowCount="false" tableType="ResponsiveTable" demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" beforeRebindTable="onbeforeRebindOpenPoTable" ignoreFromPersonalisation="AmendmentBy,AmendmentDate,AmendmentReason,CreatedBy,ID,Currency,IsArchived,UpdatedAt,UpdatedBy,ValidityEndDate,ValidityStartDate,Status">
+    <smartTable:SmartTable class="sapUiResponsiveContentPadding" id="idPurchaseOrdersdsdTable" 
+        editable="false" placeToolbarInTable="true" enableAutoBinding="true" 
+        entitySet="ReturnMaterialRequestSet" showFullScreenButton="true" showRowCount="false"
+         tableType="ResponsiveTable" demandPopin="false" useExportToExcel="false" 
+         useTablePersonalisation="true" useVariantManagement="false" 
+         beforeRebindTable="onbeforeRebindOpenPoTable">
 
-        <!-- <smartTable:layoutData><FlexItemData growFactor="1" /></smartTable:layoutData> -->
-        <Table sticky="ColumnHeaders,HeaderToolbar" updateFinished="onPurchaseOrderTableUpdateFinished" alternateRowColors="true">
+        <Table sticky="ColumnHeaders,HeaderToolbar" updateFinished="onPurchaseOrderTableUpdateFinished" 
+            alternateRowColors="true">
             <columns>
 
                 <Column>
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "PONumber", "leadingProperty": "PONumber",
-                                                 "columnIndex": 0 ,"sortProperty": "PONumber","filterProperty": "PONumber"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "ID", "leadingProperty": "ID",
+                                                 "columnIndex": 0 ,"sortProperty": "ID","filterProperty": "ID"}'/>
                     </customData>
-                    <Text text="{i18n>SOID}"/>
+                    <Text text="{i18n>ID}"/>
                 </Column>
 
-                <!-- Contractor Name -->
+                <!-- RequestDate -->
                 <Column>
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "CompanyCode", "leadingProperty": "Buyer/CompanyCode",
-                                                 "columnIndex": 1 ,"sortProperty": "Buyer/CompanyCode","filterProperty": "Buyer/CompanyCode"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "RequestDate", "leadingProperty": "RequestDate",
+                                                 "columnIndex": 1 ,"sortProperty": "RequestDate","filterProperty": "RequestDate"}'/>
                     </customData>
-                    <Text text="{i18n>ContractorName}"/>
+                    <Text text="{i18n>RequestDate}"/>
                 </Column>
 
-                <!-- Contractor-ID -->
-                <Column demandPopin="true" minScreenWidth="Desktop">
+                <!-- ApprovedDate -->
+                <Column>
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "PlantCode", "leadingProperty": "PlantCode",
-                                                 "columnIndex": 2 ,"sortProperty": "PlantCode","filterProperty": "PlantCode"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "ApprovedDate", "leadingProperty": "ApprovedDate",
+                                                 "columnIndex": 2 ,"sortProperty": "ApprovedDate","filterProperty": "ApprovedDate"}'/>
                     </customData>
-                    <Text text="{i18n>ContractorID}"/>
+                    <Text text="{i18n>ApprovedDate}"/>
                 </Column>
 
-                <!-- Plant-Site-Location -->
+                <!-- CreatedAt -->
                 <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "CreatedAt", "leadingProperty": "CreatedAt",
                                                  "columnIndex": 3, "sortProperty": "CreatedAt"}'/>
                     </customData>
-                    <Text text="{i18n>Plant-Site-Loc}"/>
+                    <Text text="{i18n>CreatedAt}"/>
                 </Column>
-                <!-- Requested Date -->
+
+                <!-- Comment -->
                 <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "reqDate", "leadingProperty": "reqDate",
-                                                 "columnIndex": 4, "sortProperty": "reqDate"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Comment", "leadingProperty": "Comment",
+                                                 "columnIndex": 4, "sortProperty": "Comment"}'/>
                     </customData>
-                    <Text text="{i18n>RequestedDate}"/>
+                    <Text text="{i18n>Comment}"/>
                 </Column>
+
                 <!-- Status -->
                 <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "status", "leadingProperty": "status",
-                                                 "columnIndex": 5, "sortProperty": "status"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Status", "leadingProperty": "Status",
+                                                 "columnIndex": 5, "sortProperty": "Status"}'/>
                     </customData>
                     <Text text="{i18n>Status}"/>
                 </Column>
             </columns>
             <items>
-
                 <ColumnListItem type="Navigation" press="onPurchaseOrderPress">
                     <cells>
-                        <Text text="{PONumber}"/>
-                        <Text text="{CompanyCode}" binding="{Buyer}"/>
-                        <ObjectIdentifier text="{PlantCode}"/>
-                        <Text text="{CompanyCode}" binding="{Buyer}"/>
+                        <ObjectIdentifier text="{ID}"/>
+                        <Text text="{path:'RequestDate',
+                                    type: 'sap.ui.model.type.Date',
+				                     formatOptions: {
+				                        pattern: 'MMMM dd, yyyy'
+				                     }    
+                        }"/>
+                        <Text text="{path:'ApprovedDate',
+                                    type: 'sap.ui.model.type.Date',
+				                     formatOptions: {
+				                        pattern: 'MMMM dd, yyyy'
+				                     }    
+                        }"/>
                         <Text text="{path:'CreatedAt',
                                     type: 'sap.ui.model.type.Date',
 				                     formatOptions: {
 				                        pattern: 'MMMM dd, yyyy'
 				                     }    
                         }"/>
-                        <Text text="{CompanyCode}" binding="{Buyer}"/>
+                        <Text text="{Comment}"/>
+                        <Text text="{Status}"/>
                     </cells>
                 </ColumnListItem>
 
