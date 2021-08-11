@@ -15,7 +15,7 @@
         <uxap:headerTitle>
             <uxap:ObjectPageDynamicHeaderTitle>
                 <uxap:content>
-                    <VBox renderType="Bare">
+                    <VBox renderType="Bare" id="idHeaderVBox">
                         <items>
                             <VBox renderType="Bare">
                                 <Title text="Packing List Details - {Name}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
@@ -64,8 +64,8 @@
                         <Button text="{i18n>submit}" press="onVehicleNumberSubmit" type="Emphasized" visible="{= ${GateEntryNumber}!== null ? false : true}"
                             enabled="{= ${VehicleNumber} ? ${oViewHandlingModel>/wantChange} ? ${oViewHandlingModel>/ReEnterVehicleNo}!== null ? true : false : ${GateEntryNumber}!== null ? false : true : ${oViewHandlingModel>/ReEnterVehicleNoNew} ? true : false}" />
                              
-                        <Button text="{i18n>close}"  press="onClose" type="Emphasized"
-                             visible="{= ${GateEntryNumber}!== null ? true : false}"/>
+                        <!-- <Button text="{i18n>close}"  press="onClose" type="Emphasized"
+                             visible="{= ${GateEntryNumber}!== null ? true : false}"/> -->
                     </HBox>
                 </uxap:actions>
             </uxap:ObjectPageDynamicHeaderTitle>

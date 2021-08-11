@@ -125,9 +125,30 @@
                 },
                 {
                     "name": "RouteIssueMatDetail",
-                    "pattern": "IssueMatDetail/{MatNo}",
+                    "pattern": "IssueMatDetail/{ID}",
                     "target": [
                         "TargetIssueMatDetail"
+                    ]
+                },
+                {
+                    "name": "RouteIssueMaterial",
+                    "pattern": "IssueMaterial",
+                    "target": [
+                        "TargetIssueMaterial"
+                    ]
+                },
+                {
+                    "name": "RaiseSODetailPage",
+                    "pattern": "IssueSODetail/{SOId}",
+                    "target": [
+                        "TargetIssueSODetail"
+                    ]
+                },
+                {
+                    "name": "RaiseIssueScanQRCode",
+                    "pattern": "IssueScanQRCode/{SOId}",
+                    "target": [
+                        "TargetIssueScanQRCode"
                     ]
                 }
             ],
@@ -144,6 +165,24 @@
                     "transition": "slide",
                     "clearControlAggregation": false,
                     "viewName": "IssueMatDetail"
+                },
+                "TargetIssueMaterial": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewName": "IssueMaterial"
+                },
+                "TargetIssueSODetail": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewName": "IssueSODetail"
+                },
+                "TargetIssueScanQRCode": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewName": "IssueScanQRCode"
                 },
                 "notFound": {
                     "viewName": "NotFound"

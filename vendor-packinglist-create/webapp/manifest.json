@@ -86,7 +86,7 @@
                     "defaultOperationMode": "Server",
                     "defaultBindingMode": "TwoWay",
                     "defaultCountMode": "Inline",
-                    "refreshAfterChange": true,
+                    "refreshAfterChange": false,
                     "useBatch": false
                 },
                 "dataSource": "mainService",

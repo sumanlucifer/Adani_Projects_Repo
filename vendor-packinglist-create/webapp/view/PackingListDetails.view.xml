@@ -37,9 +37,10 @@
                     <Title text="Packing List Details - {Name}" wrapping="true" titleStyle="Auto"/>
                 </uxap:snappedTitleOnMobile>
                 <uxap:actions>
-                    <Button icon="sap-icon://download" type="Emphasized" press="onDownloadPackingListPress"/>
-                    <Link text="Need QR code printing assistance" press="onNeedQRPrintingAsistancePress" visible="{= ${Status}!== 'SENT FOR QR CODE APPROVAL' &amp;&amp; ${Status}!== 'QR_CODE_REQUEST_APPROVED' &amp;&amp; ${Status}!== 'DISPATCHED'}"></Link>
-                    <Button text="Mark consignment as dispatched" press="onMarkConsignmentAsDispatched" type="Emphasized" visible="{= ${Status}!== 'DISPATCHED'}"/>
+                    <Button icon="sap-icon://download" type="Emphasized" press="onDownloadPackingListPress" visible="{= ${Status} === 'SENT FOR QR CODE APPROVAL' || ${Status} === 'QR CODE REQUEST APPROVED' ? false : true}"/>
+                    <!-- <Link text="need QR code printing assistance" press="onNeedQRPrintingAsistancePress" visible="{= ${Status} === 'SENT FOR QR CODE APPROVAL' || ${Status} === 'QR CODE REQUEST APPROVED' || ${Status} === 'QR CODE REQUEST REJECTED' || ${Status} === 'DISPATCHED' ? false}"></Link> -->
+                    <Link text="Need QR Code Printing Assistance" press="onNeedQRPrintingAsistancePress" visible="{= ${Status} === 'SAVED' ? true : false}"></Link>
+                    <Button text="Mark Consignment as Dispatched" press="onMarkConsignmentAsDispatched" type="Emphasized" visible="{= ${Status} === 'SENT FOR QR CODE APPROVAL' || ${Status} === 'DISPATCHED' ? false : true}"/>
                 </uxap:actions>
             </uxap:ObjectPageDynamicHeaderTitle>
         </uxap:headerTitle>

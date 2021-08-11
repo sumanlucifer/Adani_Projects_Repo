@@ -62,8 +62,6 @@ sap.ui.define([
             this.setModel(oModel, "BOQApprovalModel");
         },
 
-
-
         _bindView: function (sObjectPath) {
             var objectViewModel = this.getViewModel("objectViewModel");
             var that = this;
@@ -88,7 +86,6 @@ sap.ui.define([
         onChildItemsTableUpdateFinished: function (oEvent) {
             oEvent.getSource().setBusy(false);
         },
-
 
         onViewChildItemPress: function (oEvent) {
             var oItem = oEvent.getSource();

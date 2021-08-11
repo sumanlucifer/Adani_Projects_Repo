@@ -1,7 +1,7 @@
 <core:FragmentDefinition xmlns="sap.m"
     xmlns:core="sap.ui.core" xmlns:u="sap.ui.unified">
 
-    <Table width="auto" growing="true" growingThreshold="2" items="{path: 'PackingList/PackingListParentItems'}" fixedLayout="false">
+    <Table width="auto" growing="true" growingThreshold="2" items="{path: 'PackingList/PurchaseOrder/ParentLineItems'}" fixedLayout="false">
         <columns>
             <Column>
                 <Text text="{i18n>LineNumber}" wrapping="true" wrappingType="Hyphenated"/>
@@ -53,7 +53,7 @@
                     <ObjectIdentifier title="{MaterialCode}"/>
                     <Text text="{Name}" wrappingType="Hyphenated"/>
                     <ExpandableText text="{Description}" maxCharacters="20" overflowMode="Popover"/>
-                    <Text text="{PlantCode}"/>
+                    <Text text="{PlantCode}" />
                     <Text text="{StorageLocation}"/>
                     <Text text="{Quantity}"/>
                     <Text text="{UoM}"/>
