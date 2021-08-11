@@ -5,6 +5,7 @@
 package-lock.json
 /dist/
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 
 # auto generated wildcard
@@ -33,4 +34,11 @@ agel-mmts-web/returnmaterial/.env1
 # auto generated wildcard
 agel-mmts-web/raise-returnmaterial/.env1
 =======
+>>>>>>> develop
+=======
+
+# auto generated wildcard
+agel-mmts-web/security-scanqr/.env4
+# auto generated wildcard
+sapui5/vendor-packinglist-create/.env1
 >>>>>>> develop

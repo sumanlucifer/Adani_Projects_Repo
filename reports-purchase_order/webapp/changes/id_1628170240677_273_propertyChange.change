@@ -1,0 +1,41 @@
+{
+    "fileName": "id_1628170240677_273_propertyChange",
+    "fileType": "change",
+    "changeType": "propertyChange",
+    "moduleName": "",
+    "reference": "com.agel.mmts.reportspurchaseorder",
+    "packageName": "",
+    "content": {
+        "property": "alwaysShowContentHeader",
+        "newValue": true
+    },
+    "selector": {
+        "id": "com.agel.mmts.reportspurchaseorder::sap.suite.ui.generic.template.ObjectPage.view.Details::PurchaseOrderSet--objectPage",
+        "idIsLocal": false,
+        "type": "sap.uxap.ObjectPageLayout"
+    },
+    "layer": "VENDOR",
+    "texts": {},
+    "namespace": "apps/com.agel.mmts.reportspurchaseorder/changes/",
+    "projectId": "com.agel.mmts.reportspurchaseorder",
+    "creation": 1628170240677,
+    "originalLanguage": "",
+    "support": {
+        "generator": "changeUtils: SAPFioriTools",
+        "service": "",
+        "user": "",
+        "sapui5Version": "latest",
+        "sourceChangeFileName": "",
+        "compositeCommand": ""
+    },
+    "oDataInformation": {},
+    "dependentSelector": {},
+    "validAppVersions": {
+        "from": "1.0.0",
+        "to": "1.0.0",
+        "creation": "1.0.0"
+    },
+    "jsOnly": false,
+    "variantReference": "",
+    "appDescriptorChange": false
+}

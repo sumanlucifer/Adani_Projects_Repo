@@ -20,7 +20,7 @@
             <f:DynamicPageHeader pinnable="true">
             
                 <f:content>
-                    <SearchField width="20%">
+                    <SearchField width="20%" showSearchButton="false">
                     
                     </SearchField>
 
