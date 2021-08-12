@@ -2,7 +2,7 @@
 	"contents": {
 		"a8dc7cfd-1c6f-4390-9b05-f0d1b4853999": {
 			"classDefinition": "com.sap.bpm.wfs.Model",
-			"id": "com.agel.mmts.approvalprinting",
+			"id": "approvalprinting",
 			"subject": "ApprovalPrinting",
 			"name": "ApprovalPrinting",
 			"documentation": "",
@@ -72,6 +72,25 @@
 			"name": "MailTask1",
 			"mailDefinitionRef": "24191055-9033-4e6f-b2f5-d693e7757d7f"
 		},
+		"4f2b0a45-0241-4eb7-9b43-4cea93d12b13": {
+			"classDefinition": "com.sap.bpm.wfs.UserTask",
+			"subject": "${context.PrintRequestID} Approval",
+			"priority": "MEDIUM",
+			"isHiddenInLogForParticipant": false,
+			"supportsForward": false,
+			"userInterface": "sapui5://comsapbpmworkflow.comsapbpmwusformplayer/com.sap.bpm.wus.form.player",
+			"recipientUsers": "venkatesh.hulekal@extentia.com",
+			"formReference": "/forms/ApprovalPrinting/PrintingForm.form",
+			"userInterfaceParams": [{
+				"key": "formId",
+				"value": "printingform"
+			}, {
+				"key": "formRevision",
+				"value": "1.0"
+			}],
+			"id": "usertask1",
+			"name": "UserTask1"
+		},
 		"c6b99f32-5fe6-4ab6-b60a-80fba1b9ae0f": {
 			"classDefinition": "com.sap.bpm.wfs.SequenceFlow",
 			"id": "sequenceflow1",
@@ -92,6 +111,13 @@
 			"name": "SequenceFlow3",
 			"sourceRef": "b9360c1a-fef5-4a4b-a88a-6b19b776fa76",
 			"targetRef": "4f2b0a45-0241-4eb7-9b43-4cea93d12b13"
+		},
+		"0ba7a082-200a-4653-b72a-b7ae5bfe31af": {
+			"classDefinition": "com.sap.bpm.wfs.SequenceFlow",
+			"id": "sequenceflow4",
+			"name": "SequenceFlow4",
+			"sourceRef": "4f2b0a45-0241-4eb7-9b43-4cea93d12b13",
+			"targetRef": "2798f4e7-bc42-4fad-a248-159095a2f40a"
 		},
 		"42fa7a2d-c526-4a02-b3ba-49b5168ba644": {
 			"classDefinition": "com.sap.bpm.wfs.ui.Diagram",
@@ -165,6 +191,21 @@
 			"targetSymbol": "6d25416e-128c-4202-ba1f-8408266b3a0b",
 			"object": "2e6d899c-fb03-473b-bd42-652af706af49"
 		},
+		"6d25416e-128c-4202-ba1f-8408266b3a0b": {
+			"classDefinition": "com.sap.bpm.wfs.ui.UserTaskSymbol",
+			"x": 12,
+			"y": 314,
+			"width": 100,
+			"height": 60,
+			"object": "4f2b0a45-0241-4eb7-9b43-4cea93d12b13"
+		},
+		"cd190ef0-4832-4cac-8165-0f4097252d52": {
+			"classDefinition": "com.sap.bpm.wfs.ui.SequenceFlowSymbol",
+			"points": "62,374 62,424",
+			"sourceSymbol": "6d25416e-128c-4202-ba1f-8408266b3a0b",
+			"targetSymbol": "53e54950-7757-4161-82c9-afa7e86cff2c",
+			"object": "0ba7a082-200a-4653-b72a-b7ae5bfe31af"
+		},
 		"62d7f4ed-4063-4c44-af8b-39050bd44926": {
 			"classDefinition": "com.sap.bpm.wfs.LastIDs",
 			"maildefinition": 1,
@@ -178,50 +219,10 @@
 		"24191055-9033-4e6f-b2f5-d693e7757d7f": {
 			"classDefinition": "com.sap.bpm.wfs.MailDefinition",
 			"name": "maildefinition1",
-			"to": "suman.shanmugam@extentia.com",
+			"to": "venkatesh.hulekal@extentia.com,atul.jain@extentia.com",
 			"subject": "${context.PrintRequestID} Approval",
 			"text": "${context.PrintRequestID} Approval",
 			"id": "maildefinition1"
-		},
-		"4f2b0a45-0241-4eb7-9b43-4cea93d12b13": {
-			"classDefinition": "com.sap.bpm.wfs.UserTask",
-			"subject": "${context.PrintRequestID} Approval",
-			"priority": "MEDIUM",
-			"isHiddenInLogForParticipant": false,
-			"supportsForward": false,
-			"userInterface": "sapui5://comsapbpmworkflow.comsapbpmwusformplayer/com.sap.bpm.wus.form.player",
-			"formReference": "/forms/ApprovalPrinting/PrintingForm.form",
-			"userInterfaceParams": [{
-				"key": "formId",
-				"value": "printingform"
-			}, {
-				"key": "formRevision",
-				"value": "1.0"
-			}],
-			"id": "usertask1",
-			"name": "UserTask1"
-		},
-		"6d25416e-128c-4202-ba1f-8408266b3a0b": {
-			"classDefinition": "com.sap.bpm.wfs.ui.UserTaskSymbol",
-			"x": 12,
-			"y": 314,
-			"width": 100,
-			"height": 60,
-			"object": "4f2b0a45-0241-4eb7-9b43-4cea93d12b13"
-		},
-		"0ba7a082-200a-4653-b72a-b7ae5bfe31af": {
-			"classDefinition": "com.sap.bpm.wfs.SequenceFlow",
-			"id": "sequenceflow4",
-			"name": "SequenceFlow4",
-			"sourceRef": "4f2b0a45-0241-4eb7-9b43-4cea93d12b13",
-			"targetRef": "2798f4e7-bc42-4fad-a248-159095a2f40a"
-		},
-		"cd190ef0-4832-4cac-8165-0f4097252d52": {
-			"classDefinition": "com.sap.bpm.wfs.ui.SequenceFlowSymbol",
-			"points": "62,374 62,424",
-			"sourceSymbol": "6d25416e-128c-4202-ba1f-8408266b3a0b",
-			"targetSymbol": "53e54950-7757-4161-82c9-afa7e86cff2c",
-			"object": "0ba7a082-200a-4653-b72a-b7ae5bfe31af"
 		}
 	}
 }
