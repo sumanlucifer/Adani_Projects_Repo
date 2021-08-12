@@ -60,7 +60,7 @@
 		"4f5d723f-1f7b-4123-9617-c7c3b57b5fa3": {
 			"classDefinition": "com.sap.bpm.wfs.ServiceTask",
 			"destination": "AGEL_MMTS",
-			"path": "/api/v2/odata.svc/PrintAssistanceSet(${context.PrintRequestID})?$expand=PackingList,PurchaseOrder",
+			"path": "/api/v2/odata.svc/PrintAssistanceSet(${context.PrintRequestID})?$expand=PackingList/PackingListParentItems,PurchaseOrder",
 			"httpMethod": "GET",
 			"responseVariable": "${context.PrintingResponse}",
 			"id": "servicetask1",
