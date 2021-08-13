@@ -1,0 +1,26 @@
+table {
+  display: table;
+  width: 70%;
+  border: none;
+  background-color: white;
+  border-collapse: collapse;
+  margin: 0;
+  table-layout: fixed;
+  position: relative;
+  text-align: left;
+}
+
+table thead th {
+  position: relative;
+  color:red !important;
+  font-size: 18px;
+  line-height: 24px;
+  font-weight: 400;
+}
+
+table tbody td {
+  padding: 4px 20px;
+  height: 20px;
+  border: 2px solid #d9d9d9;
+}
+
