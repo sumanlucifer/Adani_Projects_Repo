@@ -17,7 +17,7 @@
     <font face="verdana" size="2">Hi,</font>
     <br>
     <br>
-    <font face="verdana" size="5" color="#2D68B2">A new approval request - <span style="color:#BC3863;">BOQ 1</span> is ready for your review.
+    <font face="verdana" size="5" color="#2D68B2">A new approval request - <span style="color:#BC3863;">${context.aBOQItems.d.Name}</span> is ready for your review.
     </font>
     <br>
     <br>
@@ -29,47 +29,47 @@
 
     <font face="verdana" size="2">
         <b>PO Number:</b>
-        4500327836
+        ${context.aBOQItems.d.ParentLineItem.PurchaseOrder.PONumber}
     </font>
 
     <br>
 
     <font face="verdana" size="2">
         <b>Company Code:</b>
-        500E7
+        ${context.aBOQItems.d.ParentLineItem.PurchaseOrder.Buyer.CompanyCode}
     </font>
 
     <br>
 
     <font face="verdana" size="2">
         <b>Plant Code:</b>
-        4500327835
+        ${context.aBOQItems.d.ParentLineItem.PurchaseOrder.PlantCode}
     </font>
 
     <br>
     <font face="verdana" size="2.2">
         <b>Vendor Name:</b>
-        Symantic Engineer Pvt. Ltd.
+        ${context.aBOQItems.d.ParentLineItem.PurchaseOrder.Vendor.Name}
     </font>
     <br>
 
     <font face="verdana" size="2">
         <b>Vendor Code:</b>
-        0000131600
+        ${context.aBOQItems.d.ParentLineItem.PurchaseOrder.Vendor.VendorCode}
     </font>
 
     <br>
 
     <font face="verdana" size="2">
         <b>Buyer Name:</b>
-        Vaibhav Bhargava
+        ${context.aBOQItems.d.ParentLineItem.PurchaseOrder.Buyer.ContactPerson}
     </font>
 
     <br>
 
     <font face="verdana" size="2">
         <b>Buyer Code:</b>
-        45678
+        ${context.aBOQItems.d.ParentLineItem.PurchaseOrder.Buyer.BuyerCode}
     </font>
     <br>
 
@@ -105,7 +105,7 @@
     <font face="verdana" size="2" color="#595998">Please visit the below link to review</font>
     <br>
     <a
-        href="https://renewables-qa.cpp.cfapps.ap11.hana.ondemand.com/site/MaterialMovementTrackingSystem?sap-language=en#boqApprovals-manage">
+        href="https://renewables-qa.cpp.cfapps.ap11.hana.ondemand.com/site/MaterialMovementTrackingSystem">
         Approval Request Review</a>
     <br>
     <br>
