@@ -20,7 +20,7 @@
             <f:DynamicPageHeader pinnable="true">
                 <f:content>
                     <HBox alignContent="SpaceAround">
-                        <SearchField id="idSoNumber" width="90%" search="onSearch"></SearchField>
+                        <SearchField id="idSoNumber" width="90%" showSearchButton="false" search="onSearch"></SearchField>
                         <Button text="Submit" press="onSearch" type="Emphasized"/>
                     </HBox>
                 </f:content>

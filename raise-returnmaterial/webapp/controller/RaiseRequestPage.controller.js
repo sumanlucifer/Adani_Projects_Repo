@@ -44,12 +44,13 @@ sap.ui.define([
             // Validate QR Code
             validateSONumber: function () {
                 var that = this;
-                var SoID = this.getView().byId("idSoNumber").getValue();
-                that.sObjectId = SoID+"l";
+                var SoNumber = this.getView().byId("idSoNumber").getValue();
+                that.sObjectId = SoNumber+"l";
+                //that.sObjectId = SoID+"l";
                 var SoIDFilter = new sap.ui.model.Filter({
-                    path: "ID",
+                    path: "SONumber",
                     operator: sap.ui.model.FilterOperator.EQ,
-                    value1: SoID
+                    value1: SoNumber
                 });
 
                 var filter = [];

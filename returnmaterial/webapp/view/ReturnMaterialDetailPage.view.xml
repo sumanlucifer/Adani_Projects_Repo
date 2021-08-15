@@ -128,7 +128,7 @@
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection title="{i18n>lineItems}">
                         <ui:TreeTable id="TreeTable" rows="{path:'TreeTableModelView>/', parameters: {arrayNames:['ChildItemsView']}}" 
-                            selectionMode="MultiToggle" enableSelectAll="false" title="{i18n>TreeTableViewTitle}" ariaLabelledBy="title" rowsUpdated="onRowsUpdated">
+                            selectionMode="MultiToggle" enableSelectAll="false" title="{i18n>IssuedMaterialItems}" ariaLabelledBy="title" rowsUpdated="onRowsUpdated">
                             <ui:columns>
 
                                 <ui:Column width="7%">
@@ -160,26 +160,26 @@
                                 </ui:Column>     
 
                                 <ui:Column>
-                                    <Label text="Requested Quantity"/>
+                                    <Label text="Issued Quantity"/>
                                     <ui:template>
-                                        <Text text="{TreeTableModelView>RequestedQuantity}" wrapping="false" />
+                                        <Text text="{TreeTableModelView>IssuedQty}" wrapping="false" />
                                     </ui:template>
-                                </ui:Column>   
+                                </ui:Column>  
 
-                                <ui:Column>
-                                    <Label text="Rejected Quantity"/>
+                                 <ui:Column>
+                                    <Label text="Balance Quantity"/>
                                     <ui:template>
-                                        <Text text="{TreeTableModelView>RejectedQuantity}" wrapping="false" />
-                                    </ui:template>
-                                </ui:Column>                      
-                                
-                                <ui:Column>
-                                    <Label text="Approved Quantity"/>
-                                    <ui:template>
-                                        <Text text="{TreeTableModelView>ApprovedQuantity}" wrapping="false" />
+                                        <Text text="{TreeTableModelView>BalanceQty}" wrapping="false" />
                                     </ui:template>
                                 </ui:Column>
-                                   
+                                 
+                                <ui:Column>
+                                    <Label text="Return Quantity"/>
+                                    <ui:template>
+                                        <Text text="{TreeTableModelView>ReturnedQty}" visible="{TreeTableModelView>isStandAlone}" />
+                                    </ui:template>
+                                </ui:Column> 
+
                             </ui:columns>
                         </ui:TreeTable>
                     </uxap:ObjectPageSubSection>
