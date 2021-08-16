@@ -47,8 +47,8 @@ sap.ui.define([
         },
         _onObjectMatched: function (oEvent) {
             var that = this;
-            //var sObjectId = oEvent.getParameter("arguments").SOId;
-            var sObjectId = 1;
+            var startupParams = that.getOwnerComponent().getComponentData().startupParameters;
+            var sObjectId = startupParams.SOID;
             that.sObjectId = sObjectId;
             this._bindView("/SONumberDetailsSet(" + sObjectId + ")");
             this.readConsumedItemsTreeData(sObjectId);
@@ -159,7 +159,7 @@ sap.ui.define([
                     if (oData.Success === true) {
                         that.submitConsumptionPostingID(oData.ConsumptionPostingReserveId);
                     }
-                     else {
+                    else {
                         sap.m.MessageBox.success("Something went wrong!");
                     }
                 }.bind(this),
@@ -243,11 +243,11 @@ sap.ui.define([
             if (iReturnQuantity < iIssuedQuantity) {
                 oEvent.getSource().setValueState("Error");
                 oEvent.getSource().setValueStateText("Please enter less inspected quantity than quantity");
-                 this.getView().byId("btnSubmit").setEnabled(false);
+                this.getView().byId("btnSubmit").setEnabled(false);
             }
             else {
                 oEvent.getSource().setValueState("None");
-                 this.getView().byId("btnSubmit").setEnabled(true);
+                this.getView().byId("btnSubmit").setEnabled(true);
             }
         },
         onEditQuantityPressed: function (oEvent) {
@@ -256,28 +256,25 @@ sap.ui.define([
             if (isPressed) oEvent.getSource().getParent().getItems()[0].setEditable(true);
             else oEvent.getSource().getParent().getItems()[0].setEditable(false);
         },
-        _navToCrossApp1: function (oItem) {
+        _navToCrossApp: function (oItem) {
             var that = this;
-            oItem.getBindingContext().requestCanonicalPath().then(function (sObjectPath) {
-                that.getRouter().navTo("RoutePackingDeatilsPage", {
-                    packingListID: sObjectPath.slice("/PackingLists".length) // /PurchaseOrders(123)->(123)
-                });
-            });
-            console.log(oItem.getBindingContext().getObject().ID)
+
+
+
+
+            
+          
             var oCrossAppNavigator = sap.ushell.Container.getService("CrossApplicationNavigation"); // get a handle on the global XAppNav service
             var hash = (oCrossAppNavigator && oCrossAppNavigator.hrefForExternal({
                 target: {
-                    semanticObject: "PackingList",
-                    action: "manage"
+                    semanticObject: "raiseconsumptionposting",
+                    action: "Manage"
                 },
-                params: {
-                    "packingListID": oItem.getBindingContext().getObject().ID,
-                    "status": "SAVED"
-                }
+                params: {}
             })) || "";
             oCrossAppNavigator.toExternal({
                 target: {
-                    shellHash: hash
+                    shellHash: hash + "&/consumptionDetail/(1)" 
                 }
             });
         }

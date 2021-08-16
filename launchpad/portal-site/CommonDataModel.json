@@ -96,6 +96,14 @@
 					"id": "com.agel.mmts.engineerfieldstock-0-1628021384308",
 					"appId": "com.agel.mmts.engineerfieldstock",
 					"vizId": "FieldStock-Display"
+				}, {
+					"id": "com.agel.mmts.lognewconsumption-2-1629112752212",
+					"appId": "com.agel.mmts.lognewconsumption",
+					"vizId": "lognewentry-Manage"
+				}, {
+					"id": "com.agel.mmts.raiseconsumptionporequest-2-1629112916537",
+					"appId": "com.agel.mmts.raiseconsumptionporequest",
+					"vizId": "raiseconsumptionposting-Manage"
 				}]
 			}
 		}, {

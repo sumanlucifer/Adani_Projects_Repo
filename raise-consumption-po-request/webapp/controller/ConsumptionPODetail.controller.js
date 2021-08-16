@@ -20,7 +20,6 @@ sap.ui.define([
     '../utils/formatter',
 ], function (BaseController, JSONModel, Filter, FilterOperator, Fragment, Sorter, Device, History, ColumnListItem, Input, deepExtend, Spreadsheet, MessageToast, MessageBox, ObjectIdentifier, Text, Button, Dialog, formatter) {
     "use strict";
-
     return BaseController.extend("com.agel.mmts.raiseconsumptionporequest.controller.ConsumptionPODetail", {
         formatter: formatter,
         onInit: function () {
@@ -35,17 +34,13 @@ sap.ui.define([
                 csvFile: "file",
                 sReservationNumber: null,
                 sReservationDate: null
-
             });
             this.setModel(oViewModel, "objectViewModel");
             //Router Object
             this.oRouter = this.getRouter();
             this.oRouter.getRoute("RouteConsumptionItemsDetailPage").attachPatternMatched(this._onObjectMatched, this);
         },
-
         onBeforeShow: function (evt) {
-        
-
            // this.getView().getContent()[0].getSections()[1].rerender();
             this.byId("smartTreeTableCounsumedItems").rebindTable();
         },
@@ -57,14 +52,11 @@ sap.ui.define([
                   var sReservationDate = oEvent.getParameter("arguments").SOId.split(";")[2];
                   objectViewModel.setProperty("/sReservationNumber", sReservationNumber);
                      objectViewModel.setProperty("/sReservationDate", sReservationDate);
-
             this._bindView("/SONumberDetailsSet(" + sObjectSOId + ")");
         },
         _bindView: function (sObjectPath) {
             var objectViewModel = this.getViewModel("objectViewModel");
-            
             var that = this;
-
             this.getView().bindElement({
                 path: sObjectPath,
                 events: {
@@ -74,10 +66,6 @@ sap.ui.define([
                     },
                     dataReceived: function () {
                         objectViewModel.setProperty("/busy", false);
-
-
-
-
                     }
                 }
             });
@@ -93,23 +81,13 @@ sap.ui.define([
                 }
             },
         onBeforeRebindConsumptionPODetailTreeTable: function (oEvent) {
-            debugger;
             var mBindingParams = oEvent.getParameter("bindingParams");
             mBindingParams.parameters["expand"] = "ConsumptionPostingBOQ";
             mBindingParams.parameters["navigation"] = { "ConsumedMaterialParentSet": "ConsumptionPostingBOQ" };
-
             mBindingParams.filters.push(new sap.ui.model.Filter("ConsumptionPostingReserve/ID", sap.ui.model.FilterOperator.EQ, this.sObjectId[0]));
         },
-
-
-
-
-
-
         handleToAllPOBreadcrumPress: function (oEvent) {
             history.go(-1);
         }
-
-
     });
 });

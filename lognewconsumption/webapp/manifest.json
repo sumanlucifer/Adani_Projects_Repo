@@ -11,6 +11,21 @@
         "description": "{{appDescription}}",
         "resources": "resources.json",
         "ach": "ach",
+        "crossNavigation": {
+            "inbounds": {
+                "intent1": {
+                    "signature": {
+                        "parameters": {},
+                        "additionalParameters": "allowed"
+                    },
+                    "semanticObject": "lognewentry",
+                    "action": "Manage",
+                    "title": "{{appTitle}}",
+                    "subTitle": "{{appDescription}}"
+                 
+                }
+            }
+        },
         "dataSources": {
             "mainService": {
                 "uri": "/AGEL_MMTS_API/api/v2/odata.svc/",
