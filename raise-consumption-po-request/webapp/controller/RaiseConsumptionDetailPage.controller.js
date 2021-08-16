@@ -90,10 +90,12 @@ sap.ui.define([
             mBindingParams.parameters["expand"] = "IssuedMaterialBOQ";
             mBindingParams.parameters["navigation"] = { "IssuedMaterialParentSet": "IssuedMaterialBOQ" };
             mBindingParams.filters.push(new sap.ui.model.Filter("SONumberId/ID", sap.ui.model.FilterOperator.EQ, this.sObjectId));
+            
         },
         onBeforeRebindRestTable: function (oEvent) {
             var mBindingParams = oEvent.getParameter("bindingParams");
             mBindingParams.filters.push(new Filter("SONumberId/ID", sap.ui.model.FilterOperator.EQ, this.sObjectId));
+            mBindingParams.sorter.push(new sap.ui.model.Sorter("CreatedAt", true));
         },
         onConsumedItemsTablePress: function (oEvent) {
             // The source is the list item that got pressed

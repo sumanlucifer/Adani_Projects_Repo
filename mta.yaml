@@ -151,6 +151,13 @@ modules:
             - comagelmmtslognewconsumption.zip
           name: comagelmmtslognewconsumption
           target-path: resources/
+
+        - artifacts:
+            - comagelmmtsraiseconsumptionporequest.zip
+          name: comagelmmtsraiseconsumptionporequest
+          target-path: resources/
+
+
   - name: launchpad
     type: com.sap.application.content
     path: launchpad
