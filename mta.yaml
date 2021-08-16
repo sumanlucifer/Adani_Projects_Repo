@@ -409,21 +409,17 @@ modules:
     type: html5
     path: raise-consumption-po-request
     build-parameters:
-      build-result: dist
       builder: custom
       commands:
-        - npm install
-        - npm run build:cf
+        - npm run build
       supported-platforms: []
   - name: comagelmmtslognewconsumption
     type: html5
     path: lognewconsumption
     build-parameters:
-      build-result: dist
       builder: custom
       commands:
-        - npm install
-        - npm run build:cf
+        - npm run build
       supported-platforms: []
 resources:
   - name: uaa_agel-mmts-web
