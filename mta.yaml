@@ -2,454 +2,478 @@ _schema-version: "3.2"
 ID: agel-mmts-web
 version: 1.0.0
 modules:
-- name: agel-mmts-web-approuter
-  type: approuter.nodejs
-  path: agel-mmts-web-approuter
-  properties:
-    TENANT_HOST_PATTERN: ^(.*)-agel-mmts-web-approuter.${default-domain}
-  requires:
-  - name: uaa_agel-mmts-web
-  - name: agel-mmts-web_html_repo_runtime
-  - name: portal_resources_agel-mmts-web
-  - name: agel-mmts-destination
-    group: destinations
+  - name: agel-mmts-web-approuter
+    type: approuter.nodejs
+    path: agel-mmts-web-approuter
     properties:
-      forwardAuthToken: true
-      name: AGEL_MMTS_API
-      url: https://agel-mmts-api.cfapps.ap11.hana.ondemand.com/
-  parameters:
-    disk-quota: 256M
-    keep-existing-routes: true
-    memory: 256M
-- name: agel-mmts-web_ui_deployer
-  type: com.sap.application.content
-  path: .
-  requires:
-  - name: agel-mmts-web_html_repo_host
-    parameters:
-      content-target: true
-  build-parameters:
-    build-result: resources
-    requires:
-    - artifacts:
-      - vendorPersona-content.zip
-      name: vendorPersona
-      target-path: resources/
-    - artifacts:
-      - user-roleassignment-content.zip
-      name: user-roleassignment
-      target-path: resources/
-    - artifacts:
-      - ScannerAppLibrary-content.zip
-      name: ScannerAppLibrary
-      target-path: resources/
-    - artifacts:
-      - tcengineer-content.zip
-      name: tcengineer
-      target-path: resources/
-    - artifacts:
-      - pmcg-content.zip
-      name: pmcg
-      target-path: resources/
-    - artifacts:
-      - mdm-packinglisttype-content.zip
-      name: mdm-packinglisttype
-      target-path: resources/
-    - artifacts:
-      - mdm-outerpackinglist-content.zip
-      name: mdm-outerpackinglist
-      target-path: resources/
-    - artifacts:
-      - mdm-uom-content.zip
-      name: mdm-uom
-      target-path: resources/
-    - artifacts:
-      - vendor-manageboq-content.zip
-      name: vendor-manageboq
-      target-path: resources/
-    - artifacts:
-      - mdm-boqitems-content.zip
-      name: mdm-boqitems
-      target-path: resources/
-    - artifacts:
-      - vendor-mdcc-content.zip
-      name: vendormdcc
-      target-path: resources/
-    - artifacts:
-      - security-international-import-content.zip
-      name: comagelmmtssecurityinternationalimport
-      target-path: resources/
-    - artifacts:
-      - security-scan-history-content.zip
-      name: comagelmmtssecurityscanhistory
-      target-path: resources/
-    - artifacts:
-      - security-scanqr-content.zip
-      name: security-scanqr
-      target-path: resources/
-    - artifacts:
-      - vendor-map-mdcc-content.zip
-      name: vendor-map-mdcc
-      target-path: resources/
-    - artifacts:
-      - vendor-map-mdcc-content.zip
-      name: vendor-map-mdcc
-      target-path: resources/
-    - artifacts:
-      - storeincharge-raisedpo-content.zip
-      name: storeincharge-raisedpo
-      target-path: resources/
-    - artifacts:
-      - storeincharge-scanqr-content.zip
-      name: storeincharge-scanqr
-      target-path: resources/
-    - artifacts:
-      - storeincharge-approvals-content.zip
-      name: storeincharge-approvals
-      target-path: resources/
-    - artifacts:
-      - unloadmaterial-content.zip
-      name: unloadmaterial
-      target-path: resources/
-    - artifacts:
-      - storeincharge-issuematerial-content.zip
-      name: storeincharge-issuematerial
-      target-path: resources/
-    - artifacts:
-      - storeincharge-returnmaterial.zip
-      name: storeincharge-returnmaterial
-      target-path: resources/
-    - artifacts:
-      - comagelmmtsvendorpackinglistcreate-content.zip
-      name: packingListCreate
-      target-path: resources/
-    - artifacts:
-      - admin-po_summary-content.zip
-      name: comagelmmtsadminposummary
-      target-path: resources/
-    - artifacts:
-      - comagelmmtsraisereturnmaterial.zip
-      name: comagelmmtsraisereturnmaterial
-      target-path: resources/
-    - artifacts:
-      - comagelmmtsreturnmaterial.zip
-      name: comagelmmtsreturnmaterial
-      target-path: resources/
-    - artifacts:
-      - comagelmmtsstorestock.zip
-      name: comagelmmtsstorestock
-      target-path: resources/
-    - artifacts:
-      - comagelmmtsengineerfieldstock.zip
-      name: comagelmmtsengineerfieldstock
-      target-path: resources/
-    - artifacts:
-      - comagelmmtsreportspurchaseorder.zip
-      name: comagelmmtsreportspurchaseorder
-      target-path: resources/
-- name: launchpad
-  type: com.sap.application.content
-  path: launchpad
-  requires:
-  - name: portal_resources_agel-mmts-web
-    parameters:
-      content-target: true
-      service-key:
-        config:
-          content-endpoint: developer
-        name: content-deploy-key
-  - name: agel-mmts-web_html_repo_host
-  - name: agel-mmts-web_ui_deployer
-  - name: uaa_agel-mmts-web
-  parameters:
-    config:
       TENANT_HOST_PATTERN: ^(.*)-agel-mmts-web-approuter.${default-domain}
-  deployed-after:
-  - agel-mmts-web_ui_deployer
-- name: workflow-module
-  type: com.sap.application.content
-  path: workflow-module
-  requires:
-  - name: workflow
+    requires:
+      - name: uaa_agel-mmts-web
+      - name: agel-mmts-web_html_repo_runtime
+      - name: portal_resources_agel-mmts-web
+      - name: agel-mmts-destination
+        group: destinations
+        properties:
+          forwardAuthToken: true
+          name: AGEL_MMTS_API
+          url: https://agel-mmts-api.cfapps.ap11.hana.ondemand.com/
     parameters:
-      content-target: true
-- name: vendorPersona
-  type: html5
-  path: vendorPersona
-  build-parameters:
-    builder: custom
-    commands:
-    - npm run build
-    supported-platforms: []
-- name: user-roleassignment
-  type: html5
-  path: user-roleassignment
-  build-parameters:
-    builder: custom
-    commands:
-    - npm run build
-    supported-platforms: []
-- name: ScannerAppLibrary
-  type: html5
-  path: ScannerAppLibrary
-  build-parameters:
-    builder: custom
-    commands:
-    - npm run build
-    supported-platforms: []
-- name: tcengineer
-  type: html5
-  path: tcengineer
-  build-parameters:
-    builder: custom
-    commands:
-    - npm run build
-    supported-platforms: []
-- name: pmcg
-  type: html5
-  path: pmcg
-  build-parameters:
-    builder: custom
-    commands:
-    - npm run build
-    supported-platforms: []
-- name: mdm-uom
-  type: html5
-  path: mdm-uom
-  build-parameters:
-    builder: custom
-    commands:
-    - npm run build
-    supported-platforms: []
-- name: mdm-packinglisttype
-  type: html5
-  path: mdm-packinglisttype
-  build-parameters:
-    builder: custom
-    commands:
-    - npm run build
-    supported-platforms: []
-- name: mdm-outerpackinglist
-  type: html5
-  path: mdm-outerpackinglist
-  build-parameters:
-    builder: custom
-    commands:
-    - npm run build
-    supported-platforms: []
-- name: vendor-manageboq
-  type: html5
-  path: vendor-manageboq
-  build-parameters:
-    builder: custom
-    commands:
-    - npm run build
-    supported-platforms: []
-- name: mdm-boqitems
-  type: html5
-  path: mdm-boqitems
-  build-parameters:
-    builder: custom
-    commands:
-    - npm run build
-    supported-platforms: []
-- name: vendormdcc
-  type: html5
-  path: vendor-mdcc
-  build-parameters:
-    builder: custom
-    commands:
-    - npm run build
-    supported-platforms: []
-- name: comagelmmtssecurityinternationalimport
-  type: html5
-  path: security-international-import
-  build-parameters:
-    builder: custom
-    commands:
-    - npm run build
-    supported-platforms: []
-- name: comagelmmtssecurityscanhistory
-  type: html5
-  path: security-scan-history
-  build-parameters:
-    builder: custom
-    commands:
-    - npm run build
-    supported-platforms: []
-- name: security-scanqr
-  type: html5
-  path: security-scanqr
-  build-parameters:
-    builder: custom
-    commands:
-    - npm run build
-    supported-platforms: []
-- name: packingListCreate
-  type: html5
-  path: vendor-packinglist-create
-  build-parameters:
-    builder: custom
-    commands:
-    - npm run build
-    supported-platforms: []
-- name: vendor-map-mdcc
-  type: html5
-  path: vendor-map-mdcc
-  build-parameters:
-    builder: custom
-    commands:
-    - npm run build
-    supported-platforms: []
-- name: storeincharge-raisedpo
-  type: html5
-  path: storeincharge-raisedpo
-  build-parameters:
-    builder: custom
-    commands:
-    - npm run build
-    supported-platforms: []
-- name: storeincharge-scanqr
-  type: html5
-  path: storeincharge-scanqr
-  build-parameters:
-    builder: custom
-    commands:
-    - npm run build
-    supported-platforms: []
-- name: unloadmaterial
-  type: html5
-  path: unloadmaterial
-  build-parameters:
-    builder: custom
-    commands:
-    - npm run build
-    supported-platforms: []
-- name: storeincharge-issuematerial
-  type: html5
-  path: storeincharge-issuematerial
-  build-parameters:
-    builder: custom
-    commands:
-    - npm run build
-    supported-platforms: []
-- name: storeincharge-returnmaterial
-  type: html5
-  path: storeincharge-returnmaterial
-  build-parameters:
-    builder: custom
-    commands:
-    - npm run build
-    supported-platforms: []
-- name: storeincharge-approvals
-  type: html5
-  path: storeincharge-approvals
-  build-parameters:
-    builder: custom
-    commands:
-    - npm run build
-    supported-platforms: []
-- name: comagelmmtsadminposummary
-  type: html5
-  path: admin-po_summary
-  build-parameters:
-    builder: custom
-    commands:
-    - npm run build
-    supported-platforms: []
-- name: comagelmmtsreturnmaterial
-  type: html5
-  path: returnmaterial
-  build-parameters:
-    builder: custom
-    commands:
-    - npm run build
-    supported-platforms: []
-- name: comagelmmtsraisereturnmaterial
-  type: html5
-  path: raise-returnmaterial
-  build-parameters:
-    builder: custom
-    commands:
-    - npm run build
-    supported-platforms: []
-- name: comagelmmtsstorestock
-  type: html5
-  path: storestock
-  build-parameters:
-    builder: custom
-    commands:
-    - npm run build
-    supported-platforms: []
-- name: comagelmmtsengineerfieldstock
-  type: html5
-  path: engineer-fieldstock
-  build-parameters:
-    build-result: dist
-    builder: custom
-    commands:
-    - npm install
-    - npm run build:cf
-    supported-platforms: []
-- name: comagelmmtsreportspurchaseorder
-  type: html5
-  path: reports-purchase_order
-  build-parameters:
-    build-result: dist
-    builder: custom
-    commands:
-    - npm install
-    - npm run build:cf
-    supported-platforms: []
+      disk-quota: 256M
+      keep-existing-routes: true
+      memory: 256M
+  - name: agel-mmts-web_ui_deployer
+    type: com.sap.application.content
+    path: .
+    requires:
+      - name: agel-mmts-web_html_repo_host
+        parameters:
+          content-target: true
+    build-parameters:
+      build-result: resources
+      requires:
+        - artifacts:
+            - vendorPersona-content.zip
+          name: vendorPersona
+          target-path: resources/
+        - artifacts:
+            - user-roleassignment-content.zip
+          name: user-roleassignment
+          target-path: resources/
+        - artifacts:
+            - ScannerAppLibrary-content.zip
+          name: ScannerAppLibrary
+          target-path: resources/
+        - artifacts:
+            - tcengineer-content.zip
+          name: tcengineer
+          target-path: resources/
+        - artifacts:
+            - pmcg-content.zip
+          name: pmcg
+          target-path: resources/
+        - artifacts:
+            - mdm-packinglisttype-content.zip
+          name: mdm-packinglisttype
+          target-path: resources/
+        - artifacts:
+            - mdm-outerpackinglist-content.zip
+          name: mdm-outerpackinglist
+          target-path: resources/
+        - artifacts:
+            - mdm-uom-content.zip
+          name: mdm-uom
+          target-path: resources/
+        - artifacts:
+            - vendor-manageboq-content.zip
+          name: vendor-manageboq
+          target-path: resources/
+        - artifacts:
+            - mdm-boqitems-content.zip
+          name: mdm-boqitems
+          target-path: resources/
+        - artifacts:
+            - vendor-mdcc-content.zip
+          name: vendormdcc
+          target-path: resources/
+        - artifacts:
+            - security-international-import-content.zip
+          name: comagelmmtssecurityinternationalimport
+          target-path: resources/
+        - artifacts:
+            - security-scan-history-content.zip
+          name: comagelmmtssecurityscanhistory
+          target-path: resources/
+        - artifacts:
+            - security-scanqr-content.zip
+          name: security-scanqr
+          target-path: resources/
+        - artifacts:
+            - vendor-map-mdcc-content.zip
+          name: vendor-map-mdcc
+          target-path: resources/
+        - artifacts:
+            - vendor-map-mdcc-content.zip
+          name: vendor-map-mdcc
+          target-path: resources/
+        - artifacts:
+            - storeincharge-raisedpo-content.zip
+          name: storeincharge-raisedpo
+          target-path: resources/
+        - artifacts:
+            - storeincharge-scanqr-content.zip
+          name: storeincharge-scanqr
+          target-path: resources/
+        - artifacts:
+            - storeincharge-approvals-content.zip
+          name: storeincharge-approvals
+          target-path: resources/
+        - artifacts:
+            - unloadmaterial-content.zip
+          name: unloadmaterial
+          target-path: resources/
+        - artifacts:
+            - storeincharge-issuematerial-content.zip
+          name: storeincharge-issuematerial
+          target-path: resources/
+        - artifacts:
+            - storeincharge-returnmaterial.zip
+          name: storeincharge-returnmaterial
+          target-path: resources/
+        - artifacts:
+            - comagelmmtsvendorpackinglistcreate-content.zip
+          name: packingListCreate
+          target-path: resources/
+        - artifacts:
+            - admin-po_summary-content.zip
+          name: comagelmmtsadminposummary
+          target-path: resources/
+        - artifacts:
+            - comagelmmtsraisereturnmaterial.zip
+          name: comagelmmtsraisereturnmaterial
+          target-path: resources/
+        - artifacts:
+            - comagelmmtsreturnmaterial.zip
+          name: comagelmmtsreturnmaterial
+          target-path: resources/
+        - artifacts:
+            - comagelmmtsstorestock.zip
+          name: comagelmmtsstorestock
+          target-path: resources/
+        - artifacts:
+            - comagelmmtsengineerfieldstock.zip
+          name: comagelmmtsengineerfieldstock
+          target-path: resources/
+        - artifacts:
+            - comagelmmtsreportspurchaseorder.zip
+          name: comagelmmtsreportspurchaseorder
+          target-path: resources/
+        - artifacts:
+            - comagelmmtslognewconsumption.zip
+          name: comagelmmtslognewconsumption
+          target-path: resources/
+  - name: launchpad
+    type: com.sap.application.content
+    path: launchpad
+    requires:
+      - name: portal_resources_agel-mmts-web
+        parameters:
+          content-target: true
+          service-key:
+            config:
+              content-endpoint: developer
+            name: content-deploy-key
+      - name: agel-mmts-web_html_repo_host
+      - name: agel-mmts-web_ui_deployer
+      - name: uaa_agel-mmts-web
+    parameters:
+      config:
+        TENANT_HOST_PATTERN: ^(.*)-agel-mmts-web-approuter.${default-domain}
+    deployed-after:
+      - agel-mmts-web_ui_deployer
+  - name: workflow-module
+    type: com.sap.application.content
+    path: workflow-module
+    requires:
+      - name: workflow
+        parameters:
+          content-target: true
+  - name: vendorPersona
+    type: html5
+    path: vendorPersona
+    build-parameters:
+      builder: custom
+      commands:
+        - npm run build
+      supported-platforms: []
+  - name: user-roleassignment
+    type: html5
+    path: user-roleassignment
+    build-parameters:
+      builder: custom
+      commands:
+        - npm run build
+      supported-platforms: []
+  - name: ScannerAppLibrary
+    type: html5
+    path: ScannerAppLibrary
+    build-parameters:
+      builder: custom
+      commands:
+        - npm run build
+      supported-platforms: []
+  - name: tcengineer
+    type: html5
+    path: tcengineer
+    build-parameters:
+      builder: custom
+      commands:
+        - npm run build
+      supported-platforms: []
+  - name: pmcg
+    type: html5
+    path: pmcg
+    build-parameters:
+      builder: custom
+      commands:
+        - npm run build
+      supported-platforms: []
+  - name: mdm-uom
+    type: html5
+    path: mdm-uom
+    build-parameters:
+      builder: custom
+      commands:
+        - npm run build
+      supported-platforms: []
+  - name: mdm-packinglisttype
+    type: html5
+    path: mdm-packinglisttype
+    build-parameters:
+      builder: custom
+      commands:
+        - npm run build
+      supported-platforms: []
+  - name: mdm-outerpackinglist
+    type: html5
+    path: mdm-outerpackinglist
+    build-parameters:
+      builder: custom
+      commands:
+        - npm run build
+      supported-platforms: []
+  - name: vendor-manageboq
+    type: html5
+    path: vendor-manageboq
+    build-parameters:
+      builder: custom
+      commands:
+        - npm run build
+      supported-platforms: []
+  - name: mdm-boqitems
+    type: html5
+    path: mdm-boqitems
+    build-parameters:
+      builder: custom
+      commands:
+        - npm run build
+      supported-platforms: []
+  - name: vendormdcc
+    type: html5
+    path: vendor-mdcc
+    build-parameters:
+      builder: custom
+      commands:
+        - npm run build
+      supported-platforms: []
+  - name: comagelmmtssecurityinternationalimport
+    type: html5
+    path: security-international-import
+    build-parameters:
+      builder: custom
+      commands:
+        - npm run build
+      supported-platforms: []
+  - name: comagelmmtssecurityscanhistory
+    type: html5
+    path: security-scan-history
+    build-parameters:
+      builder: custom
+      commands:
+        - npm run build
+      supported-platforms: []
+  - name: security-scanqr
+    type: html5
+    path: security-scanqr
+    build-parameters:
+      builder: custom
+      commands:
+        - npm run build
+      supported-platforms: []
+  - name: packingListCreate
+    type: html5
+    path: vendor-packinglist-create
+    build-parameters:
+      builder: custom
+      commands:
+        - npm run build
+      supported-platforms: []
+  - name: vendor-map-mdcc
+    type: html5
+    path: vendor-map-mdcc
+    build-parameters:
+      builder: custom
+      commands:
+        - npm run build
+      supported-platforms: []
+  - name: storeincharge-raisedpo
+    type: html5
+    path: storeincharge-raisedpo
+    build-parameters:
+      builder: custom
+      commands:
+        - npm run build
+      supported-platforms: []
+  - name: storeincharge-scanqr
+    type: html5
+    path: storeincharge-scanqr
+    build-parameters:
+      builder: custom
+      commands:
+        - npm run build
+      supported-platforms: []
+  - name: unloadmaterial
+    type: html5
+    path: unloadmaterial
+    build-parameters:
+      builder: custom
+      commands:
+        - npm run build
+      supported-platforms: []
+  - name: storeincharge-issuematerial
+    type: html5
+    path: storeincharge-issuematerial
+    build-parameters:
+      builder: custom
+      commands:
+        - npm run build
+      supported-platforms: []
+  - name: storeincharge-returnmaterial
+    type: html5
+    path: storeincharge-returnmaterial
+    build-parameters:
+      builder: custom
+      commands:
+        - npm run build
+      supported-platforms: []
+  - name: storeincharge-approvals
+    type: html5
+    path: storeincharge-approvals
+    build-parameters:
+      builder: custom
+      commands:
+        - npm run build
+      supported-platforms: []
+  - name: comagelmmtsadminposummary
+    type: html5
+    path: admin-po_summary
+    build-parameters:
+      builder: custom
+      commands:
+        - npm run build
+      supported-platforms: []
+  - name: comagelmmtsreturnmaterial
+    type: html5
+    path: returnmaterial
+    build-parameters:
+      builder: custom
+      commands:
+        - npm run build
+      supported-platforms: []
+  - name: comagelmmtsraisereturnmaterial
+    type: html5
+    path: raise-returnmaterial
+    build-parameters:
+      builder: custom
+      commands:
+        - npm run build
+      supported-platforms: []
+  - name: comagelmmtsstorestock
+    type: html5
+    path: storestock
+    build-parameters:
+      builder: custom
+      commands:
+        - npm run build
+      supported-platforms: []
+  - name: comagelmmtsengineerfieldstock
+    type: html5
+    path: engineer-fieldstock
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install
+        - npm run build:cf
+      supported-platforms: []
+  - name: comagelmmtsreportspurchaseorder
+    type: html5
+    path: reports-purchase_order
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install
+        - npm run build:cf
+      supported-platforms: []
+  - name: comagelmmtsraiseconsumptionporequest
+    type: html5
+    path: raise-consumption-po-request
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install
+        - npm run build:cf
+      supported-platforms: []
+  - name: comagelmmtslognewconsumption
+    type: html5
+    path: lognewconsumption
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install
+        - npm run build:cf
+      supported-platforms: []
 resources:
-- name: uaa_agel-mmts-web
-  type: org.cloudfoundry.managed-service
-  parameters:
-    path: ./xs-security.json
-    service: xsuaa
-    service-name: xsuaa-agel-mmts
-    service-plan: application
-- name: agel-mmts-web_html_repo_runtime
-  type: org.cloudfoundry.managed-service
-  parameters:
-    service: html5-apps-repo
-    service-plan: app-runtime
-- name: agel-mmts-web_html_repo_host
-  type: org.cloudfoundry.managed-service
-  parameters:
-    service: html5-apps-repo
-    service-plan: app-host
-- name: portal_resources_agel-mmts-web
-  type: org.cloudfoundry.managed-service
-  parameters:
-    service: portal
-    service-plan: standard
-- name: agel-mmts-destination
-  type: org.cloudfoundry.managed-service
-  parameters:
-    config:
-      HTML5Runtime_enabled: true
-      init_data:
-        instance:
-          destinations:
-          - Authentication: NoAuthentication
-            Name: ui5
-            ProxyType: Internet
-            Type: HTTP
-            URL: https://ui5.sap.com
-          existing_destinations_policy: update
-      version: 1.0.0
-    service: destination
-    service-plan: lite
-- name: workflow
-  type: org.cloudfoundry.managed-service
-  parameters:
-    service: workflow
-    service-plan: standard
+  - name: uaa_agel-mmts-web
+    type: org.cloudfoundry.managed-service
+    parameters:
+      path: ./xs-security.json
+      service: xsuaa
+      service-name: xsuaa-agel-mmts
+      service-plan: application
+  - name: agel-mmts-web_html_repo_runtime
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: html5-apps-repo
+      service-plan: app-runtime
+  - name: agel-mmts-web_html_repo_host
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: html5-apps-repo
+      service-plan: app-host
+  - name: portal_resources_agel-mmts-web
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: portal
+      service-plan: standard
+  - name: agel-mmts-destination
+    type: org.cloudfoundry.managed-service
+    parameters:
+      config:
+        HTML5Runtime_enabled: true
+        init_data:
+          instance:
+            destinations:
+              - Authentication: NoAuthentication
+                Name: ui5
+                ProxyType: Internet
+                Type: HTTP
+                URL: https://ui5.sap.com
+            existing_destinations_policy: update
+        version: 1.0.0
+      service: destination
+      service-plan: lite
+  - name: workflow
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: workflow
+      service-plan: standard
 parameters:
   enable-parallel-deployments: true
 build-parameters:
   before-all:
-  - builder: custom
-    commands:
-    - npm install
+    - builder: custom
+      commands:
+        - npm install
