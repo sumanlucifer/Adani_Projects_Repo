@@ -116,7 +116,7 @@
                 },
                 {
                     "name": "RouteConsumptionItemsDetailPage",
-                    "pattern": "ConsumptionItemsDetail/{PID}",
+                    "pattern": "ConsumptionItemsDetail/{POId}/{SOId}",
                     "target": [
                         "TargetConsumptionItemsDetailPage"
                     ]

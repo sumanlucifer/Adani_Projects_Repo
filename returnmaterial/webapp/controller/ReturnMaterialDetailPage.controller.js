@@ -129,14 +129,7 @@ sap.ui.define([
         },
 
         // Arrange Data For View / Model Set
-        arrangeDataView: function (ParentDataView) {
-            var that = this;
-            var oModel = new JSONModel({ "ChildItemsView": this.ParentDataView });
-            this.getView().setModel(oModel, "TreeTableModelView");
-            var oTable = this.byId("TreeTable");
-            oTable.setModel(oModel);
-            oTable.getModel("TreeTableModelView").refresh();
-        },
+     
 
         onReadDataIssueMaterialChild: function (ParentData) {
 

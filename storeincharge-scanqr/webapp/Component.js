@@ -21,7 +21,7 @@ sap.ui.define([
 			// call the base component's init function
 			UIComponent.prototype.init.apply(this, arguments);
 
-            //initialize the error handler with the component	
+            //initialize the error handler with the component
             this._oErrorHandler = new ErrorHandler(this);
 
 			// enable routing
@@ -30,7 +30,7 @@ sap.ui.define([
 			// set the device model
 			this.setModel(models.createDeviceModel(), "device");
         },
-                
+
         destroy: function () {
             this._oErrorHandler.destroy();
             // call the base component's destroy function

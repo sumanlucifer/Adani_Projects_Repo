@@ -18,10 +18,10 @@
                 <uxap:breadcrumbs>
                     <Breadcrumbs id="breadcrumbsId" currentLocationText="{i18n>Details}">
                         <Link text="{i18n>ConsumptionPO}" press=".handleToAllPOBreadcrumPress"/>
-                          <Link text="{i18n>RaiseConsumptionPORequest}" press=".handleToAllPOBreadcrumPress"/>
+                        <Link text="{i18n>RaiseConsumptionPORequest}" press=".handleToAllPOBreadcrumPress"/>
                     </Breadcrumbs>
                 </uxap:breadcrumbs>
-                <!-- <uxap:expandedHeading>
+<uxap:expandedHeading>
                     <FlexBox direction="Column" renderType="Bare">
                         <Title text="{i18n>RaiseConsumptionPORequest}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
                         <Title text="{SONumber}" wrapping="true" titleStyle="H3" />
@@ -32,7 +32,7 @@
                         <Title text="{i18n>RaiseReturnMaterialRequest}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
                         <Title text="{SONumber}" wrapping="true" titleStyle="H3"/>
                     </FlexBox>
-                </uxap:snappedHeading> -->
+                </uxap:snappedHeading>
                 <uxap:expandedContent></uxap:expandedContent>
                 <uxap:snappedTitleOnMobile>
                     <Title text="{i18n>SONumber}- {SONumber}" wrapping="true" titleStyle="Auto"/>
@@ -44,22 +44,55 @@
                 </uxap:actions>
             </uxap:ObjectPageDynamicHeaderTitle>
         </uxap:headerTitle>
-        <uxap:headerContent></uxap:headerContent>
+        <uxap:headerContent>
+
+            <FlexBox wrap="Wrap" height="100%" renderType="Bare" direction="Column">
+                <VBox renderType="Bare">
+                    <FlexBox direction="Row" renderType="Bare" class="sapUiTinyMarginBottom">
+                        <VBox renderType="Bare" class="sapUiMediumMarginEnd">
+                            <Label text="{i18n>ReservationNumber}" />
+                            <!-- missing -->
+                            <Text text="{objectViewModel>/sReservationNumber}"/>
+                        </VBox>
+
+
+                        <VBox renderType="Bare" class="sapUiMediumMarginEnd">
+                            <Label text="{i18n>ReservationDate}" />
+                            <!-- missing -->
+
+                            <Text text="{objectViewModel>/sReservationDate}"/>
+                            <Text text="{path:'objectViewModel>/sReservationDate',
+                                     type: 'sap.ui.model.type.Date',
+				                     formatOptions: {
+				                   source: {pattern: 'yyyy-MM-ddTHH:mm:ss'},pattern: 'MMM dd,yyyy HH:mm:ss'
+				                     }
+                                     
+                            }"/>
+                        </VBox>
+
+                    </FlexBox>
+                </VBox>
+
+            </FlexBox>
+
+
+        </uxap:headerContent>
 
 
         <uxap:sections>
             <!-- Basic So Info Section -->
             <uxap:ObjectPageSection titleUppercase="false" title="{i18n>ContractorDetails}">
                 <uxap:subSections>
+
                     <uxap:ObjectPageSubSection title="{i18n>ContractorDetails}" class="BasicDetalFormTitleStyle">
+
                         <f:SimpleForm layout="ColumnLayout" binding="{Contractor}" singleContainerFullSize="true" class="style-RemoveTitleHeight">
                             <f:content>
                                 <!-- <core:Title  /> -->
                                 <Label text="{i18n>ContractorName}" />
                                 <Text text="{Name}" />
 
-                                <Label text="{i18n>ContractorId}" />
-                                <Text text="{ID}" />
+
 
                                 <Label text="{i18n>PlantSite-Location}" />
                                 <Text text="{PlantSiteLocation}"/>
@@ -72,15 +105,7 @@
 				                     }
                                 }"/>
 
-                                <!-- <core:Title />  -->
-                                <Label text="{i18n>Materials}" />
-                                <Text text="{Materials}"/>
-                                <!-- <ExpandableText binding="{Address}" text="{parts: [{path: 'Street'}, {path: 'City'}, {path: 'State'}, {path: 'Country'}, {path: 'pinCode'}]}" overflowMode="InPlace"/> -->
-                                <Label text="{i18n>Description}" />
-                                <Text text="{Description}"/>
 
-                                <Label text="{i18n>Service-Covered}" />
-                                <Text text="{ServicesCovered}"/>
 
                             </f:content>
                         </f:SimpleForm>
@@ -92,28 +117,101 @@
             </uxap:ObjectPageSection>
 
             <!-- Line Items Section -->
-            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>LineItems}">
+            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>ConsumedItems}">
                 <uxap:subSections>
-                    <uxap:ObjectPageSubSection title="{i18n>LineItems}">
-                            <smartTable:SmartTable id="smartTreeTable" entitySet="SONumberDetailsSet" tableType="TreeTable" useExportToExcel="false" useVariantManagement="false" useTablePersonalisation="true" placeToolbarInTable="true" showRowCount="true" enableAutoBinding="true" enableAutoColumnWidth="true" useGroupMode="true" beforeRebindTable="onBeforeRebindTreeTable">
+                    <uxap:ObjectPageSubSection title="{i18n>ConsumedItems}">
+                        <uxap:blocks>
 
 
-                            <tt:TreeTable id="treeTable" selectionMode="None" enableColumnReordering="true"  visibleRowCountMode="Interactive">
-                                <tt:columns>
+                            <smartTable:SmartTable showFullScreenButton="true" id="smartTreeTableCounsumedItems" entitySet="ConsumedMaterialParentSet" tableType="TreeTable" useExportToExcel="false" useVariantManagement="false" useTablePersonalisation="true" placeToolbarInTable="true" showRowCount="true" enableAutoBinding="true" beforeRebindTable="onBeforeRebindConsumptionPODetailTreeTable">
 
-                                    <tt:Column hAlign="Center">
-                                        <Label text="{i18n>name}"/>
-                                        <tt:customData>
-                                            <core:CustomData key="p13nData" value='\{"columnKey": "ID", "leadingProperty": "ID",
-"columnIndex": 1 ,"sortProperty": "ID","filterProperty": "ID"}'/>
-                                        </tt:customData>
 
-                                    </tt:Column>
+                                <tt:TreeTable id="treeTable" selectionMode="None" expandFirstLevel="true" enableColumnReordering="true" visibleRowCountMode="Interactive">
+                                    <tt:columns>
 
-                                </tt:columns>
 
-                            </tt:TreeTable>
-                        </smartTable:SmartTable>
+
+
+
+                                        <tt:Column hAlign="Center">
+                                            <Label text="{i18n>MaterialCode}"/>
+                                            <tt:customData>
+                                                <core:CustomData key="p13nData" value='\{"columnKey": "MaterialCode", "leadingProperty": "MaterialCode",
+"columnIndex": 0 ,"sortProperty": "MaterialCode","filterProperty": "MaterialCode"}'/>
+                                            </tt:customData>
+
+                                            <tt:template>
+
+                                                <ObjectIdentifier title="{MaterialCode}"/>
+                                            </tt:template>
+
+                                        </tt:Column>
+
+
+                                        <tt:Column hAlign="Center">
+                                            <Label text="{i18n>Name}"/>
+                                            <tt:customData>
+                                                <core:CustomData key="p13nData" value='\{"columnKey": "Name", "leadingProperty": "Name",
+"columnIndex": 1 ,"sortProperty": "Name","filterProperty": "Name"}'/>
+                                            </tt:customData>
+
+                                            <tt:template>
+                                                <Text text="{Name}" wrapping="false"></Text>
+
+                                            </tt:template>
+
+                                        </tt:Column>
+
+
+                                        <tt:Column hAlign="Center">
+                                            <Label text="{i18n>Quantity}"/>
+                                            <tt:customData>
+                                                <core:CustomData key="p13nData" value='\{"columnKey": "Quantity", "leadingProperty": "Quantity",
+"columnIndex": 2 ,"sortProperty": "Quantity","filterProperty": "Quantity"}'/>
+                                            </tt:customData>
+
+                                            <tt:template>
+                                                <Text text="{Quantity}" wrapping="false"></Text>
+
+                                            </tt:template>
+
+                                        </tt:Column>
+
+                                        <tt:Column hAlign="Center">
+                                            <Label text="{i18n>BaseUnit}"/>
+                                            <tt:customData>
+                                                <core:CustomData key="p13nData" value='\{"columnKey": "BaseUnit", "leadingProperty": "BaseUnit",
+"columnIndex": 3 ,"sortProperty": "BaseUnit","filterProperty": "BaseUnit"}'/>
+                                            </tt:customData>
+
+                                            <tt:template>
+                                                <Text text="{BaseUnit}" wrapping="false"></Text>
+                                            </tt:template>
+
+                                        </tt:Column>
+
+
+
+
+                                        <tt:Column hAlign="Center">
+                                            <Label text="{i18n>Plant}"/>
+                                            <tt:customData>
+                                                <core:CustomData key="p13nData" value='\{"columnKey": "Plant", "leadingProperty": "Plant",
+"columnIndex": 4 ,"sortProperty": "Plant","filterProperty": "Plant"}'/>
+                                            </tt:customData>
+
+                                            <tt:template>
+                                                <Text text="{Plant}" wrapping="false"></Text>
+                                            </tt:template>
+
+                                        </tt:Column>
+
+
+                                    </tt:columns>
+
+                                </tt:TreeTable>
+                            </smartTable:SmartTable>
+                        </uxap:blocks>
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>
             </uxap:ObjectPageSection>
@@ -121,7 +219,7 @@
 
 
 
-            
+
         </uxap:sections>
     </uxap:ObjectPageLayout>
 </mvc:View>

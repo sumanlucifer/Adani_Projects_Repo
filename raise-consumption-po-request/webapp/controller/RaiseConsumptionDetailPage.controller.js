@@ -36,6 +36,13 @@ sap.ui.define([
             });
             this.setModel(oViewModel, "objectViewModel");
 
+            var oReservationData = new JSONModel({
+                ReservationNumber: null,
+                ReservationDate: null
+
+            });
+            this.setModel(oReservationData, "oReservationData");
+
             //    this._initializeCreationModels();
 
             // Keeps reference to any of the created sap.m.ViewSettingsDialog-s in this sample
@@ -55,7 +62,7 @@ sap.ui.define([
         _onObjectMatched: function (oEvent) {
             var that = this;
             var sObjectId = oEvent.getParameter("arguments").SOId;
-            that.sObjectId = sObjectId;
+            this.sObjectId = sObjectId;
             this._bindView("/SONumberDetailsSet(" + sObjectId + ")");
         },
 
@@ -66,17 +73,32 @@ sap.ui.define([
             this.getView().bindElement({
                 path: sObjectPath,
                 events: {
+                    change: this._onBindingChange.bind(that),
                     dataRequested: function () {
                         objectViewModel.setProperty("/busy", true);
                     },
                     dataReceived: function () {
                         objectViewModel.setProperty("/busy", false);
-                        // that.onReadDataIssueMaterials();
+
+
+
+
                     }
                 }
             });
         },
-           handleToAllPOBreadcrumPress: function (oEvent) {
+
+        _onBindingChange: function () {
+            var oView = this.getView(),
+                oViewModel = this.getViewModel("objectViewModel"),
+                oElementBinding = oView.getElementBinding();
+            // No data for the binding
+            if (!oElementBinding.getBoundContext()) {
+                this.getRouter().getTargets().display("notFound");
+                return;
+            }
+        },
+        handleToAllPOBreadcrumPress: function (oEvent) {
             history.go(-1);
         },
 
@@ -84,106 +106,77 @@ sap.ui.define([
         onBeforeRebindTreeTable: function (oEvent) {
             debugger;
             var mBindingParams = oEvent.getParameter("bindingParams");
-            mBindingParams.parameters["expand"] = "IssuedMaterials/IssuedMaterialParents/IssuedMaterialBOQ";
-            mBindingParams.parameters["navigation"] = { "SONumberDetailsSet": "IssuedMaterials" };
-            mBindingParams.parameters["navigation"] = { "IssuedMaterials": "IssuedMaterialParents" };
+            mBindingParams.parameters["expand"] = "IssuedMaterialBOQ";
+            mBindingParams.parameters["navigation"] = { "IssuedMaterialParentSet": "IssuedMaterialBOQ" };
+            mBindingParams.filters.push(new sap.ui.model.Filter("SONumberId/ID", sap.ui.model.FilterOperator.EQ, this.sObjectId));
         },
 
-        onReadDataIssueMaterials: function () {
+        onBeforeRebindRestTable: function (oEvent) {
+            var mBindingParams = oEvent.getParameter("bindingParams");
+            mBindingParams.filters.push(new Filter("SONumberId/ID", sap.ui.model.FilterOperator.EQ, this.sObjectId));
+
+        },
+
+
+        onConsumedItemsTablePress: function (oEvent) {
+            // The source is the list item that got pressed
+
+            var ReservationNumber = oEvent.getSource().getBindingContext().getProperty().ReservationNumber;
+            var ReservationDate = oEvent.getSource().getBindingContext().getProperty().ReservationDate;
+            this._showObject(oEvent.getSource(), ReservationNumber, ReservationDate );
+
+           
+        },
+
+        _showObject: function (oItem, ReservationNumber, ReservationDate ) {
+
+
             var that = this;
-            var oTable = this.byId("idTblIssueMaterialItems");
-            that.oIssueMaterialModel = new JSONModel();
-            this.MainModel.read("/SONumberDetailsSet(" + that.sObjectId + ")/IssuedMaterialItems", {
-                success: function (oData, oResponse) {
-                    that.oIssueMaterialModel.setData({ "Items": oData.results });
-                    oTable.setModel(that.oIssueMaterialModel, "oIssueMaterialModel");
-                }.bind(this),
-                error: function (oError) {
-                    sap.m.MessageBox.error("Data Not Found");
-                }
-            });
+            var sObjectPath = oItem.getBindingContext().sPath;
 
-        },
-
-        onPressRetrunAsset: function (oEvent) {
-            //  debugger;
-            //  var sObjectId = oEvent.getSource();
-            oEvent.getSource().getParent().getCells()[6].getItems()[0].setEditable(true);
-            oEvent.getSource().getParent().getCells()[6].getItems()[1].setVisible(true);
-        },
-
-        onPressSave: function (oEvent) {
-            oEvent.getSource().getParent().getParent().getCells()[6].getItems()[0].setEditable(false);
-            oEvent.getSource().getParent().getParent().getCells()[6].getItems()[1].setVisible(false);
-        },
-
-        onCancelAssistanceRequestPress: function (oEvent) {
-            this._oQRAssistantDialog.close();
-        },
-
-        onPressSubmitRequest: function (oEvent) {
-            //initialize the action
-            var oModel = new JSONModel({
-                "reason": null,
-                "comment": null
-            });
-            this.getView().setModel(oModel, "qrAssistantModel")
-            if (!this._oQRAssistantDialog) {
-                this._oQRAssistantDialog = sap.ui.xmlfragment("com.agel.mmts.raisereturnmaterial.view.fragments.Reason", this);
-                this.getView().addDependent(this._oQRAssistantDialog);
-            }
-            this._oQRAssistantDialog.open();
-        },
-
-        onSendAssistanceRequestPress: function (oEvent) {
-            var that = this;
-            var inputModel = this.getView().getModel("qrAssistantModel");
-            var flag = 0;
-            if (inputModel.getProperty("/comment") == null || inputModel.getProperty("/comment") == "") {
-                flag = 1;
-            }
-
-            if (inputModel.getProperty("/reason") == null || inputModel.getProperty("/reason") == "") {
-                flag = 1;
-            }
-
-            if (flag == 1) {
-                sap.m.MessageBox.error("Please fill mandatory fields");
-                return 0;
-            }
-
-            var oTable = this.byId("idTblIssueMaterialItems");
-            var aItems = oTable.getModel("oIssueMaterialModel").getData().Items;
-
-            var aNewItems = aItems.map(obj => ({ ...obj, IssuedMaterialItemId: obj.ID }))
-
-            var oPayload = {
-                "SONumber": this.getView().getBindingContext().getObject().SONumber,
-                "UserName": "Test",
-                "ContractorId": 7,
-                "ReasonToReturnMaterialId": 1,
-                //inputModel.getProperty("/reason")
-                "Comment": inputModel.getProperty("/comment"),
-                "Materials": aNewItems
-            };
-
-            this.MainModel.create("/RaiseReturnMaterialRequestSet", oPayload, {
-                success: function (oData, oResponse) {
-                    that._oQRAssistantDialog.close();
-                    sap.m.MessageBox.success("Request submit successfully!")
-                }.bind(this),
-                error: function (oError) {
-                    sap.m.MessageBox.error(oError.Message);
-                }
-            });
-        },
-
-        onPressLogNewEntryButton: function (oEve) {
             this.oRouter.navTo("RouteConsumptionItemsDetailPage", {
-                PID: 3,
-            }, false);
+                POId: sObjectPath.slice("/ConsumptionPostingReserveSet".length),// /StockParentItemSet(123)->(123)
+                SOId: this.sObjectId + ";" + ReservationNumber + ";" + ReservationDate
+            },
 
+
+                false
+            );
+        },
+
+        
+        onPressLongNewEntry: function (oItem) {
+             var that = this;
+             oItem.getBindingContext().requestCanonicalPath().then(function (sObjectPath) {
+                 that.getRouter().navTo("RoutePackingDeatilsPage", {
+                     packingListID: sObjectPath.slice("/PackingLists".length) // /PurchaseOrders(123)->(123)
+                 });
+             }); 
+            console.log(oItem.getBindingContext().getObject().ID)
+
+               var oCrossAppNavigator = sap.ushell.Container.getService("CrossApplicationNavigation"); // get a handle on the global XAppNav service
+              var hash = (oCrossAppNavigator && oCrossAppNavigator.hrefForExternal({
+                  target: {
+                      semanticObject: "PackingList",
+                      action: "manage"
+                  },
+                  params: {
+                      "packingListID": oItem.getBindingContext().getObject().ID,
+                      "status": "SAVED"
+                  }
+              })) || ""; 
+              oCrossAppNavigator.toExternal({
+                  target: {
+                      shellHash: hash
+                  }
+              }); 
         }
+
+
+
+
+
+
 
     });
 });

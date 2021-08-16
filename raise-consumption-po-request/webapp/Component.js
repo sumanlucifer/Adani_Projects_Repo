@@ -1,8 +1,9 @@
 sap.ui.define([
 	"sap/ui/core/UIComponent",
 	"sap/ui/Device",
-	"com/agel/mmts/raiseconsumptionporequest/model/models"
-], function (UIComponent, Device, models) {
+    "com/agel/mmts/raiseconsumptionporequest/model/models",
+    "com/agel/mmts/raiseconsumptionporequest/controller/ErrorHandler"
+], function (UIComponent, Device, models, ErrorHandler) {
 	"use strict";
 
 	return UIComponent.extend("com.agel.mmts.raiseconsumptionporequest.Component", {
@@ -18,13 +19,19 @@ sap.ui.define([
 		 */
 		init: function () {
 			// call the base component's init function
-			UIComponent.prototype.init.apply(this, arguments);
+            UIComponent.prototype.init.apply(this, arguments);
+             this._oErrorHandler = new ErrorHandler(this);
 
 			// enable routing
 			this.getRouter().initialize();
 
 			// set the device model
 			this.setModel(models.createDeviceModel(), "device");
+        },
+        destroy: function () {
+            this._oErrorHandler.destroy();
+            // call the base component's destroy function
+            UIComponent.prototype.destroy.apply(this, arguments);
         },
         getContentDensityClass: function () {
             if (this._sContentDensityClass === undefined) {
