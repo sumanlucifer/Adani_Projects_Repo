@@ -242,7 +242,7 @@
                                     <Column  >
                                         <customData>
                                             <core:CustomData key="p13nData" value='\{"columnKey": "ReservationDate", "leadingProperty": "ReservationDate",
-                                                 "columnIndex": 1 ,"sortProperty": "ReservationDate","filterProperty": "ReservationDate"}'/>
+                                                 "columnIndex": 1 ,"sortProperty": "ReservationDate"}'/>
                                         </customData>
                                         <Text text="{i18n>ReservationDate}"/>
                                     </Column>
@@ -252,7 +252,7 @@
                                     <Column  >
                                         <customData>
                                             <core:CustomData key="p13nData" value='\{"columnKey": "CreatedAt", "leadingProperty": "CreatedAt",
-                                                 "columnIndex": 2 ,"sortProperty": "CreatedAt","filterProperty": "CreatedAt"}'/>
+                                                 "columnIndex": 2 ,"sortProperty": "CreatedAt"}'/>
                                         </customData>
                                         <Text text="{i18n>RaisedOn}"/>
                                     </Column>

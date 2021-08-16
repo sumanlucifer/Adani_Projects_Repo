@@ -48,7 +48,7 @@ sap.ui.define([
         _onObjectMatched: function (oEvent) {
             var that = this;
             var startupParams = that.getOwnerComponent().getComponentData().startupParameters;
-            var sObjectId = startupParams.SOID;
+            var sObjectId = startupParams.SOID[0];
             that.sObjectId = sObjectId;
             this._bindView("/SONumberDetailsSet(" + sObjectId + ")");
             this.readConsumedItemsTreeData(sObjectId);
@@ -274,7 +274,7 @@ sap.ui.define([
             })) || "";
             oCrossAppNavigator.toExternal({
                 target: {
-                    shellHash: hash + "&/consumptionDetail/(1)" 
+                    shellHash: hash + "&/consumptionDetail/" + that.sObjectId
                 }
             });
         }
