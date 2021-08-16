@@ -67,7 +67,7 @@
 		"e4000acf-98bb-43e2-9b03-20c9cf5ef2c4": {
 			"classDefinition": "com.sap.bpm.wfs.ServiceTask",
 			"destination": "AGEL_MMTS",
-			"path": "/api/v2/odata.svc/BOQGroupSet(${context.BOQGroupId})?$expand=BOQItems,ParentLineItem/PurchaseOrder/Buyer,ParentLineItem/PurchaseOrder/Vendor",
+			"path": "/api/v2/odata.svc/BOQGroupSet(${context.BOQGroupId})?$expand=BOQItems,ParentLineItem/PurchaseOrder,ParentLineItem/PurchaseOrder/Vendor",
 			"httpMethod": "GET",
 			"responseVariable": "${context.aBOQItems}",
 			"headers": [],
