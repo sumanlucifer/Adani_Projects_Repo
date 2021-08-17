@@ -1,0 +1,326 @@
+<mvc:View xmlns:f2="sap.f"
+    xmlns:vbm="sap.ui.vbm"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:uxap="sap.uxap"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+    xmlns:unified="sap.ui.unified"
+    xmlns:tt="sap.ui.table"
+    xmlns:ui="sap.ui.table"
+    xmlns:smartTable="sap.ui.comp.smarttable"
+    xmlns="sap.m" controllerName="com.agel.mmts.raiseconsumptionporequest.controller.RaiseConsumptionDetailPage" height="100%">
+
+
+    <uxap:ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true" upperCaseAnchorBar="false" headerContentPinnable="true" toggleHeaderOnTitleClick="true" busy="{objectViewModel>/busy}">
+        <uxap:headerTitle>
+            <uxap:ObjectPageDynamicHeaderTitle>
+                <uxap:breadcrumbs>
+                    <Breadcrumbs id="breadcrumbsId" currentLocationText="{i18n>RaiseConsumptionPORequest}">
+                        <Link text="{i18n>ConsumptionPO}" press=".handleToAllPOBreadcrumPress"/>
+                    </Breadcrumbs>
+                </uxap:breadcrumbs>
+                <uxap:expandedHeading>
+                    <FlexBox direction="Column" renderType="Bare">
+                        <Title text="{i18n>RaiseConsumptionPORequest}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
+                        <Title text="{SONumber}" wrapping="true" titleStyle="H3" />
+                    </FlexBox>
+                </uxap:expandedHeading>
+                <uxap:snappedHeading>
+                    <FlexBox direction="Column" renderType="Bare">
+                        <Title text="{i18n>RaiseReturnMaterialRequest}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
+                        <Title text="{SONumber}" wrapping="true" titleStyle="H3"/>
+                    </FlexBox>
+                </uxap:snappedHeading>
+                <uxap:expandedContent>
+
+
+                </uxap:expandedContent>
+                <uxap:snappedTitleOnMobile>
+                    <Title text="{i18n>SONumber}- {SONumber}" wrapping="true" titleStyle="Auto"/>
+                </uxap:snappedTitleOnMobile>
+                <uxap:actions>
+                    <!-- <VBox visible="true">
+                        <Button text="Submit Request" press="onPressSubmitRequest" type="Emphasized"/>
+                    </VBox> -->
+                </uxap:actions>
+            </uxap:ObjectPageDynamicHeaderTitle>
+        </uxap:headerTitle>
+        <uxap:headerContent>
+
+
+            <FlexBox wrap="Wrap" height="100%" renderType="Bare" direction="Column">
+                <VBox renderType="Bare">
+                    <FlexBox direction="Row" renderType="Bare" class="sapUiTinyMarginBottom">
+                        <VBox renderType="Bare" class="sapUiMediumMarginEnd">
+                            <Label text="{i18n>CreatedOn}" />
+                            <!-- missing -->
+                            <Text text="{path:'CreatedAt',
+                                     type: 'sap.ui.model.type.Date',
+				                     formatOptions: {
+				                        pattern: 'MMMM dd, yyyy'
+				                     }
+                            }"/>
+                        </VBox>
+
+                    </FlexBox>
+                </VBox>
+               
+            </FlexBox>
+
+
+
+
+        </uxap:headerContent>
+
+
+        <uxap:sections>
+            <!-- Basic So Info Section -->
+            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>SOInfo}">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection title="{i18n>ContractorDetails}" class="BasicDetalFormTitleStyle">
+                        <f:SimpleForm layout="ColumnLayout" binding="{Contractor}" singleContainerFullSize="true" class="style-RemoveTitleHeight">
+                            <f:content>
+                                <!-- <core:Title  /> -->
+                                <Label text="{i18n>ContractorName}" />
+                                <Text text="{Name}" />
+
+
+
+                                <Label text="{i18n>PlantSite-Location}" />
+                                <Text text="{PlantSiteLocation}"/>
+
+                                <Label text="{i18n>ActivePeriod}" />
+                                <Text text="{path:'ActivePeriod',
+                                     type: 'sap.ui.model.type.Date',
+				                     formatOptions: {
+				                        pattern: 'MMMM dd, yyyy'
+				                     }
+                                }"/>
+
+
+
+                            </f:content>
+                        </f:SimpleForm>
+                    </uxap:ObjectPageSubSection>
+
+
+
+                    <uxap:ObjectPageSubSection title="{i18n>LineItems}" class="BasicDetalFormTitleStyle">
+
+                        <smartTable:SmartTable header="Issued Materials"  id="smartTreeTable" showFullScreenButton="true" entitySet="IssuedMaterialParentSet"
+                         tableType="TreeTable"  useExportToExcel="false" useVariantManagement="false" useTablePersonalisation="true" 
+                         placeToolbarInTable="true" ignoreFromPersonalisation="UpdatedBy,UpdatedAt,CreatedBy,CreatedAt,WBSNumber,WBSElement,ValuationType,Status,ID,IsArchived,SpecialStockIndicator,GLAccount,GoodsRecipient,ReservationNumber,ReservationDate,ReceivingLocation,ProfitCentre,PostingDate,MaterialDocumentNumber,MaterialDocumentLineItem,MaterialDocumentYear,HeaderText,GatePassNumber,CostCentre,CreditDebit,DeliveryNote,DocumentDate,BatchNumber,BillOfLading,CancelledBy,CancelledDate" 
+                        showRowCount="false" enableAutoBinding="true" beforeRebindTable="onBeforeRebindTreeTable">
+                            <!-- layout data used to make the table growing but the filter bar fixed -->
+
+                            <tt:TreeTable id="treeTable" selectionMode="None" enableColumnReordering="true" expandFirstLevel="true"  visibleRowCountMode="Interactive">
+                                <tt:columns>
+
+                                    <tt:Column hAlign="Center">
+                                        <Label text="{i18n>MaterialCode}"/>
+                                        <tt:customData>
+                                            <core:CustomData key="p13nData" value='\{"columnKey": "MaterialCode", "leadingProperty": "MaterialCode",
+                                                 "columnIndex": 0 ,"sortProperty": "MaterialCode","filterProperty": "MaterialCode"}'/>
+                                        </tt:customData>
+
+                                        <tt:template>
+
+                                            <ObjectIdentifier title="{MaterialCode}"/>
+
+                                        </tt:template>
+                                    </tt:Column>
+                                    <tt:Column hAlign="Center">
+                                        <Label text="{i18n>Name}"/>
+                                        <tt:customData>
+                                            <core:CustomData key="p13nData" value='\{"columnKey": "Name", "leadingProperty": "Name",
+                                                 "columnIndex": 1 ,"sortProperty": "Name","filterProperty": "Name"}'/>
+                                        </tt:customData>
+
+                                        <tt:template>
+                                            <Text text="{Name}" wrapping="false"></Text>
+                                        </tt:template>
+                                    </tt:Column>
+                                    <tt:Column hAlign="Center">
+                                        <Label text="{i18n>IssuedQty}"/>
+                                        <tt:customData>
+                                            <core:CustomData key="p13nData" value='\{"columnKey": "IssuedQty", "leadingProperty": "IssuedQty",
+                                                 "columnIndex": 2 ,"sortProperty": "IssuedQty","filterProperty": "IssuedQty"}'/>
+                                        </tt:customData>
+
+                                        <tt:template>
+                                            <Text text="{IssuedQty}" wrapping="false"></Text>
+                                        </tt:template>
+                                    </tt:Column>
+
+                                    <tt:Column hAlign="Center">
+                                        <Label text="{i18n>RequirementQuantity}"/>
+                                        <tt:customData>
+                                            <core:CustomData key="p13nData" value='\{"columnKey": "RequirementQuantity", "leadingProperty": "RequirementQuantity",
+                                                 "columnIndex": 3 ,"sortProperty": "RequirementQuantity","filterProperty": "RequirementQuantity"}'/>
+                                        </tt:customData>
+
+                                        <tt:template>
+                                            <Text text="{RequirementQuantity}" wrapping="false"></Text>
+                                        </tt:template>
+                                    </tt:Column>
+                                    <tt:Column hAlign="Center">
+                                        <Label text="{i18n>ReturnedQty}"/>
+                                        <tt:customData>
+                                            <core:CustomData key="p13nData" value='\{"columnKey": "ReturnedQty", "leadingProperty": "ReturnedQty",
+                                                 "columnIndex": 4 ,"sortProperty": "ReturnedQty","filterProperty": "ReturnedQty"}'/>
+                                        </tt:customData>
+
+                                        <tt:template>
+                                            <Text text="{ReturnedQty}" wrapping="false"></Text>
+                                        </tt:template>
+                                    </tt:Column>
+                                    <tt:Column hAlign="Center">
+                                        <Label text="{i18n>Plant}"/>
+                                        <tt:customData>
+                                            <core:CustomData key="p13nData" value='\{"columnKey": "Plant", "leadingProperty": "Plant",
+                                                 "columnIndex": 5 ,"sortProperty": "Plant","filterProperty": "Plant"}'/>
+                                        </tt:customData>
+
+                                        <tt:template>
+                                            <Text text="{Plant}" wrapping="false"></Text>
+                                        </tt:template>
+                                    </tt:Column>
+
+                                    <tt:Column hAlign="Center">
+                                        <Label text="{i18n>StorageLocation}"/>
+                                        <tt:customData>
+                                            <core:CustomData key="p13nData" value='\{"columnKey": "StorageLocation", "leadingProperty": "StorageLocation",
+                                                 "columnIndex": 6 ,"sortProperty": "StorageLocation","filterProperty": "StorageLocation"}'/>
+                                        </tt:customData>
+
+                                        <tt:template>
+                                            <Text text="{StorageLocation}" wrapping="false"></Text>
+                                        </tt:template>
+                                    </tt:Column>
+
+                                </tt:columns>
+
+                            </tt:TreeTable>
+                        </smartTable:SmartTable>
+
+
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+            <!-- Line Items Section -->
+            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>Consumptionlog}">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection title="{i18n>Consumptionlog}">
+                        <smartTable:SmartTable header="Consumption Log" class="sapUiResponsiveContentPadding" id="idStoreStockChildTable" editable="false" placeToolbarInTable="true" enableAutoBinding="true" entitySet="ConsumptionPostingReserveSet" showFullScreenButton="true" showRowCount="true" 
+                        ignoreFromPersonalisation="CancelledBy,CancelledDate,CostCentre,CreatedBy,GLAccount,GoodsRecipient,ID,IsArchived,ProfitCentre,UpdatedAt,UpdatedBy,WBSNumber" 
+                        tableType="ResponsiveTable" demandPopin="false" useExportToExcel="false"
+                         useTablePersonalisation="true" useVariantManagement="false" beforeRebindTable="onBeforeRebindRestTable">
+
+                            <smartTable:customToolbar>
+                                <OverflowToolbar design="Transparent">
+                                    <ToolbarSpacer/>
+                                    <Button text="{i18n>LogNewEntry}" type="Emphasized" press="onPressLongNewEntry"/>
+
+                                </OverflowToolbar>
+                            </smartTable:customToolbar>
+                            <Table sticky="ColumnHeaders,HeaderToolbar" updateFinished="onPurchaseOrderTableUpdateFinished" alternateRowColors="true">
+                                <columns>
+
+
+
+
+
+                                    <Column  >
+                                        <customData>
+                                            <core:CustomData key="p13nData" value='\{"columnKey": "ReservationNumber", "leadingProperty": "ReservationNumber",
+                                                 "columnIndex": 0 ,"sortProperty": "ReservationNumber","filterProperty": "ReservationNumber"}'/>
+                                        </customData>
+                                        <Text text="{i18n>ReservationNumber}"/>
+                                    </Column>
+                                    <Column  >
+                                        <customData>
+                                            <core:CustomData key="p13nData" value='\{"columnKey": "ReservationDate", "leadingProperty": "ReservationDate",
+                                                 "columnIndex": 1 ,"sortProperty": "ReservationDate"}'/>
+                                        </customData>
+                                        <Text text="{i18n>ReservationDate}"/>
+                                    </Column>
+
+
+
+                                    <Column  >
+                                        <customData>
+                                            <core:CustomData key="p13nData" value='\{"columnKey": "CreatedAt", "leadingProperty": "CreatedAt",
+                                                 "columnIndex": 2 ,"sortProperty": "CreatedAt"}'/>
+                                        </customData>
+                                        <Text text="{i18n>RaisedOn}"/>
+                                    </Column>
+
+                                    <Column  >
+                                        <customData>
+                                            <core:CustomData key="p13nData" value='\{"columnKey": "MovementType", "leadingProperty": "MovementType",
+                                                 "columnIndex": 3 ,"sortProperty": "MovementType","filterProperty": "MovementType"}'/>
+                                        </customData>
+                                        <Text text="{i18n>MovementType}"/>
+                                    </Column>
+
+                                    <Column  >
+                                        <customData>
+                                            <core:CustomData key="p13nData" value='\{"columnKey": "Status", "leadingProperty": "Status",
+                                                 "columnIndex": 4 ,"sortProperty": "Status","filterProperty": "Status"}'/>
+                                        </customData>
+                                        <Text text="{i18n>Status}"/>
+                                    </Column>
+
+                                </columns>
+                                <items>
+
+                                    <ColumnListItem type="Navigation" press="onConsumedItemsTablePress">
+                                        <cells>
+
+
+
+                                            <ObjectIdentifier title="{ReservationNumber}"/>
+
+
+                                            <Text text="{path:'ReservationDate',
+                                    type: 'sap.ui.model.type.Date',
+				                     formatOptions: {
+				                        pattern: 'MMMM dd, yyyy'
+				                     }    
+                        }"/>
+
+                                          
+
+
+                                            <Text text="{path:'CreatedAt',
+                                    type: 'sap.ui.model.type.Date',
+				                     formatOptions: {
+				                        pattern: 'MMMM dd, yyyy'
+				                     }    
+                        }"/>
+
+
+
+
+                                            <Text text="{MovementType}" wrapping="false"></Text>
+
+
+
+                                            <ObjectStatus text="{Status}" state="{= ${Status} === 'POSTED' ? 'Success' : ${Status} === 'RESERVED' ? 'Information' : 'Warning'}" visible="{= ${Status}.length>0 ? true : false }"/>
+
+
+
+                                        </cells>
+                                    </ColumnListItem>
+
+                                </items>
+                            </Table>
+                        </smartTable:SmartTable>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+        </uxap:sections>
+    </uxap:ObjectPageLayout>
+</mvc:View>

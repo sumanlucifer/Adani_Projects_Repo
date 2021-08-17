@@ -10,8 +10,3 @@ archive.zip
 .*_mta_build_tmp
 .*_mta_build_tmp
 
-
-# auto generated wildcard
-storeincharge-approvals/.env1
-# auto generated wildcard
-storeincharge-raisedpo/.env3
