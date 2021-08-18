@@ -42,7 +42,8 @@
                 </uxap:actions>
             </uxap:ObjectPageDynamicHeaderTitle>
         </uxap:headerTitle>
-        <uxap:headerContent></uxap:headerContent>
+        <uxap:headerContent>
+        </uxap:headerContent>
 
         <uxap:sections>
 
@@ -50,16 +51,14 @@
             <uxap:ObjectPageSection titleUppercase="false" title="{i18n>lineItems}">
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection title="{i18n>lineItems}">
-                        <Table width="auto" growing="true" growingThreshold="5" items="{path: 'IssuedMaterials'}" fixedLayout="false">
-                            
-                            				<headerToolbar>
-					<OverflowToolbar id="otbSubheader">
-						<Title text="Products" level="H2" />
-						<ToolbarSpacer />
-						<Button id="reserveButton" text="Reserve" type="Transparent" press="onPressReserve" visible="{objectViewModel>reserveButton}" />
-					</OverflowToolbar>
-				</headerToolbar>
-                        
+                        <Table width="auto" growing="true" growingThreshold="5" items="{path: 'IssuedMaterials'}" fixedLayout="false">     
+                            <headerToolbar>
+                                <OverflowToolbar id="otbSubheader">
+                                    <Title text="Products" level="H2" />
+                                    <ToolbarSpacer />
+                                    <Button id="reserveButton" text="Reserve" type="Transparent" press="onPressReserve" visible="{objectViewModel>reserveButton}" />
+                                </OverflowToolbar>
+                            </headerToolbar>
                             <columns>
                                 <Column demandPopin="true" minScreenWidth="Desktop">
                                     <Text text="{i18n>lineItem}" wrapping="true" wrappingType="Hyphenated"/>
@@ -77,7 +76,6 @@
                                         <ObjectIdentifier title="{LineItem}"/>
                                         <Text text="{IssueQty}" />
                                         <Text text="{Uom}" />
-                                        
                                     </cells>
                                 </ColumnListItem>
                             </items>
