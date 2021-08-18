@@ -10,3 +10,8 @@ archive.zip
 .*_mta_build_tmp
 .*_mta_build_tmp
 
+
+# auto generated wildcard
+agel-mmts-web/mdm-packinglisttype/.env1
+# auto generated wildcard
+agel-mmts-web/mdm-uom/.env9

@@ -261,7 +261,6 @@ sap.ui.define([
             //  }
         },
 
-
         onViewLineItemsPress: function (oEvent) {
             var sParentItemPath = oEvent.getSource().getParent().getBindingContextPath();
             var sDialogTitle = "PO - " + oEvent.getSource().getBindingContext().getObject().PONumber;
