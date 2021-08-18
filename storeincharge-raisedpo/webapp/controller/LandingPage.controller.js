@@ -171,7 +171,7 @@ sap.ui.define([
             var FreeTextSearch = this.byId("filterbar").getBasicSearchValue();
             if (FreeTextSearch) {
                 orFilters.push(new Filter("PONumber", FilterOperator.Contains, FreeTextSearch));
-                orFilters.push(new Filter("Buyer/CompanyCode", FilterOperator.EQ, FreeTextSearch));
+                orFilters.push(new Filter("MasterCompanyCode/CompanyCode", FilterOperator.EQ, FreeTextSearch));
                 orFilters.push(new Filter("ParentLineItems/Name", FilterOperator.Contains, FreeTextSearch));
                 andFilters.push(new Filter(orFilters, false));
             }
@@ -187,7 +187,7 @@ sap.ui.define([
             }
 
             if (CompanyCode != "") {
-                andFilters.push(new Filter("Buyer/CompanyCode", FilterOperator.EQ, CompanyCode));
+                andFilters.push(new Filter("MasterCompanyCode/CompanyCode", FilterOperator.EQ, CompanyCode));
             }
 
             var idRaisedPOTableBinding = this.getView().byId("idRaisedPOTable").getTable().getBinding("items");

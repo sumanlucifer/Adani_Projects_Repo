@@ -19,8 +19,8 @@
                 <!-- Company Code -->
                 <Column>
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "CompanyCode", "leadingProperty": "Buyer/CompanyCode",
-                                                 "columnIndex": 1 ,"sortProperty": "Buyer/CompanyCode","filterProperty": "Buyer/CompanyCode"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "CompanyCode", "leadingProperty": "MasterCompanyCode/CompanyCode",
+                                                 "columnIndex": 1 ,"sortProperty": "MasterCompanyCode/CompanyCode","filterProperty": "MasterCompanyCode/CompanyCode"}'/>
                     </customData>
                     <Text text="{i18n>companyCode}"/>
                 </Column>
@@ -66,7 +66,7 @@
                 <ColumnListItem type="Navigation" press="onPurchaseOrderPress">
                     <cells>
                         <ObjectIdentifier title="{PONumber}"/>
-                        <Text text="{CompanyCode}" binding="{Buyer}"/>
+                        <Text text="{CompanyCode}" binding="{MasterCompanyCode}"/>
 
                         <Text text="{path:'CreatedAt',
                                     type: 'sap.ui.model.type.Date',

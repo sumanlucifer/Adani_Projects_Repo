@@ -95,11 +95,11 @@
                             <sellerForm:SellerForm class="sapUxAPObjectPageSubSectionAlignContent"/>
                         </uxap:blocks>
                     </uxap:ObjectPageSubSection>
-                    <uxap:ObjectPageSubSection title="{i18n>sow}" class="BasicDetalFormTitleStyleLast">
+                    <!-- <uxap:ObjectPageSubSection title="{i18n>sow}" class="BasicDetalFormTitleStyleLast">
                         <uxap:blocks>
                             <sowForm:SOWForm class="sapUxAPObjectPageSubSectionAlignContent"/>
                         </uxap:blocks>
-                    </uxap:ObjectPageSubSection>
+                    </uxap:ObjectPageSubSection> -->
                 </uxap:subSections>
             </uxap:ObjectPageSection>
 
@@ -157,10 +157,10 @@
                                     </VBox>
                                     <VBox class="sapUiMediumMarginBeginEnd">
                                         <Title text="{i18n>shipTo}" titleStyle="H6"/>
-                                        <ObjectAttribute title="{Name}" binding="{PurchaseOrder/Buyer}"/>
-                                        <ObjectAttribute text="{Street}" binding="{PurchaseOrder/Buyer/Address}"/>
-                                        <ObjectAttribute text="{City} - {State} - {Country}" binding="{PurchaseOrder/Buyer/Address}"/>
-                                        <ObjectAttribute text="{pinCode}" binding="{PurchaseOrder/Buyer/Address}"/>
+                                        <ObjectAttribute title="{Name}" binding="{PurchaseOrder/MasterCompanyCode}"/>
+                                        <ObjectAttribute text="{Street}" binding="{PurchaseOrder/MasterCompanyCode/Address}"/>
+                                        <ObjectAttribute text="{City} - {State} - {Country}" binding="{PurchaseOrder/MasterCompanyCode/Address}"/>
+                                        <ObjectAttribute text="{pinCode}" binding="{PurchaseOrder/MasterCompanyCode/Address}"/>
                                     </VBox>
                                     <VBox class="sapUiMediumMarginBeginEnd">
                                         <Title text="{i18n>from}" titleStyle="H6"/>

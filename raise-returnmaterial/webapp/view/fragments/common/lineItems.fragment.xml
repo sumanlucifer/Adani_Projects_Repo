@@ -1,34 +1,61 @@
 <core:FragmentDefinition xmlns="sap.m"
     xmlns:core="sap.ui.core" xmlns:u="sap.ui.unified">
 
-    <Table width="auto" growing="true" growingThreshold="5" items="{path: 'ParentLineItems'}" fixedLayout="false">
+    <Table width="auto" growing="true" growingThreshold="5" items="{path: 'IssuedMaterialItems'}" 
+        fixedLayout="false">
         <columns>
-            <Column demandPopin="true" minScreenWidth="Desktop" hAlign="Center">
+            <!-- <Column demandPopin="true" minScreenWidth="Desktop" hAlign="Center">
                 <Text text="{i18n>LineItem}" wrapping="true" wrappingType="Hyphenated"/>
             </Column>
             <Column demandPopin="true" minScreenWidth="Desktop">
                 <Text text="{i18n>LineItemCode}" wrapping="true" wrappingType="Hyphenated"/>
+            </Column> -->
+
+            <Column demandPopin="true" minScreenWidth="Desktop" >
+                <Text text="{i18n>MaterialCode}" wrapping="true" wrappingType="Hyphenated"/>
             </Column>
+
+            <Column demandPopin="true" minScreenWidth="Desktop" >
+                <Text text="{i18n>Name}" wrapping="true" wrappingType="Hyphenated"/>
+            </Column>
+
             <Column demandPopin="true" minScreenWidth="Desktop">
-                <Text text="{i18n>QtyRecieved}" wrapping="true"/>
+                <Text text="{i18n>Description}" wrapping="true" wrappingType="Hyphenated"/>
             </Column>
+
+            <!-- <Column demandPopin="true" minScreenWidth="Desktop">
+                <Text text="{i18n>QtyRecieved}" wrapping="true"/>
+            </Column> -->
+            
             <Column demandPopin="true" minScreenWidth="Desktop">
                 <Text text="{i18n>ReturnQty}"/>
+            </Column>  
+
+            <Column demandPopin="true" minScreenWidth="Desktop">
+                <Text text="{i18n>UOM}"/>
             </Column>
-            
+
+            <Column demandPopin="true" minScreenWidth="Desktop">
+                <Text text="{i18n>ReturnAsset}"/>
+            </Column>
+                      
         </columns>
         <items>
             <ColumnListItem>
-                <cells>
-            
-                    <Text text="{LineNumber}" wrappingType="Hyphenated"/>
+                <cells>            
                     <ObjectIdentifier title="{MaterialCode}"/>
-                    <Text text="{Name}" wrappingType="Hyphenated"/>
-                    <ExpandableText text="{Description}" maxCharacters="20" overflowMode="Popover"/>
-                    
+                    <Text text="{Name}" wrappingType="Hyphenated"/>       
+                    <ExpandableText text="{Description}" maxCharacters="20" overflowMode="Popover"/>  
+
+                    <!-- <Text text="{Description}" wrappingType="Hyphenated"/>              -->
+                    <HBox alignContent="Inherit">
+                        <Input value="{ReturnedQty}" liveChange="onLiveChangeReturnQty" width="80%" editable="false"/>
+                        <Button icon="sap-icon://save" visible="true"/>
+                    </HBox>
+                    <Text text="{Uom}" />
+                    <Link text="{i18n>ReturnAsset}" press="onPressRetrunAsset"/>
                 </cells>
             </ColumnListItem>
         </items>
     </Table>
-
 </core:FragmentDefinition>

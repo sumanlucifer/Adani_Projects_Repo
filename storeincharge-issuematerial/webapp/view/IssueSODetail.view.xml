@@ -9,7 +9,7 @@
     xmlns:tt="sap.ui.table"
     xmlns:smartTable="sap.ui.comp.smarttable"
     xmlns="sap.m" controllerName="com.agel.mmts.storeinchargeissuematerial.controller.IssueSODetail" height="100%">
-    <uxap:ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true" upperCaseAnchorBar="false" headerContentPinnable="true" toggleHeaderOnTitleClick="true" busy="{objectViewModel>/busy}">
+    <uxap:ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true" upperCaseAnchorBar="true" headerContentPinnable="true" toggleHeaderOnTitleClick="true" busy="{objectViewModel>/busy}">
         <uxap:headerTitle>
             <uxap:ObjectPageDynamicHeaderTitle>
                 <uxap:breadcrumbs>
@@ -122,6 +122,41 @@
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>
             </uxap:ObjectPageSection> -->
+
+            <!-- Line Items Section -->
+            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>lineItems}">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection title="{i18n>contractorDetails}" class="BasicDetalFormTitleStyle">
+                        <f:SimpleForm layout="ColumnLayout" columnsM="2" columnsL="2" columnsXL="2" binding="{Contractor}" singleContainerFullSize="true" class="style-RemoveTitleHeight">
+                            <f:content>
+                                <!-- <core:Title  /> -->
+                                <Label text="{i18n>ContractorName}" />
+                                <Text text="{Name}" />
+
+                                <Label text="{i18n>ContractorId}" />
+                                <Text text="{ID}" />
+
+                                <Label text="{i18n>PlantSite-Location}" />
+                                <Text text="{PlantSiteLocation}"/>
+
+                                <Label text="{i18n>ActivePeriod}" />
+                                <Text text="{ActivePeriod}"/>
+
+                                <!-- <core:Title />  -->
+                                <Label text="{i18n>Materials}" />
+                                <Text text="{Materials}"/>
+                                <!-- <ExpandableText binding="{Address}" text="{parts: [{path: 'Street'}, {path: 'City'}, {path: 'State'}, {path: 'Country'}, {path: 'pinCode'}]}" overflowMode="InPlace"/> -->
+                                <Label text="{i18n>Description}" />
+                                <Text text="{Description}"/>
+
+                                <Label text="{i18n>Service-Covered}" />
+                                <Text text="{ServicesCovered}"/>
+
+                            </f:content>
+                        </f:SimpleForm>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
 
         </uxap:sections>
     </uxap:ObjectPageLayout>

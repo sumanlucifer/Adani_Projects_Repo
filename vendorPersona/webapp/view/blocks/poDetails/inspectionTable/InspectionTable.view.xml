@@ -25,7 +25,7 @@
                 <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "InspectionDate", "leadingProperty": "InspectionDate",
-                                                 "columnIndex": 1 ,"sortProperty": "InspectionDate","filterProperty": "InspectionDate"}'/>
+                                                 "columnIndex": 1 ,"sortProperty": "InspectionDate"}'/>
                     </customData>
                     <Text text="{i18n>inspectionDate}"/>
                 </Column>

@@ -9,8 +9,7 @@
                             rows="{path:'TreeTableModelView>/', parameters: {arrayNames:['ChildItemsView']}}"
                             selectionMode="None"  enableSelectAll="false"
                             title="{i18n>TreeTableViewTitle}" ariaLabelledBy="title"
-                             rowsUpdated="onRowsUpdated"
-                            >
+                             rowsUpdated="onRowsUpdated">
 		<ui:columns>
 			<!-- <ui:Column width="5%">
 				<Label text="ID"/>

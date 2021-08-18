@@ -25,15 +25,15 @@
                 <fb:control>
 
 
-                    <!-- <Select width="6rem" id="idSelPlant" forceSelection="false" selectedKey="{qrAssistantModel>/reason}" items="{
-						    path: '/MasterQrCodeAssistanceReasonSet'						    
+                    <Select width="6rem" id="idSelPlant" forceSelection="false" selectedKey="{qrAssistantModel>/reason}" items="{
+						    path: '/MasterPlantDetailSet'						    
 					    }">
-                        <core:Item key="{Reason}" text="{Reason}" />
-                    </Select> -->
-
-                      <Select width="6rem" id="idSelPlant" forceSelection="false"  items="{PlantModel>/PlntItems}">
-                        <core:Item key="{PlantModel>key}" text="{PlantModel>value}" />
+                        <core:Item key="{PlantId}" text="{PlantId}" />
                     </Select>
+
+                      <!-- <Select width="6rem" id="idSelPlant" forceSelection="false"  items="{PlantModel>/PlntItems}">
+                        <core:Item key="{PlantModel>key}" text="{PlantModel>value}" />
+                    </Select> -->
                 </fb:control>
             </fb:FilterGroupItem>
 

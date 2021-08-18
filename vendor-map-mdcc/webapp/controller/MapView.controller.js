@@ -24,21 +24,21 @@ sap.ui.define([
             onInit: function () {
 
                 var oAppModel,
-                fnSetAppNotBusy,
-                iOriginalBusyDelay = this.getView().getBusyIndicatorDelay();
- 
+                    fnSetAppNotBusy,
+                    iOriginalBusyDelay = this.getView().getBusyIndicatorDelay();
+
                 oAppModel = new JSONModel({
-                    busy : false,
-                    delay : 1000
+                    busy: false,
+                    delay: 1000
                 });
                 this.oAppModel = oAppModel;
                 this.getOwnerComponent().setModel(oAppModel, "app");
- 
-                fnSetAppNotBusy = function() {
+
+                fnSetAppNotBusy = function () {
                     oAppModel.setProperty("/busy", false);
                     oAppModel.setProperty("/delay", iOriginalBusyDelay);
                 };
- 
+
                 // disable busy indication when the metadata is loaded and in case of errors
                 this.getOwnerComponent().getModel().metadataLoaded().
                     then(fnSetAppNotBusy);
@@ -48,32 +48,18 @@ sap.ui.define([
                 //Router Object
                 this.oRouter = this.getOwnerComponent().getRouter();
                 this.oRouter.getRoute("RouteMapView").attachPatternMatched(this._onObjectMatched, this);
-
                 this.getView().setModel(this.getOwnerComponent().getModel("i18n").getResourceBundle());
             },
 
             _onObjectMatched: function (oEvent) {
 
-                //debugger;
                 var startupParams = this.getOwnerComponent().getComponentData().startupParameters;
-             //   var startupParams={MDCCId:176,manage:"false"};
+                //  var startupParams={MDCCId:176,manage:"false"};
 
-                // startupParams.manage=false;
-                // get Startup params from Owner Component
-              //  if (startupParams.manage[0] === "true") {
-              //      this.oRouter.navTo("RouteInitiateDispatchPage", {
-              //          MDCCId: parseInt(startupParams.MDCCId[0])
-              //      }, false);
-              //  }
-              //  else {
-                    //   this.sObjectId = oEvent.getParameter("arguments").MDCCId;
-                    this.sObjectId = startupParams.MDCCId[0];
-                    // this.sObjectId = this.sObjectId;
-                    this._getMDCCData();
-                    this.getInspectedData();
-                  //  this._getParentData();
-                //    }
-                //   this._bindView("/PurchaseOrderSet" + sObjectId);
+                this.sObjectId = startupParams.MDCCId[0];
+                // this.sObjectId = this.sObjectId;
+                this._getMDCCData();
+                this.getInspectedData();
             },
 
             // Get MDCC Set Level Data For Post Operation
@@ -97,21 +83,21 @@ sap.ui.define([
                 });
             },
 
-            getInspectedData : function(){
+            getInspectedData: function () {
                 var that = this;
-                this.ParentData;                
+                this.ParentData;
                 var sPath = "/MDCCSet(" + this.sObjectId + ")/InspectionCall/InspectedParentItems";
                 that.getComponentModel("app").setProperty("/busy", true);
                 this.MainModel.read(sPath, {
                     urlParameters: {
-                           "$expand": "InspectedBOQItems"
+                        "$expand": "InspectedBOQItems"
                     },
                     success: function (oData, oResponse) {
                         that.getComponentModel("app").setProperty("/busy", false);
                         if (oData.results.length) {
                             this.ParentData = oData.results;
                             this.dataBuilding(this.ParentData);
-                           // this._getChildItems(oData.results);
+                            // this._getChildItems(oData.results);
                         }
                     }.bind(this),
                     error: function (oError) {
@@ -127,9 +113,11 @@ sap.ui.define([
                     // Is Deleted - Check based on quantity is present or not then push it.
                     if (ParentData[i].MDCCApprovedQty != null && ParentData[i].MDCCApprovedQty != ""
                         && ParentData[i].MDCCApprovedQty != "0.0") {
+                        this.ParentData[i].MDCCApprovedQty = "";
                         this.ParentData[i].isSelected = true;
                         this.ParentData[i].isPreviouslySelected = true;
                     } else {
+                        this.ParentData[i].MDCCApprovedQty = "";
                         this.ParentData[i].isSelected = false;
                         this.ParentData[i].isPreviouslySelected = false;
                     }
@@ -142,10 +130,12 @@ sap.ui.define([
                         for (var j = 0; j < ParentData[i].ChildItems.length; j++) {
                             if (ParentData[i].ChildItems[j].MDCCApprovedQty != null && ParentData[i].ChildItems[j].MDCCApprovedQty != ""
                                 && ParentData[i].ChildItems[j].MDCCApprovedQty != "0.0") {
+                                this.ParentData[i].ChildItems[j].MDCCApprovedQty = "";
                                 this.ParentData[i].ChildItems[j].isSelected = true;
                                 this.ParentData[i].ChildItems[j].isPreviouslySelected = true;
                                 this.ParentData[i].ChildItems[j].IsDeleted = false;
                             } else {
+                                this.ParentData[i].ChildItems[j].MDCCApprovedQty = "";
                                 this.ParentData[i].ChildItems[j].isSelected = false;
                                 this.ParentData[i].ChildItems[j].isPreviouslySelected = false;
                                 this.ParentData[i].ChildItems[j].IsDeleted = false;
@@ -235,7 +225,7 @@ sap.ui.define([
                 var rowObj = oEvent.getSource().getParent().getRowBindingContext().getObject();
                 var MDCCApprovedQty = oEvent.getSource().getParent().getCells()[7].getValue();
                 var aCell = oEvent.getSource().getParent().getCells()[7];
-                if (parseInt(MDCCApprovedQty) > parseInt(rowObj.Qty)) {
+                if (parseInt(MDCCApprovedQty) > parseInt(rowObj.RemainingQty)) {
                     aCell.setValueState("Error");
                     aCell.setValueStateText("Please do not enter more quantity than remaining quantity")
                     this.getView().byId("idBtnSave").setEnabled(false);
@@ -266,6 +256,21 @@ sap.ui.define([
 
             onSave: function (oEvent) {
                 var that = this;
+                MessageBox.confirm("Do you want to save mdcc item?", {
+                    icon: MessageBox.Icon.INFORMATION,
+                    title: "Confirm",
+                    actions: [MessageBox.Action.YES, MessageBox.Action.NO],
+                    emphasizedAction: MessageBox.Action.YES,
+                    onClose: function (oAction) {
+                        if (oAction == "YES") {
+                            that.onConfirmSave(oEvent);
+                        }
+                    }
+                });
+            },
+
+            onConfirmSave: function (oEvent) {
+                var that = this;
                 var flag = 0;
                 var oPayload = {
                     "MDCCId": that.MDCCData.ID,
@@ -281,8 +286,8 @@ sap.ui.define([
                     flag = 0;
                     var obj = {};
                     obj.ParentLineItemID = data[i].ID;
-                 //   obj.InspectedParenLineItemID = data[i].InspectedParenLineItemID;  // newlly added
-                 //   obj.MDCCId = that.MDCCData.ID; // newly added 
+                    //   obj.InspectedParenLineItemID = data[i].InspectedParenLineItemID;  // newlly added
+                    //   obj.MDCCId = that.MDCCData.ID; // newly added 
                     obj.MDCCApprovedQty = parseInt(data[i].MDCCApprovedQty);
                     obj.RemainingQty = parseInt(data[i].RemainingQty);
                     obj.IsDeleted = data[i].IsDeleted;
@@ -295,11 +300,11 @@ sap.ui.define([
                         childObj.RemainingQty = parseInt(data[i].ChildItems[j].RemainingQty);
                         childObj.IsDeleted = data[i].ChildItems[j].IsDeleted;
 
-                      //  childObj.InspectedBOQItemID=data[i].ChildItems[j].ID; // newly added
-                //        childObj.MDCCId = that.MDCCData.ID;                   // newly added         
-                //        childObj.MDCCParentLineItemId = data[i].ID;           // newly added
-                        
-                        if ( childObj.IsDeleted == true ){
+                        //  childObj.InspectedBOQItemID=data[i].ChildItems[j].ID; // newly added
+                        //        childObj.MDCCId = that.MDCCData.ID;                   // newly added         
+                        //        childObj.MDCCParentLineItemId = data[i].ID;           // newly added
+
+                        if (childObj.IsDeleted == true) {
                             childObj.MDCCApprovedQty = 0;
                         }
                         if (childObj.MDCCApprovedQty || childObj.IsDeleted == true) {
@@ -307,14 +312,14 @@ sap.ui.define([
                             flag = 1;
                         }
                     }
-                    if (obj.MDCCApprovedQty || flag == 1 || obj.IsDeleted == true){
+                    if (obj.MDCCApprovedQty || flag == 1 || obj.IsDeleted == true) {
                         oPayload.MDCCParentLineItem.push(obj);
                     }
-                    if ( obj.IsDeleted == true ){
+                    if (obj.IsDeleted == true) {
                         obj.MDCCApprovedQty = 0;
                     }
                 }
-            
+
                 // Create Call 
                 that.getComponentModel("app").setProperty("/busy", true);
                 that.MainModel.create("/MDCCBOQRequestSet", oPayload, {
@@ -325,7 +330,7 @@ sap.ui.define([
                         sap.m.MessageBox.success("MDCC items mapped successfully!", {
                             title: "Success",
                             onClose: function (oAction1) {
-                                
+
                                 if (oAction1 === sap.m.MessageBox.Action.OK) {
                                     window.history.go(-1);
                                 }
