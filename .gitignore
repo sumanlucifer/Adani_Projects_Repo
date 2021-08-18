@@ -4,14 +4,3 @@
 *.zip 
 package-lock.json
 /dist/
-
-# auto generated wildcard
-<<<<<<< HEAD
-storeincharge-approvals/.env1
-# auto generated wildcard
-storeincharge-raisedpo/.env3
-=======
-sapui5/storestock/.env5
-# auto generated wildcard
-sapui5/lognewconsumption/.env1
->>>>>>> develop
