@@ -93,11 +93,11 @@
                             <sellerForm:SellerForm class="sapUxAPObjectPageSubSectionAlignContent"/>
                         </uxap:blocks>
                     </uxap:ObjectPageSubSection>
-                    <uxap:ObjectPageSubSection title="{i18n>sow}">
+                    <!-- <uxap:ObjectPageSubSection title="{i18n>sow}">
                         <uxap:blocks>
                             <sowForm:SOWForm class="sapUxAPObjectPageSubSectionAlignContent"/>
                         </uxap:blocks>
-                    </uxap:ObjectPageSubSection>
+                    </uxap:ObjectPageSubSection> -->
                 </uxap:subSections>
             </uxap:ObjectPageSection>
 

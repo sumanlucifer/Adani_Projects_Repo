@@ -55,7 +55,7 @@ sap.ui.define([
                     orFilters.push(new Filter("ParentLineItem/PurchaseOrder/Vendor/VendorCode", FilterOperator.EQ, FreeTextSearch));
                     orFilters.push(new Filter("ParentLineItem/PurchaseOrder/PlantCode", FilterOperator.EQ, FreeTextSearch));
                     //   aFilters.push(new Filter("purchase_order/parent_line_items/qty", FilterOperator.EQ, FreeTextSearch));
-                    orFilters.push(new Filter("BOQGroup/ParentLineItem/PurchaseOrder/Buyer/CompanyCode", FilterOperator.EQ, FreeTextSearch));
+                    orFilters.push(new Filter("BOQGroup/ParentLineItem/PurchaseOrder/MasterCompanyCode/CompanyCode", FilterOperator.EQ, FreeTextSearch));
                     andFilters.push(new Filter(orFilters, false));
                 }
 
@@ -88,7 +88,7 @@ sap.ui.define([
 
                 // Company Code
                 if (CompanyCode != "") {
-                    andFilters.push(new Filter("BOQGroup/ParentLineItem/PurchaseOrder/Buyer/CompanyCode", FilterOperator.EQ, CompanyCode));
+                    andFilters.push(new Filter("BOQGroup/ParentLineItem/PurchaseOrder/MasterCompanyCode/CompanyCode", FilterOperator.EQ, CompanyCode));
                 }
 
                 var idBOQRequestTableBinding = this.getView().byId("idBOQRequestTable").getTable().getBinding("items");
