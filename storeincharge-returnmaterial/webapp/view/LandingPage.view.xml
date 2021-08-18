@@ -27,15 +27,15 @@
         <!-- DynamicPage Content -->
         <f:content>
             <smartTable:SmartTable class="sapUiResponsiveContentPadding" id="idReturnMaterialTable" editable="false" placeToolbarInTable="true" 
-            enableAutoBinding="true" entitySet="ReturnMaterialRequestSet"  showFullScreenButton="true" showRowCount="true" tableType="ResponsiveTable" 
+            enableAutoBinding="true" entitySet="ReturnMaterialReserveSet"  showFullScreenButton="true" showRowCount="true" tableType="ResponsiveTable" 
             demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" header="List of Return Materials"
             ignoreFromPersonalisation="">
                 <Table sticky="ColumnHeaders,HeaderToolbar" alternateRowColors="true" growing="true" growingThreshold="5">
                     <columns>
                         <Column >
                             <customData>
-                                <core:CustomData key="p13nData" value='\{"columnKey": "SONumber", "leadingProperty": "SONumberDetails/SONumber",
-                                                        "columnIndex": 0 ,"sortProperty": "SONumberDetails/SONumber", "filterProperty": "SONumberDetails/SONumber"}'/>
+                                <core:CustomData key="p13nData" value='\{"columnKey": "SONumber", "leadingProperty": "SONumberId/SONumber",
+                                                        "columnIndex": 0 ,"sortProperty": "SONumberId/SONumber", "filterProperty": "SONumberId/SONumber"}'/>
                             </customData>
                             <Text text="{i18n>SONumber}"/>
                         </Column>
@@ -67,7 +67,7 @@
                     <items>
                         <ColumnListItem type="Navigation" press="onReturnMaterialSelect"> 
                             <cells>
-                                <Text text="{SONumber}" binding="{SONumberDetails}"/>
+                                <Text text="{SONumber}" binding="{SONumberId}"/>
                                 <Text text="{CreatedBy}"/>
                                 <Text text="{path:'RequestDate',
                                             type: 'sap.ui.model.type.Date',
