@@ -47,9 +47,11 @@ sap.ui.define([
         },
 
         _onObjectMatched: function (oEvent) {
+            // debugger;
             var that = this;
-            that.sObjectId = oEvent.getParameter("arguments").SOId;
+            that.sObjectId = oEvent.getParameter("arguments").SoID;
             this._bindView("/SONumberDetailsSet(" + that.sObjectId + ")");
+
         },
 
         _bindView: function (sObjectPath) {
@@ -72,7 +74,7 @@ sap.ui.define([
         onPressSelectMaterials: function (oEvent) {
             var that = this;
              this.getRouter().navTo("RaiseIssueScanQRCode", {
-                SOId : that.sObjectId,
+                SONumber : that.sObjectId,
             });
         }
 

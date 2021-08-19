@@ -109,7 +109,7 @@
                 "controlAggregation": "pages",
                 "controlId": "app",
                 "clearControlAggregation": false,
-                                "bypassed": {
+                "bypassed": {
                     "target": [
                         "notFound"
                     ]
@@ -125,7 +125,7 @@
                 },
                 {
                     "name": "RouteIssueMatDetail",
-                    "pattern": "IssueMatDetail/{ID}",
+                    "pattern": "IssueMatDetail/{SoID}",
                     "target": [
                         "TargetIssueMatDetail"
                     ]
@@ -139,14 +139,14 @@
                 },
                 {
                     "name": "RaiseSODetailPage",
-                    "pattern": "IssueSODetail/{SOId}",
+                    "pattern": "IssueSODetail/{SoID}",
                     "target": [
                         "TargetIssueSODetail"
                     ]
                 },
                 {
                     "name": "RaiseIssueScanQRCode",
-                    "pattern": "IssueScanQRCode/{SOId}",
+                    "pattern": "IssueScanQRCode/{SONumber}",
                     "target": [
                         "TargetIssueScanQRCode"
                     ]

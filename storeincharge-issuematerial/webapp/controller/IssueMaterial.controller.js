@@ -47,7 +47,7 @@ sap.ui.define([
                 var that = this;
                 var SoID = this.getView().byId("idSoNumber").getValue();
                 var SoIDFilter = new sap.ui.model.Filter({
-                        path: "ID",
+                        path: "SONumber",
                         operator: sap.ui.model.FilterOperator.EQ,
                         value1: SoID
                 });
@@ -59,10 +59,10 @@ sap.ui.define([
                     filters:[filter],
 				    success: function(oData, oResponse) {
 					    if(oData){
-                            // debugger;
                             if(oData.results.length){
+                                // debugger;
                                 that.oRouter.navTo("RaiseSODetailPage", {
-                                    SOId : oData.results[0].ID,
+                                    SoID : oData.results[0].ID,
                                   //  Type: "QR"
                                 },false);
                             }else{
@@ -77,6 +77,14 @@ sap.ui.define([
 				    }
 			    });                            
             },
+
+            onPressSelectMaterials: function (oEvent) {
+                var that = this;
+                this.getRouter().navTo("RouteIssueMatDetail", {
+                    SoID : that.sObjectId,
+                });
+            }
+
 
 
 

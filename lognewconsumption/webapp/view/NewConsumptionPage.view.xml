@@ -1,0 +1,198 @@
+<mvc:View xmlns:f2="sap.f"
+    xmlns:vbm="sap.ui.vbm"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:uxap="sap.uxap"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+    xmlns:unified="sap.ui.unified"
+    xmlns:tt="sap.ui.table"
+    xmlns:ui="sap.ui.table"
+    xmlns:smartTable="sap.ui.comp.smarttable"
+    xmlns="sap.m" controllerName="com.agel.mmts.lognewconsumption.controller.NewConsumptionPage" height="100%">
+
+
+    <uxap:ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true" upperCaseAnchorBar="false" headerContentPinnable="true" toggleHeaderOnTitleClick="true" busy="{objectViewModel>/busy}">
+        <uxap:headerTitle>
+            <uxap:ObjectPageDynamicHeaderTitle>
+                <uxap:breadcrumbs>
+                    <Breadcrumbs id="breadcrumbsId" currentLocationText="{i18n>Details}">
+                        <Link text="{i18n>ConsumptionPO}" press=".handleToAllPOBreadcrumPress"/>
+                        <Link text="{i18n>RaiseConsumptionRequest}" press=".handleToAllPOBreadcrumPress"/>
+                    </Breadcrumbs>
+                </uxap:breadcrumbs>
+                <uxap:expandedHeading>
+                    <FlexBox direction="Column" renderType="Bare">
+                        <Title text="{i18n>RaiseConsumptionRequest}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
+                        <Title text="{SONumber}" wrapping="true" titleStyle="H3" />
+                    </FlexBox>
+                </uxap:expandedHeading>
+                <uxap:snappedHeading>
+                    <FlexBox direction="Column" renderType="Bare">
+                        <Title text="{i18n>RaiseConsumptionRequest}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
+                        <Title text="{SONumber}" wrapping="true" titleStyle="H3"/>
+                    </FlexBox>
+                </uxap:snappedHeading>
+                <uxap:expandedContent></uxap:expandedContent>
+                <uxap:snappedTitleOnMobile>
+                    <Title text="{i18n>SONumber}- {SONumber}" wrapping="true" titleStyle="Auto"/>
+                </uxap:snappedTitleOnMobile>
+                <uxap:actions>
+                    <VBox visible="true">
+                        <Button id="btnSubmit" text="Submit" press="onSendConsumptionRequestPress" type="Emphasized"/>
+                    </VBox>
+                </uxap:actions>
+            </uxap:ObjectPageDynamicHeaderTitle>
+        </uxap:headerTitle>
+        <uxap:headerContent>
+            <!-- <VBox visible="true">
+
+
+                <DatePicker width="20%" id="DP8" valueFormat="yyyy-MM-dd" displayFormat="dd-MM-yyyy" change="handleChange" class="sapUiSmallMarginBottom" showFooter="true"/>
+            </VBox> -->
+
+        </uxap:headerContent>
+
+
+        <uxap:sections>
+            <!-- Basic So Info Section -->
+            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>SOInfo}">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection title="{i18n>ContractorDetails}" class="BasicDetalFormTitleStyle">
+                        <f:SimpleForm layout="ColumnLayout" binding="{Contractor}" singleContainerFullSize="true" class="style-RemoveTitleHeight">
+                            <f:content>
+                                <!-- <core:Title  /> -->
+                                <Label text="{i18n>ContractorName}" />
+                                <Text text="{Name}" />
+
+
+
+                                <Label text="{i18n>PlantSite-Location}" />
+                                <Text text="{PlantSiteLocation}"/>
+
+                                <Label text="{i18n>ActivePeriod}" />
+                                <Text text="{path:'ActivePeriod',
+                                     type: 'sap.ui.model.type.Date',
+				                     formatOptions: {
+				                        pattern: 'MMMM dd, yyyy'
+				                     }
+                                }"/>
+
+
+
+                            </f:content>
+                        </f:SimpleForm>
+                    </uxap:ObjectPageSubSection>
+
+
+
+
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+            <!-- Line Items Section -->
+            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>ConsumptionReport}">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection title="{i18n>LineItems}">
+
+
+
+
+                        <ui:TreeTable id="TreeTable" rows="{path:'TreeTableModelView>/', parameters: {arrayNames:['ChildItemsView']}}" selectionMode="None" enableSelectAll="false" title="{i18n>TreeTableViewTitle}" ariaLabelledBy="title" rowsUpdated="onRowsUpdated">
+                            <ui:columns>
+                                <ui:Column width="12%">
+                                    <Label text="Material Code" wrapping="true"/>
+                                    <ui:template>
+
+                                        <ObjectIdentifier title="{TreeTableModelView>MaterialCode}" />
+                                    </ui:template>
+                                </ui:Column>
+                                <ui:Column>
+                                    <Label text="Name"/>
+                                    <ui:template>
+                                        <Text text="{TreeTableModelView>Name}" wrapping="false" />
+                                    </ui:template>
+                                </ui:Column>
+
+                                <ui:Column>
+                                    <Label text="Issued Quantity"/>
+                                    <ui:template>
+                                        <Text text="{TreeTableModelView>IssuedQty}" wrapping="false" />
+                                    </ui:template>
+                                </ui:Column>
+
+
+                                <ui:Column>
+                                    <Label text="Return Quantity"/>
+                                    <ui:template  >
+
+
+                                        <Text text="{TreeTableModelView>ReturnedQty}" wrapping="false" />
+
+                                    </ui:template>
+
+                                </ui:Column>
+
+
+
+                                <ui:Column>
+                                    <Label text="Balance Quantity"/>
+                                    <ui:template>
+                                        <Text text="{TreeTableModelView>BalanceQty}" wrapping="false" />
+                                    </ui:template>
+                                </ui:Column>
+
+
+
+                                <ui:Column>
+                                    <Label text="Consumed Quantity"/>
+                                    <ui:template>
+
+
+
+
+                                        <HBox>
+                                            <Input value="{TreeTableModelView>ConsumedQty}" type="Number" liveChange="onLiveChangeReturnQty" editable="false" visible="{TreeTableModelView>isStandAlone}" />
+                                            <ToggleButton icon="sap-icon://edit" visible="{TreeTableModelView>isStandAlone}" pressed="false" press="onEditQuantityPressed"/>
+
+
+                                        </HBox>
+
+
+
+
+
+
+
+                                    </ui:template>
+                                </ui:Column>
+
+                                <ui:Column width="7%">
+                                    <Label text="UOM" />
+                                    <ui:template>
+                                        <Text text="{TreeTableModelView>BaseUnit}" />
+                                    </ui:template>
+                                </ui:Column>
+                                <ui:Column>
+                                    <Label text="Plant"/>
+                                    <ui:template>
+
+                                        <Text text="{TreeTableModelView>Plant}" />
+                                    </ui:template>
+                                </ui:Column>
+
+                                <ui:Column>
+                                    <Label text="Storage Location"/>
+                                    <ui:template>
+                                        <Text text="{TreeTableModelView>StorageLocation}" wrapping="false" />
+                                    </ui:template>
+                                </ui:Column>
+
+                            </ui:columns>
+                        </ui:TreeTable>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+        </uxap:sections>
+    </uxap:ObjectPageLayout>
+</mvc:View>

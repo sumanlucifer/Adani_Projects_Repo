@@ -19,6 +19,7 @@
             <Column>
                 <Text text="Description"/>
             </Column>
+
             <Column>
                 <Text text="Total Quantity"/>
             </Column>
