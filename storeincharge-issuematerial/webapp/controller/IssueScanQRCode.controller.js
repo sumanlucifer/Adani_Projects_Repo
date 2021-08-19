@@ -49,7 +49,7 @@ sap.ui.define([
         },
 
         _onObjectMatched: function (oEvent) {
-            var sObjectId = oEvent.getParameter("arguments").SOId;
+            var sObjectId = oEvent.getParameter("arguments").SONumber;
             this._bindView("/SONumberDetailsSet(" + sObjectId + ")");
         },
 

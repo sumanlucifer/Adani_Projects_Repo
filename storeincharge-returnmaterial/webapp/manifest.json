@@ -126,6 +126,13 @@
                     "target": [
                         "TargetApp"
                     ]
+                },
+                {
+                    "name": "RouteDetailsPage",
+                    "pattern": "ReturnMaterialDetails/{ReturnId},{SOId}",
+                    "target": [
+                        "TargetDetailsPage"
+                    ]
                 }
             ],
             "targets": {
@@ -135,6 +142,12 @@
                     "clearControlAggregation": false,
                     "viewId": "",
                     "viewName": "LandingPage"
+                },
+                "TargetDetailsPage": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewName": "SONumberDetails"
                 },
                 "notFound": {
                     "viewName": "NotFound"
