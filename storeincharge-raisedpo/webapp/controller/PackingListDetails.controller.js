@@ -338,6 +338,8 @@ sap.ui.define([
                 var requestModel = new JSONModel({
                     quantity: null,
                     delivery: null,
+                    billoflading: null,
+                    gatepassnumber: null,
                     valueState: null,
                     isConfirmButtonEnabled: false,
                     valueStateText: ""
@@ -362,6 +364,23 @@ sap.ui.define([
                 }
                 this._oRequestDialog.open();
             },
+
+            // onBillofLadingLiveChange: function (oEvent) {
+            //     var oPOData = this.getView().getBindingContext().getObject();
+            //     if (oEvent.getSource().getValue().length && parseInt(oEvent.getSource().getValue()) > 0)
+            //         this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", true);
+            //     else
+            //         this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", false);
+            // },
+
+            // onGatePassNumberLiveChange: function (oEvent) {
+            //     var oPOData = this.getView().getBindingContext().getObject();
+            //     if (oEvent.getSource().getValue().length && parseInt(oEvent.getSource().getValue()) > 0)
+            //         this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", true);
+            //     else
+            //         this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", false);
+            // },
+
             onDeliveryNoteLiveChange: function (oEvent) {
                 var oPOData = this.getView().getBindingContext().getObject();
                 if (oEvent.getSource().getValue().length && parseInt(oEvent.getSource().getValue()) > 0)
@@ -369,6 +388,7 @@ sap.ui.define([
                 else
                     this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", false);
             },
+
             onQuantityLiveChange: function (oEvent) {
                 var oGRNData = this.getView().getBindingContext().getObject();
                 if (oEvent.getSource().getValue().length && parseInt(oEvent.getSource().getValue()) > 0)

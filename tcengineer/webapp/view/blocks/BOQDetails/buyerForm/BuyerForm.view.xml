@@ -21,14 +21,16 @@
             <Link text="{Phone}"/>
             <!-- <core:Title  /> -->
             <Label text="{i18n>pinCode}" />
-            <Text text="{pinCode}" binding="{Address}"/>
+            <!-- <Text text="{pinCode}" binding="{Address}"/> -->
+            <Text text=""/>
             <Label text="{i18n>cin}" />
             <Text text="{Cin}"/>
             <!-- <core:Title /> -->
             <Label text="{i18n>address}" />
-            <ExpandableText binding="{Address}" text="{parts: [{path: 'Street'}, {path: 'City'}, {path: 'State'}, {path: 'Country'}, {path: 'pinCode'}]}" 
-            overflowMode="InPlace"/>
-              <Label text="{i18n>purchasingOrg}" />
+            <!-- <ExpandableText binding="{Address}" text="{parts: [{path: 'Street'}, {path: 'City'}, {path: 'State'}, {path: 'Country'}, {path: 'pinCode'}]}" 
+            overflowMode="InPlace"/> -->
+            <Text text=""/>
+            <Label text="{i18n>purchasingOrg}" />
             <Text text="{PurchasingOrg}"/>
             <Label text="{i18n>purchasingGroup}" />
             <Text text="{PurchasingGroup}"/>

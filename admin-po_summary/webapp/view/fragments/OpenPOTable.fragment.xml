@@ -19,8 +19,8 @@
                  <!-- Company Code -->
                 <Column>
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "CompanyCode", "leadingProperty": "Buyer/CompanyCode",
-                                                 "columnIndex": 1 ,"sortProperty": "Buyer/CompanyCode","filterProperty": "Buyer/CompanyCode"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "CompanyCode", "leadingProperty": "MasterCompanyCode/CompanyCode",
+                                                 "columnIndex": 1 ,"sortProperty": "MasterCompanyCode/CompanyCode","filterProperty": "MasterCompanyCode/CompanyCode"}'/>
                     </customData>
                     <Text text="{i18n>companyCode}"/>
                 </Column>
