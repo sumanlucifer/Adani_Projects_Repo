@@ -207,7 +207,7 @@ sap.ui.define([
                         };
                         that.MDCCNumber = obj.MDCCNumber;
                         BusyIndicator.show();
-                        this.MainModel.create(sPath, oPayload, {
+                        that.MainModel.create(sPath, oPayload, {
                             success: function (oData, oResponse) {
                                 BusyIndicator.hide();
                                 if (oData.ID) {
@@ -294,9 +294,6 @@ sap.ui.define([
 			 objectViewModel.setProperty("/busy", false);*/
         },
 
-        // Arrange Data For View / Model Set
-
-
         // Parent Data View Fetch / Model Set
         _getParentDataViewMDCC: function (sObjectId, mdccNobb) {
             this.ParentDataView = [];
@@ -350,21 +347,6 @@ sap.ui.define([
         },
 
         //-------------------- Read MDCC ----------------------//
-
-        /*    onReadMDCCItems : function(sObjectId){
-                var that = this;
-                var sPath = "/InspectionCallIdSet" + sObjectId + "/MDCC";
-                this.MainModel.read(sPath, {
-                    success: function (oData, oResponse) {
-                        var oManageMDCCModel = new JSONModel({"MDCCItems" :oData.results })
-                        that.getView().setModel(oManageMDCCModel, "ManageMDCCModel");                  
-                    }.bind(this),
-                    error: function (oError) {
-                        sap.m.MessageBox.Error(JSON.stringify(oError));
-                    }
-                });
-            },       */
-
         // Add MDCC Item 
         onAddMdccItem: function (oEvent) {
 

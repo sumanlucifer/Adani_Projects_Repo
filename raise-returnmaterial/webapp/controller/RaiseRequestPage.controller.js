@@ -40,16 +40,36 @@ sap.ui.define([
                 var that = this;
                 this.validateSONumber();
             },
+            onChangeSONumber: function (oEvent) {
+                debugger;
+                var oValue = oEvent.getSource().getValue();
+                if (!oValue.match(/^\d{4}$/)) {
+
+                    this.getView().byId("idSoNumber").setValueState("Error");
+                    this.getView().byId("idSoNumber").setValueStateText("Please Enter upto 10 digit Number");
+                    this.getView().byId("SObtnSubmit").setEnabled(false);
+                    return;
+                }
+                else {
+                    this.getView().byId("idSoNumber").setValueState("None");
+                    this.getView().byId("idSoNumber").setValueStateText(null);
+                    this.getView().byId("SObtnSubmit").setEnabled(true);
+
+                }
+
+
+            },
 
             // Validate QR Code
             validateSONumber: function () {
                 var that = this;
-                var SoID = this.getView().byId("idSoNumber").getValue();
-                that.sObjectId = SoID+"l";
+                var SoNumber = this.getView().byId("idSoNumber").getValue();
+                that.sObjectId = SoNumber + "l";
+                //that.sObjectId = SoID+"l";
                 var SoIDFilter = new sap.ui.model.Filter({
-                    path: "ID",
+                    path: "SONumber",
                     operator: sap.ui.model.FilterOperator.EQ,
-                    value1: SoID
+                    value1: SoNumber
                 });
 
                 var filter = [];
@@ -61,10 +81,10 @@ sap.ui.define([
                         if (oData) {
                             // debugger;
                             if (oData.results.length) {
-                             //   that.onReadDataIssueMaterials();
-                                 that.oRouter.navTo("RaiseRequestDetailPage", {
-                                     SOId: oData.results[0].ID
-                                 }, false);
+                                //   that.onReadDataIssueMaterials();
+                                that.oRouter.navTo("RaiseRequestDetailPage", {
+                                    SOId: oData.results[0].ID
+                                }, false);
                             } else {
                                 sap.m.MessageBox.error("Please Enter Valid SO Number");
                             }

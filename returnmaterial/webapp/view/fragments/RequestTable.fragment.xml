@@ -4,7 +4,7 @@
 
     <smartTable:SmartTable class="sapUiResponsiveContentPadding" id="idPurchaseOrdersdsdTable" 
         editable="false" placeToolbarInTable="true" enableAutoBinding="true" 
-        entitySet="ReturnMaterialRequestSet" showFullScreenButton="true" showRowCount="false"
+        entitySet="ReturnMaterialReserveSet" showFullScreenButton="true" showRowCount="false"
          tableType="ResponsiveTable" demandPopin="false" useExportToExcel="false" 
          useTablePersonalisation="true" useVariantManagement="false" 
          beforeRebindTable="onbeforeRebindOpenPoTable">
@@ -21,41 +21,41 @@
                     <Text text="{i18n>ID}"/>
                 </Column>
 
-                <!-- RequestDate -->
-                <Column>
-                    <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "RequestDate", "leadingProperty": "RequestDate",
-                                                 "columnIndex": 1 ,"sortProperty": "RequestDate","filterProperty": "RequestDate"}'/>
-                    </customData>
-                    <Text text="{i18n>RequestDate}"/>
-                </Column>
-
-                <!-- ApprovedDate -->
-                <Column>
-                    <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "ApprovedDate", "leadingProperty": "ApprovedDate",
-                                                 "columnIndex": 2 ,"sortProperty": "ApprovedDate","filterProperty": "ApprovedDate"}'/>
-                    </customData>
-                    <Text text="{i18n>ApprovedDate}"/>
-                </Column>
-
-                <!-- CreatedAt -->
+                 <!-- CreatedAt -->
                 <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "CreatedAt", "leadingProperty": "CreatedAt",
-                                                 "columnIndex": 3, "sortProperty": "CreatedAt"}'/>
+                                                 "columnIndex": 1, "sortProperty": "CreatedAt"}'/>
                     </customData>
                     <Text text="{i18n>CreatedAt}"/>
                 </Column>
 
-                <!-- Comment -->
+                <!-- RequestDate -->
+                <Column>
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "RequestDate", "leadingProperty": "RequestDate",
+                                                 "columnIndex": 2 ,"sortProperty": "RequestDate","filterProperty": "RequestDate"}'/>
+                    </customData>
+                    <Text text="{i18n>RequestDate}"/>
+                </Column>    
+
+                 <!-- Reason -->
+                <Column demandPopin="true" minScreenWidth="Tablet">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "ReasonToReturnMaterialId/Name", "leadingProperty": "ReasonToReturnMaterialId/Name",
+                                    "columnIndex": 3, "sortProperty": "ReasonToReturnMaterialId/Name"}'/>
+                    </customData>
+                    <Text text="{i18n>Reason}" />
+                </Column>            
+
+                 <!-- Comment -->
                 <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "Comment", "leadingProperty": "Comment",
-                                                 "columnIndex": 4, "sortProperty": "Comment"}'/>
+                                    "columnIndex": 4, "sortProperty": "Comment"}'/>
                     </customData>
-                    <Text text="{i18n>Comment}"/>
-                </Column>
+                    <Text text="{i18n>Comment}" />
+                </Column>             
 
                 <!-- Status -->
                 <Column demandPopin="true" minScreenWidth="Tablet">
@@ -65,29 +65,26 @@
                     </customData>
                     <Text text="{i18n>Status}"/>
                 </Column>
+
             </columns>
             <items>
+
                 <ColumnListItem type="Navigation" press="onPurchaseOrderPress">
                     <cells>
-                        <ObjectIdentifier text="{ID}"/>
-                        <Text text="{path:'RequestDate',
-                                    type: 'sap.ui.model.type.Date',
-				                     formatOptions: {
-				                        pattern: 'MMMM dd, yyyy'
-				                     }    
-                        }"/>
-                        <Text text="{path:'ApprovedDate',
-                                    type: 'sap.ui.model.type.Date',
-				                     formatOptions: {
-				                        pattern: 'MMMM dd, yyyy'
-				                     }    
-                        }"/>
+                        <ObjectIdentifier text="{ID}"/>                        
                         <Text text="{path:'CreatedAt',
                                     type: 'sap.ui.model.type.Date',
 				                     formatOptions: {
 				                        pattern: 'MMMM dd, yyyy'
 				                     }    
                         }"/>
+                        <Text text="{path:'RequestDate',
+                                    type: 'sap.ui.model.type.Date',
+				                     formatOptions: {
+				                        pattern: 'MMMM dd, yyyy'
+				                     }    
+                        }"/>                      
+                        <Text text="{Name}" binding="{ReasonToReturnMaterialId}"/>
                         <Text text="{Comment}"/>
                         <Text text="{Status}"/>
                     </cells>

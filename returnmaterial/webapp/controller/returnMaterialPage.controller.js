@@ -71,7 +71,12 @@ sap.ui.define([
                 that.getRouter().navTo("RouteReturnDetailPage", {
                     Id: sObjectPath // /PurchaseOrders(123)->(123)
                 });
-            }
+            },
+             onbeforeRebindOpenPoTable: function (oEvent) {
+            var mBindingParams = oEvent.getParameter("bindingParams");
+             mBindingParams.sorter.push(new sap.ui.model.Sorter("CreatedAt", true));
+            mBindingParams.sorter.push(new sap.ui.model.Sorter("RequestDate", true));
+        }
 
         });
     });
