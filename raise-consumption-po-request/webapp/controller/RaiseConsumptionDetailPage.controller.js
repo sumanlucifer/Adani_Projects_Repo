@@ -90,7 +90,7 @@ sap.ui.define([
             mBindingParams.parameters["expand"] = "IssuedMaterialBOQ";
             mBindingParams.parameters["navigation"] = { "IssuedMaterialParentSet": "IssuedMaterialBOQ" };
             mBindingParams.filters.push(new sap.ui.model.Filter("SONumberId/ID", sap.ui.model.FilterOperator.EQ, this.sObjectId));
-            
+
         },
         onBeforeRebindRestTable: function (oEvent) {
             var mBindingParams = oEvent.getParameter("bindingParams");
@@ -99,7 +99,8 @@ sap.ui.define([
         },
         onConsumedItemsTablePress: function (oEvent) {
             // The source is the list item that got pressed
-            var ReservationNumber = oEvent.getSource().getBindingContext().getProperty().ReservationNumber;
+         
+            var ReservationNumber = oEvent.getSource().getBindingContext().getObject().ReservationNumber;
             var ReservationDate = oEvent.getSource().getBindingContext().getProperty().ReservationDate;
             this._showObject(oEvent.getSource(), ReservationNumber, ReservationDate);
         },
@@ -112,6 +113,58 @@ sap.ui.define([
             },
                 false
             );
+        },
+
+        onPressCancelRequest: function (oEvent) {
+            var that = this;
+             var ConsumptionPostingReserveId = oEvent.getSource().getBindingContext().getObject().ConsumptionPostingReserveId;
+              var ConsumptionPostingId = oEvent.getSource().getBindingContext().getObject().ConsumptionPostingId;
+
+
+
+            MessageBox.confirm("Do you want to Cancel the consumption request?", {
+                icon: MessageBox.Icon.INFORMATION,
+                title: "Confirm",
+                actions: [MessageBox.Action.YES, MessageBox.Action.NO],
+                emphasizedAction: MessageBox.Action.YES,
+                onClose: function (oAction) {
+                    if (oAction == "YES") {
+                        that.onCancelButtonConfirmPress(ConsumptionPostingReserveId, ConsumptionPostingId);
+                    }
+                }
+            });
+
+        },
+
+        onCancelButtonConfirmPress: function (CID) {
+            var oPayload =
+            {
+                "UserName": "Agel",
+                "ConsumptionPostingReserveId":ConsumptionPostingReserveId,
+                "ConsumptionPostingId": ConsumptionPostingId
+            }
+                ;
+            this.MainModel.create("/CancelConsumptionPostingEdmSet", oPayload, {
+                success: function (oData, oResponse) {
+                    if (oData.Success === true) {
+                        sap.m.MessageBox.success("Consumption has been cancelled successfully!", {
+                            title: "Success",
+                            onClose: function (oAction1) {
+                                if (oAction1 === sap.m.MessageBox.Action.OK) {
+                                  //  this._navToCrossApp();
+                                }
+                            }.bind(this)
+                        });
+                    }
+
+                    else {
+                        sap.m.MessageBox.success("Something went wrong!");
+                    }
+                }.bind(this),
+                error: function (oError) {
+                    sap.m.MessageBox.error(oError.Message);
+                }
+            });
         },
         onPressLongNewEntry: function () {
             var that = this;

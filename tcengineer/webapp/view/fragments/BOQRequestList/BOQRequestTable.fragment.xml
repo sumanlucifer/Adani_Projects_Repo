@@ -46,8 +46,8 @@
 
                 <Column>
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "CompanyCode", "leadingProperty": "BOQGroup/ParentLineItem/PurchaseOrder/Buyer/CompanyCode",
-                                                 "columnIndex": 4 ,"sortProperty": "BOQGroup/ParentLineItem/PurchaseOrder/Buyer/CompanyCode","filterProperty": "BOQGroup/ParentLineItem/PurchaseOrder/Buyer/CompanyCode"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "CompanyCode", "leadingProperty": "BOQGroup/ParentLineItem/PurchaseOrder/MasterCompanyCode/CompanyCode",
+                                                 "columnIndex": 4 ,"sortProperty": "BOQGroup/ParentLineItem/PurchaseOrder/MasterCompanyCode/CompanyCode","filterProperty": "BOQGroup/ParentLineItem/PurchaseOrder/MasterCompanyCode/CompanyCode"}'/>
                     </customData>
                     <Text text="{i18n>companyCode}"/>
                 </Column>
@@ -94,7 +94,7 @@
                         <ObjectIdentifier title="{BOQGroupName}"/>
                         <Text text="{VendorCode}" binding="{ParentLineItem/PurchaseOrder/Vendor}"/>
                         <Text text="{Name}" binding="{ParentLineItem/PurchaseOrder/Vendor}" wrapping="true"/>
-                        <Text text="{CompanyCode}" binding="{BOQGroup/ParentLineItem/PurchaseOrder/Buyer}"/>                        
+                        <Text text="{CompanyCode}" binding="{BOQGroup/ParentLineItem/PurchaseOrder/MasterCompanyCode}"/>                        
                         <Text text="{PlantCode}" binding="{ParentLineItem/PurchaseOrder}"/>
                        <Text text="{path:'CreatedAt',
                                     type: 'sap.ui.model.type.Date',

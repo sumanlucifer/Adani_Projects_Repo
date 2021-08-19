@@ -10,3 +10,6 @@ archive.zip
 .*_mta_build_tmp
 .*_mta_build_tmp
 
+
+# auto generated wildcard
+pmcg/.env9

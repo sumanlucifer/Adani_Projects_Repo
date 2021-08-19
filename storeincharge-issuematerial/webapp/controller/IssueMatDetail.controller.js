@@ -21,7 +21,7 @@ sap.ui.define([
 ], function (BaseController, JSONModel, Filter, FilterOperator, Fragment, Sorter, Device, History, ColumnListItem, Input, deepExtend, Spreadsheet, MessageToast, MessageBox, ObjectIdentifier, Text, Button, Dialog, formatter) {
     "use strict";
 
-    return BaseController.extend("com.agel.mmts.storeinchargeissuematerial.controller.IssueSODetail", {
+    return BaseController.extend("com.agel.mmts.storeinchargeissuematerial.controller.IssueMatDetail", {
         formatter: formatter,
         onInit: function () {
             this.getView().addEventDelegate({
@@ -71,12 +71,12 @@ sap.ui.define([
             });
         },
 
-        onPressSelectMaterials: function (oEvent) {
-            var that = this;
-             this.getRouter().navTo("RaiseIssueScanQRCode", {
-                SONumber : that.sObjectId,
-            });
-        }
+        // onPressSelectMaterials: function (oEvent) {
+        //     var that = this;
+        //      this.getRouter().navTo("RaiseIssueScanQRCode", {
+        //         SONumber : that.sObjectId,
+        //     });
+        // }
 
     });
 });
