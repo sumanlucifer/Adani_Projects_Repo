@@ -23,21 +23,28 @@
             <Text text="{Fax}"/>
             <!-- <core:Title  /> -->
             <Label text="{i18n>city}"/>
-            <Text text="{City}" binding="{Address}"/>
+            <!-- <Text text="{City}" binding="{Address}"/> -->
+            <Text text=""/>
             <Label text="{i18n>street2}" />
-            <ExpandableText binding="{Address}" text="{Street}" overflowMode="InPlace"/>
+            <!-- <ExpandableText binding="{Address}" text="{Street}" overflowMode="InPlace"/> -->
+            <ExpandableText text="" overflowMode="InPlace"/>
             <Label text="{i18n>stateCode}" />
-            <Text text="{State}" binding="{Address}"/>
+            <!-- <Text text="{State}" binding="{Address}"/> -->
+            <Text text=""/>
             <Label text="{i18n>postalCode}" />
-            <Text text="{pinCode}" binding="{Address}"/>
+            <!-- <Text text="{pinCode}" binding="{Address}"/> -->
+            <Text text=""/>
 
             <!-- <core:Title /> -->
             <Label text="{i18n>addressNoSAP}" />
-            <ExpandableText binding="{Address}" text="{Country}" overflowMode="InPlace"/>
+            <!-- <ExpandableText binding="{Address}" text="{Country}" overflowMode="InPlace"/> -->
+            <ExpandableText text="" overflowMode="InPlace"/>
             <Label text="{i18n>street}" />
-            <Text text="{Street}" binding="{Address}"/>
+            <!-- <Text text="{Street}" binding="{Address}"/> -->
+            <Text text=""/>
             <Label text="{i18n>countryCode}" />
-            <Text text="{Country}" binding="{Address}"/>
+            <!-- <Text text="{Country}" binding="{Address}"/> -->
+            <Text text=""/>
         </f:content>
     </f:SimpleForm>
 

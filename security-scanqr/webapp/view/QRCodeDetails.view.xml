@@ -106,9 +106,12 @@
                     <VBox class="sapUiMediumMarginBeginEnd">
                         <Title text="{i18n>shipTo}" titleStyle="H6"/>
                         <ObjectAttribute title="{Name}" binding="{PurchaseOrder/MasterCompanyCode}"/>
-                        <ObjectAttribute text="{Street}" binding="{PurchaseOrder/MasterCompanyCode/Address}"/>
+                        <!-- <ObjectAttribute text="{Street}" binding="{PurchaseOrder/MasterCompanyCode/Address}"/>
                         <ObjectAttribute text="{City} - {State} - {Country}" binding="{PurchaseOrder/MasterCompanyCode/Address}"/>
-                        <ObjectAttribute text="{pinCode}" binding="{PurchaseOrder/MasterCompanyCode/Address}"/>
+                        <ObjectAttribute text="{pinCode}" binding="{PurchaseOrder/MasterCompanyCode/Address}"/> -->
+                        <ObjectAttribute text=""/>
+                        <ObjectAttribute text=""/>
+                        <ObjectAttribute text=""/>
                     </VBox>
                     <VBox class="sapUiMediumMarginBeginEnd">
                         <Title text="{i18n>from}" titleStyle="H6"/>
