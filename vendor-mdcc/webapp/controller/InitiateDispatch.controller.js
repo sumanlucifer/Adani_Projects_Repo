@@ -39,9 +39,9 @@ sap.ui.define([
 
         _onObjectMatched: function (oEvent) {
             var that = this;
-           // var startupParams = this.getOwnerComponent().getComponentData().startupParameters;
-           // this.sObjectId=parseInt(startupParams.MDCCId[0]);
-            this.sObjectId = "162";
+           var startupParams = this.getOwnerComponent().getComponentData().startupParameters;
+           this.sObjectId=parseInt(startupParams.MDCCId[0]);
+            //this.sObjectId = "162";
             //  var startupParams={MDCCId:163,manage:"false"};       
             
             //this.sObjectId=parseInt(startupParams.MDCCId);

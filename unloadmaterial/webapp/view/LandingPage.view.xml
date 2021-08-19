@@ -45,7 +45,7 @@
         <f:content>
             <smartTable:SmartTable class="sapUiResponsiveContentPadding" id="idUnloadMaterialTable" editable="false" placeToolbarInTable="true" 
             enableAutoBinding="true" entitySet="UnloadMaterialSet"  showFullScreenButton="true" showRowCount="false" tableType="ResponsiveTable" 
-            demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" 
+            demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" beforeRebindTable="onbeforeRebindTable"
             ignoreFromPersonalisation="ID,MaterialCode,Description,Type,DispatchType,DispatchQty,QRNumber,IsArchived,CreatedAt,CreatedBy,UpdatedAt,UpdatedBy">
                 <Table sticky="ColumnHeaders,HeaderToolbar">
                     <columns>

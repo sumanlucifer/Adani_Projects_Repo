@@ -75,8 +75,8 @@ sap.ui.define([
                 andFilters.push(new Filter("VendorCode", FilterOperator.EQ, CompanyCode));
             }
 
-           var idUnloadMaterialTableBinding = this.getView().byId("idUnloadMaterialTable").getTable().getBinding("items");
-           
+            var idUnloadMaterialTableBinding = this.getView().byId("idUnloadMaterialTable").getTable().getBinding("items");
+
             if (andFilters.length == 0) {
                 andFilters.push(new Filter("ID", FilterOperator.NE, 0));
                 idUnloadMaterialTableBinding.filter(new Filter(andFilters, true));
@@ -105,9 +105,14 @@ sap.ui.define([
             //  }
         },
 
-        onUnloadNewConsignment: function(oEvent) {
+        onUnloadNewConsignment: function (oEvent) {
             var oRouter = this.getOwnerComponent().getRouter();
             oRouter.navTo("RouteNewConsignment")
+        },
+
+        onbeforeRebindTable: function (oEvent) {
+            var mBindingParams = oEvent.getParameter("bindingParams");
+            mBindingParams.sorter.push(new sap.ui.model.Sorter("CreatedAt", true));
         }
     });
 });
