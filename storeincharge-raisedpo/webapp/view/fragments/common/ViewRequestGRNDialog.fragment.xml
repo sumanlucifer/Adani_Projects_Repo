@@ -45,6 +45,10 @@
                         <Text text="{UOM}" binding="{StockParentItem}"/>
                         <Label text="Delivery Note​​​​​​​​​"></Label>
                         <Input value="{requestModel>/delivery}" liveChange="onDeliveryNoteLiveChange" type="Text" valueState="{requestModel>/valueState}" valueStateText="{requestModel>/valueStateText}"></Input>
+                        <Label text="Bill of Lading"></Label>
+                        <Input value="{requestModel>/billoflading}" liveChange="onDeliveryNoteLiveChange" type="Text" valueState="{requestModel>/valueState}" valueStateText="{requestModel>/valueStateText}"></Input>
+                        <Label text="Gate Pass Number"></Label>
+                        <Input value="{requestModel>/gatepassnumber}" liveChange="onDeliveryNoteLiveChange" type="Number" valueState="{requestModel>/valueState}" valueStateText="{requestModel>/valueStateText}"></Input>
                         <Label text="Total Packaging Weight"></Label>
                         <Input value="{requestModel>/quantity}" liveChange="onQuantityLiveChange" type="Number" valueState="{requestModel>/valueState}" valueStateText="{requestModel>/valueStateText}"></Input>
                     </f:content>

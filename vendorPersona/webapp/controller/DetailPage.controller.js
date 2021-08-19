@@ -162,7 +162,7 @@ sap.ui.define([
             var FreeTextSearch = this.byId("filterbar").getBasicSearchValue();
             if (FreeTextSearch) {
                 orFilters.push(new Filter("PONumber", FilterOperator.Contains, FreeTextSearch));
-                orFilters.push(new Filter("Buyer/CompanyCode", FilterOperator.EQ, FreeTextSearch));
+                orFilters.push(new Filter("MasterCompanyCode/CompanyCode", FilterOperator.EQ, FreeTextSearch));
                 orFilters.push(new Filter("ParentLineItems/MaterialCode", FilterOperator.EQ, FreeTextSearch));
                 orFilters.push(new Filter("PlantCode", FilterOperator.EQ, FreeTextSearch));
                 orFilters.push(new Filter("ParentLineItems/Name", FilterOperator.Contains, FreeTextSearch));
@@ -177,7 +177,7 @@ sap.ui.define([
                 andFilters.push(new Filter("POReleaseDate", FilterOperator.BT, From.toISOString(), To.toISOString()));
             }
             if (CompanyCode != "") {
-                andFilters.push(new Filter("Buyer/CompanyCode", FilterOperator.EQ, CompanyCode));
+                andFilters.push(new Filter("MasterCompanyCode/CompanyCode", FilterOperator.EQ, CompanyCode));
             }
             if (MaterialCode != "") {
                 andFilters.push(new Filter("ParentLineItems/MaterialCode", FilterOperator.EQ, MaterialCode));

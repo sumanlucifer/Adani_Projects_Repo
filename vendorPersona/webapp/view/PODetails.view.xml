@@ -111,11 +111,11 @@
                             <sellerForm:SellerForm class="sapUxAPObjectPageSubSectionAlignContent"/>
                         </uxap:blocks>
                     </uxap:ObjectPageSubSection>
-                    <uxap:ObjectPageSubSection title="{i18n>sow}" class="BasicDetalFormTitleStyleLast">
+                    <!-- <uxap:ObjectPageSubSection title="{i18n>sow}" class="BasicDetalFormTitleStyleLast">
                         <uxap:blocks>
                             <sowForm:SOWForm class="sapUxAPObjectPageSubSectionAlignContent"/>
                         </uxap:blocks>
-                    </uxap:ObjectPageSubSection>
+                    </uxap:ObjectPageSubSection> -->
                 </uxap:subSections>
             </uxap:ObjectPageSection>
 
