@@ -114,14 +114,6 @@
                                     </ui:template>
                                 </ui:Column>
 
-
-                                <ui:Column>
-                                    <Label text="Consumed Quantity"/>
-                                    <ui:template>
-                                        <Text text="{TreeTableModelView>ConsumedQty}" wrapping="false" />
-                                    </ui:template>
-                                </ui:Column>
-
                                 <ui:Column>
                                     <Label text="Issued Quantity"/>
                                     <ui:template>
@@ -129,15 +121,13 @@
                                     </ui:template>
                                 </ui:Column>
 
+
                                 <ui:Column>
                                     <Label text="Return Quantity"/>
                                     <ui:template  >
-                                        <HBox>
-                                            <Input value="{TreeTableModelView>ReturnedQty}" type="Number" liveChange="onLiveChangeReturnQty" editable="false" visible="{TreeTableModelView>isStandAlone}" />
-                                            <ToggleButton icon="sap-icon://edit" visible="{TreeTableModelView>isStandAlone}"  pressed="false" press="onEditQuantityPressed"/>
-                                           
 
-                                        </HBox>
+
+                                        <Text text="{TreeTableModelView>ReturnedQty}" wrapping="false" />
 
                                     </ui:template>
 
@@ -145,19 +135,40 @@
 
 
 
-
-                                <!-- <ui:Column>
-                                    <Label text=""/>
+                                <ui:Column>
+                                    <Label text="Balance Quantity"/>
                                     <ui:template>
-                                   
+                                        <Text text="{TreeTableModelView>BalanceQty}" wrapping="false" />
                                     </ui:template>
-                                </ui:Column> -->
+                                </ui:Column>
 
 
 
+                                <ui:Column>
+                                    <Label text="Consumed Quantity"/>
+                                    <ui:template>
+
+
+
+
+                                        <HBox>
+                                            <Input value="{TreeTableModelView>ConsumedQty}" type="Number" liveChange="onLiveChangeReturnQty" editable="false" visible="{TreeTableModelView>isStandAlone}" />
+                                            <ToggleButton icon="sap-icon://edit" visible="{TreeTableModelView>isStandAlone}" pressed="false" press="onEditQuantityPressed"/>
+
+
+                                        </HBox>
+
+
+
+
+
+
+
+                                    </ui:template>
+                                </ui:Column>
 
                                 <ui:Column width="7%">
-                                    <Label text="BaseUnit" />
+                                    <Label text="UOM" />
                                     <ui:template>
                                         <Text text="{TreeTableModelView>BaseUnit}" />
                                     </ui:template>
