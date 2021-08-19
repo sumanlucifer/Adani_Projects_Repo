@@ -8,7 +8,7 @@
         <f:title>
             <f:DynamicPageTitle>
                 <f:heading>
-                    <Title id="pageTitle" text="Raise Consumption PO Request"/>
+                    <Title id="pageTitle" text="Raise Consumption Posting Request"/>
                 </f:heading>
                 <f:actions>
                    <!-- <Button text="Raise Return Material Request" press="onConfirmRequest" type="Emphasized"/> -->
@@ -20,8 +20,8 @@
             <f:DynamicPageHeader pinnable="false">
                 <f:content>
                     <HBox alignContent="SpaceAround">
-                        <Input placeholder="Enter SO Number"  id="idSoNumber" width="90%" search="onSearch" ></Input>
-                        <Button text="Submit" press="onSearch" type="Emphasized"/>
+                        <Input liveChange="onChangeSONumber"    placeholder="Enter SO Number" type="Number"  id="idSoNumber" width="90%"  ></Input>
+                        <Button id="SObtnSubmit" text="Submit" press="onSearch" type="Emphasized"/>
                     </HBox>
                 </f:content>              
             </f:DynamicPageHeader>

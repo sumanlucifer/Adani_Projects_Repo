@@ -85,16 +85,20 @@ sap.ui.define([
         dataBuilding: function (ParentData) {
             this.ParentDataView = ParentData;
             for (var i = 0; i < ParentData.length; i++) {
-                //  for (var j = 0; j < ParentData[i].MDCCBOQItems.length; j++) {
+                ParentData[i].ConsumedQty = null;
+
                 if (ParentData[i].IssuedMaterialBOQ.results.length) {
                     this.ParentDataView[i].isStandAlone = false;
                     this.ParentDataView[i].ChildItemsView = ParentData[i].IssuedMaterialBOQ.results;
+
                 }
                 else {
                     this.ParentDataView[i].isStandAlone = true;
                     this.ParentDataView[i].ChildItemsView = [];
                 }
-                //   }
+                for (var j = 0; j < ParentData[i].IssuedMaterialBOQ.results.length; j++) {
+                    ParentData[i].IssuedMaterialBOQ.results[j].ConsumedQty = null;
+                }
             }
             this.arrangeDataView(this.ParentDataView);
         },
@@ -110,7 +114,7 @@ sap.ui.define([
             var that = this;
 
 
-            MessageBox.confirm("Do you want to submit the line items?", {
+            MessageBox.confirm("Do you want to submit the consumption request?", {
                 icon: MessageBox.Icon.INFORMATION,
                 title: "Confirm",
                 actions: [MessageBox.Action.YES, MessageBox.Action.NO],
@@ -160,7 +164,7 @@ sap.ui.define([
                         that.submitConsumptionPostingID(oData.ConsumptionPostingReserveId);
                     }
                     else {
-                        sap.m.MessageBox.success("Something went wrong!");
+                        sap.m.MessageBox.success("The Material is not available for Consumption!");
                     }
                 }.bind(this),
                 error: function (oError) {
@@ -176,7 +180,7 @@ sap.ui.define([
             this.MainModel.create("/ConsumptionPostingEdmSet", oPayload, {
                 success: function (oData, oResponse) {
                     if (oData.Success === true) {
-                        sap.m.MessageBox.success("Consumption has been posted and reserved successfully!", {
+                        sap.m.MessageBox.success("Consumption has been posted successfully!", {
                             title: "Success",
                             onClose: function (oAction1) {
                                 if (oAction1 === sap.m.MessageBox.Action.OK) {
@@ -187,7 +191,7 @@ sap.ui.define([
                     }
 
                     else {
-                        sap.m.MessageBox.success("Something went wrong!");
+                        sap.m.MessageBox.success("The Material is not available for Consumption!");
                     }
                 }.bind(this),
                 error: function (oError) {
@@ -224,8 +228,8 @@ sap.ui.define([
             );
         },
         onLiveChangeReturnQty: function (oEvent) {
-            var iIssuedQuantity = parseInt(oEvent.getSource().getParent().getParent().getCells()[3].getText());
-            var iReturnQuantity = parseInt(oEvent.getSource().getParent().getItems()[0].getValue());
+            var iBalanceQty = parseInt(oEvent.getSource().getParent().getParent().getCells()[4].getText());
+            var iConsumedQty = parseInt(oEvent.getSource().getParent().getItems()[0].getValue());
             var oValue = oEvent.getSource().getValue();
 
             if (oValue == "") {
@@ -234,13 +238,19 @@ sap.ui.define([
                 this.getView().byId("btnSubmit").setEnabled(false);
                 return 0;
             }
-            if (iReturnQuantity < 0) {
+            if (iConsumedQty < 0) {
                 oEvent.getSource().setValueState("Error");
                 oEvent.getSource().setValueStateText("Please enter positive value");
                 this.getView().byId("btnSubmit").setEnabled(false);
                 return 0;
             }
-            if (iReturnQuantity < iIssuedQuantity) {
+              if (iConsumedQty === 0) {
+                oEvent.getSource().setValueState("Error");
+                oEvent.getSource().setValueStateText("Please enter atleast one Quantity");
+                this.getView().byId("btnSubmit").setEnabled(false);
+                return 0;
+            }
+            if (iConsumedQty > iBalanceQty) {
                 oEvent.getSource().setValueState("Error");
                 oEvent.getSource().setValueStateText("Please enter less inspected quantity than quantity");
                 this.getView().byId("btnSubmit").setEnabled(false);
@@ -262,8 +272,8 @@ sap.ui.define([
 
 
 
-            
-          
+
+
             var oCrossAppNavigator = sap.ushell.Container.getService("CrossApplicationNavigation"); // get a handle on the global XAppNav service
             var hash = (oCrossAppNavigator && oCrossAppNavigator.hrefForExternal({
                 target: {
