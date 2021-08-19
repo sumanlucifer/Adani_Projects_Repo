@@ -9,7 +9,10 @@
                     <Label text="Enter Reason" required="true"></Label>
                     <!-- <Input value="{qrAssistantModel>/reason}"></Input> -->
 
-                    <Select id="idSelReason" forceSelection="false"  selectedKey="{qrAssistantModel>/reason}"
+                    <Select id="idSelReason" forceSelection="false"
+                        valueState="{qrAssistantModel>/reasonValueState}"  
+                        selectedKey="{qrAssistantModel>/reason}"
+                        change="onReasonSelectionChange"
 					    items="{
 						    path: '/ReasonToReturnMaterialSet'						    
 					    }">
@@ -17,7 +20,9 @@
 				    </Select>
 
                     <Label text="Comments" required="true"></Label>
-                    <TextArea value="{qrAssistantModel>/comment}"></TextArea>
+                    <TextArea id="idTxtComment" value="{qrAssistantModel>/comment}"
+                         valueState="{qrAssistantModel>/commentValueState}"
+                         liveChange="onLiveChangeComment" />
                 </f:SimpleForm>
             </l:content>
         </l:Grid>

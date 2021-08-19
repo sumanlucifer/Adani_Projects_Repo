@@ -99,7 +99,8 @@ sap.ui.define([
         dataBuilding: function (ParentData) {
             this.ParentDataView = ParentData;
             for (var i = 0; i < ParentData.length; i++) {
-                //  for (var j = 0; j < ParentData[i].MDCCBOQItems.length; j++) {
+                ParentData[i].ReturnedQty = null;
+
                 if (ParentData[i].IssuedMaterialBOQ.results.length) {
                     this.ParentDataView[i].isStandAlone = false;
                     this.ParentDataView[i].ChildItemsView = ParentData[i].IssuedMaterialBOQ.results;
@@ -108,7 +109,10 @@ sap.ui.define([
                     this.ParentDataView[i].isStandAlone = true;
                     this.ParentDataView[i].ChildItemsView = [];
                 }
-                //   }
+                for (var j = 0; j < ParentData[i].IssuedMaterialBOQ.results.length; j++) {
+                    ParentData[i].IssuedMaterialBOQ.results[j].ReturnedQty = null;
+                }
+
             }
             this.arrangeDataView(this.ParentDataView);
         },
@@ -122,7 +126,9 @@ sap.ui.define([
             oTable.setModel(oModel);
             oTable.getModel("TreeTableModelView").refresh();
         },
-
+   handleToAllPOBreadcrumPress: function (oEvent) {
+            history.go(-1);
+        },
         /*   onPressRetrunAsset: function (oEvent) {
                //  debugger;
                //  var sObjectId = oEvent.getSource();
@@ -139,7 +145,7 @@ sap.ui.define([
             oEvent.getSource().setValueState("None");
             this.getView().byId("idBtnSubmit").setEnabled(true);
             var oValue = oEvent.getSource().getValue();
-            var balanceQty = oEvent.getSource().getParent().getCells()[5].getText();
+            var balanceQty = oEvent.getSource().getParent().getParent().getCells()[4].getText();
             var flag = 0;
             if (parseInt(oValue) > parseInt(balanceQty) || balanceQty == "") {
                 oEvent.getSource().setValueState("Error");
@@ -157,16 +163,43 @@ sap.ui.define([
                 this.getView().byId("idBtnSubmit").setEnabled(true);
             }
         },
+        onEditQuantityPressed: function (oEvent) {
 
+            var isPressed = oEvent.getParameter("pressed");
+            if (isPressed) oEvent.getSource().getParent().getItems()[0].setEditable(true);
+            else oEvent.getSource().getParent().getItems()[0].setEditable(false);
+        },
         onCancelAssistanceRequestPress: function (oEvent) {
             this._oQRAssistantDialog.close();
+        },
+
+        onLiveChangeComment  : function(oEvent){
+            var that = this;
+            var inputModel = this.getView().getModel("qrAssistantModel");
+            var oValue = oEvent.getSource().getValue();
+            if ( oValue.length < 0 )
+            {              
+                inputModel.setProperty("/commentValueState","Error");
+            }else{
+                inputModel.setProperty("/commentValueState","None");
+            }
+            inputModel.refresh();   
+        },
+
+        onReasonSelectionChange : function(oEvent){
+            var that = this;
+            var inputModel = this.getView().getModel("qrAssistantModel");
+            inputModel.setProperty("/reasonValueState","None");
+            inputModel.refresh();
         },
 
         onPressSubmitRequest: function (oEvent) {
             //initialize the action
             var oModel = new JSONModel({
                 "reason": null,
-                "comment": null
+                "reasonValueState" : "None",
+                "comment": null,
+                "commentValueState" : "None"
             });
             this.getView().setModel(oModel, "qrAssistantModel")
             if (!this._oQRAssistantDialog) {
@@ -182,10 +215,12 @@ sap.ui.define([
             var flag = 0;
             if (inputModel.getProperty("/comment") == null || inputModel.getProperty("/comment") == "") {
                 flag = 1;
+                inputModel.setProperty("/commentValueState","Error");                
             }
 
             if (inputModel.getProperty("/reason") == null || inputModel.getProperty("/reason") == "") {
                 flag = 1;
+                inputModel.setProperty("/reasonValueState","Error");
             }
 
             if (flag == 1) {

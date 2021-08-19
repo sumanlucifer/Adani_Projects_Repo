@@ -37,7 +37,8 @@
                 </uxap:snappedTitleOnMobile>
                 <uxap:actions>
                     <VBox visible="true">
-                        <Button id="idBtnSubmit" text="Submit Request" press="onPressSubmitRequest" type="Emphasized"/>
+                        <Button id="idBtnSubmit" text="Submit Request" press="onPressSubmitRequest" 
+                            enabled="false" type="Emphasized"/>
                     </VBox>
                 </uxap:actions>
             </uxap:ObjectPageDynamicHeaderTitle>
@@ -89,28 +90,24 @@
             <uxap:ObjectPageSection titleUppercase="false" title="{i18n>lineItems}">
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection title="{i18n>IssuedMaterialItems}">
-                        <ui:TreeTable id="TreeTable" rows="{path:'TreeTableModelView>/', parameters: {arrayNames:['ChildItemsView']}}" 
-                            selectionMode="MultiToggle" enableSelectAll="false" ariaLabelledBy="title" rowsUpdated="onRowsUpdated">
+                        <ui:TreeTable id="TreeTable" rows="{path:'TreeTableModelView>/', parameters: {arrayNames:['ChildItemsView']}}" selectionMode="None" enableSelectAll="false" ariaLabelledBy="title" rowsUpdated="onRowsUpdated">
                             <ui:columns>
 
-                                <ui:Column width="7%">
-                                    <Label text="ID" />
-                                    <ui:template>
-                                        <Text text="{TreeTableModelView>ID}" />
-                                    </ui:template>
-                                </ui:Column>
 
-                                <ui:Column width="7%">
+                                <ui:Column width="15%">
                                     <Label text="Material Code" wrapping="true"/>
                                     <ui:template>
-                                        <Text text="{TreeTableModelView>MaterialCode}" />
+
+
+                                        <ObjectIdentifier title="{TreeTableModelView>MaterialCode}" />
                                     </ui:template>
                                 </ui:Column>
 
                                 <ui:Column>
                                     <Label text="Plant"/>
                                     <ui:template>
-                                        <ObjectIdentifier title="{TreeTableModelView>Plant}" />
+
+                                        <Text text="{TreeTableModelView>Plant}" />
                                     </ui:template>
                                 </ui:Column>
 
@@ -119,31 +116,38 @@
                                     <ui:template>
                                         <Text text="{TreeTableModelView>Name}" wrapping="false" />
                                     </ui:template>
-                                </ui:Column>     
+                                </ui:Column>
 
                                 <ui:Column>
                                     <Label text="Issued Quantity"/>
                                     <ui:template>
                                         <Text text="{TreeTableModelView>IssuedQty}" wrapping="false" />
                                     </ui:template>
-                                </ui:Column>  
+                                </ui:Column>
 
-                                 <ui:Column>
+                                <ui:Column>
                                     <Label text="Balance Quantity"/>
                                     <ui:template>
                                         <Text text="{TreeTableModelView>BalanceQty}" wrapping="false" />
                                     </ui:template>
                                 </ui:Column>
-                                 
+
                                 <ui:Column>
                                     <Label text="Return Quantity"/>
                                     <ui:template>
-                                        <Input value="{TreeTableModelView>ReturnedQty}" type="Number" 
-                                           liveChange="onLiveChangeReturnQty" visible="{TreeTableModelView>isStandAlone}" />
-                                    </ui:template>
-                                </ui:Column>  
 
-                                   
+
+
+                                        <HBox>
+                                            <Input value="{TreeTableModelView>ReturnedQty}" type="Number" editable="false" liveChange="onLiveChangeReturnQty" visible="{TreeTableModelView>isStandAlone}" />
+                                            <ToggleButton icon="sap-icon://edit" visible="{TreeTableModelView>isStandAlone}" pressed="false" press="onEditQuantityPressed"/>
+
+
+                                        </HBox>
+                                    </ui:template>
+                                </ui:Column>
+
+
                             </ui:columns>
                         </ui:TreeTable>
                     </uxap:ObjectPageSubSection>
