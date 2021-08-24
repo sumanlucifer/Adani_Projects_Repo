@@ -125,7 +125,7 @@
                 },
                 {
                     "name": "RaiseIssueScanQRCode",
-                    "pattern": "IssueScanQRCode/{SOId}",
+                    "pattern": "IssueScanQRCode/{SONumber}",
                     "target": [
                         "TargetIssueScanQRCode"
                     ]
