@@ -68,9 +68,10 @@ sap.ui.define([
         // Dispatched Po Table Before Bind
         onbeforeRebindDispatchPoTable: function (oEvent) {
             var mBindingParams = oEvent.getParameter("bindingParams");
-            mBindingParams.filters.push(new Filter("Status", sap.ui.model.FilterOperator.EQ, "DISPATCHED"));
+            mBindingParams.filters.push(new Filter("Status", sap.ui.model.FilterOperator.EQ, "CLOSED"));
             //mBindingParams.filters.push(new Filter("Vendor/Email", sap.ui.model.FilterOperator.EQ, "symantic.engineering@testemail.com"));
         },
+
         onPurchaseOrderTableUpdateFinished: function (oEvent) {
             //Setting the header context for a property binding to $count
             this.setIconTabCount(oEvent, oEvent.getParameter("total"), "/openCount");
@@ -188,16 +189,19 @@ sap.ui.define([
             var idOpenPOTableBinding = this.getView().byId("idPurchaseOrdersTable").getTable().getBinding("items");
             var idConfirmPOTableBinding = this.getView().byId("idConfirmPOTable").getTable().getBinding("items");
             var idDispatchedPOTableBinding = this.getView().byId("idDispatchedPOTable").getTable().getBinding("items");
+            var idInProgressPOTableBinding = this.getView().byId("idInProgressPOTable").getTable().getBinding("items");
             if (andFilters.length == 0) {
                 andFilters.push(new Filter("PONumber", FilterOperator.NE, ""));
                 idOpenPOTableBinding.filter(new Filter(andFilters, true));
                 idConfirmPOTableBinding.filter(new Filter(andFilters, true));
                 idDispatchedPOTableBinding.filter(new Filter(andFilters, true));
+                idInProgressPOTableBinding.filter(new Filter(andFilters, true));
             }
             if (andFilters.length > 0) {
                 idOpenPOTableBinding.filter(new Filter(andFilters, true));
                 idConfirmPOTableBinding.filter(new Filter(andFilters, true));
                 idDispatchedPOTableBinding.filter(new Filter(andFilters, true));
+                idInProgressPOTableBinding.filter(new Filter(andFilters, true));
             }
             // oTableBinding.filter(mFilters);
         },
@@ -211,9 +215,12 @@ sap.ui.define([
             var idOpenPOTableBinding = this.getView().byId("idPurchaseOrdersTable").getTable().getBinding("items");
             var idConfirmPOTableBinding = this.getView().byId("idConfirmPOTable").getTable().getBinding("items");
             var idDispatchedPOTableBinding = this.getView().byId("idDispatchedPOTable").getTable().getBinding("items");
+            var idInProgressPOTableBinding = this.getView().byId("idInProgressPOTable").getTable().getBinding("items");
+            
             idOpenPOTableBinding.filter([]);
             idConfirmPOTableBinding.filter([]);
             idDispatchedPOTableBinding.filter([]);
+            idInProgressPOTableBinding.filter([]);
             this.oFilterBar.fireFilterChange();
         },
         onFilterChange: function (oEvent) {

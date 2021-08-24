@@ -52,7 +52,7 @@ sap.ui.define([
             var that = this;
             var sObjectId = oEvent.getParameter("arguments").Id;
             that.sObjectId = sObjectId;
-            this._bindView("/ReturnMaterialRequestSet(" + sObjectId + ")");
+            this._bindView("/ReturnMaterialReserveSet(" + sObjectId + ")");
         },
 
         _bindView: function (sObjectPath) {
@@ -96,11 +96,11 @@ sap.ui.define([
             var that = this;
 
             that.oIssueMaterialModel = new JSONModel();
-            this.MainModel.read("/ReturnMaterialRequestSet(" + that.sObjectId + ")", {
-                urlParameters: { "$expand": "MaterialReturnParentItems/MaterialReturnBOQItem" },
+            this.MainModel.read("/SONumberDetailsSet(" + that.sObjectId + ")", {
+                urlParameters: { "$expand": "IssuedMaterialParent/IssuedMaterialBOQ" },
                 success: function (oData, oResponse) {
                     debugger;
-                    that.dataBuilding(oData.MaterialReturnParentItems.results);
+                    that.dataBuilding(oData.IssuedMaterialParent.results);
                     //   that.oIssueMaterialModel.setData({ "Items": oData.results });
                     //   oTable.setModel(that.oIssueMaterialModel, "oIssueMaterialModel");
                     // that.onReadDataIssueMaterialChild(oData.results);
@@ -115,9 +115,9 @@ sap.ui.define([
             this.ParentDataView = ParentData;
             for (var i = 0; i < ParentData.length; i++) {
                 //  for (var j = 0; j < ParentData[i].MDCCBOQItems.length; j++) {
-                if (ParentData[i].MaterialReturnBOQItem.results.length) {
+                if (ParentData[i].IssuedMaterialBOQ.results.length) {
                     this.ParentDataView[i].isStandAlone = true;
-                    this.ParentDataView[i].ChildItemsView = ParentData[i].MaterialReturnBOQItem.results;
+                    this.ParentDataView[i].ChildItemsView = ParentData[i].IssuedMaterialBOQ.results;
                 }
                 else {
                     this.ParentDataView[i].isStandAlone = false;

@@ -71,35 +71,135 @@ sap.ui.define([
                     },
                     dataReceived: function () {
                         objectViewModel.setProperty("/busy", false);
-                       that.onReadDataIssueMaterials();
+                        that.onReadDataIssueMaterialParents();
                     }
                 }
             });
         },
 
-     
+        onReadDataIssueMaterialParents: function () {
+            var that = this;
 
-        onPressRetrunAsset: function (oEvent) {
-            //  debugger;
-            //  var sObjectId = oEvent.getSource();
-            oEvent.getSource().getParent().getCells()[6].getItems()[0].setEditable(true);
-            oEvent.getSource().getParent().getCells()[6].getItems()[1].setVisible(true);
+            that.oIssueMaterialModel = new JSONModel();
+            this.MainModel.read("/SONumberDetailsSet(" + that.sObjectId + ")", {
+                urlParameters: { "$expand": "IssuedMaterialParent/IssuedMaterialBOQ" },
+                success: function (oData, oResponse) {
+                    //   debugger;
+                    that.dataBuilding(oData.IssuedMaterialParent.results);
+                    //   that.oIssueMaterialModel.setData({ "Items": oData.results });
+                    //   oTable.setModel(that.oIssueMaterialModel, "oIssueMaterialModel");
+                    // that.onReadDataIssueMaterialChild(oData.results);
+                }.bind(this),
+                error: function (oError) {
+                    sap.m.MessageBox.error("Data Not Found");
+                }
+            });
         },
 
-        onPressSave: function (oEvent) {
-            oEvent.getSource().getParent().getParent().getCells()[6].getItems()[0].setEditable(false);
-            oEvent.getSource().getParent().getParent().getCells()[6].getItems()[1].setVisible(false);
+        dataBuilding: function (ParentData) {
+            this.ParentDataView = ParentData;
+            for (var i = 0; i < ParentData.length; i++) {
+                ParentData[i].ReturnedQty = null;
+
+                if (ParentData[i].IssuedMaterialBOQ.results.length) {
+                    this.ParentDataView[i].isStandAlone = false;
+                    this.ParentDataView[i].ChildItemsView = ParentData[i].IssuedMaterialBOQ.results;
+                }
+                else {
+                    this.ParentDataView[i].isStandAlone = true;
+                    this.ParentDataView[i].ChildItemsView = [];
+                }
+                for (var j = 0; j < ParentData[i].IssuedMaterialBOQ.results.length; j++) {
+                    ParentData[i].IssuedMaterialBOQ.results[j].ReturnedQty = null;
+                }
+
+            }
+            this.arrangeDataView(this.ParentDataView);
         },
 
+        // Arrange Data For View / Model Set
+        arrangeDataView: function (ParentDataView) {
+            var that = this;
+            var oModel = new JSONModel({ "ChildItemsView": this.ParentDataView });
+            this.getView().setModel(oModel, "TreeTableModelView");
+            var oTable = this.byId("TreeTable");
+            oTable.setModel(oModel);
+            oTable.getModel("TreeTableModelView").refresh();
+        },
+   handleToAllPOBreadcrumPress: function (oEvent) {
+            history.go(-1);
+        },
+        /*   onPressRetrunAsset: function (oEvent) {
+               //  debugger;
+               //  var sObjectId = oEvent.getSource();
+               oEvent.getSource().getParent().getCells()[6].getItems()[0].setEditable(true);
+               oEvent.getSource().getParent().getCells()[6].getItems()[1].setVisible(true);
+           },
+   
+           onPressSave: function (oEvent) {
+               oEvent.getSource().getParent().getParent().getCells()[6].getItems()[0].setEditable(false);
+               oEvent.getSource().getParent().getParent().getCells()[6].getItems()[1].setVisible(false);
+           }, */
+
+        onLiveChangeReturnQty: function (oEvent) {
+            oEvent.getSource().setValueState("None");
+            this.getView().byId("idBtnSubmit").setEnabled(true);
+            var oValue = oEvent.getSource().getValue();
+            var balanceQty = oEvent.getSource().getParent().getParent().getCells()[4].getText();
+            var flag = 0;
+            if (parseInt(oValue) > parseInt(balanceQty) || balanceQty == "") {
+                oEvent.getSource().setValueState("Error");
+                oEvent.getSource().setValueStateText("Please enter less return quantity than balance quantity");
+                this.getView().byId("idBtnSubmit").setEnabled(false);
+                flag = 1;
+            }
+
+            if (parseInt(oValue) < 0 || oValue == "") {
+                oEvent.getSource().setValueState("Error");
+                oEvent.getSource().setValueStateText("Please enter return quantity");
+                this.getView().byId("idBtnSubmit").setEnabled(false);
+            } else if (flag != 1) {
+                oEvent.getSource().setValueState("None");
+                this.getView().byId("idBtnSubmit").setEnabled(true);
+            }
+        },
+        onEditQuantityPressed: function (oEvent) {
+
+            var isPressed = oEvent.getParameter("pressed");
+            if (isPressed) oEvent.getSource().getParent().getItems()[0].setEditable(true);
+            else oEvent.getSource().getParent().getItems()[0].setEditable(false);
+        },
         onCancelAssistanceRequestPress: function (oEvent) {
             this._oQRAssistantDialog.close();
+        },
+
+        onLiveChangeComment  : function(oEvent){
+            var that = this;
+            var inputModel = this.getView().getModel("qrAssistantModel");
+            var oValue = oEvent.getSource().getValue();
+            if ( oValue.length < 0 )
+            {              
+                inputModel.setProperty("/commentValueState","Error");
+            }else{
+                inputModel.setProperty("/commentValueState","None");
+            }
+            inputModel.refresh();   
+        },
+
+        onReasonSelectionChange : function(oEvent){
+            var that = this;
+            var inputModel = this.getView().getModel("qrAssistantModel");
+            inputModel.setProperty("/reasonValueState","None");
+            inputModel.refresh();
         },
 
         onPressSubmitRequest: function (oEvent) {
             //initialize the action
             var oModel = new JSONModel({
                 "reason": null,
-                "comment": null
+                "reasonValueState" : "None",
+                "comment": null,
+                "commentValueState" : "None"
             });
             this.getView().setModel(oModel, "qrAssistantModel")
             if (!this._oQRAssistantDialog) {
@@ -115,10 +215,12 @@ sap.ui.define([
             var flag = 0;
             if (inputModel.getProperty("/comment") == null || inputModel.getProperty("/comment") == "") {
                 flag = 1;
+                inputModel.setProperty("/commentValueState","Error");                
             }
 
             if (inputModel.getProperty("/reason") == null || inputModel.getProperty("/reason") == "") {
                 flag = 1;
+                inputModel.setProperty("/reasonValueState","Error");
             }
 
             if (flag == 1) {
@@ -126,46 +228,69 @@ sap.ui.define([
                 return 0;
             }
 
-            var oTable = this.byId("idTblIssueMaterialItems");
-            var aItems = oTable.getModel("oIssueMaterialModel").getData().Items;
+            var oParentData = this.byId("TreeTable").getModel().getData().ChildItemsView;
+            //  var aItems = oTable.getModel("oIssueMaterialModel").getData().Items;
 
-            var aNewItems = aItems.map(obj => ({ ...obj, IssuedMaterialItemId: obj.ID }))
+            debugger;
+            var ParentItem = [];
+            // var BOQItem = [];
+            for (var i = 0; i < oParentData.length; i++) {
+                var obj = {
+                    "BOQItem": []
+                };
 
+                obj["IssuedMaterialParentId"] = oParentData[i].ID;
+                if (oParentData[i].IssuedMaterialBOQ.results.length < 1) {
+                    obj["IsBOQPresent"] = false;
+                    obj["ReturnQty"] = 0;
+                } else {
+                    obj["IsBOQPresent"] = true;
+                    obj["ReturnQty"] = parseInt(oParentData[i].ReturnedQty);
+                }
+                for (var j = 0; j < oParentData[i].IssuedMaterialBOQ.results.length; j++) {
+                    var childObj = {};
+                    childObj["IssuedMaterialBOQId"] = oParentData[i].IssuedMaterialBOQ.results[j].ID;
+                    childObj["ReturnQty"] = parseInt(oParentData[i].IssuedMaterialBOQ.results[j].ReturnedQty);
+                }
+                obj["BOQItem"].push(childObj);
+                ParentItem.push(obj);
+            }
+
+            var ContractorId = that.getView().byId("idSimpleForm").getBindingContext().getObject().ID;
             var oPayload = {
-                "SONumber": this.getView().getBindingContext().getObject().SONumber,
+                "SONumber": that.sObjectId,
                 "UserName": "Test",
-                "ContractorId": 7,
+                "ContractorId": ContractorId,
                 "ReasonToReturnMaterialId": 1,
                 //inputModel.getProperty("/reason")
                 "Comment": inputModel.getProperty("/comment"),
-                "Materials": aNewItems
+                //"Materials": aNewItems,
+                "ParentItem": ParentItem
             };
 
             this.MainModel.create("/RaiseReturnMaterialRequestSet", oPayload, {
                 success: function (oData, oResponse) {
                     that._oQRAssistantDialog.close();
-                    sap.m.MessageBox.success("Request submit successfully!")
+                    sap.m.MessageBox.success(oData.Message);
                 }.bind(this),
                 error: function (oError) {
                     sap.m.MessageBox.error(oError.Message);
                 }
             });
         },
-
-          onReadDataIssueMaterials: function () {
-                var that = this;
-                var oTable = this.byId("idTblIssueMaterialItems");
-                that.oIssueMaterialModel = new JSONModel();
-                this.MainModel.read("/SONumberDetailsSet(" + that.sObjectId + ")/IssuedMaterials", {
-                    success: function (oData, oResponse) {
-                        that.oIssueMaterialModel.setData({ "Items": oData.results });
-                        oTable.setModel(that.oIssueMaterialModel, "oIssueMaterialModel");
-                    }.bind(this),
-                    error: function (oError) {
-                        sap.m.MessageBox.error("Data Not Found");
-                    }
-                });
-            },
-
+        onReadDataIssueMaterials: function () {
+            var that = this;
+            var oTable = this.byId("idTblIssueMaterialItems");
+            that.oIssueMaterialModel = new JSONModel();
+            this.MainModel.read("/SONumberDetailsSet(" + that.sObjectId + ")/IssuedMaterials", {
+                success: function (oData, oResponse) {
+                    that.oIssueMaterialModel.setData({ "Items": oData.results });
+                    oTable.setModel(that.oIssueMaterialModel, "oIssueMaterialModel");
+                }.bind(this),
+                error: function (oError) {
+                    sap.m.MessageBox.error("Data Not Found");
+                }
+            });
+        },
     });
 });

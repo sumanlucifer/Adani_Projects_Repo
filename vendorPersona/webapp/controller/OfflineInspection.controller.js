@@ -180,7 +180,7 @@ sap.ui.define([
             }
 
             var that = this;
-            MessageBox.confirm("Do you want to save mdcc item?", {
+            MessageBox.confirm("Do you want to save offline item?", {
                 icon: MessageBox.Icon.INFORMATION,
                 title: "Confirm",
                 actions: [MessageBox.Action.YES, MessageBox.Action.NO],

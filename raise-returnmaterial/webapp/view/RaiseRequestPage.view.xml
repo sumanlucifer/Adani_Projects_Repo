@@ -19,9 +19,12 @@
         <f:header>
             <f:DynamicPageHeader pinnable="true">
                 <f:content>
-                    <HBox alignContent="SpaceAround">
-                        <SearchField id="idSoNumber" width="90%" search="onSearch"></SearchField>
-                        <Button text="Submit" press="onSearch" type="Emphasized"/>
+                 
+
+
+                       <HBox alignContent="SpaceAround">
+                        <Input liveChange="onChangeSONumber"    placeholder="Enter SO Number" type="Number"  id="idSoNumber" width="90%"  ></Input>
+                        <Button id="SObtnSubmit" text="Submit" press="onSearch" type="Emphasized"/>
                     </HBox>
                 </f:content>
             </f:DynamicPageHeader>

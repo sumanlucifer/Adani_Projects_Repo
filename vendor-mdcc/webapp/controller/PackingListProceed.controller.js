@@ -139,6 +139,16 @@ sap.ui.define([
                     }
                     //   }
                 }
+                this.onDispatchQuantityNull(this.ParentDataView);
+            },
+
+            onDispatchQuantityNull : function(ParentData){
+                for (var i = 0; i < ParentData.length; i++) {
+                    this.ParentDataView[i].DispatchQty = "";
+                    for (var j = 0; j < ParentData[i].ChildItems.length; j++) {
+                        this.ParentDataView[i].ChildItems[j].DispatchQty = "";
+                    }
+                }
                 this._arrangeDataView();
             },
 
