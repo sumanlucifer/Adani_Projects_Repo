@@ -34,8 +34,6 @@
                     <Title text="{SONumber}" binding="{SONumberId}" wrapping="true" titleStyle="Auto"/>
                 </uxap:snappedTitleOnMobile>
                 <uxap:actions>
-                        <Button text="Accept" press="onPressSelectMaterials" type="Emphasized" icon="sap-icon://accept"/>
-                        <Button text="Reject" press="onPressSelectMaterials" icon="sap-icon://decline"/>
                 </uxap:actions>
             </uxap:ObjectPageDynamicHeaderTitle>
         </uxap:headerTitle>
@@ -52,7 +50,7 @@
                         </FlexBox>
                     </VBox>
                     <VBox class="sapUiMediumMarginBeginEnd">
-                        <Title text="{i18n>Issue Date}"/>
+                        <Title text="{i18n>IssueDate}"/>
                         <Text text="{
 				        path: 'CreatedAt',
 				        type: 'sap.ui.model.type.Date',
@@ -62,7 +60,7 @@
 				      }" binding="{SONumberId}"/>
                     </VBox>
                     <VBox class="sapUiMediumMarginBeginEnd">
-                        <Title text="{i18n>Issue Date}"/>
+                        <Title text="{i18n>IssueDate}"/>
                         <Text text="{
 				        path: 'RequestDate',
 				        type: 'sap.ui.model.type.Date',
@@ -106,7 +104,7 @@
                                 <Text text="{ServicesCovered}"/>
                                 
                                 <Label text="{i18n>IssuedMaterials}" />
-                                <Link text="{i18n>viewLineItems}"/>
+                                <Link text="{i18n>viewLineItems}" press="onViewLineItemPress"/>
 
                             </f:content>
                         </f:SimpleForm>
@@ -118,13 +116,22 @@
             <uxap:ObjectPageSection titleUppercase="false" title="{i18n>lineItems}">
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection title="{i18n>lineItems}">
-                        <tt:TreeTable id="TreeTable" rows="{path:'TreeTableModelView>/', parameters: {arrayNames:['ChildItemsView']}}" 
-                            selectionMode="None" enableSelectAll="false" title="{i18n>TreeTableViewTitle}" ariaLabelledBy="title" rowsUpdated="onRowsUpdated">
+                        <tt:TreeTable id="TreeTable" rows="{path:'TreeTableModelView>/ReturnData', parameters: {arrayNames:['ChildItemsView']}}" 
+                            selectionMode="None" enableSelectAll="false" ariaLabelledBy="title" rowsUpdated="onRowsUpdated">
+                            <tt:extension>
+                                <OverflowToolbar style="Clear">
+                                    <Title id="title" text="{i18n>TreeTableViewTitle}"/>
+                                    <ToolbarSpacer/>
+                                    <Button text="Approve All" press="onApproveAllPress" type="Accept" icon="sap-icon://accept" enabled="{= !${objectViewModel>/partialApproval}}"/>
+                                    <Button text="{i18n>PartialApprove}" press="onPartialApprovePress" enabled="{objectViewModel>/partialApproval}"/>
+                                    <Button text="Reject All" press="onRejectAllPress" type="Reject" icon="sap-icon://decline" enabled="{= !${objectViewModel>/partialApproval}}"/>
+                                </OverflowToolbar>
+                            </tt:extension>
                             <tt:columns>
                                 <tt:Column>
                                     <Label text="" />
                                     <tt:template>
-                                        <CheckBox selected="{TreeTableModelView>isSelected}" visible="{TreeTableModelView>selectable}"/>
+                                        <CheckBox select="onReturnItemSelect" selected="{TreeTableModelView>isSelected}" visible="{TreeTableModelView>selectable}" />
                                     </tt:template>
                                 </tt:Column>
                                 <tt:Column>
@@ -151,7 +158,6 @@
                                         <Text text="{TreeTableModelView>Name}" wrapping="false" />
                                     </tt:template>
                                 </tt:Column>     
-
                                 <tt:Column>
                                     <Label text="Issued Quantity"/>
                                     <tt:template>
@@ -167,7 +173,7 @@
                                 <tt:Column>
                                     <Label text="Qty Approved for Return"/>
                                     <tt:template>
-                                        <Input type="Number" value="{TreeTableModelView>ApprovedRetQuantity}" visible="{TreeTableModelView>selectable}"/>
+                                        <Input type="Number" value="{TreeTableModelView>ApprovedRetQuantity}" enabled="{TreeTableModelView>isSelected}" visible="{TreeTableModelView>selectable}" valueLiveUpdate="true" liveChange="validateInputValue"/>
                                     </tt:template>
                                 </tt:Column>
                             </tt:columns>
