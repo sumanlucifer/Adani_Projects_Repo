@@ -83,9 +83,9 @@
                         <ObjectIdentifier title="{PackingListId}"/> 
                         <Text text="{VendorCode}"/>
                         <Text text="{path:'EntryDate',
-                                     type: 'sap.ui.model.type.Date',
+                                     type: 'sap.ui.model.type.DateTime',
 				                     formatOptions: {
-				                        pattern: 'MMMM dd, yyyy'
+				                        pattern: 'MMMM dd, yyyy HH:mm:ss'
 				                     }
                         }"/>                       
 

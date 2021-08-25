@@ -88,9 +88,9 @@
                         <ObjectIdentifier title="{PONumber}"/>
                        <!-- <Text text="{VendorCode}"/>-->
                         <Text text="{path:'CreatedAt',
-                                     type: 'sap.ui.model.type.Date',
+                                     type: 'sap.ui.model.type.DateTime',
 				                     formatOptions: {
-				                        pattern: 'MMMM dd, yyyy'
+				                        pattern: 'MMMM dd, yyyy HH:mm:ss'
 				                     }}"/>                       
                         <Text text="{ContainerNumber}"/>
                         <Text text="{VehicleNumber}"/>

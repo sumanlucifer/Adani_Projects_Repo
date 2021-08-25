@@ -12,7 +12,7 @@
                         <Button text="Validate QR" press="onValidateQRPress" visible="{= ${packingListDispatchModel>/isQRConfirmed} ? false : true}" enabled="{packingListDispatchModel>/isValidateButtonEnabled}" class="sapUiTinyMarginBegin"></Button>
                     </HBox>
 
-                    <Label text="Add Total Gross weight of the Packing List in KG" visible="{= ${packingListDispatchModel>/isQRConfirmed}}"></Label>
+                    <Label text="Add Total Gross weight of the Packing List in MT" visible="{= ${packingListDispatchModel>/isQRConfirmed}}"></Label>
                     <Input value="{packingListDispatchModel>/weight}" visible="{= ${packingListDispatchModel>/isQRConfirmed}}" type="Number" liveChange="onWeightLiveChange"></Input>
                 </f:SimpleForm>
             </l:content>

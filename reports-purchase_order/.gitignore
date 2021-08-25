@@ -13,3 +13,8 @@ archive.zip
 
 # auto generated wildcard
 pmcg/.env9
+
+# auto generated wildcard
+unloadmaterial/.env8
+# auto generated wildcard
+security-scan-history/.env3
