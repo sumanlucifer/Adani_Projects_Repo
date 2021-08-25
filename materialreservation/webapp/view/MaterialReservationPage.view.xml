@@ -1,0 +1,184 @@
+<mvc:View xmlns:f2="sap.f"
+    xmlns:vbm="sap.ui.vbm"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:uxap="sap.uxap"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+    xmlns:unified="sap.ui.unified"
+    xmlns:tt="sap.ui.table"
+    xmlns:smartTable="sap.ui.comp.smarttable"
+    xmlns:data="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+    xmlns="sap.m" controllerName="com.agel.mmts.materialreservation.controller.MaterialReservationPage" height="100%">
+    <uxap:ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true" upperCaseAnchorBar="false" headerContentPinnable="true" toggleHeaderOnTitleClick="true" busy="{objectViewModel>/busy}">
+        <uxap:headerTitle>
+            <uxap:ObjectPageDynamicHeaderTitle>
+                <uxap:breadcrumbs>
+                    <!-- <Breadcrumbs id="breadcrumbsId" currentLocationText="{i18n>PODetails}">
+                        <Link text="{i18n>assignedPOList}" press=".handleToAllPOBreadcrumPress"/>
+                    </Breadcrumbs> -->
+                </uxap:breadcrumbs>
+                <uxap:expandedHeading>
+                    <FlexBox direction="Column" renderType="Bare">
+                        <Title text="{i18n>MaterialReservation}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
+                        <Title text="{Name}" wrapping="true" titleStyle="H3" />
+                    </FlexBox>
+                </uxap:expandedHeading>
+                <uxap:snappedHeading>
+                    <FlexBox direction="Column" renderType="Bare">
+                        <Title text="{i18n>MaterialReservation}" wrapping="true" titleStyle="H4"/>
+                        <Title text="{Name}" wrapping="true" titleStyle="H3"/>
+                    </FlexBox>
+                </uxap:snappedHeading>
+                <uxap:expandedContent></uxap:expandedContent>
+                <uxap:snappedTitleOnMobile>
+                    <Title text="{i18n>MaterialReservation}" wrapping="true" titleStyle="Auto"/>
+                </uxap:snappedTitleOnMobile>
+                <uxap:actions>
+                    <!--  <Button text="Save" press="onSavePackingListPress" icon="sap-icon://save" type="Emphasized" visible="{= ${objectViewModel>/isPackingListInEditMode} ? true : false &amp;&amp; ${IsDraft} ? true : false}"/>
+                    <Button text="View QR Code" press="onViewQRCodePress" type="Emphasized" visible="{= ${objectViewModel>/isPackingListInEditMode} ? false : true &amp;&amp; ${IsDraft} }"/>
+                    <Button text="Edit" icon="sap-icon://edit" press="onEditPackingListPress" type="Default" visible="{= ${objectViewModel>/isPackingListInEditMode} ? false : true &amp;&amp; ${IsDraft} ? true : false}"/>
+                    <Button text="Proceed" press="onProceedStep2Press" type="Emphasized" visible="{= ${objectViewModel>/isPackingListInEditModel} ? false : true &amp;&amp; ${IsDraft} ? false : true}"/> -->
+
+                    <!--    <Button text="Save" press="onSavePackingListPress" icon="sap-icon://save" type="Emphasized"/>
+                    <Button text="View QR Code" press="onViewQRCodePress" type="Emphasized" />
+                    <Button text="Edit" icon="sap-icon://edit" press="onEditPackingListPress" type="Default"/>
+                    <Button text="Proceed" press="onProceedStep2Press" type="Emphasized" /> -->
+
+                    <HBox visible="{= ${IsDraft} ? true : false}">
+                        <items>
+                            <Button text="Save" icon="sap-icon://save" press="onSavePackingListPress" type="Emphasized" visible="{= ${objectViewModel>/isPackingListInEditMode} ? true : false}" class="sapUiTinyMarginEnd" enabled="{= ${objectViewModel>/isEnteredValuesValid}}"/>
+                            <Button text="View QR Code" press="onViewQRCodePress" type="Emphasized" visible="{= ${objectViewModel>/isPackingListInEditMode} ? false : true}" class="sapUiTinyMarginEnd"/>
+                            <Button text="Edit" icon="sap-icon://edit" press="onEditPackingListPress" type="Default" visible="{= ${objectViewModel>/isPackingListInEditMode} ? false : true}" class="sapUiTinyMarginEnd"/>
+                            <!--   <Button text="Proceed" press="onProceedStep2Press" type="Emphasized" visible="{= ${objectViewModel>/isPackingListInEditMode} ? false : true}" enabled="{= ${IsProcessTwoCompletes}}"/> -->
+                        </items>
+                    </HBox>
+
+                    <Button text="Submit" class="sapUiTinyMarginBegin" press="onSubmitReservation" type="Emphasized" visible="{= ${IsDraft} ? false : true}"/>
+
+
+                </uxap:actions>
+            </uxap:ObjectPageDynamicHeaderTitle>
+        </uxap:headerTitle>
+        <uxap:headerContent>
+            <FlexBox wrap="Wrap" height="100%" renderType="Bare" direction="Column" binding="{PurchaseOrder}">
+                <VBox renderType="Bare">
+                    <FlexBox direction="Row" renderType="Bare" class="sapUiTinyMarginBottom">
+
+
+                    </FlexBox>
+                </VBox>
+            </FlexBox>
+        </uxap:headerContent>
+        <uxap:sections>
+
+            <uxap:ObjectPageSection titleUppercase="false" title="Additional Details">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection title="Additional Details">
+                        <uxap:blocks>
+                            <f:SimpleForm layout="ColumnLayout" binding="{AdditionalDetialsModel>/}" columnsM="2" columnsL="3" columnsXL="4" singleContainerFullSize="true" class="style-RemoveTitleHeight">
+                                <f:content>
+                                    <!-- <core:Title  /> -->
+                                    <Label text="Movement Type"/>
+                                    <Select  id="idSelMovementType" forceSelection="false" items="{objectViewModel>/movementType}">
+                                        <core:Item key="{objectViewModel>key}" text="{objectViewModel>value}" />
+                                    </Select>
+                                    <Label text="Good Recipient" required="true"/>
+                                    <Input id="idGoodReciept" value="{InvoiceNumber}" />
+                                    <Label text="Reservation Date" required="true"/>
+                                    <DatePicker id="idReservationDate" value="{InvoiceDate}" valueFormat="yyyy-MM-dd" displayFormat="yyyy-MM-dd" />
+                                  
+                                    <Label text="WBS" required="true"/>
+                                    <Input id="idWBD" value="{InvoiceNumber}" />
+                                    <Label text="Plant" required="true"/>
+                                    <Input id="idPlant" value="{InvoiceNumber}" />
+                                    <!-- <core:Title ></core:Title> -->
+                                    <Label text="Cost Center" required="true"/>
+                                    <Input id="idCostCenter" value="{PackagingReferenceNumber}" />
+                                    <Label text="Profit Center" required="true"/>
+                                    <Input id="idProfitCenter" value="{PackagingReferenceNumber}" />
+                                    <Label text="Recieving Location" required="true"/>
+                                    <Input id="idRecievingLocation" value="{PackagingReferenceNumber}" />
+                                    <Label text="GL Account" required="true"/>
+                                      <Input id="idGLAccount" value="{InvoiceNumber}" />
+                                    
+                                </f:content>
+                            </f:SimpleForm>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+            <!-- Line Items Section -->
+            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>lineItems}">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection title="{i18n>lineItems}">
+                        <VBox>
+
+
+                            <Table items="{outerPackagingModel>/}" autoPopinMode="true" growingThreshold="5" growing="true" fixedLayout="false" visible="{= ${objectViewModel>/isOuterPackagingRequired} ? true : false}">
+                                <headerToolbar>
+                                    <OverflowToolbar >
+                                        <content>
+                                            <ToolbarSpacer></ToolbarSpacer>
+                                            <Button icon="sap-icon://add" press="onAddOuterPackagingPress" enabled="{= ${objectViewModel>/isPackingListInEditMode} ? true : false}"></Button>
+                                        </content>
+                                    </OverflowToolbar>
+                                </headerToolbar>
+                                <columns>
+                                  <Column>
+                                        <Text text="Item No"/>
+                                    </Column>
+                                    <Column>
+                                        <Text text="Material"/>
+                                    </Column>
+                                    <Column>
+                                        <Text text="Storage Location"/>
+                                    </Column>
+                                    <Column>
+                                        <Text text="Quantity"/>
+                                    </Column>
+
+
+                                    <Column>
+                                        <Text text="Base Unit"/>
+                                    </Column>
+                                    <Column>
+                                        <Text text="Batch"/>
+                                    </Column>
+                                    <Column width="5%">
+                                    </Column>
+                                </columns>
+                                <items>
+                                    <ColumnListItem >
+                                        <cells>
+                                            <Text data:p="Dimension" text="{outerPackagingModel>ItemNo}"/>
+                                            <Select id="idPackagingTypeSelect" forceSelection="false" selectedKey="{outerPackagingModel>OuterPackagingTypeId}" change="onPackingListTypeChange" items="{
+                                                path: '/MasterOuterPackagingTypeSet',
+                                                templateShareable:false
+                                            }" enabled="{= ${objectViewModel>/isPackingListInEditMode} ? true : false}">
+                                                <core:Item key="{ID}" text="{Name}" />
+                                            </Select>
+                                            <Text data:p="Dimension" text="{outerPackagingModel>Material}"/>
+                                            <Text data:p="Dimension" text="{outerPackagingModel>Qty}"/>
+                                            <Text data:p="Dimension" text="{outerPackagingModel>BaseUnit}"/>
+                                            <Text data:p="Dimension" text="{outerPackagingModel>Batch}"/>
+                                            <Button icon="sap-icon://delete" enabled="{= ${objectViewModel>/isPackingListInEditMode} ? true : false}" press="onDeleteOuterPackingListItemPress" type="Transparent"/>
+
+                                        </cells>
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
+                        </VBox>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+
+
+
+
+        </uxap:sections>
+    </uxap:ObjectPageLayout>
+</mvc:View>
