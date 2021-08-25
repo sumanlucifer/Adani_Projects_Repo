@@ -26,13 +26,13 @@
                         <Label text="{i18n>PONo}"/>
                         <Text text="{PONumber}" binding="{PurchaseOrder}"/>
                         <Label text="{i18n>LineNo}"/>
-                        <Text text="{LineNumber}" binding="{StockParentItem}"/>
+                        <Text text="{LineNumber}" binding="{RestrictedStoreStockParent}"/>
                         <!-- <Label text="Movement Type"/>
                         <Text text="{MovementType}"/> -->
                         <Label text="{i18n>MatCode}"/>
-                        <Text text="{MaterialCode}" binding="{StockParentItem}"/>
+                        <Text text="{MaterialCode}" binding="{RestrictedStoreStockParent}"/>
                         <Label text="{i18n>Plant}"/>
-                        <Text text="{PlantCode}" binding="{StockParentItem}"/>
+                        <Text text="{PlantCode}" binding="{RestrictedStoreStockParent}"/>
                         <Label text="{i18n>StorageLocation}"/>
                         <Text text="{StorageLocation}" binding="{PackingListParentItems}"/>
                         <Label text="{i18n>BatchNumber}"/>
@@ -40,17 +40,19 @@
                         <!-- <Label text="Valuation Type"/>
                         <Text text="{ValuationType}"/> -->
                         <Label text="{i18n>Qty}"/>
-                        <Text text="{Qty}" binding="{StockParentItem}"/>
+                        <Text text="{Qty}" binding="{RestrictedStoreStockParent}"/>
                         <Label text="{i18n>UOM}"/>
-                        <Text text="{UOM}" binding="{StockParentItem}"/>
+                        <Text text="{UOM}" binding="{RestrictedStoreStockParent}"/>
                         <Label text="Delivery Note​​​​​​​​​"></Label>
                         <Input value="{requestModel>/delivery}" liveChange="onDeliveryNoteLiveChange" type="Text" valueState="{requestModel>/valueState}" valueStateText="{requestModel>/valueStateText}"></Input>
-                        <Label text="Bill of Lading"></Label>
-                        <Input value="{requestModel>/billoflading}" liveChange="onDeliveryNoteLiveChange" type="Text" valueState="{requestModel>/valueState}" valueStateText="{requestModel>/valueStateText}"></Input>
-                        <Label text="Gate Pass Number"></Label>
-                        <Input value="{requestModel>/gatepassnumber}" liveChange="onDeliveryNoteLiveChange" type="Text" valueState="{requestModel>/valueState}" valueStateText="{requestModel>/valueStateText}"></Input>
                         <Label text="Total Packaging Weight"></Label>
-                        <Input value="{requestModel>/quantity}" liveChange="onQuantityLiveChange" type="Text" valueState="{requestModel>/valueState}" valueStateText="{requestModel>/valueStateText}"></Input>
+                        <Input value="{requestModel>/quantity}" liveChange="onQuantityLiveChange" type="Number" valueState="{requestModel>/valueState}" valueStateText="{requestModel>/valueStateText}"></Input>
+                        <Label text="Bill of Lading"></Label>
+                        <Input value="{requestModel>/billoflading}" liveChange="onBillofLadingLiveChange" type="Text" valueState="{requestModel>/valueState}" valueStateText="{requestModel>/valueStateText}"></Input>
+                        <Label text="Gate Pass Number"></Label>
+                        <Input value="{requestModel>/gatepassnumber}" liveChange="onGatePassNumberLiveChange" type="Text" valueState="{requestModel>/valueState}" valueStateText="{requestModel>/valueStateText}"></Input>
+                        <Label text="Reference"></Label>
+                        <Input value="{requestModel>/reference}" liveChange="onReferenceLiveChange" type="Text" valueState="{requestModel>/valueState}" valueStateText="{requestModel>/valueStateText}"></Input>
                     </f:content>
                 </f:SimpleForm>
             </FlexBox>

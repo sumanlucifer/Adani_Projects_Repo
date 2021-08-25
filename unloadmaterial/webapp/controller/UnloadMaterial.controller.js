@@ -627,10 +627,7 @@ sap.ui.define([
 
             onDoItLaterPress: function () {
                 var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-                oRouter.navTo("RouteDetailsPage", {
-                    RequestId: this.RequestId,
-                    Type: "QR"
-                }, true);
+                oRouter.navTo("RouteApp",true);
             },
 
             onRequestGRNPress: function (oEvent) {

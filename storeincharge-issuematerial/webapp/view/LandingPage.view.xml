@@ -13,7 +13,7 @@
                         <Title id="pageTitle" text="{i18n>PageTitle}"/>
                     </f:heading>
                     <f:actions>
-                        <Button text="Issue New Material" type="Emphasized" press="onpressIssueMaterial"/>
+                        <!-- <Button text="Issue New Material" type="Emphasized" press="onpressIssueMaterial"/> -->
                     </f:actions>
                 </f:DynamicPageTitle>
             </f:title>

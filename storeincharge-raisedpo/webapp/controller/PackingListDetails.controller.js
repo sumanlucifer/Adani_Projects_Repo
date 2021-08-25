@@ -341,6 +341,7 @@ sap.ui.define([
                     billoflading: null,
                     gatepassnumber: null,
                     valueState: null,
+                    reference: null,
                     isConfirmButtonEnabled: false,
                     valueStateText: ""
                 });
@@ -365,21 +366,29 @@ sap.ui.define([
                 this._oRequestDialog.open();
             },
 
-            // onBillofLadingLiveChange: function (oEvent) {
-            //     var oPOData = this.getView().getBindingContext().getObject();
-            //     if (oEvent.getSource().getValue().length && parseInt(oEvent.getSource().getValue()) > 0)
-            //         this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", true);
-            //     else
-            //         this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", false);
-            // },
+            onBillofLadingLiveChange: function (oEvent) {
+                var oPOData = this.getView().getBindingContext().getObject();
+                if (oEvent.getSource().getValue().length && parseInt(oEvent.getSource().getValue()) > 0)
+                    this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", true);
+                else
+                    this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", false);
+            },
 
-            // onGatePassNumberLiveChange: function (oEvent) {
-            //     var oPOData = this.getView().getBindingContext().getObject();
-            //     if (oEvent.getSource().getValue().length && parseInt(oEvent.getSource().getValue()) > 0)
-            //         this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", true);
-            //     else
-            //         this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", false);
-            // },
+            onGatePassNumberLiveChange: function (oEvent) {
+                var oPOData = this.getView().getBindingContext().getObject();
+                if (oEvent.getSource().getValue().length && parseInt(oEvent.getSource().getValue()) > 0)
+                    this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", true);
+                else
+                    this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", false);
+            },
+
+            onReferenceLiveChange: function (oEvent) {
+                var oPOData = this.getView().getBindingContext().getObject();
+                if (oEvent.getSource().getValue().length && parseInt(oEvent.getSource().getValue()) > 0)
+                    this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", true);
+                else
+                    this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", false);
+            },
 
             onDeliveryNoteLiveChange: function (oEvent) {
                 var oPOData = this.getView().getBindingContext().getObject();
@@ -416,12 +425,18 @@ sap.ui.define([
                 this._oRequestDialog.close();
                 var sDelivery = this.getViewModel("requestModel").getProperty("/delivery");
                 var sQuantity = this.getViewModel("requestModel").getProperty("/quantity");
+                var sBillofLading = this.getViewModel("requestModel").getProperty("/billoflading");
+                var sReference = this.getViewModel("requestModel").getProperty("/reference");
+                var sGatePassNumber = this.getViewModel("requestModel").getProperty("/gatepassnumber");
                 var oModel = this.getComponentModel();
                 if (parseInt(sQuantity) > 0) {
                     if (sDelivery !== null) {
                         var oPayload = {
                             "QTY": parseInt(sQuantity),
                             "DeliveryNote": sDelivery,
+                            "BillOfLading": sBillofLading,
+                            "GatePassNumber": sGatePassNumber,
+                            "Reference": sReference,
                             "PackingListId": this.getView().getBindingContext().getObject().ID
                         };
                     } else {
@@ -430,6 +445,9 @@ sap.ui.define([
                         var oPayload = {
                             "TotalPackagingWeight": parseInt(sQuantity),
                             "DeliveryNote": sDelivery,
+                            "BillOfLading": sBillofLading,
+                            "GatePassNumber": sGatePassNumber,
+                            "Reference": sReference,
                             "PackingListId": parseInt(oSelectedItemData.ID)
                         };
                     }

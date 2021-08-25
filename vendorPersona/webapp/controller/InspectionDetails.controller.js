@@ -212,8 +212,8 @@ sap.ui.define([
                                 BusyIndicator.hide();
                                 if (oData.ID) {
                                     MessageBox.success("MDCC Number " + that.MDCCNumber + " Sent for approval successfully");
-                                    this.getView().getContent()[0].getContent().rerender();
-                                    this.getView().getModel().refresh();
+                                    that.getView().getContent()[0].getContent().rerender();
+                                    that.getView().getModel().refresh();
                                 }
                             }.bind(this),
                             error: function (oError) {
