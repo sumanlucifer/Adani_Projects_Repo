@@ -94,10 +94,11 @@
                     </VBox>
                     <VBox class="sapUiMediumMarginBeginEnd">
                         <Title text="{i18n>shipTo}" titleStyle="H6"/>
-                        <ObjectAttribute title="{Name}" binding="{PurchaseOrder/Buyer}"/>
-                        <!-- <ObjectAttribute text="{Street}" binding="{PurchaseOrder/Buyer/Address}"/>
+                        <!-- <ObjectAttribute title="{Name}" binding="{PurchaseOrder/Buyer}"/> 
+                        <ObjectAttribute text="{Street}" binding="{PurchaseOrder/Buyer/Address}"/>
                         <ObjectAttribute text="{City} - {State} - {Country}" binding="{PurchaseOrder/Buyer/Address}"/>
                         <ObjectAttribute text="{pinCode}" binding="{PurchaseOrder/Buyer/Address}"/> -->
+                        <ObjectAttribute text=""/>
                         <ObjectAttribute text=""/>
                         <ObjectAttribute text=""/>
                         <ObjectAttribute text=""/>
