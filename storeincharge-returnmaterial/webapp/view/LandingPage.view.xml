@@ -40,20 +40,28 @@
                             <Text text="{i18n>SONumber}"/>
                         </Column>
 
+                        <Column >
+                            <customData>
+                                <core:CustomData key="p13nData" value='\{"columnKey": "ReservationNo", "leadingProperty": "ReservationNumber",
+                                                        "columnIndex": 1 ,"sortProperty": "ReservationNumber", "filterProperty": "ReservationNumber"}'/>
+                            </customData>
+                            <Text text="{i18n>ReservationNo}"/>
+                        </Column>
+
                         <Column demandPopin="true" minScreenWidth="Desktop">
                             <customData>
                                 <core:CustomData key="p13nData" value='\{"columnKey": "CreatedBy", "leadingProperty": "CreatedBy",
-                                        "columnIndex": 1,"sortProperty": "CreatedBy", "filterProperty": "CreatedBy"}'/>
+                                        "columnIndex": 2,"sortProperty": "CreatedBy", "filterProperty": "CreatedBy"}'/>
                             </customData>
                             <Text text="{i18n>EnggInCharge}"/>
                         </Column>
 
                         <Column demandPopin="true" minScreenWidth="Tablet">
                             <customData>
-                                <core:CustomData key="p13nData" value='\{"columnKey": "RequestDate", "leadingProperty": "RequestDate",
-                                        "columnIndex": 2, "sortProperty": "RequestDate", "filterProperty": "RequestDate"}'/>
+                                <core:CustomData key="p13nData" value='\{"columnKey": "ReservationDate", "leadingProperty": "ReservationDate",
+                                        "columnIndex": 3, "sortProperty": "ReservationDate", "filterProperty": "ReservationDate"}'/>
                             </customData>
-                            <Text text="{i18n>RequestDate}"/>
+                            <Text text="{i18n>ReservationDate}"/>
                         </Column>
 
                         <Column demandPopin="true" minScreenWidth="Desktop">
@@ -68,8 +76,9 @@
                         <ColumnListItem type="Navigation" press="onReturnMaterialSelect"> 
                             <cells>
                                 <Text text="{SONumber}" binding="{SONumberId}"/>
+                                <Text text="{ReservationNumber}"/>
                                 <Text text="{CreatedBy}"/>
-                                <Text text="{path:'RequestDate',
+                                <Text text="{path:'ReservationDate',
                                             type: 'sap.ui.model.type.Date',
                                             formatOptions: {
                                                 pattern: 'MMMM dd, yyyy'

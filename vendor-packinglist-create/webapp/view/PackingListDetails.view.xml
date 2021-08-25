@@ -41,7 +41,7 @@
                     <Button icon="sap-icon://download" type="Emphasized" press="onDownloadPackingListPress"/>
                     <!-- <Link text="need QR code printing assistance" press="onNeedQRPrintingAsistancePress" visible="{= ${Status} === 'SENT FOR QR CODE APPROVAL' || ${Status} === 'QR CODE REQUEST APPROVED' || ${Status} === 'QR CODE REQUEST REJECTED' || ${Status} === 'DISPATCHED' ? false}"></Link> -->
                     <Link text="Need QR Code Printing Assistance" press="onNeedQRPrintingAsistancePress" visible="{= ${Status} === 'SAVED' ? true : false}"></Link>
-                    <Button text="Mark Consignment as Dispatched" press="onMarkConsignmentAsDispatched" type="Emphasized" visible="{= ${Status} === 'SENT FOR QR CODE APPROVAL' || ${Status} === 'DISPATCHED' ? false : true || ${Status} === 'UNLOADING COMPLETED' ? false : true}"/>
+                    <Button text="Mark Consignment as Dispatched" press="onMarkConsignmentAsDispatched" type="Emphasized" visible="{= ${Status} === 'SENT FOR QR CODE APPROVAL' || ${Status} === 'DISPATCHED' || ${Status} === 'UNLOADING COMPLETED' ? false : true}"/>
                 </uxap:actions>
             </uxap:ObjectPageDynamicHeaderTitle>
         </uxap:headerTitle>

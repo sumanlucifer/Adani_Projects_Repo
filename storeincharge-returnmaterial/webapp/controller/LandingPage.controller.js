@@ -14,7 +14,7 @@ sap.ui.define([
         onReturnMaterialSelect: function(oEvent) {
             var ReturnId = oEvent.getSource().getBindingContextPath();
             var SOId = this.getViewModel().getData(ReturnId+'/SONumberId').ID;
-            ReturnId = ReturnId.match(/\((.*?)\)/)[1];
+            ReturnId = ReturnId.match(/\((.*?)l/)[1];
             var oRouter = this.getOwnerComponent().getRouter();
             oRouter.navTo("RouteDetailsPage",{
                 ReturnId: ReturnId,

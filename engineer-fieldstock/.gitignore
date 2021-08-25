@@ -8,3 +8,8 @@ mta-*
 resources
 archive.zip
 .*_mta_build_tmp
+
+# auto generated wildcard
+unloadmaterial/.env8
+# auto generated wildcard
+security-scan-history/.env3
