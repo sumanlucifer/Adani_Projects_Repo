@@ -23,10 +23,12 @@ sap.ui.define([
                 var oViewModel = new JSONModel({
                     busy: false,
                     delay: 0,
-                    isPackagingTableVisible: false,
-                    isPackingListInEditMode: false,
-                    isOuterPackagingRequired: true,
-                    isViewQRMode: false
+                    isHeaderFieldsVisible: false,
+                    isItemFieldsVisible: false,
+                    isMovementType1Visible: false,
+                    isMovementType2Visible: false,
+                    isMovementType3Visible: false,
+                    isButtonVisible: false
                 });
                 this.setModel(oViewModel, "objectViewModel");
                 this._createHeaderDetailsModel();
@@ -36,32 +38,26 @@ sap.ui.define([
                 var oModel = new JSONModel({
                     movementType: [{
                         key: "0",
-                        value: "201"
+                        value: ""
                     },
                     {
                         key: "1",
-                        value: "221"
-                    },
-                    {
-                        key: "2",
-                        value: "222"
-                    },
-                    {
-                        key: "3",
                         value: "311"
                     },
                     {
-                        key: "4",
-                        value: "312"
+                        key: "2",
+                        value: "201"
+                    },
+                    {
+                        key: "3",
+                        value: "211"
                     }
                     ],
                     MovementTypeValue: null,
                     WBS: null,
-                    ProfitCenter: null,
                     GoodReciepient: null,
                     Plant: null,
                     RecievingLocation: null,
-                    ReservationDate: null,
                     CostCenter: null,
                     GLAccount: null
                 });
@@ -77,17 +73,43 @@ sap.ui.define([
                     return Object.assign({}, oItem);
                 });
                 oItems.push({
-                    ItemNo: "",
                     MaterialCode: "",
                     MaterialName: "",
-                    StorageLocation: "",
                     Qty: "",
-                    BaseUnit: "",
-                    Batch: ""
+                    BaseUnit: ""
                 });
                 oModel.setData(oItems);
             },
-            onDeleteOuterPackingListItemPress: function (oEvent) {
+            onMoventTypeChange: function (oEvent) {
+                var sMovementType = oEvent.getSource()._getSelectedItemText();
+                switch (sMovementType) {
+                     case "":
+                        this.getViewModel("objectViewModel").setProperty("/isItemFieldsVisible", false);
+                        this.getViewModel("objectViewModel").setProperty("/isMovementType1Visible", false);
+                        this.getViewModel("objectViewModel").setProperty("/isMovementType2Visible", false);
+                        break;
+                    case "201":
+                        this.getViewModel("objectViewModel").setProperty("/isItemFieldsVisible", true);
+                        this.getViewModel("objectViewModel").setProperty("/isMovementType1Visible", true);
+                        this.getViewModel("objectViewModel").setProperty("/isMovementType2Visible", false);
+                        break;
+                    case "221":
+                        this.getViewModel("objectViewModel").setProperty("/isItemFieldsVisible", true);
+                        this.getViewModel("objectViewModel").setProperty("/isMovementType1Visible", false);
+                        this.getViewModel("objectViewModel").setProperty("/isMovementType2Visible", true);
+                        break;
+                    case "222":
+                        this.getViewModel("objectViewModel").setProperty("/isItemFieldsVisible", true);
+                        break;
+                    case "311":
+                        this.getViewModel("objectViewModel").setProperty("/isItemFieldsVisible", true);
+                        break;
+                    case "312":
+                        this.getViewModel("objectViewModel").setProperty("/isItemFieldsVisible", true);
+                        break;
+                }
+            },
+            onDeleteReservationItemPress: function (oEvent) {
                 this.packingListObj = oEvent.getSource().getBindingContext("reservationTableModel").getObject();
                 var iRowNumberToDelete = parseInt(oEvent.getSource().getBindingContext("reservationTableModel").getPath().slice("/".length));
                 var aTableData = this.getViewModel("reservationTableModel").getProperty("/");
@@ -104,29 +126,11 @@ sap.ui.define([
                     }.bind(this, iRowNumberToDelete)
                 });
             },
-            _deleteBOQRow: function (iRowNumberToDelete) {
-                if (this.packingListObj.ID)
-                    this._deleteFromDB(this.packingListObj.ID);
-                var aTableData = this.getViewModel("reservationTableModel").getData();
-                aTableData.splice(iRowNumberToDelete, 1);
-                this.getView().getModel("reservationTableModel").refresh();
-            },
             onMaterialCodeChange: function (oEvent) {
-                //this.getViewModel("UOMSuggestionModel").setData(null);
-                var packingListObj = oEvent.getParameter("selectedItem").getBindingContext().getObject(),
-                    oBindingContext = oEvent.getParameter("selectedItem").getBindingContext(),
-                    oBindingContextPath = oEvent.getSource().getSelectedItem().getBindingContext().getPath(),
-                    aRowCells = oEvent.getSource().getParent().getCells(),
-                    sItemPath = oEvent.getSource().getBindingContext("reservationTableModel").getPath();
-                var sText = oEvent.getParameter("selectedItem").getText();
-                var sKey = oEvent.getParameter("selectedItem").getKey();
-                // for (var i = 1; i < aRowCells.length; i++) {
-                //     if (aRowCells[i] instanceof sap.m.Text) {
-                //         var cellContextPath = aRowCells[i].data("p");
-                //         var val = packingListObj[cellContextPath];
-                //         aRowCells[i].setText(val);
-                //     }
-                // }
+                var reservationListObj = oEvent.getParameter("selectedRow").getBindingContext().getObject();
+                var sItemPath = oEvent.getSource().getParent().getBindingContextPath();
+                this.getView().getModel("reservationTableModel").setProperty(sItemPath + "/MaterialName", reservationListObj.Description);
+                this.getView().getModel("reservationTableModel").setProperty(sItemPath + "/BaseUnit", reservationListObj.UOM);
             },
             onSubmitReservation: function (oEvent) {
                 var oHeaderData = this.getViewModel("HeaderDetailsModel").getData();
@@ -206,7 +210,6 @@ sap.ui.define([
                     success: function (oData, oResponse) {
                         this.getView().getModel();
                         sap.m.MessageBox.success("The Reservation Items are Saved Successfully!");
-
                         var objectViewModel = this.getViewModel("objectViewModel");
                         // objectViewModel.setProperty("/isPackingListInEditMode", false);
                         // objectViewModel.setProperty("/isViewQRMode", true);
