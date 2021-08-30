@@ -135,7 +135,7 @@ sap.ui.define([
             }
             if (InspectQuantity > Quantity) {
                 oEvent.getSource().setValueState("Error");
-                oEvent.getSource().setValueStateText("Please enter less inspected quantity than quantity");
+                oEvent.getSource().setValueStateText("Please enter inspected quantity lesser than or equal to total quantity");
             }
             else {
                 oEvent.getSource().setValueState("None");

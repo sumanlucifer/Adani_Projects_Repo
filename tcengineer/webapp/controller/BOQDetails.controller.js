@@ -179,6 +179,7 @@ sap.ui.define([
                     else
                         sap.m.MessageBox.error(oData.Message);
                     this.getComponentModel().refresh();
+                    boqApprovalModel.setProperty("/Comment", null);
                 }.bind(this),
                 error: function (oError) {
                     sap.m.MessageBox.success(JSON.stringify(oError));

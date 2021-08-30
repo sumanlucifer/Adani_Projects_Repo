@@ -13,3 +13,5 @@ archive.zip
 unloadmaterial/.env8
 # auto generated wildcard
 security-scan-history/.env3
+# auto generated wildcard
+agel-mmts-web/vendorPersona/.env4
