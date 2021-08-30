@@ -41,17 +41,17 @@ sap.ui.define([
             this.oRouter.getRoute("RouteConsumptionItemsDetailPage").attachPatternMatched(this._onObjectMatched, this);
         },
         onBeforeShow: function (evt) {
-           // this.getView().getContent()[0].getSections()[1].rerender();
+            // this.getView().getContent()[0].getSections()[1].rerender();
             this.byId("smartTreeTableCounsumedItems").rebindTable();
         },
         _onObjectMatched: function (oEvent) {
-                var objectViewModel = this.getViewModel("objectViewModel");
+            var objectViewModel = this.getViewModel("objectViewModel");
             this.sObjectId = oEvent.getParameter("arguments").POId.match(/(\d+)/);
             var sObjectSOId = oEvent.getParameter("arguments").SOId.split(";")[0];
-               var sReservationNumber = oEvent.getParameter("arguments").SOId.split(";")[1];
-                  var sReservationDate = oEvent.getParameter("arguments").SOId.split(";")[2];
-                  objectViewModel.setProperty("/sReservationNumber", sReservationNumber);
-                     objectViewModel.setProperty("/sReservationDate", sReservationDate);
+            var sReservationNumber = oEvent.getParameter("arguments").SOId.split(";")[1];
+            var sReservationDate = oEvent.getParameter("arguments").SOId.split(";")[2];
+            objectViewModel.setProperty("/sReservationNumber", sReservationNumber);
+            objectViewModel.setProperty("/sReservationDate", sReservationDate);
             this._bindView("/SONumberDetailsSet(" + sObjectSOId + ")");
         },
         _bindView: function (sObjectPath) {
@@ -60,7 +60,7 @@ sap.ui.define([
             this.getView().bindElement({
                 path: sObjectPath,
                 events: {
-                     change: this._onBindingChange.bind(that),
+                    change: this._onBindingChange.bind(that),
                     dataRequested: function () {
                         objectViewModel.setProperty("/busy", true);
                     },
@@ -70,16 +70,16 @@ sap.ui.define([
                 }
             });
         },
-      _onBindingChange: function () {
-                var oView = this.getView(),
-                    oViewModel = this.getViewModel("objectViewModel"),
-                    oElementBinding = oView.getElementBinding();
-                // No data for the binding
-                if (!oElementBinding.getBoundContext()) {
-                    this.getRouter().getTargets().display("notFound");
-                    return;
-                }
-            },
+        _onBindingChange: function () {
+            var oView = this.getView(),
+                oViewModel = this.getViewModel("objectViewModel"),
+                oElementBinding = oView.getElementBinding();
+            // No data for the binding
+            if (!oElementBinding.getBoundContext()) {
+                this.getRouter().getTargets().display("notFound");
+                return;
+            }
+        },
         onBeforeRebindConsumptionPODetailTreeTable: function (oEvent) {
             var mBindingParams = oEvent.getParameter("bindingParams");
             mBindingParams.parameters["expand"] = "ConsumptionPostingBOQ";

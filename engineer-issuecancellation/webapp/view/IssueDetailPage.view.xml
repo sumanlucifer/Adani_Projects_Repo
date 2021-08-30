@@ -1,0 +1,110 @@
+<mvc:View xmlns:f2="sap.f"
+    xmlns:vbm="sap.ui.vbm"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:uxap="sap.uxap"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+    xmlns:unified="sap.ui.unified"
+    xmlns:tt="sap.ui.table"
+    xmlns:smartTable="sap.ui.comp.smarttable"
+    xmlns="sap.m" controllerName="com.agel.mmts.engineerissuecancellation.controller.IssueDetailPage" height="100%">
+    <uxap:ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true" upperCaseAnchorBar="false" headerContentPinnable="true" toggleHeaderOnTitleClick="true" busy="{objectViewModel>/busy}">
+        <uxap:headerTitle>
+            <uxap:ObjectPageDynamicHeaderTitle>
+                <uxap:breadcrumbs>
+                    <Breadcrumbs id="breadcrumbsId" currentLocationText="{i18n>issueMaterialSummary}">
+                        <Link text="{i18n>issueMaterial}" press=".handleToAllPOBreadcrumPress"/>
+                    </Breadcrumbs>
+                </uxap:breadcrumbs>
+                <uxap:expandedHeading>
+                    <FlexBox direction="Column" renderType="Bare">
+                        <Title text="{i18n>issueMaterial}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
+                        <Title text="{SONumber}" wrapping="true" titleStyle="H3" />
+                    </FlexBox>
+                </uxap:expandedHeading>
+                <uxap:snappedHeading>
+                    <FlexBox direction="Column" renderType="Bare">
+                        <Title text="{i18n>issueMaterial}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
+                        <Title text="{SONumber}" wrapping="true" titleStyle="H3"/>
+                    </FlexBox>
+                </uxap:snappedHeading>
+                <uxap:expandedContent></uxap:expandedContent>
+                <uxap:snappedTitleOnMobile>
+                    <Title text="{i18n>SONumber}- {SONumber}" wrapping="true" titleStyle="Auto"/>
+                </uxap:snappedTitleOnMobile>
+                <uxap:actions>
+
+                </uxap:actions>
+            </uxap:ObjectPageDynamicHeaderTitle>
+        </uxap:headerTitle>
+        <uxap:headerContent>
+        </uxap:headerContent>
+
+        <uxap:sections>
+
+            <!-- Line Items Section -->
+            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>lineItems}">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection title="{i18n>lineItems}">
+                        <smartTable:SmartTable header="Consumption Log" class="sapUiResponsiveContentPadding" editable="false" placeToolbarInTable="true" enableAutoBinding="true" entitySet="IssuedMaterialSet"  tableBindingPath="IssuedMaterialParents"
+                        showFullScreenButton="true" showRowCount="true"  tableType="ResponsiveTable" demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" beforeRebindTable="onBeforeRebindRestTable">
+                            <smartTable:customToolbar>
+                                <OverflowToolbar design="Transparent">
+                                    <ToolbarSpacer/>
+
+                                </OverflowToolbar>
+                            </smartTable:customToolbar>
+                            <Table sticky="ColumnHeaders,HeaderToolbar" updateFinished="onPurchaseOrderTableUpdateFinished" alternateRowColors="true">
+                                <columns>
+                                    <Column  >
+                                        <customData>
+                                            <core:CustomData key="p13nData" value='\{"columnKey": "ID", "leadingProperty": "ID",
+                                                 "columnIndex": 0}'/>
+                                        </customData>
+                                        <Text text="{i18n>LineItem}"/>
+                                    </Column>
+                                    <!-- <Column  >
+                                        <customData>
+                                            <core:CustomData key="p13nData" value='\{"columnKey": "TotalGrossWeight", "leadingProperty": "TotalGrossWeight",
+                                                 "columnIndex": 1 ,"sortProperty": "TotalGrossWeight"}'/>
+                                        </customData>
+                                        <Text text="{i18n>issueQty}"/>
+                                    </Column> -->
+                                  
+
+
+                                    <Column  >
+                                        <customData>
+                                            <core:CustomData key="p13nData" value='\{"columnKey": "Action"}'/>
+                                        </customData>
+                                        <Text text="{i18n>Action}"/>
+                                    </Column>
+
+
+
+
+                                </columns>
+                                <items>
+                                    <ColumnListItem >
+                                        <cells>
+                                            <ObjectIdentifier title="{ID}"  />
+                           
+                                            <!-- <Text text="{TotalGrossWeight}" wrapping="false"></Text> -->
+
+
+                                            <VBox justifyContent="Center">
+                                                <Button text="Cancel" press="onPressCancelRequest"/>
+                                            </VBox>
+                                        </cells>
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
+                        </smartTable:SmartTable>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+        </uxap:sections>
+    </uxap:ObjectPageLayout>
+</mvc:View>

@@ -1,0 +1,55 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:smartTable="sap.ui.comp.smarttable"
+    xmlns:core="sap.ui.core">
+
+    <smartTable:SmartTable class="sapUiResponsiveContentPadding" id="idListTable" editable="false" placeToolbarInTable="true" enableAutoBinding="true" entitySet="IssuedMaterialSet" showFullScreenButton="true" header="Issue Material" showRowCount="true" tableType="ResponsiveTable" demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" beforeRebindTable="onbeforeRebindListIssueTable" ignoreFromPersonalisation="ID, Status, TotalGrossWeight, CancelledAt, CancelledBy, UpdatedAt, UpdatedBy,CreatedBy, IsArchived">
+
+        <Table sticky="ColumnHeaders,HeaderToolbar" updateFinished="onIssueTableUpdateFinished" alternateRowColors="true">
+            <columns>
+
+                <Column >
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "SONumberId/SONumber", "leadingProperty": "SONumberId/SONumber",
+"columnIndex": 0 ,"sortProperty": "SONumberId/SONumber","filterProperty": "SONumberId/SONumber"}'/>
+                    </customData>
+                    <Text text="{i18n>sONumber}"/>
+                </Column>
+
+                <Column demandPopin="true" minScreenWidth="Desktop">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "SONumberId/Contractor/Name", "leadingProperty": "SONumberId/Contractor/Name",
+"columnIndex": 1 ,"sortProperty": "SONumberId/Contractor/Name","filterProperty": "SONumberId/Contractor/Name"}'/>
+                    </customData>
+                    <Text text="{i18n>contractorName}"/>
+                </Column>
+
+                <Column demandPopin="true" minScreenWidth="Tablet">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "CreatedAt", "leadingProperty": "CreatedAt",
+"columnIndex": 2 ,"sortProperty": "CreatedAt"}'/>
+                    </customData>
+                    <Text text="{i18n>issuedDate}"/>
+                </Column>
+
+            </columns>
+            <items>
+
+                <ColumnListItem type="Navigation" press="onDetailPress">
+                    <cells>
+                        <ObjectIdentifier title="{SONumber}" binding="{SONumberId}"/>
+                        <Text text="{Name}" binding="{SONumberId/Contractor}"/>
+                        <Text text="{path:'CreatedAt',
+type: 'sap.ui.model.type.Date',
+formatOptions: {
+pattern: 'MMMM dd, yyyy'
+}
+}"/>
+                    </cells>
+                </ColumnListItem>
+            </items>
+        </Table>
+    </smartTable:SmartTable>
+
+
+
+</core:FragmentDefinition> 

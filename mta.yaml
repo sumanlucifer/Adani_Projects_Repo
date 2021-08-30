@@ -159,6 +159,10 @@ modules:
       - comagelmmtsmaterialreservation.zip
       name: comagelmmtsmaterialreservation
       target-path: resources/
+    - artifacts:
+      - comagelmmtsengineerissuecancellation.zip
+      name: comagelmmtsengineerissuecancellation
+      target-path: resources/
 - name: launchpad
   type: com.sap.application.content
   path: launchpad
@@ -436,6 +440,16 @@ modules:
     builder: custom
     commands:
     - npm run build
+    supported-platforms: []
+- name: comagelmmtsengineerissuecancellation
+  type: html5
+  path: engineer-issuecancellation
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
     supported-platforms: []
 resources:
 - name: uaa_agel-mmts-web
