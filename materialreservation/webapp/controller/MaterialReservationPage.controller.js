@@ -82,30 +82,32 @@ sap.ui.define([
             },
             onMoventTypeChange: function (oEvent) {
                 var sMovementType = oEvent.getSource().getSelectedKey();
+                
                 switch (sMovementType) {
                     case "":
                         this.getViewModel("objectViewModel").setProperty("/isItemFieldsVisible", false);
                         this.getViewModel("objectViewModel").setProperty("/isMovementType1Visible", false);
                         this.getViewModel("objectViewModel").setProperty("/isMovementType2Visible", false);
-                        break;
-                    case "201":
-                        this.getViewModel("objectViewModel").setProperty("/isItemFieldsVisible", true);
-                        this.getViewModel("objectViewModel").setProperty("/isMovementType1Visible", true);
-                        this.getViewModel("objectViewModel").setProperty("/isMovementType2Visible", false);
-                        break;
-                    case "221":
-                        this.getViewModel("objectViewModel").setProperty("/isItemFieldsVisible", true);
-                        this.getViewModel("objectViewModel").setProperty("/isMovementType1Visible", false);
-                        this.getViewModel("objectViewModel").setProperty("/isMovementType2Visible", true);
-                        break;
-                    case "222":
-                        this.getViewModel("objectViewModel").setProperty("/isItemFieldsVisible", true);
+                        this.getViewModel("objectViewModel").setProperty("/isMovementType3Visible", false);
                         break;
                     case "311":
                         this.getViewModel("objectViewModel").setProperty("/isItemFieldsVisible", true);
+                        this.getViewModel("objectViewModel").setProperty("/isMovementType1Visible", true);
+                        this.getViewModel("objectViewModel").setProperty("/isMovementType2Visible", false);
+                        this.getViewModel("objectViewModel").setProperty("/isMovementType3Visible", false);
+                        break;
+
+                    case "201":
+                        this.getViewModel("objectViewModel").setProperty("/isItemFieldsVisible", true);
+                        this.getViewModel("objectViewModel").setProperty("/isMovementType1Visible", false);
+                        this.getViewModel("objectViewModel").setProperty("/isMovementType2Visible", true);
+                        this.getViewModel("objectViewModel").setProperty("/isMovementType3Visible", false);
                         break;
                     case "312":
                         this.getViewModel("objectViewModel").setProperty("/isItemFieldsVisible", true);
+                        this.getViewModel("objectViewModel").setProperty("/isMovementType1Visible", false);
+                        this.getViewModel("objectViewModel").setProperty("/isMovementType2Visible", false);
+                        this.getViewModel("objectViewModel").setProperty("/isMovementType3Visible", true);
                         break;
                 }
             },
@@ -131,10 +133,7 @@ sap.ui.define([
                 var sItemPath = oEvent.getSource().getParent().getBindingContextPath();
                 this.getView().getModel("reservationTableModel").setProperty(sItemPath + "/MaterialName", reservationListObj.Description);
                 this.getView().getModel("reservationTableModel").setProperty(sItemPath + "/BaseUnit", reservationListObj.UOM);
-                  this.getView().getModel("reservationTableModel").setProperty(sItemPath + "/MaterialCode", reservationListObj.MaterialCode);
-
-
-                
+                this.getView().getModel("reservationTableModel").setProperty(sItemPath + "/MaterialCode", reservationListObj.MaterialCode);
             },
             onSubmitReservation: function (oEvent) {
                 var oHeaderData = this.getViewModel("HeaderDetailsModel").getData();
@@ -222,8 +221,8 @@ sap.ui.define([
                     return {
                         ItemNumber: "",
                         Material: item.MaterialCode,
-                        StorageLocation: item.MaterialCode,
-                        Quantity: item.Qty,
+                        StorageLocation: "",
+                        Quantity: parseInt(item.Qty),
                         BaseUnit: item.BaseUnit,
                         Batch: ""
                     };
@@ -231,12 +230,13 @@ sap.ui.define([
                 var oPayload = {
                     "UserName": "Agel",
                     "Plant": oAdditionalData.Plant,
-                    "MovementType": oAdditionalData.value,
+                    "MovementType": oAdditionalData.MovementTypeValue,
                     "CostCenter": oAdditionalData.CostCenter,
-                    "WBS": oAdditionalData.WBS,
+                    "GoodRecipient": oAdditionalData.GoodReciepient,
+                    "WBS": "",
                     "GLAccount": oAdditionalData.GLAccount,
                     "ProfitCenter": "",
-                    "ReservationDate": "",
+                    "ReservationDate": "2021-01-20",
                     "ParentItem": aReservationItems
                 };
                 this.mainModel.create("/ConsumptionPostingReserveEdmSet", oPayload, {
@@ -267,13 +267,14 @@ sap.ui.define([
                 var oPayload = {
                     "UserName": "Agel",
                     "Plant": "PL-01",
-                    "MovementType": oAdditionalData.value,
+                    "MovementType": oAdditionalData.MovementTypeValue,
                     "GoodRecipient": oAdditionalData.GoodReciepient,
                     "CostCenter": oAdditionalData.CostCenter,
                     "WBS": oAdditionalData.WBS,
                     "GLAccount": oAdditionalData.GLAccount,
+                    "ReceivingLocation":oAdditionalData.RecievingLocation,
                     "ProfitCenter": "",
-                    "ReservationDate": "",
+                    "ReservationDate": "2021-01-20",
                     "ParentList": aReservationItems
                 };
                 this.mainModel.create("/ReturnMaterialReserveEdmSet", oPayload, {

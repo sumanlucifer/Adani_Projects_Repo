@@ -40,7 +40,7 @@ sap.ui.define([
 
                     this.getView().byId("idSoNumber").setValueState("Error");
                     this.getView().byId("idSoNumber").setValueStateText("Please Enter upto 10 digit Number");
-                     this.getView().byId("SObtnSubmit").setEnabled(false);
+                    this.getView().byId("SObtnSubmit").setEnabled(false);
                     return;
                 }
                 else {
@@ -52,44 +52,13 @@ sap.ui.define([
 
 
             },
-            // Validate QR Code
-            validateSONumber: function () {
-                var that = this;
 
-                var objectViewModel = that.getViewModel("objectViewModel");
-                objectViewModel.setProperty("/busy", true);
-                var SoID = this.getView().byId("idSoNumber").getValue();
-                var SoIDFilter = new sap.ui.model.Filter({
-                    path: "SONumber",
-                    operator: sap.ui.model.FilterOperator.EQ,
-                    value1: SoID
-                });
-                var filter = [];
-                filter.push(SoIDFilter);
-                this.MainModel.read("/SONumberDetailsSet", {
-                    filters: [filter],
-                    success: function (oData, oResponse) {
-                        if (oData) {
-                            //  
-                            if (oData.results.length) {
-                                objectViewModel.setProperty("/busy", false);
-                                that.oRouter.navTo("RouteReturnConsumptionDetailPage", {
-                                    SOId: oData.results[0].ID,
-                                }, false);
-                            } else {
-                                objectViewModel.setProperty("/busy", false);
-                                sap.m.MessageBox.error("Please Enter Valid SO Number");
-                            }
-                        } else {
-                            objectViewModel.setProperty("/busy", false);
-                            sap.m.MessageBox.error("Please Enter Valid SO Number");
-                        }
-                    }.bind(this),
-                    error: function (oError) {
-                        objectViewModel.setProperty("/busy", false);
-                        sap.m.MessageBox.error(JSON.stringify(oError));
-                    }
-                });
+            onDetailPress: function () {
+                this.oRouter.navTo("RouteReturnConsumptionDetailPage", {
+                    ReservationID: 5660971264,
+                }, false);
             }
+
+
         });
     });

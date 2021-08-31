@@ -124,16 +124,9 @@
                 },
                 {
                     "name": "RouteReturnConsumptionDetailPage",
-                    "pattern": "consumptionDetail/{SOId}",
+                    "pattern": "consumptionDetail/{ReservationID}",
                     "target": [
                         "TargetReturnConsumptionDetailPage"
-                    ]
-                },
-                {
-                    "name": "RouteConsumptionItemsDetailPage",
-                    "pattern": "ConsumptionItemsDetail/{POId}/{SOId}",
-                    "target": [
-                        "TargetConsumptionItemsDetailPage"
                     ]
                 }
             ],
@@ -151,13 +144,6 @@
                     "clearControlAggregation": false,
                     "viewName": "RaiseConsumptionDetailPage",
                     "viewLevel": 2
-                },
-                "TargetConsumptionItemsDetailPage": {
-                    "viewType": "XML",
-                    "transition": "slide",
-                    "clearControlAggregation": false,
-                    "viewName": "ConsumptionPODetail",
-                    "viewLevel": 3
                 },
                 "notFound": {
                     "viewName": "NotFound"

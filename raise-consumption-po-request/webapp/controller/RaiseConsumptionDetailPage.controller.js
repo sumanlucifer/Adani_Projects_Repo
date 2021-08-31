@@ -62,7 +62,7 @@ sap.ui.define([
             this.getView().bindElement({
                 path: sObjectPath,
                 events: {
-                    change: this._onBindingChange.bind(that),
+                    // change: this._onBindingChange.bind(that),
                     dataRequested: function () {
                         objectViewModel.setProperty("/busy", true);
                     },

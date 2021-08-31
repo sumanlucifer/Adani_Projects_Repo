@@ -1,0 +1,67 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:smartTable="sap.ui.comp.smarttable"
+    xmlns:core="sap.ui.core">
+
+    <smartTable:SmartTable class="sapUiResponsiveContentPadding" id="idIssueTable" editable="false" placeToolbarInTable="true" enableAutoBinding="true" entitySet="ConsumptionPostingReserveSet" showFullScreenButton="true" header="Consumption Reservation" showRowCount="true" tableType="ResponsiveTable" demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" beforeRebindTable="onbeforeRebindIssueReservedTable" ignoreFromPersonalisation="ID, Status, RequestDate, CancelledDate, CancelledBy, Comment, CostCentre, WBSNumber, ProfitCentre, GLAccount, ReceivingLocation, Plant, IsArchived, CreatedAt, CreatedBy, UpdatedAt, UpdatedBy">
+
+        <Table sticky="ColumnHeaders,HeaderToolbar" updateFinished="onIssueTableUpdateFinished" alternateRowColors="true">
+            <columns>
+
+
+                <Column >
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "ReservationNumber", "leadingProperty": "ReservationNumber",
+"columnIndex": 0 ,"sortProperty": "ReservationNumber","filterProperty": "ReservationNumber"}'/>
+                    </customData>
+                    <Text text="{i18n>reservationNumber}"/>
+                </Column>
+
+
+                <Column demandPopin="true" minScreenWidth="Desktop">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "MovementType", "leadingProperty": "MovementType",
+"columnIndex": 1 ,"sortProperty": "MovementType","filterProperty": "MovementType"}'/>
+                    </customData>
+                    <Text text="{i18n>movementType}"/>
+                </Column>
+
+
+
+                <Column demandPopin="true" minScreenWidth="Desktop">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "GoodsRecipient", "leadingProperty": "GoodsRecipient",
+"columnIndex": 1 ,"sortProperty": "GoodsRecipient","filterProperty": "GoodsRecipient"}'/>
+                    </customData>
+                    <Text text="{i18n>goodsRecipient}"/>
+                </Column>
+
+
+                <Column demandPopin="true" minScreenWidth="Tablet">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "ReservationDate", "leadingProperty": "ReservationDate",
+"columnIndex": 2 ,"sortProperty": "ReservationDate"}'/>
+                    </customData>
+                    <Text text="{i18n>reservationDate}"/>
+                </Column>
+
+            </columns>
+            <items>
+
+                <ColumnListItem type="Navigation" press="onDetailPress">
+                    <cells>
+                        <ObjectIdentifier title="{ReservationNumber}"/>
+                        <Text text="{MovementType}"/>
+                        <Text text="{GoodsRecipient}"/>
+                        <Text text="{path:'ReservationDate',
+type: 'sap.ui.model.type.Date',
+formatOptions: {
+pattern: 'MMMM dd, yyyy'
+}
+}"/>
+                    </cells>
+                </ColumnListItem>
+            </items>
+        </Table>
+    </smartTable:SmartTable>
+
+</core:FragmentDefinition> 

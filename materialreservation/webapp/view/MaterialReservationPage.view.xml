@@ -113,7 +113,7 @@
                                     <ColumnListItem >
                                         <cells>
 
-                                            <Input suggestionItemSelected="onMaterialCodeChange" selectedKey="{reservationTableModel>MaterialCode}"  selectedItem="{reservationTableModel>MaterialCode}" id="idPMaterialCode" showSuggestion="true" suggestionRows="{
+                                            <Input suggestionItemSelected="onMaterialCodeChange" selectedKey="{reservationTableModel>MaterialCode}" selectedItem="{reservationTableModel>MaterialCode}" id="idPMaterialCode" showSuggestion="true" suggestionRows="{
                                                 path: '/MasterMaterialSet',
                                                 templateShareable:false
                                             }">

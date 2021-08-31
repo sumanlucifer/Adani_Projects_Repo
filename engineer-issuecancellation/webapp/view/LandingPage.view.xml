@@ -10,7 +10,7 @@
         <f:title>
             <f:DynamicPageTitle>
                 <f:heading>
-                    <Title id="pageTitle" text="{i18n>PageTitle}"/>
+                    <Title id="pageTitle" text="{i18n>Cancelissuerequest}"/>
                 </f:heading>
                 <f:actions>
                     <!-- <Button text="Issue New Material" type="Emphasized" press="onpressIssueMaterial"/> -->

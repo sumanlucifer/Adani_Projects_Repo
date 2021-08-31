@@ -1,0 +1,66 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:smartTable="sap.ui.comp.smarttable"
+    xmlns:core="sap.ui.core">
+    <smartTable:SmartTable class="sapUiResponsiveContentPadding" id="idListTable" editable="false" placeToolbarInTable="true" enableAutoBinding="true" entitySet="ConsumptionPostingSet" showFullScreenButton="true" header="Issue Material" showRowCount="true" tableType="ResponsiveTable" demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" beforeRebindTable="onbeforeRebindListIssueTable" ignoreFromPersonalisation="ID, Status, TotalGrossWeight, CancelledAt, CancelledBy, UpdatedAt, UpdatedBy,CreatedBy, IsArchived">
+        <Table sticky="ColumnHeaders,HeaderToolbar" updateFinished="onIssueTableUpdateFinished" alternateRowColors="true">
+            <columns>
+                <Column >
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "MaterialDocumentNumber", "leadingProperty": "MaterialDocumentNumber",
+"columnIndex": 0 ,"sortProperty": "MaterialDocumentNumber","filterProperty": "MaterialDocumentNumber"}'/>
+                    </customData>
+                    <Text text="{i18n>MaterialDocumentNumber}"/>
+                </Column>
+                <Column demandPopin="true" minScreenWidth="Desktop">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "MaterialDocumentYear", "leadingProperty": "MaterialDocumentYear",
+"columnIndex": 1 ,"sortProperty": "MaterialDocumentYear","filterProperty": "MaterialDocumentYear"}'/>
+                    </customData>
+                    <Text text="{i18n>MaterialDocumentYear}"/>
+                </Column>
+                <Column demandPopin="true" minScreenWidth="Tablet">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "DocumentDate", "leadingProperty": "DocumentDate",
+"columnIndex": 2 ,"sortProperty": "DocumentDate"}'/>
+                    </customData>
+                    <Text text="{i18n>DocumentDate}"/>
+                </Column>
+                <Column demandPopin="true" minScreenWidth="Tablet">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "PostingDate", "leadingProperty": "PostingDate",
+"columnIndex": 3 ,"sortProperty": "PostingDate"}'/>
+                    </customData>
+                    <Text text="{i18n>PostingDate}"/>
+                </Column>
+                <Column demandPopin="true" minScreenWidth="Tablet">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "ReservationNumber", "leadingProperty": "ReservationNumber",
+"columnIndex": 4 ,"sortProperty": "ReservationNumber"}'/>
+                    </customData>
+                    <Text text="{i18n>ReservationNumber}"/>
+                </Column>
+            </columns>
+            <items>
+                <ColumnListItem >
+                    <cells>
+                        <ObjectIdentifier title="{MaterialDocumentNumber}" />
+                        <Text text="{MaterialDocumentYear}"/>
+                        <Text text="{path:'DocumentDate',
+type: 'sap.ui.model.type.Date',
+formatOptions: {
+pattern: 'MMMM dd, yyyy'
+}
+}"/>
+                        <Text text="{path:'PostingDate',
+type: 'sap.ui.model.type.Date',
+formatOptions: {
+pattern: 'MMMM dd, yyyy'
+}
+}"/>
+                        <Text text="{ReservationNumber}"/>
+                    </cells>
+                </ColumnListItem>
+            </items>
+        </Table>
+    </smartTable:SmartTable>
+</core:FragmentDefinition> 
