@@ -5,6 +5,4 @@ package-lock.json
 /mta_archives/
 /resources/
 
-*.zip
-*.env
-.env*
+

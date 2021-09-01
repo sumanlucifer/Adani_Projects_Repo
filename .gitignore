@@ -16,7 +16,12 @@ sapui5/materialreservation/.env1
 unloadmaterial/.env8
 # auto generated wildcard
 security-scan-history/.env3
+<<<<<<< HEAD
 >>>>>>> develop
 
 # auto generated wildcard
 sapui5/engineer-issuecancellation/.env1
+=======
+# auto generated wildcard
+agel-mmts-web/vendorPersona/.env4
+>>>>>>> develop
