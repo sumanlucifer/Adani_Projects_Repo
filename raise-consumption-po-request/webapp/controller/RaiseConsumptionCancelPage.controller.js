@@ -96,7 +96,7 @@ sap.ui.define([
             mBindingParams.filters.push(new Filter("SONumberId/ID", sap.ui.model.FilterOperator.EQ, this.sObjectId));
             mBindingParams.sorter.push(new sap.ui.model.Sorter("CreatedAt", true));
         },
-        onPressCancelConsumptionPosting1: function (oEvent) {
+        onPressCancelConsumptionPosting: function (oEvent) {
             var that = this;
             var ConsumptionPostingReserveId = that.sObjectId;
             var ConsumptionPostingId = oEvent.getSource().getBindingContext().getObject().ConsumptionPostingId;
@@ -112,34 +112,8 @@ sap.ui.define([
                 }
             });
         },
-        onSubmitCancelConfirmPress: function (CID) {
-            var oPayload =
-            {
-                "UserName": "Agel",
-                "ConsumptionPostingReserveId": CID
-            };
-            this.MainModel.create("/ConsumptionPostingEdmSet", oPayload, {
-                success: function (oData, oResponse) {
-                    if (oData.Success === true) {
-                        sap.m.MessageBox.success("Consumption has been Cancelled successfully!", {
-                            title: "Success",
-                            onClose: function (oAction1) {
-                                if (oAction1 === sap.m.MessageBox.Action.OK) {
-                                    //  this._navToCrossApp();
-                                }
-                            }.bind(this)
-                        });
-                    }
-                    else {
-                        sap.m.MessageBox.success("Something went wrong!");
-                    }
-                }.bind(this),
-                error: function (oError) {
-                    sap.m.MessageBox.error(oError.Message);
-                }
-            });
-        },
-        onPressCancelConsumptionPosting: function (oEvent) {
+       
+        onSubmitCancelConfirmPress: function (oEvent) {
          
             var sConsumptionReservationContext = "/ConsumptionPostingSet(" + parseInt(this.sObjectId) + "l)/ConsumptionPostingReserve"
             var ConsumptionReserveId = this.getView().getModel().getData(sConsumptionReservationContext).ID;

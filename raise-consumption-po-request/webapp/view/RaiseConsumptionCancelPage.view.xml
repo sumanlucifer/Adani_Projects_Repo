@@ -13,41 +13,86 @@
         <uxap:headerTitle>
             <uxap:ObjectPageDynamicHeaderTitle>
                 <uxap:breadcrumbs>
-                    <Breadcrumbs id="breadcrumbsId" currentLocationText="{i18n>ConsumptionPostingItems}">
-                        <Link text="{i18n>ConsumptionReservationItems}" press=".handleToAllPOBreadcrumPress"/>
+                    <Breadcrumbs id="breadcrumbsId" currentLocationText="{i18n>PostedConsumptionDetail}">
+                        <Link text="{i18n>PostedConsumptions}" press=".handleToAllPOBreadcrumPress"/>
                     </Breadcrumbs>
                 </uxap:breadcrumbs>
                 <uxap:expandedHeading>
                     <FlexBox direction="Column" renderType="Bare">
-                        <Title text="{i18n>ConsumptionPostingItems}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
-                        <Title text="{SONumber}" wrapping="true" titleStyle="H3" />
+                        <Title text="{i18n>ConsumptionPostingDetail}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
+                        <Title text="{MaterialDocumentNumber}" wrapping="true" titleStyle="H3" />
                     </FlexBox>
                 </uxap:expandedHeading>
                 <uxap:snappedHeading>
                     <FlexBox direction="Column" renderType="Bare">
-                        <Title text="{i18n>ConsumptionPostingItems}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
-                        <Title text="{SONumber}" wrapping="true" titleStyle="H3"/>
+                        <Title text="{i18n>ConsumptionPostingDetail}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
+                        <Title text="{MaterialDocumentNumber}" wrapping="true" titleStyle="H3"/>
                     </FlexBox>
                 </uxap:snappedHeading>
                 <uxap:expandedContent>
                 </uxap:expandedContent>
                 <uxap:snappedTitleOnMobile>
-                    <Title text="{i18n>SONumber}- {SONumber}" wrapping="true" titleStyle="Auto"/>
+                    <Title text="{i18n>MaterialDocumentNumber}- {MaterialDocumentNumber}" wrapping="true" titleStyle="Auto"/>
                 </uxap:snappedTitleOnMobile>
                 <uxap:actions>
                     <HBox visible="true">
                         <!-- <Button text="Done" press="onPressDone" type="Accept" visible="{objectViewModel>/doneButton}"/> -->
                         <Title text="" />
-                        <Button text="Cancel" press="onPressCancelConsumptionPosting" type="Emphasized"/>
+                        <Button text="Cancel consumption posting" press="onPressCancelConsumptionPosting" type="Emphasized"/>
                     </HBox>
                 </uxap:actions>
             </uxap:ObjectPageDynamicHeaderTitle>
         </uxap:headerTitle>
         <uxap:headerContent>
-            <VBox binding="{ConsumptionPostingReserve}">
+           
+      
 
+         <FlexBox wrap="Wrap" height="100%" renderType="Bare" direction="Column">
+          <VBox binding="{ConsumptionPostingReserve}">
             </VBox>
+                <VBox renderType="Bare">
+                    <FlexBox direction="Row" renderType="Bare" class="sapUiTinyMarginBottom">
+                        <VBox renderType="Bare" class="sapUiMediumMarginEnd">
+                            <Label text="{i18n>issuedDate}" />
+                            <!-- missing -->
+                            <Text text="{path:'CreatedAt',
+                                     type: 'sap.ui.model.type.Date',
+				                     formatOptions: {
+				                        pattern: 'MMMM dd, yyyy'
+				                     }
+                            }"/>
+                        </VBox>
+                        <VBox renderType="Bare" class="sapUiMediumMarginEnd" >
+                            <Label text="{i18n>ReservationNumber}" />
+                            <!-- missing -->
+                            <Text text="{ReservationNumber}"/>
+                        </VBox>
+                        <VBox renderType="Bare" class="sapUiMediumMarginEnd">
+                            <Label text="{i18n>targetDate}" />
+                            <!-- missing -->
+                            <Text text="{path:'ValidityEndDate',
+                                     type: 'sap.ui.model.type.Date',
+				                     formatOptions: {
+				                        pattern: 'MMMM dd, yyyy'
+				                     }
+                            }"/>
+                        </VBox>
+                        <VBox renderType="Bare" class="sapUiMediumMarginEnd">
+                            <Label text="{i18n>status}" />
+                            <!-- missing -->
+                          <ObjectStatus text="{Status}" state="{= ${Status} === 'POSTED' ? 'Success' : ${Status} === 'RESERVED' ? 'Information' : 'Error'}" visible="{= ${Status}.length>0 ? true : false }"/>
+                        </VBox>
+
+                  
+                    </FlexBox>
+                </VBox>
+                <!-- <VBox renderType="Bare">
+                    <Label text="{i18n>instruction}" design="Bold"/>
+                    <ObjectAttribute text="Please raise the inspection call through SIMS portal." />
+                </VBox> -->
+            </FlexBox>
         </uxap:headerContent>
+
         <uxap:sections>
             <!-- Line Items Section -->
             <uxap:ObjectPageSection titleUppercase="false">
@@ -65,43 +110,36 @@
                                     </Column>
                                     <Column >
                                         <customData>
-                                            <core:CustomData key="p13nData" value='\{"columnKey": "MovementType", "leadingProperty": "MovementType",
-"columnIndex": 1 ,"sortProperty": "MovementType","filterProperty": "MovementType"}'/>
-                                        </customData>
-                                        <Text text="{i18n>MaterialDocumentNumber}"/>
-                                    </Column>
-                                    <Column >
-                                        <customData>
                                             <core:CustomData key="p13nData" value='\{"columnKey": "MaterialCode", "leadingProperty": "MaterialCode",
-"columnIndex": 2 ,"sortProperty": "MaterialCode","filterProperty": "MaterialCode"}'/>
+"columnIndex": 1 ,"sortProperty": "MaterialCode","filterProperty": "MaterialCode"}'/>
                                         </customData>
                                         <Text text="{i18n>MaterialCode}"/>
                                     </Column>
                                     <Column >
                                         <customData>
                                             <core:CustomData key="p13nData" value='\{"columnKey": "Plant", "leadingProperty": "Plant",
-"columnIndex": 3 ,"sortProperty": "Plant","filterProperty": "Plant"}'/>
+"columnIndex": 2 ,"sortProperty": "Plant","filterProperty": "Plant"}'/>
                                         </customData>
                                         <Text text="{i18n>Plant}"/>
                                     </Column>
                                     <Column >
                                         <customData>
                                             <core:CustomData key="p13nData" value='\{"columnKey": "StorageLocation", "leadingProperty": "StorageLocation",
-"columnIndex": 4 ,"sortProperty": "StorageLocation","filterProperty": "StorageLocation"}'/>
+"columnIndex": 3 ,"sortProperty": "StorageLocation","filterProperty": "StorageLocation"}'/>
                                         </customData>
                                         <Text text="{i18n>Plant}"/>
                                     </Column>
                                     <Column >
                                         <customData>
                                             <core:CustomData key="p13nData" value='\{"columnKey": "Quantity", "leadingProperty": "Quantity",
-"columnIndex": 5 ,"sortProperty": "Quantity","filterProperty": "Quantity"}'/>
+"columnIndex": 4 ,"sortProperty": "Quantity","filterProperty": "Quantity"}'/>
                                         </customData>
                                         <Text text="{i18n>Quantity}"/>
                                     </Column>
                                     <Column >
                                         <customData>
                                             <core:CustomData key="p13nData" value='\{"columnKey": "ReservationNumber", "leadingProperty": "ReservationNumber",
-"columnIndex": 6 ,"sortProperty": "ReservationNumber","filterProperty": "ReservationNumber"}'/>
+"columnIndex": 5 ,"sortProperty": "ReservationNumber","filterProperty": "ReservationNumber"}'/>
                                         </customData>
                                         <Text text="{i18n>ReservationNumber}"/>
                                     </Column>
@@ -110,7 +148,6 @@
                                     <ColumnListItem >
                                         <cells>
                                             <ObjectIdentifier title="{MaterialDocumentNumber}"/>
-                                            <Text text="{MovementType}"/>
                                             <Text text="{MaterialCode}"/>
                                             <Text text="{Plant}"/>
                                             <Text text="{StorageLocation}"/>
