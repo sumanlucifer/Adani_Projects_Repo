@@ -1,164 +1,122 @@
-<mvc:View xmlns:f2="sap.f"
-    xmlns:vbm="sap.ui.vbm"
+<mvc:View controllerName="com.agel.mmts.materialreservation.controller.MaterialReservationPage" height="100%"
     xmlns:mvc="sap.ui.core.mvc"
-    xmlns:uxap="sap.uxap"
-    xmlns:l="sap.ui.layout"
-    xmlns:f="sap.ui.layout.form"
     xmlns:core="sap.ui.core"
-    xmlns:unified="sap.ui.unified"
-    xmlns:tt="sap.ui.table"
-    xmlns:data="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
-    xmlns="sap.m" controllerName="com.agel.mmts.materialreservation.controller.MaterialReservationPage" height="100%">
-    <uxap:ObjectPageLayout showFooter="true" id="ObjectPageLayout" showTitleInHeaderContent="true" upperCaseAnchorBar="false" headerContentPinnable="true" toggleHeaderOnTitleClick="true" busy="{objectViewModel>/busy}">
-        <uxap:headerTitle>
-            <uxap:ObjectPageDynamicHeaderTitle>
-                <uxap:breadcrumbs>
-                    <!-- <Breadcrumbs id="breadcrumbsId" currentLocationText="{i18n>PODetails}">
-                        <Link text="{i18n>assignedPOList}" press=".handleToAllPOBreadcrumPress"/>
-                    </Breadcrumbs> -->
-                </uxap:breadcrumbs>
-                <uxap:expandedHeading>
-                    <FlexBox direction="Column" renderType="Bare">
-                        <Title text="{i18n>MaterialReservation}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
-                        <Title text="{Name}" wrapping="true" titleStyle="H3" />
-                    </FlexBox>
-                </uxap:expandedHeading>
-                <uxap:snappedHeading>
-                    <FlexBox direction="Column" renderType="Bare">
-                        <Title text="{i18n>MaterialReservation}" wrapping="true" titleStyle="H4"/>
-                        <Title text="{Name}" wrapping="true" titleStyle="H3"/>
-                    </FlexBox>
-                </uxap:snappedHeading>
-                <uxap:expandedContent></uxap:expandedContent>
-                <uxap:snappedTitleOnMobile>
-                    <Title text="{i18n>MaterialReservation}" wrapping="true" titleStyle="Auto"/>
-                </uxap:snappedTitleOnMobile>
-
-            </uxap:ObjectPageDynamicHeaderTitle>
-        </uxap:headerTitle>
-        <uxap:headerContent>
-            <FlexBox wrap="Wrap" height="100%" renderType="Bare" direction="Column" binding="{PurchaseOrder}">
-                <VBox renderType="Bare">
-                    <FlexBox direction="Row" renderType="Bare" class="sapUiTinyMarginBottom">
-                    </FlexBox>
-                </VBox>
-            </FlexBox>
-        </uxap:headerContent>
-        <uxap:sections>
-            <uxap:ObjectPageSection titleUppercase="false">
-                <uxap:subSections>
-                    <uxap:ObjectPageSubSection>
-                        <uxap:blocks>
-                            <f:SimpleForm layout="ColumnLayout" binding="{HeaderDetailsModel>/}" columnsM="2" columnsL="3" columnsXL="4" singleContainerFullSize="true" class="style-RemoveTitleHeight">
-                                <f:content>
-                                    <!-- <core:Title  /> -->
-                                    <Label text="Movement Type" required="true"/>
-                                    <Select id="idSelMovementType" change="onMoventTypeChange" selectedKey="{HeaderDetailsModel>MovementTypeValue}" forceSelection="false" items="{HeaderDetailsModel>/movementType}">
-                                        <core:Item key="{HeaderDetailsModel>value}" text="{HeaderDetailsModel>Text}" />
-                                    </Select>
-                                    <Label text="Good Recipient" required="true"/>
-                                    <Input id="idGoodReciept" value="{HeaderDetailsModel>GoodReciepient}" />
-
-                                    <Label visible="{= ${objectViewModel>/isMovementType2Visible} ? true : false}" text="WBS" required="true"/>
-                                    <Input visible="{= ${objectViewModel>/isMovementType2Visible} ? true : false}" id="idWBS" value="{HeaderDetailsModel>WBS}" />
-                                    <Label text="Plant" required="true"/>
-                                    <Input id="idPlant" value="{HeaderDetailsModel>Plant}" />
-                                    <!-- <core:Title ></core:Title> -->
-                                    <Label visible="{= ${objectViewModel>/isMovementType1Visible} ? true : false}" text="Cost Center" required="true"/>
-                                    <Input visible="{= ${objectViewModel>/isMovementType1Visible} ? true : false}" id="idCostCenter" value="{HeaderDetailsModel>CostCenter}" />
-                                    <Label visible="{= ${objectViewModel>/isMovementType3Visible} ? true : false}" text="Recieving Location" required="true"/>
-                                    <Input visible="{= ${objectViewModel>/isMovementType3Visible} ? true : false}" id="idRecievingLocation" value="{HeaderDetailsModel>RecievingLocation}" />
-                                    <Label text="GL Account" required="true"/>
-                                    <Input id="idGLAccount" value="{HeaderDetailsModel>GLAccount}" />
-                                </f:content>
-                            </f:SimpleForm>
-                        </uxap:blocks>
-                    </uxap:ObjectPageSubSection>
-                </uxap:subSections>
-            </uxap:ObjectPageSection>
-            <!-- Line Items Section -->
-            <uxap:ObjectPageSection visible="{= ${objectViewModel>/isItemFieldsVisible} ? true : false}" titleUppercase="false" title="{i18n>lineItems}">
-                <uxap:subSections>
-                    <uxap:ObjectPageSubSection title="{i18n>lineItems}">
-                        <VBox>
-                            <Table items="{reservationTableModel>/}" autoPopinMode="true" growingThreshold="5" growing="true" fixedLayout="false">
-                                <headerToolbar>
-                                    <OverflowToolbar >
-                                        <content>
-                                            <ToolbarSpacer></ToolbarSpacer>
-                                            <Button text="Add" icon="sap-icon://add" press="onAddReservationItemsPress"></Button>
-                                        </content>
-                                    </OverflowToolbar>
-                                </headerToolbar>
-                                <columns>
-
-                                    <Column >
-                                        <Text text="Material Name"/>
-                                    </Column>
-                                    <Column>
-                                        <Text text="Description"/>
-                                    </Column>
-
-                                    <Column>
-                                        <Text text="Quantity"/>
-                                    </Column>
-                                    <Column>
-                                        <Text text="UOM"/>
-                                    </Column>
-
-                                    <Column width="5%">
-                                    </Column>
-                                </columns>
-                                <items>
-                                    <ColumnListItem >
-                                        <cells>
-
-                                            <Input suggestionItemSelected="onMaterialCodeChange" selectedKey="{reservationTableModel>MaterialCode}" selectedItem="{reservationTableModel>MaterialCode}" id="idPMaterialCode" showSuggestion="true" suggestionRows="{
+    xmlns="sap.m"
+    xmlns:fm="sap.ui.layout.form"
+    xmlns:f="sap.f">
+    <f:DynamicPage showFooter="true" headerExpanded="true" busy="{objectViewModel>/busy}">
+        <!-- DynamicPage Title -->
+        <f:title>
+            <f:DynamicPageTitle>
+                <f:heading>
+                    <Title id="pageTitle" text="Create Reservation"/>
+                </f:heading>
+                <f:actions>
+                    <!-- <Button text="Raise Return Material Request" press="onConfirmRequest" type="Emphasized"/> -->
+                </f:actions>
+            </f:DynamicPageTitle>
+        </f:title>
+        <!-- DynamicPage Header -->
+        <f:header>
+            <f:DynamicPageHeader pinnable="true">
+                <f:content>
+                    <HBox alignContent="SpaceAround">
+                        <fm:SimpleForm layout="ColumnLayout" binding="{HeaderDetailsModel>/}" columnsM="2" columnsL="3" columnsXL="4" singleContainerFullSize="true" class="style-RemoveTitleHeight">
+                            <!-- <core:Title  /> -->
+                            <Label text="Movement Type" required="true"/>
+                            <Select id="idSelMovementType" change="onMoventTypeChange" selectedKey="{HeaderDetailsModel>MovementTypeValue}" forceSelection="false" items="{HeaderDetailsModel>/movementType}">
+                                <core:Item key="{HeaderDetailsModel>value}" text="{HeaderDetailsModel>Text}" />
+                            </Select>
+                            <Label text="Good Recipient" required="true"/>
+                            <Input id="idGoodReciept" value="{HeaderDetailsModel>GoodReciepient}" />
+                            <Label visible="{= ${objectViewModel>/isMovementType2Visible} ? true : false}" text="WBS" required="true"/>
+                            <Input visible="{= ${objectViewModel>/isMovementType2Visible} ? true : false}" id="idWBS" value="{HeaderDetailsModel>WBS}" />
+                            <Label text="Plant" required="true"/>
+                            <Input id="idPlant" value="{HeaderDetailsModel>Plant}" />
+                            <!-- <core:Title ></core:Title> -->
+                            <Label visible="{= ${objectViewModel>/isMovementType1Visible} ? true : false}" text="Cost Center" required="true"/>
+                            <Input visible="{= ${objectViewModel>/isMovementType1Visible} ? true : false}" id="idCostCenter" value="{HeaderDetailsModel>CostCenter}" />
+                            <Label visible="{= ${objectViewModel>/isMovementType3Visible} ? true : false}" text="Recieving Location" required="true"/>
+                            <Input visible="{= ${objectViewModel>/isMovementType3Visible} ? true : false}" id="idRecievingLocation" value="{HeaderDetailsModel>RecievingLocation}" />
+                            <Label text="GL Account" required="true"/>
+                            <Input id="idGLAccount" value="{HeaderDetailsModel>GLAccount}" />
+                        </fm:SimpleForm>
+                    </HBox>
+                </f:content>
+            </f:DynamicPageHeader>
+        </f:header>
+        <!-- DynamicPage Content -->
+        <f:content>
+            <VBox>
+                <Table visible="{= ${objectViewModel>/isItemFieldsVisible} ? true : false}" items="{reservationTableModel>/}" growingThreshold="5" growing="true" fixedLayout="false">
+                    <headerToolbar>
+                        <OverflowToolbar >
+                          <Title text="{i18n>lineItems}" level="H4" />
+                            <content>
+                                <ToolbarSpacer></ToolbarSpacer>
+                                <Button text="Add" icon="sap-icon://add" press="onAddReservationItemsPress"></Button>
+                            </content>
+                        </OverflowToolbar>
+                    </headerToolbar>
+                    <columns>
+                        <Column >
+                            <Text text="Material Name"/>
+                        </Column>
+                        <Column>
+                            <Text text="Description"/>
+                        </Column>
+                        <Column>
+                            <Text text="Quantity"/>
+                        </Column>
+                        <Column>
+                            <Text text="UOM"/>
+                        </Column>
+                        <Column width="5%">
+                        </Column>
+                    </columns>
+                    <items>
+                        <ColumnListItem >
+                            <cells>
+                                <Input suggestionItemSelected="onMaterialCodeChange" selectedKey="{reservationTableModel>MaterialCode}" selectedItem="{reservationTableModel>MaterialCode}" id="idPMaterialCode" showSuggestion="true" suggestionRows="{
                                                 path: '/MasterMaterialSet',
                                                 templateShareable:false
                                             }">
-                                                <suggestionColumns>
-                                                    <Column demandPopin="true">
-                                                        <Label text="Material Name" />
-                                                    </Column>
-                                                    <Column demandPopin="true" minScreenWidth="Tablet">
-                                                        <Label text="Description" />
-                                                    </Column>
-                                                    <Column hAlign="End" minScreenWidth="Tablet">
-                                                        <Label text="UOM" />
-                                                    </Column>
-
-                                                </suggestionColumns>
-                                                <suggestionRows>
-                                                    <ColumnListItem>
-                                                        <Text text="{MaterialCode}" />
-                                                        <Text wrapping="true" text="{Description}" />
-                                                        <Text text="{UOM}" />
-
-                                                    </ColumnListItem>
-                                                </suggestionRows>
-                                            </Input>
-                                            <Text text="{reservationTableModel>MaterialName}"/>
-
-                                            <Input width="30%" value="{reservationTableModel>Qty}"/>
-                                            <Text text="{reservationTableModel>BaseUnit}"/>
-
-                                            <Button icon="sap-icon://delete" press="onDeleteReservationItemPress" type="Transparent"/>
-                                        </cells>
-                                    </ColumnListItem>
-                                </items>
-                            </Table>
-                        </VBox>
-                    </uxap:ObjectPageSubSection>
-                </uxap:subSections>
-            </uxap:ObjectPageSection>
-        </uxap:sections>
-        <uxap:footer>
+                                    <suggestionColumns>
+                                        <Column demandPopin="true">
+                                            <Label text="Material Name" />
+                                        </Column>
+                                        <Column demandPopin="true" minScreenWidth="Tablet">
+                                            <Label text="Description" />
+                                        </Column>
+                                        <Column hAlign="End" minScreenWidth="Tablet">
+                                            <Label text="UOM" />
+                                        </Column>
+                                    </suggestionColumns>
+                                    <suggestionRows>
+                                        <ColumnListItem>
+                                            <Text text="{MaterialCode}" />
+                                            <Text wrapping="true" text="{Description}" />
+                                            <Text text="{UOM}" />
+                                        </ColumnListItem>
+                                    </suggestionRows>
+                                </Input>
+                                <Text text="{reservationTableModel>MaterialName}"/>
+                                <Input width="30%" value="{reservationTableModel>Qty}"/>
+                                <Text text="{reservationTableModel>BaseUnit}"/>
+                                <Button icon="sap-icon://delete" press="onDeleteReservationItemPress" type="Transparent"/>
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
+            </VBox>
+        </f:content>
+        <f:footer>
             <OverflowToolbar visible="{= ${objectViewModel>/isItemFieldsVisible} ? true : false}">
                 <ToolbarSpacer/>
                 <Button text="Save" class="sapUiTinyMarginBegin" press="onSubmitReservation" type="Emphasized" />
-                <Button text="Cancel" class="sapUiTinyMarginBegin" press="onCancelReservation"  />
+                <Button text="Cancel" class="sapUiTinyMarginBegin" press="onCancelReservation" />
             </OverflowToolbar>
-        </uxap:footer>
-    </uxap:ObjectPageLayout>
+        </f:footer>
+    </f:DynamicPage>
+
 </mvc:View>

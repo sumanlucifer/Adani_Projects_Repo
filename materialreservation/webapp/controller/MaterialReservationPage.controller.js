@@ -253,7 +253,6 @@ sap.ui.define([
                         if (!aReservationItems[i].MaterialCode) {
                             bValid = false;
                             sap.m.MessageBox.alert("Please select Material Code.");
-                            //   sap.m.MessageBox.alert("Dispatch quantity mismatch with Materil " + aPackingListContainsData[i].Name);
                             return;
                         }
                         if (!aReservationItems[i].Qty) {
