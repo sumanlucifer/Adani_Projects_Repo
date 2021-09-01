@@ -20,6 +20,11 @@ sap.ui.define([
                 //Router Object
                 this.oRouter = this.getOwnerComponent().getRouter();
                 //view model instatiation
+                this.createInitialModel();
+                this._createHeaderDetailsModel();
+                this._createItemDataModel();
+            },
+            createInitialModel: function () {
                 var oViewModel = new JSONModel({
                     busy: false,
                     delay: 0,
@@ -31,8 +36,6 @@ sap.ui.define([
                     isButtonVisible: false
                 });
                 this.setModel(oViewModel, "objectViewModel");
-                this._createHeaderDetailsModel();
-                this._createItemDataModel();
             },
             _createHeaderDetailsModel: function () {
                 var oModel = new JSONModel({
@@ -42,15 +45,15 @@ sap.ui.define([
                     },
                     {
                         value: "311",
-                        Text: "Issue-Reservation"
+                        Text: "311 - Issue Reservation"
                     },
                     {
                         value: "201",
-                        Text: "Consumption-Reservation"
+                        Text: "201 - Consumption Reservation"
                     },
                     {
                         value: "312",
-                        Text: "Return-Reservation"
+                        Text: "312 - Return Reservation"
                     }
                     ],
                     MovementTypeValue: null,
@@ -82,7 +85,6 @@ sap.ui.define([
             },
             onMoventTypeChange: function (oEvent) {
                 var sMovementType = oEvent.getSource().getSelectedKey();
-                
                 switch (sMovementType) {
                     case "":
                         this.getViewModel("objectViewModel").setProperty("/isItemFieldsVisible", false);
@@ -96,7 +98,6 @@ sap.ui.define([
                         this.getViewModel("objectViewModel").setProperty("/isMovementType2Visible", false);
                         this.getViewModel("objectViewModel").setProperty("/isMovementType3Visible", false);
                         break;
-
                     case "201":
                         this.getViewModel("objectViewModel").setProperty("/isItemFieldsVisible", true);
                         this.getViewModel("objectViewModel").setProperty("/isMovementType1Visible", false);
@@ -109,6 +110,11 @@ sap.ui.define([
                         this.getViewModel("objectViewModel").setProperty("/isMovementType2Visible", false);
                         this.getViewModel("objectViewModel").setProperty("/isMovementType3Visible", true);
                         break;
+                    default:
+                        this.getViewModel("objectViewModel").setProperty("/isItemFieldsVisible", false);
+                        this.getViewModel("objectViewModel").setProperty("/isMovementType1Visible", false);
+                        this.getViewModel("objectViewModel").setProperty("/isMovementType2Visible", false);
+                        this.getViewModel("objectViewModel").setProperty("/isMovementType3Visible", false);
                 }
             },
             onDeleteReservationItemPress: function (oEvent) {
@@ -137,10 +143,17 @@ sap.ui.define([
             },
             onSubmitReservation: function (oEvent) {
                 var oHeaderData = this.getViewModel("HeaderDetailsModel").getData();
-                if (!this._validateData(oHeaderData)) {
+                var aReservationItems = this.getViewModel("reservationTableModel").getData();
+                if (!this._validateHeaderData(oHeaderData)) {
                     return;
                 }
-                this._handleMessageBoxForReservationList("Do you want to Submit these Reservation items?");
+                if (!this._validateItemData(aReservationItems)) {
+                    return;
+                }
+                this._handleMessageBoxForReservationList("Do you want to submit these Reservation items?");
+            },
+            onCancelReservation: function () {
+                this._handleMessageBoxForCancelReservation("Do you want to cancel these Reservation items?");
             },
             _handleMessageBoxForReservationList: function (sMessage) {
                 var that = this;
@@ -156,21 +169,104 @@ sap.ui.define([
                     }
                 });
             },
-            _validateData: function (data) {
+            _handleMessageBoxForCancelReservation: function (sMessage) {
+                var that = this;
+                sap.m.MessageBox.confirm(sMessage, {
+                    icon: MessageBox.Icon.INFORMATION,
+                    title: "Confirm",
+                    actions: [MessageBox.Action.YES, MessageBox.Action.NO],
+                    emphasizedAction: MessageBox.Action.YES,
+                    onClose: function (oAction) {
+                        if (oAction == "YES") {
+                            that.setInitialModel();
+                        }
+                    }
+                });
+            },
+            _validateHeaderData: function (data) {
                 var bValid = true;
-                if (!data.MovementTypeValue) {
-                    this.byId("idSelMovementType").setValueState("Error");
-                    this.byId("idSelMovementType").setValueStateText("Please select Movement Type");
+                var sMovementType = this.byId("idSelMovementType").getSelectedKey();
+                switch (sMovementType) {
+                    case "311":
+                        if (!data.CostCenter) {
+                            this.byId("idCostCenter").setValueState("Error");
+                            this.byId("idCostCenter").setValueStateText("Please enter cost value");
+                            bValid = false;
+                        } else {
+                            this.byId("idCostCenter").setValueState("None");
+                            this.byId("idCostCenter").setValueStateText(null);
+                        }
+                        break;
+                    case "201":
+                        if (!data.WBS) {
+                            this.byId("idWBS").setValueState("Error");
+                            this.byId("idWBS").setValueStateText("Please enter cost value");
+                            bValid = false;
+                        } else {
+                            this.byId("idWBS").setValueState("None");
+                            this.byId("idWBS").setValueStateText(null);
+                        }
+                        break;
+                    case "312":
+                        if (!data.RecievingLocation) {
+                            this.byId("idRecievingLocation").setValueState("Error");
+                            this.byId("idRecievingLocation").setValueStateText("Please enter cost value");
+                            bValid = false;
+                        } else {
+                            this.byId("idRecievingLocation").setValueState("None");
+                            this.byId("idRecievingLocation").setValueStateText(null);
+                        }
+                        break;
+                    default:
+                }
+                if (!data.Plant) {
+                    this.byId("idPlant").setValueState("Error");
+                    this.byId("idPlant").setValueStateText("Please enter plant value");
                     bValid = false;
                 } else {
-                    this.byId("idSelMovementType").setValueState("None");
-                    this.byId("idSelMovementType").setValueStateText(null);
+                    this.byId("idPlant").setValueState("None");
+                    this.byId("idPlant").setValueStateText(null);
                 }
-                // if (!data.InvoiceNumber) {
-                //     bValid = false;
-                //     sap.m.MessageBox.alert("Please enter the Invoice Number before viewing the QR.");
-                //     return;
-                // }
+                if (!data.GoodReciepient) {
+                    this.byId("idGoodReciept").setValueState("Error");
+                    this.byId("idGoodReciept").setValueStateText("Please enter goods recipient");
+                    bValid = false;
+                } else {
+                    this.byId("idGoodReciept").setValueState("None");
+                    this.byId("idGoodReciept").setValueStateText(null);
+                }
+                if (!data.GLAccount) {
+                    this.byId("idGLAccount").setValueState("Error");
+                    this.byId("idGLAccount").setValueStateText("Please enter goods recipient");
+                    bValid = false;
+                } else {
+                    this.byId("idGLAccount").setValueState("None");
+                    this.byId("idGLAccount").setValueStateText(null);
+                }
+                return bValid;
+            },
+            _validateItemData: function (itemData) {
+                var bValid = true;
+                if (itemData.length > 0) {
+                    var aReservationItems = this.getView().getModel("reservationTableModel").getData();
+                    for (let i = 0; i < aReservationItems.length; i++) {
+                        if (!aReservationItems[i].MaterialCode) {
+                            bValid = false;
+                            sap.m.MessageBox.alert("Please select Material Code.");
+                            //   sap.m.MessageBox.alert("Dispatch quantity mismatch with Materil " + aPackingListContainsData[i].Name);
+                            return;
+                        }
+                        if (!aReservationItems[i].Qty) {
+                            bValid = false;
+                            sap.m.MessageBox.alert("Please select quanity for the material " + aReservationItems[i].MaterialCode);
+                            return;
+                        }
+                    }
+                }
+                else {
+                    bValid = false;
+                    sap.m.MessageBox.alert("Please add atleast one item");
+                }
                 return bValid;
             },
             _createReservationList: function () {
@@ -186,6 +282,7 @@ sap.ui.define([
                     case "312":
                         this.callReturnReservationService(oAdditionalData, aReservationItems);
                         break;
+                    //  default:
                 }
             },
             callIssueReservationService: function (oAdditionalData, aReservationItems) {
@@ -204,10 +301,15 @@ sap.ui.define([
                 };
                 this.mainModel.create("/IssueMaterialReservationEdmSet", oPayload, {
                     success: function (oData, oResponse) {
-                        this.getView().getModel();
-                        sap.m.MessageBox.success("The Items Requested are Reserved Successfully!");
-                        var objectViewModel = this.getViewModel("objectViewModel");
-                        // objectViewModel.setProperty("/isViewQRMode", true);
+                        if (oData.Success === true) {
+                            this.getView().getModel();
+                            sap.m.MessageBox.success("The reservation has been succesfully created for selected Items!");
+                            this.setInitialModel();
+                            var objectViewModel = this.getViewModel("objectViewModel");
+                        }
+                        else {
+                            sap.m.MessageBox.success("Something went Wrong!");
+                        }
                     }.bind(this),
                     error: function (oError) {
                         // sap.m.MessageBox.success("Something went Wrong!");
@@ -241,10 +343,15 @@ sap.ui.define([
                 };
                 this.mainModel.create("/ConsumptionPostingReserveEdmSet", oPayload, {
                     success: function (oData, oResponse) {
-                        this.getView().getModel();
-                        sap.m.MessageBox.success("The Items Requested are Consumed Successfully!");
-                        var objectViewModel = this.getViewModel("objectViewModel");
-                        // objectViewModel.setProperty("/isViewQRMode", true);
+                        if (oData.Success === true) {
+                            this.getView().getModel();
+                            sap.m.MessageBox.success("The reservation has been succesfully created for selected Items!");
+                            this.setInitialModel();
+                            var objectViewModel = this.getViewModel("objectViewModel");
+                        }
+                        else {
+                            sap.m.MessageBox.success("Something went Wrong!");
+                        }
                     }.bind(this),
                     error: function (oError) {
                         // sap.m.MessageBox.success("Something went Wrong!");
@@ -258,7 +365,7 @@ sap.ui.define([
                     return {
                         ItemNumber: "",
                         Material: item.MaterialCode,
-                        StorageLocation: item.MaterialCode,
+                        StorageLocation: "",
                         Quantity: item.Qty,
                         BaseUnit: item.BaseUnit,
                         Batch: ""
@@ -272,17 +379,22 @@ sap.ui.define([
                     "CostCenter": oAdditionalData.CostCenter,
                     "WBS": oAdditionalData.WBS,
                     "GLAccount": oAdditionalData.GLAccount,
-                    "ReceivingLocation":oAdditionalData.RecievingLocation,
+                    "ReceivingLocation": oAdditionalData.RecievingLocation,
                     "ProfitCenter": "",
                     "ReservationDate": "2021-01-20",
                     "ParentList": aReservationItems
                 };
                 this.mainModel.create("/ReturnMaterialReserveEdmSet", oPayload, {
                     success: function (oData, oResponse) {
-                        this.getView().getModel();
-                        sap.m.MessageBox.success("The Items Requested are Returned Successfully!");
-                        var objectViewModel = this.getViewModel("objectViewModel");
-                        // objectViewModel.setProperty("/isViewQRMode", true);
+                        if (oData.Success === true) {
+                            this.getView().getModel();
+                            sap.m.MessageBox.success("The reservation has been succesfully created for selected Items!");
+                            this.setInitialModel();
+                            var objectViewModel = this.getViewModel("objectViewModel");
+                        }
+                        else {
+                            sap.m.MessageBox.success("Something went Wrong!");
+                        }
                     }.bind(this),
                     error: function (oError) {
                         // sap.m.MessageBox.success("Something went Wrong!");
@@ -290,6 +402,11 @@ sap.ui.define([
                         // objectViewModel.setProperty("/isViewQRMode", false);
                     }.bind(this)
                 })
+            },
+            setInitialModel: function () {
+                this._createHeaderDetailsModel();
+                this._createItemDataModel();
+                this.createInitialModel();
             }
         });
     });

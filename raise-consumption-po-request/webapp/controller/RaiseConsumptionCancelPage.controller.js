@@ -52,7 +52,7 @@ sap.ui.define([
         },
         _onObjectMatched: function (oEvent) {
             var that = this;
-            var sObjectId = oEvent.getParameter("arguments").ReservationID;
+            var sObjectId = oEvent.getParameter("arguments").PostingID;
             this.sObjectId = sObjectId;
             this._bindView("/ConsumptionPostingSet(" + sObjectId + ")");
         },

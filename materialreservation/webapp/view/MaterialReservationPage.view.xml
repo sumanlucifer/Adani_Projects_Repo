@@ -45,22 +45,22 @@
             </FlexBox>
         </uxap:headerContent>
         <uxap:sections>
-            <uxap:ObjectPageSection titleUppercase="false" title="Additional Details">
+            <uxap:ObjectPageSection titleUppercase="false">
                 <uxap:subSections>
-                    <uxap:ObjectPageSubSection title="Additional Details">
+                    <uxap:ObjectPageSubSection>
                         <uxap:blocks>
                             <f:SimpleForm layout="ColumnLayout" binding="{HeaderDetailsModel>/}" columnsM="2" columnsL="3" columnsXL="4" singleContainerFullSize="true" class="style-RemoveTitleHeight">
                                 <f:content>
                                     <!-- <core:Title  /> -->
-                                    <Label text="Movement Type"/>
+                                    <Label text="Movement Type" required="true"/>
                                     <Select id="idSelMovementType" change="onMoventTypeChange" selectedKey="{HeaderDetailsModel>MovementTypeValue}" forceSelection="false" items="{HeaderDetailsModel>/movementType}">
-                                        <core:Item key="{HeaderDetailsModel>value}" text="{HeaderDetailsModel>value}-{HeaderDetailsModel>Text}" />
+                                        <core:Item key="{HeaderDetailsModel>value}" text="{HeaderDetailsModel>Text}" />
                                     </Select>
                                     <Label text="Good Recipient" required="true"/>
                                     <Input id="idGoodReciept" value="{HeaderDetailsModel>GoodReciepient}" />
 
                                     <Label visible="{= ${objectViewModel>/isMovementType2Visible} ? true : false}" text="WBS" required="true"/>
-                                    <Input visible="{= ${objectViewModel>/isMovementType2Visible} ? true : false}" id="idWBD" value="{HeaderDetailsModel>WBS}" />
+                                    <Input visible="{= ${objectViewModel>/isMovementType2Visible} ? true : false}" id="idWBS" value="{HeaderDetailsModel>WBS}" />
                                     <Label text="Plant" required="true"/>
                                     <Input id="idPlant" value="{HeaderDetailsModel>Plant}" />
                                     <!-- <core:Title ></core:Title> -->
@@ -86,17 +86,17 @@
                                     <OverflowToolbar >
                                         <content>
                                             <ToolbarSpacer></ToolbarSpacer>
-                                            <Button icon="sap-icon://add" press="onAddReservationItemsPress"></Button>
+                                            <Button text="Add" icon="sap-icon://add" press="onAddReservationItemsPress"></Button>
                                         </content>
                                     </OverflowToolbar>
                                 </headerToolbar>
                                 <columns>
 
                                     <Column >
-                                        <Text text="Material Code"/>
+                                        <Text text="Material Name"/>
                                     </Column>
                                     <Column>
-                                        <Text text="Material Name"/>
+                                        <Text text="Description"/>
                                     </Column>
 
                                     <Column>
@@ -119,10 +119,10 @@
                                             }">
                                                 <suggestionColumns>
                                                     <Column demandPopin="true">
-                                                        <Label text="MaterialCode" />
+                                                        <Label text="Material Name" />
                                                     </Column>
                                                     <Column demandPopin="true" minScreenWidth="Tablet">
-                                                        <Label text="Material Name" />
+                                                        <Label text="Description" />
                                                     </Column>
                                                     <Column hAlign="End" minScreenWidth="Tablet">
                                                         <Label text="UOM" />
@@ -156,7 +156,8 @@
         <uxap:footer>
             <OverflowToolbar visible="{= ${objectViewModel>/isItemFieldsVisible} ? true : false}">
                 <ToolbarSpacer/>
-                <Button text="Submit" class="sapUiTinyMarginBegin" press="onSubmitReservation" type="Emphasized" />
+                <Button text="Save" class="sapUiTinyMarginBegin" press="onSubmitReservation" type="Emphasized" />
+                <Button text="Cancel" class="sapUiTinyMarginBegin" press="onCancelReservation"  />
             </OverflowToolbar>
         </uxap:footer>
     </uxap:ObjectPageLayout>

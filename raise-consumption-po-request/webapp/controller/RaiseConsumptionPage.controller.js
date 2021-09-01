@@ -33,45 +33,27 @@ sap.ui.define([
                 var that = this;
                 this.validateSONumber();
             },
-            onChangeSONumber: function (oEvent) {
-                debugger;
-                var oValue = oEvent.getSource().getValue();
-                if (!oValue.match(/^\d{4}$/)) {
-
-                    this.getView().byId("idSoNumber").setValueState("Error");
-                    this.getView().byId("idSoNumber").setValueStateText("Please Enter upto 10 digit Number");
-                    this.getView().byId("SObtnSubmit").setEnabled(false);
-                    return;
-                }
-                else {
-                    this.getView().byId("idSoNumber").setValueState("None");
-                    this.getView().byId("idSoNumber").setValueStateText(null);
-                    this.getView().byId("SObtnSubmit").setEnabled(true);
-
-                }
-
-
+            onbeforeRebindIssueReservedTable: function (oEvent) {
+                var mBindingParams = oEvent.getParameter("bindingParams");
+                mBindingParams.sorter.push(new sap.ui.model.Sorter("ReservationDate", true));
             },
-
+            onbeforeRebindConsumptionTable: function (oEvent) {
+                var mBindingParams = oEvent.getParameter("bindingParams");
+                mBindingParams.sorter.push(new sap.ui.model.Sorter("DocumentDate", true));
+            },
             onDetailPress: function (oEvent) {
-                 var that = this;
-
+                var that = this;
                 var sObjectPath = oEvent.getSource().getBindingContext().getObject().ID;
                 this.oRouter.navTo("RouteReturnConsumptionDetailPage", {
                     ReservationID: sObjectPath
                 }, false);
             },
-             onNavigationCancelPress: function (oEvent) {
-                 var that = this;
-
+            onNavigationCancelPress: function (oEvent) {
+                var that = this;
                 var sObjectPath = oEvent.getSource().getBindingContext().getObject().ID;
                 this.oRouter.navTo("RouteReturnConsumptionCancelPage", {
                     PostingID: sObjectPath
                 }, false);
             }
-
-
-
-
         });
     });

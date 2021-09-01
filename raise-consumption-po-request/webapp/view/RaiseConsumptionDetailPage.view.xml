@@ -13,44 +13,88 @@
         <uxap:headerTitle>
             <uxap:ObjectPageDynamicHeaderTitle>
                 <uxap:breadcrumbs>
-                    <Breadcrumbs id="breadcrumbsId" currentLocationText="{i18n>ConsumptionPostingItems}">
-                        <Link text="{i18n>ConsumptionReservationItems}" press=".handleToAllPOBreadcrumPress"/>
+                    <Breadcrumbs id="breadcrumbsId" currentLocationText="{i18n>ConsumptionReservationDetails}">
+                        <Link text="{i18n>ConsumptionReservations}" press=".handleToAllPOBreadcrumPress"/>
                     </Breadcrumbs>
                 </uxap:breadcrumbs>
                 <uxap:expandedHeading>
                     <FlexBox direction="Column" renderType="Bare">
-                        <Title text="{i18n>ConsumptionPostingItems}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
-                        <Title text="{SONumber}" wrapping="true" titleStyle="H3" />
+                        <Title text="{i18n>ConsumptionReservationDetails}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
+                        <Title text="{ReservationNumber}" wrapping="true" titleStyle="H3" />
                     </FlexBox>
                 </uxap:expandedHeading>
                 <uxap:snappedHeading>
                     <FlexBox direction="Column" renderType="Bare">
-                        <Title text="{i18n>ConsumptionPostingItems}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
-                        <Title text="{SONumber}" wrapping="true" titleStyle="H3"/>
+                        <Title text="{i18n>ConsumptionReservationDetails}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
+                        <Title text="{ReservationNumber}" wrapping="true" titleStyle="H3"/>
                     </FlexBox>
                 </uxap:snappedHeading>
                 <uxap:expandedContent>
                 </uxap:expandedContent>
                 <uxap:snappedTitleOnMobile>
-                    <Title text="{i18n>SONumber}- {SONumber}" wrapping="true" titleStyle="Auto"/>
+                    <Title text="{i18n>ReservationNumber}- {ReservationNumber}" wrapping="true" titleStyle="Auto"/>
                 </uxap:snappedTitleOnMobile>
                 <uxap:actions>
-                    <HBox visible="true">
-                        <!-- <Button text="Done" press="onPressDone" type="Accept" visible="{objectViewModel>/doneButton}"/> -->
-                        <Title text="" />
-                        <Button text="Submit" press="onPressSubmitConsumptionPosting" type="Emphasized"/>
-                    </HBox>
+                    <Button text="Post Consumption" visible="{= ${Status} === 'RESERVED'}" press="onPressSubmitConsumptionPosting" type="Emphasized"/>
                 </uxap:actions>
             </uxap:ObjectPageDynamicHeaderTitle>
         </uxap:headerTitle>
         <uxap:headerContent>
+
+         <FlexBox wrap="Wrap" height="100%" renderType="Bare" direction="Column">
+                <VBox renderType="Bare">
+                    <FlexBox direction="Row" renderType="Bare" class="sapUiTinyMarginBottom">
+                        <VBox renderType="Bare" class="sapUiMediumMarginEnd">
+                            <Label text="{i18n>issuedDate}" />
+                            <!-- missing -->
+                            <Text text="{path:'CreatedAt',
+                                     type: 'sap.ui.model.type.Date',
+				                     formatOptions: {
+				                        pattern: 'MMMM dd, yyyy'
+				                     }
+                            }"/>
+                        </VBox>
+                        <VBox renderType="Bare" class="sapUiMediumMarginEnd" visible="{= ${Status}==='CONFIRMED'}">
+                            <Label text="{i18n>ReservationDate}" />
+                            <!-- missing -->
+                            <Text text="{path:'ReservationDate',
+                                     type: 'sap.ui.model.type.Date',
+				                     formatOptions: {
+				                        pattern: 'MMMM dd, yyyy'
+				                     }
+                            }"/>
+                        </VBox>
+                        <VBox renderType="Bare" class="sapUiMediumMarginEnd">
+                            <Label text="{i18n>targetDate}" />
+                            <!-- missing -->
+                            <Text text="{path:'ValidityEndDate',
+                                     type: 'sap.ui.model.type.Date',
+				                     formatOptions: {
+				                        pattern: 'MMMM dd, yyyy'
+				                     }
+                            }"/>
+                        </VBox>
+                        <VBox renderType="Bare" class="sapUiMediumMarginEnd">
+                            <Label text="{i18n>status}" />
+                            <!-- missing -->
+                          <ObjectStatus text="{Status}" state="{= ${Status} === 'POSTED' ? 'Success' : ${Status} === 'RESERVED' ? 'Information' : 'Error'}" visible="{= ${Status}.length>0 ? true : false }"/>
+                        </VBox>
+
+                  
+                    </FlexBox>
+                </VBox>
+                <!-- <VBox renderType="Bare">
+                    <Label text="{i18n>instruction}" design="Bold"/>
+                    <ObjectAttribute text="Please raise the inspection call through SIMS portal." />
+                </VBox> -->
+            </FlexBox>
         </uxap:headerContent>
         <uxap:sections>
             <!-- Line Items Section -->
-            <uxap:ObjectPageSection titleUppercase="false" >
+            <uxap:ObjectPageSection titleUppercase="false">
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection >
-                        <smartTable:SmartTable class="sapUiResponsiveContentPadding" id="idIssueTable" editable="false" placeToolbarInTable="true" enableAutoBinding="true" entitySet="ConsumptionPostingReserveSet" tableBindingPath="ConsumedMaterialParent" showFullScreenButton="true" requestAtLeastFields="ID" header="Consumption Posting" showRowCount="true" tableType="ResponsiveTable" demandPopin="false" useExportToExcel="false">
+                        <smartTable:SmartTable class="sapUiResponsiveContentPadding" id="idIssueTable" editable="false" placeToolbarInTable="true" enableAutoBinding="true" entitySet="ConsumptionPostingReserveSet" tableBindingPath="ConsumedMaterialParent" showFullScreenButton="true" requestAtLeastFields="ID" header="Items" showRowCount="true" tableType="ResponsiveTable" demandPopin="false" useExportToExcel="false">
                             <Table sticky="ColumnHeaders,HeaderToolbar" alternateRowColors="true">
                                 <columns>
                                     <Column >
@@ -112,7 +156,7 @@
                                             <Text text="{Plant}"/>
                                             <Text text="{StorageLocation}"/>
                                             <Text text="{Quantity}"/>
-                                             <Text text="{ReservationNumber}"/>
+                                            <Text text="{ReservationNumber}"/>
                                         </cells>
                                     </ColumnListItem>
                                 </items>
