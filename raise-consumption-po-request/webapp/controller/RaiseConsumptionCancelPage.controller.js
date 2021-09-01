@@ -20,7 +20,7 @@ sap.ui.define([
     '../utils/formatter',
 ], function (BaseController, JSONModel, Filter, FilterOperator, Fragment, Sorter, Device, History, ColumnListItem, Input, deepExtend, Spreadsheet, MessageToast, MessageBox, ObjectIdentifier, Text, Button, Dialog, formatter) {
     "use strict";
-    return BaseController.extend("com.agel.mmts.raiseconsumptionporequest.controller.RaiseConsumptionDetailPage", {
+    return BaseController.extend("com.agel.mmts.raiseconsumptionporequest.controller.RaiseConsumptionCancelPage", {
         formatter: formatter,
         onInit: function () {
             this.getView().addEventDelegate({
@@ -48,13 +48,13 @@ sap.ui.define([
             this.getView().setModel(this.MainModel);
             //Router Object
             this.oRouter = this.getRouter();
-            this.oRouter.getRoute("RouteReturnConsumptionDetailPage").attachPatternMatched(this._onObjectMatched, this);
+            this.oRouter.getRoute("RouteReturnConsumptionCancelPage").attachPatternMatched(this._onObjectMatched, this);
         },
         _onObjectMatched: function (oEvent) {
             var that = this;
             var sObjectId = oEvent.getParameter("arguments").ReservationID;
             this.sObjectId = sObjectId;
-            this._bindView("/ConsumptionPostingReserveSet(" + sObjectId + ")");
+            this._bindView("/ConsumptionPostingSet(" + sObjectId + ")");
         },
         _bindView: function (sObjectPath) {
             var objectViewModel = this.getViewModel("objectViewModel");
@@ -90,23 +90,16 @@ sap.ui.define([
             mBindingParams.parameters["expand"] = "IssuedMaterialBOQ";
             mBindingParams.parameters["navigation"] = { "IssuedMaterialParentSet": "IssuedMaterialBOQ" };
             mBindingParams.filters.push(new sap.ui.model.Filter("SONumberId/ID", sap.ui.model.FilterOperator.EQ, this.sObjectId));
-
         },
         onBeforeRebindRestTable: function (oEvent) {
             var mBindingParams = oEvent.getParameter("bindingParams");
             mBindingParams.filters.push(new Filter("SONumberId/ID", sap.ui.model.FilterOperator.EQ, this.sObjectId));
             mBindingParams.sorter.push(new sap.ui.model.Sorter("CreatedAt", true));
         },
-
-        
-
-        onPressSubmitConsumptionPosting: function (oEvent) {
+        onPressCancelConsumptionPosting1: function (oEvent) {
             var that = this;
             var ConsumptionPostingReserveId = that.sObjectId;
             var ConsumptionPostingId = oEvent.getSource().getBindingContext().getObject().ConsumptionPostingId;
-
-
-
             MessageBox.confirm("Do you want to Submit the consumption request?", {
                 icon: MessageBox.Icon.INFORMATION,
                 title: "Confirm",
@@ -114,14 +107,12 @@ sap.ui.define([
                 emphasizedAction: MessageBox.Action.YES,
                 onClose: function (oAction) {
                     if (oAction == "YES") {
-                        that.onSubmitButtonConfirmPress(ConsumptionPostingReserveId);
+                        that.onSubmitCancelConfirmPress(ConsumptionPostingReserveId);
                     }
                 }
             });
-
         },
-
-        onSubmitButtonConfirmPress: function (CID) {
+        onSubmitCancelConfirmPress: function (CID) {
             var oPayload =
             {
                 "UserName": "Agel",
@@ -130,7 +121,7 @@ sap.ui.define([
             this.MainModel.create("/ConsumptionPostingEdmSet", oPayload, {
                 success: function (oData, oResponse) {
                     if (oData.Success === true) {
-                        sap.m.MessageBox.success("Consumption has been Posted successfully!", {
+                        sap.m.MessageBox.success("Consumption has been Cancelled successfully!", {
                             title: "Success",
                             onClose: function (oAction1) {
                                 if (oAction1 === sap.m.MessageBox.Action.OK) {
@@ -139,7 +130,6 @@ sap.ui.define([
                             }.bind(this)
                         });
                     }
-
                     else {
                         sap.m.MessageBox.success("Something went wrong!");
                     }
@@ -148,7 +138,27 @@ sap.ui.define([
                     sap.m.MessageBox.error(oError.Message);
                 }
             });
-        }
+        },
+        onPressCancelConsumptionPosting: function (oEvent) {
+         
+            var sConsumptionReservationContext = "/ConsumptionPostingSet(" + parseInt(this.sObjectId) + "l)/ConsumptionPostingReserve"
+            var ConsumptionReserveId = this.getView().getModel().getData(sConsumptionReservationContext).ID;
+            var oPayload = {
+                "UserName": "Agel",
+                "ConsumptionPostingReserveId": ConsumptionReserveId,
+                "ConsumptionPostingId": this.sObjectId,
+            };
 
+            
+            this.MainModel.create("/CancelConsumptionPostingEdmSet", oPayload, {
+                success: function (oData, oResponse) {
+                    debugger;
+                }.bind(this),
+                error: function (oError) {
+                    debugger;
+                    sap.m.MessageBox.error("Data Not Found");
+                }
+            });
+        }
     });
 });

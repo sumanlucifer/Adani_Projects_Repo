@@ -2,7 +2,7 @@
     xmlns:smartTable="sap.ui.comp.smarttable"
     xmlns:core="sap.ui.core">
 
-    <smartTable:SmartTable class="sapUiResponsiveContentPadding" id="idIssueTable" editable="false" placeToolbarInTable="true" enableAutoBinding="true" entitySet="ConsumptionPostingReserveSet" showFullScreenButton="true" header="Consumption Reservation" showRowCount="true" tableType="ResponsiveTable" demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" beforeRebindTable="onbeforeRebindIssueReservedTable" ignoreFromPersonalisation="ID, Status, RequestDate, CancelledDate, CancelledBy, Comment, CostCentre, WBSNumber, ProfitCentre, GLAccount, ReceivingLocation, Plant, IsArchived, CreatedAt, CreatedBy, UpdatedAt, UpdatedBy">
+    <smartTable:SmartTable class="sapUiResponsiveContentPadding" id="idIssueTable" editable="false" placeToolbarInTable="true" enableAutoBinding="true" entitySet="ConsumptionPostingReserveSet" showFullScreenButton="true" requestAtLeastFields="ID" header="Consumption Reservation" showRowCount="true" tableType="ResponsiveTable" demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" beforeRebindTable="onbeforeRebindIssueReservedTable" ignoreFromPersonalisation="RequestDate, CancelledDate, CancelledBy, Comment, CostCentre, WBSNumber, ProfitCentre, GLAccount, ReceivingLocation, Plant, IsArchived, CreatedAt, CreatedBy, UpdatedAt, UpdatedBy">
 
         <Table sticky="ColumnHeaders,HeaderToolbar" updateFinished="onIssueTableUpdateFinished" alternateRowColors="true">
             <columns>
@@ -30,7 +30,7 @@
                 <Column demandPopin="true" minScreenWidth="Desktop">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "GoodsRecipient", "leadingProperty": "GoodsRecipient",
-"columnIndex": 1 ,"sortProperty": "GoodsRecipient","filterProperty": "GoodsRecipient"}'/>
+"columnIndex": 2 ,"sortProperty": "GoodsRecipient","filterProperty": "GoodsRecipient"}'/>
                     </customData>
                     <Text text="{i18n>goodsRecipient}"/>
                 </Column>
@@ -39,9 +39,18 @@
                 <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "ReservationDate", "leadingProperty": "ReservationDate",
-"columnIndex": 2 ,"sortProperty": "ReservationDate"}'/>
+"columnIndex": 3 ,"sortProperty": "ReservationDate"}'/>
                     </customData>
                     <Text text="{i18n>reservationDate}"/>
+                </Column>
+
+
+                <Column demandPopin="true" minScreenWidth="Tablet">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Status", "leadingProperty": "Status",
+"columnIndex": 4 ,"sortProperty": "Status"}'/>
+                    </customData>
+                    <Text text="{i18n>Status}"/>
                 </Column>
 
             </columns>
@@ -58,6 +67,12 @@ formatOptions: {
 pattern: 'MMMM dd, yyyy'
 }
 }"/>
+
+
+
+                        <ObjectStatus text="{Status}" state="{= ${Status} === 'POSTED' ? 'Success' : ${Status} === 'RESERVED' ? 'Error' : 'Warning'}" visible="{= ${Status}.length>0 ? true : false }"/>
+
+
                     </cells>
                 </ColumnListItem>
             </items>

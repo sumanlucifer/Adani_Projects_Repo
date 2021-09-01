@@ -8,7 +8,7 @@
     xmlns:unified="sap.ui.unified"
     xmlns:tt="sap.ui.table"
     xmlns:smartTable="sap.ui.comp.smarttable"
-    xmlns="sap.m" controllerName="com.agel.mmts.raiseconsumptionporequest.controller.RaiseConsumptionDetailPage" height="100%">
+    xmlns="sap.m" controllerName="com.agel.mmts.raiseconsumptionporequest.controller.RaiseConsumptionCancelPage" height="100%">
     <uxap:ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true" upperCaseAnchorBar="false" headerContentPinnable="true" toggleHeaderOnTitleClick="true" busy="{objectViewModel>/busy}">
         <uxap:headerTitle>
             <uxap:ObjectPageDynamicHeaderTitle>
@@ -38,19 +38,22 @@
                     <HBox visible="true">
                         <!-- <Button text="Done" press="onPressDone" type="Accept" visible="{objectViewModel>/doneButton}"/> -->
                         <Title text="" />
-                        <Button text="Submit" press="onPressSubmitConsumptionPosting" type="Emphasized"/>
+                        <Button text="Cancel" press="onPressCancelConsumptionPosting" type="Emphasized"/>
                     </HBox>
                 </uxap:actions>
             </uxap:ObjectPageDynamicHeaderTitle>
         </uxap:headerTitle>
         <uxap:headerContent>
+            <VBox binding="{ConsumptionPostingReserve}">
+
+            </VBox>
         </uxap:headerContent>
         <uxap:sections>
             <!-- Line Items Section -->
-            <uxap:ObjectPageSection titleUppercase="false" >
+            <uxap:ObjectPageSection titleUppercase="false">
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection >
-                        <smartTable:SmartTable class="sapUiResponsiveContentPadding" id="idIssueTable" editable="false" placeToolbarInTable="true" enableAutoBinding="true" entitySet="ConsumptionPostingReserveSet" tableBindingPath="ConsumedMaterialParent" showFullScreenButton="true" requestAtLeastFields="ID" header="Consumption Posting" showRowCount="true" tableType="ResponsiveTable" demandPopin="false" useExportToExcel="false">
+                        <smartTable:SmartTable class="sapUiResponsiveContentPadding" id="idIssueTable" editable="false" placeToolbarInTable="true" enableAutoBinding="true" entitySet="ConsumptionPostingSet" tableBindingPath="ConsumptionPostingReserve/ConsumedMaterialParent" showFullScreenButton="true" requestAtLeastFields="ID" header="Consumption Posting" showRowCount="true" tableType="ResponsiveTable" demandPopin="false" useExportToExcel="false">
                             <Table sticky="ColumnHeaders,HeaderToolbar" alternateRowColors="true">
                                 <columns>
                                     <Column >
@@ -112,7 +115,7 @@
                                             <Text text="{Plant}"/>
                                             <Text text="{StorageLocation}"/>
                                             <Text text="{Quantity}"/>
-                                             <Text text="{ReservationNumber}"/>
+                                            <Text text="{ReservationNumber}"/>
                                         </cells>
                                     </ColumnListItem>
                                 </items>

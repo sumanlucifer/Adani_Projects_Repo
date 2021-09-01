@@ -53,11 +53,24 @@ sap.ui.define([
 
             },
 
-            onDetailPress: function () {
+            onDetailPress: function (oEvent) {
+                 var that = this;
+
+                var sObjectPath = oEvent.getSource().getBindingContext().getObject().ID;
                 this.oRouter.navTo("RouteReturnConsumptionDetailPage", {
-                    ReservationID: 5660971264,
+                    ReservationID: sObjectPath
+                }, false);
+            },
+             onNavigationCancelPress: function (oEvent) {
+                 var that = this;
+
+                var sObjectPath = oEvent.getSource().getBindingContext().getObject().ID;
+                this.oRouter.navTo("RouteReturnConsumptionCancelPage", {
+                    PostingID: sObjectPath
                 }, false);
             }
+
+
 
 
         });

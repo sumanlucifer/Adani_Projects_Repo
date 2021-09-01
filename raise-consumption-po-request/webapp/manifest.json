@@ -128,6 +128,13 @@
                     "target": [
                         "TargetReturnConsumptionDetailPage"
                     ]
+                },
+                {
+                    "name": "RouteReturnConsumptionCancelPage",
+                    "pattern": "consumptionCancel/{PostingID}",
+                    "target": [
+                        "TargetReturnConsumptionCancelPage"
+                    ]
                 }
             ],
             "targets": {
@@ -144,6 +151,13 @@
                     "clearControlAggregation": false,
                     "viewName": "RaiseConsumptionDetailPage",
                     "viewLevel": 2
+                },
+                 "TargetReturnConsumptionCancelPage": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewName": "RaiseConsumptionCancelPage",
+                    "viewLevel": 3
                 },
                 "notFound": {
                     "viewName": "NotFound"
