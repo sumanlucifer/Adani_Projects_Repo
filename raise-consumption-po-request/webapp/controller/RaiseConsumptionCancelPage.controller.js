@@ -112,9 +112,9 @@ sap.ui.define([
                 }
             });
         },
-       
+
         onSubmitCancelConfirmPress: function (oEvent) {
-         
+
             var sConsumptionReservationContext = "/ConsumptionPostingSet(" + parseInt(this.sObjectId) + "l)/ConsumptionPostingReserve"
             var ConsumptionReserveId = this.getView().getModel().getData(sConsumptionReservationContext).ID;
             var oPayload = {
@@ -123,9 +123,15 @@ sap.ui.define([
                 "ConsumptionPostingId": this.sObjectId,
             };
 
-            
+
             this.MainModel.create("/CancelConsumptionPostingEdmSet", oPayload, {
                 success: function (oData, oResponse) {
+                    if (oData.Success === true) {
+
+                        sap.m.MessageBox.success("The consumption posting has been cancelled for selected Items!");
+                    }
+
+
                     debugger;
                 }.bind(this),
                 error: function (oError) {

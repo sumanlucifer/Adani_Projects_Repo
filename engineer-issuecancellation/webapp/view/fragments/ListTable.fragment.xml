@@ -1,47 +1,56 @@
 <core:FragmentDefinition xmlns="sap.m"
     xmlns:smartTable="sap.ui.comp.smarttable"
     xmlns:core="sap.ui.core">
-
-    <smartTable:SmartTable class="sapUiResponsiveContentPadding" id="idListTable" editable="false" placeToolbarInTable="true" enableAutoBinding="true" entitySet="IssuedMaterialSet" showFullScreenButton="true" header="Issue Material" showRowCount="true" tableType="ResponsiveTable" demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" beforeRebindTable="onbeforeRebindListIssueTable" ignoreFromPersonalisation="ID, Status, TotalGrossWeight, CancelledAt, CancelledBy, UpdatedAt, UpdatedBy,CreatedBy, IsArchived">
-
+    <smartTable:SmartTable class="sapUiResponsiveContentPadding" id="idListTable" editable="false" placeToolbarInTable="true" enableAutoBinding="true" entitySet="IssuedMaterialSet" showFullScreenButton="true" header="Issue Reservations" showRowCount="true" tableType="ResponsiveTable" requestAtLeastFields="ID" demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" beforeRebindTable="onbeforeRebindListIssueTable" ignoreFromPersonalisation="ID">
         <Table sticky="ColumnHeaders,HeaderToolbar" updateFinished="onIssueTableUpdateFinished" alternateRowColors="true">
             <columns>
-
                 <Column >
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "SONumberId/SONumber", "leadingProperty": "SONumberId/SONumber",
-"columnIndex": 0 ,"sortProperty": "SONumberId/SONumber","filterProperty": "SONumberId/SONumber"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "MaterialDocumentNumber", "leadingProperty": "MaterialDocumentNumber",
+"columnIndex": 0 ,"sortProperty": "MaterialDocumentNumber","filterProperty": "MaterialDocumentNumber"}'/>
                     </customData>
-                    <Text text="{i18n>sONumber}"/>
+                    <Text text="{i18n>MaterialDocumentNumber}"/>
                 </Column>
-
-                <Column demandPopin="true" minScreenWidth="Desktop">
+                <Column >
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "SONumberId/Contractor/Name", "leadingProperty": "SONumberId/Contractor/Name",
-"columnIndex": 1 ,"sortProperty": "SONumberId/Contractor/Name","filterProperty": "SONumberId/Contractor/Name"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "MaterialDocumentYear", "leadingProperty": "MaterialDocumentYear",
+"columnIndex": 1 ,"sortProperty": "MaterialDocumentYear","filterProperty": "MaterialDocumentYear"}'/>
                     </customData>
-                    <Text text="{i18n>contractorName}"/>
+                    <Text text="{i18n>MaterialDocumentYear}"/>
                 </Column>
-
+                <Column >
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "TotalGrossWeight", "leadingProperty": "TotalGrossWeight",
+"columnIndex": 2 ,"sortProperty": "TotalGrossWeight","filterProperty": "TotalGrossWeight"}'/>
+                    </customData>
+                    <Text text="{i18n>TotalGrossWeight}"/>
+                </Column>
+                <Column demandPopin="true" minScreenWidth="Tablet">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Status", "leadingProperty": "Status",
+"columnIndex": 3 ,"sortProperty": "Status"}'/>
+                    </customData>
+                    <Text text="{i18n>Status}"/>
+                </Column>
                 <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "CreatedAt", "leadingProperty": "CreatedAt",
-"columnIndex": 2 ,"sortProperty": "CreatedAt"}'/>
+"columnIndex": 4 ,"sortProperty": "CreatedAt"}'/>
                     </customData>
                     <Text text="{i18n>issuedDate}"/>
                 </Column>
-
             </columns>
             <items>
-
                 <ColumnListItem type="Navigation" press="onDetailPress">
                     <cells>
-                        <ObjectIdentifier title="{SONumber}" binding="{SONumberId}"/>
-                        <Text text="{Name}" binding="{SONumberId/Contractor}"/>
+                        <ObjectIdentifier title="{Mate­ri­al­Doc­u­ment­Num­ber}" />
+                        <Text text="{MaterialDocumentYear}"/>
+                        <Text text="{TotalGrossWeight}"/>
+                        <ObjectStatus text="{Status}" state="{= ${Status} === 'POSTED' ? 'Success' : ${Status} === 'RESERVED' ? 'Information' : 'Error'}" visible="{= ${Status}.length>0 ? true : false }"/>
                         <Text text="{path:'CreatedAt',
-type: 'sap.ui.model.type.Date',
+type: 'sap.ui.model.type.DateTime',
 formatOptions: {
-pattern: 'MMMM dd, yyyy'
+pattern: 'MMMM dd, yyyy HH:mm:ss'
 }
 }"/>
                     </cells>
@@ -49,7 +58,4 @@ pattern: 'MMMM dd, yyyy'
             </items>
         </Table>
     </smartTable:SmartTable>
-
-
-
 </core:FragmentDefinition> 

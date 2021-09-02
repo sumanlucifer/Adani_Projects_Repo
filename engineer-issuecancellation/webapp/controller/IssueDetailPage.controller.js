@@ -20,7 +20,6 @@ sap.ui.define([
     '../utils/formatter',
 ], function (BaseController, JSONModel, Filter, FilterOperator, Fragment, Sorter, Device, History, ColumnListItem, Input, deepExtend, Spreadsheet, MessageToast, MessageBox, ObjectIdentifier, Text, Button, Dialog, formatter) {
     "use strict";
-
     return BaseController.extend("com.agel.mmts.engineerissuecancellation.controller.IssueDetailPage", {
         formatter: formatter,
         onInit: function () {
@@ -37,30 +36,22 @@ sap.ui.define([
                 reserveButton: true
             });
             this.setModel(oViewModel, "objectViewModel");
-
             //    this._initializeCreationModels();
-
             // Keeps reference to any of the created sap.m.ViewSettingsDialog-s in this sample
             this._mViewSettingsDialogs = {};
-
             //Router Object
             this.oRouter = this.getRouter();
             this.oRouter.getRoute("IssueDetailPage").attachPatternMatched(this._onObjectMatched, this);
         },
-
         _onObjectMatched: function (oEvent) {
             var sObjectId = oEvent.getParameter("arguments").ID;
-            var sObjectId = 5;
-            this.sObjectId = 5;
-
-
+            // var sObjectId = 5;
+            // this.sObjectId = 5;
             this._bindView("/IssuedMaterialSet(" + sObjectId + ")");
         },
-
         _bindView: function (sObjectPath) {
             var objectViewModel = this.getViewModel("objectViewModel");
             var that = this;
-
             this.getView().bindElement({
                 path: sObjectPath,
                 events: {
@@ -73,17 +64,12 @@ sap.ui.define([
                 }
             });
         },
-
         handleToAllPOBreadcrumPress: function (oEvent) {
             history.go(-1);
         },
-
         // On Submit QR Histroy
         onPressSubmitQRCode: function () {
             var that = this;
-            this.validateQRCode();
         }
-
-       
     });
 });

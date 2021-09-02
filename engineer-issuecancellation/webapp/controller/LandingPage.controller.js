@@ -78,11 +78,11 @@ sap.ui.define([
 
             _showObjectList: function (oItem) {
                 var that = this;
-                var sObjectPath = oItem.getBindingContext().sPath;
+                var sObjectPath = oItem.getBindingContext().getObject().ID;
                 // debugger;
                 that.getRouter().navTo("IssueDetailPage", {
-                    // ID: oItem.getBindingContext().getObject().ID
-                    ID: sObjectPath.slice("/IssuedMaterialSet".length)
+                   
+                    ID: sObjectPath
                 });
             }
         });

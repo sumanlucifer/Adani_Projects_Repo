@@ -44,19 +44,31 @@
             </uxap:ObjectPageDynamicHeaderTitle>
         </uxap:headerTitle>
         <uxap:headerContent>
-           
-      
-
          <FlexBox wrap="Wrap" height="100%" renderType="Bare" direction="Column">
           <VBox binding="{ConsumptionPostingReserve}">
             </VBox>
                 <VBox renderType="Bare">
                     <FlexBox direction="Row" renderType="Bare" class="sapUiTinyMarginBottom">
+                    <VBox renderType="Bare" class="sapUiMediumMarginEnd">
+                            <Label text="{i18n>MaterialDocumentNumber}" />
+                            <!-- missing -->
+                            <Text text="{MaterialDocumentNumber}"/>
+                        </VBox>
                         <VBox renderType="Bare" class="sapUiMediumMarginEnd">
                             <Label text="{i18n>issuedDate}" />
                             <!-- missing -->
                             <Text text="{path:'CreatedAt',
-                                     type: 'sap.ui.model.type.Date',
+                                     type: 'sap.ui.model.type.DateTime',
+				                     formatOptions: {
+				                        pattern: 'MMMM dd, yyyy'
+				                     }
+                            }"/>
+                        </VBox>
+                         <VBox renderType="Bare" class="sapUiMediumMarginEnd">
+                            <Label text="{i18n>PostingDate}" />
+                            <!-- missing -->
+                            <Text text="{path:'PostingDate',
+                                     type: 'sap.ui.model.type.DateTime',
 				                     formatOptions: {
 				                        pattern: 'MMMM dd, yyyy'
 				                     }
@@ -67,23 +79,6 @@
                             <!-- missing -->
                             <Text text="{ReservationNumber}"/>
                         </VBox>
-                        <VBox renderType="Bare" class="sapUiMediumMarginEnd">
-                            <Label text="{i18n>targetDate}" />
-                            <!-- missing -->
-                            <Text text="{path:'ValidityEndDate',
-                                     type: 'sap.ui.model.type.Date',
-				                     formatOptions: {
-				                        pattern: 'MMMM dd, yyyy'
-				                     }
-                            }"/>
-                        </VBox>
-                        <VBox renderType="Bare" class="sapUiMediumMarginEnd">
-                            <Label text="{i18n>status}" />
-                            <!-- missing -->
-                          <ObjectStatus text="{Status}" state="{= ${Status} === 'POSTED' ? 'Success' : ${Status} === 'RESERVED' ? 'Information' : 'Error'}" visible="{= ${Status}.length>0 ? true : false }"/>
-                        </VBox>
-
-                  
                     </FlexBox>
                 </VBox>
                 <!-- <VBox renderType="Bare">
@@ -92,7 +87,6 @@
                 </VBox> -->
             </FlexBox>
         </uxap:headerContent>
-
         <uxap:sections>
             <!-- Line Items Section -->
             <uxap:ObjectPageSection titleUppercase="false">
