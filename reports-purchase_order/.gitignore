@@ -6,3 +6,6 @@ package-lock.json
 /resources/
 
 
+
+# auto generated wildcard
+agel-mmts-web/vendorPersona/.env24

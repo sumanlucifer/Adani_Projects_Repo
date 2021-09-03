@@ -104,6 +104,10 @@
 					"id": "com.agel.mmts.raiseconsumptionporequest-2-1629112916537",
 					"appId": "com.agel.mmts.raiseconsumptionporequest",
 					"vizId": "raiseconsumptionposting-Manage"
+				}, {
+					"id": "com.agel.mmts.engineerissuecancellation-3-1630655185521",
+					"appId": "com.agel.mmts.engineerissuecancellation",
+					"vizId": "IssueCancellation-Manage"
 				}]
 			}
 		}, {

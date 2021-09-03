@@ -20,6 +20,20 @@
                     "localUri": "localService/metadata.xml"
                 }
             }
+        },
+        "crossNavigation": {
+            "inbounds": {
+                "intent1": {
+                    "signature": {
+                        "parameters": {},
+                        "additionalParameters": "allowed"
+                    },
+                    "semanticObject": "MaterialReservation",
+                    "action": "Manage",
+                    "title": "{{appTileTitle}}",
+                    "subTitle": "{{appTileSubTitle}}"
+                }
+            }
         }
     },
     "sap.ui": {
