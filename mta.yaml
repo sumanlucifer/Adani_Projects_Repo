@@ -448,8 +448,7 @@ modules:
     build-result: dist
     builder: custom
     commands:
-    - npm install
-    - npm run build:cf
+    - npm run build
     supported-platforms: []
 resources:
 - name: uaa_agel-mmts-web
