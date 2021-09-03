@@ -38,7 +38,7 @@
                 <uxap:actions>
 
 
-                    <Button text="Cancel issue posting" visible="{= ${Status} === 'RESERVED'}" press="onPressCancelIssuePosting" type="Emphasized"/>
+                    <Button text="Cancel issue posting" visible="{= ${Status} === 'Issued'}" press="onPressCancelIssuePosting" type="Emphasized"/>
 
                 </uxap:actions>
             </uxap:ObjectPageDynamicHeaderTitle>

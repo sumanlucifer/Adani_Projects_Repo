@@ -45,8 +45,7 @@ sap.ui.define([
         },
         _onObjectMatched: function (oEvent) {
             var sObjectId = oEvent.getParameter("arguments").ID;
-            // var sObjectId = 5;
-            // this.sObjectId = 5;
+            this.sObjectId = sObjectId;
             this._bindView("/IssuedMaterialSet(" + sObjectId + ")");
         },
         _bindView: function (sObjectPath) {
@@ -67,9 +66,50 @@ sap.ui.define([
         handleToAllPOBreadcrumPress: function (oEvent) {
             history.go(-1);
         },
-        // On Submit QR Histroy
-        onPressSubmitQRCode: function () {
+        onPressCancelIssuePosting: function (oEvent) {
             var that = this;
+            var ConsumptionPostingReserveId = that.sObjectId;
+            var ConsumptionPostingId = oEvent.getSource().getBindingContext().getObject().ConsumptionPostingId;
+            MessageBox.confirm("Do you want to Cancel the issue posting?", {
+                icon: MessageBox.Icon.INFORMATION,
+                title: "Confirm",
+                actions: [MessageBox.Action.YES, MessageBox.Action.NO],
+                emphasizedAction: MessageBox.Action.YES,
+                onClose: function (oAction) {
+                    if (oAction == "YES") {
+                        that.onSubmitCancelConfirmPress(ConsumptionPostingReserveId);
+                    }
+                }
+            });
+        },
+
+        onSubmitCancelConfirmPress: function (oEvent) {
+
+
+            var oPayload = {
+                "IssuedMaterialId": this.sObjectId,
+                "UserName": "Test"
+            };
+
+
+            this.getOwnerComponent().getModel().create("/CancelIssuedMaterialEdmSet", oPayload, {
+                success: function (oData, oResponse) {
+                    if (oData.Success === true) {
+
+                        sap.m.MessageBox.success("The issue posting has been successfully cancelled for selected Items!");
+                    }
+                    else {
+                        sap.m.MessageBox.error(oData.Message);
+                    }
+
+
+
+                }.bind(this),
+                error: function (oError) {
+                    debugger;
+                    sap.m.MessageBox.error("Data Not Found");
+                }
+            });
         }
     });
 });

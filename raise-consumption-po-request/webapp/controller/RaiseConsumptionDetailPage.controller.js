@@ -141,7 +141,7 @@ sap.ui.define([
                     }
 
                     else {
-                        sap.m.MessageBox.success("Something went wrong!");
+                          sap.m.MessageBox.error(oData.Message);
                     }
                 }.bind(this),
                 error: function (oError) {

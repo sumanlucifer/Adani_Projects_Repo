@@ -307,7 +307,7 @@ sap.ui.define([
                             var objectViewModel = this.getViewModel("objectViewModel");
                         }
                         else {
-                            sap.m.MessageBox.success("Something went Wrong!");
+                           sap.m.MessageBox.error(oData.Message);
                         }
                     }.bind(this),
                     error: function (oError) {
@@ -349,7 +349,7 @@ sap.ui.define([
                             var objectViewModel = this.getViewModel("objectViewModel");
                         }
                         else {
-                            sap.m.MessageBox.success("Something went Wrong!");
+                          sap.m.MessageBox.error(oData.Message);
                         }
                     }.bind(this),
                     error: function (oError) {
@@ -392,7 +392,7 @@ sap.ui.define([
                             var objectViewModel = this.getViewModel("objectViewModel");
                         }
                         else {
-                            sap.m.MessageBox.success("Something went Wrong!");
+                        sap.m.MessageBox.error(oData.Message);
                         }
                     }.bind(this),
                     error: function (oError) {

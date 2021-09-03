@@ -130,7 +130,10 @@ sap.ui.define([
 
                         sap.m.MessageBox.success("The consumption posting has been cancelled for selected Items!");
                     }
+else{
 
+       sap.m.MessageBox.error(oData.Message);
+}
 
                     debugger;
                 }.bind(this),

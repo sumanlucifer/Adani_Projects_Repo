@@ -44,37 +44,37 @@
             </uxap:ObjectPageDynamicHeaderTitle>
         </uxap:headerTitle>
         <uxap:headerContent>
-         <FlexBox wrap="Wrap" height="100%" renderType="Bare" direction="Column">
-          <VBox binding="{ConsumptionPostingReserve}">
-            </VBox>
+            <FlexBox wrap="Wrap" height="100%" renderType="Bare" direction="Column">
+                <VBox binding="{ConsumptionPostingReserve}">
+                </VBox>
                 <VBox renderType="Bare">
                     <FlexBox direction="Row" renderType="Bare" class="sapUiTinyMarginBottom">
-                    <VBox renderType="Bare" class="sapUiMediumMarginEnd">
-                            <Label text="{i18n>MaterialDocumentNumber}" />
+                        <VBox renderType="Bare" class="sapUiMediumMarginEnd">
+                            <Label text="{i18n>GatePassNumber}" />
                             <!-- missing -->
-                            <Text text="{MaterialDocumentNumber}"/>
+                            <Text text="{GatePassNumber}"/>
                         </VBox>
                         <VBox renderType="Bare" class="sapUiMediumMarginEnd">
                             <Label text="{i18n>issuedDate}" />
                             <!-- missing -->
                             <Text text="{path:'CreatedAt',
-                                     type: 'sap.ui.model.type.DateTime',
-				                     formatOptions: {
-				                        pattern: 'MMMM dd, yyyy'
-				                     }
+                                    type: 'sap.ui.model.type.DateTime',
+formatOptions: {
+pattern: 'MMMM dd, yyyy HH:mm:ss'
+}
                             }"/>
                         </VBox>
-                         <VBox renderType="Bare" class="sapUiMediumMarginEnd">
+                        <VBox renderType="Bare" class="sapUiMediumMarginEnd">
                             <Label text="{i18n>PostingDate}" />
                             <!-- missing -->
                             <Text text="{path:'PostingDate',
-                                     type: 'sap.ui.model.type.DateTime',
-				                     formatOptions: {
-				                        pattern: 'MMMM dd, yyyy'
-				                     }
+                                 type: 'sap.ui.model.type.DateTime',
+formatOptions: {
+pattern: 'MMMM dd, yyyy HH:mm:ss'
+}
                             }"/>
                         </VBox>
-                        <VBox renderType="Bare" class="sapUiMediumMarginEnd" >
+                        <VBox renderType="Bare" class="sapUiMediumMarginEnd">
                             <Label text="{i18n>ReservationNumber}" />
                             <!-- missing -->
                             <Text text="{ReservationNumber}"/>
@@ -97,56 +97,40 @@
                                 <columns>
                                     <Column >
                                         <customData>
-                                            <core:CustomData key="p13nData" value='\{"columnKey": "MaterialDocumentNumber", "leadingProperty": "MaterialDocumentNumber",
-"columnIndex": 0 ,"sortProperty": "MaterialDocumentNumber","filterProperty": "MaterialDocumentNumber"}'/>
-                                        </customData>
-                                        <Text text="{i18n>MaterialDocumentNumber}"/>
-                                    </Column>
-                                    <Column >
-                                        <customData>
                                             <core:CustomData key="p13nData" value='\{"columnKey": "MaterialCode", "leadingProperty": "MaterialCode",
-"columnIndex": 1 ,"sortProperty": "MaterialCode","filterProperty": "MaterialCode"}'/>
+"columnIndex": 0 ,"sortProperty": "MaterialCode","filterProperty": "MaterialCode"}'/>
                                         </customData>
                                         <Text text="{i18n>MaterialCode}"/>
                                     </Column>
                                     <Column >
                                         <customData>
                                             <core:CustomData key="p13nData" value='\{"columnKey": "Plant", "leadingProperty": "Plant",
-"columnIndex": 2 ,"sortProperty": "Plant","filterProperty": "Plant"}'/>
+"columnIndex": 1 ,"sortProperty": "Plant","filterProperty": "Plant"}'/>
                                         </customData>
                                         <Text text="{i18n>Plant}"/>
                                     </Column>
                                     <Column >
                                         <customData>
                                             <core:CustomData key="p13nData" value='\{"columnKey": "StorageLocation", "leadingProperty": "StorageLocation",
-"columnIndex": 3 ,"sortProperty": "StorageLocation","filterProperty": "StorageLocation"}'/>
+"columnIndex": 2 ,"sortProperty": "StorageLocation","filterProperty": "StorageLocation"}'/>
                                         </customData>
                                         <Text text="{i18n>Plant}"/>
                                     </Column>
                                     <Column >
                                         <customData>
                                             <core:CustomData key="p13nData" value='\{"columnKey": "Quantity", "leadingProperty": "Quantity",
-"columnIndex": 4 ,"sortProperty": "Quantity","filterProperty": "Quantity"}'/>
+"columnIndex": 3 ,"sortProperty": "Quantity","filterProperty": "Quantity"}'/>
                                         </customData>
                                         <Text text="{i18n>Quantity}"/>
-                                    </Column>
-                                    <Column >
-                                        <customData>
-                                            <core:CustomData key="p13nData" value='\{"columnKey": "ReservationNumber", "leadingProperty": "ReservationNumber",
-"columnIndex": 5 ,"sortProperty": "ReservationNumber","filterProperty": "ReservationNumber"}'/>
-                                        </customData>
-                                        <Text text="{i18n>ReservationNumber}"/>
                                     </Column>
                                 </columns>
                                 <items>
                                     <ColumnListItem >
                                         <cells>
-                                            <ObjectIdentifier title="{MaterialDocumentNumber}"/>
-                                            <Text text="{MaterialCode}"/>
+                                            <ObjectIdentifier title="{MaterialCode}"/>
                                             <Text text="{Plant}"/>
                                             <Text text="{StorageLocation}"/>
                                             <Text text="{Quantity}"/>
-                                            <Text text="{ReservationNumber}"/>
                                         </cells>
                                     </ColumnListItem>
                                 </items>
