@@ -23,29 +23,10 @@
                     <Text text="{i18n>MaterialDocumentNumber}"/>
                 </Column>
 
-                <!-- RequestDate -->
-                <Column>
-                    <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "DocumentDate", "leadingProperty": "DocumentDate",
-                                                 "columnIndex": 2 ,"sortProperty": "DocumentDate","filterProperty": "DocumentDate"}'/>
-                    </customData>
-                    <Text text="{i18n>DocumentDate}"/>
-                </Column>
-
-                <!-- Reason -->
-                <Column demandPopin="true" minScreenWidth="Tablet">
-                    <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "PostingDate", "leadingProperty": "PostingDate",
-                                    "columnIndex": 3, "sortProperty": "PostingDate", "filterProperty": "PostingDate"}'/>
-                    </customData>
-                    <Text text="{i18n>PostingDate}" />
-                </Column>
-
-                <!-- Comment -->
                 <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "GatePassNumber", "leadingProperty": "GatePassNumber",
-                                    "columnIndex": 4, "sortProperty": "GatePassNumber", "filterProperty": "GatePassNumber"}'/>
+                                    "columnIndex": 2, "sortProperty": "GatePassNumber", "filterProperty": "GatePassNumber"}'/>
                     </customData>
                     <Text text="{i18n>GatePassNumber}" />
                 </Column>
@@ -54,10 +35,30 @@
                 <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "ReservationNumber", "leadingProperty": "ReservationNumber",
-                                                 "columnIndex": 5, "sortProperty": "ReservationNumber", "filterProperty": "ReservationNumber"}'/>
+                                                 "columnIndex": 3, "sortProperty": "ReservationNumber", "filterProperty": "ReservationNumber"}'/>
                     </customData>
                     <Text text="{i18n>ReservationNumber}"/>
                 </Column>
+                <!-- RequestDate -->
+                <Column>
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "DocumentDate", "leadingProperty": "DocumentDate",
+                                                 "columnIndex": 4 ,"sortProperty": "DocumentDate","filterProperty": "DocumentDate"}'/>
+                    </customData>
+                    <Text text="{i18n>DocumentDate}"/>
+                </Column>
+
+                <!-- Reason -->
+                <Column demandPopin="true" minScreenWidth="Tablet">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "PostingDate", "leadingProperty": "PostingDate",
+                                    "columnIndex": 5, "sortProperty": "PostingDate", "filterProperty": "PostingDate"}'/>
+                    </customData>
+                    <Text text="{i18n>PostingDate}" />
+                </Column>
+
+                <!-- Comment -->
+
 
             </columns>
             <items>
@@ -66,20 +67,22 @@
                     <cells>
                         <ObjectIdentifier text="{ID}"/>
                         <Text text="{MaterialDocumentNumber}"></Text>
+
+                        <Text text="{GatePassNumber}"/>
+                        <Text text="{ReservationNumber}"/>
                         <Text text="{path:'DocumentDate',
-                                    type: 'sap.ui.model.type.Date',
+                                    type: 'sap.ui.model.type.DateTime',
 				                     formatOptions: {
 				                        pattern: 'MMMM dd, yyyy HH:mm:ss'
 				                     }    
                         }"/>
                         <Text text="{path:'PostingDate',
-                                    type: 'sap.ui.model.type.Date',
+                                    type: 'sap.ui.model.type.DateTime',
 				                     formatOptions: {
 				                        pattern: 'MMMM dd, yyyy HH:mm:ss'
 				                     }    
                         }"/>
-                        <Text text="{GatePassNumber}"/>
-                        <Text text="{ReservationNumber}"/>
+
                     </cells>
                 </ColumnListItem>
 

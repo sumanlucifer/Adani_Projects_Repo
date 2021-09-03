@@ -1,0 +1,144 @@
+<mvc:View xmlns:f2="sap.f"
+    xmlns:vbm="sap.ui.vbm"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:uxap="sap.uxap"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+    xmlns:unified="sap.ui.unified"
+    xmlns:tt="sap.ui.table"
+    xmlns:smartTable="sap.ui.comp.smarttable"
+    xmlns="sap.m" controllerName="com.agel.mmts.raiseconsumptionporequest.controller.RaiseConsumptionCancelPage" height="100%">
+    <uxap:ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true" upperCaseAnchorBar="false" headerContentPinnable="true" toggleHeaderOnTitleClick="true" busy="{objectViewModel>/busy}">
+        <uxap:headerTitle>
+            <uxap:ObjectPageDynamicHeaderTitle>
+                <uxap:breadcrumbs>
+                    <Breadcrumbs id="breadcrumbsId" currentLocationText="{i18n>PostedConsumptionDetail}">
+                        <Link text="{i18n>PostedConsumptions}" press=".handleToAllPOBreadcrumPress"/>
+                    </Breadcrumbs>
+                </uxap:breadcrumbs>
+                <uxap:expandedHeading>
+                    <FlexBox direction="Column" renderType="Bare">
+                        <Title text="{i18n>ConsumptionPostingDetail}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
+                        <Title text="{MaterialDocumentNumber}" wrapping="true" titleStyle="H3" />
+                    </FlexBox>
+                </uxap:expandedHeading>
+                <uxap:snappedHeading>
+                    <FlexBox direction="Column" renderType="Bare">
+                        <Title text="{i18n>ConsumptionPostingDetail}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
+                        <Title text="{MaterialDocumentNumber}" wrapping="true" titleStyle="H3"/>
+                    </FlexBox>
+                </uxap:snappedHeading>
+                <uxap:expandedContent>
+                </uxap:expandedContent>
+                <uxap:snappedTitleOnMobile>
+                    <Title text="{i18n>MaterialDocumentNumber}- {MaterialDocumentNumber}" wrapping="true" titleStyle="Auto"/>
+                </uxap:snappedTitleOnMobile>
+                <uxap:actions>
+                    <HBox visible="true">
+                        <!-- <Button text="Done" press="onPressDone" type="Accept" visible="{objectViewModel>/doneButton}"/> -->
+                        <Title text="" />
+                        <Button text="Cancel consumption posting" press="onPressCancelConsumptionPosting" type="Emphasized"/>
+                    </HBox>
+                </uxap:actions>
+            </uxap:ObjectPageDynamicHeaderTitle>
+        </uxap:headerTitle>
+        <uxap:headerContent>
+            <FlexBox wrap="Wrap" height="100%" renderType="Bare" direction="Column">
+                <VBox binding="{ConsumptionPostingReserve}">
+                </VBox>
+                <VBox renderType="Bare">
+                    <FlexBox direction="Row" renderType="Bare" class="sapUiTinyMarginBottom">
+                        <VBox renderType="Bare" class="sapUiMediumMarginEnd">
+                            <Label text="{i18n>GatePassNumber}" />
+                            <!-- missing -->
+                            <Text text="{GatePassNumber}"/>
+                        </VBox>
+                        <VBox renderType="Bare" class="sapUiMediumMarginEnd">
+                            <Label text="{i18n>issuedDate}" />
+                            <!-- missing -->
+                            <Text text="{path:'CreatedAt',
+                                    type: 'sap.ui.model.type.DateTime',
+formatOptions: {
+pattern: 'MMMM dd, yyyy HH:mm:ss'
+}
+                            }"/>
+                        </VBox>
+                        <VBox renderType="Bare" class="sapUiMediumMarginEnd">
+                            <Label text="{i18n>PostingDate}" />
+                            <!-- missing -->
+                            <Text text="{path:'PostingDate',
+                                 type: 'sap.ui.model.type.DateTime',
+formatOptions: {
+pattern: 'MMMM dd, yyyy HH:mm:ss'
+}
+                            }"/>
+                        </VBox>
+                        <VBox renderType="Bare" class="sapUiMediumMarginEnd">
+                            <Label text="{i18n>ReservationNumber}" />
+                            <!-- missing -->
+                            <Text text="{ReservationNumber}"/>
+                        </VBox>
+                    </FlexBox>
+                </VBox>
+                <!-- <VBox renderType="Bare">
+                    <Label text="{i18n>instruction}" design="Bold"/>
+                    <ObjectAttribute text="Please raise the inspection call through SIMS portal." />
+                </VBox> -->
+            </FlexBox>
+        </uxap:headerContent>
+        <uxap:sections>
+            <!-- Line Items Section -->
+            <uxap:ObjectPageSection titleUppercase="false">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection >
+                        <smartTable:SmartTable class="sapUiResponsiveContentPadding" id="idIssueTable" editable="false" placeToolbarInTable="true" enableAutoBinding="true" entitySet="ConsumptionPostingSet" tableBindingPath="ConsumptionPostingReserve/ConsumedMaterialParent" showFullScreenButton="true" requestAtLeastFields="ID" header="Consumption Posting" showRowCount="true" tableType="ResponsiveTable" demandPopin="false" useExportToExcel="false">
+                            <Table sticky="ColumnHeaders,HeaderToolbar" alternateRowColors="true">
+                                <columns>
+                                    <Column >
+                                        <customData>
+                                            <core:CustomData key="p13nData" value='\{"columnKey": "MaterialCode", "leadingProperty": "MaterialCode",
+"columnIndex": 0 ,"sortProperty": "MaterialCode","filterProperty": "MaterialCode"}'/>
+                                        </customData>
+                                        <Text text="{i18n>MaterialCode}"/>
+                                    </Column>
+                                    <Column >
+                                        <customData>
+                                            <core:CustomData key="p13nData" value='\{"columnKey": "Plant", "leadingProperty": "Plant",
+"columnIndex": 1 ,"sortProperty": "Plant","filterProperty": "Plant"}'/>
+                                        </customData>
+                                        <Text text="{i18n>Plant}"/>
+                                    </Column>
+                                    <Column >
+                                        <customData>
+                                            <core:CustomData key="p13nData" value='\{"columnKey": "StorageLocation", "leadingProperty": "StorageLocation",
+"columnIndex": 2 ,"sortProperty": "StorageLocation","filterProperty": "StorageLocation"}'/>
+                                        </customData>
+                                        <Text text="{i18n>Plant}"/>
+                                    </Column>
+                                    <Column >
+                                        <customData>
+                                            <core:CustomData key="p13nData" value='\{"columnKey": "Quantity", "leadingProperty": "Quantity",
+"columnIndex": 3 ,"sortProperty": "Quantity","filterProperty": "Quantity"}'/>
+                                        </customData>
+                                        <Text text="{i18n>Quantity}"/>
+                                    </Column>
+                                </columns>
+                                <items>
+                                    <ColumnListItem >
+                                        <cells>
+                                            <ObjectIdentifier title="{MaterialCode}"/>
+                                            <Text text="{Plant}"/>
+                                            <Text text="{StorageLocation}"/>
+                                            <Text text="{Quantity}"/>
+                                        </cells>
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
+                        </smartTable:SmartTable>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+        </uxap:sections>
+    </uxap:ObjectPageLayout>
+</mvc:View> 

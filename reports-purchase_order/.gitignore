@@ -1,22 +1,8 @@
-node_modules/
-dist/
-.scp/
-.env
-Makefile*.mta
-mta_archives
-mta-*
-resources
-archive.zip
-.*_mta_build_tmp
-.*_mta_build_tmp
+/node_modules/
+package-lock.json
+/dist/
+/.vscode/
+/mta_archives/
+/resources/
 
 
-# auto generated wildcard
-pmcg/.env9
-
-# auto generated wildcard
-unloadmaterial/.env8
-# auto generated wildcard
-security-scan-history/.env3
-# auto generated wildcard
-agel-mmts-web/vendorPersona/.env4

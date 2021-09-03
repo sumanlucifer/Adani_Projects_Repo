@@ -96,5 +96,7 @@
             <!-- <core:Fragment fragmentName="com.agel.mmts.returnmaterial.view.fragments.RequestTable" type="XML"/> -->
         </f:content>
     </f:DynamicPage>
+
+    
 </mvc:View>
 
