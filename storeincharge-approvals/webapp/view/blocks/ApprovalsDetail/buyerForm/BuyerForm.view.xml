@@ -8,8 +8,8 @@
             
              <!-- <core:Title  /> -->
             <Label text="{i18n>CustomerName}" />
-            <Text text="{ContactPerson}"  />
-            <Label text="{i18n>buyerCode}" />
+            <Text text="{Name}"  />
+        <!--     <Label text="{i18n>buyerCode}" />
             <Text text="{BuyerCode}" />
              <Label text="{i18n>gstin}" />
             <Text text="{GSTIN}"/>
@@ -19,25 +19,20 @@
             <Link text="{Email}"/>
             <Label text="{i18n>mobile}" />
             <Link text="{Phone}"/>
-            <!-- <core:Title  /> -->
             <Label text="{i18n>pinCode}" />
-            <!-- <Text text="{pinCode}" binding="{Address}"/> -->
             <Text text=""/>
             <Label text="{i18n>cin}" />
             <Text text="{Cin}"/>
-            <!-- <core:Title /> -->
             <Label text="{i18n>address}" />
-            <!-- <ExpandableText binding="{Address}" text="{parts: [{path: 'Street'}, {path: 'City'}, {path: 'State'}, {path: 'Country'}, {path: 'pinCode'}]}" 
-            overflowMode="InPlace"/> -->
             <ExpandableText text="" overflowMode="InPlace"/>
               <Label text="{i18n>purchasingOrg}" />
             <Text text="{PurchasingOrg}"/>
             <Label text="{i18n>purchasingGroup}" />
-            <Text text="{PurchasingGroup}"/>
+            <Text text="{PurchasingGroup}"/> -->
             <Label text="{i18n>companyCode}" />
             <Text text="{CompanyCode}"/>
-            <Label text="{i18n>ifcNo}" />
-            <Text text="{IECNo}"/>
+         <!--    <Label text="{i18n>ifcNo}" />
+            <Text text="{IECNo}"/> -->
         </f:content>
     </f:SimpleForm>
 

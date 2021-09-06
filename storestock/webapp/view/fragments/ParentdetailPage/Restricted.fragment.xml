@@ -2,7 +2,7 @@
     xmlns:smartTable="sap.ui.comp.smarttable"
     xmlns:core="sap.ui.core">
 
-    <smartTable:SmartTable class="sapUiResponsiveContentPadding" id="idParentRestrictedTable" editable="false" placeToolbarInTable="true" enableAutoBinding="false" entitySet="StockParentItemSet" showFullScreenButton="true" showRowCount="false" tableType="ResponsiveTable" demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" beforeRebindTable="onBeforeRebindRestTable" initialNoDataText="{i18n>EnterPlant}">
+    <smartTable:SmartTable class="sapUiResponsiveContentPadding" id="idParentRestrictedTable" editable="false" placeToolbarInTable="true" enableAutoBinding="false" entitySet="RestrictedStoreStockParentSet" showFullScreenButton="true" showRowCount="false" tableType="ResponsiveTable" demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" beforeRebindTable="onBeforeRebindRestTable" initialNoDataText="{i18n>EnterPlant}">
 
         <!-- <smartTable:layoutData><FlexItemData growFactor="1" /></smartTable:layoutData> -->
         <Table id="restrictedTable" sticky="ColumnHeaders,HeaderToolbar" updateFinished="onRestrictedStockUpdateFinished" alternateRowColors="true">

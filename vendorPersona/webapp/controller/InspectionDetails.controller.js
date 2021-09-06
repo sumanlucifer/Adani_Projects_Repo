@@ -195,11 +195,11 @@ sap.ui.define([
                         var oPayload = {
                             //     "Status" : obj.Status,
                             "Status": "PENDING",
-                            //      "ApprovedOn": obj.,
+                            //"ApprovedOn": new Date(),
                             //      "ApprovedBy": obj.,
                             "CreatedAt": obj.CreatedAt,
                             "CreatedBy": obj.CreatedBy,
-                            //        "UpdatedAt": obj.UpdatedAt,
+                            //"UpdatedAt": new Date(),
                             //        "UpdatedBy": obj.UpdatedBy,
                             //    "Comment"  : obj.,
                             "IsArchived": false,

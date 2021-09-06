@@ -20,6 +20,20 @@
                     "localUri": "localService/metadata.xml"
                 }
             }
+        },
+        "crossNavigation": {
+            "inbounds": {
+                "intent1": {
+                    "signature": {
+                        "parameters": {},
+                        "additionalParameters": "allowed"
+                    },
+                    "semanticObject": "CancelReturnRequest",
+                    "action": "Manage",
+                    "title": "{{appTitle}}",
+                    "subTitle": "{{appDescription}}"
+                }
+            }
         }
     },
     "sap.ui": {
@@ -66,17 +80,17 @@
                 }
             },
             "": {
-                "type": "sap.ui.model.odata.v2.ODataModel",	
-                "settings": {	
-                    "defaultOperationMode": "Server",	
-                    "defaultBindingMode": "TwoWay",	
-                    "defaultCountMode": "Request",	
-                    "refreshAfterChange": true,	
-                    "useBatch": false	
+                "type": "sap.ui.model.odata.v2.ODataModel",
+                "settings": {
+                    "defaultOperationMode": "Server",
+                    "defaultBindingMode": "TwoWay",
+                    "defaultCountMode": "Request",
+                    "refreshAfterChange": true,
+                    "useBatch": false
                 },
                 "dataSource": "mainService",
                 "preload": true
-            }            
+            }
         },
         "resources": {
             "css": [
@@ -124,21 +138,21 @@
                 }
             ],
             "targets": {
-              "TargetApp": {
+                "TargetApp": {
                     "viewType": "XML",
                     "transition": "slide",
                     "clearControlAggregation": false,
                     "viewName": "returnMaterialPage",
                     "viewLevel": 1
                 },
-                 "TargetReturnMaterialPage": {
+                "TargetReturnMaterialPage": {
                     "viewType": "XML",
                     "transition": "slide",
                     "clearControlAggregation": false,
                     "viewName": "returnMaterialPage",
                     "viewLevel": 1
                 },
-                 "TargetReturnDetailPage": {
+                "TargetReturnDetailPage": {
                     "viewType": "XML",
                     "transition": "slide",
                     "clearControlAggregation": false,

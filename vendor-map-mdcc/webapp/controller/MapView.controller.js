@@ -227,7 +227,7 @@ sap.ui.define([
                 var aCell = oEvent.getSource().getParent().getCells()[7];
                 if (parseInt(MDCCApprovedQty) > parseInt(rowObj.RemainingQty)) {
                     aCell.setValueState("Error");
-                    aCell.setValueStateText("Please do not enter more quantity than remaining quantity")
+                    aCell.setValueStateText("Please enter quantity lesser than or equal to remaining quantity")
                     this.getView().byId("idBtnSave").setEnabled(false);
                 } else {
                     aCell.setValueState("None");

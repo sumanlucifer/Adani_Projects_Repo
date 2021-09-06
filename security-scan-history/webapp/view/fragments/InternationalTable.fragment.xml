@@ -1,13 +1,8 @@
 <core:FragmentDefinition xmlns="sap.m"
     xmlns:smartTable="sap.ui.comp.smarttable"
     xmlns:core="sap.ui.core">
-       <smartTable:SmartTable class="sapUiResponsiveContentPadding" id="idInternationalTable" editable="false" 
-            placeToolbarInTable="true" enableAutoBinding="true" entitySet="ManualEntrySet"
-             showFullScreenButton="true" showRowCount="false" tableType="ResponsiveTable"
-             demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" 
-             useVariantManagement="false" beforeRebindTable="onbeforeRebindInternationalPoTable" ignoreFromPersonalisation="CreatedBy, ID, IsArchived, UpdatedAt, UpdatedBy">
-        <Table sticky="ColumnHeaders,HeaderToolbar" updateFinished="onInternationalTableUpdateFinished"
-             alternateRowColors="true">
+    <smartTable:SmartTable class="sapUiResponsiveContentPadding" id="idInternationalTable" editable="false" placeToolbarInTable="true" enableAutoBinding="true" entitySet="ManualEntrySet" showFullScreenButton="true" showRowCount="false" tableType="ResponsiveTable" demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" beforeRebindTable="onbeforeRebindInternationalPoTable" ignoreFromPersonalisation="CreatedBy, ID, IsArchived, UpdatedAt, UpdatedBy">
+        <Table sticky="ColumnHeaders,HeaderToolbar" updateFinished="onInternationalTableUpdateFinished" alternateRowColors="true">
             <columns>
 
                 <!-- PO Number -->
@@ -19,6 +14,26 @@
                     <Text text="{i18n>pONumber}"/>
                 </Column>
 
+                <!-- Invoice Number -->
+                <Column demandPopin="true" minScreenWidth="Tablet">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "InvoiceNumber", "leadingProperty": "InvoiceNumber",
+                                                 "columnIndex": 1, "sortProperty": "InvoiceNumber","filterProperty": "InvoiceNumber"}'/>
+                    </customData>
+                    <Text text="{i18n>invNob}"/>
+                </Column>
+
+
+                <Column>
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "VehicleNumber", "leadingProperty": "VehicleNumber",
+                                                 "columnIndex": 2 ,"sortProperty": "VehicleNumber","filterProperty": "VehicleNumber"}'/>
+                    </customData>
+                    <Text text="{i18n>VehicleNumber}"/>
+                </Column>
+
+
+
                 <!-- Vendor Code 
                 <Column demandPopin="true" minScreenWidth="Desktop"> 
                     <customData>
@@ -28,14 +43,6 @@
                     <Text text="{i18n>vendorCode}"/>
                 </Column> -->
 
-                <!-- Date Time -->
-                <Column demandPopin="true" minScreenWidth="Tablet">
-                    <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "CreatedAt", "leadingProperty": "CreatedAt",
-                                                 "columnIndex": 2}'/>
-                    </customData>
-                    <Text text="{i18n>dataTime}"/>
-                </Column>
 
                 <!-- packing List Ref No -->
                 <Column>
@@ -46,22 +53,16 @@
                     <Text text="{i18n>containerNo}"/>
                 </Column>
 
-                  <Column>
-                    <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "VehicleNumber", "leadingProperty": "VehicleNumber",
-                                                 "columnIndex": 4 ,"sortProperty": "VehicleNumber","filterProperty": "VehicleNumber"}'/>
-                    </customData>
-                    <Text text="{i18n>VehicleNumber}"/>
-                </Column>
-
-                <!-- Invoice Number -->
+                <!-- Date Time -->
                 <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "InvoiceNumber", "leadingProperty": "InvoiceNumber",
-                                                 "columnIndex": 5, "sortProperty": "InvoiceNumber","filterProperty": "InvoiceNumber"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "CreatedAt", "leadingProperty": "CreatedAt",
+                                                 "columnIndex": 4}'/>
                     </customData>
-                    <Text text="{i18n>invNob}"/>
-                </Column>     
+                    <Text text="{i18n>dataTime}"/>
+                </Column>
+
+
 
                 <!-- Gate Entery Id 
                 <Column>
@@ -86,17 +87,20 @@
                 <ColumnListItem>
                     <cells>
                         <ObjectIdentifier title="{PONumber}"/>
-                       <!-- <Text text="{VendorCode}"/>-->
+                        <Text text="{InvoiceNumber}"/>
+                        <Text text="{VehicleNumber}"/>
+                        <Text text="{ContainerNumber}"/>
+                        <!-- <Text text="{VendorCode}"/>-->
                         <Text text="{path:'CreatedAt',
                                      type: 'sap.ui.model.type.DateTime',
 				                     formatOptions: {
 				                        pattern: 'MMMM dd, yyyy HH:mm:ss'
-				                     }}"/>                       
-                        <Text text="{ContainerNumber}"/>
-                        <Text text="{VehicleNumber}"/>
-                        <Text text="{InvoiceNumber}"/>
-                     <!--   <Text text="{GateEntryNumber}" />-->
-                     <!--   <Text text="{Qty}" />-->
+				                     }}"/>
+
+
+
+                        <!--   <Text text="{GateEntryNumber}" />-->
+                        <!--   <Text text="{Qty}" />-->
                     </cells>
                 </ColumnListItem>
             </items>

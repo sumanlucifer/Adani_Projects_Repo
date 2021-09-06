@@ -52,7 +52,7 @@ sap.ui.define([
             var that = this;
             var sObjectId = oEvent.getParameter("arguments").Id;
             that.sObjectId = sObjectId;
-            this._bindView("/ReturnMaterialReserveSet(" + sObjectId + ")");
+            this._bindView("/ReturnMaterialSet(" + sObjectId + ")");
         },
 
         _bindView: function (sObjectPath) {
@@ -61,13 +61,13 @@ sap.ui.define([
 
             this.getView().bindElement({
                 path: sObjectPath,
+                parameters : {$expand : "ReturnMaterialReserve"},
                 events: {
                     dataRequested: function () {
                         objectViewModel.setProperty("/busy", true);
                     },
                     dataReceived: function () {
                         objectViewModel.setProperty("/busy", false);
-                        that.onReadDataIssueMaterialParents();
                     }
                 }
             });
@@ -129,11 +129,32 @@ sap.ui.define([
         },
 
         // Arrange Data For View / Model Set
-     
 
-        onReadDataIssueMaterialChild: function (ParentData) {
 
+        onCancelReturn: function (oEvent) {
+            debugger;
+            var ReturnMaterialId = this.getView().getBindingContext().getObject().ID;
+            var sReturnMaterialReservationContext = "/ReturnMaterialSet("+ parseInt(ReturnMaterialId) +"l)/ReturnMaterialReserve"
+            var ReturnMaterialReserveId = this.getView().getModel().getData(sReturnMaterialReservationContext).ID;
+            var oPayload = {
+                "ID": "1",
+                "UserName": "Test",
+                "ReturnMaterialId": ReturnMaterialId,
+                "ReturnMaterialReserveId": ReturnMaterialReserveId
+            };
+
+            this.MainModel.update("/ReturnMaterialCancellationEdmSet", oPayload,  {
+                success: function (oData, oResponse) {
+                    debugger;
+                }.bind(this),
+                error: function (oError) {
+                    debugger;
+                    sap.m.MessageBox.error("Data Not Found");
+                }
+            });
         },
+
+
 
     });
 });

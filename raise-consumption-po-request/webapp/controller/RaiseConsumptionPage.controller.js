@@ -33,63 +33,27 @@ sap.ui.define([
                 var that = this;
                 this.validateSONumber();
             },
-            onChangeSONumber: function (oEvent) {
-                debugger;
-                var oValue = oEvent.getSource().getValue();
-                if (!oValue.match(/^\d{4}$/)) {
-
-                    this.getView().byId("idSoNumber").setValueState("Error");
-                    this.getView().byId("idSoNumber").setValueStateText("Please Enter upto 10 digit Number");
-                     this.getView().byId("SObtnSubmit").setEnabled(false);
-                    return;
-                }
-                else {
-                    this.getView().byId("idSoNumber").setValueState("None");
-                    this.getView().byId("idSoNumber").setValueStateText(null);
-                    this.getView().byId("SObtnSubmit").setEnabled(true);
-
-                }
-
-
+            onbeforeRebindIssueReservedTable: function (oEvent) {
+                var mBindingParams = oEvent.getParameter("bindingParams");
+                mBindingParams.sorter.push(new sap.ui.model.Sorter("ReservationDate", true));
             },
-            // Validate QR Code
-            validateSONumber: function () {
+            onbeforeRebindConsumptionTable: function (oEvent) {
+                var mBindingParams = oEvent.getParameter("bindingParams");
+                mBindingParams.sorter.push(new sap.ui.model.Sorter("DocumentDate", true));
+            },
+            onDetailPress: function (oEvent) {
                 var that = this;
-
-                var objectViewModel = that.getViewModel("objectViewModel");
-                objectViewModel.setProperty("/busy", true);
-                var SoID = this.getView().byId("idSoNumber").getValue();
-                var SoIDFilter = new sap.ui.model.Filter({
-                    path: "SONumber",
-                    operator: sap.ui.model.FilterOperator.EQ,
-                    value1: SoID
-                });
-                var filter = [];
-                filter.push(SoIDFilter);
-                this.MainModel.read("/SONumberDetailsSet", {
-                    filters: [filter],
-                    success: function (oData, oResponse) {
-                        if (oData) {
-                            //  
-                            if (oData.results.length) {
-                                objectViewModel.setProperty("/busy", false);
-                                that.oRouter.navTo("RouteReturnConsumptionDetailPage", {
-                                    SOId: oData.results[0].ID,
-                                }, false);
-                            } else {
-                                objectViewModel.setProperty("/busy", false);
-                                sap.m.MessageBox.error("Please Enter Valid SO Number");
-                            }
-                        } else {
-                            objectViewModel.setProperty("/busy", false);
-                            sap.m.MessageBox.error("Please Enter Valid SO Number");
-                        }
-                    }.bind(this),
-                    error: function (oError) {
-                        objectViewModel.setProperty("/busy", false);
-                        sap.m.MessageBox.error(JSON.stringify(oError));
-                    }
-                });
+                var sObjectPath = oEvent.getSource().getBindingContext().getObject().ID;
+                this.oRouter.navTo("RouteReturnConsumptionDetailPage", {
+                    ReservationID: sObjectPath
+                }, false);
+            },
+            onNavigationCancelPress: function (oEvent) {
+                var that = this;
+                var sObjectPath = oEvent.getSource().getBindingContext().getObject().ID;
+                this.oRouter.navTo("RouteReturnConsumptionCancelPage", {
+                    PostingID: sObjectPath
+                }, false);
             }
         });
     });

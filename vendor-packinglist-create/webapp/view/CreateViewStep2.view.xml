@@ -109,7 +109,7 @@
                                     <OverflowToolbar >
                                         <content>
                                             <ToolbarSpacer></ToolbarSpacer>
-                                            <Button icon="sap-icon://add" press="onAddOuterPackagingPress" enabled="{= ${objectViewModel>/isPackingListInEditMode} ? true : false}"></Button>
+                                            <Button icon="sap-icon://add" text="Add" press="onAddOuterPackagingPress" enabled="{= ${objectViewModel>/isPackingListInEditMode} ? true : false}"></Button>
                                         </content>
                                     </OverflowToolbar>
                                 </headerToolbar>

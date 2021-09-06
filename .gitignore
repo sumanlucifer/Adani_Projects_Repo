@@ -10,6 +10,21 @@ agel-mmts-web/mdm-packinglisttype/.env1
 # auto generated wildcard
 agel-mmts-web/mdm-uom/.env9
 # auto generated wildcard
+<<<<<<< HEAD
+sapui5/materialreservation/.env1
+=======
 unloadmaterial/.env8
 # auto generated wildcard
 security-scan-history/.env3
+<<<<<<< HEAD
+>>>>>>> develop
+
+# auto generated wildcard
+sapui5/engineer-issuecancellation/.env1
+=======
+# auto generated wildcard
+agel-mmts-web/vendorPersona/.env4
+>>>>>>> develop
+
+# auto generated wildcard
+agel-mmts-web/vendorPersona/.env24
