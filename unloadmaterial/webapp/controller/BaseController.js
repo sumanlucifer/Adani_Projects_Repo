@@ -69,7 +69,7 @@ sap.ui.define([
             this.oFilterBar.registerApplyData(this.fApplyData);
             this.oFilterBar.registerGetFiltersWithValues(this.fGetFiltersWithValues);
 
-            this.oFilterBar.fireInitialise();
+            thiinis.oFilterBar.fireInitialise();
         },
 
         _addSearchFieldAssociationToFB: function () {
