@@ -163,6 +163,18 @@ modules:
       - comagelmmtsengineerissuecancellation.zip
       name: comagelmmtsengineerissuecancellation
       target-path: resources/
+    - artifacts:
+      - comagelmmtsreturnreservation.zip
+      name: comagelmmtsreturnreservation
+      target-path: resources/
+    - artifacts:
+      - comagelmmtsconsumptionreservation.zip
+      name: comagelmmtsconsumptionreservation
+      target-path: resources/
+    - artifacts:
+      - comagelmmtsreportsstorestock.zip
+      name: comagelmmtsreportsstorestock
+      target-path: resources/
 - name: launchpad
   type: com.sap.application.content
   path: launchpad
@@ -450,6 +462,36 @@ modules:
     commands:
     - npm run build
     supported-platforms: []
+- name: comagelmmtsreturnreservation
+  type: html5
+  path: return-reservation
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: comagelmmtsconsumptionreservation
+  type: html5
+  path: consumption-reservation
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: comagelmmtsreportsstorestock
+  type: html5
+  path: reports-storestock
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
 resources:
 - name: uaa_agel-mmts-web
   type: org.cloudfoundry.managed-service
@@ -496,6 +538,7 @@ resources:
     service: workflow
     service-plan: standard
 parameters:
+  deploy_mode: html5-repo
   enable-parallel-deployments: true
 build-parameters:
   before-all:
