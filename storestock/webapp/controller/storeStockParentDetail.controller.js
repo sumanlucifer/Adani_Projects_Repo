@@ -70,21 +70,18 @@ sap.ui.define([
 
             onBeforeRebindUnrestTable: function (oEvent) {
                 var mBindingParams = oEvent.getParameter("bindingParams");
-                mBindingParams.filters.push(new Filter("IsRestricted", sap.ui.model.FilterOperator.EQ, false));
+                //mBindingParams.filters.push(new Filter("IsRestricted", sap.ui.model.FilterOperator.EQ, false));
 
 
             },
             onBeforeRebindRestTable: function (oEvent) {
                 var mBindingParams = oEvent.getParameter("bindingParams");
-                mBindingParams.filters.push(new Filter("IsRestricted", sap.ui.model.FilterOperator.EQ, true));
+                //mBindingParams.filters.push(new Filter("IsRestricted", sap.ui.model.FilterOperator.EQ, true));
 
             },
 
             // on Go Search 
             onSearch: function (oEvent) {
-
-
-
 
                 var MaterialName = this.byId("idParentMaterialName").getValue();
                 var MaterialCode = this.byId("idParentMaterialCode").getValue();
@@ -146,7 +143,7 @@ sap.ui.define([
                 var sObjectPath = oItem.getBindingContext().sPath;
 
                 this.oRouter.navTo("storeStockChildDetail", {
-                    parentMaterial: sObjectPath.slice("/StockParentItemSet".length),// /StockParentItemSet(123)->(123)
+                    parentMaterial: sObjectPath.slice("/RestrictedStoreStockParentSet".length),// /StockParentItemSet(123)->(123)
                     layout: "TwoColumnsMidExpanded"
                 },
 

@@ -1,0 +1,90 @@
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Capabilities.V1.xml">
+        <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
+        <edmx:Include Namespace="com.sap.vocabularies.UI.v1" Alias="UI"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Communication.xml">
+        <edmx:Include Namespace="com.sap.vocabularies.Communication.v1" Alias="Communication"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/api/v2/odata.svc/$metadata">
+        <edmx:Include Namespace="com.agel.mmts.entity.edmentity"/>
+        <edmx:Include Namespace="com.agel.mmts.entity.extension"/>
+        <edmx:Include Namespace="com.agel.mmts.entity"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="com.agel.mmts">
+            <Annotations Target="com.agel.mmts.entity.DefaultContainer/StockReportViewSet">
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record Type="Capabilities.InsertRestrictionsType">
+                        <PropertyValue Property="Insertable" Bool="false"/>
+                    </Record>
+                </Annotation>
+
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue Property="Deletable" Bool="false"/>
+                    </Record>
+                </Annotation>
+
+                <Annotation Term="Capabilities.SearchRestrictions">
+                    <Record Type="Capabilities.SearchRestrictionsType">
+                        <PropertyValue Property="Searchable" Bool="false"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+
+            <Annotations Target="com.agel.mmts.entity.StockReportViewModel">
+                <Annotation Term="UI.SelectionFields">
+                    <Collection>
+                        <PropertyPath>ChildDescription</PropertyPath>
+                        <PropertyPath>ChildMaterialCode</PropertyPath>
+                        <PropertyPath>MaterialCode</PropertyPath>
+                        <PropertyPath>PlantCode</PropertyPath>
+                        <PropertyPath>StorageLocation</PropertyPath>
+                        <PropertyPath>Description</PropertyPath>
+                    </Collection>
+                </Annotation>
+
+                <Annotation Term="UI.LineItem" >
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="MaterialCode"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="Description"/>
+                        </Record>
+                         <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="Qty"/>
+                        </Record>
+                         <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="UOM"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="ChildMaterialCode"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="ChildDescription"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="ChildQty"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="ChildUom"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="PlantCode"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="StorageLocation"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

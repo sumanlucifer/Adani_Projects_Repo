@@ -2,16 +2,16 @@
     xmlns:smartTable="sap.ui.comp.smarttable"
     xmlns:core="sap.ui.core">
 
-    <smartTable:SmartTable class="sapUiResponsiveContentPadding" id="idStoreStockChildTable" editable="false" placeToolbarInTable="true" enableAutoBinding="true" entitySet="StockParentItemSet" tableBindingPath="stockBoqItems" showFullScreenButton="true" showRowCount="false" tableType="ResponsiveTable" demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" beforeRebindTable="onBeforeRebindRestTable">
+    <smartTable:SmartTable class="sapUiResponsiveContentPadding" id="idStoreStockChildTable" editable="false" placeToolbarInTable="true" enableAutoBinding="true" entitySet="RestrictedStoreStockParentSet" tableBindingPath="RestrictedStoreStockBOQs" showFullScreenButton="true" showRowCount="false" tableType="ResponsiveTable" demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" beforeRebindTable="onBeforeRebindRestTable">
 
         <!-- <smartTable:layoutData><FlexItemData growFactor="1" /></smartTable:layoutData> -->
         <Table sticky="ColumnHeaders,HeaderToolbar" updateFinished="onPurchaseOrderTableUpdateFinished" alternateRowColors="true">
             <columns>
 
-                <Column  >
+                <Column>
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "LineItemName", "leadingProperty": "LineItemName",
-                                                 "columnIndex": 0 ,"sortProperty": "LineItemName","filterProperty": "LineItemName"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Name", "leadingProperty": "Name",
+                                                 "columnIndex": 0 ,"sortProperty": "Name","filterProperty": "Name"}'/>
                     </customData>
                     <Text text="{i18n>ChildName}"/>
                 </Column>
@@ -25,45 +25,43 @@
                     <Text text="{i18n>MaterialCode}"/>
                 </Column>
 
-                <Column >
+             <!--    <Column >
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "ReceivedQty", "leadingProperty": "ReceivedQty",
                                                  "columnIndex": 2 ,"sortProperty": "ReceivedQty","filterProperty": "ReceivedQty"}'/>
                     </customData>
                     <Text text="{i18n>ReceivedQty}"/>
-                </Column>
+                </Column> -->
 
 
 
-                <Column  visible="{= ${StockParentItem>/ISRestricted} ? true : false }"  >
-
+               <!--  <Column >
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "IssuedQty", "leadingProperty": "IssuedQty",
                                                  "columnIndex": 3 ,"sortProperty": "IssuedQty","filterProperty": "IssuedQty"}'/>
                     </customData>
                     <Text text="{i18n>IssuedQty}"/>
-                </Column>
+                </Column> -->
 
 
-                <Column visible="{= ${StockParentItem>/ISRestricted} ? true : false }"   >
+             <!--    <Column>
 
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "ReturnedQty", "leadingProperty": "ReturnedQty",
                                                  "columnIndex": 4 ,"sortProperty": "ReturnedQty","filterProperty": "ReturnedQty"}'/>
                     </customData>
                     <Text text="{i18n>ReturnedQty}"/>
-                </Column>
+                </Column> -->
 
 
-                <Column visible="{= ${StockParentItem>/ISRestricted} ? true : false }"  >
-
+             <!--    <Column>
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "BalanceQty", "leadingProperty": "BalanceQty",
                                                  "columnIndex": 5 ,"sortProperty": "BalanceQty","filterProperty": "BalanceQty"}'/>
                     </customData>
                     <Text text="{i18n>BalQty}"/>
                 </Column>
-
+ -->
 
 
 
@@ -84,14 +82,14 @@
 
 
 
-                        <ObjectIdentifier text="{LineItemName}"/>
+                        <ObjectIdentifier text="{Name}"/>
                         <ObjectIdentifier text="{MaterialCode}"/>
-                        <ObjectIdentifier text="{ReceivedQty}"/>
+                        <!-- <ObjectIdentifier text="{ReceivedQty}"/> -->
 
-                        <ObjectIdentifier text="{IssuedQty}"/>
-                        <ObjectIdentifier text="{ReturnedQty}"/>
+                        <!-- <ObjectIdentifier text="{IssuedQty}"/> -->
+                        <!-- <ObjectIdentifier text="{ReturnedQty}"/>
 
-                        <ObjectIdentifier text="{BalanceQty}"/>
+                        <ObjectIdentifier text="{BalanceQty}"/> -->
 
                         <ObjectIdentifier text="{UOM}"/>
 
