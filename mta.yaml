@@ -466,21 +466,17 @@ modules:
   type: html5
   path: return-reservation
   build-parameters:
-    build-result: dist
     builder: custom
     commands:
-    - npm install
-    - npm run build:cf
+    - npm run build
     supported-platforms: []
 - name: comagelmmtsconsumptionreservation
   type: html5
   path: consumption-reservation
   build-parameters:
-    build-result: dist
     builder: custom
     commands:
-    - npm install
-    - npm run build:cf
+    - npm run build
     supported-platforms: []
 - name: comagelmmtsreportsstorestock
   type: html5
@@ -538,7 +534,6 @@ resources:
     service: workflow
     service-plan: standard
 parameters:
-  deploy_mode: html5-repo
   enable-parallel-deployments: true
 build-parameters:
   before-all:
