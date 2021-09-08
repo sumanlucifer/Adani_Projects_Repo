@@ -21,6 +21,15 @@
         <f:header>
             <f:DynamicPageHeader pinnable="true">
                 <f:content>
+                    <fb:FilterBar id="filterbar" reset="onResetFilters" search="onSearch" useToolbar="false" showGoOnFB="true" showRestoreOnFB="true" >
+                        <fb:filterGroupItems>
+                            <!-- <fb:FilterGroupItem groupName="__$INTERNAL$" name="unload_date" label="{i18n>issuedate}" visibleInFilterBar="true" class="searchFieldLabelHidden">
+                                <fb:control>
+                                    <DateRangeSelection id="dateRangeSelectionId" displayFormat="dd/MM/yyyy" change="onDateRangeSelectionChange"/>
+                                </fb:control>
+                            </fb:FilterGroupItem> -->
+                        </fb:filterGroupItems>
+                    </fb:FilterBar>
                 </f:content>
             </f:DynamicPageHeader>
         </f:header>

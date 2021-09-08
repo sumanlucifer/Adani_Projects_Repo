@@ -19,15 +19,17 @@ sap.ui.define([
             var oViewModel = new JSONModel({
                 busy: true,
                 delay: 0,
-                partialApproval: false
+                partialApproval: false,
+                enableDone: false,
+                returnMode: null
             });
             this.getView().setModel(oViewModel, "objectViewModel");
 
             this.MainModel = this.getComponentModel();
             this.getView().setModel(this.MainModel);
 
-            var oModel = new JSONModel({ "IssueData": null, "ReturnData": null });
-            this.getView().setModel(oModel, "TreeTableModelView");
+            // var oModel = new JSONModel({ "IssueData": null, "ReturnData": null });
+            // this.getOwnerComponent().setModel(oModel, "TreeTableModelView");
 
             //Router Object
             this.oRouter = this.getRouter();
@@ -55,6 +57,7 @@ sap.ui.define([
                     },
                     dataReceived: function () {
                         objectViewModel.setProperty("/busy", false);
+                        objectViewModel.setProperty("/partialApproval", false);
                         that.onReadDataIssueMaterialParents();
                         that.onReadDataReturnMaterialParents();
                     }
@@ -82,7 +85,7 @@ sap.ui.define([
             this.MainModel.read("/SONumberDetailsSet(" + this.SOId + ")", {
                 urlParameters: { "$expand": "IssuedMaterialParent,IssuedMaterialParent/IssuedMaterialBOQ" },
                 success: function (oData, oResponse) {
-                    debugger;
+                    // //debugger;
                     this.dataBuildingIssue(oData.IssuedMaterialParent.results);
                     //   that.oIssueMaterialModel.setData({ "Items": oData.results });
                     //   oTable.setModel(that.oIssueMaterialModel, "oIssueMaterialModel");
@@ -106,8 +109,8 @@ sap.ui.define([
                     ParentDataView[i].ChildItemsView = [];
                 }
             }
-            debugger;
-            var oModel = this.getViewModel("TreeTableModelView");
+            //debugger;
+            var oModel = this.getOwnerComponent().getModel("TreeTableModelView");
             var oMOdelData = oModel.getData();
             oMOdelData.IssueData = { "ChildItemsView": ParentDataView };
             oModel.setData(oMOdelData);
@@ -117,7 +120,7 @@ sap.ui.define([
             this.MainModel.read("/ReturnMaterialReserveSet(" + this.ReturnId + ")", {
                 urlParameters: { "$expand": "ReturnedMaterialParent,ReturnedMaterialParent/ReturnedMaterialBOQ" },
                 success: function (oData, oResponse) {
-                    debugger;
+                    //debugger;
                     this.dataBuildingReturn(oData.ReturnedMaterialParent.results);
                     //   that.oIssueMaterialModel.setData({ "Items": oData.results });
                     //   oTable.setModel(that.oIssueMaterialModel, "oIssueMaterialModel");
@@ -148,8 +151,8 @@ sap.ui.define([
                     ParentDataView[i].ChildItemsView = [];
                 }
             }
-            debugger;
-            var oModel = this.getViewModel("TreeTableModelView");
+            //debugger;
+            var oModel = this.getOwnerComponent().getModel("TreeTableModelView");
             var oMOdelData = oModel.getData();
             oMOdelData.ReturnData = { "ChildItemsView": ParentDataView };
             oModel.setData(oMOdelData);
@@ -187,27 +190,57 @@ sap.ui.define([
         },
 
         onApproveAllPress: function (oEvent) {
-            var oModel = this.getViewModel("TreeTableModelView");
-            var oReturnData = oModel.getData().ReturnData;
-            var oPayload = this._constructPayload(oReturnData.ChildItemsView, "Approved");
-            this._fireApproveRequest(oPayload);
+            // var oModel = this.getViewModel("TreeTableModelView");
+            // var oReturnData = oModel.getData().ReturnData;
+            // var oPayload = this._constructPayload(oReturnData.ChildItemsView, "Approved");
+            // this._fireApproveRequest(oPayload);
+            var oObjectModelData = this.getViewModel("objectViewModel").getData();
+            oObjectModelData.returnMode = "Approved";
+            oObjectModelData.enableDone = true;
+            this.getViewModel("objectViewModel").setData(oObjectModelData);
         },
 
         onRejectAllPress: function (oEvent) {
-            var oModel = this.getViewModel("TreeTableModelView");
-            var oReturnData = oModel.getData().ReturnData;
-            var oPayload = this._constructPayload(oReturnData.ChildItemsView, "Approved");
-            this._fireApproveRequest(oPayload);
+            // var oModel = this.getViewModel("TreeTableModelView");
+            // var oReturnData = oModel.getData().ReturnData;
+            // var oPayload = this._constructPayload(oReturnData.ChildItemsView, "Rejected");
+            // this._fireApproveRequest(oPayload);
+            var oObjectModelData = this.getViewModel("objectViewModel").getData();
+            oObjectModelData.returnMode = "Rejected";
+            oObjectModelData.enableDone = true;
+            this.getViewModel("objectViewModel").setData(oObjectModelData);
         },
 
         onPartialApprovePress: function (oEvent) {
-            var oModel = this.getViewModel("TreeTableModelView");
+            // var oModel = this.getViewModel("TreeTableModelView");
+            // var oReturnData = oModel.getData().ReturnData;
+            // var oPayload = this._constructPayload(oReturnData.ChildItemsView, "Partially Approved");
+            // if (!oPayload.ReturnMaterialRequestParent.length && !oPayload.ReturnMaterialRequestBOQ.length)
+            //     MessageBox.error("No valid item found return");
+            // else
+            //     this._fireApproveRequest(oPayload);
+            var oObjectModelData = this.getViewModel("objectViewModel").getData();
+            oObjectModelData.returnMode = "Partially Approved";
+            oObjectModelData.enableDone = true;
+            this.getViewModel("objectViewModel").setData(oObjectModelData);
+        },
+
+        onDonePress: function (oEvent) {
+            debugger;
+            var oModel = this.getOwnerComponent().getModel("TreeTableModelView");
+            var sReturnMode = this.getViewModel("objectViewModel").getProperty("/returnMode");
             var oReturnData = oModel.getData().ReturnData;
-            var oPayload = this._constructPayload(oReturnData.ChildItemsView, "Partially Approved");
-            if (!oPayload.ReturnMaterialRequestParent.length && !oPayload.ReturnMaterialRequestBOQ.length)
-                MessageBox.error("No valid item found return");
-            else
-                this._fireApproveRequest(oPayload);
+            var sStatus = this.getView().byId("idStatus").getText();
+            if (sStatus === "PENDING") {
+                var oPayload = this._constructPayload(oReturnData.ChildItemsView, sReturnMode);
+                if (!oPayload.ReturnMaterialRequestParent.length && !oPayload.ReturnMaterialRequestBOQ.length)
+                    MessageBox.error("No valid item found return");
+                else
+                    this._fireApproveRequest(oPayload);
+            }
+            else {
+                this.getOwnerComponent().getRouter().navTo("Summary", { id: this.ReturnId });
+            }
         },
 
         _constructPayload: function (oData, sStatus) {
@@ -228,8 +261,6 @@ sap.ui.define([
                 }
                 else
                     oPayload.ReturnMaterialRequestParent.push(oRet);
-
-
                 for (var j = 0; j < oData[i].ChildItemsView.length; j++) {
                     var oRetBoq = {
                         "ID": oData[i].ChildItemsView[j].ID,
@@ -251,14 +282,18 @@ sap.ui.define([
         _fireApproveRequest: function (oPayload) {
             var oModel = this.getViewModel();
             oModel.create("/ReturnMaterialRequestSet", oPayload, {
-                success: (oRes) => { debugger },
+                success: function (oRes) {
+                    if (oRes.Success) {
+                        this.getOwnerComponent().getRouter().navTo("Summary", { id: oRes.ID });
+                    }
+                }.bind(this),
                 error: (oErr) => { debugger }
             })
         },
 
         onReturnItemSelect: function (oEvent) {
-            debugger;
-            var oModel = this.getViewModel("TreeTableModelView");
+            //debugger;
+            var oModel = this.getOwnerComponent().getModel("TreeTableModelView");
             var oData = oModel.getData().ReturnData.ChildItemsView;
             var bCheck = false;
             for (var i = 0; i < oData.length; i++) {
@@ -271,11 +306,6 @@ sap.ui.define([
             }
             this.getViewModel("objectViewModel").setProperty("/partialApproval", bCheck);
         },
-
-        validateInputValue: function(oEvent){
-            debugger;
-        }
-
 
     });
 });

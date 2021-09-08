@@ -1,4 +1,4 @@
-<mvc:View controllerName="com.agel.mmts.materialreservation.controller.MaterialReservationPage" height="100%"
+<mvc:View controllerName="com.agel.mmts.returnreservation.controller.MaterialReservationPage" height="100%"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns:core="sap.ui.core"
     xmlns="sap.m"
@@ -24,7 +24,7 @@
                         <fm:SimpleForm layout="ColumnLayout" binding="{HeaderDetailsModel>/}" columnsM="2" columnsL="3" columnsXL="4" singleContainerFullSize="true" class="style-RemoveTitleHeight">
                             <!-- <core:Title  /> -->
                             <Label text="Movement Type" required="true"/>
-                            <Select id="idSelMovementType" change="onMoventTypeChange" editable="false" selectedKey="311" forceSelection="false" items="{HeaderDetailsModel>/movementType}">
+                            <Select id="idSelMovementType" change="onMoventTypeChange" editable="false" selectedKey="312" forceSelection="false" items="{HeaderDetailsModel>/movementType}">
                                 <core:Item key="{HeaderDetailsModel>value}" text="{HeaderDetailsModel>Text}" />
                             </Select>
                             <Label text="Good Recipient" required="true"/>
@@ -40,10 +40,6 @@
                             <Input visible="{= ${objectViewModel>/isMovementType3Visible} ? true : false}" id="idRecievingLocation" value="{HeaderDetailsModel>RecievingLocation}" />
                             <Label text="GL Account" required="true"/>
                             <Input id="idGLAccount" value="{HeaderDetailsModel>GLAccount}" />
-                            <Label text="Vendor Name" required="true"/>
-                            <Select id="idVendor" change="onVendorSelected" selectedKey="{HeaderDetailsModel>vendorID}" forceSelection="false" items="{/VendorSet}">
-                                <core:Item key="{ID}" text="{Name} - {VendorCode}" />
-                            </Select>
                         </fm:SimpleForm>
                     </HBox>
                 </f:content>
@@ -55,7 +51,7 @@
                 <Table visible="{= ${objectViewModel>/isItemFieldsVisible} ? true : false}" items="{reservationTableModel>/}" growingThreshold="5" growing="true" fixedLayout="false">
                     <headerToolbar>
                         <OverflowToolbar >
-                            <Title text="{i18n>lineItems}" level="H4" />
+                          <Title text="{i18n>lineItems}" level="H4" />
                             <content>
                                 <ToolbarSpacer></ToolbarSpacer>
                                 <Button text="Add" icon="sap-icon://add" press="onAddReservationItemsPress"></Button>
@@ -70,15 +66,11 @@
                             <Text text="Description"/>
                         </Column>
                         <Column>
-                            <Text text="UOM"/>
-                        </Column>
-                        <Column>
-                            <Text text="Quantity Available in Stock"/>
-                        </Column>
-                        <Column>
                             <Text text="Quantity"/>
                         </Column>
-
+                        <Column>
+                            <Text text="UOM"/>
+                        </Column>
                         <Column width="5%">
                         </Column>
                     </columns>
@@ -86,7 +78,7 @@
                         <ColumnListItem >
                             <cells>
                                 <Input suggestionItemSelected="onMaterialCodeChange" selectedKey="{reservationTableModel>MaterialCode}" selectedItem="{reservationTableModel>MaterialCode}" id="idPMaterialCode" showSuggestion="true" suggestionRows="{
-                                                path: '/NewStockParentItemSet',
+                                                path: '/MasterMaterialSet',
                                                 templateShareable:false
                                             }">
                                     <suggestionColumns>
@@ -99,23 +91,18 @@
                                         <Column hAlign="End" minScreenWidth="Tablet">
                                             <Label text="UOM" />
                                         </Column>
-                                        <Column>
-                                            <Label text="Quantity in Stock" />
-                                        </Column>
                                     </suggestionColumns>
                                     <suggestionRows>
                                         <ColumnListItem>
                                             <Text text="{MaterialCode}" />
                                             <Text wrapping="true" text="{Description}" />
                                             <Text text="{UOM}" />
-                                            <Text text="{Remaining_Qty}" />
                                         </ColumnListItem>
                                     </suggestionRows>
                                 </Input>
                                 <Text text="{reservationTableModel>MaterialName}"/>
-                                <Text text="{reservationTableModel>BaseUnit}"/>
-                                <Text text="{reservationTableModel>StockQuantity}"/>
                                 <Input width="30%" value="{reservationTableModel>Qty}"/>
+                                <Text text="{reservationTableModel>BaseUnit}"/>
                                 <Button icon="sap-icon://delete" press="onDeleteReservationItemPress" type="Transparent"/>
                             </cells>
                         </ColumnListItem>
