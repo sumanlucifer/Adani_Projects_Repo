@@ -12,3 +12,7 @@ archive.zip
 consumption-reservation/.env1
 # auto generated wildcard
 return-reservation/.env1
+# auto generated wildcard
+sapui5/consumption-reservation/.env1
+# auto generated wildcard
+sapui5/return-reservation/.env1

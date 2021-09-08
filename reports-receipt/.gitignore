@@ -8,3 +8,7 @@ mta-*
 resources
 archive.zip
 .*_mta_build_tmp
+# auto generated wildcard
+sapui5/consumption-reservation/.env1
+# auto generated wildcard
+sapui5/return-reservation/.env1
