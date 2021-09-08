@@ -1,0 +1,41 @@
+{
+    "fileName": "id_1630929836530_127_propertyChange",
+    "fileType": "change",
+    "changeType": "propertyChange",
+    "moduleName": "",
+    "reference": "com.agel.mmts.reportsstorestock",
+    "packageName": "",
+    "content": {
+        "property": "growingThreshold",
+        "newValue": 10
+    },
+    "selector": {
+        "id": "com.agel.mmts.reportsstorestock::sap.suite.ui.generic.template.ListReport.view.ListReport::StockReportViewSet--responsiveTable",
+        "idIsLocal": false,
+        "type": "sap.m.Table"
+    },
+    "layer": "CUSTOMER_BASE",
+    "texts": {},
+    "namespace": "apps/com.agel.mmts.reportsstorestock/changes/",
+    "projectId": "com.agel.mmts.reportsstorestock",
+    "creation": 1630929836530,
+    "originalLanguage": "",
+    "support": {
+        "generator": "changeUtils: SAPFioriTools",
+        "service": "",
+        "user": "",
+        "sapui5Version": "latest",
+        "sourceChangeFileName": "",
+        "compositeCommand": ""
+    },
+    "oDataInformation": {},
+    "dependentSelector": {},
+    "validAppVersions": {
+        "from": "1.0.0",
+        "to": "1.0.0",
+        "creation": "1.0.0"
+    },
+    "jsOnly": false,
+    "variantReference": "",
+    "appDescriptorChange": false
+}

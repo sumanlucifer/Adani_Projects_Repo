@@ -36,21 +36,89 @@
                         <PropertyValue Property="Searchable" Bool="false"/>
                     </Record>
                 </Annotation>
+
+                <Annotation Term="Capabilities.FilterRestrictions">
+                    <Record Type="Capabilities.FilterRestrictionsType">
+                        <PropertyValue Property="NonFilterableProperties">
+                            <Collection>
+                                <PropertyPath>ID</PropertyPath>
+                                <PropertyPath>ChildQty</PropertyPath>
+                                <PropertyPath>Qty</PropertyPath>
+                                <PropertyPath>StockParentItemId</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+
+            <Annotations Target="com.agel.mmts.entity.StockReportViewModel/MaterialCode">
+                <Annotation Term="Common.Label" String="{@i18n>parentMaterialCode}"/>
+            </Annotations>
+            <Annotations Target="com.agel.mmts.entity.StockReportViewModel/Description">
+                <Annotation Term="Common.Label" String="{@i18n>parentMaterialDescription}"/>
+            </Annotations>
+            <Annotations Target="com.agel.mmts.entity.StockReportViewModel/UOM">
+                <Annotation Term="Common.Label" String="{@i18n>parentMaterialUom}"/>
+            </Annotations>
+            <Annotations Target="com.agel.mmts.entity.StockReportViewModel/ChildMaterialCode">
+                <Annotation Term="Common.Label" String="{@i18n>childMaterialCode}"/>
+            </Annotations>
+            <Annotations Target="com.agel.mmts.entity.StockReportViewModel/ChildDescription">
+                <Annotation Term="Common.Label" String="{@i18n>childMaterialDescription}"/>
+            </Annotations>
+            <Annotations Target="com.agel.mmts.entity.StockReportViewModel/ChildUom">
+                <Annotation Term="Common.Label" String="{@i18n>childMaterialUom}"/>
+            </Annotations>
+            <Annotations Target="com.agel.mmts.entity.StockReportViewModel/Qty">
+                <Annotation Term="Common.Label" String="{@i18n>parentQuantity}"/>
+            </Annotations>
+            <Annotations Target="com.agel.mmts.entity.StockReportViewModel/ChildQty">
+                <Annotation Term="Common.Label" String="{@i18n>childQuantity}"/>
+            </Annotations>
+            <Annotations Target="com.agel.mmts.entity.StockReportViewModel/PlantCode">
+                <Annotation Term="Common.Label" String="{@i18n>plant}"/>
+            </Annotations>
+            <Annotations Target="com.agel.mmts.entity.StockReportViewModel/StorageLocation">
+                <Annotation Term="Common.Label" String="{@i18n>storageLocation}"/>
+            </Annotations>
+
+            <Annotations Target="com.agel.mmts.entity.MasterPlantDetailModel">
+                <Annotation Term="UI.SelectionFields" >
+                    <Collection>
+                        <PropertyPath>Name</PropertyPath>
+                    </Collection>
+                </Annotation>
             </Annotations>
 
             <Annotations Target="com.agel.mmts.entity.StockReportViewModel">
-                <Annotation Term="UI.SelectionFields">
+                <Annotation Term="UI.HeaderInfo">
+                    <Record Type="UI.HeaderInfoType">
+                        <PropertyValue Property="TypeName" String="{@i18n>item}"/>
+                        <PropertyValue Property="TypeNamePlural" String="{@i18n>items}"/>
+                    </Record>
+                </Annotation>
+
+                <Annotation Term="Common.SemanticKey" >
                     <Collection>
-                        <PropertyPath>ChildDescription</PropertyPath>
-                        <PropertyPath>ChildMaterialCode</PropertyPath>
                         <PropertyPath>MaterialCode</PropertyPath>
-                        <PropertyPath>PlantCode</PropertyPath>
-                        <PropertyPath>StorageLocation</PropertyPath>
-                        <PropertyPath>Description</PropertyPath>
+                        <PropertyPath>ChildMaterialCode</PropertyPath>
                     </Collection>
                 </Annotation>
 
-                <Annotation Term="UI.LineItem" >
+                <Annotation Term="UI.SelectionFields">
+                    <Collection>
+                        <PropertyPath>PlantCode</PropertyPath>
+                        <PropertyPath>StorageLocation</PropertyPath>
+                        <PropertyPath>MaterialCode</PropertyPath>
+                        <PropertyPath>Description</PropertyPath>
+                        <PropertyPath>UOM</PropertyPath>
+                        <PropertyPath>ChildMaterialCode</PropertyPath>
+                        <PropertyPath>ChildDescription</PropertyPath>
+                        <PropertyPath>ChildUom</PropertyPath>
+                    </Collection>
+                </Annotation>
+
+                <Annotation Term="UI.LineItem">
                     <Collection>
                         <Record Type="UI.DataField">
                             <PropertyValue Property="Value" Path="MaterialCode"/>
@@ -58,10 +126,10 @@
                         <Record Type="UI.DataField">
                             <PropertyValue Property="Value" Path="Description"/>
                         </Record>
-                         <Record Type="UI.DataField">
+                        <Record Type="UI.DataField">
                             <PropertyValue Property="Value" Path="Qty"/>
                         </Record>
-                         <Record Type="UI.DataField">
+                        <Record Type="UI.DataField">
                             <PropertyValue Property="Value" Path="UOM"/>
                         </Record>
                         <Record Type="UI.DataField">

@@ -79,7 +79,8 @@ sap.ui.define([
                     MaterialCode: "",
                     MaterialName: "",
                     Qty: "",
-                    BaseUnit: ""
+                    BaseUnit: "",
+                    StockQuantity:null
                 });
                 oModel.setData(oItems);
             },
@@ -140,6 +141,7 @@ sap.ui.define([
                 this.getView().getModel("reservationTableModel").setProperty(sItemPath + "/MaterialName", reservationListObj.Description);
                 this.getView().getModel("reservationTableModel").setProperty(sItemPath + "/BaseUnit", reservationListObj.UOM);
                 this.getView().getModel("reservationTableModel").setProperty(sItemPath + "/MaterialCode", reservationListObj.MaterialCode);
+                this.getView().getModel("reservationTableModel").setProperty(sItemPath + "/StockQuantity", reservationListObj.Remaining_Qty);
             },
             onSubmitReservation: function (oEvent) {
                 var oHeaderData = this.getViewModel("HeaderDetailsModel").getData();
