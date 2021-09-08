@@ -48,7 +48,7 @@
         <!-- DynamicPage Content -->
         <f:content>
             <VBox>
-                <Table visible="{= ${objectViewModel>/isItemFieldsVisible} ? true : false}" items="{reservationTableModel>/}" growingThreshold="5" growing="true" fixedLayout="false">
+                <Table items="{reservationTableModel>/}" growingThreshold="5" growing="true" fixedLayout="false">
                     <headerToolbar>
                         <OverflowToolbar >
                           <Title text="{i18n>lineItems}" level="H4" />
