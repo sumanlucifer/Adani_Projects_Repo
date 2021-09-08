@@ -108,6 +108,22 @@
 					"id": "com.agel.mmts.engineerissuecancellation-3-1630655185521",
 					"appId": "com.agel.mmts.engineerissuecancellation",
 					"vizId": "IssueCancellation-Manage"
+				}, {
+					"id": "com.agel.mmts.materialreservation-4-1631081974631",
+					"appId": "com.agel.mmts.materialreservation",
+					"vizId": "MaterialReservation-Manage"
+				}, {
+					"id": "com.agel.mmts.returnreservation-5-1631081974631",
+					"appId": "com.agel.mmts.returnreservation",
+					"vizId": "ReturnReservation-Manage"
+				}, {
+					"id": "com.agel.mmts.consumptionreservation-6-1631081974631",
+					"appId": "com.agel.mmts.consumptionreservation",
+					"vizId": "ConsumptionReservation-Manage"
+				}, {
+					"id": "com.agel.mmts.returnmaterial-7-1631084435646",
+					"appId": "com.agel.mmts.returnmaterial",
+					"vizId": "CancelReturnRequest-Manage"
 				}]
 			}
 		}, {
@@ -143,6 +159,14 @@
 					"id": "com.agel.mmts.reportspurchaseorder-6-1628188397943",
 					"appId": "com.agel.mmts.reportspurchaseorder",
 					"vizId": "PurchaseOrderReports-Display"
+				}, {
+					"id": "com.agel.mmts.reportsstorestock-7-1631082374768",
+					"appId": "com.agel.mmts.reportsstorestock",
+					"vizId": "StoreStockReport-Display"
+				}, {
+					"id": "com.agel.mmts.reportsreceipt-8-1631082374768",
+					"appId": "com.agel.mmts.reportsreceipt",
+					"vizId": "ReportsReceipt-Display"
 				}]
 			}
 		}, {

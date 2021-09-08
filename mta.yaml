@@ -164,11 +164,11 @@ modules:
       name: comagelmmtsengineerissuecancellation
       target-path: resources/
     - artifacts:
-      - comagelmmtsreturnreservation.zip
+      - return-reservation-content.zip
       name: comagelmmtsreturnreservation
       target-path: resources/
     - artifacts:
-      - comagelmmtsconsumptionreservation.zip
+      - consumption-reservation-content.zip
       name: comagelmmtsconsumptionreservation
       target-path: resources/
     - artifacts:
@@ -461,7 +461,6 @@ modules:
   type: html5
   path: engineer-issuecancellation
   build-parameters:
-    build-result: dist
     builder: custom
     commands:
     - npm run build
