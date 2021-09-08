@@ -8,3 +8,7 @@ package-lock.json
 
 # auto generated wildcard
 agel-mmts-web/vendorPersona/.env24
+# auto generated wildcard
+consumption-reservation/.env1
+# auto generated wildcard
+return-reservation/.env1

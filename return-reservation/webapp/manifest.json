@@ -56,10 +56,10 @@
     "sap.ui5": {
         "flexEnabled": false,
         "rootView": {
-            "viewName": "com.agel.mmts.returnreservation.view.LandingPage",
+            "viewName": "com.agel.mmts.returnreservation.view.App",
             "type": "XML",
             "async": true,
-            "id": "LandingPage"
+            "id": "App"
         },
         "dependencies": {
             "minUI5Version": "1.93.0",
@@ -108,24 +108,31 @@
                 "viewPath": "com.agel.mmts.returnreservation.view",
                 "controlAggregation": "pages",
                 "controlId": "app",
-                "clearControlAggregation": false
+                "clearControlAggregation": false,
+                "bypassed": {
+                    "target": [
+                        "notFound"
+                    ]
+                }
             },
             "routes": [
                 {
-                    "name": "RouteLandingPage",
-                    "pattern": "RouteLandingPage",
+                    "name": "RouteApp",
+                    "pattern": "",
                     "target": [
-                        "TargetLandingPage"
+                        "TargetApp"
                     ]
                 }
             ],
             "targets": {
-                "TargetLandingPage": {
+                "TargetApp": {
                     "viewType": "XML",
                     "transition": "slide",
                     "clearControlAggregation": false,
-                    "viewId": "LandingPage",
-                    "viewName": "LandingPage"
+                    "viewName": "MaterialReservationPage"
+                },
+                "notFound": {
+                    "viewName": "NotFound"
                 }
             }
         }

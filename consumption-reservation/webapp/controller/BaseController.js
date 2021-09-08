@@ -4,7 +4,7 @@ sap.ui.define([
 ], function (Controller, BusyIndicator) {
     "use strict";
 
-    return Controller.extend("com.agel.mmts.materialreservation.controller.BaseController", {
+    return Controller.extend("com.agel.mmts.consumptionreservation.controller.BaseController", {
         /**
          * Convenience method for accessing the router.
          * @public
