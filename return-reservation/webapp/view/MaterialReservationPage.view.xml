@@ -1,4 +1,4 @@
-<mvc:View controllerName="com.agel.mmts.materialreservation.controller.MaterialReservationPage" height="100%"
+<mvc:View controllerName="com.agel.mmts.returnreservation.controller.MaterialReservationPage" height="100%"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns:core="sap.ui.core"
     xmlns="sap.m"
@@ -24,7 +24,7 @@
                         <fm:SimpleForm layout="ColumnLayout" binding="{HeaderDetailsModel>/}" columnsM="2" columnsL="3" columnsXL="4" singleContainerFullSize="true" class="style-RemoveTitleHeight">
                             <!-- <core:Title  /> -->
                             <Label text="Movement Type" required="true"/>
-                            <Select id="idSelMovementType" change="onMoventTypeChange" editable="false" selectedKey="311" forceSelection="false" items="{HeaderDetailsModel>/movementType}">
+                            <Select id="idSelMovementType" change="onMoventTypeChange" editable="false" selectedKey="312" forceSelection="false" items="{HeaderDetailsModel>/movementType}">
                                 <core:Item key="{HeaderDetailsModel>value}" text="{HeaderDetailsModel>Text}" />
                             </Select>
                             <Label text="Good Recipient" required="true"/>

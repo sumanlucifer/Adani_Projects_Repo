@@ -20,7 +20,7 @@
                 <uxap:expandedHeading>
                     <FlexBox direction="Column" renderType="Bare">
                         <Title text="{i18n>ReturnMaterial}" wrapping="false" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
-                        <Text  text="{Status}"/>
+                        <Text  id="idStatus" text="{Status}"/>
                     </FlexBox>
                 </uxap:expandedHeading>
                 <uxap:snappedHeading>
@@ -34,6 +34,7 @@
                     <Title text="{SONumber}" binding="{SONumberId}" wrapping="true" titleStyle="Auto"/>
                 </uxap:snappedTitleOnMobile>
                 <uxap:actions>
+                    <Button text="Done" press="onDonePress" type="Emphasized" enabled="{= ${objectViewModel>/enableDone} || ${Status} === 'Approved' || ${Status} === 'Rejected' || ${Status} === 'Partially Approved' }"/>
                 </uxap:actions>
             </uxap:ObjectPageDynamicHeaderTitle>
         </uxap:headerTitle>
@@ -60,7 +61,7 @@
 				      }" binding="{SONumberId}"/>
                     </VBox>
                     <VBox class="sapUiMediumMarginBeginEnd">
-                        <Title text="{i18n>IssueDate}"/>
+                        <Title text="{i18n>RequestedDate}"/>
                         <Text text="{
 				        path: 'RequestDate',
 				        type: 'sap.ui.model.type.Date',
@@ -122,16 +123,16 @@
                                 <OverflowToolbar style="Clear">
                                     <Title id="title" text="{i18n>TreeTableViewTitle}"/>
                                     <ToolbarSpacer/>
-                                    <Button text="Approve All" press="onApproveAllPress" type="Accept" icon="sap-icon://accept" enabled="{= !${objectViewModel>/partialApproval}}"/>
-                                    <Button text="{i18n>PartialApprove}" press="onPartialApprovePress" enabled="{objectViewModel>/partialApproval}"/>
-                                    <Button text="Reject All" press="onRejectAllPress" type="Reject" icon="sap-icon://decline" enabled="{= !${objectViewModel>/partialApproval}}"/>
+                                    <Button text="Approve All" press="onApproveAllPress" type="Accept" icon="sap-icon://accept" enabled="{= ${Status} !== 'PENDING'? false : !${objectViewModel>/partialApproval}}"/>
+                                    <Button text="{i18n>PartialApprove}" press="onPartialApprovePress" enabled="{= ${Status} !== 'PENDING'? false : ${objectViewModel>/partialApproval}}"/>
+                                    <Button text="Reject All" press="onRejectAllPress" type="Reject" icon="sap-icon://decline" enabled="{= ${Status} !== 'PENDING'? false : !${objectViewModel>/partialApproval}}"/>
                                 </OverflowToolbar>
                             </tt:extension>
                             <tt:columns>
                                 <tt:Column>
                                     <Label text="" />
                                     <tt:template>
-                                        <CheckBox select="onReturnItemSelect" selected="{TreeTableModelView>isSelected}" visible="{TreeTableModelView>selectable}" />
+                                        <CheckBox select="onReturnItemSelect" selected="{TreeTableModelView>isSelected}" visible="{=  ${Status} === 'PENDING' &amp;&amp; ${TreeTableModelView>selectable} &amp;&amp; ${TreeTableModelView>RequirementQuantity} > 0 }" />
                                     </tt:template>
                                 </tt:Column>
                                 <tt:Column>
@@ -173,7 +174,8 @@
                                 <tt:Column>
                                     <Label text="Qty Approved for Return"/>
                                     <tt:template>
-                                        <Input type="Number" value="{TreeTableModelView>ApprovedRetQuantity}" enabled="{TreeTableModelView>isSelected}" visible="{TreeTableModelView>selectable}" valueLiveUpdate="true" liveChange="validateInputValue"/>
+                                        <Input type="Number" value="{TreeTableModelView>ApprovedRetQuantity}" enabled="{TreeTableModelView>isSelected}" visible="{TreeTableModelView>selectable}" valueLiveUpdate="true" liveChange="validateInputValue" 
+                                            valueState="{= ${TreeTableModelView>ApprovedRetQuantity} > 0 &amp;&amp; ${TreeTableModelView>RequirementQuantity} >= ${TreeTableModelView>ApprovedRetQuantity} ? 'None' : 'Error' }"/>
                                     </tt:template>
                                 </tt:Column>
                             </tt:columns>
