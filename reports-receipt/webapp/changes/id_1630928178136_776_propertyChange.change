@@ -1,0 +1,41 @@
+{
+    "fileName": "id_1630928178136_776_propertyChange",
+    "fileType": "change",
+    "changeType": "propertyChange",
+    "moduleName": "",
+    "reference": "com.agel.mmts.reportsreceipt",
+    "packageName": "",
+    "content": {
+        "property": "showTablePersonalisation",
+        "newValue": false
+    },
+    "selector": {
+        "id": "com.agel.mmts.reportsreceipt::sap.suite.ui.generic.template.ListReport.view.ListReport::ReceiptReportViewSet--listReport",
+        "idIsLocal": false,
+        "type": "sap.ui.comp.smarttable.SmartTable"
+    },
+    "layer": "CUSTOMER_BASE",
+    "texts": {},
+    "namespace": "apps/com.agel.mmts.reportsreceipt/changes/",
+    "projectId": "com.agel.mmts.reportsreceipt",
+    "creation": 1630928220338,
+    "originalLanguage": "",
+    "support": {
+        "generator": "changeUtils: SAPFioriTools",
+        "service": "",
+        "user": "",
+        "sapui5Version": "latest",
+        "sourceChangeFileName": "",
+        "compositeCommand": ""
+    },
+    "oDataInformation": {},
+    "dependentSelector": {},
+    "validAppVersions": {
+        "from": "1.0.0",
+        "to": "1.0.0",
+        "creation": "1.0.0"
+    },
+    "jsOnly": false,
+    "variantReference": "",
+    "appDescriptorChange": false
+}

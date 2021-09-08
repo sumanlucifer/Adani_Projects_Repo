@@ -1,7 +1,7 @@
 {
     "_version": "1.32.0",
     "sap.app": {
-        "id": "com.agel.mmts.reportsstorestock",
+        "id": "com.agel.mmts.reportsreceipt",
         "type": "application",
         "i18n": "i18n/i18n.properties",
         "applicationVersion": {
@@ -39,12 +39,12 @@
         },
         "crossNavigation": {
             "inbounds": {
-                "com-agel-mmts-reportsstorestock-inbound": {
+                "com-agel-mmts-reportsreceipt-inbound": {
                     "signature": {
                         "parameters": {},
                         "additionalParameters": "allowed"
                     },
-                    "semanticObject": "StoreStockReport",
+                    "semanticObject": "ReportsReceipt",
                     "action": "Display",
                     "title": "{{flpTitle}}",
                     "subTitle": "{{flpSubtitle}}",
@@ -103,13 +103,13 @@
                 "type": "sap.ui.model.resource.ResourceModel",
                 "uri": "i18n/i18n.properties"
             },
-            "i18n|sap.suite.ui.generic.template.ListReport|StockReportViewSet": {
+            "i18n|sap.suite.ui.generic.template.ListReport|ReceiptReportViewSet": {
                 "type": "sap.ui.model.resource.ResourceModel",
-                "uri": "i18n/ListReport/StockReportViewSet/i18n.properties"
+                "uri": "i18n/ListReport/ReceiptReportViewSet/i18n.properties"
             },
-            "i18n|sap.suite.ui.generic.template.ObjectPage|StockReportViewSet": {
+            "i18n|sap.suite.ui.generic.template.ObjectPage|ReceiptReportViewSet": {
                 "type": "sap.ui.model.resource.ResourceModel",
-                "uri": "i18n/ObjectPage/StockReportViewSet/i18n.properties"
+                "uri": "i18n/ObjectPage/ReceiptReportViewSet/i18n.properties"
             },
             "": {
                 "dataSource": "mainService",
@@ -146,8 +146,8 @@
             "showDraftToggle": false
         },
         "pages": {
-            "ListReport|StockReportViewSet": {
-                "entitySet": "StockReportViewSet",
+            "ListReport|ReceiptReportViewSet": {
+                "entitySet": "ReceiptReportViewSet",
                 "component": {
                     "name": "sap.suite.ui.generic.template.ListReport",
                     "list": true,
@@ -159,6 +159,9 @@
                             "dateSettings": {
                                 "useDateRange": true
                             }
+                        },
+                        "tableSettings": {
+                            "type": "ResponsiveTable"
                         },
                         "dataLoadSettings": {
                             "loadDataOnAppLaunch": "always"

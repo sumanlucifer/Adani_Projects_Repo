@@ -1,0 +1,41 @@
+{
+    "fileName": "id_1630929796329_92_propertyChange",
+    "fileType": "change",
+    "changeType": "propertyChange",
+    "moduleName": "",
+    "reference": "com.agel.mmts.reportsstorestock",
+    "packageName": "",
+    "content": {
+        "property": "showRestoreOnFB",
+        "newValue": true
+    },
+    "selector": {
+        "id": "com.agel.mmts.reportsstorestock::sap.suite.ui.generic.template.ListReport.view.ListReport::StockReportViewSet--listReportFilter",
+        "idIsLocal": false,
+        "type": "sap.ui.comp.smartfilterbar.SmartFilterBar"
+    },
+    "layer": "CUSTOMER_BASE",
+    "texts": {},
+    "namespace": "apps/com.agel.mmts.reportsstorestock/changes/",
+    "projectId": "com.agel.mmts.reportsstorestock",
+    "creation": 1630929796329,
+    "originalLanguage": "",
+    "support": {
+        "generator": "changeUtils: SAPFioriTools",
+        "service": "",
+        "user": "",
+        "sapui5Version": "latest",
+        "sourceChangeFileName": "",
+        "compositeCommand": ""
+    },
+    "oDataInformation": {},
+    "dependentSelector": {},
+    "validAppVersions": {
+        "from": "1.0.0",
+        "to": "1.0.0",
+        "creation": "1.0.0"
+    },
+    "jsOnly": false,
+    "variantReference": "",
+    "appDescriptorChange": false
+}

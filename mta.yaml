@@ -175,6 +175,10 @@ modules:
       - comagelmmtsreportsstorestock.zip
       name: comagelmmtsreportsstorestock
       target-path: resources/
+    - artifacts:
+      - comagelmmtsreportsreceipt.zip
+      name: comagelmmtsreportsreceipt
+      target-path: resources/
 - name: launchpad
   type: com.sap.application.content
   path: launchpad
@@ -481,6 +485,16 @@ modules:
 - name: comagelmmtsreportsstorestock
   type: html5
   path: reports-storestock
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: comagelmmtsreportsreceipt
+  type: html5
+  path: reports-receipt
   build-parameters:
     build-result: dist
     builder: custom
