@@ -9,7 +9,7 @@
         <f:title>
             <f:DynamicPageTitle>
                 <f:heading>
-                    <Title id="pageTitle" text="Create Reservation"/>
+                    <Title id="pageTitle" text="Create Issue Reservation"/>
                 </f:heading>
                 <f:actions>
                     <!-- <Button text="Raise Return Material Request" press="onConfirmRequest" type="Emphasized"/> -->
@@ -27,20 +27,30 @@
                             <Select id="idSelMovementType" change="onMoventTypeChange" editable="false" selectedKey="311" forceSelection="false" items="{HeaderDetailsModel>/movementType}">
                                 <core:Item key="{HeaderDetailsModel>value}" text="{HeaderDetailsModel>Text}" />
                             </Select>
-                            <Label text="Good Recipient" required="true"/>
+                            <Label text="Company Code" required="true"/>
+                            <Select id="idSelCompanyCode" forceSelection="false" selectedKey="{HeaderDetailsModel>CompanyCode}" items="{
+						    path: '/MasterCompanyCodeSet'						    
+					    }">
+                                <core:Item key="{CompanyCode}" text="{CompanyCode} - {Name}" />
+                            </Select>
+                            <Label text="Good Recipient/SO Number" required="true"/>
                             <Input id="idGoodReciept" value="{HeaderDetailsModel>GoodReciepient}" />
-                            <Label visible="{= ${objectViewModel>/isMovementType2Visible} ? true : false}" text="WBS" required="true"/>
-                            <Input visible="{= ${objectViewModel>/isMovementType2Visible} ? true : false}" id="idWBS" value="{HeaderDetailsModel>WBS}" />
+
                             <Label text="Plant" required="true"/>
-                            <Input id="idPlant" value="{HeaderDetailsModel>Plant}" />
+
+
+                            <Select id="idSelPlant" forceSelection="false" selectedKey="{HeaderDetailsModel>Plant}" items="{
+						    path: '/MasterPlantDetailSet'						    
+					    }">
+                                <core:Item key="{PlantId}" text="{PlantId} - {Name}" />
+                            </Select>
                             <!-- <core:Title ></core:Title> -->
-                            <Label visible="{= ${objectViewModel>/isMovementType1Visible} ? true : false}" text="Cost Center" required="true"/>
-                            <Input visible="{= ${objectViewModel>/isMovementType1Visible} ? true : false}" id="idCostCenter" value="{HeaderDetailsModel>CostCenter}" />
-                            <Label visible="{= ${objectViewModel>/isMovementType3Visible} ? true : false}" text="Recieving Location" required="true"/>
-                            <Input visible="{= ${objectViewModel>/isMovementType3Visible} ? true : false}" id="idRecievingLocation" value="{HeaderDetailsModel>RecievingLocation}" />
+                            <Label text="Cost Center" required="true"/>
+                            <Input id="idCostCenter" value="{HeaderDetailsModel>CostCenter}" />
+
                             <Label text="GL Account" required="true"/>
                             <Input id="idGLAccount" value="{HeaderDetailsModel>GLAccount}" />
-                            <Label text="Vendor Name" required="true"/>
+                            <Label text="Contractor Name" required="true"/>
                             <Select id="idVendor" change="onVendorSelected" selectedKey="{HeaderDetailsModel>vendorID}" forceSelection="false" items="{/VendorSet}">
                                 <core:Item key="{ID}" text="{Name} - {VendorCode}" />
                             </Select>
@@ -72,9 +82,7 @@
                         <Column>
                             <Text text="UOM"/>
                         </Column>
-                        <Column>
-                            <Text text="Quantity Available in Stock"/>
-                        </Column>
+
                         <Column>
                             <Text text="Quantity"/>
                         </Column>
@@ -114,7 +122,7 @@
                                 </Input>
                                 <Text text="{reservationTableModel>MaterialName}"/>
                                 <Text text="{reservationTableModel>BaseUnit}"/>
-                                <Text text="{reservationTableModel>StockQuantity}"/>
+
                                 <Input width="30%" value="{reservationTableModel>Qty}"/>
                                 <Button icon="sap-icon://delete" press="onDeleteReservationItemPress" type="Transparent"/>
                             </cells>
@@ -124,7 +132,7 @@
             </VBox>
         </f:content>
         <f:footer>
-            <OverflowToolbar visible="{= ${objectViewModel>/isItemFieldsVisible} ? true : false}">
+            <OverflowToolbar visible="{= ${objectViewModel>/isButtonVisible} ? true : true}">
                 <ToolbarSpacer/>
                 <Button text="Save" class="sapUiTinyMarginBegin" press="onSubmitReservation" type="Emphasized" />
                 <Button text="Cancel" class="sapUiTinyMarginBegin" press="onCancelReservation" />

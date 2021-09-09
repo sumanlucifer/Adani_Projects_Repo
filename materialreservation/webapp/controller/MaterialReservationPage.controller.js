@@ -28,11 +28,6 @@ sap.ui.define([
                 var oViewModel = new JSONModel({
                     busy: false,
                     delay: 0,
-                    isHeaderFieldsVisible: false,
-                    isItemFieldsVisible: false,
-                    isMovementType1Visible: false,
-                    isMovementType2Visible: false,
-                    isMovementType3Visible: false,
                     isButtonVisible: false
                 });
                 this.setModel(oViewModel, "objectViewModel");
@@ -80,44 +75,11 @@ sap.ui.define([
                     MaterialName: "",
                     Qty: "",
                     BaseUnit: "",
-                    StockQuantity:null
+                    StockQuantity: null
                 });
                 oModel.setData(oItems);
             },
-            onMoventTypeChange: function (oEvent) {
-                var sMovementType = oEvent.getSource().getSelectedKey();
-                switch (sMovementType) {
-                    case "":
-                        this.getViewModel("objectViewModel").setProperty("/isItemFieldsVisible", false);
-                        this.getViewModel("objectViewModel").setProperty("/isMovementType1Visible", false);
-                        this.getViewModel("objectViewModel").setProperty("/isMovementType2Visible", false);
-                        this.getViewModel("objectViewModel").setProperty("/isMovementType3Visible", false);
-                        break;
-                    case "311":
-                        this.getViewModel("objectViewModel").setProperty("/isItemFieldsVisible", true);
-                        this.getViewModel("objectViewModel").setProperty("/isMovementType1Visible", true);
-                        this.getViewModel("objectViewModel").setProperty("/isMovementType2Visible", false);
-                        this.getViewModel("objectViewModel").setProperty("/isMovementType3Visible", false);
-                        break;
-                    case "201":
-                        this.getViewModel("objectViewModel").setProperty("/isItemFieldsVisible", true);
-                        this.getViewModel("objectViewModel").setProperty("/isMovementType1Visible", false);
-                        this.getViewModel("objectViewModel").setProperty("/isMovementType2Visible", true);
-                        this.getViewModel("objectViewModel").setProperty("/isMovementType3Visible", false);
-                        break;
-                    case "312":
-                        this.getViewModel("objectViewModel").setProperty("/isItemFieldsVisible", true);
-                        this.getViewModel("objectViewModel").setProperty("/isMovementType1Visible", false);
-                        this.getViewModel("objectViewModel").setProperty("/isMovementType2Visible", false);
-                        this.getViewModel("objectViewModel").setProperty("/isMovementType3Visible", true);
-                        break;
-                    default:
-                        this.getViewModel("objectViewModel").setProperty("/isItemFieldsVisible", false);
-                        this.getViewModel("objectViewModel").setProperty("/isMovementType1Visible", false);
-                        this.getViewModel("objectViewModel").setProperty("/isMovementType2Visible", false);
-                        this.getViewModel("objectViewModel").setProperty("/isMovementType3Visible", false);
-                }
-            },
+
             onDeleteReservationItemPress: function (oEvent) {
                 this.packingListObj = oEvent.getSource().getBindingContext("reservationTableModel").getObject();
                 var iRowNumberToDelete = parseInt(oEvent.getSource().getBindingContext("reservationTableModel").getPath().slice("/".length));
@@ -273,18 +235,7 @@ sap.ui.define([
             _createReservationList: function () {
                 var oAdditionalData = this.getViewModel("HeaderDetailsModel").getData();
                 var aReservationItems = this.getViewModel("reservationTableModel").getData();
-                switch (oAdditionalData.MovementTypeValue) {
-                    case "311":
-                        this.callIssueReservationService(oAdditionalData, aReservationItems);
-                        break;
-                    case "201":
-                        this.callConsumptionReservationService(oAdditionalData, aReservationItems);
-                        break;
-                    case "312":
-                        this.callReturnReservationService(oAdditionalData, aReservationItems);
-                        break;
-                    //  default:
-                }
+                this.callIssueReservationService(oAdditionalData, aReservationItems);
             },
             callIssueReservationService: function (oAdditionalData, aReservationItems) {
                 aReservationItems = aReservationItems.map(function (item) {
@@ -309,7 +260,7 @@ sap.ui.define([
                             var objectViewModel = this.getViewModel("objectViewModel");
                         }
                         else {
-                           sap.m.MessageBox.error(oData.Message);
+                            sap.m.MessageBox.error(oData.Message);
                         }
                     }.bind(this),
                     error: function (oError) {
@@ -351,7 +302,7 @@ sap.ui.define([
                             var objectViewModel = this.getViewModel("objectViewModel");
                         }
                         else {
-                          sap.m.MessageBox.error(oData.Message);
+                            sap.m.MessageBox.error(oData.Message);
                         }
                     }.bind(this),
                     error: function (oError) {
@@ -394,7 +345,7 @@ sap.ui.define([
                             var objectViewModel = this.getViewModel("objectViewModel");
                         }
                         else {
-                        sap.m.MessageBox.error(oData.Message);
+                            sap.m.MessageBox.error(oData.Message);
                         }
                     }.bind(this),
                     error: function (oError) {

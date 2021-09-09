@@ -1,4 +1,4 @@
-<mvc:View controllerName="com.agel.mmts.consumptionreservation.controller.MaterialReservationPage" height="100%"
+<mvc:View controllerName="com.agel.mmts.returnreservation.controller.ReturnReservationPage" height="100%"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns:core="sap.ui.core"
     xmlns="sap.m"
@@ -9,7 +9,7 @@
         <f:title>
             <f:DynamicPageTitle>
                 <f:heading>
-                    <Title id="pageTitle" text="Create Reservation"/>
+                    <Title id="pageTitle" text="Create Return Reservation"/>
                 </f:heading>
                 <f:actions>
                     <!-- <Button text="Raise Return Material Request" press="onConfirmRequest" type="Emphasized"/> -->
@@ -24,23 +24,30 @@
                         <fm:SimpleForm layout="ColumnLayout" binding="{HeaderDetailsModel>/}" columnsM="2" columnsL="3" columnsXL="4" singleContainerFullSize="true" class="style-RemoveTitleHeight">
                             <!-- <core:Title  /> -->
                             <Label text="Movement Type" required="true"/>
-                            <Select id="idSelMovementType" change="onMoventTypeChange" editable="false" selectedKey="201" forceSelection="false" items="{HeaderDetailsModel>/movementType}">
+                            <Select id="idSelMovementType" change="onMoventTypeChange" editable="false" selectedKey="312" forceSelection="false" items="{HeaderDetailsModel>/movementType}">
                                 <core:Item key="{HeaderDetailsModel>value}" text="{HeaderDetailsModel>Text}" />
                             </Select>
-                            <Label text="Good Recipient" required="true"/>
+                            <Label text="Good Recipient/SO Number" required="true"/>
                             <Input id="idGoodReciept" value="{HeaderDetailsModel>GoodReciepient}" />
-                            <Label visible="{= ${objectViewModel>/isMovementType2Visible} ? true : false}" text="WBS" required="true"/>
-                            <Input visible="{= ${objectViewModel>/isMovementType2Visible} ? true : false}" id="idWBS" value="{HeaderDetailsModel>WBS}" />
+
                             <Label text="Plant" required="true"/>
-                            <Input id="idPlant" value="{HeaderDetailsModel>Plant}" />
+
+                            <Select id="idSelPlant" forceSelection="false" selectedKey="{HeaderDetailsModel>Plant}" items="{
+						    path: '/MasterPlantDetailSet'						    
+					    }">
+                                    <core:Item key="{PlantId}" text="{PlantId} - {Name}" />
+                            </Select>
                             <!-- <core:Title ></core:Title> -->
-                            <Label visible="{= ${objectViewModel>/isMovementType1Visible} ? true : false}" text="Cost Center" required="true"/>
-                            <Input visible="{= ${objectViewModel>/isMovementType1Visible} ? true : false}" id="idCostCenter" value="{HeaderDetailsModel>CostCenter}" />
-                            <Label visible="{= ${objectViewModel>/isMovementType3Visible} ? true : false}" text="Recieving Location" required="true"/>
-                            <Input visible="{= ${objectViewModel>/isMovementType3Visible} ? true : false}" id="idRecievingLocation" value="{HeaderDetailsModel>RecievingLocation}" />
+
+                            <Label text="Recieving Location" required="true"/>
+                            <Input id="idRecievingLocation" value="{HeaderDetailsModel>RecievingLocation}" />
                             <Label text="GL Account" required="true"/>
                             <Input id="idGLAccount" value="{HeaderDetailsModel>GLAccount}" />
+                            <Label 
+                                ></Label>
+<Button class="sapUiSmallMarginTop" width="10px" text="Go" type="Emphasized" press="onPressGo"></Button>
                         </fm:SimpleForm>
+
                     </HBox>
                 </f:content>
             </f:DynamicPageHeader>
@@ -51,10 +58,10 @@
                 <Table items="{reservationTableModel>/}" growingThreshold="5" growing="true" fixedLayout="false">
                     <headerToolbar>
                         <OverflowToolbar >
-                          <Title text="{i18n>lineItems}" level="H4" />
+                            <Title text="{i18n>lineItems}" level="H4" />
                             <content>
                                 <ToolbarSpacer></ToolbarSpacer>
-                                <Button text="Add" icon="sap-icon://add" press="onAddReservationItemsPress"></Button>
+
                             </content>
                         </OverflowToolbar>
                     </headerToolbar>
@@ -67,6 +74,9 @@
                         </Column>
                         <Column>
                             <Text text="Quantity"/>
+                        </Column>
+                        <Column>
+                            <Text text="Consumption Quantity"/>
                         </Column>
                         <Column>
                             <Text text="UOM"/>
@@ -101,7 +111,8 @@
                                     </suggestionRows>
                                 </Input>
                                 <Text text="{reservationTableModel>MaterialName}"/>
-                                <Input width="30%" value="{reservationTableModel>Qty}"/>
+                                <Text width="30%" text="{reservationTableModel>Qty}"/>
+                                <Input width="30%" value="{reservationTableModel>ConsumptionQuantity}"/>
                                 <Text text="{reservationTableModel>BaseUnit}"/>
                                 <Button icon="sap-icon://delete" press="onDeleteReservationItemPress" type="Transparent"/>
                             </cells>
@@ -111,7 +122,7 @@
             </VBox>
         </f:content>
         <f:footer>
-            <OverflowToolbar visible="{= ${objectViewModel>/isItemFieldsVisible} ? true : false}">
+            <OverflowToolbar visible="{= ${objectViewModel>/isButtonVisible} ? true : true}">
                 <ToolbarSpacer/>
                 <Button text="Save" class="sapUiTinyMarginBegin" press="onSubmitReservation" type="Emphasized" />
                 <Button text="Cancel" class="sapUiTinyMarginBegin" press="onCancelReservation" />
