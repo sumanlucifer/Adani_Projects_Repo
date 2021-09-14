@@ -243,6 +243,12 @@ sap.ui.define([
                 this.onPackingListContainsPress();
             },
 
+            onViewVendorQRCancelPress: function (oEvent) {
+                this.qrNotFoundDialog.then(function (oDialog) {
+                    oDialog.close();
+                });
+            },
+
             onPackingListContainsPress: function () {
                 var oDetails = {};
                 oDetails.controller = this;
