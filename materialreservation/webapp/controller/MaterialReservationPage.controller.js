@@ -72,7 +72,9 @@ sap.ui.define([
                     StorageLocation: "",
                     Quantity: "",
                     BaseUnit: "",
-                    AvailbleQty: null
+                    Batch:"",
+                    M:false,
+                    AvailableQty: null
                 });
                 oModel.setData(oItems);
             },
@@ -100,7 +102,7 @@ sap.ui.define([
                 this.getView().getModel("reservationTableModel").setProperty(sItemPath + "/BaseUnit", reservationListObj.UOM);
                 this.getView().getModel("reservationTableModel").setProperty(sItemPath + "/Material", reservationListObj.MaterialCode);
                 this.getView().getModel("reservationTableModel").setProperty(sItemPath + "/StorageLocation", reservationListObj.StorageLocation);
-                this.getView().getModel("reservationTableModel").setProperty(sItemPath + "/AvailbleQty", reservationListObj.AvailbleQty);
+                this.getView().getModel("reservationTableModel").setProperty(sItemPath + "/AvailableQty", reservationListObj.AvailableQty);
             },
             onLiveChangeQty: function (oEvent) {
                 oEvent.getSource().setValueState("None");
@@ -129,8 +131,11 @@ sap.ui.define([
                     return;
                 }
                 this.getViewModel("objectViewModel").setProperty("/isItemFieldsVisible", true);
-                var Plant = this.byId("idPlant").getSelectedKey();
-                var StorageLocation = this.byId("idStorageLocation").getValue();
+                // var Plant = this.byId("idPlant").getSelectedKey();
+             var StorageLocation = this.byId("idStorageLocation").getValue();
+
+                 var Plant = "4500327851";
+               
                 this.getMaterialSuggestionData(Plant, StorageLocation);
             },
             getMaterialSuggestionData: function (Plant, StorageLocation) {
@@ -304,20 +309,21 @@ sap.ui.define([
             callIssueReservationService: function (oAdditionalData, aReservationItems) {
                 aReservationItems = aReservationItems.map(function (item) {
                     return {
-                        Name: item.MaterialCode,
+                        Name: item.Description,
                         Material: item.Material,
                         Description: item.Description,
                         StorageLocation: item.StorageLocation,
                         Quantity: parseInt(item.Quantity),
                         BaseUnit: item.BaseUnit,
-                        Batch: "",
-                        IsChildItem: false
+                        Batch: item.Batch,
+                        IsChildItem: false,
+                        SpecialStockIndicator: item.M
                     };
                 });
                 var oPayload = {
-                    "PlantCode": oAdditionalData.Plant,
+                    "Plant": oAdditionalData.Plant,
                     "MovementType": "311",
-                    "GoodsRecipient": oAdditionalData.GoodReciepient,
+                    "GoodsRecipient": oAdditionalData.GoodsRecipient,
                     "CostCenter": oAdditionalData.CostCenter,
                     "WBS": oAdditionalData.WBS,
                     "ProfitCenter": oAdditionalData.ProfitCenter,
@@ -326,7 +332,7 @@ sap.ui.define([
                     "ContractorId": oAdditionalData.ContractorId,
                     "CompanyCode": oAdditionalData.CompanyCode,
                     "UserName": "AGEL",
-                    "IssueMaterialReservationParents": aReservationItems
+                    "IssueMaterialReservationItems": aReservationItems
                 };
                 this.mainModel.create("/IssueMaterialReservationEdmSet", oPayload, {
                     success: function (oData, oResponse) {

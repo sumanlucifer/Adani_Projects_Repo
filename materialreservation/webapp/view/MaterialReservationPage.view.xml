@@ -1,6 +1,7 @@
 <mvc:View controllerName="com.agel.mmts.materialreservation.controller.MaterialReservationPage" height="100%"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns:core="sap.ui.core"
+    xmlns:l="sap.ui.layout"
     xmlns="sap.m"
     xmlns:fm="sap.ui.layout.form"
     xmlns:f="sap.f">
@@ -28,7 +29,7 @@
                                 <core:Item key="{HeaderDetailsModel>value}" text="{HeaderDetailsModel>Text}" />
                             </Select>
                             <Label text="Plant" required="true"/>
-                            <Select  id="idPlant" forceSelection="false" selectedKey="{HeaderDetailsModel>Plant}" items="{
+                            <Select id="idPlant" forceSelection="false" selectedKey="{HeaderDetailsModel>Plant}" items="{
 						    path: '/MasterPlantDetailSet'						    
 					    }">
                                 <core:Item key="{PlantId}" text="{PlantId} - {Name}" />
@@ -54,12 +55,15 @@
                             <Select visible="{= ${objectViewModel>/isHeaderFieldsVisible} ? true : false}" id="idContractor" change="onVendorSelected" selectedKey="{HeaderDetailsModel>ContractorId}" forceSelection="false" items="{/VendorSet}">
                                 <core:Item key="{ID}" text="{Name} - {VendorCode}" />
                             </Select>
-                            <Label 
-                                ></Label>
-<Button class="sapUiSmallMarginTop" width="10px" text="Go" type="Emphasized" press="onPressGo"></Button>
-                            <Label 
-                                ></Label>
-<Button class="sapUiSmallMarginTop" width="20%" text="Reset" type="Emphasized" press="onPressReset"></Button>
+                            <Label></Label>
+                            <Button width="50%" class="sapUiSmallMarginTop"  text="Go" type="Emphasized" press="onPressGo">
+                                <layoutData>
+                                    <l:GridData span="XL2 L3 M4 S4" />
+                                </layoutData>
+                            </Button>
+
+                            
+                            <Button width="50%" class="sapUiSmallMarginTop" text="Reset" type="Emphasized" press="onPressReset"></Button>
                         </fm:SimpleForm>
                     </HBox>
                 </f:content>
@@ -80,10 +84,10 @@
                     </headerToolbar>
                     <columns>
                         <Column >
-                            <Text text="Material Name"/>
+                            <Text text="Material Code"/>
                         </Column>
                         <Column>
-                            <Text text="Description"/>
+                            <Text text="Material Name"/>
                         </Column>
                         <Column>
                             <Text text="Storage Location"/>
@@ -97,6 +101,12 @@
                         <Column>
                             <Text text="UOM"/>
                         </Column>
+                        <Column>
+                            <Text text="Batch"/>
+                        </Column>
+                         <Column>
+                            <Text text="M"/>
+                        </Column>
                         <Column width="5%">
                         </Column>
                     </columns>
@@ -109,10 +119,10 @@
                                             }">
                                     <suggestionColumns>
                                         <Column demandPopin="true">
-                                            <Label text="Material Name" />
+                                            <Label text="Material Code" />
                                         </Column>
                                         <Column demandPopin="true" minScreenWidth="Tablet">
-                                            <Label text="Description" />
+                                            <Label text="Material Name" />
                                         </Column>
                                         <Column hAlign="End" minScreenWidth="Tablet">
                                             <Label text="UOM" />
@@ -132,9 +142,11 @@
                                 </Input>
                                 <Text text="{reservationTableModel>Description}"/>
                                 <Text text="{reservationTableModel>StorageLocation}"/>
-                                <Text text="{reservationTableModel>AvailbleQty}"/>
+                                <Text text="{reservationTableModel>AvailableQty}"/>
                                 <Input width="30%" liveChange="onLiveChangeQty" value="{reservationTableModel>Quantity}"/>
                                 <Text text="{reservationTableModel>BaseUnit}"/>
+                                 <Input width="30%"  value="{reservationTableModel>Batch}"/>
+                                 <CheckBox  selected="{reservationTableModel>M}" />
                                 <Button icon="sap-icon://delete" press="onDeleteReservationItemPress" type="Transparent"/>
                             </cells>
                         </ColumnListItem>
