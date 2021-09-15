@@ -12,7 +12,7 @@ sap.ui.define([
 ],
     function (BaseController, Fragment, Device, JSONModel, Token, ColumnListItem, Label, MessageBox, formatter, MessageToast) {
         "use strict";
-        return BaseController.extend("com.agel.mmts.consumptionreservation.controller.MaterialReservationPage", {
+        return BaseController.extend("com.agel.mmts.consumptionreservation.controller.ConsumptionReservationPage", {
             formatter: formatter,
             onInit: function () {
                 //jQuery.sap.addUrlWhitelist("blob");
@@ -28,11 +28,6 @@ sap.ui.define([
                 var oViewModel = new JSONModel({
                     busy: false,
                     delay: 0,
-                    isHeaderFieldsVisible: false,
-                    isItemFieldsVisible: false,
-                    isMovementType1Visible: false,
-                    isMovementType2Visible: false,
-                    isMovementType3Visible: false,
                     isButtonVisible: false
                 });
                 this.setModel(oViewModel, "objectViewModel");
@@ -83,40 +78,7 @@ sap.ui.define([
                 });
                 oModel.setData(oItems);
             },
-            onMoventTypeChange: function (oEvent) {
-                var sMovementType = oEvent.getSource().getSelectedKey();
-                switch (sMovementType) {
-                    case "":
-                        this.getViewModel("objectViewModel").setProperty("/isItemFieldsVisible", false);
-                        this.getViewModel("objectViewModel").setProperty("/isMovementType1Visible", false);
-                        this.getViewModel("objectViewModel").setProperty("/isMovementType2Visible", false);
-                        this.getViewModel("objectViewModel").setProperty("/isMovementType3Visible", false);
-                        break;
-                    case "311":
-                        this.getViewModel("objectViewModel").setProperty("/isItemFieldsVisible", true);
-                        this.getViewModel("objectViewModel").setProperty("/isMovementType1Visible", true);
-                        this.getViewModel("objectViewModel").setProperty("/isMovementType2Visible", false);
-                        this.getViewModel("objectViewModel").setProperty("/isMovementType3Visible", false);
-                        break;
-                    case "201":
-                        this.getViewModel("objectViewModel").setProperty("/isItemFieldsVisible", true);
-                        this.getViewModel("objectViewModel").setProperty("/isMovementType1Visible", false);
-                        this.getViewModel("objectViewModel").setProperty("/isMovementType2Visible", true);
-                        this.getViewModel("objectViewModel").setProperty("/isMovementType3Visible", false);
-                        break;
-                    case "312":
-                        this.getViewModel("objectViewModel").setProperty("/isItemFieldsVisible", true);
-                        this.getViewModel("objectViewModel").setProperty("/isMovementType1Visible", false);
-                        this.getViewModel("objectViewModel").setProperty("/isMovementType2Visible", false);
-                        this.getViewModel("objectViewModel").setProperty("/isMovementType3Visible", true);
-                        break;
-                    default:
-                        this.getViewModel("objectViewModel").setProperty("/isItemFieldsVisible", false);
-                        this.getViewModel("objectViewModel").setProperty("/isMovementType1Visible", false);
-                        this.getViewModel("objectViewModel").setProperty("/isMovementType2Visible", false);
-                        this.getViewModel("objectViewModel").setProperty("/isMovementType3Visible", false);
-                }
-            },
+
             onDeleteReservationItemPress: function (oEvent) {
                 this.packingListObj = oEvent.getSource().getBindingContext("reservationTableModel").getObject();
                 var iRowNumberToDelete = parseInt(oEvent.getSource().getBindingContext("reservationTableModel").getPath().slice("/".length));
@@ -141,7 +103,8 @@ sap.ui.define([
                 this.getView().getModel("reservationTableModel").setProperty(sItemPath + "/BaseUnit", reservationListObj.UOM);
                 this.getView().getModel("reservationTableModel").setProperty(sItemPath + "/MaterialCode", reservationListObj.MaterialCode);
             },
-            onSubmitReservation: function (oEvent) {
+
+            onPressGo: function () {
                 var oHeaderData = this.getViewModel("HeaderDetailsModel").getData();
                 var aReservationItems = this.getViewModel("reservationTableModel").getData();
                 if (!this._validateHeaderData(oHeaderData)) {
@@ -150,6 +113,11 @@ sap.ui.define([
                 if (!this._validateItemData(aReservationItems)) {
                     return;
                 }
+
+
+            },
+            onSubmitReservation: function (oEvent) {
+
                 this._handleMessageBoxForReservationList("Do you want to submit these Reservation items?");
             },
             onCancelReservation: function () {
@@ -271,52 +239,9 @@ sap.ui.define([
             _createReservationList: function () {
                 var oAdditionalData = this.getViewModel("HeaderDetailsModel").getData();
                 var aReservationItems = this.getViewModel("reservationTableModel").getData();
-                switch (oAdditionalData.MovementTypeValue) {
-                    case "311":
-                        this.callIssueReservationService(oAdditionalData, aReservationItems);
-                        break;
-                    case "201":
-                        this.callConsumptionReservationService(oAdditionalData, aReservationItems);
-                        break;
-                    case "312":
-                        this.callReturnReservationService(oAdditionalData, aReservationItems);
-                        break;
-                    //  default:
-                }
+             this.callConsumptionReservationService(oAdditionalData, aReservationItems);
             },
-            callIssueReservationService: function (oAdditionalData, aReservationItems) {
-                aReservationItems = aReservationItems.map(function (item) {
-                    return {
-                        ParentMaterialCode: item.MaterialCode,
-                        Quantity: item.Qty
-                    };
-                });
-                var oPayload = {
-                    "PlantCode": oAdditionalData.Plant,
-                    "GoodsRecipient": oAdditionalData.GoodReciepient,
-                    "ReceivingLocation": oAdditionalData.RecievingLocation,
-                    "GLAccount": oAdditionalData.GLAccount,
-                    "IssueMaterialReservationParents": aReservationItems
-                };
-                this.mainModel.create("/IssueMaterialReservationEdmSet", oPayload, {
-                    success: function (oData, oResponse) {
-                        if (oData.Success === true) {
-                            this.getView().getModel();
-                            sap.m.MessageBox.success("The reservation has been succesfully created for selected Items!");
-                            this.setInitialModel();
-                            var objectViewModel = this.getViewModel("objectViewModel");
-                        }
-                        else {
-                           sap.m.MessageBox.error(oData.Message);
-                        }
-                    }.bind(this),
-                    error: function (oError) {
-                        // sap.m.MessageBox.success("Something went Wrong!");
-                        var objectViewModel = this.getViewModel("objectViewModel");
-                        // objectViewModel.setProperty("/isViewQRMode", false);
-                    }.bind(this)
-                })
-            },
+          
             callConsumptionReservationService: function (oAdditionalData, aReservationItems) {
                 aReservationItems = aReservationItems.map(function (item) {
                     return {
@@ -349,7 +274,7 @@ sap.ui.define([
                             var objectViewModel = this.getViewModel("objectViewModel");
                         }
                         else {
-                          sap.m.MessageBox.error(oData.Message);
+                            sap.m.MessageBox.error(oData.Message);
                         }
                     }.bind(this),
                     error: function (oError) {
@@ -359,49 +284,7 @@ sap.ui.define([
                     }.bind(this)
                 })
             },
-            callReturnReservationService: function (oAdditionalData, aReservationItems) {
-                aReservationItems = aReservationItems.map(function (item) {
-                    return {
-                        ItemNumber: "",
-                        Material: item.MaterialCode,
-                        StorageLocation: "",
-                        Quantity: item.Qty,
-                        BaseUnit: item.BaseUnit,
-                        Batch: ""
-                    };
-                });
-                var oPayload = {
-                    "UserName": "Agel",
-                    "Plant": "PL-01",
-                    "MovementType": oAdditionalData.MovementTypeValue,
-                    "GoodRecipient": oAdditionalData.GoodReciepient,
-                    "CostCenter": oAdditionalData.CostCenter,
-                    "WBS": oAdditionalData.WBS,
-                    "GLAccount": oAdditionalData.GLAccount,
-                    "ReceivingLocation": oAdditionalData.RecievingLocation,
-                    "ProfitCenter": "",
-                    "ReservationDate": "2021-01-20",
-                    "ParentList": aReservationItems
-                };
-                this.mainModel.create("/ReturnMaterialReserveEdmSet", oPayload, {
-                    success: function (oData, oResponse) {
-                        if (oData.Success === true) {
-                            this.getView().getModel();
-                            sap.m.MessageBox.success("The reservation has been succesfully created for selected Items!");
-                            this.setInitialModel();
-                            var objectViewModel = this.getViewModel("objectViewModel");
-                        }
-                        else {
-                        sap.m.MessageBox.error(oData.Message);
-                        }
-                    }.bind(this),
-                    error: function (oError) {
-                        // sap.m.MessageBox.success("Something went Wrong!");
-                        var objectViewModel = this.getViewModel("objectViewModel");
-                        // objectViewModel.setProperty("/isViewQRMode", false);
-                    }.bind(this)
-                })
-            },
+          
             setInitialModel: function () {
                 this._createHeaderDetailsModel();
                 this._createItemDataModel();

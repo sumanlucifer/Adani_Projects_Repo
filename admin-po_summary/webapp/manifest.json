@@ -1,17 +1,17 @@
 {
-  "_version": "1.32.0",
-  "sap.app": {
-    "id": "com.agel.mmts.adminposummary",
-    "type": "application",
-    "i18n": "i18n/i18n.properties",
-    "applicationVersion": {
-      "version": "1.0.0"
-    },
-    "title": "{{appTitle}}",
-    "description": "{{appDescription}}",
-    "resources": "resources.json",
-    "ach": "ach",
-    "crossNavigation": {
+    "_version": "1.32.0",
+    "sap.app": {
+        "id": "com.agel.mmts.adminposummary",
+        "type": "application",
+        "i18n": "i18n/i18n.properties",
+        "applicationVersion": {
+            "version": "1.0.0"
+        },
+        "title": "{{appTitle}}",
+        "description": "{{appDescription}}",
+        "resources": "resources.json",
+        "ach": "ach",
+        "crossNavigation": {
             "inbounds": {
                 "intent1": {
                     "signature": {
@@ -30,63 +30,62 @@
                     }
                 }
             }
-    },
-    "dataSources": {
-      "default": {
-        "uri": "/AGEL_MMTS_API/api/v2/odata.svc/",
-        "type": "OData",
-        "settings": {
-          "odataVersion": "2.0",
-          "localUri": "localService/metadata.xml"
+        },
+        "dataSources": {
+            "default": {
+                "uri": "/AGEL_MMTS_API/api/v2/odata.svc/",
+                "type": "OData",
+                "settings": {
+                    "odataVersion": "2.0",
+                    "localUri": "localService/metadata.xml"
+                }
+            }
         }
-      }
-	}
-  },
-  "sap.ui": {
-    "technology": "UI5",
-    "icons": {
-      "icon": "sap-icon://task",
-      "favIcon": "",
-      "phone": "",
-      "phone@2": "",
-      "tablet": "",
-      "tablet@2": ""
     },
-    "deviceTypes": {
-      "desktop": true,
-      "tablet": true,
-      "phone": true
-    }
-  },
-
-  "sap.ui5": {
-    "flexEnabled": false,
-    "rootView": {
-      "viewName": "com.agel.mmts.adminposummary.view.App",
-      "type": "XML",
-      "async": true,
-      "id": "app"
-    },
-    "dependencies": {
-      "minUI5Version": "1.66.0",
-      "libs": {
-        "sap.ui.core": {},
-        "sap.m": {},
-        "sap.ui.layout": {}
-      }
-    },
-    "contentDensities": {
-      "compact": true,
-      "cozy": true
-    },
-    "models": {
-      "i18n": {
-        "type": "sap.ui.model.resource.ResourceModel",
-        "settings": {
-          "bundleName": "com.agel.mmts.adminposummary.i18n.i18n"
+    "sap.ui": {
+        "technology": "UI5",
+        "icons": {
+            "icon": "sap-icon://task",
+            "favIcon": "",
+            "phone": "",
+            "phone@2": "",
+            "tablet": "",
+            "tablet@2": ""
+        },
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": true
         }
-      },
-	  "": {
+    },
+    "sap.ui5": {
+        "flexEnabled": false,
+        "rootView": {
+            "viewName": "com.agel.mmts.adminposummary.view.App",
+            "type": "XML",
+            "async": true,
+            "id": "app"
+        },
+        "dependencies": {
+            "minUI5Version": "1.66.0",
+            "libs": {
+                "sap.ui.core": {},
+                "sap.m": {},
+                "sap.ui.layout": {}
+            }
+        },
+        "contentDensities": {
+            "compact": true,
+            "cozy": true
+        },
+        "models": {
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "settings": {
+                    "bundleName": "com.agel.mmts.adminposummary.i18n.i18n"
+                }
+            },
+            "": {
                 "type": "sap.ui.model.odata.v2.ODataModel",
                 "settings": {
                     "defaultOperationMode": "Server",
@@ -98,40 +97,57 @@
                 "dataSource": "default",
                 "preload": true
             }
-    },
-    "resources": {
-      "css": [
-        {
-          "uri": "css/style.css"
+        },
+        "resources": {
+            "css": [
+                {
+                    "uri": "css/style.css"
+                }
+            ]
+        },
+        "routing": {
+            "config": {
+                "routerClass": "sap.m.routing.Router",
+                "viewType": "XML",
+                "async": true,
+                "viewPath": "com.agel.mmts.adminposummary.view",
+                "controlAggregation": "pages",
+                "controlId": "app",
+                "clearControlAggregation": false
+            },
+            "routes": [
+                {
+                    "name": "RouteLandingPage",
+                    "pattern": "",
+                    "target": [
+                        "TargetLandingPage"
+                    ]
+                },
+                {
+                    "name": "RoutePODetailPage",
+                    "pattern": "PODetail/{POId}",
+                    "target": [
+                        "TargetPODetailPage"
+                    ]
+                }
+            ],
+            "targets": {
+                "TargetLandingPage": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewId": "LandingPage",
+                    "viewName": "LandingPage",
+                      "viewLevel": 1
+                },
+                "TargetPODetailPage": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewName": "PODetailPage",
+                    "viewLevel": 2
+                }
+            }
         }
-      ]
-    },
-    "routing": {
-      "config": {
-        "routerClass": "sap.m.routing.Router",
-        "viewType": "XML",
-        "async": true,
-        "viewPath": "com.agel.mmts.adminposummary.view",
-        "controlAggregation": "pages",
-        "controlId": "app",
-        "clearControlAggregation": false
-      },
-      "routes": [
-        {
-          "name": "RouteLandingPage",
-          "pattern": "",
-          "target": ["TargetLandingPage"]
-        }
-      ],
-      "targets": {
-        "TargetLandingPage": {
-          "viewType": "XML",
-          "transition": "slide",
-          "clearControlAggregation": false,
-          "viewId": "LandingPage",
-          "viewName": "LandingPage"
-        }
-      }
     }
-  }
 }

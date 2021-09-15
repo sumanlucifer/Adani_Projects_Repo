@@ -12,7 +12,7 @@ sap.ui.define([
 ],
     function (BaseController, Fragment, Device, JSONModel, Token, ColumnListItem, Label, MessageBox, formatter, MessageToast) {
         "use strict";
-        return BaseController.extend("com.agel.mmts.returnreservation.controller.MaterialReservationPage", {
+        return BaseController.extend("com.agel.mmts.returnreservation.controller.RReservation", {
             formatter: formatter,
             onInit: function () {
                 //jQuery.sap.addUrlWhitelist("blob");
@@ -28,11 +28,6 @@ sap.ui.define([
                 var oViewModel = new JSONModel({
                     busy: false,
                     delay: 0,
-                    isHeaderFieldsVisible: false,
-                    isItemFieldsVisible: false,
-                    isMovementType1Visible: false,
-                    isMovementType2Visible: false,
-                    isMovementType3Visible: false,
                     isButtonVisible: false
                 });
                 this.setModel(oViewModel, "objectViewModel");
@@ -271,94 +266,10 @@ sap.ui.define([
             _createReservationList: function () {
                 var oAdditionalData = this.getViewModel("HeaderDetailsModel").getData();
                 var aReservationItems = this.getViewModel("reservationTableModel").getData();
-                switch (oAdditionalData.MovementTypeValue) {
-                    case "311":
-                        this.callIssueReservationService(oAdditionalData, aReservationItems);
-                        break;
-                    case "201":
-                        this.callConsumptionReservationService(oAdditionalData, aReservationItems);
-                        break;
-                    case "312":
-                        this.callReturnReservationService(oAdditionalData, aReservationItems);
-                        break;
-                    //  default:
-                }
+               this.callReturnReservationService(oAdditionalData, aReservationItems);
             },
-            callIssueReservationService: function (oAdditionalData, aReservationItems) {
-                aReservationItems = aReservationItems.map(function (item) {
-                    return {
-                        ParentMaterialCode: item.MaterialCode,
-                        Quantity: item.Qty
-                    };
-                });
-                var oPayload = {
-                    "PlantCode": oAdditionalData.Plant,
-                    "GoodsRecipient": oAdditionalData.GoodReciepient,
-                    "ReceivingLocation": oAdditionalData.RecievingLocation,
-                    "GLAccount": oAdditionalData.GLAccount,
-                    "IssueMaterialReservationParents": aReservationItems
-                };
-                this.mainModel.create("/IssueMaterialReservationEdmSet", oPayload, {
-                    success: function (oData, oResponse) {
-                        if (oData.Success === true) {
-                            this.getView().getModel();
-                            sap.m.MessageBox.success("The reservation has been succesfully created for selected Items!");
-                            this.setInitialModel();
-                            var objectViewModel = this.getViewModel("objectViewModel");
-                        }
-                        else {
-                           sap.m.MessageBox.error(oData.Message);
-                        }
-                    }.bind(this),
-                    error: function (oError) {
-                        // sap.m.MessageBox.success("Something went Wrong!");
-                        var objectViewModel = this.getViewModel("objectViewModel");
-                        // objectViewModel.setProperty("/isViewQRMode", false);
-                    }.bind(this)
-                })
-            },
-            callConsumptionReservationService: function (oAdditionalData, aReservationItems) {
-                aReservationItems = aReservationItems.map(function (item) {
-                    return {
-                        ItemNumber: "",
-                        Material: item.MaterialCode,
-                        StorageLocation: "",
-                        Quantity: parseInt(item.Qty),
-                        BaseUnit: item.BaseUnit,
-                        Batch: ""
-                    };
-                });
-                var oPayload = {
-                    "UserName": "Agel",
-                    "Plant": oAdditionalData.Plant,
-                    "MovementType": oAdditionalData.MovementTypeValue,
-                    "CostCenter": oAdditionalData.CostCenter,
-                    "GoodRecipient": oAdditionalData.GoodReciepient,
-                    "WBS": "",
-                    "GLAccount": oAdditionalData.GLAccount,
-                    "ProfitCenter": "",
-                    "ReservationDate": "2021-01-20",
-                    "ParentItem": aReservationItems
-                };
-                this.mainModel.create("/ConsumptionPostingReserveEdmSet", oPayload, {
-                    success: function (oData, oResponse) {
-                        if (oData.Success === true) {
-                            this.getView().getModel();
-                            sap.m.MessageBox.success("The reservation has been succesfully created for selected Items!");
-                            this.setInitialModel();
-                            var objectViewModel = this.getViewModel("objectViewModel");
-                        }
-                        else {
-                          sap.m.MessageBox.error(oData.Message);
-                        }
-                    }.bind(this),
-                    error: function (oError) {
-                        // sap.m.MessageBox.success("Something went Wrong!");
-                        var objectViewModel = this.getViewModel("objectViewModel");
-                        // objectViewModel.setProperty("/isViewQRMode", false);
-                    }.bind(this)
-                })
-            },
+           
+           
             callReturnReservationService: function (oAdditionalData, aReservationItems) {
                 aReservationItems = aReservationItems.map(function (item) {
                     return {
