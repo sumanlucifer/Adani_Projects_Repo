@@ -297,8 +297,8 @@ sap.ui.define([
                 else
                     var aOuterPackaging = [];
 
-                for(var i=0;i<aOuterPackaging.length;i++){
-                    if(aOuterPackaging[i].OuterPackagingTypeId === "")
+                for (var i = 0; i < aOuterPackaging.length; i++) {
+                    if (aOuterPackaging[i].OuterPackagingTypeId === "")
                         aOuterPackaging.splice(i);
                 }
 
@@ -419,14 +419,34 @@ sap.ui.define([
                 }
             },
 
-            _getImageData: function (url, callback) {
+            // _getImageData: function (url, callback) {
+            //     var xhr = new XMLHttpRequest();
+            //     xhr.onload = function () {
+            //         var reader = new FileReader();
+            //         reader.onloadend = function () {
+            //             callback(reader.result);
+            //         };
+            //         reader.readAsDataURL(xhr.response);
+            //     };
+            //     xhr.open('GET', url);
+            //     xhr.responseType = 'blob';
+            //     xhr.send();
+            // },
+
+            _getImageData: function (url, callback, fileName) {
                 var xhr = new XMLHttpRequest();
                 xhr.onload = function () {
                     var reader = new FileReader();
                     reader.onloadend = function () {
-                        callback(reader.result);
+                        var str = reader.result;
+                        var bytes = [];
+                        for (var i = 0; i < str.length; ++i) {
+                            bytes.push(str.charCodeAt(i));
+                        }
+                        // var byteStr = bytes.join(",");
+                        callback(bytes);
                     };
-                    reader.readAsDataURL(xhr.response);
+                    reader.readAsText(xhr.response);
                 };
                 xhr.open('GET', url);
                 xhr.responseType = 'blob';
