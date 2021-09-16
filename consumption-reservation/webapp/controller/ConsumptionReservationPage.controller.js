@@ -23,6 +23,7 @@ sap.ui.define([
                 this.createInitialModel();
                 this._createHeaderDetailsModel();
                 this._createItemDataModel();
+                this.getMaterialData();
             },
             createInitialModel: function () {
                 var oViewModel = new JSONModel({
@@ -64,6 +65,32 @@ sap.ui.define([
             _createItemDataModel: function () {
                 var oModel = new JSONModel([]);
                 this.getView().setModel(oModel, "reservationTableModel");
+            },
+
+              getMaterialData: function (Plant, StorageLocation) {
+                var GoodReciepientFilter = new sap.ui.model.Filter({
+                    path: "GoodsRecipient",
+                    operator: sap.ui.model.FilterOperator.EQ,
+                    value1: "4500234072"
+                });
+               
+                var filter = [];
+                filter.push(GoodReciepientFilter);
+               
+                this.getOwnerComponent().getModel().read("/IssuedMaterialParentSet", {
+                    filters: [filter],
+                    // urlParameters: {
+                    //     "$expand": "PackingList"
+                    // },
+                    success: function (oData, oResponse) {
+                        // var suggestionModel = new JSONModel(oData.results);
+                        // this.getView().setModel(suggestionModel, "suggestionModel");
+                        debugger;
+                    }.bind(this),
+                    error: function (oError) {
+                        sap.m.MessageBox.error(JSON.stringify(oError));
+                    }
+                });
             },
             onAddReservationItemsPress: function (oEvent) {
                 var oModel = this.getViewModel("reservationTableModel");
@@ -245,24 +272,20 @@ sap.ui.define([
             callConsumptionReservationService: function (oAdditionalData, aReservationItems) {
                 aReservationItems = aReservationItems.map(function (item) {
                     return {
-                        ItemNumber: "",
-                        Material: item.MaterialCode,
-                        StorageLocation: "",
-                        Quantity: parseInt(item.Qty),
-                        BaseUnit: item.BaseUnit,
-                        Batch: ""
+                        Quantity: "",
+                        IssueMaterialParentId: item.IssueMaterialParentId,
+                        
                     };
                 });
                 var oPayload = {
                     "UserName": "Agel",
                     "Plant": oAdditionalData.Plant,
                     "MovementType": oAdditionalData.MovementTypeValue,
+                    "GoodRecipient": oAdditionalData.GoodRecipient,
                     "CostCenter": oAdditionalData.CostCenter,
-                    "GoodRecipient": oAdditionalData.GoodReciepient,
                     "WBS": "",
                     "GLAccount": oAdditionalData.GLAccount,
-                    "ProfitCenter": "",
-                    "ReservationDate": "2021-01-20",
+                    "ProfitCenter": oAdditionalData.ProfitCenter,
                     "ParentItem": aReservationItems
                 };
                 this.mainModel.create("/ConsumptionPostingReserveEdmSet", oPayload, {

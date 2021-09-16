@@ -90,23 +90,16 @@ sap.ui.define([
             mBindingParams.parameters["expand"] = "IssuedMaterialBOQ";
             mBindingParams.parameters["navigation"] = { "IssuedMaterialParentSet": "IssuedMaterialBOQ" };
             mBindingParams.filters.push(new sap.ui.model.Filter("SONumberId/ID", sap.ui.model.FilterOperator.EQ, this.sObjectId));
-
         },
         onBeforeRebindRestTable: function (oEvent) {
             var mBindingParams = oEvent.getParameter("bindingParams");
             mBindingParams.filters.push(new Filter("SONumberId/ID", sap.ui.model.FilterOperator.EQ, this.sObjectId));
             mBindingParams.sorter.push(new sap.ui.model.Sorter("CreatedAt", true));
         },
-
-        
-
         onPressSubmitConsumptionPosting: function (oEvent) {
             var that = this;
             var ConsumptionPostingReserveId = that.sObjectId;
             var ConsumptionPostingId = oEvent.getSource().getBindingContext().getObject().ConsumptionPostingId;
-
-
-
             MessageBox.confirm("Do you want to Submit the consumption request?", {
                 icon: MessageBox.Icon.INFORMATION,
                 title: "Confirm",
@@ -118,14 +111,19 @@ sap.ui.define([
                     }
                 }
             });
-
         },
-
         onSubmitButtonConfirmPress: function (CID) {
             var oPayload =
             {
                 "UserName": "Agel",
-                "ConsumptionPostingReserveId": CID
+                "ConsumptionPostingReserveId": CID,
+                "IsAllItemsConsumed": true,
+                "ParentItem": [
+                    {
+                        "ConsumedMaterialParentId": 11,
+                        "Quantity": 11
+                    }
+                ]
             };
             this.MainModel.create("/ConsumptionPostingEdmSet", oPayload, {
                 success: function (oData, oResponse) {
@@ -139,9 +137,8 @@ sap.ui.define([
                             }.bind(this)
                         });
                     }
-
                     else {
-                          sap.m.MessageBox.error(oData.Message);
+                        sap.m.MessageBox.error(oData.Message);
                     }
                 }.bind(this),
                 error: function (oError) {
@@ -149,6 +146,5 @@ sap.ui.define([
                 }
             });
         }
-
     });
 });
