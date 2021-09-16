@@ -72,8 +72,8 @@ sap.ui.define([
                     StorageLocation: "",
                     Quantity: "",
                     BaseUnit: "",
-                    Batch:"",
-                    M:false,
+                    Batch: "",
+                    M: false,
                     AvailableQty: null
                 });
                 oModel.setData(oItems);
@@ -131,11 +131,8 @@ sap.ui.define([
                     return;
                 }
                 this.getViewModel("objectViewModel").setProperty("/isItemFieldsVisible", true);
-                // var Plant = this.byId("idPlant").getSelectedKey();
-             var StorageLocation = this.byId("idStorageLocation").getValue();
-
-                 var Plant = "4500327851";
-               
+                var Plant = this.byId("idPlant").getSelectedKey();
+                var StorageLocation = this.byId("idStorageLocation").getValue();
                 this.getMaterialSuggestionData(Plant, StorageLocation);
             },
             getMaterialSuggestionData: function (Plant, StorageLocation) {
@@ -224,7 +221,6 @@ sap.ui.define([
                     this.byId("idStorageLocation").setValueState("None");
                     this.byId("idStorageLocation").setValueStateText(null);
                     this.getViewModel("objectViewModel").setProperty("/isHeaderFieldsVisible", true);
-
                     this.byId("idPlant").setEnabled(false);
                     this.byId("idStorageLocation").setEnabled(false);
                 }
