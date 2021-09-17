@@ -117,7 +117,7 @@ sap.ui.define([
             {
                 "UserName": "Agel",
                 "ConsumptionPostingReserveId": CID,
-                "IsAllItemsConsumed": true,
+                "IsAllItemsConsumed":true,
                 "ParentItem": [
                     {
                         "ConsumedMaterialParentId": 11,

@@ -35,10 +35,10 @@ sap.ui.define([
             _createHeaderDetailsModel: function () {
                 var oModel = new JSONModel({
                     movementType: [
-                    {
-                        value: "201",
-                        Text: "201 - Consumption Reservation"
-                    }
+                        {
+                            value: "201",
+                            Text: "201 - Consumption Reservation"
+                        }
                     ],
                     MovementTypeValue: null,
                     WBS: null,
@@ -55,7 +55,6 @@ sap.ui.define([
                 this.getView().setModel(oModel, "reservationTableModel");
             },
             onSearchGoodReciepient: function (sGoodsReciepientValue) {
-            
                 var GoodReciepientFilter = new sap.ui.model.Filter({
                     path: "GoodsRecipient",
                     operator: sap.ui.model.FilterOperator.EQ,
@@ -83,11 +82,19 @@ sap.ui.define([
                     ParentData[i].results = ParentData[i].IssuedMaterials.results;
                     for (var j = 0; j < ParentData[i].IssuedMaterials.results.length; j++) {
                         ParentData[i].IssuedMaterials.results[j].results = ParentData[i].IssuedMaterials.results[j].IssuedMaterialParents.results;
+                        ParentData[i].IssuedMaterials.results[j].isParent = false;
+                        ParentData[i].IssuedMaterials.results[j].isSelected = false;
+                        for (var k = 0; k < ParentData[i].IssuedMaterials.results[j].IssuedMaterialParents.results.length; k++) {
+                            ParentData[i].IssuedMaterials.results[j].IssuedMaterialParents.results[k].isParent = true;
+                        }
                     }
+                    ParentData[i].isParent = false;
+                    ParentData[i].isSelected = false;
                 }
                 debugger;
                 var TreeDataModel = new JSONModel({ "results": ParentData });
                 this.getView().setModel(TreeDataModel, "TreeDataModel");
+                var data = this.ChildData;
             },
             // Arrange Data For View / Model Set
             arrangeDataView: function (ParentDataView) {
@@ -141,7 +148,6 @@ sap.ui.define([
                 if (!this._validateHeaderData(oHeaderData)) {
                     return;
                 }
-
                 this.onSearchGoodReciepient(oHeaderData.GoodReciepient);
                 // if (!this._validateItemData(aReservationItems)) {
                 //     return;
@@ -199,7 +205,6 @@ sap.ui.define([
                     this.byId("idGoodReciept").setValueState("None");
                     this.byId("idGoodReciept").setValueStateText(null);
                 }
-
                 if (!data.ProfitCenter) {
                     this.byId("idProfitCenter").setValueState("Error");
                     this.byId("idProfitCenter").setValueStateText("Please enter profit center value");
@@ -208,7 +213,6 @@ sap.ui.define([
                     this.byId("idProfitCenter").setValueState("None");
                     this.byId("idProfitCenter").setValueStateText(null);
                 }
-
                 if (!data.CostCenter) {
                     this.byId("idCostCenter").setValueState("Error");
                     this.byId("idCostCenter").setValueStateText("Please enter cost center value");
@@ -225,7 +229,6 @@ sap.ui.define([
                     this.byId("idWBS").setValueState("None");
                     this.byId("idWBS").setValueStateText(null);
                 }
-               
                 if (!data.GLAccount) {
                     this.byId("idGLAccount").setValueState("Error");
                     this.byId("idGLAccount").setValueStateText("Please enter GLAccount recipient");
@@ -261,14 +264,25 @@ sap.ui.define([
             },
             _createReservationList: function () {
                 var oAdditionalData = this.getViewModel("HeaderDetailsModel").getData();
-                var aReservationItems = this.getViewModel("TreeDataModel").getData();
+                var aTreeData = this.getViewModel("TreeDataModel").getData();
+                var itemData = aTreeData.results;
+                var aReservationItems = [];
+                for (var i = 0; i < itemData.length; i++) {
+                    for (var j = 0; j < itemData[i].IssuedMaterials.results.length; j++) {
+                        for (var k = 0; k < itemData[i].IssuedMaterials.results[j].IssuedMaterialParents.results.length; k++) {
+                            if (itemData[i].IssuedMaterials.results[j].IssuedMaterialParents.results[k].isSelected === true) {
+                                aReservationItems.push(itemData[i].IssuedMaterials.results[j].IssuedMaterialParents.results[k]);
+                            }
+                        }
+                    }
+                }
                 this.callConsumptionReservationService(oAdditionalData, aReservationItems);
             },
             callConsumptionReservationService: function (oAdditionalData, aReservationItems) {
                 aReservationItems = aReservationItems.map(function (item) {
                     return {
-                        Quantity: "",
-                        IssueMaterialParentId: item.IssueMaterialParentId,
+                        Quantity: item.IssuedQty,
+                        IssueMaterialParentId: item.ID
                     };
                 });
                 var oPayload = {
@@ -286,7 +300,7 @@ sap.ui.define([
                     success: function (oData, oResponse) {
                         if (oData.Success === true) {
                             this.getView().getModel();
-                            sap.m.MessageBox.success("The reservation has been succesfully created for selected Items!");
+                            sap.m.MessageBox.success("The consumption reservation has been succesfully created for selected Items!");
                             this.setInitialModel();
                             var objectViewModel = this.getViewModel("objectViewModel");
                         }
@@ -301,13 +315,11 @@ sap.ui.define([
                     }.bind(this)
                 })
             },
-
-               onPressReset: function () {
+            onPressReset: function () {
                 this.setInitialModel();
                 this.byId("idPlant").setEnabled(true);
                 this.byId("idStorageLocation").setEnabled(true);
             },
-         
             setInitialModel: function () {
                 this._createHeaderDetailsModel();
                 this._createItemDataModel();

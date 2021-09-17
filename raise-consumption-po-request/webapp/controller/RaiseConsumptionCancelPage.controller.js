@@ -119,7 +119,7 @@ sap.ui.define([
             var ConsumptionReserveId = this.getView().getModel().getData(sConsumptionReservationContext).ID;
             var oPayload = {
                 "UserName": "Agel",
-                "ConsumptionPostingReserveId": ConsumptionReserveId,
+                "IsAllItemsCancelled": true,
                 "ConsumptionPostingId": this.sObjectId,
             };
 
@@ -130,10 +130,10 @@ sap.ui.define([
 
                         sap.m.MessageBox.success("The consumption posting has been cancelled for selected Items!");
                     }
-else{
+                    else {
 
-       sap.m.MessageBox.error(oData.Message);
-}
+                        sap.m.MessageBox.error(oData.Message);
+                    }
 
                     debugger;
                 }.bind(this),

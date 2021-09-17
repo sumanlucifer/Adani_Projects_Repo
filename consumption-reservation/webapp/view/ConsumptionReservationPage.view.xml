@@ -64,7 +64,28 @@
         <f:content>
             <VBox>
                 <ui:TreeTable visible="{= ${objectViewModel>/isItemFieldsVisible} ? true : false}" id="TreeTable" rows="{path:'TreeDataModel>/', parameters: {arrayNames:['results']}}" selectionMode="None" enableSelectAll="false" ariaLabelledBy="title" rowsUpdated="onRowsUpdated">
-                    <ui:columns>
+                    <ui:columns>  
+
+<ui:Column width="8%" hAlign="Center" >
+									<Label text="Select" />
+									<ui:template>
+										 <CheckBox  visible="{= ${TreeDataModel>isParent} ? true : false}" selected="{TreeDataModel>isSelected}" 
+                                           select="onSelectionOfRow" />
+									</ui:template>
+								</ui:Column>
+                    <ui:Column>
+                            <Label text="ReservationNumber"/>
+                            <ui:template>
+                                <Text text="{TreeDataModel>ReservationNumber}" wrapping="false" />
+                            </ui:template>
+                        </ui:Column>
+
+                         <ui:Column>
+                            <Label text="MaterialDocumentNumber"/>
+                            <ui:template>
+                                <Text text="{TreeDataModel>MaterialDocumentNumber}" wrapping="false" />
+                            </ui:template>
+                        </ui:Column>
                         <ui:Column>
                             <Label text="MaterialCode"/>
                             <ui:template>
@@ -98,7 +119,7 @@
                         <ui:Column>
                             <Label text="ConsumedQty"/>
                             <ui:template>
-                                <Text text="{TreeDataModel>ConsumedQty}" wrapping="false" />
+                                <Text text="{TreeDataModel>IssuedQty}" wrapping="false" />
                             </ui:template>
                         </ui:Column>
                     </ui:columns>
