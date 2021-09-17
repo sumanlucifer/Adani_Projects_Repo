@@ -36,13 +36,13 @@ sap.ui.define([
             this._mViewSettingsDialogs = {};
             //adding searchfield association to filterbar and initialize the filter bar -> added in base controller
             this.initializeFilterBar();
-            // var startupParams = this.getOwnerComponent().getComponentData().startupParameters;
-            // // get Startup params from Owner Component
-            // if (startupParams.Kind[0]) {
-            //     this.type = startupParams.Kind[0];
-            //     //    this.type = 1;
-            //     this.byId("idIconTabBar").setSelectedKey(this.type);
-            // }
+            var startupParams = this.getOwnerComponent().getComponentData().startupParameters;
+            // get Startup params from Owner Component
+            if (startupParams.Kind[0]) {
+                this.type = startupParams.Kind[0];
+                //    this.type = 1;
+                this.byId("idIconTabBar").setSelectedKey(this.type);
+            }
         },
         _onObjectMatched: function (oEvent) {
             this.onIconTabBarChanged();
