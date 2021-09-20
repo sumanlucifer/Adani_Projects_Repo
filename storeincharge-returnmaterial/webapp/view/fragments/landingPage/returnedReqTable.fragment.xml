@@ -1,0 +1,58 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:smartTable="sap.ui.comp.smarttable"
+    xmlns:core="sap.ui.core">
+
+    <smartTable:SmartTable class="sapUiResponsiveContentPadding" id="idReturnMaterialTable" editable="false" placeToolbarInTable="true" 
+    enableAutoBinding="true" entitySet="ReturnMaterialReserveSet"  showFullScreenButton="true" showRowCount="true" tableType="ResponsiveTable" 
+    demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" beforeRebindTable="onBeforeRebindRetTable"
+    ignoreFromPersonalisation="ID,RequestDate,CancelledDate,CancelledBy,Comment,RequestNumber,IsArchived,CreatedAt,CreatedBy,UpdatedAt,UpdatedBy">
+        <Table sticky="ColumnHeaders,HeaderToolbar" alternateRowColors="true" growing="true" growingThreshold="5">
+            <columns>
+                <Column>
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "ReservationNo", "leadingProperty": "ReservationNumber",
+                                                "columnIndex": 0 ,"sortProperty": "ReservationNumber", "filterProperty": "ReservationNumber"}'/>
+                    </customData>
+                    <Text text="{i18n>ReservationNo}"/>
+                </Column>
+                <Column demandPopin="true" minScreenWidth="Desktop">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Plant", "leadingProperty": "Plant",
+                                "columnIndex": 1,"sortProperty": "Plant", "filterProperty": "Plant"}'/>
+                    </customData>
+                    <Text text="{i18n>Plant}"/>
+                </Column>
+                <Column demandPopin="true" minScreenWidth="Tablet">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "ReservationDate", "leadingProperty": "ReservationDate",
+                                "columnIndex": 2, "sortProperty": "ReservationDate", "filterProperty": "ReservationDate"}'/>
+                    </customData>
+                    <Text text="{i18n>ReservationDate}"/>
+                </Column>
+                <Column demandPopin="true" minScreenWidth="Desktop">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Status", "leadingProperty": "Status",
+                                                "columnIndex": 3, "filterProperty": "Status" }'/>
+                    </customData>
+                    <Text text="{i18n>Status}"/>
+                </Column>
+            </columns>
+            <items>
+                <ColumnListItem type="Navigation" press="onReturnedMaterialSummarySelect"> 
+                    <cells>
+                        <Text text="{ReservationNumber}"/>
+                        <Text text="{Plant}"/>
+                        <Text text="{path:'ReservationDate',
+                                    type: 'sap.ui.model.type.Date',
+                                    formatOptions: {
+                                        pattern: 'MMMM dd, yyyy'
+                                    }
+                        }"/>
+                        <Text text="{Status}"/>
+                    </cells>
+                </ColumnListItem>
+            </items>
+        </Table>
+    </smartTable:SmartTable>
+
+</core:FragmentDefinition>
