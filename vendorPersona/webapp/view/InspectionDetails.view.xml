@@ -57,7 +57,7 @@
 
                         <VBox renderType="Bare" class="sapUiMediumMarginEnd">
                             <Label text="PO Number" wrapping="true" />
-                            <Text text="{PONumber}" wrapping="true" />
+                            <Text id="idPONumber" text="{PONumber}" wrapping="true" />
                         </VBox>
 
                         <VBox renderType="Bare" class="sapUiMediumMarginEnd">

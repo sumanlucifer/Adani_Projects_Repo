@@ -51,17 +51,17 @@
             <uxap:ObjectPageSection titleUppercase="false" title="{i18n>lineItems}">
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection title="{i18n>lineItems}">
-                        <Table width="auto" growing="true" growingThreshold="5" items="{path: 'IssuedMaterials'}" fixedLayout="false">     
+                        <Table width="auto" growing="true" growingThreshold="5" items="{path: 'IssueMatModel>/'}" fixedLayout="false">     
                             <headerToolbar>
                                 <OverflowToolbar id="otbSubheader">
                                     <Title text="Products" level="H2" />
                                     <ToolbarSpacer />
-                                    <Button id="reserveButton" text="Reserve" type="Transparent" press="onPressReserve" visible="{objectViewModel>reserveButton}" />
+                                    <!-- <Button id="reserveButton" text="Reserve" type="Transparent" press="onPressReserve" visible="{objectViewModel>reserveButton}" /> -->
                                 </OverflowToolbar>
                             </headerToolbar>
                             <columns>
                                 <Column demandPopin="true" minScreenWidth="Desktop">
-                                    <Text text="{i18n>lineItem}" wrapping="true" wrappingType="Hyphenated"/>
+                                    <Text text="{i18n>name}" wrapping="true" wrappingType="Hyphenated"/>
                                 </Column>
                                 <Column demandPopin="true" minScreenWidth="Desktop">
                                     <Text text="{i18n>issueQty}"/>
@@ -73,9 +73,9 @@
                             <items>
                                 <ColumnListItem>
                                     <cells>
-                                        <ObjectIdentifier title="{LineItem}"/>
-                                        <Text text="{IssueQty}" />
-                                        <Text text="{Uom}" />
+                                        <ObjectIdentifier title="{IssueMatModel>Name}"/>
+                                        <Text text="{IssueMatModel>IssuedQty}" />
+                                        <Text text="{IssueMatModel>BaseUnit}" />
                                     </cells>
                                 </ColumnListItem>
                             </items>

@@ -28,7 +28,8 @@ sap.ui.define([
 
                 // Icon Tab Count Model
                 var oIconTabCountModel = new JSONModel({
-                    confirmCount: null
+                    issueCount: null,
+                    issuereservedCount: null
                 });
                 this.setModel(oIconTabCountModel, "oIconTabCountModel");
 
@@ -40,17 +41,81 @@ sap.ui.define([
 
             },
 
+            onIssueTableUpdateFinished: function (oEvent) {
+                //Setting the header context for a property binding to $count
+                this.setIconTabCount(oEvent, oEvent.getParameter("total"), "/issueCount");
+            },
+
+            onIssueReservedTableUpdateFinished: function (oEvent) {
+                //Setting the header context for a property binding to $count                       
+                this.setIconTabCount(oEvent, oEvent.getParameter("total"), "/issuereservedCount");
+            },
+
+            setIconTabCount: function (oEvent, total, property) {
+                if (oEvent.getSource().getBinding("items").isLengthFinal()) {
+                    this.getView().getModel("oIconTabCountModel").setProperty(property, total);
+                }
+            },
+
+            onbeforeRebindListIssueTable: function (oEvent) {
+                var mBindingParams = oEvent.getParameter("bindingParams");
+                mBindingParams.sorter.push(new sap.ui.model.Sorter("CreatedAt", true));
+
+            },
+
+            onbeforeRebindIssueReservedTable: function (oEvent) {
+                var mBindingParams = oEvent.getParameter("bindingParams");
+                mBindingParams.sorter.push(new sap.ui.model.Sorter("CreatedAt", true));
+
+            },
+
+            // On Icon Tab Select
+            onIconTabBarChanged: function (sKey) {
+                if (sKey === "IssueKey") {
+                    this.byId("pageTitle").setText(this.getResourceBundle().getText("PageTitle"));
+                } else if (sKey === "IssueReservedKey") {
+                    this.byId("pageTitle").setText(this.getResourceBundle().getText("PageTitle"));
+                }
+
+            },
+
+            // On Icon Tab Select
+            onIconTabSelect: function (oEvent) {
+                var that = this;
+                var sKey = oEvent.getParameter("key");
+                if (sKey === "IssueKey") {
+                    this.byId("pageTitle").setText(this.getResourceBundle().getText("PageTitle"));
+                } else if (sKey === "IssueReservedKey") {
+                    this.byId("pageTitle").setText(this.getResourceBundle().getText("PageTitle"));
+                }
+            },
+
             onDetailPress: function (oEvent) {
                 this._showObjectList(oEvent.getSource());
             },
 
             _showObjectList: function (oItem) {
                 var that = this;
-                var sObjectPath = oItem.getBindingContext().sPath;        
-                debugger;
+                var sObjectPath = oItem.getBindingContext().sPath; 
+                // debugger;       
                 that.getRouter().navTo("RaiseIssueScanQRCode", {
-                    SONumber: oItem.getBindingContext().getObject().SONumber
+                    // ID: oItem.getBindingContext().getObject().ID
+                     ID: sObjectPath.slice("/IssuedMaterialReserveSet".length)
                 });
+            },
+
+            onDetailPressIssueMaterial: function (oEvent) {
+                this._showObjectListIssueMaterial(oEvent.getSource());
+            },
+
+            _showObjectListIssueMaterial: function (oItem) {
+                var that = this;
+                var sObjectPath = oItem.getBindingContext().sPath; 
+                // debugger;       
+                that.getRouter().navTo("IssuedMaterialDetails", {
+                     ID: sObjectPath.slice("/IssuedMaterialSet".length)
+                });  
             }
+
 		});
 	});

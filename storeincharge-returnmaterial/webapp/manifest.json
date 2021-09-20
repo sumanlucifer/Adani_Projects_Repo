@@ -129,7 +129,7 @@
                 },
                 {
                     "name": "RouteDetailsPage",
-                    "pattern": "ReturnMaterialDetails/{ReturnId},{SOId}",
+                    "pattern": "ReturnMaterialDetails/{ReturnId}",
                     "target": [
                         "TargetDetailsPage"
                     ]

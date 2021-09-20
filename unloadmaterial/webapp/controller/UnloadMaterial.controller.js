@@ -108,7 +108,7 @@ sap.ui.define([
                                 "ReceivedQty": null,
                                 "QRNumber": null,
                                 "UOM": oInner.UOM,
-                                "ExternalQRCodeInfo": "",
+                                "ExternalQRCode": "",
                                 "PackingListParentItemId": sParentListItemid,
                                 "InnerPackingLabel": oInner.PackagingType,
                                 "LineItemLabel": oInner.Name
@@ -241,6 +241,12 @@ sap.ui.define([
                     oDialog.close();
                 });
                 this.onPackingListContainsPress();
+            },
+
+            onViewVendorQRCancelPress: function (oEvent) {
+                this.qrNotFoundDialog.then(function (oDialog) {
+                    oDialog.close();
+                });
             },
 
             onPackingListContainsPress: function () {
@@ -627,7 +633,7 @@ sap.ui.define([
 
             onDoItLaterPress: function () {
                 var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-                oRouter.navTo("RouteApp",true);
+                oRouter.navTo("RouteApp", true);
             },
 
             onRequestGRNPress: function (oEvent) {
@@ -763,6 +769,24 @@ sap.ui.define([
                 }
 
             },
+
+            // onMapVendorQRSuccess: function (oEvent) {
+            //     debugger;
+            //     if (oEvent.mParameters.getParameter("cancelled")) {
+            //         sap.m.MessageToast.show("Scan cancelled", { duration: 1000 });
+            //     } else {
+            //         var sScannedValue = oEvent.getParameter("mParameters").getText();
+            //         sap.m.MessageToast.show("Scanned: " + sScannedValue, { duration: 2000 });
+            //         if (sScannedValue.length > 0) {
+            //             var sPath = oEvent.getSource().getBindingContext("JSONModelData").sPath;
+            //             this.getViewModel("JSONModelData").getProperty(sPath);
+            //         }
+            //     }
+            // },
+
+            // onMapVendorQRFail: function (oEvent) {
+            //     sap.m.MessageToast.show("Scan failed" + oEvent, { duration: 1000 });
+            // }
 
         });
     });

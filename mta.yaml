@@ -205,6 +205,20 @@ modules:
       - name: workflow
         parameters:
           content-target: true
+  - name: workflow-PMCGApprovals
+    type: com.sap.application.content
+    path: workflow-PMCGApprovals
+    requires:
+    - name: workflow
+      parameters:
+        content-target: true
+  - name: workflow-PrintingApproval
+    type: com.sap.application.content
+    path: workflow-PrintingApproval
+    requires:
+    - name: workflow
+      parameters:
+        content-target: true      
   - name: vendorPersona
     type: html5
     path: vendorPersona
