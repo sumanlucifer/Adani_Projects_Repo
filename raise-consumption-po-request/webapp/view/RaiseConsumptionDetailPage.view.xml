@@ -1,0 +1,125 @@
+<mvc:View xmlns:f2="sap.f"
+    xmlns:vbm="sap.ui.vbm"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:uxap="sap.uxap"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+    xmlns:unified="sap.ui.unified"
+    xmlns:tt="sap.ui.table"
+    xmlns:smartTable="sap.ui.comp.smarttable"
+    xmlns="sap.m" controllerName="com.agel.mmts.raiseconsumptionporequest.controller.RaiseConsumptionDetailPage" height="100%">
+    <uxap:ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true" upperCaseAnchorBar="false" headerContentPinnable="true" toggleHeaderOnTitleClick="true" busy="{objectViewModel>/busy}">
+        <uxap:headerTitle>
+            <uxap:ObjectPageDynamicHeaderTitle>
+                <uxap:breadcrumbs>
+                    <Breadcrumbs id="breadcrumbsId" currentLocationText="{i18n>ConsumptionReservationDetails}">
+                        <Link text="{i18n>ConsumptionReservations}" press=".handleToAllPOBreadcrumPress"/>
+                    </Breadcrumbs>
+                </uxap:breadcrumbs>
+                <uxap:expandedHeading>
+                    <FlexBox direction="Column" renderType="Bare">
+                        <Title text="{i18n>ConsumptionReservationDetails}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
+                        <Title text="{ReservationNumber}" wrapping="true" titleStyle="H3" />
+                    </FlexBox>
+                </uxap:expandedHeading>
+                <uxap:snappedHeading>
+                    <FlexBox direction="Column" renderType="Bare">
+                        <Title text="{i18n>ConsumptionReservationDetails}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
+                        <Title text="{ReservationNumber}" wrapping="true" titleStyle="H3"/>
+                    </FlexBox>
+                </uxap:snappedHeading>
+                <uxap:expandedContent>
+                </uxap:expandedContent>
+                <uxap:snappedTitleOnMobile>
+                    <Title text="{i18n>ReservationNumber}- {ReservationNumber}" wrapping="true" titleStyle="Auto"/>
+                </uxap:snappedTitleOnMobile>
+                <uxap:actions>
+                    <Button text="Post Consumption" visible="{= ${Status} === 'RESERVED'}" press="onPressSubmitConsumptionPosting" type="Emphasized"/>
+                </uxap:actions>
+            </uxap:ObjectPageDynamicHeaderTitle>
+        </uxap:headerTitle>
+        <uxap:headerContent>
+            <FlexBox wrap="Wrap" height="100%" renderType="Bare" direction="Column">
+                <VBox renderType="Bare">
+                    <FlexBox direction="Row" renderType="Bare" class="sapUiTinyMarginBottom">
+                        <VBox renderType="Bare" class="sapUiMediumMarginEnd">
+                            <Label text="{i18n>Plant}" />
+                            <!-- missing -->
+                            <Text text="{Plant}"/>
+                        </VBox>
+                        <VBox renderType="Bare" class="sapUiMediumMarginEnd">
+                            <Label text="{i18n>goodsRecipient}" />
+                            <!-- missing -->
+                            <Text text="{GoodsRecipient}"/>
+                        </VBox>
+                        <VBox renderType="Bare" class="sapUiMediumMarginEnd">
+                            <Label text="{i18n>ReservationDate}" />
+                            <!-- missing -->
+                            <Text text="{path:'ReservationDate',
+                                  type: 'sap.ui.model.type.DateTime',
+formatOptions: {
+pattern: 'MMMM dd, yyyy HH:mm:ss'
+}
+                            }"/>
+                        </VBox>
+                        <VBox renderType="Bare" class="sapUiMediumMarginEnd">
+                            <Label text="{i18n>status}" />
+                            <!-- missing -->
+                            <ObjectStatus text="{Status}" state="{= ${Status} === 'POSTED' ? 'Success' : ${Status} === 'RESERVED' ? 'Information' : 'Error'}" visible="{= ${Status}.length>0 ? true : false }"/>
+                        </VBox>
+                    </FlexBox>
+                </VBox>
+                <!-- <VBox renderType="Bare">
+                    <Label text="{i18n>instruction}" design="Bold"/>
+                    <ObjectAttribute text="Please raise the inspection call through SIMS portal." />
+                </VBox> -->
+            </FlexBox>
+        </uxap:headerContent>
+        <uxap:sections>
+            <!-- Line Items Section -->
+            <uxap:ObjectPageSection titleUppercase="false">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection >
+                        <smartTable:SmartTable class="sapUiResponsiveContentPadding" id="idIssueTable" editable="false" placeToolbarInTable="true" enableAutoBinding="true" entitySet="ConsumptionPostingReserveSet" tableBindingPath="ConsumedMaterialParent" showFullScreenButton="true" requestAtLeastFields="ID" header="Items" showRowCount="true" tableType="ResponsiveTable" demandPopin="false" useExportToExcel="false">
+                            <Table sticky="ColumnHeaders,HeaderToolbar" alternateRowColors="true">
+                                <columns>
+                                    <Column >
+                                        <customData>
+                                            <core:CustomData key="p13nData" value='\{"columnKey": "MaterialCode", "leadingProperty": "MaterialCode",
+"columnIndex": 0 ,"sortProperty": "MaterialCode","filterProperty": "MaterialCode"}'/>
+                                        </customData>
+                                        <Text text="{i18n>MaterialCode}"/>
+                                    </Column>
+                                    <Column >
+                                        <customData>
+                                            <core:CustomData key="p13nData" value='\{"columnKey": "Quantity", "leadingProperty": "Quantity",
+"columnIndex": 1 ,"sortProperty": "Quantity","filterProperty": "Quantity"}'/>
+                                        </customData>
+                                        <Text text="{i18n>Quantity}"/>
+                                    </Column>
+                                    <Column >
+                                        <customData>
+                                            <core:CustomData key="p13nData" value='\{"columnKey": "Plant", "leadingProperty": "Plant",
+"columnIndex": 2 ,"sortProperty": "Plant","filterProperty": "Plant"}'/>
+                                        </customData>
+                                        <Text text="{i18n>Plant}"/>
+                                    </Column>
+                                </columns>
+                                <items>
+                                    <ColumnListItem >
+                                        <cells>
+                                            <ObjectIdentifier title="{MaterialCode}"/>
+                                            <Text text="{Quantity}"/>
+                                            <Text text="{Plant}"/>
+                                        </cells>
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
+                        </smartTable:SmartTable>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+        </uxap:sections>
+    </uxap:ObjectPageLayout>
+</mvc:View> 

@@ -27,7 +27,7 @@ sap.ui.define([
                     csvFile: "file"
                 });
                 //this.setModel(oViewModel,"objectViewModel");
-                 this.getView().setModel(oViewModel,"objectViewModel");
+                this.getView().setModel(oViewModel, "objectViewModel");
 
                 // keeps the search state
                 this._aTableSearchState = [];
@@ -40,7 +40,7 @@ sap.ui.define([
             },
 
             _onObjectMatched: function (oEvent) {
-              //  this._bindView("/MaterialReturnSet");
+                //  this._bindView("/MaterialReturnSet");
             },
 
             _bindView: function (sObjectPath) {
@@ -59,18 +59,22 @@ sap.ui.define([
                     }
                 });
             },
-          
-            onPurchaseOrderPress: function (oEvent) {
+
+            onReservationRequestPress: function (oEvent) {
                 // The source is the list item that got pressed
                 this._showObject(oEvent.getSource());
             },
 
             _showObject: function (oItem) {
-               var that = this;
+                var that = this;
                 var sObjectPath = oItem.getBindingContext().getObject().ID;
                 that.getRouter().navTo("RouteReturnDetailPage", {
                     Id: sObjectPath // /PurchaseOrders(123)->(123)
                 });
+            },
+            onBeforeRebindReservationTable: function (oEvent) {
+                var mBindingParams = oEvent.getParameter("bindingParams");
+                mBindingParams.sorter.push(new sap.ui.model.Sorter("CreatedAt", true));
             }
 
         });

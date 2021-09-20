@@ -160,14 +160,34 @@ sap.ui.define([
             }
         },
 
+        // _getImageData: function (url, callback, fileName) {
+        //     var xhr = new XMLHttpRequest();
+        //     xhr.onload = function () {
+        //         var reader = new FileReader();
+        //         reader.onloadend = function () {
+        //             callback(reader.result);
+        //         };
+        //         reader.readAsDataURL(xhr.response);
+        //     };
+        //     xhr.open('GET', url);
+        //     xhr.responseType = 'blob';
+        //     xhr.send();
+        // },
+
         _getImageData: function (url, callback, fileName) {
             var xhr = new XMLHttpRequest();
             xhr.onload = function () {
                 var reader = new FileReader();
                 reader.onloadend = function () {
-                    callback(reader.result);
+                    var str = reader.result;
+                    var bytes = [];
+                    for (var i = 0; i < str.length; ++i) {
+                        bytes.push(str.charCodeAt(i));
+                    }
+                    // var byteStr = bytes.join(",");
+                    callback(bytes);
                 };
-                reader.readAsDataURL(xhr.response);
+                reader.readAsText(xhr.response);
             };
             xhr.open('GET', url);
             xhr.responseType = 'blob';
@@ -184,22 +204,22 @@ sap.ui.define([
             var that = this;
             var obj = oEvent.getSource().getBindingContext().getObject();
 
-            MessageBox.confirm("Do you want to send "+ obj.MDCCNumber +" for approval?", {
+            MessageBox.confirm("Do you want to send " + obj.MDCCNumber + " for approval?", {
                 icon: MessageBox.Icon.INFORMATION,
                 title: "Confirm",
                 actions: [MessageBox.Action.YES, MessageBox.Action.NO],
                 emphasizedAction: MessageBox.Action.YES,
                 onClose: function (oAction) {
                     if (oAction == "YES") {
-                        var sPath = "/MDCCStatusSet";                        
+                        var sPath = "/MDCCStatusSet";
                         var oPayload = {
                             //     "Status" : obj.Status,
                             "Status": "PENDING",
-                            //      "ApprovedOn": obj.,
+                            //"ApprovedOn": new Date(),
                             //      "ApprovedBy": obj.,
                             "CreatedAt": obj.CreatedAt,
                             "CreatedBy": obj.CreatedBy,
-                            //        "UpdatedAt": obj.UpdatedAt,
+                            //"UpdatedAt": new Date(),
                             //        "UpdatedBy": obj.UpdatedBy,
                             //    "Comment"  : obj.,
                             "IsArchived": false,
@@ -207,13 +227,13 @@ sap.ui.define([
                         };
                         that.MDCCNumber = obj.MDCCNumber;
                         BusyIndicator.show();
-                        this.MainModel.create(sPath, oPayload, {
+                        that.MainModel.create(sPath, oPayload, {
                             success: function (oData, oResponse) {
                                 BusyIndicator.hide();
                                 if (oData.ID) {
                                     MessageBox.success("MDCC Number " + that.MDCCNumber + " Sent for approval successfully");
-                                    this.getView().getContent()[0].getContent().rerender();
-                                    this.getView().getModel().refresh();
+                                    that.getView().getContent()[0].getContent().rerender();
+                                    that.getView().getModel().refresh();
                                 }
                             }.bind(this),
                             error: function (oError) {
@@ -294,9 +314,6 @@ sap.ui.define([
 			 objectViewModel.setProperty("/busy", false);*/
         },
 
-        // Arrange Data For View / Model Set
-
-
         // Parent Data View Fetch / Model Set
         _getParentDataViewMDCC: function (sObjectId, mdccNobb) {
             this.ParentDataView = [];
@@ -350,21 +367,6 @@ sap.ui.define([
         },
 
         //-------------------- Read MDCC ----------------------//
-
-        /*    onReadMDCCItems : function(sObjectId){
-                var that = this;
-                var sPath = "/InspectionCallIdSet" + sObjectId + "/MDCC";
-                this.MainModel.read(sPath, {
-                    success: function (oData, oResponse) {
-                        var oManageMDCCModel = new JSONModel({"MDCCItems" :oData.results })
-                        that.getView().setModel(oManageMDCCModel, "ManageMDCCModel");                  
-                    }.bind(this),
-                    error: function (oError) {
-                        sap.m.MessageBox.Error(JSON.stringify(oError));
-                    }
-                });
-            },       */
-
         // Add MDCC Item 
         onAddMdccItem: function (oEvent) {
 
@@ -428,23 +430,40 @@ sap.ui.define([
             var fileType = "application/pdf";
             var fileSize = oFiles[0].size;
             this._getImageData(URL.createObjectURL(oFiles[0]), function (base64) {
-                that._addData(base64, fileName, fileType , fileSize, rowId,rowObj);
+                that._addData(base64, fileName, fileType, fileSize, rowId, rowObj);
             }, fileName);
         },
 
-        _addData: function (data, fileName, fileType,fileSize, rowId , rowObj) {
+        _addData: function (data, fileName, fileType, fileSize, rowId, rowObj) {
             var that = this;
+            var sPONumber = this.getView().byId("idPONumber").getText();;
+            // var documents = {
+            //     "Documents": [
+            //         {
+            //             "UploadTypeId": rowObj.ID, // MDCC Id
+            //             "Type": "MDCC",
+            //             "SubType": "",
+            //             "FileName": fileName,
+            //             "Content": data, // base - 64 (Type)
+            //             "ContentType": fileType, // application/pdf text/csv
+            //             "UploadedBy": rowObj.UpdatedBy ? rowObj.UpdatedBy : "vendor1",
+            //             "FileSize": fileSize
+            //         }
+            //     ]
+            // };
             var documents = {
                 "Documents": [
                     {
-                        "UploadTypeId": rowObj.ID, // MDCC Id
                         "Type": "MDCC",
-                        "SubType": "",
+                        "ContentType": fileType,
                         "FileName": fileName,
-                        "Content": data, // base - 64 (Type)
-                        "ContentType":fileType, // application/pdf text/csv
-                        "UploadedBy": rowObj.UpdatedBy ? rowObj.UpdatedBy:"vendor1" ,
-                        "FileSize": fileSize
+                        "Content": data,
+                        "UploadedBy": "AGEL",
+                        "FileSize": fileSize,
+                        "SubType": "",
+                        "UploadTypeId": rowObj.ID,
+                        "PONumber": sPONumber,
+                        "CompanyCode": null
                     }
                 ]
             };

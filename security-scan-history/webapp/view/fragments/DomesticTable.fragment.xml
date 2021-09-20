@@ -39,20 +39,12 @@
                     <Text text="{i18n>vendorCode}"/>
                 </Column>
 
-                <!-- Entry Date -->
-                <Column demandPopin="true" minScreenWidth="Tablet">
-                    <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "EntryDate", "leadingProperty": "EntryDate",
-                                                 "columnIndex": 3}'/>
-                    </customData>
-                    <Text text="{i18n>entryDate}"/>
-                </Column>
 
                 <!-- Vehicle Number -->
                 <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "VehicleNumber", "leadingProperty": "VehicleNumber",
-                                                 "columnIndex": 4 }'/>
+                                                 "columnIndex": 3 }'/>
                     </customData>
                     <Text text="{i18n>vehicleNob}"/>
                 </Column>     
@@ -64,6 +56,15 @@
                                                  "columnIndex": 4 }'/>
                     </customData>
                     <Text text="{i18n>gateEntryNumber}"/>
+                </Column>
+
+                    <!-- Entry Date -->
+                <Column demandPopin="true" minScreenWidth="Tablet">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "EntryDate", "leadingProperty": "EntryDate",
+                                                 "columnIndex": 5 }'/>
+                    </customData>
+                    <Text text="{i18n>entryDate}"/>
                 </Column>
 
                 <!-- Quantity 
@@ -82,15 +83,14 @@
                         <Text text="{PONumber}"/>
                         <ObjectIdentifier title="{PackingListId}"/> 
                         <Text text="{VendorCode}"/>
-                        <Text text="{path:'EntryDate',
-                                     type: 'sap.ui.model.type.Date',
-				                     formatOptions: {
-				                        pattern: 'MMMM dd, yyyy'
-				                     }
-                        }"/>                       
-
                         <Text text="{VehicleNumber}"/>
                         <Text text="{GateEntryNumber}" />
+                         <Text text="{path:'EntryDate',
+                                     type: 'sap.ui.model.type.DateTime',
+				                     formatOptions: {
+				                        pattern: 'MMMM dd, yyyy HH:mm:ss'
+				                     }
+                        }"/>       
                      <!--   <Text text="{Qty}" />-->
                     </cells>
                 </ColumnListItem>

@@ -91,7 +91,7 @@
             <Annotations Target="com.agel.mmts.entity.PurchaseOrderModel/PlantCode">
                 <Annotation Term="Common.Label" String="{@i18n>plantCode}"/>
             </Annotations>
-            <Annotations Target="com.agel.mmts.entity.BuyerModel/BuyerCode">
+            <Annotations Target="com.agel.mmts.entity.MasterCompanyCodeModel/BuyerCode">
                 <Annotation Term="Common.Label" String="{@i18n>buyerCode}"/>
                 <Annotation Term="Common.ValueList">
                     <Record Type="Common.ValueListType">
@@ -108,7 +108,7 @@
                 </Annotation>
                 <Annotation Term="Common.ValueListWithFixedValues"/>
             </Annotations>
-            <Annotations Target="com.agel.mmts.entity.BuyerModel/ContactPerson">
+            <Annotations Target="com.agel.mmts.entity.MasterCompanyCodeModel/Name">
                 <Annotation Term="Common.Label" String="{@i18n>buyerContactPerson}"/>
                 <Annotation Term="Common.ValueList">
                     <Record Type="Common.ValueListType">
@@ -125,7 +125,7 @@
                 </Annotation>
                 <Annotation Term="Common.ValueListWithFixedValues"/>
             </Annotations>
-            <Annotations Target="com.agel.mmts.entity.BuyerModel/CompanyCode">
+            <Annotations Target="com.agel.mmts.entity.MasterCompanyCodeModel/CompanyCode">
                 <Annotation Term="Common.Label" String="{@i18n>companyCode}"/>
                 <Annotation Term="Common.ValueList">
                     <Record Type="Common.ValueListType">
@@ -177,11 +177,11 @@
                         <PropertyPath>POReleaseDate</PropertyPath>
                         <PropertyPath>ConfirmedDate</PropertyPath>
                         <PropertyPath>PlantCode</PropertyPath>
-                        <PropertyPath>Buyer/CompanyCode</PropertyPath>
+                        <PropertyPath>MasterCompanyCode/CompanyCode</PropertyPath>
                         <PropertyPath>Vendor/Name</PropertyPath>
                         <PropertyPath>Vendor/VendorCode</PropertyPath>
-                        <PropertyPath>Buyer/ContactPerson</PropertyPath>
-                        <PropertyPath>Buyer/BuyerCode</PropertyPath>
+                        <PropertyPath>MasterCompanyCode/Name</PropertyPath>
+                        <PropertyPath>MasterCompanyCode/BuyerCode</PropertyPath>
                         <PropertyPath>ParentLineItems/Name</PropertyPath>
                         <PropertyPath>ParentLineItems/MaterialCode</PropertyPath>
                         <PropertyPath>Status</PropertyPath>
@@ -239,7 +239,7 @@
                         </Record>
 
                         <Record Type="UI.DataField">
-                            <PropertyValue Property="Value" Path="Buyer/CompanyCode"/>
+                            <PropertyValue Property="Value" Path="MasterCompanyCode/CompanyCode"/>
                             <PropertyValue Property="Label" String="{@i18n>companyCode}"/>
                         </Record>
 
@@ -254,12 +254,12 @@
                         </Record>
 
                         <Record Type="UI.DataField">
-                            <PropertyValue Property="Value" Path="Buyer/ContactPerson"/>
+                            <PropertyValue Property="Value" Path="MasterCompanyCode/ContactPerson"/>
                             <PropertyValue Property="Label" String="{@i18n>buyerContactPerson}"/>
                         </Record>
 
                         <Record Type="UI.DataField">
-                            <PropertyValue Property="Value" Path="Buyer/BuyerCode"/>
+                            <PropertyValue Property="Value" Path="MasterCompanyCode/BuyerCode"/>
                             <PropertyValue Property="Label" String="{@i18n>buyerCode}"/>
                         </Record>
 
@@ -280,7 +280,7 @@
                         </Record>
                         <Record Type="UI.ReferenceFacet">
                             <PropertyValue Property="Label" String="{@i18n>buyerDetails}"/>
-                            <PropertyValue Property="Target" AnnotationPath="Buyer/@UI.FieldGroup"/>
+                            <PropertyValue Property="Target" AnnotationPath="MasterCompanyCode/@UI.FieldGroup"/>
                         </Record>
                         <Record Type="UI.ReferenceFacet">
                             <PropertyValue Property="Label" String="{@i18n>lineItems}"/>
@@ -407,7 +407,7 @@
                 </Annotation>
             </Annotations>
 
-            <Annotations Target="com.agel.mmts.entity.BuyerModel">
+            <Annotations Target="com.agel.mmts.entity.MasterCompanyCodeModel">
                 <Annotation Term="UI.FieldGroup">
                     <Record Type="UI.FieldGroupType">
                         <PropertyValue Property="Data">

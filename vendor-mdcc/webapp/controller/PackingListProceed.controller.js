@@ -139,6 +139,16 @@ sap.ui.define([
                     }
                     //   }
                 }
+                this.onDispatchQuantityNull(this.ParentDataView);
+            },
+
+            onDispatchQuantityNull : function(ParentData){
+                for (var i = 0; i < ParentData.length; i++) {
+                    this.ParentDataView[i].DispatchQty = "";
+                    for (var j = 0; j < ParentData[i].ChildItems.length; j++) {
+                        this.ParentDataView[i].ChildItems[j].DispatchQty = "";
+                    }
+                }
                 this._arrangeDataView();
             },
 
@@ -151,7 +161,7 @@ sap.ui.define([
                 var flag = 0;
                 if (parseInt(oValue) > parseInt(remainingQty) || remainingQty == "") {
                     oEvent.getSource().setValueState("Error");
-                    oEvent.getSource().setValueStateText("Please enter less dispatch quantity than approved remaining quantity");
+                    oEvent.getSource().setValueStateText("Please enter dispatch quantity lesser than or equal to the approved remaining quantity");
                     this.getView().byId("idBtnProceed").setEnabled(false);
                     flag = 1;
                 }

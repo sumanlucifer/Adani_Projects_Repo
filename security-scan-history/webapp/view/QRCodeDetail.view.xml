@@ -94,10 +94,14 @@
                     </VBox>
                     <VBox class="sapUiMediumMarginBeginEnd">
                         <Title text="{i18n>shipTo}" titleStyle="H6"/>
-                        <ObjectAttribute title="{Name}" binding="{PurchaseOrder/Buyer}"/>
+                        <!-- <ObjectAttribute title="{Name}" binding="{PurchaseOrder/Buyer}"/> 
                         <ObjectAttribute text="{Street}" binding="{PurchaseOrder/Buyer/Address}"/>
                         <ObjectAttribute text="{City} - {State} - {Country}" binding="{PurchaseOrder/Buyer/Address}"/>
-                        <ObjectAttribute text="{pinCode}" binding="{PurchaseOrder/Buyer/Address}"/>
+                        <ObjectAttribute text="{pinCode}" binding="{PurchaseOrder/Buyer/Address}"/> -->
+                        <ObjectAttribute text=""/>
+                        <ObjectAttribute text=""/>
+                        <ObjectAttribute text=""/>
+                        <ObjectAttribute text=""/>
                     </VBox>
                     <VBox class="sapUiMediumMarginBeginEnd">
                         <Title text="{i18n>from}" titleStyle="H6"/>
@@ -234,7 +238,7 @@
                                     <UploadCollectionItem documentId="{ID}" url="{parts: ['FileName','Content'], 
                                         formatter: '.formatter.fileContent' }" enableEdit="false" enableDelete="false" visibleDelete="false" visibleEdit="false" fileName="{FileName}">
                                         <attributes>
-                                            <ObjectAttribute title="Uploaded By" text="{UpdatedBy}" class="sapUiSmallMarginEnd"/>
+                                            <ObjectAttribute title="Uploaded By" text="{UploadedBy}" class="sapUiSmallMarginEnd"/>
                                             <ObjectAttribute title="Uploaded On" text="{path:'CreatedAt', type: 'sap.ui.model.type.Date',
 				                                            formatOptions: {pattern: 'MMMM dd, yyyy'}}"/>
                                             <ObjectAttribute title="Size" text="{path : 'FileSize', formatter : '.formatter.formatFileSize'}"/>
@@ -257,7 +261,7 @@
                                     <UploadCollectionItem documentId="{ID}" url="{parts: ['FileName','Content'], 
                                         formatter: '.formatter.fileContent' }" enableEdit="false" enableDelete="false" visibleDelete="false" visibleEdit="false" fileName="{FileName}">
                                         <attributes>
-                                            <ObjectAttribute title="Uploaded By" text="{UpdatedBy}" class="sapUiSmallMarginEnd"/>
+                                            <ObjectAttribute title="Uploaded By" text="{UploadedBy}" class="sapUiSmallMarginEnd"/>
                                             <ObjectAttribute title="Uploaded On" text="{path:'CreatedAt', type: 'sap.ui.model.type.Date',
 				                                            formatOptions: {pattern: 'MMMM dd, yyyy'}}"/>
                                             <ObjectAttribute title="Size" text="{path : 'FileSize', formatter : '.formatter.formatFileSize'}"/>

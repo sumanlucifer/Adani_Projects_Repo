@@ -46,15 +46,11 @@ sap.ui.define([
 
             _showObjectList: function (oItem) {
                 var that = this;
-                var sObjectPath = oItem.getBindingContext().sPath;
-                that.getRouter().navTo("RouteIssueMatDetail", {
-                    ID: oItem.getBindingContext().getObject().ID
+                var sObjectPath = oItem.getBindingContext().sPath;        
+                debugger;
+                that.getRouter().navTo("RaiseIssueScanQRCode", {
+                    SONumber: oItem.getBindingContext().getObject().SONumber
                 });
-            },
-
-            onpressIssueMaterial: function(oEvent) {
-                this.getRouter().navTo("RouteIssueMaterial");
             }
-
 		});
 	});

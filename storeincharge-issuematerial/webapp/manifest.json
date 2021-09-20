@@ -109,7 +109,7 @@
                 "controlAggregation": "pages",
                 "controlId": "app",
                 "clearControlAggregation": false,
-                                "bypassed": {
+                "bypassed": {
                     "target": [
                         "notFound"
                     ]
@@ -124,29 +124,8 @@
                     ]
                 },
                 {
-                    "name": "RouteIssueMatDetail",
-                    "pattern": "IssueMatDetail/{ID}",
-                    "target": [
-                        "TargetIssueMatDetail"
-                    ]
-                },
-                {
-                    "name": "RouteIssueMaterial",
-                    "pattern": "IssueMaterial",
-                    "target": [
-                        "TargetIssueMaterial"
-                    ]
-                },
-                {
-                    "name": "RaiseSODetailPage",
-                    "pattern": "IssueSODetail/{SOId}",
-                    "target": [
-                        "TargetIssueSODetail"
-                    ]
-                },
-                {
                     "name": "RaiseIssueScanQRCode",
-                    "pattern": "IssueScanQRCode/{SOId}",
+                    "pattern": "IssueScanQRCode/{SONumber}",
                     "target": [
                         "TargetIssueScanQRCode"
                     ]
@@ -159,24 +138,6 @@
                     "clearControlAggregation": false,
                     "viewId": "LandingPage",
                     "viewName": "LandingPage"
-                },
-                "TargetIssueMatDetail": {
-                    "viewType": "XML",
-                    "transition": "slide",
-                    "clearControlAggregation": false,
-                    "viewName": "IssueMatDetail"
-                },
-                "TargetIssueMaterial": {
-                    "viewType": "XML",
-                    "transition": "slide",
-                    "clearControlAggregation": false,
-                    "viewName": "IssueMaterial"
-                },
-                "TargetIssueSODetail": {
-                    "viewType": "XML",
-                    "transition": "slide",
-                    "clearControlAggregation": false,
-                    "viewName": "IssueSODetail"
                 },
                 "TargetIssueScanQRCode": {
                     "viewType": "XML",

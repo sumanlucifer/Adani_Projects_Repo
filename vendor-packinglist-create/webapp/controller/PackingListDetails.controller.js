@@ -191,9 +191,13 @@ sap.ui.define([
 
             this.mainModel.create("/VendorQRPrintingRequestSet", oPayload, {
                 success: function (oData, oResults) {
+                    if(oData.Success){
                     sap.m.MessageBox.success("Request for QR printing sent successfully!")
                     this._oQRAssistantDialog.close();
-                    this.byId("idHeader").getModel().refresh();
+                    this.byId("idHeader").getModel().refresh(); }
+                    else{
+                        MessageBox.error(oData.Message);
+                    }
                 }.bind(this), error: function (oError) {
                     sap.m.MessageBox.error(JSON.parse(oError));
                 }
@@ -244,6 +248,11 @@ sap.ui.define([
                     path: "QRNumber",
                     operator: FilterOperator.EQ,
                     value1: this.getViewModel("packingListDispatchModel").getProperty("/QRNumber")
+                }),
+                new Filter({
+                    path: "Type",
+                    operator: FilterOperator.EQ,
+                    value1: "PACKINGLIST"
                 })
                 ],
                 success: function (oData, oResults) {

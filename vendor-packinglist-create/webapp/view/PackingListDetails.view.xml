@@ -37,10 +37,11 @@
                     <Title text="Packing List Details - {Name}" wrapping="true" titleStyle="Auto"/>
                 </uxap:snappedTitleOnMobile>
                 <uxap:actions>
-                    <Button icon="sap-icon://download" type="Emphasized" press="onDownloadPackingListPress" visible="{= ${Status} === 'SENT FOR QR CODE APPROVAL' || ${Status} === 'QR CODE REQUEST APPROVED' ? false : true}"/>
+                    <!-- <Button icon="sap-icon://download" type="Emphasized" press="onDownloadPackingListPress" visible="{= ${Status} === 'SENT FOR QR CODE APPROVAL' || ${Status} === 'QR CODE REQUEST APPROVED' ? false : true}"/> -->
+                    <Button icon="sap-icon://download" type="Emphasized" press="onDownloadPackingListPress"/>
                     <!-- <Link text="need QR code printing assistance" press="onNeedQRPrintingAsistancePress" visible="{= ${Status} === 'SENT FOR QR CODE APPROVAL' || ${Status} === 'QR CODE REQUEST APPROVED' || ${Status} === 'QR CODE REQUEST REJECTED' || ${Status} === 'DISPATCHED' ? false}"></Link> -->
                     <Link text="Need QR Code Printing Assistance" press="onNeedQRPrintingAsistancePress" visible="{= ${Status} === 'SAVED' ? true : false}"></Link>
-                    <Button text="Mark Consignment as Dispatched" press="onMarkConsignmentAsDispatched" type="Emphasized" visible="{= ${Status} === 'SENT FOR QR CODE APPROVAL' || ${Status} === 'DISPATCHED' ? false : true}"/>
+                    <Button text="Mark Consignment as Dispatched" press="onMarkConsignmentAsDispatched" type="Emphasized" visible="{= ${Status} === 'SENT FOR QR CODE APPROVAL' || ${Status} === 'DISPATCHED' || ${Status} === 'UNLOADING COMPLETED' ? false : true}"/>
                 </uxap:actions>
             </uxap:ObjectPageDynamicHeaderTitle>
         </uxap:headerTitle>
@@ -95,10 +96,15 @@
                     </VBox>
                     <VBox class="sapUiMediumMarginBeginEnd">
                         <Title text="{i18n>shipTo}" titleStyle="H6"/>
-                        <ObjectAttribute title="{Name}" binding="{PurchaseOrder/Buyer}"/>
-                        <ObjectAttribute text="{Street}" binding="{PurchaseOrder/Buyer/Address}"/>
-                        <ObjectAttribute text="{City} - {State} - {Country}" binding="{PurchaseOrder/Buyer/Address}"/>
-                        <ObjectAttribute text="{pinCode}" binding="{PurchaseOrder/Buyer/Address}"/>
+                        <!-- <ObjectAttribute title="{Name}" binding="{PurchaseOrder/MasterCompanyCode}"/>
+                        <ObjectAttribute text="{Street}" binding="{PurchaseOrder/MasterCompanyCode/Address}"/>
+                        <ObjectAttribute text="{City} - {State} - {Country}" binding="{PurchaseOrder/MasterCompanyCode/Address}"/>
+                        <ObjectAttribute text="{pinCode}" binding="{PurchaseOrder/MasterCompanyCode/Address}"/> -->
+
+                        <ObjectAttribute title="" />
+                        <ObjectAttribute text="" />
+                        <ObjectAttribute text="" />
+                        <ObjectAttribute text="" />
                     </VBox>
                     <VBox class="sapUiMediumMarginBeginEnd">
                         <Title text="{i18n>from}" titleStyle="H6"/>

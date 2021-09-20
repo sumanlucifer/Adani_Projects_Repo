@@ -35,7 +35,6 @@ sap.ui.define([
                 var oViewHandlingModel = new JSONModel({
                     "closeButton": false,
                     "submitButton": true
-
                 });
                 this.setModel(oViewHandlingModel, "oViewHandlingModel");
 

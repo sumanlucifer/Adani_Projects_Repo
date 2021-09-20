@@ -7,8 +7,11 @@
                 <Text text="{i18n>line2}"/>                  
             </VBox>
         </content>
-        <endButton>
+        <beginButton>
             <Button text="{i18n>viewVendorQR}" press="onViewVendorQRPress" type="Emphasized" />
+        </beginButton>
+        <endButton>
+            <Button text="{i18n>cancel}" press="onViewVendorQRCancelPress"/>
         </endButton>
     </Dialog>
 </core:FragmentDefinition>

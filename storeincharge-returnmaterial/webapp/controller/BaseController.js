@@ -59,38 +59,38 @@ sap.ui.define([
             BusyIndicator.hide();
         },
 
-    //    initializeFilterBar: function(){
-    //         this._addSearchFieldAssociationToFB();
+       initializeFilterBar: function(){
+            this._addSearchFieldAssociationToFB();
 
-    //         this.oFilterBar = null;
-    //         this.oFilterBar = this.byId("filterbar");
+            this.oFilterBar = null;
+            this.oFilterBar = this.byId("filterbar");
 
-    //         this.oFilterBar.registerFetchData(this.fFetchData);
-    //         this.oFilterBar.registerApplyData(this.fApplyData);
-    //         this.oFilterBar.registerGetFiltersWithValues(this.fGetFiltersWithValues);
+            this.oFilterBar.registerFetchData(this.fFetchData);
+            this.oFilterBar.registerApplyData(this.fApplyData);
+            this.oFilterBar.registerGetFiltersWithValues(this.fGetFiltersWithValues);
 
-    //         this.oFilterBar.fireInitialise();
-    //     },
+            this.oFilterBar.fireInitialise();
+        },
 
-        // _addSearchFieldAssociationToFB: function () {
-        //     let oFilterBar = this.getView().byId("filterbar");
-        //     let oSearchField = oFilterBar.getBasicSearch();
-        //     var oBasicSearch;
-        //     if (!oSearchField) {
-        //         // @ts-ignore   
-        //         oBasicSearch = new sap.m.SearchField({ id: "idSearch", showSearchButton: false ,
-        //                                                 placeholder:"Search"});
-        //         oBasicSearch.attachLiveChange(this.onFilterChange, this);
-        //     } else {
-        //         oSearchField = null;
-        //     }
-        //     oFilterBar.setBasicSearch(oBasicSearch);
-        //     oBasicSearch.attachBrowserEvent("keyup", function (e) {
-        //         if (e.which === 13) {
-        //             this.onSearch();
-        //         }
-        //     }.bind(this));
-        // },
+        _addSearchFieldAssociationToFB: function () {
+            let oFilterBar = this.getView().byId("filterbar");
+            let oSearchField = oFilterBar.getBasicSearch();
+            var oBasicSearch;
+            if (!oSearchField) {
+                // @ts-ignore   
+                oBasicSearch = new sap.m.SearchField({ id: "idSearch", showSearchButton: false ,
+                                                        placeholder:"Search"});
+                oBasicSearch.attachLiveChange(this.onFilterChange, this);
+            } else {
+                oSearchField = null;
+            }
+            oFilterBar.setBasicSearch(oBasicSearch);
+            oBasicSearch.attachBrowserEvent("keyup", function (e) {
+                if (e.which === 13) {
+                    this.onSearch();
+                }
+            }.bind(this));
+        },
 
         // fFetchData: function () {
         //     var oJsonParam;

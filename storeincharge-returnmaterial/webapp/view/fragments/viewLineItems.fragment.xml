@@ -1,0 +1,54 @@
+<core:FragmentDefinition xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns:f="sap.ui.layout.form"
+    xmlns="sap.m"
+    xmlns:l="sap.ui.layout"
+    xmlns:smartTable="sap.ui.comp.smarttable"
+    xmlns:tt="sap.ui.table">
+    <Dialog>
+        <l:Grid defaultSpan="L12 M12 S12" width="auto">
+            <l:content>
+                <tt:TreeTable rows="{path:'TreeTableModelView>/IssueData', parameters: {arrayNames:['ChildItemsView']}}" 
+        selectionMode="None" enableSelectAll="false" title="{i18n>IssuedMaterialItems}" ariaLabelledBy="title" rowsUpdated="onRowsUpdated">
+        <tt:columns>
+            <tt:Column width="7%">
+                <Label text="ID" />
+                <tt:template>
+                    <Text text="{TreeTableModelView>ID}" />
+                </tt:template>
+            </tt:Column>
+            <tt:Column width="7%">
+                <Label text="Material Code" wrapping="true"/>
+                <tt:template>
+                    <Text text="{TreeTableModelView>MaterialCode}" />
+                </tt:template>
+            </tt:Column>
+            <tt:Column>
+                <Label text="Plant"/>
+                <tt:template>
+                    <ObjectIdentifier title="{TreeTableModelView>Plant}" />
+                </tt:template>
+            </tt:Column>
+            <tt:Column>
+                <Label text="Name"/>
+                <tt:template>
+                    <Text text="{TreeTableModelView>Name}" wrapping="false" />
+                </tt:template>
+            </tt:Column>     
+            <tt:Column>
+                <Label text="Issued Quantity"/>
+                <tt:template>
+                    <Text text="{TreeTableModelView>IssuedQty}" wrapping="false" />
+                </tt:template>
+            </tt:Column>  
+        </tt:columns>
+    </tt:TreeTable>
+            </l:content>
+        </l:Grid>
+        <beginButton>
+        </beginButton>
+        <endButton>
+            <Button text="{i18n>close}" press="onViewLineItemsClosePress" type="Emphasized"></Button>
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

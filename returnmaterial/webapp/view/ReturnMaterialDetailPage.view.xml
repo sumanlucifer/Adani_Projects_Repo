@@ -16,32 +16,29 @@
         <uxap:headerTitle>
             <uxap:ObjectPageDynamicHeaderTitle>
                 <uxap:breadcrumbs>
-                    <Breadcrumbs id="breadcrumbsId" currentLocationText="{i18n>returnMaterialSummary}">
+                    <Breadcrumbs id="breadcrumbsId" currentLocationText="{i18n>returnSummary}">
                         <Link text="{i18n>returnMaterial}" press=".handleToAllPOBreadcrumPress"/>
                     </Breadcrumbs>
                 </uxap:breadcrumbs>
                 <uxap:expandedHeading>
                     <FlexBox direction="Column" renderType="Bare">
                         <Title text="{i18n>returnSummary}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
-                        <Title text="{PONumber}" wrapping="true" titleStyle="H3" />
+                        <Title text="{MaterialDocumentNumber}" wrapping="true" titleStyle="H3" />
                     </FlexBox>
                 </uxap:expandedHeading>
                 <uxap:snappedHeading>
                     <FlexBox direction="Column" renderType="Bare">
                         <Title text="{i18n>returnSummary}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
-                        <Title text="{PONumber}" wrapping="true" titleStyle="H3"/>
+                        <Title text="{MaterialDocumentNumber}" wrapping="true" titleStyle="H3"/>
                     </FlexBox>
                 </uxap:snappedHeading>
                 <uxap:expandedContent></uxap:expandedContent>
                 <uxap:snappedTitleOnMobile>
-                    <Title text="{i18n>PODetails}- {PONumber}" wrapping="true" titleStyle="Auto"/>
+                    <Title text="{i18n>returnSummary}- {MaterialDocumentNumber}" wrapping="true" titleStyle="Auto"/>
                 </uxap:snappedTitleOnMobile>
                 <uxap:actions>
-                    <VBox visible="{= %{Status}==='CONFIRMED' ? true : false}">
-
-                    </VBox>
                     <VBox visible="true">
-                        <Button text="Close" press="onConfirmPO" type="Emphasized"/>
+                        <Button text="Cancel Return" press="onCancelReturn" type="Emphasized"/>
                     </VBox>
                 </uxap:actions>
             </uxap:ObjectPageDynamicHeaderTitle>
@@ -51,30 +48,26 @@
                 <VBox renderType="Bare">
                     <FlexBox direction="Row" renderType="Bare" class="sapUiTinyMarginBottom">
                         <VBox renderType="Bare" class="sapUiMediumMarginEnd">
-                            <Label text="{i18n>approvedDate}" />
-                            <!-- missing -->
-                            <Text text="{path:'CreatedAt',
+                            <Label text="Posting Date" />
+                            <Text text="{path:'PostingDate',
                                      type: 'sap.ui.model.type.Date',
 				                     formatOptions: {
-				                        pattern: 'MMMM dd, yyyy'
-				                     }
-                            }"/>
-                        </VBox>
-                        <VBox renderType="Bare" class="sapUiMediumMarginEnd" visible="true">
-                            <Label text="{i18n>order}" />
-                            <!-- missing -->
-                            <Text text="{path:'ConfirmedDate',
-                                     type: 'sap.ui.model.type.Date',
-				                     formatOptions: {
-				                        pattern: 'MMMM dd, yyyy'
+				                        pattern: 'MMMM dd, yyyy HH:mm:ss'
 				                     }
                             }"/>
                         </VBox>
 
-                        <VBox renderType="Bare">
-                            <Label text="{i18n>status}" />
-                            <!-- missing -->
-                            <ObjectStatus text="{Status}" state="{= ${Status}==='CONFIRMED' ? 'Success' : 'Warning'}"/>
+                        <VBox renderType="Bare" class="sapUiMediumMarginEnd">
+                            <Label text="Delivery Note" />
+                            <Text text="{DeliveryNote}"/>
+                        </VBox>
+
+                         <VBox renderType="Bare" class="sapUiMediumMarginEnd">
+                            <Label text="ReservationNumber" />
+                            <Text text="{ReservationNumber}"/>
+                        </VBox>
+
+                        <VBox binding="{ReturnMaterialReserve}">
                         </VBox>
                     </FlexBox>
                 </VBox>
@@ -82,106 +75,60 @@
             </FlexBox>
         </uxap:headerContent>
         <uxap:sections>
-            <!-- Basic Details Section -->
-            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>basicDetails}">
-                <uxap:subSections>
-                    <uxap:ObjectPageSubSection title="{i18n>ContractorDetails}" class="BasicDetalFormTitleStyle">
-                        <f:SimpleForm layout="ColumnLayout" binding="{Contractor}" singleContainerFullSize="true" class="style-RemoveTitleHeight">
-                            <f:content>
-                                <!-- <core:Title  /> -->
-                                <Label text="{i18n>ContractorName}" />
-                                <Text text="{Name}" />
-
-                                <Label text="{i18n>ContractorId}" />
-                                <Text text="{ID}" />
-
-                                <Label text="{i18n>PlantSite-Location}" />
-                                <Text text="{PlantSiteLocation}"/>
-
-                                <Label text="{i18n>ActivePeriod}" />
-                                <Text text="{path:'ActivePeriod',
-                                     type: 'sap.ui.model.type.Date',
-				                     formatOptions: {
-				                        pattern: 'MMMM dd, yyyy'
-				                     }
-                                }"/>
-
-                                <!-- <core:Title />  -->
-                                <Label text="{i18n>Materials}" />
-                                <Text text="{Materials}"/>
-                                <!-- <ExpandableText binding="{Address}" text="{parts: [{path: 'Street'}, {path: 'City'}, {path: 'State'}, {path: 'Country'}, {path: 'pinCode'}]}" overflowMode="InPlace"/> -->
-                                <Label text="{i18n>Description}" />
-                                <Text text="{Description}"/>
-
-                                <Label text="{i18n>Service-Covered}" />
-                                <Text text="{ServicesCovered}"/>
-
-                            </f:content>
-                        </f:SimpleForm>
-                    </uxap:ObjectPageSubSection>
-
-                </uxap:subSections>
-            </uxap:ObjectPageSection>
 
             <!-- Line Items Section -->
             <uxap:ObjectPageSection titleUppercase="false" title="{i18n>lineItems}">
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection title="{i18n>lineItems}">
-                        <ui:TreeTable id="TreeTable" rows="{path:'TreeTableModelView>/', parameters: {arrayNames:['ChildItemsView']}}" 
-                            selectionMode="MultiToggle" enableSelectAll="false" title="{i18n>TreeTableViewTitle}" ariaLabelledBy="title" rowsUpdated="onRowsUpdated">
-                            <ui:columns>
+                        <VBox>
+                            <Table id="idBOQItemTable" items="{path: 'ReturnMaterialReserve/ReturnedMaterialParent'}" autoPopinMode="true" growingThreshold="5" growing="true" fixedLayout="false">
 
-                                <ui:Column width="7%">
-                                    <Label text="ID" />
-                                    <ui:template>
-                                        <Text text="{TreeTableModelView>ID}" />
-                                    </ui:template>
-                                </ui:Column>
-
-                                <ui:Column width="7%">
-                                    <Label text="Material Code" wrapping="true"/>
-                                    <ui:template>
-                                        <Text text="{TreeTableModelView>MaterialCode}" />
-                                    </ui:template>
-                                </ui:Column>
-
-                                <ui:Column>
-                                    <Label text="Plant"/>
-                                    <ui:template>
-                                        <ObjectIdentifier title="{TreeTableModelView>Plant}" />
-                                    </ui:template>
-                                </ui:Column>
-
-                                <ui:Column>
-                                    <Label text="Name"/>
-                                    <ui:template>
-                                        <Text text="{TreeTableModelView>Name}" wrapping="false" />
-                                    </ui:template>
-                                </ui:Column>     
-
-                                <ui:Column>
-                                    <Label text="Requested Quantity"/>
-                                    <ui:template>
-                                        <Text text="{TreeTableModelView>RequestedQuantity}" wrapping="false" />
-                                    </ui:template>
-                                </ui:Column>   
-
-                                <ui:Column>
-                                    <Label text="Rejected Quantity"/>
-                                    <ui:template>
-                                        <Text text="{TreeTableModelView>RejectedQuantity}" wrapping="false" />
-                                    </ui:template>
-                                </ui:Column>                      
-                                
-                                <ui:Column>
-                                    <Label text="Approved Quantity"/>
-                                    <ui:template>
-                                        <Text text="{TreeTableModelView>ApprovedQuantity}" wrapping="false" />
-                                    </ui:template>
-                                </ui:Column>
-                                   
-                            </ui:columns>
-                        </ui:TreeTable>
+                                <columns>
+                                    <Column>
+                                        <Text text="Line Number"/>
+                                    </Column>
+                                    <Column>
+                                        <Text text="Material Code"/>
+                                    </Column>
+                                    <Column>
+                                        <Text text="Name"/>
+                                    </Column>
+                                    <Column>
+                                        <Text text="Quantity"/>
+                                    </Column>
+                                    <Column>
+                                        <Text text="UOM"/>
+                                    </Column>
+                                    <Column>
+                                        <Text text="Plant"/>
+                                    </Column>
+                                    <Column>
+                                        <Text text="Storage Location"/>
+                                    </Column>
+                                    <Column>
+                                        <Text text="Batch Number"/>
+                                    </Column>
+                                    <Column>
+                                        <Text text="Valuation Type"/>
+                                    </Column>
+                                </columns>
+                                <items>
+                                    <ColumnListItem>
+                                        <cells>
+                                            <Text text="{ItemNumber}"/>
+                                            <ObjectIdentifier title="{MaterialCode}"/>
+                                            <Text text="{Name}"/>
+                                            <Text text="{Name}"/>
+                                            <Text text="{Qty}"/>
+                                            <Text text="{BaseUnit}"/>
+                                            <Text text="{Plant}"/>
+                                            <Text text="{BatchNumber}"/>
+                                            <Text text="{ValuationType}"/>
+                                        </cells>
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
+                        </VBox>
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>
             </uxap:ObjectPageSection>

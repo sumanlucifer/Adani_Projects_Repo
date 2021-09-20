@@ -126,6 +126,20 @@
                     "target": [
                         "TargetApp"
                     ]
+                },
+                {
+                    "name": "RouteDetailsPage",
+                    "pattern": "ReturnMaterialDetails/{ReturnId},{SOId}",
+                    "target": [
+                        "TargetDetailsPage"
+                    ]
+                },
+                {
+                    "name": "Summary",
+                    "pattern": "ReturnMaterialDetails/{id}",
+                    "target": [
+                        "SummaryPage"
+                    ]
                 }
             ],
             "targets": {
@@ -135,6 +149,18 @@
                     "clearControlAggregation": false,
                     "viewId": "",
                     "viewName": "LandingPage"
+                },
+                "TargetDetailsPage": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewName": "SONumberDetails"
+                },
+                "SummaryPage": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewName": "ConfirmPage"
                 },
                 "notFound": {
                     "viewName": "NotFound"

@@ -135,7 +135,7 @@ sap.ui.define([
             }
             if (InspectQuantity > Quantity) {
                 oEvent.getSource().setValueState("Error");
-                oEvent.getSource().setValueStateText("Please enter less inspected quantity than quantity");
+                oEvent.getSource().setValueStateText("Please enter inspected quantity lesser than or equal to total quantity");
             }
             else {
                 oEvent.getSource().setValueState("None");
@@ -180,7 +180,7 @@ sap.ui.define([
             }
 
             var that = this;
-            MessageBox.confirm("Do you want to save mdcc item?", {
+            MessageBox.confirm("Do you want to save offline item?", {
                 icon: MessageBox.Icon.INFORMATION,
                 title: "Confirm",
                 actions: [MessageBox.Action.YES, MessageBox.Action.NO],
@@ -265,14 +265,34 @@ sap.ui.define([
             }
         },
 
-        _getImageData: function (url, callback) {
+        // _getImageData: function (url, callback) {
+        //     var xhr = new XMLHttpRequest();
+        //     xhr.onload = function () {
+        //         var reader = new FileReader();
+        //         reader.onloadend = function () {
+        //             callback(reader.result);
+        //         };
+        //         reader.readAsDataURL(xhr.response);
+        //     };
+        //     xhr.open('GET', url);
+        //     xhr.responseType = 'blob';
+        //     xhr.send();
+        // },
+
+        _getImageData: function (url, callback, fileName) {
             var xhr = new XMLHttpRequest();
             xhr.onload = function () {
                 var reader = new FileReader();
                 reader.onloadend = function () {
-                    callback(reader.result);
+                    var str = reader.result;
+                    var bytes = [];
+                    for (var i = 0; i < str.length; ++i) {
+                        bytes.push(str.charCodeAt(i));
+                    }
+                    // var byteStr = bytes.join(",");
+                    callback(bytes);
                 };
-                reader.readAsDataURL(xhr.response);
+                reader.readAsText(xhr.response);
             };
             xhr.open('GET', url);
             xhr.responseType = 'blob';
@@ -283,14 +303,28 @@ sap.ui.define([
             var that = this,
                 oViewContext = this.getView().getBindingContext().getObject();
 
-            var document = {
+            // var document = {
+            //     "Type": "INSPECTION",
+            //     "SubType": "inpsection_doc",
+            //     "FileName": fileName,
+            //     "Content": data.split(",")[1],
+            //     "ContentType": "application/pdf",
+            //     "UploadedBy": "vendor-1",
+            //     "FileSize": fileSize
+            // };
+
+            var document =
+            {
                 "Type": "INSPECTION",
-                "SubType": "inpsection_doc",
-                "FileName": fileName,
-                "Content": data.split(",")[1],
                 "ContentType": "application/pdf",
-                "UploadedBy": "vendor-1",
-                "FileSize": fileSize
+                "FileName": fileName,
+                "Content": data,
+                "UploadedBy": "vendor-1",   
+                "FileSize": fileSize,
+                "SubType": "inpsection_doc",
+                "UploadTypeId": "1",
+                "PONumber": null,
+                "CompanyCode": "123"
             };
 
             this.getView().getModel("localAttachmentModel").getData().items.push(document);
