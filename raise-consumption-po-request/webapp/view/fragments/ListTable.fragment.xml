@@ -46,6 +46,14 @@
                     </customData>
                     <Text text="{i18n>PostingDate}"/>
                 </Column>
+
+                <Column demandPopin="true" minScreenWidth="Tablet">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Status", "leadingProperty": "Status",
+"columnIndex": 6 ,"sortProperty": "Status"}'/>
+                    </customData>
+                    <Text text="{i18n>Status}"/>
+                </Column>
             </columns>
             <items>
                 <ColumnListItem type="Navigation" press="onNavigationCancelPress">
@@ -66,6 +74,7 @@ formatOptions: {
 pattern: 'MMMM dd, yyyy HH:mm:ss'
 }
 }"/>
+                        <ObjectStatus text="{Status}" state="{= ${Status} === 'POSTED' ? 'Success' : ${Status} === 'RESERVED' ? 'Information' : 'Error'}" visible="{= ${Status}.length>0 ? true : false }"/>
                     </cells>
                 </ColumnListItem>
             </items>
