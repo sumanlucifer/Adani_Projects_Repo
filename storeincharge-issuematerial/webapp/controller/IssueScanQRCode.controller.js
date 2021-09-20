@@ -280,7 +280,7 @@ sap.ui.define([
 
             var aPayload = {
                 "IssuedMaterialId": null,
-                "IssuedMaterialReserveId": this.sObjectId,
+                "IssuedMaterialReserveId": this.sObjectId.match(/\((.*?)l/)[1],
                 "IssueMaterialParents": Matdata
             };
 
