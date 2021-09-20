@@ -137,10 +137,14 @@ sap.ui.define([
         getTableItems: function () {
             var itemData = this.getViewModel("consumptionPostedData").getData();
             var IsAllItemsCancelled = "";
-            var selectedItems = itemData.filter(function (item) {
+            var totalSelectedItems = itemData.filter(function (item) {
+               return (item.Status === "Posted Successfully" || item.Status === "CONSUMPTION RESERVATION FAILED");
+            });
+
+             var selectedItems = itemData.filter(function (item) {
                 return item.isSelected === true;
             });
-            if (itemData.length === selectedItems.length)
+            if (totalSelectedItems.length === selectedItems.length)
                 IsAllItemsCancelled = true;
             else
                 IsAllItemsCancelled = false;
@@ -149,6 +153,9 @@ sap.ui.define([
                 itemData,
                 IsAllItemsCancelled
             };
+
+
+
         },
         onSubmitCancelConfirmPress: function (a, itemData) {
             var IsAllItemsCancelled = itemData.IsAllItemsCancelled;

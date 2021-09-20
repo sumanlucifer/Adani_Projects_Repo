@@ -13,6 +13,12 @@
                     <Title id="pageTitle" text="Create Issue Reservation"/>
                 </f:heading>
                 <f:actions>
+                    <HBox visible="{= ${objectViewModel>/isButtonVisible} ? true : true}">
+                        <Button text="Save" id="idBtnSubmit" class="sapUiTinyMarginBegin" press="onSubmitReservation" type="Emphasized" />
+                        <Button text="Cancel" class="sapUiTinyMarginBegin" press="onCancelReservation" />
+
+                    </HBox>
+
                     <!-- <Button text="Raise Return Material Request" press="onConfirmRequest" type="Emphasized"/> -->
                 </f:actions>
             </f:DynamicPageTitle>
@@ -56,13 +62,13 @@
                                 <core:Item key="{ID}" text="{Name} - {VendorCode}" />
                             </Select>
                             <Label></Label>
-                            <Button width="50%" class="sapUiSmallMarginTop"  text="Go" type="Emphasized" press="onPressGo">
+                            <Button width="50%" class="sapUiSmallMarginTop" text="Go" type="Emphasized" press="onPressGo">
                                 <layoutData>
                                     <l:GridData span="XL2 L3 M4 S4" />
                                 </layoutData>
                             </Button>
 
-                            
+
                             <Button visible="{= ${objectViewModel>/isHeaderFieldsVisible} ? true : false}" width="50%" id="idResetButton" class="sapUiSmallMarginTop" text="Reset" type="Emphasized" press="onPressReset"></Button>
                         </fm:SimpleForm>
                     </HBox>
@@ -104,7 +110,7 @@
                         <Column>
                             <Text text="Batch"/>
                         </Column>
-                         <Column>
+                        <Column>
                             <Text text="M"/>
                         </Column>
                         <Column width="5%">
@@ -145,8 +151,8 @@
                                 <Text text="{reservationTableModel>AvailableQty}"/>
                                 <Input width="30%" liveChange="onLiveChangeQty" value="{reservationTableModel>Quantity}"/>
                                 <Text text="{reservationTableModel>BaseUnit}"/>
-                                 <Input width="30%"  value="{reservationTableModel>Batch}"/>
-                                 <CheckBox  selected="{reservationTableModel>M}" />
+                                <Input width="40%" value="{reservationTableModel>Batch}"/>
+                                <CheckBox selected="{reservationTableModel>M}" />
                                 <Button icon="sap-icon://delete" press="onDeleteReservationItemPress" type="Transparent"/>
                             </cells>
                         </ColumnListItem>
@@ -154,12 +160,11 @@
                 </Table>
             </VBox>
         </f:content>
-        <f:footer>
-            <OverflowToolbar visible="{= ${objectViewModel>/isButtonVisible} ? true : true}">
+        <!-- <f:footer>
+            <OverflowToolbar >
                 <ToolbarSpacer/>
-                <Button text="Save" id="idBtnSubmit" class="sapUiTinyMarginBegin" press="onSubmitReservation" type="Emphasized" />
-                <Button text="Cancel" class="sapUiTinyMarginBegin" press="onCancelReservation" />
+               
             </OverflowToolbar>
-        </f:footer>
+        </f:footer> -->
     </f:DynamicPage>
 </mvc:View>

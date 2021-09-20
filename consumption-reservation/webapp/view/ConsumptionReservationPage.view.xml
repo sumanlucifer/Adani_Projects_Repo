@@ -14,6 +14,11 @@
                     <Title id="pageTitle" text="Create Consumption Reservation"/>
                 </f:heading>
                 <f:actions>
+
+                    <HBox visible="{= ${objectViewModel>/isItemFieldsVisible} ? true : false}">
+                        <Button text="Save" class="sapUiTinyMarginBegin" press="onSubmitReservation" type="Emphasized" />
+                        <Button text="Cancel" class="sapUiTinyMarginBegin" press="onCancelReservation" />
+                    </HBox>
                     <!-- <Button text="Raise Return Material Request" press="onConfirmRequest" type="Emphasized"/> -->
                 </f:actions>
             </f:DynamicPageTitle>
@@ -64,16 +69,15 @@
         <f:content>
             <VBox>
                 <ui:TreeTable visible="{= ${objectViewModel>/isItemFieldsVisible} ? true : false}" id="TreeTable" rows="{path:'TreeDataModel>/', parameters: {arrayNames:['results']}}" selectionMode="None" enableSelectAll="false" ariaLabelledBy="title" rowsUpdated="onRowsUpdated">
-                    <ui:columns>  
+                    <ui:columns>
 
-<ui:Column width="8%" hAlign="Center" >
-									<Label text="Select" />
-									<ui:template>
-										 <CheckBox  visible="{= ${TreeDataModel>isParent} ? true : false}" selected="{TreeDataModel>isSelected}" 
-                                           select="onSelectionOfRow" />
-									</ui:template>
-								</ui:Column>
-                    
+                        <ui:Column width="8%" hAlign="Center">
+                            <Label text="Select" />
+                            <ui:template>
+                                <CheckBox visible="{= ${TreeDataModel>isParent} ? true : false}" selected="{TreeDataModel>isSelected}" select="onSelectionOfRow" />
+                            </ui:template>
+                        </ui:Column>
+
                         <ui:Column>
                             <Label text="MaterialCode"/>
                             <ui:template>
@@ -114,19 +118,19 @@
                         <ui:Column>
                             <Label text="ReservedQty"/>
                             <ui:template>
-                                <Input visible="{= ${TreeDataModel>isParent} ? true : false}" value="{TreeDataModel>Quantity}"  />
+                                <Input visible="{= ${TreeDataModel>isParent} ? true : false}" value="{TreeDataModel>Quantity}" />
                             </ui:template>
                         </ui:Column>
                     </ui:columns>
                 </ui:TreeTable>
             </VBox>
         </f:content>
-        <f:footer>
+        <!-- <f:footer>
             <OverflowToolbar visible="{= ${objectViewModel>/isItemFieldsVisible} ? true : false}">
                 <ToolbarSpacer/>
                 <Button text="Save" class="sapUiTinyMarginBegin" press="onSubmitReservation" type="Emphasized" />
                 <Button text="Cancel" class="sapUiTinyMarginBegin" press="onCancelReservation" />
             </OverflowToolbar>
-        </f:footer>
+        </f:footer> -->
     </f:DynamicPage>
 </mvc:View>

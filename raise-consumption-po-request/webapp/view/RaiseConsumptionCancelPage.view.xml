@@ -107,7 +107,8 @@ pattern: 'MMMM dd, yyyy HH:mm:ss'
                                     </OverflowToolbar>
                                 </headerToolbar>
                                 <columns>
-                                  
+                                    <Column width="5%">
+                                    </Column>
                                     <Column>
                                         <Text text="Material Code"/>
                                     </Column>
@@ -129,21 +130,20 @@ pattern: 'MMMM dd, yyyy HH:mm:ss'
                                      <Column demandPopin="true" minScreenWidth="Tablet">
                                         <Text text="Status"/>
                                     </Column>
-                                    <Column width="5%">
-                                    </Column>
+                                  
                                 </columns>
                                 <items>
-                                    <ColumnListItem id="idBOQItems">
+                                    <ColumnListItem id="id">
                                         <cells>
-                                           
+                                            <CheckBox    visible="{= ${consumptionPostedData>Status} === 'RESERVED FOR CONSUMPTION' ? true : false }"  selected="{consumptionPostedData>isSelected}"
+                                           select="onSelectionOfRow" />
                                             <Text text="{consumptionPostedData>MaterialCode}"/>
                                              <Text text="{consumptionPostedData>Name}"/>
                                             <Text  text="{consumptionPostedData>Plant}"/>
                                               <Text  text="{consumptionPostedData>Quantity}"/>
                                           <Text text="{consumptionPostedData>StorageLocation}"/>
                                            <ObjectStatus text="{consumptionPostedData>Status}" state="{= ${consumptionPostedData>Status} === 'RESERVED FOR CONSUMPTION' ? 'Success' : ${Status} === 'CONSUMPTION CANCELLED' ? 'Information' : 'Error'}" visible="{= ${Status}.length>0 ? true : false }"/>
-                                           <CheckBox    visible="{= ${consumptionPostedData>Status} === 'RESERVED FOR CONSUMPTION' ? true : false }"  selected="{consumptionPostedData>isSelected}"
-                                           select="onSelectionOfRow" />
+                                          
                                         </cells>
                                     </ColumnListItem>
                                 </items>
