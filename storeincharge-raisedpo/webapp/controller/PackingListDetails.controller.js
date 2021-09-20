@@ -67,7 +67,7 @@ sap.ui.define([
                         },
                         dataReceived: function () {
                             objectViewModel.setProperty("/busy", false);
-                            that.readGRNS(sObjectPath + "/GRNS");
+                            // that.readGRNS(sObjectPath + "/GRNS");
                         }
                     }
                 });
@@ -309,7 +309,9 @@ sap.ui.define([
                 var that = this;
                 var gID = oEvent.getSource().getBindingContext().getObject().ID;
                 var oPayload = {
-                    "GRNId": gID
+                    "GRNId": gID,
+                    "UserName": "Agel_Sep"
+
                 };
                 MessageBox.confirm("Do you really want to cancel GRN ?", {
                     icon: MessageBox.Icon.INFORMATION,
@@ -357,7 +359,7 @@ sap.ui.define([
                     oDialog.bindElement({
                         path: sParentItemPath,
                         parameters: {
-                            "expand": 'StockParentItem, PurchaseOrder, PackingListParentItems'
+                            "expand": 'RestrictedStoreStockParent, PurchaseOrder, PackingListParentItems'
                         }
                     });
                     oDialog.setTitle("Request GRN");
@@ -432,12 +434,13 @@ sap.ui.define([
                 if (parseInt(sQuantity) > 0) {
                     if (sDelivery !== null) {
                         var oPayload = {
-                            "QTY": parseInt(sQuantity),
+                            "TotalPackagingWeight": parseInt(sQuantity),
                             "DeliveryNote": sDelivery,
                             "BillOfLading": sBillofLading,
                             "GatePassNumber": sGatePassNumber,
                             "Reference": sReference,
-                            "PackingListId": this.getView().getBindingContext().getObject().ID
+                            "PackingListId": this.getView().getBindingContext().getObject().ID,
+                            "UserName": "Agel_Sep"
                         };
                     } else {
                         var oSelectedItemData = this.byId("idGRNTable").getSelectedItem().getBindingContext().getObject();
@@ -448,7 +451,8 @@ sap.ui.define([
                             "BillOfLading": sBillofLading,
                             "GatePassNumber": sGatePassNumber,
                             "Reference": sReference,
-                            "PackingListId": parseInt(oSelectedItemData.ID)
+                            "PackingListId": parseInt(oSelectedItemData.ID),
+                            "UserName": "Agel_Sep"
                         };
                     }
                     if (oPayload) {

@@ -124,7 +124,7 @@
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection>
                         <uxap:blocks>
-                            <Table id="idGRNTable" items="{GRNS}" autoPopinMode="true" growingThreshold="5" growing="true" fixedLayout="false" contextualWidth="Inherit">
+                            <Table id="idGRNTable" items="{GRNS}" autoPopinMode="true" growingThreshold="5" growing="true" fixedLayout="false" contextualWidth="Inherit" >
                                 <headerToolbar>
                                     <OverflowToolbar >
                                         <content>
@@ -132,7 +132,7 @@
                                             <ToolbarSpacer>
                                             </ToolbarSpacer>
                                             <VBox>
-                                                <Button text="Request GRN" id="idrequestGRNButton" press="onRequestGRNPress" type="Accept"/>
+                                                <Button text="Request GRN" id="idrequestGRNButton" press="onRequestGRNPress" type="Accept" visible="{= ${IsGRNRaised} === false}"/>
                                             </VBox>
                                         </content>
                                     </OverflowToolbar>
@@ -181,9 +181,9 @@
                                             <!-- <ObjectIdentifier title="{ID}" /> -->
                                             <!-- <Text text="{GatePassNumber}"/> -->
                                             <ObjectIdentifier title="{MaterialDocumentNumber}"/>
-                                            <Text text="{MovementType}"/>
-                                            <Text text="{ValuationType}"/>
-                                            <Text text="{PONumber}"/>
+                                            <Text text="{MovementType}" binding="{RestrictedStoreStockParent}"/>
+                                            <Text text="{ValuationType}" binding="{RestrictedStoreStockParent}"/>
+                                            <Text text="{PONumber}" binding="{PackingList}"/>
                                             <ObjectStatus text="{Status}" state="{
 						path: 'Status',
 						formatter: '.formatter.getGRNListColor'

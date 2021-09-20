@@ -8,7 +8,7 @@
     xmlns:unified="sap.ui.unified"
     xmlns:tt="sap.ui.table"
     xmlns:smartTable="sap.ui.comp.smarttable"
-    xmlns="sap.m" controllerName="com.agel.mmts.storeinchargeissuematerial.controller.IssueScanQRCode" height="100%">
+    xmlns="sap.m" controllerName="com.agel.mmts.storeinchargeissuematerial.controller.IssueUploadDoc" height="100%">
     <uxap:ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true" upperCaseAnchorBar="false" headerContentPinnable="true" toggleHeaderOnTitleClick="true" busy="{objectViewModel>/busy}">
         <uxap:headerTitle>
             <uxap:ObjectPageDynamicHeaderTitle>
@@ -35,9 +35,7 @@
                 </uxap:snappedTitleOnMobile>
                 <uxap:actions>
                     <HBox visible="true">
-                        <Button text="Done" press="onPressDone" type="Accept" visible="{objectViewModel>/doneButton}"/>
-                        <Title text="" />    
-                        <Button text="Scan or Enter QR Code" press="onPressScanQR" type="Emphasized"/>
+                        <Button text="Confirm Issue Material" press="onPressConfirm" type="Emphasized"/>
                     </HBox>
                 </uxap:actions>
             </uxap:ObjectPageDynamicHeaderTitle>
@@ -51,7 +49,7 @@
             <uxap:ObjectPageSection titleUppercase="false" title="{i18n>lineItems}">
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection title="{i18n>lineItems}">
-                        <Table width="auto" growing="true" growingThreshold="5" items="{path: 'IssueMatModel>/'}" fixedLayout="false">     
+                        <Table width="auto" growing="true" growingThreshold="5" fixedLayout="false" items="{IssuedMaterialParents}">     
                             <headerToolbar>
                                 <OverflowToolbar id="otbSubheader">
                                     <Title text="Products" level="H2" />
@@ -73,13 +71,38 @@
                             <items>
                                 <ColumnListItem>
                                     <cells>
-                                        <ObjectIdentifier title="{IssueMatModel>Name}"/>
-                                        <Text text="{IssueMatModel>IssuedQty}" />
-                                        <Text text="{IssueMatModel>BaseUnit}" />
+                                        <ObjectIdentifier title="{Name}" />
+                                        <Text text="{IssuedQty}" />
+                                        <Text text="{BaseUnit}" />
                                     </cells>
                                 </ColumnListItem>
                             </items>
                         </Table>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>uploadDoc}">
+                <uxap:subSections>
+                      <uxap:ObjectPageSubSection title="{i18n>attachments}">
+                        <uxap:blocks>
+                        <VBox>
+                        <HBox>
+                            <Title text="Total Gross Weight"/>
+                            <Input type="Number" id="idTotalGrossWeight"/>
+                            <Title text="MT"/>
+                        </HBox>
+                         <Text class="redColor" />
+                                <UploadCollection class="uploadClasstest" multiple="true" fileSizeExceed="onFileSizeExceed" typeMissmatch="onTypeMissmatch" uploadComplete="onUploadComplete" beforeUploadStarts="onBeforeUploadStarts" items="{
+                                    path:'localAttachmentModel>/items',
+                                    templateShareable: false}" mode="None" selectionChange="onAttachmentChange" instantUpload="false" change="onAttachmentChange" fileDeleted="onFileDeleted">
+                                    <items>
+                                        <UploadCollectionItem url="{parts: ['localAttachmentModel>/FileName','localAttachmentModel>/Content']}" enableEdit="false" enableDelete="false" visibleDelete="false" visibleEdit="false" fileName="{localAttachmentModel>FileName}" deletePress="onDeleteDocumentPress">
+                                        </UploadCollectionItem>
+                                    </items>
+                                </UploadCollection>
+                            </VBox>
+                        </uxap:blocks>
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>
             </uxap:ObjectPageSection>
