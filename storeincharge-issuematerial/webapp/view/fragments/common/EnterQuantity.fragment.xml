@@ -27,7 +27,7 @@
                     <ColumnListItem>
                         <cells>
                             <Text text="{Name}"/>
-                            <Text text="{Quantity}"/>
+                            <Text text="{Qty}"/>
                             <Input value="{IssuedQty}" type="Number" id="idInputIssuedQty" />
                             <Text text="{BaseUnit}​​​"/>
                         </cells>
