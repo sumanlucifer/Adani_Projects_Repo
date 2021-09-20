@@ -148,40 +148,46 @@ sap.ui.define([
                 var obj = oEvent.getSource().getBindingContext().getObject();
                 var newVehiclenumber = this.getView().getModel("oViewHandlingModel").oData.ReEnterVehicleNo;
                 var emptyVehiclenumber = this.getView().getModel("oViewHandlingModel").oData.ReEnterVehicleNoNew;
+
                 if (newVehiclenumber) {
                     var oVehicleNob = newVehiclenumber;
                 }
                 else if (emptyVehiclenumber) {
-
                     var oVehicleNob = emptyVehiclenumber;
                 }
                 else {
-
                     var oVehicleNob = obj.VehicleNumber;
                 }
 
-                var oPayload = {
-                    "PackingListId": obj.ID,
-                    "VehicleNumber": oVehicleNob,
-                    "ScannedMaterialId": that.scannedMaterialID
-                };
+                var vehicleRegExp = new RegExp('^[A-Z]{2}[ -][0-9]{1,2}(?: [A-Z])?(?: [A-Z]*)? [0-9]{4}$');
+                if (vehicleRegExp.test(oVehicleNob)) {
+                    var oPayload = {
+                        "PackingListId": obj.ID,
+                        "VehicleNumber": oVehicleNob,
+                        "ScannedMaterialId": that.scannedMaterialID
+                    };
 
-                this.MainModel.create("/VehicleNumberUpdateSet", oPayload, {
+                    this.MainModel.create("/VehicleNumberUpdateSet", oPayload, {
 
-                    success: function (oData, oResponse) {   
-                        this.MainModel.refresh();      
-                        MessageBox.success("Vehicle Number Submitted successfully");
-                        this.getViewModel("oViewHandlingModel").setProperty("/wantChange", false);
-                        this.getViewModel("oViewHandlingModel").setProperty("/closeButton", true);
-                        this.getViewModel("oViewHandlingModel").setProperty("/submitButton", false);
+                        success: function (oData, oResponse) {
+                            this.MainModel.refresh();
+                            MessageBox.success("Vehicle Number Submitted successfully");
+                            this.getViewModel("oViewHandlingModel").setProperty("/wantChange", false);
+                            this.getViewModel("oViewHandlingModel").setProperty("/closeButton", true);
+                            this.getViewModel("oViewHandlingModel").setProperty("/submitButton", false);
 
-                    }.bind(this),
-                    error: function (oError) {
-                        MessageBox.error(JSON.stringify(oError));
-                    }.bind(this)
-                });
-                // this.MainModel.refresh();
-                this.getViewModel("oViewHandlingModel").setProperty("/ReEnterVehicleNo", null);
+                        }.bind(this),
+                        error: function (oError) {
+                            MessageBox.error(JSON.stringify(oError));
+                        }.bind(this)
+                    });
+                    // this.MainModel.refresh();
+                    this.getViewModel("oViewHandlingModel").setProperty("/ReEnterVehicleNo", null);
+                } else {
+                    sap.m.MessageBox.error("Oops! Looks like you've entered a wrong vehicle number.")
+                }
+
+
             },
 
             onClose: function (oEvent) {

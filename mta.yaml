@@ -1,4 +1,4 @@
-_schema-version: "3.2"
+_schema-version: '3.2'
 ID: agel-mmts-web
 version: 1.0.0
 modules:
@@ -6,7 +6,7 @@ modules:
     type: approuter.nodejs
     path: agel-mmts-web-approuter
     properties:
-      TENANT_HOST_PATTERN: ^(.*)-agel-mmts-web-approuter.${default-domain}
+      TENANT_HOST_PATTERN: '^(.*)-agel-mmts-web-approuter.${default-domain}'
     requires:
       - name: uaa_agel-mmts-web
       - name: agel-mmts-web_html_repo_runtime
@@ -16,7 +16,7 @@ modules:
         properties:
           forwardAuthToken: true
           name: AGEL_MMTS_API
-          url: https://agel-mmts-api.cfapps.ap11.hana.ondemand.com/
+          url: 'https://agel-mmts-api.cfapps.ap11.hana.ondemand.com/'
     parameters:
       disk-quota: 256M
       keep-existing-routes: true
@@ -151,13 +151,34 @@ modules:
             - comagelmmtslognewconsumption.zip
           name: comagelmmtslognewconsumption
           target-path: resources/
-
         - artifacts:
             - comagelmmtsraiseconsumptionporequest.zip
           name: comagelmmtsraiseconsumptionporequest
           target-path: resources/
-
-
+        - artifacts:
+            - comagelmmtsmaterialreservation.zip
+          name: comagelmmtsmaterialreservation
+          target-path: resources/
+        - artifacts:
+            - comagelmmtsengineerissuecancellation.zip
+          name: comagelmmtsengineerissuecancellation
+          target-path: resources/
+        - artifacts:
+            - return-reservation-content.zip
+          name: comagelmmtsreturnreservation
+          target-path: resources/
+        - artifacts:
+            - consumption-reservation-content.zip
+          name: comagelmmtsconsumptionreservation
+          target-path: resources/
+        - artifacts:
+            - comagelmmtsreportsstorestock.zip
+          name: comagelmmtsreportsstorestock
+          target-path: resources/
+        - artifacts:
+            - comagelmmtsreportsreceipt.zip
+          name: comagelmmtsreportsreceipt
+          target-path: resources/
   - name: launchpad
     type: com.sap.application.content
     path: launchpad
@@ -174,7 +195,7 @@ modules:
       - name: uaa_agel-mmts-web
     parameters:
       config:
-        TENANT_HOST_PATTERN: ^(.*)-agel-mmts-web-approuter.${default-domain}
+        TENANT_HOST_PATTERN: '^(.*)-agel-mmts-web-approuter.${default-domain}'
     deployed-after:
       - agel-mmts-web_ui_deployer
   - name: workflow-module
@@ -184,6 +205,20 @@ modules:
       - name: workflow
         parameters:
           content-target: true
+  - name: workflow-PMCGApprovals
+    type: com.sap.application.content
+    path: workflow-PMCGApprovals
+    requires:
+    - name: workflow
+      parameters:
+        content-target: true
+  - name: workflow-PrintingApproval
+    type: com.sap.application.content
+    path: workflow-PrintingApproval
+    requires:
+    - name: workflow
+      parameters:
+        content-target: true      
   - name: vendorPersona
     type: html5
     path: vendorPersona
@@ -400,7 +435,7 @@ modules:
       builder: custom
       commands:
         - npm install
-        - npm run build:cf
+        - 'npm run build:cf'
       supported-platforms: []
   - name: comagelmmtsreportspurchaseorder
     type: html5
@@ -410,7 +445,7 @@ modules:
       builder: custom
       commands:
         - npm install
-        - npm run build:cf
+        - 'npm run build:cf'
       supported-platforms: []
   - name: comagelmmtsraiseconsumptionporequest
     type: html5
@@ -427,6 +462,58 @@ modules:
       builder: custom
       commands:
         - npm run build
+      supported-platforms: []
+  - name: comagelmmtsmaterialreservation
+    type: html5
+    path: materialreservation
+    build-parameters:
+      builder: custom
+      commands:
+        - npm run build
+      supported-platforms: []
+  - name: comagelmmtsengineerissuecancellation
+    type: html5
+    path: engineer-issuecancellation
+    build-parameters:
+      builder: custom
+      commands:
+        - npm run build
+      supported-platforms: []
+  - name: comagelmmtsreturnreservation
+    type: html5
+    path: return-reservation
+    build-parameters:
+      builder: custom
+      commands:
+        - npm run build
+      supported-platforms: []
+  - name: comagelmmtsconsumptionreservation
+    type: html5
+    path: consumption-reservation
+    build-parameters:
+      builder: custom
+      commands:
+        - npm run build
+      supported-platforms: []
+  - name: comagelmmtsreportsstorestock
+    type: html5
+    path: reports-storestock
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install
+        - 'npm run build:cf'
+      supported-platforms: []
+  - name: comagelmmtsreportsreceipt
+    type: html5
+    path: reports-receipt
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install
+        - 'npm run build:cf'
       supported-platforms: []
 resources:
   - name: uaa_agel-mmts-web
@@ -463,7 +550,7 @@ resources:
                 Name: ui5
                 ProxyType: Internet
                 Type: HTTP
-                URL: https://ui5.sap.com
+                URL: 'https://ui5.sap.com'
             existing_destinations_policy: update
         version: 1.0.0
       service: destination

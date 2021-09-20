@@ -186,7 +186,7 @@ sap.ui.define([
                 boqApprovalModel.setProperty("/ID", iD);
                 boqApprovalModel.setProperty("/MDCCID", mDCCID);
                 boqApprovalModel.setProperty("/Status", "APPROVED");
-                boqApprovalModel.setProperty("/UpdatedAt", updatedAt);
+                boqApprovalModel.setProperty("/UpdatedAt", new Date());
                 boqApprovalModel.setProperty("/UpdatedBy", updatedBy);
                 boqApprovalModel.setProperty("/ApprovedBy", approvedBy);
                 boqApprovalModel.setProperty("/ApprovedAt", approvedAt);
@@ -236,9 +236,9 @@ sap.ui.define([
                     "Status": boqApprovalModel.getProperty("/Status"),
                     "Comment": boqApprovalModel.getProperty("/Comment"),
                     "MDCCID": boqApprovalModel.getProperty("/ID"),
-                    "UpdatedAt": boqApprovalModel.getProperty("/UpdatedAt"),
+                    "UpdatedAt": new Date(),
                     "UpdatedBy": boqApprovalModel.getProperty("/UpdatedBy"),
-                    "ApprovedOn": boqApprovalModel.getProperty("/ApprovedOn"),
+                    "ApprovedOn": new Date(),
                     "ApprovedBy": boqApprovalModel.getProperty("/ApprovedBy")
                 };
             // };
@@ -284,7 +284,7 @@ sap.ui.define([
                 boqApprovalModel.setProperty("/ID", iD);
                 boqApprovalModel.setProperty("/MDCCID", mDCCID);
                 boqApprovalModel.setProperty("/Status", "REJECTED");
-                boqApprovalModel.setProperty("/UpdatedAt", updatedAt);
+                boqApprovalModel.setProperty("/UpdatedAt", new Date());
                 boqApprovalModel.setProperty("/UpdatedBy", updatedBy);
                 boqApprovalModel.setProperty("/ApprovedBy", approvedBy);
                 boqApprovalModel.setProperty("/ApprovedAt", approvedAt);

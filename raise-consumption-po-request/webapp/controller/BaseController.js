@@ -6,7 +6,7 @@ sap.ui.define([
 
     return Controller.extend("com.agel.mmts.raiseconsumptionporequest.controller.BaseController", {
 
-
+//model
         getViewModel: function (sName) {
             return this.getView().getModel(sName);
         },

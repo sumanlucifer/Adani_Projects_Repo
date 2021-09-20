@@ -161,7 +161,7 @@ sap.ui.define([
                 var flag = 0;
                 if (parseInt(oValue) > parseInt(remainingQty) || remainingQty == "") {
                     oEvent.getSource().setValueState("Error");
-                    oEvent.getSource().setValueStateText("Please enter less dispatch quantity than approved remaining quantity");
+                    oEvent.getSource().setValueStateText("Please enter dispatch quantity lesser than or equal to the approved remaining quantity");
                     this.getView().byId("idBtnProceed").setEnabled(false);
                     flag = 1;
                 }

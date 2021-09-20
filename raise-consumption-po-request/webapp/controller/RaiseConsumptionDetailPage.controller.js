@@ -52,9 +52,9 @@ sap.ui.define([
         },
         _onObjectMatched: function (oEvent) {
             var that = this;
-            var sObjectId = oEvent.getParameter("arguments").SOId;
+            var sObjectId = oEvent.getParameter("arguments").ReservationID;
             this.sObjectId = sObjectId;
-            this._bindView("/SONumberDetailsSet(" + sObjectId + ")");
+            this._bindView("/ConsumptionPostingReserveSet(" + sObjectId + ")");
         },
         _bindView: function (sObjectPath) {
             var objectViewModel = this.getViewModel("objectViewModel");
@@ -97,92 +97,58 @@ sap.ui.define([
             mBindingParams.filters.push(new Filter("SONumberId/ID", sap.ui.model.FilterOperator.EQ, this.sObjectId));
             mBindingParams.sorter.push(new sap.ui.model.Sorter("CreatedAt", true));
         },
-        onConsumedItemsTablePress: function (oEvent) {
-            // The source is the list item that got pressed
-         
-            var ReservationNumber = oEvent.getSource().getBindingContext().getObject().ReservationNumber;
-            var ReservationDate = oEvent.getSource().getBindingContext().getProperty().ReservationDate;
-            this._showObject(oEvent.getSource(), ReservationNumber, ReservationDate);
-        },
-        _showObject: function (oItem, ReservationNumber, ReservationDate) {
+
+        
+
+        onPressSubmitConsumptionPosting: function (oEvent) {
             var that = this;
-            var sObjectPath = oItem.getBindingContext().sPath;
-            this.oRouter.navTo("RouteConsumptionItemsDetailPage", {
-                POId: sObjectPath.slice("/ConsumptionPostingReserveSet".length),// /StockParentItemSet(123)->(123)
-                SOId: this.sObjectId + ";" + ReservationNumber + ";" + ReservationDate
-            },
-                false
-            );
-        },
-
-        onPressCancelRequest: function (oEvent) {
-            var that = this;
-             var ConsumptionPostingReserveId = oEvent.getSource().getBindingContext().getObject().ConsumptionPostingReserveId;
-              var ConsumptionPostingId = oEvent.getSource().getBindingContext().getObject().ConsumptionPostingId;
+            var ConsumptionPostingReserveId = that.sObjectId;
+            var ConsumptionPostingId = oEvent.getSource().getBindingContext().getObject().ConsumptionPostingId;
 
 
 
-            MessageBox.confirm("Do you want to Cancel the consumption request?", {
+            MessageBox.confirm("Do you want to Submit the consumption request?", {
                 icon: MessageBox.Icon.INFORMATION,
                 title: "Confirm",
                 actions: [MessageBox.Action.YES, MessageBox.Action.NO],
                 emphasizedAction: MessageBox.Action.YES,
                 onClose: function (oAction) {
                     if (oAction == "YES") {
-                        that.onCancelButtonConfirmPress(ConsumptionPostingReserveId, ConsumptionPostingId);
+                        that.onSubmitButtonConfirmPress(ConsumptionPostingReserveId);
                     }
                 }
             });
 
         },
 
-        onCancelButtonConfirmPress: function (CID) {
+        onSubmitButtonConfirmPress: function (CID) {
             var oPayload =
             {
                 "UserName": "Agel",
-                "ConsumptionPostingReserveId":ConsumptionPostingReserveId,
-                "ConsumptionPostingId": ConsumptionPostingId
-            }
-                ;
-            this.MainModel.create("/CancelConsumptionPostingEdmSet", oPayload, {
+                "ConsumptionPostingReserveId": CID
+            };
+            this.MainModel.create("/ConsumptionPostingEdmSet", oPayload, {
                 success: function (oData, oResponse) {
                     if (oData.Success === true) {
-                        sap.m.MessageBox.success("Consumption has been cancelled successfully!", {
+                        sap.m.MessageBox.success("Consumption has been Posted successfully!", {
                             title: "Success",
                             onClose: function (oAction1) {
                                 if (oAction1 === sap.m.MessageBox.Action.OK) {
-                                  //  this._navToCrossApp();
+                                    //  this._navToCrossApp();
                                 }
                             }.bind(this)
                         });
                     }
 
                     else {
-                        sap.m.MessageBox.success("Something went wrong!");
+                          sap.m.MessageBox.error(oData.Message);
                     }
                 }.bind(this),
                 error: function (oError) {
                     sap.m.MessageBox.error(oError.Message);
                 }
             });
-        },
-        onPressLongNewEntry: function () {
-            var that = this;
-            var oCrossAppNavigator = sap.ushell.Container.getService("CrossApplicationNavigation"); // get a handle on the global XAppNav service
-            var hash = (oCrossAppNavigator && oCrossAppNavigator.hrefForExternal({
-                target: {
-                    semanticObject: "lognewentry",
-                    action: "Manage"
-                },
-                params: {
-                    "SOID": that.sObjectId
-                }
-            })) || "";
-            oCrossAppNavigator.toExternal({
-                target: {
-                    shellHash: hash
-                }
-            });
         }
+
     });
 });

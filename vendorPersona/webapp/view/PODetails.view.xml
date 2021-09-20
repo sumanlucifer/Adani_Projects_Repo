@@ -42,7 +42,7 @@
                 </uxap:snappedTitleOnMobile>
                 <uxap:actions>
                     <VBox visible="{= %{Status}==='CONFIRMED' ? true : false}">
-                        
+
                     </VBox>
                     <VBox visible="{= %{Status}==='PENDING' ? true : false}">
                         <Button text="Confirm PO" press="onConfirmPO" type="Emphasized"/>
@@ -64,7 +64,7 @@
 				                     }
                             }"/>
                         </VBox>
-                         <VBox renderType="Bare" class="sapUiMediumMarginEnd" visible="{= ${Status}==='CONFIRMED'}">
+                        <VBox renderType="Bare" class="sapUiMediumMarginEnd" visible="{= ${Status}==='CONFIRMED'}">
                             <Label text="{i18n>confirmedDate}" />
                             <!-- missing -->
                             <Text text="{path:'ConfirmedDate',
@@ -84,14 +84,25 @@
 				                     }
                             }"/>
                         </VBox>
-                        <VBox renderType="Bare">
+                        <VBox renderType="Bare" class="sapUiMediumMarginEnd">
                             <Label text="{i18n>status}" />
                             <!-- missing -->
                             <ObjectStatus text="{Status}" state="{= ${Status}==='CONFIRMED' ? 'Success' : 'Warning'}"/>
                         </VBox>
+
+                     <!--    <VBox class="sapUiMediumMarginEnd" renderType="Bare" binding="{MasterCompanyCode}">
+                            <Label text="{i18n>CustomerName}" />
+                            <Text text="{Name}"/>
+                        </VBox>
+
+                        <VBox binding="{MasterCompanyCode}" renderType="Bare">
+                            <Label text="{i18n>companyCode}" />
+                            <Text text="{CompanyCode}"/>
+                        </VBox> -->
+
                     </FlexBox>
                 </VBox>
-               <!-- <VBox renderType="Bare">
+                <!-- <VBox renderType="Bare">
                     <Label text="{i18n>instruction}" design="Bold"/>
                     <ObjectAttribute text="Please raise the inspection call through SIMS portal." />
                 </VBox> -->
@@ -101,7 +112,7 @@
             <!-- Basic Details Section -->
             <uxap:ObjectPageSection titleUppercase="false" title="{i18n>basicDetails}">
                 <uxap:subSections>
-                    <uxap:ObjectPageSubSection title="{i18n>buyerDetails}" class="BasicDetalFormTitleStyle">
+                     <uxap:ObjectPageSubSection title="{i18n>buyerDetails}" class="BasicDetalFormTitleStyle">
                         <uxap:blocks>
                             <buyerForm:BuyerForm class="sapUxAPObjectPageSubSectionAlignContent"/>
                         </uxap:blocks>

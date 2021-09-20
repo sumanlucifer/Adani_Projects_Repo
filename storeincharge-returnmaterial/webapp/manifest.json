@@ -133,6 +133,13 @@
                     "target": [
                         "TargetDetailsPage"
                     ]
+                },
+                {
+                    "name": "Summary",
+                    "pattern": "ReturnMaterialDetails/{id}",
+                    "target": [
+                        "SummaryPage"
+                    ]
                 }
             ],
             "targets": {
@@ -148,6 +155,12 @@
                     "transition": "slide",
                     "clearControlAggregation": false,
                     "viewName": "SONumberDetails"
+                },
+                "SummaryPage": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewName": "ConfirmPage"
                 },
                 "notFound": {
                     "viewName": "NotFound"

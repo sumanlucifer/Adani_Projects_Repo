@@ -82,12 +82,12 @@ sap.ui.define([
                 var that = this;
                 if (qrcodeID !== "") {
                     that.getView().byId("idQRBtn").setProperty("enabled", true);
-                    that.getView().byId("idQRSubmit").setProperty("enabled", false);
+                    // that.getView().byId("idQRSubmit").setProperty("enabled", false);
                     that.getView().byId("idInvoiceNum").setProperty("enabled", false);
 
                 } else {
                     that.getView().byId("idQRBtn").setProperty("enabled", false);
-                    that.getView().byId("idQRSubmit").setProperty("enabled", true);
+                    // that.getView().byId("idQRSubmit").setProperty("enabled", true);
                     that.getView().byId("idInvoiceNum").setProperty("enabled", true);
                 }
             },
@@ -97,12 +97,12 @@ sap.ui.define([
                 var that = this;
                 if (invoiceID !== "") {
                     that.getView().byId("idInvBtn").setProperty("enabled", true);
-                    that.getView().byId("idQRSubmit").setProperty("enabled", false);
+                    // that.getView().byId("idQRSubmit").setProperty("enabled", false);
                     that.getView().byId("idInputQRCode").setProperty("enabled", false);
 
                 } else {
                     that.getView().byId("idInvBtn").setProperty("enabled", false);
-                    that.getView().byId("idQRSubmit").setProperty("enabled", true);
+                    // that.getView().byId("idQRSubmit").setProperty("enabled", true);
                     that.getView().byId("idInputQRCode").setProperty("enabled", true);
                 }
             },
@@ -144,6 +144,37 @@ sap.ui.define([
                     }
                 }
                 oEvent.getSource().scanner._camera.stop();
+            },
+
+            //scannner related functions
+            onScanSuccess: function (oEvent) {
+                debugger;
+                if (oEvent.getParameter("cancelled")) {
+                    sap.m.MessageToast.show("Scan cancelled", { duration: 1000 });
+                } else {
+                    sap.m.MessageToast.show("Scanned: " + oEvent.getParameter("text"), { duration: 2000 });
+                    var sScannedValue = oEvent.getParameter("text");
+                    if (sScannedValue.length > 0) {
+                        var isValid = this.checkForValidJSON(sScannedValue);
+                        if (isValid) {
+                            sap.m.MessageToast.show(JSON.parse(JSON.parse(sScannedValue)).QRNumber);
+                            this.validateQRCode(JSON.parse(JSON.parse(sScannedValue)).QRNumber);
+                        } else {
+                            sap.m.MessageBox.error("Not a valid QR! Please try again with a different QR code.")
+                        }
+                    }
+                }
+            },
+
+            onScanError: function (oEvent) {
+                sap.m.MessageToast.show("Scan failed" + oEvent, { duration: 1000 });
+            },
+
+            onScanLiveupdate: function (oEvent) {
+                var sCloseCode = oModel.getProperty("/closeCode");
+                if (sCloseCode && sCloseCode === oEvent.getParameter("newValue")) {
+                    sap.ndc.BarcodeScanner.closeScanDialog();
+                }
             },
 
             checkForValidJSON: function (sScannedValue) {

@@ -11,7 +11,7 @@
                     <Title id="pageTitle" text="{i18n>Raised-Request}"/>
                 </f:heading>
                 <f:actions>
-                   <Button text="Raise Return Material Request" press="onConfirmRequest" type="Emphasized"/>
+                   <!-- <Button text="Raise Return Material Request" press="onConfirmRequest" type="Emphasized"/> -->
                 </f:actions>
             </f:DynamicPageTitle>
         </f:title>

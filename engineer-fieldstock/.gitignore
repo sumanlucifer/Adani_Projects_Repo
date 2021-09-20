@@ -1,21 +1,8 @@
-node_modules/
-dist/
-.scp/
-.env
-Makefile*.mta
-mta_archives
-mta-*
-resources
-archive.zip
-.*_mta_build_tmp
+/node_modules/
+package-lock.json
+/dist/
+/.vscode/
+/mta_archives/
+/resources/
 
-# auto generated wildcard
-sapui5-1/storeincharge-issuematerial/.env7
-# auto generated wildcard
-sapui5-1/storeincharge-raisedpo/.env9
-# auto generated wildcard
-sapui5-1/security-scan-history/.env8
-# auto generated wildcard
-sapui5-1/mdm-boqitems/.env1
-# auto generated wildcard
-sapui5-1/security-scanqr/.env11
+

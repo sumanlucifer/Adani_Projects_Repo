@@ -149,7 +149,7 @@ sap.ui.define([
             var flag = 0;
             if (parseInt(oValue) > parseInt(balanceQty) || balanceQty == "") {
                 oEvent.getSource().setValueState("Error");
-                oEvent.getSource().setValueStateText("Please enter less return quantity than balance quantity");
+                oEvent.getSource().setValueStateText("Please enter return quantity lesser than or equal to balance quantity");
                 this.getView().byId("idBtnSubmit").setEnabled(false);
                 flag = 1;
             }

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src='main.js'></script>
+
+</head>
+
+<body>
+    <!-- <font face="verdana" size="2">Hi,</font> -->
+    <br>
+    <font face="verdana" size="5" color="#2D68B2">A new approval request - <span style="color:#BC3863;">${context.aBOQItems.d.Name}</span> is ready for your review.
+    </font>
+    <br>
+    <br>
+    <font face="verdana" size="3" color="#2D68B2">
+        <b><u>PO Details</u></b>
+    </font>
+    <br>
+    <br>
+
+    <font face="verdana" size="2">
+        <b>PO Number:</b>
+        ${context.aBOQItems.d.ParentLineItem.PurchaseOrder.PONumber}
+    </font>
+
+    <br>
+
+    <font face="verdana" size="2">
+        <b>Company Code:</b>
+        500E7
+    </font>
+
+    <br>
+
+    <font face="verdana" size="2">
+        <b>Plant Code:</b>
+        ${context.aBOQItems.d.ParentLineItem.PurchaseOrder.PlantCode}
+    </font>
+
+    <br>
+    <font face="verdana" size="2.2">
+        <b>Vendor Name:</b>
+        ${context.aBOQItems.d.ParentLineItem.PurchaseOrder.Vendor.Name}
+    </font>
+    <br>
+
+    <font face="verdana" size="2">
+        <b>Vendor Code:</b>
+        ${context.aBOQItems.d.ParentLineItem.PurchaseOrder.Vendor.VendorCode}
+    </font>
+
+    <br>
+
+    <font face="verdana" size="2">
+        <b>Buyer Name:</b>
+        Vaibhav Bhargava
+    </font>
+
+    <br>
+
+    <font face="verdana" size="2">
+        <b>Buyer Code:</b>
+        45678
+    </font>
+    <br>
+
+    <!-- <hr>
+    <font face="verdana" size="2.5" color="#2D68B2">
+        <b><u>Line Item Details:</u></b>
+    </font>
+    <br>
+    <br>
+
+    <table>
+        <tr>
+            <th>Material Code</th>
+            <th>Material Name</th>
+            <th>Quantity</th>
+            <th>UOM</th>
+        </tr>
+        <tr>
+            <td>56673</td>
+            <td>HT Panel</td>
+            <td>50</td>
+            <td>Nos</td>
+        </tr>
+        <tr>
+            <td>56673</td>
+            <td>HT Panel</td>
+            <td>50</td>
+            <td>Nos</td>
+        </tr>
+    </table>
+    <br> -->
+    <br>
+    <font face="verdana" size="2" color="#595998">Please visit the below link to review</font>
+    <br>
+    <a
+        href="https://renewables-qa.cpp.cfapps.ap11.hana.ondemand.com/site/MaterialMovementTrackingSystem">
+        Approval Request Review</a>
+    <br>
+    <br>
+    <br>
+    <font face="verdana" size="2" color="#595998">Regards,</font>
+    <br>
+    <font face="verdana" size="2" color="#595998">Adani Groups</font>
+    <br>
+    <br>
+    <img width="10%" height="10%" src="https://upload.wikimedia.org/wikipedia/en/thumb/8/8f/Adani_Group_logo.svg/1200px-Adani_Group_logo.svg.png">
+</body>
+
+</html>

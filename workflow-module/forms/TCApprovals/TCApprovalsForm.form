@@ -22,16 +22,6 @@
                     }
                 },
                 {
-                    "id": "company_code",
-                    "type": "string",
-                    "label": "Company Code",
-                    "readOnly": false,
-                    "value": "${context.aBOQItems.d.ParentLineItem.PurchaseOrder.Buyer.CompanyCode}",
-                    "constraints": {
-                        "required": false
-                    }
-                },
-                {
                     "id": "plant_code",
                     "type": "string",
                     "label": "Plant Code",
@@ -57,26 +47,6 @@
                     "label": "Vendor Code",
                     "readOnly": false,
                     "value": "${context.aBOQItems.d.ParentLineItem.PurchaseOrder.Vendor.VendorCode}",
-                    "constraints": {
-                        "required": false
-                    }
-                },
-                {
-                    "id": "vendor_name_2",
-                    "type": "string",
-                    "label": "Buyer Name",
-                    "readOnly": false,
-                    "value": "${context.aBOQItems.d.ParentLineItem.PurchaseOrder.Buyer.ContactPerson}",
-                    "constraints": {
-                        "required": false
-                    }
-                },
-                {
-                    "id": "vendor_name_1",
-                    "type": "string",
-                    "label": "Buyer Code",
-                    "readOnly": false,
-                    "value": "${context.aBOQItems.d.ParentLineItem.PurchaseOrder.Buyer.BuyerCode}",
                     "constraints": {
                         "required": false
                     }

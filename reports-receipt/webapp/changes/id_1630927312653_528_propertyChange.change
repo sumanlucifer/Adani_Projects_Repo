@@ -1,0 +1,41 @@
+{
+    "fileName": "id_1630927312653_528_propertyChange",
+    "fileType": "change",
+    "changeType": "propertyChange",
+    "moduleName": "",
+    "reference": "com.agel.mmts.reportsreceipt",
+    "packageName": "",
+    "content": {
+        "property": "showFilterConfiguration",
+        "newValue": true
+    },
+    "selector": {
+        "id": "com.agel.mmts.reportsreceipt::sap.suite.ui.generic.template.ListReport.view.ListReport::ReceiptReportViewSet--listReportFilter",
+        "idIsLocal": false,
+        "type": "sap.ui.comp.smartfilterbar.SmartFilterBar"
+    },
+    "layer": "CUSTOMER_BASE",
+    "texts": {},
+    "namespace": "apps/com.agel.mmts.reportsreceipt/changes/",
+    "projectId": "com.agel.mmts.reportsreceipt",
+    "creation": 1630927312653,
+    "originalLanguage": "",
+    "support": {
+        "generator": "changeUtils: SAPFioriTools",
+        "service": "",
+        "user": "",
+        "sapui5Version": "latest",
+        "sourceChangeFileName": "",
+        "compositeCommand": ""
+    },
+    "oDataInformation": {},
+    "dependentSelector": {},
+    "validAppVersions": {
+        "from": "1.0.0",
+        "to": "1.0.0",
+        "creation": "1.0.0"
+    },
+    "jsOnly": false,
+    "variantReference": "",
+    "appDescriptorChange": false
+}

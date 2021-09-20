@@ -108,7 +108,7 @@ sap.ui.define([
                                 "ReceivedQty": null,
                                 "QRNumber": null,
                                 "UOM": oInner.UOM,
-                                "ExternalQRCodeInfo": "",
+                                "ExternalQRCode": "",
                                 "PackingListParentItemId": sParentListItemid,
                                 "InnerPackingLabel": oInner.PackagingType,
                                 "LineItemLabel": oInner.Name
@@ -241,6 +241,12 @@ sap.ui.define([
                     oDialog.close();
                 });
                 this.onPackingListContainsPress();
+            },
+
+            onViewVendorQRCancelPress: function (oEvent) {
+                this.qrNotFoundDialog.then(function (oDialog) {
+                    oDialog.close();
+                });
             },
 
             onPackingListContainsPress: function () {
@@ -443,8 +449,8 @@ sap.ui.define([
                                 });
                             }
                         }
-                        else { 
-                            MessageBox.information("Please scan Inner or outer packaging QR"); 
+                        else {
+                            MessageBox.information("Please scan Inner or outer packaging QR");
                         }
 
                     }.bind(this),
@@ -627,7 +633,7 @@ sap.ui.define([
 
             onDoItLaterPress: function () {
                 var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-                oRouter.navTo("RouteApp",true);
+                oRouter.navTo("RouteApp", true);
             },
 
             onRequestGRNPress: function (oEvent) {
@@ -635,6 +641,9 @@ sap.ui.define([
                 var requestModel = new JSONModel({
                     quantity: null,
                     delivery: null,
+                    billoflading: null,
+                    gatepassnumber: null,
+                    reference: null,
                     valueState: null,
                     isConfirmButtonEnabled: false,
                     valueStateText: ""
@@ -685,6 +694,30 @@ sap.ui.define([
                 }
             },
 
+            onBillofLadingLiveChange: function (oEvent) {
+                var oPOData = this.getView().getBindingContext().getObject();
+                if (oEvent.getSource().getValue().length && parseInt(oEvent.getSource().getValue()) > 0)
+                    this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", true);
+                else
+                    this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", false);
+            },
+
+            onGatePassNumberLiveChange: function (oEvent) {
+                var oPOData = this.getView().getBindingContext().getObject();
+                if (oEvent.getSource().getValue().length && parseInt(oEvent.getSource().getValue()) > 0)
+                    this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", true);
+                else
+                    this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", false);
+            },
+
+            onReferenceLiveChange: function (oEvent) {
+                var oPOData = this.getView().getBindingContext().getObject();
+                if (oEvent.getSource().getValue().length && parseInt(oEvent.getSource().getValue()) > 0)
+                    this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", true);
+                else
+                    this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", false);
+            },
+
             onViewChildDialogClose: function (oEvent) {
                 this._oRequestDialog.close();
             },
@@ -693,12 +726,18 @@ sap.ui.define([
                 this._oRequestDialog.close();
                 var sDelivery = this.getViewModel("requestModel").getProperty("/delivery");
                 var sQuantity = this.getViewModel("requestModel").getProperty("/quantity");
+                var sBillofLading = this.getViewModel("requestModel").getProperty("/billoflading");
+                var sReference = this.getViewModel("requestModel").getProperty("/reference");
+                var sGatePassNumber = this.getViewModel("requestModel").getProperty("/gatepassnumber");
                 var oModel = this.getComponentModel();
                 if (parseInt(sQuantity) > 0) {
                     if (sDelivery !== null) {
                         var oPayload = {
                             "QTY": parseInt(sQuantity),
                             "DeliveryNote": sDelivery,
+                            "BillOfLading": sBillofLading,
+                            "GatePassNumber": sGatePassNumber,
+                            "Reference": sReference,
                             "PackingListId": this.getView().getBindingContext().getObject().ID
                         };
                     } else {
@@ -707,6 +746,9 @@ sap.ui.define([
                         var oPayload = {
                             "TotalPackagingWeight": parseInt(sQuantity),
                             "DeliveryNote": sDelivery,
+                            "BillOfLading": sBillofLading,
+                            "GatePassNumber": sGatePassNumber,
+                            "Reference": sReference,
                             "PackingListId": parseInt(oSelectedItemData.ID)
                         };
                     }
@@ -727,6 +769,24 @@ sap.ui.define([
                 }
 
             },
+
+            // onMapVendorQRSuccess: function (oEvent) {
+            //     debugger;
+            //     if (oEvent.mParameters.getParameter("cancelled")) {
+            //         sap.m.MessageToast.show("Scan cancelled", { duration: 1000 });
+            //     } else {
+            //         var sScannedValue = oEvent.getParameter("mParameters").getText();
+            //         sap.m.MessageToast.show("Scanned: " + sScannedValue, { duration: 2000 });
+            //         if (sScannedValue.length > 0) {
+            //             var sPath = oEvent.getSource().getBindingContext("JSONModelData").sPath;
+            //             this.getViewModel("JSONModelData").getProperty(sPath);
+            //         }
+            //     }
+            // },
+
+            // onMapVendorQRFail: function (oEvent) {
+            //     sap.m.MessageToast.show("Scan failed" + oEvent, { duration: 1000 });
+            // }
 
         });
     });

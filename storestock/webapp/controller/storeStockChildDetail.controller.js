@@ -40,8 +40,7 @@ sap.ui.define([
                 var sObjectId = oEvent.getParameter("arguments").parentMaterial;
 
 
-
-                this._bindView("/StockParentItemSet" + sObjectId);
+                this._bindView("/RestrictedStoreStockParentSet" + sObjectId);
 
                 this.getView().getModel("layoutModel").setProperty("/layout", sLayout);
 

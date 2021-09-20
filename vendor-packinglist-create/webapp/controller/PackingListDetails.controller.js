@@ -248,6 +248,11 @@ sap.ui.define([
                     path: "QRNumber",
                     operator: FilterOperator.EQ,
                     value1: this.getViewModel("packingListDispatchModel").getProperty("/QRNumber")
+                }),
+                new Filter({
+                    path: "Type",
+                    operator: FilterOperator.EQ,
+                    value1: "PACKINGLIST"
                 })
                 ],
                 success: function (oData, oResults) {

@@ -50,9 +50,9 @@
                         <Label text="Bill of Lading"></Label>
                         <Input value="{requestModel>/billoflading}" liveChange="onDeliveryNoteLiveChange" type="Text" valueState="{requestModel>/valueState}" valueStateText="{requestModel>/valueStateText}"></Input>
                         <Label text="Gate Pass Number"></Label>
-                        <Input value="{requestModel>/gatepassnumber}" liveChange="onGatePassNumberLiveChange" type="Number" valueState="{requestModel>/valueState}" valueStateText="{requestModel>/valueStateText}"></Input>
+                        <Input value="{requestModel>/gatepassnumber}" liveChange="onGatePassNumberLiveChange" type="Text" valueState="{requestModel>/valueState}" valueStateText="{requestModel>/valueStateText}"></Input>
                         <Label text="Reference"></Label>
-                        <Input value="{requestModel>/reference}" liveChange="onGatePassNumberLiveChange" type="Number" valueState="{requestModel>/valueState}" valueStateText="{requestModel>/valueStateText}"></Input>
+                        <Input value="{requestModel>/reference}" liveChange="onReferenceLiveChange" type="Text" valueState="{requestModel>/valueState}" valueStateText="{requestModel>/valueStateText}"></Input>
                     </f:content>
                 </f:SimpleForm>
             </FlexBox>
