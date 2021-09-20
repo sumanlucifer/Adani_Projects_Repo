@@ -48,7 +48,7 @@
                         <Label text="Total Packaging Weight"></Label>
                         <Input value="{requestModel>/quantity}" liveChange="onQuantityLiveChange" type="Number" valueState="{requestModel>/valueState}" valueStateText="{requestModel>/valueStateText}"></Input>
                         <Label text="Bill of Lading"></Label>
-                        <Input value="{requestModel>/billoflading}" liveChange="onBillofLadingLiveChange" type="Text" valueState="{requestModel>/valueState}" valueStateText="{requestModel>/valueStateText}"></Input>
+                        <Input value="{requestModel>/billoflading}" liveChange="onDeliveryNoteLiveChange" type="Text" valueState="{requestModel>/valueState}" valueStateText="{requestModel>/valueStateText}"></Input>
                         <Label text="Gate Pass Number"></Label>
                         <Input value="{requestModel>/gatepassnumber}" liveChange="onGatePassNumberLiveChange" type="Text" valueState="{requestModel>/valueState}" valueStateText="{requestModel>/valueStateText}"></Input>
                         <Label text="Reference"></Label>
