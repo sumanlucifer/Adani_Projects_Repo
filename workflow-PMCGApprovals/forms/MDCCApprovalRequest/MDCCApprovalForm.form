@@ -1,0 +1,65 @@
+{
+    "id": "mdccapprovalform",
+    "schemaVersion": "1.1.0",
+    "name": "MDCCApprovalForm",
+    "revision": "1.0",
+    "type": "task",
+    "readOnly": false,
+    "content": [
+        {
+            "id": "basic_details",
+            "type": "section",
+            "title": "Basic Details",
+            "content": [
+                {
+                    "id": "po_number",
+                    "type": "string",
+                    "label": "PO Number",
+                    "readOnly": true,
+                    "value": "${context.MDCCResponse.d.MDCC.PONumber}",
+                    "constraints": {
+                        "required": false
+                    }
+                },
+                {
+                    "id": "mdcc_number",
+                    "type": "string",
+                    "label": "MDCC Number",
+                    "readOnly": true,
+                    "value": "${context.MDCCResponse.d.MDCC.MDCCNumber}",
+                    "constraints": {
+                        "required": false
+                    }
+                }
+            ]
+        },
+        {
+            "id": "mdcc_parent_line_items",
+            "type": "section",
+            "title": "MDCC Parent Line Items",
+            "content": [
+                {
+                    "id": "material_name",
+                    "type": "collection",
+                    "title": "Parent Items",
+                    "addEnabled": false,
+                    "deleteEnabled": false,
+                    "value": "${context.MDCCResponse.d.MDCC.MDCCParentLineItems.results}",
+                    "content": [
+                        {
+                            "id": "name",
+                            "type": "string",
+                            "label": "Name",
+                            "readOnly": true,
+                            "value": "${item.Name}",
+                            "constraints": {
+                                "required": false
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "decisions": []
+}

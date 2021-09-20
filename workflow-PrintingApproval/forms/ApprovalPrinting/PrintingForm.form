@@ -1,0 +1,55 @@
+{
+    "id": "printingform",
+    "schemaVersion": "1.1.0",
+    "name": "PrintingForm",
+    "revision": "1.0",
+    "type": "task",
+    "readOnly": true,
+    "content": [
+        {
+            "id": "basic_details",
+            "type": "section",
+            "title": "Basic Details",
+            "content": [
+                {
+                    "id": "po_number",
+                    "type": "string",
+                    "label": "PO Number",
+                    "readOnly": false,
+                    "value": "${context.PrintingResponse.d.PurchaseOrder.PONumber}",
+                    "constraints": {
+                        "required": false
+                    }
+                }
+            ]
+        },
+        {
+            "id": "priniting_ite",
+            "type": "section",
+            "title": "Packing List Items",
+            "content": [
+                {
+                    "id": "name",
+                    "type": "collection",
+                    "title": "Line Items",
+                    "addEnabled": false,
+                    "deleteEnabled": false,
+                    "value": "${context.PrintingResponse.d.PackingList.PackingListParentItems.results}",
+                    "content": [
+                        {
+                            "id": "name",
+                            "type": "string",
+                            "label": "Name",
+                            "readOnly": false,
+                            "value": "${item.Name}",
+                            "constraints": {
+                                "required": false
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "decisions": []
+}

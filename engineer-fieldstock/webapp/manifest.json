@@ -181,6 +181,15 @@
                                     }
                                 }
                             }
+                        },
+                        "pages": {
+                            "ObjectPage|IssuedMaterialParentSet": {
+                                "component": {
+                                    "name": "sap.suite.ui.generic.template.ObjectPage"
+                                },
+                                "entitySet": "IssuedMaterialParentSet",
+                                "navigationProperty": "IssuedMaterialParent"
+                            }
                         }
                     }
                 }
