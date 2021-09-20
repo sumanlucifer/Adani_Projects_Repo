@@ -7,8 +7,8 @@
         "applicationVersion": {
             "version": "1.0.0"
         },
-        "title": "{{appTitle}}",
-        "description": "{{appDescription}}",
+        "title": "Issue Reservation",
+        "description": "Reservation",
         "resources": "resources.json",
         "ach": "ach",
         "dataSources": {
@@ -30,8 +30,8 @@
                     },
                     "semanticObject": "MaterialReservation",
                     "action": "Manage",
-                    "title": "{{appTileTitle}}",
-                    "subTitle": "{{appTileSubTitle}}"
+                    "title": "Issue Reservation",
+                    "subTitle": "Issue Reservation"
                 }
             }
         }
