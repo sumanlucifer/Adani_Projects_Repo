@@ -31,8 +31,8 @@
                     "semanticObject": "storeinchargeissuematerial",
                     "action": "manage",
                     "title": "Issue Material",
-                    "subTitle": "",
-                    "icon": ""
+                    "subTitle": "Issue Material",
+                    "icon": "sap-icon://redo"
                 }
             }
         }
@@ -125,9 +125,23 @@
                 },
                 {
                     "name": "RaiseIssueScanQRCode",
-                    "pattern": "IssueScanQRCode/{SONumber}",
+                    "pattern": "IssueScanQRCode/{ID}",
                     "target": [
                         "TargetIssueScanQRCode"
+                    ]
+                },
+                {
+                    "name": "RaiseIssueUploadDoc",
+                    "pattern": "IssueUploadDoc/{ID}",
+                    "target": [
+                        "TargetIssueUploadDoc"
+                    ]
+                },
+                {
+                    "name": "IssuedMaterialDetails",
+                    "pattern": "IssuedMaterial/{ID}",
+                    "target": [
+                        "TargetIssuedMaterialDetails"
                     ]
                 }
             ],
@@ -144,6 +158,18 @@
                     "transition": "slide",
                     "clearControlAggregation": false,
                     "viewName": "IssueScanQRCode"
+                },
+                "TargetIssueUploadDoc": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewName": "IssueUploadDoc"
+                },
+                "TargetIssuedMaterialDetails": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewName": "IssuedMaterialDetail"
                 },
                 "notFound": {
                     "viewName": "NotFound"

@@ -8,7 +8,7 @@
     xmlns:unified="sap.ui.unified"
     xmlns:tt="sap.ui.table"
     xmlns:smartTable="sap.ui.comp.smarttable"
-    xmlns="sap.m" controllerName="com.agel.mmts.storeinchargeissuematerial.controller.IssueScanQRCode" height="100%">
+    xmlns="sap.m" controllerName="com.agel.mmts.storeinchargeissuematerial.controller.IssuedMaterialDetail" height="100%">
     <uxap:ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true" upperCaseAnchorBar="false" headerContentPinnable="true" toggleHeaderOnTitleClick="true" busy="{objectViewModel>/busy}">
         <uxap:headerTitle>
             <uxap:ObjectPageDynamicHeaderTitle>
@@ -34,11 +34,6 @@
                     <Title text="{i18n>SONumber}- {SONumber}" wrapping="true" titleStyle="Auto"/>
                 </uxap:snappedTitleOnMobile>
                 <uxap:actions>
-                    <HBox visible="true">
-                        <Button text="Done" press="onPressDone" type="Accept" visible="{objectViewModel>/doneButton}"/>
-                        <Title text="" />    
-                        <Button text="Scan or Enter QR Code" press="onPressScanQR" type="Emphasized"/>
-                    </HBox>
                 </uxap:actions>
             </uxap:ObjectPageDynamicHeaderTitle>
         </uxap:headerTitle>
@@ -51,7 +46,7 @@
             <uxap:ObjectPageSection titleUppercase="false" title="{i18n>lineItems}">
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection title="{i18n>lineItems}">
-                        <Table width="auto" growing="true" growingThreshold="5" items="{path: 'IssueMatModel>/'}" fixedLayout="false">     
+                        <Table width="auto" growing="true" growingThreshold="5" fixedLayout="false" items="{IssuedMaterialParents}">     
                             <headerToolbar>
                                 <OverflowToolbar id="otbSubheader">
                                     <Title text="Products" level="H2" />
@@ -69,13 +64,17 @@
                                 <Column demandPopin="true" minScreenWidth="Desktop">
                                     <Text text="{i18n>UOM}"/>
                                 </Column>
+                                <Column demandPopin="true" minScreenWidth="Desktop">
+                                    <Text text="{i18n>status}"/>
+                                </Column>
                             </columns>
                             <items>
                                 <ColumnListItem>
                                     <cells>
-                                        <ObjectIdentifier title="{IssueMatModel>Name}"/>
-                                        <Text text="{IssueMatModel>IssuedQty}" />
-                                        <Text text="{IssueMatModel>BaseUnit}" />
+                                        <ObjectIdentifier title="{Name}"/>
+                                        <Text text="{IssuedQty}"/>
+                                        <Text text="{BaseUnit}"/>
+                                        <Text text="{Status}"/>
                                     </cells>
                                 </ColumnListItem>
                             </items>
