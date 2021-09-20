@@ -31,7 +31,7 @@
                                     <core:Item key="{HeaderDetailsModel>value}" text="{HeaderDetailsModel>Text}" />
                                 </Select>
                                 <Label text="Good Recipient/SO Number" required="true"/>
-                                <Input id="idGoodReciept" value="{HeaderDetailsModel>GoodReciepient}" />
+                                <Input id="idGoodReciept" value="{HeaderDetailsModel>GoodRecipient}" />
                                 <Label text="WBS" required="true"/>
                                 <Input id="idWBS" value="{HeaderDetailsModel>WBS}" />
                                 <Label text="Plant" required="true"/>
@@ -73,19 +73,7 @@
                                            select="onSelectionOfRow" />
 									</ui:template>
 								</ui:Column>
-                    <ui:Column>
-                            <Label text="ReservationNumber"/>
-                            <ui:template>
-                                <Text text="{TreeDataModel>ReservationNumber}" wrapping="false" />
-                            </ui:template>
-                        </ui:Column>
-
-                         <ui:Column>
-                            <Label text="MaterialDocumentNumber"/>
-                            <ui:template>
-                                <Text text="{TreeDataModel>MaterialDocumentNumber}" wrapping="false" />
-                            </ui:template>
-                        </ui:Column>
+                    
                         <ui:Column>
                             <Label text="MaterialCode"/>
                             <ui:template>
@@ -116,10 +104,17 @@
                                 <Text text="{TreeDataModel>IssuedQty}" wrapping="false" />
                             </ui:template>
                         </ui:Column>
+
                         <ui:Column>
-                            <Label text="ConsumedQty"/>
+                            <Label text="BalancedQty"/>
                             <ui:template>
-                                <Text text="{TreeDataModel>IssuedQty}" wrapping="false" />
+                                <Text text="{TreeDataModel>BalanceQty}" wrapping="false" />
+                            </ui:template>
+                        </ui:Column>
+                        <ui:Column>
+                            <Label text="ReservedQty"/>
+                            <ui:template>
+                                <Input visible="{= ${TreeDataModel>isParent} ? true : false}" value="{TreeDataModel>Quantity}"  />
                             </ui:template>
                         </ui:Column>
                     </ui:columns>

@@ -42,7 +42,7 @@ sap.ui.define([
                     ],
                     MovementTypeValue: null,
                     WBS: null,
-                    GoodReciepient: null,
+                    GoodRecipient: null,
                     Plant: null,
                     RecievingLocation: null,
                     CostCenter: null,
@@ -148,7 +148,7 @@ sap.ui.define([
                 if (!this._validateHeaderData(oHeaderData)) {
                     return;
                 }
-                this.onSearchGoodReciepient(oHeaderData.GoodReciepient);
+                this.onSearchGoodReciepient(oHeaderData.GoodRecipient);
                 // if (!this._validateItemData(aReservationItems)) {
                 //     return;
                 // }
@@ -197,7 +197,7 @@ sap.ui.define([
                     this.byId("idSelPlant").setValueState("None");
                     this.byId("idSelPlant").setValueStateText(null);
                 }
-                if (!data.GoodReciepient) {
+                if (!data.GoodRecipient) {
                     this.byId("idGoodReciept").setValueState("Error");
                     this.byId("idGoodReciept").setValueStateText("Please enter goods recipient");
                     bValid = false;
@@ -281,7 +281,7 @@ sap.ui.define([
             callConsumptionReservationService: function (oAdditionalData, aReservationItems) {
                 aReservationItems = aReservationItems.map(function (item) {
                     return {
-                        Quantity: item.IssuedQty,
+                        Quantity: item.Quantity,
                         IssueMaterialParentId: item.ID
                     };
                 });
@@ -300,7 +300,7 @@ sap.ui.define([
                     success: function (oData, oResponse) {
                         if (oData.Success === true) {
                             this.getView().getModel();
-                            sap.m.MessageBox.success("The consumption reservation has been succesfully created for selected Items!");
+                            sap.m.MessageBox.success("The consumption reservation "  + ""  + oData.ReservationNumber + "" + " has been succesfully created for selected Items!");
                             this.setInitialModel();
                             var objectViewModel = this.getViewModel("objectViewModel");
                         }

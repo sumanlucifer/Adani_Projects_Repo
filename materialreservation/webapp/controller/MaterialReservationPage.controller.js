@@ -96,13 +96,25 @@ sap.ui.define([
                 });
             },
             onMaterialCodeChange: function (oEvent) {
+
                 var reservationListObj = oEvent.getParameter("selectedRow").getBindingContext("suggestionModel").getObject();
+                if (!this._validateItemSelected(reservationListObj)) {
+                    return;
+                }
                 var sItemPath = oEvent.getSource().getParent().getBindingContextPath();
                 this.getView().getModel("reservationTableModel").setProperty(sItemPath + "/Description", reservationListObj.Description);
                 this.getView().getModel("reservationTableModel").setProperty(sItemPath + "/BaseUnit", reservationListObj.UOM);
                 this.getView().getModel("reservationTableModel").setProperty(sItemPath + "/Material", reservationListObj.MaterialCode);
                 this.getView().getModel("reservationTableModel").setProperty(sItemPath + "/StorageLocation", reservationListObj.StorageLocation);
                 this.getView().getModel("reservationTableModel").setProperty(sItemPath + "/AvailableQty", reservationListObj.AvailableQty);
+            },
+
+            _validateItemSelected: function()
+            {
+                var isbValid = true;
+                 this.getView().getModel("reservationTableModel").getData();
+
+
             },
             onLiveChangeQty: function (oEvent) {
                 oEvent.getSource().setValueState("None");
@@ -157,7 +169,7 @@ sap.ui.define([
                     success: function (oData, oResponse) {
                         var suggestionModel = new JSONModel(oData.results);
                         this.getView().setModel(suggestionModel, "suggestionModel");
-                        debugger;
+                    
                     }.bind(this),
                     error: function (oError) {
                         sap.m.MessageBox.error(JSON.stringify(oError));
@@ -334,7 +346,9 @@ sap.ui.define([
                     success: function (oData, oResponse) {
                         if (oData.Success === true) {
                             this.getView().getModel();
-                            sap.m.MessageBox.success("The reservation has been succesfully created for selected Items!");
+                           
+
+                              sap.m.MessageBox.success("The reservation has been succesfully created for "  + ""  + oData.ReservationNumber + "" + " for selected Items!");
                             this.setInitialModel();
                             var objectViewModel = this.getViewModel("objectViewModel");
                         }

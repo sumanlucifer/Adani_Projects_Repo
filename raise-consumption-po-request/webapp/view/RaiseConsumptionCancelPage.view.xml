@@ -35,11 +35,11 @@
                     <Title text="{i18n>MaterialDocumentNumber}- {MaterialDocumentNumber}" wrapping="true" titleStyle="Auto"/>
                 </uxap:snappedTitleOnMobile>
                 <uxap:actions>
-                    <HBox visible="true">
+                 
                         <!-- <Button text="Done" press="onPressDone" type="Accept" visible="{objectViewModel>/doneButton}"/> -->
-                        <Title text="" />
-                        <Button text="Cancel consumption posting" press="onPressCancelConsumptionPosting" type="Emphasized"/>
-                    </HBox>
+                        
+                        <Button visible="{= ${!Status} === 'ALL CONSUMED ITEMS CANCELLED'}" text="Cancel consumption posting" press="onPressCancelConsumptionPosting" type="Emphasized"/>
+                  
                 </uxap:actions>
             </uxap:ObjectPageDynamicHeaderTitle>
         </uxap:headerTitle>
@@ -79,6 +79,12 @@ pattern: 'MMMM dd, yyyy HH:mm:ss'
                             <!-- missing -->
                             <Text text="{ReservationNumber}"/>
                         </VBox>
+
+                         <VBox renderType="Bare" class="sapUiMediumMarginEnd">
+                            <Label text="{i18n>status}" />
+                            <!-- missing -->
+                            <ObjectStatus text="{Status}" state="{= ${Status} === 'POSTED' ? 'Success' : ${Status} === 'RESERVED' ? 'Information' : 'Error'}" visible="{= ${Status}.length>0 ? true : false }"/>
+                        </VBox>
                     </FlexBox>
                 </VBox>
                 <!-- <VBox renderType="Bare">
@@ -92,50 +98,56 @@ pattern: 'MMMM dd, yyyy HH:mm:ss'
             <uxap:ObjectPageSection titleUppercase="false">
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection >
-                        <smartTable:SmartTable class="sapUiResponsiveContentPadding" id="idIssueTable" editable="false" placeToolbarInTable="true" enableAutoBinding="true" entitySet="ConsumptionPostingSet" tableBindingPath="ConsumptionPostingReserve/ConsumedMaterialParent" showFullScreenButton="true" requestAtLeastFields="ID" header="Consumption Posting" showRowCount="true" tableType="ResponsiveTable" demandPopin="false" useExportToExcel="false">
-                            <Table sticky="ColumnHeaders,HeaderToolbar" alternateRowColors="true">
+                        <Table  id="idConsumedPostedTable" growing="true" growingThreshold="10" items="{consumptionPostedData>/}" >
+                                <headerToolbar>
+                                    <OverflowToolbar>
+                                        <content>
+                                         
+                                        </content>
+                                    </OverflowToolbar>
+                                </headerToolbar>
                                 <columns>
-                                    <Column >
-                                        <customData>
-                                            <core:CustomData key="p13nData" value='\{"columnKey": "MaterialCode", "leadingProperty": "MaterialCode",
-"columnIndex": 0 ,"sortProperty": "MaterialCode","filterProperty": "MaterialCode"}'/>
-                                        </customData>
-                                        <Text text="{i18n>MaterialCode}"/>
+                                  
+                                    <Column>
+                                        <Text text="Material Code"/>
                                     </Column>
-                                    <Column >
-                                        <customData>
-                                            <core:CustomData key="p13nData" value='\{"columnKey": "Plant", "leadingProperty": "Plant",
-"columnIndex": 1 ,"sortProperty": "Plant","filterProperty": "Plant"}'/>
-                                        </customData>
-                                        <Text text="{i18n>Plant}"/>
+
+                                     <Column>
+                                        <Text text="Description"/>
                                     </Column>
-                                    <Column >
-                                        <customData>
-                                            <core:CustomData key="p13nData" value='\{"columnKey": "StorageLocation", "leadingProperty": "StorageLocation",
-"columnIndex": 2 ,"sortProperty": "StorageLocation","filterProperty": "StorageLocation"}'/>
-                                        </customData>
-                                        <Text text="{i18n>Plant}"/>
+                                   
+                                    <Column demandPopin="true" minScreenWidth="Tablet">
+                                        <Text text="Plant"/>
                                     </Column>
-                                    <Column >
-                                        <customData>
-                                            <core:CustomData key="p13nData" value='\{"columnKey": "Quantity", "leadingProperty": "Quantity",
-"columnIndex": 3 ,"sortProperty": "Quantity","filterProperty": "Quantity"}'/>
-                                        </customData>
-                                        <Text text="{i18n>Quantity}"/>
+                                    <Column demandPopin="true" minScreenWidth="Desktop">
+                                        <Text text="Quantity"/>
+                                    </Column>
+                                    <Column demandPopin="true" minScreenWidth="Tablet">
+                                        <Text text="StorageLocation"/>
+                                    </Column>
+
+                                     <Column demandPopin="true" minScreenWidth="Tablet">
+                                        <Text text="Status"/>
+                                    </Column>
+                                    <Column width="5%">
                                     </Column>
                                 </columns>
                                 <items>
-                                    <ColumnListItem >
+                                    <ColumnListItem id="idBOQItems">
                                         <cells>
-                                            <ObjectIdentifier title="{MaterialCode}"/>
-                                            <Text text="{Plant}"/>
-                                            <Text text="{StorageLocation}"/>
-                                            <Text text="{Quantity}"/>
+                                           
+                                            <Text text="{consumptionPostedData>MaterialCode}"/>
+                                             <Text text="{consumptionPostedData>Name}"/>
+                                            <Text  text="{consumptionPostedData>Plant}"/>
+                                              <Text  text="{consumptionPostedData>Quantity}"/>
+                                          <Text text="{consumptionPostedData>StorageLocation}"/>
+                                           <ObjectStatus text="{consumptionPostedData>Status}" state="{= ${consumptionPostedData>Status} === 'RESERVED FOR CONSUMPTION' ? 'Success' : ${Status} === 'CONSUMPTION CANCELLED' ? 'Information' : 'Error'}" visible="{= ${Status}.length>0 ? true : false }"/>
+                                           <CheckBox    visible="{= ${consumptionPostedData>Status} === 'RESERVED FOR CONSUMPTION' ? true : false }"  selected="{consumptionPostedData>isSelected}"
+                                           select="onSelectionOfRow" />
                                         </cells>
                                     </ColumnListItem>
                                 </items>
                             </Table>
-                        </smartTable:SmartTable>
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>
             </uxap:ObjectPageSection>
