@@ -63,7 +63,7 @@
                             </Button>
 
                             
-                            <Button width="50%" class="sapUiSmallMarginTop" text="Reset" type="Emphasized" press="onPressReset"></Button>
+                            <Button visible="{= ${objectViewModel>/isHeaderFieldsVisible} ? true : false}" width="50%" id="idResetButton" class="sapUiSmallMarginTop" text="Reset" type="Emphasized" press="onPressReset"></Button>
                         </fm:SimpleForm>
                     </HBox>
                 </f:content>

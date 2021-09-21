@@ -235,6 +235,10 @@
 					"id": "com.agel.mmts.storeinchargeissuematerial-0-1632136079674",
 					"appId": "com.agel.mmts.storeinchargeissuematerial",
 					"vizId": "storeinchargeissuematerial-manage"
+				}, {
+					"id": "com.agel.mmts.storeinchargereturnmaterial-1-1632138374825",
+					"appId": "com.agel.mmts.storeinchargereturnmaterial",
+					"vizId": "QuickAccess-return"
 				}]
 			}
 		}],

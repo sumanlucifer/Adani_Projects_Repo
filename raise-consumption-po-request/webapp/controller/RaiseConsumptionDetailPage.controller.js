@@ -68,9 +68,39 @@ sap.ui.define([
                     },
                     dataReceived: function () {
                         objectViewModel.setProperty("/busy", false);
+                        that.onReadDataIssueMaterialParents();
                     }
                 }
             });
+        },
+
+
+        onReadDataIssueMaterialParents: function () {
+            var that = this;
+
+            that.oIssueMaterialModel = new JSONModel();
+            this.MainModel.read("/ConsumptionPostingReserveSet(" + that.sObjectId + ")/ConsumedMaterialParent", {
+                // urlParameters: { "$expand": "ConsumedMaterialParent" },
+                success: function (oData, oResponse) {
+                    this.dataBuilding(oData.results);
+                    //          var consumptionData = new JSONModel(oData.results);
+                    // this.getView().setModel(consumptionData, "consumptionData");
+
+                }.bind(this),
+                error: function (oError) {
+                    sap.m.MessageBox.error("Data Not Found");
+                }
+            });
+        },
+
+
+        dataBuilding: function (ItemData) {
+            for (var i = 0; i < ItemData.length; i++) {
+                ItemData[i].isSelected = false;
+            }
+
+            var consumptionData = new JSONModel(ItemData);
+            this.getView().setModel(consumptionData, "consumptionData");
         },
         _onBindingChange: function () {
             var oView = this.getView(),
@@ -90,23 +120,17 @@ sap.ui.define([
             mBindingParams.parameters["expand"] = "IssuedMaterialBOQ";
             mBindingParams.parameters["navigation"] = { "IssuedMaterialParentSet": "IssuedMaterialBOQ" };
             mBindingParams.filters.push(new sap.ui.model.Filter("SONumberId/ID", sap.ui.model.FilterOperator.EQ, this.sObjectId));
-
         },
         onBeforeRebindRestTable: function (oEvent) {
             var mBindingParams = oEvent.getParameter("bindingParams");
             mBindingParams.filters.push(new Filter("SONumberId/ID", sap.ui.model.FilterOperator.EQ, this.sObjectId));
             mBindingParams.sorter.push(new sap.ui.model.Sorter("CreatedAt", true));
         },
-
-        
-
         onPressSubmitConsumptionPosting: function (oEvent) {
             var that = this;
-            var ConsumptionPostingReserveId = that.sObjectId;
-            var ConsumptionPostingId = oEvent.getSource().getBindingContext().getObject().ConsumptionPostingId;
+            var ConsumptionPostingReserveId = this.sObjectId;
 
-
-
+            var itemData = this.getTableItems();
             MessageBox.confirm("Do you want to Submit the consumption request?", {
                 icon: MessageBox.Icon.INFORMATION,
                 title: "Confirm",
@@ -114,34 +138,79 @@ sap.ui.define([
                 emphasizedAction: MessageBox.Action.YES,
                 onClose: function (oAction) {
                     if (oAction == "YES") {
-                        that.onSubmitButtonConfirmPress(ConsumptionPostingReserveId);
+                        that.onSubmitButtonConfirmPress(ConsumptionPostingReserveId, itemData);
                     }
                 }
             });
+        },
+        getTableItems: function () {
+            var itemData = this.getViewModel("consumptionData").getData();
+            var IsAllItemsConsumed = "";
+
+
+            var totalItems = itemData.filter(function (item) {
+                return (item.Status === "RESERVED FOR CONSUMPTION" || item.Status === "CONSUMPTION RESERVATION FAILED");
+            });
+            var selectedItems = itemData.filter(function (item) {
+                return item.isSelected === true;
+            });
+
+
+          
+
+            if (totalItems.length === selectedItems.length)
+                IsAllItemsConsumed = true;
+
+
+            else
+                IsAllItemsConsumed = false;
+            // return itemData;
+
+            return {
+                selectedItems,
+                IsAllItemsConsumed
+            };
 
         },
+          onSelectAll: function() {
+  this.getView().getModel("consumptionData").getData();
 
-        onSubmitButtonConfirmPress: function (CID) {
+            },
+
+
+        onSubmitButtonConfirmPress: function (CID, itemData) {
+
+            var IsAllItemsConsumed = itemData.IsAllItemsConsumed;
+            itemData = itemData.selectedItems.map(function (item) {
+                return {
+                    ConsumedMaterialParentId: item.ID,
+                    Quantity: item.Quantity
+                };
+            });
             var oPayload =
             {
                 "UserName": "Agel",
-                "ConsumptionPostingReserveId": CID
+                "ConsumptionPostingReserveId": CID,
+                "IsAllItemsConsumed": IsAllItemsConsumed,
+                "ParentItem": itemData
             };
             this.MainModel.create("/ConsumptionPostingEdmSet", oPayload, {
                 success: function (oData, oResponse) {
                     if (oData.Success === true) {
-                        sap.m.MessageBox.success("Consumption has been Posted successfully!", {
+
+
+                        sap.m.MessageBox.success("Cosumption Posted with Material Document Number " + "" + oData.MaterialDocumentNumber + "" + " Succesfully created!", {
                             title: "Success",
                             onClose: function (oAction1) {
                                 if (oAction1 === sap.m.MessageBox.Action.OK) {
-                                    //  this._navToCrossApp();
+                                    this.handleToAllPOBreadcrumPress();
+                                    this.MainModel.refresh();
                                 }
                             }.bind(this)
                         });
                     }
-
                     else {
-                          sap.m.MessageBox.error(oData.Message);
+                        sap.m.MessageBox.error(oData.Message);
                     }
                 }.bind(this),
                 error: function (oError) {
@@ -149,6 +218,5 @@ sap.ui.define([
                 }
             });
         }
-
     });
 });

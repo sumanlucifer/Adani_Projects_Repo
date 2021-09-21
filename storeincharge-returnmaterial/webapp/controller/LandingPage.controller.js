@@ -11,7 +11,7 @@ sap.ui.define([
     "use strict";
 
     return BaseController.extend("com.agel.mmts.storeinchargereturnmaterial.controller.LandingPage", {
-        onInit: function() {
+        onInit: function () {
             //view model instatiation
             var oViewModel = new JSONModel({
                 busy: false,
@@ -21,19 +21,42 @@ sap.ui.define([
 
             // keeps the search state
             this._aTableSearchState = [];
-            
+
             //adding searchfield association to filterbar and initialize the filter bar -> added in base controller
             this.initializeFilterBar();
         },
 
-        onReturnMaterialSelect: function(oEvent) {
+        onBeforeRebindReqTable: function (oSource) {
+            var binding = oSource.getParameter("bindingParams");
+            var oFilter = new sap.ui.model.Filter("Status", sap.ui.model.FilterOperator.EQ, "RESERVED");
+            binding.filters.push(oFilter);
+        },
+
+        onBeforeRebindRetTable: function (oSource) {
+            var binding = oSource.getParameter("bindingParams");
+            var oFilter = new sap.ui.model.Filter("Status", sap.ui.model.FilterOperator.NE, "RESERVED");
+            binding.filters.push(oFilter);
+        },
+
+        onReturnMaterialSelect: function (oEvent) {
             var ReturnId = oEvent.getSource().getBindingContextPath();
-            var SOId = this.getViewModel().getData(ReturnId+'/SONumberId').ID;
+            // var SOId = this.getViewModel().getData(ReturnId+'/SONumberId').ID;
             ReturnId = ReturnId.match(/\((.*?)l/)[1];
             var oRouter = this.getOwnerComponent().getRouter();
-            oRouter.navTo("RouteDetailsPage",{
-                ReturnId: ReturnId,
-                SOId: SOId
+            oRouter.navTo("Summary", {
+                ReturnId: ReturnId
+                // SOId: SOId
+            })
+        },
+
+        onReturnedMaterialSummarySelect: function (oEvent) {
+            var ReturnId = oEvent.getSource().getBindingContextPath();
+            // var SOId = this.getViewModel().getData(ReturnId+'/SONumberId').ID;
+            ReturnId = ReturnId.match(/\((.*?)l/)[1];
+            var oRouter = this.getOwnerComponent().getRouter();
+            oRouter.navTo("RouteDetailsPage", {
+                ReturnId: ReturnId
+                // SOId: SOId
             })
         },
 
@@ -75,5 +98,16 @@ sap.ui.define([
             this.oFilterBar.fireFilterChange(oEvent);
             //  }
         },
+
+        onIconTabSelect: function (oEvent) {
+            var sKey = oEvent.getParameter("key");
+
+            if (sKey === "Reserved") {
+                this.byId("pageTitle").setText(this.getResourceBundle().getText("ReservedRequests"));
+            } else if (sKey === "Returned") {
+                this.byId("pageTitle").setText(this.getResourceBundle().getText("ReturnedRequests"));
+            }
+        }
+
     });
 });

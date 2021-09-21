@@ -116,7 +116,7 @@ modules:
           name: storeincharge-issuematerial
           target-path: resources/
         - artifacts:
-            - storeincharge-returnmaterial.zip
+            - storeincharge-returnmaterial-content.zip
           name: storeincharge-returnmaterial
           target-path: resources/
         - artifacts:
