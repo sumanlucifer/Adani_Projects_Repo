@@ -44,7 +44,7 @@
 				                        pattern: 'MMMM dd, yyyy'
 				                     }    
                         }"/>
-                        <ObjectStatus text="{Status}" state="{= ${Status}=== 'SAVED' ? 'Indication05' : ${Status}=== 'DISPATCHED' ? 'Indication06' : 'Indication08'}"/>
+                        <ObjectStatus text="{Status}" state="{= ${Status}=== 'SAVED' ? 'Indication05' : ${Status}=== 'DISPATCHED' ? 'Indication08' : ${Status}=== 'SENT FOR QR CODE APPROVAL' ? 'Indication03' : ${Status}=== 'QR CODE REQUEST APPROVED' ? 'Indication04' : 'Indication02'}"/>
                     </cells>
                 </ColumnListItem>
 
