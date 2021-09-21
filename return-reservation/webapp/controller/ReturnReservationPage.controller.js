@@ -17,7 +17,7 @@ sap.ui.define([
             onInit: function () {
                 //jQuery.sap.addUrlWhitelist("blob");
                 this.mainModel = this.getOwnerComponent().getModel();
-                //Router Object
+                //Router Obj
                 this.oRouter = this.getOwnerComponent().getRouter();
                 //view model instatiation
                 this.createInitialModel();
