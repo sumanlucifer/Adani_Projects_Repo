@@ -153,9 +153,24 @@ sap.ui.define([
                 IsAllItemsConsumed
             };
         },
-        onSelectAll: function () {
-            this.getView().getModel("consumptionData").getData();
+        onSelectAll: function (oeve) {
+            var isSelected = oeve.getSource().getSelected();
+            var ItemData = this.getView().getModel("consumptionData").getData();
+            if (isSelected) {
+                for (var i = 0; i < ItemData.length; i++) {
+                    ItemData[i].isSelected = true;
+                }
+            }
+            else {
+                for (var i = 0; i < ItemData.length; i++) {
+                    ItemData[i].isSelected = false;
+
+                }
+            }
+            this.getView().getModel("consumptionData").setData(ItemData);
         },
+
+
         onSubmitButtonConfirmPress: function (CID, itemData) {
             var IsAllItemsConsumed = itemData.IsAllItemsConsumed;
             itemData = itemData.selectedItems.map(function (item) {

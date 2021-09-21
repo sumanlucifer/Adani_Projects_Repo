@@ -106,6 +106,23 @@ sap.ui.define([
         handleToAllPOBreadcrumPress: function (oEvent) {
             history.go(-1);
         },
+
+        onSelectAll: function (oeve) {
+            var isSelected = oeve.getSource().getSelected();
+            var ItemData = this.getView().getModel("consumptionPostedData").getData();
+            if (isSelected) {
+                for (var i = 0; i < ItemData.length; i++) {
+                    ItemData[i].isSelected = true;
+                }
+            }
+            else {
+                for (var i = 0; i < ItemData.length; i++) {
+                    ItemData[i].isSelected = false;
+
+                }
+            }
+            this.getView().getModel("consumptionPostedData").setData(ItemData);
+        },
         onBeforeRebindTreeTable: function (oEvent) {
             var mBindingParams = oEvent.getParameter("bindingParams");
             mBindingParams.parameters["expand"] = "IssuedMaterialBOQ";
@@ -138,18 +155,18 @@ sap.ui.define([
             var itemData = this.getViewModel("consumptionPostedData").getData();
             var IsAllItemsCancelled = "";
             var totalSelectedItems = itemData.filter(function (item) {
-               return (item.Status === "Posted Successfully" || item.Status === "CONSUMPTION RESERVATION FAILED");
+                return (item.Status === "Posted Successfully" || item.Status === "CONSUMPTION RESERVATION FAILED");
             });
 
-             var selectedItems = itemData.filter(function (item) {
+            var selectedItems = itemData.filter(function (item) {
                 return item.isSelected === true;
             });
             if (totalSelectedItems.length === selectedItems.length)
                 IsAllItemsCancelled = true;
             else
                 IsAllItemsCancelled = false;
-         
-                    return {
+
+            return {
                 itemData,
                 IsAllItemsCancelled
             };
