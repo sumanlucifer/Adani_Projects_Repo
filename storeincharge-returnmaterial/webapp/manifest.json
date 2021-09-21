@@ -136,7 +136,7 @@
                 },
                 {
                     "name": "Summary",
-                    "pattern": "ReturnMaterialDetails/{id}",
+                    "pattern": "ReturnMaterialSummary/{id}",
                     "target": [
                         "SummaryPage"
                     ]

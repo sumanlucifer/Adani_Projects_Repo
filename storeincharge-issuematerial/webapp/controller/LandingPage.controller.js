@@ -9,11 +9,11 @@ sap.ui.define([
 	/**
 	 * @param {typeof sap.ui.core.mvc.Controller} Controller
 	 */
-	function (BaseController, JSONModel, Filter, FilterOperator, Fragment, Button) {
-		"use strict";
+    function (BaseController, JSONModel, Filter, FilterOperator, Fragment, Button) {
+        "use strict";
 
-		return BaseController.extend("com.agel.mmts.storeinchargeissuematerial.controller.LandingPage", {
-			onInit: function () {
+        return BaseController.extend("com.agel.mmts.storeinchargeissuematerial.controller.LandingPage", {
+            onInit: function () {
 
                 //Router Object
                 this.oRouter = this.getRouter();
@@ -36,7 +36,7 @@ sap.ui.define([
                 //adding searchfield association to filterbar and initialize the filter bar -> added in base controller
                 // this.initializeFilterBar();
             },
-            
+
             _onObjectMatched: function (oEvent) {
 
             },
@@ -60,13 +60,17 @@ sap.ui.define([
             onbeforeRebindListIssueTable: function (oEvent) {
                 var mBindingParams = oEvent.getParameter("bindingParams");
                 mBindingParams.sorter.push(new sap.ui.model.Sorter("CreatedAt", true));
-
+                var oFilter1 = new sap.ui.model.Filter("Status", sap.ui.model.FilterOperator.EQ, "ISSUED");
+                var oFilter2 = new sap.ui.model.Filter("Status", sap.ui.model.FilterOperator.EQ, "PARTIALLY CANCELLED");
+                mBindingParams.filters.push(oFilter1,oFilter2);
             },
 
             onbeforeRebindIssueReservedTable: function (oEvent) {
                 var mBindingParams = oEvent.getParameter("bindingParams");
                 mBindingParams.sorter.push(new sap.ui.model.Sorter("CreatedAt", true));
-
+                var oFilter1 = new sap.ui.model.Filter("Status", sap.ui.model.FilterOperator.EQ, "RESERVED FOR ISSUE");
+                var oFilter2 = new sap.ui.model.Filter("Status", sap.ui.model.FilterOperator.EQ, "PARTIALLY ISSUED");
+                mBindingParams.filters.push(oFilter1,oFilter2);
             },
 
             // On Icon Tab Select
@@ -76,7 +80,6 @@ sap.ui.define([
                 } else if (sKey === "IssueReservedKey") {
                     this.byId("pageTitle").setText(this.getResourceBundle().getText("PageTitle"));
                 }
-
             },
 
             // On Icon Tab Select
@@ -96,11 +99,11 @@ sap.ui.define([
 
             _showObjectList: function (oItem) {
                 var that = this;
-                var sObjectPath = oItem.getBindingContext().sPath; 
+                var sObjectPath = oItem.getBindingContext().sPath;
                 // debugger;       
                 that.getRouter().navTo("RaiseIssueScanQRCode", {
                     // ID: oItem.getBindingContext().getObject().ID
-                     ID: sObjectPath.slice("/IssuedMaterialReserveSet".length)
+                    ID: sObjectPath.slice("/IssuedMaterialReserveSet".length)
                 });
             },
 
@@ -110,12 +113,12 @@ sap.ui.define([
 
             _showObjectListIssueMaterial: function (oItem) {
                 var that = this;
-                var sObjectPath = oItem.getBindingContext().sPath; 
+                var sObjectPath = oItem.getBindingContext().sPath;
                 // debugger;       
                 that.getRouter().navTo("IssuedMaterialDetails", {
-                     ID: sObjectPath.slice("/IssuedMaterialSet".length)
-                });  
+                    ID: sObjectPath.slice("/IssuedMaterialSet".length)
+                });
             }
 
-		});
-	});
+        });
+    });
