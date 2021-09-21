@@ -20,3 +20,7 @@ sapui5/return-reservation/.env1
 sapui5/admin-po_summary/.env2
 # auto generated wildcard
 sapui5/raise-returnmaterial/.env1
+# auto generated wildcard
+materialreservation/.env2
+# auto generated wildcard
+storeincharge-issuematerial/.env1

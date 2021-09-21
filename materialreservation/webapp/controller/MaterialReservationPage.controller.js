@@ -73,7 +73,7 @@ sap.ui.define([
                     Quantity: "",
                     BaseUnit: "",
                     Batch: "",
-                    M: false,
+                    M: true,
                     AvailableQty: null
                 });
                 oModel.setData(oItems);
@@ -95,6 +95,7 @@ sap.ui.define([
                     }.bind(this, iRowNumberToDelete)
                 });
             },
+
             onMaterialCodeChange: function (oEvent) {
 
                 var reservationListObj = oEvent.getParameter("selectedRow").getBindingContext("suggestionModel").getObject();
@@ -107,15 +108,24 @@ sap.ui.define([
                 this.getView().getModel("reservationTableModel").setProperty(sItemPath + "/Material", reservationListObj.MaterialCode);
                 this.getView().getModel("reservationTableModel").setProperty(sItemPath + "/StorageLocation", reservationListObj.StorageLocation);
                 this.getView().getModel("reservationTableModel").setProperty(sItemPath + "/AvailableQty", reservationListObj.AvailableQty);
+
             },
 
-            _validateItemSelected: function()
-            {
+            _validateItemSelected: function (obj) {
+                var MaterialCode = obj.MaterialCode;
                 var isbValid = true;
-                 this.getView().getModel("reservationTableModel").getData();
-
-
+                var ItemData = this.getView().getModel("reservationTableModel").getData();
+ 
+                for (var i = 0; i < ItemData.length; i++) {
+                    if (ItemData[i].Material === MaterialCode) {
+                        isbValid = false;
+                        sap.m.MessageBox.alert("Please select different material code");
+                        return;
+                    }
+                }
+                return isbValid;
             },
+            
             onLiveChangeQty: function (oEvent) {
                 oEvent.getSource().setValueState("None");
                 this.getView().byId("idBtnSubmit").setEnabled(true);
@@ -345,10 +355,7 @@ sap.ui.define([
                 this.mainModel.create("/IssueMaterialReservationEdmSet", oPayload, {
                     success: function (oData, oResponse) {
                         if (oData.Success === true) {
-                            this.getView().getModel();
-                           
-
-                              sap.m.MessageBox.success("The reservation has been succesfully created for "  + ""  + oData.ReservationNumber + "" + " for selected Items!");
+                            sap.m.MessageBox.success(oData.Message);
                             this.setInitialModel();
                             var objectViewModel = this.getViewModel("objectViewModel");
                         }

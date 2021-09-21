@@ -6,3 +6,8 @@ package-lock.json
 /resources/
 
 
+
+# auto generated wildcard
+materialreservation/.env2
+# auto generated wildcard
+storeincharge-issuematerial/.env1

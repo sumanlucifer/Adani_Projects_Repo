@@ -4,3 +4,8 @@ package-lock.json
 /.vscode/
 /mta_archives/
 /resources/
+
+# auto generated wildcard
+materialreservation/.env2
+# auto generated wildcard
+storeincharge-issuematerial/.env1

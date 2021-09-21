@@ -5,3 +5,8 @@
 package-lock.json
 /dist/
 
+
+# auto generated wildcard
+materialreservation/.env2
+# auto generated wildcard
+storeincharge-issuematerial/.env1

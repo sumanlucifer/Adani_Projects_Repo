@@ -4,51 +4,47 @@
 
     <smartTable:SmartTable class="sapUiResponsiveContentPadding" id="idIssueTable" editable="false" placeToolbarInTable="true" enableAutoBinding="true" entitySet="IssuedMaterialReserveSet" 
         showFullScreenButton="true" header="Reservation Request" showRowCount="true" tableType="ResponsiveTable" demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" 
-        beforeRebindTable="onbeforeRebindIssueReservedTable" ignoreFromPersonalisation="ID, Status, RequestDate, CancelledDate, CancelledBy, Comment, CostCentre, WBSNumber, ProfitCentre, GLAccount, ReceivingLocation, Plant, IsArchived, CreatedAt, CreatedBy, UpdatedAt, UpdatedBy">
+        beforeRebindTable="onbeforeRebindIssueReservedTable" ignoreFromPersonalisation="ID, RequestDate, CancelledDate, CancelledBy, Comment, CostCentre, WBSNumber, ProfitCentre, GLAccount, ReceivingLocation, Plant, IsArchived, CreatedAt, CreatedBy, UpdatedAt, UpdatedBy">
 
         <Table sticky="ColumnHeaders,HeaderToolbar" updateFinished="onIssueTableUpdateFinished" alternateRowColors="true">
             <columns>
-
-   
                 <Column >
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "ReservationNumber", "leadingProperty": "ReservationNumber",
                                                  "columnIndex": 0 ,"sortProperty": "ReservationNumber","filterProperty": "ReservationNumber"}'/>
                     </customData>
                     <Text text="{i18n>reservationNumber}"/>
-                </Column>
-
-        
+                </Column>        
                 <Column demandPopin="true" minScreenWidth="Desktop">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "MovementType", "leadingProperty": "MovementType",
                                                  "columnIndex": 1 ,"sortProperty": "MovementType","filterProperty": "MovementType"}'/>
                     </customData>
                     <Text text="{i18n>movementType}"/>
-                </Column>
-
-                
-            
+                </Column>          
                 <Column demandPopin="true" minScreenWidth="Desktop">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "GoodsRecipient", "leadingProperty": "GoodsRecipient",
-                                                 "columnIndex": 1 ,"sortProperty": "GoodsRecipient","filterProperty": "GoodsRecipient"}'/>
+                                                 "columnIndex": 2 ,"sortProperty": "GoodsRecipient","filterProperty": "GoodsRecipient"}'/>
                     </customData>
                     <Text text="{i18n>goodsRecipient}"/>
                 </Column>
-
-        
                 <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "ReservationDate", "leadingProperty": "ReservationDate",
-                                                 "columnIndex": 2 ,"sortProperty": "ReservationDate"}'/>
+                                                 "columnIndex": 3 ,"sortProperty": "ReservationDate"}'/>
                     </customData>
                     <Text text="{i18n>reservationDate}"/>
                 </Column>
-
+                <Column demandPopin="true" minScreenWidth="Tablet">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Status", "leadingProperty": "Status",
+                                                 "columnIndex": 4 ,"sortProperty": "Status"}'/>
+                    </customData>
+                    <Text text="{i18n>Status}"/>
+                </Column>
             </columns>
             <items>
-
                 <ColumnListItem type="Navigation" press="onDetailPress">
                     <cells>
                         <ObjectIdentifier title="{ReservationNumber}"/>
@@ -59,11 +55,11 @@
 				                     formatOptions: {
 				                        pattern: 'MMMM dd, yyyy'
 				                     }
-                        }"/>
+                        }"/>                        
+                        <Text text="{Status}"/>
                     </cells>
                 </ColumnListItem>
             </items>
         </Table>
     </smartTable:SmartTable>
-
     </core:FragmentDefinition>
