@@ -310,7 +310,7 @@ sap.ui.define([
                     "ReceivingLocation": oAdditionalData.ReceivingLocation,
                     "GLAccount": oAdditionalData.GLAccount,
                     "ProfitCenter": oAdditionalData.ProfitCenter,
-                    "ReservationDate": "",
+                    "ReservationDate": "/Date(1624280339932)/",
                     "ParentList": aReservationItems
                 };
 
@@ -320,7 +320,7 @@ sap.ui.define([
                     success: function (oData, oResponse) {
                         if (oData.Success === true) {
                             this.getView().getModel();
-                            sap.m.MessageBox.success("The consumption reservation " + "" + oData.ReservationNumber + "" + " has been succesfully created for selected Items!");
+                            sap.m.MessageBox.success("The return reservation " + "" + oData.ReservationNumber + "" + " has been succesfully created for selected Items!");
                             this.setInitialModel();
                             var objectViewModel = this.getViewModel("objectViewModel");
                         }
