@@ -348,6 +348,7 @@
       "preLaunchTask": "Build sapui5"
     },
     {
+<<<<<<< HEAD
       "name": "Run sapui5-admin-po_summary",
       "type": "node",
       "request": "launch",
@@ -408,6 +409,8 @@
       "preLaunchTask": "Build sapui5"
     },
     {
+=======
+>>>>>>> develop
       "name": "Run sapui5-vendorPersona",
       "type": "node",
       "request": "launch",
@@ -424,7 +427,7 @@
         "MOCK_LOOKUP_DIRS": "[\"webapp\"]",
         "run.config": "{\"handlerId\":\"ui5_run_config_handler_id\",\"runnableId\":\"/home/user/projects/sapui5/vendorPersona\"}"
       },
-      "envFile": "${workspaceFolder}/vendorPersona/.env25",
+      "envFile": "${workspaceFolder}/vendorPersona/.env24",
       "preLaunchTask": "Build sapui5"
     }
   ],

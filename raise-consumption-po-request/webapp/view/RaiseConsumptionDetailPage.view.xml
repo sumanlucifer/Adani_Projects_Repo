@@ -35,7 +35,7 @@
                     <Title text="{i18n>ReservationNumber}- {ReservationNumber}" wrapping="true" titleStyle="Auto"/>
                 </uxap:snappedTitleOnMobile>
                 <uxap:actions>
-                    <Button text="Post Consumption" visible="{= ${Status} === 'RESERVED'}" press="onPressSubmitConsumptionPosting" type="Emphasized"/>
+                    <Button text="Post Consumption" visible="{= ${Status} === 'RESERVED FOR CONSUMPTION' ? true : ${Status} === 'PARTIALLY CONSUMED' ? true : false }" press="onPressSubmitConsumptionPosting" type="Emphasized"/>
                 </uxap:actions>
             </uxap:ObjectPageDynamicHeaderTitle>
         </uxap:headerTitle>
@@ -81,42 +81,50 @@ pattern: 'MMMM dd, yyyy HH:mm:ss'
             <uxap:ObjectPageSection titleUppercase="false">
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection >
-                        <smartTable:SmartTable class="sapUiResponsiveContentPadding" id="idIssueTable" editable="false" placeToolbarInTable="true" enableAutoBinding="true" entitySet="ConsumptionPostingReserveSet" tableBindingPath="ConsumedMaterialParent" showFullScreenButton="true" requestAtLeastFields="ID" header="Items" showRowCount="true" tableType="ResponsiveTable" demandPopin="false" useExportToExcel="false">
-                            <Table sticky="ColumnHeaders,HeaderToolbar" alternateRowColors="true">
-                                <columns>
-                                    <Column >
-                                        <customData>
-                                            <core:CustomData key="p13nData" value='\{"columnKey": "MaterialCode", "leadingProperty": "MaterialCode",
-"columnIndex": 0 ,"sortProperty": "MaterialCode","filterProperty": "MaterialCode"}'/>
-                                        </customData>
-                                        <Text text="{i18n>MaterialCode}"/>
-                                    </Column>
-                                    <Column >
-                                        <customData>
-                                            <core:CustomData key="p13nData" value='\{"columnKey": "Quantity", "leadingProperty": "Quantity",
-"columnIndex": 1 ,"sortProperty": "Quantity","filterProperty": "Quantity"}'/>
-                                        </customData>
-                                        <Text text="{i18n>Quantity}"/>
-                                    </Column>
-                                    <Column >
-                                        <customData>
-                                            <core:CustomData key="p13nData" value='\{"columnKey": "Plant", "leadingProperty": "Plant",
-"columnIndex": 2 ,"sortProperty": "Plant","filterProperty": "Plant"}'/>
-                                        </customData>
-                                        <Text text="{i18n>Plant}"/>
-                                    </Column>
-                                </columns>
-                                <items>
-                                    <ColumnListItem >
-                                        <cells>
-                                            <ObjectIdentifier title="{MaterialCode}"/>
-                                            <Text text="{Quantity}"/>
-                                            <Text text="{Plant}"/>
-                                        </cells>
-                                    </ColumnListItem>
-                                </items>
-                            </Table>
-                        </smartTable:SmartTable>
+                        <Table  id="idConsumedTable" growing="true" growingThreshold="10" items="{consumptionData>/}">
+                            <headerToolbar>
+                                <OverflowToolbar>
+                                    <content>
+
+                                    </content>
+                                </OverflowToolbar>
+                            </headerToolbar>
+                            <columns>
+                                <Column width="5%">
+                                <CheckBox select="onSelectAll" ></CheckBox>
+                                </Column>
+                                <Column>
+                                    <Text text="Material Code"/>
+                                </Column>
+                                <Column>
+                                    <Text text="Description"/>
+                                </Column>
+
+                                <Column demandPopin="true" minScreenWidth="Tablet">
+                                    <Text text="Quantity"/>
+                                </Column>
+                                <Column demandPopin="true" minScreenWidth="Desktop">
+                                    <Text text="Plant"/>
+                                </Column>
+                                <Column demandPopin="true" minScreenWidth="Tablet">
+                                    <Text text="Status"/>
+                                </Column>
+
+                            </columns>
+                            <items>
+                                <ColumnListItem id="idBOQItems">
+                                    <cells>
+                                        <CheckBox visible="{= ${consumptionData>Status} === 'RESERVED FOR CONSUMPTION' ? true : ${consumptionData>Status} === 'CONSUMPTION RESERVATION FAILED' ? true : false }" selected="{consumptionData>isSelected}" select="onSelectionOfRow" />
+                                        <Text text="{consumptionData>MaterialCode}"/>
+                                        <Text text="{consumptionData>Name}"/>
+                                        <Text text="{consumptionData>Quantity}"/>
+                                        <Text text="{consumptionData>Plant}"/>
+                                        <ObjectStatus text="{consumptionData>Status}" state="{= ${consumptionData>Status} === 'POSTED' ? 'Success' : ${Status} === 'RESERVED' ? 'Information' : 'Error'}" visible="{= ${Status}.length>0 ? true : false }"/>
+
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>
             </uxap:ObjectPageSection>

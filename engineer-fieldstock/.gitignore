@@ -6,23 +6,3 @@ package-lock.json
 /resources/
 
 
-# auto generated wildcard
-agel-mmts-web/vendorPersona/.env24
-# auto generated wildcard
-consumption-reservation/.env1
-# auto generated wildcard
-return-reservation/.env1
-# auto generated wildcard
-sapui5/consumption-reservation/.env1
-# auto generated wildcard
-sapui5/return-reservation/.env1
-# auto generated wildcard
-sapui5/admin-po_summary/.env2
-# auto generated wildcard
-admin-po_summary/.env2
-# auto generated wildcard
-vendor-manageboq/.env3
-# auto generated wildcard
-vendor-packinglist-create/.env1
-# auto generated wildcard
-vendorPersona/.env24

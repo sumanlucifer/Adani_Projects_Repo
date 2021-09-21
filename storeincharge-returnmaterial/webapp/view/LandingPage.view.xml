@@ -11,7 +11,7 @@
         <f:title>
             <f:DynamicPageTitle>
                 <f:heading>
-                    <Title id="pageTitle" text="Return Requestssss"/>
+                    <Title id="pageTitle" text="Return Requests"/>
                 </f:heading>
                 <f:actions>
                 </f:actions>
@@ -35,70 +35,16 @@
         </f:header>
         <!-- DynamicPage Content -->
         <f:content>
-            <smartTable:SmartTable class="sapUiResponsiveContentPadding" id="idReturnMaterialTable" editable="false" placeToolbarInTable="true" 
-            enableAutoBinding="true" entitySet="ReturnMaterialReserveSet"  showFullScreenButton="true" showRowCount="true" tableType="ResponsiveTable" 
-            demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" header="List of Return Materials"
-            ignoreFromPersonalisation="">
-                <Table sticky="ColumnHeaders,HeaderToolbar" alternateRowColors="true" growing="true" growingThreshold="5">
-                    <columns>
-                        <Column >
-                            <customData>
-                                <core:CustomData key="p13nData" value='\{"columnKey": "SONumber", "leadingProperty": "SONumberId/SONumber",
-                                                        "columnIndex": 0 ,"sortProperty": "SONumberId/SONumber", "filterProperty": "SONumberId/SONumber"}'/>
-                            </customData>
-                            <Text text="{i18n>SONumber}"/>
-                        </Column>
-
-                        <Column >
-                            <customData>
-                                <core:CustomData key="p13nData" value='\{"columnKey": "ReservationNo", "leadingProperty": "ReservationNumber",
-                                                        "columnIndex": 1 ,"sortProperty": "ReservationNumber", "filterProperty": "ReservationNumber"}'/>
-                            </customData>
-                            <Text text="{i18n>ReservationNo}"/>
-                        </Column>
-
-                        <Column demandPopin="true" minScreenWidth="Desktop">
-                            <customData>
-                                <core:CustomData key="p13nData" value='\{"columnKey": "CreatedBy", "leadingProperty": "CreatedBy",
-                                        "columnIndex": 2,"sortProperty": "CreatedBy", "filterProperty": "CreatedBy"}'/>
-                            </customData>
-                            <Text text="{i18n>EnggInCharge}"/>
-                        </Column>
-
-                        <Column demandPopin="true" minScreenWidth="Tablet">
-                            <customData>
-                                <core:CustomData key="p13nData" value='\{"columnKey": "ReservationDate", "leadingProperty": "ReservationDate",
-                                        "columnIndex": 3, "sortProperty": "ReservationDate", "filterProperty": "ReservationDate"}'/>
-                            </customData>
-                            <Text text="{i18n>ReservationDate}"/>
-                        </Column>
-
-                        <Column demandPopin="true" minScreenWidth="Desktop">
-                            <customData>
-                                <core:CustomData key="p13nData" value='\{"columnKey": "Status", "leadingProperty": "Status",
-                                                        "columnIndex": 4, "filterProperty": "Status" }'/>
-                            </customData>
-                            <Text text="{i18n>Status}"/>
-                        </Column>
-                    </columns>
-                    <items>
-                        <ColumnListItem type="Navigation" press="onReturnMaterialSelect"> 
-                            <cells>
-                                <Text text="{SONumber}" binding="{SONumberId}"/>
-                                <Text text="{ReservationNumber}"/>
-                                <Text text="{CreatedBy}"/>
-                                <Text text="{path:'ReservationDate',
-                                            type: 'sap.ui.model.type.Date',
-                                            formatOptions: {
-                                                pattern: 'MMMM dd, yyyy'
-                                            }
-                                }"/>
-                                <Text text="{Status}"/>
-                            </cells>
-                        </ColumnListItem>
-                    </items>
-                </Table>
-            </smartTable:SmartTable>    
+            <IconTabBar id="idIconTabBar" select="onIconTabSelect" headerMode="Inline" expanded="true" class="sapUiResponsiveContentPadding">
+                <items>
+                    <IconTabFilter id="idReservedReqTitle" text="{i18n>ReservedRequests}" key="Reserved">
+                        <core:Fragment fragmentName="com.agel.mmts.storeinchargereturnmaterial.view.fragments.landingPage.reservedReqTable" type="XML"/>
+                    </IconTabFilter>
+                    <IconTabFilter id="idReturnedReqTitle" text="{i18n>ReturnedRequests}" key="Returned">
+                        <core:Fragment fragmentName="com.agel.mmts.storeinchargereturnmaterial.view.fragments.landingPage.returnedReqTable" type="XML"/>
+                    </IconTabFilter>
+                </items>
+            </IconTabBar>
         </f:content>
     </f:DynamicPage>
 </mvc:View>

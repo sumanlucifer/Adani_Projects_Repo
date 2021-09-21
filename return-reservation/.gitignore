@@ -19,6 +19,7 @@ sapui5/return-reservation/.env1
 # auto generated wildcard
 sapui5/admin-po_summary/.env2
 # auto generated wildcard
+<<<<<<< HEAD
 admin-po_summary/.env2
 # auto generated wildcard
 vendor-manageboq/.env3
@@ -26,3 +27,6 @@ vendor-manageboq/.env3
 vendor-packinglist-create/.env1
 # auto generated wildcard
 vendorPersona/.env24
+=======
+sapui5/raise-returnmaterial/.env1
+>>>>>>> develop

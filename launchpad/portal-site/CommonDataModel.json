@@ -222,6 +222,25 @@
 					"vizId": "mdccRequests-manage"
 				}]
 			}
+		}, {
+			"_version": "3.0.0",
+			"identification": {
+				"id": "store-in-charge",
+				"title": "{{title}}",
+				"entityType": "group",
+				"i18n": "i18n/store-in-charge.properties"
+			},
+			"payload": {
+				"viz": [{
+					"id": "com.agel.mmts.storeinchargeissuematerial-0-1632136079674",
+					"appId": "com.agel.mmts.storeinchargeissuematerial",
+					"vizId": "storeinchargeissuematerial-manage"
+				}, {
+					"id": "com.agel.mmts.storeinchargereturnmaterial-1-1632138374825",
+					"appId": "com.agel.mmts.storeinchargereturnmaterial",
+					"vizId": "QuickAccess-return"
+				}]
+			}
 		}],
 		"sites": [{
 			"_version": "3.0.0",
@@ -254,7 +273,9 @@
 						}
 					}
 				},
-				"groupsOrder": ["defaultGroupId", "material-tracker", "qr-tracker", "order-tracker", "admin", "quick-access", "tc-engineer", "pmcg"],
+				"groupsOrder": ["defaultGroupId", "material-tracker", "qr-tracker", "order-tracker", "admin", "quick-access", "tc-engineer", "pmcg",
+					"store-in-charge"
+				],
 				"sap.cloud.portal": {
 					"config": {
 						"theme.id": "sap_fiori_3",

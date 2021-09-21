@@ -72,7 +72,9 @@ sap.ui.define([
                     StorageLocation: "",
                     Quantity: "",
                     BaseUnit: "",
-                    AvailbleQty: null
+                    Batch: "",
+                    M: false,
+                    AvailableQty: null
                 });
                 oModel.setData(oItems);
             },
@@ -94,13 +96,25 @@ sap.ui.define([
                 });
             },
             onMaterialCodeChange: function (oEvent) {
+
                 var reservationListObj = oEvent.getParameter("selectedRow").getBindingContext("suggestionModel").getObject();
+                if (!this._validateItemSelected(reservationListObj)) {
+                    return;
+                }
                 var sItemPath = oEvent.getSource().getParent().getBindingContextPath();
                 this.getView().getModel("reservationTableModel").setProperty(sItemPath + "/Description", reservationListObj.Description);
                 this.getView().getModel("reservationTableModel").setProperty(sItemPath + "/BaseUnit", reservationListObj.UOM);
                 this.getView().getModel("reservationTableModel").setProperty(sItemPath + "/Material", reservationListObj.MaterialCode);
                 this.getView().getModel("reservationTableModel").setProperty(sItemPath + "/StorageLocation", reservationListObj.StorageLocation);
-                this.getView().getModel("reservationTableModel").setProperty(sItemPath + "/AvailbleQty", reservationListObj.AvailbleQty);
+                this.getView().getModel("reservationTableModel").setProperty(sItemPath + "/AvailableQty", reservationListObj.AvailableQty);
+            },
+
+            _validateItemSelected: function()
+            {
+                var isbValid = true;
+                 this.getView().getModel("reservationTableModel").getData();
+
+
             },
             onLiveChangeQty: function (oEvent) {
                 oEvent.getSource().setValueState("None");
@@ -155,7 +169,7 @@ sap.ui.define([
                     success: function (oData, oResponse) {
                         var suggestionModel = new JSONModel(oData.results);
                         this.getView().setModel(suggestionModel, "suggestionModel");
-                        debugger;
+                    
                     }.bind(this),
                     error: function (oError) {
                         sap.m.MessageBox.error(JSON.stringify(oError));
@@ -219,7 +233,6 @@ sap.ui.define([
                     this.byId("idStorageLocation").setValueState("None");
                     this.byId("idStorageLocation").setValueStateText(null);
                     this.getViewModel("objectViewModel").setProperty("/isHeaderFieldsVisible", true);
-
                     this.byId("idPlant").setEnabled(false);
                     this.byId("idStorageLocation").setEnabled(false);
                 }
@@ -304,20 +317,21 @@ sap.ui.define([
             callIssueReservationService: function (oAdditionalData, aReservationItems) {
                 aReservationItems = aReservationItems.map(function (item) {
                     return {
-                        Name: item.MaterialCode,
+                        Name: item.Description,
                         Material: item.Material,
                         Description: item.Description,
                         StorageLocation: item.StorageLocation,
                         Quantity: parseInt(item.Quantity),
                         BaseUnit: item.BaseUnit,
-                        Batch: "",
-                        IsChildItem: false
+                        Batch: item.Batch,
+                        IsChildItem: false,
+                        SpecialStockIndicator: item.M
                     };
                 });
                 var oPayload = {
-                    "PlantCode": oAdditionalData.Plant,
+                    "Plant": oAdditionalData.Plant,
                     "MovementType": "311",
-                    "GoodsRecipient": oAdditionalData.GoodReciepient,
+                    "GoodsRecipient": oAdditionalData.GoodsRecipient,
                     "CostCenter": oAdditionalData.CostCenter,
                     "WBS": oAdditionalData.WBS,
                     "ProfitCenter": oAdditionalData.ProfitCenter,
@@ -326,13 +340,15 @@ sap.ui.define([
                     "ContractorId": oAdditionalData.ContractorId,
                     "CompanyCode": oAdditionalData.CompanyCode,
                     "UserName": "AGEL",
-                    "IssueMaterialReservationParents": aReservationItems
+                    "IssueMaterialReservationItems": aReservationItems
                 };
                 this.mainModel.create("/IssueMaterialReservationEdmSet", oPayload, {
                     success: function (oData, oResponse) {
                         if (oData.Success === true) {
                             this.getView().getModel();
-                            sap.m.MessageBox.success("The reservation has been succesfully created for selected Items!");
+                           
+
+                              sap.m.MessageBox.success("The reservation has been succesfully created for "  + ""  + oData.ReservationNumber + "" + " for selected Items!");
                             this.setInitialModel();
                             var objectViewModel = this.getViewModel("objectViewModel");
                         }

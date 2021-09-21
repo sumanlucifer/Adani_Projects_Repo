@@ -14,9 +14,7 @@
     <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Communication.xml">
         <edmx:Include Namespace="com.sap.vocabularies.Communication.v1" Alias="Communication"/>
     </edmx:Reference>
-    <edmx:Reference Uri="/api/v2/odata.svc/$metadata">
-        <edmx:Include Namespace="com.agel.mmts.entity.edmentity"/>
-        <edmx:Include Namespace="com.agel.mmts.entity.extension"/>
+    <edmx:Reference Uri="/AGEL_MMTS_API/api/v2/odata.svc/$metadata">
         <edmx:Include Namespace="com.agel.mmts.entity"/>
     </edmx:Reference>
     <edmx:DataServices>
@@ -45,7 +43,7 @@
                 </Annotation>
             </Annotations>
 
-            <Annotations Target="com.agel.mmts.entity.DefaultContainer/IssuedMaterialItemsSet">
+            <Annotations Target="com.agel.mmts.entity.DefaultContainer/IssuedMaterialParentSet">
                 <Annotation Term="Capabilities.SearchRestrictions">
                     <Record Type="Capabilities.SearchRestrictionsType">
                         <PropertyValue Property="Searchable" Bool="false"/>
@@ -76,10 +74,10 @@
             <Annotations Target="com.agel.mmts.entity.ContractorModel/PlantSiteLocation">
                 <Annotation Term="Common.Label" String="{@i18n>plant}"/>
             </Annotations>
-            <Annotations Target="com.agel.mmts.entity.IssuedMaterialItemsModel/MaterialCode">
+            <Annotations Target="com.agel.mmts.entity.IssuedMaterialParentModel/MaterialCode">
                 <Annotation Term="Common.Label" String="{@i18n>materialCode}"/>
             </Annotations>
-            <Annotations Target="com.agel.mmts.entity.IssuedMaterialItemsModel/Name">
+            <Annotations Target="com.agel.mmts.entity.IssuedMaterialParentModel/Name">
                 <Annotation Term="Common.Label" String="{@i18n>materialName}"/>
             </Annotations>
             <Annotations Target="com.agel.mmts.entity.ContractorModel/ServicesCovered">
@@ -101,8 +99,8 @@
                         <PropertyPath>SONumber</PropertyPath>
                         <PropertyPath>Contractor/Name</PropertyPath>
                         <PropertyPath>Contractor/PlantSiteLocation</PropertyPath>
-                        <PropertyPath>IssuedMaterialItems/MaterialCode</PropertyPath>
-                        <PropertyPath>IssuedMaterialItems/Name</PropertyPath>
+                        <PropertyPath>IssuedMaterialParent/Name</PropertyPath>
+                        <PropertyPath>IssuedMaterialParent/MaterialCode</PropertyPath>
                         <PropertyPath>CreatedAt</PropertyPath>
                     </Collection>
                 </Annotation>
@@ -213,7 +211,7 @@
                         <Record Type="UI.ReferenceFacet">
                             <PropertyValue Property="Label" String="{@i18n>lineItems}"/>
                             <PropertyValue Property="ID" String="idLineItems"/>
-                            <PropertyValue Property="Target" AnnotationPath="IssuedMaterialItems/@UI.LineItem"/>
+                            <PropertyValue Property="Target" AnnotationPath="IssuedMaterialParent/@UI.LineItem"/>
                         </Record>
 
                     </Collection>
@@ -246,13 +244,13 @@
                         <Record Type="UI.ReferenceFacet">
                             <PropertyValue Property="Label" String="{@i18n>lineItems}"/>
                             <PropertyValue Property="ID" String="idLineItems"/>
-                            <PropertyValue Property="Target" AnnotationPath="IssuedMaterialItems/@UI.LineItem"/>
+                            <PropertyValue Property="Target" AnnotationPath="IssuedMaterialParent/@UI.LineItem"/>
                         </Record>
                     </Collection>
                 </Annotation>
             </Annotations>
             <!-- Object Page Issued Material Table -->
-            <Annotations Target="com.agel.mmts.entity.IssuedMaterialItemsModel">
+            <Annotations Target="com.agel.mmts.entity.IssuedMaterialParentModel">
                 <Annotation Term="Common.SemanticKey">
                     <Collection>
                         <PropertyPath>MaterialCode</PropertyPath>
@@ -294,7 +292,7 @@
                             </Annotation>
                         </Record>
                         <Record Type="UI.DataField">
-                            <PropertyValue Property="Value" Path="Issued_Qty"/>
+                            <PropertyValue Property="Value" Path="IssuedQty"/>
                             <PropertyValue Property="Label" String="{@i18n>issuedQuantity}"/>
                             <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High" />
                             <Annotation Term="com.sap.vocabularies.HTML5.v1.CssDefaults">
@@ -304,14 +302,32 @@
                             </Annotation>
                         </Record>
                         <Record Type="UI.DataField">
-                            <PropertyValue Property="Value" Path="Uom"/>
-                            <PropertyValue Property="Label" String="{@i18n>uom}"/>
+                            <PropertyValue Property="Value" Path="BaseUnit"/>
+                            <PropertyValue Property="Label" String="{@i18n>baseUnit}"/>
                             <Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High" />
                             <Annotation Term="com.sap.vocabularies.HTML5.v1.CssDefaults">
                                 <Record>
                                     <PropertyValue Property="width" String="15rem"/>
                                 </Record>
                             </Annotation>
+                        </Record>
+                    </Collection>
+                </Annotation>
+
+                <Annotation Term="UI.Facets" >
+                    <Collection>
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="Target" AnnotationPath="IssuedMaterialBOQ/@UI.LineItem#BOQLineItems"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+
+            <Annotations Target="com.agel.mmts.entity.IssuedMaterialBOQModel">
+                <Annotation Term="UI.LineItem" Qualifier="BOQLineItems">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="Name"/>
                         </Record>
                     </Collection>
                 </Annotation>

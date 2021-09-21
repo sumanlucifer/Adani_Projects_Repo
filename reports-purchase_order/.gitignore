@@ -4,6 +4,7 @@ package-lock.json
 /.vscode/
 /mta_archives/
 /resources/
+<<<<<<< HEAD
 
 
 
@@ -27,3 +28,5 @@ vendor-manageboq/.env3
 vendor-packinglist-create/.env1
 # auto generated wildcard
 vendorPersona/.env24
+=======
+>>>>>>> develop

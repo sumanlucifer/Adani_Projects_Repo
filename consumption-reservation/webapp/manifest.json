@@ -7,8 +7,8 @@
         "applicationVersion": {
             "version": "1.0.0"
         },
-        "title": "{{appTitle}}",
-        "description": "{{appDescription}}",
+        "title": "{{appTileTitle}}",
+        "description": "{{appTileSubTitle}}",
         "resources": "resources.json",
         "ach": "ach",
         "dataSources": {
@@ -30,8 +30,8 @@
                     },
                     "semanticObject": "ConsumptionReservation",
                     "action": "Manage",
-                    "title": "{{flpTitle}}",
-                    "subTitle": "{{flpSubtitle}}",
+                    "title": "Consumption Reservation",
+                    "subTitle": "Consumption Reservation",
                     "icon": ""
                 }
             }
