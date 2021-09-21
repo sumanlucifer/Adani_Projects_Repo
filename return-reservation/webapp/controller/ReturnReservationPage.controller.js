@@ -1,4 +1,4 @@
-    sap.ui.define([
+sap.ui.define([
     "./BaseController",
     "sap/ui/core/Fragment",
     "sap/ui/Device",
@@ -17,7 +17,7 @@
             onInit: function () {
                 //jQuery.sap.addUrlWhitelist("blob");
                 this.mainModel = this.getOwnerComponent().getModel();
-                //Router Object
+                //Router Obj
                 this.oRouter = this.getOwnerComponent().getRouter();
                 //view model instatiation
                 this.createInitialModel();
@@ -213,6 +213,16 @@
                     this.byId("idProfitCenter").setValueState("None");
                     this.byId("idProfitCenter").setValueStateText(null);
                 }
+
+
+                 if (!data.ReceivingLocation) {
+                    this.byId("idRecievingLoc").setValueState("Error");
+                    this.byId("idRecievingLoc").setValueStateText("Please enter profit center value");
+                    bValid = false;
+                } else {
+                    this.byId("idRecievingLoc").setValueState("None");
+                    this.byId("idRecievingLoc").setValueStateText(null);
+                }
                 if (!data.CostCenter) {
                     this.byId("idCostCenter").setValueState("Error");
                     this.byId("idCostCenter").setValueStateText("Please enter cost center value");
@@ -276,35 +286,41 @@
                         }
                     }
                 }
-                this.callConsumptionReservationService(oAdditionalData, aReservationItems);
+                this.callReturnReservationService(oAdditionalData, aReservationItems);
             },
-            callConsumptionReservationService: function (oAdditionalData, aReservationItems) {
+            callReturnReservationService: function (oAdditionalData, aReservationItems) {
                 aReservationItems = aReservationItems.map(function (item) {
                     return {
+
+                        ItemNumber: item.ItemNumber,
+                        Material: item.MaterialCode,
+                        StorageLocation: item.StorageLocation,
                         Quantity: item.Quantity,
-                        IssueMaterialParentId: item.ID
+                        BaseUnit: item.BaseUnit,
+                        Batch: item.BatchNumber
                     };
                 });
                 var oPayload = {
                     "UserName": "Agel",
                     "Plant": oAdditionalData.Plant,
-                    "MovementType": "201",
+                    "MovementType": "311",
                     "GoodRecipient": oAdditionalData.GoodRecipient,
                     "CostCenter": oAdditionalData.CostCenter,
-                    "WBS": "",
+                    "WBS": oAdditionalData.WBS,
+                    "ReceivingLocation": oAdditionalData.ReceivingLocation,
                     "GLAccount": oAdditionalData.GLAccount,
                     "ProfitCenter": oAdditionalData.ProfitCenter,
-                    "ReservationDate": "",
-                    "ParentItem": aReservationItems
+                    "ReservationDate": "/Date(1624280339932)/",
+                    "ParentList": aReservationItems
                 };
 
 
-                
+
                 this.mainModel.create("/ReturnMaterialReserveEdmSet", oPayload, {
                     success: function (oData, oResponse) {
                         if (oData.Success === true) {
                             this.getView().getModel();
-                            sap.m.MessageBox.success("The consumption reservation "  + ""  + oData.ReservationNumber + "" + " has been succesfully created for selected Items!");
+                            sap.m.MessageBox.success("The return reservation " + "" + oData.ReservationNumber + "" + " has been succesfully created for selected Items!");
                             this.setInitialModel();
                             var objectViewModel = this.getViewModel("objectViewModel");
                         }

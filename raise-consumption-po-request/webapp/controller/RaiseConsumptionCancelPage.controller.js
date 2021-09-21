@@ -106,6 +106,23 @@ sap.ui.define([
         handleToAllPOBreadcrumPress: function (oEvent) {
             history.go(-1);
         },
+
+        onSelectAll: function (oeve) {
+            var isSelected = oeve.getSource().getSelected();
+            var ItemData = this.getView().getModel("consumptionPostedData").getData();
+            if (isSelected) {
+                for (var i = 0; i < ItemData.length; i++) {
+                    ItemData[i].isSelected = true;
+                }
+            }
+            else {
+                for (var i = 0; i < ItemData.length; i++) {
+                    ItemData[i].isSelected = false;
+
+                }
+            }
+            this.getView().getModel("consumptionPostedData").setData(ItemData);
+        },
         onBeforeRebindTreeTable: function (oEvent) {
             var mBindingParams = oEvent.getParameter("bindingParams");
             mBindingParams.parameters["expand"] = "IssuedMaterialBOQ";
@@ -137,22 +154,29 @@ sap.ui.define([
         getTableItems: function () {
             var itemData = this.getViewModel("consumptionPostedData").getData();
             var IsAllItemsCancelled = "";
+            var totalSelectedItems = itemData.filter(function (item) {
+                return (item.Status === "Posted Successfully" || item.Status === "CONSUMPTION RESERVATION FAILED");
+            });
+
             var selectedItems = itemData.filter(function (item) {
                 return item.isSelected === true;
             });
-            if (itemData.length === selectedItems.length)
+            if (totalSelectedItems.length === selectedItems.length)
                 IsAllItemsCancelled = true;
             else
                 IsAllItemsCancelled = false;
-         
-                    return {
-                itemData,
+
+            return {
+                selectedItems,
                 IsAllItemsCancelled
             };
+
+
+
         },
         onSubmitCancelConfirmPress: function (a, itemData) {
             var IsAllItemsCancelled = itemData.IsAllItemsCancelled;
-            itemData = itemData.map(function (item) {
+            itemData = itemData.selectedItems.map(function (item) {
                 return {
                     ConsumedMaterialParentId: item.ID
                 };
@@ -161,7 +185,7 @@ sap.ui.define([
             var ConsumptionReserveId = this.getView().getModel().getData(sConsumptionReservationContext).ID;
             var oPayload = {
                 "UserName": "Agel",
-                "IsAllItemsCancelled": true,
+                "IsAllItemsCancelled": IsAllItemsCancelled,
                 "ConsumptionPostingId": this.sObjectId,
                 "ParentItem": itemData
             };
