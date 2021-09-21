@@ -123,9 +123,9 @@
                                 <OverflowToolbar style="Clear">
                                     <Title id="title" text="{i18n>TreeTableViewTitle}"/>
                                     <ToolbarSpacer/>
-                                    <Button text="Approve All" press="onApproveAllPress" type="Accept" icon="sap-icon://accept" enabled="{= ${Status} !== 'PENDING'? false : !${objectViewModel>/partialApproval}}"/>
-                                    <Button text="{i18n>PartialApprove}" press="onPartialApprovePress" enabled="{= ${Status} !== 'PENDING'? false : ${objectViewModel>/partialApproval}}"/>
-                                    <Button text="Reject All" press="onRejectAllPress" type="Reject" icon="sap-icon://decline" enabled="{= ${Status} !== 'PENDING'? false : !${objectViewModel>/partialApproval}}"/>
+                                    <Button text="Approve All" press="onApproveAllPress" type="Accept" icon="sap-icon://accept" enabled="{= ${Status} !== 'RESERVED FOR RETURN MATERIAL'? false : !${objectViewModel>/partialApproval}}"/>
+                                    <Button text="{i18n>PartialApprove}" press="onPartialApprovePress" enabled="{= ${Status} !== 'RESERVED FOR RETURN MATERIAL'? false : ${objectViewModel>/partialApproval}}"/>
+                                    <Button text="Reject All" press="onRejectAllPress" type="Reject" icon="sap-icon://decline" enabled="{= ${Status} !== 'RESERVED FOR RETURN MATERIAL'? false : !${objectViewModel>/partialApproval}}"/>
                                 </OverflowToolbar>
                             </tt:extension>
                             <tt:columns>
