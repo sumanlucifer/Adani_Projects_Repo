@@ -31,8 +31,8 @@
                     "semanticObject": "storeinchargeissuematerial",
                     "action": "manage",
                     "title": "Issue Material",
-                    "subTitle": "",
-                    "icon": ""
+                    "subTitle": "Issue Material",
+                    "icon": "sap-icon://redo"
                 }
             }
         }
@@ -124,10 +124,24 @@
                     ]
                 },
                 {
-                    "name": "RouteIssueMatDetail",
-                    "pattern": "IssueMatDetail/{MatNo}",
+                    "name": "RaiseIssueScanQRCode",
+                    "pattern": "IssueScanQRCode/{ID}",
                     "target": [
-                        "TargetIssueMatDetail"
+                        "TargetIssueScanQRCode"
+                    ]
+                },
+                {
+                    "name": "RaiseIssueUploadDoc",
+                    "pattern": "IssueUploadDoc/{ID}",
+                    "target": [
+                        "TargetIssueUploadDoc"
+                    ]
+                },
+                {
+                    "name": "IssuedMaterialDetails",
+                    "pattern": "IssuedMaterial/{ID}",
+                    "target": [
+                        "TargetIssuedMaterialDetails"
                     ]
                 }
             ],
@@ -139,11 +153,23 @@
                     "viewId": "LandingPage",
                     "viewName": "LandingPage"
                 },
-                "TargetIssueMatDetail": {
+                "TargetIssueScanQRCode": {
                     "viewType": "XML",
                     "transition": "slide",
                     "clearControlAggregation": false,
-                    "viewName": "IssueMatDetail"
+                    "viewName": "IssueScanQRCode"
+                },
+                "TargetIssueUploadDoc": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewName": "IssueUploadDoc"
+                },
+                "TargetIssuedMaterialDetails": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewName": "IssuedMaterialDetail"
                 },
                 "notFound": {
                     "viewName": "NotFound"

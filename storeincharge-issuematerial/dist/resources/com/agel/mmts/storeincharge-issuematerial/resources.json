@@ -1,13 +1,8 @@
 {
     "resources": [
         {
-            "name": "../storeinchargeissuematerial/Component-dbg.js",
-            "isDebug": true
-        },
-        {
-            "name": "../storeinchargeissuematerial/i18n/i18n_en_GB.properties",
-            "raw": "i18n/i18n.properties",
-            "locale": "_en_GB"
+            "name": "../storeinchargeissuematerial/i18n/i18n.properties",
+            "raw": "i18n/i18n.properties"
         },
         {
             "name": "../storeinchargeissuematerial/i18n/i18n_en_US.properties",
@@ -15,11 +10,20 @@
             "locale": "_en_US"
         },
         {
-            "name": "../storeinchargeissuematerial/i18n/i18n.properties",
-            "raw": "i18n/i18n.properties"
+            "name": "../storeinchargeissuematerial/i18n/i18n_en.properties",
+            "raw": "i18n/i18n.properties",
+            "locale": "_en"
         },
         {
-            "name": "../storeinchargeissuematerial/controller/App.controller.js"
+            "name": "../storeinchargeissuematerial/i18n/i18n_en_GB.properties",
+            "raw": "i18n/i18n.properties",
+            "locale": "_en_GB"
+        },
+        {
+            "name": "../storeinchargeissuematerial/controller/ErrorHandler.js"
+        },
+        {
+            "name": "../storeinchargeissuematerial/utils/formatter.js"
         },
         {
             "name": "../storeinchargeissuematerial/model/models.js"
@@ -31,13 +35,22 @@
             "name": "../storeinchargeissuematerial/controller/LandingPage.controller.js"
         },
         {
-            "name": "../storeinchargeissuematerial/controller/ErrorHandler.js"
+            "name": "../storeinchargeissuematerial/controller/IssuedMaterialDetail.controller.js"
+        },
+        {
+            "name": "../storeinchargeissuematerial/controller/IssueUploadDoc.controller.js"
+        },
+        {
+            "name": "../storeinchargeissuematerial/controller/IssueScanQRCode.controller.js"
+        },
+        {
+            "name": "../storeinchargeissuematerial/manifest.json"
         },
         {
             "name": "../storeinchargeissuematerial/controller/BaseController.js"
         },
         {
-            "name": "../storeinchargeissuematerial/manifest.json"
+            "name": "../storeinchargeissuematerial/controller/App.controller.js"
         },
         {
             "name": "../storeinchargeissuematerial/Component.js"
@@ -50,7 +63,11 @@
             "merged": true
         },
         {
-            "name": "../storeinchargeissuematerial/controller/ErrorHandler-dbg.js",
+            "name": "../storeinchargeissuematerial/controller/App-dbg.controller.js",
+            "isDebug": true
+        },
+        {
+            "name": "../storeinchargeissuematerial/model/models-dbg.js",
             "isDebug": true
         },
         {
@@ -62,7 +79,19 @@
             "isDebug": true
         },
         {
-            "name": "../storeinchargeissuematerial/model/models-dbg.js",
+            "name": "../storeinchargeissuematerial/controller/IssuedMaterialDetail-dbg.controller.js",
+            "isDebug": true
+        },
+        {
+            "name": "../storeinchargeissuematerial/controller/IssueUploadDoc-dbg.controller.js",
+            "isDebug": true
+        },
+        {
+            "name": "../storeinchargeissuematerial/controller/IssueScanQRCode-dbg.controller.js",
+            "isDebug": true
+        },
+        {
+            "name": "../storeinchargeissuematerial/controller/ErrorHandler-dbg.js",
             "isDebug": true
         },
         {
@@ -70,25 +99,42 @@
             "isDebug": true
         },
         {
-            "name": "../storeinchargeissuematerial/controller/App-dbg.controller.js",
+            "name": "../storeinchargeissuematerial/utils/formatter-dbg.js",
             "isDebug": true
         },
         {
-            "name": "../storeinchargeissuematerial/i18n/i18n_en.properties",
-            "raw": "i18n/i18n.properties",
-            "locale": "_en"
+            "name": "../storeinchargeissuematerial/Component-dbg.js",
+            "isDebug": true
         },
         {
             "name": "../../../../sap-ui-version.json"
         },
         {
+            "name": "../storeinchargeissuematerial/view/fragments/common/ScannerFragment.fragment.xml"
+        },
+        {
+            "name": "../storeinchargeissuematerial/view/fragments/common/EnterQuantity.fragment.xml"
+        },
+        {
             "name": "../storeinchargeissuematerial/view/fragments/ListTable.fragment.xml"
+        },
+        {
+            "name": "../storeinchargeissuematerial/view/fragments/IssueReservedTable.fragment.xml"
         },
         {
             "name": "../storeinchargeissuematerial/view/NotFound.view.xml"
         },
         {
             "name": "../storeinchargeissuematerial/view/LandingPage.view.xml"
+        },
+        {
+            "name": "../storeinchargeissuematerial/view/IssuedMaterialDetail.view.xml"
+        },
+        {
+            "name": "../storeinchargeissuematerial/view/IssueUploadDoc.view.xml"
+        },
+        {
+            "name": "../storeinchargeissuematerial/view/IssueScanQRCode.view.xml"
         },
         {
             "name": "../storeinchargeissuematerial/view/App.view.xml"

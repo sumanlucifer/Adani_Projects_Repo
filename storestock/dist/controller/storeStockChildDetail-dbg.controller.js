@@ -40,8 +40,7 @@ sap.ui.define([
                 var sObjectId = oEvent.getParameter("arguments").parentMaterial;
 
 
-
-                this._bindView("/StockParentItemSet" + sObjectId);
+                this._bindView("/RestrictedStoreStockParentSet" + sObjectId);
 
                 this.getView().getModel("layoutModel").setProperty("/layout", sLayout);
 
@@ -55,6 +54,7 @@ sap.ui.define([
                 this.getView().bindElement({
                     path: sObjectPath,
                     events: {
+                        change: this._onBindingChange.bind(that),
                         dataRequested: function () {
                             objectViewModel.setProperty("/busy", true);
                         },
@@ -63,6 +63,16 @@ sap.ui.define([
                         }
                     }
                 });
+            },
+            _onBindingChange: function () {
+                var oView = this.getView(),
+                    oViewModel = this.getViewModel("objectViewModel"),
+                    oElementBinding = oView.getElementBinding();
+                // No data for the binding
+                if (!oElementBinding.getBoundContext()) {
+                    this.getRouter().getTargets().display("notFound");
+                    return;
+                }
             },
             // on Go Search 
             onSearch: function (oEvent) {
@@ -95,7 +105,7 @@ sap.ui.define([
 
                 if (andFilters.length > 0) {
                     idChildTableBinding.filter(new Filter(andFilters, true));
-                  
+
                 }
 
 

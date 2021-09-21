@@ -1,16 +1,16 @@
 {
     "resources": [
         {
-            "name": "controller/BaseController.js"
+            "name": "view/App.view.xml"
         },
         {
-            "name": "Component.js"
+            "name": "view/blocks/returnDetails/contractorForm/ContractorForm.js"
         },
         {
             "name": "view/blocks/returnDetails/lineItemsForm/LineItemsForm.js"
         },
         {
-            "name": "view/blocks/returnDetails/contractorForm/ContractorForm.js"
+            "name": "manifest.json"
         },
         {
             "name": "utils/formatter.js"
@@ -31,14 +31,13 @@
             "name": "controller/ErrorHandler.js"
         },
         {
-            "name": "i18n/i18n.properties",
-            "raw": "i18n/i18n.properties"
+            "name": "controller/BaseController.js"
         },
         {
             "name": "controller/App.controller.js"
         },
         {
-            "name": "manifest.json"
+            "name": "Component.js"
         },
         {
             "name": "manifest-bundle.zip"
@@ -48,7 +47,7 @@
             "merged": true
         },
         {
-            "name": "view/blocks/returnDetails/lineItemsForm/LineItemsForm-dbg.js",
+            "name": "controller/returnMaterialPage-dbg.controller.js",
             "isDebug": true
         },
         {
@@ -64,7 +63,7 @@
             "isDebug": true
         },
         {
-            "name": "controller/returnMaterialPage-dbg.controller.js",
+            "name": "view/blocks/returnDetails/lineItemsForm/LineItemsForm-dbg.js",
             "isDebug": true
         },
         {
@@ -116,7 +115,8 @@
             "name": "view/NotFound.view.xml"
         },
         {
-            "name": "view/App.view.xml"
+            "name": "i18n/i18n.properties",
+            "raw": "i18n/i18n.properties"
         },
         {
             "name": "css/style.css"

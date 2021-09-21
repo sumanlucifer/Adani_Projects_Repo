@@ -132,7 +132,7 @@
                                 <tt:Column>
                                     <Label text="" />
                                     <tt:template>
-                                        <CheckBox select="onReturnItemSelect" selected="{TreeTableModelView>isSelected}" visible="{=  ${Status} === 'PENDING' &amp;&amp; ${TreeTableModelView>selectable} &amp;&amp; ${TreeTableModelView>RequirementQuantity} > 0 }" />
+                                        <CheckBox select="onReturnItemSelect" selected="{TreeTableModelView>isSelected}" visible="{=  ${Status} === 'RESERVED FOR RETURN MATERIAL' &amp;&amp; ${TreeTableModelView>selectable} &amp;&amp; ${TreeTableModelView>RequirementQuantity} > 0 }" />
                                     </tt:template>
                                 </tt:Column>
                                 <tt:Column>
@@ -156,7 +156,7 @@
                                 <tt:Column>
                                     <Label text="Name"/>
                                     <tt:template>
-                                        <Text text="{TreeTableModelView>Name}" wrapping="false" />
+                                        <Text text="{TreeTableModelView>Name}" wrapping="false" /> 
                                     </tt:template>
                                 </tt:Column>     
                                 <tt:Column>

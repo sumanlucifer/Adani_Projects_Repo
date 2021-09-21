@@ -122,6 +122,20 @@
                     "target": [
                         "TargetLandingPage"
                     ]
+                },
+                {
+                    "name": "RoutePODetailPage",
+                    "pattern": "PODetail/{POId}",
+                    "target": [
+                        "TargetPODetailPage"
+                    ]
+                },
+                {
+                    "name": "POProcessFlow",
+                    "pattern": "POProcessFlow",
+                    "target": [
+                        "TargetPOProcessFlow"
+                    ]
                 }
             ],
             "targets": {
@@ -130,7 +144,22 @@
                     "transition": "slide",
                     "clearControlAggregation": false,
                     "viewId": "LandingPage",
-                    "viewName": "LandingPage"
+                    "viewName": "LandingPage",
+                    "viewLevel": 1
+                },
+                "TargetPODetailPage": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewName": "PODetailPage",
+                    "viewLevel": 2
+                },
+                "TargetPOProcessFlow": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewName": "POProcessFlow",
+                    "viewLevel": 3
                 }
             }
         }

@@ -1,4 +1,4 @@
-<mvc:View controllerName="com.agel.mmts.returnmaterial.controller.RaiseRequestPage" height="100%"
+<mvc:View controllerName="com.agel.mmts.raisereturnmaterial.controller.RaiseRequestPage" height="100%"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns:core="sap.ui.core"
     xmlns="sap.m"
@@ -8,31 +8,95 @@
         <f:title>
             <f:DynamicPageTitle>
                 <f:heading>
-                    <Title id="pageTitle" text="{i18n>Raised-Request}"/>
+                    <Title id="pageTitle" text="Raise Return Material Request"/>
                 </f:heading>
                 <f:actions>
-                   <Button text="Raise Return Material Request" press="onConfirmRequest" type="Emphasized"/>
+                    <!-- <Button text="Raise Return Material Request" press="onConfirmRequest" type="Emphasized"/> -->
                 </f:actions>
             </f:DynamicPageTitle>
         </f:title>
         <!-- DynamicPage Header -->
         <f:header>
             <f:DynamicPageHeader pinnable="true">
-            
                 <f:content>
-<SearchField width="20%" ></SearchField>
+                 
 
+
+                       <HBox alignContent="SpaceAround">
+                        <Input liveChange="onChangeSONumber"    placeholder="Enter SO Number" type="Number"  id="idSoNumber" width="90%"  ></Input>
+                        <Button id="SObtnSubmit" text="Submit" press="onSearch" type="Emphasized"/>
+                    </HBox>
                 </f:content>
-              
             </f:DynamicPageHeader>
         </f:header>
         <!-- DynamicPage Content -->
         <f:content>
+            <Table id="idTblIssueMaterialItems" visible="false" width="auto" growing="true" growingThreshold="5" items="{oIssueMaterialModel>/Items}" fixedLayout="false">
+                <columns>
+                    <!-- <Column demandPopin="true" minScreenWidth="Desktop" hAlign="Center"><Text text="{i18n>LineItem}" wrapping="true" wrappingType="Hyphenated"/></Column><Column demandPopin="true" minScreenWidth="Desktop"><Text text="{i18n>LineItemCode}" wrapping="true" wrappingType="Hyphenated"/></Column> -->
+                    <Column demandPopin="true" minScreenWidth="Desktop">
+                        <Text text="{i18n>MaterialCode}" wrapping="true" wrappingType="Hyphenated"/>
+                    </Column>
+                    <Column demandPopin="true" minScreenWidth="Desktop">
+                        <Text text="{i18n>Name}" wrapping="true" wrappingType="Hyphenated"/>
+                    </Column>
+                    <Column demandPopin="true" minScreenWidth="Desktop">
+                        <Text text="{i18n>Description}" wrapping="true" wrappingType="Hyphenated"/>
+                    </Column>
 
+                    <!-- <Column demandPopin="true" minScreenWidth="Desktop"><Text text="{i18n>QtyRecieved}" wrapping="true"/></Column> -->
+                    <Column demandPopin="true" minScreenWidth="Desktop">
+                        <Text text="{i18n>IssuedQty}"/>
+                    </Column>
 
-            <core:Fragment fragmentName="com.agel.mmts.returnmaterial.view.fragments.RequestTable" type="XML"/>
+                    <Column demandPopin="true" minScreenWidth="Desktop">
+                        <Text text="{i18n>ReturnedQty}"/>
+                    </Column>
 
+                    <Column demandPopin="true" minScreenWidth="Desktop">
+                        <Text text="{i18n>RemainingQty}"/>
+                    </Column>
+
+                    <Column demandPopin="true" minScreenWidth="Desktop">
+                        <Text text="{i18n>QuantityToReturn}"/>
+                    </Column>
+
+                    <Column demandPopin="true" minScreenWidth="Desktop" hAlign="Begin">
+                        <Text text="{i18n>UOM}"/>
+                    </Column>
+                    <Column demandPopin="true" minScreenWidth="Desktop">
+                        <Text text="{i18n>ReturnAsset}"/>
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem>
+                        <cells>
+                            <ObjectIdentifier title="{oIssueMaterialModel>MaterialCode}"/>
+                            <Text text="{oIssueMaterialModel>Name}" wrappingType="Hyphenated"/>
+                            <ExpandableText text="{oIssueMaterialModel>Description}" maxCharacters="20" overflowMode="Popover"/>
+
+                            <Text text="{oIssueMaterialModel>Issued_Qty}" wrappingType="Hyphenated"/>
+
+                            <Text text="{oIssueMaterialModel>ReturnedQty}" />
+
+                            <Text text="{oIssueMaterialModel>RemainingQty}" wrappingType="Hyphenated"/>
+
+                            <HBox alignContent="Inherit">
+                                <Input value="{oIssueMaterialModel>ReturnQty}" liveChange="onLiveChangeReturnQty" width="80%" editable="false"/>
+                                <Button icon="sap-icon://save" visible="false" press="onPressSave" type="Emphasized"/>
+                            </HBox>
+                            <!-- <Text text="{Description}" wrappingType="Hyphenated"/>              -->
+
+                            <Text text="{oIssueMaterialModel>Uom}" />
+                            <Link text="{i18n>ReturnAsset}" press="onPressRetrunAsset"/>
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+            <!-- <core:Fragment fragmentName="com.agel.mmts.returnmaterial.view.fragments.RequestTable" type="XML"/> -->
         </f:content>
     </f:DynamicPage>
+
+    
 </mvc:View>
 

@@ -1,16 +1,22 @@
 {
     "resources": [
         {
-            "name": "../raisereturnmaterial/view/RaiseRequestDetailPage.view.xml"
+            "name": "../raisereturnmaterial/controller/BaseController.js"
         },
         {
-            "name": "../raisereturnmaterial/view/blocks/returnDetails/contractorForm/ContractorForm.js"
+            "name": "../raisereturnmaterial/Component.js"
         },
         {
             "name": "../raisereturnmaterial/view/blocks/returnDetails/lineItemsForm/LineItemsForm.js"
         },
         {
-            "name": "../raisereturnmaterial/manifest.json"
+            "name": "../raisereturnmaterial/view/blocks/returnDetails/lineItemsForm/LineItemsForm.controller.js"
+        },
+        {
+            "name": "../raisereturnmaterial/view/blocks/returnDetails/contractorForm/ContractorForm.js"
+        },
+        {
+            "name": "../raisereturnmaterial/utils/formatter.js"
         },
         {
             "name": "../raisereturnmaterial/model/models.js"
@@ -28,13 +34,14 @@
             "name": "../raisereturnmaterial/controller/ErrorHandler.js"
         },
         {
-            "name": "../raisereturnmaterial/controller/BaseController.js"
+            "name": "../raisereturnmaterial/i18n/i18n.properties",
+            "raw": "i18n/i18n.properties"
         },
         {
             "name": "../raisereturnmaterial/controller/App.controller.js"
         },
         {
-            "name": "../raisereturnmaterial/Component.js"
+            "name": "../raisereturnmaterial/manifest.json"
         },
         {
             "name": "../raisereturnmaterial/manifest-bundle.zip"
@@ -44,11 +51,19 @@
             "merged": true
         },
         {
-            "name": "../raisereturnmaterial/view/blocks/returnDetails/lineItemsForm/LineItemsForm-dbg.js",
+            "name": "../raisereturnmaterial/controller/App-dbg.controller.js",
+            "isDebug": true
+        },
+        {
+            "name": "../raisereturnmaterial/view/blocks/returnDetails/lineItemsForm/LineItemsForm-dbg.controller.js",
             "isDebug": true
         },
         {
             "name": "../raisereturnmaterial/view/blocks/returnDetails/contractorForm/ContractorForm-dbg.js",
+            "isDebug": true
+        },
+        {
+            "name": "../raisereturnmaterial/utils/formatter-dbg.js",
             "isDebug": true
         },
         {
@@ -76,7 +91,7 @@
             "isDebug": true
         },
         {
-            "name": "../raisereturnmaterial/controller/App-dbg.controller.js",
+            "name": "../raisereturnmaterial/view/blocks/returnDetails/lineItemsForm/LineItemsForm-dbg.js",
             "isDebug": true
         },
         {
@@ -87,20 +102,22 @@
             "name": "../../../../sap-ui-version.json"
         },
         {
-            "name": "../raisereturnmaterial/view/blocks/returnDetails/lineItemsForm/LineItemsForm.view.xml"
+            "name": "../raisereturnmaterial/view/blocks/returnDetails/contractorForm/ContractorForm.view.xml"
         },
         {
-            "name": "../raisereturnmaterial/view/blocks/returnDetails/contractorForm/ContractorForm.view.xml"
+            "name": "../raisereturnmaterial/view/blocks/returnDetails/lineItemsForm/LineItemsForm.view.xml"
         },
         {
             "name": "../raisereturnmaterial/view/fragments/common/lineItems.fragment.xml"
         },
         {
+            "name": "../raisereturnmaterial/view/fragments/Reason.fragment.xml"
+        },
+        {
             "name": "../raisereturnmaterial/view/RaiseRequestPage.view.xml"
         },
         {
-            "name": "../raisereturnmaterial/i18n/i18n.properties",
-            "raw": "i18n/i18n.properties"
+            "name": "../raisereturnmaterial/view/RaiseRequestDetailPage.view.xml"
         },
         {
             "name": "../raisereturnmaterial/view/NotFound.view.xml"

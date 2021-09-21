@@ -2,78 +2,87 @@
     xmlns:smartTable="sap.ui.comp.smarttable"
     xmlns:core="sap.ui.core">
 
-    <smartTable:SmartTable class="sapUiResponsiveContentPadding" id="idPurchaseOrdersdsdTable" editable="false" placeToolbarInTable="true" enableAutoBinding="true" entitySet="PurchaseOrderSet" showFullScreenButton="true" showRowCount="false" tableType="ResponsiveTable" demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" beforeRebindTable="onbeforeRebindOpenPoTable" ignoreFromPersonalisation="AmendmentBy,AmendmentDate,AmendmentReason,CreatedBy,ID,Currency,IsArchived,UpdatedAt,UpdatedBy,ValidityEndDate,ValidityStartDate,Status">
+    <smartTable:SmartTable class="sapUiResponsiveContentPadding" editable="false" placeToolbarInTable="true" enableAutoBinding="true" entitySet="ReturnMaterialSet" showFullScreenButton="true" showRowCount="true" header="Return Requests" tableType="ResponsiveTable" demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" beforeRebindTable="onBeforeRebindReservationTable" ignoreFromPersonalisation="HeaderText,BillOfLading,IsArchived,CreatedAt,CreatedBy,UpdatedBy,UpdatedAt">
 
-        <!-- <smartTable:layoutData><FlexItemData growFactor="1" /></smartTable:layoutData> -->
-        <Table sticky="ColumnHeaders,HeaderToolbar" updateFinished="onPurchaseOrderTableUpdateFinished" alternateRowColors="true">
+        <Table sticky="ColumnHeaders,HeaderToolbar" alternateRowColors="true">
             <columns>
-
                 <Column>
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "PONumber", "leadingProperty": "PONumber",
-                                                 "columnIndex": 0 ,"sortProperty": "PONumber","filterProperty": "PONumber"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "ID", "leadingProperty": "ID",
+                                                 "columnIndex": 0 ,"sortProperty": "ID","filterProperty": "ID"}'/>
                     </customData>
-                    <Text text="{i18n>SOID}"/>
+                    <Text text="{i18n>ID}"/>
                 </Column>
 
-                <!-- Contractor Name -->
-                <Column>
-                    <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "CompanyCode", "leadingProperty": "Buyer/CompanyCode",
-                                                 "columnIndex": 1 ,"sortProperty": "Buyer/CompanyCode","filterProperty": "Buyer/CompanyCode"}'/>
-                    </customData>
-                    <Text text="{i18n>ContractorName}"/>
-                </Column>
-
-                <!-- Contractor-ID -->
-                <Column demandPopin="true" minScreenWidth="Desktop">
-                    <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "PlantCode", "leadingProperty": "PlantCode",
-                                                 "columnIndex": 2 ,"sortProperty": "PlantCode","filterProperty": "PlantCode"}'/>
-                    </customData>
-                    <Text text="{i18n>ContractorID}"/>
-                </Column>
-
-                <!-- Plant-Site-Location -->
+                <!-- CreatedAt -->
                 <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "CreatedAt", "leadingProperty": "CreatedAt",
-                                                 "columnIndex": 3, "sortProperty": "CreatedAt"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "MaterialDocumentNumber", "leadingProperty": "MaterialDocumentNumber",
+                                                 "columnIndex": 1, "sortProperty": "MaterialDocumentNumber"}'/>
                     </customData>
-                    <Text text="{i18n>Plant-Site-Loc}"/>
+                    <Text text="{i18n>MaterialDocumentNumber}"/>
                 </Column>
-                <!-- Requested Date -->
+
                 <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "reqDate", "leadingProperty": "reqDate",
-                                                 "columnIndex": 4, "sortProperty": "reqDate"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "GatePassNumber", "leadingProperty": "GatePassNumber",
+                                    "columnIndex": 2, "sortProperty": "GatePassNumber", "filterProperty": "GatePassNumber"}'/>
                     </customData>
-                    <Text text="{i18n>RequestedDate}"/>
+                    <Text text="{i18n>GatePassNumber}" />
                 </Column>
+
                 <!-- Status -->
                 <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "status", "leadingProperty": "status",
-                                                 "columnIndex": 5, "sortProperty": "status"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "ReservationNumber", "leadingProperty": "ReservationNumber",
+                                                 "columnIndex": 3, "sortProperty": "ReservationNumber", "filterProperty": "ReservationNumber"}'/>
                     </customData>
-                    <Text text="{i18n>Status}"/>
+                    <Text text="{i18n>ReservationNumber}"/>
                 </Column>
+                <!-- RequestDate -->
+                <Column>
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "DocumentDate", "leadingProperty": "DocumentDate",
+                                                 "columnIndex": 4 ,"sortProperty": "DocumentDate","filterProperty": "DocumentDate"}'/>
+                    </customData>
+                    <Text text="{i18n>DocumentDate}"/>
+                </Column>
+
+                <!-- Reason -->
+                <Column demandPopin="true" minScreenWidth="Tablet">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "PostingDate", "leadingProperty": "PostingDate",
+                                    "columnIndex": 5, "sortProperty": "PostingDate", "filterProperty": "PostingDate"}'/>
+                    </customData>
+                    <Text text="{i18n>PostingDate}" />
+                </Column>
+
+                <!-- Comment -->
+
+
             </columns>
             <items>
 
-                <ColumnListItem type="Navigation" press="onPurchaseOrderPress">
+                <ColumnListItem type="Navigation" press="onReservationRequestPress">
                     <cells>
-                        <Text text="{PONumber}"/>
-                        <Text text="{CompanyCode}" binding="{Buyer}"/>
-                        <ObjectIdentifier text="{PlantCode}"/>
-                        <Text text="{CompanyCode}" binding="{Buyer}"/>
-                        <Text text="{path:'CreatedAt',
-                                    type: 'sap.ui.model.type.Date',
+                        <ObjectIdentifier text="{ID}"/>
+                        <Text text="{MaterialDocumentNumber}"></Text>
+
+                        <Text text="{GatePassNumber}"/>
+                        <Text text="{ReservationNumber}"/>
+                        <Text text="{path:'DocumentDate',
+                                    type: 'sap.ui.model.type.DateTime',
 				                     formatOptions: {
-				                        pattern: 'MMMM dd, yyyy'
+				                        pattern: 'MMMM dd, yyyy HH:mm:ss'
 				                     }    
                         }"/>
-                        <Text text="{CompanyCode}" binding="{Buyer}"/>
+                        <Text text="{path:'PostingDate',
+                                    type: 'sap.ui.model.type.DateTime',
+				                     formatOptions: {
+				                        pattern: 'MMMM dd, yyyy HH:mm:ss'
+				                     }    
+                        }"/>
+
                     </cells>
                 </ColumnListItem>
 

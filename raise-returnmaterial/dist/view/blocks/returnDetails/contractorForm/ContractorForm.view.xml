@@ -3,26 +3,33 @@
     xmlns:f="sap.ui.layout.form"
     xmlns="sap.m">
 
-    <f:SimpleForm layout="ColumnLayout" columnsM="2" columnsL="4" columnsXL="4" binding="{Buyer}" singleContainerFullSize="true" class="style-RemoveTitleHeight">
+    <f:SimpleForm layout="ColumnLayout" columnsM="2" columnsL="4" columnsXL="4" binding="{Contractor}" 
+        singleContainerFullSize="true" class="style-RemoveTitleHeight">
         <f:content>
             <!-- <core:Title  /> -->
-            <Label text="{i18n>ContractorName}" />
-            <Text text="{ContactPerson}" />
+
             <Label text="{i18n>ContractorId}" />
-            <Text text="{BuyerCode}" />
-             <Label text="{i18n>PlantSite-Location}" />
-            <Text text="{GSTIN}"/>
-            <Label text="{i18n>ActivePeriod}" />
-            <Text text="{Pan}"/>
+            <Text text="{ID}" />
+
+            <Label text="{i18n>ContractorName}" />
+            <Text text="{Name}" />       
             
-            <!-- <core:Title /> -->
+            <Label text="{i18n>PlantSite-Location}" />
+            <Text text="{PlantSiteLocation}"/>
+            
+            <Label text="{i18n>ActivePeriod}" />
+            <Text text="{ActivePeriod}"/>
+            
+             <!-- <core:Title />  -->
             <Label text="{i18n>Materials}" />
-            <ExpandableText binding="{Address}" text="{parts: [{path: 'Street'}, {path: 'City'}, {path: 'State'}, {path: 'Country'}, {path: 'pinCode'}]}" 
-            overflowMode="InPlace"/>
-              <Label text="{i18n>Description}" />
-            <Text text="{PurchasingOrg}"/>
+            <Text text="{Materials}"/>
+            <!-- <ExpandableText binding="{Address}" text="{parts: [{path: 'Street'}, {path: 'City'}, {path: 'State'}, {path: 'Country'}, {path: 'pinCode'}]}" 
+            overflowMode="InPlace"/> -->
+            <Label text="{i18n>Description}" />
+            <Text text="{Description}"/>
+            
             <Label text="{i18n>Service-Covered}" />
-            <Text text="{PurchasingGroup}"/>
+            <Text text="{ServicesCovered}"/>            
             
         </f:content>
     </f:SimpleForm>

@@ -1,13 +1,26 @@
 {
     "resources": [
         {
-            "name": "../adminposummary/controller/App.controller.js"
+            "name": "../adminposummary/controller/PODetailPage-dbg.controller.js",
+            "isDebug": true
+        },
+        {
+            "name": "../adminposummary/manifest.json"
+        },
+        {
+            "name": "../adminposummary/model/ProcessFlowNodes.json"
+        },
+        {
+            "name": "../adminposummary/utils/formatter.js"
         },
         {
             "name": "../adminposummary/model/models.js"
         },
         {
-            "name": "../adminposummary/manifest.json"
+            "name": "../adminposummary/controller/POProcessFlow.controller.js"
+        },
+        {
+            "name": "../adminposummary/controller/PODetailPage.controller.js"
         },
         {
             "name": "../adminposummary/controller/LandingPage.controller.js"
@@ -19,8 +32,7 @@
             "name": "../adminposummary/controller/BaseController.js"
         },
         {
-            "name": "../adminposummary/i18n/i18n.properties",
-            "raw": "i18n/i18n.properties"
+            "name": "../adminposummary/controller/App.controller.js"
         },
         {
             "name": "../adminposummary/Component.js"
@@ -33,11 +45,23 @@
             "merged": true
         },
         {
-            "name": "../adminposummary/controller/LandingPage-dbg.controller.js",
+            "name": "../adminposummary/controller/POProcessFlow-dbg.controller.js",
             "isDebug": true
         },
         {
             "name": "../adminposummary/model/models-dbg.js",
+            "isDebug": true
+        },
+        {
+            "name": "../adminposummary/utils/formatter-dbg.js",
+            "isDebug": true
+        },
+        {
+            "name": "../adminposummary/i18n/i18n.properties",
+            "raw": "i18n/i18n.properties"
+        },
+        {
+            "name": "../adminposummary/controller/LandingPage-dbg.controller.js",
             "isDebug": true
         },
         {
@@ -67,6 +91,12 @@
         },
         {
             "name": "../adminposummary/view/fragments/FilterBar.fragment.xml"
+        },
+        {
+            "name": "../adminposummary/view/POProcessFlow.view.xml"
+        },
+        {
+            "name": "../adminposummary/view/PODetailPage.view.xml"
         },
         {
             "name": "../adminposummary/view/LandingPage.view.xml"

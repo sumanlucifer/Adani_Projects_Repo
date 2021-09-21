@@ -25,19 +25,7 @@
         </f:header>
         <!-- DynamicPage Content -->
         <f:content>
-            <!-- <IconTabBar id="idIconTabBar" select="onIconTabSelect" headerMode="Inline" expanded="true" class="sapUiResponsiveContentPadding">
-                <items>
-                    <IconTabFilter id="idOpenPOTabTitle" text="{i18n>Unrestricted}" key="OPEN" count="{oIconTabCountModel>/openCount}">
-                        <core:Fragment fragmentName="com.agel.mmts.storestock.view.fragments.ChilddetailPage.UnRestricted" type="XML"/>
-                    </IconTabFilter>
-                    <IconTabFilter text="{i18n>Restricted}" key="RESTRICTED" count="{oIconTabCountModel>/confirmCount}">
-                        <core:Fragment fragmentName="com.agel.mmts.storestock.view.fragments.ChilddetailPage.Restricted" type="XML"/>
-                    </IconTabFilter>
-
-                 
-
-                </items>
-            </IconTabBar> -->
+           
 
             <core:Fragment fragmentName="com.agel.mmts.storestock.view.fragments.ChilddetailPage.StoreStockChild" type="XML"/>
         </f:content>

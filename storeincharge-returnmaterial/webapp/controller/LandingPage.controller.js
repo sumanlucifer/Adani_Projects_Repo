@@ -34,8 +34,10 @@ sap.ui.define([
 
         onBeforeRebindRetTable: function (oSource) {
             var binding = oSource.getParameter("bindingParams");
-            var oFilter = new sap.ui.model.Filter("Status", sap.ui.model.FilterOperator.NE, "RESERVED FOR RETURN MATERIAL");
-            binding.filters.push(oFilter);
+            var oFilter1 = new sap.ui.model.Filter("Status", sap.ui.model.FilterOperator.EQ, "APPROVED");
+            var oFilter2 = new sap.ui.model.Filter("Status", sap.ui.model.FilterOperator.EQ, "REJECTED");
+            var oFilter3 = new sap.ui.model.Filter("Status", sap.ui.model.FilterOperator.EQ, "PARTIALLY APPROVED");
+            binding.filters.push(oFilter1,oFilter2,oFilter3);
         },
 
         onReturnedMaterialSummarySelect: function (oEvent) {

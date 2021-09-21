@@ -195,7 +195,7 @@ sap.ui.define([
             // var oPayload = this._constructPayload(oReturnData.ChildItemsView, "Approved");
             // this._fireApproveRequest(oPayload);
             var oObjectModelData = this.getViewModel("objectViewModel").getData();
-            oObjectModelData.returnMode = "Approved";
+            oObjectModelData.returnMode = "APPROVED";
             oObjectModelData.enableDone = true;
             this.getViewModel("objectViewModel").setData(oObjectModelData);
         },
@@ -206,7 +206,7 @@ sap.ui.define([
             // var oPayload = this._constructPayload(oReturnData.ChildItemsView, "Rejected");
             // this._fireApproveRequest(oPayload);
             var oObjectModelData = this.getViewModel("objectViewModel").getData();
-            oObjectModelData.returnMode = "Rejected";
+            oObjectModelData.returnMode = "REJECTED";
             oObjectModelData.enableDone = true;
             this.getViewModel("objectViewModel").setData(oObjectModelData);
         },
@@ -220,7 +220,7 @@ sap.ui.define([
             // else
             //     this._fireApproveRequest(oPayload);
             var oObjectModelData = this.getViewModel("objectViewModel").getData();
-            oObjectModelData.returnMode = "Partially Approved";
+            oObjectModelData.returnMode = "PARTIALLY APPROVED";
             oObjectModelData.enableDone = true;
             this.getViewModel("objectViewModel").setData(oObjectModelData);
         },

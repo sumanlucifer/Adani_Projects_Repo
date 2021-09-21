@@ -4,7 +4,7 @@
             "name": "view/fragments/ChilddetailPage/FilterBar.fragment.xml"
         },
         {
-            "name": "controller/storeStockChildDetail.controller.js"
+            "name": "controller/App.controller.js"
         },
         {
             "name": "model/models.js"
@@ -13,7 +13,7 @@
             "name": "controller/storeStockParentDetail.controller.js"
         },
         {
-            "name": "manifest.json"
+            "name": "controller/storeStockChildDetail.controller.js"
         },
         {
             "name": "controller/NotFound.controller.js"
@@ -25,7 +25,7 @@
             "name": "controller/BaseController.js"
         },
         {
-            "name": "controller/App.controller.js"
+            "name": "manifest.json"
         },
         {
             "name": "Component.js"
@@ -38,7 +38,7 @@
             "merged": true
         },
         {
-            "name": "model/models-dbg.js",
+            "name": "controller/ErrorHandler-dbg.js",
             "isDebug": true
         },
         {
@@ -54,7 +54,7 @@
             "isDebug": true
         },
         {
-            "name": "controller/ErrorHandler-dbg.js",
+            "name": "model/models-dbg.js",
             "isDebug": true
         },
         {
