@@ -5,3 +5,6 @@
 package-lock.json
 /dist/
 
+
+# auto generated wildcard
+sapui5-1/engineer-issuecancellation/.env1

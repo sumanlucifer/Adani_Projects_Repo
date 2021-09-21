@@ -4,3 +4,6 @@ package-lock.json
 /.vscode/
 /mta_archives/
 /resources/
+
+# auto generated wildcard
+sapui5-1/engineer-issuecancellation/.env1
