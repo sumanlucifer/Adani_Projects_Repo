@@ -129,6 +129,13 @@
                     "target": [
                         "TargetPODetailPage"
                     ]
+                },
+                 {
+                    "name": "POProcessFlow",
+                    "pattern": "POProcessFlow",
+                    "target": [
+                        "TargetPOProcessFlow"
+                    ]
                 }
             ],
             "targets": {
@@ -146,6 +153,13 @@
                     "clearControlAggregation": false,
                     "viewName": "PODetailPage",
                     "viewLevel": 2
+                },
+                "TargetPOProcessFlow": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewName": "POProcessFlow",
+                    "viewLevel": 3
                 }
             }
         }

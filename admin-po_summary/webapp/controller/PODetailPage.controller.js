@@ -468,7 +468,10 @@ sap.ui.define([
             this.boqDialog.then(function (oDialog) {
                 oDialog.close();
             });
-        }
+        },
 
+        onPackingListItemPress: function(){
+             this.getRouter().navTo("POProcessFlow");
+        }
     });
 });

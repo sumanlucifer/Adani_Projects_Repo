@@ -13,8 +13,11 @@
                     <Title id="pageTitle" text="Create Issue Reservation"/>
                 </f:heading>
                 <f:actions>
-                    <Button text="Save" id="idBtnSubmit" class="sapUiTinyMarginBegin" press="onSubmitReservation" type="Emphasized" />
-                    <Button text="Cancel" class="sapUiTinyMarginBegin" press="onCancelReservation" />
+                    <HBox visible="{= ${objectViewModel>/isButtonVisible} ? true : true}">
+                        <Button text="Save" id="idBtnSubmit" class="sapUiTinyMarginBegin" press="onSubmitReservation" type="Emphasized" />
+                        <Button text="Cancel" class="sapUiTinyMarginBegin" press="onCancelReservation" />
+                    </HBox>
+                    <!-- <Button text="Raise Return Material Request" press="onConfirmRequest" type="Emphasized"/> -->
                 </f:actions>
             </f:DynamicPageTitle>
         </f:title>
@@ -113,7 +116,7 @@
                         <Column>
                             <Text text="Batch"/>
                         </Column>
-                         <Column>
+                        <Column>
                             <Text text="M"/>
                         </Column>
                         <Column width="5%">

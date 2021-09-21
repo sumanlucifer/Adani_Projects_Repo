@@ -193,8 +193,8 @@
       "request": "launch",
       "program": "${workspaceFolder}/agel-mmts-web-approuter/node_modules/@sap/html5-repo-mock/index.js",
       "args": [
-        "--standalone",
-        "/comagelmmtsvendorpackinglistcreate/index.html",
+        "--flp",
+        "relative",
         "--ui5",
         "{\"version\":\".\"}"
       ],

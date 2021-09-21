@@ -115,7 +115,6 @@ sap.ui.define([
                 var MaterialCode = obj.MaterialCode;
                 var isbValid = true;
                 var ItemData = this.getView().getModel("reservationTableModel").getData();
- 
                 for (var i = 0; i < ItemData.length; i++) {
                     if (ItemData[i].Material === MaterialCode) {
                         isbValid = false;
@@ -179,7 +178,7 @@ sap.ui.define([
                     success: function (oData, oResponse) {
                         var suggestionModel = new JSONModel(oData.results);
                         this.getView().setModel(suggestionModel, "suggestionModel");
-                    
+
                     }.bind(this),
                     error: function (oError) {
                         sap.m.MessageBox.error(JSON.stringify(oError));
