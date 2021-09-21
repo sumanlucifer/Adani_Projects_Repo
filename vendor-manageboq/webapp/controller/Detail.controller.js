@@ -150,7 +150,7 @@ sap.ui.define([
 
         onLiveChangeQty: function (oEvent) {
             var oValue = oEvent.getSource().getValue();
-            if (parseInt(oValue) < 0) {
+            if (parseInt(oValue) <= 0) {
                 oEvent.getSource().setValueState("Error");
                 oEvent.getSource().setValueStateText("Please enter Positive and Non Zero Number");
             }
@@ -281,6 +281,8 @@ sap.ui.define([
             var aPayloadSelectedItem = aTableData;
             aPayloadSelectedItem.forEach(element => {
                 delete element.UOMSuggestions;
+                element.MasterUOMItemId = element.masterUOMItemId;
+                delete element.masterUOMItemId;
             });
             var sVendorID = "1";
             var sParentID = this.getView().getBindingContext().getObject().ID;
