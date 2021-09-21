@@ -51,6 +51,8 @@
                                 <Input id="idGLAccount" value="{HeaderDetailsModel>GLAccount}" />
                                 <Label text="Cost Center" required="true"/>
                                 <Input id="idCostCenter" value="{HeaderDetailsModel>CostCenter}" />
+                                <Label text="Recieving Location" required="true"/>
+                                <Input id="idRecievingLoc" value="{HeaderDetailsModel>ReceivingLocation}" />
                                 <Label></Label>
                                 <Button width="50%" class="sapUiSmallMarginTop" text="Go" type="Emphasized" press="onPressGo">
                                     <layoutData>

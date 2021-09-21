@@ -167,7 +167,7 @@ sap.ui.define([
                 IsAllItemsCancelled = false;
 
             return {
-                itemData,
+                selectedItems,
                 IsAllItemsCancelled
             };
 
@@ -176,7 +176,7 @@ sap.ui.define([
         },
         onSubmitCancelConfirmPress: function (a, itemData) {
             var IsAllItemsCancelled = itemData.IsAllItemsCancelled;
-            itemData = itemData.map(function (item) {
+            itemData = itemData.selectedItems.map(function (item) {
                 return {
                     ConsumedMaterialParentId: item.ID
                 };
@@ -185,7 +185,7 @@ sap.ui.define([
             var ConsumptionReserveId = this.getView().getModel().getData(sConsumptionReservationContext).ID;
             var oPayload = {
                 "UserName": "Agel",
-                "IsAllItemsCancelled": true,
+                "IsAllItemsCancelled": IsAllItemsCancelled,
                 "ConsumptionPostingId": this.sObjectId,
                 "ParentItem": itemData
             };
