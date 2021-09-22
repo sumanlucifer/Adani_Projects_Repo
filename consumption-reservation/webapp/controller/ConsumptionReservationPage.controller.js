@@ -60,6 +60,8 @@ sap.ui.define([
                     operator: sap.ui.model.FilterOperator.EQ,
                     value1: sGoodsReciepientValue
                 });
+
+
                 var filter = [];
                 filter.push(GoodReciepientFilter);
                 this.getOwnerComponent().getModel().read("/IssuedMaterialReserveSet", {
@@ -84,8 +86,11 @@ sap.ui.define([
                         ParentData[i].IssuedMaterials.results[j].isParent = false;
                         ParentData[i].IssuedMaterials.results[j].isSelected = false;
                         for (var k = 0; k < ParentData[i].IssuedMaterials.results[j].IssuedMaterialParents.results.length; k++) {
-                            ParentData[i].IssuedMaterials.results[j].IssuedMaterialParents.results[k].isParent = true;
+                            if (ParentData[i].IssuedMaterials.results[j].IssuedMaterialParents.results[k].Status === "ISSUED")
+
+                                ParentData[i].IssuedMaterials.results[j].IssuedMaterialParents.results[k].isParent = true;
                         }
+
                     }
                     ParentData[i].isParent = false;
                     ParentData[i].isSelected = false;
@@ -298,7 +303,7 @@ sap.ui.define([
                     success: function (oData, oResponse) {
                         if (oData.Success === true) {
                             this.getView().getModel();
-                            sap.m.MessageBox.success("The consumption reservation "  + ""  + oData.ReservationNumber + "" + " has been succesfully created for selected Items!");
+                            sap.m.MessageBox.success("The consumption reservation " + "" + oData.ReservationNumber + "" + " has been succesfully created for selected Items!");
                             this.setInitialModel();
                             var objectViewModel = this.getViewModel("objectViewModel");
                         }

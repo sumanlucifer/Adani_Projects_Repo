@@ -121,6 +121,16 @@
                                 <Input visible="{= ${TreeDataModel>isParent} ? true : false}" value="{TreeDataModel>Quantity}" />
                             </ui:template>
                         </ui:Column>
+
+                        <ui:Column>
+                            <Label text="Status"/>
+                            <ui:template>
+                                <Text  text="{TreeDataModel>Status}" />
+
+
+                                 <ObjectStatus  text="{TreeDataModel>Status}" state="{= ${TreeDataModel>Status} === 'ISSUED' ? 'Success' : ${Status} === 'RESERVED FOR ISSUE' ? 'Information' : 'Error'}" visible="{= ${Status}.length>0 ? true : false }"/>
+                            </ui:template>
+                        </ui:Column>
                     </ui:columns>
                 </ui:TreeTable>
             </VBox>
