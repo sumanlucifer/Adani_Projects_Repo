@@ -660,7 +660,7 @@ sap.ui.define([
                     oDialog.bindElement({
                         path: sParentItemPath,
                         parameters: {
-                            "expand": 'StockParentItem, PurchaseOrder, PackingListParentItems'
+                            "expand": 'RestrictedStoreStockParent, PurchaseOrder, PackingListParentItems'
                         }
                     });
                     oDialog.setTitle("Request GRN");
@@ -738,7 +738,8 @@ sap.ui.define([
                             "BillOfLading": sBillofLading,
                             "GatePassNumber": sGatePassNumber,
                             "Reference": sReference,
-                            "PackingListId": this.getView().getBindingContext().getObject().ID
+                            "PackingListId": this.getView().getBindingContext().getObject().ID,
+                            "UserName": "Agel_Sep"
                         };
                     } else {
                         var oSelectedItemData = this.byId("idGRNTable").getSelectedItem().getBindingContext().getObject();
@@ -749,7 +750,8 @@ sap.ui.define([
                             "BillOfLading": sBillofLading,
                             "GatePassNumber": sGatePassNumber,
                             "Reference": sReference,
-                            "PackingListId": parseInt(oSelectedItemData.ID)
+                            "PackingListId": parseInt(oSelectedItemData.ID),
+                            "UserName": "Agel_Sep"
                         };
                     }
                     if (oPayload) {
