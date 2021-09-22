@@ -81,7 +81,7 @@ pattern: 'MMMM dd, yyyy HH:mm:ss'
             <uxap:ObjectPageSection titleUppercase="false">
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection >
-                        <Table  id="idConsumedTable" growing="true" growingThreshold="10" items="{consumptionData>/}">
+                        <Table id="idConsumedTable" growing="true" growingThreshold="10" items="{consumptionData>/}">
                             <headerToolbar>
                                 <OverflowToolbar>
                                     <content>
@@ -91,7 +91,7 @@ pattern: 'MMMM dd, yyyy HH:mm:ss'
                             </headerToolbar>
                             <columns>
                                 <Column width="5%">
-                                <CheckBox  select="onSelectAll" ></CheckBox>
+                                    <CheckBox select="onSelectAll"></CheckBox>
                                 </Column>
                                 <Column>
                                     <Text text="Material Code"/>
