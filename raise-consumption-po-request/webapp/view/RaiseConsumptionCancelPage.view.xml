@@ -36,7 +36,7 @@
                 </uxap:snappedTitleOnMobile>
                 <uxap:actions>
                         <!-- <Button text="Done" press="onPressDone" type="Accept" visible="{objectViewModel>/doneButton}"/> -->
-                        <Button visible="{= ${Status} === 'CONSUMPTION SUCCESSFUL' ? true : ${Status} === 'CANCELLATION FAILED' ? true : false }" text="Cancel consumption posting" press="onPressCancelConsumptionPosting" type="Emphasized"/>
+                        <Button visible="{= ${Status} === 'CONSUMPTION SUCCESSFUL' ? true : ${Status} === 'CANCELLATION FAILED' ? true : ${Status} === 'PARTIALLY CANCELLED' ? true : false }" text="Cancel consumption posting" press="onPressCancelConsumptionPosting" type="Emphasized"/>
                 </uxap:actions>
             </uxap:ObjectPageDynamicHeaderTitle>
         </uxap:headerTitle>
@@ -127,7 +127,7 @@ pattern: 'MMMM dd, yyyy HH:mm:ss'
                                 <items>
                                     <ColumnListItem id="id">
                                         <cells>
-                                            <CheckBox    visible="{= ${consumptionPostedData>Status} === 'RESERVED FOR CONSUMPTION' ? true : false }"  selected="{consumptionPostedData>isSelected}"
+                                            <CheckBox    visible="{= ${consumptionPostedData>Status} === 'CONSUMPTION SUCCESSFUL' ? true : ${consumptionPostedData>Status} === 'CANCELLATION FAILED' ? true : false }"  selected="{consumptionPostedData>isSelected}"
                                            select="onSelectionOfRow" />
                                             <Text text="{consumptionPostedData>MaterialCode}"/>
                                              <Text text="{consumptionPostedData>Name}"/>

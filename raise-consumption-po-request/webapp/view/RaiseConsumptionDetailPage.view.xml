@@ -35,7 +35,7 @@
                     <Title text="{i18n>ReservationNumber}- {ReservationNumber}" wrapping="true" titleStyle="Auto"/>
                 </uxap:snappedTitleOnMobile>
                 <uxap:actions>
-                    <Button text="Post Consumption" visible="{= ${Status} === 'RESERVED FOR CONSUMPTION' ? true : ${Status} === 'PARTIALLY CONSUMED' ? true : false }" press="onPressSubmitConsumptionPosting" type="Emphasized"/>
+                    <Button text="Post Consumption" visible="{= ${Status} === 'RESERVED FOR CONSUMPTION' ? true : ${Status} === 'CONSUMPTION FAILED' ? true : ${Status} === 'PARTIALLY CONSUMED' ? true : false }" press="onPressSubmitConsumptionPosting" type="Emphasized"/>
                 </uxap:actions>
             </uxap:ObjectPageDynamicHeaderTitle>
         </uxap:headerTitle>
@@ -114,7 +114,7 @@ pattern: 'MMMM dd, yyyy HH:mm:ss'
                             <items>
                                 <ColumnListItem id="idBOQItems">
                                     <cells>
-                                        <CheckBox visible="{= ${consumptionData>Status} === 'RESERVED FOR CONSUMPTION' ? true : ${consumptionData>Status} === 'CONSUMPTION RESERVATION FAILED' ? true : false }" selected="{consumptionData>isSelected}" select="onSelectionOfRow" />
+                                        <CheckBox visible="{= ${consumptionData>Status} === 'RESERVED FOR CONSUMPTION' ? true : ${consumptionData>Status} === 'CONSUMPTION FAILED' ? true : false }" selected="{consumptionData>isSelected}" select="onSelectionOfRow" />
                                         <Text text="{consumptionData>MaterialCode}"/>
                                         <Text text="{consumptionData>Name}"/>
                                         <Text text="{consumptionData>Quantity}"/>
