@@ -70,7 +70,6 @@ sap.ui.define([
                     success: function (oData, oResponse) {
                         this.dataBuilding(oData.results);
                         this.getViewModel("objectViewModel").setProperty("/isItemFieldsVisible", true);
-                        debugger;
                     }.bind(this),
                     error: function (oError) {
                         sap.m.MessageBox.error(JSON.stringify(oError));
@@ -91,7 +90,6 @@ sap.ui.define([
                     ParentData[i].isParent = false;
                     ParentData[i].isSelected = false;
                 }
-                debugger;
                 var TreeDataModel = new JSONModel({ "results": ParentData });
                 this.getView().setModel(TreeDataModel, "TreeDataModel");
                 var data = this.ChildData;

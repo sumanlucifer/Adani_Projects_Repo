@@ -35,11 +35,8 @@
                     <Title text="{i18n>MaterialDocumentNumber}- {MaterialDocumentNumber}" wrapping="true" titleStyle="Auto"/>
                 </uxap:snappedTitleOnMobile>
                 <uxap:actions>
-                 
                         <!-- <Button text="Done" press="onPressDone" type="Accept" visible="{objectViewModel>/doneButton}"/> -->
-                        
-                        <Button visible="{= ${!Status} === 'ALL CONSUMED ITEMS CANCELLED'}" text="Cancel consumption posting" press="onPressCancelConsumptionPosting" type="Emphasized"/>
-                  
+                        <Button visible="{= ${Status} === 'CONSUMPTION SUCCESSFUL' ? true : ${Status} === 'CANCELLATION FAILED' ? true : false }" text="Cancel consumption posting" press="onPressCancelConsumptionPosting" type="Emphasized"/>
                 </uxap:actions>
             </uxap:ObjectPageDynamicHeaderTitle>
         </uxap:headerTitle>
@@ -79,11 +76,10 @@ pattern: 'MMMM dd, yyyy HH:mm:ss'
                             <!-- missing -->
                             <Text text="{ReservationNumber}"/>
                         </VBox>
-
                          <VBox renderType="Bare" class="sapUiMediumMarginEnd">
                             <Label text="{i18n>status}" />
                             <!-- missing -->
-                            <ObjectStatus text="{Status}" state="{= ${Status} === 'POSTED' ? 'Success' : ${Status} === 'RESERVED' ? 'Information' : 'Error'}" visible="{= ${Status}.length>0 ? true : false }"/>
+                            <ObjectStatus text="{Status}" state="{= ${Status} === 'CONSUMPTION SUCCESSFUL' ? 'Success' : ${Status} === 'RESERVED' ? 'Information' : 'Error'}" visible="{= ${Status}.length>0 ? true : false }"/>
                         </VBox>
                     </FlexBox>
                 </VBox>
@@ -102,20 +98,19 @@ pattern: 'MMMM dd, yyyy HH:mm:ss'
                                 <headerToolbar>
                                     <OverflowToolbar>
                                         <content>
-                                         
                                         </content>
                                     </OverflowToolbar>
                                 </headerToolbar>
                                 <columns>
-                                  
+                                    <Column width="5%">
+                                <CheckBox  select="onSelectAll" ></CheckBox>
+                                </Column>
                                     <Column>
                                         <Text text="Material Code"/>
                                     </Column>
-
                                      <Column>
                                         <Text text="Description"/>
                                     </Column>
-                                   
                                     <Column demandPopin="true" minScreenWidth="Tablet">
                                         <Text text="Plant"/>
                                     </Column>
@@ -125,25 +120,21 @@ pattern: 'MMMM dd, yyyy HH:mm:ss'
                                     <Column demandPopin="true" minScreenWidth="Tablet">
                                         <Text text="StorageLocation"/>
                                     </Column>
-
                                      <Column demandPopin="true" minScreenWidth="Tablet">
                                         <Text text="Status"/>
                                     </Column>
-                                    <Column width="5%">
-                                    </Column>
                                 </columns>
                                 <items>
-                                    <ColumnListItem id="idBOQItems">
+                                    <ColumnListItem id="id">
                                         <cells>
-                                           
+                                            <CheckBox    visible="{= ${consumptionPostedData>Status} === 'RESERVED FOR CONSUMPTION' ? true : false }"  selected="{consumptionPostedData>isSelected}"
+                                           select="onSelectionOfRow" />
                                             <Text text="{consumptionPostedData>MaterialCode}"/>
                                              <Text text="{consumptionPostedData>Name}"/>
                                             <Text  text="{consumptionPostedData>Plant}"/>
                                               <Text  text="{consumptionPostedData>Quantity}"/>
                                           <Text text="{consumptionPostedData>StorageLocation}"/>
-                                           <ObjectStatus text="{consumptionPostedData>Status}" state="{= ${consumptionPostedData>Status} === 'RESERVED FOR CONSUMPTION' ? 'Success' : ${Status} === 'CONSUMPTION CANCELLED' ? 'Information' : 'Error'}" visible="{= ${Status}.length>0 ? true : false }"/>
-                                           <CheckBox    visible="{= ${consumptionPostedData>Status} === 'RESERVED FOR CONSUMPTION' ? true : false }"  selected="{consumptionPostedData>isSelected}"
-                                           select="onSelectionOfRow" />
+                                           <ObjectStatus text="{consumptionPostedData>Status}" state="{= ${consumptionPostedData>Status} === 'CONSUMPTION SUCCESSFUL' ? 'Success' : ${Status} === 'CONSUMPTION CANCELLED' ? 'Information' : 'Error'}" visible="{= ${Status}.length>0 ? true : false }"/>
                                         </cells>
                                     </ColumnListItem>
                                 </items>

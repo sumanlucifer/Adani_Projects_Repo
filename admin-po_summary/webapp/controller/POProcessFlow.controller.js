@@ -14,7 +14,7 @@ sap.ui.define([
 
     return BaseController.extend("com.agel.mmts.adminposummary.controller.POProcessFlow", {
     	onInit: function () {
-			var sDataPath = sap.ui.require.toUrl("sap/suite/ui/commons/sample/ProcessFlowMergedLanes/ProcessFlowNodes.json");
+			var sDataPath = sap.ui.require.toUrl("com/agel/mmts/adminposummary/model/ProcessFlowNodes.json");
 			var oModel = new JSONModel(sDataPath);
 			this.getView().setModel(oModel);
 

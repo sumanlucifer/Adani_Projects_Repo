@@ -15,7 +15,10 @@
                     <Title id="pageTitle" text="Create Return Reservation"/>
                 </f:heading>
                 <f:actions>
-                    <!-- <Button text="Raise Return Material Request" press="onConfirmRequest" type="Emphasized"/> -->
+                  <HBox visible="{= ${objectViewModel>/isItemFieldsVisible} ? true : false}" >
+                   <Button text="Save" class="sapUiTinyMarginBegin" press="onSubmitReservation" type="Emphasized" />
+                <Button text="Cancel" class="sapUiTinyMarginBegin" press="onCancelReservation" />
+                  </HBox>
                 </f:actions>
             </f:DynamicPageTitle>
         </f:title>
@@ -48,6 +51,8 @@
                                 <Input id="idGLAccount" value="{HeaderDetailsModel>GLAccount}" />
                                 <Label text="Cost Center" required="true"/>
                                 <Input id="idCostCenter" value="{HeaderDetailsModel>CostCenter}" />
+                                <Label text="Recieving Location" required="true"/>
+                                <Input id="idRecievingLoc" value="{HeaderDetailsModel>ReceivingLocation}" />
                                 <Label></Label>
                                 <Button width="50%" class="sapUiSmallMarginTop" text="Go" type="Emphasized" press="onPressGo">
                                     <layoutData>
@@ -122,13 +127,13 @@
                 </ui:TreeTable>
             </VBox>
         </f:content>
-        <f:footer>
+        <!-- <f:footer>
             <OverflowToolbar visible="{= ${objectViewModel>/isItemFieldsVisible} ? true : false}">
                 <ToolbarSpacer/>
                 <Button text="Save" class="sapUiTinyMarginBegin" press="onSubmitReservation" type="Emphasized" />
                 <Button text="Cancel" class="sapUiTinyMarginBegin" press="onCancelReservation" />
             </OverflowToolbar>
-        </f:footer>
+        </f:footer> -->
     </f:DynamicPage>
 </mvc:View>
 

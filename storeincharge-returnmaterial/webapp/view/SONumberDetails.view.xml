@@ -123,16 +123,16 @@
                                 <OverflowToolbar style="Clear">
                                     <Title id="title" text="{i18n>TreeTableViewTitle}"/>
                                     <ToolbarSpacer/>
-                                    <Button text="Approve All" press="onApproveAllPress" type="Accept" icon="sap-icon://accept" enabled="{= ${Status} !== 'PENDING'? false : !${objectViewModel>/partialApproval}}"/>
-                                    <Button text="{i18n>PartialApprove}" press="onPartialApprovePress" enabled="{= ${Status} !== 'PENDING'? false : ${objectViewModel>/partialApproval}}"/>
-                                    <Button text="Reject All" press="onRejectAllPress" type="Reject" icon="sap-icon://decline" enabled="{= ${Status} !== 'PENDING'? false : !${objectViewModel>/partialApproval}}"/>
+                                    <Button text="Approve All" press="onApproveAllPress" type="Accept" icon="sap-icon://accept" enabled="{= ${Status} !== 'RESERVED FOR RETURN MATERIAL'? false : !${objectViewModel>/partialApproval}}"/>
+                                    <Button text="{i18n>PartialApprove}" press="onPartialApprovePress" enabled="{= ${Status} !== 'RESERVED FOR RETURN MATERIAL'? false : ${objectViewModel>/partialApproval}}"/>
+                                    <Button text="Reject All" press="onRejectAllPress" type="Reject" icon="sap-icon://decline" enabled="{= ${Status} !== 'RESERVED FOR RETURN MATERIAL'? false : !${objectViewModel>/partialApproval}}"/>
                                 </OverflowToolbar>
                             </tt:extension>
                             <tt:columns>
                                 <tt:Column>
                                     <Label text="" />
                                     <tt:template>
-                                        <CheckBox select="onReturnItemSelect" selected="{TreeTableModelView>isSelected}" visible="{=  ${Status} === 'PENDING' &amp;&amp; ${TreeTableModelView>selectable} &amp;&amp; ${TreeTableModelView>RequirementQuantity} > 0 }" />
+                                        <CheckBox select="onReturnItemSelect" selected="{TreeTableModelView>isSelected}" visible="{=  ${Status} === 'RESERVED FOR RETURN MATERIAL' &amp;&amp; ${TreeTableModelView>selectable} &amp;&amp; ${TreeTableModelView>RequirementQuantity} > 0 }" />
                                     </tt:template>
                                 </tt:Column>
                                 <tt:Column>
@@ -156,7 +156,7 @@
                                 <tt:Column>
                                     <Label text="Name"/>
                                     <tt:template>
-                                        <Text text="{TreeTableModelView>Name}" wrapping="false" />
+                                        <Text text="{TreeTableModelView>Name}" wrapping="false" /> 
                                     </tt:template>
                                 </tt:Column>     
                                 <tt:Column>

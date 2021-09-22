@@ -28,28 +28,30 @@ sap.ui.define([
 
         onBeforeRebindReqTable: function (oSource) {
             var binding = oSource.getParameter("bindingParams");
-            var oFilter = new sap.ui.model.Filter("Status", sap.ui.model.FilterOperator.EQ, "RESERVED");
+            var oFilter = new sap.ui.model.Filter("Status", sap.ui.model.FilterOperator.EQ, "RESERVED FOR RETURN MATERIAL");
             binding.filters.push(oFilter);
         },
 
         onBeforeRebindRetTable: function (oSource) {
             var binding = oSource.getParameter("bindingParams");
-            var oFilter = new sap.ui.model.Filter("Status", sap.ui.model.FilterOperator.NE, "RESERVED");
-            binding.filters.push(oFilter);
+            var oFilter1 = new sap.ui.model.Filter("Status", sap.ui.model.FilterOperator.EQ, "APPROVED");
+            var oFilter2 = new sap.ui.model.Filter("Status", sap.ui.model.FilterOperator.EQ, "REJECTED");
+            var oFilter3 = new sap.ui.model.Filter("Status", sap.ui.model.FilterOperator.EQ, "PARTIALLY APPROVED");
+            binding.filters.push(oFilter1,oFilter2,oFilter3);
         },
 
-        onReturnMaterialSelect: function (oEvent) {
+        onReturnedMaterialSummarySelect: function (oEvent) {
             var ReturnId = oEvent.getSource().getBindingContextPath();
             // var SOId = this.getViewModel().getData(ReturnId+'/SONumberId').ID;
             ReturnId = ReturnId.match(/\((.*?)l/)[1];
             var oRouter = this.getOwnerComponent().getRouter();
             oRouter.navTo("Summary", {
-                ReturnId: ReturnId
+                id: ReturnId
                 // SOId: SOId
             })
         },
 
-        onReturnedMaterialSummarySelect: function (oEvent) {
+        onReturnMaterialSelect: function (oEvent) {
             var ReturnId = oEvent.getSource().getBindingContextPath();
             // var SOId = this.getViewModel().getData(ReturnId+'/SONumberId').ID;
             ReturnId = ReturnId.match(/\((.*?)l/)[1];

@@ -76,6 +76,10 @@ sap.ui.define([
             });
         },
 
+        handleToIssueMatBreadcrumPress: function(){
+            this.getRouter().navTo("RouteLandingPage");
+        },
+
         onFileDeleted: function (oEvent) {
             this.deleteItemById(oEvent.getParameter("documentId"));
             //	MessageToast.show("FileDeleted event triggered.");
@@ -141,7 +145,7 @@ sap.ui.define([
             // debugger;
             var that = this;
             var MaterialID= this.sObjectId;
-            var  weight= this.getView().byId("idTotalGrossWeight").getValue();
+            var weight= this.getView().byId("idTotalGrossWeight").getValue();
             var oPayload = {
                 "TotalGrossWeight": weight,
                 "IssuedMaterialId": MaterialID,
@@ -150,9 +154,8 @@ sap.ui.define([
 
             this.getOwnerComponent().getModel().create("/IssueMaterialConfirmationEdmSet", oPayload, {
                 success: function (oData, oResponse) {
-                    sap.m.MessageBox.success("The Issue Material is now confirmed");
+                    sap.m.MessageToast.show("The Requested Material is Issued");
                     this.getOwnerComponent().getModel().refresh();
-                    debugger;
                     this.getRouter().navTo("RouteLandingPage");
                 }.bind(this),
                 error: function (oError) {

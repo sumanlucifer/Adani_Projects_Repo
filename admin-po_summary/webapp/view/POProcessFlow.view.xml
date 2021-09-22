@@ -8,7 +8,7 @@
 		<m:HBox renderType="Bare">
 			<m:Button text="Zoom In" press="onZoomIn" />
 			<m:Button text="Zoom Out" press="onZoomOut" />
-			<m:Button text="Update Nodes Content" press="onUpdateModel" />
+			<!-- <m:Button text="Update Nodes Content" press="onUpdateModel" /> -->
 		</m:HBox>
 		<ProcessFlow
 			id="processflow"
