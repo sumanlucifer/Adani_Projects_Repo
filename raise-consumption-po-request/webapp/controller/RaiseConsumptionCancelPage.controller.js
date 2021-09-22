@@ -26,7 +26,7 @@ sap.ui.define([
             this.getView().addEventDelegate({
                 onAfterShow: this.onBeforeShow,
             }, this);
-            //view model instatiation
+            //view model instatiations
             var oViewModel = new JSONModel({
                 busy: false,
                 delay: 0,
