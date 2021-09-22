@@ -1,1 +1,0 @@
-sap.ui.define(["./BaseController"],function(e){"use strict";return e.extend("com.agel.mmts.storestock.controller.NotFound",{})});
