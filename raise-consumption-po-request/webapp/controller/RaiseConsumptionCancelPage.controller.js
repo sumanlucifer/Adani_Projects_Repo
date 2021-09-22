@@ -198,10 +198,10 @@ sap.ui.define([
                     else {
                         sap.m.MessageBox.error(oData.Message);
                     }
-                    debugger;
+                  
                 }.bind(this),
                 error: function (oError) {
-                    debugger;
+                
                     sap.m.MessageBox.error("Data Not Found");
                 }
             });
