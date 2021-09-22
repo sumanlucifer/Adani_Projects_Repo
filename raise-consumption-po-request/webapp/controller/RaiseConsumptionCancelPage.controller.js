@@ -26,7 +26,7 @@ sap.ui.define([
             this.getView().addEventDelegate({
                 onAfterShow: this.onBeforeShow,
             }, this);
-            //view model instatiation
+            //view model instatiations
             var oViewModel = new JSONModel({
                 busy: false,
                 delay: 0,
@@ -198,10 +198,10 @@ sap.ui.define([
                     else {
                         sap.m.MessageBox.error(oData.Message);
                     }
-                    debugger;
+                  
                 }.bind(this),
                 error: function (oError) {
-                    debugger;
+                
                     sap.m.MessageBox.error("Data Not Found");
                 }
             });
