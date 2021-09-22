@@ -156,35 +156,21 @@ sap.ui.define([
         onSelectAll: function (oeve) {
             var isSelected = oeve.getSource().getSelected();
             var ItemData = this.getView().getModel("consumptionData").getData();
+              var totalItems = ItemData.filter(function (item) {
+                return (item.Status === "RESERVED FOR CONSUMPTION" || item.Status === "CONSUMPTION RESERVATION FAILED");
+            });
             if (isSelected) {
-                for (var i = 0; i < ItemData.length; i++) {
-                    ItemData[i].isSelected = true;
-
-                    //     if (ItemData[i].Status === 'RESERVED FOR CONSUMPTION' || ItemData[i].Status === "CONSUMPTION RESERVATION FAILED") {
-
-                    //     ItemData[i].isSelected = true;
-                    // }
-
-
-
+                for (var i = 0; i < totalItems.length; i++) {
+                    totalItems[i].isSelected = true;
                 }
             }
             else {
                 for (var i = 0; i < ItemData.length; i++) {
-                    ItemData[i].isSelected = false;
-
-
-                    // if (ItemData[i].Status === 'RESERVED FOR CONSUMPTION' || ItemData[i].Status === "CONSUMPTION RESERVATION FAILED") {
-
-                    //     ItemData[i].isSelected = false;
-                    // }
-
+                    totalItems[i].isSelected = false;
                 }
             }
-            this.getView().getModel("consumptionData").setData(ItemData);
+            this.getView().getModel("consumptionData").setData(totalItems);
         },
-
-
         onSubmitButtonConfirmPress: function (CID, itemData) {
             var IsAllItemsConsumed = itemData.IsAllItemsConsumed;
             itemData = itemData.selectedItems.map(function (item) {
