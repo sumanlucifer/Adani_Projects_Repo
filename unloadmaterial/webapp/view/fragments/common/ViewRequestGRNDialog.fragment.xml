@@ -26,13 +26,13 @@
                         <Label text="{i18n>PONo}"/>
                         <Text text="{PONumber}" binding="{PurchaseOrder}"/>
                         <Label text="{i18n>LineNo}"/>
-                        <Text text="{LineNumber}" binding="{StockParentItem}"/>
+                        <Text text="{LineNumber}" binding="{RestrictedStoreStockParent}"/>
                         <!-- <Label text="Movement Type"/>
                         <Text text="{MovementType}"/> -->
                         <Label text="{i18n>MatCode}"/>
-                        <Text text="{MaterialCode}" binding="{StockParentItem}"/>
+                        <Text text="{MaterialCode}" binding="{RestrictedStoreStockParent}"/>
                         <Label text="{i18n>Plant}"/>
-                        <Text text="{PlantCode}" binding="{StockParentItem}"/>
+                        <Text text="{PlantCode}" binding="{RestrictedStoreStockParent}"/>
                         <Label text="{i18n>StorageLocation}"/>
                         <Text text="{StorageLocation}" binding="{PackingListParentItems}"/>
                         <Label text="{i18n>BatchNumber}"/>
@@ -40,9 +40,9 @@
                         <!-- <Label text="Valuation Type"/>
                         <Text text="{ValuationType}"/> -->
                         <Label text="{i18n>Qty}"/>
-                        <Text text="{Qty}" binding="{StockParentItem}"/>
+                        <Text text="{Qty}" binding="{RestrictedStoreStockParent}"/>
                         <Label text="{i18n>BaseUnit}"/>
-                        <Text text="{UOM}" binding="{StockParentItem}"/>
+                        <Text text="{UOM}" binding="{RestrictedStoreStockParent}"/>
                         <Label text="{i18n>DeliveryNote}"></Label>
                         <Input value="{requestModel>/delivery}" liveChange="onDeliveryNoteLiveChange" type="Text" valueState="{requestModel>/valueState}" valueStateText="{requestModel>/valueStateText}"></Input>
                         <Label text="{i18n>TotalPackagingWeight}"></Label>
