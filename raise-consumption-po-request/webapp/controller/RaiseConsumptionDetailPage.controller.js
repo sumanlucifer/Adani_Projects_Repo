@@ -159,11 +159,25 @@ sap.ui.define([
             if (isSelected) {
                 for (var i = 0; i < ItemData.length; i++) {
                     ItemData[i].isSelected = true;
+
+                    //     if (ItemData[i].Status === 'RESERVED FOR CONSUMPTION' || ItemData[i].Status === "CONSUMPTION RESERVATION FAILED") {
+
+                    //     ItemData[i].isSelected = true;
+                    // }
+
+
+
                 }
             }
             else {
                 for (var i = 0; i < ItemData.length; i++) {
                     ItemData[i].isSelected = false;
+
+
+                    // if (ItemData[i].Status === 'RESERVED FOR CONSUMPTION' || ItemData[i].Status === "CONSUMPTION RESERVATION FAILED") {
+
+                    //     ItemData[i].isSelected = false;
+                    // }
 
                 }
             }

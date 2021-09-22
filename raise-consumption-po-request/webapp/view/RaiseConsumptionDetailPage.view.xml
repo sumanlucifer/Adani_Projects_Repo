@@ -66,7 +66,7 @@ pattern: 'MMMM dd, yyyy HH:mm:ss'
                         <VBox renderType="Bare" class="sapUiMediumMarginEnd">
                             <Label text="{i18n>status}" />
                             <!-- missing -->
-                            <ObjectStatus text="{Status}" state="{= ${Status} === 'POSTED' ? 'Success' : ${Status} === 'RESERVED' ? 'Information' : 'Error'}" visible="{= ${Status}.length>0 ? true : false }"/>
+                            <ObjectStatus text="{Status}" state="{= ${Status} === 'ALL RESERVED ITEMS CONSUMED' ? 'Success' : ${Status} === 'RESERVED' ? 'Information' : 'Error'}" visible="{= ${Status}.length>0 ? true : false }"/>
                         </VBox>
                     </FlexBox>
                 </VBox>
@@ -81,7 +81,7 @@ pattern: 'MMMM dd, yyyy HH:mm:ss'
             <uxap:ObjectPageSection titleUppercase="false">
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection >
-                        <Table  id="idConsumedTable" growing="true" growingThreshold="10" items="{consumptionData>/}">
+                        <Table id="idConsumedTable" growing="true" growingThreshold="10" items="{consumptionData>/}">
                             <headerToolbar>
                                 <OverflowToolbar>
                                     <content>
@@ -91,7 +91,7 @@ pattern: 'MMMM dd, yyyy HH:mm:ss'
                             </headerToolbar>
                             <columns>
                                 <Column width="5%">
-                                <CheckBox  select="onSelectAll" ></CheckBox>
+                                    <CheckBox select="onSelectAll"></CheckBox>
                                 </Column>
                                 <Column>
                                     <Text text="Material Code"/>
@@ -119,7 +119,7 @@ pattern: 'MMMM dd, yyyy HH:mm:ss'
                                         <Text text="{consumptionData>Name}"/>
                                         <Text text="{consumptionData>Quantity}"/>
                                         <Text text="{consumptionData>Plant}"/>
-                                        <ObjectStatus text="{consumptionData>Status}" state="{= ${consumptionData>Status} === 'POSTED' ? 'Success' : ${Status} === 'RESERVED' ? 'Information' : 'Error'}" visible="{= ${Status}.length>0 ? true : false }"/>
+                                        <ObjectStatus text="{consumptionData>Status}" state="{= ${consumptionData>Status} === 'CONSUMPTION SUCCESSFUL' ? 'Success' : ${Status} === 'RESERVED' ? 'Information' : 'Error'}" visible="{= ${Status}.length>0 ? true : false }"/>
 
                                     </cells>
                                 </ColumnListItem>

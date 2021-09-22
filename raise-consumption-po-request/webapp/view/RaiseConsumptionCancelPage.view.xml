@@ -36,7 +36,7 @@
                 </uxap:snappedTitleOnMobile>
                 <uxap:actions>
                         <!-- <Button text="Done" press="onPressDone" type="Accept" visible="{objectViewModel>/doneButton}"/> -->
-                        <Button visible="{= ${!Status} === 'ALL CONSUMED ITEMS CANCELLED'}" text="Cancel consumption posting" press="onPressCancelConsumptionPosting" type="Emphasized"/>
+                        <Button visible="{= ${Status} === 'CONSUMPTION SUCCESSFUL' ? true : ${Status} === 'CANCELLATION FAILED' ? true : false }" text="Cancel consumption posting" press="onPressCancelConsumptionPosting" type="Emphasized"/>
                 </uxap:actions>
             </uxap:ObjectPageDynamicHeaderTitle>
         </uxap:headerTitle>
@@ -79,7 +79,7 @@ pattern: 'MMMM dd, yyyy HH:mm:ss'
                          <VBox renderType="Bare" class="sapUiMediumMarginEnd">
                             <Label text="{i18n>status}" />
                             <!-- missing -->
-                            <ObjectStatus text="{Status}" state="{= ${Status} === 'POSTED' ? 'Success' : ${Status} === 'RESERVED' ? 'Information' : 'Error'}" visible="{= ${Status}.length>0 ? true : false }"/>
+                            <ObjectStatus text="{Status}" state="{= ${Status} === 'CONSUMPTION SUCCESSFUL' ? 'Success' : ${Status} === 'RESERVED' ? 'Information' : 'Error'}" visible="{= ${Status}.length>0 ? true : false }"/>
                         </VBox>
                     </FlexBox>
                 </VBox>
@@ -134,7 +134,7 @@ pattern: 'MMMM dd, yyyy HH:mm:ss'
                                             <Text  text="{consumptionPostedData>Plant}"/>
                                               <Text  text="{consumptionPostedData>Quantity}"/>
                                           <Text text="{consumptionPostedData>StorageLocation}"/>
-                                           <ObjectStatus text="{consumptionPostedData>Status}" state="{= ${consumptionPostedData>Status} === 'RESERVED FOR CONSUMPTION' ? 'Success' : ${Status} === 'CONSUMPTION CANCELLED' ? 'Information' : 'Error'}" visible="{= ${Status}.length>0 ? true : false }"/>
+                                           <ObjectStatus text="{consumptionPostedData>Status}" state="{= ${consumptionPostedData>Status} === 'CONSUMPTION SUCCESSFUL' ? 'Success' : ${Status} === 'CONSUMPTION CANCELLED' ? 'Information' : 'Error'}" visible="{= ${Status}.length>0 ? true : false }"/>
                                         </cells>
                                     </ColumnListItem>
                                 </items>
