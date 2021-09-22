@@ -79,7 +79,7 @@ pattern: 'MMMM dd, yyyy HH:mm:ss'
                          <VBox renderType="Bare" class="sapUiMediumMarginEnd">
                             <Label text="{i18n>status}" />
                             <!-- missing -->
-                            <ObjectStatus text="{Status}" state="{= ${Status} === 'CONSUMPTION SUCCESSFUL' ? 'Success' : ${Status} === 'RESERVED' ? 'Information' : 'Error'}" visible="{= ${Status}.length>0 ? true : false }"/>
+                            <ObjectStatus text="{Status}" state="{= ${Status} === 'CONSUMPTION SUCCESSFUL' ? 'Success' : ${Status} === 'PARTIALLY CANCELLED' ? 'Information' : 'Error'}" visible="{= ${Status}.length>0 ? true : false }"/>
                         </VBox>
                     </FlexBox>
                 </VBox>
