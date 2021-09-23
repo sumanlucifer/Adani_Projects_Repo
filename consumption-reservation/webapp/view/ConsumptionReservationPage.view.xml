@@ -15,7 +15,7 @@
                 </f:heading>
                 <f:actions>
                     <HBox visible="{= ${objectViewModel>/isItemFieldsVisible} ? true : false}">
-                        <Button text="Save" class="sapUiTinyMarginBegin" press="onSubmitReservation" type="Emphasized" />
+                        <Button text="Save" id="idBtnSave" class="sapUiTinyMarginBegin" press="onSubmitReservation" type="Emphasized" />
                         <Button text="Cancel" class="sapUiTinyMarginBegin" press="onCancelReservation" />
                     </HBox>
                     <!-- <Button text="Raise Return Material Request" press="onConfirmRequest" type="Emphasized"/> -->
@@ -106,15 +106,15 @@
                             </ui:template>
                         </ui:Column>
                         <ui:Column>
-                            <Label text="Balanced Quantityty"/>
+                            <Label text="Balanced Quantity"/>
                             <ui:template>
                                 <Text text="{TreeDataModel>BalanceQty}" wrapping="false" />
                             </ui:template>
                         </ui:Column>
                         <ui:Column>
-                            <Label text="ReservedQty"/>
+                            <Label text="Reserved Quantity"/>
                             <ui:template>
-                                <Input visible="{= ${TreeDataModel>isParent} ? true : false}" value="{TreeDataModel>Quantity}" />
+                                <Input  liveChange="onLiveChangeReservedQty" visible="{= ${TreeDataModel>isParent} ? true : false}" value="{TreeDataModel>Quantity}" />
                             </ui:template>
                         </ui:Column>
                         <ui:Column>

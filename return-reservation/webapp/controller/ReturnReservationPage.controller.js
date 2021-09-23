@@ -118,22 +118,31 @@ sap.ui.define([
                 });
                 oModel.setData(oItems);
             },
-            onDeleteReservationItemPress: function (oEvent) {
-                this.packingListObj = oEvent.getSource().getBindingContext("reservationTableModel").getObject();
-                var iRowNumberToDelete = parseInt(oEvent.getSource().getBindingContext("reservationTableModel").getPath().slice("/".length));
-                var aTableData = this.getViewModel("reservationTableModel").getProperty("/");
-                aTableData.splice(iRowNumberToDelete, 1);
-                this.getView().getModel("reservationTableModel").refresh();
-            },
-            _handleMessageBoxOpen: function (sMessage, sMessageBoxType, iRowNumberToDelete) {
-                MessageBox[sMessageBoxType](sMessage, {
-                    actions: [MessageBox.Action.YES, MessageBox.Action.NO],
-                    onClose: function (iRowNumberToDelete, oAction) {
-                        if (oAction === MessageBox.Action.YES) {
-                            this._deleteBOQRow(iRowNumberToDelete);
-                        }
-                    }.bind(this, iRowNumberToDelete)
-                });
+            onLiveChangeReservedQty: function (oEvent) {
+                var rowObj = oEvent.getSource().getParent().getRowBindingContext().getObject();
+                var ReservedQty = oEvent.getSource().getParent().getCells()[7].getValue();
+                var aCell = oEvent.getSource().getParent().getCells()[7];
+
+                if (ReservedQty === "") {
+                    aCell.setValueState("Error");
+                    aCell.setValueStateText("Please enter quantity ")
+                    this.getView().byId("idBtnSave").setEnabled(false);
+                } 
+
+                else  if (parseInt(ReservedQty) < 0) {
+                    aCell.setValueState("Error");
+                    aCell.setValueStateText("Please enter quantity greater than 0 or positive value")
+                    this.getView().byId("idBtnSave").setEnabled(false);
+                } 
+              else  if (parseInt(ReservedQty) > parseInt(rowObj.BalanceQty)) {
+                    aCell.setValueState("Error");
+                    aCell.setValueStateText("Please enter quantity lesser than or equal to balance quantity")
+                    this.getView().byId("idBtnSave").setEnabled(false);
+                } 
+                else {
+                    aCell.setValueState("None");
+                    this.getView().byId("idBtnSave").setEnabled(true);
+                }
             },
             onMaterialCodeChange: function (oEvent) {
                 var reservationListObj = oEvent.getParameter("selectedRow").getBindingContext().getObject();

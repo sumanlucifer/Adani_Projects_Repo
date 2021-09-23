@@ -16,7 +16,7 @@
                 </f:heading>
                 <f:actions>
                   <HBox visible="{= ${objectViewModel>/isItemFieldsVisible} ? true : false}" >
-                   <Button text="Save" class="sapUiTinyMarginBegin" press="onSubmitReservation" type="Emphasized" />
+                   <Button text="Save" id="idBtnSave" class="sapUiTinyMarginBegin" press="onSubmitReservation" type="Emphasized" />
                 <Button text="Cancel" class="sapUiTinyMarginBegin" press="onCancelReservation" />
                   </HBox>
                 </f:actions>
@@ -99,28 +99,35 @@
                             </ui:template>
                         </ui:Column>
                         <ui:Column>
-                            <Label text="StorageLocation"/>
+                            <Label text="Storage Location"/>
                             <ui:template>
                                 <Text text="{TreeDataModel>StorageLocation}" wrapping="false" />
                             </ui:template>
                         </ui:Column>
                         <ui:Column>
-                            <Label text="IssuedQty"/>
+                            <Label text="Issued Quantity"/>
                             <ui:template>
                                 <Text text="{TreeDataModel>IssuedQty}" wrapping="false" />
                             </ui:template>
                         </ui:Column>
 
                         <ui:Column>
-                            <Label text="BalancedQty"/>
+                            <Label text="Balanced Quantity"/>
                             <ui:template>
                                 <Text text="{TreeDataModel>BalanceQty}" wrapping="false" />
                             </ui:template>
                         </ui:Column>
                         <ui:Column>
-                            <Label text="ReservedQty"/>
+                            <Label text="Reserved Quantity"/>
                             <ui:template>
-                                <Input visible="{= ${TreeDataModel>isParent} ? true : false}" value="{TreeDataModel>Quantity}"  />
+                                <Input liveChange="onLiveChangeReservedQty" visible="{= ${TreeDataModel>isParent} ? true : false}" value="{TreeDataModel>Quantity}"  />
+                            </ui:template>
+                        </ui:Column>
+
+                         <ui:Column>
+                            <Label   text="Status"/>
+                            <ui:template>
+                                 <ObjectStatus  text="{TreeDataModel>Status}"  state="{= ${TreeDataModel>Status} === 'ISSUED' ? 'Success' : ${Status} === 'RESERVED FOR ISSUE' ? 'Information' : 'Error'}" visible="{= ${Status}.length>0 ? true : false }"/>
                             </ui:template>
                         </ui:Column>
                     </ui:columns>
