@@ -14,7 +14,6 @@
                     <Title id="pageTitle" text="Create Consumption Reservation"/>
                 </f:heading>
                 <f:actions>
-
                     <HBox visible="{= ${objectViewModel>/isItemFieldsVisible} ? true : false}">
                         <Button text="Save" class="sapUiTinyMarginBegin" press="onSubmitReservation" type="Emphasized" />
                         <Button text="Cancel" class="sapUiTinyMarginBegin" press="onCancelReservation" />
@@ -46,7 +45,7 @@
                                     <core:Item key="{PlantId}" text="{PlantId} - {Name}" />
                                 </Select>
                                 <!-- <core:Title ></core:Title> -->
-                                <Label text="ProfitCenter" required="true"/>
+                                <Label text="Profit Center" required="true"/>
                                 <Input id="idProfitCenter" value="{HeaderDetailsModel>ProfitCenter}" />
                                 <Label text="GL Account" required="true"/>
                                 <Input id="idGLAccount" value="{HeaderDetailsModel>GLAccount}" />
@@ -70,16 +69,14 @@
             <VBox>
                 <ui:TreeTable visible="{= ${objectViewModel>/isItemFieldsVisible} ? true : false}" id="TreeTable" rows="{path:'TreeDataModel>/', parameters: {arrayNames:['results']}}" selectionMode="None" enableSelectAll="false" ariaLabelledBy="title" rowsUpdated="onRowsUpdated">
                     <ui:columns>
-
                         <ui:Column width="8%" hAlign="Center">
                             <Label text="Select" />
                             <ui:template>
                                 <CheckBox visible="{= ${TreeDataModel>isParent} ? true : false}" selected="{TreeDataModel>isSelected}" select="onSelectionOfRow" />
                             </ui:template>
                         </ui:Column>
-
                         <ui:Column>
-                            <Label text="MaterialCode"/>
+                            <Label text="Material Code"/>
                             <ui:template>
                                 <Text text="{TreeDataModel>MaterialCode}" wrapping="false" />
                             </ui:template>
@@ -97,20 +94,19 @@
                             </ui:template>
                         </ui:Column>
                         <ui:Column>
-                            <Label text="StorageLocation"/>
+                            <Label text="Storage Location"/>
                             <ui:template>
                                 <Text text="{TreeDataModel>StorageLocation}" wrapping="false" />
                             </ui:template>
                         </ui:Column>
                         <ui:Column>
-                            <Label text="IssuedQty"/>
+                            <Label text="Issued Quantity"/>
                             <ui:template>
                                 <Text text="{TreeDataModel>IssuedQty}" wrapping="false" />
                             </ui:template>
                         </ui:Column>
-
                         <ui:Column>
-                            <Label text="BalancedQty"/>
+                            <Label text="Balanced Quantityty"/>
                             <ui:template>
                                 <Text text="{TreeDataModel>BalanceQty}" wrapping="false" />
                             </ui:template>
@@ -121,14 +117,10 @@
                                 <Input visible="{= ${TreeDataModel>isParent} ? true : false}" value="{TreeDataModel>Quantity}" />
                             </ui:template>
                         </ui:Column>
-
                         <ui:Column>
-                            <Label text="Status"/>
+                            <Label   text="Status"/>
                             <ui:template>
-                                <Text  text="{TreeDataModel>Status}" />
-
-
-                                 <ObjectStatus  text="{TreeDataModel>Status}" state="{= ${TreeDataModel>Status} === 'ISSUED' ? 'Success' : ${Status} === 'RESERVED FOR ISSUE' ? 'Information' : 'Error'}" visible="{= ${Status}.length>0 ? true : false }"/>
+                                 <ObjectStatus  text="{TreeDataModel>Status}"  state="{= ${TreeDataModel>Status} === 'ISSUED' ? 'Success' : ${Status} === 'RESERVED FOR ISSUE' ? 'Information' : 'Error'}" visible="{= ${Status}.length>0 ? true : false }"/>
                             </ui:template>
                         </ui:Column>
                     </ui:columns>

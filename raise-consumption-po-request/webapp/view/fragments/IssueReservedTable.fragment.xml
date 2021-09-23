@@ -55,7 +55,7 @@ formatOptions: {
 pattern: 'MMMM dd, yyyy HH:mm:ss'
 }
 }"/>
-                        <ObjectStatus text="{Status}" state="{= ${Status} === 'ALL RESERVED ITEMS CONSUMED' ? 'Success' : ${Status} === 'PARTIALLY CONSUMED' ? 'Information' : 'Error'}" visible="{= ${Status}.length>0 ? true : false }"/>
+                        <ObjectStatus text="{Status}" state="{= ${Status} === 'PARTIALLY CONSUMED' ? 'Success' : ${Status} === 'RESERVED FOR CONSUMPTION' ? 'Information' : 'Error'}" visible="{= ${Status}.length>0 ? true : false }"/>
                     </cells>
                 </ColumnListItem>
             </items>
