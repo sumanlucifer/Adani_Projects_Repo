@@ -114,11 +114,12 @@ pattern: 'MMMM dd, yyyy HH:mm:ss'
                                     <Column demandPopin="true" minScreenWidth="Tablet">
                                         <Text text="Plant"/>
                                     </Column>
-                                    <Column demandPopin="true" minScreenWidth="Desktop">
-                                        <Text text="Quantity"/>
-                                    </Column>
+                                   
                                     <Column demandPopin="true" minScreenWidth="Tablet">
                                         <Text text="StorageLocation"/>
+                                    </Column>
+                                     <Column demandPopin="true" minScreenWidth="Desktop">
+                                        <Text text="Quantity"/>
                                     </Column>
                                      <Column demandPopin="true" minScreenWidth="Tablet">
                                         <Text text="Status"/>
@@ -132,8 +133,9 @@ pattern: 'MMMM dd, yyyy HH:mm:ss'
                                             <Text text="{consumptionPostedData>MaterialCode}"/>
                                              <Text text="{consumptionPostedData>Name}"/>
                                             <Text  text="{consumptionPostedData>Plant}"/>
-                                              <Text  text="{consumptionPostedData>Quantity}"/>
+                                          
                                           <Text text="{consumptionPostedData>StorageLocation}"/>
+                                              <Text  text="{consumptionPostedData>Quantity}"/>
                                            <ObjectStatus text="{consumptionPostedData>Status}" state="{= ${consumptionPostedData>Status} === 'CONSUMPTION SUCCESSFUL' ? 'Success' : ${Status} === 'CONSUMPTION CANCELLED' ? 'Information' : 'Error'}" visible="{= ${Status}.length>0 ? true : false }"/>
                                         </cells>
                                     </ColumnListItem>
