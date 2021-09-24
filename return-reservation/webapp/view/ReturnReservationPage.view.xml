@@ -127,7 +127,7 @@
                          <ui:Column>
                             <Label   text="Status"/>
                             <ui:template>
-                                 <ObjectStatus  text="{TreeDataModel>Status}"  state="{= ${TreeDataModel>Status} === 'ISSUED' ? 'Success' : ${Status} === 'RESERVED FOR ISSUE' ? 'Information' : 'Error'}" visible="{= ${Status}.length>0 ? true : false }"/>
+                                 <ObjectStatus  text="{TreeDataModel>Status}"  state="{= ${TreeDataModel>Status} === 'ISSUED' ? 'Success' : ${TreeDataModel>Status} === 'RESERVED FOR ISSUE' ? 'Information' : 'Error'}" visible="{= ${Status}.length>0 ? true : false }"/>
                             </ui:template>
                         </ui:Column>
                     </ui:columns>
