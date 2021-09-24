@@ -15,7 +15,7 @@
                 <f:actions>
                     <HBox visible="{= ${objectViewModel>/isButtonVisible} ? true : true}">
                         <Button text="Save" id="idBtnSubmit" class="sapUiTinyMarginBegin" press="onSubmitReservation" type="Emphasized" />
-                        <Button text="Cancel" class="sapUiTinyMarginBegin" press="onCancelReservation" />
+                        <Button text="Reset" class="sapUiTinyMarginBegin" press="onCancelReservation" />
                     </HBox>
                     <!-- <Button text="Raise Return Material Request" press="onConfirmRequest" type="Emphasized"/> -->
                 </f:actions>
@@ -32,8 +32,8 @@
                             <fm:content>
                                 <Toolbar>
                                     <ToolbarSpacer />
-                                    <Button text="Go" type="Emphasized" press="onPressGo"/>
-                                    <Button visible="{= ${objectViewModel>/isHeaderFieldsVisible} ? true : false}" id="idResetButton" text="Reset" type="Emphasized" press="onPressReset"/>
+                                    <Button visible="{= ${objectViewModel>/isButtonVisible} ? true : false}" text="Go" type="Emphasized" press="onPressGo"/>
+                                   
                                 </Toolbar>
                                 <Label text="Movement Type" required="true"/>
                                 <Select id="idSelMovementType" change="onMoventTypeChange" editable="false" selectedKey="{HeaderDetailsModel>MovementType}" forceSelection="false" items="{HeaderDetailsModel>/movementTypeVal}">

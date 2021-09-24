@@ -32,7 +32,7 @@ sap.ui.define([
                     delay: 0,
                     isHeaderFieldsVisible: false,
                     isItemFieldsVisible: false,
-                    isButtonVisible: false
+                    isButtonVisible: true
                 });
                 this.setModel(oViewModel, "objectViewModel");
                 this.getView().byId("idBtnSubmit").setEnabled(false);
@@ -178,6 +178,7 @@ sap.ui.define([
                     success: function (oData, oResponse) {
                         var suggestionModel = new JSONModel(oData.results);
                         this.getView().setModel(suggestionModel, "suggestionModel");
+                        this.getViewModel("objectViewModel").setProperty("/isButtonVisible", false);
 
                     }.bind(this),
                     error: function (oError) {
@@ -369,15 +370,13 @@ sap.ui.define([
                     }.bind(this)
                 })
             },
-            onPressReset: function () {
-                this.setInitialModel();
-                this.byId("idPlant").setEnabled(true);
-                this.byId("idStorageLocation").setEnabled(true);
-            },
+          
             setInitialModel: function () {
                 this._createHeaderDetailsModel();
                 this._createItemDataModel();
                 this.createInitialModel();
+                 this.getView().byId("idPlant").setEnabled(true);
+                this.getView().byId("idStorageLocation").setEnabled(true);
             }
         });
     });
