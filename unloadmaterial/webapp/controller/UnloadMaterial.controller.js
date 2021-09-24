@@ -63,6 +63,7 @@ sap.ui.define([
                 {
                     "PackingListId": null,
                     "GateEntryDate": null,
+                    "UnloadPoint": null,
                     "OuterPackings": [
                     ],
                     "InnerPackings": [
@@ -668,6 +669,7 @@ sap.ui.define([
                 }
                 this._oRequestDialog.open();
             },
+            
             onDeliveryNoteLiveChange: function (oEvent) {
                 var oPOData = this.getView().getBindingContext().getObject();
                 if (oEvent.getSource().getValue().length && parseInt(oEvent.getSource().getValue()) > 0)
@@ -757,9 +759,9 @@ sap.ui.define([
                     if (oPayload) {
                         oModel.create("/GRNEdmSet", oPayload, {
                             success: function (oData) {
-                                this.onDoItLaterPress();
                                 MessageBox.success(oData.Message);
                                 this.getComponentModel().refresh();
+                                this.onDoItLaterPress();
                             }.bind(this),
                             error: function (oError) {
                                 MessageBox.error(JSON.stringify(oError));

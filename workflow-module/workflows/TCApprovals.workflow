@@ -264,7 +264,7 @@
 		"fc6ead61-a0f3-4d24-bc29-91b915fafc57": {
 			"classDefinition": "com.sap.bpm.wfs.MailDefinition",
 			"name": "maildefinition2",
-			"to": "Venkatesh.Hulekal@extentia.com,Atul.Jain@extentia.com",
+			"to": "Akhil.jain@extentia.com,Atul.Jain@extentia.com",
 			"subject": "Approval Testing",
 			"reference": "/webcontent/TCApprovals/TCMail.html",
 			"id": "maildefinition2"

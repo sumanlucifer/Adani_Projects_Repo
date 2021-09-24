@@ -27,7 +27,7 @@ sap.ui.define([
 
             //Router Object
             this.oRouter = this.getRouter();
-            this.oRouter.getRoute("Summary").attachPatternMatched(this._onObjectMatched, this);
+            this.oRouter.getRoute("IssuedDetails").attachPatternMatched(this._onObjectMatched, this);
         },
 
         // On Object Matched 
@@ -76,18 +76,6 @@ sap.ui.define([
             var oMOdelData = oModel.getData();
             oMOdelData.ReturnData = { "ChildItemsView": ParentDataView };
             oModel.setData(oMOdelData);
-        },
-
-        onReturnConfirm: function () {
-            var oModel = this.getViewModel();
-            oModel.create("/ReturnMaterialPostingEdmSet", { "ID": this.ReturnId }, {
-                success: function (oRes) {
-                    if (oRes.Success) {
-                        this.getOwnerComponent().getRouter().navTo("RouteApp");
-                    }
-                }.bind(this),
-                error: (oErr) => { debugger }
-            })
         }
 
     });
