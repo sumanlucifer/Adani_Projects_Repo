@@ -85,7 +85,8 @@ sap.ui.define([
                         ParentData[i].IssuedMaterials.results[j].isParent = false;
                         ParentData[i].IssuedMaterials.results[j].isSelected = false;
                         for (var k = 0; k < ParentData[i].IssuedMaterials.results[j].IssuedMaterialParents.results.length; k++) {
-                            ParentData[i].IssuedMaterials.results[j].IssuedMaterialParents.results[k].isParent = true;
+                           if (ParentData[i].IssuedMaterials.results[j].IssuedMaterialParents.results[k].Status === "ISSUED")
+                                ParentData[i].IssuedMaterials.results[j].IssuedMaterialParents.results[k].isParent = true;
                         }
                     }
                     ParentData[i].isParent = false;

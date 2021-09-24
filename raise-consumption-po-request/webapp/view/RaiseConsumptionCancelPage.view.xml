@@ -111,6 +111,10 @@ pattern: 'MMMM dd, yyyy HH:mm:ss'
                                      <Column>
                                         <Text text="Description"/>
                                     </Column>
+
+                                      <Column>
+                                        <Text text="Movement Type"/>
+                                    </Column>
                                     <Column demandPopin="true" minScreenWidth="Tablet">
                                         <Text text="Plant"/>
                                     </Column>
@@ -132,6 +136,7 @@ pattern: 'MMMM dd, yyyy HH:mm:ss'
                                            select="onSelectionOfRow" />
                                             <Text text="{consumptionPostedData>MaterialCode}"/>
                                              <Text text="{consumptionPostedData>Name}"/>
+                                                <Text text="{consumptionPostedData>MovementType}"/>
                                             <Text  text="{consumptionPostedData>Plant}"/>
                                           
                                           <Text text="{consumptionPostedData>StorageLocation}"/>
