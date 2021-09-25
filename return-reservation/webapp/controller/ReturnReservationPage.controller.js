@@ -226,7 +226,7 @@ sap.ui.define([
                 }
                 if (!data.ReceivingLocation) {
                     this.byId("idRecievingLoc").setValueState("Error");
-                    this.byId("idRecievingLoc").setValueStateText("Please enter profit center value");
+                    this.byId("idRecievingLoc").setValueStateText("Please enter recieving center value");
                     bValid = false;
                 } else {
                     this.byId("idRecievingLoc").setValueState("None");

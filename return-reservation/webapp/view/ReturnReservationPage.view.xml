@@ -32,13 +32,13 @@
                     <VBox alignContent="SpaceBetween">
                         <fm:SimpleForm layout="ColumnLayout" binding="{HeaderDetailsModel>/}" columnsM="2" columnsL="3" columnsXL="4" singleContainerFullSize="true" class="style-RemoveTitleHeight">
                             <!-- <core:Title  /> -->
-                            <Label text="Movement Type" required="true"/>
+                            <Label text="{i18n>MovementType}"  required="true"/>
                             <Select id="idSelMovementType" change="onMoventTypeChange" editable="false" selectedKey="311" forceSelection="false" items="{HeaderDetailsModel>/movementType}">
                                 <core:Item key="{HeaderDetailsModel>value}" text="{HeaderDetailsModel>Text}" />
                             </Select>
-                            <Label text="Good Recipient/SO Number" required="true"/>
+                            <Label text="{i18n>GoodRecipientSONumber}"  required="true"/>
                             <Input id="idGoodReciept" value="{HeaderDetailsModel>GoodRecipient}" />
-                            <Label text="Plant" required="true"/>
+                            <Label text="{i18n>Plant}"  required="true"/>
                             <Select id="idSelPlant" forceSelection="false" selectedKey="{HeaderDetailsModel>Plant}" items="{
 						    path: '/MasterPlantDetailSet'						    
 					    }">
@@ -47,15 +47,15 @@
                         </fm:SimpleForm>
                         <fm:SimpleForm layout="ColumnLayout" binding="{HeaderDetailsModel>/}" columnsM="2" columnsL="3" columnsXL="3" singleContainerFullSize="false" class="style-RemoveTitleHeight">
 
-                            <Label visible="{= ${objectViewModel>/isHeaderFieldsVisible} ? true : false}" text="WBS" required="true"/>
+                            <Label visible="{= ${objectViewModel>/isHeaderFieldsVisible} ? true : false}" text="{i18n>WBS}"  required="true"/>
                             <Input visible="{= ${objectViewModel>/isHeaderFieldsVisible} ? true : false}" id="idWBS" value="{HeaderDetailsModel>WBS}" />
-                            <Label visible="{= ${objectViewModel>/isHeaderFieldsVisible} ? true : false}" text="ProfitCenter" required="true"/>
+                            <Label visible="{= ${objectViewModel>/isHeaderFieldsVisible} ? true : false}" text="{i18n>ProfitCenter}"  required="true"/>
                             <Input visible="{= ${objectViewModel>/isHeaderFieldsVisible} ? true : false}" id="idProfitCenter" value="{HeaderDetailsModel>ProfitCenter}" />
-                            <Label visible="{= ${objectViewModel>/isHeaderFieldsVisible} ? true : false}" text="GL Account" required="true"/>
+                            <Label visible="{= ${objectViewModel>/isHeaderFieldsVisible} ? true : false}" text="{i18n>GLAccount}"  required="true"/>
                             <Input visible="{= ${objectViewModel>/isHeaderFieldsVisible} ? true : false}" id="idGLAccount" value="{HeaderDetailsModel>GLAccount}" />
-                            <Label visible="{= ${objectViewModel>/isHeaderFieldsVisible} ? true : false}" text="Cost Center" required="true"/>
+                            <Label visible="{= ${objectViewModel>/isHeaderFieldsVisible} ? true : false}" text="{i18n>CostCenter}"  required="true"/>
                             <Input visible="{= ${objectViewModel>/isHeaderFieldsVisible} ? true : false}" id="idCostCenter" value="{HeaderDetailsModel>CostCenter}" />
-                            <Label visible="{= ${objectViewModel>/isHeaderFieldsVisible} ? true : false}" text="Recieving Location" required="true"/>
+                            <Label visible="{= ${objectViewModel>/isHeaderFieldsVisible} ? true : false}" text="{i18n>RecievingLocation}"  required="true"/>
                             <Input visible="{= ${objectViewModel>/isHeaderFieldsVisible} ? true : false}" id="idRecievingLoc" value="{HeaderDetailsModel>ReceivingLocation}" />
                         </fm:SimpleForm>
                     </VBox>
@@ -74,49 +74,49 @@
                             </ui:template>
                         </ui:Column>
                         <ui:Column>
-                            <Label text="MaterialCode"/>
+                            <Label text="{i18n>MaterialCode}" />
                             <ui:template>
                                 <Text text="{TreeDataModel>MaterialCode}" wrapping="false" />
                             </ui:template>
                         </ui:Column>
                         <ui:Column>
-                            <Label text="Description"/>
+                            <Label text="{i18n>Description}" />
                             <ui:template>
                                 <Text text="{TreeDataModel>Description}" wrapping="false" />
                             </ui:template>
                         </ui:Column>
                         <ui:Column>
-                            <Label text="Plant"/>
+                            <Label text="{i18n>Plant}" />
                             <ui:template>
                                 <Text text="{TreeDataModel>Plant}" wrapping="false" />
                             </ui:template>
                         </ui:Column>
                         <ui:Column>
-                            <Label text="Storage Location"/>
+                            <Label  text="{i18n>StorageLocation}" />
                             <ui:template>
                                 <Text text="{TreeDataModel>StorageLocation}" wrapping="false" />
                             </ui:template>
                         </ui:Column>
                         <ui:Column>
-                            <Label text="Issued Quantity"/>
+                            <Label text="{i18n>IssuedQuantity}" />
                             <ui:template>
                                 <Text text="{TreeDataModel>IssuedQty}" wrapping="false" />
                             </ui:template>
                         </ui:Column>
                         <ui:Column>
-                            <Label text="Balanced Quantity"/>
+                            <Label text="{i18n>BalancedQuantity}" />
                             <ui:template>
                                 <Text text="{TreeDataModel>BalanceQty}" wrapping="false" />
                             </ui:template>
                         </ui:Column>
                         <ui:Column>
-                            <Label text="Reserved Quantity"/>
+                            <Label text="{i18n>ReservedQuantity}"  />
                             <ui:template>
                                 <Input liveChange="onLiveChangeReservedQty" visible="{= ${TreeDataModel>isParent} ? true : false}" value="{TreeDataModel>Quantity}" />
                             </ui:template>
                         </ui:Column>
                         <ui:Column>
-                            <Label text="Status"/>
+                            <Label text="{i18n>Status}" />
                             <ui:template>
                                 <ObjectStatus text="{TreeDataModel>Status}" state="{= ${TreeDataModel>Status} === 'ISSUED' ? 'Success' : ${TreeDataModel>Status} === 'RESERVED FOR ISSUE' ? 'Information' : 'Error'}" visible="{= ${Status}.length>0 ? true : false }"/>
                             </ui:template>
