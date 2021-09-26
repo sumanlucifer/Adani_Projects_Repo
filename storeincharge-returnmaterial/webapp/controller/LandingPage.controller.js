@@ -45,7 +45,7 @@ sap.ui.define([
             // var SOId = this.getViewModel().getData(ReturnId+'/SONumberId').ID;
             ReturnId = ReturnId.match(/\((.*?)l/)[1];
             var oRouter = this.getOwnerComponent().getRouter();
-            oRouter.navTo("Summary", {
+            oRouter.navTo("IssuedDetails", {
                 id: ReturnId
                 // SOId: SOId
             })

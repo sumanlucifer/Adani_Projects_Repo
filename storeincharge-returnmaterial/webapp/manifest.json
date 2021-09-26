@@ -140,6 +140,13 @@
                     "target": [
                         "SummaryPage"
                     ]
+                },
+                {
+                    "name": "IssuedDetails",
+                    "pattern": "ReturnedMaterialSummary/{id}",
+                    "target": [
+                        "IssuedDetails"
+                    ]
                 }
             ],
             "targets": {
@@ -161,6 +168,12 @@
                     "transition": "slide",
                     "clearControlAggregation": false,
                     "viewName": "ConfirmPage"
+                },
+                "IssuedDetails": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewName": "IssuedDetails"
                 },
                 "notFound": {
                     "viewName": "NotFound"
