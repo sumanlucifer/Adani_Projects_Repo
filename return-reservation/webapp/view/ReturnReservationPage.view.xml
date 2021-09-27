@@ -30,7 +30,7 @@
                         <Button visible="{= ${objectViewModel>/isButtonVisible} ? true : false}" text="Go" type="Emphasized" press="onPressGo"/>
                     </Toolbar>
                     <VBox alignContent="SpaceBetween">
-                        <fm:SimpleForm layout="ColumnLayout" binding="{HeaderDetailsModel>/}" columnsM="2" columnsL="3" columnsXL="4" singleContainerFullSize="true" class="style-RemoveTitleHeight">
+                        <fm:SimpleForm layout="ColumnLayout" binding="{HeaderDetailsModel>/}" columnsM="2" columnsL="3" columnsXL="3" singleContainerFullSize="true" class="style-RemoveTitleHeight">
                             <!-- <core:Title  /> -->
                             <Label text="{i18n>MovementType}"  required="true"/>
                             <Select id="idSelMovementType" change="onMoventTypeChange" editable="false" selectedKey="311" forceSelection="false" items="{HeaderDetailsModel>/movementType}">
@@ -74,21 +74,39 @@
                             </ui:template>
                         </ui:Column>
                         <ui:Column>
+                            <Label text="{i18n>ReservationNo}" />
+                            <ui:template>
+                                <Text text="{TreeDataModel>ReservationNumber}" wrapping="false" />
+                            </ui:template>
+                        </ui:Column>
+                        <ui:Column>
+                            <Label text="{i18n>MaterialDocumentNumber}" />
+                            <ui:template>
+                                <Text text="{TreeDataModel>MaterialDocumentNumber}" wrapping="false" />
+                            </ui:template>
+                        </ui:Column>
+                        <ui:Column>
+                            <Label text="{i18n>MaterialDocumentYear}" />
+                            <ui:template>
+                                <Text text="{TreeDataModel>MaterialDocumentYear}" wrapping="false" />
+                            </ui:template>
+                        </ui:Column>
+                        <ui:Column>
                             <Label text="{i18n>MaterialCode}" />
                             <ui:template>
                                 <Text text="{TreeDataModel>MaterialCode}" wrapping="false" />
                             </ui:template>
                         </ui:Column>
                         <ui:Column>
-                            <Label text="{i18n>Description}" />
-                            <ui:template>
-                                <Text text="{TreeDataModel>Description}" wrapping="false" />
-                            </ui:template>
-                        </ui:Column>
-                        <ui:Column>
                             <Label text="{i18n>Plant}" />
                             <ui:template>
                                 <Text text="{TreeDataModel>Plant}" wrapping="false" />
+                            </ui:template>
+                        </ui:Column>
+                        <ui:Column>
+                            <Label text="{i18n>Description}" />
+                            <ui:template>
+                                <Text text="{TreeDataModel>Description}" wrapping="false" />
                             </ui:template>
                         </ui:Column>
                         <ui:Column>
