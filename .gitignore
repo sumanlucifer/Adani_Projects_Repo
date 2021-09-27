@@ -4,14 +4,3 @@
 *.zip 
 package-lock.json
 /dist/
-
-# auto generated wildcard
-sapui5/raise-consumption-po-request/.env1
-# auto generated wildcard
-sapui5/consumption-reservation/.env1
-# auto generated wildcard
-sapui5/storeincharge-returnmaterial/.env1
-# auto generated wildcard
-sapui5/unloadmaterial/.env2
-# auto generated wildcard
-sapui5/user-roleassignment/.env1

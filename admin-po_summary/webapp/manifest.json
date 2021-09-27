@@ -125,14 +125,14 @@
                 },
                 {
                     "name": "RoutePODetailPage",
-                    "pattern": "PODetail/{POId}",
+                    "pattern": "PODetail/{PODetails}",
                     "target": [
                         "TargetPODetailPage"
                     ]
                 },
                  {
                     "name": "POProcessFlow",
-                    "pattern": "POProcessFlow",
+                    "pattern": "POProcessFlow/{PackingListId}",
                     "target": [
                         "TargetPOProcessFlow"
                     ]
