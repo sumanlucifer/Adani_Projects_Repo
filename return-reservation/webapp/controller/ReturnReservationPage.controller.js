@@ -28,7 +28,8 @@ sap.ui.define([
                 var oViewModel = new JSONModel({
                     busy: false,
                     delay: 0,
-                    isButtonVisible: false
+                    isButtonVisible: true,
+                    isHeaderFieldsVisible: false
                 });
                 this.setModel(oViewModel, "objectViewModel");
             },
@@ -70,6 +71,7 @@ sap.ui.define([
                     success: function (oData, oResponse) {
                         this.dataBuilding(oData.results);
                         this.getViewModel("objectViewModel").setProperty("/isItemFieldsVisible", true);
+                          this.getViewModel("objectViewModel").setProperty("/isButtonVisible", false);
                         debugger;
                     }.bind(this),
                     error: function (oError) {
@@ -85,7 +87,8 @@ sap.ui.define([
                         ParentData[i].IssuedMaterials.results[j].isParent = false;
                         ParentData[i].IssuedMaterials.results[j].isSelected = false;
                         for (var k = 0; k < ParentData[i].IssuedMaterials.results[j].IssuedMaterialParents.results.length; k++) {
-                            ParentData[i].IssuedMaterials.results[j].IssuedMaterialParents.results[k].isParent = true;
+                            if (ParentData[i].IssuedMaterials.results[j].IssuedMaterialParents.results[k].Status === "ISSUED")
+                                ParentData[i].IssuedMaterials.results[j].IssuedMaterialParents.results[k].isParent = true;
                         }
                     }
                     ParentData[i].isParent = false;
@@ -118,22 +121,29 @@ sap.ui.define([
                 });
                 oModel.setData(oItems);
             },
-            onDeleteReservationItemPress: function (oEvent) {
-                this.packingListObj = oEvent.getSource().getBindingContext("reservationTableModel").getObject();
-                var iRowNumberToDelete = parseInt(oEvent.getSource().getBindingContext("reservationTableModel").getPath().slice("/".length));
-                var aTableData = this.getViewModel("reservationTableModel").getProperty("/");
-                aTableData.splice(iRowNumberToDelete, 1);
-                this.getView().getModel("reservationTableModel").refresh();
-            },
-            _handleMessageBoxOpen: function (sMessage, sMessageBoxType, iRowNumberToDelete) {
-                MessageBox[sMessageBoxType](sMessage, {
-                    actions: [MessageBox.Action.YES, MessageBox.Action.NO],
-                    onClose: function (iRowNumberToDelete, oAction) {
-                        if (oAction === MessageBox.Action.YES) {
-                            this._deleteBOQRow(iRowNumberToDelete);
-                        }
-                    }.bind(this, iRowNumberToDelete)
-                });
+            onLiveChangeReservedQty: function (oEvent) {
+                var rowObj = oEvent.getSource().getParent().getRowBindingContext().getObject();
+                var ReservedQty = oEvent.getSource().getParent().getCells()[7].getValue();
+                var aCell = oEvent.getSource().getParent().getCells()[7];
+                if (ReservedQty === "") {
+                    aCell.setValueState("Error");
+                    aCell.setValueStateText("Please enter quantity ")
+                    this.getView().byId("idBtnSave").setEnabled(false);
+                }
+                else if (parseInt(ReservedQty) < 0) {
+                    aCell.setValueState("Error");
+                    aCell.setValueStateText("Please enter quantity greater than 0 or positive value")
+                    this.getView().byId("idBtnSave").setEnabled(false);
+                }
+                else if (parseInt(ReservedQty) > parseInt(rowObj.BalanceQty)) {
+                    aCell.setValueState("Error");
+                    aCell.setValueStateText("Please enter quantity lesser than or equal to balance quantity")
+                    this.getView().byId("idBtnSave").setEnabled(false);
+                }
+                else {
+                    aCell.setValueState("None");
+                    this.getView().byId("idBtnSave").setEnabled(true);
+                }
             },
             onMaterialCodeChange: function (oEvent) {
                 var reservationListObj = oEvent.getParameter("selectedRow").getBindingContext().getObject();
@@ -189,14 +199,6 @@ sap.ui.define([
             },
             _validateHeaderData: function (data) {
                 var bValid = true;
-                if (!data.Plant) {
-                    this.byId("idSelPlant").setValueState("Error");
-                    this.byId("idSelPlant").setValueStateText("Please enter plant value");
-                    bValid = false;
-                } else {
-                    this.byId("idSelPlant").setValueState("None");
-                    this.byId("idSelPlant").setValueStateText(null);
-                }
                 if (!data.GoodRecipient) {
                     this.byId("idGoodReciept").setValueState("Error");
                     this.byId("idGoodReciept").setValueStateText("Please enter goods recipient");
@@ -204,6 +206,15 @@ sap.ui.define([
                 } else {
                     this.byId("idGoodReciept").setValueState("None");
                     this.byId("idGoodReciept").setValueStateText(null);
+                }
+                 if (!data.Plant) {
+                    this.byId("idSelPlant").setValueState("Error");
+                    this.byId("idSelPlant").setValueStateText("Please enter plant value");
+                    bValid = false;
+                } else {
+                    this.byId("idSelPlant").setValueState("None");
+                    this.byId("idSelPlant").setValueStateText(null);
+                    this.getViewModel("objectViewModel").setProperty("/isHeaderFieldsVisible", true);
                 }
                 if (!data.ProfitCenter) {
                     this.byId("idProfitCenter").setValueState("Error");
@@ -213,11 +224,9 @@ sap.ui.define([
                     this.byId("idProfitCenter").setValueState("None");
                     this.byId("idProfitCenter").setValueStateText(null);
                 }
-
-
-                 if (!data.ReceivingLocation) {
+                if (!data.ReceivingLocation) {
                     this.byId("idRecievingLoc").setValueState("Error");
-                    this.byId("idRecievingLoc").setValueStateText("Please enter profit center value");
+                    this.byId("idRecievingLoc").setValueStateText("Please enter recieving center value");
                     bValid = false;
                 } else {
                     this.byId("idRecievingLoc").setValueState("None");
@@ -291,7 +300,6 @@ sap.ui.define([
             callReturnReservationService: function (oAdditionalData, aReservationItems) {
                 aReservationItems = aReservationItems.map(function (item) {
                     return {
-
                         ItemNumber: item.ItemNumber,
                         Material: item.MaterialCode,
                         StorageLocation: item.StorageLocation,
@@ -313,9 +321,6 @@ sap.ui.define([
                     "ReservationDate": "/Date(1624280339932)/",
                     "ParentList": aReservationItems
                 };
-
-
-
                 this.mainModel.create("/ReturnMaterialReserveEdmSet", oPayload, {
                     success: function (oData, oResponse) {
                         if (oData.Success === true) {

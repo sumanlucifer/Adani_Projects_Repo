@@ -36,7 +36,7 @@
                 </uxap:snappedTitleOnMobile>
                 <uxap:actions>
                         <!-- <Button text="Done" press="onPressDone" type="Accept" visible="{objectViewModel>/doneButton}"/> -->
-                        <Button visible="{= ${Status} === 'CONSUMPTION SUCCESSFUL' ? true : ${Status} === 'CANCELLATION FAILED' ? true : false }" text="Cancel consumption posting" press="onPressCancelConsumptionPosting" type="Emphasized"/>
+                        <Button visible="{= ${Status} === 'CONSUMPTION SUCCESSFUL' ? true : ${Status} === 'CANCELLATION FAILED' ? true : ${Status} === 'PARTIALLY CANCELLED' ? true : false }" text="Cancel consumption posting" press="onPressCancelConsumptionPosting" type="Emphasized"/>
                 </uxap:actions>
             </uxap:ObjectPageDynamicHeaderTitle>
         </uxap:headerTitle>
@@ -79,7 +79,7 @@ pattern: 'MMMM dd, yyyy HH:mm:ss'
                          <VBox renderType="Bare" class="sapUiMediumMarginEnd">
                             <Label text="{i18n>status}" />
                             <!-- missing -->
-                            <ObjectStatus text="{Status}" state="{= ${Status} === 'CONSUMPTION SUCCESSFUL' ? 'Success' : ${Status} === 'RESERVED' ? 'Information' : 'Error'}" visible="{= ${Status}.length>0 ? true : false }"/>
+                            <ObjectStatus text="{Status}" state="{= ${Status} === 'CONSUMPTION SUCCESSFUL' ? 'Success' : ${Status} === 'PARTIALLY CANCELLED' ? 'Information' : 'Error'}" visible="{= ${Status}.length>0 ? true : false }"/>
                         </VBox>
                     </FlexBox>
                 </VBox>
@@ -111,14 +111,19 @@ pattern: 'MMMM dd, yyyy HH:mm:ss'
                                      <Column>
                                         <Text text="Description"/>
                                     </Column>
+
+                                      <Column>
+                                        <Text text="Movement Type"/>
+                                    </Column>
                                     <Column demandPopin="true" minScreenWidth="Tablet">
                                         <Text text="Plant"/>
                                     </Column>
-                                    <Column demandPopin="true" minScreenWidth="Desktop">
-                                        <Text text="Quantity"/>
-                                    </Column>
+                                   
                                     <Column demandPopin="true" minScreenWidth="Tablet">
                                         <Text text="StorageLocation"/>
+                                    </Column>
+                                     <Column demandPopin="true" minScreenWidth="Desktop">
+                                        <Text text="Quantity"/>
                                     </Column>
                                      <Column demandPopin="true" minScreenWidth="Tablet">
                                         <Text text="Status"/>
@@ -127,13 +132,15 @@ pattern: 'MMMM dd, yyyy HH:mm:ss'
                                 <items>
                                     <ColumnListItem id="id">
                                         <cells>
-                                            <CheckBox    visible="{= ${consumptionPostedData>Status} === 'RESERVED FOR CONSUMPTION' ? true : false }"  selected="{consumptionPostedData>isSelected}"
+                                            <CheckBox    visible="{= ${consumptionPostedData>Status} === 'CONSUMPTION SUCCESSFUL' ? true : ${consumptionPostedData>Status} === 'CANCELLATION FAILED' ? true : false }"  selected="{consumptionPostedData>isSelected}"
                                            select="onSelectionOfRow" />
                                             <Text text="{consumptionPostedData>MaterialCode}"/>
                                              <Text text="{consumptionPostedData>Name}"/>
+                                                <Text text="{consumptionPostedData>MovementType}"/>
                                             <Text  text="{consumptionPostedData>Plant}"/>
-                                              <Text  text="{consumptionPostedData>Quantity}"/>
+                                          
                                           <Text text="{consumptionPostedData>StorageLocation}"/>
+                                              <Text  text="{consumptionPostedData>Quantity}"/>
                                            <ObjectStatus text="{consumptionPostedData>Status}" state="{= ${consumptionPostedData>Status} === 'CONSUMPTION SUCCESSFUL' ? 'Success' : ${Status} === 'CONSUMPTION CANCELLED' ? 'Information' : 'Error'}" visible="{= ${Status}.length>0 ? true : false }"/>
                                         </cells>
                                     </ColumnListItem>

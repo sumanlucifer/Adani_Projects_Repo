@@ -9,11 +9,9 @@
                 2
             ],
             "state": "Positive",
-           
+            "stateText": "Complete",
             "focused": true,
-            "texts": [
-                "Date: 15/09/2022"
-            ]
+            "texts": []
         },
         {
             "id": "2",
@@ -24,11 +22,9 @@
                 3
             ],
             "state": "Positive",
-           
+            "stateText": "Complete",
             "focused": true,
-            "texts": [
-                "Date: 16/09/2021"
-            ]
+            "texts": []
         },
         {
             "id": "3",
@@ -36,16 +32,13 @@
             "title": "QR Code Approved?\nYES or NO",
             "titleAbbreviation": "QR Approved?",
             "children": [
-               4
+                4
             ],
             "state": "Positive",
-           
+            "stateText": "Complete",
             "focused": true,
-            "texts": [
-                "Date: 17/09/2021"
-            ]
+            "texts": []
         },
-        
         {
             "id": "4",
             "lane": "2",
@@ -55,11 +48,9 @@
                 5
             ],
             "state": "Positive",
-          
+            "stateText": "Complete",
             "focused": true,
-            "texts": [
-                "Date: 18/09/2021"
-            ]
+            "texts": []
         },
         {
             "id": "5",
@@ -70,11 +61,9 @@
                 6
             ],
             "state": "Positive",
-           
+            "stateText": "Complete",
             "focused": true,
-            "texts": [
-                "Date: 19/09/2021"
-            ]
+            "texts": []
         },
         {
             "id": "6",
@@ -85,11 +74,9 @@
                 7
             ],
             "state": "Positive",
-           
+            "stateText": "Complete",
             "focused": true,
-            "texts": [
-                "Date: 20/09/2021"
-            ]
+            "texts": []
         },
         {
             "id": "7",
@@ -100,11 +87,9 @@
                 8
             ],
             "state": "Positive",
-           
+            "stateText": "Complete",
             "focused": true,
-            "texts": [
-                "Date: 20/09/2021"
-            ]
+            "texts": []
         },
         {
             "id": "8",
@@ -112,11 +97,9 @@
             "title": "UD",
             "titleAbbreviation": "UD",
             "state": "Positive",
-           
+            "stateText": "Complete",
             "focused": true,
-            "texts": [
-                "Date: 21/09/2021"
-            ]
+            "texts": []
         }
     ],
     "lanes": [
@@ -128,7 +111,7 @@
         },
         {
             "id": "1",
-            "icon": "sap-icon://message-success",
+            "icon": "sap-icon://bar-code",
             "label": "Printing Approval",
             "position": 1
         },

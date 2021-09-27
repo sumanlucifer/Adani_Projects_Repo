@@ -76,7 +76,7 @@ sap.ui.define([
         onReadDataIssueMaterialParents: function () {
             var that = this;
             that.oIssueMaterialModel = new JSONModel();
-            this.MainModel.read("/ConsumptionPostingSet(" + that.sObjectId + ")/ConsumptionPostingReserve/ConsumedMaterialParent", {
+            this.MainModel.read("/ConsumptionPostingSet(" + that.sObjectId + ")/ConsumedMaterialParent", {
                 // urlParameters: { "$expand": "ConsumedMaterialParent" },
                 success: function (oData, oResponse) {
                     this.dataBuilding(oData.results);
@@ -106,22 +106,23 @@ sap.ui.define([
         handleToAllPOBreadcrumPress: function (oEvent) {
             history.go(-1);
         },
-
         onSelectAll: function (oeve) {
             var isSelected = oeve.getSource().getSelected();
             var ItemData = this.getView().getModel("consumptionPostedData").getData();
+            var totalSelectedItems = ItemData.filter(function (item) {
+                return (item.Status === "CONSUMPTION SUCCESSFUL" || item.Status === "CANCELLATION FAILED");
+            });
             if (isSelected) {
-                for (var i = 0; i < ItemData.length; i++) {
-                    ItemData[i].isSelected = true;
+                for (var i = 0; i < totalSelectedItems.length; i++) {
+                    totalSelectedItems[i].isSelected = true;
                 }
             }
             else {
-                for (var i = 0; i < ItemData.length; i++) {
-                    ItemData[i].isSelected = false;
-
+                for (var i = 0; i < totalSelectedItems.length; i++) {
+                    totalSelectedItems[i].isSelected = false;
                 }
             }
-            this.getView().getModel("consumptionPostedData").setData(ItemData);
+            this.getView().getModel("consumptionPostedData").setData(totalSelectedItems);
         },
         onBeforeRebindTreeTable: function (oEvent) {
             var mBindingParams = oEvent.getParameter("bindingParams");
@@ -155,9 +156,8 @@ sap.ui.define([
             var itemData = this.getViewModel("consumptionPostedData").getData();
             var IsAllItemsCancelled = "";
             var totalSelectedItems = itemData.filter(function (item) {
-                return (item.Status === "Posted Successfully" || item.Status === "CONSUMPTION RESERVATION FAILED");
+                return (item.Status === "CONSUMPTION SUCCESSFUL" || item.Status === "CANCELLATION FAILED");
             });
-
             var selectedItems = itemData.filter(function (item) {
                 return item.isSelected === true;
             });
@@ -165,14 +165,10 @@ sap.ui.define([
                 IsAllItemsCancelled = true;
             else
                 IsAllItemsCancelled = false;
-
             return {
                 selectedItems,
                 IsAllItemsCancelled
             };
-
-
-
         },
         onSubmitCancelConfirmPress: function (a, itemData) {
             var IsAllItemsCancelled = itemData.IsAllItemsCancelled;
@@ -192,16 +188,21 @@ sap.ui.define([
             this.MainModel.create("/CancelConsumptionPostingEdmSet", oPayload, {
                 success: function (oData, oResponse) {
                     if (oData.Success === true) {
-                        sap.m.MessageBox.success("Cosumed Material Cancelled with Material Document Number " + "" + oData.MaterialDocumentNumber + "" + " Succesfully!");
-                        this.handleToAllPOBreadcrumPress();
+                        sap.m.MessageBox.success("Cosumed Material Cancelled with Material Document Number " + "" + oData.MaterialDocumentNumber + "" + " Succesfully!", {
+                            title: "Success",
+                            onClose: function (oAction1) {
+                                if (oAction1 === sap.m.MessageBox.Action.OK) {
+                                    this.handleToAllPOBreadcrumPress();
+                                    this.MainModel.refresh();
+                                }
+                            }.bind(this)
+                        });
                     }
                     else {
                         sap.m.MessageBox.error(oData.Message);
                     }
-                  
                 }.bind(this),
                 error: function (oError) {
-                
                     sap.m.MessageBox.error("Data Not Found");
                 }
             });
