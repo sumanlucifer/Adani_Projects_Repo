@@ -33,7 +33,7 @@ sap.ui.define([
                 delay: 0,
                 boqSelection: null,
                 csvFile: "file",
-                doneButton: true,
+                doneButton: false,
                 reserveButton: true
             });
             this.setModel(oViewModel, "objectViewModel");
@@ -74,17 +74,18 @@ sap.ui.define([
             });
         },
 
-        handleToIssueMatBreadcrumPress: function(){
+        handleToIssueMatBreadcrumPress: function () {
             this.getRouter().navTo("RouteLandingPage");
         },
 
         readJSONModel: function () {
 
             var oDataModel = this.getViewModel();
-            oDataModel.read("/IssuedMaterialReserveSet" + this.sObjectId + "/IssuedMaterialParents", {
+            oDataModel.read("/IssuedMaterialReserveSet" + this.sObjectId, {
+                urlParameters: { "$expand": "IssuedMaterialParents" },
                 success: function (oData) {
                     // if (oData) {
-                    //     debugger;
+                    // debugger;
                     //     var oJsonData = { IssueMaterial: [] };
                     //     for (var i = 0; i < oData.results.length; i++) {
                     //         oData.results[i].IssuedQty=null;
@@ -94,12 +95,13 @@ sap.ui.define([
                     //     this.getView().setModel(oJsonModel, "IssueMatModel");
                     // }
                     if (oData) {
-                        oData.results.forEach(element => {
+                        oData.IssuedMaterialParents.results.forEach(element => {
                             element.IssuedQty = null;
-                            element.IssueMaterialBOQItems = []
+                            element.IssueMaterialBOQItems = [];
+                            element.WBSNumber = oData.WBSNumber;
                         });
                     }
-                    var oJsonModel = new JSONModel(oData.results);
+                    var oJsonModel = new JSONModel(oData.IssuedMaterialParents.results);
                     this.getView().setModel(oJsonModel, "IssueMatModel");
 
                 }.bind(this),
@@ -141,7 +143,7 @@ sap.ui.define([
                 success: function (oData) {
                     if (oData) {
 
-                        // debugger;
+                        debugger;
 
                         // var oJsonData = { IssueMaterial: [] };
                         // for (var i = 0; i < oData.results.length; i++) {
@@ -154,14 +156,20 @@ sap.ui.define([
                         // }
                         // var oJsonModel = new JSONModel(oJsonData);
                         // this.getView().setModel(oJsonModel, "IssueMatEnterQtyModel");
-
-                        var finalMatCode = oData.results[0].RestrictedStoreStockParent.StoreStockParent.MaterialCode;
-                        var initialMatModel = this.getViewModel("IssueMatModel").getData();
-                        for (var j = 0; j < initialMatModel.length; j++) {
-                            if (initialMatModel[j].MaterialCode === finalMatCode) {
-                                this.onEnterQuantity(j);
+                        if (oData.results[0].RestrictedStoreStockParent.StoreStockParent != undefined) {
+                            var finalMatCode = oData.results[0].RestrictedStoreStockParent.StoreStockParent.MaterialCode;
+                            var initialMatModel = this.getViewModel("IssueMatModel").getData();
+                            for (var j = 0; j < initialMatModel.length; j++) {
+                                if (initialMatModel[j].MaterialCode === finalMatCode) {
+                                    this.onEnterQuantity(j);
+                                }
+                                else
+                                    sap.m.MessageBox.error("Invalid Scan");
                             }
                         }
+                        else
+                            sap.m.MessageBox.error("Invalid Scan");
+
                     }
 
                 }.bind(this),
@@ -187,7 +195,7 @@ sap.ui.define([
                     // connect dialog to the root view of this component (models, lifecycle)
                     oDetails.view.addDependent(oDialog);
                     // debugger;
-                    oDialog.setBindingContext(oDetails.view.getModel("IssueMatModel").getContext("/"+ oDetails.sParentItemPath));
+                    oDialog.setBindingContext(oDetails.view.getModel("IssueMatModel").getContext("/" + oDetails.sParentItemPath));
 
                     oDialog.setModel(oDetails.view.getModel("IssueMatModel"));
                     if (Device.system.desktop) {
@@ -200,13 +208,29 @@ sap.ui.define([
 
             this._oScannerDialog1.then(function (oDialog) {
                 oDetails.view.addDependent(oDialog);
-                oDialog.setBindingContext(oDetails.view.getModel("IssueMatModel").getContext("/"+ oDetails.sParentItemPath));
+                oDialog.setBindingContext(oDetails.view.getModel("IssueMatModel").getContext("/" + oDetails.sParentItemPath));
                 oDialog.open();
             });
 
         },
 
         onEnterQuantityDialogClosePress: function (oEvent) {
+            var oDetails = {};
+            oDetails.controller = this;
+            oDetails.view = this.getView();
+            var jsonDataDoneButton = oDetails.view.getModel("IssueMatModel").getData();
+            for(var i=0; i<jsonDataDoneButton.length; i++ ){
+                debugger;
+                if(jsonDataDoneButton[i].IssuedQty === null)
+                {
+                    oDetails.view.getModel("objectViewModel").setProperty("/doneButton", false);
+                    break;
+                }
+                else
+                    oDetails.view.getModel("objectViewModel").setProperty("/doneButton", true);
+             
+            }
+
             this._oScannerDialog1.then(function (oDialog) {
                 oDialog.close();
             });
@@ -274,9 +298,8 @@ sap.ui.define([
         //     });
         // }
 
-
-        onPressDone: function(oEvent) {
-            // debugger;
+        onPressDone: function (oEvent) {
+            debugger;
             var oDetails = {};
             oDetails.controller = this;
             oDetails.view = this.getView();
@@ -289,16 +312,16 @@ sap.ui.define([
             };
 
             // IssueMaterialParentItems
-            
+
             // for(var i=0; i<Matdata.length; i++){
             //     var oItem={ 
-                //        [
-                //     {
-                //         "MaterialCode": Matdata[i].MaterialCode,
-                //         "IssuedQty": Matdata[i].IssuedQty,
-                //         "IssueMaterialBOQItems": [ ]  
-                //     }
-                // ] 
+            //        [
+            //     {
+            //         "MaterialCode": Matdata[i].MaterialCode,
+            //         "IssuedQty": Matdata[i].IssuedQty,
+            //         "IssueMaterialBOQItems": [ ]  
+            //     }
+            // ] 
 
             //     }
             // }
@@ -306,7 +329,7 @@ sap.ui.define([
             this.MainModel.create("/IssueMaterialEdmSet", aPayload, {
                 success: function (oData, oResponse) {
                     if (oData) {
-                        //  debugger;
+                         debugger;
                         if (oData) {
                             this.onPressNavigation(oData.ID);
 
@@ -323,13 +346,13 @@ sap.ui.define([
             });
         },
 
-        onPressNavigation: function(id) {
-                var that = this;  
-                that.getRouter().navTo("RaiseIssueUploadDoc", {
-                    ID: id
-                });
+        onPressNavigation: function (id) {
+            var that = this;
+            that.getRouter().navTo("RaiseIssueUploadDoc", {
+                ID: id
+            });
         }
-        
-    
+
+
     });
 });

@@ -5,60 +5,60 @@
     <Dialog class="testTitle">
         <content>
             <FlexBox wrap="Wrap" renderType="Bare" class="sapUiSmallMargin">
-                <f:SimpleForm layout="ColumnLayout" columnsM="2" columnsL="3" columnsXL="4" singleContainerFullSize="true" class="style-RemoveTitleHeight">
+                <f:SimpleForm layout="ColumnLayout" columnsM="2" columnsL="3" columnsXL="3" singleContainerFullSize="true" class="style-RemoveTitleHeight">
                     <f:content>
-                        <!-- <Label text="Document Date"/>
-                         <Text text="{path:'DocumentDate',
-                                     type: 'sap.ui.model.type.Date',
-				                     formatOptions: {
-				                        pattern: 'MMMM dd, yyyy'
-				                     }}"/> -->
+                        <Label text="{i18n>PONo}"/>
+                        <Text text="{PONumber}" binding="{PurchaseOrder}"/>
                         <Label text="{i18n>PODate}"/>
                         <Text text="{path:'POReleaseDate',
                                      type: 'sap.ui.model.type.Date',
 				                     formatOptions: {
 				                        pattern: 'MMMM dd, yyyy'
 				                     }}" binding="{PurchaseOrder}"/>
-                        <Label text="{i18n>GatePassNumber}" />
-                        <Text text="{GateEntryNumber}"/>
-                        <Label text="{i18n>TotalWeight}"/>
-                        <Text text="{TotalWeight}"/>
-                        <Label text="{i18n>PONo}"/>
-                        <Text text="{PONumber}" binding="{PurchaseOrder}"/>
-                        <Label text="{i18n>LineNo}"/>
-                        <Text text="{LineNumber}" binding="{RestrictedStoreStockParent}"/>
-                        <!-- <Label text="Movement Type"/>
-                        <Text text="{MovementType}"/> -->
-                        <Label text="{i18n>MatCode}"/>
-                        <Text text="{MaterialCode}" binding="{RestrictedStoreStockParent}"/>
+                        <!-- <Label text="{i18n>GatePassNumber}" />
+                        <Text text="{GateEntryNumber}"/> -->
                         <Label text="{i18n>Plant}"/>
                         <Text text="{PlantCode}" binding="{RestrictedStoreStockParent}"/>
                         <Label text="{i18n>StorageLocation}"/>
                         <Text text="{StorageLocation}" binding="{PackingListParentItems}"/>
+                        <Label text="{i18n>MatCode}"/>
+                        <Text text="{MaterialCode}" binding="{RestrictedStoreStockParent}"/>
+                        <Label text="{i18n>LineNo}"/>
+                        <Text text="{LineNumber}" binding="{RestrictedStoreStockParent}"/>
+                        <!-- <Label text="Movement Type"/>
+                        <Text text="{MovementType}"/> -->
                         <Label text="{i18n>BatchNumber}"/>
                         <Text text="{BatchNumber}" binding="{PackingListParentItems}"/>
+                        <Label text="{i18n>TotalWeight}"/>
+                        <Text text="{TotalWeight}"/>
                         <!-- <Label text="Valuation Type"/>
                         <Text text="{ValuationType}"/> -->
                         <Label text="{i18n>Qty}"/>
                         <Text text="{Qty}" binding="{RestrictedStoreStockParent}"/>
                         <Label text="{i18n>UOM}"/>
                         <Text text="{UOM}" binding="{RestrictedStoreStockParent}"/>
-                        <Label text="Delivery Note​​​​​​​​​"></Label>
-                        <Input value="{requestModel>/delivery}" liveChange="onDeliveryNoteLiveChange" type="Text" valueState="{requestModel>/valueState}" valueStateText="{requestModel>/valueStateText}"></Input>
-                        <Label text="Total Packaging Weight"></Label>
-                        <Input value="{requestModel>/quantity}" liveChange="onQuantityLiveChange" type="Number" valueState="{requestModel>/valueState}" valueStateText="{requestModel>/valueStateText}"></Input>
-                        <Label text="Bill of Lading"></Label>
-                        <Input value="{requestModel>/billoflading}" liveChange="onDeliveryNoteLiveChange" type="Text" valueState="{requestModel>/valueState}" valueStateText="{requestModel>/valueStateText}"></Input>
-                        <Label text="Gate Pass Number"></Label>
-                        <Input value="{requestModel>/gatepassnumber}" liveChange="onGatePassNumberLiveChange" type="Text" valueState="{requestModel>/valueState}" valueStateText="{requestModel>/valueStateText}"></Input>
-                        <Label text="Reference"></Label>
-                        <Input value="{requestModel>/reference}" liveChange="onReferenceLiveChange" type="Text" valueState="{requestModel>/valueState}" valueStateText="{requestModel>/valueStateText}"></Input>
+                    </f:content>
+                </f:SimpleForm>
+                <f:SimpleForm layout="ColumnLayout" columnsM="2" columnsL="3" columnsXL="3" singleContainerFullSize="true" class="style-RemoveTitleHeight">
+                    <f:content>
+                        <Label text="Total Packaging Weight" required="true"></Label>
+                        <Input id="idweight" value="{requestModel>/quantity}" liveChange="onQuantityLiveChange" type="Number" valueState="{requestModel>/valueState}" valueStateText="{requestModel>/valueStateText}"></Input>
+                        <Label text="Bill of Lading" required="true"></Label>
+                        <Input id="idbilloflading" value="{requestModel>/billoflading}" type="Text" valueState="{requestModel>/valueState}" valueStateText="{requestModel>/valueStateText}"></Input>
+                        <Label text="Gate Pass Number" required="true"></Label>
+                        <Input id="idgatepassnumber" value="{requestModel>/gatepassnumber}" type="Text" valueState="{requestModel>/valueState}" valueStateText="{requestModel>/valueStateText}"></Input>
+                        <Label text="LR Number" required="true"></Label>
+                        <Input id="idlrnumber" value="{requestModel>/lrnumber}" type="Text" valueState="{requestModel>/valueState}" valueStateText="{requestModel>/valueStateText}"></Input>
+                        <Label text="Reference" required="true"></Label>
+                        <Input id="idreference" value="{requestModel>/reference}" type="Text" valueState="{requestModel>/valueState}" valueStateText="{requestModel>/valueStateText}"></Input>
+                        <Label text="Delivery Note​​​​​​​​​" required="true"></Label>
+                        <Input id="iddelivery" value="{requestModel>/delivery}" type="Text" valueState="{requestModel>/valueState}" valueStateText="{requestModel>/valueStateText}"></Input>
                     </f:content>
                 </f:SimpleForm>
             </FlexBox>
         </content>
         <beginButton>
-            <Button id="idRequestButton" text="Request" press="onRequestPress"  type="Emphasized" enabled="{requestModel>/isConfirmButtonEnabled}"></Button>
+            <Button id="idRequestButton" text="Request" press="onRequestPress" type="Emphasized" enabled="{requestModel>/isConfirmButtonEnabled}"></Button>
         </beginButton>
         <endButton>
             <Button text="Close" press="onViewChildDialogClose" type="Emphasized" />
