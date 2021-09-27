@@ -77,7 +77,7 @@ sap.ui.define([
         },
 
         handleToIssueMatBreadcrumPress: function(){
-            this.getRouter().navTo("RouteLandingPage");
+            this.getRouter().navTo("RaiseIssueScanQRCode");
         },
 
         onFileDeleted: function (oEvent) {

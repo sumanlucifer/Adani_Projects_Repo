@@ -160,7 +160,7 @@ sap.ui.define([
             if (status === "IN PROGRESS")
                 return 'Information';
             if (status === "CONFIRMED")
-                return 'Information';
+                return 'Success';
             if (status === "CLOSED")
                 return 'Success';
 
@@ -184,7 +184,7 @@ sap.ui.define([
         getGRNListColor: function (status) {
             if (status === "CANCELLED")
                 return 'Warning';
-            if (status === "APPROVED")
+            if (status === "ACTIVE")
                 return 'Success';
         }
 

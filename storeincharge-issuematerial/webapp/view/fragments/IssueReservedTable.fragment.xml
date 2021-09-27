@@ -4,7 +4,7 @@
 
     <smartTable:SmartTable class="sapUiResponsiveContentPadding" id="idIssueTable" editable="false" placeToolbarInTable="true" enableAutoBinding="true" entitySet="IssuedMaterialReserveSet" 
         showFullScreenButton="true" header="Reservation Request" showRowCount="true" tableType="ResponsiveTable" demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" 
-        beforeRebindTable="onbeforeRebindIssueReservedTable" ignoreFromPersonalisation="ID, RequestDate, CancelledDate, CancelledBy, Comment, CostCentre, WBSNumber, ProfitCentre, GLAccount, ReceivingLocation, Plant, IsArchived, CreatedAt, CreatedBy, UpdatedAt, UpdatedBy">
+        beforeRebindTable="onbeforeRebindIssueReservedTable" ignoreFromPersonalisation="ID, RequestDate, CancelledDate, CancelledBy, Comment, CostCentre, ProfitCentre, GLAccount, ReceivingLocation, IsArchived, CreatedAt, CreatedBy, UpdatedAt, UpdatedBy">
 
         <Table sticky="ColumnHeaders,HeaderToolbar" updateFinished="onIssueTableUpdateFinished" alternateRowColors="true">
             <columns>
@@ -39,7 +39,7 @@
                 <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "Status", "leadingProperty": "Status",
-                                                 "columnIndex": 4 ,"sortProperty": "Status"}'/>
+                                                 "columnIndex": 4 ,"sortProperty": "Status", "filterProperty": "Status"}'/>
                     </customData>
                     <Text text="{i18n>Status}"/>
                 </Column>
@@ -56,7 +56,7 @@
 				                        pattern: 'MMMM dd, yyyy'
 				                     }
                         }"/>                        
-                        <Text text="{Status}"/>
+                        <ObjectStatus text="{Status}" state="{= ${Status} === 'PARTIALLY ISSUED' ? 'Warning' : ${Status} === 'RESERVED FOR ISSUE' ? 'Information' : 'Error'}" visible="{= ${Status}.length>0 ? true : false }"/>
                     </cells>
                 </ColumnListItem>
             </items>
