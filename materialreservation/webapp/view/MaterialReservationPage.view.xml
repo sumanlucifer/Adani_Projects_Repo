@@ -15,7 +15,7 @@
                 <f:actions>
                     <HBox visible="{= ${objectViewModel>/isButtonVisible} ? true : true}">
                         <Button text="Save" id="idBtnSubmit" class="sapUiTinyMarginBegin" press="onSubmitReservation" type="Emphasized" />
-                        <Button text="Cancel" class="sapUiTinyMarginBegin" press="onCancelReservation" />
+                        <Button text="Reset" class="sapUiTinyMarginBegin" press="onCancelReservation" />
                     </HBox>
                     <!-- <Button text="Raise Return Material Request" press="onConfirmRequest" type="Emphasized"/> -->
                 </f:actions>
@@ -32,46 +32,46 @@
                             <fm:content>
                                 <Toolbar>
                                     <ToolbarSpacer />
-                                    <Button text="Go" type="Emphasized" press="onPressGo"/>
-                                    <Button visible="{= ${objectViewModel>/isHeaderFieldsVisible} ? true : false}" id="idResetButton" text="Reset" type="Emphasized" press="onPressReset"/>
+                                    <Button visible="{= ${objectViewModel>/isButtonVisible} ? true : false}" text="Go" type="Emphasized" press="onPressGo"/>
+                                   
                                 </Toolbar>
-                                <Label text="Movement Type" required="true"/>
+                                <Label  text="{i18n>MovementType}" required="true"/>
                                 <Select id="idSelMovementType" change="onMoventTypeChange" editable="false" selectedKey="{HeaderDetailsModel>MovementType}" forceSelection="false" items="{HeaderDetailsModel>/movementTypeVal}">
                                     <core:Item key="{HeaderDetailsModel>value}" text="{HeaderDetailsModel>Text}" />
                                 </Select>
 
-                                <Label text="Plant" required="true"/>
+                                <Label text="{i18n>Plant}" required="true"/>
                                 <Select id="idPlant" forceSelection="false" selectedKey="{HeaderDetailsModel>Plant}" items="{
                                 path: '/MasterPlantDetailSet'						    
                                 }">
                                     <core:Item key="{PlantId}" text="{PlantId} - {Name}" />
                                 </Select>
 
-                                <Label text="Storage Location" required="true"/>
+                                <Label  text="{i18n>StorageLocation}" required="true"/>
                                 <Input id="idStorageLocation" value="{HeaderDetailsModel>StorageLocation}" />
                             </fm:content>
                         </fm:SimpleForm>
                         <fm:SimpleForm layout="ColumnLayout" binding="{HeaderDetailsModel>/}" columnsM="2" columnsL="3" columnsXL="3" singleContainerFullSize="false" class="style-RemoveTitleHeight">
-                            <Label visible="{= ${objectViewModel>/isHeaderFieldsVisible} ? true : false}" text="Company Code" required="true"/>
+                            <Label visible="{= ${objectViewModel>/isHeaderFieldsVisible} ? true : false}"  text="{i18n>CompanyCode}"  required="true"/>
                             <Select visible="{= ${objectViewModel>/isHeaderFieldsVisible} ? true : false}" id="idSelCompanyCode" forceSelection="false" selectedKey="{HeaderDetailsModel>CompanyCode}" items="{
 						    path: '/MasterCompanyCodeSet'						    
 					        }">
                                 <core:Item key="{ID}" text="{CompanyCode} - {Name}" />
                             </Select>
 
-                            <Label visible="{= ${objectViewModel>/isHeaderFieldsVisible} ? true : false}" text="Good Recipient/SO Number" required="true"/>
+                            <Label visible="{= ${objectViewModel>/isHeaderFieldsVisible} ? true : false}" text="{i18n>GoodRecipientSONumber}"  required="true"/>
                             <Input visible="{= ${objectViewModel>/isHeaderFieldsVisible} ? true : false}" id="idGoodReciept" value="{HeaderDetailsModel>GoodsRecipient}" />
                             
-                            <Label visible="{= ${objectViewModel>/isHeaderFieldsVisible} ? true : false}" text="Recieving Location" required="true"/>
+                            <Label visible="{= ${objectViewModel>/isHeaderFieldsVisible} ? true : false}" text="{i18n>RecievingLocation}"  required="true"/>
                             <Input visible="{= ${objectViewModel>/isHeaderFieldsVisible} ? true : false}" id="idRecievingLocation" value="{HeaderDetailsModel>ReceivingLocation}" />
                             
-                            <Label visible="{= ${objectViewModel>/isHeaderFieldsVisible} ? true : false}" text="Cost Center" required="true"/>
+                            <Label visible="{= ${objectViewModel>/isHeaderFieldsVisible} ? true : false}" text="{i18n>CostCenter}"  required="true"/>
                             <Input visible="{= ${objectViewModel>/isHeaderFieldsVisible} ? true : false}" id="idCostCenter" value="{HeaderDetailsModel>CostCenter}" />
                             
-                            <Label visible="{= ${objectViewModel>/isHeaderFieldsVisible} ? true : false}" text="GL Account" required="true"/>
+                            <Label visible="{= ${objectViewModel>/isHeaderFieldsVisible} ? true : false}" text="{i18n>GLAccount}"  required="true"/>
                             <Input visible="{= ${objectViewModel>/isHeaderFieldsVisible} ? true : false}" id="idGLAccount" value="{HeaderDetailsModel>GLAccount}" />
                             
-                            <Label visible="{= ${objectViewModel>/isHeaderFieldsVisible} ? true : false}" text="Contractor Name" required="true"/>
+                            <Label visible="{= ${objectViewModel>/isHeaderFieldsVisible} ? true : false}" text="{i18n>ContractorName}"  required="true"/>
                             <Select visible="{= ${objectViewModel>/isHeaderFieldsVisible} ? true : false}" id="idContractor" change="onVendorSelected" selectedKey="{HeaderDetailsModel>ContractorId}" forceSelection="false" items="{/VendorSet}">
                                 <core:Item key="{ID}" text="{Name} - {VendorCode}" />
                             </Select>
@@ -96,28 +96,28 @@
                     </headerToolbar>
                     <columns>
                         <Column >
-                            <Text text="Material Code"/>
+                            <Text text="{i18n>MaterialCode}" />
                         </Column>
                         <Column>
-                            <Text text="Material Name"/>
+                            <Text text="{i18n>MaterialName}" />
                         </Column>
                         <Column>
-                            <Text text="Storage Location"/>
+                            <Text text="{i18n>StorageLocation}" />
                         </Column>
                         <Column>
-                            <Text text="Available Quantity"/>
+                            <Text text="{i18n>AvailableQuantity}" />
                         </Column>
                         <Column>
-                            <Text text="Quantity"/>
+                            <Text text="{i18n>Quantity}" />
                         </Column>
                         <Column>
-                            <Text text="UOM"/>
+                            <Text text="{i18n>UOM}" />
                         </Column>
                         <Column>
-                            <Text text="Batch"/>
+                            <Text text="{i18n>Batch}" />
                         </Column>
                         <Column>
-                            <Text text="M"/>
+                            <Text text="{i18n>M}" />
                         </Column>
                         <Column width="5%">
                         </Column>
@@ -125,13 +125,13 @@
                     <items>
                         <ColumnListItem >
                             <cells>
-                                <Input suggestionItemSelected="onMaterialCodeChange" selectedKey="{reservationTableModel>MaterialCode}" 
-                                    selectedItem="{reservationTableModel>MaterialCode}" id="idPMaterialCode" showSuggestion="true" enableTableAutoPopinMode="true"
+                                <Input  suggestionItemSelected="onMaterialCodeChange" selectedKey="{reservationTableModel>MaterialCode}" 
+                                    selectedItem="{reservationTableModel>MaterialCode}"    id="idPMaterialCode" showSuggestion="true"  enableTableAutoPopinMode="true"
                                     suggestionRows="{
                                                 path: 'suggestionModel>/',
                                                 templateShareable:false
                                             }">
-                                    <suggestionColumns>
+                                    <suggestionColumns  >
                                         <Column demandPopin="false">
                                             <Label text="Material Code" />
                                         </Column>
