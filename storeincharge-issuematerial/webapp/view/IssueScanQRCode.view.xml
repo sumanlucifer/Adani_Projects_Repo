@@ -14,7 +14,7 @@
             <uxap:ObjectPageDynamicHeaderTitle>
                 <uxap:breadcrumbs>
                     <Breadcrumbs id="breadcrumbsId" currentLocationText="{i18n>issueMaterialSummary}">
-                        <Link text="{i18n>issueMaterial}" press=".handleToAllPOBreadcrumPress"/>
+                        <Link text="{i18n>issueMaterial}" press="handleToIssueMatBreadcrumPress"/>
                     </Breadcrumbs>
                 </uxap:breadcrumbs>
                 <uxap:expandedHeading>

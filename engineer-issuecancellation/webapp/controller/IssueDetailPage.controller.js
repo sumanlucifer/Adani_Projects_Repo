@@ -36,6 +36,7 @@ sap.ui.define([
                 reserveButton: true
             });
             this.setModel(oViewModel, "objectViewModel");
+            this.MainModel = this.getComponentModel();
             //    this._initializeCreationModels();
             // Keeps reference to any of the created sap.m.ViewSettingsDialog-s in this sample
             this._mViewSettingsDialogs = {};
@@ -59,17 +60,82 @@ sap.ui.define([
                     },
                     dataReceived: function () {
                         objectViewModel.setProperty("/busy", false);
+                        that.onReadDataIssueMaterialParents();
                     }
                 }
             });
         },
+
+        onReadDataIssueMaterialParents: function () {
+            var that = this;
+            that.oIssueMaterialModel = new JSONModel();
+            this.MainModel.read("/IssuedMaterialSet(" + that.sObjectId + ")/IssuedMaterialParents", {
+                // urlParameters: { "$expand": "IssuedMaterialParents" },
+                success: function (oData, oResponse) {
+                    this.dataBuilding(oData.results);
+                    //          var consumptionData = new JSONModel(oData.results);
+                    // this.getView().setModel(consumptionData, "consumptionData");
+                }.bind(this),
+                error: function (oError) {
+                    sap.m.MessageBox.error("Data Not Found");
+                }
+            });
+        },
+
+        getTableItems: function () {
+            var itemData = this.getViewModel("consumptionData").getData();
+            var IsAllItemsConsumed = "";
+            var totalItems = itemData.filter(function (item) {
+                return (item.Status === "ISSUED" || item.Status === "RESERVED");
+            });
+            var selectedItems = itemData.filter(function (item) {
+                return item.isSelected === true;
+            });
+            if (totalItems.length === selectedItems.length)
+                IsAllItemsConsumed = true;
+            else
+                IsAllItemsConsumed = false;
+            return {
+                selectedItems,
+                IsAllItemsConsumed
+            };
+        },
+
+        dataBuilding: function (ItemData) {
+            for (var i = 0; i < ItemData.length; i++) {
+                ItemData[i].isSelected = false;
+            }
+            var consumptionData = new JSONModel(ItemData);
+            this.getView().setModel(consumptionData, "consumptionData");
+        },
+
+
         handleToAllPOBreadcrumPress: function (oEvent) {
             history.go(-1);
         },
+
+        onSelectAll: function (oeve) {
+            var isSelected = oeve.getSource().getSelected();
+            var ItemData = this.getView().getModel("consumptionData").getData();
+            if (isSelected) {
+                for (var i = 0; i < ItemData.length; i++) {
+                    ItemData[i].isSelected = true;
+                }
+            }
+            else {
+                for (var i = 0; i < ItemData.length; i++) {
+                    ItemData[i].isSelected = false;
+
+                }
+            }
+            this.getView().getModel("consumptionData").setData(ItemData);
+        },
+
         onPressCancelIssuePosting: function (oEvent) {
             var that = this;
             var ConsumptionPostingReserveId = that.sObjectId;
-            var ConsumptionPostingId = oEvent.getSource().getBindingContext().getObject().ConsumptionPostingId;
+            var itemData = this.getTableItems();
+            // var ConsumptionPostingId = oEvent.getSource().getBindingContext().getObject().ConsumptionPostingId;
             MessageBox.confirm("Do you want to Cancel the issue posting?", {
                 icon: MessageBox.Icon.INFORMATION,
                 title: "Confirm",
@@ -77,36 +143,37 @@ sap.ui.define([
                 emphasizedAction: MessageBox.Action.YES,
                 onClose: function (oAction) {
                     if (oAction == "YES") {
-                        that.onSubmitCancelConfirmPress(ConsumptionPostingReserveId);
+                        that.onSubmitCancelConfirmPress(ConsumptionPostingReserveId, itemData);
                     }
                 }
             });
         },
 
-        onSubmitCancelConfirmPress: function (oEvent) {
-
+        onSubmitCancelConfirmPress: function (ConsumptionPostingReserveId, itemData) {
+            var IsAllItemsConsumed = itemData.IsAllItemsConsumed;
+            itemData = itemData.selectedItems.map(function (item) {
+                return {
+                    IssuedMaterialParentId: item.ID
+                };
+            });
 
             var oPayload = {
-                "IssuedMaterialId": this.sObjectId,
-                "UserName": "Test"
-            };
+                            "IssuedMaterialId": this.sObjectId,
+                            "UserName": "AGEL_TEST",
+                            "ParentItem": itemData
+                            };
 
-
-            this.getOwnerComponent().getModel().create("/CancelIssuedMaterialEdmSet", oPayload, {
+            this.getOwnerComponent().getModel().create("/IssueMaterialCancellationEdmSet", oPayload, {
                 success: function (oData, oResponse) {
+                    this.getOwnerComponent().getModel().refresh();
                     if (oData.Success === true) {
-
-                        sap.m.MessageBox.success("The issue posting has been successfully cancelled for selected Items!");
+                        sap.m.MessageBox.success("The Issue Posting has been cancelled for selected item(s)!");
                     }
                     else {
                         sap.m.MessageBox.error(oData.Message);
                     }
-
-
-
                 }.bind(this),
                 error: function (oError) {
-                    debugger;
                     sap.m.MessageBox.error("Data Not Found");
                 }
             });

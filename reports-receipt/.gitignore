@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 node_modules/
 dist/
 .scp/
@@ -10,3 +11,10 @@ archive.zip
 .*_mta_build_tmp
 # auto generated wildcard
 admin-po_summary/.env5
+=======
+/node_modules/
+package-lock.json
+/dist/
+/.vscode/
+/mta_archives/
+/resources/

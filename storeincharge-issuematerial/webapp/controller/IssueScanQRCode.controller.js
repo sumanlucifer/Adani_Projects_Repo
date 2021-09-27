@@ -74,6 +74,10 @@ sap.ui.define([
             });
         },
 
+        handleToIssueMatBreadcrumPress: function(){
+            this.getRouter().navTo("RouteLandingPage");
+        },
+
         readJSONModel: function () {
 
             var oDataModel = this.getViewModel();

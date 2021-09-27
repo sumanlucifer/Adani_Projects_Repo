@@ -11,16 +11,13 @@
                     </customData>
                     <Text text="{i18n>reservationNumber}"/>
                 </Column>
-
- <Column >
+                <Column >
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "Plant", "leadingProperty": "Plant",
 "columnIndex": 1 ,"sortProperty": "Plant","filterProperty": "Plant"}'/>
                     </customData>
                     <Text text="{i18n>Plant}"/>
                 </Column>
-
-
                 <Column demandPopin="true" minScreenWidth="Desktop">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "GoodsRecipient", "leadingProperty": "GoodsRecipient",
@@ -37,8 +34,15 @@
                 </Column>
                 <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "MovementType", "leadingProperty": "MovementType",
+"columnIndex": 4 ,"sortProperty": "MovementType"}'/>
+                    </customData>
+                    <Text text="{i18n>MovementType}"/>
+                </Column>
+                <Column demandPopin="true" minScreenWidth="Tablet">
+                    <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "Status", "leadingProperty": "Status",
-"columnIndex": 4 ,"sortProperty": "Status"}'/>
+"columnIndex": 5 ,"sortProperty": "Status"}'/>
                     </customData>
                     <Text text="{i18n>Status}"/>
                 </Column>
@@ -47,7 +51,7 @@
                 <ColumnListItem type="Navigation" press="onDetailPress">
                     <cells>
                         <ObjectIdentifier title="{ReservationNumber}"/>
-                          <Text text="{Plant}"/>
+                        <Text text="{Plant}"/>
                         <Text text="{GoodsRecipient}"/>
                         <Text text="{path:'ReservationDate',
 type: 'sap.ui.model.type.DateTime',
@@ -55,7 +59,8 @@ formatOptions: {
 pattern: 'MMMM dd, yyyy HH:mm:ss'
 }
 }"/>
-                        <ObjectStatus text="{Status}" state="{= ${Status} === 'POSTED' ? 'Success' : ${Status} === 'RESERVED' ? 'Information' : 'Error'}" visible="{= ${Status}.length>0 ? true : false }"/>
+                        <Text text="{MovementType}"/>
+                        <ObjectStatus text="{Status}" state="{= ${Status} === 'PARTIALLY CONSUMED' ? 'Success' : ${Status} === 'RESERVED FOR CONSUMPTION' ? 'Information' : 'Error'}" visible="{= ${Status}.length>0 ? true : false }"/>
                     </cells>
                 </ColumnListItem>
             </items>

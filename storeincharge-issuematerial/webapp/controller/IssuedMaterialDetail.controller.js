@@ -72,8 +72,11 @@ sap.ui.define([
                     }
                 }
             });
-        }
-        
+        },
+
+        handleToIssueMatBreadcrumPress: function(){
+            this.getRouter().navTo("RouteLandingPage");
+        }       
     
     });
 });

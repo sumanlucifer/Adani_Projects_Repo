@@ -36,9 +36,7 @@
                     <Title text="{i18n>SONumber}- {MaterialDocumentNumber}" wrapping="true" titleStyle="Auto"/>
                 </uxap:snappedTitleOnMobile>
                 <uxap:actions>
-
-
-                    <Button text="Cancel issue posting" visible="{= ${Status} === 'Issued'}" press="onPressCancelIssuePosting" type="Emphasized"/>
+                    <Button text="Cancel Issued Items"  press="onPressCancelIssuePosting" type="Emphasized" visible="{= ${Status} === 'ISSUED' || ${Status} === 'PARTIALLY ISSUED' || ${Status} === 'PARTIALLY CANCELLED'}"/>
 
                 </uxap:actions>
             </uxap:ObjectPageDynamicHeaderTitle>
@@ -51,43 +49,59 @@
 
                         <VBox renderType="Bare" class="sapUiMediumMarginEnd">
                             <Label text="{i18n>CreatedAt}" />
-                            <!-- missing -->
-                            <Text text="{path:'CreatedAt',
+                            <!-- <Text text="{path:'CreatedAt',
                                   type: 'sap.ui.model.type.DateTime',
-formatOptions: {
-pattern: 'MMMM dd, yyyy HH:mm:ss'
-}
-                            }"/>
+                                    formatOptions: {
+                                    pattern: 'MMMM dd, yyyy HH:mm:ss'
+                                    }
+                            }"/> -->
+                            
+                        <Text text="{path:'CreatedAt',
+                                     type: 'sap.ui.model.type.Date',
+				                     formatOptions: {
+				                        pattern: 'MMMM dd, yyyy'
+				                     }
+                        }"/>
                         </VBox>
 
                         <VBox renderType="Bare" class="sapUiMediumMarginEnd">
                             <Label text="{i18n>DocumentDate}" />
-                            <!-- missing -->
-                            <Text text="{path:'DocumentDate',
+                     
+                            <!-- <Text text="{path:'DocumentDate',
                                   type: 'sap.ui.model.type.DateTime',
-formatOptions: {
-pattern: 'MMMM dd, yyyy HH:mm:ss'
-}
+                                    formatOptions: {
+                                    pattern: 'MMMM dd, yyyy HH:mm:ss'
+                                    }
+                            }"/> -->
+                            <Text text="{path:'DocumentDate',
+                                     type: 'sap.ui.model.type.Date',
+				                     formatOptions: {
+				                        pattern: 'MMMM dd, yyyy'
+				                     }
                             }"/>
                         </VBox>
                         <VBox renderType="Bare" class="sapUiMediumMarginEnd">
                             <Label text="{i18n>PostingDate}" />
                             <!-- missing -->
+                            <!-- <Text text="{path:'PostingDate',
+                                type: 'sap.ui.model.type.DateTime',
+                                formatOptions: {
+                                pattern: 'MMMM dd, yyyy HH:mm:ss'
+                                }
+                            }"/> -->
                             <Text text="{path:'PostingDate',
-                                  type: 'sap.ui.model.type.DateTime',
-formatOptions: {
-pattern: 'MMMM dd, yyyy HH:mm:ss'
-}
-                            }"/>
+                                     type: 'sap.ui.model.type.Date',
+				                     formatOptions: {
+				                        pattern: 'MMMM dd, yyyy'
+				                     }
+                        }"/>
                         </VBox>
                         <VBox renderType="Bare" class="sapUiMediumMarginEnd">
                             <Label text="{i18n>status}" />
                             <!-- missing -->
-                            <ObjectStatus text="{Status}" state="{= ${Status} === 'POSTED' ? 'Success' : ${Status} === 'RESERVED' ? 'Information' : 'Error'}" visible="{= ${Status}.length>0 ? true : false }"/>
+                            <ObjectStatus text="{Status}" state="{= ${Status} === 'ISSUED' ? 'Success' : ${Status} === 'RESERVED' ? 'Information' : 'Error'}" />
                         </VBox>
-
-
-
+                <!-- visible="{= ${Status}.length>0 ? true : false }" -->
                     </FlexBox>
                 </VBox>
                 <!-- <VBox renderType="Bare">
@@ -101,80 +115,59 @@ pattern: 'MMMM dd, yyyy HH:mm:ss'
             <uxap:ObjectPageSection titleUppercase="false" title="{i18n>lineItems}">
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection title="{i18n>lineItems}">
-                        <smartTable:SmartTable class="sapUiResponsiveContentPadding" id="idListTable" editable="false" placeToolbarInTable="true" enableAutoBinding="true" entitySet="IssuedMaterialSet" tableBindingPath="IssuedMaterialParents" showFullScreenButton="true" header="Issue Detail Items" showRowCount="true" tableType="ResponsiveTable" demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" beforeRebindTable="onbeforeRebindConsumptionTable" requestAtLeastFields="ID" ignoreFromPersonalisation="IsArchived">
-                            <Table sticky="ColumnHeaders,HeaderToolbar" updateFinished="onIssueTableUpdateFinished" alternateRowColors="true">
-                                <columns>
-                                    <Column >
-                                        <customData>
-                                            <core:CustomData key="p13nData" value='\{"columnKey": "MaterialCode", "leadingProperty": "MaterialCode",
-"columnIndex": 0 ,"sortProperty": "MaterialCode","filterProperty": "MaterialCode"}'/>
-                                        </customData>
-                                        <Text text="{i18n>MaterialCode}"/>
-                                    </Column>
-                                    <Column >
-                                        <customData>
-                                            <core:CustomData key="p13nData" value='\{"columnKey": "RequirementQuantity", "leadingProperty": "RequirementQuantity",
-"columnIndex": 1 ,"sortProperty": "RequirementQuantity","filterProperty": "RequirementQuantity"}'/>
-                                        </customData>
-                                        <Text text="{i18n>RequirementQuantity}"/>
-                                    </Column>
-                                    <Column >
-                                        <customData>
-                                            <core:CustomData key="p13nData" value='\{"columnKey": "IssuedQty", "leadingProperty": "IssuedQty",
-"columnIndex": 2 ,"sortProperty": "IssuedQty","filterProperty": "IssuedQty"}'/>
-                                        </customData>
-                                        <Text text="{i18n>IssuedQty}"/>
-                                    </Column>
-                                    <Column >
-                                        <customData>
-                                            <core:CustomData key="p13nData" value='\{"columnKey": "ConsumedQty", "leadingProperty": "ConsumedQty",
-"columnIndex": 3 ,"sortProperty": "ConsumedQty","filterProperty": "ConsumedQty"}'/>
-                                        </customData>
-                                        <Text text="{i18n>ConsumedQty}"/>
-                                    </Column>
-                                    <Column >
-                                        <customData>
-                                            <core:CustomData key="p13nData" value='\{"columnKey": "ReturnedQty", "leadingProperty": "ReturnedQty",
-"columnIndex": 4 ,"sortProperty": "ReturnedQty","filterProperty": "ReturnedQty"}'/>
-                                        </customData>
-                                        <Text text="{i18n>ReturnedQty}"/>
-                                    </Column>
-                                    <Column >
-                                        <customData>
-                                            <core:CustomData key="p13nData" value='\{"columnKey": "BalanceQty", "leadingProperty": "BalanceQty",
-"columnIndex": 4 ,"sortProperty": "BalanceQty","filterProperty": "BalanceQty"}'/>
-                                        </customData>
-                                        <Text text="{i18n>BalanceQty}"/>
-                                    </Column>
-                                    <Column >
-                                        <customData>
-                                            <core:CustomData key="p13nData" value='\{"columnKey": "StorageLocation", "leadingProperty": "StorageLocation",
-"columnIndex": 5 ,"sortProperty": "StorageLocation","filterProperty": "StorageLocation"}'/>
-                                        </customData>
-                                        <Text text="{i18n>StorageLocation}"/>
-                                    </Column>
-                                </columns>
-                                <items>
-                                    <ColumnListItem >
-                                        <cells>
-                                            <ObjectIdentifier title="{MaterialCode}" />
-                                            <Text text="{RequirementQuantity}"/>
-                                            <Text text="{IssuedQty}"/>
-                                            <Text text="{ConsumedQty}"/>
-                                            <Text text="{ReturnedQty}"/>
-                                            <Text text="{BalanceQty}"/>
-                                            <Text text="{StorageLocation}"/>
-                                            <!-- <Text text="{path:'PostingDate',
-type: 'sap.ui.model.type.DateTime',
-formatOptions: {
-pattern: 'MMMM dd, yyyy HH:mm:ss'
-}
-}"/> -->
-                                        </cells>
-                                    </ColumnListItem>
-                                </items>
-                            </Table>
-                        </smartTable:SmartTable>
+
+                        <Table  id="idListTable" growing="true" growingThreshold="10" items="{consumptionData>/}">
+                            <headerToolbar>
+                                <OverflowToolbar>
+                                    <content>
+
+                                    </content>
+                                </OverflowToolbar>
+                            </headerToolbar>
+                            <columns>
+                                <Column width="5%">
+                                <CheckBox select="onSelectAll" ></CheckBox>
+                                </Column>
+                                <Column>
+                                    <Text text="Name"/>
+                                </Column>
+                                <Column>
+                                    <Text text="Material Code"/>
+                                </Column>
+
+                                <Column demandPopin="true" minScreenWidth="Tablet">
+                                    <Text text="Issued Qty"/>
+                                </Column>
+                                <Column demandPopin="true" minScreenWidth="Desktop">
+                                    <Text text="Reserved Qty"/>
+                                </Column>
+                                <Column demandPopin="true" minScreenWidth="Tablet">
+                                    <Text text="Storage Location"/>
+                                </Column>
+                                <Column demandPopin="true" minScreenWidth="Tablet">
+                                    <Text text="Status"/>
+                                </Column>
+
+                            </columns>
+                            <items>
+                                <ColumnListItem id="idBOQItems">
+                                    <cells>
+                                        <CheckBox visible="{= ${consumptionData>Status} === 'ISSUED' ? true : ${consumptionData>Status} === 'RESERVED' ? true : false }" selected="{consumptionData>isSelected}" select="onSelectionOfRow" />
+                                        <Text text="{consumptionData>Name}"/>
+                                        <Text text="{consumptionData>MaterialCode}"/>
+                                        <Text text="{consumptionData>IssuedQty}"/>
+                                        <Text text="{consumptionData>ReservedQty}"/>
+                                        <Text text="{consumptionData>StorageLocation}" />
+                                        <ObjectStatus text="{consumptionData>Status}" state="{= ${consumptionData>Status} === 'ISSUED' ? 'Success' : ${consumptionData>Status} === 'RESERVED' ? 'Information' : 'Error'}" 
+                                            visible="{= ${consumptionData>Status}.length>0 ? true : false }"/>
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+
+
+                        
+                        
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>
             </uxap:ObjectPageSection>

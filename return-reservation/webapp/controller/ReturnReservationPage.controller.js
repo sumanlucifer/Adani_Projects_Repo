@@ -1,4 +1,4 @@
-    sap.ui.define([
+sap.ui.define([
     "./BaseController",
     "sap/ui/core/Fragment",
     "sap/ui/Device",
@@ -17,7 +17,7 @@
             onInit: function () {
                 //jQuery.sap.addUrlWhitelist("blob");
                 this.mainModel = this.getOwnerComponent().getModel();
-                //Router Object
+                //Router Obj
                 this.oRouter = this.getOwnerComponent().getRouter();
                 //view model instatiation
                 this.createInitialModel();
@@ -28,7 +28,8 @@
                 var oViewModel = new JSONModel({
                     busy: false,
                     delay: 0,
-                    isButtonVisible: false
+                    isButtonVisible: true,
+                    isHeaderFieldsVisible: false
                 });
                 this.setModel(oViewModel, "objectViewModel");
             },
@@ -70,6 +71,7 @@
                     success: function (oData, oResponse) {
                         this.dataBuilding(oData.results);
                         this.getViewModel("objectViewModel").setProperty("/isItemFieldsVisible", true);
+                          this.getViewModel("objectViewModel").setProperty("/isButtonVisible", false);
                         debugger;
                     }.bind(this),
                     error: function (oError) {
@@ -85,7 +87,8 @@
                         ParentData[i].IssuedMaterials.results[j].isParent = false;
                         ParentData[i].IssuedMaterials.results[j].isSelected = false;
                         for (var k = 0; k < ParentData[i].IssuedMaterials.results[j].IssuedMaterialParents.results.length; k++) {
-                            ParentData[i].IssuedMaterials.results[j].IssuedMaterialParents.results[k].isParent = true;
+                            if (ParentData[i].IssuedMaterials.results[j].IssuedMaterialParents.results[k].Status === "ISSUED")
+                                ParentData[i].IssuedMaterials.results[j].IssuedMaterialParents.results[k].isParent = true;
                         }
                     }
                     ParentData[i].isParent = false;
@@ -118,22 +121,29 @@
                 });
                 oModel.setData(oItems);
             },
-            onDeleteReservationItemPress: function (oEvent) {
-                this.packingListObj = oEvent.getSource().getBindingContext("reservationTableModel").getObject();
-                var iRowNumberToDelete = parseInt(oEvent.getSource().getBindingContext("reservationTableModel").getPath().slice("/".length));
-                var aTableData = this.getViewModel("reservationTableModel").getProperty("/");
-                aTableData.splice(iRowNumberToDelete, 1);
-                this.getView().getModel("reservationTableModel").refresh();
-            },
-            _handleMessageBoxOpen: function (sMessage, sMessageBoxType, iRowNumberToDelete) {
-                MessageBox[sMessageBoxType](sMessage, {
-                    actions: [MessageBox.Action.YES, MessageBox.Action.NO],
-                    onClose: function (iRowNumberToDelete, oAction) {
-                        if (oAction === MessageBox.Action.YES) {
-                            this._deleteBOQRow(iRowNumberToDelete);
-                        }
-                    }.bind(this, iRowNumberToDelete)
-                });
+            onLiveChangeReservedQty: function (oEvent) {
+                var rowObj = oEvent.getSource().getParent().getRowBindingContext().getObject();
+                var ReservedQty = oEvent.getSource().getParent().getCells()[7].getValue();
+                var aCell = oEvent.getSource().getParent().getCells()[7];
+                if (ReservedQty === "") {
+                    aCell.setValueState("Error");
+                    aCell.setValueStateText("Please enter quantity ")
+                    this.getView().byId("idBtnSave").setEnabled(false);
+                }
+                else if (parseInt(ReservedQty) < 0) {
+                    aCell.setValueState("Error");
+                    aCell.setValueStateText("Please enter quantity greater than 0 or positive value")
+                    this.getView().byId("idBtnSave").setEnabled(false);
+                }
+                else if (parseInt(ReservedQty) > parseInt(rowObj.BalanceQty)) {
+                    aCell.setValueState("Error");
+                    aCell.setValueStateText("Please enter quantity lesser than or equal to balance quantity")
+                    this.getView().byId("idBtnSave").setEnabled(false);
+                }
+                else {
+                    aCell.setValueState("None");
+                    this.getView().byId("idBtnSave").setEnabled(true);
+                }
             },
             onMaterialCodeChange: function (oEvent) {
                 var reservationListObj = oEvent.getParameter("selectedRow").getBindingContext().getObject();
@@ -189,14 +199,6 @@
             },
             _validateHeaderData: function (data) {
                 var bValid = true;
-                if (!data.Plant) {
-                    this.byId("idSelPlant").setValueState("Error");
-                    this.byId("idSelPlant").setValueStateText("Please enter plant value");
-                    bValid = false;
-                } else {
-                    this.byId("idSelPlant").setValueState("None");
-                    this.byId("idSelPlant").setValueStateText(null);
-                }
                 if (!data.GoodRecipient) {
                     this.byId("idGoodReciept").setValueState("Error");
                     this.byId("idGoodReciept").setValueStateText("Please enter goods recipient");
@@ -205,6 +207,15 @@
                     this.byId("idGoodReciept").setValueState("None");
                     this.byId("idGoodReciept").setValueStateText(null);
                 }
+                 if (!data.Plant) {
+                    this.byId("idSelPlant").setValueState("Error");
+                    this.byId("idSelPlant").setValueStateText("Please enter plant value");
+                    bValid = false;
+                } else {
+                    this.byId("idSelPlant").setValueState("None");
+                    this.byId("idSelPlant").setValueStateText(null);
+                    this.getViewModel("objectViewModel").setProperty("/isHeaderFieldsVisible", true);
+                }
                 if (!data.ProfitCenter) {
                     this.byId("idProfitCenter").setValueState("Error");
                     this.byId("idProfitCenter").setValueStateText("Please enter profit center value");
@@ -212,6 +223,14 @@
                 } else {
                     this.byId("idProfitCenter").setValueState("None");
                     this.byId("idProfitCenter").setValueStateText(null);
+                }
+                if (!data.ReceivingLocation) {
+                    this.byId("idRecievingLoc").setValueState("Error");
+                    this.byId("idRecievingLoc").setValueStateText("Please enter recieving center value");
+                    bValid = false;
+                } else {
+                    this.byId("idRecievingLoc").setValueState("None");
+                    this.byId("idRecievingLoc").setValueStateText(null);
                 }
                 if (!data.CostCenter) {
                     this.byId("idCostCenter").setValueState("Error");
@@ -276,35 +295,37 @@
                         }
                     }
                 }
-                this.callConsumptionReservationService(oAdditionalData, aReservationItems);
+                this.callReturnReservationService(oAdditionalData, aReservationItems);
             },
-            callConsumptionReservationService: function (oAdditionalData, aReservationItems) {
+            callReturnReservationService: function (oAdditionalData, aReservationItems) {
                 aReservationItems = aReservationItems.map(function (item) {
                     return {
+                        ItemNumber: item.ItemNumber,
+                        Material: item.MaterialCode,
+                        StorageLocation: item.StorageLocation,
                         Quantity: item.Quantity,
-                        IssueMaterialParentId: item.ID
+                        BaseUnit: item.BaseUnit,
+                        Batch: item.BatchNumber
                     };
                 });
                 var oPayload = {
                     "UserName": "Agel",
                     "Plant": oAdditionalData.Plant,
-                    "MovementType": "201",
+                    "MovementType": "311",
                     "GoodRecipient": oAdditionalData.GoodRecipient,
                     "CostCenter": oAdditionalData.CostCenter,
-                    "WBS": "",
+                    "WBS": oAdditionalData.WBS,
+                    "ReceivingLocation": oAdditionalData.ReceivingLocation,
                     "GLAccount": oAdditionalData.GLAccount,
                     "ProfitCenter": oAdditionalData.ProfitCenter,
-                    "ReservationDate": "",
-                    "ParentItem": aReservationItems
+                    "ReservationDate": "/Date(1624280339932)/",
+                    "ParentList": aReservationItems
                 };
-
-
-                
                 this.mainModel.create("/ReturnMaterialReserveEdmSet", oPayload, {
                     success: function (oData, oResponse) {
                         if (oData.Success === true) {
                             this.getView().getModel();
-                            sap.m.MessageBox.success("The consumption reservation "  + ""  + oData.ReservationNumber + "" + " has been succesfully created for selected Items!");
+                            sap.m.MessageBox.success("The return reservation " + "" + oData.ReservationNumber + "" + " has been succesfully created for selected Items!");
                             this.setInitialModel();
                             var objectViewModel = this.getViewModel("objectViewModel");
                         }

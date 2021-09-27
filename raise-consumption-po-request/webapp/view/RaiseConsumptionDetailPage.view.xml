@@ -35,7 +35,7 @@
                     <Title text="{i18n>ReservationNumber}- {ReservationNumber}" wrapping="true" titleStyle="Auto"/>
                 </uxap:snappedTitleOnMobile>
                 <uxap:actions>
-                    <Button text="Post Consumption" visible="{= ${Status} === 'RESERVED FOR CONSUMPTION' ? true : ${Status} === 'PARTIALLY CONSUMED' ? true : false }" press="onPressSubmitConsumptionPosting" type="Emphasized"/>
+                    <Button text="Post Consumption" visible="{= ${Status} === 'RESERVED FOR CONSUMPTION' ? true : ${Status} === 'CONSUMPTION FAILED' ? true : ${Status} === 'PARTIALLY CONSUMED' ? true : false }" press="onPressSubmitConsumptionPosting" type="Emphasized"/>
                 </uxap:actions>
             </uxap:ObjectPageDynamicHeaderTitle>
         </uxap:headerTitle>
@@ -66,7 +66,7 @@ pattern: 'MMMM dd, yyyy HH:mm:ss'
                         <VBox renderType="Bare" class="sapUiMediumMarginEnd">
                             <Label text="{i18n>status}" />
                             <!-- missing -->
-                            <ObjectStatus text="{Status}" state="{= ${Status} === 'POSTED' ? 'Success' : ${Status} === 'RESERVED' ? 'Information' : 'Error'}" visible="{= ${Status}.length>0 ? true : false }"/>
+                            <ObjectStatus text="{Status}" state="{= ${Status} === 'PARTIALLY CONSUMED' ? 'Success' : ${Status} === 'RESERVED FOR CONSUMPTION' ? 'Information' : 'Error'}" visible="{= ${Status}.length>0 ? true : false }"/>
                         </VBox>
                     </FlexBox>
                 </VBox>
@@ -81,7 +81,7 @@ pattern: 'MMMM dd, yyyy HH:mm:ss'
             <uxap:ObjectPageSection titleUppercase="false">
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection >
-                        <Table  id="idConsumedTable" growing="true" growingThreshold="10" items="{consumptionData>/}">
+                        <Table id="idConsumedTable" growing="true" growingThreshold="10" items="{consumptionData>/}">
                             <headerToolbar>
                                 <OverflowToolbar>
                                     <content>
@@ -91,7 +91,7 @@ pattern: 'MMMM dd, yyyy HH:mm:ss'
                             </headerToolbar>
                             <columns>
                                 <Column width="5%">
-                                <CheckBox select="onSelectAll" ></CheckBox>
+                                    <CheckBox select="onSelectAll"></CheckBox>
                                 </Column>
                                 <Column>
                                     <Text text="Material Code"/>
@@ -100,11 +100,16 @@ pattern: 'MMMM dd, yyyy HH:mm:ss'
                                     <Text text="Description"/>
                                 </Column>
 
-                                <Column demandPopin="true" minScreenWidth="Tablet">
-                                    <Text text="Quantity"/>
-                                </Column>
+
                                 <Column demandPopin="true" minScreenWidth="Desktop">
                                     <Text text="Plant"/>
+                                </Column>
+                                <Column demandPopin="true" minScreenWidth="Tablet">
+                                    <Text text="Storage Location"/>
+                                </Column>
+
+                                <Column demandPopin="true" minScreenWidth="Tablet">
+                                    <Text text="Quantity"/>
                                 </Column>
                                 <Column demandPopin="true" minScreenWidth="Tablet">
                                     <Text text="Status"/>
@@ -114,12 +119,14 @@ pattern: 'MMMM dd, yyyy HH:mm:ss'
                             <items>
                                 <ColumnListItem id="idBOQItems">
                                     <cells>
-                                        <CheckBox visible="{= ${consumptionData>Status} === 'RESERVED FOR CONSUMPTION' ? true : ${consumptionData>Status} === 'CONSUMPTION RESERVATION FAILED' ? true : false }" selected="{consumptionData>isSelected}" select="onSelectionOfRow" />
+                                        <CheckBox visible="{= ${consumptionData>Status} === 'RESERVED FOR CONSUMPTION' ? true : ${consumptionData>Status} === 'CONSUMPTION FAILED' ? true : false }" selected="{consumptionData>isSelected}" select="onSelectionOfRow" />
                                         <Text text="{consumptionData>MaterialCode}"/>
                                         <Text text="{consumptionData>Name}"/>
-                                        <Text text="{consumptionData>Quantity}"/>
+
                                         <Text text="{consumptionData>Plant}"/>
-                                        <ObjectStatus text="{consumptionData>Status}" state="{= ${consumptionData>Status} === 'POSTED' ? 'Success' : ${Status} === 'RESERVED' ? 'Information' : 'Error'}" visible="{= ${Status}.length>0 ? true : false }"/>
+                                        <Text text="{consumptionData>StorageLocation}"/>
+                                        <Text text="{consumptionData>Quantity}"/>
+                                        <ObjectStatus text="{consumptionData>Status}" state="{= ${consumptionData>Status} === 'CONSUMPTION SUCCESSFUL' ? 'Success' : ${consumptionData>Status} === 'RESERVED FOR CONSUMPTION' ? 'Information' : 'Error'}" visible="{= ${Status}.length>0 ? true : false }"/>
 
                                     </cells>
                                 </ColumnListItem>

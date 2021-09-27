@@ -136,9 +136,16 @@
                 },
                 {
                     "name": "Summary",
-                    "pattern": "ReturnMaterialDetails/{id}",
+                    "pattern": "ReturnMaterialSummary/{id}",
                     "target": [
                         "SummaryPage"
+                    ]
+                },
+                {
+                    "name": "IssuedDetails",
+                    "pattern": "ReturnedMaterialSummary/{id}",
+                    "target": [
+                        "IssuedDetails"
                     ]
                 }
             ],
@@ -161,6 +168,12 @@
                     "transition": "slide",
                     "clearControlAggregation": false,
                     "viewName": "ConfirmPage"
+                },
+                "IssuedDetails": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewName": "IssuedDetails"
                 },
                 "notFound": {
                     "viewName": "NotFound"

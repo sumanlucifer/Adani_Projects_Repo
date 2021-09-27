@@ -26,7 +26,7 @@ sap.ui.define([
             this.getView().addEventDelegate({
                 onAfterShow: this.onBeforeShow,
             }, this);
-            //view model instatiation
+            //view model instatiations
             var oViewModel = new JSONModel({
                 busy: false,
                 delay: 0,
@@ -76,7 +76,7 @@ sap.ui.define([
         onReadDataIssueMaterialParents: function () {
             var that = this;
             that.oIssueMaterialModel = new JSONModel();
-            this.MainModel.read("/ConsumptionPostingSet(" + that.sObjectId + ")/ConsumptionPostingReserve/ConsumedMaterialParent", {
+            this.MainModel.read("/ConsumptionPostingSet(" + that.sObjectId + ")/ConsumedMaterialParent", {
                 // urlParameters: { "$expand": "ConsumedMaterialParent" },
                 success: function (oData, oResponse) {
                     this.dataBuilding(oData.results);
@@ -105,6 +105,24 @@ sap.ui.define([
         },
         handleToAllPOBreadcrumPress: function (oEvent) {
             history.go(-1);
+        },
+        onSelectAll: function (oeve) {
+            var isSelected = oeve.getSource().getSelected();
+            var ItemData = this.getView().getModel("consumptionPostedData").getData();
+            var totalSelectedItems = ItemData.filter(function (item) {
+                return (item.Status === "CONSUMPTION SUCCESSFUL" || item.Status === "CANCELLATION FAILED");
+            });
+            if (isSelected) {
+                for (var i = 0; i < totalSelectedItems.length; i++) {
+                    totalSelectedItems[i].isSelected = true;
+                }
+            }
+            else {
+                for (var i = 0; i < totalSelectedItems.length; i++) {
+                    totalSelectedItems[i].isSelected = false;
+                }
+            }
+            this.getView().getModel("consumptionPostedData").setData(totalSelectedItems);
         },
         onBeforeRebindTreeTable: function (oEvent) {
             var mBindingParams = oEvent.getParameter("bindingParams");
@@ -137,22 +155,24 @@ sap.ui.define([
         getTableItems: function () {
             var itemData = this.getViewModel("consumptionPostedData").getData();
             var IsAllItemsCancelled = "";
+            var totalSelectedItems = itemData.filter(function (item) {
+                return (item.Status === "CONSUMPTION SUCCESSFUL" || item.Status === "CANCELLATION FAILED");
+            });
             var selectedItems = itemData.filter(function (item) {
                 return item.isSelected === true;
             });
-            if (itemData.length === selectedItems.length)
+            if (totalSelectedItems.length === selectedItems.length)
                 IsAllItemsCancelled = true;
             else
                 IsAllItemsCancelled = false;
-         
-                    return {
-                itemData,
+            return {
+                selectedItems,
                 IsAllItemsCancelled
             };
         },
         onSubmitCancelConfirmPress: function (a, itemData) {
             var IsAllItemsCancelled = itemData.IsAllItemsCancelled;
-            itemData = itemData.map(function (item) {
+            itemData = itemData.selectedItems.map(function (item) {
                 return {
                     ConsumedMaterialParentId: item.ID
                 };
@@ -161,23 +181,28 @@ sap.ui.define([
             var ConsumptionReserveId = this.getView().getModel().getData(sConsumptionReservationContext).ID;
             var oPayload = {
                 "UserName": "Agel",
-                "IsAllItemsCancelled": true,
+                "IsAllItemsCancelled": IsAllItemsCancelled,
                 "ConsumptionPostingId": this.sObjectId,
                 "ParentItem": itemData
             };
             this.MainModel.create("/CancelConsumptionPostingEdmSet", oPayload, {
                 success: function (oData, oResponse) {
                     if (oData.Success === true) {
-                        sap.m.MessageBox.success("Cosumed Material Cancelled with Material Document Number " + "" + oData.MaterialDocumentNumber + "" + " Succesfully!");
-                        this.handleToAllPOBreadcrumPress();
+                        sap.m.MessageBox.success("Cosumed Material Cancelled with Material Document Number " + "" + oData.MaterialDocumentNumber + "" + " Succesfully!", {
+                            title: "Success",
+                            onClose: function (oAction1) {
+                                if (oAction1 === sap.m.MessageBox.Action.OK) {
+                                    this.handleToAllPOBreadcrumPress();
+                                    this.MainModel.refresh();
+                                }
+                            }.bind(this)
+                        });
                     }
                     else {
                         sap.m.MessageBox.error(oData.Message);
                     }
-                    debugger;
                 }.bind(this),
                 error: function (oError) {
-                    debugger;
                     sap.m.MessageBox.error("Data Not Found");
                 }
             });

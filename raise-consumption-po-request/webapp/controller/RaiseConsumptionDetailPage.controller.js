@@ -73,11 +73,8 @@ sap.ui.define([
                 }
             });
         },
-
-
         onReadDataIssueMaterialParents: function () {
             var that = this;
-
             that.oIssueMaterialModel = new JSONModel();
             this.MainModel.read("/ConsumptionPostingReserveSet(" + that.sObjectId + ")/ConsumedMaterialParent", {
                 // urlParameters: { "$expand": "ConsumedMaterialParent" },
@@ -85,20 +82,16 @@ sap.ui.define([
                     this.dataBuilding(oData.results);
                     //          var consumptionData = new JSONModel(oData.results);
                     // this.getView().setModel(consumptionData, "consumptionData");
-
                 }.bind(this),
                 error: function (oError) {
                     sap.m.MessageBox.error("Data Not Found");
                 }
             });
         },
-
-
         dataBuilding: function (ItemData) {
             for (var i = 0; i < ItemData.length; i++) {
                 ItemData[i].isSelected = false;
             }
-
             var consumptionData = new JSONModel(ItemData);
             this.getView().setModel(consumptionData, "consumptionData");
         },
@@ -129,7 +122,6 @@ sap.ui.define([
         onPressSubmitConsumptionPosting: function (oEvent) {
             var that = this;
             var ConsumptionPostingReserveId = this.sObjectId;
-
             var itemData = this.getTableItems();
             MessageBox.confirm("Do you want to Submit the consumption request?", {
                 icon: MessageBox.Icon.INFORMATION,
@@ -146,40 +138,40 @@ sap.ui.define([
         getTableItems: function () {
             var itemData = this.getViewModel("consumptionData").getData();
             var IsAllItemsConsumed = "";
-
-
             var totalItems = itemData.filter(function (item) {
                 return (item.Status === "RESERVED FOR CONSUMPTION" || item.Status === "CONSUMPTION RESERVATION FAILED");
             });
             var selectedItems = itemData.filter(function (item) {
                 return item.isSelected === true;
             });
-
-
-          
-
             if (totalItems.length === selectedItems.length)
                 IsAllItemsConsumed = true;
-
-
             else
                 IsAllItemsConsumed = false;
-            // return itemData;
-
             return {
                 selectedItems,
                 IsAllItemsConsumed
             };
-
         },
-          onSelectAll: function() {
-  this.getView().getModel("consumptionData").getData();
-
-            },
-
-
+        onSelectAll: function (oeve) {
+            var isSelected = oeve.getSource().getSelected();
+            var ItemData = this.getView().getModel("consumptionData").getData();
+              var totalItems = ItemData.filter(function (item) {
+                return (item.Status === "RESERVED FOR CONSUMPTION" || item.Status === "CONSUMPTION RESERVATION FAILED");
+            });
+            if (isSelected) {
+                for (var i = 0; i < totalItems.length; i++) {
+                    totalItems[i].isSelected = true;
+                }
+            }
+            else {
+                for (var i = 0; i < ItemData.length; i++) {
+                    totalItems[i].isSelected = false;
+                }
+            }
+            this.getView().getModel("consumptionData").setData(totalItems);
+        },
         onSubmitButtonConfirmPress: function (CID, itemData) {
-
             var IsAllItemsConsumed = itemData.IsAllItemsConsumed;
             itemData = itemData.selectedItems.map(function (item) {
                 return {
@@ -197,8 +189,6 @@ sap.ui.define([
             this.MainModel.create("/ConsumptionPostingEdmSet", oPayload, {
                 success: function (oData, oResponse) {
                     if (oData.Success === true) {
-
-
                         sap.m.MessageBox.success("Cosumption Posted with Material Document Number " + "" + oData.MaterialDocumentNumber + "" + " Succesfully created!", {
                             title: "Success",
                             onClose: function (oAction1) {

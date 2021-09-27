@@ -5,5 +5,7 @@ package-lock.json
 /mta_archives/
 /resources/
 
-# auto generated wildcard
-admin-po_summary/.env5
+
+*.zip
+*.env
+.env*

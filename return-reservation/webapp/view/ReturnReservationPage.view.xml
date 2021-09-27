@@ -1,4 +1,3 @@
-
 <mvc:View controllerName="com.agel.mmts.returnreservation.controller.ReturnReservationPage" height="100%"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns:core="sap.ui.core"
@@ -15,7 +14,10 @@
                     <Title id="pageTitle" text="Create Return Reservation"/>
                 </f:heading>
                 <f:actions>
-                    <!-- <Button text="Raise Return Material Request" press="onConfirmRequest" type="Emphasized"/> -->
+                    <HBox visible="{= ${objectViewModel>/isItemFieldsVisible} ? true : false}">
+                        <Button text="Save" id="idBtnSave" class="sapUiTinyMarginBegin" press="onSubmitReservation" type="Emphasized" />
+                        <Button text="Reset" class="sapUiTinyMarginBegin" press="onCancelReservation" />
+                    </HBox>
                 </f:actions>
             </f:DynamicPageTitle>
         </f:title>
@@ -23,41 +25,40 @@
         <f:header>
             <f:DynamicPageHeader pinnable="true">
                 <f:content>
-                    <HBox alignContent="SpaceAround">
-                        <HBox>
-                            <fm:SimpleForm layout="ColumnLayout" binding="{HeaderDetailsModel>/}" columnsM="2" columnsL="3" columnsXL="4" singleContainerFullSize="true" class="style-RemoveTitleHeight">
-                                <!-- <core:Title  /> -->
-                                <Label text="Movement Type" required="true"/>
-                                <Select id="idSelMovementType" change="onMoventTypeChange" editable="false" selectedKey="311" forceSelection="false" items="{HeaderDetailsModel>/movementType}">
-                                    <core:Item key="{HeaderDetailsModel>value}" text="{HeaderDetailsModel>Text}" />
-                                </Select>
-                                <Label text="Good Recipient/SO Number" required="true"/>
-                                <Input id="idGoodReciept" value="{HeaderDetailsModel>GoodRecipient}" />
-                                <Label text="WBS" required="true"/>
-                                <Input id="idWBS" value="{HeaderDetailsModel>WBS}" />
-                                <Label text="Plant" required="true"/>
-                                <Select id="idSelPlant" forceSelection="false" selectedKey="{HeaderDetailsModel>Plant}" items="{
+                    <Toolbar>
+                        <ToolbarSpacer />
+                        <Button visible="{= ${objectViewModel>/isButtonVisible} ? true : false}" text="Go" type="Emphasized" press="onPressGo"/>
+                    </Toolbar>
+                    <VBox alignContent="SpaceBetween">
+                        <fm:SimpleForm layout="ColumnLayout" binding="{HeaderDetailsModel>/}" columnsM="2" columnsL="3" columnsXL="4" singleContainerFullSize="true" class="style-RemoveTitleHeight">
+                            <!-- <core:Title  /> -->
+                            <Label text="{i18n>MovementType}"  required="true"/>
+                            <Select id="idSelMovementType" change="onMoventTypeChange" editable="false" selectedKey="311" forceSelection="false" items="{HeaderDetailsModel>/movementType}">
+                                <core:Item key="{HeaderDetailsModel>value}" text="{HeaderDetailsModel>Text}" />
+                            </Select>
+                            <Label text="{i18n>GoodRecipientSONumber}"  required="true"/>
+                            <Input id="idGoodReciept" value="{HeaderDetailsModel>GoodRecipient}" />
+                            <Label text="{i18n>Plant}"  required="true"/>
+                            <Select id="idSelPlant" forceSelection="false" selectedKey="{HeaderDetailsModel>Plant}" items="{
 						    path: '/MasterPlantDetailSet'						    
 					    }">
-                                    <core:Item key="{PlantId}" text="{PlantId} - {Name}" />
-                                </Select>
-                                <!-- <core:Title ></core:Title> -->
-                                <Label text="ProfitCenter" required="true"/>
-                                <Input id="idProfitCenter" value="{HeaderDetailsModel>ProfitCenter}" />
-                                <Label text="GL Account" required="true"/>
-                                <Input id="idGLAccount" value="{HeaderDetailsModel>GLAccount}" />
-                                <Label text="Cost Center" required="true"/>
-                                <Input id="idCostCenter" value="{HeaderDetailsModel>CostCenter}" />
-                                <Label></Label>
-                                <Button width="50%" class="sapUiSmallMarginTop" text="Go" type="Emphasized" press="onPressGo">
-                                    <layoutData>
-                                        <l:GridData span="XL2 L3 M4 S4" />
-                                    </layoutData>
-                                </Button>
-                                <Button visible="{= ${objectViewModel>/isItemFieldsVisible} ? true : false}" width="50%" id="idResetButton" class="sapUiSmallMarginTop" text="Reset" type="Emphasized" press="onPressReset"></Button>
-                            </fm:SimpleForm>
-                        </HBox>
-                    </HBox>
+                                <core:Item key="{PlantId}" text="{PlantId} - {Name}" />
+                            </Select>
+                        </fm:SimpleForm>
+                        <fm:SimpleForm layout="ColumnLayout" binding="{HeaderDetailsModel>/}" columnsM="2" columnsL="3" columnsXL="3" singleContainerFullSize="false" class="style-RemoveTitleHeight">
+
+                            <Label visible="{= ${objectViewModel>/isHeaderFieldsVisible} ? true : false}" text="{i18n>WBS}"  required="true"/>
+                            <Input visible="{= ${objectViewModel>/isHeaderFieldsVisible} ? true : false}" id="idWBS" value="{HeaderDetailsModel>WBS}" />
+                            <Label visible="{= ${objectViewModel>/isHeaderFieldsVisible} ? true : false}" text="{i18n>ProfitCenter}"  required="true"/>
+                            <Input visible="{= ${objectViewModel>/isHeaderFieldsVisible} ? true : false}" id="idProfitCenter" value="{HeaderDetailsModel>ProfitCenter}" />
+                            <Label visible="{= ${objectViewModel>/isHeaderFieldsVisible} ? true : false}" text="{i18n>GLAccount}"  required="true"/>
+                            <Input visible="{= ${objectViewModel>/isHeaderFieldsVisible} ? true : false}" id="idGLAccount" value="{HeaderDetailsModel>GLAccount}" />
+                            <Label visible="{= ${objectViewModel>/isHeaderFieldsVisible} ? true : false}" text="{i18n>CostCenter}"  required="true"/>
+                            <Input visible="{= ${objectViewModel>/isHeaderFieldsVisible} ? true : false}" id="idCostCenter" value="{HeaderDetailsModel>CostCenter}" />
+                            <Label visible="{= ${objectViewModel>/isHeaderFieldsVisible} ? true : false}" text="{i18n>RecievingLocation}"  required="true"/>
+                            <Input visible="{= ${objectViewModel>/isHeaderFieldsVisible} ? true : false}" id="idRecievingLoc" value="{HeaderDetailsModel>ReceivingLocation}" />
+                        </fm:SimpleForm>
+                    </VBox>
                 </f:content>
             </f:DynamicPageHeader>
         </f:header>
@@ -65,70 +66,71 @@
         <f:content>
             <VBox>
                 <ui:TreeTable visible="{= ${objectViewModel>/isItemFieldsVisible} ? true : false}" id="TreeTable" rows="{path:'TreeDataModel>/', parameters: {arrayNames:['results']}}" selectionMode="None" enableSelectAll="false" ariaLabelledBy="title" rowsUpdated="onRowsUpdated">
-                    <ui:columns>  
-
-<ui:Column width="8%" hAlign="Center" >
-									<Label text="Select" />
-									<ui:template>
-										 <CheckBox  visible="{= ${TreeDataModel>isParent} ? true : false}" selected="{TreeDataModel>isSelected}" 
-                                           select="onSelectionOfRow" />
-									</ui:template>
-								</ui:Column>
-                    
+                    <ui:columns>
+                        <ui:Column width="8%" hAlign="Center">
+                            <Label text="Select" />
+                            <ui:template>
+                                <CheckBox visible="{= ${TreeDataModel>isParent} ? true : false}" selected="{TreeDataModel>isSelected}" select="onSelectionOfRow" />
+                            </ui:template>
+                        </ui:Column>
                         <ui:Column>
-                            <Label text="MaterialCode"/>
+                            <Label text="{i18n>MaterialCode}" />
                             <ui:template>
                                 <Text text="{TreeDataModel>MaterialCode}" wrapping="false" />
                             </ui:template>
                         </ui:Column>
                         <ui:Column>
-                            <Label text="Description"/>
+                            <Label text="{i18n>Description}" />
                             <ui:template>
                                 <Text text="{TreeDataModel>Description}" wrapping="false" />
                             </ui:template>
                         </ui:Column>
                         <ui:Column>
-                            <Label text="Plant"/>
+                            <Label text="{i18n>Plant}" />
                             <ui:template>
                                 <Text text="{TreeDataModel>Plant}" wrapping="false" />
                             </ui:template>
                         </ui:Column>
                         <ui:Column>
-                            <Label text="StorageLocation"/>
+                            <Label  text="{i18n>StorageLocation}" />
                             <ui:template>
                                 <Text text="{TreeDataModel>StorageLocation}" wrapping="false" />
                             </ui:template>
                         </ui:Column>
                         <ui:Column>
-                            <Label text="IssuedQty"/>
+                            <Label text="{i18n>IssuedQuantity}" />
                             <ui:template>
                                 <Text text="{TreeDataModel>IssuedQty}" wrapping="false" />
                             </ui:template>
                         </ui:Column>
-
                         <ui:Column>
-                            <Label text="BalancedQty"/>
+                            <Label text="{i18n>BalancedQuantity}" />
                             <ui:template>
                                 <Text text="{TreeDataModel>BalanceQty}" wrapping="false" />
                             </ui:template>
                         </ui:Column>
                         <ui:Column>
-                            <Label text="ReservedQty"/>
+                            <Label text="{i18n>ReservedQuantity}"  />
                             <ui:template>
-                                <Input visible="{= ${TreeDataModel>isParent} ? true : false}" value="{TreeDataModel>Quantity}"  />
+                                <Input liveChange="onLiveChangeReservedQty" visible="{= ${TreeDataModel>isParent} ? true : false}" value="{TreeDataModel>Quantity}" />
+                            </ui:template>
+                        </ui:Column>
+                        <ui:Column>
+                            <Label text="{i18n>Status}" />
+                            <ui:template>
+                                <ObjectStatus text="{TreeDataModel>Status}" state="{= ${TreeDataModel>Status} === 'ISSUED' ? 'Success' : ${TreeDataModel>Status} === 'RESERVED FOR ISSUE' ? 'Information' : 'Error'}" visible="{= ${Status}.length>0 ? true : false }"/>
                             </ui:template>
                         </ui:Column>
                     </ui:columns>
                 </ui:TreeTable>
             </VBox>
         </f:content>
-        <f:footer>
+        <!-- <f:footer>
             <OverflowToolbar visible="{= ${objectViewModel>/isItemFieldsVisible} ? true : false}">
                 <ToolbarSpacer/>
                 <Button text="Save" class="sapUiTinyMarginBegin" press="onSubmitReservation" type="Emphasized" />
                 <Button text="Cancel" class="sapUiTinyMarginBegin" press="onCancelReservation" />
             </OverflowToolbar>
-        </f:footer>
+        </f:footer> -->
     </f:DynamicPage>
 </mvc:View>
-
