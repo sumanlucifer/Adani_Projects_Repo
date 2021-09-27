@@ -219,7 +219,7 @@
 		"24191055-9033-4e6f-b2f5-d693e7757d7f": {
 			"classDefinition": "com.sap.bpm.wfs.MailDefinition",
 			"name": "maildefinition1",
-			"to": "akhil.jain@extentia.com,atul.jain@extentia.com",
+			"to": "akhil.jain@extentia.com,atul.jain@extentia.com,dharmendra.joshi@extentia.com,Suraj.Gavane@extentia.com",
 			"subject": "${context.PrintRequestID} Approval",
 			"reference": "/webcontent/PrintApprovals/ApprovalMail.html",
 			"id": "maildefinition1"
