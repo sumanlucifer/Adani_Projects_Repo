@@ -1,30 +1,3 @@
-<<<<<<< HEAD
-node_modules/
-dist/
-.scp/
-.env
-Makefile*.mta
-mta_archives
-mta-*
-resources
-archive.zip
-.*_mta_build_tmp
-# auto generated wildcard
-consumption-reservation/.env1
-# auto generated wildcard
-return-reservation/.env1
-# auto generated wildcard
-sapui5/consumption-reservation/.env1
-# auto generated wildcard
-sapui5/return-reservation/.env1
-# auto generated wildcard
-sapui5/admin-po_summary/.env2
-# auto generated wildcard
-sapui5/raise-returnmaterial/.env1
-
-# auto generated wildcard
-admin-po_summary/.env5
-=======
 /node_modules/
 package-lock.json
 /dist/
@@ -35,4 +8,3 @@ package-lock.json
 *.zip
 *.env
 .env*
->>>>>>> develop
