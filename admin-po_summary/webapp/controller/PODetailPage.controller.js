@@ -32,7 +32,10 @@ sap.ui.define([
                 busy: false,
                 delay: 0,
                 boqSelection: null,
-                csvFile: "file"
+                csvFile: "file",
+                PONumber: "",
+                CreatedAt: null,
+                POReleaseDate: null
             });
             this.setModel(oViewModel, "objectViewModel");
 
@@ -47,8 +50,11 @@ sap.ui.define([
         },
 
         _onObjectMatched: function (oEvent) {
-            var sObjectId = oEvent.getParameter("arguments").POId;
-            this._bindView("/PurchaseOrderSet" + sObjectId);
+            var oPODetailsObject = JSON.parse(oEvent.getParameter("arguments").PODetails);
+            this.getView().getModel("objectViewModel").setProperty("/PONumber", oPODetailsObject.PONumber);
+            this.getView().getModel("objectViewModel").setProperty("/CreatedAt", new Date(oPODetailsObject.CreatedAt));
+            this.getView().getModel("objectViewModel").setProperty("/POReleaseDate", new Date(oPODetailsObject.POReleaseDate));
+            this._bindView("/PurchaseOrderSet" + oPODetailsObject.POId);
         },
 
         _initializeCreationModels: function () {
@@ -470,8 +476,10 @@ sap.ui.define([
             });
         },
 
-        onPackingListItemPress: function(){
-             this.getRouter().navTo("POProcessFlow");
+        onPackingListItemPress: function (oEvent) {
+            this.getRouter().navTo("POProcessFlow", {
+                PackingListId: oEvent.getSource().getBindingContextPath().split("/PackingListSet")[1]
+            });
         }
     });
 });

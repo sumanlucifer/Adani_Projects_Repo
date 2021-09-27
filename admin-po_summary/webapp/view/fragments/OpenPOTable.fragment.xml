@@ -65,7 +65,7 @@
                 <ColumnListItem type="Navigation" press="onPurchaseOrderPress">
                     <cells>
                         <Text text="{PONumber}"/>
-                        <Text text="{CompanyCode}" binding="{Buyer}"/>
+                        <Text text="{CompanyCode}" binding="{MasterCompanyCode}"/>
                         <ObjectIdentifier text="{PlantCode}"/> 
 
                         <Text text="{path:'CreatedAt',

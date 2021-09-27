@@ -20,7 +20,7 @@
                 <uxap:expandedHeading>
                     <FlexBox direction="Column" renderType="Bare">
                         <Title text="PO Detail" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
-                        <ObjectStatus id="idStatus" text="{Status}" state="{= ${Status}=== 'SAVED' ? 'Indication05' : ${Status}=== 'DISPATCHED' ? 'Indication06' : 'Indication07'}"/>
+                        <Title text="{objectViewModel>/PONumber}"/>
                     </FlexBox>
                 </uxap:expandedHeading>
                 <uxap:snappedHeading>
@@ -38,29 +38,42 @@
         </uxap:headerTitle>
         <uxap:headerContent>
             <FlexBox wrap="Wrap" height="100%" renderType="Bare" direction="Column">
-                <HBox >
-                    <VBox class="sapUiMediumMarginEnd">
-
-                    </VBox>
-                    <VBox class="sapUiMediumMarginBeginEnd">
-
-                    </VBox>
-                    <VBox class="sapUiMediumMarginBeginEnd">
-
-                    </VBox>
-                    <VBox class="sapUiMediumMarginBeginEnd">
-
-                    </VBox>
-                </HBox>
+                <VBox renderType="Bare">
+                    <FlexBox direction="Row" renderType="Bare" class="sapUiTinyMarginBottom">
+                        <VBox renderType="Bare" class="sapUiMediumMarginEnd">
+                            <Label text="PO Issued Date" />
+                            <Text text="{path:'objectViewModel>/CreatedAt',
+                                    type: 'sap.ui.model.type.Date',
+				                     formatOptions: {
+				                        pattern: 'MMMM dd, yyyy'
+				                     }    
+                        }"/>
+                        </VBox>
+                        <VBox renderType="Bare" class="sapUiMediumMarginEnd">
+                            <Label text="Release Date" />
+                            <Text text="{path:'objectViewModel>/POReleaseDate',
+                                     type: 'sap.ui.model.type.Date',
+				                     formatOptions: {
+				                        pattern: 'MMMM dd, yyyy'
+				                     }
+                            }"/>
+                        </VBox>
+                        <VBox renderType="Bare" class="sapUiMediumMarginEnd">
+                            <Label text="Status" />
+                            <ObjectStatus text="{Status}" state="{= ${Status}==='CONFIRMED' ? 'Success' : 'Warning'}"/>
+                            <!-- state="{= ${Status}=== 'SAVED' ? 'Indication05' : ${Status}=== 'DISPATCHED' ? 'Indication06' : 'Indication07'}" -->
+                        </VBox>
+                    </FlexBox>
+                </VBox>
             </FlexBox>
         </uxap:headerContent>
         <uxap:sections>
 
 
             <!-- Line Items Section -->
-            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>lineItems}">
+            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>ViewPackingList}">
                 <uxap:subSections>
-                    <uxap:ObjectPageSubSection title="{i18n>lineItems}" titleLevel="H6">
+                    <uxap:ObjectPageSubSection title="{i18n>ViewPackingList}" titleLevel="H6">
                         <uxap:blocks>
                             <smartTable:SmartTable class="sapUiSizeCompact" id="idPackingListTable" editable="false" placeToolbarInTable="true" enableAutoBinding="true" entitySet="PurchaseOrderSet" tableBindingPath="PackingList" showFullScreenButton="true" showRowCount="false" tableType="ResponsiveTable" demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" beforeRebindTable="onBeforeRebindPackingListTable" ignoreFromPersonalisation="ID,CreatedBy,IsArchived,PONumber,UpdatedAt,UpdatedBy">
 
@@ -117,23 +130,3 @@
     </uxap:ObjectPageLayout>
 
 </mvc:View>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

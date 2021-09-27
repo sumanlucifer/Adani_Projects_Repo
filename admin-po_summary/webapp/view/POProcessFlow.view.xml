@@ -4,36 +4,36 @@
 	xmlns="sap.suite.ui.commons"
 	controllerName="com.agel.mmts.adminposummary.controller.POProcessFlow">
 	<m:Panel>
-		<m:Label text="Process Flow sample - Merged Lanes, Zooming and Update of Nodes" />
-		<m:HBox renderType="Bare">
+		<m:Toolbar>
+        		<m:Label text="PC List ID: {objectViewModel>/PCListID}" design="Bold"/>
+        <m:ToolbarSpacer/>
 			<m:Button text="Zoom In" press="onZoomIn" />
 			<m:Button text="Zoom Out" press="onZoomOut" />
-			<!-- <m:Button text="Update Nodes Content" press="onUpdateModel" /> -->
-		</m:HBox>
+		</m:Toolbar>
 		<ProcessFlow
 			id="processflow"
 			scrollable="false"
 			nodePress="onNodePress"
-			nodes="{/nodes}"
-			lanes="{/lanes}">
+			nodes="{ProcessFlowModel>/nodes}"
+			lanes="{ProcessFlowModel>/lanes}">
 			<nodes>
 				<ProcessFlowNode
-					laneId="{lane}"
-					nodeId="{id}"
-					title="{title}"
-					titleAbbreviation="{titleAbbreviation}"
-					children="{children}"
-					state="{state}"
-					stateText="{stateText}"
-					texts="{texts}"
-					focused="{focused}" />
+					laneId="{ProcessFlowModel>lane}"
+					nodeId="{ProcessFlowModel>id}"
+					title="{ProcessFlowModel>title}"
+					titleAbbreviation="{ProcessFlowModel>titleAbbreviation}"
+					children="{ProcessFlowModel>children}"
+					state="{ProcessFlowModel>state}"
+					stateText="{ProcessFlowModel>stateText}"
+					texts="{ProcessFlowModel>texts}"
+					focused="{ProcessFlowModel>focused}" />
 			</nodes>
 			<lanes>
 				<ProcessFlowLaneHeader
-					laneId="{id}"
-					iconSrc="{icon}"
-					text="{label}"
-					position="{position}" />
+					laneId="{ProcessFlowModel>id}"
+					iconSrc="{ProcessFlowModel>icon}"
+					text="{ProcessFlowModel>label}"
+					position="{ProcessFlowModel>position}" />
 			</lanes>
 		</ProcessFlow>
 	</m:Panel>
