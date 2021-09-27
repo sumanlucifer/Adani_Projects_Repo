@@ -35,8 +35,9 @@
                 </uxap:snappedTitleOnMobile>
                 <uxap:actions>
                     <HBox visible="true">
-                        <Button text="Done" press="onPressDone" type="Accept" visible="{objectViewModel>/doneButton}"/>
-                        <Title text="" />    
+                        <Button text="Done" press="onPressDone" type="Accept" visible="{objectViewModel>/doneButton}" />
+                    </HBox>
+                    <HBox visible="true">   
                         <Button text="Scan or Enter QR Code" press="onPressScanQR" type="Emphasized"/>
                     </HBox>
                 </uxap:actions>
@@ -52,16 +53,27 @@
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection title="{i18n>lineItems}">
                         <Table width="auto" growing="true" growingThreshold="5" items="{path: 'IssueMatModel>/'}" fixedLayout="false">     
-                            <headerToolbar>
-                                <OverflowToolbar id="otbSubheader">
-                                    <Title text="Products" level="H2" />
-                                    <ToolbarSpacer />
-                                    <!-- <Button id="reserveButton" text="Reserve" type="Transparent" press="onPressReserve" visible="{objectViewModel>reserveButton}" /> -->
-                                </OverflowToolbar>
-                            </headerToolbar>
                             <columns>
                                 <Column demandPopin="true" minScreenWidth="Desktop">
                                     <Text text="{i18n>name}" wrapping="true" wrappingType="Hyphenated"/>
+                                </Column>
+                                <Column demandPopin="true" minScreenWidth="Desktop">
+                                    <Text text="{i18n>materialCode}"/>
+                                </Column>
+                                <Column demandPopin="true" minScreenWidth="Desktop">
+                                    <Text text="{i18n>storageLocation}"/>
+                                </Column>
+                                <Column demandPopin="true" minScreenWidth="Desktop">
+                                    <Text text="{i18n>plant}"/>
+                                </Column>
+                                <Column demandPopin="true" minScreenWidth="Desktop">
+                                    <Text text="{i18n>wbsnumber}"/>
+                                </Column>
+                                <Column demandPopin="true" minScreenWidth="Desktop">
+                                    <Text text="{i18n>materialDocumentLineItem}"/>
+                                </Column>
+                                <Column demandPopin="true" minScreenWidth="Desktop">
+                                    <Text text="{i18n>createdAt}"/>
                                 </Column>
                                 <Column demandPopin="true" minScreenWidth="Desktop">
                                     <Text text="{i18n>issueQty}"/>
@@ -74,7 +86,18 @@
                                 <ColumnListItem>
                                     <cells>
                                         <ObjectIdentifier title="{IssueMatModel>Name}"/>
-                                        <Text text="{IssueMatModel>IssuedQty}" />
+                                        <Text text="{IssueMatModel>MaterialCode}" />
+                                        <Text text="{IssueMatModel>StorageLocation}" />
+                                        <Text text="{IssueMatModel>Plant}" />
+                                        <Text text="{IssueMatModel>WBSNumber}"/>
+                                        <Text text="{IssueMatModel>MaterialDocumentLineItem}"/>
+                                        <Text text="{path:'IssueMatModel>CreatedAt',
+                                            type: 'sap.ui.model.type.Date',
+                                            formatOptions: {
+                                                pattern: 'MMMM dd, yyyy'
+                                            }
+                                        }"/>
+                                        <ObjectIdentifier title="{IssueMatModel>IssuedQty}" />
                                         <Text text="{IssueMatModel>BaseUnit}" />
                                     </cells>
                                 </ColumnListItem>
