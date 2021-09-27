@@ -125,13 +125,13 @@
                     <items>
                         <ColumnListItem >
                             <cells>
-                                <Input suggestionItemSelected="onMaterialCodeChange" selectedKey="{reservationTableModel>MaterialCode}" 
-                                    selectedItem="{reservationTableModel>MaterialCode}" id="idPMaterialCode" showSuggestion="true" enableTableAutoPopinMode="true"
+                                <Input  suggestionItemSelected="onMaterialCodeChange" selectedKey="{reservationTableModel>MaterialCode}" 
+                                    selectedItem="{reservationTableModel>MaterialCode}"    id="idPMaterialCode" showSuggestion="true"  enableTableAutoPopinMode="true"
                                     suggestionRows="{
                                                 path: 'suggestionModel>/',
                                                 templateShareable:false
                                             }">
-                                    <suggestionColumns>
+                                    <suggestionColumns  >
                                         <Column demandPopin="false">
                                             <Label text="Material Code" />
                                         </Column>
