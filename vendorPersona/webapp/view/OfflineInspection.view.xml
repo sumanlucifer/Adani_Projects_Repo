@@ -112,8 +112,8 @@
                             <VBox >
 
                          <Text text="*" class="redColor" />
-                                <UploadCollection class="uploadClasstest" multiple="true" fileSizeExceed="onFileSizeExceed" typeMissmatch="onTypeMissmatch" uploadComplete="onUploadComplete" beforeUploadStarts="onBeforeUploadStarts" items="{
-                                    path:'localAttachmentModel>/items',
+                                <UploadCollection class="uploadClasstest" multiple="true" fileSizeExceed="onFileSizeExceed" filenameLengthExceed="onFileNameLengthExceed" maximumFilenameLength="50" typeMissmatch="onTypeMissmatch" uploadComplete="onUploadComplete" beforeUploadStarts="onBeforeUploadStarts" items="{
+                                    path:'localAttachmentModel>/items', 
                                     templateShareable: false}" mode="None" selectionChange="onAttachmentChange" instantUpload="false" change="onAttachmentChange" fileDeleted="onFileDeleted">
                                     <items>
                                         <UploadCollectionItem url="{parts: ['localAttachmentModel>/FileName','localAttachmentModel>/Content']}" enableEdit="false" enableDelete="false" visibleDelete="false" visibleEdit="false" fileName="{localAttachmentModel>FileName}" deletePress="onDeleteDocumentPress">

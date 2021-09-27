@@ -110,8 +110,9 @@ sap.ui.define([
         },
 
         onLiveChangeComment: function (oEvent) {
-            if (oEvent.getSource().getValue().length < 1) {
+            if (oEvent.getSource().getValue().length < 1 || oEvent.getSource().getValue().length > 150) {
                 oEvent.getSource().setValueState("Error");
+                oEvent.getSource().setValueStateText("Enter a value with 1 to 150 characters");
             } else {
                 oEvent.getSource().setValueState("None");
             }
@@ -319,7 +320,7 @@ sap.ui.define([
                 "ContentType": "application/pdf",
                 "FileName": fileName,
                 "Content": data,
-                "UploadedBy": "vendor-1",   
+                "UploadedBy": "vendor-1",
                 "FileSize": fileSize,
                 "SubType": "inpsection_doc",
                 "UploadTypeId": "1",
@@ -328,6 +329,14 @@ sap.ui.define([
             };
 
             this.getView().getModel("localAttachmentModel").getData().items.push(document);
+        },
+
+        // onFileSizeExceed: function () {
+        //     MessageBox.error("File size exceeded, Please upload file upto 1MB.");
+        // },
+
+        onFileNameLengthExceed: function () {
+            MessageBox.error("File name length exceeded, Please upload file with name lenght upto 50 characters.");
         }
 
     });
