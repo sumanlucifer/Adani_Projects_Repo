@@ -5,3 +5,6 @@
 package-lock.json
 /dist/
 
+
+# auto generated wildcard
+admin-po_summary/.env5

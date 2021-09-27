@@ -4,3 +4,6 @@ package-lock.json
 /.vscode/
 /mta_archives/
 /resources/
+
+# auto generated wildcard
+admin-po_summary/.env5
