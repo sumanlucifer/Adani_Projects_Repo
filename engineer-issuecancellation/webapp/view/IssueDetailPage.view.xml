@@ -36,7 +36,7 @@
                     <Title text="{i18n>SONumber}- {MaterialDocumentNumber}" wrapping="true" titleStyle="Auto"/>
                 </uxap:snappedTitleOnMobile>
                 <uxap:actions>
-                    <Button text="Cancel Issued Items"  press="onPressCancelIssuePosting" type="Emphasized" visible="{= ${Status} === 'ISSUED' || ${Status} === 'PARTIALLY ISSUED' || ${Status} === 'PARTIALLY CANCELLED'}"/>
+                    <Button text="Cancel Issued Items" press="onPressCancelIssuePosting" type="Emphasized" visible="{= ${Status} === 'ISSUED' || ${Status} === 'PARTIALLY ISSUED' || ${Status} === 'PARTIALLY CANCELLED'}"/>
 
                 </uxap:actions>
             </uxap:ObjectPageDynamicHeaderTitle>
@@ -55,8 +55,8 @@
                                     pattern: 'MMMM dd, yyyy HH:mm:ss'
                                     }
                             }"/> -->
-                            
-                        <Text text="{path:'CreatedAt',
+
+                            <Text text="{path:'CreatedAt',
                                      type: 'sap.ui.model.type.Date',
 				                     formatOptions: {
 				                        pattern: 'MMMM dd, yyyy'
@@ -66,7 +66,7 @@
 
                         <VBox renderType="Bare" class="sapUiMediumMarginEnd">
                             <Label text="{i18n>DocumentDate}" />
-                     
+
                             <!-- <Text text="{path:'DocumentDate',
                                   type: 'sap.ui.model.type.DateTime',
                                     formatOptions: {
@@ -99,9 +99,9 @@
                         <VBox renderType="Bare" class="sapUiMediumMarginEnd">
                             <Label text="{i18n>status}" />
                             <!-- missing -->
-                            <ObjectStatus text="{Status}" state="{= ${Status} === 'ISSUED' ? 'Success' : ${Status} === 'RESERVED' ? 'Information' : 'Error'}" />
+                            <ObjectStatus text="{Status}" state="{= ${Status} === 'ISSUED' ? 'Success' : ${Status} === 'PARTIALLY CANCELLED' ? 'Information' : ${Status} === 'PARTIALLY EXECUTED' ? 'Warning' : 'Error'}" visible="{= ${Status}.length>0 ? true : false }"/>
                         </VBox>
-                <!-- visible="{= ${Status}.length>0 ? true : false }" -->
+                        <!-- visible="{= ${Status}.length>0 ? true : false }" -->
                     </FlexBox>
                 </VBox>
                 <!-- <VBox renderType="Bare">
@@ -116,7 +116,7 @@
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection title="{i18n>lineItems}">
 
-                        <Table  id="idListTable" growing="true" growingThreshold="10" items="{consumptionData>/}">
+                        <Table id="idListTable" growing="true" growingThreshold="10" items="{consumptionData>/}">
                             <headerToolbar>
                                 <OverflowToolbar>
                                     <content>
@@ -126,23 +126,37 @@
                             </headerToolbar>
                             <columns>
                                 <Column width="5%">
-                                <CheckBox select="onSelectAll" ></CheckBox>
+                                    <CheckBox select="onSelectAll"></CheckBox>
                                 </Column>
-                                <Column>
+                                <Column demandPopin="true" minScreenWidth="Tablet">
                                     <Text text="Name"/>
                                 </Column>
-                                <Column>
+                                <Column demandPopin="true" minScreenWidth="Tablet">
                                     <Text text="Material Code"/>
                                 </Column>
-
+                                <Column demandPopin="true" minScreenWidth="Tablet">
+                                    <Text text="Plant"/>
+                                </Column>
+                                <Column demandPopin="true" minScreenWidth="Tablet">
+                                    <Text text="Storage Location"/>
+                                </Column>
+                                <Column demandPopin="true" minScreenWidth="Tablet">
+                                    <Text text="Movement Type"/>
+                                </Column>
+                                <Column demandPopin="true" minScreenWidth="Tablet">
+                                    <Text text="Goods Recipient"/>
+                                </Column>
+                                <Column demandPopin="true" minScreenWidth="Tablet">
+                                    <Text text="WBS Number"/>
+                                </Column>
+                                <Column demandPopin="true" minScreenWidth="Tablet">
+                                    <Text text="Unloading Point"/>
+                                </Column>
                                 <Column demandPopin="true" minScreenWidth="Tablet">
                                     <Text text="Issued Qty"/>
                                 </Column>
                                 <Column demandPopin="true" minScreenWidth="Desktop">
                                     <Text text="Reserved Qty"/>
-                                </Column>
-                                <Column demandPopin="true" minScreenWidth="Tablet">
-                                    <Text text="Storage Location"/>
                                 </Column>
                                 <Column demandPopin="true" minScreenWidth="Tablet">
                                     <Text text="Status"/>
@@ -155,19 +169,20 @@
                                         <CheckBox visible="{= ${consumptionData>Status} === 'ISSUED' ? true : ${consumptionData>Status} === 'RESERVED' ? true : false }" selected="{consumptionData>isSelected}" select="onSelectionOfRow" />
                                         <Text text="{consumptionData>Name}"/>
                                         <Text text="{consumptionData>MaterialCode}"/>
+                                        <Text text="{consumptionData>Plant}"/>
+                                        <Text text="{consumptionData>StorageLocation}"/>
+                                        <Text text="{consumptionData>MovementType}" />
+                                        <Text text="{consumptionData>IssueMaterialReserve/GoodsRecipient}"/>
+                                        <Text text="{consumptionData>IssueMaterialReserve/WBSNumber}"/>
+                                        <Text text="{consumptionData>UnloadingPoint}"/>
                                         <Text text="{consumptionData>IssuedQty}"/>
                                         <Text text="{consumptionData>ReservedQty}"/>
-                                        <Text text="{consumptionData>StorageLocation}" />
-                                        <ObjectStatus text="{consumptionData>Status}" state="{= ${consumptionData>Status} === 'ISSUED' ? 'Success' : ${consumptionData>Status} === 'RESERVED' ? 'Information' : 'Error'}" 
-                                            visible="{= ${consumptionData>Status}.length>0 ? true : false }"/>
+
+                                        <ObjectStatus text="{consumptionData>Status}" state="{= ${consumptionData>Status} === 'ISSUED' ? 'Success' : ${consumptionData>Status} === 'RESERVED' ? 'Information' : 'Error'}" visible="{= ${consumptionData>Status}.length>0 ? true : false }"/>
                                     </cells>
                                 </ColumnListItem>
                             </items>
                         </Table>
-
-
-                        
-                        
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>
             </uxap:ObjectPageSection>

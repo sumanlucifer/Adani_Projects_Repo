@@ -48,11 +48,13 @@
                         <Label text="{i18n>TotalPackagingWeight}"></Label>
                         <Input value="{requestModel>/quantity}" liveChange="onQuantityLiveChange" type="Number" valueState="{requestModel>/valueState}" valueStateText="{requestModel>/valueStateText}"></Input>
                         <Label text="Bill of Lading"></Label>
-                        <Input value="{requestModel>/billoflading}" liveChange="onBillofLadingLiveChange" type="Text" valueState="{requestModel>/valueState}" valueStateText="{requestModel>/valueStateText}"></Input>
+                        <Input value="{requestModel>/billoflading}" liveChange="onDeliveryNoteLiveChange" type="Text" valueState="{requestModel>/valueState}" valueStateText="{requestModel>/valueStateText}"></Input>
                         <Label text="Gate Pass Number"></Label>
-                        <Input value="{requestModel>/gatepassnumber}" liveChange="onGatePassNumberLiveChange" type="Text" valueState="{requestModel>/valueState}" valueStateText="{requestModel>/valueStateText}"></Input>
+                        <Input value="{requestModel>/gatepassnumber}" liveChange="onDeliveryNoteLiveChange" type="Text" valueState="{requestModel>/valueState}" valueStateText="{requestModel>/valueStateText}"></Input>
+                        <Label text="LR Number"></Label>
+                        <Input value="{requestModel>/lrnumber}" liveChange="onDeliveryNoteLiveChange" type="Text" valueState="{requestModel>/valueState}" valueStateText="{requestModel>/valueStateText}"></Input>
                         <Label text="Reference"></Label>
-                        <Input value="{requestModel>/reference}" liveChange="onReferenceLiveChange" type="Text" valueState="{requestModel>/valueState}" valueStateText="{requestModel>/valueStateText}"></Input>
+                        <Input value="{requestModel>/reference}" liveChange="onDeliveryNoteLiveChange" type="Text" valueState="{requestModel>/valueState}" valueStateText="{requestModel>/valueStateText}"></Input>
                     </f:content>
                 </f:SimpleForm>
             </FlexBox>

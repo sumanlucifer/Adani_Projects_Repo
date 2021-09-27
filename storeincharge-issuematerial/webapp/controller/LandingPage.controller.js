@@ -61,7 +61,7 @@ sap.ui.define([
                 var mBindingParams = oEvent.getParameter("bindingParams");
                 mBindingParams.sorter.push(new sap.ui.model.Sorter("CreatedAt", true));
                 var oFilter1 = new sap.ui.model.Filter("Status", sap.ui.model.FilterOperator.EQ, "ISSUED");
-                var oFilter2 = new sap.ui.model.Filter("Status", sap.ui.model.FilterOperator.EQ, "PARTIALLY CANCELLED");
+                var oFilter2 = new sap.ui.model.Filter("Status", sap.ui.model.FilterOperator.EQ, "CANCELLED");
                 mBindingParams.filters.push(oFilter1,oFilter2);
             },
 

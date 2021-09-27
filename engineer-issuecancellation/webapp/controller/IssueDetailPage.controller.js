@@ -70,7 +70,7 @@ sap.ui.define([
             var that = this;
             that.oIssueMaterialModel = new JSONModel();
             this.MainModel.read("/IssuedMaterialSet(" + that.sObjectId + ")/IssuedMaterialParents", {
-                // urlParameters: { "$expand": "IssuedMaterialParents" },
+                urlParameters: { "$expand": "IssueMaterialReserve" },
                 success: function (oData, oResponse) {
                     this.dataBuilding(oData.results);
                     //          var consumptionData = new JSONModel(oData.results);

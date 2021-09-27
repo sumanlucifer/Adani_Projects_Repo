@@ -4,13 +4,7 @@
         <content>
             <VBox class="sapUiResponsiveMargin">
                 <HBox alignItems="Center">
-                    <Input id="idInputQRCode" value="{= ${oViewHandlingModel>/unloadQrCode} ? ${oViewHandlingModel>/unloadQrCode} : '' }" 
-                    width="100%" showSuggestion="true" showValueHelp="false" suggestionItems="{/QRCodeSet}" placeholder="Enter QR Number" 
-                    valueLiveUpdate="true" suggestionItemSelected="onQRCodeSuggestionSelected" liveChange="_filterQrSuggestion" class="sapUiSmallMargin">
-                        <suggestionItems>
-                            <core:Item text="{QRNumber}" key="{QRNumber}" />
-                        </suggestionItems>
-                    </Input>
+                    <Input id="idInputQRCode" width="100%" placeholder="Enter QR Number" liveChange="onQRCodeSuggestionSelected" class="sapUiSmallMarginEnd" enabled="{oViewHandlingModel>/unloadQrCode}"/>
                     <Button id="idQRBtn" text="{i18n>submit}" type="Emphasized" press="onPressSubmitQRCode" class="sapUiSmallMargin" enabled="{= ${oViewHandlingModel>/unloadQrCode} ? true : false}"/>
                 </HBox>
                 <HBox alignItems="Center">

@@ -1,7 +1,9 @@
 <core:FragmentDefinition xmlns="sap.m"
     xmlns:smartTable="sap.ui.comp.smarttable"
     xmlns:core="sap.ui.core">
-    <smartTable:SmartTable class="sapUiResponsiveContentPadding" id="idListTable" editable="false" placeToolbarInTable="true" enableAutoBinding="true" entitySet="IssuedMaterialSet" showFullScreenButton="true" header="Issues" showRowCount="true" tableType="ResponsiveTable" requestAtLeastFields="ID" demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" beforeRebindTable="onbeforeRebindListIssueTable" ignoreFromPersonalisation="ID">
+    <smartTable:SmartTable class="sapUiResponsiveContentPadding" id="idListTable" editable="false" placeToolbarInTable="true" enableAutoBinding="true" entitySet="IssuedMaterialSet" 
+    showFullScreenButton="true" header="Issue Cancellation" showRowCount="true" tableType="ResponsiveTable" requestAtLeastFields="ID" demandPopin="false" useExportToExcel="false" 
+    useTablePersonalisation="true" useVariantManagement="false" beforeRebindTable="onbeforeRebindListIssueTable" ignoreFromPersonalisation="ID">
         <Table sticky="ColumnHeaders,HeaderToolbar" updateFinished="onIssueTableUpdateFinished" alternateRowColors="true">
             <columns>
                 <Column >
@@ -46,13 +48,7 @@
                         <ObjectIdentifier title="{MaterialDocumentNumber}" />
                         <Text text="{MaterialDocumentYear}"/>
                         <Text text="{TotalGrossWeight}"/>
-                        <ObjectStatus text="{Status}" state="{= ${Status} === 'ISSUED' ? 'Success' : ${Status} === 'RESERVED' ? 'Information' : 'Error'}" visible="{= ${Status}.length>0 ? true : false }"/>
-                        <!-- <Text text="{path:'CreatedAt',
-                            type: 'sap.ui.model.type.DateTime',
-                            formatOptions: {
-                            pattern: 'MMMM dd, yyyy HH:mm:ss'
-                            }
-                        }"/> -->
+                        <ObjectStatus text="{Status}" state="{= ${Status} === 'ISSUED' ? 'Success' : ${Status} === 'PARTIALLY CANCELLED' ? 'Information' : ${Status} === 'PARTIALLY EXECUTED' ? 'Warning' : 'Error'}" visible="{= ${Status}.length>0 ? true : false }"/>
                         <Text text="{path:'CreatedAt',
                             type: 'sap.ui.model.type.Date',
                             formatOptions: {
