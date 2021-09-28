@@ -35,10 +35,10 @@
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection>
                         <uxap:blocks>
-                            <VBox>
-                                <Label text="{i18n>UnloadingPoint}" />
-                                <Input type="Text" value="{JSONModelData>/UnloadPoint}" width="20%" />
-                            </VBox>
+                                <VBox>
+                                    <Label text="{i18n>UnloadingPoint}"/>
+                                    <Input type="Text" value="{JSONModelData>/UnloadPoint}" width="20%"/>               
+                                </VBox>       
                         </uxap:blocks>
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>

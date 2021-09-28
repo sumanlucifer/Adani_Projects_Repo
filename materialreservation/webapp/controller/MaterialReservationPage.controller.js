@@ -76,6 +76,7 @@ sap.ui.define([
                     BaseUnit: "",
                     Batch: "",
                     M: true,
+                    UnloadPoint: "",
                     AvailableQty: null
                 });
                 oModel.setData(oItems);
@@ -107,6 +108,7 @@ sap.ui.define([
                 var sItemPath = oEvent.getSource().getParent().getBindingContextPath();
                 this.getView().getModel("reservationTableModel").setProperty(sItemPath + "/Description", reservationListObj.Description);
                 this.getView().getModel("reservationTableModel").setProperty(sItemPath + "/BaseUnit", reservationListObj.UOM);
+                this.getView().getModel("reservationTableModel").setProperty(sItemPath + "/UnloadPoint", reservationListObj.UnloadPoint);
                 this.getView().getModel("reservationTableModel").setProperty(sItemPath + "/Material", reservationListObj.MaterialCode);
                 this.getView().getModel("reservationTableModel").setProperty(sItemPath + "/StorageLocation", reservationListObj.StorageLocation);
                 this.getView().getModel("reservationTableModel").setProperty(sItemPath + "/AvailableQty", reservationListObj.AvailableQty);
@@ -341,6 +343,7 @@ sap.ui.define([
                         StorageLocation: item.StorageLocation,
                         Quantity: parseInt(item.Quantity),
                         BaseUnit: item.BaseUnit,
+                        UnloadPoint: item.UnloadPoint,
                         Batch: item.Batch,
                         IsChildItem: false,
                         SpecialStockIndicator: item.M

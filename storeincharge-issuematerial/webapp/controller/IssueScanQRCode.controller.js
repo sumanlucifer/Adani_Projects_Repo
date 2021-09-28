@@ -95,10 +95,12 @@ sap.ui.define([
                     //     this.getView().setModel(oJsonModel, "IssueMatModel");
                     // }
                     if (oData) {
+                        // debugger;
                         oData.IssuedMaterialParents.results.forEach(element => {
                             element.IssuedQty = null;
                             element.IssueMaterialBOQItems = [];
                             element.WBSNumber = oData.WBSNumber;
+                            element.QRNumber = null;
                         });
                     }
                     var oJsonModel = new JSONModel(oData.IssuedMaterialParents.results);
@@ -143,7 +145,7 @@ sap.ui.define([
                 success: function (oData) {
                     if (oData) {
 
-                        debugger;
+                        // debugger;
 
                         // var oJsonData = { IssueMaterial: [] };
                         // for (var i = 0; i < oData.results.length; i++) {
@@ -156,11 +158,14 @@ sap.ui.define([
                         // }
                         // var oJsonModel = new JSONModel(oJsonData);
                         // this.getView().setModel(oJsonModel, "IssueMatEnterQtyModel");
+
+
                         if (oData.results[0].RestrictedStoreStockParent.StoreStockParent != undefined) {
                             var finalMatCode = oData.results[0].RestrictedStoreStockParent.StoreStockParent.MaterialCode;
                             var initialMatModel = this.getViewModel("IssueMatModel").getData();
                             for (var j = 0; j < initialMatModel.length; j++) {
                                 if (initialMatModel[j].MaterialCode === finalMatCode) {
+                                    initialMatModel[j].QRNumber = qrCodeId;
                                     this.onEnterQuantity(j);
                                 }
                                 else
@@ -299,7 +304,7 @@ sap.ui.define([
         // }
 
         onPressDone: function (oEvent) {
-            debugger;
+            // debugger;
             var oDetails = {};
             oDetails.controller = this;
             oDetails.view = this.getView();

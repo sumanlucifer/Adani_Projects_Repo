@@ -114,6 +114,9 @@
                             <Text text="{i18n>UOM}" />
                         </Column>
                         <Column>
+                            <Text text="{i18n>Unload Point}" />
+                        </Column>
+                        <Column>
                             <Text text="{i18n>Batch}" />
                         </Column>
                         <Column>
@@ -144,6 +147,9 @@
                                         <Column hAlign="End" minScreenWidth="Tablet">
                                             <Label text="UOM" />
                                         </Column>
+                                        <Column hAlign="End" minScreenWidth="Tablet">
+                                            <Label text="Unload Point" />
+                                        </Column>
                                     </suggestionColumns>
                                     <suggestionRows>
                                         <ColumnListItem>
@@ -151,6 +157,7 @@
                                             <Text wrapping="false" text="{suggestionModel>Name}" />
                                             <Text text="{suggestionModel>AvailableQty}" />
                                             <Text text="{suggestionModel>UOM}" />
+                                            <Text text="{suggestionModel>UnloadPoint}" />
                                         </ColumnListItem>
                                     </suggestionRows>
                                 </Input>
@@ -159,6 +166,7 @@
                                 <Text text="{reservationTableModel>AvailableQty}"/>
                                 <Input width="80%" liveChange="onLiveChangeQty" value="{reservationTableModel>Quantity}"/>
                                 <Text text="{reservationTableModel>BaseUnit}"/>
+                                <Text text="{reservationTableModel>UnloadPoint}"/>
                                 <Input value="{reservationTableModel>Batch}"/>
                                 <CheckBox selected="{reservationTableModel>M}" />
                                 <Button icon="sap-icon://delete" press="onDeleteReservationItemPress" type="Transparent"/>

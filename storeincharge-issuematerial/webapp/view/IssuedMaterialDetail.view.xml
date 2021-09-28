@@ -82,9 +82,9 @@
                                 <Column demandPopin="true" minScreenWidth="Desktop">
                                     <Text text="{i18n>issueQty}"/>
                                 </Column>
-                                <Column demandPopin="true" minScreenWidth="Desktop">
+                                <!-- <Column demandPopin="true" minScreenWidth="Desktop">
                                     <Text text="Reserved Qty"/>
-                                </Column>
+                                </Column> -->
                                 <Column demandPopin="true" minScreenWidth="Desktop">
                                     <Text text="{i18n>status}"/>
                                 </Column>
@@ -93,15 +93,15 @@
                                 <ColumnListItem>
                                     <cells>
                                         <ObjectIdentifier title="{Name}"/>
-                                        <Text text="{IssuedQty}"/>
                                          <Text text="{MaterialCode}"/>
                                         <Text text="{Plant}"/>
                                         <Text text="{StorageLocation}"/>
                                         <Text text="{MovementType}" />
                                         <Text text="{GoodsRecipient}" binding="{IssueMaterialReserve}"/>
                                         <Text text="{WBSNumber}" binding="{IssueMaterialReserve}"/>
-                                        <Text text="{UnloadingPoint}"/>
-                                        <Text text="{ReservedQty}"/>
+                                        <Text text="{UnloadPoint}"/>
+                                        <Text text="{IssuedQty}"/>
+                                        <!-- <Text text="{ReservedQty}"/> -->
                                         <ObjectStatus text="{Status}" state="{= ${Status} === 'ISSUED' ? 'Success' : ${Status} === 'RESERVED' ? 'Information' : 'Error'}" visible="{= ${Status}.length>0 ? true : false }"/>
                                     </cells>
                                 </ColumnListItem>
