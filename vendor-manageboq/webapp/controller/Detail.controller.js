@@ -15,6 +15,13 @@ sap.ui.define([
     return BaseController.extend("com.agel.mmts.vendormanageboq.controller.Detail", {
 
         onInit: function () {
+            //get logged in User
+            try {
+                this.UserEmail = sap.ushell.Container.getService("UserInfo").getEmail();
+            }
+            catch (e) {
+                this.UserEmail = 'mukesh.gupta@extentia.com';
+            }
             //view model instatiation
             var oViewModel = new JSONModel({
                 busy: false,
@@ -284,7 +291,7 @@ sap.ui.define([
                 element.MasterUOMItemId = element.masterUOMItemId;
                 delete element.masterUOMItemId;
             });
-            var sVendorID = "1";
+            var sVendorID = this.UserEmail;
             var sParentID = this.getView().getBindingContext().getObject().ID;
             oPayload.ParentLineItemID = sParentID;
             oPayload.PCGroupItems = aPayloadSelectedItem;

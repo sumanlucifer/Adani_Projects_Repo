@@ -13,6 +13,13 @@ sap.ui.define([
     return BaseController.extend("com.agel.mmts.vendorPersona.controller.DetailPage", {
         formatter: formatter,
         onInit: function () {
+            //get logged in User
+            try {
+                this.UserEmail = sap.ushell.Container.getService("UserInfo").getEmail();
+            }
+            catch (e) {
+                this.UserEmail = 'mukesh.gupta@extentia.com';
+            }
             //Router Object
             this.oRouter = this.getRouter();
             this.oRouter.getRoute("RouteDetailPage").attachPatternMatched(this._onObjectMatched, this);
@@ -36,13 +43,13 @@ sap.ui.define([
             this._mViewSettingsDialogs = {};
             //adding searchfield association to filterbar and initialize the filter bar -> added in base controller
             this.initializeFilterBar();
-            var startupParams = this.getOwnerComponent().getComponentData().startupParameters;
+            // var startupParams = this.getOwnerComponent().getComponentData().startupParameters;
             // get Startup params from Owner Component
-            if (startupParams.Kind[0]) {
-                this.type = startupParams.Kind[0];
-                //    this.type = 1;
-                this.byId("idIconTabBar").setSelectedKey(this.type);
-            }
+            // if (startupParams.Kind[0]) {
+            //     this.type = startupParams.Kind[0];
+            //     //    this.type = 1;
+            //     this.byId("idIconTabBar").setSelectedKey(this.type);
+            // }
         },
         _onObjectMatched: function (oEvent) {
             this.onIconTabBarChanged();
@@ -51,25 +58,25 @@ sap.ui.define([
         onbeforeRebindOpenPoTable: function (oEvent) {
             var mBindingParams = oEvent.getParameter("bindingParams");
             mBindingParams.filters.push(new Filter("Status", sap.ui.model.FilterOperator.EQ, "PENDING"));
-            //mBindingParams.filters.push(new Filter("Vendor/Email", sap.ui.model.FilterOperator.EQ, "symantic.engineering@testemail.com"));
+            mBindingParams.filters.push(new Filter("Vendor/Email", sap.ui.model.FilterOperator.EQ, this.UserEmail));
         },
         // Confirm Po Table Before Bind
         onbeforeRebindConfirmPoTable: function (oEvent) {
             var mBindingParams = oEvent.getParameter("bindingParams");
             mBindingParams.filters.push(new Filter("Status", sap.ui.model.FilterOperator.EQ, "CONFIRMED"));
-            //mBindingParams.filters.push(new Filter("Vendor/Email", sap.ui.model.FilterOperator.EQ, "symantic.engineering@testemail.com"));
+            mBindingParams.filters.push(new Filter("Vendor/Email", sap.ui.model.FilterOperator.EQ, this.UserEmail));
         },
         //InProgress PO Table
         onBeforeRebindInProgressPOTable: function (oEvent) {
             var mBindingParams = oEvent.getParameter("bindingParams");
             mBindingParams.filters.push(new Filter("Status", sap.ui.model.FilterOperator.EQ, "IN PROGRESS"));
-            //mBindingParams.filters.push(new Filter("Vendor/Email", sap.ui.model.FilterOperator.EQ, "symantic.engineering@testemail.com"));
+            mBindingParams.filters.push(new Filter("Vendor/Email", sap.ui.model.FilterOperator.EQ, this.UserEmail));
         },
         // Dispatched Po Table Before Bind
         onbeforeRebindDispatchPoTable: function (oEvent) {
             var mBindingParams = oEvent.getParameter("bindingParams");
             mBindingParams.filters.push(new Filter("Status", sap.ui.model.FilterOperator.EQ, "CLOSED"));
-            //mBindingParams.filters.push(new Filter("Vendor/Email", sap.ui.model.FilterOperator.EQ, "symantic.engineering@testemail.com"));
+            mBindingParams.filters.push(new Filter("Vendor/Email", sap.ui.model.FilterOperator.EQ, this.UserEmail));
         },
 
         onPurchaseOrderTableUpdateFinished: function (oEvent) {
@@ -216,7 +223,7 @@ sap.ui.define([
             var idConfirmPOTableBinding = this.getView().byId("idConfirmPOTable").getTable().getBinding("items");
             var idDispatchedPOTableBinding = this.getView().byId("idDispatchedPOTable").getTable().getBinding("items");
             var idInProgressPOTableBinding = this.getView().byId("idInProgressPOTable").getTable().getBinding("items");
-            
+
             idOpenPOTableBinding.filter([]);
             idConfirmPOTableBinding.filter([]);
             idDispatchedPOTableBinding.filter([]);
