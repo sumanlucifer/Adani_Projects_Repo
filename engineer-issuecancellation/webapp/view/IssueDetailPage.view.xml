@@ -36,7 +36,7 @@
                     <Title text="{i18n>SONumber}- {MaterialDocumentNumber}" wrapping="true" titleStyle="Auto"/>
                 </uxap:snappedTitleOnMobile>
                 <uxap:actions>
-                    <Button text="Cancel Issued Items" press="onPressCancelIssuePosting" type="Emphasized" visible="{= ${Status} === 'ISSUED' || ${Status} === 'PARTIALLY ISSUED' || ${Status} === 'PARTIALLY CANCELLED'}"/>
+                    <Button text="Cancel Issued Items" press="onPressCancelIssuePosting" type="Emphasized" visible="{= ${Status} === 'ISSUED' || ${Status} === 'PARTIALLY ISSUED' || ${Status} === 'PARTIALLY CANCELLED'}" enabled="{objectViewModel>/cancelbutton}"/>
 
                 </uxap:actions>
             </uxap:ObjectPageDynamicHeaderTitle>
@@ -174,7 +174,7 @@
                                         <Text text="{consumptionData>MovementType}" />
                                         <Text text="{consumptionData>IssueMaterialReserve/GoodsRecipient}"/>
                                         <Text text="{consumptionData>IssueMaterialReserve/WBSNumber}"/>
-                                        <Text text="{consumptionData>UnloadingPoint}"/>
+                                        <Text text="{consumptionData>UnloadPoint}"/>
                                         <Text text="{consumptionData>IssuedQty}"/>
                                         <Text text="{consumptionData>ReservedQty}"/>
 
