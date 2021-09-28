@@ -285,7 +285,7 @@ sap.ui.define([
                 this.getRouter().navTo("RouteNewConsignment");
             },
 
-           onViewQRCodePress: function (oEvent) {
+            onViewQRCodePress: function (oEvent) {
                 try {
                     var sParentItemPath = oEvent.getParameter("oSource").getBindingContext().getPath();
                 }
@@ -612,7 +612,7 @@ sap.ui.define([
                 }
                 this._oRequestDialog.open();
             },
-            
+
             onDeliveryNoteLiveChange: function (oEvent) {
                 var oPOData = this.getView().getBindingContext().getObject();
                 if (oEvent.getSource().getValue().length && parseInt(oEvent.getSource().getValue()) > 0)
@@ -681,9 +681,15 @@ sap.ui.define([
                     if (oPayload) {
                         oModel.create("/GRNEdmSet", oPayload, {
                             success: function (oData) {
-                                MessageBox.success(oData.Message);
-                                this.getComponentModel().refresh();
-                                this.onDoItLaterPress();
+                                MessageBox.success(oData.Message, {
+                                    title: "Success",
+                                    onClose: function (oAction1) {
+                                        if (oAction1 === sap.m.MessageBox.Action.OK) {
+                                            this.getComponentModel().refresh();
+                                            this.onDoItLaterPress();
+                                        }
+                                    }.bind(this)
+                                });
                             }.bind(this),
                             error: function (oError) {
                                 MessageBox.error(JSON.stringify(oError));
