@@ -20,24 +20,24 @@
                 <uxap:expandedHeading>
                     <FlexBox direction="Column" renderType="Bare">
                         <Title text="{i18n>issueMaterial}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
-                        <Title text="{SONumber}" wrapping="true" titleStyle="H3" />
+                        <Title text="{ReservationNumber}" wrapping="true" titleStyle="H3" />
                     </FlexBox>
                 </uxap:expandedHeading>
                 <uxap:snappedHeading>
                     <FlexBox direction="Column" renderType="Bare">
                         <Title text="{i18n>issueMaterial}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
-                        <Title text="{SONumber}" wrapping="true" titleStyle="H3"/>
+                        <Title text="{ReservationNumber}" wrapping="true" titleStyle="H3"/>
                     </FlexBox>
                 </uxap:snappedHeading>
                 <uxap:expandedContent></uxap:expandedContent>
                 <uxap:snappedTitleOnMobile>
-                    <Title text="{i18n>SONumber}- {SONumber}" wrapping="true" titleStyle="Auto"/>
+                    <Title text="{i18n>issueMaterial}- {ReservationNumber}" wrapping="true" titleStyle="Auto"/>
                 </uxap:snappedTitleOnMobile>
                 <uxap:actions>
-                    <HBox visible="true">
-                        <Button text="Done" press="onPressDone" type="Accept" visible="{objectViewModel>/doneButton}" />
+                    <HBox>
+                        <Button text="Done" press="onPressDone" type="Accept" visible="{objectViewModel>/doneButton}"/>
                     </HBox>
-                    <HBox visible="true">   
+                    <HBox>   
                         <Button text="Scan or Enter QR Code" press="onPressScanQR" type="Emphasized"/>
                     </HBox>
                 </uxap:actions>
