@@ -8,3 +8,5 @@ package-lock.json
 
 # auto generated wildcard
 sapui5/return-reservation/.env1
+# auto generated wildcard
+sapui5/vendorPersona/.env1
