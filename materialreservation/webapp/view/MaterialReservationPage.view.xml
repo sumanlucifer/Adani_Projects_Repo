@@ -39,16 +39,16 @@
                                 <Select id="idSelMovementType" change="onMoventTypeChange" editable="false" selectedKey="{HeaderDetailsModel>MovementType}" forceSelection="false" items="{HeaderDetailsModel>/movementTypeVal}">
                                     <core:Item key="{HeaderDetailsModel>value}" text="{HeaderDetailsModel>Text}" />
                                 </Select>
-
                                 <Label text="{i18n>Plant}" required="true"/>
                                 <Select id="idPlant" forceSelection="false" selectedKey="{HeaderDetailsModel>Plant}" items="{
-                                path: '/MasterPlantDetailSet'						    
+                                path: '/MasterPlantDetailSet' 
                                 }">
                                     <core:Item key="{PlantId}" text="{PlantId} - {Name}" />
                                 </Select>
-
                                 <Label  text="{i18n>StorageLocation}" required="true"/>
-                                <Input id="idStorageLocation" value="{HeaderDetailsModel>StorageLocation}" />
+                                <Input id="idStorageLocation" value="{HeaderDetailsModel>StorageLocation}" />                                    
+                                <Label  text="{i18n>UnloadingPoint}" required="true"/>
+                                <Input id="idUnloadPoint" value="{HeaderDetailsModel>UnloadPoint}" />
                             </fm:content>
                         </fm:SimpleForm>
                         <fm:SimpleForm layout="ColumnLayout" binding="{HeaderDetailsModel>/}" columnsM="2" columnsL="3" columnsXL="3" singleContainerFullSize="false" class="style-RemoveTitleHeight">

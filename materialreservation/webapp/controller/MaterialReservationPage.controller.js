@@ -25,6 +25,7 @@ sap.ui.define([
                 this._createItemDataModel();
                 var suggestionModel = new JSONModel([]);
                 this.getView().setModel(suggestionModel, "suggestionModel");
+                this.mainModel.setSizeLimit(1000);
             },
             createInitialModel: function () {
                 var oViewModel = new JSONModel({
@@ -53,7 +54,8 @@ sap.ui.define([
                     GLAccount: null,
                     ProfitCenter: null,
                     ContractorId: null,
-                    CompanyCode: null
+                    CompanyCode: null,
+                    UnloadPoint: null
                 });
                 this.getView().setModel(oModel, "HeaderDetailsModel")
             },
@@ -156,9 +158,10 @@ sap.ui.define([
                 this.getViewModel("objectViewModel").setProperty("/isItemFieldsVisible", true);
                 var Plant = this.byId("idPlant").getSelectedKey();
                 var StorageLocation = this.byId("idStorageLocation").getValue();
-                this.getMaterialSuggestionData(Plant, StorageLocation);
+                var UnloadPoint = this.byId("idUnloadPoint").getValue();
+                this.getMaterialSuggestionData(Plant, StorageLocation, UnloadPoint);
             },
-            getMaterialSuggestionData: function (Plant, StorageLocation) {
+            getMaterialSuggestionData: function (Plant, StorageLocation, UnloadPoint) {
                 var PlantFilter = new sap.ui.model.Filter({
                     path: "PlantCode",
                     operator: sap.ui.model.FilterOperator.EQ,
@@ -169,9 +172,14 @@ sap.ui.define([
                     operator: sap.ui.model.FilterOperator.EQ,
                     value1: StorageLocation
                 });
+                var UnloadPointFilter = new sap.ui.model.Filter({
+                    path: "UnloadPoint",
+                    operator: sap.ui.model.FilterOperator.EQ,
+                    value1: UnloadPoint
+                });
                 var filter = [];
-                filter.push(PlantFilter);
-                filter.push(StorageLocationFilter);
+                filter.push(PlantFilter,StorageLocationFilter,UnloadPointFilter);
+                // filter.push(StorageLocationFilter);
                 this.getOwnerComponent().getModel().read("/MaterialAvailabilityViewSet", {
                     filters: [filter],
                     // urlParameters: {
