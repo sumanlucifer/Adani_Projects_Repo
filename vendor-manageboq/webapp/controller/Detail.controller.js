@@ -291,12 +291,12 @@ sap.ui.define([
                 element.MasterUOMItemId = element.masterUOMItemId;
                 delete element.masterUOMItemId;
             });
-            var sVendorID = this.UserEmail;
+            var sVendorEmail = this.UserEmail;
             var sParentID = this.getView().getBindingContext().getObject().ID;
             oPayload.ParentLineItemID = sParentID;
             oPayload.PCGroupItems = aPayloadSelectedItem;
 
-            oPayload.VendorID = sVendorID;
+            oPayload.VendorEmail = sVendorEmail;
 
             this.mainModel.create("/PCGroupItemListSet", oPayload, {
                 success: function (oData, oResponse) {
