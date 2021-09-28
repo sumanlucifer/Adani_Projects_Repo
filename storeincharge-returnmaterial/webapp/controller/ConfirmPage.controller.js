@@ -83,6 +83,8 @@ sap.ui.define([
             oModel.create("/ReturnMaterialPostingEdmSet", { "ID": this.ReturnId }, {
                 success: function (oRes) {
                     if (oRes.Success) {
+                        sap.m.MessageBox.success("Return request action is submitted successfully.");
+                        this.getOwnerComponent().getModel().refresh();
                         this.getOwnerComponent().getRouter().navTo("RouteApp");
                     }
                 }.bind(this),

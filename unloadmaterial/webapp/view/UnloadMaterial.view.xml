@@ -46,10 +46,23 @@
         </uxap:headerContent>
         <uxap:sections>
 
+            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>UnloadingPoint}">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection>
+                        <uxap:blocks>
+                                <VBox>
+                                    <Label text="{i18n>UnloadingPoint}"/>
+                                    <Input type="Text" value="{JSONModelData>/UnloadPoint}" width="20%"/>               
+                                </VBox>       
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
             <!-- Packing List Contains -->
             <uxap:ObjectPageSection titleUppercase="false" title="{i18n>PackListContains}">
                 <uxap:subSections>
-                    <uxap:ObjectPageSubSection title="{i18n>OuterPackaging}">
+                   <uxap:ObjectPageSubSection title="{i18n>OuterPackaging}">
                         <uxap:blocks>
                             <outerPackaging:OuterPackaging OnViewQRCodePress="onViewQRCodePress" class="sapUxAPObjectPageSubSectionAlignContent"/>
                         </uxap:blocks>

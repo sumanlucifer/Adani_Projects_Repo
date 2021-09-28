@@ -220,7 +220,7 @@
 		"fe66df94-e03f-4c03-95ea-cf5bf2f36b4f": {
 			"classDefinition": "com.sap.bpm.wfs.MailDefinition",
 			"name": "maildefinition1",
-			"to": "venkatesh.hulekal@extentia.com,atul.jain@extentia.com",
+			"to": "akhil.jain@extentia.com,atul.jain@extentia.com,dharmendra.joshi@extentia.com,Suraj.Gavane@extentia.com",
 			"subject": "${context.MDCCRequestID} Approval",
 			"text": "${context.MDCCRequestID} Approval",
 			"id": "maildefinition1"

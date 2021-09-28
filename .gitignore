@@ -4,5 +4,4 @@
 *.zip 
 package-lock.json
 /dist/
-# auto generated wildcard
-sapui5-1/materialreservation/.env1
+
