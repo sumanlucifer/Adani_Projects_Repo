@@ -67,6 +67,7 @@ sap.ui.define([
 
             this.getView().getModel("layoutModel").setProperty("/layout", sLayout);
             this._bindView("/ParentLineItemSet" + this.sParentID);
+            this._filterPCListTable(this.UserEmail);
         },
 
         _bindView: function (sObjectPath) {
@@ -84,6 +85,12 @@ sap.ui.define([
                     }
                 }
             });
+        },
+        
+        _filterPCListTable: function(sEmail){
+            var PCListTable = this.getView().byId("idPCListTable");
+            var oUserFilter = new Filter("VendorEmail", sap.ui.model.FilterOperator.EQ, sEmail);
+            PCListTable.getBinding("items").filter(oUserFilter);
         },
 
         onUOMSelected: function (oEvent) {
