@@ -129,8 +129,8 @@ sap.ui.define([
             },
             onLiveChangeReservedQty: function (oEvent) {
                 var rowObj = oEvent.getSource().getParent().getRowBindingContext().getObject();
-                var ReservedQty = oEvent.getSource().getParent().getCells()[7].getValue();
-                var aCell = oEvent.getSource().getParent().getCells()[7];
+                var ReservedQty = oEvent.getSource().getParent().getCells()[10].getValue();
+                var aCell = oEvent.getSource().getParent().getCells()[10];
 
                 if (ReservedQty === "") {
                     aCell.setValueState("Error");
