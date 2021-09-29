@@ -148,17 +148,23 @@
                                     </tt:template>
                                 </tt:Column>
                                 <tt:Column>
-                                    <Label text="Plant"/>
-                                    <tt:template>
-                                        <ObjectIdentifier title="{TreeTableModelView>Plant}" />
-                                    </tt:template>
-                                </tt:Column>
-                                <tt:Column>
                                     <Label text="Name"/>
                                     <tt:template>
                                         <Text text="{TreeTableModelView>Name}" wrapping="false" /> 
                                     </tt:template>
-                                </tt:Column>     
+                                </tt:Column>
+                                <tt:Column>
+                                    <Label text="Plant"/>
+                                    <tt:template>
+                                        <Text text="{TreeTableModelView>Plant}" />
+                                    </tt:template>
+                                </tt:Column>   
+                                <tt:Column>
+                                    <Label text="WBS Element"/>
+                                    <tt:template>
+                                        <Text text="{TreeTableModelView>WBSElement}" />
+                                    </tt:template>
+                                </tt:Column>                                  
                                 <tt:Column>
                                     <Label text="Issued Quantity"/>
                                     <tt:template>
@@ -168,7 +174,7 @@
                                 <tt:Column>
                                     <Label text="Qty Requested for Return"/>
                                     <tt:template>
-                                        <Text text="{TreeTableModelView>RequirementQuantity}" wrapping="false" />
+                                        <ObjectIdentifier title="{TreeTableModelView>RequirementQuantity}" wrapping="false" />
                                     </tt:template>
                                 </tt:Column>                  
                                 <tt:Column>
@@ -176,6 +182,12 @@
                                     <tt:template>
                                         <Input type="Number" value="{TreeTableModelView>ApprovedRetQuantity}" enabled="{TreeTableModelView>isSelected}" visible="{TreeTableModelView>selectable}" valueLiveUpdate="true" liveChange="validateInputValue" 
                                             valueState="{= ${TreeTableModelView>ApprovedRetQuantity} > 0 &amp;&amp; ${TreeTableModelView>RequirementQuantity} >= ${TreeTableModelView>ApprovedRetQuantity} ? 'None' : 'Error' }"/>
+                                    </tt:template>
+                                </tt:Column>                 
+                                <tt:Column>
+                                    <Label text="UOM"/>
+                                    <tt:template>
+                                        <Text text="{TreeTableModelView>BaseUnit}" wrapping="false" />
                                     </tt:template>
                                 </tt:Column>
                             </tt:columns>
