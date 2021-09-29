@@ -134,21 +134,31 @@ sap.ui.define([
                 this.getView().byId("idBtnSubmit").setEnabled(true);
                 var oValue = oEvent.getSource().getValue();
                 var balanceQty = oEvent.getSource().getParent().getCells()[3].getText();
-                var flag = 0;
-                if (parseInt(oValue) > parseInt(balanceQty) || balanceQty == "") {
+                // var flag = 0;
+                // if (parseInt(oValue) > parseInt(balanceQty) || balanceQty == "") {
+                //     oEvent.getSource().setValueState("Error");
+                //     oEvent.getSource().setValueStateText("Please enter return quantity lesser than or equal to balance quantity");
+                //     this.getView().byId("idBtnSubmit").setEnabled(false);
+                //     flag = 1;
+                // }
+                // if (parseInt(oValue) < 0 || oValue == "") {
+                //     oEvent.getSource().setValueState("Error");
+                //     oEvent.getSource().setValueStateText("Please enter return quantity");
+                //     this.getView().byId("idBtnSubmit").setEnabled(false);
+                // } else if (flag != 1) {
+                //     oEvent.getSource().setValueState("None");
+                //     this.getView().byId("idBtnSubmit").setEnabled(true);
+                // }  
+
+                if (parseInt(oValue) !== parseInt(balanceQty)) {
                     oEvent.getSource().setValueState("Error");
-                    oEvent.getSource().setValueStateText("Please enter return quantity lesser than or equal to balance quantity");
+                    oEvent.getSource().setValueStateText("Issue Quantity should be equal to Balance Quantity");
                     this.getView().byId("idBtnSubmit").setEnabled(false);
-                    flag = 1;
-                }
-                if (parseInt(oValue) < 0 || oValue == "") {
-                    oEvent.getSource().setValueState("Error");
-                    oEvent.getSource().setValueStateText("Please enter return quantity");
-                    this.getView().byId("idBtnSubmit").setEnabled(false);
-                } else if (flag != 1) {
+                } else {
                     oEvent.getSource().setValueState("None");
                     this.getView().byId("idBtnSubmit").setEnabled(true);
                 }
+
             },
             onPressGo: function () {
                 var oHeaderData = this.getViewModel("HeaderDetailsModel").getData();
@@ -255,6 +265,8 @@ sap.ui.define([
                     this.getViewModel("objectViewModel").setProperty("/isHeaderFieldsVisible", true);
                     this.byId("idPlant").setEnabled(false);
                     this.byId("idStorageLocation").setEnabled(false);
+                    this.byId("idUnloadPoint").setEnabled(false);
+
                 }
                 if (!data.CostCenter) {
                     this.byId("idCostCenter").setValueState("Error");
@@ -386,8 +398,9 @@ sap.ui.define([
                 this._createHeaderDetailsModel();
                 this._createItemDataModel();
                 this.createInitialModel();
-                 this.getView().byId("idPlant").setEnabled(true);
+                this.getView().byId("idPlant").setEnabled(true);
                 this.getView().byId("idStorageLocation").setEnabled(true);
+                this.byId("idUnloadPoint").setEnabled(true);
             }
         });
     });

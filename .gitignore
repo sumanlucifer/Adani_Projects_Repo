@@ -5,3 +5,8 @@
 package-lock.json
 /dist/
 
+
+# auto generated wildcard
+sapui5-1/pmcg/.env10
+# auto generated wildcard
+sapui5-1/storestock/.env1

@@ -15,8 +15,8 @@
 				                     formatOptions: {
 				                        pattern: 'MMMM dd, yyyy'
 				                     }}" binding="{PurchaseOrder}"/>
-                        <!-- <Label text="{i18n>GatePassNumber}" />
-                        <Text text="{GateEntryNumber}"/> -->
+                        <Label text="{i18n>GatePassNumber}" />
+                        <Text text="{GateEntryNumber}"/>
                         <Label text="{i18n>Plant}"/>
                         <Text text="{PlantCode}" binding="{RestrictedStoreStockParent}"/>
                         <Label text="{i18n>StorageLocation}"/>
@@ -45,8 +45,8 @@
                         <Input id="idweight" value="{requestModel>/quantity}" liveChange="onQuantityLiveChange" type="Number" valueState="{requestModel>/valueState}" valueStateText="{requestModel>/valueStateText}"></Input>
                         <Label text="Bill of Lading" required="true"></Label>
                         <Input id="idbilloflading" value="{requestModel>/billoflading}" type="Text" valueState="{requestModel>/valueState}" valueStateText="{requestModel>/valueStateText}"></Input>
-                        <Label text="Gate Pass Number" required="true"></Label>
-                        <Input id="idgatepassnumber" value="{requestModel>/gatepassnumber}" type="Text" valueState="{requestModel>/valueState}" valueStateText="{requestModel>/valueStateText}"></Input>
+                        <!-- <Label text="Gate Pass Number" required="true"></Label>
+                        <Input id="idgatepassnumber" value="{requestModel>/gatepassnumber}" type="Text" valueState="{requestModel>/valueState}" valueStateText="{requestModel>/valueStateText}"></Input> -->
                         <Label text="LR Number" required="true"></Label>
                         <Input id="idlrnumber" value="{requestModel>/lrnumber}" type="Text" valueState="{requestModel>/valueState}" valueStateText="{requestModel>/valueStateText}"></Input>
                         <Label text="Reference" required="true"></Label>

@@ -30,12 +30,6 @@
                 </ui:template>
             </ui:Column>
             <ui:Column width="8%">
-                <Label text="Material Code"/>
-                <ui:template>
-                    <Text text="{TreeTableModelView>MaterialCode}" wrapping="false" />
-                </ui:template>
-            </ui:Column>
-            <ui:Column width="8%">
                 <Label text="Name"/>
                 <ui:template>
                     <Text text="{TreeTableModelView>Name}" wrapping="false" />

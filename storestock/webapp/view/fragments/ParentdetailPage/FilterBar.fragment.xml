@@ -28,7 +28,7 @@
                     <Select width="6rem" id="idSelPlant" forceSelection="false" selectedKey="{qrAssistantModel>/reason}" items="{
 						    path: '/MasterPlantDetailSet'						    
 					    }">
-                        <core:Item key="{PlantId}" text="{PlantId}" />
+                        <core:Item key="{PlantId}" text="{PlantId} - {Name}" />
                     </Select>
 
                       <!-- <Select width="6rem" id="idSelPlant" forceSelection="false"  items="{PlantModel>/PlntItems}">
