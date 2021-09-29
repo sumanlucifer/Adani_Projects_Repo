@@ -83,12 +83,23 @@ sap.ui.define([
             oModel.create("/ReturnMaterialPostingEdmSet", { "ID": this.ReturnId }, {
                 success: function (oRes) {
                     if (oRes.Success) {
-                        sap.m.MessageBox.success("Return request action is submitted successfully.");
-                        this.getOwnerComponent().getModel().refresh();
-                        this.getOwnerComponent().getRouter().navTo("RouteApp");
+                        MessageBox.success("Return request action is submitted successfully.", {
+                            title: "Success",
+                            onClose: function (oAction1) {
+                                if (oAction1 === sap.m.MessageBox.Action.OK) {
+                                    this.getOwnerComponent().getModel().refresh();
+                                    this.getOwnerComponent().getRouter().navTo("RouteApp");
+                                }
+                            }.bind(this)
+                        });
+                    }
+                    else {
+                        MessageBox.error("Error while submitting return request.");
                     }
                 }.bind(this),
-                error: (oErr) => { debugger }
+                error: (oErr) => {
+                    MessageBox.error("Error while submitting return request.");
+                }
             })
         }
 

@@ -47,8 +47,8 @@
                                     formatOptions: {
                                         pattern: 'MMMM dd, yyyy'
                                     }
-                        }"/>
-                        <Text text="{Status}"/>
+                        }"/>                      
+                        <ObjectStatus text="{Status}" state="{= ${Status} === 'APPROVED' ? 'Success' : ${Status} === 'REJECTED' ? 'Error' : ${Status} === 'PARTIALLY APPROVED' ? 'Warning' : 'None'}" visible="{= ${Status}.length>0 ? true : false }"/>
                     </cells>
                 </ColumnListItem>
             </items>
