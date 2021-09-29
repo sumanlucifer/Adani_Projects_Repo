@@ -15,6 +15,13 @@ sap.ui.define([
     return BaseController.extend("com.agel.mmts.vendormanageboq.controller.Detail", {
 
         onInit: function () {
+            //get logged in User
+            try {
+                this.UserEmail = sap.ushell.Container.getService("UserInfo").getEmail();
+            }
+            catch (e) {
+                this.UserEmail = 'mukesh.gupta@extentia.com';
+            }
             //view model instatiation
             var oViewModel = new JSONModel({
                 busy: false,
@@ -60,6 +67,7 @@ sap.ui.define([
 
             this.getView().getModel("layoutModel").setProperty("/layout", sLayout);
             this._bindView("/ParentLineItemSet" + this.sParentID);
+            this._filterPCListTable(this.UserEmail);
         },
 
         _bindView: function (sObjectPath) {
@@ -77,6 +85,12 @@ sap.ui.define([
                     }
                 }
             });
+        },
+        
+        _filterPCListTable: function(sEmail){
+            var PCListTable = this.getView().byId("idPCListTable");
+            var oUserFilter = new Filter("VendorEmail", sap.ui.model.FilterOperator.EQ, sEmail);
+            PCListTable.getBinding("items").filter(oUserFilter);
         },
 
         onUOMSelected: function (oEvent) {
@@ -284,12 +298,12 @@ sap.ui.define([
                 element.MasterUOMItemId = element.masterUOMItemId;
                 delete element.masterUOMItemId;
             });
-            var sVendorID = "1";
+            var sVendorEmail = this.UserEmail;
             var sParentID = this.getView().getBindingContext().getObject().ID;
             oPayload.ParentLineItemID = sParentID;
             oPayload.PCGroupItems = aPayloadSelectedItem;
 
-            oPayload.VendorID = sVendorID;
+            oPayload.VendorEmail = sVendorEmail;
 
             this.mainModel.create("/PCGroupItemListSet", oPayload, {
                 success: function (oData, oResponse) {
