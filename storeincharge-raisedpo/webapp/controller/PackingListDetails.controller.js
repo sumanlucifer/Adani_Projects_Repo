@@ -341,7 +341,7 @@ sap.ui.define([
                     quantity: null,
                     delivery: null,
                     billoflading: null,
-                    gatepassnumber: null,
+                    // gatepassnumber: null,
                     valueState: null,
                     reference: null,
                     isConfirmButtonEnabled: false,
@@ -403,7 +403,7 @@ sap.ui.define([
 
                 var weight = sap.ui.getCore().byId("idweight").getValue();
                 var billoflading = sap.ui.getCore().byId("idbilloflading").getValue();
-                var gatepassnumber = sap.ui.getCore().byId("idgatepassnumber").getValue();
+                // var gatepassnumber = sap.ui.getCore().byId("idgatepassnumber").getValue();
                 var lrnumber = sap.ui.getCore().byId("idlrnumber").getValue();
                 var reference = sap.ui.getCore().byId("idreference").getValue();
                 var delivery = sap.ui.getCore().byId("iddelivery").getValue();
@@ -415,10 +415,10 @@ sap.ui.define([
                     sap.m.MessageBox.error("Please enter Bill of Lading");
                     return;
                 }
-                else if (gatepassnumber == "") {
-                    sap.m.MessageBox.error("Please enter Gate Pass Number");
-                    return;
-                }
+                // else if (gatepassnumber == "") {
+                //     sap.m.MessageBox.error("Please enter Gate Pass Number");
+                //     return;
+                // }
                 else if (lrnumber == "") {
                     sap.m.MessageBox.error("Please enter LR Number");
                     return;
@@ -437,7 +437,7 @@ sap.ui.define([
                 var sQuantity = this.getViewModel("requestModel").getProperty("/quantity");
                 var sBillofLading = this.getViewModel("requestModel").getProperty("/billoflading");
                 var sReference = this.getViewModel("requestModel").getProperty("/reference");
-                var sGatePassNumber = this.getViewModel("requestModel").getProperty("/gatepassnumber");
+                // var sGatePassNumber = this.getViewModel("requestModel").getProperty("/gatepassnumber");
                 var sLRNumber = this.getViewModel("requestModel").getProperty("/lrnumber");
 
                 var oModel = this.getComponentModel();
@@ -447,7 +447,7 @@ sap.ui.define([
                             "TotalPackagingWeight": parseInt(sQuantity),
                             "DeliveryNote": sDelivery,
                             "BillOfLading": sBillofLading,
-                            "GatePassNumber": sGatePassNumber,
+                            // "GatePassNumber": sGatePassNumber,
                             "LRNumber": sLRNumber,
                             "Reference": sReference,
                             "PackingListId": this.getView().getBindingContext().getObject().ID,
@@ -460,7 +460,7 @@ sap.ui.define([
                             "TotalPackagingWeight": parseInt(sQuantity),
                             "DeliveryNote": sDelivery,
                             "BillOfLading": sBillofLading,
-                            "GatePassNumber": sGatePassNumber,
+                            // "GatePassNumber": sGatePassNumber,
                             "LRNumber": sLRNumber,
                             "Reference": sReference,
                             "PackingListId": parseInt(oSelectedItemData.ID),

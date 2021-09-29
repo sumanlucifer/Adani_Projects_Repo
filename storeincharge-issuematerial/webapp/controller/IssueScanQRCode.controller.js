@@ -159,24 +159,25 @@ sap.ui.define([
                         // var oJsonModel = new JSONModel(oJsonData);
                         // this.getView().setModel(oJsonModel, "IssueMatEnterQtyModel");
 
-
-                        if (oData.results[0].RestrictedStoreStockParent.StoreStockParent != undefined) {
-                            var finalMatCode = oData.results[0].RestrictedStoreStockParent.StoreStockParent.MaterialCode;
-                            var initialMatModel = this.getViewModel("IssueMatModel").getData();
-                            for (var j = 0; j < initialMatModel.length; j++) {
-                                if (initialMatModel[j].MaterialCode === finalMatCode) {
-                                    initialMatModel[j].QRNumber = qrCodeId;
-                                    this.onEnterQuantity(j);
+                        if (oData.results[0] != undefined) {
+                            if (oData.results[0].RestrictedStoreStockParent.StoreStockParent != undefined) {
+                                var finalMatCode = oData.results[0].RestrictedStoreStockParent.StoreStockParent.MaterialCode;
+                                var initialMatModel = this.getViewModel("IssueMatModel").getData();
+                                for (var j = 0; j < initialMatModel.length; j++) {
+                                    if (initialMatModel[j].MaterialCode === finalMatCode) {
+                                        initialMatModel[j].QRNumber = qrCodeId;
+                                        this.onEnterQuantity(j);
+                                    }
+                                    else
+                                        sap.m.MessageBox.error("Invalid Scan");
                                 }
-                                else
-                                    sap.m.MessageBox.error("Invalid Scan");
                             }
+                            else
+                                sap.m.MessageBox.error("Invalid Scan");
                         }
                         else
                             sap.m.MessageBox.error("Invalid Scan");
-
                     }
-
                 }.bind(this),
                 error: function (oError) {
                     sap.m.MessageBox.error(JSON.stringify(oError));
@@ -229,10 +230,14 @@ sap.ui.define([
                 if(jsonDataDoneButton[i].IssuedQty === null)
                 {
                     oDetails.view.getModel("objectViewModel").setProperty("/doneButton", false);
+                    // oDetails.view.getModel("objectViewModel").setEnabled(false);
+
                     break;
                 }
                 else
                     oDetails.view.getModel("objectViewModel").setProperty("/doneButton", true);
+                    //  oDetails.view.getModel("objectViewModel").setEnabled(true);
+
              
             }
 

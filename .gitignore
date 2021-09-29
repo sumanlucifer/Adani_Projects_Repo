@@ -5,10 +5,3 @@
 package-lock.json
 /dist/
 
-
-# auto generated wildcard
-sapui5/return-reservation/.env1
-# auto generated wildcard
-sapui5/vendorPersona/.env1
-# auto generated wildcard
-sapui5/vendor-manageboq/.env1

@@ -34,12 +34,8 @@
                     <Title text="{i18n>issueMaterial}- {ReservationNumber}" wrapping="true" titleStyle="Auto"/>
                 </uxap:snappedTitleOnMobile>
                 <uxap:actions>
-                    <HBox>
+                        <Button text="Scan OR Enter QR Code" press="onPressScanQR" type="Emphasized"/>
                         <Button text="Done" press="onPressDone" type="Accept" visible="{objectViewModel>/doneButton}"/>
-                    </HBox>
-                    <HBox>   
-                        <Button text="Scan or Enter QR Code" press="onPressScanQR" type="Emphasized"/>
-                    </HBox>
                 </uxap:actions>
             </uxap:ObjectPageDynamicHeaderTitle>
         </uxap:headerTitle>
@@ -70,7 +66,7 @@
                                     <Text text="{i18n>wbsnumber}"/>
                                 </Column>
                                 <Column demandPopin="true" minScreenWidth="Desktop">
-                                    <Text text="{i18n>materialDocumentLineItem}"/>
+                                    <Text text="{i18n>lineItemNumber}"/>
                                 </Column>
                                 <Column demandPopin="true" minScreenWidth="Desktop">
                                     <Text text="{i18n>createdAt}"/>
@@ -90,7 +86,7 @@
                                         <Text text="{IssueMatModel>StorageLocation}" />
                                         <Text text="{IssueMatModel>Plant}" />
                                         <Text text="{IssueMatModel>WBSNumber}"/>
-                                        <Text text="{IssueMatModel>MaterialDocumentLineItem}"/>
+                                        <Text text="{IssueMatModel>ItemNumber}"/>
                                         <Text text="{path:'IssueMatModel>CreatedAt',
                                             type: 'sap.ui.model.type.Date',
                                             formatOptions: {

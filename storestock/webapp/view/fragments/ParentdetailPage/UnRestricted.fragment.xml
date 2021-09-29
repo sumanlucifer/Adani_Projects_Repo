@@ -49,6 +49,13 @@
                     <Text text="{i18n>UOM}"/>
                 </Column>
 
+                <Column>
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "CreatedAt", "leadingProperty": "CreatedAt",
+                                                 "columnIndex": 7 ,"sortProperty": "CreatedAt","filterProperty": "CreatedAt"}'/>
+                    </customData>
+                    <Text text="Created At"/>
+                </Column>
 
 
             </columns>
@@ -61,6 +68,12 @@
                         <ObjectIdentifier text="{MaterialCode}"/>
                         <ObjectIdentifier text="{Qty}"/>
                         <ObjectIdentifier text="{UOM}"/>
+                        <Text text="{path:'CreatedAt',
+                                     type: 'sap.ui.model.type.Date',
+				                     formatOptions: {
+				                        pattern: 'MMMM dd, yyyy'
+				                     }
+                        }"/>
                     </cells>
                 </ColumnListItem>
 

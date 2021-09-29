@@ -20,18 +20,18 @@
                 <uxap:expandedHeading>
                     <FlexBox direction="Column" renderType="Bare">
                         <Title text="{i18n>issueMaterial}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
-                        <Title text="{SONumber}" wrapping="true" titleStyle="H3" />
+                        <Title text="{ReservationNumber}" wrapping="true" titleStyle="H3" />
                     </FlexBox>
                 </uxap:expandedHeading>
                 <uxap:snappedHeading>
                     <FlexBox direction="Column" renderType="Bare">
                         <Title text="{i18n>issueMaterial}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
-                        <Title text="{SONumber}" wrapping="true" titleStyle="H3"/>
+                        <Title text="{ReservationNumber}" wrapping="true" titleStyle="H3"/>
                     </FlexBox>
                 </uxap:snappedHeading>
                 <uxap:expandedContent></uxap:expandedContent>
                 <uxap:snappedTitleOnMobile>
-                    <Title text="{i18n>SONumber}- {SONumber}" wrapping="true" titleStyle="Auto"/>
+                    <Title text="{i18n>issueMaterial}- {ReservationNumber}" wrapping="true" titleStyle="Auto"/>
                 </uxap:snappedTitleOnMobile>
                 <uxap:actions>
                     <HBox visible="true">
@@ -74,7 +74,7 @@
                                     <Text text="{i18n>wbsnumber}"/>
                                 </Column>
                                 <Column demandPopin="true" minScreenWidth="Desktop">
-                                    <Text text="{i18n>materialDocumentLineItem}"/>
+                                    <Text text="{i18n>lineItemNumber}"/>
                                 </Column>
                                 <Column demandPopin="true" minScreenWidth="Desktop">
                                     <Text text="{i18n>createdAt}"/>
@@ -89,12 +89,12 @@
                             <items>
                                 <ColumnListItem>
                                     <cells>
-                                        <ObjectIdentifier title="{Name}" />
-                                        <Text text="{MaterialCode}" />
-                                        <Text text="{StorageLocation}" />
-                                        <Text text="{Plant}" />
-                                        <Text text="{WBSNumber}" />
-                                        <Text text="{IssuedMaterialParents/MaterialDocumentLineItem}" />
+                                        <ObjectIdentifier title="{Name}"/>
+                                        <Text text="{MaterialCode}"/>
+                                        <Text text="{StorageLocation}"/>
+                                        <Text text="{Plant}"/>
+                                        <Text text="{WBSNumber}"/>
+                                        <Text text="{ItemNumber}"/>
                                         <Text text="{path:'CreatedAt',
                                             type: 'sap.ui.model.type.Date',
                                             formatOptions: {

@@ -15,6 +15,8 @@ sap.ui.define([
         return BaseController.extend("com.agel.mmts.storestock.controller.storeStockParentDetail", {
 
             onInit: function () {
+                this.mainModel = this.getOwnerComponent().getModel();
+                this.mainModel.setSizeLimit(1000);
                 this.oRouter = this.getRouter();
                 var oModel = this.getOwnerComponent().getModel("layoutModel");
                 oModel.setProperty("/layout", "OneColumn");
@@ -70,14 +72,15 @@ sap.ui.define([
 
             onBeforeRebindUnrestTable: function (oEvent) {
                 var mBindingParams = oEvent.getParameter("bindingParams");
-                //mBindingParams.filters.push(new Filter("IsRestricted", sap.ui.model.FilterOperator.EQ, false));
+                mBindingParams.filters.push(new Filter("Status", sap.ui.model.FilterOperator.EQ, "APPROVED"));   
+                mBindingParams.sorter.push(new sap.ui.model.Sorter("CreatedAt", true));
 
 
             },
             onBeforeRebindRestTable: function (oEvent) {
                 var mBindingParams = oEvent.getParameter("bindingParams");
-                //mBindingParams.filters.push(new Filter("IsRestricted", sap.ui.model.FilterOperator.EQ, true));
-
+                mBindingParams.filters.push(new Filter("Status", sap.ui.model.FilterOperator.EQ, "RESTRICTED"));   
+                mBindingParams.sorter.push(new sap.ui.model.Sorter("CreatedAt", true));
             },
 
             // on Go Search 

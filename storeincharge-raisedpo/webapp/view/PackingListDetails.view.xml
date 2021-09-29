@@ -102,7 +102,7 @@
                             <f:SimpleForm layout="ColumnLayout" columnsM="2" columnsL="3" columnsXL="4" singleContainerFullSize="true" class="style-RemoveTitleHeight">
                                 <f:content>
                                     <Label text="Gate Entry Number" />
-                                    <Text text="{GateEntryNumber}" />
+                                    <Text text="{GateEntryNumber}"/>
                                     <Label text="UD Status" />
                                     <Text text="{UDStatus}" />
                                     <Label text="Gate Entry Date​​​​​​​​​" />
@@ -237,7 +237,7 @@
                                         <cells>
                                             <ObjectIdentifier title="{MaterialDocumentNumber}"/>
                                             <Text text="{RequestNumber}"/>
-                                            <Text text="{GatePassNumber}"/>
+                                            <Text text="{GateEntryNumber}" binding="{PackingList}"/>
                                             <Text text="{PONumber}" binding="{PackingList}"/>
                                             <Text text="{BillOfLading}"/>
                                             <ObjectStatus text="{Status}" state="{
