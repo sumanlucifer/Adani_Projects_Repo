@@ -62,6 +62,10 @@
 					"id": "com.agel.mmts.storeinchargeraisedpo-0-1626850513963",
 					"appId": "com.agel.mmts.storeinchargeraisedpo",
 					"vizId": "TotalOrder-details"
+				}, {
+					"id": "com.agel.mmts.poamendmenthistory-1-1633001808567",
+					"appId": "com.agel.mmts.poamendmenthistory",
+					"vizId": "PurchaseOrder-history"
 				}]
 			}
 		}, {

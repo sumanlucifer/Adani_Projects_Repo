@@ -1,11 +1,4 @@
 {
-  "inputs": [
-    {
-      "id": "UI5Version",
-      "type": "command",
-      "command": "sap.ux.appGenerator.ui5Version"
-    }
-  ],
   "configurations": [
     {
       "name": "Run sapui5-1-storeincharge-issuematerial",
@@ -406,8 +399,116 @@
       },
       "envFile": "${workspaceFolder}/storeincharge-issuematerial/.env1",
       "preLaunchTask": "Build sapui5"
+    },
+    {
+      "name": "Run sapui5-admin-po_summary",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/agel-mmts-web-approuter/node_modules/@sap/html5-repo-mock/index.js",
+      "args": [
+        "--standalone",
+        "/comagelmmtsadminposummary/index.html",
+        "--ui5",
+        "{\"version\":\".\"}"
+      ],
+      "cwd": "${workspaceFolder}/admin-po_summary",
+      "env": {
+        "PORT": "6004",
+        "MOCK_LOOKUP_DIRS": "[\"webapp\"]",
+        "run.config": "{\"handlerId\":\"ui5_run_config_handler_id\",\"runnableId\":\"/home/user/projects/sapui5/admin-po_summary\"}"
+      },
+      "envFile": "${workspaceFolder}/admin-po_summary/.env6",
+      "preLaunchTask": "Build sapui5"
+    },
+    {
+      "name": "Start po_amendmenthistory",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "npm",
+      "cwd": "${workspaceFolder}/po_amendmenthistory",
+      "windows": {
+        "runtimeExecutable": "npm.cmd"
+      },
+      "runtimeArgs": [
+        "run-script",
+        "start"
+      ],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "port": 9229,
+      "env": {
+        "DEBUG": "--inspect",
+        "run.config": "{\"handlerId\":\"fiori_tools\",\"runnableId\":\"/home/user/projects/sapui5/po_amendmenthistory\"}"
+      }
+    },
+    {
+      "name": "Start po_amendmenthistory Mock",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/po_amendmenthistory",
+      "runtimeExecutable": "npm",
+      "windows": {
+        "runtimeExecutable": "npm.cmd"
+      },
+      "runtimeArgs": [
+        "run-script",
+        "start-mock"
+      ],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "port": 9229,
+      "env": {
+        "run.config": "{\"handlerId\":\"fiori_tools\",\"runnableId\":\"/home/user/projects/sapui5/po_amendmenthistory\"}"
+      }
+    },
+    {
+      "name": "Start po_amendmenthistory Local",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/po_amendmenthistory",
+      "runtimeExecutable": "npm",
+      "windows": {
+        "runtimeExecutable": "npm.cmd"
+      },
+      "runtimeArgs": [
+        "run-script",
+        "start-local"
+      ],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "port": 9229,
+      "env": {
+        "run.config": "{\"handlerId\":\"fiori_tools\",\"runnableId\":\"/home/user/projects/sapui5/po_amendmenthistory\"}"
+      }
+    },
+    {
+      "name": "Run sapui5-po_amendmenthistory",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/agel-mmts-web-approuter/node_modules/@sap/html5-repo-mock/index.js",
+      "args": [
+        "--standalone",
+        "/comagelmmtspoamendmenthistory/index.html",
+        "--ui5",
+        "{\"version\":\".\"}"
+      ],
+      "cwd": "${workspaceFolder}/po_amendmenthistory",
+      "env": {
+        "PORT": "6004",
+        "MOCK_LOOKUP_DIRS": "[\"webapp\"]",
+        "run.config": "{\"handlerId\":\"ui5_run_config_handler_id\",\"runnableId\":\"/home/user/projects/sapui5/po_amendmenthistory\"}"
+      },
+      "envFile": "${workspaceFolder}/po_amendmenthistory/.env1",
+      "preLaunchTask": "Build sapui5"
     }
   ],
   "compounds": [],
+  "inputs": [
+    {
+      "id": "UI5Version",
+      "type": "command",
+      "command": "sap.ux.appGenerator.ui5Version"
+    }
+  ],
   "version": "0.2.0"
 }

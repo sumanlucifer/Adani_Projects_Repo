@@ -1,0 +1,216 @@
+<mvc:View xmlns:f2="sap.f"
+    xmlns:vbm="sap.ui.vbm"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:uxap="sap.uxap"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+    xmlns:unified="sap.ui.unified"
+    xmlns:tt="sap.ui.table"
+    xmlns:smartTable="sap.ui.comp.smarttable" height="100%"
+    xmlns="sap.m" controllerName="com.agel.mmts.poamendmenthistory.controller.PoAmendmentHistory">
+    <uxap:ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true" upperCaseAnchorBar="false" headerContentPinnable="true" toggleHeaderOnTitleClick="true" showFooter="true">
+        <uxap:headerTitle>
+            <uxap:ObjectPageDynamicHeaderTitle>
+                <uxap:breadcrumbs>
+                </uxap:breadcrumbs>
+                <uxap:expandedHeading>
+                    <FlexBox direction="Column" renderType="Bare">
+                        <Title text="{i18n>PODetail}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
+                        <Title text="{AmendmentHistoryModel>/PONumber}"/>
+                    </FlexBox>
+                </uxap:expandedHeading>
+                <uxap:snappedHeading>
+                    <FlexBox direction="Column" renderType="Bare">
+                        <Title text="{i18n>PODetail}" wrapping="true" titleStyle="H4"/>
+                    </FlexBox>
+                </uxap:snappedHeading>
+                <uxap:expandedContent></uxap:expandedContent>
+                <uxap:snappedTitleOnMobile>
+                    <Title text="{i18n>PODetail}" wrapping="true" titleStyle="Auto"/>
+                </uxap:snappedTitleOnMobile>
+                <uxap:actions>
+                <Label text="{i18n>ChangeVersion}"/>
+                <ComboBox  change="onHistoryVersionChange" class="sapUiSmallMarginTop sapUiSizeCompact" selectedKey="{objectViewModel>/SelectedVersion}" items="{path : 'objectViewModel>/Versions',sorter: [{path: 'versionKey',descending: true}],length : '1000'}">
+					<core:ListItem key="{objectViewModel>versionKey}" text="{objectViewModel>versionText}"/>
+                </ComboBox>
+                </uxap:actions>
+            </uxap:ObjectPageDynamicHeaderTitle>
+        </uxap:headerTitle>
+        <uxap:headerContent>
+            <!-- <FlexBox wrap="Wrap" height="100%" renderType="Bare" direction="Column">
+                <VBox renderType="Bare">
+                    <FlexBox direction="Row" renderType="Bare" class="sapUiTinyMarginBottom">
+                        <VBox renderType="Bare" class="sapUiMediumMarginEnd">
+                            <Label text="PO Issued Date" />
+                            <Text text="{path:'objectViewModel>/CreatedAt',
+                                    type: 'sap.ui.model.type.Date',
+				                     formatOptions: {
+				                        pattern: 'MMMM dd, yyyy'
+				                     }    
+                        }"/>
+                        </VBox>
+                        <VBox renderType="Bare" class="sapUiMediumMarginEnd">
+                            <Label text="Release Date" />
+                            <Text text="{path:'objectViewModel>/POReleaseDate',
+                                     type: 'sap.ui.model.type.Date',
+				                     formatOptions: {
+				                        pattern: 'MMMM dd, yyyy'
+				                     }
+                            }"/>
+                        </VBox>
+                        <VBox renderType="Bare" class="sapUiMediumMarginEnd">
+                            <Label text="Status" />
+                            <ObjectStatus text="{Status}" state="{= ${Status}==='CONFIRMED' ? 'Success' : 'Warning'}"/>
+                        </VBox>
+                    </FlexBox>
+                </VBox>
+            </FlexBox> -->
+        </uxap:headerContent>
+        <uxap:sections>
+            <!-- Line Items Section -->
+            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>BasicDetails}">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection title="{i18n>BasicDetails}" titleLevel="H6">
+                        <uxap:blocks>
+                            <VBox class="sapUiSmallMargin">
+		                        <f:SimpleForm id="idBasicDetailsSFM" editable="false" layout="ColumnLayout"	title="{i18n>BasicDetails}" columnsM="2" columnsL="3" columnsXL="4">
+                                    <f:content>
+                                        <Label text="{i18n>VendorCode}"/>
+                                        <Text id="nameText" text="{AmendmentHistoryModel>/VendorCode}"/>
+                                        <Label text="{i18n>POReleaseDate}" />
+                                        <Text text="{path:'AmendmentHistoryModel>/POReleaseDate',
+                                                            type: 'sap.ui.model.type.Date',
+                                                            formatOptions: {
+                                                                pattern: 'MMMM dd, yyyy'
+                                                    }    
+                                        }"/>
+                                        <Label text="{i18n>Status}"/>
+                                        <ObjectStatus text="{AmendmentHistoryModel>/Status}" state="{= ${AmendmentHistoryModel>/Status}==='CONFIRMED' ? 'Success' : 'Warning'}"/>
+                                        <Label text="{i18n>PlantCode}" />
+                                        <Text text="{AmendmentHistoryModel>/PlantCode}"/>
+                                        <Label text="{i18n>CompanyCode}" />
+                                        <Text text="{AmendmentHistoryModel>/CompanyCode}"/>
+                                        <Label text="{i18n>DocumentType}" />
+                                        <Text text="{AmendmentHistoryModel>/DocumentType}"/>
+                                        <Label text="{i18n>PurchasingOrg}" />
+                                        <Text text="{AmendmentHistoryModel>/PurchasingOrg}"/>
+                                        <Label text="{i18n>PurchasingGroup}"/>
+                                        <Text text="{AmendmentHistoryModel>/PurchasingGroup}"/>
+                                        <Label text="{i18n>Currency}"/>
+                                        <Text text="{AmendmentHistoryModel>/Currency}"/>
+                                        <Label text="{i18n>ValidityStartDate}" />
+                                        <Text text="{path:'AmendmentHistoryModel>/ValidityStartDate',
+                                                            type: 'sap.ui.model.type.Date',
+                                                            formatOptions: {
+                                                                pattern: 'MMMM dd, yyyy'
+                                                    }    
+                                        }"/>
+                                        <Label text="{i18n>ValidityEndDate}"/>
+                                        <Text text="{path:'AmendmentHistoryModel>/ValidityEndDate',
+                                                            type: 'sap.ui.model.type.Date',
+                                                            formatOptions: {
+                                                                pattern: 'MMMM dd, yyyy'
+                                                    }    
+                                        }"/>
+                                        <Label text="{i18n>PaymentTerm}"/>
+                                        <Text text="{AmendmentHistoryModel>/PaymentTerm}" />
+                                        <Label text="{i18n>Version}"/>
+                                        <Text text="{AmendmentHistoryModel>/Version}"/>
+                                        <Label text="{i18n>IsAmended}"/>
+                                        <!-- <Text text="{= ${AmendmentHistoryModel>/IsAmended} === true ? 'X' : ''}"/> -->
+                                        <Text text="{AmendmentHistoryModel>/IsAmended}"/>
+                                        <Label text="{i18n>CreatedAt}"/>
+                                        <Text text="{path:'AmendmentHistoryModel>/CreatedAt',
+                                                            type: 'sap.ui.model.type.Date',
+                                                            formatOptions: {
+                                                                pattern: 'MMMM dd, yyyy'
+                                                            }    
+                                        }"/>
+                                        <Label text="{i18n>CreatedBy}"/>
+                                        <Text text="{AmendmentHistoryModel>/CreatedBy}"/>
+                                        <Label text="{i18n>UpdatedAt}"/>
+                                        <Text text="{path:'AmendmentHistoryModel>/UpdatedAts',
+                                                            type: 'sap.ui.model.type.Date',
+                                                            formatOptions: {
+                                                                pattern: 'MMMM dd, yyyy'
+                                                    }    
+                                        }"/>
+                                        <Label text="{i18n>UpdatedBy}"/>
+                                        <Text text="{AmendmentHistoryModel>/UpdatedBy}"/>
+                                    </f:content>
+                                </f:SimpleForm>
+                            </VBox>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+                 <!-- Line Items Section -->
+            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>LineItems}">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection title="{i18n>LineItems}" titleLevel="H6">
+                        <uxap:blocks>
+                                <Table id="idAmendmentHistoryTBL" sticky="ColumnHeaders,HeaderToolbar" items="{AmendmentHistoryModel>/ParentLineItems}">
+                                	<headerToolbar>
+                                        <OverflowToolbar>
+                                            <ToolbarSpacer/>
+                                            <Button id="idShowAmendedBTN" class="sapUiSizeCompact" text="{i18n>ShowAmendedItems}" visible="{= ${objectViewModel>/SelectedVersion} !== ${objectViewModel>/ActiveVersion} ? true : false}" type="Emphasized" press="onToggleShowAmendedItems"/>
+                                        </OverflowToolbar>
+                            		</headerToolbar>
+                                    <columns>
+                                         <Column >
+                                            <Text text="{i18n>LineNumber}"/>
+                                        </Column>
+                                        <Column  demandPopin="true" minScreenWidth="Tablet">
+                                            <Text text="{i18n>MaterialCode}"/>
+                                        </Column>
+                                        <Column demandPopin="true" width="20%" minScreenWidth="Tablet">
+                                            <Text text="{i18n>Description}"/>
+                                        </Column>
+                                        <Column demandPopin="true" minScreenWidth="Tablet">
+                                            <Text text="{i18n>HSNCode}"/>
+                                        </Column>
+                                         <Column demandPopin="true" minScreenWidth="Tablet">
+                                            <Text text="{i18n>StorageLocation}"/>
+                                        </Column>
+                                         <Column demandPopin="true" minScreenWidth="Tablet">
+                                            <Text text="{i18n>Quantity}"/>
+                                        </Column>
+                                         <Column demandPopin="true" minScreenWidth="Tablet">
+                                            <Text text="{i18n>UoM}"/>
+                                        </Column>
+                                         <Column demandPopin="true" minScreenWidth="Tablet">
+                                            <Text text="{i18n>Price}"/>
+                                        </Column>
+                                         <Column demandPopin="true" minScreenWidth="Tablet">
+                                            <Text text="{i18n>Value}"/>
+                                        </Column>
+                                        <!-- <Column demandPopin="true" minScreenWidth="Tablet">
+                                            <Text text="{i18n>IsAmended}"/>
+                                        </Column> -->
+                                    </columns>
+                                    <items>
+                                        <ColumnListItem  press="onPackingListItemPress">
+                                            <cells>
+                                                <Text text="{AmendmentHistoryModel>LineNumber}"/>
+                                                <Text text="{AmendmentHistoryModel>MaterialCode}"/>
+                                                <Text text="{AmendmentHistoryModel>Description}"/>
+                                                <Text text="{AmendmentHistoryModel>HSNCode}"/>
+                                                <Text text="{AmendmentHistoryModel>StorageLocation}"/>
+                                                <Text text="{AmendmentHistoryModel>Quantity}"/>
+                                                <Text text="{AmendmentHistoryModel>UoM}"/>
+                                                <Text text="{AmendmentHistoryModel>Price}"/>
+                                                <Text text="{AmendmentHistoryModel>Value}"/>
+                                                <!-- <Text text="{AmendmentHistoryModel>IsAmended}"/> -->
+                                            </cells>
+                                        </ColumnListItem>
+                                    </items>
+                                </Table>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+        </uxap:sections>
+    </uxap:ObjectPageLayout>
+</mvc:View>

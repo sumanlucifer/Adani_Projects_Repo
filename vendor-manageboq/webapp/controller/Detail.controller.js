@@ -45,6 +45,7 @@ sap.ui.define([
                     Qty: "",
                     Remarks: "",
                     UOM: "",
+                    WeightPerPiece: "",
                     MasterBOQItemId: "",
                     masterUOMItemId: "",
                     UOMSuggestions: null
@@ -89,7 +90,7 @@ sap.ui.define([
         
         _filterPCListTable: function(sEmail){
             var PCListTable = this.getView().byId("idPCListTable");
-            var oUserFilter = new Filter("VendorEmail", sap.ui.model.FilterOperator.EQ, sEmail);
+            var oUserFilter = new Filter("Email", sap.ui.model.FilterOperator.EQ, sEmail);
             PCListTable.getBinding("items").filter(oUserFilter);
         },
 
@@ -263,7 +264,6 @@ sap.ui.define([
                     }
                 }
             }
-
             return bValid;
         },
 

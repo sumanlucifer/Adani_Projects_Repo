@@ -134,31 +134,21 @@ sap.ui.define([
                 this.getView().byId("idBtnSubmit").setEnabled(true);
                 var oValue = oEvent.getSource().getValue();
                 var balanceQty = oEvent.getSource().getParent().getCells()[3].getText();
-                // var flag = 0;
-                // if (parseInt(oValue) > parseInt(balanceQty) || balanceQty == "") {
-                //     oEvent.getSource().setValueState("Error");
-                //     oEvent.getSource().setValueStateText("Please enter return quantity lesser than or equal to balance quantity");
-                //     this.getView().byId("idBtnSubmit").setEnabled(false);
-                //     flag = 1;
-                // }
-                // if (parseInt(oValue) < 0 || oValue == "") {
-                //     oEvent.getSource().setValueState("Error");
-                //     oEvent.getSource().setValueStateText("Please enter return quantity");
-                //     this.getView().byId("idBtnSubmit").setEnabled(false);
-                // } else if (flag != 1) {
-                //     oEvent.getSource().setValueState("None");
-                //     this.getView().byId("idBtnSubmit").setEnabled(true);
-                // }  
-
-                if (parseInt(oValue) !== parseInt(balanceQty)) {
+                var flag = 0;
+                if (parseInt(oValue) > parseInt(balanceQty) || balanceQty == "") {
                     oEvent.getSource().setValueState("Error");
-                    oEvent.getSource().setValueStateText("Issue Quantity should be equal to Balance Quantity");
+                    oEvent.getSource().setValueStateText("Please enter return quantity lesser than or equal to balance quantity");
                     this.getView().byId("idBtnSubmit").setEnabled(false);
-                } else {
+                    flag = 1;
+                }
+                if (parseInt(oValue) < 0 || oValue == "") {
+                    oEvent.getSource().setValueState("Error");
+                    oEvent.getSource().setValueStateText("Please enter return quantity");
+                    this.getView().byId("idBtnSubmit").setEnabled(false);
+                } else if (flag != 1) {
                     oEvent.getSource().setValueState("None");
                     this.getView().byId("idBtnSubmit").setEnabled(true);
-                }
-
+                }  
             },
             onPressGo: function () {
                 var oHeaderData = this.getViewModel("HeaderDetailsModel").getData();
