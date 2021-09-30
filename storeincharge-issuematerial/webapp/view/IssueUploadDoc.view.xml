@@ -20,18 +20,18 @@
                 <uxap:expandedHeading>
                     <FlexBox direction="Column" renderType="Bare">
                         <Title text="{i18n>issueMaterial}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
-                        <Title text="{SONumber}" wrapping="true" titleStyle="H3" />
+                        <Title text="{ReservationNumber}" wrapping="true" titleStyle="H3" />
                     </FlexBox>
                 </uxap:expandedHeading>
                 <uxap:snappedHeading>
                     <FlexBox direction="Column" renderType="Bare">
                         <Title text="{i18n>issueMaterial}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
-                        <Title text="{SONumber}" wrapping="true" titleStyle="H3"/>
+                        <Title text="{ReservationNumber}" wrapping="true" titleStyle="H3"/>
                     </FlexBox>
                 </uxap:snappedHeading>
                 <uxap:expandedContent></uxap:expandedContent>
                 <uxap:snappedTitleOnMobile>
-                    <Title text="{i18n>SONumber}- {SONumber}" wrapping="true" titleStyle="Auto"/>
+                    <Title text="{i18n>issueMaterial}- {ReservationNumber}" wrapping="true" titleStyle="Auto"/>
                 </uxap:snappedTitleOnMobile>
                 <uxap:actions>
                     <HBox visible="true">
@@ -62,6 +62,24 @@
                                     <Text text="{i18n>name}" wrapping="true" wrappingType="Hyphenated"/>
                                 </Column>
                                 <Column demandPopin="true" minScreenWidth="Desktop">
+                                    <Text text="{i18n>materialCode}"/>
+                                </Column>
+                                <Column demandPopin="true" minScreenWidth="Desktop">
+                                    <Text text="{i18n>storageLocation}"/>
+                                </Column>
+                                <Column demandPopin="true" minScreenWidth="Desktop">
+                                    <Text text="{i18n>plant}"/>
+                                </Column>
+                                <Column demandPopin="true" minScreenWidth="Desktop">
+                                    <Text text="{i18n>wbsnumber}"/>
+                                </Column>
+                                <Column demandPopin="true" minScreenWidth="Desktop">
+                                    <Text text="{i18n>lineItemNumber}"/>
+                                </Column>
+                                <Column demandPopin="true" minScreenWidth="Desktop">
+                                    <Text text="{i18n>createdAt}"/>
+                                </Column>
+                                <Column demandPopin="true" minScreenWidth="Desktop">
                                     <Text text="{i18n>issueQty}"/>
                                 </Column>
                                 <Column demandPopin="true" minScreenWidth="Desktop">
@@ -71,8 +89,19 @@
                             <items>
                                 <ColumnListItem>
                                     <cells>
-                                        <ObjectIdentifier title="{Name}" />
-                                        <Text text="{IssuedQty}" />
+                                        <ObjectIdentifier title="{Name}"/>
+                                        <Text text="{MaterialCode}"/>
+                                        <Text text="{StorageLocation}"/>
+                                        <Text text="{Plant}"/>
+                                        <Text text="{WBSNumber}"/>
+                                        <Text text="{ItemNumber}"/>
+                                        <Text text="{path:'CreatedAt',
+                                            type: 'sap.ui.model.type.Date',
+                                            formatOptions: {
+                                                pattern: 'MMMM dd, yyyy'
+                                            }
+                                        }"/>
+                                        <ObjectIdentifier title="{IssuedQty}" />
                                         <Text text="{BaseUnit}" />
                                     </cells>
                                 </ColumnListItem>
@@ -82,10 +111,22 @@
                 </uxap:subSections>
             </uxap:ObjectPageSection>
 
-            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>uploadDoc}">
+            <uxap:ObjectPageSection titleUppercase="false" title="Upload Details">
                 <uxap:subSections>
-                      <uxap:ObjectPageSubSection title="{i18n>attachments}">
-                        <uxap:blocks>
+                      <uxap:ObjectPageSubSection title="Total Gross Weight (MT)">
+                        <Input type="Number" id="idTotalGrossWeight" width="20%" required="true"/>
+                      </uxap:ObjectPageSubSection>
+                      <uxap:ObjectPageSubSection title="Upload Issue Slip">
+                            <UploadCollection class="uploadClasstest" multiple="true" fileSizeExceed="onFileSizeExceed" typeMissmatch="onTypeMissmatch" uploadComplete="onUploadComplete" beforeUploadStarts="onBeforeUploadStarts" items="{
+                                    path:'localAttachmentModel>/items',
+                                    templateShareable: false}" mode="None" selectionChange="onAttachmentChange" instantUpload="false" change="onAttachmentChange" fileDeleted="onFileDeleted">
+                                    <items>
+                                        <UploadCollectionItem url="{parts: ['localAttachmentModel>/FileName','localAttachmentModel>/Content']}" enableEdit="false" enableDelete="false" visibleDelete="false" visibleEdit="false" fileName="{localAttachmentModel>FileName}" deletePress="onDeleteDocumentPress">
+                                        </UploadCollectionItem>
+                                    </items>
+                                </UploadCollection> 
+                                        
+                        <!-- <uxap:blocks>
                         <VBox>
                             <f:SimpleForm id="idDocUploadForm"
                                 editable="false"
@@ -104,22 +145,15 @@
                                 columnsM="1"
                                 singleContainerFullSize="true" >
                                 <f:content>
-                                <Label text="Total Gross Weight (MT)" />
-                                <Input type="Number" id="idTotalGrossWeight" width="20%"/>
+                                
                                 <Label text="Upload Issue Slip" />
-                         <!-- <Text class="redColor" /> -->
-                                <UploadCollection class="uploadClasstest" multiple="true" fileSizeExceed="onFileSizeExceed" typeMissmatch="onTypeMissmatch" uploadComplete="onUploadComplete" beforeUploadStarts="onBeforeUploadStarts" items="{
-                                    path:'localAttachmentModel>/items',
-                                    templateShareable: false}" mode="None" selectionChange="onAttachmentChange" instantUpload="false" change="onAttachmentChange" fileDeleted="onFileDeleted">
-                                    <items>
-                                        <UploadCollectionItem url="{parts: ['localAttachmentModel>/FileName','localAttachmentModel>/Content']}" enableEdit="false" enableDelete="false" visibleDelete="false" visibleEdit="false" fileName="{localAttachmentModel>FileName}" deletePress="onDeleteDocumentPress">
-                                        </UploadCollectionItem>
-                                    </items>
-                                </UploadCollection>
+
+
                                 </f:content>
                             </f:SimpleForm>
                             </VBox>
-                        </uxap:blocks>
+                        </uxap:blocks> -->
+
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>
             </uxap:ObjectPageSection>

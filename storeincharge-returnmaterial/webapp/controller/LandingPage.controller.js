@@ -22,14 +22,13 @@ sap.ui.define([
             // keeps the search state
             this._aTableSearchState = [];
 
-            //adding searchfield association to filterbar and initialize the filter bar -> added in base controller
-            this.initializeFilterBar();
         },
 
         onBeforeRebindReqTable: function (oSource) {
             var binding = oSource.getParameter("bindingParams");
             var oFilter = new sap.ui.model.Filter("Status", sap.ui.model.FilterOperator.EQ, "RESERVED FOR RETURN MATERIAL");
             binding.filters.push(oFilter);
+            binding.sorter.push(new sap.ui.model.Sorter("ReservationDate", true));
         },
 
         onBeforeRebindRetTable: function (oSource) {
@@ -38,6 +37,7 @@ sap.ui.define([
             var oFilter2 = new sap.ui.model.Filter("Status", sap.ui.model.FilterOperator.EQ, "REJECTED");
             var oFilter3 = new sap.ui.model.Filter("Status", sap.ui.model.FilterOperator.EQ, "PARTIALLY APPROVED");
             binding.filters.push(oFilter1,oFilter2,oFilter3);
+            binding.sorter.push(new sap.ui.model.Sorter("ReservationDate", true));
         },
 
         onReturnedMaterialSummarySelect: function (oEvent) {

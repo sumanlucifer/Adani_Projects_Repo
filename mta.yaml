@@ -100,6 +100,10 @@ modules:
       name: storeincharge-raisedpo
       target-path: resources/
     - artifacts:
+      - po_amendmenthistory-content.zip
+      name: po_amendmenthistory
+      target-path: resources/ 
+    - artifacts:
       - storeincharge-scanqr-content.zip
       name: storeincharge-scanqr
       target-path: resources/
@@ -178,10 +182,6 @@ modules:
     - artifacts:
       - comagelmmtsreportsreceipt.zip
       name: comagelmmtsreportsreceipt
-      target-path: resources/
-    - artifacts:
-      - comagelmmtspoamendmenthistory.zip
-      name: comagelmmtspoamendmenthistory
       target-path: resources/
 - name: launchpad
   type: com.sap.application.content
@@ -359,6 +359,14 @@ modules:
     commands:
     - npm run build
     supported-platforms: []
+- name: po_amendmenthistory
+  type: html5
+  path: po_amendmenthistory
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []
 - name: storeincharge-scanqr
   type: html5
   path: storeincharge-scanqr
@@ -519,16 +527,13 @@ modules:
     - npm install
     - npm run build:cf
     supported-platforms: []
-- name: comagelmmtspoamendmenthistory
-  type: html5
-  path: po_amendmenthistory
-  build-parameters:
-    build-result: dist
-    builder: custom
-    commands:
-    - npm install
-    - npm run build:cf
-    supported-platforms: []
+- name: workflow-reservationApprovals
+  type: com.sap.application.content
+  path: workflow-reservationApprovals
+  requires:
+  - name: workflow
+    parameters:
+      content-target: true
 resources:
 - name: uaa_agel-mmts-web
   type: org.cloudfoundry.managed-service
@@ -556,7 +561,7 @@ resources:
   type: org.cloudfoundry.managed-service
   parameters:
     config:
-      HTML5Runtime_enabled: false
+      HTML5Runtime_enabled: true
       init_data:
         instance:
           destinations:
@@ -575,7 +580,6 @@ resources:
     service: workflow
     service-plan: standard
 parameters:
-  deploy_mode: html5-repo
   enable-parallel-deployments: true
 build-parameters:
   before-all:

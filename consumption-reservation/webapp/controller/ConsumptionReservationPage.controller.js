@@ -17,6 +17,7 @@ sap.ui.define([
             onInit: function () {
                 //jQuery.sap.addUrlWhitelist("blob");
                 this.mainModel = this.getOwnerComponent().getModel();
+                this.mainModel.setSizeLimit(1000);
                 //Router Object
                 this.oRouter = this.getOwnerComponent().getRouter();
                 //view model instatiation
@@ -128,8 +129,8 @@ sap.ui.define([
             },
             onLiveChangeReservedQty: function (oEvent) {
                 var rowObj = oEvent.getSource().getParent().getRowBindingContext().getObject();
-                var ReservedQty = oEvent.getSource().getParent().getCells()[7].getValue();
-                var aCell = oEvent.getSource().getParent().getCells()[7];
+                var ReservedQty = oEvent.getSource().getParent().getCells()[10].getValue();
+                var aCell = oEvent.getSource().getParent().getCells()[10];
 
                 if (ReservedQty === "") {
                     aCell.setValueState("Error");

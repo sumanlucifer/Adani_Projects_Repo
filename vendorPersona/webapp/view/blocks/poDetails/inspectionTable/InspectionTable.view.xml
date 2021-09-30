@@ -32,8 +32,16 @@
 
                 <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "RaisedOfflineInspectionDate", "leadingProperty": "RaisedOfflineInspectionDate",
+                                                 "columnIndex": 2 ,"sortProperty": "RaisedOfflineInspectionDate"}'/>
+                    </customData>
+                    <Text text="{i18n>RaisedOfflineInspectionDate}"/>
+                </Column>
+
+                <Column demandPopin="true" minScreenWidth="Tablet">
+                    <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "Comments", "leadingProperty": "Comments",
-                                                 "columnIndex": 2,"sortProperty": "Comments","filterProperty": "Comments"}'/>
+                                                 "columnIndex": 3,"sortProperty": "Comments","filterProperty": "Comments"}'/>
                     </customData>
                     <Text text="{i18n>comments}"/>
                 </Column>
@@ -44,6 +52,12 @@
                     <cells>
                         <ObjectIdentifier title="{= ${Notification}!== '0' ? ${Notification} : ${OfflineInspectionCallId}}" />
                         <Text text="{path:'InspectionDate',
+                                    type: 'sap.ui.model.type.Date',
+				                     formatOptions: {
+				                        pattern: 'MMMM dd, yyyy'
+				                     }    
+                        }"/>
+                        <Text text="{path:'RaisedOfflineInspectionDate',
                                     type: 'sap.ui.model.type.Date',
 				                     formatOptions: {
 				                        pattern: 'MMMM dd, yyyy'

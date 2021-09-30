@@ -54,17 +54,6 @@
                 </Column> -->
 
 
-             <!--    <Column>
-                    <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "BalanceQty", "leadingProperty": "BalanceQty",
-                                                 "columnIndex": 5 ,"sortProperty": "BalanceQty","filterProperty": "BalanceQty"}'/>
-                    </customData>
-                    <Text text="{i18n>BalQty}"/>
-                </Column>
- -->
-
-
-
 
                 <Column >
                     <customData>
@@ -73,6 +62,11 @@
                     </customData>
                     <Text text="{i18n>UOM}"/>
                 </Column>
+
+
+
+
+
             </columns>
             <items>
 
@@ -92,6 +86,7 @@
                         <ObjectIdentifier text="{BalanceQty}"/> -->
 
                         <ObjectIdentifier text="{UOM}"/>
+
 
                     </cells>
                 </ColumnListItem>

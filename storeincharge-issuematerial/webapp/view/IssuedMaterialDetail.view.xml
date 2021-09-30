@@ -58,12 +58,33 @@
                                 <Column demandPopin="true" minScreenWidth="Desktop">
                                     <Text text="{i18n>name}" wrapping="true" wrappingType="Hyphenated"/>
                                 </Column>
+                                 <Column demandPopin="true" minScreenWidth="Tablet">
+                                    <Text text="Material Code"/>
+                                </Column>
+                                <Column demandPopin="true" minScreenWidth="Tablet">
+                                    <Text text="Plant"/>
+                                </Column>
+                                <Column demandPopin="true" minScreenWidth="Tablet">
+                                    <Text text="Storage Location"/>
+                                </Column>
+                                <Column demandPopin="true" minScreenWidth="Tablet">
+                                    <Text text="Movement Type"/>
+                                </Column>
+                                <Column demandPopin="true" minScreenWidth="Tablet">
+                                    <Text text="Goods Recipient"/>
+                                </Column>
+                                <Column demandPopin="true" minScreenWidth="Tablet">
+                                    <Text text="WBS Number"/>
+                                </Column>
+                                <Column demandPopin="true" minScreenWidth="Tablet">
+                                    <Text text="Unloading Point"/>
+                                </Column>
                                 <Column demandPopin="true" minScreenWidth="Desktop">
                                     <Text text="{i18n>issueQty}"/>
                                 </Column>
-                                <Column demandPopin="true" minScreenWidth="Desktop">
-                                    <Text text="{i18n>UOM}"/>
-                                </Column>
+                                <!-- <Column demandPopin="true" minScreenWidth="Desktop">
+                                    <Text text="Reserved Qty"/>
+                                </Column> -->
                                 <Column demandPopin="true" minScreenWidth="Desktop">
                                     <Text text="{i18n>status}"/>
                                 </Column>
@@ -72,9 +93,16 @@
                                 <ColumnListItem>
                                     <cells>
                                         <ObjectIdentifier title="{Name}"/>
+                                         <Text text="{MaterialCode}"/>
+                                        <Text text="{Plant}"/>
+                                        <Text text="{StorageLocation}"/>
+                                        <Text text="{MovementType}" />
+                                        <Text text="{GoodsRecipient}" binding="{IssueMaterialReserve}"/>
+                                        <Text text="{WBSNumber}" binding="{IssueMaterialReserve}"/>
+                                        <Text text="{UnloadPoint}"/>
                                         <Text text="{IssuedQty}"/>
-                                        <Text text="{BaseUnit}"/>
-                                        <Text text="{Status}"/>
+                                        <!-- <Text text="{ReservedQty}"/> -->
+                                        <ObjectStatus text="{Status}" state="{= ${Status} === 'ISSUED' ? 'Success' : ${Status} === 'RESERVED' ? 'Information' : 'Error'}" visible="{= ${Status}.length>0 ? true : false }"/>
                                     </cells>
                                 </ColumnListItem>
                             </items>

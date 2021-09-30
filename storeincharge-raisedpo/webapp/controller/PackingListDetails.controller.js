@@ -341,7 +341,7 @@ sap.ui.define([
                     quantity: null,
                     delivery: null,
                     billoflading: null,
-                    gatepassnumber: null,
+                    // gatepassnumber: null,
                     valueState: null,
                     reference: null,
                     isConfirmButtonEnabled: false,
@@ -368,33 +368,9 @@ sap.ui.define([
                 this._oRequestDialog.open();
             },
 
-            onBillofLadingLiveChange: function (oEvent) {
-                var oPOData = this.getView().getBindingContext().getObject();
-                if (oEvent.getSource().getValue().length && parseInt(oEvent.getSource().getValue()) > 0)
-                    this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", true);
-                else
-                    this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", false);
-            },
-
-            onGatePassNumberLiveChange: function (oEvent) {
-                var oPOData = this.getView().getBindingContext().getObject();
-                if (oEvent.getSource().getValue().length && parseInt(oEvent.getSource().getValue()) > 0)
-                    this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", true);
-                else
-                    this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", false);
-            },
-
-            onReferenceLiveChange: function (oEvent) {
-                var oPOData = this.getView().getBindingContext().getObject();
-                if (oEvent.getSource().getValue().length && parseInt(oEvent.getSource().getValue()) > 0)
-                    this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", true);
-                else
-                    this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", false);
-            },
-
             onDeliveryNoteLiveChange: function (oEvent) {
                 var oPOData = this.getView().getBindingContext().getObject();
-                if (oEvent.getSource().getValue().length && parseInt(oEvent.getSource().getValue()) > 0)
+                if (oEvent.getSource().getValue().length)
                     this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", true);
                 else
                     this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", false);
@@ -424,12 +400,46 @@ sap.ui.define([
             },
 
             onRequestPress: function (oEvent) {
+
+                var weight = sap.ui.getCore().byId("idweight").getValue();
+                var billoflading = sap.ui.getCore().byId("idbilloflading").getValue();
+                // var gatepassnumber = sap.ui.getCore().byId("idgatepassnumber").getValue();
+                var lrnumber = sap.ui.getCore().byId("idlrnumber").getValue();
+                var reference = sap.ui.getCore().byId("idreference").getValue();
+                var delivery = sap.ui.getCore().byId("iddelivery").getValue();
+                if (weight == "") {
+                    sap.m.MessageBox.error("Please enter Total Packaging Weight");
+                    return;
+                }
+                else if (billoflading == "") {
+                    sap.m.MessageBox.error("Please enter Bill of Lading");
+                    return;
+                }
+                // else if (gatepassnumber == "") {
+                //     sap.m.MessageBox.error("Please enter Gate Pass Number");
+                //     return;
+                // }
+                else if (lrnumber == "") {
+                    sap.m.MessageBox.error("Please enter LR Number");
+                    return;
+                }
+                else if (reference == "") {
+                    sap.m.MessageBox.error("Please enter Reference");
+                    return;
+                }
+                else if (delivery == "") {
+                    sap.m.MessageBox.error("Please enter Delivery Note");
+                    return;
+                }
+
                 this._oRequestDialog.close();
                 var sDelivery = this.getViewModel("requestModel").getProperty("/delivery");
                 var sQuantity = this.getViewModel("requestModel").getProperty("/quantity");
                 var sBillofLading = this.getViewModel("requestModel").getProperty("/billoflading");
                 var sReference = this.getViewModel("requestModel").getProperty("/reference");
-                var sGatePassNumber = this.getViewModel("requestModel").getProperty("/gatepassnumber");
+                // var sGatePassNumber = this.getViewModel("requestModel").getProperty("/gatepassnumber");
+                var sLRNumber = this.getViewModel("requestModel").getProperty("/lrnumber");
+
                 var oModel = this.getComponentModel();
                 if (parseInt(sQuantity) > 0) {
                     if (sDelivery !== null) {
@@ -437,7 +447,8 @@ sap.ui.define([
                             "TotalPackagingWeight": parseInt(sQuantity),
                             "DeliveryNote": sDelivery,
                             "BillOfLading": sBillofLading,
-                            "GatePassNumber": sGatePassNumber,
+                            // "GatePassNumber": sGatePassNumber,
+                            "LRNumber": sLRNumber,
                             "Reference": sReference,
                             "PackingListId": this.getView().getBindingContext().getObject().ID,
                             "UserName": "Agel_Sep"
@@ -449,7 +460,8 @@ sap.ui.define([
                             "TotalPackagingWeight": parseInt(sQuantity),
                             "DeliveryNote": sDelivery,
                             "BillOfLading": sBillofLading,
-                            "GatePassNumber": sGatePassNumber,
+                            // "GatePassNumber": sGatePassNumber,
+                            "LRNumber": sLRNumber,
                             "Reference": sReference,
                             "PackingListId": parseInt(oSelectedItemData.ID),
                             "UserName": "Agel_Sep"

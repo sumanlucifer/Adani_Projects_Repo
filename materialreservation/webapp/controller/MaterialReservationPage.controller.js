@@ -25,6 +25,7 @@ sap.ui.define([
                 this._createItemDataModel();
                 var suggestionModel = new JSONModel([]);
                 this.getView().setModel(suggestionModel, "suggestionModel");
+                this.mainModel.setSizeLimit(1000);
             },
             createInitialModel: function () {
                 var oViewModel = new JSONModel({
@@ -53,7 +54,8 @@ sap.ui.define([
                     GLAccount: null,
                     ProfitCenter: null,
                     ContractorId: null,
-                    CompanyCode: null
+                    CompanyCode: null,
+                    UnloadPoint: null
                 });
                 this.getView().setModel(oModel, "HeaderDetailsModel")
             },
@@ -74,6 +76,7 @@ sap.ui.define([
                     BaseUnit: "",
                     Batch: "",
                     M: true,
+                    UnloadPoint: "",
                     AvailableQty: null
                 });
                 oModel.setData(oItems);
@@ -105,6 +108,7 @@ sap.ui.define([
                 var sItemPath = oEvent.getSource().getParent().getBindingContextPath();
                 this.getView().getModel("reservationTableModel").setProperty(sItemPath + "/Description", reservationListObj.Description);
                 this.getView().getModel("reservationTableModel").setProperty(sItemPath + "/BaseUnit", reservationListObj.UOM);
+                this.getView().getModel("reservationTableModel").setProperty(sItemPath + "/UnloadPoint", reservationListObj.UnloadPoint);
                 this.getView().getModel("reservationTableModel").setProperty(sItemPath + "/Material", reservationListObj.MaterialCode);
                 this.getView().getModel("reservationTableModel").setProperty(sItemPath + "/StorageLocation", reservationListObj.StorageLocation);
                 this.getView().getModel("reservationTableModel").setProperty(sItemPath + "/AvailableQty", reservationListObj.AvailableQty);
@@ -144,7 +148,7 @@ sap.ui.define([
                 } else if (flag != 1) {
                     oEvent.getSource().setValueState("None");
                     this.getView().byId("idBtnSubmit").setEnabled(true);
-                }
+                }  
             },
             onPressGo: function () {
                 var oHeaderData = this.getViewModel("HeaderDetailsModel").getData();
@@ -154,9 +158,10 @@ sap.ui.define([
                 this.getViewModel("objectViewModel").setProperty("/isItemFieldsVisible", true);
                 var Plant = this.byId("idPlant").getSelectedKey();
                 var StorageLocation = this.byId("idStorageLocation").getValue();
-                this.getMaterialSuggestionData(Plant, StorageLocation);
+                var UnloadPoint = this.byId("idUnloadPoint").getValue();
+                this.getMaterialSuggestionData(Plant, StorageLocation, UnloadPoint);
             },
-            getMaterialSuggestionData: function (Plant, StorageLocation) {
+            getMaterialSuggestionData: function (Plant, StorageLocation, UnloadPoint) {
                 var PlantFilter = new sap.ui.model.Filter({
                     path: "PlantCode",
                     operator: sap.ui.model.FilterOperator.EQ,
@@ -167,9 +172,14 @@ sap.ui.define([
                     operator: sap.ui.model.FilterOperator.EQ,
                     value1: StorageLocation
                 });
+                var UnloadPointFilter = new sap.ui.model.Filter({
+                    path: "UnloadPoint",
+                    operator: sap.ui.model.FilterOperator.EQ,
+                    value1: UnloadPoint
+                });
                 var filter = [];
-                filter.push(PlantFilter);
-                filter.push(StorageLocationFilter);
+                filter.push(PlantFilter,StorageLocationFilter,UnloadPointFilter);
+                // filter.push(StorageLocationFilter);
                 this.getOwnerComponent().getModel().read("/MaterialAvailabilityViewSet", {
                     filters: [filter],
                     // urlParameters: {
@@ -245,6 +255,8 @@ sap.ui.define([
                     this.getViewModel("objectViewModel").setProperty("/isHeaderFieldsVisible", true);
                     this.byId("idPlant").setEnabled(false);
                     this.byId("idStorageLocation").setEnabled(false);
+                    this.byId("idUnloadPoint").setEnabled(false);
+
                 }
                 if (!data.CostCenter) {
                     this.byId("idCostCenter").setValueState("Error");
@@ -333,6 +345,7 @@ sap.ui.define([
                         StorageLocation: item.StorageLocation,
                         Quantity: parseInt(item.Quantity),
                         BaseUnit: item.BaseUnit,
+                        UnloadPoint: item.UnloadPoint,
                         Batch: item.Batch,
                         IsChildItem: false,
                         SpecialStockIndicator: item.M
@@ -375,8 +388,9 @@ sap.ui.define([
                 this._createHeaderDetailsModel();
                 this._createItemDataModel();
                 this.createInitialModel();
-                 this.getView().byId("idPlant").setEnabled(true);
+                this.getView().byId("idPlant").setEnabled(true);
                 this.getView().byId("idStorageLocation").setEnabled(true);
+                this.byId("idUnloadPoint").setEnabled(true);
             }
         });
     });

@@ -94,7 +94,6 @@
         </uxap:headerContent>
         <uxap:sections>
 
-
             <!-- General -->
             <uxap:ObjectPageSection titleUppercase="false" title="{i18n>generalDetails}">
                 <uxap:subSections>
@@ -103,7 +102,7 @@
                             <f:SimpleForm layout="ColumnLayout" columnsM="2" columnsL="3" columnsXL="4" singleContainerFullSize="true" class="style-RemoveTitleHeight">
                                 <f:content>
                                     <Label text="Gate Entry Number" />
-                                    <Text text="{GateEntryNumber}" />
+                                    <Text text="{GateEntryNumber}"/>
                                     <Label text="UD Status" />
                                     <Text text="{UDStatus}" />
                                     <Label text="Gate Entry Date​​​​​​​​​" />
@@ -114,101 +113,6 @@
                                             }}" />
                                 </f:content>
                             </f:SimpleForm>
-                        </uxap:blocks>
-                    </uxap:ObjectPageSubSection>
-                </uxap:subSections>
-            </uxap:ObjectPageSection>
-
-            <!-- GRN  Status -->
-            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>GRNStatus}">
-                <uxap:subSections>
-                    <uxap:ObjectPageSubSection>
-                        <uxap:blocks>
-                            <Table id="idGRNTable" items="{GRNS}" autoPopinMode="true" growingThreshold="5" growing="true" fixedLayout="false" contextualWidth="Inherit" >
-                                <headerToolbar>
-                                    <OverflowToolbar >
-                                        <content>
-                                            <Text text="{i18n>GRNStatus}"/>
-                                            <ToolbarSpacer>
-                                            </ToolbarSpacer>
-                                            <VBox>
-                                                <Button text="Request GRN" id="idrequestGRNButton" press="onRequestGRNPress" type="Accept" visible="{= ${IsGRNRaised} === false}"/>
-                                            </VBox>
-                                        </content>
-                                    </OverflowToolbar>
-                                </headerToolbar>
-                                <columns>
-                                    <!-- <Column demandPopin="true" minScreenWidth="Tablet">
-                                        <Text text="GRN ID"/>
-                                    </Column> -->
-                                    <!-- <Column demandPopin="true" minScreenWidth="Tablet">
-                                        <Text text="Gate Pass Number"/>
-                                    </Column> -->
-                                    <Column demandPopin="true" minScreenWidth="Tablet">
-                                        <Text text="Material Document Number"/>
-                                    </Column>
-                                    <Column demandPopin="true" minScreenWidth="Tablet">
-                                        <Text text="Movement Type"/>
-                                    </Column>
-                                    <Column demandPopin="true" minScreenWidth="Tablet">
-                                        <Text text="Valuation Type"/>
-                                    </Column>
-                                    <Column demandPopin="true" minScreenWidth="Tablet">
-                                        <Text text="PO Number"/>
-                                    </Column>
-                                    <Column demandPopin="true" minScreenWidth="Tablet">
-                                        <Text text="Status"/>
-                                    </Column>
-                                    <!-- <Column demandPopin="true" minScreenWidth="Tablet">
-                                        <Text text="Document Date"/>
-                                    </Column> -->
-                                    <Column demandPopin="true" minScreenWidth="Tablet">
-                                        <Text text="Posting Date"/>
-                                    </Column>
-                                    <Column demandPopin="true" minScreenWidth="Tablet">
-                                        <Text text="Cancelled Date"/>
-                                    </Column>
-                                    <Column demandPopin="true" minScreenWidth="Tablet">
-                                        <Text text=""/>
-                                    </Column>
-                                    <Column demandPopin="true" minScreenWidth="Tablet">
-                                        <Text text=""/>
-                                    </Column>
-                                </columns>
-                                <items>
-                                    <ColumnListItem>
-                                        <cells>
-                                            <!-- <ObjectIdentifier title="{ID}" /> -->
-                                            <!-- <Text text="{GatePassNumber}"/> -->
-                                            <ObjectIdentifier title="{MaterialDocumentNumber}"/>
-                                            <Text text="{MovementType}" binding="{RestrictedStoreStockParent}"/>
-                                            <Text text="{ValuationType}" binding="{RestrictedStoreStockParent}"/>
-                                            <Text text="{PONumber}" binding="{PackingList}"/>
-                                            <ObjectStatus text="{Status}" state="{
-						path: 'Status',
-						formatter: '.formatter.getGRNListColor'
-					}"/>
-                                            <!-- <Text text="{path:'DocumentDate',
-                                                type: 'sap.ui.model.type.Date',
-                                                formatOptions: {
-                                                    pattern: 'MMMM dd, yyyy'
-                                                }}"/> -->
-                                            <Text text="{path:'CreatedAt',
-                                                type: 'sap.ui.model.type.Date',
-                                                formatOptions: {
-                                                    pattern: 'MMMM dd, yyyy'
-                                                }}" />
-                                            <Text text="{path:'CancelDate',
-                                                type: 'sap.ui.model.type.Date',
-                                                formatOptions: {
-                                                    pattern: 'MMMM dd, yyyy'
-                                                }}" />
-                                            <Link text="UD Details" visible="{= ${IsUDRequired} === true }" press="onUDDetailsPress"/>
-                                            <Link text="Cancel GRN" visible="{= ${Status} === 'APPROVED' }" press="onCancelGRNPress"/>
-                                        </cells>
-                                    </ColumnListItem>
-                                </items>
-                            </Table>
                         </uxap:blocks>
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>
@@ -233,7 +137,7 @@
                                         <Text text="Line Number"/>
                                     </Column>
                                     <Column>
-                                        <Text text="Line Item ID"/>
+                                        <Text text="Name"/>
                                     </Column>
                                     <Column>
                                         <Text text="PO Qty."/>
@@ -255,12 +159,108 @@
                                     <ColumnListItem>
                                         <cells>
                                             <ObjectIdentifier title="{LineNumber}"/>
-                                            <ObjectIdentifier title="{ID}"/>
+                                            <ObjectIdentifier title="{Name}"/>
                                             <Text text="{Qty}"/>
                                             <Text text="{MDCCApprovedQty}"/>
                                             <Text text="{DispatchQty}"/>
                                             <Text text="{UOM}"/>
                                             <Link text="View QR Code" binding="{QrCode}" visible="{= ${QRNumber}}" press="onViewQRCodePress"/>
+                                        </cells>
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+            <!-- GRN  Status -->
+            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>GRNStatus}">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection>
+                        <uxap:blocks>
+                            <Table id="idGRNTable" 
+                                  items="{
+                                            path : 'GRNS',
+                                            sorter : {
+                                                path : 'CreatedAt',
+                                                descending : 'true' 
+                                            }
+                                        }"
+                            autoPopinMode="true" growingThreshold="5" growing="true" fixedLayout="false" contextualWidth="Inherit" >
+                                <headerToolbar>
+                                    <OverflowToolbar >
+                                        <content>
+                                            <Text text="{i18n>GRNStatus}"/>
+                                            <ToolbarSpacer>
+                                            </ToolbarSpacer>
+                                            <VBox>
+                                                <Button text="Request GRN" id="idrequestGRNButton" press="onRequestGRNPress" type="Accept" visible="{= ${IsGRNRaised} === false  ||  ${IsGRNRaised} === null}"/>
+                                            </VBox>
+                                        </content>
+                                    </OverflowToolbar>
+                                </headerToolbar>
+                                <columns>
+                                    <Column demandPopin="true" minScreenWidth="Tablet">
+                                        <Text text="Material Document Number"/>
+                                    </Column>
+                                    <Column demandPopin="true" minScreenWidth="Tablet">
+                                        <Text text="Request Number"/>
+                                    </Column>
+                                    <Column demandPopin="true" minScreenWidth="Tablet">
+                                        <Text text="Gate Pass Number"/>
+                                    </Column>
+                                    <Column demandPopin="true" minScreenWidth="Tablet">
+                                        <Text text="PO Number"/>
+                                    </Column>
+                                    <Column demandPopin="true" minScreenWidth="Tablet">
+                                        <Text text="Bill of Lading"/>
+                                    </Column>
+                                    <Column demandPopin="true" minScreenWidth="Tablet">
+                                        <Text text="Status"/>
+                                    </Column>
+                                    <Column demandPopin="true" minScreenWidth="Tablet">
+                                        <Text text="Posting Date"/>
+                                    </Column>
+                                    <Column demandPopin="true" minScreenWidth="Tablet">
+                                        <Text text="Cancelled Date"/>
+                                    </Column>
+                                    <Column demandPopin="true" minScreenWidth="Tablet">
+                                        <Text text=""/>
+                                    </Column>
+                                    <Column demandPopin="true" minScreenWidth="Tablet">
+                                        <Text text=""/>
+                                    </Column>
+                                </columns>
+                                <items>
+                                    <ColumnListItem>
+                                        <cells>
+                                            <ObjectIdentifier title="{MaterialDocumentNumber}"/>
+                                            <Text text="{RequestNumber}"/>
+                                            <Text text="{GateEntryNumber}" binding="{PackingList}"/>
+                                            <Text text="{PONumber}" binding="{PackingList}"/>
+                                            <Text text="{BillOfLading}"/>
+                                            <ObjectStatus text="{Status}" state="{
+                                                path: 'Status',
+                                                formatter: '.formatter.getGRNListColor'
+                                            }"/>
+                                            <!-- <Text text="{path:'DocumentDate',
+                                                type: 'sap.ui.model.type.Date',
+                                                formatOptions: {
+                                                    pattern: 'MMMM dd, yyyy'
+                                                }}"/> -->
+                                            <Text text="{path:'CreatedAt',
+                                                type: 'sap.ui.model.type.Date',
+                                                formatOptions: {
+                                                    pattern: 'MMMM dd, yyyy'
+                                                }}" />
+                                            <Text text="{path:'CancelDate',
+                                                type: 'sap.ui.model.type.Date',
+                                                formatOptions: {
+                                                    pattern: 'MMMM dd, yyyy'
+                                                }}" />
+                                            <Link text="UD Details" visible="{= ${IsUDRequired} === true }" press="onUDDetailsPress"/>
+                                            <Link text="Cancel GRN" visible="{= ${Status} === 'ACTIVE' }" press="onCancelGRNPress"/>
                                         </cells>
                                     </ColumnListItem>
                                 </items>

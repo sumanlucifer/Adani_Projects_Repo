@@ -32,7 +32,7 @@ sap.ui.define([
                 delay: 0,
                 boqSelection: null,
                 csvFile: "file",
-                doneButton: true,
+                cancelbutton: false,
                 reserveButton: true
             });
             this.setModel(oViewModel, "objectViewModel");
@@ -70,7 +70,7 @@ sap.ui.define([
             var that = this;
             that.oIssueMaterialModel = new JSONModel();
             this.MainModel.read("/IssuedMaterialSet(" + that.sObjectId + ")/IssuedMaterialParents", {
-                // urlParameters: { "$expand": "IssuedMaterialParents" },
+                urlParameters: { "$expand": "IssueMaterialReserve" },
                 success: function (oData, oResponse) {
                     this.dataBuilding(oData.results);
                     //          var consumptionData = new JSONModel(oData.results);
@@ -114,21 +114,37 @@ sap.ui.define([
             history.go(-1);
         },
 
-        onSelectAll: function (oeve) {
-            var isSelected = oeve.getSource().getSelected();
+        onSelectAll: function (oEvent) {
+            var isSelected = oEvent.getSource().getSelected();
             var ItemData = this.getView().getModel("consumptionData").getData();
             if (isSelected) {
                 for (var i = 0; i < ItemData.length; i++) {
                     ItemData[i].isSelected = true;
                 }
+                this.getView().getModel("objectViewModel").setProperty("/cancelbutton", true);
             }
             else {
                 for (var i = 0; i < ItemData.length; i++) {
                     ItemData[i].isSelected = false;
-
                 }
+                this.getView().getModel("objectViewModel").setProperty("/cancelbutton", false);
+
             }
             this.getView().getModel("consumptionData").setData(ItemData);
+        },
+
+        onSelectionOfRow: function(oEvent) {
+            // var isSelected = oEvent.getSource().getSelected();
+            var ItemData = this.getView().getModel("consumptionData").getData();
+            for (var i = 0; i < ItemData.length; i++) {
+                if(ItemData[i].isSelected === true){
+                    this.getView().getModel("objectViewModel").setProperty("/cancelbutton", true);
+                    break;
+                }
+                else
+                    this.getView().getModel("objectViewModel").setProperty("/cancelbutton", false);
+            }
+           
         },
 
         onPressCancelIssuePosting: function (oEvent) {
@@ -156,13 +172,11 @@ sap.ui.define([
                     IssuedMaterialParentId: item.ID
                 };
             });
-
             var oPayload = {
-                            "IssuedMaterialId": this.sObjectId,
-                            "UserName": "AGEL_TEST",
-                            "ParentItem": itemData
-                            };
-
+                "IssuedMaterialId": this.sObjectId,
+                "UserName": "AGEL_TEST",
+                "ParentItem": itemData
+            };
             this.getOwnerComponent().getModel().create("/IssueMaterialCancellationEdmSet", oPayload, {
                 success: function (oData, oResponse) {
                     this.getOwnerComponent().getModel().refresh();

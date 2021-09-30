@@ -231,7 +231,7 @@ sap.ui.define([
             var sReturnMode = this.getViewModel("objectViewModel").getProperty("/returnMode");
             var oReturnData = oModel.getData().ReturnData;
             var sStatus = this.getView().byId("idStatus").getText();
-            if (sStatus === "PENDING") {
+            if (sStatus === "RESERVED FOR RETURN MATERIAL") {
                 var oPayload = this._constructPayload(oReturnData.ChildItemsView, sReturnMode);
                 if (!oPayload.ReturnMaterialRequestParent.length && !oPayload.ReturnMaterialRequestBOQ.length)
                     MessageBox.error("No valid item found return");

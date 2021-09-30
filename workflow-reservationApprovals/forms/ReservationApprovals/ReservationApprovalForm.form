@@ -1,0 +1,82 @@
+{
+    "id": "reservationapprovalform",
+    "schemaVersion": "1.1.0",
+    "name": "ReservationApprovalForm",
+    "revision": "1.0",
+    "type": "task",
+    "readOnly": false,
+    "content": [
+        {
+            "id": "basic_details",
+            "type": "section",
+            "title": "Basic Details",
+            "content": [
+                {
+                    "id": "reservation_number",
+                    "type": "string",
+                    "label": "Request Number",
+                    "readOnly": false,
+                    "value": "${context.ReservationResponse.d.RequestNumber}",
+                    "constraints": {
+                        "required": false
+                    }
+                },
+                {
+                    "id": "goods_recipient",
+                    "type": "string",
+                    "label": "Goods Recipient",
+                    "readOnly": false,
+                    "value": "${context.ReservationResponse.d.GoodsRecipient}",
+                    "constraints": {
+                        "required": false
+                    }
+                },
+                {
+                    "id": "wbs_number",
+                    "type": "string",
+                    "label": "WBS Number",
+                    "readOnly": false,
+                    "value": "${context.ReservationResponse.d.WBSNumber}",
+                    "constraints": {
+                        "required": false
+                    }
+                }
+            ]
+        },
+        {
+            "id": "line_items",
+            "type": "section",
+            "title": "Line Items",
+            "content": [
+                {
+                    "id": "name",
+                    "type": "collection",
+                    "title": "Material Document Number",
+                    "addEnabled": false,
+                    "deleteEnabled": false,
+                    "value": "${context.ReservationResponse.d.ReturnedMaterialParent.results.MaterialDocumentNumber}",
+                    "content": []
+                },
+                {
+                    "id": "materialcode",
+                    "type": "collection",
+                    "title": "Material Code",
+                    "addEnabled": false,
+                    "deleteEnabled": false,
+                    "value": "${context.ReservationResponse.d.ReturnedMaterialParent.results.MaterialCode}",
+                    "content": []
+                },
+                {
+                    "id": "plant",
+                    "type": "collection",
+                    "title": "WBS Element",
+                    "addEnabled": false,
+                    "deleteEnabled": false,
+                    "value": "${context.ReservationResponse.d.ReturnedMaterialParent.results.WBSElement}",
+                    "content": []
+                }
+            ]
+        }
+    ],
+    "decisions": []
+}

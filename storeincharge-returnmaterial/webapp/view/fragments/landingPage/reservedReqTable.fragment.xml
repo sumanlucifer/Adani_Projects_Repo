@@ -48,7 +48,7 @@
                                         pattern: 'MMMM dd, yyyy'
                                     }
                         }"/>
-                        <Text text="{Status}"/>
+                        <ObjectStatus text="{Status}" state="{= ${Status} === 'RESERVED FOR RETURN MATERIAL' ? 'Information' : 'None'}" visible="{= ${Status}.length>0 ? true : false }"/>
                     </cells>
                 </ColumnListItem>
             </items>

@@ -1,62 +1,60 @@
-<mvc:View 
-    xmlns="sap.m"
-    xmlns:f2="sap.f"
-    xmlns:vbm="sap.ui.vbm"
-    xmlns:mvc="sap.ui.core.mvc"
-    xmlns:uxap="sap.uxap"
-    xmlns:l="sap.ui.layout"
-    xmlns:f="sap.ui.layout.form"
-    xmlns:core="sap.ui.core"
-    xmlns:unified="sap.ui.unified"
-    xmlns:tt="sap.ui.table"
-    xmlns:smartTable="sap.ui.comp.smarttable"
-    height="100%" controllerName="com.agel.mmts.unloadmaterial.controller.UnloadMaterial"
-    xmlns:outerPackaging="com.agel.mmts.unloadmaterial.view.blocks.UnloadMaterial.outerPackaging.blocks"
-    xmlns:innerPackaging="com.agel.mmts.unloadmaterial.view.blocks.UnloadMaterial.innerPackaging.blocks">
+<mvc:View xmlns="sap.m" xmlns:f2="sap.f" xmlns:vbm="sap.ui.vbm" xmlns:mvc="sap.ui.core.mvc" xmlns:uxap="sap.uxap" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core" xmlns:unified="sap.ui.unified" xmlns:tt="sap.ui.table" xmlns:smartTable="sap.ui.comp.smarttable" height="100%" controllerName="com.agel.mmts.unloadmaterial.controller.UnloadMaterial" xmlns:outerPackaging="com.agel.mmts.unloadmaterial.view.blocks.UnloadMaterial.outerPackaging.blocks" xmlns:innerPackaging="com.agel.mmts.unloadmaterial.view.blocks.UnloadMaterial.innerPackaging.blocks">
     <uxap:ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true" upperCaseAnchorBar="false" headerContentPinnable="true" toggleHeaderOnTitleClick="true" showFooter="true">
         <uxap:headerTitle>
             <uxap:ObjectPageDynamicHeaderTitle>
                 <uxap:breadcrumbs>
                     <Breadcrumbs id="breadcrumbsId" currentLocationText="{i18n>packinglist}">
-                        <Link text="{i18n>unloadMaterial}" press=".handleToUnloadMaterialBreadcrumPress"/>
-                    </Breadcrumbs> 
+                        <Link text="{i18n>unloadMaterial}" press=".handleToUnloadMaterialBreadcrumPress" />
+                    </Breadcrumbs>
                 </uxap:breadcrumbs>
                 <uxap:heading>
-                    <Title text="{i18n>unloadMaterial}" wrapping="true" titleStyle="H4"/>
+                    <Title text="{i18n>unloadMaterial}" wrapping="true" titleStyle="H4" />
                 </uxap:heading>
                 <uxap:snappedHeading>
                     <FlexBox direction="Column" renderType="Bare">
-                        <Title text="{i18n>unloadMaterial}" wrapping="true" titleStyle="H4"/>
+                        <Title text="{i18n>unloadMaterial}" wrapping="true" titleStyle="H4" />
                     </FlexBox>
                 </uxap:snappedHeading>
                 <uxap:expandedContent></uxap:expandedContent>
                 <uxap:snappedTitleOnMobile>
-                    <Title text="{i18n>unloadMaterial}" wrapping="true" titleStyle="Auto"/>
+                    <Title text="{i18n>unloadMaterial}" wrapping="true" titleStyle="Auto" />
                 </uxap:snappedTitleOnMobile>
                 <uxap:actions>
-                   <Button id="idQRnotFound" text="{i18n>QRnotfound}" type="Ghost" press="onQrNotFoundPress"/>
-                   <Button id="idUnloadingComplete" visible="false" text="{i18n>UnloadingComplete}" type="Ghost" press="onUnloadingComplete"/>
-                   <Button id="idDoitLater" visible="false" text="{i18n>doitlater}" type="Ghost" press="onDoItLaterPress"/>
-                   <Button id="idScanQR" text="{i18n>ScanQR}" type="Emphasized" press="onScanQRCodePress" visible="{= ${Status} !== 'UNLOADING COMPLETED' &amp;&amp; ${GateEntryNumber} !== null }"/>
-                   <Button id="idRequestGRN" text="{i18n>ReqAutoGRN}" type="Emphasized" visible="false" press="onRequestGRNPress"/>
+                    <Button id="idQRnotFound" text="{i18n>QRnotfound}" type="Ghost" press="onQrNotFoundPress" />
+                    <Button id="idUnloadingComplete" visible="false" text="{i18n>UnloadingComplete}" type="Ghost" press="onUnloadingComplete" />
+                    <Button id="idDoitLater" visible="false" text="{i18n>doitlater}" type="Ghost" press="onDoItLaterPress" />
+                    <Button id="idScanQR" text="{i18n>ScanQR}" type="Emphasized" press="onScanQRCodePress" visible="{= ${Status} !== 'UNLOADING COMPLETED' &amp;&amp; ${GateEntryNumber} !== null }" />
+                    <Button id="idRequestGRN" text="{i18n>ReqAutoGRN}" type="Emphasized" visible="false" press="onRequestGRNPress" />
                 </uxap:actions>
             </uxap:ObjectPageDynamicHeaderTitle>
         </uxap:headerTitle>
-        <uxap:headerContent>
-        </uxap:headerContent>
+        <uxap:headerContent></uxap:headerContent>
         <uxap:sections>
+
+            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>UnloadingPoint}">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection>
+                        <uxap:blocks>
+                                <VBox>
+                                    <Label text="{i18n>UnloadingPoint}"/>
+                                    <Input type="Text" value="{JSONModelData>/UnloadPoint}" width="20%"/>               
+                                </VBox>       
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
 
             <!-- Packing List Contains -->
             <uxap:ObjectPageSection titleUppercase="false" title="{i18n>PackListContains}">
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection title="{i18n>OuterPackaging}">
                         <uxap:blocks>
-                            <outerPackaging:OuterPackaging OnViewQRCodePress="onViewQRCodePress" class="sapUxAPObjectPageSubSectionAlignContent"/>
+                            <outerPackaging:OuterPackaging OnViewQRCodePress="onViewQRCodePress" class="sapUxAPObjectPageSubSectionAlignContent" />
                         </uxap:blocks>
                     </uxap:ObjectPageSubSection>
                     <uxap:ObjectPageSubSection title="{i18n>InnerPackaging}">
                         <uxap:blocks>
-                            <innerPackaging:InnerPackaging class="sapUxAPObjectPageSubSectionAlignContent" OnViewQRCodePress = "onViewQRCodePress"/>
+                            <innerPackaging:InnerPackaging class="sapUxAPObjectPageSubSectionAlignContent" OnViewQRCodePress="onViewQRCodePress" />
                         </uxap:blocks>
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>

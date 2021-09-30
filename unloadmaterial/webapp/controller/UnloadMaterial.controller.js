@@ -63,6 +63,7 @@ sap.ui.define([
                 {
                     "PackingListId": null,
                     "GateEntryDate": null,
+                    "UnloadPoint": null,
                     "OuterPackings": [
                     ],
                     "InnerPackings": [
@@ -283,64 +284,6 @@ sap.ui.define([
             handleToUnloadMaterialBreadcrumPress: function () {
                 this.getRouter().navTo("RouteNewConsignment");
             },
-
-            // QR Code View 
-            // onViewQRCodePress: function (oEvent) {
-            //     var sParentItemPath = oEvent.getSource().getBindingContext().getPath();
-            //     var sDialogTitleObject = oEvent.getSource()._getBindingContext().getProperty();
-            //     var oDetails = {};
-            //     oDetails.controller = this;
-            //     oDetails.view = this.getView();
-            //     oDetails.sParentItemPath = sParentItemPath;
-            //     oDetails.title = "QR Code";
-            //     if (sDialogTitleObject.Name)
-            //         oDetails.title = sDialogTitleObject.Name;
-            //     else if (sDialogTitleObject.PackagingType)
-            //         oDetails.title = sDialogTitleObject.PackagingType;
-            //     //Close current dialog
-            //     if (this.packingListContainsDialog) {
-            //         this.packingListContainsDialog.then(function (oDialog) {
-            //             oDialog.close();
-            //         });
-            //     }
-            //     if (!this.qrDialog) {
-            //         this.qrDialog = Fragment.load({
-            //             id: oDetails.view.getId(),
-            //             name: "com.agel.mmts.unloadmaterial.view.fragments.QRCodeViewer",
-            //             controller: oDetails.controller
-            //         }).then(function (oDialog) {
-            //             // connect dialog to the root view of this component (models, lifecycle)
-            //             oDetails.view.addDependent(oDialog);
-            //             oDialog.bindElement({
-            //                 path: oDetails.sParentItemPath,
-            //             });
-            //             if (Device.system.desktop) {
-            //                 oDialog.addStyleClass("sapUiSizeCompact");
-            //             }
-            //             oDialog.setTitle(oDetails.title);
-            //             return oDialog;
-            //         });
-            //     }
-            //     this.qrDialog.then(function (oDialog) {
-            //         oDetails.view.addDependent(oDialog);
-            //         oDialog.bindElement({
-            //             path: oDetails.sParentItemPath,
-            //         });
-            //         oDialog.setTitle(oDetails.title);
-            //         oDialog.open();
-            //     });
-            // },
-
-            // onQRCodeViewerDialogClosePress: function (oEvent) {
-            //     this.qrDialog.then(function (oDialog) {
-            //         oDialog.close();
-            //     });
-            //     if (this.packingListContainsDialog) {
-            //         this.packingListContainsDialog.then(function (oDialog) {
-            //             oDialog.open();
-            //         });
-            //     }
-            // },
 
             onViewQRCodePress: function (oEvent) {
                 try {
@@ -643,6 +586,7 @@ sap.ui.define([
                     delivery: null,
                     billoflading: null,
                     gatepassnumber: null,
+                    lrnumber: null,
                     reference: null,
                     valueState: null,
                     isConfirmButtonEnabled: false,
@@ -668,6 +612,7 @@ sap.ui.define([
                 }
                 this._oRequestDialog.open();
             },
+
             onDeliveryNoteLiveChange: function (oEvent) {
                 var oPOData = this.getView().getBindingContext().getObject();
                 if (oEvent.getSource().getValue().length && parseInt(oEvent.getSource().getValue()) > 0)
@@ -694,30 +639,6 @@ sap.ui.define([
                 }
             },
 
-            onBillofLadingLiveChange: function (oEvent) {
-                var oPOData = this.getView().getBindingContext().getObject();
-                if (oEvent.getSource().getValue().length && parseInt(oEvent.getSource().getValue()) > 0)
-                    this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", true);
-                else
-                    this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", false);
-            },
-
-            onGatePassNumberLiveChange: function (oEvent) {
-                var oPOData = this.getView().getBindingContext().getObject();
-                if (oEvent.getSource().getValue().length && parseInt(oEvent.getSource().getValue()) > 0)
-                    this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", true);
-                else
-                    this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", false);
-            },
-
-            onReferenceLiveChange: function (oEvent) {
-                var oPOData = this.getView().getBindingContext().getObject();
-                if (oEvent.getSource().getValue().length && parseInt(oEvent.getSource().getValue()) > 0)
-                    this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", true);
-                else
-                    this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", false);
-            },
-
             onViewChildDialogClose: function (oEvent) {
                 this._oRequestDialog.close();
             },
@@ -729,6 +650,7 @@ sap.ui.define([
                 var sBillofLading = this.getViewModel("requestModel").getProperty("/billoflading");
                 var sReference = this.getViewModel("requestModel").getProperty("/reference");
                 var sGatePassNumber = this.getViewModel("requestModel").getProperty("/gatepassnumber");
+                var sLRNumber = this.getViewModel("requestModel").getProperty("/lrnumber");
                 var oModel = this.getComponentModel();
                 if (parseInt(sQuantity) > 0) {
                     if (sDelivery !== null) {
@@ -737,6 +659,7 @@ sap.ui.define([
                             "DeliveryNote": sDelivery,
                             "BillOfLading": sBillofLading,
                             "GatePassNumber": sGatePassNumber,
+                            "LRNumber": sLRNumber,
                             "Reference": sReference,
                             "PackingListId": this.getView().getBindingContext().getObject().ID,
                             "UserName": "Agel_Sep"
@@ -749,6 +672,7 @@ sap.ui.define([
                             "DeliveryNote": sDelivery,
                             "BillOfLading": sBillofLading,
                             "GatePassNumber": sGatePassNumber,
+                            "LRNumber": sLRNumber,
                             "Reference": sReference,
                             "PackingListId": parseInt(oSelectedItemData.ID),
                             "UserName": "Agel_Sep"
@@ -757,9 +681,15 @@ sap.ui.define([
                     if (oPayload) {
                         oModel.create("/GRNEdmSet", oPayload, {
                             success: function (oData) {
-                                this.onDoItLaterPress();
-                                MessageBox.success(oData.Message);
-                                this.getComponentModel().refresh();
+                                MessageBox.success(oData.Message, {
+                                    title: "Success",
+                                    onClose: function (oAction1) {
+                                        if (oAction1 === sap.m.MessageBox.Action.OK) {
+                                            this.getComponentModel().refresh();
+                                            this.onDoItLaterPress();
+                                        }
+                                    }.bind(this)
+                                });
                             }.bind(this),
                             error: function (oError) {
                                 MessageBox.error(JSON.stringify(oError));

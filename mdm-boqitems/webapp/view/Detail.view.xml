@@ -59,7 +59,7 @@
 				                <Input id="desc1" value="{Description}" editable="false"/>
                                 
                                 <Label text="Material Code" />
-				                <Input id="mcode" value="{MaterialCode}" type="Number" editable="false"/>
+				                <Input id="mcode" value="{MaterialCode}" editable="false"/>
 
                                 <Label text="UOM" id="uom" />
                                   	<MultiComboBox editable="false" selectedKeys="{oSelectedKeyModel>/selectedItems/0}"
@@ -86,7 +86,7 @@
 				                <Input id="nameDesc" value="{Description}"/>
 
                                 <Label text="Material Code" />
-				                <Input id="mcodeEdit" type="Number" value="{MaterialCode}"/>
+				                <Input id="mcodeEdit" value="{MaterialCode}"/>
 
                                 <Label text="UOM" />
                                     <MultiComboBox id= "uomEdit" placeholder= "Select" selectedKeys="{oSelectedKeyModel>/selectedItems/0}"

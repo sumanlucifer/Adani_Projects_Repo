@@ -17,6 +17,7 @@ sap.ui.define([
             onInit: function () {
                 //jQuery.sap.addUrlWhitelist("blob");
                 this.mainModel = this.getOwnerComponent().getModel();
+                this.mainModel.setSizeLimit(1000);
                 //Router Obj
                 this.oRouter = this.getOwnerComponent().getRouter();
                 //view model instatiation
@@ -123,8 +124,8 @@ sap.ui.define([
             },
             onLiveChangeReservedQty: function (oEvent) {
                 var rowObj = oEvent.getSource().getParent().getRowBindingContext().getObject();
-                var ReservedQty = oEvent.getSource().getParent().getCells()[7].getValue();
-                var aCell = oEvent.getSource().getParent().getCells()[7];
+                var ReservedQty = oEvent.getSource().getParent().getCells()[10].getValue();
+                var aCell = oEvent.getSource().getParent().getCells()[10];
                 if (ReservedQty === "") {
                     aCell.setValueState("Error");
                     aCell.setValueStateText("Please enter quantity ")
@@ -300,6 +301,7 @@ sap.ui.define([
             callReturnReservationService: function (oAdditionalData, aReservationItems) {
                 aReservationItems = aReservationItems.map(function (item) {
                     return {
+                        IssuedMaterialParentId: item.ID,
                         ItemNumber: item.ItemNumber,
                         Material: item.MaterialCode,
                         StorageLocation: item.StorageLocation,
@@ -309,6 +311,7 @@ sap.ui.define([
                     };
                 });
                 var oPayload = {
+                    // "IssuedMaterialId": oAdditionalData.ID,
                     "UserName": "Agel",
                     "Plant": oAdditionalData.Plant,
                     "MovementType": "311",
