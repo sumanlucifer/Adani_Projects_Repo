@@ -100,6 +100,10 @@ modules:
       name: storeincharge-raisedpo
       target-path: resources/
     - artifacts:
+      - po_amendmenthistory-content.zip
+      name: po_amendmenthistory
+      target-path: resources/ 
+    - artifacts:
       - storeincharge-scanqr-content.zip
       name: storeincharge-scanqr
       target-path: resources/
@@ -350,6 +354,14 @@ modules:
 - name: storeincharge-raisedpo
   type: html5
   path: storeincharge-raisedpo
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []
+- name: po_amendmenthistory
+  type: html5
+  path: po_amendmenthistory
   build-parameters:
     builder: custom
     commands:
