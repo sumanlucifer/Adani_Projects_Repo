@@ -60,7 +60,7 @@
 		"a937ced8-1bbc-483e-833d-2bd549b7d18e": {
 			"classDefinition": "com.sap.bpm.wfs.ServiceTask",
 			"destination": "AGEL_MMTS",
-			"path": "/api/v2/odata.svc/IssuedMaterialReserveSet(1)?$expand=IssuedMaterialParents",
+			"path": "/api/v2/odata.svc/ReturnMaterialReserveSet(${context.ReservationRequestID})?$expand=ReturnedMaterialParent",
 			"httpMethod": "GET",
 			"responseVariable": "${context.ReservationResponse}",
 			"id": "servicetask1",
@@ -219,7 +219,7 @@
 		"c5ac1385-a0d4-490e-ace2-aaaf41238eea": {
 			"classDefinition": "com.sap.bpm.wfs.MailDefinition",
 			"name": "maildefinition1",
-			"to": "anirban.neogi@extentia.com",
+			"to": "akhil.jain@extentia.com,atul.jain@extentia.com,dharmendra.joshi@extentia.com,Suraj.Gavane@extentia.com,anirban.neogi@extentia.com",
 			"cc": "suman.shanmugam@extentia.com",
 			"subject": "${context.ReservationRequestID} Approval",
 			"text": "${context.ReservationRequestID} Approval",

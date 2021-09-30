@@ -14,9 +14,9 @@
                 {
                     "id": "reservation_number",
                     "type": "string",
-                    "label": "Reservation Number",
+                    "label": "Request Number",
                     "readOnly": false,
-                    "value": "${context.ReservationResponse.d.ReservationNumber}",
+                    "value": "${context.ReservationResponse.d.RequestNumber}",
                     "constraints": {
                         "required": false
                     }
@@ -51,10 +51,10 @@
                 {
                     "id": "name",
                     "type": "collection",
-                    "title": "Material Name",
+                    "title": "Material Document Number",
                     "addEnabled": false,
                     "deleteEnabled": false,
-                    "value": "${context.ReservationResponse.d.IssuedMaterialParents.results.Name}",
+                    "value": "${context.ReservationResponse.d.ReturnedMaterialParent.results.MaterialDocumentNumber}",
                     "content": []
                 },
                 {
@@ -63,43 +63,16 @@
                     "title": "Material Code",
                     "addEnabled": false,
                     "deleteEnabled": false,
-                    "value": "${context.ReservationResponse.d.IssuedMaterialParents.results.MaterialCode}",
+                    "value": "${context.ReservationResponse.d.ReturnedMaterialParent.results.MaterialCode}",
                     "content": []
                 },
                 {
                     "id": "plant",
                     "type": "collection",
-                    "title": "Plant",
+                    "title": "WBS Element",
                     "addEnabled": false,
                     "deleteEnabled": false,
-                    "value": "${context.ReservationResponse.d.IssuedMaterialParents.results.Plant}",
-                    "content": []
-                },
-                {
-                    "id": "balanceqty",
-                    "type": "collection",
-                    "title": "Balance Qty",
-                    "addEnabled": false,
-                    "deleteEnabled": false,
-                    "value": "${context.ReservationResponse.d.IssuedMaterialParents.results.BalanceQty}",
-                    "content": []
-                },
-                {
-                    "id": "consumedqty",
-                    "type": "collection",
-                    "title": "Consumed Qty",
-                    "addEnabled": false,
-                    "deleteEnabled": false,
-                    "value": "${context.ReservationResponse.d.IssuedMaterialParents.results.ConsumedQty}",
-                    "content": []
-                },
-                {
-                    "id": "issued_qty",
-                    "type": "collection",
-                    "title": "Issued Qty",
-                    "addEnabled": false,
-                    "deleteEnabled": false,
-                    "value": "${context.ReservationResponse.d.IssuedMaterialParents.results.IssuedQty}",
+                    "value": "${context.ReservationResponse.d.ReturnedMaterialParent.results.WBSElement}",
                     "content": []
                 }
             ]
