@@ -20,6 +20,21 @@
                     "localUri": "localService/metadata.xml"
                 }
             }
+        },
+        "crossNavigation": {
+            "inbounds": {
+                "com-agel-mmts-unloadmaterial-inbound": {
+                    "signature": {
+                        "parameters": {},
+                        "additionalParameters": "allowed"
+                    },
+                    "semanticObject": "PurchaseOrder",
+                    "action": "history",
+                    "title": "PO Amendment",
+                    "subTitle": "History",
+                    "icon": "sap-icon://history"
+                }
+            }
         }
     },
     "sap.ui": {
