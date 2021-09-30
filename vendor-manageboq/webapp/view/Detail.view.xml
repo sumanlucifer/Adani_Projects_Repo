@@ -153,6 +153,9 @@
                                     <Column demandPopin="true" minScreenWidth="Tablet">
                                         <Text text="UOM"/>
                                     </Column>
+                                    <Column demandPopin="true" minScreenWidth="Tablet">
+                                        <Text text="Weight/Pc"/>
+                                    </Column>
                                     <Column width="5%">
                                     </Column>
                                 </columns>
@@ -179,6 +182,7 @@
                                                 }" change="onUOMSelected">
                                                 <core:Item key="{ManageBOQModel>MasterUOMId}" text="{ManageBOQModel>Name}" />
                                             </Select>
+                                            <Input value="{ManageBOQModel>WeightPerPiece}"  liveChange="onLiveChangeQty" type="Number"/>
                                             <Button icon="sap-icon://delete" press="onDeleteBOQItemPress" type="Transparent"/>
                                         </cells>
                                     </ColumnListItem>
