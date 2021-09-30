@@ -4,3 +4,7 @@
 *.zip 
 package-lock.json
 /dist/
+# auto generated wildcard
+admin-po_summary/.env6
+# auto generated wildcard
+po_amendmenthistory/.env1
