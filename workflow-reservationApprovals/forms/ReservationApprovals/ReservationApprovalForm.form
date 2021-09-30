@@ -1,0 +1,109 @@
+{
+    "id": "reservationapprovalform",
+    "schemaVersion": "1.1.0",
+    "name": "ReservationApprovalForm",
+    "revision": "1.0",
+    "type": "task",
+    "readOnly": false,
+    "content": [
+        {
+            "id": "basic_details",
+            "type": "section",
+            "title": "Basic Details",
+            "content": [
+                {
+                    "id": "reservation_number",
+                    "type": "string",
+                    "label": "Reservation Number",
+                    "readOnly": false,
+                    "value": "${context.ReservationResponse.d.ReservationNumber}",
+                    "constraints": {
+                        "required": false
+                    }
+                },
+                {
+                    "id": "goods_recipient",
+                    "type": "string",
+                    "label": "Goods Recipient",
+                    "readOnly": false,
+                    "value": "${context.ReservationResponse.d.GoodsRecipient}",
+                    "constraints": {
+                        "required": false
+                    }
+                },
+                {
+                    "id": "wbs_number",
+                    "type": "string",
+                    "label": "WBS Number",
+                    "readOnly": false,
+                    "value": "${context.ReservationResponse.d.WBSNumber}",
+                    "constraints": {
+                        "required": false
+                    }
+                }
+            ]
+        },
+        {
+            "id": "line_items",
+            "type": "section",
+            "title": "Line Items",
+            "content": [
+                {
+                    "id": "name",
+                    "type": "collection",
+                    "title": "Material Name",
+                    "addEnabled": false,
+                    "deleteEnabled": false,
+                    "value": "${context.ReservationResponse.d.IssuedMaterialParents.results.Name}",
+                    "content": []
+                },
+                {
+                    "id": "materialcode",
+                    "type": "collection",
+                    "title": "Material Code",
+                    "addEnabled": false,
+                    "deleteEnabled": false,
+                    "value": "${context.ReservationResponse.d.IssuedMaterialParents.results.MaterialCode}",
+                    "content": []
+                },
+                {
+                    "id": "plant",
+                    "type": "collection",
+                    "title": "Plant",
+                    "addEnabled": false,
+                    "deleteEnabled": false,
+                    "value": "${context.ReservationResponse.d.IssuedMaterialParents.results.Plant}",
+                    "content": []
+                },
+                {
+                    "id": "balanceqty",
+                    "type": "collection",
+                    "title": "Balance Qty",
+                    "addEnabled": false,
+                    "deleteEnabled": false,
+                    "value": "${context.ReservationResponse.d.IssuedMaterialParents.results.BalanceQty}",
+                    "content": []
+                },
+                {
+                    "id": "consumedqty",
+                    "type": "collection",
+                    "title": "Consumed Qty",
+                    "addEnabled": false,
+                    "deleteEnabled": false,
+                    "value": "${context.ReservationResponse.d.IssuedMaterialParents.results.ConsumedQty}",
+                    "content": []
+                },
+                {
+                    "id": "issued_qty",
+                    "type": "collection",
+                    "title": "Issued Qty",
+                    "addEnabled": false,
+                    "deleteEnabled": false,
+                    "value": "${context.ReservationResponse.d.IssuedMaterialParents.results.IssuedQty}",
+                    "content": []
+                }
+            ]
+        }
+    ],
+    "decisions": []
+}
