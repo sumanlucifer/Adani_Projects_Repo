@@ -43,6 +43,10 @@ sap.ui.define([
             this._mViewSettingsDialogs = {};
             //adding searchfield association to filterbar and initialize the filter bar -> added in base controller
             this.initializeFilterBar();
+
+
+
+
             var startupParams = this.getOwnerComponent().getComponentData().startupParameters;
             // get Startup params from Owner Component
             if (startupParams.Kind[0]) {
