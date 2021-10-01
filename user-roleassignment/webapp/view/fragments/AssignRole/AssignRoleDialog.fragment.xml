@@ -4,7 +4,7 @@
     
      <Dialog >
         <content>
-            <MultiComboBox id= "roleEdit" placeholder= "Select" 
+            <MultiComboBox id= "roleEdit" placeholder= "Select" selectedKeys="{MasterRoleSet>/ID}"
                 items="{
                     path: '/MasterRoleSet'
                 }">

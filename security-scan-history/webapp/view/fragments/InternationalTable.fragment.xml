@@ -57,7 +57,7 @@
                 <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "CreatedAt", "leadingProperty": "CreatedAt",
-                                                 "columnIndex": 4}'/>
+                                                 "columnIndex": 4 ,"sortProperty": "CreatedAt" }'/>
                     </customData>
                     <Text text="{i18n>dataTime}"/>
                 </Column>
