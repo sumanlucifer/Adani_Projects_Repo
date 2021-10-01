@@ -4,3 +4,7 @@
 *.zip 
 package-lock.json
 /dist/
+# auto generated wildcard
+sapui5-1/user-roleassignment/.env5
+# auto generated wildcard
+sapui5-1/security-scanqr/.env12
