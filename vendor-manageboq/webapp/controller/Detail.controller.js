@@ -479,6 +479,7 @@ sap.ui.define([
                 boqItem.Description = data[i].Description;
                 boqItem.Remarks = data[i].Remarks;
                 boqItem.UOM = data[i].UOM;
+                boqItem.WeightPerPiece = data[i].WeightPerPiece;
                 boqItem.MasterBOQItemId = data[i].MasterBOQItemId,
                     boqItem.masterUOMItemId = data[i].MasterUOMItemId,
                     boqItem.UOMSuggestions = null;
