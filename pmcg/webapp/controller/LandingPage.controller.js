@@ -41,10 +41,15 @@ sap.ui.define([
             },
 
             _showObject: function (oItem) {
-                var that = this;
                var sObjectPath = oItem.getBindingContext().sPath;
-                that.getRouter().navTo("TCEngDetailPage", {
-                    TCEngId: oItem.getBindingContext().getObject().ID
+               try{
+                var TCEngId = oItem.getBindingContext().getObject().ID;
+               }
+               catch(e){
+                     TCEngId = sObjectPath.match(/\((.*?)l/)[1];
+               }
+               this.getRouter().navTo("TCEngDetailPage", {
+                    TCEngId: TCEngId
                 });
             },
             
