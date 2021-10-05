@@ -234,7 +234,7 @@
 
                     <uxap:ObjectPageSubSection title="{i18n>otherDetails}">
                         <uxap:blocks>
-                            <UploadCollection id="idOtherFileUploader" maximumFilenameLength="55" maximumFileSize="10" multiple="true" fileSizeExceed="onFileSizeExceed" typeMissmatch="onTypeMissmatch" uploadComplete="onUploadComplete" beforeUploadStarts="onBeforeUploadStarts" items="{
+                            <UploadCollection  id="idOtherFileUploader" maximumFilenameLength="55" maximumFileSize="10" multiple="true" fileSizeExceed="onFileSizeExceed" typeMissmatch="onTypeMissmatch" uploadComplete="onUploadComplete" beforeUploadStarts="onBeforeUploadStarts" items="{
                                     path:'Attachments',
                                     filters : [
                                         { path : 'SubType', operator : 'EQ', value1 : 'OTHERS'},

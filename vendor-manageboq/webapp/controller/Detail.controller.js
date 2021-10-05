@@ -309,6 +309,7 @@ sap.ui.define([
                 success: function (oData, oResponse) {
                     sap.m.MessageBox.success(oData.Message);
                     this.getViewModel("objectViewModel").setProperty("/isCreatingPCList", false);
+                    this.getViewModel("ManageBOQModel").setProperty("/boqItems", [])
                     this.getView().getModel().refresh();
                 }.bind(this),
                 error: function (oError) {
