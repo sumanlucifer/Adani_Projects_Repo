@@ -8,3 +8,7 @@ package-lock.json
 sapui5-1/user-roleassignment/.env5
 # auto generated wildcard
 sapui5-1/security-scanqr/.env12
+# auto generated wildcard
+sapui5-1/storeincharge-approvals/.env4
+# auto generated wildcard
+sapui5-1/security-international-import/.env5
