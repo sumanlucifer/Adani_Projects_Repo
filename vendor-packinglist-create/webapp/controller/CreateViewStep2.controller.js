@@ -577,6 +577,8 @@ sap.ui.define([
             _validateData: function (data) {
                 var bValid = true;
 
+                var vehicleRegExp = new RegExp('^[A-Z]{2}[ -][0-9]{1,2}(?: [A-Z])?(?: [A-Z]*)? [0-9]{4}$');
+
                 /* if (!data.InvoiceNumber) {
                     this.byId("idVehicleNumber").setValueState("Error");
                     this.byId("idVehicleNumber").setValueStateText("Please enter the Invoice Number");
@@ -617,6 +619,11 @@ sap.ui.define([
                 if (!data.InvoiceDate) {
                     bValid = false;
                     sap.m.MessageBox.alert("Please select the Invoice Date before viewing the QR.");
+                    return;
+                }
+                if (!vehicleRegExp.test(data.VehicleNumber)) {
+                    bValid = false;
+                    sap.m.MessageBox.alert("Please enter a valid Vehicle number before viewing the QR.");
                     return;
                 }
 

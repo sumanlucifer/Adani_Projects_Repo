@@ -72,15 +72,15 @@ sap.ui.define([
 
             onBeforeRebindUnrestTable: function (oEvent) {
                 var mBindingParams = oEvent.getParameter("bindingParams");
-                mBindingParams.filters.push(new Filter("Status", sap.ui.model.FilterOperator.EQ, "APPROVED"));   
+                // mBindingParams.filters.push(new Filter("Status", sap.ui.model.FilterOperator.EQ, "APPROVED"));   
                 mBindingParams.sorter.push(new sap.ui.model.Sorter("CreatedAt", true));
-
 
             },
+
             onBeforeRebindRestTable: function (oEvent) {
-                var mBindingParams = oEvent.getParameter("bindingParams");
-                mBindingParams.filters.push(new Filter("Status", sap.ui.model.FilterOperator.EQ, "RESTRICTED"));   
-                mBindingParams.sorter.push(new sap.ui.model.Sorter("CreatedAt", true));
+                var mBindingParams1 = oEvent.getParameter("bindingParams");
+                mBindingParams1.filters.push(new Filter("Status", sap.ui.model.FilterOperator.EQ, "RESTRICTED"));   
+                mBindingParams1.sorter.push(new sap.ui.model.Sorter("CreatedAt", true));
             },
 
             // on Go Search 

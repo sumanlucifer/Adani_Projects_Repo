@@ -103,9 +103,10 @@ sap.ui.define([
                 that.getComponentModel("app").setProperty("/busy", true);
                 that.MainModel.create("/ManualEntrySet", oPayload, {
                     success: function (oData, oResponse) {
+                        that.onClearEntry(oEvent);
                         that.getComponentModel("app").setProperty("/busy", false);
-                        that.getView().getModel("oImportModel").refresh();
-                        sap.m.MessageBox.success("Import entry created successfully"); 
+                        sap.m.MessageBox.success("Import entry created successfully");
+                        
                     }       
                     // }.bind(this),
                     // error: function (oError) {
@@ -113,6 +114,21 @@ sap.ui.define([
                     //     sap.m.MessageBox.error(JSON.stringify(oError));
                     // }
                 });
+            },
+            
+            onClearEntry : function(oEvent){
+
+                var that=this;
+                var oModel = this.getView().getModel("oImportModel").getData();
+                if(oModel.PONumber != "" ||  oModel.ContainerNumber == "" || oModel.VehicleNumber == "" || oModel.InvoiceNumber == "") {
+                    this.getView().byId("idInpPoNob").setValue("");
+                    this.getView().byId("idInpContNob").setValue("");
+                    this.getView().byId("idInpVehicleNob").setValue("");
+                    this.getView().byId("idInvoiceNob").setValue("");
+
+                }
+
+                
             }
 
 		});
