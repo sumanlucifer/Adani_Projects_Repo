@@ -5,7 +5,9 @@
     xmlns:smartTable="sap.ui.comp.smarttable"
     xmlns:tt="sap.ui.table" controllerName="com.agel.mmts.vendorPersona.view.blocks.poDetails.boqItemsTable.BOQItemsTableController">
 
-    <smartTable:SmartTable id="smartTreeTable" entitySet="ParentLineItemSet" tableType="TreeTable" useExportToExcel="false" useVariantManagement="false" useTablePersonalisation="true" placeToolbarInTable="true" showRowCount="true" enableAutoBinding="true" enableAutoColumnWidth="true" useGroupMode="true" beforeRebindTable="onBeforeRebindTreeTable" ignoreFromPersonalisation="DeliveryDate,HSNCode,ID,InspectedQty,IsBOQApplicable,OverseasQrCode,PlantCode,PONumber,Price,Status,StorageLocation,TaxCode,TaxIndicator,Value">
+    <smartTable:SmartTable id="smartTreeTable" entitySet="ParentLineItemSet" tableType="TreeTable" useExportToExcel="false" useVariantManagement="false" 
+    useTablePersonalisation="true" placeToolbarInTable="true" showRowCount="true" enableAutoBinding="true" enableAutoColumnWidth="true" 
+    beforeRebindTable="onBeforeRebindTreeTable" ignoreFromPersonalisation="DeliveryDate,HSNCode,ID,InspectedQty,IsBOQApplicable,OverseasQrCode,PlantCode,PONumber,Price,Status,StorageLocation,TaxCode,TaxIndicator,Value">
         <!-- layout data used to make the table growing but the filter bar fixed -->
         <smartTable:customToolbar>
             <OverflowToolbar design="Transparent">
@@ -100,25 +102,10 @@
                     </tt:template>
                 </tt:Column>
 
-
-
-                <tt:Column hAlign="Center">
-                    <Label text="{i18n>status}" />
-                    <tt:customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "status", , "columnIndex": 7}' />
-                    </tt:customData>
-
-                    <tt:template>
-                        <VBox justifyContent="Center" visible="{= ${MaterialCode} ? false : true }">
-                            <ObjectStatus text="{Status}" state="{= ${Status} === 'PENDING' ? 'Warning' : ${Status} === 'REJECTED' ? 'Error' : 'Success'}" visible="{= ${Status}.length>0 ? true : false }"/>
-                        </VBox>
-                    </tt:template>
-                </tt:Column>
-
                 <tt:Column hAlign="Center">
                     <Label text="Requested On" />
                     <tt:customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "CreatedAt", "leadingProperty":"BOQGroups/CreatedAt", "columnIndex": 8}' />
+                        <core:CustomData key="p13nData" value='\{"columnKey": "CreatedAt", "leadingProperty":"BOQGroups/CreatedAt", "columnIndex": 7}' />
                     </tt:customData>
 
                     <tt:template>
@@ -133,7 +120,7 @@
                 <tt:Column hAlign="Center">
                     <Label text="Action Date" />
                     <tt:customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "UpdatedAt", "leadingProperty":"BOQGroups/ApprovedOn", "columnIndex": 9}' />
+                        <core:CustomData key="p13nData" value='\{"columnKey": "UpdatedAt", "leadingProperty":"BOQGroups/ApprovedOn", "columnIndex": 8}' />
                     </tt:customData>
 
                     <tt:template>
@@ -150,7 +137,7 @@
                 <tt:Column hAlign="Center">
                     <Label text="{i18n>status}" />
                     <tt:customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "status", , "columnIndex": 10}' />
+                        <core:CustomData key="p13nData" value='\{"columnKey": "status", "columnIndex": 9}' />
                     </tt:customData>
 
                     <tt:template>
@@ -163,7 +150,7 @@
                 <tt:Column hAlign="Center">
                     <Label text="{i18n>comments}" />
                     <tt:customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "Comment", "leadingProperty":"BOQGroups/Comment", "columnIndex": 11}' />
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Comment", "leadingProperty":"BOQGroups/Comment", "columnIndex": 10}' />
                     </tt:customData>
 
                     <tt:template>
@@ -174,7 +161,7 @@
                 <tt:Column hAlign="Center">
                     <Label text="{i18n>viewAction}" />
                     <tt:customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "Action", "columnIndex": 12}' />
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Action", "columnIndex": 11}' />
                     </tt:customData>
 
                     <tt:template>
@@ -187,7 +174,7 @@
                 <tt:Column hAlign="Center">
                     <Label text="{i18n>approveAction}" />
                     <tt:customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "approval", , "columnIndex": 13}' />
+                        <core:CustomData key="p13nData" value='\{"columnKey": "approval", "columnIndex": 12}' />
                     </tt:customData>
 
                     <tt:template>

@@ -85,7 +85,7 @@ sap.ui.define([
             _getPackingListOuterPackagingData: function () {
                 this.mainModel.read("/PackingListSet(" + this.packingListId + ")/OuterPackagings", {
                     success: function (oData, oError) {
-                        console.log("Outer packaging get");
+                        //console.log("Outer packaging get");
                         var oModel = new JSONModel(oData.results);
                         this.getView().setModel(oModel, "outerPackagingModel");
                         this._getRelatedInnerPackagings(oData.results);
@@ -102,9 +102,9 @@ sap.ui.define([
 
                     this.mainModel.read(path, {
                         success: function (i, oData, oError) {
-                            console.log("Inner packaging get");
+                            //console.log("Inner packaging get");
                             this.getView().getModel("outerPackagingModel").setProperty("/" + i + "/InnerPackagings", oData.results);
-                            debugger;
+                            // debugger;
                         }.bind(this, i),
                         error: function (oError) {
                             sap.m.MessageBox.error(JSON.stringify(oError));
@@ -167,7 +167,7 @@ sap.ui.define([
 
                     this.mainModel.read(path, {
                         success: function (oData, oError) {
-                            console.log("selected packaging get");
+                            //console.log("selected packaging get");
                             this._prepareData(oData.results);
                         }.bind(this),
                         error: function (oError) {
@@ -234,7 +234,7 @@ sap.ui.define([
             _deleteFromDB: function (ID) {
                 this.mainModel.remove("/OuterPackagingRequestEdmSet(" + ID + ")", {
                     success: function (oData, oResponse) {
-                        console.log("Delete DB outerpackaging");
+                        //console.log("Delete DB outerpackaging");
                     },
                     error: function (oError) {
                         sap.m.MessageBox.error(JSON.parse(oError));
@@ -289,7 +289,7 @@ sap.ui.define([
                 // debugger;
                 this._getPackingListOuterPackagingData();
                 var oBindingContextData = this.getView().getBindingContext().getObject();
-                console.log(oBindingContextData);
+                //console.log(oBindingContextData);
                 var oAdditionalData = this.getViewModel("AdditionalDetialsModel").getData();
 
                 if (this.getView().getModel("outerPackagingModel"))
@@ -455,8 +455,9 @@ sap.ui.define([
 
             _addData: function (data, fileName, SubType, Type, fileSize) {
                 var that = this,
-                    oViewContext = this.getView().getBindingContext().getObject();
-
+                oViewContext = this.getView().getBindingContext().getObject();
+                var oPackingListData = this.mainModel.getData("/PackingListSet("+this.packingListId+"l)");
+                var sPONumber = oPackingListData.PONumber;
                 var documents = {
                     "Documents": [
                         {
@@ -464,17 +465,18 @@ sap.ui.define([
                             "Type": Type,
                             "SubType": SubType,
                             "FileName": fileName,
-                            "Content": data.split(",")[1],
+                            "Content": data,
                             "ContentType": "application/pdf",
                             "UploadedBy": "vendor-1",
-                            "FileSize": fileSize
+                            "FileSize": fileSize,
+                            "PONumber": sPONumber
                         }
                     ]
                 };
 
                 this.mainModel.create("/DocumentUploadEdmSet", documents, {
                     success: function (oData, oResponse) {
-                        console.log("docuymnet UPloaded");
+                        // //console.log("docuymnet UPloaded");
                         this.byId("idMaterialFileUploader").getBinding("items").refresh();
                         this.byId("idInvoiceFileUploader").getBinding("items").refresh();
                         this.byId("idOtherFileUploader").getBinding("items").refresh();
