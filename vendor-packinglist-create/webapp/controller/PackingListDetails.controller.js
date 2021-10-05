@@ -52,7 +52,6 @@ sap.ui.define([
                         else
                             objectViewModel.setProperty("/isPackingListInEditMode", true);
                         objectViewModel.setProperty("/busy", false);
-                        //that.getDocumentData();
                         var documentResult = that.getDocumentData();
                         documentResult.then(function (result) {
                             that.PrintDocumentService(result);
@@ -66,15 +65,15 @@ sap.ui.define([
         },
         getDocumentData: function () {
             var promise = jQuery.Deferred();
-            var othat = this;
+            var that = this;
             var oView = this.getView();
             var oDataModel = oView.getModel();
             //console.log(oPayLoad);
             return new Promise((resolve, reject) => {
                 this.getOwnerComponent().getModel().read("/PackingListSet(" + this.packingListId + ")/Attachments", {
                     success: function (oData, oResponse) {
-                        debugger;
-
+                        var DocumentModel = new JSONModel(oData.results);
+                        that.getView().setModel(DocumentModel, "DocumentModel");
                         resolve(oData.results);
                     }.bind(this),
                     error: function (oError) {
@@ -87,18 +86,24 @@ sap.ui.define([
             var that = this;
             var oView = this.getView();
             var oDataModel = oView.getModel();
-            var aRequestID = result.map(function (item) {
-                return {
+            // var aRequestID = result.map(function (item) {
+            //     return {
+            //         RequestNo: item.RequestNo
+            //     };
+            // });
+            // that.aResponsePayload = [];
+            // aRequestID.forEach((reqID) => {
+            //     that.aResponsePayload.push(that.callPrintDocumentService(reqID))
+            // })
+            result.forEach((item) => {
+                var sContent = that.callPrintDocumentService({
                     RequestNo: item.RequestNo
-                };
-            });
-            var aResponsePayload = [];
-            aRequestID.forEach((reqID) => {
-                aResponsePayload.push(that.callPrintDocumentService(reqID))
+                })
+                sContent.then(function (val) {
+                    item.Content = val
+                    debugger;
+                });
             })
-
-            var DocumentModel = new JSONModel(aResponsePayload);
-            that.getView().setModel(aResponsePayload, "DocumentModel");
         },
         callPrintDocumentService: function (reqID) {
             var promise = jQuery.Deferred();
@@ -109,12 +114,9 @@ sap.ui.define([
             return new Promise((resolve, reject) => {
                 oDataModel.create("/PrintDocumentEdmSet", reqID, {
                     success: function (data) {
-                        debugger;
-
-                        resolve(data);
+                        resolve(data.Bytes);
                     },
                     error: function (data) {
-
                         reject(data);
                     },
                 });

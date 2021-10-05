@@ -31,11 +31,11 @@ sap.ui.define([
                 var objectViewModel = this.getViewModel("objectViewModel");
                 var that = this;
 
-                // var startupParams = this.getOwnerComponent().getComponentData().startupParameters;
-                // this.packingListId = startupParams.packingListID[0];
+                var startupParams = this.getOwnerComponent().getComponentData().startupParameters;
+                this.packingListId = startupParams.packingListID[0];
 
                //this.packingListId = 105;
-               this.packingListId = 76;
+               
 
                /* if (startupParams.status[0] !== "SAVED") {
                     this.oRouter.navTo("RoutePackingListDetails", {
