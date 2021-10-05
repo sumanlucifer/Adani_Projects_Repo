@@ -102,23 +102,12 @@
 
 
 
-                <tt:Column hAlign="Center">
-                    <Label text="{i18n>status}" />
-                    <tt:customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "status", , "columnIndex": 7}' />
-                    </tt:customData>
-
-                    <tt:template>
-                        <VBox justifyContent="Center" visible="{= ${MaterialCode} ? false : true }">
-                            <ObjectStatus text="{Status}" state="{= ${Status} === 'PENDING' ? 'Warning' : ${Status} === 'REJECTED' ? 'Error' : 'Success'}" visible="{= ${Status}.length>0 ? true : false }"/>
-                        </VBox>
-                    </tt:template>
-                </tt:Column>
+        
 
                 <tt:Column hAlign="Center">
                     <Label text="Requested On" />
                     <tt:customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "CreatedAt", "leadingProperty":"BOQGroups/CreatedAt", "columnIndex": 8}' />
+                        <core:CustomData key="p13nData" value='\{"columnKey": "CreatedAt", "leadingProperty":"BOQGroups/CreatedAt", "columnIndex": 7}' />
                     </tt:customData>
 
                     <tt:template>
@@ -133,7 +122,7 @@
                 <tt:Column hAlign="Center">
                     <Label text="Action Date" />
                     <tt:customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "UpdatedAt", "leadingProperty":"BOQGroups/ApprovedOn", "columnIndex": 9}' />
+                        <core:CustomData key="p13nData" value='\{"columnKey": "UpdatedAt", "leadingProperty":"BOQGroups/ApprovedOn", "columnIndex": 8}' />
                     </tt:customData>
 
                     <tt:template>
@@ -150,7 +139,7 @@
                 <tt:Column hAlign="Center">
                     <Label text="{i18n>status}" />
                     <tt:customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "status", , "columnIndex": 10}' />
+                        <core:CustomData key="p13nData" value='\{"columnKey": "status", , "columnIndex": 9}' />
                     </tt:customData>
 
                     <tt:template>
@@ -163,7 +152,7 @@
                 <tt:Column hAlign="Center">
                     <Label text="{i18n>comments}" />
                     <tt:customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "Comment", "leadingProperty":"BOQGroups/Comment", "columnIndex": 11}' />
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Comment", "leadingProperty":"BOQGroups/Comment", "columnIndex": 10}' />
                     </tt:customData>
 
                     <tt:template>

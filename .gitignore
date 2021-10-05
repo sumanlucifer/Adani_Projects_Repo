@@ -8,3 +8,9 @@ package-lock.json
 sapui5-1/user-roleassignment/.env5
 # auto generated wildcard
 sapui5-1/security-scanqr/.env12
+# auto generated wildcard
+sapui5/vendorPersona/.env26
+# auto generated wildcard
+sapui5/po_amendmenthistory/.env2
+# auto generated wildcard
+sapui5/vendor-manageboq/.env2
