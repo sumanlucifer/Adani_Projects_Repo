@@ -45,7 +45,8 @@ sap.ui.define([
             this.initializeFilterBar();
 
 
-
+//   this.type = 1;
+//                 this.byId("idIconTabBar").setSelectedKey(this.type);
 
             var startupParams = this.getOwnerComponent().getComponentData().startupParameters;
             // get Startup params from Owner Component

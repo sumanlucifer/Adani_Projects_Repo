@@ -13,7 +13,6 @@ sap.ui.define([
     'sap/ui/model/FilterOperator',
 ], function (BaseController, Fragment, Device, JSONModel, Token, ColumnListItem, Label, MessageBox, formatter, PDFViewer, Filter, FilterOperator) {
     "use strict";
-
     return BaseController.extend("com.agel.mmts.vendorpackinglistcreate.controller.PackingListDetails", {
         formatter: formatter,
         onInit: function () {
@@ -22,7 +21,6 @@ sap.ui.define([
             //Router Object
             this.oRouter = this.getOwnerComponent().getRouter();
             this.oRouter.getRoute("RoutePackingListDetails").attachPatternMatched(this._onObjectMatched, this);
-
             //view model instatiation
             var oViewModel = new JSONModel({
                 busy: false,
@@ -30,16 +28,14 @@ sap.ui.define([
                 isPackagingTableVisible: false,
                 isPackingListInEditMode: false,
                 isOuterPackagingRequired: true
-
             });
             this.setModel(oViewModel, "objectViewModel");
         },
-
         _onObjectMatched: function (oEvent) {
             var objectViewModel = this.getViewModel("objectViewModel");
             this.packingListId = oEvent.getParameter("arguments").packingListId;
             var that = this;
-          //  this.packingListId = "62";
+            //  this.packingListId = "62";
             this.getView().bindElement({
                 path: "/PackingListSet(" + this.packingListId + ")",
                 events: {
@@ -56,6 +52,11 @@ sap.ui.define([
                         else
                             objectViewModel.setProperty("/isPackingListInEditMode", true);
                         objectViewModel.setProperty("/busy", false);
+                        //that.getDocumentData();
+                        var documentResult = that.getDocumentData();
+                        documentResult.then(function (result) {
+                            that.PrintDocumentService(result);
+                        });
                     }
                 }
             });
@@ -63,12 +64,66 @@ sap.ui.define([
             // this._getPackingListInnerPackagingData();
             // this._createAdditionalDetailsModel();
         },
+        getDocumentData: function () {
+            var promise = jQuery.Deferred();
+            var othat = this;
+            var oView = this.getView();
+            var oDataModel = oView.getModel();
+            //console.log(oPayLoad);
+            return new Promise((resolve, reject) => {
+                this.getOwnerComponent().getModel().read("/PackingListSet(" + this.packingListId + ")/Attachments", {
+                    success: function (oData, oResponse) {
+                        debugger;
 
+                        resolve(oData.results);
+                    }.bind(this),
+                    error: function (oError) {
+                        sap.m.MessageBox.error(JSON.stringify(oError));
+                    }
+                });
+            });
+        },
+        PrintDocumentService: function (result) {
+            var that = this;
+            var oView = this.getView();
+            var oDataModel = oView.getModel();
+            var aRequestID = result.map(function (item) {
+                return {
+                    RequestNo: item.RequestNo
+                };
+            });
+            var aResponsePayload = [];
+            aRequestID.forEach((reqID) => {
+                aResponsePayload.push(that.callPrintDocumentService(reqID))
+            })
+
+            var DocumentModel = new JSONModel(aResponsePayload);
+            that.getView().setModel(aResponsePayload, "DocumentModel");
+        },
+        callPrintDocumentService: function (reqID) {
+            var promise = jQuery.Deferred();
+            var othat = this;
+            var oView = this.getView();
+            var oDataModel = oView.getModel();
+            //console.log(oPayLoad);
+            return new Promise((resolve, reject) => {
+                oDataModel.create("/PrintDocumentEdmSet", reqID, {
+                    success: function (data) {
+                        debugger;
+
+                        resolve(data);
+                    },
+                    error: function (data) {
+
+                        reject(data);
+                    },
+                });
+            });
+        },
         onViewQRCode: function () {
             this.selectedQRCodeObject = oEvent.getSource().getBindingContext("QRCodeModel").getObject();
             var oButton = oEvent.getSource(),
                 oView = this.getView();
-
             if (!this._pDialog) {
                 this._pDialog = Fragment.load({
                     id: oView.getId(),
@@ -82,13 +137,11 @@ sap.ui.define([
                     return oDialog;
                 });
             }
-
             this._pDialog.then(function (oDialog) {
                 //this._configDialog(oButton, oDialog);
                 oDialog.open();
             }.bind(this));
         },
-
         onDownloadPackingListPress: function (oEvent) {
             var oPayload = {
                 "PackingListId": this.getView().getBindingContext().getObject().ID
@@ -103,7 +156,6 @@ sap.ui.define([
                 }
             });
         },
-
         _openPDFDownloadWindow: function (base64Data) {
             var _pdfViewer = new PDFViewer();
             this.getView().addDependent(_pdfViewer);
@@ -118,12 +170,10 @@ sap.ui.define([
             if (Device.system.desktop) {
                 _pdfViewer.addStyleClass("sapUiSizeCompact");
             }
-
             _pdfViewer.setTitle("Packing List " + this.getView().getBindingContext().getObject().Name);
             _pdfViewer.setShowDownloadButton(false);
             _pdfViewer.open();
         },
-
         onMarkConsignmentAsDispatched: function (oEvent) {
             //initialize the action
             var oModel = new JSONModel({
@@ -145,11 +195,9 @@ sap.ui.define([
             }
             this._oPackingListDispatchDialog.open();
         },
-
         onCloseDispatchDialogPress: function (oEvent) {
             this._oPackingListDispatchDialog.close();
         },
-
         onNeedQRPrintingAsistancePress: function (oEvent) {
             //initialize the action
             var oModel = new JSONModel({
@@ -163,39 +211,35 @@ sap.ui.define([
             }
             this._oQRAssistantDialog.open();
         },
-
         onSendAssistanceRequestPress: function (oEvent) {
             var inputModel = this.getView().getModel("qrAssistantModel");
             var flag = 0;
-            if( inputModel.getProperty("/comment") == null || inputModel.getProperty("/comment") == ""){
+            if (inputModel.getProperty("/comment") == null || inputModel.getProperty("/comment") == "") {
                 flag = 1;
             }
-
-            if( inputModel.getProperty("/reason") == null || inputModel.getProperty("/reason") == ""){
+            if (inputModel.getProperty("/reason") == null || inputModel.getProperty("/reason") == "") {
                 flag = 1;
-               // this.byId("idSelReason").setValueState("Error");
+                // this.byId("idSelReason").setValueState("Error");
             }
-
-            if(flag == 1){
+            if (flag == 1) {
                 sap.m.MessageBox.error("Please fill mandatory fields");
                 return 0;
             }
-
             var oPayload = {
                 "PackingListId": this.getView().getBindingContext().getObject().ID,
                 "VendorCode": this.byId("idObjVendorCode").getBindingContext().getObject().VendorCode,
-              //  "UserName": "Venkatesh.hulekal@extentia.com",
+                //  "UserName": "Venkatesh.hulekal@extentia.com",
                 "Description": inputModel.getProperty("/comment"),
                 "Reason": inputModel.getProperty("/reason")
             };
-
             this.mainModel.create("/VendorQRPrintingRequestSet", oPayload, {
                 success: function (oData, oResults) {
-                    if(oData.Success){
-                    sap.m.MessageBox.success("Request for QR printing sent successfully!")
-                    this._oQRAssistantDialog.close();
-                    this.byId("idHeader").getModel().refresh(); }
-                    else{
+                    if (oData.Success) {
+                        sap.m.MessageBox.success("Request for QR printing sent successfully!")
+                        this._oQRAssistantDialog.close();
+                        this.byId("idHeader").getModel().refresh();
+                    }
+                    else {
                         MessageBox.error(oData.Message);
                     }
                 }.bind(this), error: function (oError) {
@@ -203,32 +247,27 @@ sap.ui.define([
                 }
             });
         },
-
-        onCancelAssistanceRequestPress : function (oEvent) {
+        onCancelAssistanceRequestPress: function (oEvent) {
             this._oQRAssistantDialog.close();
         },
-
         onWeightLiveChange: function (oEvent) {
             if (oEvent.getSource().getValue().length)
                 this.getViewModel("packingListDispatchModel").setProperty("/isDispatchButtonEnabled", true);
             else
                 this.getViewModel("packingListDispatchModel").setProperty("/isDispatchButtonEnabled", false);
         },
-
         onQRLiveChange: function (oEvent) {
             if (oEvent.getSource().getValue().length)
                 this.getViewModel("packingListDispatchModel").setProperty("/isValidateButtonEnabled", true);
             else
                 this.getViewModel("packingListDispatchModel").setProperty("/isValidateButtonEnabled", false);
         },
-
         onDispatchPackingListPress: function (oEvent) {
             var oPayload = {
                 "PackingListId": this.getView().getBindingContext().getObject().ID,
                 "TotalWeight": this.getViewModel("packingListDispatchModel").getProperty("/weight"),
                 "UserName": "Agel"
             };
-
             this.mainModel.create("/UpdatePackingListStatusSet", oPayload, {
                 success: function (oData, oResults) {
                     sap.m.MessageBox.success("Packing list has been dispatched successfully!")
@@ -239,7 +278,6 @@ sap.ui.define([
                 }
             });
         },
-
         onValidateQRPress: function (oEvent) {
             var sPackingListPath = this.getView().getBindingContext().getPath();
             var sPathToCheck = sPackingListPath + "/QRCodeId";
@@ -273,7 +311,6 @@ sap.ui.define([
                 }
             });
         },
-        
         // onViewQRCodePress: function (oEvent) {
         //     var sParentItemPath = oEvent.mParameters.getSource().getBindingContext().getPath();
         //     var sDialogTitleObject = oEvent.mParameters.getSource().getParent().getBindingContext().getObject();
@@ -313,7 +350,6 @@ sap.ui.define([
         //         oDialog.open();
         //     });
         // },
-
         onViewQRCodePress: function (oEvent) {
             var qrcodeID = this.byId("idQRNumber").getText();
             var qrcodeID = oEvent.mParameters.getSource().getBindingContext().getObject().QRNumber;
@@ -336,7 +372,6 @@ sap.ui.define([
                 }
             })
         },
-
         _openPDFDownloadWindow: function (base64Data) {
             var _pdfViewer = new PDFViewer();
             this.getView().addDependent(_pdfViewer);
@@ -356,7 +391,6 @@ sap.ui.define([
             _pdfViewer.setShowDownloadButton(false);
             _pdfViewer.open();
         },
-
         onQRCodeViewerDialogClosePress: function (oEvent) {
             this.qrDialog.then(function (oDialog) {
                 oDialog.close();
