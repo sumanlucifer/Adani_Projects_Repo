@@ -144,9 +144,12 @@ sap.ui.define([
                 UOM: "",
                 MasterBOQItemId: "",
                 masterUOMItemId: "",
+                isQtyEditable: false,
+                isWeightEditable: false,
                 UOMSuggestions: null
             });
             oModel.setProperty("/boqItems", oItems);
+            this.weightValueFlag = false;
         },
         onLiveChangeQty: function (oEvent) {
             var oValue = oEvent.getSource().getValue();
@@ -156,8 +159,8 @@ sap.ui.define([
             if (oValue !== "") {
                 this.getView().getModel("ManageBOQModel").setProperty(sItemPath + "/isWeightEditable", true);
                 if (this.weightValueFlag) {
-                    var sQty = parseInt(oValue);
-                    var sWeight = parseInt(oEvent.getSource().getBindingContext("ManageBOQModel").getObject().WeightPerPiece);
+                    var sQty = parseFloat(oValue);
+                    var sWeight = parseFloat(oEvent.getSource().getBindingContext("ManageBOQModel").getObject().WeightPerPiece);
                     var sText = sQty * sWeight;
                     this.getView().getModel("ManageBOQModel").setProperty(sItemPath + "/TotalItemWeight", sText);
 
@@ -166,11 +169,13 @@ sap.ui.define([
             }
 
 
-            if (parseInt(oValue) <= 0) {
+            if (parseInt(oValue) <= 0 || parseInt(oValue) === 0) {
                 oEvent.getSource().setValueState("Error");
                 oEvent.getSource().setValueStateText("Please enter Positive and Non Zero Number");
                 this.getView().getModel("ManageBOQModel").setProperty(sItemPath + "/WeightPerPiece", "");
+                this.getView().getModel("ManageBOQModel").setProperty(sItemPath + "/TotalItemWeight", "");
                 this.getView().getModel("ManageBOQModel").setProperty(sItemPath + "/isWeightEditable", false);
+                this.weightValueFlag = false;
             }
             else {
                 oEvent.getSource().setValueState("None");
@@ -180,16 +185,10 @@ sap.ui.define([
         onLiveChangeWeight: function (oEvent) {
             var oValue = oEvent.getSource().getValue();
             var sItemPath = oEvent.getSource().getBindingContext("ManageBOQModel").getPath();
-            if (parseInt(oValue) <= 0) {
-                oEvent.getSource().setValueState("Error");
-                oEvent.getSource().setValueStateText("Please enter Positive and Non Zero Number");
-            }
-            else
-                oEvent.getSource().setValueState("None");
             if (oValue !== "") {
                 this.weightValueFlag = true;
-                var sQty = parseInt(oEvent.getSource().getBindingContext("ManageBOQModel").getObject().Qty);
-                var sWeight = parseInt(oValue);
+                var sQty = parseFloat(oEvent.getSource().getBindingContext("ManageBOQModel").getObject().Qty);
+                var sWeight = parseFloat(oValue);
                 var sText = sQty * sWeight;
                 this.getView().getModel("ManageBOQModel").setProperty(sItemPath + "/TotalItemWeight", sText);
             }
@@ -197,6 +196,16 @@ sap.ui.define([
                 this.weightValueFlag = false;
                 this.getView().getModel("ManageBOQModel").setProperty(sItemPath + "/TotalItemWeight", "");
             }
+            if (parseInt(oValue) <= 0 || parseInt(oValue) === 0 ) {
+                oEvent.getSource().setValueState("Error");
+                oEvent.getSource().setValueStateText("Please enter Positive and Non Zero Number");
+                this.getView().getModel("ManageBOQModel").setProperty(sItemPath + "/TotalItemWeight", "");
+                this.weightValueFlag= false;
+            }
+
+            else
+                oEvent.getSource().setValueState("None");
+            
         },
         openAddRemarksPopupPress: function (oEvent) {
             var sItemPath = oEvent.getSource().getBindingContext("ManageBOQModel").getPath();
@@ -473,6 +482,7 @@ sap.ui.define([
                 boqItem.Remarks = data[i].Remarks;
                 boqItem.UOM = data[i].UOM;
                 boqItem.WeightPerPiece = data[i].WeightPerPiece;
+                boqItem.TotalItemWeight=data[i].TotalItemWeight;
                 boqItem.MasterBOQItemId = data[i].MasterBOQItemId,
                     boqItem.masterUOMItemId = data[i].MasterUOMItemId,
                     boqItem.UOMSuggestions = null;
