@@ -24,10 +24,10 @@
                  <!-- packing List Ref No -->
                 <Column>
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "PackingListId", "leadingProperty": "PackingListId",
-                                                 "columnIndex": 1 ,"sortProperty": "PackingListId","filterProperty": "PackingListId"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "PackingListName", "leadingProperty": "PackingListName",
+                                                 "columnIndex": 1 ,"sortProperty": "PackingListName","filterProperty": "PackingListName"}'/>
                     </customData>
-                    <Text text="{i18n>packingListRefNo}"/>
+                    <Text text="{i18n>packingListName}"/>
                 </Column>
 
                 <!-- Vendor Code -->
@@ -80,8 +80,8 @@
 
                 <ColumnListItem type="Navigation" press="onDomesticEntryPress">
                     <cells>
-                        <Text text="{PONumber}"/>
-                        <ObjectIdentifier title="{PackingListId}"/> 
+                        <ObjectIdentifier title="{PONumber}"/>
+                        <ObjectIdentifier title="{PackingListName}"/> 
                         <Text text="{VendorCode}"/>
                         <Text text="{VehicleNumber}"/>
                         <Text text="{GateEntryNumber}" />
