@@ -47,7 +47,7 @@ sap.ui.define([
             var sObjectId = oEvent.getParameter("arguments").BOQRequestId;
             this._bindView("/UserSet" + sObjectId);
 
-            
+
             // var oSelectedKeyModel = new JSONModel();
             // this.getView().setModel(oSelectedKeyModel, "oSelectedKeyModel");
         },
@@ -71,7 +71,7 @@ sap.ui.define([
 
         onRoleDialogPress: function (oEvent) {
             var sParentItemPath = oEvent.getSource().getParent().getBindingContext().getPath();
-            var sDialogTitle = "Name: " + oEvent.getSource().getBindingContext().getObject().FirstName + " " +oEvent.getSource().getBindingContext().getObject().LastName;
+            var sDialogTitle = "Name: " + oEvent.getSource().getBindingContext().getObject().FirstName + " " + oEvent.getSource().getBindingContext().getObject().LastName;
             var oDetails = {};
             oDetails.controller = this;
             oDetails.view = this.getView();
@@ -108,59 +108,27 @@ sap.ui.define([
                 oDialog.close();
             });
         },
-        
-        // getSelectedKeys: function (sParentID) {
-        //     var sReadPath = "/MasterRoleSet" + sParentID + "/Roles"
-        //     this.getComponentModel().read(sReadPath, {
-        //         success: function(oData ,oResponse){
-        //             var aData = oData.results;
-        //             if(aData.length){
-        //                 var selectedKeys = [];
-        //                 for(var i =0 ; i<aData.length;i++){
-        //                     selectedKeys.push(aData[i].Role);
-        //                 }
-        //                 var items = {selectedItems : [selectedKeys]}
-        //                 this.getView().getModel("oSelectedKeyModel").setData(items);
-        //             }
-        //         }.bind(this),
-        //         error: function(oError){
-        //             sap.m.MessageBox.error(JSON.stringify(oError));
-        //         }
-        //     });
-        // },
 
-        
-        onSave: function(oEvent) {
+        onSave: function (oEvent) {
             var that = this;
-            var Roles=[];
+            var Roles = [];
             var oBOQGroupSelected = oEvent.getSource().getBindingContext().getObject();
             var userID = parseInt(oBOQGroupSelected.ID);
-            // var selectedRole = oEvent.getSource().getBindingContext().getModel().oData;
             var sRoleId = this.getView().byId("roleEdit").getSelectedKeys();
-            for(var i=0; i< sRoleId.length; i++){
-                var RoleId ={};
-                RoleId = {
-                    RoleId: parseInt(sRoleId[0])
-
+            sRoleId = sRoleId.map(function (item) {
+                return {
+                    RoleId: parseInt(item)
                 };
-                Roles. push(RoleId);
-            }
-            // var oModel = new JSONModel({
-            //     oBOQGroupSelected: oBOQGroupSelected,
-            //     sRoleId: sRoleId
-            // });
-            // this.getView().setModel(oModel, "sendForApprovalModel");
+            });
 
             var aPayload = {
-                "UserId":userID,
-                "Roles": Roles
+                "UserId": userID,
+                "Roles": sRoleId
             };
+            // debugger;
             this.getComponentModel().create("/UserRoleAssignmentSet", aPayload, {
                 success: function (oData, oResponse) {
-                    // if(oData.Success)
-                        sap.m.MessageBox.success("User Role Assigned");
-                    // else
-                        // sap.m.MessageBox.error(oData.Message);  
+                    sap.m.MessageBox.success("User Role Assigned");
                     this.getComponentModel().refresh();
                     that.onClose();
                 }.bind(this),

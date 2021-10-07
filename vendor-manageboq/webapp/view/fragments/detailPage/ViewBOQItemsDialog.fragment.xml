@@ -10,10 +10,10 @@
                     <Column>
                         <Text text="{i18n>name}" wrapping="true"/>
                     </Column>
-                    <Column demandPopin="true" minScreenWidth="Desktop">
+                    <Column demandPopin="true" minScreenWidth="Tablet">
                         <Text text="{i18n>description}"/>
                     </Column>
-                    <Column demandPopin="true" minScreenWidth="Tablet">
+                    <Column demandPopin="true" minScreenWidth="Tablet" width="auto">
                         <Text text="{i18n>quantity}" />
                     </Column>
                     <Column demandPopin="true" minScreenWidth="Tablet">
@@ -25,8 +25,8 @@
                         <cells>
                             <ObjectIdentifier title="{MaterialCode}" titleActive="true" />
                             <Text text="{Name}"/>
-                            <ExpandableText text="{Description}" maxCharacters="20" overflowMode="Popover"/>
-                            <Text text="{Qty}"/>
+                            <ExpandableText text="{Description}" maxCharacters="10" overflowMode="Popover"/>
+                            <ObjectNumber number="{Qty}"/>
                             <Text text="{UOM}"/>
                         </cells>
                     </ColumnListItem>

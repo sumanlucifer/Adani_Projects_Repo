@@ -10,7 +10,7 @@
             <OverflowToolbar >
                 <content>
                     <ToolbarSpacer></ToolbarSpacer>
-                    <Button text="{= ${IsProcessOneCompletes} ? 'Regenerate Inner Packaging List' : 'Generate Inner Packaging List'}" press="onGeneratePackingList" visible="{= ${objectViewModel>/isPackingListInEditModel} ? true : false}"></Button>
+                    <Button id="idButtonGenerate" text="{= ${IsProcessOneCompletes} ? 'Regenerate Inner Packaging List' : 'Generate Inner Packaging List'}" press="onGeneratePackingList" visible="{= ${objectViewModel>/isPackingListInEditModel} ? true : false}"></Button>
                 </content>
             </OverflowToolbar>
         </headerToolbar>
@@ -47,7 +47,7 @@
                             }" change="onPackingListTypeChange" editable="{= ${objectViewModel>/isPackingListInEditModel} ? true : false}">
                         <core:Item key="{ID}" text="{Name}" />
                     </Select>
-                    <Input value="{packingListContainsModel>NumberOfPackages}" editable="{= ${objectViewModel>/isPackingListInEditModel} ? true : false}" type="Number" width="40%"/>
+                    <Input value="{packingListContainsModel>NumberOfPackages}" editable="{= ${objectViewModel>/isPackingListInEditModel} ? true : false}" change="onChaneNumberOfPackage" type="Number" width="40%"/>
                 </cells>
             </ColumnListItem>
         </items>

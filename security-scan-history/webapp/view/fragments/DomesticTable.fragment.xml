@@ -24,10 +24,10 @@
                  <!-- packing List Ref No -->
                 <Column>
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "PackingListId", "leadingProperty": "PackingListId",
-                                                 "columnIndex": 1 ,"sortProperty": "PackingListId","filterProperty": "PackingListId"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "PackingListName", "leadingProperty": "PackingListName",
+                                                 "columnIndex": 1 ,"sortProperty": "PackingListName","filterProperty": "PackingListName"}'/>
                     </customData>
-                    <Text text="{i18n>packingListRefNo}"/>
+                    <Text text="{i18n>packingListName}"/>
                 </Column>
 
                 <!-- Vendor Code -->
@@ -44,7 +44,7 @@
                 <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "VehicleNumber", "leadingProperty": "VehicleNumber",
-                                                 "columnIndex": 3 }'/>
+                                                 "columnIndex": 3 ,"sortProperty": "VehicleNumber","filterProperty": "VehicleNumber"}'/>
                     </customData>
                     <Text text="{i18n>vehicleNob}"/>
                 </Column>     
@@ -53,16 +53,16 @@
                 <Column>
                     <customData>
                           <core:CustomData key="p13nData" value='\{"columnKey": "GateEntryNumber", "leadingProperty": "GateEntryNumber",
-                                                 "columnIndex": 4 }'/>
+                                                 "columnIndex": 4 ,"sortProperty": "GateEntryNumber","filterProperty": "GateEntryNumber"}'/>
                     </customData>
                     <Text text="{i18n>gateEntryNumber}"/>
                 </Column>
 
-                    <!-- Entry Date -->
+                <!-- Entry Date -->
                 <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "EntryDate", "leadingProperty": "EntryDate",
-                                                 "columnIndex": 5 }'/>
+                                                 "columnIndex": 5, "sortProperty": "EntryDate" }'/>
                     </customData>
                     <Text text="{i18n>entryDate}"/>
                 </Column>
@@ -80,8 +80,8 @@
 
                 <ColumnListItem type="Navigation" press="onDomesticEntryPress">
                     <cells>
-                        <Text text="{PONumber}"/>
-                        <ObjectIdentifier title="{PackingListId}"/> 
+                        <ObjectIdentifier title="{PONumber}"/>
+                        <ObjectIdentifier title="{PackingListName}"/> 
                         <Text text="{VendorCode}"/>
                         <Text text="{VehicleNumber}"/>
                         <Text text="{GateEntryNumber}" />

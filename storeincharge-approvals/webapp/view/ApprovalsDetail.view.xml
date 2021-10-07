@@ -117,7 +117,7 @@
             <!-- Packing List Section -->
             <uxap:ObjectPageSection titleUppercase="false" title="{i18n>packingList}">
                 <uxap:subSections>
-                    <uxap:ObjectPageSubSection>
+                    <uxap:ObjectPageSubSection title="Basic Details">
                         <uxap:blocks>
                             <FlexBox wrap="Wrap" height="100%" renderType="Bare" direction="Column">
 
@@ -175,7 +175,7 @@
                             </FlexBox>
                         </uxap:blocks>
                     </uxap:ObjectPageSubSection>
-                    <uxap:ObjectPageSubSection>
+                    <uxap:ObjectPageSubSection title="Line Items">
                         <uxap:blocks>
                             <Table id="idBOQItemTable" items="{path: 'PackingList/PackingListParentItems'}" autoPopinMode="true" growingThreshold="5" growing="true" fixedLayout="false">
                                 <headerToolbar>
