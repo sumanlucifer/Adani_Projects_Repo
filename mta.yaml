@@ -102,7 +102,7 @@ modules:
     - artifacts:
       - po_amendmenthistory-content.zip
       name: po_amendmenthistory
-      target-path: resources/
+      target-path: resources/ 
     - artifacts:
       - storeincharge-scanqr-content.zip
       name: storeincharge-scanqr
@@ -114,6 +114,10 @@ modules:
     - artifacts:
       - unloadmaterial-content.zip
       name: unloadmaterial
+      target-path: resources/
+    - artifacts:
+      - new_vendor-content.zip
+      name: comagelmmtsnewvendor
       target-path: resources/
     - artifacts:
       - storeincharge-issuematerial-content.zip
@@ -182,10 +186,6 @@ modules:
     - artifacts:
       - comagelmmtsreportsreceipt.zip
       name: comagelmmtsreportsreceipt
-      target-path: resources/
-    - artifacts:
-      - comagelmmtsnewvendor.zip
-      name: comagelmmtsnewvendor
       target-path: resources/
 - name: launchpad
   type: com.sap.application.content
@@ -387,6 +387,14 @@ modules:
     commands:
     - npm run build
     supported-platforms: []
+- name: comagelmmtsnewvendor
+  type: html5
+  path: new_vendor
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []
 - name: storeincharge-issuematerial
   type: html5
   path: storeincharge-issuematerial
@@ -538,16 +546,6 @@ modules:
   - name: workflow
     parameters:
       content-target: true
-- name: comagelmmtsnewvendor
-  type: html5
-  path: new_vendor
-  build-parameters:
-    build-result: dist
-    builder: custom
-    commands:
-    - npm install
-    - npm run build:cf
-    supported-platforms: []
 resources:
 - name: uaa_agel-mmts-web
   type: org.cloudfoundry.managed-service
@@ -575,7 +573,7 @@ resources:
   type: org.cloudfoundry.managed-service
   parameters:
     config:
-      HTML5Runtime_enabled: false
+      HTML5Runtime_enabled: true
       init_data:
         instance:
           destinations:
@@ -594,7 +592,6 @@ resources:
     service: workflow
     service-plan: standard
 parameters:
-  deploy_mode: html5-repo
   enable-parallel-deployments: true
 build-parameters:
   before-all:
