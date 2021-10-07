@@ -1,0 +1,118 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+     xmlns:l="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form">
+    <f:SimpleForm id="idEditBasicDetailsSFM" class="sapUiSizeCompact" editable="false" layout="ColumnLayout"	title="{i18n>BasicDetails}" columnsM="2" columnsL="3" columnsXL="4">
+        <f:toolbar>
+			<Toolbar>
+            	<!-- <Title text="{i18n>BasicDetails}"/> -->
+				<ToolbarSpacer />
+		    	<Label text="{i18n>IsActive}: "/>
+                <Switch 
+                    change="onVendorIsActiveFlagChange"
+                    state="{= ${VendorViewModel>/IsActive} ? true : false}" customTextOn="Yes" customTextOff="No"/>
+			</Toolbar>
+		</f:toolbar>
+        <f:content>
+            <Label text="{i18n>VendorCode}" required="true"/>
+            <Input 
+                name="VendorCode"
+                required="true"
+                value="{
+                    path: 'VendorViewModel>/VendorCode',
+                    type: 'sap.ui.model.type.String',
+                    constraints: {
+                        minLength: 1,
+                        maxLength: 30
+                    }
+                }"
+                enabled="{= ${objectViewModel>/EditMode} === true ? false : true}"/>
+            <Label text="{i18n>Name}" required="true"/>
+            <Input required="true" 
+                value="{
+                    path: 'VendorViewModel>/Name',
+                    type: 'sap.ui.model.type.String',
+                    constraints: {
+                        maxLength: 50
+                    }
+                }"/>
+            <Label text="{i18n>GSTNumber}"/>
+            <Input 
+                value="{
+                    path: 'VendorViewModel>/GSTNumber',
+                    type: 'sap.ui.model.type.String',
+                    constraints: {
+                        maxLength: 15
+                    }
+                }"/>
+            <Label text="{i18n>City}"/>
+            <Input 
+                value="{
+                    path: 'VendorViewModel>/City',
+                    type: 'sap.ui.model.type.String',
+                    constraints: {
+                        maxLength: 50
+                    }
+                }"/>
+            <Label text="{i18n>PostCode}"/>
+            <Input 
+                value="{
+                    path: 'VendorViewModel>/PostCode',
+                    type: 'sap.ui.model.type.String',
+                    constraints: {
+                        maxLength: 50
+                    }
+                }"/>
+            <Label text="{i18n>Street}"/>
+            <Input
+                value="{
+                    path: 'VendorViewModel>/Street',
+                    type: 'sap.ui.model.type.String',
+                    constraints: {
+                        maxLength: 50
+                    }
+                }"/>
+            <Label text="{i18n>StreetSuppl1}"/>
+            <Input 
+                value="{
+                    path: 'VendorViewModel>/StreetSuppl1',
+                    type: 'sap.ui.model.type.String',
+                    constraints: {
+                        maxLength: 50
+                    }
+                }"/>
+            <Label text="{i18n>Country}"/>
+            <Input 
+                value="{
+                    path: 'VendorViewModel>/Country',
+                    type: 'sap.ui.model.type.String',
+                    constraints: {
+                        maxLength: 50
+                    }
+                }"/>
+            <Label text="{i18n>Region}"/>
+            <Input 
+                value="{
+                    path: 'VendorViewModel>/Region',
+                    type: 'sap.ui.model.type.String',
+                    constraints: {
+                        maxLength: 50
+                    }
+                }"/>
+            <Label text="{i18n>PhoneNumber}" required="true"/>
+            <Input  required="true" type="Number" maxLength="15"
+                value="{VendorViewModel>/PhoneNumber}"/>
+            <Label text="{i18n>EmailID}" required="true"/>
+            <Input  name="Email" required="true" type="Email" value="{VendorViewModel>/Email}" enabled="{= ${objectViewModel>/EditMode} === true ? false : true}" change="checkValidationEmail"/>
+            <Label text="{i18n>Pan}"/>
+            <Input 
+                value="{
+                    path: 'VendorViewModel>/Pan',
+                    type: 'sap.ui.model.type.String',
+                    constraints: {
+                        maxLength: 10
+                    }
+                }"/>
+        </f:content>
+    </f:SimpleForm>
+</core:FragmentDefinition>

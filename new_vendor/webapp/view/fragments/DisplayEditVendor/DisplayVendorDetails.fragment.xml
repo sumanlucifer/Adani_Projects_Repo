@@ -1,0 +1,41 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+     xmlns:l="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form">
+    <f:SimpleForm class="sapUiSizeCompact" id="idDisplayBasicDetailsSFM" editable="false" layout="ColumnLayout"	title="{i18n>BasicDetails}" columnsM="2" columnsL="3" columnsXL="4">
+        <f:toolbar>
+			<Toolbar>
+            	<!-- <Title text="{i18n>BasicDetails}"/> -->
+				<ToolbarSpacer />
+		    	<Label text="{i18n>IsActive}: "/>
+                <Switch enabled="false" state="{= ${VendorViewModel>/IsActive} === true ? true : false}" customTextOn="Yes" customTextOff="No"/>
+			</Toolbar>
+		</f:toolbar>
+        <f:content>
+            <Label text="{i18n>VendorCode}"/>
+            <Text text="{VendorViewModel>/VendorCode}"/>
+            <Label text="{i18n>Name}"/>
+            <Text text="{VendorViewModel>/Name}"/>
+            <Label text="{i18n>GSTNumber}"/>
+            <Text text="{VendorViewModel>/GSTNumber}"/>
+            <Label text="{i18n>City}"/>
+            <Text text="{VendorViewModel>/City}"/>
+            <Label text="{i18n>PostCode}"/>
+            <Text text="{VendorViewModel>/PostCode}"/>
+            <Label text="{i18n>Street}"/>
+            <Text text="{VendorViewModel>/Street}"/>
+            <Label text="{i18n>StreetSuppl1}"/>
+            <Text text="{VendorViewModel>/StreetSuppl1}"/>
+            <Label text="{i18n>Country}"/>
+            <Text text="{VendorViewModel>/Country}"/>
+            <Label text="{i18n>Region}"/>
+            <Text text="{VendorViewModel>/Region}"/>
+            <Label text="{i18n>PhoneNumber}"/>
+            <Text text="{VendorViewModel>/PhoneNumber}"/>
+            <Label text="{i18n>EmailID}"/>
+            <Text text="{VendorViewModel>/Email}"/>
+            <Label text="{i18n>Pan}"/>
+            <Text text="{VendorViewModel>/Pan}"/>
+        </f:content>
+    </f:SimpleForm>
+</core:FragmentDefinition>

@@ -4,3 +4,15 @@
 *.zip 
 package-lock.json
 /dist/
+# auto generated wildcard
+newvendor/.env1
+# auto generated wildcard
+unloadmaterial/.env1
+# auto generated wildcard
+newvendor/.env2
+# auto generated wildcard
+new_vendor/.env1
+# auto generated wildcard
+new_vendor/.env2
+# auto generated wildcard
+new_vendor/.env3

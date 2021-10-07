@@ -1,0 +1,53 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+        <Table id="idEditLocationsTBL" class="sapUiSizeCompact" sticky="ColumnHeaders,HeaderToolbar" items="{VendorViewModel>/Mappings}">
+            <headerToolbar>
+                <OverflowToolbar>
+                    <ToolbarSpacer/>
+                        <Button id="idAddNewLocationBTN" icon="sap-icon://add" class="sapUiSizeCompact"
+                            text="{i18n>Add}" type="Emphasized" press="onAddCompanyPlantMapping"/>
+                </OverflowToolbar>
+       		</headerToolbar>
+             <columns>
+                <Column demandPopin="true" minScreenWidth="Tablet">
+                    <Text text="{i18n>CompanyCode}"/>
+                </Column>
+                <Column demandPopin="true" minScreenWidth="Tablet">
+                    <Text text="{i18n>PlantCode}"/>
+                </Column>
+                <Column demandPopin="true" minScreenWidth="Tablet">
+                    <Text text="{i18n>IsActive}"/>
+                </Column>
+            </columns>
+            <items>
+                <ColumnListItem>
+                    <cells>
+                        <ComboBox 
+                            enabled="{= ${VendorViewModel>CompanyPlantMappingId} === null ? true : false}"
+                            selectedKey="{VendorViewModel>CompanyCode}"
+                            selectionChange="onCompanycodeSelect" 
+                            placeholder="{i18n>SelectCompanyCode}" 
+                            showSecondaryValues= "true"
+                            items="{
+                                path: '/MasterCompanyCodeSet',
+                                sorter: { path: 'CompanyCode' }
+                            }">
+                            <core:ListItem key="{CompanyCode}" text="{CompanyCode}" additionalText="{Name}"/>
+		                </ComboBox>
+                        <ComboBox 
+                            enabled="{= ${VendorViewModel>CompanyPlantMappingId} === null ? true : false}"
+                            selectedKey="{VendorViewModel>PlantCode}" 
+                            selectionChange="onPlantCodeSelect" 
+                            placeholder="{i18n>SelectPlantCode}" 
+                            showSecondaryValues= "true"
+                            items="{
+                                path: '/MasterPlantDetailSet',
+                                sorter: { path: 'PlantId' }
+                            }">
+                            <core:ListItem key="{PlantId}" text="{PlantId}" additionalText="{Name}"/>
+		                </ComboBox>
+                        <Switch change="onMappingsIsActiveFlagChange" state="{= ${VendorViewModel>IsActive} === true ? true : false}" customTextOn="Yes" customTextOff="No"/>
+                    </cells>
+                </ColumnListItem>
+            </items>
+        </Table>
+</core:FragmentDefinition>
