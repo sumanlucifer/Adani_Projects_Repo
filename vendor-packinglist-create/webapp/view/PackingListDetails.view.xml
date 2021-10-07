@@ -233,7 +233,7 @@
                     </uxap:ObjectPageSubSection>
                     <uxap:ObjectPageSubSection title="{i18n>otherDetails}">
                         <uxap:blocks>
-                            <!-- <UploadCollection id="idOtherFileUploader" maximumFilenameLength="55" maximumFileSize="10" multiple="true" items="{
+                            <UploadCollection id="idOtherFileUploader" maximumFilenameLength="55" maximumFileSize="10" multiple="true" items="{
                                     path:'Attachments',
                                     filters : [
                                         { path : 'SubType', operator : 'EQ', value1 : 'OTHERS'},
@@ -255,11 +255,11 @@
                                         </attributes>
                                     </UploadCollectionItem>
                                 </items>
-                            </UploadCollection> -->
+                            </UploadCollection>
 
 
 
-                                   <UploadCollection id="idOtherFileUploader" maximumFilenameLength="55" maximumFileSize="10" multiple="true" items="{
+                                   <!-- <UploadCollection id="idOtherFileUploader" maximumFilenameLength="55" maximumFileSize="10" multiple="true" items="{
                                     path:'DocumentModel>/',
                                     templateShareable: false}" mode="None" uploadButtonInvisible="true" instantUpload="false">
                                 <items>
@@ -277,7 +277,7 @@
                                         </attributes>
                                     </UploadCollectionItem>
                                 </items>
-                            </UploadCollection>
+                            </UploadCollection> -->
                         </uxap:blocks>
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>
