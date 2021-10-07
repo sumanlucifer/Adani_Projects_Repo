@@ -1,0 +1,69 @@
+<mvc:View
+    xmlns="sap.m" 
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:uxap="sap.uxap"
+    xmlns:core="sap.ui.core"
+    xmlns:smartTable="sap.ui.comp.smarttable" height="100%"
+    controllerName="com.agel.mmts.newvendor.controller.VendorDetails">
+    <uxap:ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true" upperCaseAnchorBar="false" headerContentPinnable="true" toggleHeaderOnTitleClick="true" showFooter="true">
+        <uxap:headerTitle>
+            <uxap:ObjectPageDynamicHeaderTitle>
+                <uxap:expandedHeading>
+                    <FlexBox direction="Column" renderType="Bare">
+                        <Title text="{i18n>VendorDetail}: {VendorViewModel>/VendorCode}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
+                    </FlexBox>
+                </uxap:expandedHeading>
+                <uxap:snappedHeading>
+                    <FlexBox direction="Column" renderType="Bare">
+                        <Title text="{i18n>VendorDetail}: {VendorViewModel>/VendorCode}" wrapping="true" titleStyle="H4"/>
+                    </FlexBox>
+                </uxap:snappedHeading>
+                <uxap:snappedTitleOnMobile>
+                    <Title text="{i18n>VendorDetail}: {VendorViewModel>/VendorCode}" wrapping="true" titleStyle="Auto"/>
+                </uxap:snappedTitleOnMobile>
+                <uxap:actions>
+                    <Button text="{i18n>Edit}" type="Emphasized" class="sapUiSizeCompact" press="onVendorEditPress" visible="{= ${objectViewModel>/EditMode} === false ? true : false}"/>
+                    <Button text="{i18n>Save}" type="Emphasized" press="onSaveVendorDetails" class="sapUiSizeCompact"  visible="{= ${objectViewModel>/EditMode} === true ? true : false}"/>
+                    <Button text="{i18n>Cancel}" press="onCancelVendorDetails" class="sapUiSizeCompact"  visible="{= ${objectViewModel>/EditMode} === true ? true : false}"/>
+                </uxap:actions>
+            </uxap:ObjectPageDynamicHeaderTitle>
+        </uxap:headerTitle>
+        <uxap:sections>
+            <!-- Vendor Basic Details Section -->
+            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>BasicDetails}">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection title="{i18n>BasicDetails}" titleLevel="H6">
+                        <uxap:blocks>
+                            <VBox class="sapUiSmallMargin" visible="{= ${objectViewModel>/EditMode} === true ? false : true}">
+                                <!-- Display Vendor Basic Details -->
+                                <core:Fragment fragmentName="com.agel.mmts.newvendor.view.fragments.DisplayEditVendor.DisplayVendorDetails" type="XML"/>
+                            </VBox>
+                            <VBox class="sapUiSmallMargin" visible="{= ${objectViewModel>/EditMode} === true ? true : false}">
+                                <!-- Edit Vendor Basic Details -->
+                                <core:Fragment fragmentName="com.agel.mmts.newvendor.view.fragments.DisplayEditVendor.EditVendorDetails" type="XML"/>
+                            </VBox>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+            <!-- Locations Section -->
+            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>Locations}">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection title="{i18n>Locations}" titleLevel="H6">
+                        <uxap:blocks>
+                            <VBox class="sapUiSmallMargin" visible="{= ${objectViewModel>/EditMode} ? false : true}">
+                                <!-- Display Locations Details -->
+                                <core:Fragment fragmentName="com.agel.mmts.newvendor.view.fragments.DisplayEditVendor.DisplayLocationDetails" type="XML"/>
+                            </VBox>
+                            <VBox class="sapUiSmallMargin" visible="{= ${objectViewModel>/EditMode} ? true : false}">
+                                <!-- Edit Locations Details -->
+                                <core:Fragment fragmentName="com.agel.mmts.newvendor.view.fragments.DisplayEditVendor.EditLocationDetails" type="XML"/>
+                            </VBox>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+        </uxap:sections>
+    </uxap:ObjectPageLayout>
+</mvc:View>

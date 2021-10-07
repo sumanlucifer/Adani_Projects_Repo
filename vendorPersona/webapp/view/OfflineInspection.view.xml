@@ -96,7 +96,7 @@
                                 <DatePicker id="idDpInspectionDate" width="20%" value="{localAttachmentModel>/InspectionDate}" valueFormat="yyyy-MM-dd" change="onLiveChangeDate" placeholder="MM/DD/YYYY"/>
                                 <Title text="{i18n>additionalDetails}"/>
                                 <Label text="Comments" required="true"/>
-                                <TextArea id="idTxtComment" width="100%" value="{localAttachmentModel>/Comment}" liveChange="onLiveChangeComment"/>
+                                <TextArea id="idTxtComment" width="100%" value="{localAttachmentModel>/Comment}" liveChange="onLiveChangeComment" maxLength="150"/>
 
                             </VBox>
                         </uxap:blocks>

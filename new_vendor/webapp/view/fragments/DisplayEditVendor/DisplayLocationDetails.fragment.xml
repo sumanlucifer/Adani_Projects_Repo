@@ -1,0 +1,24 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+        <Table id="idDisplayLocationsTBL" class="sapUiSizeCompact" sticky="ColumnHeaders,HeaderToolbar" items="{VendorViewModel>/Mappings}">
+             <columns>
+                <Column  demandPopin="true" minScreenWidth="Tablet">
+                    <Text text="{i18n>CompanyCode}"/>
+                </Column>
+                <Column demandPopin="true" minScreenWidth="Tablet">
+                    <Text text="{i18n>PlantCode}"/>
+                </Column>
+                <Column demandPopin="true" minScreenWidth="Tablet">
+                    <Text text="{i18n>IsActive}"/>
+                </Column>
+            </columns>
+            <items>
+                <ColumnListItem>
+                    <cells>
+                        <Text text="{VendorViewModel>CompanyCode}"/>
+                        <Text text="{VendorViewModel>PlantCode}"/>
+                        <Switch enabled="false" state="{= ${VendorViewModel>IsActive} === true ? true : false}" customTextOn="Yes" customTextOff="No"/>
+                    </cells>
+                </ColumnListItem>
+            </items>
+        </Table>
+</core:FragmentDefinition>
