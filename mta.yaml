@@ -116,6 +116,10 @@ modules:
       name: unloadmaterial
       target-path: resources/
     - artifacts:
+      - new_vendor-content.zip
+      name: comagelmmtsnewvendor
+      target-path: resources/
+    - artifacts:
       - storeincharge-issuematerial-content.zip
       name: storeincharge-issuematerial
       target-path: resources/
@@ -378,6 +382,14 @@ modules:
 - name: unloadmaterial
   type: html5
   path: unloadmaterial
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []
+- name: comagelmmtsnewvendor
+  type: html5
+  path: new_vendor
   build-parameters:
     builder: custom
     commands:

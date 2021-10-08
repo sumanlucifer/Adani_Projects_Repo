@@ -110,9 +110,9 @@ sap.ui.define([
         },
 
         onLiveChangeComment: function (oEvent) {
-            if (oEvent.getSource().getValue().length < 1 || oEvent.getSource().getValue().length > 150) {
+            if (oEvent.getSource().getValue().length < 1) {
                 oEvent.getSource().setValueState("Error");
-                oEvent.getSource().setValueStateText("Enter a value with 1 to 150 characters");
+                oEvent.getSource().setValueStateText("Enter a comment value");
             } else {
                 oEvent.getSource().setValueState("None");
             }
@@ -129,7 +129,7 @@ sap.ui.define([
         onLiveChangeInspectionQty: function (oEvent) {
             var InspectQuantity = parseInt(oEvent.getSource().getValue());
             var Quantity = parseInt(oEvent.getSource().getParent().getCells()[3].getText());
-            if (InspectQuantity < 0) {
+            if (InspectQuantity <= 0) {
                 oEvent.getSource().setValueState("Error");
                 oEvent.getSource().setValueStateText("Please enter positive value");
                 return 0;
@@ -154,7 +154,13 @@ sap.ui.define([
                 return 1;
             }
 
-            if (creationModelData.Comment == null || creationModelData.Comment == "") {
+            var aInvalidInspectionQtyItems = aTableData.filter(item => (item.InspectionQty && item.InspectionQty <= 0));
+            if (aInvalidInspectionQtyItems.length > 0) {
+                sap.m.MessageBox.error("Please Enter valid inspection quantity");
+                return 1;
+            }
+
+            if (creationModelData.Comment && creationModelData.Comment.trim() === "") {
                 flag = 1;
                 this.getView().byId("idTxtComment").setValueState("Error");
             }

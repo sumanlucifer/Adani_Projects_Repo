@@ -1,0 +1,71 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:smartTable="sap.ui.comp.smarttable"
+    xmlns:core="sap.ui.core">
+    <smartTable:SmartTable class="sapUiResponsiveContentPadding" id="idVendorTable" editable="false" placeToolbarInTable="true" enableAutoBinding="true" entitySet="VendorSet" 
+    showFullScreenButton="true" showRowCount="false" tableType="ResponsiveTable" demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" 
+    ignoredFields="IsArchived,CreatedAt,CreatedBy,UpdatedAt,UpdatedBy,PhoneNumber,EmailSearch,Address,PurchaseOrders,BOQItemGroups,SONumberDetails,IssuedMaterialReserves,Fax,GSTIN,GSTNumber,IsRegistered,City,ID,Pan,Phone,PostCode,Region,Street,StreetSuppl1"
+    beforeRebindTable="onbeforeRebindOpenPoTable" requestAtLeastFields="VendorCode,Name,Email,Country,IsActive,IsRegistered">
+        <Table class="sapUiSizeCompact" growingScrollToLoad="true" growingThreshold="10" sticky="ColumnHeaders,HeaderToolbar" updateFinished="onPurchaseOrderTableUpdateFinished" alternateRowColors="true">
+            <columns>
+            
+                <!-- Vendor Code -->
+                <Column >
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "VendorCode", "leadingProperty": "VendorCode",
+                            "columnIndex": 0 ,"sortProperty": "VendorCode","filterProperty": "VendorCode"}'/>
+                    </customData>
+                    <Text text="{i18n>VendorCode}"/>
+                </Column>
+
+                 <!-- Name -->
+                <Column>
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Name", "leadingProperty": "Name",
+                            "columnIndex": 1 ,"sortProperty": "Name","filterProperty": "Name"}'/>
+                    </customData>
+                    <Text text="{i18n>Name}"/>
+                </Column>
+
+                <!-- Email Id -->
+                <Column demandPopin="true" minScreenWidth="Desktop"> 
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Email", "leadingProperty": "Email",
+                            "columnIndex": 2 ,"sortProperty": "Email","filterProperty": "Email"}'/>
+                    </customData>
+                    <Text text="{i18n>EmailID}"/>
+                </Column>
+
+                <!-- Country -->
+                <Column demandPopin="true" minScreenWidth="Tablet">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Country", "leadingProperty": "Country",
+                            "columnIndex": 3, "sortProperty": "Country"}'/>
+                    </customData>
+                    <Text text="{i18n>Country}"/>
+                </Column>
+
+                <!-- Is Active -->
+                <Column hAlign="Center" demandPopin="true" minScreenWidth="Tablet">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "IsActive", "leadingProperty": "IsActive",
+                            "columnIndex": 4, "sortProperty": "IsActive"}'/>
+                    </customData>
+                    <Text text="{i18n>IsActive}"/>
+                </Column>   
+            </columns>
+            <items>
+                <ColumnListItem type="Navigation" press="onNavigateVendorDetails">
+                    <cells>
+                        <Text text="{VendorCode}"/>
+                        <Text text="{Name}"/>
+                        <Text text="{Email}"/>
+                        <Text text="{Country}"/>
+                        <ObjectNumber
+                        number="{= ${IsRegistered} === true ? ${IsActive} === true ? 'Active' : 'Inactive': 'Registration Pending'}"
+						state="{= ${IsRegistered} === true ? ${IsActive} === true ? 'Success' : 'Error' : 'Warning'}"/>
+                    </cells>
+                </ColumnListItem>
+            </items>
+        </Table>
+    </smartTable:SmartTable>
+</core:FragmentDefinition>

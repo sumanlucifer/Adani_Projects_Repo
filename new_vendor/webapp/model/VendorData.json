@@ -1,0 +1,18 @@
+{
+    "UserName": "",
+    "VendorId": null,
+    "VendorCode": "",
+    "Name": "",
+    "GSTNumber": "",
+    "City": "",
+    "PostCode": "",
+    "Street": "",
+    "StreetSuppl1": "",
+    "Country": "",
+    "Region": "",
+    "PhoneNumber": "",
+    "Email": "",
+    "Pan": "",
+    "IsActive": true,
+    "Mappings": []
+}
