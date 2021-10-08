@@ -14,3 +14,7 @@ new_vendor/.env1
 new_vendor/.env2
 # auto generated wildcard
 new_vendor/.env3
+# auto generated wildcard
+sapui5/new_vendor/.env4
+# auto generated wildcard
+sapui5/vendor-map-mdcc/.env1
