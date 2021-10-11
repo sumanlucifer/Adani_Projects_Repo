@@ -621,7 +621,7 @@ sap.ui.define([
                     sap.m.MessageBox.alert("Please select the Invoice Date before viewing the QR.");
                     return;
                 }
-                if (!vehicleRegExp.test(data.VehicleNumber)) {
+                if (data.VehicleNumber && !vehicleRegExp.test(data.VehicleNumber)) {
                     bValid = false;
                     sap.m.MessageBox.alert("Please enter a valid Vehicle number before viewing the QR.");
                     return;
