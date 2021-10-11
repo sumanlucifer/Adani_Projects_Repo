@@ -156,6 +156,9 @@
                                     <Column demandPopin="true" minScreenWidth="Tablet">
                                         <Text text="Weight/Pc"/>
                                     </Column>
+                                    <Column demandPopin="true" minScreenWidth="Tablet">
+                                        <Text text="Total Item Weight"/>
+                                    </Column>
                                     <Column width="5%">
                                     </Column>
                                 </columns>
@@ -171,7 +174,7 @@
                                             </Select>
                                             <Text data:p="MaterialCode" text="{ManageBOQModel>MaterialCode}"/>
                                             <Text data:p="Description" text="{ManageBOQModel>Description}"/>
-                                            <Input value="{ManageBOQModel>Qty}"  liveChange="onLiveChangeQty" type="Number"/>
+                                            <Input editable="{ManageBOQModel>isQtyEditable}" value="{ManageBOQModel>Qty}" liveChange="onLiveChangeQty" type="Number"/>
                                             <VBox>
                                                 <Link text="{= ${ManageBOQModel>Remarks}.length ? 'View remarks' : 'Add remarks'}" press="openAddRemarksPopupPress"/>
                                                 <!--  <ExpandableText text="{ManageBOQModel>Remarks}" overflowMode="Popover" visible="{= ${ManageBOQModel>Remarks}.length ? true : false}"/> -->
@@ -182,7 +185,8 @@
                                                 }" change="onUOMSelected">
                                                 <core:Item key="{ManageBOQModel>MasterUOMId}" text="{ManageBOQModel>Name}" />
                                             </Select>
-                                            <Input value="{ManageBOQModel>WeightPerPiece}"  liveChange="onLiveChangeQty" type="Number"/>
+                                            <Input editable="{ManageBOQModel>isWeightEditable}"  value="{ManageBOQModel>WeightPerPiece}" liveChange="onLiveChangeWeight" type="Number"/>
+                                            <Text text="{ManageBOQModel>TotalItemWeight}"/>
                                             <Button icon="sap-icon://delete" press="onDeleteBOQItemPress" type="Transparent"/>
                                         </cells>
                                     </ColumnListItem>
