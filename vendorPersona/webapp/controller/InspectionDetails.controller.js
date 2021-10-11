@@ -6,7 +6,8 @@ sap.ui.define([
     "sap/ui/core/BusyIndicator",
     "sap/m/MessageToast",
     "sap/m/MessageBox",
-], function (BaseController, JSONModel, Fragment, formatter, BusyIndicator, MessageToast, MessageBox) {
+     "sap/ui/Device",
+], function (BaseController, JSONModel, Fragment, formatter, BusyIndicator, MessageToast, MessageBox, Device) {
     "use strict";
 
     return BaseController.extend("com.agel.mmts.vendorPersona.controller.InspectionDetails", {
@@ -578,6 +579,51 @@ sap.ui.define([
                 oDialog.close();
             });
         },
+
+
+
+        onViewInspectionItemsPress: function (oEvent) {
+            var sParentItemPath = oEvent.getSource().getParent().getBindingContextPath();
+            var sDialogTitle = "PO - " + oEvent.getSource().getBindingContext().getObject().PONumber;
+            var oDetails = {};
+            oDetails.controller = this;
+            oDetails.view = this.getView();
+            oDetails.sParentItemPath = sParentItemPath;
+            oDetails.title = sDialogTitle;
+            if (!this.pDialog) {
+                this.pDialog = Fragment.load({
+                    id: oDetails.view.getId(),
+                    name: "com.agel.mmts.vendorPersona.view.fragments.detailPage.ViewLineItemsDialog",
+                    controller: oDetails.controller
+                }).then(function (oDialog) {
+                    // connect dialog to the root view of this component (models, lifecycle)
+                    oDetails.view.addDependent(oDialog);
+                    if (Device.system.desktop) {
+                        oDialog.addStyleClass("sapUiSizeCompact");
+                    }
+                    oDialog.bindElement({
+                        path: oDetails.sParentItemPath,
+                        parameters: {
+                            "expand": 'ParentLineItems'
+                        }
+                    });
+                    oDialog.setTitle(oDetails.title);
+                    return oDialog;
+                });
+            }
+            this.pDialog.then(function (oDialog) {
+                oDetails.view.addDependent(oDialog);
+                oDialog.bindElement({
+                    path: oDetails.sParentItemPath,
+                    parameters: {
+                        'expand': 'ParentLineItems'
+                    }
+                });
+                oDialog.setTitle(oDetails.title);
+                oDialog.open();
+            });
+        },
+
 
         onRowsUpdated: function (oEvent) {
             //  debugger;
