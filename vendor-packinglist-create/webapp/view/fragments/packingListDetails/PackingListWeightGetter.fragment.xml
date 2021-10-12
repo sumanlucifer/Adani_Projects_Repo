@@ -7,11 +7,22 @@
             <l:content>
                 <f:SimpleForm minWidth="1024" maxContainerCols="2" editable="false" layout="ResponsiveGridLayout" labelSpanL="3" labelSpanM="3" emptySpanL="4" emptySpanM="4" columnsL="2" columnsM="2">
                     <Label text="Confirm QR Number"></Label>
-                    <HBox>
-                        <Input valueState="{packingListDispatchModel>/valueState}" valueStateText="{packingListDispatchModel>/valueStateText}" value="{packingListDispatchModel>/QRNumber}" editable="{= ${packingListDispatchModel>/isQRConfirmed} ? false : true}" liveChange="onQRLiveChange" class="sapUiTinyMarginEnd"></Input>
+                    <!-- <HBox>
+                        <Input valueState="{packingListDispatchModel>/valueState}" width="130%" valueStateText="{packingListDispatchModel>/valueStateText}" value="{packingListDispatchModel>/QRNumber}" editable="{= ${packingListDispatchModel>/isQRConfirmed} ? false : true}" liveChange="onQRLiveChange" class="sapUiTinyMarginEnd"></Input>
                         <Button text="Validate QR" press="onValidateQRPress" visible="{= ${packingListDispatchModel>/isQRConfirmed} ? false : true}" enabled="{packingListDispatchModel>/isValidateButtonEnabled}" class="sapUiTinyMarginBegin"></Button>
-                    </HBox>
-
+                    </HBox> -->
+                    <FlexBox alignItems="Start">
+                        <Input valueState="{packingListDispatchModel>/valueState}" valueStateText="{packingListDispatchModel>/valueStateText}" value="{packingListDispatchModel>/QRNumber}" editable="{= ${packingListDispatchModel>/isQRConfirmed} ? false : true}" liveChange="onQRLiveChange" class="sapUiTinyMarginEnd">
+                        <layoutData>
+                        <FlexItemData growFactor="2" />
+                        </layoutData>
+                        </Input>
+                         <Button text="Validate QR" press="onValidateQRPress" visible="{= ${packingListDispatchModel>/isQRConfirmed} ? false : true}" enabled="{packingListDispatchModel>/isValidateButtonEnabled}" class="sapUiTinyMarginBegin">
+                        <layoutData>
+                        <FlexItemData growFactor="1" />
+                        </layoutData>
+                        </Button>
+                        </FlexBox>
                     <Label text="Add Total Gross weight of the Packing List in MT" visible="{= ${packingListDispatchModel>/isQRConfirmed}}"></Label>
                     <Input value="{packingListDispatchModel>/weight}" visible="{= ${packingListDispatchModel>/isQRConfirmed}}" type="Number" liveChange="onWeightLiveChange"></Input>
                 </f:SimpleForm>
