@@ -13,6 +13,9 @@
                 <Text text="{i18n>materialCode}" wrapping="true" wrappingType="Hyphenated"/>
             </Column>
             <Column demandPopin="true" minScreenWidth="Desktop">
+                <Text text="Name" wrapping="true"/>
+            </Column>
+            <Column demandPopin="true" minScreenWidth="Desktop">
                 <Text text="{i18n>plant}" />
             </Column>
             <Column demandPopin="true" minScreenWidth="Desktop" hAlign="Center">
@@ -49,6 +52,7 @@
                     <!-- <Text text="{ponumber}"/> -->
                     <Text text="{LineNumber}" wrappingType="Hyphenated"/>
                     <ObjectIdentifier title="{MaterialCode}"/>
+                    <Text text="{Name}" wrappingType="Hyphenated"/>
                     <Text text="{PlantCode}" binding="{PurchaseOrder}"/>
                     <Text text="{StorageLocation}"/>
                     <Text text="{Quantity}"/>
