@@ -2,12 +2,71 @@
     xmlns:l="sap.ui.layout"
     xmlns:f="sap.ui.layout.form"
     xmlns:core="sap.ui.core">
-    <Dialog title="Do you want to create this BOQ for {boqCreationModel>/dialogTitle}?" id="materialFragment" contentWidth="50%">
+    <Dialog title="Do you want to create this BOQ for {boqCreationModel>/dialogTitle}?" id="materialFragment" class="sapUiSmallMargin">
         <content>
-            <FlexBox wrap="Wrap" renderType="Bare" class="sapUiSmallMargin">
-                <Label text="Please enter the quantity"></Label>
-                <Input value="{boqCreationModel>/quantity}" liveChange="onQuantityLiveChange" type="Number" valueState="{boqCreationModel>/valueState}" valueStateText="{boqCreationModel>/valueStateText}"></Input>
-            </FlexBox>
+            <!-- <FlexBox wrap="Wrap" renderType="Bare" alignItems="Center" justifyContent="Center" class="sapUiSmallMargin"> -->
+            <VBox class="sapUiSmallMargin">
+                <Label text="Please enter the quantity ({boqCreationModel>/UOM})"></Label>
+                <Input value="{boqCreationModel>/quantity}" liveChange="onQuantityLiveChange" type="Number" valueState="{boqCreationModel>/valueState}" valueStateText="{boqCreationModel>/valueStateText}" editable="{= ${boqCreationModel>/UOM} === 'MT'? false: true}"></Input>
+                <Table visible="{= ${boqCreationModel>/IsOne2OneLineItem}? false: true}" alternateRowColors="true" width="auto" id="idGetBOQLineItemsTable" items="{boqCreationModel>/CalculatedBOQItems}" fixedLayout="false">
+                    <columns>
+                        <Column visible="{= ${boqCreationModel>/UOM} === 'MT'? true: false}">
+                            <CheckBox id="idSelectAllBoq" select="onSelectAllBoq"/>
+                        </Column>
+                        <Column>
+                            <Text text="{i18n>materialCode}" wrapping="true" wrappingType="Hyphenated"/>
+                        </Column>
+                        <Column>
+                            <Text text="{i18n>name}" wrapping="true"/>
+                        </Column>
+                        <Column demandPopin="true" minScreenWidth="Desktop">
+                            <Text text="{i18n>description}"/>
+                        </Column>
+                        <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center">
+                            <Text text="Quantity" />
+                        </Column>
+                        <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center">
+                            <Text text="Remaining Quantity" />
+                        </Column>
+                        <Column demandPopin="true" minScreenWidth="Tablet">
+                            <Text text="BOQ Quantity"/>
+                        </Column>
+                        <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center">
+                            <Text text="UOM"/>
+                        </Column>
+                        <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center">
+                            <Text text="Weight Per Piece"/>
+                        </Column>
+                        <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center">
+                            <Text text="{i18n>TotalItemPerWeight}" />
+                        </Column>
+                        <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center">
+                            <Text text="{i18n>remarks}"/>
+                        </Column>
+                    </columns>
+                    <items>
+                        <ColumnListItem>
+                            <cells>
+                                <CheckBox selected="{boqCreationModel>selected}" select="onBoqSelectChange"/>
+                                <ObjectIdentifier title="{boqCreationModel>MaterialCode}"/>
+                                <Text text="{boqCreationModel>Name}"/>
+                                <ExpandableText text="{boqCreationModel>Description}" maxCharacters="50" overflowMode="Popover"/>
+                                <Text text="{boqCreationModel>Qty}"/>
+                                <Text text="{boqCreationModel>RemainingQty}"/>
+                                <!-- <VBox> -->
+                                    <!-- <Text visible="{= ${boqCreationModel>/UOM} === 'MT'? false: true}" text="{boqCreationModel>BOQQuantity}"/> -->
+                                    <Input editable="{= ${boqCreationModel>/UOM} === 'MT'? ${boqCreationModel>selected} : false}" value="{boqCreationModel>BOQQuantity}" liveChange="onLiveChangeBoqQty" type="Number"/>
+                                <!-- </VBox> -->
+                                <Text text="{boqCreationModel>UOM}"/>
+                                <Text text="{boqCreationModel>WeightPerPiece}"/>
+                                <Text text="{boqCreationModel>TotalItemWeight}"/>
+                                <ExpandableText text="{boqCreationModel>Remarks}" maxCharacters="50" overflowMode="Popover"/>
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
+            <!-- </FlexBox> -->
+            </VBox>
         </content>
         <beginButton>
             <Button id="idCreateBOQButton" text="Confirm" press="onConfirmCreateBOQPress" type="Emphasized" enabled="{boqCreationModel>/isConfirmButtonEnabled}"></Button>
