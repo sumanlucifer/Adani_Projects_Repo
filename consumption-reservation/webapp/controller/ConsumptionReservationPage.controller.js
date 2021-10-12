@@ -72,7 +72,7 @@ sap.ui.define([
                     success: function (oData, oResponse) {
                         this.dataBuilding(oData.results);
                         this.getViewModel("objectViewModel").setProperty("/isItemFieldsVisible", true);
-                         this.getViewModel("objectViewModel").setProperty("/isButtonVisible", false);
+                        this.getViewModel("objectViewModel").setProperty("/isButtonVisible", false);
                     }.bind(this),
                     error: function (oError) {
                         sap.m.MessageBox.error(JSON.stringify(oError));
@@ -200,7 +200,7 @@ sap.ui.define([
             },
             _validateHeaderData: function (data) {
                 var bValid = true;
-                 if (!data.GoodRecipient) {
+                if (!data.GoodRecipient) {
                     this.byId("idGoodReciept").setValueState("Error");
                     this.byId("idGoodReciept").setValueStateText("Please enter goods recipient");
                     bValid = false;
@@ -215,9 +215,9 @@ sap.ui.define([
                 } else {
                     this.byId("idSelPlant").setValueState("None");
                     this.byId("idSelPlant").setValueStateText(null);
-                     this.getViewModel("objectViewModel").setProperty("/isHeaderFieldsVisible", true);
+                    this.getViewModel("objectViewModel").setProperty("/isHeaderFieldsVisible", true);
                 }
-               
+
                 if (!data.ProfitCenter) {
                     this.byId("idProfitCenter").setValueState("Error");
                     this.byId("idProfitCenter").setValueStateText("Please enter profit center value");

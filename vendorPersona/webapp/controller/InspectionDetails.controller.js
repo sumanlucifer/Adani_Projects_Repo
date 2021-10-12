@@ -528,10 +528,10 @@ sap.ui.define([
             });
         },
         onViewInspectionItemsPress: function (oEvent) {
-            var inspectionID = oEvent.getSource().getBindingContext().getObject().ID;
+            this.inspectionID = oEvent.getSource().getBindingContext().getObject().ID;
             this.CreatedAt = oEvent.getSource().getBindingContext().getObject().CreatedAt;
             this.UpdatedAt = oEvent.getSource().getBindingContext().getObject().UpdatedAt;
-            this.inspectionID = 15;
+            //this.inspectionID = 15;
             var that = this;
             that.oIssueMaterialModel = new JSONModel();
             this.MainModel.read("/InspectedParentItemSet(" + this.inspectionID + ")", {
@@ -590,9 +590,11 @@ sap.ui.define([
             });
         },
         onLiveChangeApprovedQty: function (oEvent) {
-            var rowObj = oEvent.getSource().getParent().getRowBindingContext().getObject();
-            var ApprovedQty = oEvent.getSource().getParent().getCells()[7].getValue();
-            var aCell = oEvent.getSource().getParent().getCells()[7];
+            var bindingContext = oEvent.getSource().getBindingContext("inspectedMapBOQItemsModel"),
+                path = bindingContext.getPath(),
+                rowObj = bindingContext.getModel().getProperty(path);
+            var ApprovedQty = oEvent.getSource().getValue();
+            var aCell = oEvent.getSource().getParent().getCells()[8];
             if (parseInt(ApprovedQty) > parseInt(rowObj.Qty)) {
                 aCell.setValueState("Error");
                 aCell.setValueStateText("Please enter quantity lesser than or equal to remaining quantity")
@@ -602,28 +604,88 @@ sap.ui.define([
                 this.getView().byId("idBtnSave").setEnabled(true);
             }
         },
-        onSaveInspectBOQDialogClose: function () {
-            var aInspectionBOQItems = this.getView().getModel("inspectedMapBOQItemsModel").getProperty("/inspectedMapBOQItems");
-            aInspectionBOQItems = aInspectionBOQItems.map(function (item) {
+        onPressSaveInspectionBOQItems: function (oEvent) {
+            var that = this;
+            var itemData = this.getTableItems();
+                            if (!this._validateItemData(itemData.selectedItems)) {
+                    return;
+                }
+            var inspectionID = this.inspectionID;
+            MessageBox.confirm("Do you want to Submit the Inspect BOQ Items?", {
+                icon: MessageBox.Icon.INFORMATION,
+                title: "Confirm",
+                actions: [MessageBox.Action.YES, MessageBox.Action.NO],
+                emphasizedAction: MessageBox.Action.YES,
+                onClose: function (oAction) {
+                    if (oAction == "YES") {
+                        that.onSaveInspectBOQDialog(inspectionID, itemData);
+                    }
+                }
+            });
+        },
+        getTableItems: function () {
+            var itemData = this.getView().getModel("inspectedMapBOQItemsModel").getProperty("/inspectedMapBOQItems");
+            var selectedItems = itemData.filter(function (item) {
+                return item.isSelected === true;
+            });
+            return {
+                selectedItems
+            };
+        },
+                onSelectAll: function (oeve) {
+            var isSelected = oeve.getSource().getSelected();
+                        var itemData = this.getView().getModel("inspectedMapBOQItemsModel").getProperty("/inspectedMapBOQItems");
+            if (isSelected) {
+                for (var i = 0; i < itemData.length; i++) {
+                    itemData[i].isSelected = true;
+                }
+            }
+            else {
+                for (var i = 0; i < itemData.length; i++) {
+                    itemData[i].isSelected = false;
+                }
+            }
+            this.getView().getModel("inspectedMapBOQItemsModel").setProperty("/inspectedMapBOQItems", itemData);
+        },
+          _validateItemData: function (itemData) {
+                var bValid = true;
+                if (itemData.length > 0) {
+                    for (let i = 0; i < itemData.length; i++) {
+                        if (!itemData[i].ApprovedQty) {
+                            bValid = false;
+                            sap.m.MessageBox.alert("Please select quanity for the material " + itemData[i].MaterialCode);
+                            return;
+                        }
+                    }
+                }
+                else {
+                    bValid = false;
+                    sap.m.MessageBox.alert("Please select atleast one item");
+                }
+                return bValid;
+            },
+        onSaveInspectBOQDialog: function (inspectionID, itemData) {
+            var aInspectionBOQItems = itemData.selectedItems.map(function (item) {
                 return {
                     BOQItemId: item.ID,
                     InspectionQty: item.ApprovedQty
                 };
             });
             var oPayload = {
-                "InspectionID": this.inspectionID,
-                "CreatedAt":  this.CreatedAt,
-                "CreatedBy": "201",
+                "InspectionID": inspectionID,
+                "CreatedAt": this.CreatedAt,
+                "CreatedBy": "",
                 "UpdatedAt": null,
                 "UpdatedBy": this.UpdatedBy,
                 "InspectedBOQItems": aInspectionBOQItems
             };
-            this.getOwnerComponent().getModel().create("/InspectionBOQRequestSet", oPayload, {
+            this.MainModel.create("/InspectionBOQRequestSet", oPayload, {
                 success: function (oData, oResponse) {
                     if (oData.Success === true) {
                         this.getView().getModel();
-                    sap.m.MessageBox.success("The Inspected BOQ Items has been succesfully created for selected Items!");
-                    this.onViewInspectBOQDialogClose();
+                        sap.m.MessageBox.success("The Inspected BOQ Items has been succesfully created for selected Items!");
+                        this.onViewInspectBOQDialogClose();
+                        this.MainModel.refresh();
                         // var objectViewModel = this.getViewModel("objectViewModel");
                     }
                     else {

@@ -7,8 +7,8 @@
 
 
                     <Column width="8%" hAlign="Center">
-
-                        <Text text="Select"/>
+                                <CheckBox  select="onSelectAll" ></CheckBox>
+                        <!-- <Text text="Select"/> -->
 
 
 
@@ -19,7 +19,7 @@
                     <Column width="10%">
                         <Text text="Material Code"/>
                     </Column>
-                    <Column width="20%">
+                    <Column width="10%">
                         <Text text="Description"/>
                     </Column>
                     <Column>
@@ -58,7 +58,7 @@
                             <Text text="{inspectedMapBOQItemsModel>RemainingQty}"/>
                             <Text text="{inspectedMapBOQItemsModel>RemainingWeight}"/>
                             <Text text="{inspectedMapBOQItemsModel>Remarks}"/>
-                            <Input editable="{= ${inspectedMapBOQItemsModel>isSelected} ? true : false }" liveChange="onLiveChangeApprovedQty" value="{inspectedMapBOQItemsModel>ApprovedQty}"/>
+                            <Input editable="{= ${inspectedMapBOQItemsModel>isSelected} ? true : false }" type="Number" liveChange="onLiveChangeApprovedQty" value="{inspectedMapBOQItemsModel>ApprovedQty}"/>
 
                             <Text text="{inspectedMapBOQItemsModel>WeightPerPiece}"/>
                         </cells>
@@ -68,7 +68,7 @@
         </content>
 
         <beginButton>
-            <Button text="Save" press="onSaveInspectBOQDialogClose" type="Emphasized"></Button>
+            <Button id="idBtnSave" text="Save" press="onPressSaveInspectionBOQItems" type="Emphasized"></Button>
         </beginButton>
         <endButton>
             <Button text="Close" press="onViewInspectBOQDialogClose" type="Emphasized"></Button>
