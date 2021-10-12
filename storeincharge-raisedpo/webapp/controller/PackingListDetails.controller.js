@@ -387,7 +387,7 @@ sap.ui.define([
                 else
                     this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", false);
 
-                if (parseInt(oEvent.getSource().getValue()) > parseInt(oGRNData.TotalWeight)) {
+                if (parseFloat(oEvent.getSource().getValue()) > parseFloat(oGRNData.TotalWeight)) {
                     sap.m.MessageBox.error("Total Packaging Weight should not exceed Total Vendor Entered Weight.");
                     // this.getViewModel("requestModel").setProperty("/valueState", "Error");
                     // this.getViewModel("requestModel").setProperty("/valueStateText", "Total Packaging Weight should not exceed Total Vendor Entered Weight.");
