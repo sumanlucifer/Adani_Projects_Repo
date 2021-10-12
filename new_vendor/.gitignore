@@ -1,16 +1,10 @@
-node_modules/
-dist/
-.scp/
-.env
-Makefile*.mta
-mta_archives
-mta-*
-resources
-archive.zip
-.*_mta_build_tmp
-# auto generated wildcard
-new_vendor/.env1
-# auto generated wildcard
-new_vendor/.env2
-# auto generated wildcard
-new_vendor/.env3
+/node_modules/
+package-lock.json
+/dist/
+/.vscode/
+/mta_archives/
+/resources/
+
+*.zip
+*.env
+.env*
