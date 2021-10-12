@@ -14,3 +14,5 @@ new_vendor/.env1
 new_vendor/.env2
 # auto generated wildcard
 new_vendor/.env3
+# auto generated wildcard
+sapui5/vendor-manageboq/.env1

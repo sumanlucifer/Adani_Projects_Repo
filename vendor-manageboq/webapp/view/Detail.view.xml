@@ -59,14 +59,14 @@
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection visible="{= ${objectViewModel>/noParentChildRelationFlag} ? false : true }">
                         <!-- <ScrollContainer height="200px" vertical="true"> -->
-                        <Table id="idPCListTable" growing="true" growingThreshold="4" items="{path : 'PCGroups', sorter : {
+                        <Table updateFinished="setCreatePCListVisiblity" id="idPCListTable" growing="true" growingThreshold="4" items="{path : 'PCGroups', sorter : {
                             path : 'CreatedAt', descending: 'true' }}" mode="SingleSelectLeft" visible="{= ${objectViewModel>/isCreatingPCList} ? false : true}" selectionChange="onPCListSelectionChange">
                             <headerToolbar>
                                 <OverflowToolbar>
                                     <content>
                                         <Title text="PC List"/>
                                         <ToolbarSpacer />
-                                        <Button text="Create" icon="sap-icon://add" press="onCreateNewPCListPress"></Button>
+                                        <Button text="Create" icon="sap-icon://add" press="onCreateNewPCListPress" visible="{= ${objectViewModel>/hasPClist} ? false : true}"></Button>
                                         <Button text="Use Selected" press="onUseSelectedPress" type="Emphasized" visible="{= ${objectViewModel>/isPCListSelected}}"/>
                                     </content>
                                 </OverflowToolbar>

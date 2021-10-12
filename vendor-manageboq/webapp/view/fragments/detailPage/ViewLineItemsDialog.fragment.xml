@@ -19,7 +19,6 @@
                     <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center">
                         <Text text="UOM"/>
                     </Column>
-
                     <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center">
                         <Text text="{i18n>TotalItemPerWeight}" />
                     </Column>
