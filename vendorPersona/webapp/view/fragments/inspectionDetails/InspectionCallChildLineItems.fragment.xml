@@ -1,13 +1,25 @@
 <core:FragmentDefinition xmlns="sap.m"
     xmlns:core="sap.ui.core">
-    <Dialog id="helloDialog" contentHeight="50%" contentWidth="50%" title="Inspected Child Line Items">
+    <Dialog id="helloDialog" title="Inspected Child Line Items">
         <content>
-            <Table id="idInspectedChildLineItems" width="auto" growing="true" growingScrollToLoad="true" items="{inspected_child_line_items}" mode="None" rememberSelections="true">
+            <Table id="idInspectedChildLineItems" width="auto" growing="true" growingScrollToLoad="true" items="{inspectedMapBOQItemsModel>/inspectedMapBOQItems}" mode="None" rememberSelections="true">
                 <columns>
-                    <Column>
+
+
+                    <Column width="8%" hAlign="Center">
+
+                        <Text text="Select"/>
+
+
+
+                    </Column>
+
+
+
+                    <Column width="10%">
                         <Text text="Material Code"/>
                     </Column>
-                    <Column width="40%">
+                    <Column width="20%">
                         <Text text="Description"/>
                     </Column>
                     <Column>
@@ -16,21 +28,50 @@
                     <Column>
                         <Text text="UOM"/>
                     </Column>
+                    <Column>
+                        <Text text="Remaining Quantity"/>
+                    </Column>
+                    <Column>
+                        <Text text="Remaining Weight"/>
+                    </Column>
+                    <Column>
+                        <Text text="Remarks"/>
+                    </Column>
+
+                    <Column>
+                        <Text text="Approved Quantity"/>
+                    </Column>
+
+                   
+                    <Column>
+                        <Text text="Weight Per Piece"/>
+                    </Column>
                 </columns>
                 <items>
                     <ColumnListItem press=".onInspectionIDPress">
                         <cells>
-                            <ObjectIdentifier title="{material_code}" titleActive="true"/>
-                            <Text text="{description}"/>
-                            <Text text="{qty}"/>
-                            <Text text="{uom}"/>
+                            <CheckBox selected="{inspectedMapBOQItemsModel>isSelected}" select="onSelectionOfRow" />
+                            <ObjectIdentifier title="{inspectedMapBOQItemsModel>MaterialCode}" titleActive="true"/>
+                            <Text text="{inspectedMapBOQItemsModel>Name}"/>
+                            <Text text="{inspectedMapBOQItemsModel>Qty}"/>
+                            <Text text="{inspectedMapBOQItemsModel>UOM}"/>
+                            <Text text="{inspectedMapBOQItemsModel>RemainingQty}"/>
+                            <Text text="{inspectedMapBOQItemsModel>RemainingWeight}"/>
+                            <Text text="{inspectedMapBOQItemsModel>Remarks}"/>
+                            <Input editable="{= ${inspectedMapBOQItemsModel>isSelected} ? true : false }" liveChange="onLiveChangeApprovedQty" value="{inspectedMapBOQItemsModel>ApprovedQty}"/>
+
+                            <Text text="{inspectedMapBOQItemsModel>WeightPerPiece}"/>
                         </cells>
                     </ColumnListItem>
                 </items>
             </Table>
         </content>
+
+        <beginButton>
+            <Button text="Save" press="onSaveInspectBOQDialogClose" type="Emphasized"></Button>
+        </beginButton>
         <endButton>
-            <Button text="Close" press="onViewInspectChildDialogClose" type="Emphasized"></Button>
+            <Button text="Close" press="onViewInspectBOQDialogClose" type="Emphasized"></Button>
         </endButton>
     </Dialog>
 </core:FragmentDefinition>
