@@ -20,25 +20,25 @@
                 <uxap:expandedHeading>
                     <FlexBox direction="Column" renderType="Bare">
                         <Title text="{i18n>ReturnMaterial}" wrapping="false" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
-                        <Text  id="idStatus" text="{Status}"/>
+                        <!-- <Text  id="idStatus" text="{Status}"/> -->
                     </FlexBox>
                 </uxap:expandedHeading>
                 <uxap:snappedHeading>
                     <FlexBox direction="Column" renderType="Bare">
                         <Title text="{i18n>ReturnMaterial}" wrapping="true" titleStyle="H4"/>
-                        <Title text="{SONumber}" binding="{SONumberId}" wrapping="true" titleStyle="H3"/>
+                        <!-- <Title text="{SONumber}" binding="{SONumberId}" wrapping="true" titleStyle="H3"/> -->
                     </FlexBox>
                 </uxap:snappedHeading>
                 <uxap:expandedContent></uxap:expandedContent>
                 <uxap:snappedTitleOnMobile>
-                    <Title text="{SONumber}" binding="{SONumberId}" wrapping="true" titleStyle="Auto"/>
+                    <!-- <Title text="{SONumber}" binding="{SONumberId}" wrapping="true" titleStyle="Auto"/> -->
                 </uxap:snappedTitleOnMobile>
                 <uxap:actions>
                     <Button text="Done" press="onDonePress" type="Emphasized" enabled="{= ${objectViewModel>/enableDone} || ${Status} === 'Approved' || ${Status} === 'Rejected' || ${Status} === 'Partially Approved' }"/>
                 </uxap:actions>
             </uxap:ObjectPageDynamicHeaderTitle>
         </uxap:headerTitle>
-        <uxap:headerContent>
+        <!-- <uxap:headerContent>
             <FlexBox wrap="Wrap" height="100%" renderType="Bare" direction="Column">
                 <HBox >
                     <VBox class="sapUiMediumMarginEnd">
@@ -47,7 +47,6 @@
                                     <Title text="{i18n>SONumber}"/>
                                     <Text text="{SONumber}" binding="{SONumberId}"/>
                                 </VBox>
-                                <!-- <Text text="Avatar of a product with border" class="sapUiSmallMarginTop"/> -->
                         </FlexBox>
                     </VBox>
                     <VBox class="sapUiMediumMarginBeginEnd">
@@ -72,16 +71,15 @@
                     </VBox>
                 </HBox>
             </FlexBox>
-        </uxap:headerContent>
+        </uxap:headerContent> -->
         <uxap:sections>
 
         <!-- Basic Details Section -->
-            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>basicDetails}">
+            <!-- <uxap:ObjectPageSection titleUppercase="false" title="{i18n>basicDetails}">
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection title="{i18n>basicDetails}" class="BasicDetalFormTitleStyle">
                         <f:SimpleForm layout="ColumnLayout" columnsM="2" columnsL="2" columnsXL="2" binding="{SONumberId/Contractor}" singleContainerFullSize="true" class="style-RemoveTitleHeight">
                             <f:content>
-                                <!-- <core:Title  /> -->
                                 <Label text="{i18n>ContractorName}" />
                                 <Text text="{Name}" />
 
@@ -94,7 +92,6 @@
                                 <Label text="{i18n>ActivePeriod}" />
                                 <Text text="{ActivePeriod}"/>
 
-                                <!-- <core:Title />  -->
                                 <Label text="{i18n>Materials}" />
                                 <Text text="{Materials}"/>
                                 
@@ -111,7 +108,7 @@
                         </f:SimpleForm>
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>
-            </uxap:ObjectPageSection>
+            </uxap:ObjectPageSection> -->
 
             <!-- Line Items Section -->
             <uxap:ObjectPageSection titleUppercase="false" title="{i18n>lineItems}">
