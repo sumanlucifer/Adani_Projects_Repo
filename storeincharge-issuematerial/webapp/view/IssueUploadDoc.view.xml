@@ -80,6 +80,9 @@
                                     <Text text="{i18n>createdAt}"/>
                                 </Column>
                                 <Column demandPopin="true" minScreenWidth="Desktop">
+                                    <Text text="{i18n>reservedQty}"/>
+                                </Column>
+                                <Column demandPopin="true" minScreenWidth="Desktop">
                                     <Text text="{i18n>issueQty}"/>
                                 </Column>
                                 <Column demandPopin="true" minScreenWidth="Desktop">
@@ -101,6 +104,7 @@
                                                 pattern: 'MMMM dd, yyyy'
                                             }
                                         }"/>
+                                        <ObjectIdentifier title="{ReservedQty}" />
                                         <ObjectIdentifier title="{IssuedQty}" />
                                         <Text text="{BaseUnit}" />
                                     </cells>
@@ -125,34 +129,7 @@
                                         </UploadCollectionItem>
                                     </items>
                                 </UploadCollection> 
-                                        
-                        <!-- <uxap:blocks>
-                        <VBox>
-                            <f:SimpleForm id="idDocUploadForm"
-                                editable="false"
-                                layout="ResponsiveGridLayout"
-                                labelSpanXL="1"
-                                labelSpanL="2"
-                                labelSpanM="4"
-                                labelSpanS="12"
-                                adjustLabelSpan="false"
-                                emptySpanXL="0"
-                                emptySpanL="0"
-                                emptySpanM="0"
-                                emptySpanS="0"
-                                columnsXL="2"
-                                columnsL="2"
-                                columnsM="1"
-                                singleContainerFullSize="true" >
-                                <f:content>
-                                
-                                <Label text="Upload Issue Slip" />
-
-
-                                </f:content>
-                            </f:SimpleForm>
-                            </VBox>
-                        </uxap:blocks> -->
+                                    
 
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>
