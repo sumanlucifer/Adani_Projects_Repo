@@ -111,6 +111,9 @@
                                     <Column demandPopin="true" minScreenWidth="Desktop">
                                         <Text text="{i18n>description}"/>
                                     </Column>
+                                    <Column demandPopin="true" minScreenWidth="Desktop">
+                                        <Text text="{i18n>actions}"/>
+                                    </Column>
                                     <Column>
                                         <Text text="{i18n>qty}"/>
                                     </Column>
@@ -128,6 +131,9 @@
                                             <ObjectIdentifier title="{MaterialCode}"/>
                                             <Text text="{Name}"/>
                                             <ExpandableText text="{Description}" maxCharacters="32" overflowMode="Popover"/>
+
+
+                                            <Link text="{i18n>MapBOQItems}" press="onViewInspectionItemsPress"></Link>
                                             <Text text="{Qty}"/>
                                             <Text text="{MDCCApprovedQty}"/>
                                             <Text text="{UOM}"/>
