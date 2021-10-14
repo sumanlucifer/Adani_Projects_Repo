@@ -102,7 +102,7 @@ modules:
     - artifacts:
       - po_amendmenthistory-content.zip
       name: po_amendmenthistory
-      target-path: resources/ 
+      target-path: resources/
     - artifacts:
       - storeincharge-scanqr-content.zip
       name: storeincharge-scanqr
@@ -542,6 +542,13 @@ modules:
 - name: workflow-reservationApprovals
   type: com.sap.application.content
   path: workflow-reservationApprovals
+  requires:
+  - name: workflow
+    parameters:
+      content-target: true
+- name: workflow-RoleAssignApproval
+  type: com.sap.application.content
+  path: workflow-RoleAssignApproval
   requires:
   - name: workflow
     parameters:

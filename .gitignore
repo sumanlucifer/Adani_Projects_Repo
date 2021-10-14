@@ -9,3 +9,9 @@ package-lock.json
 sapui5/new_vendor/.env4
 # auto generated wildcard
 sapui5/vendor-map-mdcc/.env1
+# auto generated wildcard
+vendor-packinglist-create/.env2
+# auto generated wildcard
+sapui5/vendor-packinglist-create/.env3
+# auto generated wildcard
+sapui5/vendorPersona/.env1
