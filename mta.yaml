@@ -187,6 +187,10 @@ modules:
       - comagelmmtsreportsreceipt.zip
       name: comagelmmtsreportsreceipt
       target-path: resources/
+    - artifacts:
+      - comagelmmtsqrdetails.zip
+      name: comagelmmtsqrdetails
+      target-path: resources/
 - name: launchpad
   type: com.sap.application.content
   path: launchpad
@@ -553,6 +557,16 @@ modules:
   - name: workflow
     parameters:
       content-target: true
+- name: comagelmmtsqrdetails
+  type: html5
+  path: qr-details
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
 resources:
 - name: uaa_agel-mmts-web
   type: org.cloudfoundry.managed-service
@@ -580,7 +594,7 @@ resources:
   type: org.cloudfoundry.managed-service
   parameters:
     config:
-      HTML5Runtime_enabled: true
+      HTML5Runtime_enabled: false
       init_data:
         instance:
           destinations:
