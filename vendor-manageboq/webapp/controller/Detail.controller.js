@@ -87,6 +87,7 @@ sap.ui.define([
                 this.getViewModel("objectViewModel").setProperty("/hasPClist", true);
             else
                 this.getViewModel("objectViewModel").setProperty("/hasPClist", false);
+            this.getViewModel("objectViewModel").refresh();
         },
         _filterPCListTable: function (sEmail) {
             var PCListTable = this.getView().byId("idPCListTable");
@@ -470,9 +471,10 @@ sap.ui.define([
             var iTotalQuantity = this.getViewModel("boqCreationModel").getProperty("/quantity");
             var iWeightPerPiece = this.getViewModel("boqCreationModel").getProperty(sBindingPath + "/WeightPerPiece");
             var iTotalItemWeight = this.getViewModel("boqCreationModel").getProperty(sBindingPath + "/TotalItemWeight");
-            if (iTotalItemWeight){
+            if (iTotalItemWeight) {
                 iTotalQuantity -= iTotalItemWeight
-                this.getViewModel("boqCreationModel").setProperty("/quantity", iTotalQuantity);}
+                this.getViewModel("boqCreationModel").setProperty("/quantity", iTotalQuantity);
+            }
             this.getViewModel("boqCreationModel").setProperty(sBindingPath + "/TotalItemWeight", null);
             if (parseFloat(oValue) > 0) {
                 var iTotalWeight = parseFloat(oValue) * parseFloat(iWeightPerPiece);
@@ -520,7 +522,7 @@ sap.ui.define([
             var sUOM = this.getViewModel("boqCreationModel").getProperty("/UOM");
             if (sUOM === 'MT') {
                 for (var i = 0; i < aCalculatedBOQItems.length; i++) {
-                    if (!aCalculatedBOQItems[i].selected)
+                    if (!aCalculatedBOQItems[i].selected || aCalculatedBOQItems[i].BOQQuantity === null)
                         aCalculatedBOQItems.splice(i, 1);
                 }
             }
@@ -546,8 +548,12 @@ sap.ui.define([
                 if (oPayload) {
                     oModel.create("/BOQCalculationSet", oPayload, {
                         success: function (oData) {
-                            sap.m.MessageBox.success(oData.Message);
-                            this.getComponentModel().refresh();
+                            if (oData.Success) {
+                                sap.m.MessageBox.success(oData.Message);
+                                this.getComponentModel().refresh();
+                            }
+                            else
+                                sap.m.MessageBox.error("Error while creating BOQ List.");
                         }.bind(this),
                         error: function (oError) {
                             sap.m.MessageBox.error(JSON.stringify(oError));
