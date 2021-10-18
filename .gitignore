@@ -7,3 +7,11 @@ package-lock.json
 
 # auto generated wildcard
 vendor-packinglist-create/.env2
+# auto generated wildcard
+user-roleassignment/.env1
+# auto generated wildcard
+self-roleassignment/.env1
+# auto generated wildcard
+hodroleapproval/.env1
+# auto generated wildcard
+security-scan-history/.env3

@@ -1,0 +1,22 @@
+{
+    "welcomeFile": "/index.html",
+    "authenticationMethod": "route",
+    "logout": {
+        "logoutEndpoint": "/do/logout"
+    },
+    "routes": [
+        {
+            "authenticationType": "xsuaa",
+            "csrfProtection": false,
+            "source": "^/AGEL_MMTS_API/(.*)$",
+            "destination": "AGEL_MMTS",
+            "target": "$1"
+        },
+        {
+            "source": "^(.*)$",
+            "target": "$1",
+            "service": "html5-apps-repo-rt",
+            "authenticationType": "xsuaa"
+        }
+    ]
+}
