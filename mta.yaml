@@ -40,6 +40,14 @@ modules:
       name: user-roleassignment
       target-path: resources/
     - artifacts:
+      - hodroleapproval-content.zip
+      name: hodroleapproval
+      target-path: resources/
+    - artifacts:
+      - self-roleassignment-content.zip
+      name: selfroleassignment
+      target-path: resources/
+    - artifacts:
       - ScannerAppLibrary-content.zip
       name: ScannerAppLibrary
       target-path: resources/
@@ -187,14 +195,6 @@ modules:
       - comagelmmtsreportsreceipt.zip
       name: comagelmmtsreportsreceipt
       target-path: resources/
-    - artifacts:
-      - comagelmmtsselfroleassignment.zip
-      name: comagelmmtsselfroleassignment
-      target-path: resources/
-    - artifacts:
-      - comagelmmtshodroleapproval.zip
-      name: comagelmmtshodroleapproval
-      target-path: resources/
 - name: launchpad
   type: com.sap.application.content
   path: launchpad
@@ -251,6 +251,22 @@ modules:
     commands:
     - npm run build
     supported-platforms: []
+- name: hodroleapproval
+  type: html5
+  path: hodroleapproval
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []
+- name: selfroleassignment
+  type: html5
+  path: selfroleassignment
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []    
 - name: ScannerAppLibrary
   type: html5
   path: ScannerAppLibrary
@@ -588,7 +604,7 @@ resources:
   type: org.cloudfoundry.managed-service
   parameters:
     config:
-      HTML5Runtime_enabled: false
+      HTML5Runtime_enabled: true
       init_data:
         instance:
           destinations:
@@ -607,7 +623,6 @@ resources:
     service: workflow
     service-plan: standard
 parameters:
-  deploy_mode: html5-repo
   enable-parallel-deployments: true
 build-parameters:
   before-all:

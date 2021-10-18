@@ -407,21 +407,23 @@
       "name": "Start hodroleapproval",
       "type": "node",
       "request": "launch",
-      "runtimeExecutable": "npm",
+      "runtimeExecutable": "npx",
       "cwd": "${workspaceFolder}/hodroleapproval",
       "windows": {
-        "runtimeExecutable": "npm.cmd"
+        "runtimeExecutable": "npx.cmd"
       },
       "runtimeArgs": [
-        "run-script",
-        "start"
+        "fiori",
+        "run"
       ],
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen",
       "port": 9229,
       "env": {
         "DEBUG": "--inspect",
-        "run.config": "{\"handlerId\":\"fiori_tools\",\"runnableId\":\"/home/user/projects/sapui5/hodroleapproval\"}"
+        "run.config": "{\"handlerId\":\"fiori_tools\",\"runnableId\":\"/home/user/projects/sapui5/hodroleapproval\"}",
+        "FIORI_TOOLS_UI5_VERSION": "",
+        "FIORI_TOOLS_UI5_URI": "https://ui5.sap.com"
       }
     },
     {

@@ -15,3 +15,6 @@ vendor-packinglist-create/.env2
 sapui5/vendor-packinglist-create/.env3
 # auto generated wildcard
 sapui5/vendorPersona/.env1
+
+# auto generated wildcard
+hodroleapproval/.env1
