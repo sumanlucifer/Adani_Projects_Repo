@@ -27,7 +27,8 @@ sap.ui.define([
                 noParentChildRelationFlag: false,
                 isCreatingPCList: false,
                 isPCListSelected: false,
-                sViewBOQButtonName: "View BOQ List"
+                sViewBOQButtonName: "View BOQ List",
+                hasPClist: false
             });
             this.setModel(oViewModel, "objectViewModel");
             //Router Object
@@ -79,6 +80,14 @@ sap.ui.define([
                     }
                 }
             });
+        },
+        setCreatePCListVisiblity: function (oEvent) {
+            var iPCListCount = oEvent.getSource().getBinding("items").getLength();
+            if (iPCListCount > 0)
+                this.getViewModel("objectViewModel").setProperty("/hasPClist", true);
+            else
+                this.getViewModel("objectViewModel").setProperty("/hasPClist", false);
+            this.getViewModel("objectViewModel").refresh();
         },
         _filterPCListTable: function (sEmail) {
             var PCListTable = this.getView().byId("idPCListTable");
@@ -196,16 +205,16 @@ sap.ui.define([
                 this.weightValueFlag = false;
                 this.getView().getModel("ManageBOQModel").setProperty(sItemPath + "/TotalItemWeight", "");
             }
-            if (parseInt(oValue) <= 0 || parseInt(oValue) === 0 ) {
+            if (parseInt(oValue) <= 0 || parseInt(oValue) === 0) {
                 oEvent.getSource().setValueState("Error");
                 oEvent.getSource().setValueStateText("Please enter Positive and Non Zero Number");
                 this.getView().getModel("ManageBOQModel").setProperty(sItemPath + "/TotalItemWeight", "");
-                this.weightValueFlag= false;
+                this.weightValueFlag = false;
             }
 
             else
                 oEvent.getSource().setValueState("None");
-            
+
         },
         openAddRemarksPopupPress: function (oEvent) {
             var sItemPath = oEvent.getSource().getBindingContext("ManageBOQModel").getPath();
@@ -362,25 +371,74 @@ sap.ui.define([
         onCreateBOQPress: function (oEvent) {
             var isMaterialStandAlone = this.getViewModel("objectViewModel").getProperty("/noParentChildRelationFlag");
             var boqCreationModel = new JSONModel({
+                IsOne2OneLineItem: isMaterialStandAlone,
                 dialogTitle: isMaterialStandAlone ? this.getView().getBindingContext().getObject().Name : this.byId("idPCListTable").getSelectedItem().getBindingContext().getObject().Name,
                 selectedItemData: isMaterialStandAlone ? null : this.byId("idPCListTable").getSelectedItem().getBindingContext().getObject(),
                 quantity: null,
                 isConfirmButtonEnabled: false,
                 valueState: null,
-                valueStateText: ""
+                valueStateText: "",
+                CalculatedBOQItems: [],
+                PCGroupId: 1,
+                ParentLineItemId: 1,
+                CalculatedParentWeight: 10,
+                UOM: this.getView().getBindingContext().getObject().UoM
             });
-            this.getView().setModel(boqCreationModel, "boqCreationModel");
-            if (!this._oBOQCreationDialog) {
-                this._oBOQCreationDialog = sap.ui.xmlfragment("com.agel.mmts.vendormanageboq.view.fragments.detailPage.BOQQuantityGetter", this);
-                this.getView().addDependent(this._oBOQCreationDialog);
+            if (!isMaterialStandAlone) {
+                var sGroupItemsPath = this.byId("idPCListTable").getSelectedItem().getBindingContext().sPath + "/PCGroupItems"
+                this.mainModel.read(sGroupItemsPath, {
+                    success: function (oData, oResponse) {
+                        if (oData.results.length) {
+                            oData.results.forEach(element => {
+                                element.selected = false;
+                                element.PCGroupItemId = element.ID;
+                                element.BOQQuantity = null;
+                                element.TotalItemWeight = null;
+                            });
+                            boqCreationModel.oData.CalculatedBOQItems = oData.results;
+                            this._setBoqCreationModel(this, boqCreationModel);
+                        }
+                    }.bind(this),
+                    error: function (oError) {
+                        sap.m.MessageBox.error("Error fetching PC List Items");
+                    }
+                });
             }
-            this._oBOQCreationDialog.open();
+            else
+                this._setBoqCreationModel(this, boqCreationModel);
         },
+
+        _setBoqCreationModel: function (oController, boqCreationModel) {
+            oController.getView().setModel(boqCreationModel, "boqCreationModel");
+            if (!oController._oBOQCreationDialog) {
+                oController._oBOQCreationDialog = sap.ui.xmlfragment("com.agel.mmts.vendormanageboq.view.fragments.detailPage.BOQQuantityGetter", oController);
+                oController.getView().addDependent(oController._oBOQCreationDialog);
+            }
+            oController._oBOQCreationDialog.open();
+        },
+
+        onSelectAllBoq: function (oEvent) {
+            var bState = oEvent.getSource().getSelected();
+            var boqGroupItemData = this.getViewModel("boqCreationModel").getData().CalculatedBOQItems;
+            boqGroupItemData.forEach(item => {
+                item.selected = bState;
+                if (!bState) {
+                    item.BOQQuantity = null;
+                    item.TotalItemWeight = null;
+                }
+            });
+            if (!bState) {
+                this.getViewModel("boqCreationModel").setProperty("/quantity", null);
+                this.getViewModel("boqCreationModel").setProperty("/isConfirmButtonEnabled", false);
+            }
+            this.getViewModel("boqCreationModel").refresh();
+        },
+
         onQuantityLiveChange: function (oEvent) {
             var oPOData = this.getView().getBindingContext().getObject();
-            if (oEvent.getSource().getValue().length && parseInt(oEvent.getSource().getValue()) > 0) {
+            if (oEvent.getSource().getValue().length && parseFloat(oEvent.getSource().getValue()) > 0) {
                 this.getViewModel("boqCreationModel").setProperty("/isConfirmButtonEnabled", true);
-                if (parseInt(oEvent.getSource().getValue()) > parseInt(oPOData.PendingQty)) {
+                if (parseFloat(oEvent.getSource().getValue()) > parseFloat(oPOData.PendingQty)) {
                     this.getViewModel("boqCreationModel").setProperty("/valueState", "Error");
                     this.getViewModel("boqCreationModel").setProperty("/valueStateText", "BOQ quantity should not exceed PO's pending quantity.");
                     this.getViewModel("boqCreationModel").setProperty("/isConfirmButtonEnabled", false);
@@ -389,6 +447,14 @@ sap.ui.define([
                     this.getViewModel("boqCreationModel").setProperty("/valueState", null);
                     this.getViewModel("boqCreationModel").setProperty("/valueStateText", "");
                     this.getViewModel("boqCreationModel").setProperty("/isConfirmButtonEnabled", true);
+                    var sValue = parseFloat(oEvent.getSource().getValue());
+                    var aGroupItems = this.getViewModel("boqCreationModel").getProperty("/CalculatedBOQItems");
+                    aGroupItems.forEach(item => {
+                        item.BOQQuantity = sValue * parseFloat(item.Qty);
+                        item.TotalItemWeight = item.BOQQuantity * parseFloat(item.WeightPerPiece);
+                    });
+                    this.getViewModel("boqCreationModel").setProperty("/CalculatedBOQItems", aGroupItems);
+                    // this.getViewModel("boqCreationModel").refresh();
                 }
             }
             else {
@@ -397,6 +463,54 @@ sap.ui.define([
                 this.getViewModel("boqCreationModel").setProperty("/valueStateText", "Please enter the correct value for Quantity.");
             }
         },
+
+        onLiveChangeBoqQty: function (oEvent) {
+            var oValue = oEvent.getSource().getValue();
+            var sBindingPath = oEvent.getSource().getBindingContext("boqCreationModel").sPath;
+            // var aGroupItems = this.getViewModel("boqCreationModel").getProperty("/CalculatedBOQItems");
+            var iTotalQuantity = this.getViewModel("boqCreationModel").getProperty("/quantity");
+            var iWeightPerPiece = this.getViewModel("boqCreationModel").getProperty(sBindingPath + "/WeightPerPiece");
+            var iTotalItemWeight = this.getViewModel("boqCreationModel").getProperty(sBindingPath + "/TotalItemWeight");
+            if (iTotalItemWeight) {
+                iTotalQuantity -= iTotalItemWeight
+                this.getViewModel("boqCreationModel").setProperty("/quantity", iTotalQuantity);
+            }
+            this.getViewModel("boqCreationModel").setProperty(sBindingPath + "/TotalItemWeight", null);
+            if (parseFloat(oValue) > 0) {
+                var iTotalWeight = parseFloat(oValue) * parseFloat(iWeightPerPiece);
+                this.getViewModel("boqCreationModel").setProperty(sBindingPath + "/TotalItemWeight", iTotalWeight);
+                iTotalQuantity += iTotalWeight;
+                this.getViewModel("boqCreationModel").setProperty("/quantity", iTotalQuantity);
+            }
+            // this.getViewModel("boqCreationModel").setProperty("/CalculatedBOQItems", aGroupItems);
+            if (parseFloat(oValue) > 0 && parseFloat(oValue)) {
+                this.getViewModel("boqCreationModel").setProperty("/isConfirmButtonEnabled", true);
+                oEvent.getSource().setValueState("None");
+                oEvent.getSource().setValueStateText("");
+            }
+            else {
+                this.getViewModel("boqCreationModel").setProperty("/isConfirmButtonEnabled", false);
+                oEvent.getSource().setValueState("Error");
+                oEvent.getSource().setValueStateText("Enter valid quantity");
+            }
+        },
+
+        onBoqSelectChange: function (oEvent) {
+            var bState = oEvent.getSource().getSelected();
+            if (!bState) {
+                var oBindingObject = oEvent.getSource().getBindingContext("boqCreationModel").getObject();
+                var oBoqModel = this.getViewModel("boqCreationModel");
+                if (oBindingObject.BOQQuantity) {
+                    var iTotalQuantity = oBoqModel.getProperty("/quantity");
+                    iTotalQuantity -= oBindingObject.TotalItemWeight;
+                    oBindingObject.BOQQuantity = null;
+                    oBindingObject.TotalItemWeight = null;
+                    oBoqModel.setProperty(oEvent.getSource().getBindingContext("boqCreationModel").sPath, oBindingObject);
+                    oBoqModel.setProperty("/quantity", iTotalQuantity);
+                }
+            }
+        },
+
         onCancelBOQCreationProcess: function (oEvent) {
             this._oBOQCreationDialog.close();
         },
@@ -404,6 +518,14 @@ sap.ui.define([
             this._oBOQCreationDialog.close();
             var isMaterialStandAlone = this.getViewModel("objectViewModel").getProperty("/noParentChildRelationFlag");
             var sQuantity = this.getViewModel("boqCreationModel").getProperty("/quantity");
+            var aCalculatedBOQItems = this.getViewModel("boqCreationModel").getProperty("/CalculatedBOQItems");
+            var sUOM = this.getViewModel("boqCreationModel").getProperty("/UOM");
+            if (sUOM === 'MT') {
+                for (var i = 0; i < aCalculatedBOQItems.length; i++) {
+                    if (!aCalculatedBOQItems[i].selected || aCalculatedBOQItems[i].BOQQuantity === null)
+                        aCalculatedBOQItems.splice(i, 1);
+                }
+            }
             var oModel = this.getComponentModel();
             if (sQuantity !== "0") {
                 if (isMaterialStandAlone) {
@@ -411,21 +533,27 @@ sap.ui.define([
                         "QTY": parseInt(sQuantity),
                         "PCGroupId": 0,
                         "ParentLineItemId": this.getView().getBindingContext().getObject().ID,
-                        "IsOne2OneLineItem": true
+                        "IsOne2OneLineItem": true,
+                        "CalculatedBOQItems": aCalculatedBOQItems
                     };
                 } else {
                     var oSelectedItemData = this.byId("idPCListTable").getSelectedItem().getBindingContext().getObject();
                     var oPayload = {
                         "QTY": parseInt(sQuantity),
                         "PCGroupId": parseInt(oSelectedItemData.ID),
-                        "ParentLineItemId": parseInt(oSelectedItemData.ParentLineItemID)
+                        "ParentLineItemId": parseInt(oSelectedItemData.ParentLineItemID),
+                        "CalculatedBOQItems": aCalculatedBOQItems
                     };
                 }
                 if (oPayload) {
                     oModel.create("/BOQCalculationSet", oPayload, {
                         success: function (oData) {
-                            sap.m.MessageBox.success(oData.Message);
-                            this.getComponentModel().refresh();
+                            if (oData.Success) {
+                                sap.m.MessageBox.success(oData.Message);
+                                this.getComponentModel().refresh();
+                            }
+                            else
+                                sap.m.MessageBox.error("Error while creating BOQ List.");
                         }.bind(this),
                         error: function (oError) {
                             sap.m.MessageBox.error(JSON.stringify(oError));
@@ -433,7 +561,7 @@ sap.ui.define([
                     });
                 }
             } else {
-                sap.m.MessageBox.error("Please enter non zero number")
+                sap.m.MessageBox.error("Please enter non zero number.")
             }
         },
         onViewBOQRequests: function (oEvent) {
@@ -482,7 +610,7 @@ sap.ui.define([
                 boqItem.Remarks = data[i].Remarks;
                 boqItem.UOM = data[i].UOM;
                 boqItem.WeightPerPiece = data[i].WeightPerPiece;
-                boqItem.TotalItemWeight=data[i].TotalItemWeight;
+                boqItem.TotalItemWeight = data[i].TotalItemWeight;
                 boqItem.MasterBOQItemId = data[i].MasterBOQItemId,
                     boqItem.masterUOMItemId = data[i].MasterUOMItemId,
                     boqItem.UOMSuggestions = null;

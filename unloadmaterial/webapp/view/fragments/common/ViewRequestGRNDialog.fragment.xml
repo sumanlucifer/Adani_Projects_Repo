@@ -17,26 +17,15 @@
 				                     }}" binding="{PurchaseOrder}"/>
                         <Label text="{i18n>GatePassNumber}" />
                         <Text text="{GateEntryNumber}"/>
-                        <Label text="{i18n>Plant}"/>
-                        <Text text="{PlantCode}" binding="{RestrictedStoreStockParent}"/>
-                        <Label text="{i18n>StorageLocation}"/>
-                        <Text text="{StorageLocation}" binding="{PackingListParentItems}"/>
-                        <Label text="{i18n>MatCode}"/>
-                        <Text text="{MaterialCode}" binding="{RestrictedStoreStockParent}"/>
-                        <Label text="{i18n>LineNo}"/>
-                        <Text text="{LineNumber}" binding="{RestrictedStoreStockParent}"/>
-                        <!-- <Label text="Movement Type"/>
-                        <Text text="{MovementType}"/> -->
-                        <Label text="{i18n>BatchNumber}"/>
-                        <Text text="{BatchNumber}" binding="{PackingListParentItems}"/>
                         <Label text="{i18n>TotalWeight}"/>
                         <Text text="{TotalWeight}"/>
-                        <!-- <Label text="Valuation Type"/>
-                        <Text text="{ValuationType}"/> -->
-                        <Label text="{i18n>Qty}"/>
-                        <Text text="{Qty}" binding="{RestrictedStoreStockParent}"/>
-                        <Label text="{i18n>UOM}"/>
-                        <Text text="{UOM}" binding="{RestrictedStoreStockParent}"/>
+
+                        <!-- <Label text="{i18n>StorageLocation}"/>
+                        <Text text="{StorageLocation}" binding="{PackingListParentItems}"/>
+                        <Label text="{i18n>BatchNumber}"/>
+                        <Text text="{BatchNumber}" binding="{PackingListParentItems}"/> -->
+                        
+
                     </f:content>
                 </f:SimpleForm>
                 <f:SimpleForm layout="ColumnLayout" columnsM="2" columnsL="3" columnsXL="3" singleContainerFullSize="true" class="style-RemoveTitleHeight">
@@ -45,8 +34,6 @@
                         <Input id="idweight" value="{requestModel>/quantity}" liveChange="onQuantityLiveChange" type="Number" valueState="{requestModel>/valueState}" valueStateText="{requestModel>/valueStateText}"></Input>
                         <Label text="Bill of Lading" required="true"></Label>
                         <Input id="idbilloflading" value="{requestModel>/billoflading}" type="Text" valueState="{requestModel>/valueState}" valueStateText="{requestModel>/valueStateText}"></Input>
-                        <!-- <Label text="Gate Pass Number" required="true"></Label>
-                        <Input id="idgatepassnumber" value="{requestModel>/gatepassnumber}" type="Text" valueState="{requestModel>/valueState}" valueStateText="{requestModel>/valueStateText}"></Input> -->
                         <Label text="LR Number" required="true"></Label>
                         <Input id="idlrnumber" value="{requestModel>/lrnumber}" type="Text" valueState="{requestModel>/valueState}" valueStateText="{requestModel>/valueStateText}"></Input>
                         <Label text="Reference" required="true"></Label>
@@ -55,6 +42,50 @@
                         <Input id="iddelivery" value="{requestModel>/delivery}" type="Text" valueState="{requestModel>/valueState}" valueStateText="{requestModel>/valueStateText}"></Input>
                     </f:content>
                 </f:SimpleForm>
+
+                <Table width="auto" growing="true" growingThreshold="5" items= "{RestrictedStoreStockParents}" fixedLayout="false">
+                    <columns>
+                        <Column importance="High">
+                            <Text text="{i18n>lineNo}" wrapping="true" wrappingType="Hyphenated" width="8rem"/>
+                        </Column>
+                        <Column importance="High">
+                            <Text text="{i18n>materialCode}" wrapping="true" wrappingType="Hyphenated" width="8rem"/>
+                        </Column>
+                        <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center" width="10rem">
+                            <Text text="Name"/>
+                        </Column>
+                        <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center" width="10rem">
+                            <Text text="Description"/>
+                        </Column>
+                        <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center" width="10rem">
+                            <Text text="Movement Type"/>
+                        </Column>
+                        <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center" width="6rem">
+                            <Text text="{i18n>Plant}" />
+                        </Column>
+                        <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center" width="6rem">
+                            <Text text="{i18n>quantity}" />
+                        </Column>
+                        <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center" width="6rem">
+                            <Text text="{i18n>UOM}"/>
+                        </Column>
+                    </columns>
+                    <items>
+                        <ColumnListItem>
+                            <cells>
+                                <Text text="{LineNumber}"/>
+                                <ObjectIdentifier title="{MaterialCode}"/>
+                                <Text text="{Name}"/>
+                                <Text text="{Description}"/>
+                                <Text text="{MovementType}"/>
+                                <Text text="{PlantCode}"/>
+                                <Text text="{Qty}"/>
+                                <Text text="{UOM}"/>
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
+                
             </FlexBox>
         </content>
         <beginButton>

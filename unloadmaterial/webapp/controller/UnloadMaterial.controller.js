@@ -604,7 +604,7 @@ sap.ui.define([
                     oDialog.bindElement({
                         path: sParentItemPath,
                         parameters: {
-                            "expand": 'RestrictedStoreStockParent, PurchaseOrder, PackingListParentItems'
+                            "expand": 'RestrictedStoreStockParents, PurchaseOrder, PackingListParentItems'
                         }
                     });
                     oDialog.setTitle("Request GRN");

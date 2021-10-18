@@ -17,7 +17,7 @@
                 <uxap:snappedHeading>
                     <VBox>
                         <Title text="{Name}" wrapping="true" titleStyle="H3"/>
-                        <CheckBox text="No Parent-Child Relation Applicable." selected="{objectViewModel>/noParentChildRelationFlag}" />
+                        <CheckBox text="No Parent-Child Relation Applicable." selected="{objectViewModel>/noParentChildRelationFlag}" enabled="{= ${objectViewModel>/hasPClist} ? false : true}"/>
                     </VBox>
                 </uxap:snappedHeading>
                 <uxap:expandedContent></uxap:expandedContent>
@@ -32,7 +32,7 @@
         </uxap:headerTitle>
         <uxap:headerContent>
             <FlexBox class="sapUiSmallMarginBottom">
-                <CheckBox text="{i18n>parentChild}" selected="{objectViewModel>/noParentChildRelationFlag}" />
+                <CheckBox text="{i18n>parentChild}" selected="{objectViewModel>/noParentChildRelationFlag}" enabled="{= ${objectViewModel>/hasPClist} ? false : true}"/>
             </FlexBox>
             <FlexBox direction="Row" renderType="Bare" class="sapUiTinyMarginBottom">
                 <VBox renderType="Bare" class="sapUiMediumMarginEnd">
@@ -59,15 +59,15 @@
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection visible="{= ${objectViewModel>/noParentChildRelationFlag} ? false : true }">
                         <!-- <ScrollContainer height="200px" vertical="true"> -->
-                        <Table id="idPCListTable" growing="true" growingThreshold="4" items="{path : 'PCGroups', sorter : {
+                        <Table updateFinished="setCreatePCListVisiblity" id="idPCListTable" growing="true" growingThreshold="4" items="{path : 'PCGroups', sorter : {
                             path : 'CreatedAt', descending: 'true' }}" mode="SingleSelectLeft" visible="{= ${objectViewModel>/isCreatingPCList} ? false : true}" selectionChange="onPCListSelectionChange">
                             <headerToolbar>
                                 <OverflowToolbar>
                                     <content>
                                         <Title text="PC List"/>
                                         <ToolbarSpacer />
-                                        <Button text="Create" icon="sap-icon://add" press="onCreateNewPCListPress"></Button>
-                                        <Button text="Use Selected" press="onUseSelectedPress" type="Emphasized" visible="{= ${objectViewModel>/isPCListSelected}}"/>
+                                        <Button text="Create" icon="sap-icon://add" press="onCreateNewPCListPress" visible="{= ${objectViewModel>/hasPClist} ? false : true}"></Button>
+                                        <!-- <Button text="Use Selected" press="onUseSelectedPress" type="Emphasized" visible="{= ${objectViewModel>/isPCListSelected}}"/> -->
                                     </content>
                                 </OverflowToolbar>
                             </headerToolbar>

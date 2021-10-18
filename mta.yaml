@@ -554,26 +554,13 @@ modules:
   - name: workflow
     parameters:
       content-target: true
-- name: comagelmmtsselfroleassignment
-  type: html5
-  path: self-roleassignment
-  build-parameters:
-    build-result: dist
-    builder: custom
-    commands:
-    - npm install
-    - npm run build:cf
-    supported-platforms: []
-- name: comagelmmtshodroleapproval
-  type: html5
-  path: hodroleapproval
-  build-parameters:
-    build-result: dist
-    builder: custom
-    commands:
-    - npm install
-    - npm run build:cf
-    supported-platforms: []
+- name: workflow-RoleAssignApproval
+  type: com.sap.application.content
+  path: workflow-RoleAssignApproval
+  requires:
+  - name: workflow
+    parameters:
+      content-target: true
 resources:
 - name: uaa_agel-mmts-web
   type: org.cloudfoundry.managed-service

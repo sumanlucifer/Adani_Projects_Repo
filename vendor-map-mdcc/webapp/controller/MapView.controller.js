@@ -53,10 +53,10 @@ sap.ui.define([
 
             _onObjectMatched: function (oEvent) {
 
-                var startupParams = this.getOwnerComponent().getComponentData().startupParameters;
-                //  var startupParams={MDCCId:176,manage:"false"};
+            var startupParams = this.getOwnerComponent().getComponentData().startupParameters;
+            //  var startupParams={MDCCId:176,manage:"false"};
 
-                this.sObjectId = startupParams.MDCCId[0];
+                this.sObjectId = startupParams.MDCCId;
                 // this.sObjectId = this.sObjectId;
                 this._getMDCCData();
                 this.getInspectedData();

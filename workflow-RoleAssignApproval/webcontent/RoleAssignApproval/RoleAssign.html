@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src='main.js'></script>
+
+</head>
+
+<body>
+    <!-- <font face="verdana" size="2">Hi,</font> -->
+    <br>
+    <font face="verdana" size="5" color="#2D68B2">A new Role Assign approval request - <span style="color:#BC3863;">${context.RoleAssignResponse.d.ID}</span> is ready for your review.
+    </font>
+    <br>
+    <br>
+    <font face="verdana" size="3" color="#2D68B2">
+        <b><u>Request Details</u></b>
+    </font>
+    <br>
+    <br>
+
+    <font face="verdana" size="2">
+        <b>Request Number:</b>
+        ${context.RoleAssignResponse.d.RequestNumber}
+    </font>
+
+    <br>
+
+    <font face="verdana" size="2">
+        <b>Request By:</b>
+        ${context.RoleAssignResponse.d.CreatedBy}
+    </font>
+
+        <br>
+
+    <font face="verdana" size="2">
+        <b>Role:</b>
+        ${context.RoleAssignResponse.d.Role}
+    </font>
+
+    <br>
+
+        
+
+    <font face="verdana" size="2">
+        <b>Requested On:</b>
+        ${context.RoleAssignResponse.d.CreatedAt}
+    </font>
+
+        <br>
+
+        
+
+    <font face="verdana" size="2">
+        <b>Email:</b>
+        ${context.RoleAssignResponse.d.Email}
+    </font>
+
+    <br>
+    <br>
+    <font face="verdana" size="2" color="#595998">Please visit the below link to review</font>
+    <br>
+    <a
+        href="https://renewables-qa.cpp.cfapps.ap11.hana.ondemand.com/site/">
+        Approval Request Review</a>
+    <br>
+    <br>
+    <br>
+    <font face="verdana" size="2" color="#595998">Regards,</font>
+    <br>
+    <font face="verdana" size="2" color="#595998">Adani Groups</font>
+    <br>
+    <br>
+    <img width="10%" height="10%" src="https://upload.wikimedia.org/wikipedia/en/thumb/8/8f/Adani_Group_logo.svg/1200px-Adani_Group_logo.svg.png">
+</body>
+
+</html>

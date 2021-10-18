@@ -6,12 +6,12 @@ package-lock.json
 /dist/
 
 # auto generated wildcard
+sapui5/new_vendor/.env4
+# auto generated wildcard
+sapui5/vendor-map-mdcc/.env1
+# auto generated wildcard
 vendor-packinglist-create/.env2
 # auto generated wildcard
-user-roleassignment/.env1
+sapui5/vendor-packinglist-create/.env3
 # auto generated wildcard
-self-roleassignment/.env1
-# auto generated wildcard
-hodroleapproval/.env1
-# auto generated wildcard
-security-scan-history/.env3
+sapui5/vendorPersona/.env1
