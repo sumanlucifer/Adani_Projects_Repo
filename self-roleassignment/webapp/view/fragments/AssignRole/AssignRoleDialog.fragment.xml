@@ -8,17 +8,15 @@
                 items="{
                     path: '/MasterRoleSet',
                     filters: [
-                        {
-                        filters: [
-                            { path: 'ID', operator: 'NE', value1: '1'},
-                            { path: 'ID', operator: 'NE', value1: '2'}
-                        ],
-                        and: true
-                        }
+                        { path: 'IsOrganizationRole', operator: 'EQ', value1: true}
                     ]
                 }">
-                <core:Item key="{ID}" text="{Role}"/> 
+                <core:Item key="{ID}" text="{RoleName}"/> 
             </MultiComboBox>
+            <!-- <MultiComboBox id="roleEdit" placeholder= "Select" selectedKeys="{MasterRoleSet>/ID}"
+                items="{UserRolesModel>/}">
+                <core:Item key="{UserRolesModel>ID}" text="{UserRolesModel>RoleName}"  enabled="{= ${UserRolesModel>Enabled} === true}"/> 
+            </MultiComboBox> -->
         </content>
         <beginButton>
             <Button text="Save" press="onSave" type="Emphasized" />

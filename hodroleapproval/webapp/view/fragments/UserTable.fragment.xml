@@ -2,8 +2,8 @@
     xmlns:smartTable="sap.ui.comp.smarttable"
     xmlns:core="sap.ui.core">
     <smartTable:SmartTable class="sapUiResponsiveContentPadding" id="idApproveRejectRolesTBL" editable="false" placeToolbarInTable="true" 
-    enableAutoBinding="true" entitySet="RoleAssignApprovalRequestSet" showFullScreenButton="true" showRowCount="false" tableType="ResponsiveTable" 
-    ignoredFields="UpdatedBy,ID,ApprovedAt,ApprovedBy,IsArchived,CreatedBy,Status" demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" beforeRebindTable="onBeforeRebindApprovalRequestsTable"  
+    enableAutoBinding="true" entitySet="MapHODAndSelfRoleAssignRequestSet" showFullScreenButton="true" showRowCount="false" tableType="ResponsiveTable" 
+    demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" beforeRebindTable="onBeforeRebindApprovalRequestsTable"  
     >
         <smartTable:layoutData><FlexItemData growFactor="1"/></smartTable:layoutData>
         <Table sticky="ColumnHeaders,HeaderToolbar">
@@ -18,8 +18,8 @@
               
                  <Column demandPopin="true" minScreenWidth="Tablet"> 
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "Role", "leadingProperty": "Role",
-                                                 "columnIndex": 1 ,"sortProperty": "Role","filterProperty": "Role"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "RoleAssignId/Role", "leadingProperty": "RoleAssignId/Role",
+                                                 "columnIndex": 1 ,"sortProperty": "RoleAssignId/Role","filterProperty": "RoleAssignId/Role"}'/>
                     </customData>
                     <Text text="{i18n>role}"/>
                 </Column>
@@ -33,31 +33,31 @@
                 </Column>
                  <Column demandPopin="true" minScreenWidth="Tablet"> 
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "RequestNumber", "leadingProperty": "RequestNumber",
-                                                 "columnIndex": 3 ,"sortProperty": "RequestNumber","filterProperty": "RequestNumber"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "RoleAssignId/RequestNumber", "leadingProperty": "RoleAssignId/RequestNumber",
+                                                 "columnIndex": 3 ,"sortProperty": "RoleAssignId/RequestNumber","filterProperty": "RoleAssignId/RequestNumber"}'/>
                     </customData>
                     <Text text="{i18n>requestnumber}"/>
                 </Column>
 
                 <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "CreatedAt", "leadingProperty": "CreatedAt",
-                                                 "columnIndex": 4,"sortProperty": "CreatedAt","filterProperty": "CreatedAt"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "RoleAssignId/CreatedAt", "leadingProperty": "RoleAssignId/CreatedAt",
+                                                 "columnIndex": 4,"sortProperty": "RoleAssignId/CreatedAt","filterProperty": "RoleAssignId/CreatedAt"}'/>
                     </customData>
                     <Text text="{i18n>createdAt}"/>
                 </Column>
 
                 <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "UpdatedAt", "leadingProperty": "UpdatedAt",
-                                                 "columnIndex": 5,"sortProperty": "UpdatedAt","filterProperty": "UpdatedAt"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "RoleAssignId/UpdatedAt", "leadingProperty": "RoleAssignId/UpdatedAt",
+                                                 "columnIndex": 5,"sortProperty": "RoleAssignId/UpdatedAt","filterProperty": "RoleAssignId/UpdatedAt"}'/>
                     </customData>
                     <Text text="{i18n>updatedAt}"/>
                 </Column>
                 <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Initial"> 
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "ApprovedBy", "leadingProperty": "ApprovedBy",
-                                                 "columnIndex": 7 ,"sortProperty": "ApprovedBy","filterProperty": "ApprovedBy"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "RoleAssignId/Status", "leadingProperty": "RoleAssignId/Status",
+                                                 "columnIndex": 7 ,"sortProperty": "RoleAssignId/Status","filterProperty": "RoleAssignId/Status"}'/>
                     </customData>
                     <Text text="{i18n>action}"/>
                 </Column>
@@ -66,17 +66,17 @@
             <items>
                 <ColumnListItem press="onUserRoleDetlPress">
                     <cells>
-                        <Text text="{UserId}" wrapping="false"/>
-                        <Text text="{Role}" wrapping="false"/>
-                        <Text text="{Email}" wrapping="false"/>
-                        <Text text="{RequestNumber}" wrapping="false"/>
-                        <Text text="{path:'CreatedAt',
+                        <Text text="{RoleAssignId/UserId}" wrapping="false"/>
+                        <Text text="{RoleAssignId/Role}" wrapping="false"/>
+                        <Text text="{RoleAssignId/Email}" wrapping="false"/>
+                        <Text text="{RoleAssignId/RequestNumber}" wrapping="false"/>
+                        <Text text="{path:'RoleAssignId/CreatedAt',
                                      type: 'sap.ui.model.type.Date',
 				                     formatOptions: {
 				                        pattern: 'MMMM dd, yyyy'
 				                     }
                         }" />
-                        <Text text="{path:'UpdatedAt',
+                        <Text text="{path:'RoleAssignId/UpdatedAt',
                                      type: 'sap.ui.model.type.Date',
 				                     formatOptions: {
 				                        pattern: 'MMMM dd, yyyy'
@@ -85,13 +85,12 @@
                         
                         <HBox alignContent="Center" alignItems="Center" width="100%">
                                 <Button text="Approve"  press="onApproveRequestPress" type="Accept" 
-                                    visible="{= ${Status} === 'PENDING' ? true : false}" class="sapUiTinyMarginEnd"/>
+                                    visible="{= ${RoleAssignId/Status} === 'PENDING' ? true : false}" class="sapUiTinyMarginEnd"/>
                                 <Button text="Reject"  press="onRejectRequestPress" width="125%"
-                                    visible="{= ${Status} === 'PENDING' ? true : false}" type="Reject"/>
-                                <ObjectNumber number="{Status}" 
-                                    visible="{= ${Status} !== 'PENDING' ? true : false}"
-                                    state="{= ${Status} === 'APPROVED' ? 'Success'  : 'Error' }"/>
-                                    
+                                    visible="{= ${RoleAssignId/Status} === 'PENDING' ? true : false}" type="Reject"/>
+                                <ObjectNumber number="{RoleAssignId/Status}" 
+                                    visible="{= ${RoleAssignId/Status} !== 'PENDING' ? true : false}"
+                                    state="{= ${RoleAssignId/Status} === 'APPROVED' ? 'Success'  : 'Error' }"/>
                         </HBox>
                     </cells>
                 </ColumnListItem>

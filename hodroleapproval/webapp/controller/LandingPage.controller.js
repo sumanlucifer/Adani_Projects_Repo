@@ -21,7 +21,8 @@ sap.ui.define([
                     this.ApproverEmailID = sap.ushell.Container.getService("UserInfo").getEmail();
                 }
                 catch (e) {
-                    this.ApproverEmailID = "aakash.d@extentia.com";
+                    // this.ApproverEmailID = "aakash.d@extentia.com";
+                    this.ApproverEmailID = "vendor@test.com";
                 }
 
                 //view model instatiation
@@ -40,25 +41,17 @@ sap.ui.define([
                 this.initializeFilterBar();
             },
 
-            // User Role Detail Press
-            onUserRoleDetlPress: function (oEvent) {
-                // The source is the list item that got pressed
-                this._showObject(oEvent.getSource());
-            },
-
-            // Show Object Method
-            _showObject: function (oItem) {
-                var that = this;
-                var sObjectPath = oItem.getBindingContext().sPath;
-                that.getRouter().navTo("RouteUserRoleDetailPage", {
-                    BOQRequestId: sObjectPath.slice("/UserSet".length)
-                });
-            },
-
             onBeforeRebindApprovalRequestsTable: function (oEvent) {
                 var mBindingParams = oEvent.getParameter("bindingParams");
+
+                // Sort Table with descending order using Created Field
                 mBindingParams.sorter.push(new sap.ui.model.Sorter("CreatedAt", true));
-                // mBindingParams.filters.push(new sap.ui.model.Filter("Email", sap.ui.model.FilterOperator.EQ, this.ApproverEmailID));
+
+                // Filter Table Entity with Logged In User Email ID Field
+                mBindingParams.filters.push(new sap.ui.model.Filter("Email", sap.ui.model.FilterOperator.EQ, this.ApproverEmailID));
+
+                // Expand entity from Table's Main Entity
+                mBindingParams.parameters["expand"] = "RoleAssignId";
             },
 
             onApproveRequestPress: function (oEvent) {
@@ -70,10 +63,15 @@ sap.ui.define([
             },
 
             fnSaveApproveRejectRequest: function (sStatus, oEvent) {
-                var oSelectedUserObj = oEvent.getSource().getParent().getBindingContext().getObject(),
+                try {
+                    this.sUserName = sap.ushell.Container.getService("UserInfo").getFirstName();
+                }
+                catch (e) {
+                    this.sUserName = "Atul";
+                }
+                var oSelectedUserObj = oEvent.getSource().getParent().getBindingContext().getProperty("RoleAssignId"),
                     oApproveRejectObj = {
-                        // "UserName": sap.ushell.Container.getService("UserInfo").getFirstName(),
-                        "UserName": "Atul",
+                        "UserName": this.sUserName,
                         "UserId": Number(oSelectedUserObj.UserId),
                         "UpdateRequestFlag": true,
                         "RoleAssignApprovalRequestId": Number(oSelectedUserObj.ID),
@@ -112,7 +110,7 @@ sap.ui.define([
 
                 var FreeTextSearch = this.byId("filterbar").getBasicSearchValue();
                 if (FreeTextSearch) {
-                    orFilters.push(new Filter("UserId", FilterOperator.EQ, Number(FreeTextSearch)));
+                    orFilters.push(new Filter("UserId", FilterOperator.EQ, FreeTextSearch));
                     orFilters.push(new Filter("Role", FilterOperator.Contains, FreeTextSearch));
                     orFilters.push(new Filter("Email", FilterOperator.Contains, FreeTextSearch));
                     orFilters.push(new Filter("RequestNumber", FilterOperator.Contains, FreeTextSearch));
