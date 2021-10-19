@@ -225,9 +225,9 @@ sap.ui.define([
                 var rowObj = oEvent.getSource().getParent().getRowBindingContext().getObject();
                 var MDCCApprovedQty = oEvent.getSource().getParent().getCells()[7].getValue();
                 var aCell = oEvent.getSource().getParent().getCells()[7];
-                if (parseInt(MDCCApprovedQty) > parseInt(rowObj.RemainingQty)) {
+                if (parseFloat(MDCCApprovedQty) > parseFloat(rowObj.RemainingQty) || parseFloat(MDCCApprovedQty) <= 0) {
                     aCell.setValueState("Error");
-                    aCell.setValueStateText("Please enter quantity lesser than or equal to remaining quantity")
+                    aCell.setValueStateText("Please enter a non-zero quantity lesser than or equal to remaining quantity")
                     this.getView().byId("idBtnSave").setEnabled(false);
                 } else {
                     aCell.setValueState("None");
