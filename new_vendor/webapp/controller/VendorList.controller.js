@@ -35,6 +35,12 @@ sap.ui.define([
 
             },
 
+             onbeforeRebindOpenPoTable: function (oEvent) {
+                var mBindingParams = oEvent.getParameter("bindingParams");
+                mBindingParams.sorter.push(new sap.ui.model.Sorter("CreatedAt", true));
+                // mBindingParams.filters.push(new sap.ui.model.Filter("Email", sap.ui.model.FilterOperator.EQ, this.ApproverEmailID));
+            },
+
             //Triggers on press of a PO Number item from the list
             onNavigateVendorDetails: function (oEvent) {
                 var sObjectPath = oEvent.getSource().getBindingContext().sPath;

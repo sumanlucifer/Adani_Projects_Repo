@@ -69,7 +69,6 @@ sap.ui.define([
                 var FreeTextSearch = this.byId("filterbar").getBasicSearchValue();
                 if (FreeTextSearch) {
                     orFilters.push(new Filter("PONumber", FilterOperator.Contains, FreeTextSearch));
-
                     andFilters.push(new Filter(orFilters, false));
                 }
 
