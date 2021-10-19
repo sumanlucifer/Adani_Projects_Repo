@@ -19,3 +19,9 @@ sapui5/vendorPersona/.env1
 sapui5/qr-details/.env1
 # auto generated wildcard
 sapui5/security-scanqr/.env1
+# auto generated wildcard
+sapui5/vendor-mdcc/.env1
+# auto generated wildcard
+sapui5/security-scanqr/.env2
+# auto generated wildcard
+sapui5/storestock/.env1

@@ -82,13 +82,12 @@ sap.ui.define([
                 var that = this;
                 if (qrcodeID !== "") {
                     that.getView().byId("idQRBtn").setProperty("enabled", true);
-                    // that.getView().byId("idQRSubmit").setProperty("enabled", false);
-                    that.getView().byId("idInvoiceNum").setProperty("enabled", false);
+
+
 
                 } else {
                     that.getView().byId("idQRBtn").setProperty("enabled", false);
-                    // that.getView().byId("idQRSubmit").setProperty("enabled", true);
-                    that.getView().byId("idInvoiceNum").setProperty("enabled", true);
+
                 }
             },
 
@@ -187,45 +186,43 @@ sap.ui.define([
 
             // On Submit QR Histroy
             onPressSubmitQRCode: function () {
-                var that = this;
+
                 this.validateQRCode();
             },
 
+
+
+
+
+
             // Validate QR Code
             validateQRCode: function (QRCode) {
-                var that = this;
+
                 var qrCodeId = this.getView().byId("idInputQRCode").getValue() || QRCode;
-                var QRNumberFilter = new sap.ui.model.Filter({
+
+                var QRCodeFilter = new sap.ui.model.Filter({
                     path: "QRNumber",
                     operator: sap.ui.model.FilterOperator.EQ,
                     value1: qrCodeId
                 });
-
-                var PACKINGLISTFilter = new sap.ui.model.Filter({
-                    path: "Type",
-                    operator: sap.ui.model.FilterOperator.EQ,
-                    value1: 'PACKINGLIST'
-                });
                 var filter = [];
-                filter.push(QRNumberFilter);
-                filter.push(PACKINGLISTFilter);
-                var sPath = "/QRCodeSet?$filter=QRNumber eq '" + qrCodeId + "' and Type eq 'PACKINGLIST'&$expand=PackingList"
-
-                this.MainModel.read("/QRCodeSet", {
+                filter.push(QRCodeFilter);
+                this.getComponentModel().read("/QRCodeSet", {
                     filters: [filter],
-                    // urlParameters: {
-                    //     "$expand": "PackingList"
-                    // },
+                    urlParameters: {
+                        "$expand": "PackingList"
+                    },
                     success: function (oData, oResponse) {
-
-                        if (oData.results.length) {
-                            that.oRouter.navTo("QRCodeDetailsPage", {
-                                // QRNo: oData.results[0].PackingList.ID,
-                                QRNo: oData.results[0].ID,
-                                Type: "QR"
+                        if (oData.results.length !== 0) {
+                            this.oRouter.navTo("QRCodeDetailsPage", {
+                                PackingID: oData.results[0].PackingList.ID
+                                                           //     PackingID: 71
                             }, false);
-                        } else {
-                            sap.m.MessageBox.error("Please Enter Valid QR Code");
+                        }
+                        else {
+                            sap.m.MessageBox.error("Invalid QR Code");
+
+
                         }
                     }.bind(this),
                     error: function (oError) {
@@ -233,77 +230,16 @@ sap.ui.define([
                     }
                 });
             },
+
+
+
+
+
 
             onPressSubmitInvoiceNumber: function () {
                 var that = this;
                 this.validateInvoiceNumber();
-            },
-            validateInvoiceNumber: function () {
-                var that = this;
-
-                var invnumberId = this.getView().byId("idInvoiceNum").getValue();
-                var InvNumberFilter = new sap.ui.model.Filter({
-                    path: "InvoiceNumber",
-                    operator: sap.ui.model.FilterOperator.EQ,
-                    value1: invnumberId
-                });
-
-                var PACKINGLISTFilter = new sap.ui.model.Filter({
-                    path: "Type",
-                    operator: sap.ui.model.FilterOperator.EQ,
-                    value1: 'PACKINGLIST'
-                });
-                var filter = [];
-                filter.push(InvNumberFilter);
-                // filter.push(PACKINGLISTFilter);
-                // var sPath = "/QRCodeSet?$filter=QRNumber eq '" + qrCodeId + "' and Type eq 'PACKINGLIST'&$expand=PackingList"
-
-                this.MainModel.read("/PackingListSet", {
-                    filters: [filter],
-                    urlParameters: {
-                        "$expand": "QRCodeId"
-                    },
-
-                    success: function (oData, oResponse) {
-                        // debugger;
-                        if (oData.results.length) {
-                            var qrCodeId = oData.results[0].QRCodeId.results;
-                            for (var i = 0; i < qrCodeId.length; i++) {
-                                if (qrCodeId[i].Type === "PACKINGLIST") {
-                                    that.QRNo = qrCodeId[i].ID;
-                                }
-                            }
-
-                            if (oData.results.length) {
-                                that.oRouter.navTo("QRCodeDetailsPage", {
-                                    QRNo: that.QRNo,
-                                    Type: "INV"
-                                }, false);
-                            }
-                            else {
-                                sap.m.MessageBox.error("Please Enter Valid Invoice Number");
-                            }
-                        } else {
-                            sap.m.MessageBox.error("Please Enter Valid Invoice Number");
-                        }
-                    }.bind(this),
-                    error: function (oError) {
-                        sap.m.MessageBox.error(JSON.stringify(oError));
-                    }
-                });
-            },
-
-            onSubmitInvNum: function (oEvent) {
-                var that = this;
-                var invoiceInput = this.byId("idInvoiceNum");
-                var invoiceID = oEvent.getSource().getSelectedKey();
-                var oBindingObject = oEvent.getSource().getObjectBinding();
-                oEvent.getSource().setSelectedItem(oEvent.getSource().getSelectedItem());
-                if (invoiceID == "") {
-                    invoiceInput.setValueState(ValueState.Error);
-                } else {
-                    invoiceInput.setValueState(ValueState.None);
-                }
             }
+
         });
     });

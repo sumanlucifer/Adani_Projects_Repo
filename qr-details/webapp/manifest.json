@@ -107,6 +107,14 @@
                     "target": [
                         "ScanQRCodePage"
                     ]
+                },
+
+                {
+                    "name": "QRCodeDetailsPage",
+                    "pattern": "QRCodeDetails/{PackingID}",
+                    "target": [
+                        "QRCodeDetailsPage"
+                    ]
                 }
             ],
             "targets": {
@@ -117,6 +125,15 @@
                     "viewId": "ScanQrCode",
                     "viewName": "ScanQrCode",
                     "viewLevel": 1
+                },
+
+                "QRCodeDetailsPage": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewId": "QRCodeDetails",
+                    "viewName": "QRCodeDetails",
+                    "viewLevel": 2
                 },
                 "notFound": {
                     "viewName": "NotFound"

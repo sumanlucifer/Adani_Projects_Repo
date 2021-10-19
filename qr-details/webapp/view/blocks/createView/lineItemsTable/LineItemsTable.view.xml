@@ -1,0 +1,59 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns:f="sap.ui.layout.form"
+    xmlns="sap.m"
+    xmlns:smartTable="sap.ui.comp.smarttable"
+    xmlns:tt="sap.ui.table" controllerName="com.agel.mmts.qrdetails.view.blocks.createView.lineItemsTable.LineItemsTableController">
+
+    <Table id="idBOQItemTable" items="{path: 'PackingListParentItems'}" autoPopinMode="true" growingThreshold="5" growing="true" fixedLayout="false">
+        <columns>
+            <Column>
+                <Text text="Line Number"/>
+            </Column>
+            <Column>
+                <Text text="Material Code"/>
+            </Column>
+            <Column>
+                <Text text="Name"/>
+            </Column>
+            <Column>
+                <Text text="Description"/>
+            </Column>
+
+            <Column>
+                <Text text="Total Quantity"/>
+            </Column>
+            <Column>
+                <Text text="Dispatch Quantity"/>
+            </Column>
+            <Column>
+                <Text text="UOM"/>
+            </Column>
+            <Column>
+                <Text text="Action"/>
+            </Column>
+            <!-- <Column>
+                <Text text="Name"/>
+            </Column> -->
+        </columns>
+        <items>
+            <ColumnListItem>
+                <cells>
+                    <Text text="{LineNumber}"/>
+                    <ObjectIdentifier title="{MaterialCode}"/>
+                    <Text text="{Name}"/>
+                    <ExpandableText text="{Description}" overflowMode="Popover" maxCharacters="50" />
+                    <Text text="{Qty}"/>
+                    <Text text="{DispatchQty}"/>
+                    <Text text="{UOM}"/>
+                    <VBox items="{PackingListBOQItems}">
+                        <Link text="View BOQ items" press="onViewBOQItemsPress" visible="{= ${PackingListBOQItems/items}.length>0 }"/>
+                    </VBox>
+                </cells>
+            </ColumnListItem>
+        </items>
+    </Table>
+
+</mvc:View>
+
+

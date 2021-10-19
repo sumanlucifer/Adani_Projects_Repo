@@ -13,14 +13,16 @@ sap.ui.define([
     'sap/ui/model/FilterOperator',
 ], function (BaseController, Fragment, Device, JSONModel, Token, ColumnListItem, Label, MessageBox, formatter, PDFViewer, Filter, FilterOperator) {
     "use strict";
-    return BaseController.extend("com.agel.mmts.vendorpackinglistcreate.controller.PackingListDetails", {
+    return BaseController.extend("com.agel.mmts.qrdetails.controller.QRCodeDetails", {
         formatter: formatter,
         onInit: function () {
             jQuery.sap.addUrlWhitelist("blob");
             this.mainModel = this.getOwnerComponent().getModel();
             //Router Object
             this.oRouter = this.getOwnerComponent().getRouter();
-            this.oRouter.getRoute("RoutePackingListDetails").attachPatternMatched(this._onObjectMatched, this);
+
+            this.oRouter.getRoute("QRCodeDetailsPage").attachPatternMatched(this._onObjectMatched, this);
+
             //view model instatiation
             var oViewModel = new JSONModel({
                 busy: false,
@@ -33,7 +35,7 @@ sap.ui.define([
         },
         _onObjectMatched: function (oEvent) {
             var objectViewModel = this.getViewModel("objectViewModel");
-            this.packingListId = oEvent.getParameter("arguments").packingListId;
+            this.packingListId = oEvent.getParameter("arguments").PackingID;
             var that = this;
             //  this.packingListId = "62";
             this.getView().bindElement({

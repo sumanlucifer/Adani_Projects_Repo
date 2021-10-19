@@ -34,7 +34,7 @@ sap.ui.define([
                 var startupParams = this.getOwnerComponent().getComponentData().startupParameters;
                 this.packingListId = startupParams.packingListID[0];
 
-             // this.packingListId = 115;
+           // this.packingListId = 62;
                
 
                /* if (startupParams.status[0] !== "SAVED") {

@@ -1,0 +1,53 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns:f="sap.ui.layout.form"
+    xmlns="sap.m"
+    xmlns:smartTable="sap.ui.comp.smarttable"
+    xmlns:tt="sap.ui.table" controllerName="com.agel.mmts.qrdetails.view.blocks.packingListDetails.lineItemsTable.LineItemsTableController">
+
+    <Table items="{path: 'PackingListParentItems'}" autoPopinMode="true" growingThreshold="5" growing="true" fixedLayout="false">
+        <columns>
+            <Column>
+                <Text text="Line Number"/>
+            </Column>
+            <Column>
+                <Text text="Material Code"/>
+            </Column>
+            <Column>
+                <Text text="Name"/>
+            </Column>
+            <Column hAlign="Center">
+                <Text text="Quantity"/>
+            </Column>
+            <Column hAlign="Center">
+                <Text text="MDCC Approved Qty."/>
+            </Column>
+            <Column hAlign="Center">
+                <Text text="Dispatch Qty."/>
+            </Column>
+            <Column>
+                <Text text="UOM"/>
+            </Column>
+            <Column>
+                <Text text="Action"/>
+            </Column>
+        </columns>
+        <items>
+            <ColumnListItem>
+                <cells>
+                    <Text text="{LineNumber}"/>
+                    <ObjectIdentifier title="{MaterialCode}"/>
+                    <Text text="{Name}"/>
+                    <Text text="{Qty}"/>
+                    <Text text="{MDCCApprovedQty}"/>
+                    <Text text="{DispatchQty}"/>
+                    <Text text="{UOM}"/>
+                    <Link text="View QR Code" binding="{QrCode}" visible="{= ${QRNumber}}" press="onViewQRPress"/>
+                </cells>
+            </ColumnListItem>
+        </items>
+    </Table>
+
+</mvc:View>
+
+
