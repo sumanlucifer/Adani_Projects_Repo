@@ -176,8 +176,6 @@ sap.ui.define([
                 }
 
             }
-
-
             if (parseInt(oValue) <= 0 || parseInt(oValue) === 0) {
                 oEvent.getSource().setValueState("Error");
                 oEvent.getSource().setValueStateText("Please enter Positive and Non Zero Number");
@@ -465,12 +463,14 @@ sap.ui.define([
         },
 
         onLiveChangeBoqQty: function (oEvent) {
+            // var oPOData = this.getView().getBindingContext().getObject();
             var oValue = oEvent.getSource().getValue();
             var sBindingPath = oEvent.getSource().getBindingContext("boqCreationModel").sPath;
             // var aGroupItems = this.getViewModel("boqCreationModel").getProperty("/CalculatedBOQItems");
             var iTotalQuantity = this.getViewModel("boqCreationModel").getProperty("/quantity");
             var iWeightPerPiece = this.getViewModel("boqCreationModel").getProperty(sBindingPath + "/WeightPerPiece");
             var iTotalItemWeight = this.getViewModel("boqCreationModel").getProperty(sBindingPath + "/TotalItemWeight");
+            var iRemainingQty = this.getViewModel("boqCreationModel").getProperty(sBindingPath + "/RemainingQty");
             if (iTotalItemWeight) {
                 iTotalQuantity -= iTotalItemWeight
                 this.getViewModel("boqCreationModel").setProperty("/quantity", iTotalQuantity);
@@ -481,9 +481,14 @@ sap.ui.define([
                 this.getViewModel("boqCreationModel").setProperty(sBindingPath + "/TotalItemWeight", iTotalWeight);
                 iTotalQuantity += iTotalWeight;
                 this.getViewModel("boqCreationModel").setProperty("/quantity", iTotalQuantity);
+                // if (parseFloat(oValue) > parseFloat(oPOData.PendingQty)) {
+                //     this.getViewModel("boqCreationModel").setProperty("/isConfirmButtonEnabled", false);
+                //     oEvent.getSource().setValueState("Error");
+                //     oEvent.getSource().setValueStateText("Enter valid quantity");
+                // }
             }
             // this.getViewModel("boqCreationModel").setProperty("/CalculatedBOQItems", aGroupItems);
-            if (parseFloat(oValue) > 0 && parseFloat(oValue)) {
+            if (parseFloat(oValue) > 0 && parseFloat(oValue) <= parseFloat(iRemainingQty)) {
                 this.getViewModel("boqCreationModel").setProperty("/isConfirmButtonEnabled", true);
                 oEvent.getSource().setValueState("None");
                 oEvent.getSource().setValueStateText("");

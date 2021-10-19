@@ -179,7 +179,7 @@
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection title="{i18n>materialDetails}">
                         <uxap:blocks>
-                            <UploadCollection id="idMaterialFileUploader" maximumFilenameLength="55" maximumFileSize="10" multiple="true" items="{
+                            <!-- <UploadCollection id="idMaterialFileUploader" maximumFilenameLength="55" maximumFileSize="10" multiple="true" items="{
                                     path:'Attachments',
                                     filters : [
                                         { path : 'SubType', operator : 'EQ', value1 : 'MATERIAL'},
@@ -201,12 +201,31 @@
                                         </attributes>
                                     </UploadCollectionItem>
                                 </items>
+                            </UploadCollection> -->
+                            <UploadCollection id="idMaterialFileUploader" maximumFilenameLength="55" maximumFileSize="10" multiple="true" items="{
+                                    path:'DocumentModel>/PL_Material',
+                                    templateShareable: false}" mode="None" uploadButtonInvisible="true" instantUpload="false">
+                                <items>
+                                    <UploadCollectionItem documentId="{DocumentModel>ID}" url="{parts: ['DocumentModel>FileName','DocumentModel>Content'], 
+                                        formatter: '.formatter.fileContent' }" enableEdit="false" enableDelete="false" visibleDelete="false" visibleEdit="false" fileName="{DocumentModel>FileName}">
+                                        <attributes>
+                                            <ObjectAttribute title="Uploaded By" text="{DocumentModel>UploadedBy}" class="sapUiSmallMarginEnd"/>
+                                            <ObjectAttribute title="Uploaded On" text="{path:'DocumentModel>CreatedAt',
+                                                    type: 'sap.ui.model.type.Date',
+                                                    formatOptions: {
+                                                        pattern: 'MMMM dd, yyyy'
+                                                    }
+                                            }"/>
+                                            <ObjectAttribute title="Size" text="{path : 'DocumentModel>FileSize', formatter : '.formatter.formatFileSize'}"/>
+                                        </attributes>
+                                    </UploadCollectionItem>
+                                </items>
                             </UploadCollection>
                         </uxap:blocks>
                     </uxap:ObjectPageSubSection>
                     <uxap:ObjectPageSubSection title="{i18n>invoiceDetails}">
                         <uxap:blocks>
-                            <UploadCollection id="idInvoiceFileUploader" maximumFilenameLength="55" maximumFileSize="10" multiple="true" items="{
+                            <!-- <UploadCollection id="idInvoiceFileUploader" maximumFilenameLength="55" maximumFileSize="10" multiple="true" items="{
                                     path:'Attachments',
                                     filters : [
                                         { path : 'SubType', operator : 'EQ', value1 : 'INVOICE'},
@@ -228,12 +247,31 @@
                                         </attributes>
                                     </UploadCollectionItem>
                                 </items>
+                            </UploadCollection> -->
+                            <UploadCollection id="idInvoiceFileUploader" maximumFilenameLength="55" maximumFileSize="10" multiple="true" items="{
+                                    path:'DocumentModel>/PL_Invoice',
+                                    templateShareable: false}" mode="None" uploadButtonInvisible="true" instantUpload="false">
+                                <items>
+                                    <UploadCollectionItem documentId="{DocumentModel>ID}" url="{parts: ['DocumentModel>FileName','DocumentModel>Content'], 
+                                        formatter: '.formatter.fileContent' }" enableEdit="false" enableDelete="false" visibleDelete="false" visibleEdit="false" fileName="{DocumentModel>FileName}">
+                                        <attributes>
+                                            <ObjectAttribute title="Uploaded By" text="{DocumentModel>UploadedBy}" class="sapUiSmallMarginEnd"/>
+                                            <ObjectAttribute title="Uploaded On" text="{path:'DocumentModel>CreatedAt',
+                                                    type: 'sap.ui.model.type.Date',
+                                                    formatOptions: {
+                                                        pattern: 'MMMM dd, yyyy'
+                                                    }
+                                            }"/>
+                                            <ObjectAttribute title="Size" text="{path : 'DocumentModel>FileSize', formatter : '.formatter.formatFileSize'}"/>
+                                        </attributes>
+                                    </UploadCollectionItem>
+                                </items>
                             </UploadCollection>
                         </uxap:blocks>
                     </uxap:ObjectPageSubSection>
                     <uxap:ObjectPageSubSection title="{i18n>otherDetails}">
                         <uxap:blocks>
-                            <UploadCollection id="idOtherFileUploader" maximumFilenameLength="55" maximumFileSize="10" multiple="true" items="{
+                            <!-- <UploadCollection id="idOtherFileUploader" maximumFilenameLength="55" maximumFileSize="10" multiple="true" items="{
                                     path:'Attachments',
                                     filters : [
                                         { path : 'SubType', operator : 'EQ', value1 : 'OTHERS'},
@@ -255,19 +293,16 @@
                                         </attributes>
                                     </UploadCollectionItem>
                                 </items>
-                            </UploadCollection>
-
-
-
-                                   <!-- <UploadCollection id="idOtherFileUploader" maximumFilenameLength="55" maximumFileSize="10" multiple="true" items="{
-                                    path:'DocumentModel>/',
+                            </UploadCollection> -->
+                            <UploadCollection id="idOtherFileUploader" maximumFilenameLength="55" maximumFileSize="10" multiple="true" items="{
+                                    path:'DocumentModel>/PL_Others',
                                     templateShareable: false}" mode="None" uploadButtonInvisible="true" instantUpload="false">
                                 <items>
                                     <UploadCollectionItem documentId="{DocumentModel>ID}" url="{parts: ['DocumentModel>FileName','DocumentModel>Content'], 
                                         formatter: '.formatter.fileContent' }" enableEdit="false" enableDelete="false" visibleDelete="false" visibleEdit="false" fileName="{DocumentModel>FileName}">
                                         <attributes>
-                                            <ObjectAttribute title="Material Documents" text="{DocumentModel>ID}" class="sapUiSmallMarginEnd"/>
-                                                            <ObjectAttribute title="Invoice Date" text="{path:'DocumentModel>CreatedAt',
+                                            <ObjectAttribute title="Uploaded By" text="{DocumentModel>UploadedBy}" class="sapUiSmallMarginEnd"/>
+                                            <ObjectAttribute title="Uploaded On" text="{path:'DocumentModel>CreatedAt',
                                                     type: 'sap.ui.model.type.Date',
                                                     formatOptions: {
                                                         pattern: 'MMMM dd, yyyy'
@@ -277,7 +312,7 @@
                                         </attributes>
                                     </UploadCollectionItem>
                                 </items>
-                            </UploadCollection> -->
+                            </UploadCollection>
                         </uxap:blocks>
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>

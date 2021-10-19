@@ -620,6 +620,7 @@ sap.ui.define([
                 else
                     this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", false);
             },
+
             onQuantityLiveChange: function (oEvent) {
                 var oGRNData = this.getView().getBindingContext().getObject();
                 if (oEvent.getSource().getValue().length && parseInt(oEvent.getSource().getValue()) > 0)
@@ -627,14 +628,15 @@ sap.ui.define([
                 else
                     this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", false);
 
-                if (parseInt(oEvent.getSource().getValue()) > parseInt(oGRNData.TotalWeight) || parseInt(oEvent.getSource().getValue()) <= 0) {
-                    this.getViewModel("requestModel").setProperty("/valueState", "Error");
-                    this.getViewModel("requestModel").setProperty("/valueStateText", "Total Packaging Weight should not exceed Total Vendor Entered Weight.");
+                if (parseFloat(oEvent.getSource().getValue()) > parseFloat(oGRNData.TotalWeight) || parseFloat(oEvent.getSource().getValue()) <= 0 ) {
+                    sap.m.MessageBox.error("Total Packaging Weight should more than 0 and not exceed Total Vendor Entered Weight.");
+                    // this.getViewModel("requestModel").setProperty("/valueState", "Error");
+                    // this.getViewModel("requestModel").setProperty("/valueStateText", "Total Packaging Weight should not exceed Total Vendor Entered Weight.");
                     this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", false);
                 }
                 else {
-                    this.getViewModel("requestModel").setProperty("/valueState", null);
-                    this.getViewModel("requestModel").setProperty("/valueStateText", "");
+                    // this.getViewModel("requestModel").setProperty("/valueState", null);
+                    // this.getViewModel("requestModel").setProperty("/valueStateText", "");
                     this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", true);
                 }
             },
