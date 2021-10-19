@@ -261,7 +261,7 @@ modules:
     supported-platforms: []
 - name: selfroleassignment
   type: html5
-  path: selfroleassignment
+  path: self-roleassignment
   build-parameters:
     builder: custom
     commands:
