@@ -5,7 +5,7 @@
     <smartTable:SmartTable class="sapUiResponsiveContentPadding" id="idUserRoleTable" editable="false" placeToolbarInTable="true" 
     enableAutoBinding="true" entitySet="UserSet" showFullScreenButton="true" showRowCount="false" tableType="ResponsiveTable" 
     demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" beforeRebindTable="onBeforeRebindBOQTable"  
-    enableAutoColumnWidth="true">
+    >
 
         <smartTable:layoutData><FlexItemData growFactor="1" /></smartTable:layoutData>
         <Table sticky="ColumnHeaders,HeaderToolbar">

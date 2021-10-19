@@ -26,6 +26,9 @@
                     <Column demandPopin="true" minScreenWidth="Tablet">
                         <Text text="{i18n>role}" wrapping="true"/>
                     </Column>
+                    <Column demandPopin="true" minScreenWidth="Tablet">
+                        <Text text="{i18n>departmenthead}" wrapping="true"/>
+                    </Column>
                 </columns>
                 <items>
                     <ColumnListItem>
@@ -43,6 +46,10 @@
                                             }
                             }"/>
                             <Text text="{Role}​​​" binding="{Role}"/>
+                            <HBox alignItems="Center" alignContent="Center">
+                                <ObjectNumber number="{i18n>IsDepartmentHead}" state="Success" visible="{= ${IsHeadOfDepartment} === true ? true : false}"/>
+                                <Button text="{i18n>DeclareHOD}"  press="onCreateDeptHeadPress"  visible="{= ${IsHeadOfDepartment} === false ? true : false}"/>
+                            </HBox>
                         </cells>
                     </ColumnListItem>
                 </items>
