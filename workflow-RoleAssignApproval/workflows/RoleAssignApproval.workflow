@@ -2,7 +2,7 @@
 	"contents": {
 		"e09e9564-cc5e-402a-83b6-9f5fb1b36a24": {
 			"classDefinition": "com.sap.bpm.wfs.Model",
-			"id": "com.agel.mmts.roleassignapproval",
+			"id": "roleassignapproval",
 			"subject": "RoleAssignApproval",
 			"name": "RoleAssignApproval",
 			"documentation": "",
