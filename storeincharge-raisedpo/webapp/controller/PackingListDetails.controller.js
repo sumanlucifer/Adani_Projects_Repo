@@ -370,14 +370,10 @@ sap.ui.define([
 
             onDeliveryNoteLiveChange: function (oEvent) {
                 var oPOData = this.getView().getBindingContext().getObject();
-                 if (oEvent.getSource().getValue().length)
-
+                if (oEvent.getSource().getValue().length)
                     this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", true);
-
-                else 
-
-                    this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", false);   
-                
+                else
+                    this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", false);
             },
 
             onQuantityLiveChange: function (oEvent) {
@@ -387,8 +383,8 @@ sap.ui.define([
                 else
                     this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", false);
 
-                if (parseFloat(oEvent.getSource().getValue()) > parseFloat(oGRNData.TotalWeight)) {
-                    sap.m.MessageBox.error("Total Packaging Weight should not exceed Total Vendor Entered Weight.");
+                if (parseFloat(oEvent.getSource().getValue()) > parseFloat(oGRNData.TotalWeight) || parseFloat(oEvent.getSource().getValue()) <= 0 ) {
+                    sap.m.MessageBox.error("Total Packaging Weight should more than 0 and not exceed Total Vendor Entered Weight.");
                     // this.getViewModel("requestModel").setProperty("/valueState", "Error");
                     // this.getViewModel("requestModel").setProperty("/valueStateText", "Total Packaging Weight should not exceed Total Vendor Entered Weight.");
                     this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", false);

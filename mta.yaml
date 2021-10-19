@@ -40,6 +40,14 @@ modules:
       name: user-roleassignment
       target-path: resources/
     - artifacts:
+      - hodroleapproval-content.zip
+      name: hodroleapproval
+      target-path: resources/
+    - artifacts:
+      - self-roleassignment-content.zip
+      name: selfroleassignment
+      target-path: resources/
+    - artifacts:
       - ScannerAppLibrary-content.zip
       name: ScannerAppLibrary
       target-path: resources/
@@ -247,6 +255,22 @@ modules:
     commands:
     - npm run build
     supported-platforms: []
+- name: hodroleapproval
+  type: html5
+  path: hodroleapproval
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []
+- name: selfroleassignment
+  type: html5
+  path: self-roleassignment
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []    
 - name: ScannerAppLibrary
   type: html5
   path: ScannerAppLibrary
