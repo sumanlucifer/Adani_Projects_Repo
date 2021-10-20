@@ -82,7 +82,7 @@ sap.ui.define([
 
             var oDataModel = this.getViewModel();
             oDataModel.read("/IssuedMaterialReserveSet" + this.sObjectId, {
-                urlParameters: { "$expand": "IssuedMaterialParents" },
+                urlParameters: { "$expand": "IssuedMaterialReservedItems" },
                 success: function (oData) {
                     // if (oData) {
                     // debugger;
@@ -96,14 +96,14 @@ sap.ui.define([
                     // }
                     if (oData) {
                         // debugger;
-                        oData.IssuedMaterialParents.results.forEach(element => {
+                        oData.IssuedMaterialReservedItems.results.forEach(element => {
                             element.IssuedQty = null;
                             element.IssueMaterialBOQItems = [];
                             element.WBSNumber = oData.WBSNumber;
                             element.QRNumber = null;
                         });
                     }
-                    var oJsonModel = new JSONModel(oData.IssuedMaterialParents.results);
+                    var oJsonModel = new JSONModel(oData.IssuedMaterialReservedItems.results);
                     this.getView().setModel(oJsonModel, "IssueMatModel");
 
                 }.bind(this),
@@ -241,6 +241,13 @@ sap.ui.define([
              
             }
 
+            this._oScannerDialog1.then(function (oDialog) {
+                oDialog.close();
+            });
+        },
+
+        onEnterQuantityDialogCancelPress: function(oEvent){
+            this.getView().byId("idInputIssuedQty").setValue(null);
             this._oScannerDialog1.then(function (oDialog) {
                 oDialog.close();
             });

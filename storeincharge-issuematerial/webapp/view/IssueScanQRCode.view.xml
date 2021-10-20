@@ -75,6 +75,9 @@
                                     <Text text="{i18n>reservedQty}"/>
                                 </Column>
                                 <Column demandPopin="true" minScreenWidth="Desktop">
+                                    <Text text="{i18n>QtyAvailableforIssue}"/>
+                                </Column>
+                                <Column demandPopin="true" minScreenWidth="Desktop">
                                     <Text text="{i18n>issueQty}"/>
                                 </Column>
                                 <Column demandPopin="true" minScreenWidth="Desktop">
@@ -96,7 +99,8 @@
                                                 pattern: 'MMMM dd, yyyy'
                                             }
                                         }"/>
-                                        <ObjectIdentifier title="{IssueMatModel>ReservedQty}" />
+                                        <Text text="{IssueMatModel>ReservedQty}"/>
+                                        <ObjectIdentifier title="{IssueMatModel>QtyRemainingToIssue}" />                                            
                                         <ObjectIdentifier title="{IssueMatModel>IssuedQty}" />
                                         <Text text="{IssueMatModel>BaseUnit}" />
                                     </cells>
