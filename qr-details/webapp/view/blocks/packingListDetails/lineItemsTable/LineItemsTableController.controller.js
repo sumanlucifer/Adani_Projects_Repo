@@ -10,7 +10,19 @@ sap.ui.define(["sap/ui/core/mvc/Controller"], function (Controller) {
 
         onViewQRPress: function(oEvent){
             this.oParentBlock.fireOnViewQRCodePress(oEvent);
+        },
+
+        onBeforeRebindTreeTable: function (oEvent) {
+            this.oParentBlock.fireManageBOQItemPress(oEvent);
+        },
+
+        onAfterRendering: function (oEvent) {
+            this.byId("smartTreeTable").rebindTable();
+        },
+         onRefreshBOQItems: function(){
+            this.getOwnerComponent().getModel().refresh();
         }
+
 
     });
 });

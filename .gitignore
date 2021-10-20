@@ -35,3 +35,6 @@ self-roleassignment/.env1
 # auto generated wildcard
 storeincharge-raisedpo/.env1
 >>>>>>> develop
+
+# auto generated wildcard
+sapui5/storestock/.env2

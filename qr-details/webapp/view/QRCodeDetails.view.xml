@@ -120,7 +120,7 @@
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection title="{i18n>lineItems}" titleLevel="H6">
                         <uxap:blocks>
-                            <lineItemsTable:LineItemsTable class="sapUxAPObjectPageSubSectionAlignContent" OnViewBOQItemsPress="onViewBOQItemsPress" OnViewQRCodePress = "onViewQRCodePress"/>
+                            <lineItemsTable:LineItemsTable class="sapUxAPObjectPageSubSectionAlignContent" ManageBOQItemPress="onManageBOQItemPress"  OnViewBOQItemsPress="onViewBOQItemsPress" OnViewQRCodePress = "onViewQRCodePress"/>
                         </uxap:blocks>
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>

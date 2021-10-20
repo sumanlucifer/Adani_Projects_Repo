@@ -3,51 +3,72 @@
     xmlns:f="sap.ui.layout.form"
     xmlns="sap.m"
     xmlns:smartTable="sap.ui.comp.smarttable"
-    xmlns:tt="sap.ui.table" controllerName="com.agel.mmts.qrdetails.view.blocks.packingListDetails.lineItemsTable.LineItemsTableController">
+    xmlns:tt="sap.ui.table" 
+    xmlns:ui="sap.ui.table"
+    controllerName="com.agel.mmts.qrdetails.view.blocks.packingListDetails.lineItemsTable.LineItemsTableController">
 
-    <Table items="{path: 'PackingListParentItems'}" autoPopinMode="true" growingThreshold="5" growing="true" fixedLayout="false">
-        <columns>
-            <Column>
-                <Text text="Line Number"/>
-            </Column>
-            <Column>
-                <Text text="Material Code"/>
-            </Column>
-            <Column>
-                <Text text="Name"/>
-            </Column>
-            <Column hAlign="Center">
-                <Text text="Quantity"/>
-            </Column>
-            <Column hAlign="Center">
-                <Text text="MDCC Approved Qty."/>
-            </Column>
-            <Column hAlign="Center">
-                <Text text="Dispatch Qty."/>
-            </Column>
-            <Column>
-                <Text text="UOM"/>
-            </Column>
-            <Column>
-                <Text text="Action"/>
-            </Column>
-        </columns>
-        <items>
-            <ColumnListItem>
-                <cells>
-                    <Text text="{LineNumber}"/>
-                    <ObjectIdentifier title="{MaterialCode}"/>
-                    <Text text="{Name}"/>
-                    <Text text="{Qty}"/>
-                    <Text text="{MDCCApprovedQty}"/>
-                    <Text text="{DispatchQty}"/>
-                    <Text text="{UOM}"/>
-                    <Link text="View QR Code" binding="{QrCode}" visible="{= ${QRNumber}}" press="onViewQRPress"/>
-                </cells>
-            </ColumnListItem>
-        </items>
-    </Table>
+               <VBox>
+                <ui:TreeTable  id="TreeTable" rows="{path:'TreeDataModel>/', parameters: {numberOfExpandedLevels: 2,arrayNames:['results']}}" selectionMode="None" enableSelectAll="false" ariaLabelledBy="title" rowsUpdated="onRowsUpdated">
+                    <ui:columns>
+
+
+
+<ui:Column>
+                            <Label text="{i18n>LineNumber}" />
+                            <ui:template>
+                                <Text text="{TreeDataModel>LineNumber}" wrapping="false" />
+                            </ui:template>
+                        </ui:Column>
+                           <ui:Column>
+                            <Label text="{i18n>Name}" />
+                            <ui:template>
+                                <Text text="{TreeDataModel>Name}" wrapping="false" />
+                            </ui:template>
+                        </ui:Column>
+
+
+                                                   <ui:Column>
+                            <Label text="{i18n>Description}" />
+                            <ui:template>
+ 
+
+                                                                            <ExpandableText text="{TreeDataModel>Description}" maxCharacters="32" overflowMode="Popover"/>
+                            </ui:template>
+                        </ui:Column>
+
+                                               <ui:Column>
+                            <Label text="{i18n>MaterialCode}" />
+                            <ui:template>
+                                <Text text="{TreeDataModel>MaterialCode}" wrapping="false" />
+                            </ui:template>
+                        </ui:Column>
+       <ui:Column>
+                            <Label text="{i18n>Quantity}" />
+                            <ui:template>
+                                <Text text="{TreeDataModel>Qty}" wrapping="false" />
+                            </ui:template>
+                        </ui:Column>
+
+
+                                               <ui:Column>
+                            <Label text="{i18n>MDCC ApprovedQty}" />
+                            <ui:template>
+                                <Text text="{TreeDataModel>MDCCApprovedQty}" wrapping="false" />
+                            </ui:template>
+                        </ui:Column>
+
+              <ui:Column>
+                            <Label text="{i18n>DispatchQty}" />
+                            <ui:template>
+                                <Text text="{TreeDataModel>DispatchQty}" wrapping="false" />
+                            </ui:template>
+                        </ui:Column>
+                        
+
+
+        
+                    </ui:columns>
+                </ui:TreeTable>
+            </VBox>
 
 </mvc:View>
-
-

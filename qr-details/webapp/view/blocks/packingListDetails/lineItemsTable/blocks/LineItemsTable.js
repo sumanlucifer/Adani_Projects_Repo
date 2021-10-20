@@ -14,6 +14,9 @@ sap.ui.define(['sap/uxap/BlockBase'], function (BlockBase) {
                 }
             },
              events: {
+
+                  "ManageBOQItemPress": {},
+                "onManageBOQItemPress":{},
                  "OnViewBOQItemsPress":{},
                  "OnViewQRCodePress":{}
 			}

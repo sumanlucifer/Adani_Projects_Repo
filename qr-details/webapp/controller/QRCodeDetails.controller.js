@@ -54,6 +54,8 @@ sap.ui.define([
                         else
                             objectViewModel.setProperty("/isPackingListInEditMode", true);
                         objectViewModel.setProperty("/busy", false);
+
+                        that.getTreeTable();
                         var documentResult = that.getDocumentData();
                         documentResult.then(function (result) {
                             that.PrintDocumentService(result);
@@ -64,6 +66,38 @@ sap.ui.define([
             // this._getPackingListOuterPackagingData();
             // this._getPackingListInnerPackagingData();
             // this._createAdditionalDetailsModel();
+        },
+
+
+        getTreeTable: function (sGoodsReciepientValue) {
+
+            this.getOwnerComponent().getModel().read("/PackingListSet(" + this.packingListId + ")/PackingListParentItems", {
+                urlParameters: {
+                    "$expand": "PackingListBOQItems"
+                },
+                success: function (oData, oResponse) {
+                    debugger;
+                    this.dataBuilding(oData.results);
+
+                }.bind(this),
+                error: function (oError) {
+                    sap.m.MessageBox.error(JSON.stringify(oError));
+                }
+            });
+        },
+
+        dataBuilding: function (ParentData) {
+            for (var i = 0; i < ParentData.length; i++) {
+                ParentData[i].results = ParentData[i];
+                for (var j = 0; j < ParentData[i].PackingListBOQItems.results.length; j++) {
+                    ParentData[i].PackingListBOQItems.results[j].results = ParentData[i].PackingListBOQItems.results;
+
+                }
+
+            }
+            var TreeDataModel = new JSONModel({ "results": ParentData });
+            this.getView().setModel(TreeDataModel, "TreeDataModel");
+            var data = this.ChildData;
         },
         getDocumentData: function () {
             var promise = jQuery.Deferred();
@@ -95,7 +129,7 @@ sap.ui.define([
                 })
                 sContent.then(function (val) {
                     item.Content = val
-                    debugger;
+
                 });
             })
         },
