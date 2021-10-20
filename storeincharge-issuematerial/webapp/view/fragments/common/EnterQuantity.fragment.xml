@@ -32,7 +32,7 @@
                             <Text text="{Name}"/>
                             <Text text="{ReservedQty}"/>
                             <ObjectIdentifier title="{QtyRemainingToIssue}" />    
-                            <Input value="{IssuedQty}" type="Number" id="idInputIssuedQty"/>
+                            <Input value="{IssuedQty}" type="Number" id="idInputIssuedQty" liveChange="onIssuedQtyLivechange"/>
                             <Text text="{BaseUnit}​​​"/>
                         </cells>
                     </ColumnListItem>

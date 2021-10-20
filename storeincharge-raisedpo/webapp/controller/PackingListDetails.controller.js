@@ -338,6 +338,7 @@ sap.ui.define([
                 var that = this;
                 var sParentItemPath = this.getView().getBindingContext().sPath;
                 var requestModel = new JSONModel({
+                    MovementType: "101 - GRN",
                     quantity: null,
                     delivery: null,
                     billoflading: null,
@@ -383,7 +384,7 @@ sap.ui.define([
                 else
                     this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", false);
 
-                if (parseFloat(oEvent.getSource().getValue()) > parseFloat(oGRNData.TotalWeight) || parseFloat(oEvent.getSource().getValue()) <= 0 ) {
+                if (parseFloat(oEvent.getSource().getValue()) > parseFloat(oGRNData.TotalWeight) || parseFloat(oEvent.getSource().getValue()) <= 0) {
                     sap.m.MessageBox.error("Total Packaging Weight should more than 0 and not exceed Total Vendor Entered Weight.");
                     // this.getViewModel("requestModel").setProperty("/valueState", "Error");
                     // this.getViewModel("requestModel").setProperty("/valueStateText", "Total Packaging Weight should not exceed Total Vendor Entered Weight.");

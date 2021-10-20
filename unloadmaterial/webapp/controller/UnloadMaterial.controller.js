@@ -582,6 +582,7 @@ sap.ui.define([
             onRequestGRNPress: function (oEvent) {
                 var sParentItemPath = this.getView().getBindingContext().sPath;
                 var requestModel = new JSONModel({
+                    MovementType:"101 - GRN",
                     quantity: null,
                     delivery: null,
                     billoflading: null,
