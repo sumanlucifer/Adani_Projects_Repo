@@ -16,7 +16,7 @@
                         <Text text="Domestic Entry"/>
                     </HBox> -->
                     <HBox alignItems="Center">
-                        <Input id="idInputQRCode" width="100%" placeholder="Enter QR Number" liveChange="onQRCodeSuggestionSelected" class="sapUiSmallMarginEnd" enabled="{oViewModel>/inputQRCode}"/>
+                        <Input id="idInputQRCode" width="20rem" placeholder="Enter QR Number" liveChange="onQRCodeSuggestionSelected" class="sapUiSmallMarginEnd" enabled="{oViewModel>/inputQRCode}"/>
                         <Button id="idQRBtn" text="Submit" type="Emphasized" press="onPressSubmitQRCode" class="sapUiSmallMarginBegin" enabled="{oViewModel>/submitQRCode}"/>
                     </HBox>
                     <HBox alignItems="Center">

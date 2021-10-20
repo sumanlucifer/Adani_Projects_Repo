@@ -6,15 +6,11 @@
     xmlns:tt="sap.ui.table" 
     xmlns:ui="sap.ui.table"
     controllerName="com.agel.mmts.qrdetails.view.blocks.packingListDetails.lineItemsTable.LineItemsTableController">
-
                <VBox>
-                <ui:TreeTable  id="TreeTable" rows="{path:'TreeDataModel>/', parameters: {numberOfExpandedLevels: 2,arrayNames:['results']}}" selectionMode="None" enableSelectAll="false" ariaLabelledBy="title" rowsUpdated="onRowsUpdated">
+                <ui:TreeTable  id="TreeTable" rows="{path:'TreeDataModel>/results', parameters: {numberOfExpandedLevels: 1,arrayNames:['treeResponse']}}" selectionMode="None" enableSelectAll="false" ariaLabelledBy="title" rowsUpdated="onRowsUpdated">
                     <ui:columns>
-
-
-
-<ui:Column>
-                            <Label text="{i18n>LineNumber}" />
+                         <ui:Column>
+                            <Label text="{i18n>Line Number}" />
                             <ui:template>
                                 <Text text="{TreeDataModel>LineNumber}" wrapping="false" />
                             </ui:template>
@@ -25,50 +21,37 @@
                                 <Text text="{TreeDataModel>Name}" wrapping="false" />
                             </ui:template>
                         </ui:Column>
-
-
-                                                   <ui:Column>
+                         <ui:Column>
                             <Label text="{i18n>Description}" />
                             <ui:template>
- 
-
-                                                                            <ExpandableText text="{TreeDataModel>Description}" maxCharacters="32" overflowMode="Popover"/>
+                        <ExpandableText text="{TreeDataModel>Description}" maxCharacters="32" overflowMode="Popover"/>
                             </ui:template>
                         </ui:Column>
-
-                                               <ui:Column>
-                            <Label text="{i18n>MaterialCode}" />
+                         <ui:Column>
+                            <Label text="{i18n>Material Code}" />
                             <ui:template>
                                 <Text text="{TreeDataModel>MaterialCode}" wrapping="false" />
                             </ui:template>
                         </ui:Column>
-       <ui:Column>
+                          <ui:Column>
                             <Label text="{i18n>Quantity}" />
                             <ui:template>
                                 <Text text="{TreeDataModel>Qty}" wrapping="false" />
                             </ui:template>
                         </ui:Column>
-
-
-                                               <ui:Column>
+                             <ui:Column>
                             <Label text="{i18n>MDCC ApprovedQty}" />
                             <ui:template>
                                 <Text text="{TreeDataModel>MDCCApprovedQty}" wrapping="false" />
                             </ui:template>
                         </ui:Column>
-
-              <ui:Column>
-                            <Label text="{i18n>DispatchQty}" />
+                        <ui:Column>
+                            <Label text="{i18n>Dispatch Qty}" />
                             <ui:template>
                                 <Text text="{TreeDataModel>DispatchQty}" wrapping="false" />
                             </ui:template>
                         </ui:Column>
-                        
-
-
-        
                     </ui:columns>
                 </ui:TreeTable>
             </VBox>
-
 </mvc:View>

@@ -87,13 +87,12 @@ sap.ui.define([
         },
 
         dataBuilding: function (ParentData) {
+
+
+
+            
             for (var i = 0; i < ParentData.length; i++) {
-                ParentData[i].results = ParentData[i];
-                for (var j = 0; j < ParentData[i].PackingListBOQItems.results.length; j++) {
-                    ParentData[i].PackingListBOQItems.results[j].results = ParentData[i].PackingListBOQItems.results;
-
-                }
-
+                ParentData[i].treeResponse = ParentData[i].PackingListBOQItems.results;
             }
             var TreeDataModel = new JSONModel({ "results": ParentData });
             this.getView().setModel(TreeDataModel, "TreeDataModel");

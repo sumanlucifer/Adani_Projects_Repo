@@ -16,9 +16,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller"], function (Controller) {
             this.oParentBlock.fireManageBOQItemPress(oEvent);
         },
 
-        onAfterRendering: function (oEvent) {
-            this.byId("smartTreeTable").rebindTable();
-        },
+      
          onRefreshBOQItems: function(){
             this.getOwnerComponent().getModel().refresh();
         }
