@@ -29,6 +29,8 @@
                 </f:SimpleForm>
                 <f:SimpleForm layout="ColumnLayout" columnsM="2" columnsL="3" columnsXL="3" singleContainerFullSize="true" class="style-RemoveTitleHeight">
                     <f:content>
+                      <Label text="Movement Type " required="true"></Label>
+                        <Input id="idMovementType" value="{requestModel>/MovementType}" enabled="false"></Input>
                         <Label text="Total Packaging Weight" required="true"></Label>
                         <Input id="idweight" value="{requestModel>/quantity}" liveChange="onQuantityLiveChange" type="Number" valueState="{requestModel>/valueState}" valueStateText="{requestModel>/valueStateText}"></Input>
                         <Label text="Bill of Lading" required="true"></Label>
@@ -42,7 +44,7 @@
                     </f:content>
                 </f:SimpleForm>
 
-                <Table width="auto" growing="true" growingThreshold="5" items= "{RestrictedStoreStockParents}" fixedLayout="false">
+                <Table width="100%"  growing="true" growingThreshold="5" items= "{RestrictedStoreStockParents}" fixedLayout="false">
                     <columns>
                         <Column importance="High">
                             <Text text="{i18n>lineNo}" wrapping="true" wrappingType="Hyphenated" width="8rem"/>

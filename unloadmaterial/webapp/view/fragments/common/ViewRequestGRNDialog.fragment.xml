@@ -30,6 +30,8 @@
                 </f:SimpleForm>
                 <f:SimpleForm layout="ColumnLayout" columnsM="2" columnsL="3" columnsXL="3" singleContainerFullSize="true" class="style-RemoveTitleHeight">
                     <f:content>
+                        <Input id="idMovementType" value="{requestModel>/MovementType}" enabled="false"></Input>
+                        <Label text="Movement Type" required="true"></Label>
                         <Label text="Total Packaging Weight" required="true"></Label>
                         <Input id="idweight" value="{requestModel>/quantity}" liveChange="onQuantityLiveChange" type="Number" valueState="{requestModel>/valueState}" valueStateText="{requestModel>/valueStateText}"></Input>
                         <Label text="Bill of Lading" required="true"></Label>
