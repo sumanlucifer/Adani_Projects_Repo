@@ -82,7 +82,7 @@ sap.ui.define([
 
             var oDataModel = this.getViewModel();
             oDataModel.read("/IssuedMaterialReserveSet" + this.sObjectId, {
-                urlParameters: { "$expand": "IssuedMaterialParents" },
+                urlParameters: { "$expand": "IssuedMaterialReservedItems" },
                 success: function (oData) {
                     // if (oData) {
                     // debugger;
@@ -96,14 +96,14 @@ sap.ui.define([
                     // }
                     if (oData) {
                         // debugger;
-                        oData.IssuedMaterialParents.results.forEach(element => {
+                        oData.IssuedMaterialReservedItems.results.forEach(element => {
                             element.IssuedQty = null;
                             element.IssueMaterialBOQItems = [];
                             element.WBSNumber = oData.WBSNumber;
                             element.QRNumber = null;
                         });
                     }
-                    var oJsonModel = new JSONModel(oData.IssuedMaterialParents.results);
+                    var oJsonModel = new JSONModel(oData.IssuedMaterialReservedItems.results);
                     this.getView().setModel(oJsonModel, "IssueMatModel");
 
                 }.bind(this),
@@ -220,27 +220,44 @@ sap.ui.define([
 
         },
 
+        onIssuedQtyLivechange: function (oEvent) {
+            var sQtyRemainingToIssue = parseFloat(oEvent.getSource().getParent().getBindingContext().getObject().QtyRemainingToIssue),
+                sIssuedValue = parseFloat(oEvent.getSource().getValue());
+
+            if (sIssuedValue > sQtyRemainingToIssue || sIssuedValue <= 0) {
+                oEvent.getSource().setValueState("Error");
+                oEvent.getSource().setValueStateText("Please enter valid quantity");
+            } else {
+                oEvent.getSource().setValueState("None");
+            }
+        },
+
         onEnterQuantityDialogClosePress: function (oEvent) {
             var oDetails = {};
             oDetails.controller = this;
             oDetails.view = this.getView();
             var jsonDataDoneButton = oDetails.view.getModel("IssueMatModel").getData();
-            for(var i=0; i<jsonDataDoneButton.length; i++ ){
-                debugger;
-                if(jsonDataDoneButton[i].IssuedQty === null)
-                {
-                    oDetails.view.getModel("objectViewModel").setProperty("/doneButton", false);
-                    // oDetails.view.getModel("objectViewModel").setEnabled(false);
-
-                    break;
-                }
-                else
-                    oDetails.view.getModel("objectViewModel").setProperty("/doneButton", true);
-                    //  oDetails.view.getModel("objectViewModel").setEnabled(true);
-
-             
+            var iIndex = null;
+            for (var i = 0; i < jsonDataDoneButton.length; i++) {
+                iIndex = jsonDataDoneButton.findIndex(function (oItem) {
+                    return parseFloat(oItem.IssuedQty) > parseFloat(oItem.QtyRemainingToIssue) || parseFloat(oItem.IssuedQty) <= 0;
+                });
             }
 
+            if (iIndex >= 0) {
+                MessageToast.show("Please check out issued quantity for the given line items");
+                oDetails.view.getModel("objectViewModel").setProperty("/doneButton", false);
+            }
+            else {
+                oDetails.view.getModel("objectViewModel").setProperty("/doneButton", true);
+                this._oScannerDialog1.then(function (oDialog) {
+                    oDialog.close();
+                });
+            }
+        },
+
+        onEnterQuantityDialogCancelPress: function (oEvent) {
+            this.getView().byId("idInputIssuedQty").setValue(null);
             this._oScannerDialog1.then(function (oDialog) {
                 oDialog.close();
             });
@@ -339,7 +356,7 @@ sap.ui.define([
             this.MainModel.create("/IssueMaterialEdmSet", aPayload, {
                 success: function (oData, oResponse) {
                     if (oData) {
-                         debugger;
+                        debugger;
                         if (oData) {
                             this.onPressNavigation(oData.ID);
 
@@ -362,6 +379,7 @@ sap.ui.define([
                 ID: id
             });
         }
+
 
 
     });

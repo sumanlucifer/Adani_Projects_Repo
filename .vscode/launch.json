@@ -565,6 +565,46 @@
       },
       "envFile": "${workspaceFolder}/unloadmaterial/.env2",
       "preLaunchTask": "Build sapui5"
+    },
+    {
+      "name": "Run sapui5-storeincharge-issuematerial",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/agel-mmts-web-approuter/node_modules/@sap/html5-repo-mock/index.js",
+      "args": [
+        "--standalone",
+        "/comagelmmtsstoreinchargeissuematerial/index.html",
+        "--ui5",
+        "{\"version\":\".\"}"
+      ],
+      "cwd": "${workspaceFolder}/storeincharge-issuematerial",
+      "env": {
+        "PORT": "6004",
+        "MOCK_LOOKUP_DIRS": "[\"webapp\"]",
+        "run.config": "{\"handlerId\":\"ui5_run_config_handler_id\",\"runnableId\":\"/home/user/projects/sapui5/storeincharge-issuematerial\"}"
+      },
+      "envFile": "${workspaceFolder}/storeincharge-issuematerial/.env1",
+      "preLaunchTask": "Build sapui5"
+    },
+    {
+      "name": "Run sapui5-engineer-issuecancellation",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/agel-mmts-web-approuter/node_modules/@sap/html5-repo-mock/index.js",
+      "args": [
+        "--standalone",
+        "/comagelmmtsengineerissuecancellation/index.html",
+        "--ui5",
+        "{\"version\":\".\"}"
+      ],
+      "cwd": "${workspaceFolder}/engineer-issuecancellation",
+      "env": {
+        "PORT": "6004",
+        "MOCK_LOOKUP_DIRS": "[\"webapp\"]",
+        "run.config": "{\"handlerId\":\"ui5_run_config_handler_id\",\"runnableId\":\"/home/user/projects/sapui5/engineer-issuecancellation\"}"
+      },
+      "envFile": "${workspaceFolder}/engineer-issuecancellation/.env1",
+      "preLaunchTask": "Build sapui5"
     }
   ],
   "compounds": [],

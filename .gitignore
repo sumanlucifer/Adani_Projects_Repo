@@ -5,24 +5,8 @@
 package-lock.json
 /dist/
 
-# auto generated wildcard
-sapui5/new_vendor/.env4
-# auto generated wildcard
-sapui5/vendor-map-mdcc/.env1
-# auto generated wildcard
-vendor-packinglist-create/.env2
-# auto generated wildcard
-sapui5/vendor-packinglist-create/.env3
-# auto generated wildcard
-sapui5/vendorPersona/.env1
 
 # auto generated wildcard
-hodroleapproval/.env1
+storeincharge-issuematerial/.env1
 # auto generated wildcard
-self-roleassignment/.env1
-# auto generated wildcard
-storeincharge-raisedpo/.env1
-# auto generated wildcard
-new_vendor/.env5
-# auto generated wildcard
-unloadmaterial/.env2
+engineer-issuecancellation/.env1

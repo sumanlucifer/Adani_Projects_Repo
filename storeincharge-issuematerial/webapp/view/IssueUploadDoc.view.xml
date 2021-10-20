@@ -83,6 +83,9 @@
                                     <Text text="{i18n>reservedQty}"/>
                                 </Column>
                                 <Column demandPopin="true" minScreenWidth="Desktop">
+                                    <Text text="{i18n>QtyAvailableforIssue}"/>
+                                </Column>
+                                <Column demandPopin="true" minScreenWidth="Desktop">
                                     <Text text="{i18n>issueQty}"/>
                                 </Column>
                                 <Column demandPopin="true" minScreenWidth="Desktop">
@@ -96,15 +99,16 @@
                                         <Text text="{MaterialCode}"/>
                                         <Text text="{StorageLocation}"/>
                                         <Text text="{Plant}"/>
-                                        <Text text="{WBSNumber}"/>
-                                        <Text text="{ItemNumber}"/>
+                                        <Text text="{WBSNumber}"  binding="{IssuedMaterialReservedItem/IssueMaterialReserve}"/>
+                                        <Text text="{ItemNumber}" binding="{IssuedMaterialReservedItem}"/>
                                         <Text text="{path:'CreatedAt',
                                             type: 'sap.ui.model.type.Date',
                                             formatOptions: {
                                                 pattern: 'MMMM dd, yyyy'
                                             }
                                         }"/>
-                                        <ObjectIdentifier title="{ReservedQty}" />
+                                        <Text text="{ReservedQty}" binding="{IssuedMaterialReservedItem}"/>
+                                        <ObjectIdentifier title="{QtyRemainingToIssue}" binding="{IssuedMaterialReservedItem}" />   
                                         <ObjectIdentifier title="{IssuedQty}" />
                                         <Text text="{BaseUnit}" />
                                     </cells>

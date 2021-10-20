@@ -20,6 +20,9 @@
                         <Text text="{i18n>issueQty}" wrapping="true"/>
                     </Column>
                     <Column demandPopin="true" minScreenWidth="Tablet">
+                        <Text text="{i18n>QtyAvailableforIssue}" wrapping="true"/>
+                    </Column>
+                    <Column demandPopin="true" minScreenWidth="Tablet">
                         <Text text="{i18n>UOM}" wrapping="true"/>
                     </Column>
                 </columns>
@@ -28,17 +31,20 @@
                         <cells>
                             <Text text="{Name}"/>
                             <Text text="{ReservedQty}"/>
-                            <Input value="{IssuedQty}" type="Number" id="idInputIssuedQty" />
+                            <ObjectIdentifier title="{QtyRemainingToIssue}" />    
+                            <Input value="{IssuedQty}" type="Number" id="idInputIssuedQty" liveChange="onIssuedQtyLivechange"/>
                             <Text text="{BaseUnit}​​​"/>
                         </cells>
                     </ColumnListItem>
                 </items>
             </Table>
-
         </VBox>
         </content>
-        <endButton>
+        <beginButton>
             <Button text="{i18n>save}" press="onEnterQuantityDialogClosePress" type="Emphasized"/>
+        </beginButton>
+        <endButton>
+            <Button text="{i18n>cancel}" press="onEnterQuantityDialogCancelPress"/>
         </endButton>
     </Dialog>
 </core:FragmentDefinition>
