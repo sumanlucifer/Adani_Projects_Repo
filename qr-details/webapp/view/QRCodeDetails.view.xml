@@ -1,0 +1,157 @@
+<mvc:View xmlns:f2="sap.f"
+    xmlns:vbm="sap.ui.vbm"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:uxap="sap.uxap"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+    xmlns:unified="sap.ui.unified"
+    xmlns:tt="sap.ui.table"
+    xmlns:smartTable="sap.ui.comp.smarttable"
+    xmlns="sap.m" controllerName="com.agel.mmts.qrdetails.controller.QRCodeDetails" 
+    xmlns:lineItemsTable="com.agel.mmts.qrdetails.view.blocks.packingListDetails.lineItemsTable.blocks"
+    xmlns:linePackingItems="com.agel.mmts.qrdetails.view.blocks.packingListDetails.packagingListContains.blocks"
+    xmlns:outerPackaging="com.agel.mmts.qrdetails.view.blocks.packingListDetails.outerPackaging.blocks"
+    xmlns:innerPackaging="com.agel.mmts.qrdetails.view.blocks.packingListDetails.innerPackaging.blocks" height="100%">
+    <uxap:ObjectPageLayout id="ObjectPageLayout" preserveHeaderStateOnScroll="false" showTitleInHeaderContent="true" upperCaseAnchorBar="false" headerContentPinnable="true" toggleHeaderOnTitleClick="true" busy="{objectViewModel>/busy}">
+        <uxap:headerTitle>
+            <uxap:ObjectPageDynamicHeaderTitle id="idHeader"> 
+                <uxap:breadcrumbs>
+                    <!-- <Breadcrumbs id="breadcrumbsId" currentLocationText="{i18n>confirmedPODetails}">
+                        <Link text="{i18n>assignedPOList}" press=".handleToAllPOBreadcrumPress"/>
+                    </Breadcrumbs> -->
+                </uxap:breadcrumbs>
+                <uxap:expandedHeading>
+                    <FlexBox direction="Column" renderType="Bare">
+                        <Title text="Packing List Details - {Name}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
+                        <ObjectStatus id="idStatus" text="{Status}" state="{= ${Status}=== 'SAVED' ? 'Indication05' : ${Status}=== 'DISPATCHED' ? 'Indication06' : 'Indication08'}"/>
+                    </FlexBox>
+                </uxap:expandedHeading>
+                <uxap:snappedHeading>
+                    <FlexBox direction="Column" renderType="Bare">
+                        <Title text="Packing List Details - {Name}" wrapping="true" titleStyle="H4"/>
+                    </FlexBox>
+                </uxap:snappedHeading>
+                <uxap:expandedContent></uxap:expandedContent>
+                <uxap:snappedTitleOnMobile>
+                    <Title text="Packing List Details - {Name}" wrapping="true" titleStyle="Auto"/>
+                </uxap:snappedTitleOnMobile>
+                <uxap:actions>
+
+                    <Button icon="sap-icon://download" type="Emphasized" press="onDownloadPackingListPress"/>
+
+                </uxap:actions>
+            </uxap:ObjectPageDynamicHeaderTitle>
+        </uxap:headerTitle>
+        <uxap:headerContent>
+            <FlexBox wrap="Wrap" height="100%" renderType="Bare" direction="Column" justifyContent="Center">
+                <!-- <VBox renderType="Bare">
+                    <FlexBox direction="Row" renderType="Bare" class="sapUiTinyMarginBottom">
+                        <VBox renderType="Bare" class="sapUiMediumMarginEnd">
+                            <Label text="PO Qty" />
+                            <Text text="-"/>
+                        </VBox>
+                        <VBox renderType="Bare" class="sapUiMediumMarginEnd">
+                            <Label text="Packing List Qty" />
+                            <Text text="-"/>
+                        </VBox>
+                    </FlexBox>
+                </VBox> -->
+                <HBox >
+                    <VBox class="sapUiMediumMarginEnd">
+                        <FlexBox fitContainer="true" alignItems="Center">
+                            <FlexBox items="{path: 'QRCodeId', 
+                                filters: [
+                                {
+                                    path: 'Type', 
+                                    operator: 'EQ', 
+                                    value1: 'PACKINGLIST' }
+                                ] }">
+                                <VBox>
+
+                                    <Avatar displaySize="XL" badgeIcon="sap-icon://edit" displayShape="Square" src="data:image/jpg;base64,{Content}">
+                                        <detailBox>
+                                            <LightBox>
+                                                <LightBoxItem imageSrc="data:image/jpg;base64,{Content}" title="{QRNumber}">
+                                                </LightBoxItem>
+                                            </LightBox>
+                                        </detailBox>
+                                    </Avatar>
+                                    <Text text="{QRNumber}" id="idQRNumber"/>
+                                </VBox>
+                                <!-- <Text text="Av÷atar of a product with border" class="sapUiSmallMarginTop"/> -->
+                            </FlexBox>
+                        </FlexBox>
+                    </VBox>
+                    <VBox class="sapUiMediumMarginBeginEnd">
+                        <Title text="{i18n>pOandASNDetails}" titleStyle="H6"/>
+                        <!-- <ObjectStatus title="Invoice Number" text="{InvoiceNumber}"/> -->
+                        <ObjectStatus title="ASN Number" text="Missing"/>
+                        <ObjectStatus title="PO Number" text="{PONumber}"/>
+                        <ObjectStatus title="ASN Creation Date" text="Missing"/>
+                        <!-- <ObjectStatus title="Invoice Date" text="{InvoiceDate}"/> -->
+                        <!-- <ObjectStatus title="Status" text="{Status}"/> -->
+                    </VBox>
+                    <VBox class="sapUiMediumMarginBeginEnd">
+                        <Title text="{i18n>shipTo}" titleStyle="H6"/>
+                        <!-- <ObjectAttribute title="{Name}" binding="{PurchaseOrder/MasterCompanyCode}"/>
+                        <ObjectAttribute text="{Street}" binding="{PurchaseOrder/MasterCompanyCode/Address}"/>
+                        <ObjectAttribute text="{City} - {State} - {Country}" binding="{PurchaseOrder/MasterCompanyCode/Address}"/>
+                        <ObjectAttribute text="{pinCode}" binding="{PurchaseOrder/MasterCompanyCode/Address}"/> -->
+
+                        <ObjectAttribute title="" />
+                        <ObjectAttribute text="" />
+                        <ObjectAttribute text="" />
+                        <ObjectAttribute text="" />
+                    </VBox>
+                    <VBox class="sapUiMediumMarginBeginEnd">
+                        <Title text="{i18n>from}" titleStyle="H6"/>
+                        <ObjectAttribute title="{Name}" binding="{PurchaseOrder/Vendor}"/>
+                        <ObjectAttribute id="idObjVendorCode" text="{VendorCode}" binding="{PurchaseOrder/Vendor}"/>
+                        <Link text="{Email}" binding="{PurchaseOrder/Vendor}"/>
+                    </VBox>
+                </HBox>
+            </FlexBox>
+        </uxap:headerContent>
+        <uxap:sections>
+
+            <!-- Line Items Section -->
+            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>lineItems}">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection title="{i18n>lineItems}" titleLevel="H6">
+                        <uxap:blocks>
+                            <lineItemsTable:LineItemsTable class="sapUxAPObjectPageSubSectionAlignContent" ManageBOQItemPress="onManageBOQItemPress"  OnViewBOQItemsPress="onViewBOQItemsPress" OnViewQRCodePress = "onViewQRCodePress"/>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+            <!-- Packing List Contains -->
+            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>PackListContains}">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection title="{i18n>PackListContains}">
+                        <uxap:blocks>
+                            <linePackingItems:LineItemsTable class="sapUxAPObjectPageSubSectionAlignContent" OnViewBOQItemsPress="onViewBOQItemsPress" OnViewQRCode="onViewQRCode" OnViewQRCode1="OnViewQRCode1" OnViewQRCodePress = "onViewQRCodePress"/>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                    <uxap:ObjectPageSubSection title="Outer Packaging">
+                        <uxap:blocks>
+                            <outerPackaging:OuterPackaging OnViewQRCodePress="onViewQRCodePress" class="sapUxAPObjectPageSubSectionAlignContent"/>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                    <uxap:ObjectPageSubSection title="Inner Packaging">
+                        <uxap:blocks>
+                            <innerPackaging:InnerPackaging class="sapUxAPObjectPageSubSectionAlignContent" OnViewQRCodePress = "onViewQRCodePress"/>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+            
+            
+            
+            
+        </uxap:sections>
+    </uxap:ObjectPageLayout>
+
+</mvc:View>

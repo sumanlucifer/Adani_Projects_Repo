@@ -15,6 +15,18 @@ vendor-packinglist-create/.env2
 sapui5/vendor-packinglist-create/.env3
 # auto generated wildcard
 sapui5/vendorPersona/.env1
+<<<<<<< HEAD
+# auto generated wildcard
+sapui5/qr-details/.env1
+# auto generated wildcard
+sapui5/security-scanqr/.env1
+# auto generated wildcard
+sapui5/vendor-mdcc/.env1
+# auto generated wildcard
+sapui5/security-scanqr/.env2
+# auto generated wildcard
+sapui5/storestock/.env1
+=======
 
 # auto generated wildcard
 hodroleapproval/.env1
@@ -22,7 +34,14 @@ hodroleapproval/.env1
 self-roleassignment/.env1
 # auto generated wildcard
 storeincharge-raisedpo/.env1
+<<<<<<< HEAD
+>>>>>>> develop
+
+# auto generated wildcard
+sapui5/storestock/.env2
+=======
 # auto generated wildcard
 sapui5/storeincharge-issuematerial/.env1
 # auto generated wildcard
 sapui5/engineer-issuecancellation/.env1
+>>>>>>> develop

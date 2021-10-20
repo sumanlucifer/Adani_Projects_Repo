@@ -100,7 +100,7 @@ sap.ui.define([
                     this.byId("idParentUnRestrictedTable").rebindTable();
                     this.byId("idParentRestrictedTable").mProperties.enableAutoBinding = true;
                     this.byId("idParentRestrictedTable").rebindTable();
-                    orFilters.push(new Filter("PlantCode", FilterOperator.EQ, PlantCode));
+                    andFilters.push(new Filter("PlantCode", FilterOperator.EQ, PlantCode));
                 }
                 else {
                     this.byId("unrestrictedTable").setNoDataText(this.getResourceBundle().getText("EnterPlant"));
@@ -109,13 +109,13 @@ sap.ui.define([
                 }
 
                 if (MaterialName != "") {
-                    orFilters.push(new Filter("Name", FilterOperator.EQ, MaterialName));
+                    andFilters.push(new Filter("Name", FilterOperator.EQ, MaterialName));
                 }
                 if (MaterialCode != "") {
-                    orFilters.push(new Filter("MaterialCode", FilterOperator.EQ, MaterialCode));
+                    andFilters.push(new Filter("MaterialCode", FilterOperator.EQ, MaterialCode));
                 }
 
-                andFilters.push(new Filter(orFilters, false));
+                // andFilters.push(new Filter(orFilters, false));
 
 
                 var idUnRestrictedTableBinding = this.getView().byId("idParentUnRestrictedTable").getTable().getBinding("items");

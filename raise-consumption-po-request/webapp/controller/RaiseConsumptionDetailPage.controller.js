@@ -175,7 +175,7 @@ sap.ui.define([
             var IsAllItemsConsumed = itemData.IsAllItemsConsumed;
             itemData = itemData.selectedItems.map(function (item) {
                 return {
-                    ConsumedMaterialParentId: item.ID,
+                    ConsumedMaterialReserveItemId: item.ID,
                     Quantity: item.Quantity
                 };
             });
