@@ -97,8 +97,8 @@
                                         <Text text="{Plant}"/>
                                         <Text text="{StorageLocation}"/>
                                         <Text text="{MovementType}" />
-                                        <Text text="{GoodsRecipient}" binding="{IssueMaterialReserve}"/>
-                                        <Text text="{WBSNumber}" binding="{IssueMaterialReserve}"/>
+                                        <Text text="{GoodsRecipient}" binding="{IssuedMaterialReservedItem/IssueMaterialReserve}"/>
+                                        <Text text="{WBSNumber}" binding="{IssuedMaterialReservedItem/IssueMaterialReserve}"/>
                                         <Text text="{UnloadPoint}"/>
                                         <Text text="{IssuedQty}"/>
                                         <!-- <Text text="{ReservedQty}"/> -->

@@ -83,6 +83,9 @@
                                     <Text text="{i18n>reservedQty}"/>
                                 </Column>
                                 <Column demandPopin="true" minScreenWidth="Desktop">
+                                    <Text text="{i18n>QtyAvailableforIssue}"/>
+                                </Column>
+                                <Column demandPopin="true" minScreenWidth="Desktop">
                                     <Text text="{i18n>issueQty}"/>
                                 </Column>
                                 <Column demandPopin="true" minScreenWidth="Desktop">
@@ -96,7 +99,7 @@
                                         <Text text="{MaterialCode}"/>
                                         <Text text="{StorageLocation}"/>
                                         <Text text="{Plant}"/>
-                                        <Text text="{WBSNumber}"/>
+                                        <Text text="{WBSNumber}"  binding="{IssuedMaterialReservedItem/IssueMaterialReserve}"/>
                                         <Text text="{ItemNumber}"/>
                                         <Text text="{path:'CreatedAt',
                                             type: 'sap.ui.model.type.Date',
@@ -104,7 +107,8 @@
                                                 pattern: 'MMMM dd, yyyy'
                                             }
                                         }"/>
-                                        <ObjectIdentifier title="{ReservedQty}" />
+                                        <Text text="{ReservedQty}" />
+                                        <ObjectIdentifier title="{IssueMatModel>QtyRemainingToIssue}" />   
                                         <ObjectIdentifier title="{IssuedQty}" />
                                         <Text text="{BaseUnit}" />
                                     </cells>

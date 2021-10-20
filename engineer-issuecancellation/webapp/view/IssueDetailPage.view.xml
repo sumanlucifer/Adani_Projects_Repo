@@ -172,11 +172,11 @@
                                         <Text text="{consumptionData>Plant}"/>
                                         <Text text="{consumptionData>StorageLocation}"/>
                                         <Text text="{consumptionData>MovementType}" />
-                                        <Text text="{consumptionData>IssueMaterialReserve/GoodsRecipient}"/>
-                                        <Text text="{consumptionData>IssueMaterialReserve/WBSNumber}"/>
+                                        <Text text="{consumptionData>IssuedMaterialReservedItem/IssueMaterialReserve/GoodsRecipient}"/>
+                                        <Text text="{consumptionData>IssuedMaterialReservedItem/IssueMaterialReserve/WBSNumber}"/>
                                         <Text text="{consumptionData>UnloadPoint}"/>
                                         <Text text="{consumptionData>IssuedQty}"/>
-                                        <Text text="{consumptionData>ReservedQty}"/>
+                                        <Text text="{consumptionData>IssuedMaterialReservedItem/ReservedQty}"/>
 
                                         <ObjectStatus text="{consumptionData>Status}" state="{= ${consumptionData>Status} === 'ISSUED' ? 'Success' : ${consumptionData>Status} === 'RESERVED' ? 'Information' : 'Error'}" visible="{= ${consumptionData>Status}.length>0 ? true : false }"/>
                                     </cells>
