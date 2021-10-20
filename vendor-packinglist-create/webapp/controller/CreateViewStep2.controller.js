@@ -455,8 +455,8 @@ sap.ui.define([
 
             _addData: function (data, fileName, SubType, Type, fileSize) {
                 var that = this,
-                oViewContext = this.getView().getBindingContext().getObject();
-                var oPackingListData = this.mainModel.getData("/PackingListSet("+this.packingListId+"l)");
+                    oViewContext = this.getView().getBindingContext().getObject();
+                var oPackingListData = this.mainModel.getData("/PackingListSet(" + this.packingListId + "l)");
                 var sPONumber = oPackingListData.PONumber;
                 var documents = {
                     "Documents": [
@@ -579,13 +579,15 @@ sap.ui.define([
 
                 var vehicleRegExp = new RegExp('^[A-Z]{2}[ -][0-9]{1,2}(?: [A-Z])?(?: [A-Z]*)? [0-9]{4}$');
 
+
+
                 /* if (!data.InvoiceNumber) {
-                    this.byId("idVehicleNumber").setValueState("Error");
-                    this.byId("idVehicleNumber").setValueStateText("Please enter the Invoice Number");
+                    this.byId("idInvoiceNumber").setValueState("Error");
+                    this.byId("idInvoiceNumber").setValueStateText("Please enter the Invoice Number");
                     bValid = false;
                 } else {
-                    this.byId("idVehicleNumber").setValueState("None");
-                    this.byId("idVehicleNumber").setValueStateText(null);
+                    this.byId("idInvoiceNumber").setValueState("None");
+                    this.byId("idInvoiceNumber").setValueStateText(null);
                 }
 
                 if (!data.PackagingReferenceNumber) {
@@ -621,6 +623,13 @@ sap.ui.define([
                     sap.m.MessageBox.alert("Please select the Invoice Date before viewing the QR.");
                     return;
                 }
+
+                if (!data.VehicleNumber) {
+                    bValid = false;
+                    sap.m.MessageBox.alert("Please enter the Vehicle number before viewing the QR.");
+                    return;
+                }
+
                 if (data.VehicleNumber && !vehicleRegExp.test(data.VehicleNumber)) {
                     bValid = false;
                     sap.m.MessageBox.alert("Please enter a valid Vehicle number before viewing the QR.");

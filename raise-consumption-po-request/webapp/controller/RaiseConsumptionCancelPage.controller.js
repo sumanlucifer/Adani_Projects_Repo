@@ -33,6 +33,7 @@ sap.ui.define([
                 boqSelection: null,
                 csvFile: "file"
             });
+            
             this.setModel(oViewModel, "objectViewModel");
             var oReservationData = new JSONModel({
                 ReservationNumber: null,
