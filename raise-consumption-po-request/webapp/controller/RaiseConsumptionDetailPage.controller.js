@@ -76,7 +76,7 @@ sap.ui.define([
         onReadDataIssueMaterialParents: function () {
             var that = this;
             that.oIssueMaterialModel = new JSONModel();
-            this.MainModel.read("/ConsumptionPostingReserveSet(" + that.sObjectId + ")/ConsumedMaterialParent", {
+            this.MainModel.read("/ConsumptionPostingReserveSet(" + that.sObjectId + ")/ConsumedMaterialReserveItem", {
                 // urlParameters: { "$expand": "ConsumedMaterialParent" },
                 success: function (oData, oResponse) {
                     this.dataBuilding(oData.results);
