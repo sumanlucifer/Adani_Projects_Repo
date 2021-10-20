@@ -34,7 +34,14 @@ hodroleapproval/.env1
 self-roleassignment/.env1
 # auto generated wildcard
 storeincharge-raisedpo/.env1
+<<<<<<< HEAD
 >>>>>>> develop
 
 # auto generated wildcard
 sapui5/storestock/.env2
+=======
+# auto generated wildcard
+sapui5/storeincharge-issuematerial/.env1
+# auto generated wildcard
+sapui5/engineer-issuecancellation/.env1
+>>>>>>> develop
