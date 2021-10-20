@@ -100,15 +100,15 @@
                                         <Text text="{StorageLocation}"/>
                                         <Text text="{Plant}"/>
                                         <Text text="{WBSNumber}"  binding="{IssuedMaterialReservedItem/IssueMaterialReserve}"/>
-                                        <Text text="{ItemNumber}"/>
+                                        <Text text="{ItemNumber}" binding="{IssuedMaterialReservedItem}"/>
                                         <Text text="{path:'CreatedAt',
                                             type: 'sap.ui.model.type.Date',
                                             formatOptions: {
                                                 pattern: 'MMMM dd, yyyy'
                                             }
                                         }"/>
-                                        <Text text="{ReservedQty}" />
-                                        <ObjectIdentifier title="{IssueMatModel>QtyRemainingToIssue}" />   
+                                        <Text text="{ReservedQty}" binding="{IssuedMaterialReservedItem}"/>
+                                        <ObjectIdentifier title="{QtyRemainingToIssue}" binding="{IssuedMaterialReservedItem}" />   
                                         <ObjectIdentifier title="{IssuedQty}" />
                                         <Text text="{BaseUnit}" />
                                     </cells>

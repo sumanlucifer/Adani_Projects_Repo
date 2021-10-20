@@ -3,6 +3,7 @@
 /resources/
 *.zip 
 package-lock.json
+<<<<<<< HEAD
 /dist/
 
 # auto generated wildcard
@@ -50,3 +51,6 @@ sapui5/engineer-issuecancellation/.env1
 sapui5/raise-consumption-po-request/.env1
 # auto generated wildcard
 sapui5/consumption-reservation/.env1
+=======
+/dist/
+>>>>>>> develop
