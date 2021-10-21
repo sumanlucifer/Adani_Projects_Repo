@@ -41,7 +41,8 @@
         </VBox>
         </content>
         <beginButton>
-            <Button text="{i18n>save}" press="onEnterQuantityDialogClosePress" type="Emphasized"/>
+            <Button id="idSaveQtyBTN" text="{i18n>save}" enabled="false"
+                press="onEnterQuantityDialogClosePress" type="Emphasized"/>
         </beginButton>
         <endButton>
             <Button text="{i18n>cancel}" press="onEnterQuantityDialogCancelPress"/>

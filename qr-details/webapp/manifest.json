@@ -11,6 +11,10 @@
         "description": "{{appDescription}}",
         "resources": "resources.json",
         "ach": "ach",
+        "sourceTemplate": {
+            "id": "html5moduletemplates.basicSAPUI5ApplicationProjectModule",
+            "version": "1.40.12"
+        },
         "dataSources": {
             "mainService": {
                 "uri": "/AGEL_MMTS_API/api/v2/odata.svc/",
@@ -18,6 +22,21 @@
                 "settings": {
                     "odataVersion": "2.0",
                     "localUri": "localService/metadata.xml"
+                }
+            }
+        },
+        "crossNavigation": {
+            "inbounds": {
+                "com-agel-mmts-pmcg-inbound": {
+                    "signature": {
+                        "parameters": {},
+                        "additionalParameters": "allowed"
+                    },
+                    "semanticObject": "QR",
+                    "action": "Details",
+                    "title": "QR Details",
+                    "subTitle": "",
+                    "icon": ""
                 }
             }
         }
