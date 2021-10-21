@@ -531,6 +531,15 @@ modules:
     commands:
     - npm run build
     supported-platforms: []
+- name: comagelmmtsqrdetails
+  type: html5
+  path: qr-details
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []
 - name: comagelmmtsreturnreservation
   type: html5
   path: return-reservation
@@ -581,16 +590,6 @@ modules:
   - name: workflow
     parameters:
       content-target: true
-- name: comagelmmtsqrdetails
-  type: html5
-  path: qr-details
-  build-parameters:
-    build-result: dist
-    builder: custom
-    commands:
-    - npm install
-    - npm run build:cf
-    supported-platforms: []
 resources:
 - name: uaa_agel-mmts-web
   type: org.cloudfoundry.managed-service
