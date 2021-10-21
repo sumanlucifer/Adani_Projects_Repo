@@ -4,9 +4,3 @@
 *.zip 
 package-lock.json
 /dist/
-
-
-# auto generated wildcard
-storeincharge-issuematerial/.env1
-# auto generated wildcard
-engineer-issuecancellation/.env1

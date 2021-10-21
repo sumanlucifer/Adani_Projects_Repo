@@ -295,7 +295,7 @@ sap.ui.define([
                 aReservationItems = aReservationItems.map(function (item) {
                     return {
                         Quantity: item.Quantity,
-                        IssueMaterialParentId: item.ID
+                        IssuedMaterialReservedItemId: item.ID
                     };
                 });
                 var oPayload = {
