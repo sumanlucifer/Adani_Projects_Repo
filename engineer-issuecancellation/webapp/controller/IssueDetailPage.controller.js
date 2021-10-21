@@ -133,18 +133,18 @@ sap.ui.define([
             this.getView().getModel("consumptionData").setData(ItemData);
         },
 
-        onSelectionOfRow: function(oEvent) {
+        onSelectionOfRow: function (oEvent) {
             // var isSelected = oEvent.getSource().getSelected();
             var ItemData = this.getView().getModel("consumptionData").getData();
             for (var i = 0; i < ItemData.length; i++) {
-                if(ItemData[i].isSelected === true){
+                if (ItemData[i].isSelected === true) {
                     this.getView().getModel("objectViewModel").setProperty("/cancelbutton", true);
                     break;
                 }
                 else
                     this.getView().getModel("objectViewModel").setProperty("/cancelbutton", false);
             }
-           
+
         },
 
         onPressCancelIssuePosting: function (oEvent) {
@@ -179,6 +179,7 @@ sap.ui.define([
             };
             this.getOwnerComponent().getModel().create("/IssueMaterialCancellationEdmSet", oPayload, {
                 success: function (oData, oResponse) {
+                    this.getView().getModel("objectViewModel").setProperty("/cancelbutton", false);
                     this.getOwnerComponent().getModel().refresh();
                     if (oData.Success === true) {
                         sap.m.MessageBox.success("The Issue Posting has been cancelled for selected item(s)!");
@@ -188,6 +189,7 @@ sap.ui.define([
                     }
                 }.bind(this),
                 error: function (oError) {
+                    this.getView().getModel("objectViewModel").setProperty("/cancelbutton", false);
                     sap.m.MessageBox.error("Data Not Found");
                 }
             });
