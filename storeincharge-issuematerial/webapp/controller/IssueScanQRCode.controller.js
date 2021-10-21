@@ -224,11 +224,13 @@ sap.ui.define([
             var sQtyRemainingToIssue = parseFloat(oEvent.getSource().getParent().getBindingContext().getObject().QtyRemainingToIssue),
                 sIssuedValue = parseFloat(oEvent.getSource().getValue());
 
-            if (sIssuedValue > sQtyRemainingToIssue || sIssuedValue <= 0) {
+            if (sIssuedValue > sQtyRemainingToIssue || sIssuedValue <= 0 || isNaN(sIssuedValue)) {
                 oEvent.getSource().setValueState("Error");
                 oEvent.getSource().setValueStateText("Please enter valid quantity");
+                this.getView().byId("idSaveQtyBTN").setEnabled(false);
             } else {
                 oEvent.getSource().setValueState("None");
+                this.getView().byId("idSaveQtyBTN").setEnabled(true);
             }
         },
 
@@ -240,7 +242,7 @@ sap.ui.define([
             var iIndex = null;
             for (var i = 0; i < jsonDataDoneButton.length; i++) {
                 iIndex = jsonDataDoneButton.findIndex(function (oItem) {
-                    return parseFloat(oItem.IssuedQty) > parseFloat(oItem.QtyRemainingToIssue) || parseFloat(oItem.IssuedQty) <= 0;
+                    return parseFloat(oItem.IssuedQty) > parseFloat(oItem.QtyRemainingToIssue) || parseFloat(oItem.IssuedQty) <= 0 || isNaN(oItem.IssuedQty);
                 });
             }
 
