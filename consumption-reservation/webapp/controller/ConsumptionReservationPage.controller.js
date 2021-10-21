@@ -80,10 +80,10 @@ sap.ui.define(
           var BalanceQtyFilter = new sap.ui.model.Filter({
             path: "BalanceQty",
             operator: sap.ui.model.FilterOperator.NE,
-            value1: null,
+            value1: 0,
           });
           var filter = [];
-          filter.push(GoodReciepientFilter);
+          filter.push(GoodReciepientFilter, BalanceQtyFilter);
           this.getOwnerComponent()
             .getModel()
             .read("/IssuedMaterialReservedItemSet", {

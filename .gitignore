@@ -54,3 +54,6 @@ sapui5/consumption-reservation/.env1
 =======
 /dist/
 >>>>>>> develop
+
+# auto generated wildcard
+sapui5/materialreservation/.env1
