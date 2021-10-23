@@ -159,14 +159,7 @@
                                 <Column>
                                     <Text text="{i18n>ReservationNo}" />
                                 </Column>
-                                <Column>
-                                    <Text text="{i18n>MaterialDocumentNumber}" />
-                                </Column>
 
-
-                                <Column demandPopin="true" minScreenWidth="Desktop">
-                                    <Text text="{i18n>MaterialDocumentYear}" />
-                                </Column>
                                 <Column demandPopin="true" minScreenWidth="Tablet">
                                     <Text text="{i18n>MaterialCode}" />
                                 </Column>
@@ -206,9 +199,7 @@
                                     <cells>
                                         <CheckBox selected="{consumptionData>isSelected}" select="onSelectionOfRow" />
                                         <Text text="{consumptionData>ReservationNumber}"/>
-                                        <Text text="{consumptionData>MaterialDocumentNumber}"/>
 
-                                        <Text text="{consumptionData>MaterialDocumentYear}"/>
                                         <Text text="{consumptionData>MaterialCode}"/>
                                         <Text text="{consumptionData>Plant}"/>
                                              <Text text="{consumptionData>Description}"/>
