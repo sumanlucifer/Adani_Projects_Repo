@@ -116,6 +116,10 @@ modules:
       name: storeincharge-scanqr
       target-path: resources/
     - artifacts:
+      - qr-details-content.zip
+      name: qrdetails
+      target-path: resources/
+    - artifacts:
       - storeincharge-approvals-content.zip
       name: storeincharge-approvals
       target-path: resources/
@@ -194,14 +198,6 @@ modules:
     - artifacts:
       - comagelmmtsreportsreceipt.zip
       name: comagelmmtsreportsreceipt
-      target-path: resources/
-    - artifacts:
-      - comagelmmtsqrdetails.zip
-      name: comagelmmtsqrdetails
-      target-path: resources/
-    - artifacts:
-      - comagelmmtsregenerateqrcode.zip
-      name: comagelmmtsregenerateqrcode
       target-path: resources/
 - name: launchpad
   type: com.sap.application.content
@@ -342,6 +338,14 @@ modules:
 - name: vendormdcc
   type: html5
   path: vendor-mdcc
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []
+- name: qrdetails
+  type: html5
+  path: qr-details
   build-parameters:
     builder: custom
     commands:
@@ -585,26 +589,6 @@ modules:
   - name: workflow
     parameters:
       content-target: true
-- name: comagelmmtsqrdetails
-  type: html5
-  path: qr-details
-  build-parameters:
-    build-result: dist
-    builder: custom
-    commands:
-    - npm install
-    - npm run build:cf
-    supported-platforms: []
-- name: comagelmmtsregenerateqrcode
-  type: html5
-  path: regenerate-qr-code
-  build-parameters:
-    build-result: dist
-    builder: custom
-    commands:
-    - npm install
-    - npm run build:cf
-    supported-platforms: []
 resources:
 - name: uaa_agel-mmts-web
   type: org.cloudfoundry.managed-service

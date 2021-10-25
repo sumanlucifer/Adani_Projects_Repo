@@ -20,6 +20,21 @@
                     "localUri": "localService/metadata.xml"
                 }
             }
+        },
+        "crossNavigation": {
+            "inbounds": {
+                "com-agel-mmts-pmcg-inbound": {
+                    "signature": {
+                        "parameters": {},
+                        "additionalParameters": "allowed"
+                    },
+                    "semanticObject": "Role",
+                    "action": "SelfAssign",
+                    "title": "Self Role Assignment",
+                    "subTitle": "",
+                    "icon": ""
+                }
+            }
         }
     },
     "sap.ui": {
