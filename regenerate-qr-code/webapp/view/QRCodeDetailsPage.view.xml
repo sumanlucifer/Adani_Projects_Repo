@@ -1,0 +1,56 @@
+<mvc:View
+    controllerName="com.agel.mmts.regenerateqrcode.controller.QRCodeDetailsPage" height="100%"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:uxap="sap.uxap"
+    >
+    <uxap:ObjectPageLayout id="ObjectPageLayout" class="sapUiSizeCompact" showTitleInHeaderContent="true" upperCaseAnchorBar="false" headerContentPinnable="true" toggleHeaderOnTitleClick="true" showFooter="true">
+        <uxap:headerTitle>
+            <uxap:ObjectPageDynamicHeaderTitle>
+                <uxap:expandedHeading>
+                    <FlexBox direction="Column" renderType="Bare">
+                        <Title text="{i18n>QRDetails}: {QRDetailModel>/QRNumber}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
+                    </FlexBox>
+                </uxap:expandedHeading>
+                <uxap:snappedHeading>
+                    <FlexBox direction="Column" renderType="Bare">
+                        <Title text="{i18n>QRDetails}: {QRDetailModel>/QRNumber}" wrapping="true" titleStyle="H4"/>
+                    </FlexBox>
+                </uxap:snappedHeading>
+                <uxap:snappedTitleOnMobile>
+                    <Title text="{i18n>QRDetails}: {QRDetailModel>/QRNumber}" wrapping="true" titleStyle="Auto"/>
+                </uxap:snappedTitleOnMobile>
+                <uxap:actions>
+                    <Button  id="idSaveQtyBTN" text="{i18n>Save}" icon="sap-icon://save" 
+                    tooltip="{i18n>Save}" type="Emphasized" enabled="false" press="onSavePress"/>
+                </uxap:actions>
+            </uxap:ObjectPageDynamicHeaderTitle>
+        </uxap:headerTitle>
+        <uxap:sections>
+            <!-- Vendor Basic Details Section -->
+            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>QRDetails}">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection title="{i18n>QRDetails}" titleLevel="H6">
+                        <uxap:blocks>
+                            <core:Fragment fragmentName="com.agel.mmts.regenerateqrcode.view.fragments.DisplayQRCodeDetails" type="XML"/>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+            <!-- Locations Section -->
+            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>ListRegeneratedQR}">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection title="{i18n>ListRegeneratedQR}" titleLevel="H6">
+                        <uxap:blocks>
+                              <core:Fragment fragmentName="com.agel.mmts.regenerateqrcode.view.fragments.QRCodeTable" type="XML"/>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+        </uxap:sections>
+    </uxap:ObjectPageLayout>
+</mvc:View>
+

@@ -228,7 +228,7 @@
                                     <Column demandPopin="true" minScreenWidth="Tablet">
                                         <Text text=""/>
                                     </Column>
-                                    <Column demandPopin="true" minScreenWidth="Tablet">
+                                    <Column demandPopin="true" minScreenWidth="Tablet" visible="{= ${Status} !== 'SAVED' }">
                                         <Text text=""/>
                                     </Column>
                                 </columns>

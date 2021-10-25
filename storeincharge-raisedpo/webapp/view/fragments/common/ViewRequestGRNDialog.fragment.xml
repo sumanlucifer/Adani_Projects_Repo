@@ -44,7 +44,7 @@
                     </f:content>
                 </f:SimpleForm>
 
-                <Table width="auto"  growing="true" growingThreshold="5" items= "{RestrictedStoreStockParents}" fixedLayout="false">
+                <Table width="auto"  growing="true" growingThreshold="5" items= "{RestrictedStoreStockParents}">
                     <columns>
                         <Column importance="High">
                             <Text text="{i18n>lineNo}" wrapping="true" wrappingType="Hyphenated" />
