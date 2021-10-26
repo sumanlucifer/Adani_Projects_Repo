@@ -173,10 +173,10 @@ sap.ui.define(
 
         onLiveChangeQty: function (oEvent) {
           //   var rowObj = oEvent.getSource().getBindingContext().getObject();
-          var ReservedQty = parseInt(oEvent.getSource().getValue());
+          var ReservedQty = parseFloat(oEvent.getSource().getValue());
           var oValue = oEvent.getSource().getValue();
 
-          var BalanceQty = parseInt(
+          var BalanceQty = parseFloat(
             oEvent.getSource().getParent().getCells()[6].getText()
           );
 
@@ -184,7 +184,7 @@ sap.ui.define(
             oEvent.getSource().setValueState("Error");
             oEvent.getSource().setValueStateText("Please enter quantity ");
             this.getView().byId("btnPostConsumption").setEnabled(false);
-          } else if (parseInt(ReservedQty) < 0) {
+          } else if (parseFloat(ReservedQty) < 0) {
             oEvent.getSource().setValueState("Error");
             oEvent
               .getSource()
@@ -192,7 +192,7 @@ sap.ui.define(
                 "Please enter quantity greater than 0 or positive value"
               );
             this.getView().byId("btnPostConsumption").setEnabled(false);
-          } else if (parseInt(ReservedQty) > parseInt(BalanceQty)) {
+          } else if (parseFloat(ReservedQty) > parseFloat(BalanceQty)) {
             oEvent.getSource().setValueState("Error");
             oEvent
               .getSource()
