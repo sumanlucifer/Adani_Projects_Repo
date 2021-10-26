@@ -32,6 +32,10 @@ modules:
     build-result: resources
     requires:
     - artifacts:
+      - regenerate-qr-code-content.zip
+      name: regenerate-qr-code
+      target-path: resources/
+    - artifacts:
       - vendorPersona-content.zip
       name: vendorPersona
       target-path: resources/
@@ -423,6 +427,14 @@ modules:
     commands:
     - npm run build
     supported-platforms: []
+- name: regenerate-qr-code
+  type: html5
+  path: regenerate-qr-code
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []
 - name: comagelmmtsnewvendor
   type: html5
   path: new_vendor
@@ -635,7 +647,6 @@ resources:
     service: workflow
     service-plan: standard
 parameters:
-  deploy_mode: html5-repo
   enable-parallel-deployments: true
 build-parameters:
   before-all:
