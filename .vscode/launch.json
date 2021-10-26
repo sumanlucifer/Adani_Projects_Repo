@@ -605,6 +605,107 @@
       },
       "envFile": "${workspaceFolder}/engineer-issuecancellation/.env1",
       "preLaunchTask": "Build sapui5"
+    },
+    {
+      "name": "Run sapui5-qr-details",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/agel-mmts-web-approuter/node_modules/@sap/html5-repo-mock/index.js",
+      "args": [
+        "--standalone",
+        "/comagelmmtsqrdetails/index.html",
+        "--ui5",
+        "{\"version\":\".\"}"
+      ],
+      "cwd": "${workspaceFolder}/qr-details",
+      "env": {
+        "PORT": "6004",
+        "MOCK_LOOKUP_DIRS": "[\"webapp\"]",
+        "run.config": "{\"handlerId\":\"ui5_run_config_handler_id\",\"runnableId\":\"/home/user/projects/sapui5/qr-details\"}"
+      },
+      "envFile": "${workspaceFolder}/qr-details/.env1",
+      "preLaunchTask": "Build sapui5"
+    },
+    {
+      "name": "Start regenerate-qr-code",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "npm",
+      "cwd": "${workspaceFolder}/regenerate-qr-code",
+      "windows": {
+        "runtimeExecutable": "npm.cmd"
+      },
+      "runtimeArgs": [
+        "run-script",
+        "start"
+      ],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "port": 9229,
+      "env": {
+        "DEBUG": "--inspect",
+        "run.config": "{\"handlerId\":\"fiori_tools\",\"runnableId\":\"/home/user/projects/sapui5/regenerate-qr-code\"}"
+      }
+    },
+    {
+      "name": "Start regenerate-qr-code Mock",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/regenerate-qr-code",
+      "runtimeExecutable": "npm",
+      "windows": {
+        "runtimeExecutable": "npm.cmd"
+      },
+      "runtimeArgs": [
+        "run-script",
+        "start-mock"
+      ],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "port": 9229,
+      "env": {
+        "run.config": "{\"handlerId\":\"fiori_tools\",\"runnableId\":\"/home/user/projects/sapui5/regenerate-qr-code\"}"
+      }
+    },
+    {
+      "name": "Start regenerate-qr-code Local",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/regenerate-qr-code",
+      "runtimeExecutable": "npm",
+      "windows": {
+        "runtimeExecutable": "npm.cmd"
+      },
+      "runtimeArgs": [
+        "run-script",
+        "start-local"
+      ],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "port": 9229,
+      "env": {
+        "run.config": "{\"handlerId\":\"fiori_tools\",\"runnableId\":\"/home/user/projects/sapui5/regenerate-qr-code\"}"
+      }
+    },
+    {
+      "name": "Run sapui5-regenerate-qr-code",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/agel-mmts-web-approuter/node_modules/@sap/html5-repo-mock/index.js",
+      "args": [
+        "--standalone",
+        "/comagelmmtsregenerateqrcode/index.html",
+        "--ui5",
+        "{\"version\":\".\"}"
+      ],
+      "cwd": "${workspaceFolder}/regenerate-qr-code",
+      "env": {
+        "PORT": "6004",
+        "MOCK_LOOKUP_DIRS": "[\"webapp\"]",
+        "run.config": "{\"handlerId\":\"ui5_run_config_handler_id\",\"runnableId\":\"/home/user/projects/sapui5/regenerate-qr-code\"}"
+      },
+      "envFile": "${workspaceFolder}/regenerate-qr-code/.env1",
+      "preLaunchTask": "Build sapui5"
     }
   ],
   "compounds": [],

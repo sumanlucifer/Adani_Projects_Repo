@@ -270,7 +270,7 @@ modules:
     builder: custom
     commands:
     - npm run build
-    supported-platforms: []    
+    supported-platforms: []
 - name: ScannerAppLibrary
   type: html5
   path: ScannerAppLibrary
@@ -635,6 +635,7 @@ resources:
     service: workflow
     service-plan: standard
 parameters:
+  deploy_mode: html5-repo
   enable-parallel-deployments: true
 build-parameters:
   before-all:
