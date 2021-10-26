@@ -2,7 +2,8 @@
     xmlns:core="sap.ui.core">
     <Dialog >
         <content>
-            <Table width="auto" growing="true" id="idViewBOQItemTable" growingThreshold="2" items="{path: 'PackingListBOQItems'}" fixedLayout="false" class="sapUiResponsiveMargin">
+            <Table width="auto" growing="true" id="idViewBOQItemTable" growingThreshold="2" items="{path: 'PackingListBOQItems'}" 
+            fixedLayout="false" class="sapUiResponsiveMargin" noDataText="No BOQ Items for selected Parent.">
                 <columns>
                     <Column>
                         <Text text="Material Code" wrapping="true" wrappingType="Hyphenated"/>
