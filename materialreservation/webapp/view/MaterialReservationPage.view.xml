@@ -142,7 +142,7 @@
                                             <Label text="Material Name" />
                                         </Column>
                                         <Column>
-                                            <Label text="Quantity in Stock" />
+                                            <Label text="Available Qty" />
                                         </Column>
                                         <Column hAlign="End" minScreenWidth="Tablet">
                                             <Label text="UOM" />
@@ -155,7 +155,7 @@
                                         <ColumnListItem>
                                             <Text text="{suggestionModel>MaterialCode}" />
                                             <Text wrapping="false" text="{suggestionModel>Name}" />
-                                            <Text text="{suggestionModel>AvailableQty}" />
+                                            <Text text="{suggestionModel>Available Qty}" />
                                             <Text text="{suggestionModel>UOM}" />
                                             <Text text="{suggestionModel>UnloadPoint}" />
                                         </ColumnListItem>

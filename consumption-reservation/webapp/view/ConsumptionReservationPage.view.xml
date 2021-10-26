@@ -62,7 +62,7 @@
         </f:header>
         <!-- DynamicPage Content -->
         <f:content>
-            <VBox>
+            <!-- <VBox>
                 <ui:TreeTable visible="{= ${objectViewModel>/isItemFieldsVisible} ? true : false}" id="TreeTable" rows="{path:'TreeDataModel>/', parameters: {numberOfExpandedLevels: 2,arrayNames:['results']}}" selectionMode="None" enableSelectAll="false" ariaLabelledBy="title" rowsUpdated="onRowsUpdated">
                     <ui:columns>
                         <ui:Column width="8%" hAlign="Center">
@@ -139,7 +139,85 @@
                         </ui:Column>
                     </ui:columns>
                 </ui:TreeTable>
-            </VBox>
+            </VBox> -->
+
+<VBox>
+
+
+  <Table visible="{= ${objectViewModel>/isItemFieldsVisible} ? true : false}" id="idConsumedTable" growing="true" growingThreshold="10" items="{consumptionData>/}">
+                            <headerToolbar>
+                                <OverflowToolbar>
+                                    <content>
+
+                                    </content>
+                                </OverflowToolbar>
+                            </headerToolbar>
+                            <columns>
+                                <Column width="5%">
+                                    <CheckBox select="onSelectAll"></CheckBox>
+                                </Column>
+                                <Column>
+                                    <Text text="{i18n>ReservationNo}" />
+                                </Column>
+
+                                <Column demandPopin="true" minScreenWidth="Tablet">
+                                    <Text text="{i18n>MaterialCode}" />
+                                </Column>
+
+                                <Column demandPopin="true" minScreenWidth="Tablet">
+                                    <Text text="{i18n>Plant}" />
+                                </Column>
+                                <Column demandPopin="true" minScreenWidth="Tablet">
+                                    <Text text="{i18n>Description}" />
+                                </Column>
+
+
+                                                                <Column demandPopin="true" minScreenWidth="Tablet">
+                                    <Text text="{i18n>StorageLocation}" />
+                                </Column>
+
+                                                                <Column demandPopin="true" minScreenWidth="Tablet">
+                                    <Text text="{i18n>IssuedQuantity}" />
+                                </Column>
+
+                                                                <Column demandPopin="true" minScreenWidth="Tablet">
+                                    <Text text="{i18n>BalancedQuantity}" />
+                                </Column>
+
+                                                                <Column demandPopin="true" minScreenWidth="Tablet">
+                                    <Text text="{i18n>ReservedQuantity}" />
+                                </Column>
+
+                                                   <Column demandPopin="true" minScreenWidth="Tablet">
+                                    <Text text="{i18n>Status}" />
+                                </Column>
+
+
+                            </columns>
+                            <items>
+                                <ColumnListItem id="idBOQItems">
+                                    <cells>
+                                        <CheckBox selected="{consumptionData>isSelected}" select="onSelectionOfRow" />
+                                        <Text text="{consumptionData>ReservationNumber}"/>
+
+                                        <Text text="{consumptionData>MaterialCode}"/>
+                                        <Text text="{consumptionData>Plant}"/>
+                                             <Text text="{consumptionData>Description}"/>
+                                             <Text text="{consumptionData>StorageLocation}"/>
+                                        <Text text="{consumptionData>IssuedQty}"/>
+
+                                    <Text text="{consumptionData>BalanceQty}"/>
+                                                                    <Input liveChange="onLiveChangeReservedQty" enabled="{consumptionData>isSelected}" visible="{= ${TreeDataModel>isParent} ? true : false}" value="{consumptionData>Quantity}" />
+                                        <ObjectStatus text="{consumptionData>Status}" state="{= ${consumptionData>Status} === 'CONSUMPTION SUCCESSFUL' ? 'Success' : ${consumptionData>Status} === 'RESERVED FOR CONSUMPTION' ? 'Information' : 'Error'}" visible="{= ${Status}.length>0 ? true : false }"/>
+
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+
+                        </VBox>
+
+
         </f:content>
         <!-- <f:footer>
             <OverflowToolbar visible="{= ${objectViewModel>/isItemFieldsVisible} ? true : false}">
