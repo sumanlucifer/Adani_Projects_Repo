@@ -18,6 +18,7 @@
             <Input 
                 name="VendorCode"
                 required="true"
+                maxLength="30"
                 value="{
                     path: 'VendorViewModel>/VendorCode',
                     type: 'sap.ui.model.type.String',
@@ -28,7 +29,9 @@
                 }"
                 enabled="{= ${objectViewModel>/EditMode} === true ? false : true}"/>
             <Label text="{i18n>Name}" required="true"/>
-            <Input required="true" 
+            <Input 
+                required="true" 
+                maxLength="50"
                 value="{
                     path: 'VendorViewModel>/Name',
                     type: 'sap.ui.model.type.String',
@@ -37,16 +40,18 @@
                     }
                 }"/>
             <Label text="{i18n>GSTNumber}"/>
-            <Input 
+            <Input
+                maxLength="50" 
                 value="{
                     path: 'VendorViewModel>/GSTNumber',
                     type: 'sap.ui.model.type.String',
                     constraints: {
-                        maxLength: 15
+                        maxLength: 50
                     }
                 }"/>
             <Label text="{i18n>City}"/>
             <Input 
+                maxLength="50"
                 value="{
                     path: 'VendorViewModel>/City',
                     type: 'sap.ui.model.type.String',
@@ -56,6 +61,7 @@
                 }"/>
             <Label text="{i18n>PostCode}"/>
             <Input 
+                maxLength="50"
                 value="{
                     path: 'VendorViewModel>/PostCode',
                     type: 'sap.ui.model.type.String',
@@ -65,6 +71,7 @@
                 }"/>
             <Label text="{i18n>Street}"/>
             <Input
+                maxLength="50"
                 value="{
                     path: 'VendorViewModel>/Street',
                     type: 'sap.ui.model.type.String',
@@ -74,6 +81,7 @@
                 }"/>
             <Label text="{i18n>StreetSuppl1}"/>
             <Input 
+                maxLength="50"
                 value="{
                     path: 'VendorViewModel>/StreetSuppl1',
                     type: 'sap.ui.model.type.String',
@@ -83,6 +91,7 @@
                 }"/>
             <Label text="{i18n>Country}"/>
             <Input 
+                maxLength="50"
                 value="{
                     path: 'VendorViewModel>/Country',
                     type: 'sap.ui.model.type.String',
@@ -92,6 +101,7 @@
                 }"/>
             <Label text="{i18n>Region}"/>
             <Input 
+                maxLength="50"
                 value="{
                     path: 'VendorViewModel>/Region',
                     type: 'sap.ui.model.type.String',
@@ -103,9 +113,10 @@
             <Input  required="true" type="Number" maxLength="15"
                 value="{VendorViewModel>/PhoneNumber}"/>
             <Label text="{i18n>EmailID}" required="true"/>
-            <Input  name="Email" required="true" type="Email" value="{VendorViewModel>/Email}" enabled="{= ${objectViewModel>/EditMode} === true ? false : true}" change="checkValidationEmail"/>
+            <Input  name="Email" required="true" type="Email" value="{VendorViewModel>/Email}" maxLength="50" enabled="{= ${objectViewModel>/EditMode} === true ? false : true}" change="checkValidationEmail"/>
             <Label text="{i18n>Pan}"/>
             <Input 
+                maxLength="10"
                 value="{
                     path: 'VendorViewModel>/Pan',
                     type: 'sap.ui.model.type.String',

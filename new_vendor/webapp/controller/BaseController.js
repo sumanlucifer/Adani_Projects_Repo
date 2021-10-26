@@ -201,7 +201,7 @@ sap.ui.define([
 
         fnRemoveErrorState: function () {
             var oForm = this.getView().byId("idEditBasicDetailsSFM").getContent();
-            
+
             oForm.forEach(function (Field) {
                 if ((typeof Field.getValue === "function" && Field.getRequired())) {
                     Field.setValueState("None");
@@ -212,6 +212,7 @@ sap.ui.define([
         fnValidateFieldsAndSaveVendorData: function (bVendorCreateUpdateFlag) {
             var bRequiredFieldsError = false,
                 bInValidEmail = false,
+                bInValidLocMapping = false,
                 oForm = this.getView().byId("idEditBasicDetailsSFM").getContent();
 
             oForm.forEach(function (Field) {
@@ -222,8 +223,8 @@ sap.ui.define([
 
                         if (Field.getName() === "Email") {
                             var RegularExpression =
-                                /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                                bInValidEmail = RegularExpression.test(Field.getValue());
+                                /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                            bInValidEmail = RegularExpression.test(Field.getValue());
                         }
                     }
                     else {
@@ -242,19 +243,52 @@ sap.ui.define([
                 return;
             }
 
-            var oVendorObj = this.getView().getModel("VendorViewModel").getData();
-            if (bVendorCreateUpdateFlag === "Create") {
-                var sCreateMsg = "VendorCreateSuccess";
-                this.fnSaveVendorDetails(oVendorObj, sCreateMsg);
-            } else {
-                var sUpdateMsg = "VendorUpdateSuccess";
-                for (var i = 0; i < oVendorObj.Mappings.length; i++) {
-                    delete (oVendorObj.Mappings[i].PlantCode);
-                    delete (oVendorObj.Mappings[i].CompanyCode);
+            bInValidLocMapping = this.fnValidateLocationMappings();
+            if (bInValidLocMapping === false) {
+                var oVendorObj = this.getView().getModel("VendorViewModel").getData();
+                if (bVendorCreateUpdateFlag === "Create") {
+                    var sCreateMsg = "VendorCreateSuccess";
+                    this.fnSaveVendorDetails(oVendorObj, sCreateMsg);
+                } else {
+                    var sUpdateMsg = "VendorUpdateSuccess";
+                    for (var i = 0; i < oVendorObj.Mappings.length; i++) {
+                        delete (oVendorObj.Mappings[i].PlantCode);
+                        delete (oVendorObj.Mappings[i].CompanyCode);
+                    }
+                    this.fnSaveVendorDetails(oVendorObj, sUpdateMsg);
                 }
-                this.fnSaveVendorDetails(oVendorObj, sUpdateMsg);
             }
+
             this.getView().getModel().refresh(true);
+        },
+
+        fnValidateLocationMappings: function () {
+            var bErrorFound = false,
+                aMappingData = this.getView().getModel("VendorViewModel").getProperty("/Mappings"),
+                iDuplicateMappingFound = false,
+                iIncompleteMappingIndex = aMappingData.findIndex(function (oMapping) {
+                    return oMapping.CompanyCode === null || oMapping.CompanyCodeId === null || oMapping.PlantCode === null || oMapping.PlantId === null;
+                });
+
+            if (iIncompleteMappingIndex >= 0) {
+                MessageBox.error(this.getResourceBundle().getText("ErrorInvalidLocations"));
+                bErrorFound = true;
+            }
+            else {
+                for (var i = 0; i < aMappingData.length; i++) {
+                    var iDuplicateMappings = aMappingData.filter(function (oMapping) {
+                        return oMapping.CompanyCode === aMappingData[i].CompanyCode && oMapping.PlantCode === aMappingData[i].PlantCode;
+                    });
+
+                    iDuplicateMappingFound = iDuplicateMappings.length > 1 ? true : false;
+                }
+
+                if (iDuplicateMappingFound) {
+                    MessageBox.error(this.getResourceBundle().getText("ErrorDuplicateLocations"));
+                    bErrorFound = true;
+                }
+            }
+            return bErrorFound;
         },
 
         onAddCompanyPlantMapping: function () {
