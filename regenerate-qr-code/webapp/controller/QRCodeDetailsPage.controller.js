@@ -78,7 +78,7 @@ sap.ui.define([
                     fDispatchQty = parseFloat(this.getView().getModel("QRDetailModel").getProperty("/PackingListParentItem/DispatchQty")),
                     fAvailableQty = parseFloat(this.getView().getModel("QRDetailModel").getProperty("/AvailableQty"));
 
-                if (fNewQty > fDispatchQty || fNewQty <= 0 || fNewQty > fAvailableQty) {
+                if (fNewQty >= fDispatchQty || fNewQty <= 0 || fNewQty >= fAvailableQty) {
                     oEvent.getSource().setValueState("Error");
                     oEvent.getSource().setValueStateText(this.getResourceBundle().getText("PleaseEnterValidQty"));
                     this.getView().byId("idSaveQtyBTN").setEnabled(false);

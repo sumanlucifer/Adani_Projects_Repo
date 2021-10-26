@@ -10,16 +10,18 @@
             <uxap:ObjectPageDynamicHeaderTitle>
                 <uxap:expandedHeading>
                     <FlexBox direction="Column" renderType="Bare">
-                        <Title text="{i18n>VendorDetail}: {VendorViewModel>/VendorCode}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
+                        <Title text="{i18n>VendorDetails}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
+                        <Text text="{i18n>VendorCode}: {VendorViewModel>/VendorCode}" wrapping="true"/>
                     </FlexBox>
                 </uxap:expandedHeading>
                 <uxap:snappedHeading>
                     <FlexBox direction="Column" renderType="Bare">
-                        <Title text="{i18n>VendorDetail}: {VendorViewModel>/VendorCode}" wrapping="true" titleStyle="H4"/>
+                        <Title text="{i18n>VendorDetails}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
+                        <Text text="{i18n>VendorCode}: {VendorViewModel>/VendorCode}" wrapping="true"/>
                     </FlexBox>
                 </uxap:snappedHeading>
                 <uxap:snappedTitleOnMobile>
-                    <Title text="{i18n>VendorDetail}: {VendorViewModel>/VendorCode}" wrapping="true" titleStyle="Auto"/>
+                    <Title text="{i18n>VendorDetails}: {VendorViewModel>/VendorCode}" wrapping="true" titleStyle="Auto"/>
                 </uxap:snappedTitleOnMobile>
                 <uxap:actions>
                     <Button text="{i18n>Edit}" type="Emphasized" class="sapUiSizeCompact" press="onVendorEditPress" visible="{= ${objectViewModel>/EditMode} === false ? true : false}"/>

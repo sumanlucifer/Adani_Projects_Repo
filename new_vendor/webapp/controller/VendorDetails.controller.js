@@ -116,9 +116,6 @@ sap.ui.define([
         onSaveVendorDetails: function () {
             var bVendorCreateUpdateFlag = "Update";
             this.fnValidateFieldsAndSaveVendorData(bVendorCreateUpdateFlag);
-
-            // this.getView().getModel("objectViewModel").setProperty("/EditMode", false);
-            // this.getView().getModel("objectViewModel").refresh(true);
         }
     });
 });

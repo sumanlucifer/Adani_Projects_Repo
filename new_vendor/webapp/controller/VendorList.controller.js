@@ -35,7 +35,7 @@ sap.ui.define([
 
             },
 
-             onbeforeRebindOpenPoTable: function (oEvent) {
+            onbeforeRebindOpenPoTable: function (oEvent) {
                 var mBindingParams = oEvent.getParameter("bindingParams");
                 mBindingParams.sorter.push(new sap.ui.model.Sorter("CreatedAt", true));
                 // mBindingParams.filters.push(new sap.ui.model.Filter("Email", sap.ui.model.FilterOperator.EQ, this.ApproverEmailID));
@@ -67,22 +67,14 @@ sap.ui.define([
                 if (FreeTextSearch) {
                     orFilters.push(new Filter("VendorCode", FilterOperator.Contains, FreeTextSearch));
                     orFilters.push(new Filter("Name", FilterOperator.Contains, FreeTextSearch));
-                    // orFilters.push(new Filter("MasterCompanyCode/CompanyCode", FilterOperator.EQ, FreeTextSearch));
-                    // orFilters.push(new Filter("PlantCode", FilterOperator.EQ, FreeTextSearch));
+                    orFilters.push(new Filter("Email", FilterOperator.Contains, FreeTextSearch));
+                    orFilters.push(new Filter("Country", FilterOperator.Contains, FreeTextSearch.toUpperCase()));
                     andFilters.push(new Filter(orFilters, false));
                 }
 
                 if (sVendorCode != "") {
                     andFilters.push(new Filter("VendorCode", FilterOperator.EQ, sVendorCode));
                 }
-
-                // if (CompanyCode != "") {
-                //     andFilters.push(new Filter("MasterCompanyCode/CompanyCode", FilterOperator.EQ, CompanyCode));
-                // }
-
-                // if (PlantCode != "") {
-                //     andFilters.push(new Filter("PlantCode", FilterOperator.EQ, PlantCode));
-                // }
 
                 var idOpenPOTableBinding = this.getView().byId("idVendorTable").getTable().getBinding("items");
 
@@ -99,8 +91,6 @@ sap.ui.define([
             onResetFilters: function () {
                 this.oFilterBar._oBasicSearchField.setValue("");
                 this.byId("idVendorCodeINP").setValue("");
-                // this.byId("idPlantIdMCB").setValue("");
-                // this.byId("idCompanyCodeMCB").setValue("");
 
                 var idVendorBinding = this.getView().byId("idVendorTable").getTable().getBinding("items");
                 idVendorBinding.filter([]);
