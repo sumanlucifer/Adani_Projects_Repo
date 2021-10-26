@@ -9,7 +9,7 @@
             <columns>
             
                 <!-- Vendor Code -->
-                <Column >
+                <Column>
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "VendorCode", "leadingProperty": "VendorCode",
                             "columnIndex": 0 ,"sortProperty": "VendorCode","filterProperty": "VendorCode"}'/>
