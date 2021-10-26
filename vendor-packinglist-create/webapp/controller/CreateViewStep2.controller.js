@@ -624,11 +624,11 @@ sap.ui.define([
                     return;
                 }
 
-                if (!data.VehicleNumber) {
-                    bValid = false;
-                    sap.m.MessageBox.alert("Please enter the Vehicle number before viewing the QR.");
-                    return;
-                }
+                // if (!data.VehicleNumber) {
+                //     bValid = false;
+                //     sap.m.MessageBox.alert("Please enter the Vehicle number before viewing the QR.");
+                //     return;
+                // }
 
                 if (data.VehicleNumber && !vehicleRegExp.test(data.VehicleNumber)) {
                     bValid = false;

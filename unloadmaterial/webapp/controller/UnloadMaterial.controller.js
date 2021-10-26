@@ -616,7 +616,7 @@ sap.ui.define([
 
             onDeliveryNoteLiveChange: function (oEvent) {
                 var oPOData = this.getView().getBindingContext().getObject();
-                if (oEvent.getSource().getValue().length && parseInt(oEvent.getSource().getValue()) > 0)
+                if (oEvent.getSource().getValue().length)
                     this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", true);
                 else
                     this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", false);
@@ -624,21 +624,27 @@ sap.ui.define([
 
             onQuantityLiveChange: function (oEvent) {
                 var oGRNData = this.getView().getBindingContext().getObject();
-                if (oEvent.getSource().getValue().length && parseInt(oEvent.getSource().getValue()) > 0)
+                if (oEvent.getSource().getValue().length && parseFloat(oEvent.getSource().getValue()) > 0){
                     this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", true);
-                else
+                    oEvent.getSource().setValueState("None");
+                    oEvent.getSource().setValueStateText("");
+                }
+                else{
                     this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", false);
+                    oEvent.getSource().setValueState("Error");
+                    oEvent.getSource().setValueStateText("Weight should be more than 0.");
+                }
 
                 if (parseFloat(oEvent.getSource().getValue()) > parseFloat(oGRNData.TotalWeight) || parseFloat(oEvent.getSource().getValue()) <= 0 ) {
-                    sap.m.MessageBox.error("Total Packaging Weight should more than 0 and not exceed Total Vendor Entered Weight.");
-                    // this.getViewModel("requestModel").setProperty("/valueState", "Error");
-                    // this.getViewModel("requestModel").setProperty("/valueStateText", "Total Packaging Weight should not exceed Total Vendor Entered Weight.");
+                    // sap.m.MessageBox.error("Total Packaging Weight should more than 0 and not exceed Total Vendor Entered Weight.");
                     this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", false);
+                    oEvent.getSource().setValueState("Error");
+                    oEvent.getSource().setValueStateText("Weight should be less than total weight.");
                 }
                 else {
-                    // this.getViewModel("requestModel").setProperty("/valueState", null);
-                    // this.getViewModel("requestModel").setProperty("/valueStateText", "");
                     this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", true);
+                    oEvent.getSource().setValueState("None");
+                    oEvent.getSource().setValueStateText("");
                 }
             },
 
