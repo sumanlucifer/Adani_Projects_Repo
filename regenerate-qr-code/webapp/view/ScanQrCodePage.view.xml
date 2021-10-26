@@ -1,0 +1,35 @@
+<mvc:View xmlns:vbm="sap.ui.vbm"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:uxap="sap.uxap"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+    xmlns:unified="sap.ui.unified"
+    xmlns:tt="sap.ui.table"
+    xmlns:scan="sap.ndc"
+    xmlns="sap.m" controllerName="com.agel.mmts.regenerateqrcode.controller.ScanQrCodePage" height="100%">
+    <uxap:ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true" upperCaseAnchorBar="false" headerContentPinnable="true" toggleHeaderOnTitleClick="true" showFooter="true">
+        <uxap:headerTitle>
+            <uxap:ObjectPageDynamicHeaderTitle>
+                <uxap:content>
+                    <HBox alignItems="Center">
+                        <Input id="idInputQRCode" width="20rem" placeholder="{i18n>EnterQRNumber}" 
+                            liveChange="onQRCodeSuggestionSelected" class="sapUiSmallMarginEnd" 
+                            enabled="{oViewModel>/inputQRCode}" submit="onPressSubmitQRCode"/>
+                        <Button id="idQRBtn" text="{i18n>Submit}" type="Emphasized" press="onPressSubmitQRCode" class="sapUiSmallMarginBegin" enabled="{oViewModel>/submitQRCode}"/>
+                    </HBox>
+                    <HBox alignItems="Center">
+                        <Text text="{i18n>OR}" class="sapUiTinyMargin"/>
+                    </HBox>
+                    <HBox alignItems="Center">
+                         <scan:BarcodeScannerButton id="idQRSubmit" scanSuccess="onScanSuccess" scanFail="onScanError" inputLiveUpdate="onScanLiveupdate" visible="{oViewModel>/scanQRCode}"/>
+                    </HBox>
+                </uxap:content>
+            </uxap:ObjectPageDynamicHeaderTitle>
+        </uxap:headerTitle>
+        <uxap:headerContent>
+        </uxap:headerContent>
+        <uxap:sections>
+        </uxap:sections>
+    </uxap:ObjectPageLayout>
+</mvc:View>

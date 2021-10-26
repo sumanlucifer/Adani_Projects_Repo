@@ -32,6 +32,10 @@ modules:
     build-result: resources
     requires:
     - artifacts:
+      - regenerate-qr-code-content.zip
+      name: regenerate-qr-code
+      target-path: resources/
+    - artifacts:
       - vendorPersona-content.zip
       name: vendorPersona
       target-path: resources/
@@ -270,7 +274,7 @@ modules:
     builder: custom
     commands:
     - npm run build
-    supported-platforms: []    
+    supported-platforms: []
 - name: ScannerAppLibrary
   type: html5
   path: ScannerAppLibrary
@@ -418,6 +422,14 @@ modules:
 - name: unloadmaterial
   type: html5
   path: unloadmaterial
+  build-parameters:
+    builder: custom
+    commands:
+    - npm run build
+    supported-platforms: []
+- name: regenerate-qr-code
+  type: html5
+  path: regenerate-qr-code
   build-parameters:
     builder: custom
     commands:

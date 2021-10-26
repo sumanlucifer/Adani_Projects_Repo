@@ -1,0 +1,48 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:smartTable="sap.ui.comp.smarttable"
+    xmlns:core="sap.ui.core">
+    <Table 
+    id="idRegeneratedQRCodesTBL"
+    sticky="ColumnHeaders,HeaderToolbar" 
+    items="{path: 'QRDetailModel>/RegenerateQRCode/results',
+            sorter : {
+                path : 'CreatedAt',
+                descending: true
+            }
+        }"
+    updateFinished="onRegeneratedQRTBLRendered">
+        <columns>
+            <Column demandPopin="true" minScreenWidth="Tablet"> 
+                <Text text="{i18n>QRNumber}"/>
+            </Column>
+
+            <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center"> 
+                <Text text="{i18n>UpdatedQty}"/>
+            </Column>
+
+            <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center">
+                <Text text="{i18n>Date}"/>
+            </Column>
+
+            <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center"> 
+                <Text text="{i18n>Action}"/>
+            </Column>
+
+        </columns>
+        <items>
+            <ColumnListItem  press="onUserRoleDetlPress">
+                <cells>
+                    <Text text="{QRDetailModel>QRNumber}" wrapping="false"/>
+                    <Text text="{QRDetailModel>UpdatedQty}" wrapping="false"/>
+                    <Text text="{path:'QRDetailModel>CreatedAt',
+                                type: 'sap.ui.model.type.Date',
+                                formatOptions: {
+				                    pattern: 'MMMM dd, yyyy'
+				                }
+                    }"/>
+                    <Link id="idViewQRLNK" text="{i18n>ViewQRCode}" press="onViewQRCodePress"/>
+                </cells>
+            </ColumnListItem>
+        </items>
+        </Table>
+</core:FragmentDefinition>

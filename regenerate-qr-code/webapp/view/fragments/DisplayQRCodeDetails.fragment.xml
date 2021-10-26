@@ -1,0 +1,21 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+     xmlns:l="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form">
+    <f:SimpleForm id="idDisplayBasicDetailsSFM" layout="ColumnLayout" columnsM="2" columnsL="2" columnsXL="2">
+        <f:content>
+            <Label text="{i18n>QRType}"/>
+            <Text text="{i18n>PARENT}"/>
+            <Label text="{i18n>DispatchQty}"/>
+            <Text text="{QRDetailModel>/PackingListParentItem/DispatchQty}"/>
+            <Label text="{i18n>UOM}"/>
+            <Text text="{QRDetailModel>/PackingListParentItem/UOM}"/>
+            <Label text="{i18n>Materialcode}"/>
+            <Text text="{QRDetailModel>/PackingListParentItem/MaterialCode}"/>
+            <Label text="{i18n>AvailableQty}"/>
+            <Text text="{QRDetailModel>/AvailableQty}"/>
+            <Label text="{i18n>EnterNewQuantity}" class="sapUiTinyMarginTop"/>
+            <Input id="idNewUpdatedQtyINP" value="{QRDetailModel>/UpdatedQty}" type="Number" liveChange="fnEnterQtyValidations"/>
+        </f:content>
+    </f:SimpleForm>
+</core:FragmentDefinition>

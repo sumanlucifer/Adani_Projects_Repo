@@ -51,7 +51,17 @@
                                 <Text text="{TreeDataModel>DispatchQty}" wrapping="false" />
                             </ui:template>
                         </ui:Column>
+
+
+                                                <ui:Column>
+                            <Label text="Action" />
+                            <ui:template>
+                    <Link binding="{TreeDataModel>QrCode/QRNumber}"  visible="{= ${TreeDataModel>QrCode/QRNumber}}" text="View QR Code"  press="onViewTreeTableQRPress"/>
+                            </ui:template>
+                        </ui:Column>
                     </ui:columns>
                 </ui:TreeTable>
             </VBox>
 </mvc:View>
+
+

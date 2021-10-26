@@ -12,6 +12,10 @@ sap.ui.define(["sap/ui/core/mvc/Controller"], function (Controller) {
             this.oParentBlock.fireOnViewQRCodePress(oEvent);
         },
 
+         onViewTreeTableQRPress: function(oEvent){
+            this.oParentBlock.fireOnViewTreeTableQRPress(oEvent);
+        },
+
         onBeforeRebindTreeTable: function (oEvent) {
             this.oParentBlock.fireManageBOQItemPress(oEvent);
         },
