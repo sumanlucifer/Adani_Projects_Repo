@@ -78,7 +78,7 @@
             </columns>
             <items>
 
-                <ColumnListItem type="Navigation" press="onDomesticEntryPress">
+                <ColumnListItem type="Navigation" press="onDomesticEntryPress" visible="{= ${PackingListId}}">
                     <cells>
                         <ObjectIdentifier title="{PONumber}"/>
                         <ObjectIdentifier title="{PackingListName}"/> 

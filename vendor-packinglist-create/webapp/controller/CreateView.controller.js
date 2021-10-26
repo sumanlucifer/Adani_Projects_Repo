@@ -31,10 +31,10 @@ sap.ui.define([
                 var objectViewModel = this.getViewModel("objectViewModel");
                 var that = this;
 
-                // var startupParams = this.getOwnerComponent().getComponentData().startupParameters;
-                // this.packingListId = startupParams.packingListID[0];
+                var startupParams = this.getOwnerComponent().getComponentData().startupParameters;
+                this.packingListId = startupParams.packingListID[0];
 
-             this.packingListId = 112;
+            //  this.packingListId = 112;
                
 
                /* if (startupParams.status[0] !== "SAVED") {
