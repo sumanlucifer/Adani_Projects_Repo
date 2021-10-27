@@ -62,31 +62,25 @@
         </f:header>
         <!-- DynamicPage Content -->
         <f:content>
-            <!-- <VBox>
+            <VBox>
                 <ui:TreeTable visible="{= ${objectViewModel>/isItemFieldsVisible} ? true : false}" id="TreeTable" rows="{path:'TreeDataModel>/', parameters: {numberOfExpandedLevels: 2,arrayNames:['results']}}" selectionMode="None" enableSelectAll="false" ariaLabelledBy="title" rowsUpdated="onRowsUpdated">
                     <ui:columns>
-                        <ui:Column width="8%" hAlign="Center">
+                        <!-- <ui:Column width="8%" hAlign="Center">
                             <Label text="{i18n>Select}" />
                             <ui:template>
                                 <CheckBox visible="{= ${TreeDataModel>isParent} ? true : false}" selected="{TreeDataModel>isSelected}" select="onSelectionOfRow" />
                             </ui:template>
-                        </ui:Column>
+                        </ui:Column> -->
                         <ui:Column>
-                            <Label text="{i18n>ReservationNo}" />
+                            <Label text="{i18n>Name}" />
                             <ui:template>
-                                <Text text="{TreeDataModel>ReservationNumber}" wrapping="false" />
+                                <Text text="{TreeDataModel>Name}" wrapping="false" />
                             </ui:template>
                         </ui:Column>
                         <ui:Column>
-                            <Label text="{i18n>MaterialDocumentNumber}" />
+                            <Label text="{i18n>Description}" />
                             <ui:template>
-                                <Text text="{TreeDataModel>MaterialDocumentNumber}" wrapping="false" />
-                            </ui:template>
-                        </ui:Column>
-                        <ui:Column>
-                            <Label text="{i18n>MaterialDocumentYear}" />
-                            <ui:template>
-                                <Text text="{TreeDataModel>MaterialDocumentYear}" wrapping="false" />
+                                <Text text="{TreeDataModel>Description}" wrapping="false" />
                             </ui:template>
                         </ui:Column>
                         <ui:Column>
@@ -96,9 +90,22 @@
                             </ui:template>
                         </ui:Column>
                         <ui:Column>
-                            <Label text="{i18n>Plant}" />
+                            <Label text="{i18n>BalanceQty}" />
                             <ui:template>
-                                <Text text="{TreeDataModel>Plant}" wrapping="false" />
+                                <Text text="{TreeDataModel>BalanceQty}" wrapping="false" />
+                            </ui:template>
+                        </ui:Column>
+
+                                                <ui:Column>
+                            <Label text="{i18n>BaseUnit}" />
+                            <ui:template>
+                                <Text text="{TreeDataModel>BaseUnit}" wrapping="false" />
+                            </ui:template>
+                        </ui:Column>
+                        <ui:Column>
+                            <Label text="{i18n>UOM}" />
+                            <ui:template>
+                                <Text text="{TreeDataModel>UOM}" wrapping="false" />
                             </ui:template>
                         </ui:Column>
                         <ui:Column>
@@ -119,6 +126,15 @@
                                 <Text text="{TreeDataModel>IssuedQty}" wrapping="false" />
                             </ui:template>
                         </ui:Column>
+<ui:Column>
+                            <Label text="{i18n>WeightPerPiece}" />
+                            <ui:template>
+                                <Text text="{TreeDataModel>WeightPerPiece}" wrapping="false" />
+                            </ui:template>
+                        </ui:Column>
+
+
+                        
                         <ui:Column>
                             <Label text="{i18n>BalancedQuantity}" />
                             <ui:template>
@@ -128,7 +144,7 @@
                         <ui:Column>
                             <Label text="{i18n>ReservedQuantity}" />
                             <ui:template>
-                                <Input liveChange="onLiveChangeReservedQty" visible="{= ${TreeDataModel>isParent} ? true : false}" value="{TreeDataModel>Quantity}" />
+                                <Input liveChange="onLiveChangeReservedQty" enabled="{= ${TreeDataModel>isChildItemFreeze} ? true : false}" value="{TreeDataModel>Quantity}" />
                             </ui:template>
                         </ui:Column>
                         <ui:Column>
@@ -139,9 +155,9 @@
                         </ui:Column>
                     </ui:columns>
                 </ui:TreeTable>
-            </VBox> -->
+            </VBox>
 
-<VBox>
+<!-- <VBox>
 
 
   <Table visible="{= ${objectViewModel>/isItemFieldsVisible} ? true : false}" id="idConsumedTable" growing="true" growingThreshold="10" items="{consumptionData>/}">
@@ -215,7 +231,7 @@
                             </items>
                         </Table>
 
-                        </VBox>
+                        </VBox> -->
 
 
         </f:content>
