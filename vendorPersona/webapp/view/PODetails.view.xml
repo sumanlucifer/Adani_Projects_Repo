@@ -152,7 +152,7 @@
                 </uxap:subSections>
             </uxap:ObjectPageSection>
 
-            <!-- Packing List Section -->
+            <!-- Inspection Section -->
             <uxap:ObjectPageSection titleUppercase="false" title="{i18n>inspectionDetails}" visible="{= ${Status}==='CONFIRMED' ? true : false || ${Status}==='IN PROGRESS' ? true : false}">
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection title="{i18n>inspectionDetails}">

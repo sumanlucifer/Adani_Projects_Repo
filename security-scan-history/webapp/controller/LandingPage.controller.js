@@ -176,11 +176,28 @@ sap.ui.define([
             },
 
             _showObjectDomestic: function (oItem) {
-                var that = this;
-                var sObjectPath = oItem.getBindingContext().sPath;
-                that.getRouter().navTo("RouteQRCodeDetail", {
-                    QRNo: oItem.getBindingContext().getObject().PackingListId
-                });
+                // var that = this;
+                // var sObjectPath = oItem.getBindingContext().sPath;
+                var iPackingListId = oItem.getBindingContext().getObject().PackingListId;
+                if (!iPackingListId) {
+                    var sPath = oItem.getBindingContext().getPath();
+                    this.getViewModel().read(sPath, {
+                        success: function (oData) {
+                            iPackingListId = oData.PackingListId;
+                            this.getRouter().navTo("RouteQRCodeDetail", {
+                                QRNo: iPackingListId
+                            });
+                        }.bind(this),
+                        error: function (oError) {
+                            sap.m.MessageBox.error("Error while fetching Packing List Details.")
+                        }
+                    })
+                }
+                else {
+                    this.getRouter().navTo("RouteQRCodeDetail", {
+                        QRNo: iPackingListId
+                    });
+                }
             },
 
             onDomesticEntryPress: function (oEvent) {
