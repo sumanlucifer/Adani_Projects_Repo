@@ -157,21 +157,24 @@ sap.ui.define([
             var xhr = new XMLHttpRequest();
             xhr.onload = function () {
                 var reader = new FileReader();
-                reader.onloadend = function () {
-                    var str = reader.result;
-                    var bytes = [];
-                    for (var i = 0; i < str.length; ++i) {
-                        bytes.push(str.charCodeAt(i));
+                var fileByteArray = [];
+                reader.readAsArrayBuffer(xhr.response);
+                reader.onloadend = function (evt) {
+                    if (evt.target.readyState == FileReader.DONE) {
+                        var arrayBuffer = evt.target.result,
+                            array = new Int8Array(arrayBuffer);
+                        for (var i = 0; i < array.length; i++) {
+                            fileByteArray.push(array[i]);
+                        }
+                        callback(fileByteArray);
                     }
-                    // var byteStr = bytes.join(",");
-                    callback(bytes);
-                };
-                reader.readAsText(xhr.response);
+                }
             };
             xhr.open('GET', url);
             xhr.responseType = 'blob';
             xhr.send();
         },
+
         onMDCCYesSelect: function () {
             this.byId("idMDCCUploadArea").setVisible(true);
         },
@@ -607,9 +610,9 @@ sap.ui.define([
         onPressSaveInspectionBOQItems: function (oEvent) {
             var that = this;
             var itemData = this.getTableItems();
-                            if (!this._validateItemData(itemData.selectedItems)) {
-                    return;
-                }
+            if (!this._validateItemData(itemData.selectedItems)) {
+                return;
+            }
             var inspectionID = this.inspectionID;
             MessageBox.confirm("Do you want to Submit the Inspect BOQ Items?", {
                 icon: MessageBox.Icon.INFORMATION,
@@ -632,9 +635,9 @@ sap.ui.define([
                 selectedItems
             };
         },
-                onSelectAll: function (oeve) {
+        onSelectAll: function (oeve) {
             var isSelected = oeve.getSource().getSelected();
-                        var itemData = this.getView().getModel("inspectedMapBOQItemsModel").getProperty("/inspectedMapBOQItems");
+            var itemData = this.getView().getModel("inspectedMapBOQItemsModel").getProperty("/inspectedMapBOQItems");
             if (isSelected) {
                 for (var i = 0; i < itemData.length; i++) {
                     itemData[i].isSelected = true;
@@ -647,23 +650,23 @@ sap.ui.define([
             }
             this.getView().getModel("inspectedMapBOQItemsModel").setProperty("/inspectedMapBOQItems", itemData);
         },
-          _validateItemData: function (itemData) {
-                var bValid = true;
-                if (itemData.length > 0) {
-                    for (let i = 0; i < itemData.length; i++) {
-                        if (!itemData[i].ApprovedQty) {
-                            bValid = false;
-                            sap.m.MessageBox.alert("Please select quanity for the material " + itemData[i].MaterialCode);
-                            return;
-                        }
+        _validateItemData: function (itemData) {
+            var bValid = true;
+            if (itemData.length > 0) {
+                for (let i = 0; i < itemData.length; i++) {
+                    if (!itemData[i].ApprovedQty) {
+                        bValid = false;
+                        sap.m.MessageBox.alert("Please select quanity for the material " + itemData[i].MaterialCode);
+                        return;
                     }
                 }
-                else {
-                    bValid = false;
-                    sap.m.MessageBox.alert("Please select atleast one item");
-                }
-                return bValid;
-            },
+            }
+            else {
+                bValid = false;
+                sap.m.MessageBox.alert("Please select atleast one item");
+            }
+            return bValid;
+        },
         onSaveInspectBOQDialog: function (inspectionID, itemData) {
             var aInspectionBOQItems = itemData.selectedItems.map(function (item) {
                 return {

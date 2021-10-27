@@ -290,16 +290,18 @@ sap.ui.define([
             var xhr = new XMLHttpRequest();
             xhr.onload = function () {
                 var reader = new FileReader();
-                reader.onloadend = function () {
-                    var str = reader.result;
-                    var bytes = [];
-                    for (var i = 0; i < str.length; ++i) {
-                        bytes.push(str.charCodeAt(i));
+                var fileByteArray = [];
+                reader.readAsArrayBuffer(xhr.response);
+                reader.onloadend = function (evt) {
+                    if (evt.target.readyState == FileReader.DONE) {
+                        var arrayBuffer = evt.target.result,
+                            array = new Int8Array(arrayBuffer);
+                        for (var i = 0; i < array.length; i++) {
+                            fileByteArray.push(array[i]);
+                        }
+                        callback(fileByteArray);
                     }
-                    // var byteStr = bytes.join(",");
-                    callback(bytes);
-                };
-                reader.readAsText(xhr.response);
+                }
             };
             xhr.open('GET', url);
             xhr.responseType = 'blob';
