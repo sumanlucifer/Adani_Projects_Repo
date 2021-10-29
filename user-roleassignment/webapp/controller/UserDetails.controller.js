@@ -47,14 +47,13 @@ sap.ui.define([
             var sObjectId = oEvent.getParameter("arguments").BOQRequestId;
             this._bindView("/UserSet" + sObjectId);
 
-
+            this.fngetUserRoles();
             // var oSelectedKeyModel = new JSONModel();
             // this.getView().setModel(oSelectedKeyModel, "oSelectedKeyModel");
         },
 
         _bindView: function (sObjectPath) {
             var objectViewModel = this.getViewModel("objectViewModel");
-            var that = this;
 
             this.getView().bindElement({
                 path: sObjectPath,
@@ -62,7 +61,7 @@ sap.ui.define([
                     dataRequested: function () {
                         objectViewModel.setProperty("/busy", true);
                     },
-                    dataReceived: function () {
+                    dataReceived: function (oData) {
                         objectViewModel.setProperty("/busy", false);
                     }
                 }
@@ -70,9 +69,13 @@ sap.ui.define([
         },
 
         onRoleDialogPress: function (oEvent) {
-            var sParentItemPath = oEvent.getSource().getParent().getBindingContext().getPath();
-            var sDialogTitle = "Name: " + oEvent.getSource().getBindingContext().getObject().FirstName + " " + oEvent.getSource().getBindingContext().getObject().LastName;
-            var oDetails = {};
+            this.fnPrepareRoleDropDownValues();
+
+            var sParentItemPath = oEvent.getSource().getParent().getBindingContext().getPath(),
+                sFirstName = oEvent.getSource().getBindingContext().getObject().FirstName,
+                sLastName = oEvent.getSource().getBindingContext().getObject().LastName,
+                sDialogTitle = "Name: " + (sFirstName ? sFirstName : "") + " " + (sLastName ? sLastName : ""),
+                oDetails = {};
             oDetails.controller = this;
             oDetails.view = this.getView();
             oDetails.sParentItemPath = sParentItemPath;
@@ -107,6 +110,7 @@ sap.ui.define([
             this.pDialog.then(function (oDialog) {
                 oDialog.close();
             });
+            this.getView().byId("roleEdit").setSelectedKeys([]);
         },
 
         onSave: function (oEvent) {
@@ -136,7 +140,29 @@ sap.ui.define([
                     sap.m.MessageBox.error(JSON.stringify(oError));
                     that.onClose();
                 }
-            })
+            });
+            this.getView().byId("roleEdit").setSelectedKeys([]);
+        },
+
+        fngetUserRoles: function () {
+            this.getView().getModel().read("/MasterRoleSet", {
+                success: function (oData) {
+                    sap.m.MessageBox.success("Success.");
+                    var oUserRolesModel = new JSONModel(oData.results);
+                    this.setModel(oUserRolesModel, "UserRolesModel");
+                    this.getView().getModel().refresh();
+                    this.onClose();
+                }.bind(this),
+                error: function (oError) {
+                    sap.m.MessageBox.error(JSON.stringify(oError));
+                    this.onClose();
+                }.bind(this)
+            });
+        },
+        fnPrepareRoleDropDownValues: function () {
+            var aUserRoles = this.getView().getModel("UserRolesModel").getData(),
+                aAvailableUserRole = [],
+                aExistingUserRoles = this.getView().getModel().getProperty("/UserRoles");
         }
     });
 });

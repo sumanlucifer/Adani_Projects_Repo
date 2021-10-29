@@ -4,3 +4,8 @@
 *.zip 
 package-lock.json
 /dist/
+
+# auto generated wildcard
+vendor-manageboq/.env4
+# auto generated wildcard
+mdm-boqitems/.env1

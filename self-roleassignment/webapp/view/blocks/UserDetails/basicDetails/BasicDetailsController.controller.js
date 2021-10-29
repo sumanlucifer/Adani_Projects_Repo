@@ -5,12 +5,13 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/ui/core/Fragment"], function (
 
         onRoleDialogPress: function (oEvent) {
             //     this.oParentBlock.fireOnRoleDialogPress(oEvent);
-            var sDialogTitle = "Name: " + this.getView().getModel("UserDetailModel").getProperty("/FirstName") + " " + this.getView().getModel("UserDetailModel").getProperty("/LastName"),
+            var sFirstName = this.getView().getModel("UserDetailModel").getProperty("/FirstName"),
+                sLastName = this.getView().getModel("UserDetailModel").getProperty("/LastName"),
                 oDetails = {};
 
             oDetails.controller = this;
             oDetails.view = this.getView();
-            oDetails.title = sDialogTitle;
+            oDetails.title = "Name: "+sFirstName+" "+sLastName;
 
             if (!this.pDialog) {
                 this.pDialog = Fragment.load({

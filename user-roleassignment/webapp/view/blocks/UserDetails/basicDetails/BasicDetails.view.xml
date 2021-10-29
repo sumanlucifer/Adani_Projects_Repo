@@ -3,7 +3,7 @@
     xmlns:f="sap.ui.layout.form"
     xmlns="sap.m"
     controllerName="com.agel.mmts.userroleassignment.view.blocks.UserDetails.basicDetails.BasicDetailsController">
-            <Table width="auto" growing="true" growingThreshold="10" fixedLayout="false" items="{UserRoles}">
+            <Table id="idUserRolesTBL" width="auto" growing="true" growingThreshold="10" fixedLayout="false" items="{UserRoles}">
                 <headerToolbar>
 					<OverflowToolbar>
 						<ToolbarSpacer />

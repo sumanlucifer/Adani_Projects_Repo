@@ -243,7 +243,7 @@ sap.ui.define([
                 return;
             }
 
-            bInValidLocMapping = this.fnValidateLocationMappings();
+            bInValidLocMapping = this.fnValidateLocationMappings(bVendorCreateUpdateFlag);
             if (bInValidLocMapping === false) {
                 var oVendorObj = this.getView().getModel("VendorViewModel").getData();
                 if (bVendorCreateUpdateFlag === "Create") {
@@ -262,13 +262,22 @@ sap.ui.define([
             this.getView().getModel().refresh(true);
         },
 
-        fnValidateLocationMappings: function () {
+        fnValidateLocationMappings: function (bVendorCreateUpdateFlag) {
             var bErrorFound = false,
                 aMappingData = this.getView().getModel("VendorViewModel").getProperty("/Mappings"),
                 iDuplicateMappingFound = false,
+                iIncompleteMappingIndex;
+
+            if (bVendorCreateUpdateFlag === "Create") {
                 iIncompleteMappingIndex = aMappingData.findIndex(function (oMapping) {
                     return oMapping.CompanyCode === null || oMapping.CompanyCodeId === null || oMapping.PlantCode === null || oMapping.PlantId === null;
                 });
+            }
+            else {
+                iIncompleteMappingIndex = aMappingData.findIndex(function (oMapping) {
+                    return oMapping.CompanyPlantMappingId === null && (oMapping.CompanyCode === null || oMapping.CompanyCodeId === null || oMapping.PlantCode === null || oMapping.PlantId === null);
+                });
+            }
 
             if (iIncompleteMappingIndex >= 0) {
                 MessageBox.error(this.getResourceBundle().getText("ErrorInvalidLocations"));
@@ -308,19 +317,28 @@ sap.ui.define([
         },
 
         onCompanycodeSelect: function (oEvent) {
-            var sCompanyCode = oEvent.getParameter("selectedItem").getBindingContext().getObject().ID,
-                sItemPath = oEvent.getSource().getBindingContext("VendorViewModel").getPath();
+            var sItemPath = oEvent.getSource().getBindingContext("VendorViewModel").getPath();
 
-            this.getView().getModel("VendorViewModel").setProperty(sItemPath + "/CompanyCodeId", sCompanyCode);
-
-            // this.fnGetPlantSuggestionList(sCompanyCode, sItemPath);
+            if (oEvent.getParameter("selectedItem")) {
+                var sCompanyCode = oEvent.getParameter("selectedItem").getBindingContext().getObject().ID;
+                this.getView().getModel("VendorViewModel").setProperty(sItemPath + "/CompanyCodeId", sCompanyCode);
+            }
+            else {
+                this.getView().getModel("VendorViewModel").setProperty(sItemPath + "/CompanyCodeId", null);
+                this.getView().getModel("VendorViewModel").setProperty(sItemPath + "/CompanyCode", null);
+            }
         },
 
         onPlantCodeSelect: function (oEvent) {
-            var sPlantId = oEvent.getParameter("selectedItem").getBindingContext().getObject().ID,
-                sItemPath = oEvent.getSource().getBindingContext("VendorViewModel").getPath();
-
-            this.getView().getModel("VendorViewModel").setProperty(sItemPath + "/PlantId", sPlantId);
+            var sItemPath = oEvent.getSource().getBindingContext("VendorViewModel").getPath();
+            if (oEvent.getParameter("selectedItem")) {
+                var sPlantId = oEvent.getParameter("selectedItem").getBindingContext().getObject().ID;
+                this.getView().getModel("VendorViewModel").setProperty(sItemPath + "/PlantId", sPlantId);
+            }
+            else {
+                this.getView().getModel("VendorViewModel").setProperty(sItemPath + "/PlantId", null);
+                this.getView().getModel("VendorViewModel").setProperty(sItemPath + "/PlantCode", null);
+            }
         },
 
         fnGetPlantSuggestionList: function (sCompanyCode, sItemPath) {

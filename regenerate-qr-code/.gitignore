@@ -10,3 +10,7 @@ archive.zip
 .*_mta_build_tmp
 # auto generated wildcard
 regenerate-qr-code/.env1
+# auto generated wildcard
+vendor-manageboq/.env4
+# auto generated wildcard
+mdm-boqitems/.env1

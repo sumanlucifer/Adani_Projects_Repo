@@ -21,6 +21,7 @@ sap.ui.define([
                 delay: 0,
                 idSFDisplay: true,
                 idSFEdit: false,
+                idSFCreate: false,
                 idBtnEdit: true,
                 idBtnSave: false,
                 idBtnCancel: false,
@@ -37,6 +38,9 @@ sap.ui.define([
         },
 
         _onObjectMatched: function (oEvent) {
+            var oMasterParentsModel = new JSONModel([]);
+            this.setModel(oMasterParentsModel, "MasterParentsModel");
+
             this.sParentID = oEvent.getParameter("arguments").parentMaterial;
             var sLayout = oEvent.getParameter("arguments").layout;
 
@@ -50,11 +54,12 @@ sap.ui.define([
 
             if (this.sParentID === "new") {
                 //added
-                var items = {selectedItems : []}
+                var items = { selectedItems: [] }
                 this.getView().getModel("oSelectedKeyModel").setData(items);
 
                 this.getViewModel("objectViewModel").setProperty("/idSFDisplay", false);
                 this.getViewModel("objectViewModel").setProperty("/idSFEdit", true);
+                this.getViewModel("objectViewModel").setProperty("/idSFCreate", true);
 
                 this.getViewModel("objectViewModel").setProperty("/showFooter", true);
                 this.getViewModel("objectViewModel").setProperty("/idBtnDelete", false);
@@ -70,7 +75,7 @@ sap.ui.define([
                         ID: "",
                         Name: "",
                         Description: "",
-                        MaterialCode:"",
+                        MaterialCode: "",
                         UOMs: []
                     }
                 });
@@ -79,6 +84,8 @@ sap.ui.define([
                 this.getView().bindElement({
                     path: this._oObjectPath
                 });
+
+
             } else {
                 //added
                 this.getSelectedKeys(this.sParentID);
@@ -91,7 +98,6 @@ sap.ui.define([
 
         _bindView: function (sObjectPath) {
             var objectViewModel = this.getViewModel("objectViewModel");
-            var that = this;
 
             this.getView().bindElement({
                 path: sObjectPath,
@@ -108,20 +114,38 @@ sap.ui.define([
 
         //added
         getSelectedKeys: function (sParentID) {
-            var sReadPath = "/MasterBoQItemSet" + sParentID + "/UOMs"
+            var sReadPath = "/MasterBoQItemSet" + sParentID;
             this.getComponentModel().read(sReadPath, {
-                success: function(oData ,oResponse){
-                    var aData = oData.results;
-                    if(aData.length){
+                urlParameters: {
+                    $expand: "UOMs,MasterParents/MasterParentMaterial"
+                },
+                success: function (oData) {
+                    var aUOMsData = oData.UOMs.results;
+                    var aMasterMaterialData = oData.MasterParents.results;
+                    if (aUOMsData.length) {
                         var selectedKeys = [];
-                        for(var i =0 ; i<aData.length;i++){
-                            selectedKeys.push(aData[i].MasterUOMId);
+                        for (var i = 0; i < aUOMsData.length; i++) {
+                            selectedKeys.push(aUOMsData[i].MasterUOMId);
                         }
-                        var items = {selectedItems : [selectedKeys]}
+                        var items = { selectedItems: [selectedKeys] }
                         this.getView().getModel("oSelectedKeyModel").setData(items);
                     }
+
+                    if (aMasterMaterialData.length) {
+                        var aMasterParents = [];
+                        for (var i = 0; i < aMasterMaterialData.length; i++) {
+                            aMasterParents.push({
+                                "ParentMaterialCode": aMasterMaterialData[i].MasterParentMaterial.Description,
+                                "MasterMaterialId": aMasterMaterialData[i].MasterMaterialId,
+                                "BaseQty": aMasterMaterialData[i].BaseQty
+                            });
+                        }
+                        this.getView().getModel("MasterParentsModel").setData(aMasterParents);
+                        this.getView().getModel("MasterParentsModel").refresh();
+                    }
+
                 }.bind(this),
-                error: function(oError){
+                error: function (oError) {
                     sap.m.MessageBox.error(JSON.stringify(oError));
                 }
             });
@@ -135,7 +159,7 @@ sap.ui.define([
 
             this.getViewModel("objectViewModel").setProperty("/idSFDisplay", false);
             this.getViewModel("objectViewModel").setProperty("/idSFEdit", true);
-
+            this.getViewModel("objectViewModel").setProperty("/idSFCreate", false);
         },
 
         onSave: function () {
@@ -160,27 +184,35 @@ sap.ui.define([
             oPayload.Name = name;
             oPayload.Description = description;
             oPayload.MaterialCode = materialCode;
+            oPayload.StoreStockBOQs = null;
             // oPayload.MaterialCode = "123";
             var selectedData = this.byId("uomEdit").getSelectedItems();
             for (var i = 0; i < selectedData.length; i++) {
                 var obj = {};
                 obj.Name = selectedData[i].getProperty("text");
                 obj.MasterUOMId = selectedData[i].getProperty("key");
-                /*obj.MasterUOM = {
-                    "__metadata": {
-                        "uri": "MasterUOMSet(" + selectedData[i].getProperty("key") + ")"
-                    }
-                };*/
                 arr.push(obj);
             }
             if (arr == "") {
                 sap.m.MessageBox.error("Please enter UOM");
                 return;
             }
-
             oPayload.UOMs = arr;
+            var aMasterParents = this.getView().getModel("MasterParentsModel").getProperty("/"),
+                iIncompleteMaterialsIndex = aMasterParents.findIndex(function (oMaterial) {
+                    return oMaterial.MasterMaterialId === null || oMaterial.BaseQty <= 0;
+                });
+
+            if (iIncompleteMaterialsIndex >= 0) {
+                MessageBox.error("Please enter valid entry.");
+                return;
+            }
+
+
+            oPayload.MasterParents = aMasterParents;
+
             if (this.sParentID === "new") {
-                MessageBox.confirm("Do you want to save BOQ item "+name+"? ", {
+                MessageBox.confirm("Do you want to save BOQ item " + name + "? ", {
                     icon: MessageBox.Icon.INFORMATION,
                     title: "Confirm",
                     actions: [MessageBox.Action.YES, MessageBox.Action.NO],
@@ -230,6 +262,7 @@ sap.ui.define([
 
             this.getViewModel("objectViewModel").setProperty("/idSFDisplay", true);
             this.getViewModel("objectViewModel").setProperty("/idSFEdit", false);
+            this.getViewModel("objectViewModel").setProperty("/idSFCreate", false);
 
             if (this.sParentID === "new") {
                 this.oRouter.navTo("LandingPage", {
@@ -242,10 +275,10 @@ sap.ui.define([
         // On Delete //
         onDelete: function (oEvent) {
             var that = this;
-            var name= this.getView().getBindingContext().getObject().Name;
+            var name = this.getView().getBindingContext().getObject().Name;
             var sPath = this.getView().getBindingContext().getPath();
             this.getComponentModel("app").setProperty("/busy", true);
-            MessageBox.confirm("Do you want to delete BOQ item "+name+"?", {
+            MessageBox.confirm("Do you want to delete BOQ item " + name + "?", {
                 icon: MessageBox.Icon.WARNING,
                 title: "Confirm",
                 actions: [MessageBox.Action.YES, MessageBox.Action.NO],
@@ -276,7 +309,43 @@ sap.ui.define([
             },
                 false
             );
-        }
+        },
 
+        onAddParentPress: function () {
+            var oMasterMaterialData = {
+                "MasterMaterialId": null,
+                // "ParentMaterialCode": null,
+                // "MasterParentId": null,
+                "BaseQty": 0
+            },
+                aMasterParents = this.getView().getModel("MasterParentsModel").getProperty("/");
+
+            aMasterParents.push(oMasterMaterialData);
+            this.getView().getModel("MasterParentsModel").setProperty("/", aMasterParents);
+            this.getView().getModel("MasterParentsModel").refresh();
+        },
+
+        handleParentChange: function (oEvent) {
+            var sItemPath = oEvent.getSource().getBindingContext("MasterParentsModel").getPath(),
+                oItemObj = this.getView().getModel("MasterParentsModel").getProperty(sItemPath);
+
+            if (oEvent.getParameter("selectedItem")) {
+                oEvent.getSource().setValueState("None");
+                var sMaterialId = oEvent.getParameter("selectedItem").getBindingContext().getObject().ID;
+                // sMaterialCode = oEvent.getParameter("selectedItem").getBindingContext().getObject().MaterialCode;
+
+                oItemObj.MasterMaterialId = sMaterialId;
+                // oItemObj.ParentMaterialCode = sMaterialCode;
+
+                this.getView().getModel("MasterParentsModel").setProperty(sItemPath, oItemObj);
+            }
+            else {
+                oItemObj.MasterMaterialId = null;
+                // oItemObj.ParentMaterialCode = null;
+                this.getView().getModel("MasterParentsModel").setProperty(sItemPath, oItemObj);
+                oEvent.getSource().setValueState("Error");
+                oEvent.getSource().setValueStateText("Please enter a valid Material.");
+            }
+        }
     });
 });            
