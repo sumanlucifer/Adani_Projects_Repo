@@ -54,7 +54,7 @@
                         <VBox renderType="Bare" class="sapUiMediumMarginEnd" binding="{ParentLineItem/PurchaseOrder}">
                             <Label text="PO Issues Date" />
                             <!-- missing -->
-                            <Text text="{path:'POReleaseDate',
+                            <Text text="{path:'CreatedAt',
                                      type: 'sap.ui.model.type.Date',
 				                     formatOptions: {
 				                        pattern: 'MMMM dd, yyyy'
@@ -64,7 +64,7 @@
                         <VBox renderType="Bare" class="sapUiMediumMarginEnd" binding="{ParentLineItem/PurchaseOrder}">
                             <Label text="PO Target Date" />
                             <!-- missing -->
-                            <Text text="{path:'POReleaseDate',
+                            <Text text="{path:'ValidityEndDate',
                                      type: 'sap.ui.model.type.Date',
 				                     formatOptions: {
 				                        pattern: 'MMMM dd, yyyy'
