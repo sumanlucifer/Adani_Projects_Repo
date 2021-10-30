@@ -1,5 +1,8 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
-        <Table id="idDisplayLocationsTBL" class="sapUiSizeCompact" sticky="ColumnHeaders,HeaderToolbar" items="{VendorViewModel>/Mappings}">
+        <Table id="idDisplayLocationsTBL" class="sapUiSizeCompact" sticky="ColumnHeaders,HeaderToolbar" 
+        items="{path:'VendorViewModel>/Mappings',
+                sorter: { path: 'UpdatedAt', descending: true }                
+                }">
              <columns>
                 <Column  demandPopin="true" minScreenWidth="Tablet">
                     <Text text="{i18n>CompanyCode}"/>

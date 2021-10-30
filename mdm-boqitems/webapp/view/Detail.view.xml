@@ -69,6 +69,49 @@
                                         <core:Item key="{ID}" text="{Name}"/>
                                     </MultiComboBox>
 
+                                <Label text="Parent" visible="{= ${objectViewModel>/idSFEdit}}" />
+                                    <Link text="Add Parent" visible="{= ${objectViewModel>/idSFEdit}}" press="onAddParentPress" enabled="false"/>
+                                
+                                <Label text="Parent" />
+                                    <Table 
+                                        items="{MasterParentsModel>/}"
+                                        sticky="ColumnHeaders,HeaderToolbar"  alternateRowColors="true">
+                                        <columns>
+                                            <!-- ID -->
+                                            <Column width="70%">
+                                                <Text text="{i18n>Name}"/>
+                                            </Column>
+
+                                            <!-- Qty -->
+                                            <Column width="30%">
+                                                <Text text="{i18n>Qty}"/>
+                                            </Column>
+                                        </columns>
+                                        <items>
+                                            <ColumnListItem>
+                                                <cells>
+                                                    <Text text="{MasterParentsModel>ParentMaterialCode}" visible="{= ${objectViewModel>/idSFEdit}===true?false:true}"/>
+                                                    <Text text="{MasterParentsModel>BaseQty}" visible="{= ${objectViewModel>/idSFEdit}===true?false:true}"/>
+                                                    <ComboBox value="{MasterParentsModel>ID}"
+                                                        selectedKey="{MasterParentsModel>MasterMaterialId}"
+                                                        selectionChange="handleParentChange" showSecondaryValues= "true"
+                                                        visible="{= ${objectViewModel>/idSFEdit}===true?true:false}"
+                                                        items="{
+                                                            path: '/MasterMaterialSet',
+                                                            templateShareable:false,
+                                                            filters: [{
+                                                                path: 'IsParent',
+                                                                operator: 'EQ',
+                                                                value1: true
+                                                                }]
+                                                        }">
+                                                        <core:ListItem key="{ID}" text="{Description}"  additionalText="{MaterialCode}"/>
+                                                    </ComboBox>
+                                                    <Input value="{MasterParentsModel>BaseQty}" visible="{= ${objectViewModel>/idSFEdit}===true?true:false}"/>
+                                                </cells>
+                                            </ColumnListItem>
+                                        </items>
+                                    </Table>
 			                </f:content>    
 		                </f:SimpleForm>
 
@@ -86,7 +129,7 @@
 				                <Input id="nameDesc" value="{Description}"/>
 
                                 <Label text="Material Code" />
-				                <Input id="mcodeEdit" value="{MaterialCode}" maxLength="20"/>
+				                <Input id="mcodeEdit" value="{MaterialCode}" maxLength="20" enabled="{= ${objectViewModel>/idSFCreate} === true ? true : false}"/>
 
                                 <Label text="UOM" />
                                     <MultiComboBox id= "uomEdit" placeholder= "Select" selectedKeys="{oSelectedKeyModel>/selectedItems/0}"
@@ -95,7 +138,44 @@
                                         }">
                                         <core:Item key="{ID}" text="{Name}"/>
                                     </MultiComboBox>
+                               <Label text="Parent" />
+                                <Link text="Add Parent" press="onAddParentPress"/>
+                                <Label text="    " />
+                                <Table 
+                                    items="{MasterParentsModel>/}"
+                                    sticky="ColumnHeaders,HeaderToolbar"  alternateRowColors="true">
+                                    <columns>
+                                        <!-- ID -->
+                                        <Column width="70%">
+                                            <Text text="{i18n>Name}"/>
+                                        </Column>
 
+                                        <!-- Qty -->
+                                        <Column width="30%">
+                                            <Text text="{i18n>Qty}"/>
+                                        </Column>
+                                    </columns>
+                                    <items>
+                                        <ColumnListItem>
+                                            <cells>
+                                                <ComboBox value="{MasterParentsModel>ParentMaterialCode}"
+                                                    selectedKey="{MasterParentsModel>MasterMaterialId}"
+                                                    selectionChange="handleParentChange" showSecondaryValues= "true"
+                                                    items="{
+                                                        path: '/MasterMaterialSet',
+                                                        filters: [{
+                                                            path: 'IsParent',
+                                                            operator: 'EQ',
+                                                            value1: true
+                                                            }]
+                                                    }">
+                                                    <core:ListItem key="{ID}" text="{Description}"  additionalText="{MaterialCode}"/>
+                                                </ComboBox>
+                                                <Input value="{MasterParentsModel>BaseQty}"/>
+                                            </cells>
+                                        </ColumnListItem>
+                                    </items>
+						        </Table>
 			                </f:content>    
 		                </f:SimpleForm>
                     </uxap:blocks>
