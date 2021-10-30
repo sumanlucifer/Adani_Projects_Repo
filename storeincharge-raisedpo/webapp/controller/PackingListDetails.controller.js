@@ -68,8 +68,94 @@ sap.ui.define([
                         dataReceived: function () {
                             objectViewModel.setProperty("/busy", false);
                             // that.readGRNS(sObjectPath + "/GRNS");
+                            var documentResult = that.getDocumentData();
+                            documentResult.then(function (result) {
+                                that.PrintDocumentService(result);
+                            });
                         }
                     }
+                });
+            },
+            getDocumentData: function () {
+                var promise = jQuery.Deferred();
+                var that = this;
+                var oView = this.getView();
+                var oDataModel = oView.getModel();
+                //console.log(oPayLoad);
+                return new Promise((resolve, reject) => {
+                    this.getOwnerComponent().getModel().read("/PackingListSet(" + this.packingListId + ")/Attachments", {
+                        success: function (oData, oResponse) {
+                            var oJSONData = {
+                                PL_Material: [],
+                                PL_Invoice: [],
+                                PL_Others: []
+                            };
+                            // oData.results.forEach((oItem) => {
+                            //     if(oItem.Type === 'PACKING_LIST' && oItem.SubType === 'MATERIAL' )
+                            //         oJSONData.PL_Material.push(oItem);
+                            //     else if(oItem.Type === 'PACKING_LIST' && oItem.SubType === 'INVOICE' )
+                            //         oJSONData.PL_Invoice.push(oItem);
+                            //     else if(oItem.Type === 'PACKING_LIST' && oItem.SubType === 'OTHERS' )
+                            //         oJSONData.PL_Others.push(oItem);
+                            // } );
+                            var DocumentModel = new JSONModel(oJSONData);
+                            that.getView().setModel(DocumentModel, "DocumentModel");
+                            resolve(oData.results);
+                        }.bind(this),
+                        error: function (oError) {
+                            sap.m.MessageBox.error(JSON.stringify(oError));
+                        }
+                    });
+                });
+            },
+            PrintDocumentService: function (result) {
+                var that = this;
+                var oView = this.getView();
+                var oDataModel = oView.getModel();
+                var aRequestID = result.map(function (item) {
+                    return {
+                        RequestNo: item.RequestNo
+                    };
+                });
+                that.aResponsePayload = [];
+                aRequestID.forEach((reqID) => {
+                    that.aResponsePayload.push(that.callPrintDocumentService(reqID))
+                })
+                result.forEach((item) => {
+                    var sContent = that.callPrintDocumentService({
+                        RequestNo: item.RequestNo
+                    })
+                    sContent.then(function (oVal) {
+                        item.Content = oVal.Bytes;
+                        debugger;
+                        if (item.Type === 'PACKING_LIST' && item.SubType === 'MATERIAL')
+                            that.getViewModel("DocumentModel").getProperty("/PL_Material").push(item);
+                        else if (item.Type === 'PACKING_LIST' && item.SubType === 'INVOICE')
+                            that.getViewModel("DocumentModel").getProperty("/PL_Invoice").push(item);
+                        else if (item.Type === 'PACKING_LIST' && item.SubType === 'OTHERS')
+                            that.getViewModel("DocumentModel").getProperty("/PL_Others").push(item);
+
+                        that.getViewModel("DocumentModel").refresh();
+                    });
+                });
+            },
+            callPrintDocumentService: function (reqID) {
+                var promise = jQuery.Deferred();
+                var othat = this;
+                var oView = this.getView();
+                var oDataModel = oView.getModel();
+                //console.log(oPayLoad);
+                // reqID.RequestNo = 'REQ00001'                  // For testing only, Comment for production
+                return new Promise((resolve, reject) => {
+                    oDataModel.create("/PrintDocumentEdmSet", reqID, {
+                        success: function (data) {
+                            // debugger;
+                            resolve(data);
+                        },
+                        error: function (data) {
+                            reject(data);
+                        },
+                    });
                 });
             },
 
@@ -322,8 +408,12 @@ sap.ui.define([
                         if (oAction == "YES") {
                             that.getOwnerComponent().getModel().create("/CancelGRNEdmSet", oPayload, {
                                 success: function (oData, oResponse) {
-                                    sap.m.MessageBox.success("This GRN is cancelled");
-                                    that.getOwnerComponent().getModel().refresh();
+                                    if (oData.Success) {
+                                        sap.m.MessageBox.success("This GRN is cancelled");
+                                        that.getOwnerComponent().getModel().refresh();
+                                    }
+                                    else
+                                        sap.m.MessageBox.error(oData.Message);
                                 }.bind(this),
                                 error: function (oError) {
                                     sap.m.MessageBox.error(JSON.stringify(oError));
@@ -379,18 +469,18 @@ sap.ui.define([
 
             onQuantityLiveChange: function (oEvent) {
                 var oGRNData = this.getView().getBindingContext().getObject();
-                if (oEvent.getSource().getValue().length && parseFloat(oEvent.getSource().getValue()) > 0){
+                if (oEvent.getSource().getValue().length && parseFloat(oEvent.getSource().getValue()) > 0) {
                     this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", true);
                     oEvent.getSource().setValueState("None");
                     oEvent.getSource().setValueStateText("");
                 }
-                else{
+                else {
                     this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", false);
                     oEvent.getSource().setValueState("Error");
                     oEvent.getSource().setValueStateText("Weight should be more than 0.");
                 }
 
-                if (parseFloat(oEvent.getSource().getValue()) > parseFloat(oGRNData.TotalWeight) || parseFloat(oEvent.getSource().getValue()) <= 0 ) {
+                if (parseFloat(oEvent.getSource().getValue()) > parseFloat(oGRNData.TotalWeight) || parseFloat(oEvent.getSource().getValue()) <= 0) {
                     // sap.m.MessageBox.error("Total Packaging Weight should more than 0 and not exceed Total Vendor Entered Weight.");
                     this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", false);
                     oEvent.getSource().setValueState("Error");
@@ -478,8 +568,12 @@ sap.ui.define([
                     if (oPayload) {
                         oModel.create("/GRNEdmSet", oPayload, {
                             success: function (oData) {
-                                sap.m.MessageBox.success(oData.Message);
-                                this.getComponentModel().refresh();
+                                if (oData.Success) {
+                                    sap.m.MessageBox.success(oData.Message);
+                                    this.getComponentModel().refresh();
+                                }
+                                else
+                                    sap.m.MessageBox.error(oData.Message);
                             }.bind(this),
                             error: function (oError) {
                                 sap.m.MessageBox.error(JSON.stringify(oError));

@@ -70,7 +70,8 @@ sap.ui.define([
             var model = new JSONModel({
                 items: [],
                 Comment: null,
-                InspectionDate: null
+                InspectionDate: null,
+                RaisedInspectionDate: null
             });
             this.getView().setModel(model, "localAttachmentModel");
         },
@@ -169,6 +170,11 @@ sap.ui.define([
                 flag = 1;
                 this.getView().byId("idDpInspectionDate").setValueState("Error");
             }
+            
+            if (creationModelData.RaisedInspectionDate == null || creationModelData.RaisedInspectionDate == "") {
+                flag = 1;
+                this.getView().byId("idDpRaisedInspectionDate").setValueState("Error");
+            }
 
             if (flag == 1) {
                 sap.m.MessageBox.error("Please fill mandatory fields");
@@ -211,7 +217,8 @@ sap.ui.define([
                 "PurchaseOrderId": oBindingContextData.ID,
                 "Comment": creationModelData.Comment,
                 "InspectedParentLineItemRequests": aSelectedItemsFromTable,
-                "Documents": creationModelData.items
+                "Documents": creationModelData.items,
+                "RaisedOfflineInspectionDate": creationModelData.RaisedInspectionDate
             };
 
             this.getComponentModel().create("/InspectionCallIdRequestSet", oPayload, {

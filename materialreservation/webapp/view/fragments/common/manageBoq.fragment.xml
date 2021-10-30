@@ -1,0 +1,61 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:u="sap.ui.unified"
+    xmlns:f="sap.ui.layout.form">
+    <Dialog class="testTitle">
+        <content>
+            <FlexBox wrap="Wrap" renderType="Bare" class="sapUiSmallMargin">    
+                <Table width="auto" items= "{reservationTableModel>PopupItems}" noDataText="No BOQ Items available for this Material.">
+                    <columns>
+                        <Column importance="High">
+                            <Text text="{i18n>Name}" wrapping="true" wrappingType="Hyphenated" />
+                        </Column>
+                        <Column demandPopin="true">
+                            <Text text="{i18n>BaseQty}"/>
+                        </Column>
+                        <Column demandPopin="true" visible="{objectViewModel>/popupEditable}">
+                            <Text text="{i18n>WPP}"/>
+                        </Column>
+                        <Column demandPopin="true" visible="{objectViewModel>/popupEditable}">
+                            <Text text="{i18n>AvailableQty}"/>
+                        </Column>
+                        <Column demandPopin="true">
+                            <Text text="{i18n>IssueQty}"/>
+                        </Column>
+                    </columns>
+                    <items>
+                        <ColumnListItem>
+                            <cells>
+                                <Text text="{reservationTableModel>Name}"/>
+                                <Text text="{reservationTableModel>BaseQty}"/>                                
+                                <Select
+                                    visible="{= ${reservationTableModel>StoreStockBOQs/results}.length > 0 ? true : false }"
+                                    forceSelection="false"
+                                    width="100%"
+                                    showSecondaryValues= "true"
+                                    change= "onWPPChange"
+                                    selectedKey="{reservationTableModel>SelectedWpp}"
+                                    items="{reservationTableModel>StoreStockBOQs/results}">
+                                    <core:ListItem key="{reservationTableModel>WeightPerPiece}" text="{reservationTableModel>WeightPerPiece}" additionalText="{reservationTableModel>Qty}"/>
+                                </Select>
+                                <VBox>
+                                    <Text text="Out of Stock" visible="{= ${reservationTableModel>StoreStockBOQs/results}.length > 0 ? false : true }"/>
+                                    <Text text="{reservationTableModel>AvailableQty}" visible="{= ${reservationTableModel>StoreStockBOQs/results}.length > 0 ? true : false }"/>
+                                </VBox>
+                                <Input width="70%" placeholder="Enter Quantity" enabled="{= ${objectViewModel>/popupEditable} ? ${reservationTableModel>StoreStockBOQs/results}.length > 0 ? true : false : true }" editable="{objectViewModel>/popupEditable}" value="{reservationTableModel>Quantity}" type="Number" liveChange="onIssueQtyLiveChange"/>
+                                    <!-- valueState="{= $parseFloat({reservationTableModel>IssueQty}) > $parseFloat({reservationTableModel>AvailableQty}) ? 'Error' : 'None' }"
+                                    valueStateText="{= ${reservationTableModel>IssueQty} > ${reservationTableModel>AvailableQty} ? ${i18n>QtyErrorMsg} : 'None' }"/> -->
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
+            </FlexBox>
+        </content>
+        <beginButton>
+            <Button id="idRequestButton" text="{i18n>save}" enabled="{objectViewModel>/popupSaveEnable}" visible="{objectViewModel>/popupEditable}" press="onBoqQtySavePress"  type="Emphasized"/>
+        </beginButton>
+        <endButton>
+            <Button text="{i18n>close}" press="onManageBoqDialogClosePress"/>
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>
