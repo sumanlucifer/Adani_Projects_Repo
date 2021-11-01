@@ -70,7 +70,7 @@
                                 }"/>
                         </VBox>
                         
-                        <VBox renderType="Bare" class="sapUiMediumMarginEnd">
+                        <!-- <VBox renderType="Bare" class="sapUiMediumMarginEnd">
                             <Label text="Updated On" />
                             <Text text="{path:'UserDetailModel>/UpdatedAt',
                                             type: 'sap.ui.model.type.Date',
@@ -78,7 +78,7 @@
                                             pattern: 'MMMM dd, yyyy'
                                             }
                             }"/>
-                        </VBox>
+                        </VBox> -->
                         <!-- <ToolbarSpacer/> -->
                         
                         <VBox renderType="Bare">
@@ -101,14 +101,5 @@
                 </uxap:subSections>
             </uxap:ObjectPageSection>
         </uxap:sections>
-        <!-- <uxap:footer>
-            <OverflowToolbar>
-            <ToolbarSpacer/>
-                <Button id="idBtnSave" text="Save" icon="sap-icon://save" press="onSave"
-                         type="Accept"  visible="{= ${objectViewModel>/idBtnSave}}"/>
-                <Button id="idBtnCancel" text="Cancel" icon="sap-icon://cancel" press="onCancel" 
-                                    visible="{= ${objectViewModel>/idBtnCancel}}"/>
-            </OverflowToolbar>
-        </uxap:footer> -->
     </uxap:ObjectPageLayout>
 </mvc:View>

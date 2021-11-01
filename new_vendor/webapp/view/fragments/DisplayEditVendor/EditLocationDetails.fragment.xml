@@ -11,10 +11,10 @@
                 <Column demandPopin="true" minScreenWidth="Tablet">
                     <Text text="{i18n>CompanyCode}"/>
                 </Column>
-                <Column demandPopin="true" minScreenWidth="Tablet">
+                <!-- <Column demandPopin="true" minScreenWidth="Tablet">
                     <Text text="{i18n>PlantCode}"/>
-                </Column>
-                <Column demandPopin="true" minScreenWidth="Tablet">
+                </Column> -->
+                <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center">
                     <Text text="{i18n>IsActive}"/>
                 </Column>
             </columns>
@@ -33,7 +33,7 @@
                             }">
                             <core:ListItem key="{CompanyCode}" text="{CompanyCode}" additionalText="{Name}"/>
 		                </ComboBox>
-                        <ComboBox 
+                        <!-- <ComboBox 
                             enabled="{= ${VendorViewModel>CompanyPlantMappingId} === null ? true : false}"
                             selectedKey="{VendorViewModel>PlantCode}" 
                             selectionChange="onPlantCodeSelect" 
@@ -44,7 +44,7 @@
                                 sorter: { path: 'PlantId' }
                             }">
                             <core:ListItem key="{PlantId}" text="{PlantId}" additionalText="{Name}"/>
-		                </ComboBox>
+		                </ComboBox> -->
                         <Switch change="onMappingsIsActiveFlagChange" state="{= ${VendorViewModel>IsActive} === true ? true : false}" customTextOn="Yes" customTextOff="No"/>
                     </cells>
                 </ColumnListItem>

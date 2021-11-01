@@ -1,4 +1,9 @@
-sap.ui.define(["sap/ui/core/mvc/Controller", "sap/ui/core/Fragment"], function (Controller, Fragment) {
+sap.ui.define([
+    "sap/ui/core/mvc/Controller",
+    "sap/ui/core/Fragment",
+    "sap/m/MessageBox",
+    "sap/m/MessageToast"
+], function (Controller, Fragment, MessageBox, MessageToast) {
     "use strict";
 
     return Controller.extend("com.agel.mmts.selfroleassignment.view.blocks.UserDetails.basicDetails.BasicDetailsController", {
@@ -11,7 +16,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/ui/core/Fragment"], function (
 
             oDetails.controller = this;
             oDetails.view = this.getView();
-            oDetails.title = "Name: "+sFirstName+" "+sLastName;
+            oDetails.title = "Name: " + sFirstName + " " + sLastName;
 
             if (!this.pDialog) {
                 this.pDialog = Fragment.load({
@@ -35,59 +40,67 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/ui/core/Fragment"], function (
         onClose: function (oEvent) {
             this.pDialog.then(function (oDialog) {
                 this.getView().byId("roleEdit").setSelectedKeys([]);
+                this.getView().byId("idSaveBTN").setEnabled(false);
                 oDialog.close();
             }.bind(this));
+        },
+
+        onNewUserRoleSelected: function (oEvent) {
+            var aUserExistingRoles = this.getView().getModel("UserDetailModel").getProperty("/UserRoles"),
+                sNewSelectedRoleId = oEvent.getParameters().changedItem.getKey(),
+                sNewSelectedRoleName = oEvent.getParameters().changedItem.getText(),
+                iDuplicateRoleIndex = aUserExistingRoles.findIndex(function (oRoleItem) {
+                    return oRoleItem.Role.ID === sNewSelectedRoleId;
+                }),
+                aSelectedRolesIds = oEvent.getSource().getSelectedKeys();
+
+            if (iDuplicateRoleIndex >= 0) {
+                MessageToast.show("You already have access to  " + sNewSelectedRoleName + " Role.");
+                var iItemToBeUnselectIndex = aSelectedRolesIds.findIndex(function (oItem) {
+                    return oItem === sNewSelectedRoleId;
+                });
+
+                aSelectedRolesIds.splice(iItemToBeUnselectIndex, 1);
+                oEvent.getSource().setSelectedKeys(aSelectedRolesIds);
+            }
+
+            if (aSelectedRolesIds.length > 0) {
+                this.getView().byId("idSaveBTN").setEnabled(true);
+            }
+            else {
+                this.getView().byId("idSaveBTN").setEnabled(false);
+            }
         },
 
         onSave: function (oEvent) {
             var userID = Number(this.getView().getModel("UserDetailModel").getProperty("/ID")),
                 sUserName = this.getView().getModel("UserDetailModel").getProperty("/FirstName"),
-                aUserExistingRoles = this.getView().getModel("UserDetailModel").getProperty("/UserRoles"),
-                aSelectedRolesIDs = this.getView().byId("roleEdit").getSelectedKeys(),
-                sErrorMessage = "You already have access to below Roles \n",
-                bErrorFound = false;
+                aSelectedRolesIDs = this.getView().byId("roleEdit").getSelectedKeys();
 
-            for (var i = 0; i < aSelectedRolesIDs.length; i++) {
-                var iIndex = aUserExistingRoles.findIndex(function (oRoleItem) {
-                    return oRoleItem.Role.ID === aSelectedRolesIDs[i];
-                });
-
-                if (iIndex >= 0) {
-                    sErrorMessage = sErrorMessage + "- " + aUserExistingRoles[iIndex].Role.RoleName + "\n";
-                    bErrorFound = true;
-                }
-            }
-
-            sErrorMessage = sErrorMessage + "Please remove existing role and select different roles."
-
-            if (bErrorFound) {
-                sap.m.MessageBox.error(sErrorMessage);
-            } else {
-                aSelectedRolesIDs = aSelectedRolesIDs.map(function (item) {
-                    return {
-                        RoleId: parseInt(item)
-                    };
-                });
-
-                var oUserRoleRequestObj = {
-                    "UserId": userID,
-                    "UserName": sUserName,
-                    "UpdateRequestFlag": false,
-                    "Roles": aSelectedRolesIDs
+            aSelectedRolesIDs = aSelectedRolesIDs.map(function (item) {
+                return {
+                    RoleId: parseInt(item)
                 };
+            });
 
-                this.getView().getModel().create("/RoleAssignApprovalRequestEdmSet", oUserRoleRequestObj, {
-                    success: function () {
-                        sap.m.MessageBox.success("Request for new user role submitted successfully.");
-                        this.getView().getModel().refresh();
-                        this.onClose();
-                    }.bind(this),
-                    error: function (oError) {
-                        sap.m.MessageBox.error(JSON.stringify(oError));
-                        this.onClose();
-                    }.bind(this)
-                });
-            }
+            var oUserRoleRequestObj = {
+                "UserId": userID,
+                "UserName": sUserName,
+                "UpdateRequestFlag": false,
+                "Roles": aSelectedRolesIDs
+            };
+
+            this.getView().getModel().create("/RoleAssignApprovalRequestEdmSet", oUserRoleRequestObj, {
+                success: function () {
+                    MessageBox.success("Request for new user role submitted successfully.");
+                    this.getView().getModel().refresh();
+                    this.onClose();
+                }.bind(this),
+                error: function (oError) {
+                    MessageBox.error(JSON.stringify(oError));
+                    this.onClose();
+                }.bind(this)
+            });
         }
     });
 });
