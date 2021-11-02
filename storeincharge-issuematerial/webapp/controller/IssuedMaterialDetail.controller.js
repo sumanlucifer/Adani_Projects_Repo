@@ -69,14 +69,33 @@ sap.ui.define([
                     },
                     dataReceived: function () {
                         objectViewModel.setProperty("/busy", false);
+                        that._setTreeTableData(that);
                     }
                 }
             });
         },
 
-        handleToIssueMatBreadcrumPress: function(){
+        _setTreeTableData: function (oController) {
+            debugger;
+            var objectViewModel = oController.getViewModel("objectViewModel");
+            oController.MainModel.read("/IssuedMaterialSet" + oController.sObjectId + "/IssuedMaterialParents", {
+                urlParameters: { "$expand": "IssuedMaterialBOQ" },
+                success: function (oData) {
+                    if (oData) {
+                        oData.results.forEach(element => {
+                            element.BoqItems = element.IssuedMaterialBOQ.results;
+                        });
+                        objectViewModel.setProperty("/TreeTableData", oData.results);
+                    }
+                }.bind(oController),
+                error: function (oErr) {
+
+                }
+            })
+        },
+        handleToIssueMatBreadcrumPress: function () {
             this.getRouter().navTo("RouteLandingPage");
-        }       
-    
+        }
+
     });
 });
