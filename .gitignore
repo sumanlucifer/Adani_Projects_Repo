@@ -5,5 +5,4 @@
 package-lock.json
 /dist/
 
-# auto generated wildcard
-sapui5/security-scan-history/.env1
+

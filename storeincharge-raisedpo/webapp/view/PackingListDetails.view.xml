@@ -195,7 +195,7 @@
                                             <ToolbarSpacer>
                                             </ToolbarSpacer>
                                             <VBox>
-                                                <Button text="Request GRN" id="idrequestGRNButton" press="onRequestGRNPress" type="Accept" visible="{= ${IsGRNRaised} === false  ||  ${IsGRNRaised} === null}"/>
+                                                <Button text="Request GRN" id="idrequestGRNButton" press="onRequestGRNPress" type="Accept" visible="{=  ${Status} === 'UNLOADING COMPLETED' ? ${IsGRNRaised} === false  ||  ${IsGRNRaised} === null : false}"/>
                                             </VBox>
                                         </content>
                                     </OverflowToolbar>
@@ -228,7 +228,7 @@
                                     <Column demandPopin="true" minScreenWidth="Tablet">
                                         <Text text=""/>
                                     </Column>
-                                    <Column demandPopin="true" minScreenWidth="Tablet" visible="{= ${Status} !== 'SAVED' }">
+                                    <Column demandPopin="true" minScreenWidth="Tablet">
                                         <Text text=""/>
                                     </Column>
                                 </columns>

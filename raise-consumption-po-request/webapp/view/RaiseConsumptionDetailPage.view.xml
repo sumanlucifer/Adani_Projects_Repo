@@ -6,7 +6,7 @@
     xmlns:f="sap.ui.layout.form"
     xmlns:core="sap.ui.core"
     xmlns:unified="sap.ui.unified"
-    xmlns:tt="sap.ui.table"
+    xmlns:ui="sap.ui.table"
     xmlns:smartTable="sap.ui.comp.smarttable"
     xmlns="sap.m" controllerName="com.agel.mmts.raiseconsumptionporequest.controller.RaiseConsumptionDetailPage" height="100%">
     <uxap:ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true" upperCaseAnchorBar="false" headerContentPinnable="true" toggleHeaderOnTitleClick="true" busy="{objectViewModel>/busy}">
@@ -66,7 +66,7 @@ pattern: 'MMMM dd, yyyy HH:mm:ss'
                         <VBox renderType="Bare" class="sapUiMediumMarginEnd">
                             <Label text="{i18n>status}" />
                             <!-- missing -->
-                            <ObjectStatus text="{Status}" state="{= ${Status} === 'PARTIALLY CONSUMED' ? 'Success' : ${Status} === 'RESERVED FOR CONSUMPTION' ? 'Information' : 'Error'}" visible="{= ${Status}.length>0 ? true : false }"/>
+                            <ObjectStatus text="{Status}" state="{= ${Status} === 'PARTIALLY CONSUMED' ? 'Warning' : ${Status} === 'RESERVED FOR CONSUMPTION' ? 'Information' :  ${Status} === 'ALL RESERVED ITEMS CONSUMED' ? 'Success' : 'Error'}" visible="{= ${Status}.length>0 ? true : false }"/>
                         </VBox>
                     </FlexBox>
                 </VBox>
@@ -81,58 +81,104 @@ pattern: 'MMMM dd, yyyy HH:mm:ss'
             <uxap:ObjectPageSection titleUppercase="false">
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection >
-                        <Table id="idConsumedTable" growing="true" growingThreshold="10" items="{consumptionData>/}">
-                            <headerToolbar>
-                                <OverflowToolbar>
-                                    <content>
-                                    </content>
-                                </OverflowToolbar>
-                            </headerToolbar>
-                            <columns>
-                                <Column width="5%">
-                                    <CheckBox select="onSelectAll"></CheckBox>
-                                </Column>
-                                <Column>
-                                    <Text text="Material Code"/>
-                                </Column>
-                                <Column>
-                                    <Text text="Description"/>
-                                </Column>
-                                <Column demandPopin="true" minScreenWidth="Desktop">
-                                    <Text text="Plant"/>
-                                </Column>
-                                <Column demandPopin="true" minScreenWidth="Tablet">
-                                    <Text text="Storage Location"/>
-                                </Column>
-                                                                <Column demandPopin="true" minScreenWidth="Tablet">
-                                    <Text text="Posting Quantity"/>
-                                </Column>
-                                                                <Column demandPopin="true" minScreenWidth="Tablet">
-                                    <Text text="Balance Quantity"/>
-                                </Column>
-                                                                                                <Column demandPopin="true" minScreenWidth="Tablet">
-                                    <Text text="Quantity"/>
-                                </Column>
-                                <Column demandPopin="true" minScreenWidth="Tablet">
-                                    <Text text="Status"/>
-                                </Column>
-                            </columns>
-                            <items>
-                                <ColumnListItem id="idBOQItems">
-                                    <cells>
-                                        <CheckBox visible="{= ${consumptionData>Status} === 'RESERVED FOR CONSUMPTION' ? true : ${consumptionData>Status} === 'CONSUMPTION FAILED' ? true :  ${consumptionData>Status} === 'PARTIALLY CONSUMED' ? true : false }" selected="{consumptionData>isSelected}" select="onSelectionOfRow" />
-                                        <Text text="{consumptionData>MaterialCode}"/>
-                                        <Text text="{consumptionData>Name}"/>
-                                        <Text text="{consumptionData>Plant}"/>
-                                        <Text text="{consumptionData>StorageLocation}"/>
-                                        <Text text="{consumptionData>Quantity}"/>
-                                         <Text text="{consumptionData>BalanceQty}"/>
-                                        <Input liveChange="onLiveChangeQty" editable="{consumptionData>isSelected}" value="{consumptionData>inputQuantity}"/>
-                                        <ObjectStatus text="{consumptionData>Status}" state="{= ${consumptionData>Status} === 'CONSUMPTION SUCCESSFUL' ? 'Success' : ${consumptionData>Status} === 'RESERVED FOR CONSUMPTION' ? 'Information' : 'Error'}" visible="{= ${Status}.length>0 ? true : false }"/>
-                                    </cells>
-                                </ColumnListItem>
-                            </items>
-                        </Table>
+
+            <VBox>
+                <ui:TreeTable  id="TreeTable" rows="{path:'TreeDataModel>/', parameters: {numberOfExpandedLevels: 2,arrayNames:['results']}}" selectionMode="None" enableSelectAll="false" ariaLabelledBy="title" rowsUpdated="onRowsUpdated">
+                    <ui:columns>
+                        <!-- <ui:Column width="8%" hAlign="Center">
+                            <Label text="{i18n>Select}" />
+                            <ui:template>
+                                <CheckBox visible="{= ${TreeDataModel>isParent} ? true : false}" selected="{TreeDataModel>isSelected}" select="onSelectionOfRow" />
+                            </ui:template>
+                        </ui:Column> -->
+                        <ui:Column>
+                            <Label text="{i18n>Name}" />
+                            <ui:template>
+                                <Text text="{TreeDataModel>Name}" wrapping="false" />
+                            </ui:template>
+                        </ui:Column>
+                        <ui:Column>
+                            <Label text="{i18n>Description}" />
+                            <ui:template>
+                                <Text text="{TreeDataModel>Description}" wrapping="false" />
+                            </ui:template>
+                        </ui:Column>
+                        <ui:Column>
+                            <Label text="{i18n>MaterialCode}" />
+                            <ui:template>
+                                <Text text="{TreeDataModel>MaterialCode}" wrapping="false" />
+                            </ui:template>
+                        </ui:Column>
+
+
+                                                <ui:Column>
+                            <Label text="{i18n>BaseUnit}" />
+                            <ui:template>
+                                <Text text="{TreeDataModel>BaseUnit}" wrapping="false" />
+                            </ui:template>
+                        </ui:Column>
+                        <ui:Column>
+                            <Label text="{i18n>UOM}" />
+                            <ui:template>
+                                <Text text="{TreeDataModel>UOM}" wrapping="false" />
+                            </ui:template>
+                        </ui:Column>
+                        <ui:Column>
+                            <Label text="{i18n>Description}" />
+                            <ui:template>
+                                <Text text="{TreeDataModel>Description}" wrapping="false" />
+                            </ui:template>
+                        </ui:Column>
+                        <ui:Column>
+                            <Label text="{i18n>StorageLocation}" />
+                            <ui:template>
+                                <Text text="{TreeDataModel>StorageLocation}" wrapping="false" />
+                            </ui:template>
+                        </ui:Column>
+                                                <ui:Column>
+                            <Label text="{i18n>BaseQty}" />
+                            <ui:template>
+                                <Text text="{TreeDataModel>BaseQty}" wrapping="false" />
+                            </ui:template>
+                        </ui:Column>
+                        <ui:Column>
+                            <Label text="{i18n>IssuedQuantity}" />
+                            <ui:template>
+                                <Text text="{TreeDataModel>IssuedQty}" wrapping="false" />
+                            </ui:template>
+                        </ui:Column>
+                          <ui:Column>
+                            <Label text="{i18n>WeightPerPiece}" />
+                            <ui:template>
+                                <Text text="{TreeDataModel>WeightPerPiece}" wrapping="false" />
+                            </ui:template>
+                        </ui:Column>
+
+
+                        
+                        <ui:Column>
+                            <Label text="{i18n>BalancedQuantity}" />
+                            <ui:template>
+                                <Text text="{TreeDataModel>BalanceQty}" wrapping="false" />
+                            </ui:template>
+                        </ui:Column>
+                        <ui:Column>
+                            <Label text="{i18n>ReservedQuantity}" />
+                            <ui:template>
+                                <Input  liveChange="onLiveChangeReservedQty"  enabled="{= ${TreeDataModel>isChildItemFreeze} ? true : false}" value="{TreeDataModel>Quantity}" />
+                            </ui:template>
+                        </ui:Column>
+                        <ui:Column>
+                            <Label text="{i18n>Status}" />
+                            <ui:template>
+                                <ObjectStatus text="{TreeDataModel>Status}" state="{= ${TreeDataModel>Status} === 'ISSUED' ? 'Success' : ${Status} === 'RESERVED FOR ISSUE' ? 'Information' : 'Error'}" visible="{= ${Status}.length>0 ? true : false }"/>
+                            </ui:template>
+                        </ui:Column>
+                    </ui:columns>
+                </ui:TreeTable>
+            </VBox>
+            
+
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>
             </uxap:ObjectPageSection>

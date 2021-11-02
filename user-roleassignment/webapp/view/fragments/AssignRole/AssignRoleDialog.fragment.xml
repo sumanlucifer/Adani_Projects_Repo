@@ -2,7 +2,7 @@
     xmlns:core="sap.ui.core"
     xmlns:f="sap.ui.layout.form">
     
-     <Dialog >
+     <Dialog contentWidth="35%">
         <content>
             <MultiComboBox id= "roleEdit" placeholder= "Select" selectedKeys="{MasterRoleSet>/ID}"
                 items="{

@@ -20,9 +20,9 @@
                     <Title text="{Name}" wrapping="true" titleStyle="Auto"/>
                 </uxap:snappedTitleOnMobile>
                <uxap:actions>
-                    <Button id="idBtnEdit" text="Edit" icon="sap-icon://edit" press="onEdit" 
+                    <Button id="idBtnEdit" text="{i18n>Edit}" icon="sap-icon://edit" press="onEdit" 
                                     visible="{= ${objectViewModel>/idBtnEdit}}"/>
-                    <Button text="Delete" type="Reject" visible="{= ${objectViewModel>/idBtnDelete}}"
+                    <Button text="{i18n>Delete}" type="Reject" visible="{= ${objectViewModel>/idBtnDelete}}"
                                             press="onDelete"/>                
                 </uxap:actions>
             </uxap:ObjectPageDynamicHeaderTitle>
@@ -52,16 +52,16 @@
 			                emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false" >
 			                <f:content>
 
-				                <Label text="Name" />
+				                <Label text="{i18n>Name}" />
 				                <Input id="name" value="{Name}" editable="false" />
 				
-                                <Label text="Description" />
+                                <Label text="{i18n>Description}" />
 				                <Input id="desc1" value="{Description}" editable="false"/>
                                 
-                                <Label text="Material Code" />
+                                <Label text="{i18n>MaterialCode}" />
 				                <Input id="mcode" value="{MaterialCode}" maxLength="20" editable="false"/>
 
-                                <Label text="UOM" id="uom" />
+                                <Label text="{i18n>UOM}" id="uom" />
                                   	<MultiComboBox editable="false" selectedKeys="{oSelectedKeyModel>/selectedItems/0}"
                                         items="{
                                             path: '/MasterUOMSet'
@@ -69,6 +69,49 @@
                                         <core:Item key="{ID}" text="{Name}"/>
                                     </MultiComboBox>
 
+                                <Label text="Parent" visible="{= ${objectViewModel>/idSFEdit}}" />
+                                    <Link text="Add Parent" visible="{= ${objectViewModel>/idSFEdit}}" press="onAddParentPress" enabled="false"/>
+                                
+                                <Label text="Parent" />
+                                    <Table 
+                                        items="{MasterParentsModel>/}"
+                                        sticky="ColumnHeaders,HeaderToolbar"  alternateRowColors="true">
+                                        <columns>
+                                            <!-- ID -->
+                                            <Column width="70%">
+                                                <Text text="{i18n>Name}"/>
+                                            </Column>
+
+                                            <!-- Qty -->
+                                            <Column width="30%">
+                                                <Text text="{i18n>Qty}"/>
+                                            </Column>
+                                        </columns>
+                                        <items>
+                                            <ColumnListItem>
+                                                <cells>
+                                                    <Text text="{MasterParentsModel>ParentMaterialCode}" visible="{= ${objectViewModel>/idSFEdit}===true?false:true}"/>
+                                                    <Text text="{MasterParentsModel>BaseQty}" visible="{= ${objectViewModel>/idSFEdit}===true?false:true}"/>
+                                                    <ComboBox value="{MasterParentsModel>ID}"
+                                                        selectedKey="{MasterParentsModel>MasterMaterialId}"
+                                                        selectionChange="handleParentChange" showSecondaryValues= "true"
+                                                        visible="{= ${objectViewModel>/idSFEdit}===true?true:false}"
+                                                        items="{
+                                                            path: '/MasterMaterialSet',
+                                                            templateShareable:false,
+                                                            filters: [{
+                                                                path: 'IsParent',
+                                                                operator: 'EQ',
+                                                                value1: true
+                                                                }]
+                                                        }">
+                                                        <core:ListItem key="{ID}" text="{Description}"  additionalText="{MaterialCode}"/>
+                                                    </ComboBox>
+                                                    <Input value="{MasterParentsModel>BaseQty}" visible="{= ${objectViewModel>/idSFEdit}===true?true:false}"/>
+                                                </cells>
+                                            </ColumnListItem>
+                                        </items>
+                                    </Table>
 			                </f:content>    
 		                </f:SimpleForm>
 
@@ -79,23 +122,60 @@
 			                emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false" >
 			                <f:content>
 
-				                <Label text="Name" />
+				                <Label text="{i18n>Name}" />
 				                <Input id="nameEdit" value="{Name}" />
 				
-                                <Label text="Description" />
+                                <Label text="{i18n>Description}" />
 				                <Input id="nameDesc" value="{Description}"/>
 
-                                <Label text="Material Code" />
-				                <Input id="mcodeEdit" value="{MaterialCode}" maxLength="20"/>
+                                <Label text="{i18n>MaterialCode}" />
+				                <Input id="mcodeEdit" value="{MaterialCode}" maxLength="20" enabled="{= ${objectViewModel>/idSFCreate} === true ? true : false}"/>
 
-                                <Label text="UOM" />
+                                <Label text="{i18n>UOM}"/>
                                     <MultiComboBox id= "uomEdit" placeholder= "Select" selectedKeys="{oSelectedKeyModel>/selectedItems/0}"
                                         items="{
                                             path: '/MasterUOMSet'
                                         }">
                                         <core:Item key="{ID}" text="{Name}"/>
                                     </MultiComboBox>
+                               <Label text="Parent" />
+                                <Link text="Add Parent" press="onAddParentPress"/>
+                                <Label text="    " />
+                                <Table 
+                                    items="{MasterParentsModel>/}"
+                                    sticky="ColumnHeaders,HeaderToolbar"  alternateRowColors="true">
+                                    <columns>
+                                        <!-- ID -->
+                                        <Column width="70%">
+                                            <Text text="{i18n>Name}"/>
+                                        </Column>
 
+                                        <!-- Qty -->
+                                        <Column width="30%">
+                                            <Text text="{i18n>Qty}"/>
+                                        </Column>
+                                    </columns>
+                                    <items>
+                                        <ColumnListItem>
+                                            <cells>
+                                                <ComboBox value="{MasterParentsModel>ParentMaterialCode}"
+                                                    selectedKey="{MasterParentsModel>MasterMaterialId}"
+                                                    selectionChange="handleParentChange" showSecondaryValues= "true"
+                                                    items="{
+                                                        path: '/MasterMaterialSet',
+                                                        filters: [{
+                                                            path: 'IsParent',
+                                                            operator: 'EQ',
+                                                            value1: true
+                                                            }]
+                                                    }">
+                                                    <core:ListItem key="{ID}" text="{Description}"  additionalText="{MaterialCode}"/>
+                                                </ComboBox>
+                                                <Input value="{MasterParentsModel>BaseQty}"/>
+                                            </cells>
+                                        </ColumnListItem>
+                                    </items>
+						        </Table>
 			                </f:content>    
 		                </f:SimpleForm>
                     </uxap:blocks>
@@ -108,9 +188,9 @@
         <uxap:footer>
             <OverflowToolbar>
             <ToolbarSpacer/>
-                <Button id="idBtnSave" text="Save" icon="sap-icon://save" press="onSave"
+                <Button id="idBtnSave" text="{i18n>Save}" icon="sap-icon://save" press="onSave"
                          type="Accept"  visible="{= ${objectViewModel>/idBtnSave}}"/>
-                <Button id="idBtnCancel" text="Cancel" icon="sap-icon://cancel" press="onCancel" 
+                <Button id="idBtnCancel" text="{i18n>Cancel}" icon="sap-icon://cancel" press="onCancel" 
                                     visible="{= ${objectViewModel>/idBtnCancel}}"/>
             </OverflowToolbar>
         </uxap:footer>

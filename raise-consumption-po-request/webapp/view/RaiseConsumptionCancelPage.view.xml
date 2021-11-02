@@ -102,9 +102,9 @@ pattern: 'MMMM dd, yyyy HH:mm:ss'
                                     </OverflowToolbar>
                                 </headerToolbar>
                                 <columns>
-                                    <Column width="5%">
+                                    <!-- <Column width="5%">
                                 <CheckBox  select="onSelectAll" ></CheckBox>
-                                </Column>
+                                </Column> -->
                                     <Column>
                                         <Text text="Material Code"/>
                                     </Column>
@@ -132,8 +132,8 @@ pattern: 'MMMM dd, yyyy HH:mm:ss'
                                 <items>
                                     <ColumnListItem id="id">
                                         <cells>
-                                            <CheckBox    visible="{= ${consumptionPostedData>Status} === 'CONSUMPTION SUCCESSFUL' ? true : ${consumptionPostedData>Status} === 'CANCELLATION FAILED' ? true : false }"  selected="{consumptionPostedData>isSelected}"
-                                           select="onSelectionOfRow" />
+                                            <!-- <CheckBox    visible="{= ${consumptionPostedData>Status} === 'CONSUMPTION SUCCESSFUL' ? true : ${consumptionPostedData>Status} === 'CANCELLATION FAILED' ? true : false }"  selected="{consumptionPostedData>isSelected}"
+                                           select="onSelectionOfRow" /> -->
                                             <Text text="{consumptionPostedData>MaterialCode}"/>
                                              <Text text="{consumptionPostedData>Name}"/>
                                                 <Text text="{consumptionPostedData>MovementType}"/>
