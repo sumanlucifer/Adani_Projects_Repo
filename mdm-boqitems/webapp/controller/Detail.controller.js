@@ -57,17 +57,9 @@ sap.ui.define([
                 var items = { selectedItems: [] }
                 this.getView().getModel("oSelectedKeyModel").setData(items);
 
-                this.getViewModel("objectViewModel").setProperty("/idSFDisplay", false);
-                this.getViewModel("objectViewModel").setProperty("/idSFEdit", true);
-                this.getViewModel("objectViewModel").setProperty("/idSFCreate", true);
+                this.fnSetCreateFieldsVisibility();
 
-                this.getViewModel("objectViewModel").setProperty("/showFooter", true);
-                this.getViewModel("objectViewModel").setProperty("/idBtnDelete", false);
-                this.getViewModel("objectViewModel").setProperty("/idBtnEdit", false);
-                this.getViewModel("objectViewModel").setProperty("/idBtnSave", true);
-                this.getViewModel("objectViewModel").setProperty("/idBtnCancel", true);
                 this.mainModel.setDeferredBatchGroups(["createGroup"]);
-
 
                 this._oNewContext = this.mainModel.createEntry("/MasterBoQItemSet", {
                     groupId: "createGroup",
@@ -80,20 +72,51 @@ sap.ui.define([
                     }
                 });
                 this._oObjectPath = this._oNewContext.sPath;
-                //this.getView().setBindingContext(this._oNewContext);
                 this.getView().bindElement({
                     path: this._oObjectPath
                 });
-
-
             } else {
                 //added
                 this.getSelectedKeys(this.sParentID);
 
-                this.getViewModel("objectViewModel").setProperty("/showFooter", false);
-                this.getViewModel("objectViewModel").setProperty("/idBtnDelete", true);
+                this.fnResetFieldsVisibility();
+
                 this._bindView("/MasterBoQItemSet" + this.sParentID);
             }
+        },
+
+        fnSetCreateFieldsVisibility: function () {
+            this.getViewModel("objectViewModel").setProperty("/idSFDisplay", false);
+            this.getViewModel("objectViewModel").setProperty("/idSFEdit", true);
+            this.getViewModel("objectViewModel").setProperty("/idSFCreate", true);
+
+            this.getViewModel("objectViewModel").setProperty("/showFooter", true);
+            this.getViewModel("objectViewModel").setProperty("/idBtnDelete", false);
+            this.getViewModel("objectViewModel").setProperty("/idBtnEdit", false);
+            this.getViewModel("objectViewModel").setProperty("/idBtnSave", true);
+            this.getViewModel("objectViewModel").setProperty("/idBtnCancel", true);
+        },
+
+        fnSetOnEditFieldsVisibility: function () {
+            this.getViewModel("objectViewModel").setProperty("/showFooter", true);
+            this.getViewModel("objectViewModel").setProperty("/idBtnEdit", false);
+            this.getViewModel("objectViewModel").setProperty("/idBtnSave", true);
+            this.getViewModel("objectViewModel").setProperty("/idBtnCancel", true);
+
+            this.getViewModel("objectViewModel").setProperty("/idSFDisplay", false);
+            this.getViewModel("objectViewModel").setProperty("/idSFEdit", true);
+            this.getViewModel("objectViewModel").setProperty("/idSFCreate", false);
+        },
+
+        fnResetFieldsVisibility: function () {
+            this.getViewModel("objectViewModel").setProperty("/idSFDisplay", true);
+            this.getViewModel("objectViewModel").setProperty("/showFooter", false);
+            this.getViewModel("objectViewModel").setProperty("/idBtnDelete", true);
+            this.getViewModel("objectViewModel").setProperty("/idBtnEdit", true);
+            this.getViewModel("objectViewModel").setProperty("/idSFEdit", false);
+            this.getViewModel("objectViewModel").setProperty("/idSFCreate", false);
+            this.getViewModel("objectViewModel").setProperty("/idBtnSave", false);
+            this.getViewModel("objectViewModel").setProperty("/idBtnCancel", false);
         },
 
         _bindView: function (sObjectPath) {
@@ -112,7 +135,6 @@ sap.ui.define([
             });
         },
 
-        //added
         getSelectedKeys: function (sParentID) {
             var sReadPath = "/MasterBoQItemSet" + sParentID;
             this.getComponentModel().read(sReadPath, {
@@ -130,6 +152,10 @@ sap.ui.define([
                         var items = { selectedItems: [selectedKeys] }
                         this.getView().getModel("oSelectedKeyModel").setData(items);
                     }
+                    else{
+                        var items = { selectedItems: [] }
+                        this.getView().getModel("oSelectedKeyModel").setData(items);
+                    }
 
                     if (aMasterMaterialData.length) {
                         var aMasterParents = [];
@@ -142,24 +168,19 @@ sap.ui.define([
                         }
                         this.getView().getModel("MasterParentsModel").setData(aMasterParents);
                         this.getView().getModel("MasterParentsModel").refresh();
+                    }else{
+                        this.getView().getModel("MasterParentsModel").setData([]);
                     }
 
                 }.bind(this),
                 error: function (oError) {
-                    sap.m.MessageBox.error(JSON.stringify(oError));
+                    MessageBox.error(JSON.stringify(oError));
                 }
             });
         },
 
         onEdit: function () {
-            this.getViewModel("objectViewModel").setProperty("/showFooter", true);
-            this.getViewModel("objectViewModel").setProperty("/idBtnEdit", false);
-            this.getViewModel("objectViewModel").setProperty("/idBtnSave", true);
-            this.getViewModel("objectViewModel").setProperty("/idBtnCancel", true);
-
-            this.getViewModel("objectViewModel").setProperty("/idSFDisplay", false);
-            this.getViewModel("objectViewModel").setProperty("/idSFEdit", true);
-            this.getViewModel("objectViewModel").setProperty("/idSFCreate", false);
+            this.fnSetOnEditFieldsVisibility();
         },
 
         onSave: function () {
@@ -170,22 +191,23 @@ sap.ui.define([
             var description = this.byId("nameDesc").getValue();
             var materialCode = this.byId("mcodeEdit").getValue();
             if (name == "") {
-                sap.m.MessageBox.error("Please enter Name");
+                MessageBox.error(this.getResourceBundle().getText("PleaseenterName"));
                 return;
             }
             else if (description == "") {
-                sap.m.MessageBox.error("Please enter Description");
+                MessageBox.error(this.getResourceBundle().getText("PleaseenterDescription"));
                 return;
             }
             else if (materialCode == "") {
-                sap.m.MessageBox.error("Please enter Material Code");
+                MessageBox.error(this.getResourceBundle().getText("PleaseenterMaterialCode"));
                 return;
             }
+
             oPayload.Name = name;
             oPayload.Description = description;
             oPayload.MaterialCode = materialCode;
             oPayload.StoreStockBOQs = null;
-            // oPayload.MaterialCode = "123";
+
             var selectedData = this.byId("uomEdit").getSelectedItems();
             for (var i = 0; i < selectedData.length; i++) {
                 var obj = {};
@@ -193,10 +215,12 @@ sap.ui.define([
                 obj.MasterUOMId = selectedData[i].getProperty("key");
                 arr.push(obj);
             }
+
             if (arr == "") {
-                sap.m.MessageBox.error("Please enter UOM");
+                MessageBox.error(this.getResourceBundle().getText("PleaseenterUOM"));
                 return;
             }
+
             oPayload.UOMs = arr;
             var aMasterParents = this.getView().getModel("MasterParentsModel").getProperty("/"),
                 iIncompleteMaterialsIndex = aMasterParents.findIndex(function (oMaterial) {
@@ -204,7 +228,7 @@ sap.ui.define([
                 });
 
             if (iIncompleteMaterialsIndex >= 0) {
-                MessageBox.error("Please enter valid entry.");
+                MessageBox.error(this.getResourceBundle().getText("Pleaseentervalidentry"));
                 return;
             }
 
@@ -212,28 +236,27 @@ sap.ui.define([
             oPayload.MasterParents = aMasterParents;
 
             if (this.sParentID === "new") {
-                MessageBox.confirm("Do you want to save BOQ item " + name + "? ", {
+                MessageBox.confirm(this.getResourceBundle().getText("DoyouwanttosaveBOQitem", [name]), {
                     icon: MessageBox.Icon.INFORMATION,
                     title: "Confirm",
                     actions: [MessageBox.Action.YES, MessageBox.Action.NO],
                     emphasizedAction: MessageBox.Action.YES,
                     onClose: function (oAction) {
                         if (oAction == "YES") {
-                            that.getComponentModel("app").setProperty("/busy", true);
-                            that.mainModel.create("/MasterBoQItemSet", oPayload, {
+                            this.getComponentModel("app").setProperty("/busy", true);
+                            this.mainModel.create("/MasterBoQItemSet", oPayload, {
                                 success: function (oData, oResponse) {
-                                    sap.m.MessageBox.success("BOQ item created successfully");
-                                    // sap.m.MessageBox.success(oData.Message);
-                                    that.onCancel();
-                                    that.getComponentModel("app").setProperty("/busy", false);
+                                    MessageBox.success(this.getResourceBundle().getText("BOQitemcreatedsuccessfully"));
+                                    this.onCancel();
+                                    this.getComponentModel("app").setProperty("/busy", false);
                                 }.bind(this),
                                 error: function (oError) {
-                                    sap.m.MessageBox.error(JSON.stringify(oError));
-                                    that.getComponentModel("app").setProperty("/busy", false);
-                                }
+                                    MessageBox.error(JSON.stringify(oError));
+                                    this.getComponentModel("app").setProperty("/busy", false);
+                                }.bind(this)
                             });
                         }
-                    }
+                    }.bind(this)
                 });
             }
             else {
@@ -241,14 +264,13 @@ sap.ui.define([
                 that.getComponentModel("app").setProperty("/busy", true);
                 that.mainModel.update(sPath, oPayload, {
                     success: function (oData, oResponse) {
-                        sap.m.MessageBox.success("BOQ item updated successfully");
-                        // sap.m.MessageBox.success(oData.Message);
+                        MessageBox.success(this.getResourceBundle().getText("BOQitemupdatedsuccessfully"));
                         that.onCancel();
                         that.getComponentModel("app").setProperty("/busy", false);
                     }.bind(this),
                     error: function (oError) {
                         that.getComponentModel("app").setProperty("/busy", false);
-                        sap.m.MessageBox.error(JSON.stringify(oError));
+                        MessageBox.error(JSON.stringify(oError));
                     }
                 });
             }
@@ -278,7 +300,7 @@ sap.ui.define([
             var name = this.getView().getBindingContext().getObject().Name;
             var sPath = this.getView().getBindingContext().getPath();
             this.getComponentModel("app").setProperty("/busy", true);
-            MessageBox.confirm("Do you want to delete BOQ item " + name + "?", {
+            MessageBox.confirm(this.getResourceBundle().getText("DoyouwanttodeleteBOQitem", [name]), {
                 icon: MessageBox.Icon.WARNING,
                 title: "Confirm",
                 actions: [MessageBox.Action.YES, MessageBox.Action.NO],
@@ -288,15 +310,14 @@ sap.ui.define([
                         that.getComponentModel("app").setProperty("/busy", true);
                         that.mainModel.remove(sPath, {
                             success: function (oData, oResponse) {
-                                sap.m.MessageBox.success("UOM item deleted successfully");
-                                // sap.m.MessageBox.success(oData.Message);
+                                MessageBox.success(this.getResourceBundle().getText("UOMitemdeletedsuccessfully"));
                                 that.onCancel();
                                 that.onNavigateToMaster();
                                 that.getComponentModel("app").setProperty("/busy", false);
                             }.bind(this),
                             error: function (oError) {
                                 that.getComponentModel("app").setProperty("/busy", false);
-                                sap.m.MessageBox.error(JSON.stringify(oError));
+                                MessageBox.error(JSON.stringify(oError));
                             }
                         });
                     }
@@ -343,8 +364,8 @@ sap.ui.define([
                 oItemObj.MasterMaterialId = null;
                 // oItemObj.ParentMaterialCode = null;
                 this.getView().getModel("MasterParentsModel").setProperty(sItemPath, oItemObj);
-                oEvent.getSource().setValueState("Error");
-                oEvent.getSource().setValueStateText("Please enter a valid Material.");
+                oEvent.getSource().setValueState(this.getResourceBundle().getText("Error"));
+                oEvent.getSource().setValueStateText(this.getResourceBundle().getText("PleaseenteravalidMaterial"));
             }
         }
     });

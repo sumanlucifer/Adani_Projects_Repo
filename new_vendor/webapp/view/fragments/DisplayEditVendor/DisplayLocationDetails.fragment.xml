@@ -7,10 +7,10 @@
                 <Column  demandPopin="true" minScreenWidth="Tablet">
                     <Text text="{i18n>CompanyCode}"/>
                 </Column>
-                <Column demandPopin="true" minScreenWidth="Tablet">
+                <!-- <Column demandPopin="true" minScreenWidth="Tablet">
                     <Text text="{i18n>PlantCode}"/>
-                </Column>
-                <Column demandPopin="true" minScreenWidth="Tablet">
+                </Column> -->
+                <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center">
                     <Text text="{i18n>IsActive}"/>
                 </Column>
             </columns>
@@ -18,7 +18,7 @@
                 <ColumnListItem>
                     <cells>
                         <Text text="{VendorViewModel>CompanyCode}"/>
-                        <Text text="{VendorViewModel>PlantCode}"/>
+                        <!-- <Text text="{VendorViewModel>PlantCode}"/> -->
                         <Switch enabled="false" state="{= ${VendorViewModel>IsActive} === true ? true : false}" customTextOn="Yes" customTextOff="No"/>
                     </cells>
                 </ColumnListItem>

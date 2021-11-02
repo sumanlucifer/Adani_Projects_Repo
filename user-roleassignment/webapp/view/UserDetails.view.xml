@@ -70,7 +70,7 @@
                                 }"/>
                         </VBox>
                         
-                        <VBox renderType="Bare" class="sapUiMediumMarginEnd">
+                        <!-- <VBox renderType="Bare" class="sapUiMediumMarginEnd">
                             <Label text="Updated On" />
                             <Text text="{path:'UpdatedAt',
                                             type: 'sap.ui.model.type.Date',
@@ -78,7 +78,7 @@
                                             pattern: 'MMMM dd, yyyy'
                                             }
                             }"/>
-                        </VBox>
+                        </VBox> -->
                         <!-- <ToolbarSpacer/> -->
                         
                         <VBox renderType="Bare">

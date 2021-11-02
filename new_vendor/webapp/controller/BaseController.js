@@ -252,7 +252,7 @@ sap.ui.define([
                 } else {
                     var sUpdateMsg = "VendorUpdateSuccess";
                     for (var i = 0; i < oVendorObj.Mappings.length; i++) {
-                        delete (oVendorObj.Mappings[i].PlantCode);
+                        //delete (oVendorObj.Mappings[i].PlantCode);
                         delete (oVendorObj.Mappings[i].CompanyCode);
                     }
                     this.fnSaveVendorDetails(oVendorObj, sUpdateMsg);
@@ -270,12 +270,14 @@ sap.ui.define([
 
             if (bVendorCreateUpdateFlag === "Create") {
                 iIncompleteMappingIndex = aMappingData.findIndex(function (oMapping) {
-                    return oMapping.CompanyCode === null || oMapping.CompanyCodeId === null || oMapping.PlantCode === null || oMapping.PlantId === null;
+                    // return oMapping.CompanyCode === null || oMapping.CompanyCodeId === null || oMapping.PlantCode === null || oMapping.PlantId === null;
+                    return oMapping.CompanyCode === null || oMapping.CompanyCodeId === null;
                 });
             }
             else {
                 iIncompleteMappingIndex = aMappingData.findIndex(function (oMapping) {
-                    return oMapping.CompanyPlantMappingId === null && (oMapping.CompanyCode === null || oMapping.CompanyCodeId === null || oMapping.PlantCode === null || oMapping.PlantId === null);
+                    // return oMapping.CompanyPlantMappingId === null && (oMapping.CompanyCode === null || oMapping.CompanyCodeId === null || oMapping.PlantCode === null || oMapping.PlantId === null);
+                    return oMapping.CompanyPlantMappingId === null && (oMapping.CompanyCode === null || oMapping.CompanyCodeId === null);
                 });
             }
 
@@ -286,7 +288,8 @@ sap.ui.define([
             else {
                 for (var i = 0; i < aMappingData.length; i++) {
                     var iDuplicateMappings = aMappingData.filter(function (oMapping) {
-                        return oMapping.CompanyCode === aMappingData[i].CompanyCode && oMapping.PlantCode === aMappingData[i].PlantCode;
+                        // return oMapping.CompanyCode === aMappingData[i].CompanyCode && oMapping.PlantCode === aMappingData[i].PlantCode;
+                        return oMapping.CompanyCode === aMappingData[i].CompanyCode;
                     });
 
                     iDuplicateMappingFound = iDuplicateMappings.length > 1 ? true : false;
@@ -304,7 +307,7 @@ sap.ui.define([
             var oNewMapping = {
                 "CompanyPlantMappingId": null,
                 "CompanyCodeId": null,
-                "PlantId": null,
+                // "PlantId": null,
                 "IsActive": true,
                 // "PlantSuggestionList": []
             },

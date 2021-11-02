@@ -8,7 +8,6 @@ sap.ui.define([
     return BaseController.extend("com.agel.mmts.newvendor.controller.VendorDetails", {
         onInit: function () {
 
-            //jQuery.sap.addUrlWhitelist("blob");
             this.mainModel = this.getOwnerComponent().getModel();
             this.mainModel.setSizeLimit(1000);
 
@@ -86,8 +85,8 @@ sap.ui.define([
                         "CompanyPlantMappingId": oMappingObj.ID ? oMappingObj.ID : null,
                         "CompanyCodeId": typeof (oMappingObj.CompanyCodeId) !== "object" ? oMappingObj.CompanyCodeId : null,
                         "CompanyCode": oMappingObj.CompanyCode ? oMappingObj.CompanyCode : null,
-                        "PlantId": typeof (oMappingObj.PlantId) !== "object" ? oMappingObj.PlantId : null,
-                        "PlantCode": oMappingObj.PlantCode ? oMappingObj.PlantCode : null,
+                        // "PlantId": typeof (oMappingObj.PlantId) !== "object" ? oMappingObj.PlantId : null,
+                        // "PlantCode": oMappingObj.PlantCode ? oMappingObj.PlantCode : null,
                         "IsActive": oMappingObj.IsActive ? oMappingObj.IsActive : false,
                         "VendorId": this.getView().getModel("objectViewModel").getProperty("/VendorId")
                     });

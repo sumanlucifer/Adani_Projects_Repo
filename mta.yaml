@@ -203,6 +203,10 @@ modules:
       - comagelmmtsreportsreceipt.zip
       name: comagelmmtsreportsreceipt
       target-path: resources/
+    - artifacts:
+      - comagelmmtsreportscontractorreconciliation.zip
+      name: comagelmmtsreportscontractorreconciliation
+      target-path: resources/
 - name: launchpad
   type: com.sap.application.content
   path: launchpad
@@ -601,6 +605,16 @@ modules:
   - name: workflow
     parameters:
       content-target: true
+- name: comagelmmtsreportscontractorreconciliation
+  type: html5
+  path: reports-contractor_reconciliation
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
 resources:
 - name: uaa_agel-mmts-web
   type: org.cloudfoundry.managed-service

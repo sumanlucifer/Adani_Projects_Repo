@@ -12,18 +12,19 @@
 				</headerToolbar>
                 <columns>
                     <Column demandPopin="true" minScreenWidth="Tablet">
+                        <Text text="{i18n>role}" wrapping="true"/>
+                    </Column>
+                    <Column demandPopin="true" minScreenWidth="Tablet">
                         <Text text="{i18n>roleCreated}" wrapping="true"/>
                     </Column>
                     <Column demandPopin="true" minScreenWidth="Tablet">
                         <Text text="{i18n>roleUpdated}" wrapping="true"/>
                     </Column>
-                    <Column demandPopin="true" minScreenWidth="Tablet">
-                        <Text text="{i18n>role}" wrapping="true"/>
-                    </Column>
                 </columns>
                 <items>
                     <ColumnListItem>
                         <cells>
+                            <Text text="{UserDetailModel>Role/Role}​​​"/>
                             <Text text="{path:'UserDetailModel>CreatedAt',
                                             type: 'sap.ui.model.type.Date',
                                             formatOptions: {
@@ -36,7 +37,6 @@
                                             pattern: 'MMMM dd, yyyy'
                                             }
                             }"/>
-                            <Text text="{UserDetailModel>Role/Role}​​​"/>
                         </cells>
                     </ColumnListItem>
                 </items>
