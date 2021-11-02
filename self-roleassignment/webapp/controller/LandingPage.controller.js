@@ -2,21 +2,8 @@ sap.ui.define([
     "./BaseController",
     "sap/ui/model/json/JSONModel",
     "sap/ui/model/Filter",
-    "sap/ui/model/FilterOperator",
-    "sap/ui/core/Fragment",
-    "sap/ui/model/Sorter",
-    "sap/ui/Device",
-    "sap/ui/core/routing/History",
-    'sap/m/ColumnListItem',
-    'sap/m/Input',
-    'sap/base/util/deepExtend',
-    'sap/ui/export/Spreadsheet',
-    'sap/m/MessageToast',
-    "sap/m/MessageBox",
-    "sap/m/ObjectIdentifier",
-    "sap/m/Text",
-    "sap/m/Button"
-], function (BaseController, JSONModel, Filter, FilterOperator, Fragment, Sorter, Device, History, ColumnListItem, Input, deepExtend, Spreadsheet, MessageToast, MessageBox, ObjectIdentifier, Text, Button) {
+    "sap/ui/model/FilterOperator"
+], function (BaseController, JSONModel, Filter, FilterOperator) {
     "use strict";
 
     return BaseController.extend("com.agel.mmts.selfroleassignment.controller.UserDetails", {
@@ -35,6 +22,7 @@ sap.ui.define([
             this.getView().addEventDelegate({
                 onAfterShow: this.onBeforeShow,
             }, this);
+            
             //view model instatiation
             var oViewModel = new JSONModel({
                 busy: false,
@@ -80,6 +68,6 @@ sap.ui.define([
         fnFormatData: function (oData) {
             oData.UserRoles = oData.UserRoles.results;
             return oData;
-        }        
+        }
     });
 });
