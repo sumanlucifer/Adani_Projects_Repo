@@ -159,21 +159,21 @@ sap.ui.define([
             var totalSelectedItems = itemData.filter(function (item) {
                 return (item.Status === "CONSUMPTION SUCCESSFUL" || item.Status === "CANCELLATION FAILED");
             });
-            var selectedItems = itemData.filter(function (item) {
-                return item.isSelected === true;
-            });
-            if (totalSelectedItems.length === selectedItems.length)
-                IsAllItemsCancelled = true;
-            else
-                IsAllItemsCancelled = false;
+            // var selectedItems = itemData.filter(function (item) {
+            //     return item.isSelected === true;
+            // });
+            // if (totalSelectedItems.length === selectedItems.length)
+            //     IsAllItemsCancelled = true;
+            // else
+            //     IsAllItemsCancelled = false;
             return {
-                selectedItems,
-                IsAllItemsCancelled
+
+                totalSelectedItems
             };
         },
         onSubmitCancelConfirmPress: function (a, itemData) {
             var IsAllItemsCancelled = itemData.IsAllItemsCancelled;
-            itemData = itemData.selectedItems.map(function (item) {
+            itemData = itemData.totalSelectedItems.map(function (item) {
                 return {
                     ConsumedMaterialParentId: item.ID
                 };
@@ -182,7 +182,7 @@ sap.ui.define([
             var ConsumptionReserveId = this.getView().getModel().getData(sConsumptionReservationContext).ID;
             var oPayload = {
                 "UserName": "Agel",
-                "IsAllItemsCancelled": IsAllItemsCancelled,
+                "IsAllItemsCancelled": true,
                 "ConsumptionPostingId": this.sObjectId,
                 "ParentItem": itemData
             };

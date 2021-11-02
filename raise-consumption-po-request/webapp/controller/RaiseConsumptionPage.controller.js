@@ -45,7 +45,8 @@ sap.ui.define([
                 var that = this;
                 var sObjectPath = oEvent.getSource().getBindingContext().getObject().ID;
                 this.oRouter.navTo("RouteReturnConsumptionDetailPage", {
-                    ReservationID: sObjectPath
+                 ReservationID: sObjectPath
+                                //  ReservationID: 12
                 }, false);
             },
             onNavigationCancelPress: function (oEvent) {

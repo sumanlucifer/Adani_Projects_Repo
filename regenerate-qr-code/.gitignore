@@ -12,3 +12,11 @@ archive.zip
 regenerate-qr-code/.env1
 # auto generated wildcard
 sapui5/security-scan-history/.env1
+# auto generated wildcard
+sapui5/return-reservation/.env1
+# auto generated wildcard
+sapui5/returnmaterial/.env1
+# auto generated wildcard
+sapui5/raise-returnmaterial/.env1
+# auto generated wildcard
+sapui5/storeincharge-returnmaterial/.env1
