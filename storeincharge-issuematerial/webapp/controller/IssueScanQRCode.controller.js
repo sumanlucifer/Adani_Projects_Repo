@@ -82,30 +82,33 @@ sap.ui.define([
 
             var oDataModel = this.getViewModel();
             oDataModel.read("/IssuedMaterialReserveSet" + this.sObjectId, {
-                urlParameters: { "$expand": "IssuedMaterialReservedItems" },
+                urlParameters: { "$expand": "IssuedMaterialReservedItems/IssuedMaterialReservedBOQItems" },
                 success: function (oData) {
-                    // if (oData) {
-                    // debugger;
-                    //     var oJsonData = { IssueMaterial: [] };
-                    //     for (var i = 0; i < oData.results.length; i++) {
-                    //         oData.results[i].IssuedQty=null;
-                    //     }
-                    //     oJsonData.IssueMaterial.push(oData.results);
-                    //     var oJsonModel = new JSONModel(oJsonData);
-                    //     this.getView().setModel(oJsonModel, "IssueMatModel");
-                    // }
                     if (oData) {
                         // debugger;
                         oData.IssuedMaterialReservedItems.results.forEach(element => {
                             element.IssuedQty = null;
-                            element.IssueMaterialBOQItems = [];
+                            // element.IssueMaterialBOQItems = [];
                             element.WBSNumber = oData.WBSNumber;
                             element.QRNumber = null;
+                            element.IssueMaterialPostingBOQs = element.IssuedMaterialReservedBOQItems.results;
+                            if (element.BaseUnit === 'MT')
+                                element.QtyEditable = false;
+                            else
+                                element.QtyEditable = true;
+                            element.IssueMaterialPostingBOQs.forEach(item => {
+                                item.IssueMaterialReserveBOQId = item.ID;
+                                item.IssuedQty = null;
+                                item.BaseUnit = item.UOM;
+                                if (element.BaseUnit === 'MT')
+                                    item.QtyEditable = true;
+                                else
+                                    item.QtyEditable = false;
+                            })
                         });
                     }
                     var oJsonModel = new JSONModel(oData.IssuedMaterialReservedItems.results);
                     this.getView().setModel(oJsonModel, "IssueMatModel");
-
                 }.bind(this),
                 error: function (oError) {
                     sap.m.MessageBox.error(JSON.stringify(oError));
@@ -144,21 +147,6 @@ sap.ui.define([
                 filters: [filter],
                 success: function (oData) {
                     if (oData) {
-
-                        // debugger;
-
-                        // var oJsonData = { IssueMaterial: [] };
-                        // for (var i = 0; i < oData.results.length; i++) {
-                        //     var jsonData = {
-                        //         ID: oData.results[i].ID,
-                        //         IssuedQty: oData.results[i].IssuedQty,
-                        //         UOM: oData.results[i].UOM,
-                        //     };
-                        //     oJsonData.IssueMaterial.push(jsonData);
-                        // }
-                        // var oJsonModel = new JSONModel(oJsonData);
-                        // this.getView().setModel(oJsonModel, "IssueMatEnterQtyModel");
-
                         if (oData.results[0] != undefined) {
                             if (oData.results[0].RestrictedStoreStockParent.StoreStockParent != undefined) {
                                 var finalMatCode = oData.results[0].RestrictedStoreStockParent.StoreStockParent.MaterialCode;
@@ -183,7 +171,6 @@ sap.ui.define([
                     sap.m.MessageBox.error(JSON.stringify(oError));
                 }
             });
-
         },
 
         onEnterQuantity: function (bindingContext) {
@@ -221,8 +208,11 @@ sap.ui.define([
         },
 
         onIssuedQtyLivechange: function (oEvent) {
+            debugger;
             var sQtyRemainingToIssue = parseFloat(oEvent.getSource().getParent().getBindingContext().getObject().QtyRemainingToIssue),
                 sIssuedValue = parseFloat(oEvent.getSource().getValue());
+            var oBindingObject = oEvent.getSource().getBindingContext().getObject();
+            var oModel = oEvent.getSource().getModel();
 
             if (sIssuedValue > sQtyRemainingToIssue || sIssuedValue <= 0 || isNaN(sIssuedValue)) {
                 oEvent.getSource().setValueState("Error");
@@ -231,6 +221,29 @@ sap.ui.define([
             } else {
                 oEvent.getSource().setValueState("None");
                 this.getView().byId("idSaveQtyBTN").setEnabled(true);
+                if (oBindingObject.IssueMaterialPostingBOQs) {
+                    oBindingObject.IssueMaterialPostingBOQs.forEach(item => {
+                        item.IssuedQty = sIssuedValue * (item.ReservedQty / oBindingObject.ReservedQty);
+                    })
+                }
+                else {
+                    var iParentContext = oEvent.getSource().getBindingContext().getPath().split("/")[1];
+                    var oParentObject = oModel.getData()[iParentContext];
+                    var iTotalQty = oParentObject.IssuedQty;
+                    if (iTotalQty)
+                        iTotalQty = parseFloat(iTotalQty);
+                    else
+                        iTotalQty = 0;
+                    var iPrvQty = oBindingObject.IssuedQty;
+                    if (iPrvQty)
+                        iPrvQty = parseFloat(iPrvQty);
+                    else
+                        iPrvQty = 0;
+                    iTotalQty = iTotalQty + ((sIssuedValue - iPrvQty) * oBindingObject.WeightPerPiece);
+                    oModel.setProperty(oEvent.getSource().getBindingContext().getPath() + "/IssuedQty", sIssuedValue);
+                    oModel.setProperty("/" + iParentContext + "/IssuedQty", iTotalQty);
+                }
+                oModel.refresh();
             }
         },
 
@@ -248,7 +261,7 @@ sap.ui.define([
 
             if (iIndex >= 0) {
                 MessageToast.show("Please check out issued quantity for the given line items");
-                oDetails.view.getModel("objectViewModel").setProperty("/doneButton", false);
+                oDetails.view.getModel("objectViewModel").setProperty("/doneButton", true);
             }
             else {
                 oDetails.view.getModel("objectViewModel").setProperty("/doneButton", true);
@@ -337,8 +350,19 @@ sap.ui.define([
             var aPayload = {
                 "IssuedMaterialId": null,
                 "IssuedMaterialReserveId": this.sObjectId.match(/\((.*?)l/)[1],
-                "IssueMaterialParents": Matdata
+                "IssueMaterialPostingParents": Matdata
             };
+
+            for (var i = 0; i < Matdata.length; i++) {
+                if (!Matdata[i].IssuedQty)
+                    Matdata.splice(i, 1);
+                else {
+                    for (var j = 0; j < Matdata[i].IssueMaterialPostingBOQs.length; j++) {
+                        if (!Matdata[i].IssueMaterialPostingBOQs[j].IssuedQty)
+                            Matdata[i].IssueMaterialPostingBOQs.splice(j, 1);
+                    }
+                }
+            }
 
             // IssueMaterialParentItems
 
@@ -357,17 +381,10 @@ sap.ui.define([
 
             this.MainModel.create("/IssueMaterialEdmSet", aPayload, {
                 success: function (oData, oResponse) {
-                    if (oData) {
-                        debugger;
-                        if (oData) {
-                            this.onPressNavigation(oData.ID);
-
-                        } else {
-                            sap.m.MessageBox.error("Please Enter Valid  Quantity");
-                        }
-                    } else {
-                        sap.m.MessageBox.error("Please Enter Valid Quantity");
-                    }
+                    if (oData.Success)
+                        this.onPressNavigation(oData.ID);
+                    else
+                        sap.m.MessageBox.error(oData.Message);
                 }.bind(this),
                 error: function (oError) {
                     sap.m.MessageBox.error(JSON.stringify(oError));

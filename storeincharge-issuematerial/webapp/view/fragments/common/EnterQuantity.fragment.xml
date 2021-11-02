@@ -1,14 +1,13 @@
 <core:FragmentDefinition xmlns="sap.m"
-    xmlns:core="sap.ui.core" >
+    xmlns:core="sap.ui.core"
+	xmlns:l="sap.ui.layout"
+	xmlns:f="sap.ui.layout.form"
+    xmlns:tt="sap.ui.table">
     <Dialog class="testTitle">
         <content>
         <VBox class="sapUiResponsiveMargin">
-            <Table width="auto" growing="true" growingThreshold="10" fixedLayout="false" >
-                <headerToolbar>
-					<OverflowToolbar>
-						<ToolbarSpacer />
-					</OverflowToolbar>
-				</headerToolbar>
+            <Label text="Line Item"/>
+            <!-- <Table width="auto" growing="true" growingThreshold="10" fixedLayout="false" >
                 <columns>
                     <Column demandPopin="true" minScreenWidth="Tablet">
                         <Text text="{i18n>name}" wrapping="true"/>
@@ -32,12 +31,83 @@
                             <Text text="{Name}"/>
                             <Text text="{ReservedQty}"/>
                             <ObjectIdentifier title="{QtyRemainingToIssue}" />    
-                            <Input value="{IssuedQty}" type="Number" id="idInputIssuedQty" liveChange="onIssuedQtyLivechange"/>
+                            <Input value="{IssuedQty}" type="Number"  editable="{QtyEditable}" id="idInputIssuedQtyParent" liveChange="onIssuedQtyLivechange"/>
                             <Text text="{BaseUnit}​​​"/>
                         </cells>
                     </ColumnListItem>
                 </items>
-            </Table>
+            </Table>  -->
+            <f:SimpleForm id="SimpleFormChange354"
+                editable="true"
+                layout="ResponsiveGridLayout"
+                title=""
+                labelSpanXL="3"
+                labelSpanL="3"
+                labelSpanM="3"
+                labelSpanS="12"
+                adjustLabelSpan="false"
+                emptySpanXL="4"
+                emptySpanL="4"
+                emptySpanM="4"
+                emptySpanS="0"
+                columnsXL="1"
+                columnsL="1"
+                columnsM="1"
+                singleContainerFullSize="false" >
+                <f:content>
+                    <Label text="{i18n>name}" />
+                    <Text text="{Name}"/>
+                    <Label text="{i18n>reservedQty}" />
+                    <Text text="{ReservedQty}"/>
+                    <Label text="{i18n>QtyAvailableforIssue}" />
+                    <ObjectIdentifier title="{QtyRemainingToIssue}" />  
+                    <Label text="{i18n>issueQty}" />
+                    <Input value="{IssuedQty}" type="Number"  editable="{QtyEditable}" id="idInputIssuedQtyParent" liveChange="onIssuedQtyLivechange"/>
+                    <Label text="{i18n>UOM}" />
+                    <Text text="{BaseUnit}​​​"/>
+                </f:content>
+            </f:SimpleForm>
+        </VBox>
+        <VBox class="sapUiResponsiveMargin">
+            <Label text="BOQ Items"/>
+            <tt:TreeTable
+                id="idEnterQtyTreeTable"
+                rows="{path:'', parameters: {numberOfExpandedLevels: 1, arrayNames:['IssueMaterialPostingBOQs']}}"
+                selectionMode="None"
+                ariaLabelledBy="title"
+                visibleRowCountMode="Auto"
+                noData="BOQ not applicable for Selected Line Item.">
+                <tt:Column>
+                    <Label text="{i18n>name}"/>
+                    <tt:template>
+                        <Text text="{Name}" wrapping="true" wrappingType="Hyphenated"/>
+                    </tt:template>
+                </tt:Column>
+                <tt:Column>
+                    <Label text="{i18n>reservedQty}"/>
+                    <tt:template>
+                        <Text text="{ReservedQty}" wrapping="false" />
+                    </tt:template>
+                </tt:Column>
+                <tt:Column>
+                    <Label text="{i18n>QtyAvailableforIssue}"/>
+                    <tt:template>
+                        <ObjectIdentifier title="{QtyRemainingToIssue}" />   
+                    </tt:template>
+                </tt:Column>
+                <tt:Column>
+                    <Label text="{i18n>issueQty}"/>
+                    <tt:template>
+                        <Input value="{IssuedQty}" type="Number" editable="{QtyEditable}" id="idInputIssuedQty" liveChange="onIssuedQtyLivechange"/>
+                    </tt:template>
+                </tt:Column>
+                <tt:Column>
+                    <Label text="{i18n>UOM}"/>
+                    <tt:template>
+                        <Text text="{BaseUnit}​​​"/>
+                    </tt:template>
+                </tt:Column>
+            </tt:TreeTable>
         </VBox>
         </content>
         <beginButton>
