@@ -60,7 +60,7 @@ pattern: 'MMMM dd, yyyy HH:mm:ss'
 }
 }"/>
                         <Text text="{MovementType}"/>
-                        <ObjectStatus text="{Status}" state="{= ${Status} === 'PARTIALLY CONSUMED' ? 'Success' : ${Status} === 'RESERVED FOR CONSUMPTION' ? 'Information' : 'Error'}" visible="{= ${Status}.length>0 ? true : false }"/>
+                        <ObjectStatus text="{Status}" state="{= ${Status} === 'PARTIALLY CONSUMED' ? 'Warning' : ${Status} === 'RESERVED FOR CONSUMPTION' ? 'Information' :  ${Status} === 'ALL RESERVED ITEMS CONSUMED' ? 'Success' : 'Error'}" visible="{= ${Status}.length>0 ? true : false }"/>
                     </cells>
                 </ColumnListItem>
             </items>
