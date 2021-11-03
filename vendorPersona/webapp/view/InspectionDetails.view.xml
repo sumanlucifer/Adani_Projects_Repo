@@ -120,6 +120,12 @@
                                     <Column hAlign="Center">
                                         <Text text="{i18n>mdccApprovedQty}"/>
                                     </Column>
+                                    <Column hAlign="Center">
+                                        <Text text="Hold Quantity"/>
+                                    </Column>
+                                    <Column hAlign="Center">
+                                        <Text text="Rejected Quantity"/>
+                                    </Column>
                                     <Column>
                                         <Text text="{i18n>uom}"/>
                                     </Column>
@@ -136,6 +142,8 @@
                                             <Link text="{i18n>MapBOQItems}" press="onViewInspectionItemsPress"></Link>
                                             <Text text="{Qty}"/>
                                             <Text text="{MDCCApprovedQty}"/>
+                                            <Text text="{HoldQuantity}"/>
+                                            <Text text="{RejectedQuantity}"/>
                                             <Text text="{UOM}"/>
                                         </cells>
                                     </ColumnListItem>

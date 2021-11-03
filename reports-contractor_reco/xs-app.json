@@ -3,8 +3,8 @@
   "authenticationMethod": "route",
   "routes": [
     {
-      "source": "^/AGEL_MMTS_API/(.*)$",
-      "target": "/AGEL_MMTS_API/$1",
+      "source": "^/api/(.*)$",
+      "target": "/api/$1",
       "destination": "AGEL_MMTS",
       "authenticationType": "xsuaa",
       "csrfProtection": false
