@@ -1,0 +1,121 @@
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Capabilities.V1.xml">
+        <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
+        <edmx:Include Namespace="com.sap.vocabularies.UI.v1" Alias="UI"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Communication.xml">
+        <edmx:Include Namespace="com.sap.vocabularies.Communication.v1" Alias="Communication"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/api/v2/odata.svc/$metadata">
+        <!-- <edmx:Include Namespace="com.agel.mmts.entity.edmentity"/>
+        <edmx:Include Namespace="com.agel.mmts.entity.extension"/> -->
+        <edmx:Include Namespace="com.agel.mmts.entity"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="com.agel.mmts">
+
+            <!-- For Restrictions -->
+            <Annotations Target="com.agel.mmts.entity.DefaultContainer/PurchaseOrderSet">
+                <Annotation Term="Capabilities.SearchRestrictions">
+                    <Record Type="Capabilities.SearchRestrictionsType">
+                        <PropertyValue Property="Searchable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record Type="Capabilities.InsertRestrictionsType">
+                        <PropertyValue Property="Insertable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue Property="Deletable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.UpdateRestrictions">
+                    <Record Type="Capabilities.UpdateRestrictionsType">
+                        <PropertyValue Property="Updatable" Bool="false"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+
+            <!-- For Common Labels -->
+            <Annotations Target="com.agel.mmts.entity.ContractorReconciliationModel/ReservationId">
+                <Annotation Term="Common.Label" String="{@i18n>ReservationId}"/>
+            </Annotations>
+
+            <!-- For List Page -->
+            <Annotations Target="com.agel.mmts.entity.ContractorReconciliationModel">
+                <!-- For List Page Filters -->
+                <Annotation Term="UI.SelectionFields">
+                    <Collection>
+                        <PropertyPath>ReservationId</PropertyPath>
+                        <PropertyPath>MatRequisitionNo</PropertyPath>
+                        <PropertyPath>ServiceOrderNumber</PropertyPath>
+                        <PropertyPath>ContractorName</PropertyPath>
+                    </Collection>
+                </Annotation>
+
+                <Annotation Term="UI.HeaderInfo">
+                    <Record Type="UI.HeaderInfoType">
+                        <PropertyValue Property="TypeName" String="{@i18n>ReservationId}"/>
+                        <PropertyValue Property="TypeNamePlural" String="{@i18n>ReservationId}"/>
+                        <PropertyValue Property="Title">
+                            <Record Type="UI.DataField">
+                                <PropertyValue Property="Value" Path="ReservationId"/>
+                                <PropertyValue Property="Label" String="{@i18n>ReservationId}"/>
+                                <PropertyValue Property="IconUrl" String="sap-icon://customer-order-entry"/>
+                            </Record>
+                            <Annotation Term="Common.Heading" String="{@i18n>ReservationId}"/>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+
+                <!-- For List Items Object Attribute -->
+                <!-- <Annotation Term="Common.SemanticKey">
+                    <Collection>
+                        <PropertyPath>ReservationId</PropertyPath>
+                    </Collection>
+                </Annotation> -->
+
+                <Annotation Term="UI.LineItem">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="ReservationId"/>
+                            <PropertyValue Property="Label" String="{@i18n>ReservationId}"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="MatRequisitionNo"/>
+                            <PropertyValue Property="Label" String="{@i18n>MatRequisitionNo}"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="ServiceOrderNumber"/>
+                            <PropertyValue Property="Label" String="{@i18n>ServiceOrderNumber}"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="ContractorName"/>
+                            <PropertyValue Property="Label" String="{@i18n>ContractorName}"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+
+            <Annotations Target="com.agel.mmts.entity.DefaultContainer/ParentLineItemSet">
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue Property="Deletable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.SearchRestrictions">
+                    <Record Type="Capabilities.SearchRestrictionsType">
+                        <PropertyValue Property="Searchable" Bool="false"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>
