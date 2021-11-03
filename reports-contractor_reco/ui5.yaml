@@ -1,6 +1,6 @@
 specVersion: '2.4'
 metadata:
-  name: 'reports-contractor_recon'
+  name: 'reports-contractor_reco'
 type: application
 server:
   customMiddleware:
@@ -9,7 +9,7 @@ server:
     configuration:
       ignoreCertError: false # If set to true, certificate errors will be ignored. E.g. self-signed certificates will be accepted
       backend:
-      - path: /AGEL_MMTS_API
+      - path: /api
         url: https://agel-mmts-api.cfapps.ap11.hana.ondemand.com
         destination: AGEL_MMTS
       ui5:

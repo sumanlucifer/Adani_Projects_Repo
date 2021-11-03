@@ -1,13 +1,13 @@
 {
     "_version": "1.32.0",
     "sap.app": {
-        "id": "com.agel.mmts.reportscontractorrecon",
+        "id": "com.agel.mmts.reportscontractorreco",
         "type": "application",
         "i18n": "i18n/i18n.properties",
         "applicationVersion": {
             "version": "1.0.0"
         },
-        "title": "Contractor Reconsiliation Report",
+        "title": "{{appTitle}}",
         "description": "{{appDescription}}",
         "tags": {
             "keywords": []
@@ -39,15 +39,15 @@
         },
         "crossNavigation": {
             "inbounds": {
-                "com-agel-mmts-reportspurchaseorder-inbound": {
+                "com-agel-mmts-reportscontractorreco-inbound": {
                     "signature": {
                         "parameters": {},
                         "additionalParameters": "allowed"
                     },
-                    "semanticObject": "ContractorReconReports",
+                    "semanticObject": "contractorReconciliationReport",
                     "action": "Display",
-                    "title": "Contractor Reconsiliation Reports",
-                    "subTitle": "",
+                    "title": "{{flpTitle}}",
+                    "subTitle": "{{flpSubtitle}}",
                     "icon": ""
                 }
             }
@@ -118,7 +118,7 @@
                     "defaultBindingMode": "TwoWay",
                     "defaultCountMode": "Inline",
                     "refreshAfterChange": false,
-                    "useBatch":false,
+                    "useBatch": false,
                     "metadataUrlParams": {
                         "sap-value-list": "none"
                     }
@@ -143,11 +143,7 @@
             "forceGlobalRefresh": false,
             "objectPageHeaderType": "Dynamic",
             "considerAnalyticalParameters": true,
-            "showDraftToggle": false,
-            "flexibleColumnLayout": {
-                "defaultTwoColumnLayoutType": "TwoColumnsBeginExpanded",
-                "defaultThreeColumnLayoutType": "ThreeColumnsMidExpanded"
-            }
+            "showDraftToggle": false
         },
         "pages": {
             "ListReport|ContractorReconciliationSet": {
@@ -163,20 +159,10 @@
                             "dateSettings": {
                                 "useDateRange": true
                             }
-                        }
-                    }
-                },
-                "pages": {
-                    "ObjectPage|ContractorReconciliationSet": {
-                        "component": {
-                            "name": "sap.suite.ui.generic.template.ObjectPage",
-                            "settings": {
-                                "simpleHeaderFacets": true,
-                                "editableHeaderContent": true
-                            }
                         },
-                        "entitySet": "ContractorReconciliationSet",
-                        "pages": {}
+                        "dataLoadSettings": {
+                            "loadDataOnAppLaunch": "always"
+                        }
                     }
                 }
             }
