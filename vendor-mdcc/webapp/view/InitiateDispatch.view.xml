@@ -168,7 +168,7 @@
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection title="{i18n>Attachments}">                    
                                 <VBox id="idMDCCUploadArea">
-                                    <UploadCollection id="idMDCCUploader" maximumFilenameLength="55" maximumFileSize="10" 
+                                    <!-- <UploadCollection id="idMDCCUploader" maximumFilenameLength="55" maximumFileSize="10" 
                                     multiple="true" numberOfAttachmentsText=""
                                     items="{
                                     path:'Attachments',
@@ -184,6 +184,25 @@
                                                     <ObjectAttribute title="Uploaded By" text="{UploadedBy}" class="sapUiSmallMarginEnd"/>
                                                     <ObjectAttribute title="Uploaded On" text= "{path:'UploadedOn', type: 'sap.ui.model.type.Date', formatOptions: {pattern: 'MMMM dd, yyyy'}}"/>
                                                     <ObjectAttribute title="Size" text="{path : 'FileSize', formatter : '.formatter.formatFileSize'}"/>
+                                                </attributes>
+                                            </UploadCollectionItem>
+                                        </items>
+                                    </UploadCollection> -->
+                                    <UploadCollection id="idMDCCUploader" maximumFilenameLength="55" maximumFileSize="10" multiple="true" items="{
+                                    path:'DocumentModel>/MDCC',
+                                    templateShareable: false}" mode="None" uploadButtonInvisible="true" instantUpload="false">
+                                        <items>
+                                            <UploadCollectionItem documentId="{DocumentModel>ID}" url="{parts: ['DocumentModel>FileName','DocumentModel>Content'], 
+                                                formatter: '.formatter.fileContent' }" enableEdit="false" enableDelete="false" visibleDelete="false" visibleEdit="false" fileName="{DocumentModel>FileName}">
+                                                <attributes>
+                                                    <ObjectAttribute title="Uploaded By" text="{DocumentModel>UploadedBy}" class="sapUiSmallMarginEnd"/>
+                                                    <ObjectAttribute title="Uploaded On" text="{path:'DocumentModel>CreatedAt',
+                                                            type: 'sap.ui.model.type.Date',
+                                                            formatOptions: {
+                                                                pattern: 'MMMM dd, yyyy'
+                                                            }
+                                                    }"/>
+                                                    <ObjectAttribute title="Size" text="{path : 'DocumentModel>FileSize', formatter : '.formatter.formatFileSize'}"/>
                                                 </attributes>
                                             </UploadCollectionItem>
                                         </items>

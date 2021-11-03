@@ -2,7 +2,7 @@
     xmlns:core="sap.ui.core">
     <Dialog >
         <content>
-            <Table width="auto" growing="true" id="idViewBOQLineItemsTable" growingThreshold="2" items="{path: 'PCGroupItems'}" class="sapUiResponsiveMargin" fixedLayout="false">
+            <Table width="auto" growing="true" id="idViewBOQLineItemsTable" growingThreshold="10" items="{path: 'PCGroupItems'}" class="sapUiResponsiveMargin" fixedLayout="false">
                 <columns>
                     <Column>
                         <Text text="{i18n>materialCode}" wrapping="true" wrappingType="Hyphenated"/>

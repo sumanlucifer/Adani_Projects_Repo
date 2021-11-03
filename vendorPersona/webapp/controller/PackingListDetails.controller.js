@@ -56,8 +56,86 @@ sap.ui.define([
                     },
                     dataReceived: function () {
                         objectViewModel.setProperty("/busy", false);
+                        var documentResult = that.getDocumentData();
+                        documentResult.then(function (result) {
+                            that.PrintDocumentService(result);
+                        });
                     }
                 }
+            });
+        },
+        getDocumentData: function () {
+            var promise = jQuery.Deferred();
+            var that = this;
+            var oView = this.getView();
+            var oDataModel = oView.getModel();
+            //console.log(oPayLoad);
+            return new Promise((resolve, reject) => {
+                this.getOwnerComponent().getModel().read("/PackingListSet(" + this.packingListId + ")/Attachments", {
+                    success: function (oData, oResponse) {
+                        var oJSONData = {
+                            PL_Material: [],
+                            PL_Invoice: [],
+                            PL_Others: []
+                        };
+                        var DocumentModel = new JSONModel(oJSONData);
+                        that.getView().setModel(DocumentModel, "DocumentModel");
+                        resolve(oData.results);
+                    }.bind(this),
+                    error: function (oError) {
+                        sap.m.MessageBox.error(JSON.stringify(oError));
+                    }
+                });
+            });
+        },
+        PrintDocumentService: function (result) {
+            var that = this;
+            var oView = this.getView();
+            var oDataModel = oView.getModel();
+            var aRequestID = result.map(function (item) {
+                return {
+                    RequestNo: item.RequestNo
+                };
+            });
+            that.aResponsePayload = [];
+            aRequestID.forEach((reqID) => {
+                that.aResponsePayload.push(that.callPrintDocumentService(reqID))
+            })
+            result.forEach((item) => {
+                var sContent = that.callPrintDocumentService({
+                    RequestNo: item.RequestNo
+                })
+                sContent.then(function (oVal) {
+                    item.Content = oVal.Bytes;
+                    debugger;
+                    if (item.Type === 'PACKING_LIST' && item.SubType === 'MATERIAL')
+                        that.getViewModel("DocumentModel").getProperty("/PL_Material").push(item);
+                    else if (item.Type === 'PACKING_LIST' && item.SubType === 'INVOICE')
+                        that.getViewModel("DocumentModel").getProperty("/PL_Invoice").push(item);
+                    else if (item.Type === 'PACKING_LIST' && item.SubType === 'OTHERS')
+                        that.getViewModel("DocumentModel").getProperty("/PL_Others").push(item);
+
+                    that.getViewModel("DocumentModel").refresh();
+                });
+            });
+        },
+        callPrintDocumentService: function (reqID) {
+            var promise = jQuery.Deferred();
+            var othat = this;
+            var oView = this.getView();
+            var oDataModel = oView.getModel();
+            //console.log(oPayLoad);
+            // reqID.RequestNo = 'REQ00001'                  // For testing only, Comment for production
+            return new Promise((resolve, reject) => {
+                oDataModel.create("/PrintDocumentEdmSet", reqID, {
+                    success: function (data) {
+                        // debugger;
+                        resolve(data);
+                    },
+                    error: function (data) {
+                        reject(data);
+                    },
+                });
             });
         },
 
@@ -101,7 +179,7 @@ sap.ui.define([
                 this.pDialog = Fragment.load({
                     id: oDetails.view.getId(),
                     name: "com.agel.mmts.vendorPersona.view.fragments.packingListDetails.PackingListChildLineItems",
-                    controller :  oDetails.controller
+                    controller: oDetails.controller
                 }).then(function (oDialog) {
                     // connect dialog to the root view of this component (models, lifecycle)
                     oDetails.view.addDependent(oDialog);
@@ -129,9 +207,9 @@ sap.ui.define([
         },
 
         onViewPackingListChildDialogClose: function (oEvent) {
-             this.pDialog.then(function (oDialog) {
+            this.pDialog.then(function (oDialog) {
                 oDialog.close();
-             });
+            });
         },
 
         onGenerateQRCodePress: function (oEvent) {
@@ -246,18 +324,18 @@ sap.ui.define([
             xhr.send();
         },
 
-        onPressVehicleNumber : function(oEvent){
+        onPressVehicleNumber: function (oEvent) {
             var VehicleNob = this.byId("idInputVehicleNob").getValue();
-                
+
             //initialize the action
             var that = this,
-            oViewContext = this.getView().getBindingContext().getObject(),
-            oBindingObject = oEvent.getSource().getObjectBinding();
+                oViewContext = this.getView().getBindingContext().getObject(),
+                oBindingObject = oEvent.getSource().getObjectBinding();
 
             //set the parameters
             oBindingObject.getParameterContext().setProperty("packingListId", oViewContext.ID);
             oBindingObject.getParameterContext().setProperty("vehicleNumber", VehicleNob);
-  
+
             //execute the action
             oBindingObject.execute().then(
                 function () {
@@ -265,22 +343,22 @@ sap.ui.define([
                     that.getView().getModel().refresh();
                 },
                 function (oError) {
-                        sap.m.MessageBox.alert(oError.message, {
-                            title: "Error"
-                        });
+                    sap.m.MessageBox.alert(oError.message, {
+                        title: "Error"
+                    });
                 }
             );
         },
 
-         // On Search of Parent Line Items Table 
-        onSearch : function(oEvent){
+        // On Search of Parent Line Items Table 
+        onSearch: function (oEvent) {
             var aFilters = [];
             var FreeTextSearch = this.getView().byId("idSearchFieldPackingListTable").getValue();
-            if(FreeTextSearch){
+            if (FreeTextSearch) {
                 //  aFilters.push(new Filter("material_code", FilterOperator.Contains, FreeTextSearch));
-                  aFilters.push(new Filter("description", FilterOperator.Contains, FreeTextSearch));
+                aFilters.push(new Filter("description", FilterOperator.Contains, FreeTextSearch));
                 //  aFilters.push(new Filter("qty", FilterOperator.Contains, FreeTextSearch));
-                  aFilters.push(new Filter("uom", FilterOperator.Contains, FreeTextSearch));
+                aFilters.push(new Filter("uom", FilterOperator.Contains, FreeTextSearch));
             }
             var mFilters = new Filter({
                 filters: aFilters,
@@ -290,8 +368,7 @@ sap.ui.define([
             oTableBinding.filter(mFilters);
         },
 
-        ondemo : function(oEvent)
-        {
+        ondemo: function (oEvent) {
             var that = this;
             var document_date = this.byId("DP1").getValue();
             var date = new Date().toLocaleDateString().split("/");
@@ -304,7 +381,7 @@ sap.ui.define([
 
                 data = data.split(",")[1],
                 date = this.byId("DP1").getValue().split('.');
-              //  date = new Date().toLocaleDateString().split("/");
+            //  date = new Date().toLocaleDateString().split("/");
             if (fileType === "INVOICE") {
                 var document_number = this.byId("idInvoiceNo").getValue();
                 var document_date = this.byId("DP1").getValue();
@@ -421,18 +498,18 @@ sap.ui.define([
             this._oQRAssistantDialog.close();
         },
 
-        onBeforeUploadStarts : function(){
-        //    var objectViewModel = this.getViewModel("objectViewModel");
-        //    objectViewModel.setProperty("/busy", true);
+        onBeforeUploadStarts: function () {
+            //    var objectViewModel = this.getViewModel("objectViewModel");
+            //    objectViewModel.setProperty("/busy", true);
 
-           // this.busyIndicator = new sap.m.BusyIndicator();
-          //  this.busyIndicator.open();
+            // this.busyIndicator = new sap.m.BusyIndicator();
+            //  this.busyIndicator.open();
         },
 
-        onUploadComplete: function(){
-           // this.busyIndicator.close();
-         //    var objectViewModel = this.getViewModel("objectViewModel");
-         //   objectViewModel.setProperty("/busy", false);
+        onUploadComplete: function () {
+            // this.busyIndicator.close();
+            //    var objectViewModel = this.getViewModel("objectViewModel");
+            //   objectViewModel.setProperty("/busy", false);
         }
 
     });

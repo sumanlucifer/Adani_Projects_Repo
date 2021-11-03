@@ -94,10 +94,11 @@
                             <VBox>
                                 <Label text="Inspection Date" required="true"/>
                                 <DatePicker id="idDpInspectionDate" width="20%" value="{localAttachmentModel>/InspectionDate}" valueFormat="yyyy-MM-dd" change="onLiveChangeDate" placeholder="MM/DD/YYYY"/>
+                                <Label text="Raised Inspection Date" required="true"/>
+                                <DatePicker id="idDpRaisedInspectionDate" width="20%" value="{localAttachmentModel>/RaisedInspectionDate}" valueFormat="yyyy-MM-dd" change="onLiveChangeDate" placeholder="MM/DD/YYYY"/>
                                 <Title text="{i18n>additionalDetails}"/>
                                 <Label text="Comments" required="true"/>
                                 <TextArea id="idTxtComment" width="100%" value="{localAttachmentModel>/Comment}" liveChange="onLiveChangeComment" maxLength="150"/>
-
                             </VBox>
                         </uxap:blocks>
                     </uxap:ObjectPageSubSection>

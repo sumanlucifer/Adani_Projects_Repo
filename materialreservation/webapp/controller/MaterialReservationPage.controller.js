@@ -33,7 +33,9 @@ sap.ui.define([
                     delay: 0,
                     isHeaderFieldsVisible: false,
                     isItemFieldsVisible: false,
-                    isButtonVisible: true
+                    isButtonVisible: true,
+                    popupSaveEnable: true,
+                    popupEditable: false
                 });
                 this.setModel(oViewModel, "objectViewModel");
                 this.getView().byId("idBtnSubmit").setEnabled(false);
@@ -77,7 +79,9 @@ sap.ui.define([
                     Batch: "",
                     M: true,
                     UnloadPoint: "",
-                    AvailableQty: null
+                    AvailableQty: null,
+                    PopupItems: null,
+                    IsBOQApplicable: ""
                 });
                 oModel.setData(oItems);
             },
@@ -106,13 +110,43 @@ sap.ui.define([
                     return;
                 }
                 var sItemPath = oEvent.getSource().getParent().getBindingContextPath();
-                this.getView().getModel("reservationTableModel").setProperty(sItemPath + "/Description", reservationListObj.Description);
-                this.getView().getModel("reservationTableModel").setProperty(sItemPath + "/BaseUnit", reservationListObj.UOM);
-                this.getView().getModel("reservationTableModel").setProperty(sItemPath + "/UnloadPoint", reservationListObj.UnloadPoint);
-                this.getView().getModel("reservationTableModel").setProperty(sItemPath + "/Material", reservationListObj.MaterialCode);
-                this.getView().getModel("reservationTableModel").setProperty(sItemPath + "/StorageLocation", reservationListObj.StorageLocation);
-                this.getView().getModel("reservationTableModel").setProperty(sItemPath + "/AvailableQty", reservationListObj.AvailableQty);
+                var oReservationModel = this.getView().getModel("reservationTableModel");
+                oReservationModel.setProperty(sItemPath + "/BaseUnit", reservationListObj.UOM);
+                oReservationModel.setProperty(sItemPath + "/Description", reservationListObj.Description);
+                oReservationModel.setProperty(sItemPath + "/UnloadPoint", reservationListObj.UnloadPoint);
+                oReservationModel.setProperty(sItemPath + "/Material", reservationListObj.MaterialCode);
+                oReservationModel.setProperty(sItemPath + "/StorageLocation", reservationListObj.StorageLocation);
+                oReservationModel.setProperty(sItemPath + "/AvailableQty", reservationListObj.AvailableQty);
+                oReservationModel.setProperty(sItemPath + "/IsBOQApplicable", reservationListObj.IsBOQApplicable);
 
+                var oMaterialCodeFilter = new sap.ui.model.Filter("MaterialCode", "EQ", reservationListObj.MaterialCode);
+                // var oMaterialCodeFilter = new sap.ui.model.Filter("MaterialCode", "EQ", '6781438673');
+
+                this.mainModel.read("/MasterMaterialSet", {
+                    urlParameters: {
+                        "$expand": "MasterBOQs/MasterBOQItem/StoreStockBOQs",
+                    },
+                    filters: [oMaterialCodeFilter],
+                    success: function (oData, Res) {
+                        var aItems = [];
+                        for (var i = 0; i < oData.results[0].MasterBOQs.results.length; i++) {
+                            var oBoq = oData.results[0].MasterBOQs.results[i].MasterBOQItem;
+                            oBoq.BaseQty = oData.results[0].MasterBOQs.results[i].BaseQty;
+                            if (oData.results[0].MasterBOQs.results[i].MasterBOQItem.StoreStockBOQs.results.length === 0)
+                                oBoq.StockAvailable = false;
+                            else
+                                oBoq.StockAvailable = true;
+                            oBoq.AvailableQty = 0;
+                            oBoq.Quantity = 0;
+                            oBoq.SelectedWpp = null;
+                            aItems.push(oBoq);
+                        }
+                        oReservationModel.setProperty(sItemPath + "/PopupItems", aItems);
+                    },
+                    error: function (oError) {
+                        sap.m.MessageBox.error(JSON.stringify(oError));
+                    }
+                })
             },
 
             _validateItemSelected: function (obj) {
@@ -128,27 +162,35 @@ sap.ui.define([
                 }
                 return isbValid;
             },
-            
+
             onLiveChangeQty: function (oEvent) {
                 oEvent.getSource().setValueState("None");
                 this.getView().byId("idBtnSubmit").setEnabled(true);
                 var oValue = oEvent.getSource().getValue();
-                var balanceQty = oEvent.getSource().getParent().getCells()[3].getText();
+                var oBindingObject = oEvent.getSource().getBindingContext("reservationTableModel").getObject();
+                // var balanceQty = oEvent.getSource().getParent().getCells()[3].getText();
+                var balanceQty = oBindingObject.AvailableQty;
                 var flag = 0;
-                if (parseInt(oValue) > parseInt(balanceQty) || balanceQty == "") {
+                if (parseFloat(oValue) > parseFloat(balanceQty) || balanceQty == "") {
                     oEvent.getSource().setValueState("Error");
                     oEvent.getSource().setValueStateText("Please enter return quantity lesser than or equal to balance quantity");
                     this.getView().byId("idBtnSubmit").setEnabled(false);
                     flag = 1;
                 }
-                if (parseInt(oValue) < 0 || oValue == "") {
+                if (parseFloat(oValue) < 0 || oValue == "") {
                     oEvent.getSource().setValueState("Error");
                     oEvent.getSource().setValueStateText("Please enter return quantity");
                     this.getView().byId("idBtnSubmit").setEnabled(false);
                 } else if (flag != 1) {
                     oEvent.getSource().setValueState("None");
                     this.getView().byId("idBtnSubmit").setEnabled(true);
-                }  
+                    if (oBindingObject.UOM !== 'MT' && oBindingObject.PopupItems.length > 0) {
+                        for (var i = 0; i < oBindingObject.PopupItems.length; i++) {
+                            oBindingObject.PopupItems[i].Quantity = parseFloat(oBindingObject.PopupItems[i].BaseQty) * parseFloat(oValue);
+                            oBindingObject.PopupItems[i].StoreStockBOQId = oBindingObject.PopupItems[i].StoreStockBOQs.results[0].ID;
+                        }
+                    }
+                }
             },
             onPressGo: function () {
                 var oHeaderData = this.getViewModel("HeaderDetailsModel").getData();
@@ -178,7 +220,7 @@ sap.ui.define([
                     value1: UnloadPoint
                 });
                 var filter = [];
-                filter.push(PlantFilter,StorageLocationFilter,UnloadPointFilter);
+                filter.push(PlantFilter, StorageLocationFilter, UnloadPointFilter);
                 // filter.push(StorageLocationFilter);
                 this.getOwnerComponent().getModel().read("/MaterialAvailabilityViewSet", {
                     filters: [filter],
@@ -338,18 +380,25 @@ sap.ui.define([
             },
             callIssueReservationService: function (oAdditionalData, aReservationItems) {
                 aReservationItems = aReservationItems.map(function (item) {
-                    return {
-                        Name: item.Description,
-                        Material: item.Material,
-                        Description: item.Description,
-                        StorageLocation: item.StorageLocation,
-                        Quantity: parseInt(item.Quantity),
-                        BaseUnit: item.BaseUnit,
-                        UnloadPoint: item.UnloadPoint,
-                        Batch: item.Batch,
-                        IsChildItem: false,
-                        SpecialStockIndicator: item.M
-                    };
+                        var aBoqStock = [];
+                        for(var i=0;i<item.PopupItems.length;i++){
+                            if(item.PopupItems[i].Quantity > 0)
+                                aBoqStock.push(item.PopupItems[i]);
+                        }
+                        return {
+                            Name: item.Description,
+                            Material: item.Material,
+                            Description: item.Description,
+                            StorageLocation: item.StorageLocation,
+                            Quantity: parseInt(item.Quantity),
+                            BaseUnit: item.BaseUnit,
+                            UnloadPoint: item.UnloadPoint,
+                            Batch: item.Batch,
+                            IsChildItem: false,
+                            SpecialStockIndicator: item.M,
+                            IsBOQApplicable: item.IsBOQApplicable,
+                            IssueMaterialReservedBOQItems: aBoqStock
+                        };
                 });
                 var oPayload = {
                     "Plant": oAdditionalData.Plant,
@@ -383,7 +432,7 @@ sap.ui.define([
                     }.bind(this)
                 })
             },
-          
+
             setInitialModel: function () {
                 this._createHeaderDetailsModel();
                 this._createItemDataModel();
@@ -391,6 +440,104 @@ sap.ui.define([
                 this.getView().byId("idPlant").setEnabled(true);
                 this.getView().byId("idStorageLocation").setEnabled(true);
                 this.byId("idUnloadPoint").setEnabled(true);
+            },
+
+            onManageBOQQtyPress: function (oEvent) {
+                var sParentItemPath = oEvent.getSource().getBindingContext("reservationTableModel").getPath();
+                var sMatCode = oEvent.getSource().getBindingContext("reservationTableModel").getObject().Material;
+                var sDescription = oEvent.getSource().getBindingContext("reservationTableModel").getObject().Description;
+                var sBaseUnit = oEvent.getSource().getBindingContext("reservationTableModel").getObject().BaseUnit;
+                if (sBaseUnit === 'MT')
+                    this.getViewModel("objectViewModel").setProperty("/popupEditable", true);
+                else
+                    this.getViewModel("objectViewModel").setProperty("/popupEditable", false);
+                // var sDialogTitleObject = oEvent.getSource().getBindingContext("reservationTableModel").getProperty();
+                var oDetails = {};
+                oDetails.controller = this;
+                oDetails.view = this.getView();
+                oDetails.sParentItemPath = sParentItemPath;
+                oDetails.title = "Manage BOQ Quantity - " + sDescription;
+                if (!this.manageBoqDailog) {
+                    this.manageBoqDailog = Fragment.load({
+                        id: oDetails.view.getId(),
+                        name: "com.agel.mmts.materialreservation.view.fragments.common.manageBoq",
+                        controller: oDetails.controller
+                    }).then(function (oDialog) {
+                        // connect dialog to the root view of this component (models, lifecycle)
+                        oDetails.view.addDependent(oDialog);
+                        // oDialog.bindElement({
+                        //     path: oDetails.sParentItemPath,
+                        //     model: 'reservationTableModel'
+                        // });
+                        if (Device.system.desktop) {
+                            oDialog.addStyleClass("sapUiSizeCompact");
+                        }
+                        oDialog.setTitle(oDetails.title);
+                        return oDialog;
+                    });
+                }
+                this.manageBoqDailog.then(function (oDialog) {
+                    oDetails.view.addDependent(oDialog);
+                    oDialog.bindElement({
+                        path: oDetails.sParentItemPath,
+                        model: 'reservationTableModel'
+                    });
+                    oDialog.setTitle(oDetails.title);
+                    oDialog.open();
+                });
+            },
+
+            onManageBoqDialogClosePress: function (oEvent) {
+                this.manageBoqDailog.then(function (oDialog) {
+                    oDialog.close();
+                });
+            },
+
+            onWPPChange: function (oEvent) {
+                var oSelectedItemQty = oEvent.getSource().getSelectedItem().getAdditionalText();
+                var sSelectedItemID = oEvent.getSource().getSelectedItem().getBindingContext("reservationTableModel").getObject().ID;
+                var oParentBindingPath = oEvent.getSource().getBindingContext("reservationTableModel").getPath();
+                var oModel = this.getViewModel("reservationTableModel");
+                oModel.setProperty(oParentBindingPath + '/AvailableQty', parseFloat(oSelectedItemQty));
+                oModel.setProperty(oParentBindingPath + '/StoreStockBOQId', sSelectedItemID);
+
+            },
+
+            onIssueQtyLiveChange: function (oEvent) {
+                var oInput = oEvent.getSource();
+                var iIssueQty = oInput.getValue();
+                if (iIssueQty)
+                    iIssueQty = parseFloat(iIssueQty);
+                else
+                    iIssueQty = 0;
+                var iAvailableQty = oInput.getBindingContext("reservationTableModel").getObject().AvailableQty;
+                iAvailableQty = parseFloat(iAvailableQty);
+                if (iIssueQty > iAvailableQty) {
+                    oInput.setValueState("Error");
+                    oInput.setValueStateText("Issue Quantity should not be more than Available Quantity.");
+                    this.getViewModel("objectViewModel").getProperty("/popupSaveEnable", false)
+                }
+                else {
+                    oInput.setValueState("None");
+                    this.getViewModel("objectViewModel").getProperty("/popupSaveEnable", true)
+                }
+            },
+
+            onBoqQtySavePress: function (oEvent) {
+                var oParent = oEvent.getSource().getParent();
+                var oParentBindingObject = oParent.getBindingContext("reservationTableModel").getObject();
+                var oParentBindingPath = oParent.getBindingContext("reservationTableModel").getPath();
+                var iTotalQty = 0;
+                for (var i = 0; i < oParentBindingObject.PopupItems.length; i++) {
+                    if (oParentBindingObject.PopupItems[i].SelectedWpp)
+                        iTotalQty += (parseFloat(oParentBindingObject.PopupItems[i].Quantity) * parseFloat(oParentBindingObject.PopupItems[i].SelectedWpp));
+                }
+                this.getViewModel("reservationTableModel").setProperty(oParentBindingPath + "/Quantity", iTotalQty);
+                if (iTotalQty > 0)
+                    this.getView().byId("idBtnSubmit").setEnabled(true);
+                else
+                    this.getView().byId("idBtnSubmit").setEnabled(false);
+                this.onManageBoqDialogClosePress();
             }
         });
     });

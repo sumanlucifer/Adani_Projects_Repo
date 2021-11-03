@@ -4,7 +4,7 @@
 	<Dialog contentHeight="50%" contentWidth="50%" >
 		<content>
 			<VBox id="idMDCCUploadArea">
-				<UploadCollection id="idMDCCUploader" maximumFilenameLength="55" maximumFileSize="10" 
+				<!-- <UploadCollection id="idMDCCUploader" maximumFilenameLength="55" maximumFileSize="10" 
                      multiple="true"
                     items="{ path:'Attachments',
                                 parameters : {
@@ -25,7 +25,26 @@
                             </attributes>
 						</UploadCollectionItem>
 					</items>
-				</UploadCollection>
+                </UploadCollection> -->
+                <UploadCollection id="idOtherFileUploader" maximumFilenameLength="55" maximumFileSize="10" multiple="true" items="{
+                                    path:'DocumentModel>/MDCC',
+                                    templateShareable: false}" mode="None" uploadButtonInvisible="true" instantUpload="false">
+                                <items>
+                                    <UploadCollectionItem documentId="{DocumentModel>ID}" url="{parts: ['DocumentModel>FileName','DocumentModel>Content'], 
+                                        formatter: '.formatter.fileContent' }" enableEdit="false" enableDelete="false" visibleDelete="false" visibleEdit="false" fileName="{DocumentModel>FileName}">
+                                        <attributes>
+                                            <ObjectAttribute title="Uploaded By" text="{DocumentModel>UploadedBy}" class="sapUiSmallMarginEnd"/>
+                                            <ObjectAttribute title="Uploaded On" text="{path:'DocumentModel>CreatedAt',
+                                                    type: 'sap.ui.model.type.Date',
+                                                    formatOptions: {
+                                                        pattern: 'MMMM dd, yyyy'
+                                                    }
+                                            }"/>
+                                            <ObjectAttribute title="Size" text="{path : 'DocumentModel>FileSize', formatter : '.formatter.formatFileSize'}"/>
+                                        </attributes>
+                                    </UploadCollectionItem>
+                                </items>
+                            </UploadCollection>
 			</VBox>
 		</content>
 		<endButton>

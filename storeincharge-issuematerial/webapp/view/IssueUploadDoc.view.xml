@@ -49,13 +49,13 @@
             <uxap:ObjectPageSection titleUppercase="false" title="{i18n>lineItems}">
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection title="{i18n>lineItems}">
-                        <Table width="auto" growing="true" growingThreshold="5" fixedLayout="false" items="{IssuedMaterialParents}">     
+                        <!-- <Table width="auto" growing="true" growingThreshold="5" fixedLayout="false" items="{IssuedMaterialParents}">     
                             <headerToolbar>
                                 <OverflowToolbar id="otbSubheader">
                                     <Title text="Products" level="H2" />
-                                    <ToolbarSpacer />
+                                    <ToolbarSpacer /> -->
                                     <!-- <Button id="reserveButton" text="Reserve" type="Transparent" press="onPressReserve" visible="{objectViewModel>reserveButton}" /> -->
-                                </OverflowToolbar>
+                                <!-- </OverflowToolbar>
                             </headerToolbar>
                             <columns>
                                 <Column demandPopin="true" minScreenWidth="Desktop">
@@ -114,7 +114,66 @@
                                     </cells>
                                 </ColumnListItem>
                             </items>
-                        </Table>
+                        </Table> -->
+                        <tt:TreeTable
+                            id="idReserveMatTreeTable"
+                            rows="{path:'/TreeTableData', model: 'objectViewModel', parameters: {arrayNames:['BoqItems']}}"
+                            selectionMode="None"
+                            ariaLabelledBy="title">
+                            <tt:Column>
+                                <Label text="{i18n>name}"/>
+                                <tt:template>
+                                    <Text text="{objectViewModel>Name}" wrapping="true" wrappingType="Hyphenated"/>
+                                </tt:template>
+                            </tt:Column>
+                            <tt:Column>
+                                <Label text="{i18n>materialCode}"/>
+                                <tt:template>
+                                    <Text text="{objectViewModel>MaterialCode}" wrapping="false" />
+                                </tt:template>
+                            </tt:Column>
+                            <tt:Column>
+                                <Label text="{i18n>storageLocation}"/>
+                                <tt:template>
+                                    <Text text="{objectViewModel>StorageLocation}" wrapping="false" />
+                                </tt:template>
+                            </tt:Column>
+                            <tt:Column>
+                                <Label text="{i18n>plant}"/>
+                                <tt:template>
+                                    <Text text="{objectViewModel>Plant}" />
+                                </tt:template>
+                            </tt:Column>
+                            <tt:Column>
+                                <Label text="{i18n>createdAt}"/>
+                                <tt:template>
+                                    <Text text="{path:'objectViewModel>CreatedAt',
+                                            type: 'sap.ui.model.type.Date',
+                                            formatOptions: {
+                                                pattern: 'MMMM dd, yyyy'
+                                            }
+                                        }"/>
+                                </tt:template>
+                            </tt:Column>
+                            <tt:Column>
+                                <Label text="{i18n>reservedQty}"/>
+                                <tt:template>
+                                    <Text text="{objectViewModel>ReservedQty}"/>
+                                </tt:template>
+                            </tt:Column>
+                            <tt:Column>
+                                <Label text="{i18n>issueQty}"/>
+                                <tt:template>
+                                    <ObjectIdentifier title="{objectViewModel>IssuedQty}" />
+                                </tt:template>
+                            </tt:Column>
+                            <tt:Column>
+                                <Label text="{i18n>UOM}"/>
+                                <tt:template>
+                                    <Text text="{objectViewModel>BaseUnit}" wrapping="false" />
+                                </tt:template>
+                            </tt:Column>
+                        </tt:TreeTable>
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>
             </uxap:ObjectPageSection>

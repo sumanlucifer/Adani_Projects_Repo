@@ -468,6 +468,8 @@ sap.ui.define([
             var sBindingPath = oEvent.getSource().getBindingContext("boqCreationModel").sPath;
             // var aGroupItems = this.getViewModel("boqCreationModel").getProperty("/CalculatedBOQItems");
             var iTotalQuantity = this.getViewModel("boqCreationModel").getProperty("/quantity");
+            if(iTotalQuantity)
+                iTotalQuantity = parseFloat(iTotalQuantity);
             var iWeightPerPiece = this.getViewModel("boqCreationModel").getProperty(sBindingPath + "/WeightPerPiece");
             var iTotalItemWeight = this.getViewModel("boqCreationModel").getProperty(sBindingPath + "/TotalItemWeight");
             var iRemainingQty = this.getViewModel("boqCreationModel").getProperty(sBindingPath + "/RemainingQty");
@@ -477,9 +479,10 @@ sap.ui.define([
             }
             this.getViewModel("boqCreationModel").setProperty(sBindingPath + "/TotalItemWeight", null);
             if (parseFloat(oValue) > 0) {
-                var iTotalWeight = parseFloat(oValue) * parseFloat(iWeightPerPiece);
+                var iTotalWeight = parseFloat(oValue) * (parseFloat(iWeightPerPiece) / 1000);
                 this.getViewModel("boqCreationModel").setProperty(sBindingPath + "/TotalItemWeight", iTotalWeight);
                 iTotalQuantity += iTotalWeight;
+                iTotalQuantity = iTotalQuantity.toFixed(3);
                 this.getViewModel("boqCreationModel").setProperty("/quantity", iTotalQuantity);
                 // if (parseFloat(oValue) > parseFloat(oPOData.PendingQty)) {
                 //     this.getViewModel("boqCreationModel").setProperty("/isConfirmButtonEnabled", false);

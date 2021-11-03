@@ -48,7 +48,7 @@
             <uxap:ObjectPageSection titleUppercase="false" title="{i18n>lineItems}">
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection title="{i18n>lineItems}">
-                        <Table width="auto" growing="true" growingThreshold="5" items="{path: 'IssueMatModel>/'}" fixedLayout="false">     
+                        <!-- <Table width="auto" growing="true" growingThreshold="5" items="{path: 'IssueMatModel>/'}" fixedLayout="false">     
                             <columns>
                                 <Column demandPopin="true" minScreenWidth="Desktop">
                                     <Text text="{i18n>name}" wrapping="true" wrappingType="Hyphenated"/>
@@ -62,9 +62,6 @@
                                 <Column demandPopin="true" minScreenWidth="Desktop">
                                     <Text text="{i18n>plant}"/>
                                 </Column>
-                                <!-- <Column demandPopin="true" minScreenWidth="Desktop">
-                                    <Text text="{i18n>wbsnumber}"/>
-                                </Column> -->
                                 <Column demandPopin="true" minScreenWidth="Desktop">
                                     <Text text="{i18n>lineItemNumber}"/>
                                 </Column>
@@ -91,7 +88,6 @@
                                         <Text text="{IssueMatModel>MaterialCode}" />
                                         <Text text="{IssueMatModel>StorageLocation}" />
                                         <Text text="{IssueMatModel>Plant}" />
-                                        <!-- <Text text="{WBSNumber}"/> -->
                                         <Text text="{IssueMatModel>ItemNumber}"/>
                                         <Text text="{path:'IssueMatModel>CreatedAt',
                                             type: 'sap.ui.model.type.Date',
@@ -106,7 +102,78 @@
                                     </cells>
                                 </ColumnListItem>
                             </items>
-                        </Table>
+                        </Table> -->
+                        <tt:TreeTable
+                            id="idReserveMatTreeTable"
+                            rows="{path:'/', model: 'IssueMatModel', parameters: {arrayNames:['IssueMaterialPostingBOQs']}}"
+                            selectionMode="None"
+                            ariaLabelledBy="title">
+                            <tt:Column>
+                                <Label text="{i18n>name}"/>
+                                <tt:template>
+                                    <Text text="{IssueMatModel>Name}" wrapping="true" wrappingType="Hyphenated"/>
+                                </tt:template>
+                            </tt:Column>
+                            <tt:Column>
+                                <Label text="{i18n>materialCode}"/>
+                                <tt:template>
+                                    <Text text="{IssueMatModel>MaterialCode}" wrapping="false" />
+                                </tt:template>
+                            </tt:Column>
+                            <tt:Column>
+                                <Label text="{i18n>storageLocation}"/>
+                                <tt:template>
+                                    <Text text="{IssueMatModel>StorageLocation}" wrapping="false" />
+                                </tt:template>
+                            </tt:Column>
+                            <tt:Column>
+                                <Label text="{i18n>plant}"/>
+                                <tt:template>
+                                    <Text text="{IssueMatModel>Plant}" />
+                                </tt:template>
+                            </tt:Column>
+                            <tt:Column>
+                                <Label text="{i18n>lineItemNumber}"/>
+                                <tt:template>
+                                    <Text text="{IssueMatModel>ItemNumber}"/>
+                                </tt:template>
+                            </tt:Column>
+                            <tt:Column>
+                                <Label text="{i18n>createdAt}"/>
+                                <tt:template>
+                                    <Text text="{path:'IssueMatModel>CreatedAt',
+                                            type: 'sap.ui.model.type.Date',
+                                            formatOptions: {
+                                                pattern: 'MMMM dd, yyyy'
+                                            }
+                                        }"/>
+                                </tt:template>
+                            </tt:Column>
+                            <tt:Column>
+                                <Label text="{i18n>reservedQty}"/>
+                                <tt:template>
+                                    <Text text="{IssueMatModel>ReservedQty}"/>
+                                </tt:template>
+                            </tt:Column>
+                            <tt:Column>
+                                <Label text="{i18n>QtyAvailableforIssue}"/>
+                                <tt:template>
+                                    <ObjectIdentifier title="{IssueMatModel>QtyRemainingToIssue}" />  
+                                </tt:template>
+                            </tt:Column>
+                            <tt:Column>
+                                <Label text="{i18n>issueQty}"/>
+                                <tt:template>
+                                    <ObjectIdentifier title="{IssueMatModel>IssuedQty}" />
+                                </tt:template>
+                            </tt:Column>
+                            <tt:Column>
+                                <Label text="{i18n>UOM}"/>
+                                <tt:template>
+                                    <Text text="{IssueMatModel>BaseUnit}" wrapping="false" />
+                                </tt:template>
+                            </tt:Column>
+                        </tt:TreeTable>
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>
             </uxap:ObjectPageSection>

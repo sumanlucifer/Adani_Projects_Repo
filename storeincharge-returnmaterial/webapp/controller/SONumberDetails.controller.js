@@ -58,7 +58,7 @@ sap.ui.define([
                     dataReceived: function () {
                         objectViewModel.setProperty("/busy", false);
                         objectViewModel.setProperty("/partialApproval", false);
-                        that.onReadDataIssueMaterialParents();
+                       // that.onReadDataIssueMaterialParents();
                         that.onReadDataReturnMaterialParents();
                     }
                 }
