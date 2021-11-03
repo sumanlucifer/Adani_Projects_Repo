@@ -1,10 +1,9 @@
 {
-    "name": "reports-contractor_reconciliation",
+    "name": "reports-contractor_recon",
     "version": "0.0.1",
     "private": true,
     "sapux": true,
-    "sapuxLayer": "CUSTOMER_BASE",
-    "description": "Contractor Reconciliation Reports Fiori Element application.",
+    "description": "A Fiori application.",
     "keywords": [
         "ui5",
         "openui5",
@@ -12,13 +11,13 @@
     ],
     "main": "webapp/index.html",
     "scripts": {
-        "start": "fiori run --open 'test/flpSandbox.html#reportscontractorreconciliation-tile'",
-        "start-local": "fiori run --config ./ui5-local.yaml --open 'test/flpSandboxMockServer.html#reportscontractorreconciliation-tile'",
+        "start": "fiori run --open 'test/flpSandbox.html#reportscontractorrecon-tile'",
+        "start-local": "fiori run --config ./ui5-local.yaml --open 'test/flpSandboxMockServer.html#reportscontractorrecon-tile'",
         "start-noflp": "fiori run --open 'index.html'",
         "build": "ui5 build -a --clean-dest --include-task=generateManifestBundle generateCachebusterInfo",
         "deploy": "fiori verify",
         "deploy-config": "fiori add deploy-config",
-        "start-mock": "fiori run --open 'test/flpSandboxMockServer.html#reportscontractorreconciliation-tile'",
+        "start-mock": "fiori run --open 'test/flpSandboxMockServer.html#reportscontractorrecon-tile'",
         "build:cf": "ui5 build preload --clean-dest --config ui5-deploy.yaml --include-task=generateManifestBundle generateCachebusterInfo"
     },
     "devDependencies": {

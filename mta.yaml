@@ -204,8 +204,8 @@ modules:
       name: comagelmmtsreportsreceipt
       target-path: resources/
     - artifacts:
-      - comagelmmtsreportscontractorreconciliation.zip
-      name: comagelmmtsreportscontractorreconciliation
+      - comagelmmtsreportscontractorrecon.zip
+      name: comagelmmtsreportscontractorrecon
       target-path: resources/
 - name: launchpad
   type: com.sap.application.content
@@ -605,9 +605,9 @@ modules:
   - name: workflow
     parameters:
       content-target: true
-- name: comagelmmtsreportscontractorreconciliation
+- name: comagelmmtsreportscontractorrecon
   type: html5
-  path: reports-contractor_reconciliation
+  path: reports-contractor_recon
   build-parameters:
     build-result: dist
     builder: custom
