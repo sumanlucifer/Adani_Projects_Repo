@@ -582,7 +582,7 @@ sap.ui.define([
             onRequestGRNPress: function (oEvent) {
                 var sParentItemPath = this.getView().getBindingContext().sPath;
                 var requestModel = new JSONModel({
-                    MovementType:"101 - GRN",
+                    MovementType: "101 - GRN",
                     quantity: null,
                     delivery: null,
                     billoflading: null,
@@ -624,18 +624,18 @@ sap.ui.define([
 
             onQuantityLiveChange: function (oEvent) {
                 var oGRNData = this.getView().getBindingContext().getObject();
-                if (oEvent.getSource().getValue().length && parseFloat(oEvent.getSource().getValue()) > 0){
+                if (oEvent.getSource().getValue().length && parseFloat(oEvent.getSource().getValue()) > 0) {
                     this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", true);
                     oEvent.getSource().setValueState("None");
                     oEvent.getSource().setValueStateText("");
                 }
-                else{
+                else {
                     this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", false);
                     oEvent.getSource().setValueState("Error");
                     oEvent.getSource().setValueStateText("Weight should be more than 0.");
                 }
 
-                if (parseFloat(oEvent.getSource().getValue()) > parseFloat(oGRNData.TotalWeight) || parseFloat(oEvent.getSource().getValue()) <= 0 ) {
+                if (parseFloat(oEvent.getSource().getValue()) > parseFloat(oGRNData.TotalWeight) || parseFloat(oEvent.getSource().getValue()) <= 0) {
                     // sap.m.MessageBox.error("Total Packaging Weight should more than 0 and not exceed Total Vendor Entered Weight.");
                     this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", false);
                     oEvent.getSource().setValueState("Error");
@@ -690,15 +690,19 @@ sap.ui.define([
                     if (oPayload) {
                         oModel.create("/GRNEdmSet", oPayload, {
                             success: function (oData) {
-                                MessageBox.success(oData.Message, {
-                                    title: "Success",
-                                    onClose: function (oAction1) {
-                                        if (oAction1 === sap.m.MessageBox.Action.OK) {
-                                            this.getComponentModel().refresh();
-                                            this.onDoItLaterPress();
-                                        }
-                                    }.bind(this)
-                                });
+                                if (oData.Success) {
+                                    MessageBox.success(oData.Message, {
+                                        title: "Success",
+                                        onClose: function (oAction1) {
+                                            if (oAction1 === sap.m.MessageBox.Action.OK) {
+                                                this.getComponentModel().refresh();
+                                                this.onDoItLaterPress();
+                                            }
+                                        }.bind(this)
+                                    });
+                                }
+                                else
+                                    sap.m.MessageBox.error(oData.Message);
                             }.bind(this),
                             error: function (oError) {
                                 MessageBox.error(JSON.stringify(oError));

@@ -108,14 +108,14 @@
                             <Text text="{i18n>AvailableQuantity}" />
                         </Column>
                         <Column>
-                            <Text text="{i18n>Quantity}" />
-                        </Column>
-                        <Column>
                             <Text text="{i18n>UOM}" />
                         </Column>
                         <Column>
-                            <Text text="{i18n>Unload Point}" />
+                            <Text text="{i18n>Quantity}" />
                         </Column>
+                        <!-- <Column>
+                            <Text text="{i18n>Unload Point}" />
+                        </Column> -->
                         <Column>
                             <Text text="{i18n>Batch}" />
                         </Column>
@@ -134,39 +134,42 @@
                                                 path: 'suggestionModel>/',
                                                 templateShareable:false
                                             }">
-                                    <suggestionColumns  >
+                                    <suggestionColumns>
                                         <Column demandPopin="false">
                                             <Label text="Material Code" />
                                         </Column>
                                         <Column demandPopin="true" minScreenWidth="Tablet">
                                             <Label text="Material Name" />
                                         </Column>
-                                        <Column>
+                                        <!-- <Column>
                                             <Label text="Available Qty" />
                                         </Column>
                                         <Column hAlign="End" minScreenWidth="Tablet">
                                             <Label text="UOM" />
-                                        </Column>
-                                        <Column hAlign="End" minScreenWidth="Tablet">
+                                        </Column> -->
+                                        <!-- <Column hAlign="End" minScreenWidth="Tablet">
                                             <Label text="Unload Point" />
-                                        </Column>
+                                        </Column> -->
                                     </suggestionColumns>
                                     <suggestionRows>
                                         <ColumnListItem>
                                             <Text text="{suggestionModel>MaterialCode}" />
                                             <Text wrapping="false" text="{suggestionModel>Name}" />
-                                            <Text text="{suggestionModel>Available Qty}" />
+                                            <!-- <Text text="{suggestionModel>Available Qty}" />
                                             <Text text="{suggestionModel>UOM}" />
-                                            <Text text="{suggestionModel>UnloadPoint}" />
+                                            <Text text="{suggestionModel>UnloadPoint}" /> -->
                                         </ColumnListItem>
                                     </suggestionRows>
                                 </Input>
                                 <Text text="{reservationTableModel>Description}"/>
                                 <Text text="{reservationTableModel>StorageLocation}"/>
                                 <Text text="{reservationTableModel>AvailableQty}"/>
-                                <Input width="80%" liveChange="onLiveChangeQty" value="{reservationTableModel>Quantity}"/>
                                 <Text text="{reservationTableModel>BaseUnit}"/>
-                                <Text text="{reservationTableModel>UnloadPoint}"/>
+                                <VBox>
+                                    <Input width="80%" liveChange="onLiveChangeQty" value="{reservationTableModel>Quantity}" editable="{= ${reservationTableModel>BaseUnit}==='MT' ? false: true }"/>
+                                    <Link text="{= ${reservationTableModel>BaseUnit} ? ${reservationTableModel>BaseUnit} === 'MT' ? 'Manage BOQ Qty' : 'View BOQ Qty' : '' }" enabled="{= ${reservationTableModel>IsBOQApplicable} ? ${reservationTableModel>IsBOQApplicable} : false }" press="onManageBOQQtyPress" />
+                                </VBox>
+                                <!-- <Text text="{reservationTableModel>UnloadPoint}"/> -->
                                 <Input value="{reservationTableModel>Batch}"/>
                                 <CheckBox selected="{reservationTableModel>M}" />
                                 <Button icon="sap-icon://delete" press="onDeleteReservationItemPress" type="Transparent"/>

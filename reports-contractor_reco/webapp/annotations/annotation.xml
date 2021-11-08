@@ -1,0 +1,270 @@
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Capabilities.V1.xml">
+        <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
+        <edmx:Include Namespace="com.sap.vocabularies.UI.v1" Alias="UI"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Communication.xml">
+        <edmx:Include Namespace="com.sap.vocabularies.Communication.v1" Alias="Communication"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/api/v2/odata.svc/$metadata">
+        <edmx:Include Namespace="com.agel.mmts.entity.edmentity"/>
+        <edmx:Include Namespace="com.agel.mmts.entity.extension"/>
+        <edmx:Include Namespace="com.agel.mmts.entity"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="com.agel.mmts">
+            <!-- For Restrictions -->
+            <Annotations Target="com.agel.mmts.entity.DefaultContainer/ContractorReconciliationSet">
+                <Annotation Term="Capabilities.SearchRestrictions">
+                    <Record Type="Capabilities.SearchRestrictionsType">
+                        <PropertyValue Property="Searchable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record Type="Capabilities.InsertRestrictionsType">
+                        <PropertyValue Property="Insertable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue Property="Deletable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.UpdateRestrictions">
+                    <Record Type="Capabilities.UpdateRestrictionsType">
+                        <PropertyValue Property="Updatable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.FilterRestrictions">
+                    <Record Type="Capabilities.FilterRestrictionsType">
+                        <PropertyValue Property="NonFilterableProperties">
+                            <Collection>
+                                <PropertyPath>Id</PropertyPath>
+                                <PropertyPath>ChildQty</PropertyPath>
+                                <PropertyPath>ChildUOM</PropertyPath>
+                                <PropertyPath>ParentId</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+
+            <!-- For Common Labels -->
+            <Annotations Target="com.agel.mmts.entity.ContractorReconciliationModel/ReservationId">
+                <Annotation Term="Common.Label" String="{@i18n>ReservationId}"/>
+            </Annotations>
+            <Annotations Target="com.agel.mmts.entity.ContractorReconciliationModel/MatRequisitionNo">
+                <Annotation Term="Common.Label" String="{@i18n>MatRequisitionNo}"/>
+            </Annotations>
+            <Annotations Target="com.agel.mmts.entity.ContractorReconciliationModel/ServiceOrderNumber">
+                <Annotation Term="Common.Label" String="{@i18n>ServiceOrderNumber}"/>
+            </Annotations>
+            <Annotations Target="com.agel.mmts.entity.ContractorReconciliationModel/ContractorName">
+                <Annotation Term="Common.Label" String="{@i18n>ContractorName}"/>
+            </Annotations>
+            <Annotations Target="com.agel.mmts.entity.ContractorReconciliationModel/MovementType">
+                <Annotation Term="Common.Label" String="{@i18n>MovementType}"/>
+            </Annotations>
+            <Annotations Target="com.agel.mmts.entity.ContractorReconciliationModel/DocumentDate">
+                <Annotation Term="Common.Label" String="{@i18n>DocumentDate}"/>
+            </Annotations>
+            <Annotations Target="com.agel.mmts.entity.ContractorReconciliationModel/EntryDate">
+                <Annotation Term="Common.Label" String="{@i18n>EntryDate}"/>
+            </Annotations>
+            <Annotations Target="com.agel.mmts.entity.ContractorReconciliationModel/PostingDate">
+                <Annotation Term="Common.Label" String="{@i18n>PostingDate}"/>
+            </Annotations>
+            <Annotations Target="com.agel.mmts.entity.ContractorReconciliationModel/Plant">
+                <Annotation Term="Common.Label" String="{@i18n>Plant}"/>
+            </Annotations>
+            <Annotations Target="com.agel.mmts.entity.ContractorReconciliationModel/PostingDocumentNumber">
+                <Annotation Term="Common.Label" String="{@i18n>PostingDocumentNumber}"/>
+            </Annotations>
+            <Annotations Target="com.agel.mmts.entity.ContractorReconciliationModel/ParentMaterialCode">
+                <Annotation Term="Common.Label" String="{@i18n>ParentMaterialCode}"/>
+            </Annotations>
+            <Annotations Target="com.agel.mmts.entity.ContractorReconciliationModel/ParentMaterialDesc">
+                <Annotation Term="Common.Label" String="{@i18n>ParentMaterialDesc}"/>
+            </Annotations>
+            <Annotations Target="com.agel.mmts.entity.ContractorReconciliationModel/StorageLocation">
+                <Annotation Term="Common.Label" String="{@i18n>StorageLocation}"/>
+            </Annotations>
+            <Annotations Target="com.agel.mmts.entity.ContractorReconciliationModel/UnloadingPoint">
+                <Annotation Term="Common.Label" String="{@i18n>UnloadingPoint}"/>
+            </Annotations>
+            <Annotations Target="com.agel.mmts.entity.ContractorReconciliationModel/CompanyCode">
+                <Annotation Term="Common.Label" String="{@i18n>CompanyCode}"/>
+            </Annotations>
+
+            <!-- For List Page -->
+            <Annotations Target="com.agel.mmts.entity.ContractorReconciliationModel">
+                <!-- For List Page Filters -->
+                <Annotation Term="UI.SelectionFields">
+                    <Collection>
+                        <PropertyPath>ReservationId</PropertyPath>
+                        <PropertyPath>MatRequisitionNo</PropertyPath>
+                        <PropertyPath>ServiceOrderNumber</PropertyPath>
+                        <PropertyPath>ContractorName</PropertyPath>
+                        <PropertyPath>MovementType</PropertyPath>
+                        <PropertyPath>DocumentDate</PropertyPath>
+                        <PropertyPath>EntryDate</PropertyPath>
+                        <PropertyPath>PostingDate</PropertyPath>
+                        <PropertyPath>Plant</PropertyPath>
+                        <PropertyPath>PostingDocumentNumber</PropertyPath>
+                        <PropertyPath>ParentMaterialCode</PropertyPath>
+                        <PropertyPath>ParentMaterialDesc</PropertyPath>
+                        <PropertyPath>StorageLocation</PropertyPath>
+                        <PropertyPath>UnloadingPoint</PropertyPath>
+                        <PropertyPath>CompanyCode</PropertyPath>
+                    </Collection>
+                </Annotation>
+
+                <!-- For List Items Object Attribute -->
+                <Annotation Term="Common.SemanticKey">
+                    <Collection>
+                        <PropertyPath>ReservationId</PropertyPath>
+                    </Collection>
+                </Annotation>
+
+                <Annotation Term="UI.HeaderInfo">
+                    <Record Type="UI.HeaderInfoType">
+                        <PropertyValue Property="TypeName" String="{@i18n>ReservationId}"/>
+                        <PropertyValue Property="TypeNamePlural" String="{@i18n>ReservationIds}"/>
+                        <!-- <PropertyValue Property="Title">
+                            <Record Type="UI.DataField">
+                                <PropertyValue Property="Value" Path="ReservationId"/>
+                                <PropertyValue Property="Label" String="{@i18n>ReservationId}"/>
+                                <PropertyValue Property="IconUrl" String="sap-icon://bookmark"/>
+                            </Record>
+                            <Annotation Term="Common.Heading" String="{@i18n>ReservationId}"/>
+                        </PropertyValue> -->
+                    </Record>
+                </Annotation>
+
+                <!-- For Displaying the List -->
+                <Annotation Term="UI.LineItem">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="ReservationId"/>
+                            <PropertyValue Property="Label" String="{@i18n>ReservationId}"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="MatRequisitionNo"/>
+                            <PropertyValue Property="Label" String="{@i18n>MatRequisitionNo}"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="ServiceOrderNumber"/>
+                            <PropertyValue Property="Label" String="{@i18n>ServiceOrderNumber}"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="ContractorName"/>
+                            <PropertyValue Property="Label" String="{@i18n>ContractorName}"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="MovementType"/>
+                            <PropertyValue Property="Label" String="{@i18n>MovementType}"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="DocumentDate"/>
+                            <PropertyValue Property="Label" String="{@i18n>DocumentDate}"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="EntryDate"/>
+                            <PropertyValue Property="Label" String="{@i18n>EntryDate}"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="PostingDate"/>
+                            <PropertyValue Property="Label" String="{@i18n>PostingDate}"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="Plant"/>
+                            <PropertyValue Property="Label" String="{@i18n>Plant}"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="PostingDocumentNumber"/>
+                            <PropertyValue Property="Label" String="{@i18n>PostingDocumentNumber}"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="ParentMaterialCode"/>
+                            <PropertyValue Property="Label" String="{@i18n>ParentMaterialCode}"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="ParentMaterialDesc"/>
+                            <PropertyValue Property="Label" String="{@i18n>ParentMaterialDesc}"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="StorageLocation"/>
+                            <PropertyValue Property="Label" String="{@i18n>StorageLocation}"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="UnloadingPoint"/>
+                            <PropertyValue Property="Label" String="{@i18n>UnloadingPoint}"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="CompanyCode"/>
+                            <PropertyValue Property="Label" String="{@i18n>CompanyCode}"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+
+                <!-- Object Page Facets -->
+                <!-- <Annotation Term="UI.DataPoint" Qualifier="MatReqNoDataPoint">
+                    <Record Type="UI.DataPointType">
+                        <PropertyValue Property="Title" String="{@i18n>MatRequisitionNo}"/>
+                        <PropertyValue Property="Value" Path="MatRequisitionNo"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.DataPoint">
+                    <Record Type="UI.DataPointType">
+                        <PropertyValue Property="Title" String="{@i18n>MovementType}"/>
+                        <PropertyValue Property="Value" Path="MovementType"/>
+                        <PropertyValue Property="Description" String="{@i18n>MovementType}"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.DataPoint" Qualifier="contractorNameDataPoint">
+                    <Record Type="UI.DataPointType">
+                        <PropertyValue Property="Title" String="{@i18n>ContractorName}"/>
+                        <PropertyValue Property="Value" Path="ContractorName"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.Facets">
+                    <Collection>
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="Label" String="{@i18n>BasicDetaials}"/>
+                            <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#BasicDetails"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.FieldGroup" Qualifier="BasicDetails">
+                    <Record Type="UI.FieldGroupType">
+                        <PropertyValue Property="Data">
+                            <Collection>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="ServiceOrderNumber"/>
+                                    <PropertyValue Property="Label" String="{@i18n>ServiceOrderNumber}"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="Plant"/>
+                                    <PropertyValue Property="Label" String="{@i18n>Plant}"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="PostingDocumentNumber"/>
+                                    <PropertyValue Property="Label" String="{@i18n>PostingDocumentNumber}"/>
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="ParentMaterialCode"/>
+                                    <PropertyValue Property="Label" String="{@i18n>ParentMaterialCode}"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation> -->
+            </Annotations>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

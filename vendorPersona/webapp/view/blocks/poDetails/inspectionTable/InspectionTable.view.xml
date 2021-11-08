@@ -6,7 +6,7 @@
     <smartTable:SmartTable class="sapUiSizeCompact" id="idPackingListTable" editable="false" placeToolbarInTable="true" enableAutoBinding="true" 
     entitySet="PurchaseOrderSet" tableBindingPath="InspectionCalls" showFullScreenButton="true" showRowCount="false" tableType="ResponsiveTable" 
     demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" beforeRebindTable="onBeforeRebindInspectionTable" 
-    enableAutoColumnWidth="true" ignoreFromPersonalisation="CreatedBy,ID,IsArchived,PONumber,UpdatedAt,UpdatedBy">
+    enableAutoColumnWidth="true" ignoreFromPersonalisation="CompanyCode,CreatedBy,ID,IsArchived,PONumber,UpdatedAt,UpdatedBy,ConfirmedDate,Currency,DeletionIndicator,PaymentTerm,PlantCode,POReleaseDate,DocumentType,PurchasingGroup,PurchasingOrg,ReleaseIndicator,Status,ValidityEndDate,ValidityStartDate,VendorCode,Version">
 
         <smartTable:customToolbar>
             <OverflowToolbar design="Transparent">
@@ -40,11 +40,19 @@
                     </customData>
                     <Text text="{i18n>RaisedOfflineInspectionDate}"/>
                 </Column>
+                
+                <Column demandPopin="true" minScreenWidth="Tablet">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "CreatedAt", "leadingProperty": "CreatedAt",
+                                                 "columnIndex": 3 ,"sortProperty": "CreatedAt"}'/>
+                    </customData>
+                    <Text text="{i18n>CreatedAt}"/>
+                </Column>
 
                 <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "Comments", "leadingProperty": "Comments",
-                                                 "columnIndex": 3,"sortProperty": "Comments","filterProperty": "Comments"}'/>
+                                                 "columnIndex": 4,"sortProperty": "Comments","filterProperty": "Comments"}'/>
                     </customData>
                     <Text text="{i18n>comments}"/>
                 </Column>
@@ -61,6 +69,12 @@
 				                     }    
                         }"/>
                         <Text text="{path:'RaisedOfflineInspectionDate',
+                                    type: 'sap.ui.model.type.Date',
+				                     formatOptions: {
+				                        pattern: 'MMMM dd, yyyy'
+				                     }    
+                        }"/>
+                        <Text text="{path:'CreatedAt',
                                     type: 'sap.ui.model.type.Date',
 				                     formatOptions: {
 				                        pattern: 'MMMM dd, yyyy'

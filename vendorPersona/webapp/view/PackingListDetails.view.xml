@@ -159,7 +159,7 @@
                                 <unified:FileUploader id="idInvoiceUploader" buttonOnly="true" buttonText="Upload Invoice" sameFilenameAllowed="true" multiple="false" fileType="csv" mimeType="text/csv" style="Emphasized" change="onInvoiceFileSelectedForUpload"/>
                             </VBox>
                         </HBox>
-                        <UploadCollection maximumFilenameLength="55" maximumFileSize="10" multiple="false" fileSizeExceed="onFileSizeExceed" typeMissmatch="onTypeMissmatch" uploadComplete="onUploadComplete" beforeUploadStarts="onBeforeUploadStarts" items="{
+                        <!-- <UploadCollection maximumFilenameLength="55" maximumFileSize="10" multiple="false" fileSizeExceed="onFileSizeExceed" typeMissmatch="onTypeMissmatch" uploadComplete="onUploadComplete" beforeUploadStarts="onBeforeUploadStarts" items="{
                                     path:'attachments',
                                     parameters : {
                                         $filter : 'type eq \'INVOICE\''
@@ -174,10 +174,29 @@
                                     </attributes>
                                 </UploadCollectionItem>
                             </items>
-                        </UploadCollection>
+                        </UploadCollection> -->
+                        <UploadCollection id="idMaterialFileUploader" maximumFilenameLength="55" maximumFileSize="10" multiple="true" items="{
+                                    path:'DocumentModel>/PL_Material',
+                                    templateShareable: false}" mode="None" uploadButtonInvisible="true" instantUpload="false">
+                                <items>
+                                    <UploadCollectionItem documentId="{DocumentModel>ID}" url="{parts: ['DocumentModel>FileName','DocumentModel>Content'], 
+                                        formatter: '.formatter.fileContent' }" enableEdit="false" enableDelete="false" visibleDelete="false" visibleEdit="false" fileName="{DocumentModel>FileName}">
+                                        <attributes>
+                                            <ObjectAttribute title="Uploaded By" text="{DocumentModel>UploadedBy}" class="sapUiSmallMarginEnd"/>
+                                            <ObjectAttribute title="Uploaded On" text="{path:'DocumentModel>CreatedAt',
+                                                    type: 'sap.ui.model.type.Date',
+                                                    formatOptions: {
+                                                        pattern: 'MMMM dd, yyyy'
+                                                    }
+                                            }"/>
+                                            <ObjectAttribute title="Size" text="{path : 'DocumentModel>FileSize', formatter : '.formatter.formatFileSize'}"/>
+                                        </attributes>
+                                    </UploadCollectionItem>
+                                </items>
+                            </UploadCollection>
                     </IconTabFilter>
                     <IconTabFilter text="Material Details">
-                        <UploadCollection maximumFilenameLength="55" maximumFileSize="10" multiple="true" fileSizeExceed="onFileSizeExceed" typeMissmatch="onTypeMissmatch" uploadComplete="onUploadComplete" beforeUploadStarts="onBeforeUploadStarts" items="{
+                        <!-- <UploadCollection maximumFilenameLength="55" maximumFileSize="10" multiple="true" fileSizeExceed="onFileSizeExceed" typeMissmatch="onTypeMissmatch" uploadComplete="onUploadComplete" beforeUploadStarts="onBeforeUploadStarts" items="{
                                     path:'attachments',
                                     parameters : {
                                         $filter : 'type eq \'MATERIAL\''
@@ -192,10 +211,29 @@
                                     </attributes>
                                 </UploadCollectionItem>
                             </items>
-                        </UploadCollection>
+                        </UploadCollection> -->
+                        <UploadCollection id="idInvoiceFileUploader" maximumFilenameLength="55" maximumFileSize="10" multiple="true" items="{
+                                    path:'DocumentModel>/PL_Invoice',
+                                    templateShareable: false}" mode="None" uploadButtonInvisible="true" instantUpload="false">
+                                <items>
+                                    <UploadCollectionItem documentId="{DocumentModel>ID}" url="{parts: ['DocumentModel>FileName','DocumentModel>Content'], 
+                                        formatter: '.formatter.fileContent' }" enableEdit="false" enableDelete="false" visibleDelete="false" visibleEdit="false" fileName="{DocumentModel>FileName}">
+                                        <attributes>
+                                            <ObjectAttribute title="Uploaded By" text="{DocumentModel>UploadedBy}" class="sapUiSmallMarginEnd"/>
+                                            <ObjectAttribute title="Uploaded On" text="{path:'DocumentModel>CreatedAt',
+                                                    type: 'sap.ui.model.type.Date',
+                                                    formatOptions: {
+                                                        pattern: 'MMMM dd, yyyy'
+                                                    }
+                                            }"/>
+                                            <ObjectAttribute title="Size" text="{path : 'DocumentModel>FileSize', formatter : '.formatter.formatFileSize'}"/>
+                                        </attributes>
+                                    </UploadCollectionItem>
+                                </items>
+                            </UploadCollection>
                     </IconTabFilter>
                     <IconTabFilter text="Other Documents">
-                        <UploadCollection maximumFilenameLength="55" maximumFileSize="10" multiple="true" fileSizeExceed="onFileSizeExceed" typeMissmatch="onTypeMissmatch" uploadComplete="onUploadComplete" beforeUploadStarts="onBeforeUploadStarts" items="{
+                        <!-- <UploadCollection maximumFilenameLength="55" maximumFileSize="10" multiple="true" fileSizeExceed="onFileSizeExceed" typeMissmatch="onTypeMissmatch" uploadComplete="onUploadComplete" beforeUploadStarts="onBeforeUploadStarts" items="{
                                     path:'attachments',
                                     parameters : {
                                         $filter : 'type eq \'OTHERS\''
@@ -208,7 +246,26 @@
                                     <ObjectAttribute title="Uploaded On" text="{document_date}"/>
                                 </UploadCollectionItem>
                             </items>
-                        </UploadCollection>
+                        </UploadCollection> -->
+                        <UploadCollection id="idOtherFileUploader" maximumFilenameLength="55" maximumFileSize="10" multiple="true" items="{
+                                    path:'DocumentModel>/PL_Others',
+                                    templateShareable: false}" mode="None" uploadButtonInvisible="true" instantUpload="false">
+                                <items>
+                                    <UploadCollectionItem documentId="{DocumentModel>ID}" url="{parts: ['DocumentModel>FileName','DocumentModel>Content'], 
+                                        formatter: '.formatter.fileContent' }" enableEdit="false" enableDelete="false" visibleDelete="false" visibleEdit="false" fileName="{DocumentModel>FileName}">
+                                        <attributes>
+                                            <ObjectAttribute title="Uploaded By" text="{DocumentModel>UploadedBy}" class="sapUiSmallMarginEnd"/>
+                                            <ObjectAttribute title="Uploaded On" text="{path:'DocumentModel>CreatedAt',
+                                                    type: 'sap.ui.model.type.Date',
+                                                    formatOptions: {
+                                                        pattern: 'MMMM dd, yyyy'
+                                                    }
+                                            }"/>
+                                            <ObjectAttribute title="Size" text="{path : 'DocumentModel>FileSize', formatter : '.formatter.formatFileSize'}"/>
+                                        </attributes>
+                                    </UploadCollectionItem>
+                                </items>
+                            </UploadCollection>
                     </IconTabFilter>
                 </items>
             </IconTabBar>
