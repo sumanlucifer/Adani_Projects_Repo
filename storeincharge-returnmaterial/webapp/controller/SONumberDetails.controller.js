@@ -132,31 +132,37 @@ sap.ui.define([
             });
         },
 
+     
+
+
+
+
         dataBuildingReturn: function (ParentData) {
-            var ParentDataView = ParentData;
-            for (var i = 0; i < ParentData.length; i++) {
-                ParentDataView[i].selectable = true;
-                ParentDataView[i].isSelected = false;
-                ParentDataView[i].ApprovedRetQuantity = null;
-                if (ParentData[i].ReturnedMaterialBOQ.results.length) {
-                    ParentDataView[i].isStandAlone = false;
-                    ParentDataView[i].ChildItemsView = ParentData[i].ReturnedMaterialBOQ.results;
-                    for (var j = 0; j < ParentData[i].ChildItemsView.length; j++) {
-                        ParentData[i].ChildItemsView[j].selectable = true;
-                        ParentDataView[i].ChildItemsView[j].isSelected = false;
+                    for (var i = 0; i < ParentData.length; i++) {
+                        ParentData[i].results =
+                            ParentData[i].ReturnedMaterialBOQ.results;
+                        for (var j = 0; j < ParentData[i].ReturnedMaterialBOQ.results.length; j++) {
+                            if (ParentData[i].BaseUnit === "MT") {
+                                ParentData[i].ReturnedMaterialBOQ.results[j].isParent = true;
+                                ParentData[i].ReturnedMaterialBOQ.results[j].Quantity = "";
+                                ParentData[i].isChildItemFreeze = false;
+                                ParentData[i].ReturnedMaterialBOQ.results[j].isChildItemFreeze = true;
+                            } else {
+                                ParentData[i].ReturnedMaterialBOQ.results[j].isParent = true;
+                                ParentData[i].ReturnedMaterialBOQ.results[j].Quantity = "";
+                                ParentData[i].isChildItemFreeze = true;
+                                ParentData[i].ReturnedMaterialBOQ.results[j].isChildItemFreeze = false;
+                            }
+
+                        }
+                        ParentData[i].isParent = false;
+                        ParentData[i].isSelected = false;
+                        ParentData[i].Quantity = "";
+                        
                     }
-                }
-                else {
-                    ParentDataView[i].isStandAlone = true;
-                    ParentDataView[i].ChildItemsView = [];
-                }
-            }
-            //debugger;
-            var oModel = this.getOwnerComponent().getModel("TreeTableModelView");
-            var oMOdelData = oModel.getData();
-            oMOdelData.ReturnData = { "ChildItemsView": ParentDataView };
-            oModel.setData(oMOdelData);
-        },
+                    var TreeDataModel = new JSONModel({ results: ParentData });
+                    this.getView().setModel(TreeDataModel, "TreeDataModel");
+                },
 
         onViewLineItemPress: function (oEvent) {
             var oDetails = {};
