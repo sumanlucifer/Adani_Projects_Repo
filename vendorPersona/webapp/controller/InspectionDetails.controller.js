@@ -57,21 +57,13 @@ sap.ui.define([
             var oDataModel = oView.getModel();
             //console.log(oPayLoad);
             return new Promise((resolve, reject) => {
-                this.getOwnerComponent().getModel().read("/PackingListSet(" + this.packingListId + ")/Attachments", {
+                this.getOwnerComponent().getModel().read("/InspectionCallIdSet" + this.sObjectId + "/Attachments", {
                     success: function (oData, oResponse) {
                         var oJSONData = {
                             PL_Material: [],
                             PL_Invoice: [],
                             PL_Others: []
                         };
-                        // oData.results.forEach((oItem) => {
-                        //     if(oItem.Type === 'PACKING_LIST' && oItem.SubType === 'MATERIAL' )
-                        //         oJSONData.PL_Material.push(oItem);
-                        //     else if(oItem.Type === 'PACKING_LIST' && oItem.SubType === 'INVOICE' )
-                        //         oJSONData.PL_Invoice.push(oItem);
-                        //     else if(oItem.Type === 'PACKING_LIST' && oItem.SubType === 'OTHERS' )
-                        //         oJSONData.PL_Others.push(oItem);
-                        // } );
                         var DocumentModel = new JSONModel(oJSONData);
                         that.getView().setModel(DocumentModel, "DocumentModel");
                         resolve(oData.results);
@@ -101,7 +93,7 @@ sap.ui.define([
                 })
                 sContent.then(function (oVal) {
                     item.Content = oVal.Bytes;
-                    debugger;
+                    //debugger;
                     if (item.Type === 'PACKING_LIST' && item.SubType === 'MATERIAL')
                         that.getViewModel("DocumentModel").getProperty("/PL_Material").push(item);
                     else if (item.Type === 'PACKING_LIST' && item.SubType === 'INVOICE')
@@ -123,7 +115,7 @@ sap.ui.define([
             return new Promise((resolve, reject) => {
                 oDataModel.create("/PrintDocumentEdmSet", reqID, {
                     success: function (data) {
-                        // debugger;
+                        // //debugger;
                         resolve(data);
                     },
                     error: function (data) {
@@ -627,20 +619,30 @@ sap.ui.define([
                 urlParameters: { "$expand": "ParentLineItem/PCGroups/PCGroupItems" },
                 success: function (oData, oResponse) {
                     var data = oData.ParentLineItem.PCGroups.results[0];
+                    if (oData.ParentLineItem.UoM === "MT")
+                        var bIsSplCase = true;
+                    else
+                        bIsSplCase = false;
                     var InspectionMapBOQItemsData = data.PCGroupItems.results;
-                    this.dataBuilding(InspectionMapBOQItemsData);
+                    this.dataBuilding(InspectionMapBOQItemsData, bIsSplCase, oData.MDCCApprovedQty);
                 }.bind(this),
                 error: function (oError) {
                     sap.m.MessageBox.error("Data Not Found");
                 }
             });
         },
-        dataBuilding: function (data) {
+        dataBuilding: function (data, bIsSplCase, iParentQty) {
             for (var i = 0; i < data.length; i++) {
                 data[i].isSelected = false;
-                data[i].ApprovedQty = "";
+                if (bIsSplCase)
+                    data[i].ApprovedQty = "";
+                else
+                    data[i].ApprovedQty = data[i].Qty * iParentQty;
+                data[i].isSpecial = bIsSplCase;
+                data[i].ParentApprovedQty = iParentQty;
             }
-            var oModel = new JSONModel([]);
+            var oModel = new JSONModel({});
+            oModel.setProperty("/isSpecial", bIsSplCase);
             this.getView().setModel(oModel, "inspectedMapBOQItemsModel");
             this.openInspectionBOQFragment(data);
         },
@@ -682,11 +684,25 @@ sap.ui.define([
             var bindingContext = oEvent.getSource().getBindingContext("inspectedMapBOQItemsModel"),
                 path = bindingContext.getPath(),
                 rowObj = bindingContext.getModel().getProperty(path);
+            var aChildItems = this.getViewModel("inspectedMapBOQItemsModel").getData().inspectedMapBOQItems;
+            var iTotalChildQty = 0;
+            for(var i=0; i<aChildItems.length;i++){
+                if(aChildItems[i].ApprovedQty)
+                iTotalChildQty += parseFloat(aChildItems[i].ApprovedQty);
+            }
             var ApprovedQty = oEvent.getSource().getValue();
             var aCell = oEvent.getSource().getParent().getCells()[8];
-            if (parseInt(ApprovedQty) > parseInt(rowObj.Qty)) {
+            if (parseFloat(ApprovedQty) > parseFloat(rowObj.Qty)) {
                 aCell.setValueState("Error");
                 aCell.setValueStateText("Please enter quantity lesser than or equal to remaining quantity")
+                this.getView().byId("idBtnSave").setEnabled(false);
+            } else {
+                aCell.setValueState("None");
+                this.getView().byId("idBtnSave").setEnabled(true);
+            }
+            if (parseFloat(iTotalChildQty) > parseFloat(rowObj.ParentApprovedQty)) {
+                aCell.setValueState("Error");
+                aCell.setValueStateText("Quantity exceed the total parent Quantity.")
                 this.getView().byId("idBtnSave").setEnabled(false);
             } else {
                 aCell.setValueState("None");
@@ -787,10 +803,10 @@ sap.ui.define([
                     // objectViewModel.setProperty("/isViewQRMode", false);
                 }.bind(this)
             })
-            debugger;
+            //debugger;
         },
         onRowsUpdated: function (oEvent) {
-            //  debugger;
+            //  //debugger;
             //  var oTable = this.getView().byId("TreeTableBasicView");
         },
         onExit: function () {
