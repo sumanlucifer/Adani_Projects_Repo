@@ -58,7 +58,7 @@ sap.ui.define([
                     dataReceived: function () {
                         objectViewModel.setProperty("/busy", false);
                         objectViewModel.setProperty("/partialApproval", false);
-                       // that.onReadDataIssueMaterialParents();
+                        // that.onReadDataIssueMaterialParents();
                         that.onReadDataReturnMaterialParents();
                     }
                 }
@@ -116,6 +116,8 @@ sap.ui.define([
             oModel.setData(oMOdelData);
         },
 
+
+
         onReadDataReturnMaterialParents: function () {
             this.MainModel.read("/ReturnMaterialReserveSet(" + this.ReturnId + ")", {
                 urlParameters: { "$expand": "ReturnedMaterialParent,ReturnedMaterialParent/ReturnedMaterialBOQ" },
@@ -132,37 +134,174 @@ sap.ui.define([
             });
         },
 
-     
-
-
-
-
         dataBuildingReturn: function (ParentData) {
-                    for (var i = 0; i < ParentData.length; i++) {
-                        ParentData[i].results =
-                            ParentData[i].ReturnedMaterialBOQ.results;
-                        for (var j = 0; j < ParentData[i].ReturnedMaterialBOQ.results.length; j++) {
-                            if (ParentData[i].BaseUnit === "MT") {
-                                ParentData[i].ReturnedMaterialBOQ.results[j].isParent = true;
-                                ParentData[i].ReturnedMaterialBOQ.results[j].Quantity = "";
-                                ParentData[i].isChildItemFreeze = false;
-                                ParentData[i].ReturnedMaterialBOQ.results[j].isChildItemFreeze = true;
-                            } else {
-                                ParentData[i].ReturnedMaterialBOQ.results[j].isParent = true;
-                                ParentData[i].ReturnedMaterialBOQ.results[j].Quantity = "";
-                                ParentData[i].isChildItemFreeze = true;
-                                ParentData[i].ReturnedMaterialBOQ.results[j].isChildItemFreeze = false;
-                            }
+            var ParentDataView = ParentData;
+            for (var i = 0; i < ParentData.length; i++) {
+                // ParentDataView[i].selectable = true;
+                // ParentDataView[i].isSelected = false;
 
+                if (ParentDataView[i].BaseUnit === "MT") {
+                    ParentDataView[i].selectable = false;
+                    ParentDataView[i].isSelected = false;
+                    ParentData[i].isChildItemFreeze = false;
+                }
+                else {
+                    ParentDataView[i].selectable = true;
+                    ParentDataView[i].isSelected = false;
+                    ParentData[i].isChildItemFreeze = true;
+                }
+
+
+
+                ParentDataView[i].ApprovedRetQuantity = null;
+                if (ParentData[i].ReturnedMaterialBOQ.results.length) {
+                    ParentDataView[i].isStandAlone = false;
+                    ParentDataView[i].ChildItemsView = ParentData[i].ReturnedMaterialBOQ.results;
+                    for (var j = 0; j < ParentData[i].ChildItemsView.length; j++) {
+                        // ParentData[i].ChildItemsView[j].selectable = true;
+                        // ParentDataView[i].ChildItemsView[j].isSelected = false;
+
+                        if (ParentDataView[i].BaseUnit === "MT") {
+                            ParentData[i].ChildItemsView[j].selectable = true;
+                            ParentDataView[i].ChildItemsView[j].isSelected = false;
+                            
                         }
-                        ParentData[i].isParent = false;
-                        ParentData[i].isSelected = false;
-                        ParentData[i].Quantity = "";
-                        
+                        else {
+                            ParentData[i].ChildItemsView[j].selectable = false;
+                            ParentDataView[i].ChildItemsView[j].isSelected = false;
+                            
+                        }
+
                     }
-                    var TreeDataModel = new JSONModel({ results: ParentData });
-                    this.getView().setModel(TreeDataModel, "TreeDataModel");
-                },
+                }
+                else {
+                    ParentDataView[i].isStandAlone = true;
+                    ParentDataView[i].ChildItemsView = [];
+                }
+            }
+            //debugger;
+            var oModel = this.getOwnerComponent().getModel("TreeTableModelView");
+            var oMOdelData = oModel.getData();
+            oMOdelData.ReturnData = { "ChildItemsView": ParentDataView };
+            oModel.setData(oMOdelData);
+        },
+
+
+
+
+        onLiveChangeApprvdQty: function (oEvent) {
+            var sItemPath = oEvent
+                .getSource()
+                .getBindingContext("TreeTableModelView")
+                .getPath();
+
+            var sParentPath =  sItemPath.slice(0, 28);
+
+            var iTotalQuantity = this.getViewModel("TreeTableModelView").getProperty(
+                sParentPath + "/ApprovedRetQuantity"
+            );
+            var iParentIssuedQuantity = this.getViewModel("TreeTableModelView").getProperty(
+                sParentPath + "/BalanceQty"
+            );
+
+            if (!iTotalQuantity) iTotalQuantity = null;
+            var ReservedQty = parseFloat(oEvent.getSource().getValue());
+            var oValue = oEvent.getSource().getValue();
+            if (!oValue)
+                oValue = null;
+            var BalanceQty = parseFloat(
+                oEvent.getSource().getParent().getCells()[9].getText()
+            );
+
+            var bChildItemFreeze = this.getViewModel("TreeTableModelView").getProperty(
+                sParentPath + "/isSelected"
+            );
+            var aChildItems = this.getViewModel("TreeTableModelView").getProperty(
+                sParentPath + "/ReturnedMaterialBOQ"
+            );
+
+            if (bChildItemFreeze) {
+                debugger;
+                aChildItems.results.forEach((item) => {
+                    //    item.Quantity = parseFloat(oValue) * (parseFloat(item.BalanceQty) /parseFloat(iParentIssuedQuantity));
+                    item.ApprovedRetQuantity = parseFloat(oValue) * (parseFloat(item.BaseQty));
+                });
+                this.getViewModel("TreeTableModelView").setProperty(
+                    sParentPath + "/ReturnedMaterialBOQ",
+                    aChildItems
+                );
+            } else {
+                if (parseFloat(oValue) >= 0) {
+                    // var iTotalQty = parseFloat(oValue);
+                    // if(!iTotalQty)
+                    // iTotalQty =0;
+                    // var aChildQty = this.getViewModel("TreeDataModel")
+                    //     .getProperty(sParentPath + "/")
+                    //     .IssuedMaterialReservedBOQItems.results.map(function (item) {
+                    //         return {
+                    //             Quantity: parseFloat(item.Quantity),
+                    //         };
+                    //     });
+                    //   if (iTotalQuantity === null || iTotalQuantity === "") {
+                    //     this.getViewModel("TreeDataModel").setProperty(
+                    //       sParentPath + "/Quantity",
+                    //       iTotalQty
+                    //     );
+                    //   }
+
+                    // else {
+                    var wpp = oEvent
+                        .getSource()
+                        .getBindingContext("TreeTableModelView")
+                        .getObject().WeightPerPiece;
+                    var liveQty = oEvent
+                        .getSource()
+                        .getBindingContext("TreeTableModelView")
+                        .getObject().ApprovedRetQuantity;
+                    if (!liveQty) liveQty = null;
+
+
+                    // iTotalQuantity = iTotalQuantity - parseFloat(liveQty) + parseFloat(oValue);
+                    iTotalQuantity = iTotalQuantity + ((parseFloat(oValue) - parseFloat(liveQty)) * parseFloat(wpp));
+                    this.getViewModel("TreeTableModelView").setProperty(sItemPath + "/ApprovedRetQuantity", oValue);
+                    // var sum = aChildQty.reduce((a, b) => ({
+                    //   x: a.Quantity + b.Quantity,
+                    // }));
+
+                    this.getViewModel("TreeTableModelView").setProperty(
+                        sParentPath + "/ApprovedRetQuantity",
+                        iTotalQuantity
+                    );
+                    // }
+                }
+            }
+
+            //if (oValue === "") {
+            // oEvent.getSource().setValueState("Error");
+            // oEvent.getSource().setValueStateText("Please enter quantity ");
+            // this.getView().byId("idBtnSave").setEnabled(false);
+            // } 
+            if (parseInt(ReservedQty) < 0) {
+                oEvent.getSource().setValueState("Error");
+                oEvent
+                    .getSource()
+                    .setValueStateText(
+                        "Please enter quantity greater than 0 or positive value"
+                    );
+                // this.getView().byId("idBtnSave").setEnabled(false);
+            } else if (parseInt(ReservedQty) > parseInt(BalanceQty)) {
+                oEvent.getSource().setValueState("Error");
+                oEvent
+                    .getSource()
+                    .setValueStateText(
+                        "Please enter quantity lesser than or equal to balance quantity"
+                    );
+             //   this.getView().byId("idBtnSave").setEnabled(false);
+            } else {
+                oEvent.getSource().setValueState("None");
+                // this.getView().byId("idBtnSave").setEnabled(true);
+            }
+        },
 
         onViewLineItemPress: function (oEvent) {
             var oDetails = {};
