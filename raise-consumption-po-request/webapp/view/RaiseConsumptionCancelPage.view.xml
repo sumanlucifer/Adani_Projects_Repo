@@ -6,7 +6,7 @@
     xmlns:f="sap.ui.layout.form"
     xmlns:core="sap.ui.core"
     xmlns:unified="sap.ui.unified"
-    xmlns:tt="sap.ui.table"
+    xmlns:ui="sap.ui.table"
     xmlns:smartTable="sap.ui.comp.smarttable"
     xmlns="sap.m" controllerName="com.agel.mmts.raiseconsumptionporequest.controller.RaiseConsumptionCancelPage" height="100%">
     <uxap:ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true" upperCaseAnchorBar="false" headerContentPinnable="true" toggleHeaderOnTitleClick="true" busy="{objectViewModel>/busy}">
@@ -94,58 +94,97 @@ pattern: 'MMMM dd, yyyy HH:mm:ss'
             <uxap:ObjectPageSection titleUppercase="false">
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection >
-                        <Table  id="idConsumedPostedTable" growing="true" growingThreshold="10" items="{consumptionPostedData>/}" >
-                                <headerToolbar>
-                                    <OverflowToolbar>
-                                        <content>
-                                        </content>
-                                    </OverflowToolbar>
-                                </headerToolbar>
-                                <columns>
-                                    <!-- <Column width="5%">
-                                <CheckBox  select="onSelectAll" ></CheckBox>
-                                </Column> -->
-                                    <Column>
-                                        <Text text="Material Code"/>
-                                    </Column>
-                                     <Column>
-                                        <Text text="Description"/>
-                                    </Column>
+            <VBox>
+                <ui:TreeTable  id="TreeTable" rows="{path:'ConsumptionCancelTreeDataModel>/', parameters: {numberOfExpandedLevels: 2,arrayNames:['results']}}" selectionMode="None" enableSelectAll="false" ariaLabelledBy="title" rowsUpdated="onRowsUpdated">
+                    <ui:columns>
 
-                                      <Column>
-                                        <Text text="Movement Type"/>
-                                    </Column>
-                                    <Column demandPopin="true" minScreenWidth="Tablet">
-                                        <Text text="Plant"/>
-                                    </Column>
-                                   
-                                    <Column demandPopin="true" minScreenWidth="Tablet">
-                                        <Text text="StorageLocation"/>
-                                    </Column>
-                                     <Column demandPopin="true" minScreenWidth="Desktop">
-                                        <Text text="Quantity"/>
-                                    </Column>
-                                     <Column demandPopin="true" minScreenWidth="Tablet">
-                                        <Text text="Status"/>
-                                    </Column>
-                                </columns>
-                                <items>
-                                    <ColumnListItem id="id">
-                                        <cells>
-                                            <!-- <CheckBox    visible="{= ${consumptionPostedData>Status} === 'CONSUMPTION SUCCESSFUL' ? true : ${consumptionPostedData>Status} === 'CANCELLATION FAILED' ? true : false }"  selected="{consumptionPostedData>isSelected}"
-                                           select="onSelectionOfRow" /> -->
-                                            <Text text="{consumptionPostedData>MaterialCode}"/>
-                                             <Text text="{consumptionPostedData>Name}"/>
-                                                <Text text="{consumptionPostedData>MovementType}"/>
-                                            <Text  text="{consumptionPostedData>Plant}"/>
-                                          
-                                          <Text text="{consumptionPostedData>StorageLocation}"/>
-                                              <Text  text="{consumptionPostedData>Quantity}"/>
-                                           <ObjectStatus text="{consumptionPostedData>Status}" state="{= ${consumptionPostedData>Status} === 'CONSUMPTION SUCCESSFUL' ? 'Success' : ${Status} === 'CONSUMPTION CANCELLED' ? 'Information' : 'Error'}" visible="{= ${Status}.length>0 ? true : false }"/>
-                                        </cells>
-                                    </ColumnListItem>
-                                </items>
-                            </Table>
+                        <ui:Column>
+                            <Label text="{i18n>Name}" />
+                            <ui:template>
+                                <Text text="{ConsumptionCancelTreeDataModel>Name}" wrapping="false" />
+                            </ui:template>
+                        </ui:Column>
+                        <ui:Column>
+                            <Label text="{i18n>Description}" />
+                            <ui:template>
+                                <Text text="{ConsumptionCancelTreeDataModel>Description}" wrapping="false" />
+                            </ui:template>
+                        </ui:Column>
+                        <ui:Column>
+                            <Label text="{i18n>MaterialCode}" />
+                            <ui:template>
+                                <Text text="{ConsumptionCancelTreeDataModel>MaterialCode}" wrapping="false" />
+                            </ui:template>
+                        </ui:Column>
+
+
+                                                <ui:Column>
+                            <Label text="{i18n>BaseUnit}" />
+                            <ui:template>
+                                <Text text="{ConsumptionCancelTreeDataModel>BaseUnit}" wrapping="false" />
+                            </ui:template>
+                        </ui:Column>
+                        <ui:Column>
+                            <Label text="{i18n>UOM}" />
+                            <ui:template>
+                                <Text text="{ConsumptionCancelTreeDataModel>UOM}" wrapping="false" />
+                            </ui:template>
+                        </ui:Column>
+                        <ui:Column>
+                            <Label text="{i18n>Description}" />
+                            <ui:template>
+                                <Text text="{ConsumptionCancelTreeDataModel>Description}" wrapping="false" />
+                            </ui:template>
+                        </ui:Column>
+                        <ui:Column>
+                            <Label text="{i18n>StorageLocation}" />
+                            <ui:template>
+                                <Text text="{ConsumptionCancelTreeDataModel>StorageLocation}" wrapping="false" />
+                            </ui:template>
+                        </ui:Column>
+                                                <ui:Column>
+                            <Label text="{i18n>BaseQty}" />
+                            <ui:template>
+                                <Text text="{ConsumptionCancelTreeDataModel>BaseQty}" wrapping="false" />
+                            </ui:template>
+                        </ui:Column>
+                        <ui:Column>
+                            <Label text="{i18n>IssuedQuantity}" />
+                            <ui:template>
+                                <Text text="{ConsumptionCancelTreeDataModel>IssuedQty}" wrapping="false" />
+                            </ui:template>
+                        </ui:Column>
+                          <ui:Column>
+                            <Label text="{i18n>WeightPerPiece}" />
+                            <ui:template>
+                                <Text text="{ConsumptionCancelTreeDataModel>WeightPerPiece}" wrapping="false" />
+                            </ui:template>
+                        </ui:Column>
+
+
+                        
+                        <ui:Column>
+                            <Label text="{i18n>BalancedQuantity}" />
+                            <ui:template>
+                                <Text text="{ConsumptionCancelTreeDataModel>BalanceQty}" wrapping="false" />
+                            </ui:template>
+                        </ui:Column>
+                        <ui:Column>
+                            <Label text="{i18n>ReservedQuantity}" />
+                            <ui:template>
+                                <Text   text="{ConsumptionCancelTreeDataModel>Quantity}" />
+                            </ui:template>
+                        </ui:Column>
+                        <ui:Column>
+                            <Label text="{i18n>Status}" />
+                            <ui:template>
+            
+                                                       <ObjectStatus text="{ConsumptionCancelTreeDataModel>Status}" state="{= ${ConsumptionCancelTreeDataModel>Status} === 'CONSUMPTION SUCCESSFUL' ? 'Success' : ${Status} === 'CONSUMPTION CANCELLED' ? 'Information' : 'Error'}" visible="{= ${Status}.length>0 ? true : false }"/>
+                            </ui:template>
+                        </ui:Column>
+                    </ui:columns>
+                </ui:TreeTable>
+            </VBox>
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>
             </uxap:ObjectPageSection>

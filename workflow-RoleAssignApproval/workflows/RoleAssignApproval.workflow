@@ -21,6 +21,12 @@
 				},
 				"5c909963-1143-4fc1-88e1-c78e6e29f775": {
 					"name": "MailTask1"
+				},
+				"50b703a3-6173-423d-9ba5-ad0cb604ec36": {
+					"name": "UserTask1"
+				},
+				"3319f36e-6a94-4e41-91cc-6bfcb1219a6c": {
+					"name": "MailTask2"
 				}
 			},
 			"sequenceFlows": {
@@ -32,6 +38,12 @@
 				},
 				"cd337946-4f6c-4946-b4a0-e5f3cf184afb": {
 					"name": "SequenceFlow4"
+				},
+				"c6f3b411-e29e-4344-805d-3364d57448ed": {
+					"name": "SequenceFlow5"
+				},
+				"18e34522-828d-47fb-87da-7228604c5d8c": {
+					"name": "SequenceFlow6"
 				}
 			},
 			"diagrams": {
@@ -66,6 +78,31 @@
 			"name": "MailTask1",
 			"mailDefinitionRef": "f4226526-b10a-4c21-9c57-45dda108954f"
 		},
+		"50b703a3-6173-423d-9ba5-ad0cb604ec36": {
+			"classDefinition": "com.sap.bpm.wfs.UserTask",
+			"subject": "${context.RoleAssignRequestID} Approval",
+			"priority": "MEDIUM",
+			"isHiddenInLogForParticipant": false,
+			"supportsForward": false,
+			"userInterface": "sapui5://comsapbpmworkflow.comsapbpmwusformplayer/com.sap.bpm.wus.form.player",
+			"recipientUsers": "suman.shanmugam@extentia.com",
+			"formReference": "/forms/RoleAssignApproval/RoleAssignApprovalForm.form",
+			"userInterfaceParams": [{
+				"key": "formId",
+				"value": "roleassignapprovalform"
+			}, {
+				"key": "formRevision",
+				"value": "1.0"
+			}],
+			"id": "usertask1",
+			"name": "UserTask1"
+		},
+		"3319f36e-6a94-4e41-91cc-6bfcb1219a6c": {
+			"classDefinition": "com.sap.bpm.wfs.MailTask",
+			"id": "mailtask2",
+			"name": "MailTask2",
+			"mailDefinitionRef": "b5916570-ae24-4193-8b9f-f3ebb147f11b"
+		},
 		"c6b99f32-5fe6-4ab6-b60a-80fba1b9ae0f": {
 			"classDefinition": "com.sap.bpm.wfs.SequenceFlow",
 			"id": "sequenceflow1",
@@ -85,6 +122,20 @@
 			"id": "sequenceflow4",
 			"name": "SequenceFlow4",
 			"sourceRef": "5c909963-1143-4fc1-88e1-c78e6e29f775",
+			"targetRef": "50b703a3-6173-423d-9ba5-ad0cb604ec36"
+		},
+		"c6f3b411-e29e-4344-805d-3364d57448ed": {
+			"classDefinition": "com.sap.bpm.wfs.SequenceFlow",
+			"id": "sequenceflow5",
+			"name": "SequenceFlow5",
+			"sourceRef": "50b703a3-6173-423d-9ba5-ad0cb604ec36",
+			"targetRef": "3319f36e-6a94-4e41-91cc-6bfcb1219a6c"
+		},
+		"18e34522-828d-47fb-87da-7228604c5d8c": {
+			"classDefinition": "com.sap.bpm.wfs.SequenceFlow",
+			"id": "sequenceflow6",
+			"name": "SequenceFlow6",
+			"sourceRef": "3319f36e-6a94-4e41-91cc-6bfcb1219a6c",
 			"targetRef": "2798f4e7-bc42-4fad-a248-159095a2f40a"
 		},
 		"42fa7a2d-c526-4a02-b3ba-49b5168ba644": {
@@ -96,7 +147,11 @@
 				"672c271d-e4cb-4a74-b58c-e49b28c666aa": {},
 				"4f6e4221-60cc-40fb-b004-839d9bd83b92": {},
 				"e564f48c-0d05-4be1-8af9-9b9807101541": {},
-				"c62205ef-30c1-47f9-8ed0-4b14e589df37": {}
+				"c62205ef-30c1-47f9-8ed0-4b14e589df37": {},
+				"4597c222-4d4f-4bca-ae30-a5db06cc8199": {},
+				"38bf9fd6-118c-4002-adc1-dfe5475bc142": {},
+				"e262dc7f-cf84-4cf9-b2ec-ec209e69cd29": {},
+				"b3c85b50-bf63-445a-bf89-cef9101168db": {}
 			}
 		},
 		"41203e6d-c3d1-4c04-a7e7-6254048607a4": {
@@ -115,7 +170,7 @@
 		"53e54950-7757-4161-82c9-afa7e86cff2c": {
 			"classDefinition": "com.sap.bpm.wfs.ui.EndEventSymbol",
 			"x": 44.5,
-			"y": 314,
+			"y": 534,
 			"width": 35,
 			"height": 35,
 			"object": "2798f4e7-bc42-4fad-a248-159095a2f40a"
@@ -154,17 +209,48 @@
 			"classDefinition": "com.sap.bpm.wfs.ui.SequenceFlowSymbol",
 			"points": "62,264 62,314",
 			"sourceSymbol": "e564f48c-0d05-4be1-8af9-9b9807101541",
-			"targetSymbol": "53e54950-7757-4161-82c9-afa7e86cff2c",
+			"targetSymbol": "4597c222-4d4f-4bca-ae30-a5db06cc8199",
 			"object": "cd337946-4f6c-4946-b4a0-e5f3cf184afb"
+		},
+		"4597c222-4d4f-4bca-ae30-a5db06cc8199": {
+			"classDefinition": "com.sap.bpm.wfs.ui.UserTaskSymbol",
+			"x": 12,
+			"y": 314,
+			"width": 100,
+			"height": 60,
+			"object": "50b703a3-6173-423d-9ba5-ad0cb604ec36"
+		},
+		"38bf9fd6-118c-4002-adc1-dfe5475bc142": {
+			"classDefinition": "com.sap.bpm.wfs.ui.SequenceFlowSymbol",
+			"points": "62,374 62,424",
+			"sourceSymbol": "4597c222-4d4f-4bca-ae30-a5db06cc8199",
+			"targetSymbol": "e262dc7f-cf84-4cf9-b2ec-ec209e69cd29",
+			"object": "c6f3b411-e29e-4344-805d-3364d57448ed"
+		},
+		"e262dc7f-cf84-4cf9-b2ec-ec209e69cd29": {
+			"classDefinition": "com.sap.bpm.wfs.ui.MailTaskSymbol",
+			"x": 12,
+			"y": 424,
+			"width": 100,
+			"height": 60,
+			"object": "3319f36e-6a94-4e41-91cc-6bfcb1219a6c"
+		},
+		"b3c85b50-bf63-445a-bf89-cef9101168db": {
+			"classDefinition": "com.sap.bpm.wfs.ui.SequenceFlowSymbol",
+			"points": "62,484 62,534",
+			"sourceSymbol": "e262dc7f-cf84-4cf9-b2ec-ec209e69cd29",
+			"targetSymbol": "53e54950-7757-4161-82c9-afa7e86cff2c",
+			"object": "18e34522-828d-47fb-87da-7228604c5d8c"
 		},
 		"62d7f4ed-4063-4c44-af8b-39050bd44926": {
 			"classDefinition": "com.sap.bpm.wfs.LastIDs",
-			"maildefinition": 1,
-			"sequenceflow": 4,
+			"maildefinition": 2,
+			"sequenceflow": 6,
 			"startevent": 1,
 			"endevent": 1,
+			"usertask": 1,
 			"servicetask": 2,
-			"mailtask": 1
+			"mailtask": 2
 		},
 		"f4226526-b10a-4c21-9c57-45dda108954f": {
 			"classDefinition": "com.sap.bpm.wfs.MailDefinition",
@@ -174,6 +260,15 @@
 			"subject": "${context.RoleAssignRequestID} Approval",
 			"reference": "/webcontent/RoleAssignApproval/RoleAssign.html",
 			"id": "maildefinition1"
+		},
+		"b5916570-ae24-4193-8b9f-f3ebb147f11b": {
+			"classDefinition": "com.sap.bpm.wfs.MailDefinition",
+			"name": "maildefinition2",
+			"to": "${context.RoleAssignUserMail}",
+			"cc": "akhil.jain@extentia.com,atul.jain@extentia.com,dharmendra.joshi@extentia.com,Suraj.Gavane@extentia.com,suman.shanmugam@extentia.com",
+			"subject": "Request ${context.RoleAssignRequestID}-${context.RoleAssignStatus} ",
+			"text": "Dear ${context.RoleAssignResponse.d.CreatedBy},\n\n your request  ${context.RoleAssignRequestID} for ${context.RoleAssignResponse.d.Role} role assignment has been ${context.RoleAssignStatus} \n\nRegards,\nAGEL MMTS TEAM",
+			"id": "maildefinition2"
 		}
 	}
 }

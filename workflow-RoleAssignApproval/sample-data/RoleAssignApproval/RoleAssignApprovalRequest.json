@@ -1,4 +1,5 @@
 {
  "RoleAssignRequestID" : null,
- "RoleAssignUserMail": null
+ "RoleAssignUserMail": null,
+ "RoleAssignStatus": null
 }
