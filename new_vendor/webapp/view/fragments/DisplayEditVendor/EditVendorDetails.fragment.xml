@@ -16,6 +16,7 @@
         <f:content>
             <Label text="{i18n>VendorCode}" required="true"/>
             <Input 
+                change="onVendorCodeChange"
                 name="VendorCode"
                 required="true"
                 maxLength="30"
