@@ -43,13 +43,13 @@
                     <Text text="{i18n>createdAt}"/>
                 </Column>
 
-                <Column demandPopin="true" minScreenWidth="Tablet">
+                <!-- <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "UpdatedAt", "leadingProperty": "UpdatedAt",
                                                  "columnIndex": 4}'/>
                     </customData>
                     <Text text="{i18n>updatedAt}"/>
-                </Column>
+                </Column> -->
 
                <Column demandPopin="true" minScreenWidth="Tablet"> 
                     <customData>
@@ -71,12 +71,12 @@
 				                        pattern: 'MMMM dd, yyyy'
 				                     }
                         }" />
-                        <Text text="{path:'UpdatedAt',
+                        <!-- <Text text="{path:'UpdatedAt',
                                      type: 'sap.ui.model.type.Date',
 				                     formatOptions: {
 				                        pattern: 'MMMM dd, yyyy'
 				                     }
-                        }" />
+                        }" /> -->
                         <ObjectStatus text="{Active}" state="{= ${Active} === 'True' ? 'Warning' : ${Active} === 'False' ? 'Error' : 'Success'}"/>
                     </cells>
                 </ColumnListItem>
