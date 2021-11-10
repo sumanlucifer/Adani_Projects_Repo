@@ -579,6 +579,32 @@ sap.ui.define([
                 oRouter.navTo("RouteApp", true);
             },
 
+            handleSelectionChange: function (oEvent) {
+                var aGRNItems = this.getView().getModel("requestModel").getProperty("/GRNItems"),
+                    oGRMItem = {
+                        RestrictedStoreStockParentId: oEvent.getSource().getSelectedItem().getBindingContext().getObject().ID,
+                        ValuationType: oEvent.getSource().getSelectedItem().getProperty("text")
+                    },
+                    iIndex = aGRNItems.findIndex(function (oItem) {
+                        return oItem.RestrictedStoreStockParentId === oGRMItem.RestrictedStoreStockParentId;
+                    });
+
+                if (iIndex >= 0) {
+                    aGRNItems.splice(iIndex, 1, oGRMItem);
+                } else {
+                    aGRNItems.push(oGRMItem);
+                }
+
+                this.getView().getModel("requestModel").setProperty("/GRNItems", aGRNItems);
+
+            },
+
+            onLoadValuationAreaItems: function (oEvent) {
+                var sMaterialCode = oEvent.getSource().getParent().getBindingContext().getObject().MaterialCode;
+                var oMaterialCodeFilter = new sap.ui.model.Filter("MaterialCode", sap.ui.model.FilterOperator.Contains, sMaterialCode);
+                oEvent.getSource().getBinding("items").filter(oMaterialCodeFilter);
+            },
+
             onRequestGRNPress: function (oEvent) {
                 var sParentItemPath = this.getView().getBindingContext().sPath;
                 var requestModel = new JSONModel({
@@ -591,7 +617,8 @@ sap.ui.define([
                     reference: null,
                     valueState: null,
                     isConfirmButtonEnabled: false,
-                    valueStateText: ""
+                    valueStateText: "",
+                    GRNItems: []
                 });
                 this.getView().setModel(requestModel, "requestModel");
 
@@ -651,7 +678,6 @@ sap.ui.define([
             onViewChildDialogClose: function (oEvent) {
                 this._oRequestDialog.close();
             },
-
             onRequestPress: function (oEvent) {
                 this._oRequestDialog.close();
                 var sDelivery = this.getViewModel("requestModel").getProperty("/delivery");
@@ -660,7 +686,8 @@ sap.ui.define([
                 var sReference = this.getViewModel("requestModel").getProperty("/reference");
                 var sGatePassNumber = this.getViewModel("requestModel").getProperty("/gatepassnumber");
                 var sLRNumber = this.getViewModel("requestModel").getProperty("/lrnumber");
-                var oModel = this.getComponentModel();
+                var oModel = this.getComponentModel(),
+                    aGRNItems = this.getView().getModel("requestModel").getProperty("/GRNItems");
                 if (parseInt(sQuantity) > 0) {
                     if (sDelivery !== null) {
                         var oPayload = {
@@ -671,7 +698,8 @@ sap.ui.define([
                             "LRNumber": sLRNumber,
                             "Reference": sReference,
                             "PackingListId": this.getView().getBindingContext().getObject().ID,
-                            "UserName": "Agel_Sep"
+                            "UserName": "Agel_Sep",
+                            "GRNItems": aGRNItems
                         };
                     } else {
                         var oSelectedItemData = this.byId("idGRNTable").getSelectedItem().getBindingContext().getObject();
@@ -684,7 +712,8 @@ sap.ui.define([
                             "LRNumber": sLRNumber,
                             "Reference": sReference,
                             "PackingListId": parseInt(oSelectedItemData.ID),
-                            "UserName": "Agel_Sep"
+                            "UserName": "Agel_Sep",
+                            "GRNItems": aGRNItems
                         };
                     }
                     if (oPayload) {

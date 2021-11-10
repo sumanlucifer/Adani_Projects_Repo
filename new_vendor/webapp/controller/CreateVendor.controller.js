@@ -43,6 +43,27 @@ sap.ui.define([
         onSaveVendorDetails: function () {
             var bVendorCreateUpdateFlag = "Create";
             this.fnValidateFieldsAndSaveVendorData(bVendorCreateUpdateFlag);
+        },
+
+        onVendorCodeChange: function (oEvent) {
+            var sVendorCode = oEvent.getSource().getValue(),
+                oFilter = new Filter("VendorCode", FilterOperator.EQ, sVendorCode);
+
+            this.getView().getModel().read("/VendorSet", {
+                filters: [oFilter],
+                success: function (oResponse) {
+                    if (oResponse.results.length >= 1) {
+                        MessageBox.error(this.getResourceBundle().getText("MsgVendorCodeExist"));
+                        this.getView().getModel("VendorViewModel").setProperty("/VendorCode","");
+                    }
+                }.bind(this),
+                error: function (oError) {
+                    MessageBox.error(JSON.stringify(oError));
+                    // MessageBox.error(this.getResourceBundle().getText("Error"));
+                    this.getView().setBusy(false);
+                }.bind(this),
+            });
+
         }
     });
 });

@@ -26,6 +26,7 @@ sap.ui.define([
                 var suggestionModel = new JSONModel([]);
                 this.getView().setModel(suggestionModel, "suggestionModel");
                 this.mainModel.setSizeLimit(1000);
+                this.fnSetValueStatesNone();
             },
             createInitialModel: function () {
                 var oViewModel = new JSONModel({
@@ -105,7 +106,7 @@ sap.ui.define([
 
             onMaterialCodeChange: function (oEvent) {
 
-                var reservationListObj = oEvent.getParameter("selectedRow").getBindingContext("suggestionModel").getObject();
+                var reservationListObj = oEvent.getParameter("selectedItem").getBindingContext("suggestionModel").getObject();
                 if (!this._validateItemSelected(reservationListObj)) {
                     return;
                 }
@@ -194,7 +195,13 @@ sap.ui.define([
             },
             onPressGo: function () {
                 var oHeaderData = this.getViewModel("HeaderDetailsModel").getData();
-                if (!this._validateHeaderData(oHeaderData)) {
+
+                if (this.byId("idStorageLocation").getEnabled())
+                    this._validateHeaderForm1Data(oHeaderData);
+                else
+                    var bErrorMandatoryFields = this._validateHeaderForm2Data(oHeaderData);
+
+                if (!bErrorMandatoryFields) {
                     return;
                 }
                 this.getViewModel("objectViewModel").setProperty("/isItemFieldsVisible", true);
@@ -203,6 +210,7 @@ sap.ui.define([
                 var UnloadPoint = this.byId("idUnloadPoint").getValue();
                 this.getMaterialSuggestionData(Plant, StorageLocation, UnloadPoint);
             },
+
             getMaterialSuggestionData: function (Plant, StorageLocation, UnloadPoint) {
                 var PlantFilter = new sap.ui.model.Filter({
                     path: "PlantCode",
@@ -273,6 +281,7 @@ sap.ui.define([
                     onClose: function (oAction) {
                         if (oAction == "YES") {
                             that.setInitialModel();
+                            that.fnSetValueStatesNone();
                         }
                     }
                 });
@@ -298,7 +307,6 @@ sap.ui.define([
                     this.byId("idPlant").setEnabled(false);
                     this.byId("idStorageLocation").setEnabled(false);
                     this.byId("idUnloadPoint").setEnabled(false);
-
                 }
                 if (!data.CostCenter) {
                     this.byId("idCostCenter").setValueState("Error");
@@ -350,6 +358,94 @@ sap.ui.define([
                 }
                 return bValid;
             },
+
+            _validateHeaderForm1Data: function (data) {
+                var bValid = true;
+
+                if (!data.Plant) {
+                    this.byId("idPlant").setValueState("Error");
+                    this.byId("idPlant").setValueStateText("Please enter plant value");
+                    bValid = false;
+                } else {
+                    this.byId("idPlant").setValueState("None");
+                    this.byId("idPlant").setValueStateText(null);
+                }
+                if (!data.StorageLocation) {
+                    this.byId("idStorageLocation").setValueState("Error");
+                    this.byId("idStorageLocation").setValueStateText("Please enter storage value");
+                    bValid = false;
+                } else {
+                    this.byId("idStorageLocation").setValueState("None");
+                    this.byId("idStorageLocation").setValueStateText(null);
+                    this.getViewModel("objectViewModel").setProperty("/isHeaderFieldsVisible", true);
+                    this.byId("idPlant").setEnabled(false);
+                    this.byId("idStorageLocation").setEnabled(false);
+                    this.byId("idUnloadPoint").setEnabled(false);
+                }
+                return bValid;
+            },
+
+            _validateHeaderForm2Data: function (data) {
+                var bValid = true;
+
+                if (!data.CostCenter) {
+                    this.byId("idCostCenter").setValueState("Error");
+                    this.byId("idCostCenter").setValueStateText("Please enter cost value");
+                    bValid = false;
+                } else {
+                    this.byId("idCostCenter").setValueState("None");
+                    this.byId("idCostCenter").setValueStateText(null);
+                }
+                if (!data.ReceivingLocation) {
+                    this.byId("idRecievingLocation").setValueState("Error");
+                    this.byId("idRecievingLocation").setValueStateText("Please enter reveiving location value");
+                    bValid = false;
+                } else {
+                    this.byId("idRecievingLocation").setValueState("None");
+                    this.byId("idRecievingLocation").setValueStateText(null);
+                }
+                if (!data.GoodsRecipient) {
+                    this.byId("idGoodReciept").setValueState("Error");
+                    this.byId("idGoodReciept").setValueStateText("Please enter goods recipient");
+                    bValid = false;
+                } else {
+                    this.byId("idGoodReciept").setValueState("None");
+                    this.byId("idGoodReciept").setValueStateText(null);
+                }
+                if (!data.GLAccount) {
+                    this.byId("idGLAccount").setValueState("Error");
+                    this.byId("idGLAccount").setValueStateText("Please enter GL Account recipient");
+                    bValid = false;
+                } else {
+                    this.byId("idGLAccount").setValueState("None");
+                    this.byId("idGLAccount").setValueStateText(null);
+                }
+                if (!data.CompanyCode) {
+                    this.byId("idSelCompanyCode").setValueState("Error");
+                    this.byId("idSelCompanyCode").setValueStateText("Please enter company code recipient");
+                    bValid = false;
+                } else {
+                    this.byId("idSelCompanyCode").setValueState("None");
+                    this.byId("idSelCompanyCode").setValueStateText(null);
+                }
+                if (!data.ContractorId) {
+                    this.byId("idContractor").setValueState("Error");
+                    this.byId("idContractor").setValueStateText("Please enter contractor id recipient");
+                    bValid = false;
+                } else {
+                    this.byId("idContractor").setValueState("None");
+                    this.byId("idContractor").setValueStateText(null);
+                }
+                return bValid;
+            },
+
+            fnSetValueStatesNone: function () {
+                var aFieldIds = ["idSelCompanyCode", "idGoodReciept", "idRecievingLocation", "idCostCenter", "idGLAccount", "idContractor"];
+                for (var i = 0; i < aFieldIds.length; i++) {
+                    this.getView().byId(aFieldIds[i]).setValueState("None");
+                }
+            },
+
             _validateItemData: function (itemData) {
                 var bValid = true;
                 if (itemData.length > 0) {
@@ -380,25 +476,25 @@ sap.ui.define([
             },
             callIssueReservationService: function (oAdditionalData, aReservationItems) {
                 aReservationItems = aReservationItems.map(function (item) {
-                        var aBoqStock = [];
-                        for(var i=0;i<item.PopupItems.length;i++){
-                            if(item.PopupItems[i].Quantity > 0)
-                                aBoqStock.push(item.PopupItems[i]);
-                        }
-                        return {
-                            Name: item.Description,
-                            Material: item.Material,
-                            Description: item.Description,
-                            StorageLocation: item.StorageLocation,
-                            Quantity: parseInt(item.Quantity),
-                            BaseUnit: item.BaseUnit,
-                            UnloadPoint: item.UnloadPoint,
-                            Batch: item.Batch,
-                            IsChildItem: false,
-                            SpecialStockIndicator: item.M,
-                            IsBOQApplicable: item.IsBOQApplicable,
-                            IssueMaterialReservedBOQItems: aBoqStock
-                        };
+                    var aBoqStock = [];
+                    for (var i = 0; i < item.PopupItems.length; i++) {
+                        if (item.PopupItems[i].Quantity > 0)
+                            aBoqStock.push(item.PopupItems[i]);
+                    }
+                    return {
+                        Name: item.Description,
+                        Material: item.Material,
+                        Description: item.Description,
+                        StorageLocation: item.StorageLocation,
+                        Quantity: parseInt(item.Quantity),
+                        BaseUnit: item.BaseUnit,
+                        UnloadPoint: item.UnloadPoint,
+                        Batch: item.Batch,
+                        IsChildItem: false,
+                        SpecialStockIndicator: item.M,
+                        IsBOQApplicable: item.IsBOQApplicable,
+                        IssueMaterialReservedBOQItems: aBoqStock
+                    };
                 });
                 var oPayload = {
                     "Plant": oAdditionalData.Plant,
