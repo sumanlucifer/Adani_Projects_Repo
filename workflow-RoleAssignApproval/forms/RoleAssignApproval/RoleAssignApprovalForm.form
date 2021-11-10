@@ -1,0 +1,68 @@
+{
+    "id": "roleassignapprovalform",
+    "schemaVersion": "1.1.0",
+    "name": "RoleAssignApprovalForm",
+    "revision": "1.0",
+    "type": "task",
+    "readOnly": false,
+    "content": [
+        {
+            "id": "basic_details",
+            "type": "section",
+            "title": "Basic Details",
+            "content": [
+                {
+                    "id": "requestnumber",
+                    "type": "string",
+                    "label": "Request Number",
+                    "readOnly": true,
+                    "value": "${context.RoleAssignResponse.d.RequestNumber}",
+                    "constraints": {
+                        "required": false
+                    }
+                },
+                {
+                    "id": "status",
+                    "type": "string",
+                    "label": "Status",
+                    "readOnly": true,
+                    "value": "${context.RoleAssignResponse.d.Status}",
+                    "constraints": {
+                        "required": false
+                    }
+                },
+                {
+                    "id": "goodsrecipient",
+                    "type": "string",
+                    "label": "Goods Recipient",
+                    "readOnly": true,
+                    "value": "${context.RoleAssignResponse.d.GoodsRecipient}",
+                    "constraints": {
+                        "required": false
+                    }
+                },
+                {
+                    "id": "plant",
+                    "type": "string",
+                    "label": "Plant",
+                    "readOnly": true,
+                    "value": "${context.RoleAssignResponse.d.Plant}",
+                    "constraints": {
+                        "required": false
+                    }
+                },
+                {
+                    "id": "profitcentre",
+                    "type": "string",
+                    "label": "Profit Centre",
+                    "readOnly": true,
+                    "value": "${context.RoleAssignResponse.d.ProfitCentre}",
+                    "constraints": {
+                        "required": false
+                    }
+                }
+            ]
+        }
+    ],
+    "decisions": []
+}

@@ -262,8 +262,8 @@ sap.ui.define(
                     if (bChildItemFreeze) {
                         debugger;
                         aChildItems.results.forEach((item) => {
-                           item.Quantity = parseFloat(oValue) * (parseFloat(item.BalanceQty) /parseFloat(iParentIssuedQuantity));
-                        //    item.Quantity = parseFloat(oValue) * (parseFloat(item.BaseQty));
+                        //    item.Quantity = parseFloat(oValue) * (parseFloat(item.BalanceQty) /parseFloat(iParentIssuedQuantity));
+                           item.Quantity = parseFloat(oValue) * (parseFloat(item.BaseQty));
                         });
                         this.getViewModel("TreeDataModel").setProperty(
                             sParentPath + "/ConsumedMaterialReserveBOQItem",
