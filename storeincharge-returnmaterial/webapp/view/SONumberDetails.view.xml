@@ -211,7 +211,7 @@ pattern: 'MMMM dd, yyyy HH:mm:ss'
                                 <tt:Column>
                                     <Label text="Qty Approved for Return"/>
                                     <tt:template>
-                                        <Input type="Number" value="{TreeTableModelView>ApprovedRetQuantity}" enabled="{TreeTableModelView>isSelected}"  valueLiveUpdate="true" liveChange="onLiveChangeApprvdQty" 
+                                        <Input type="Number" value="{TreeTableModelView>ApprovedRetQuantity}" enabled="{TreeTableModelView>isSelected}"  valueLiveUpdate="false" liveChange="onLiveChangeApprvdQty" 
                                             valueState="{= ${TreeTableModelView>ApprovedRetQuantity} > 0 &amp;&amp; ${TreeTableModelView>RequirementQuantity} >= ${TreeTableModelView>ApprovedRetQuantity} ? 'None' : 'Error' }"/>
                                     </tt:template>
                                 </tt:Column>   

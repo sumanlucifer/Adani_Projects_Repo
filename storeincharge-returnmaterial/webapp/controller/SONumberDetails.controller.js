@@ -204,11 +204,11 @@ sap.ui.define([
                 sParentPath + "/BalanceQty"
             );
 
-            if (!iTotalQuantity) iTotalQuantity = null;
+            if (!iTotalQuantity) iTotalQuantity = 0;
             var ReservedQty = parseFloat(oEvent.getSource().getValue());
             var oValue = oEvent.getSource().getValue();
             if (!oValue)
-                oValue = null;
+                oValue = 0;
             var BalanceQty = parseFloat(
                 oEvent.getSource().getParent().getCells()[9].getText()
             );
@@ -258,7 +258,7 @@ sap.ui.define([
                         .getSource()
                         .getBindingContext("TreeTableModelView")
                         .getObject().ApprovedRetQuantity;
-                    if (!liveQty) liveQty = null;
+                    if (!liveQty) liveQty = 0;
 
 
                     // iTotalQuantity = iTotalQuantity - parseFloat(liveQty) + parseFloat(oValue);
