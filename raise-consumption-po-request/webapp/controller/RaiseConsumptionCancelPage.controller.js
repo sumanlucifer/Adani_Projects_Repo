@@ -78,7 +78,7 @@ sap.ui.define([
             var that = this;
             that.oIssueMaterialModel = new JSONModel();
             this.MainModel.read("/ConsumptionPostingSet(" + that.sObjectId + ")/ConsumedMaterialParent", {
-                // urlParameters: { "$expand": "ConsumedMaterialParent" },
+            urlParameters: { "$expand": "ConsumptionPostingBOQ" },
                 success: function (oData, oResponse) {
                     this.dataBuilding(oData.results);
                 }.bind(this),
@@ -87,13 +87,30 @@ sap.ui.define([
                 }
             });
         },
-        dataBuilding: function (ItemData) {
+        dataBuilding1: function (ItemData) {
             for (var i = 0; i < ItemData.length; i++) {
                 ItemData[i].isSelected = false;
             }
             var consumptionPostedData = new JSONModel(ItemData);
             this.getView().setModel(consumptionPostedData, "consumptionPostedData");
         },
+
+
+
+
+
+  dataBuilding: function (ParentData) {
+                    for (var i = 0; i < ParentData.length; i++) {
+                        ParentData[i].results =
+                            ParentData[i].ConsumptionPostingBOQ.results;
+                      
+
+                        
+                    }
+                    var TreeDataModel = new JSONModel({ results: ParentData });
+                    this.getView().setModel(TreeDataModel, "ConsumptionCancelTreeDataModel");
+                },
+
         _onBindingChange: function () {
             var oView = this.getView(),
                 oViewModel = this.getViewModel("objectViewModel"),
@@ -154,9 +171,9 @@ sap.ui.define([
             });
         },
         getTableItems: function () {
-            var itemData = this.getViewModel("consumptionPostedData").getData();
+            var itemData = this.getViewModel("ConsumptionCancelTreeDataModel").getData();
             var IsAllItemsCancelled = "";
-            var totalSelectedItems = itemData.filter(function (item) {
+            var totalSelectedItems = itemData.results.filter(function (item) {
                 return (item.Status === "CONSUMPTION SUCCESSFUL" || item.Status === "CANCELLATION FAILED");
             });
             // var selectedItems = itemData.filter(function (item) {

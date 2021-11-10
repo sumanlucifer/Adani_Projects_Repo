@@ -1,15 +1,15 @@
 ## Application Details
 |               |
 | ------------- |
-|**Generation Date and Time**<br>Mon Nov 01 2021 06:18:30 GMT+0000 (Coordinated Universal Time)|
+|**Generation Date and Time**<br>Wed Nov 03 2021 09:35:23 GMT+0000 (Coordinated Universal Time)|
 |**App Generator**<br>@sap/generator-fiori|
 |**App Generator Version**<br>1.4.0|
 |**Generation Platform**<br>SAP Business Application Studio|
 |**Floorplan Used**<br>List Report Object Page V2|
 |**Service Type**<br>SAP System (ABAP On Premise)|
 |**Service URL**<br>https://agel-mmts-api.cfapps.ap11.hana.ondemand.com/api/v2/odata.svc/
-|**Module Name**<br>reports-contractor_reconciliation|
-|**Application Title**<br>Contractor Reconciliation Reports|
+|**Module Name**<br>reports-contractor_reco|
+|**Application Title**<br>Contractor Reconciliation Report|
 |**Namespace**<br>com.agel.mmts|
 |**UI5 Theme**<br>sap_fiori_3|
 |**UI5 Version**<br>Latest|
@@ -18,9 +18,9 @@
 |**Enable Telemetry**<br>True|
 |**Main Entity**<br>ContractorReconciliationSet|
 
-## reports-contractor_reconciliation
+## reports-contractor_reco
 
-Contractor Reconciliation Reports Fiori Element application.
+A Fiori application.
 
 ### Starting the generated app
 

@@ -43,10 +43,10 @@
 				}
 			},
 			applications: {
-				"reportscontractorreconciliation-tile": {
-					title: "Contractor Reconciliation Reports",
-					description: "Contractor Reconciliation Reports Fiori Element application.",
-					additionalInformation: "SAPUI5.Component=com.agel.mmts.reportscontractorreconciliation",
+				"reportscontractorreco-tile": {
+					title: "Contractor Reconciliation Report",
+					description: "A Fiori application.",
+					additionalInformation: "SAPUI5.Component=com.agel.mmts.reportscontractorreco",
 					applicationType: "URL",
 					url: "../"
 				}
@@ -57,22 +57,19 @@
 	<script src="../test-resources/sap/ushell/bootstrap/sandbox.js" id="sap-ushell-bootstrap"></script>
 	<!-- Bootstrap the UI5 core library -->
 	<script id="sap-ui-bootstrap"
-			src="../resources/sap-ui-core.js"
-			data-sap-ui-libs="sap.m, sap.ushell, sap.ui.core, sap.f, sap.ui.comp, sap.ui.table, sap.suite.ui.generic.template, sap.ui.generic.app"
-			data-sap-ui-async="true"
-			data-sap-ui-preload="async"
-			data-sap-ui-theme="sap_fiori_3"
-			data-sap-ui-compatVersion="edge"
-			data-sap-ui-flexibilityServices='[{"applyConnector":"com/agel/mmts/reportscontractorreconciliation/test/changes_loader", "custom":true}]'
-			data-sap-ui-language="en"
-			data-sap-ui-resourceroots='{"com.agel.mmts.reportscontractorreconciliation": "../", "com.agel.mmts.reportscontractorreconciliation.test": "./"}'
-			data-sap-ui-frameOptions="allow"> // NON-SECURE setting for testing environment
-	</script>
-    <script src="../utils/locate-reuse-libs.js"
-            data-sap-ui-manifest-uri="../manifest.json"
-            data-sap-ui-componentName="com.agel.mmts.reportscontractorreconciliation"
-            data-sap-ui-use-mockserver="true">
-    </script>
+		src="../resources/sap-ui-core.js"
+		data-sap-ui-libs="sap.m, sap.ushell, sap.ui.core, sap.f, sap.ui.comp, sap.ui.table, sap.suite.ui.generic.template, sap.ui.generic.app"
+		data-sap-ui-async="true"
+		data-sap-ui-preload="async"
+		data-sap-ui-theme="sap_fiori_3"
+		data-sap-ui-compatVersion="edge"
+		data-sap-ui-flexibilityServices='[{"applyConnector":"com/agel/mmts/reportscontractorreco/test/changes_loader", "custom":true}]'
+		data-sap-ui-language="en"
+		data-sap-ui-resourceroots='{"com.agel.mmts.reportscontractorreco": "../"}'
+		data-sap-ui-frameOptions="allow"> // NON-SECURE setting for testing environment
+		</script>
+		<script src="../utils/locate-reuse-libs.js" data-sap-ui-manifest-uri="../manifest.json">
+		</script>
 	<!-- relevant for version < 1.78.0 only -->
 	<script src="changes_preview.js"></script>
 </head>

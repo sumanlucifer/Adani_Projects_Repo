@@ -1,7 +1,7 @@
 {
     "_version": "1.32.0",
     "sap.app": {
-        "id": "com.agel.mmts.reportscontractorreconciliation",
+        "id": "com.agel.mmts.reportscontractorreco",
         "type": "application",
         "i18n": "i18n/i18n.properties",
         "applicationVersion": {
@@ -36,6 +36,21 @@
         "sourceTemplate": {
             "id": "ui5template.smartTemplate",
             "version": "1.40.12"
+        },
+        "crossNavigation": {
+            "inbounds": {
+                "com-agel-mmts-reportscontractorreco-inbound": {
+                    "signature": {
+                        "parameters": {},
+                        "additionalParameters": "allowed"
+                    },
+                    "semanticObject": "contractorReconciliationReport",
+                    "action": "Display",
+                    "title": "{{flpTitle}}",
+                    "subTitle": "{{flpSubtitle}}",
+                    "icon": ""
+                }
+            }
         }
     },
     "sap.ui": {
@@ -65,7 +80,7 @@
             "css": []
         },
         "dependencies": {
-            "minUI5Version": "1.65.0",
+            "minUI5Version": "1.95.0",
             "libs": {
                 "sap.ui.core": {
                     "lazy": false
@@ -111,7 +126,11 @@
             }
         },
         "extends": {
-            "extensions": {}
+            "extensions": {
+                "sap.ui.viewExtensions": {
+                    "sap.suite.ui.generic.template.ListReport.view.ListReport": {}
+                }
+            }
         },
         "contentDensities": {
             "compact": true,
@@ -140,15 +159,9 @@
                             "dateSettings": {
                                 "useDateRange": true
                             }
-                        }
-                    }
-                },
-                "pages": {
-                    "ObjectPage|ContractorReconciliationSet": {
-                        "entitySet": "ContractorReconciliationSet",
-                        "defaultLayoutTypeIfExternalNavigation": "MidColumnFullScreen",
-                        "component": {
-                            "name": "sap.suite.ui.generic.template.ObjectPage"
+                        },
+                        "dataLoadSettings": {
+                            "loadDataOnAppLaunch": "always"
                         }
                     }
                 }
