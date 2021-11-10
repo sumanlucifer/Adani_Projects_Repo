@@ -115,16 +115,19 @@
                                         <Text text="{i18n>actions}"/>
                                     </Column>
                                     <Column>
-                                        <Text text="{i18n>qty}"/>
+                                        <Text text="Inspection Quantity"/>
                                     </Column>
                                     <Column hAlign="Center">
-                                        <Text text="{i18n>mdccApprovedQty}"/>
+                                        <Text text="Accepted Quantity"/>
                                     </Column>
                                     <Column hAlign="Center">
                                         <Text text="Hold Quantity"/>
                                     </Column>
                                     <Column hAlign="Center">
                                         <Text text="Rejected Quantity"/>
+                                    </Column>
+                                    <Column hAlign="Center">
+                                        <Text text="{i18n>mdccApprovedQty}"/>
                                     </Column>
                                     <Column>
                                         <Text text="{i18n>uom}"/>
@@ -139,9 +142,10 @@
                                             <ExpandableText text="{Description}" maxCharacters="32" overflowMode="Popover"/>
                                             <Link text="{= ${UOM} === 'MT' ? ${i18n>MapBOQItems} : ${i18n>ViewBOQItems} }" visible="{IsBOQApplicable}" press="onViewInspectionItemsPress"></Link>
                                             <Text text="{Qty}"/>
-                                            <Text text="{MDCCApprovedQty}"/>
+                                            <Text text="{AcceptQuantity}"/>
                                             <Text text="{HoldQuantity}"/>
                                             <Text text="{RejectedQuantity}"/>
+                                            <Text text="{MDCCApprovedQty}"/>
                                             <Text text="{UOM}"/>
                                         </cells>
                                     </ColumnListItem>

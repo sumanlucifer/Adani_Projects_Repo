@@ -624,7 +624,7 @@ sap.ui.define([
                     else
                         bIsSplCase = false;
                     var InspectionMapBOQItemsData = data.PCGroupItems.results;
-                    this.dataBuilding(InspectionMapBOQItemsData, bIsSplCase, oData.MDCCApprovedQty);
+                    this.dataBuilding(InspectionMapBOQItemsData, bIsSplCase, oData.AcceptQuantity);
                 }.bind(this),
                 error: function (oError) {
                     sap.m.MessageBox.error("Data Not Found");
