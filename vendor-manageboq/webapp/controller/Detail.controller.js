@@ -176,7 +176,7 @@ sap.ui.define([
                 }
 
             }
-            if (parseInt(oValue) <= 0 || parseInt(oValue) === 0) {
+            if (parseFloat(oValue) <= 0 || parseFloat(oValue) === 0) {
                 oEvent.getSource().setValueState("Error");
                 oEvent.getSource().setValueStateText("Please enter Positive and Non Zero Number");
                 this.getView().getModel("ManageBOQModel").setProperty(sItemPath + "/WeightPerPiece", "");
@@ -203,7 +203,7 @@ sap.ui.define([
                 this.weightValueFlag = false;
                 this.getView().getModel("ManageBOQModel").setProperty(sItemPath + "/TotalItemWeight", "");
             }
-            if (parseInt(oValue) <= 0 || parseInt(oValue) === 0) {
+            if (parseFloat(oValue) <= 0 || parseFloat(oValue) === 0) {
                 oEvent.getSource().setValueState("Error");
                 oEvent.getSource().setValueStateText("Please enter Positive and Non Zero Number");
                 this.getView().getModel("ManageBOQModel").setProperty(sItemPath + "/TotalItemWeight", "");
@@ -468,7 +468,7 @@ sap.ui.define([
             var sBindingPath = oEvent.getSource().getBindingContext("boqCreationModel").sPath;
             // var aGroupItems = this.getViewModel("boqCreationModel").getProperty("/CalculatedBOQItems");
             var iTotalQuantity = this.getViewModel("boqCreationModel").getProperty("/quantity");
-            if(iTotalQuantity)
+            if (iTotalQuantity)
                 iTotalQuantity = parseFloat(iTotalQuantity);
             var iWeightPerPiece = this.getViewModel("boqCreationModel").getProperty(sBindingPath + "/WeightPerPiece");
             var iTotalItemWeight = this.getViewModel("boqCreationModel").getProperty(sBindingPath + "/TotalItemWeight");
@@ -482,7 +482,7 @@ sap.ui.define([
                 var iTotalWeight = parseFloat(oValue) * (parseFloat(iWeightPerPiece) / 1000);
                 this.getViewModel("boqCreationModel").setProperty(sBindingPath + "/TotalItemWeight", iTotalWeight);
                 iTotalQuantity += iTotalWeight;
-                iTotalQuantity = iTotalQuantity.toFixed(3);
+                iTotalQuantity = iTotalQuantity.toFixed(4);
                 this.getViewModel("boqCreationModel").setProperty("/quantity", iTotalQuantity);
                 // if (parseFloat(oValue) > parseFloat(oPOData.PendingQty)) {
                 //     this.getViewModel("boqCreationModel").setProperty("/isConfirmButtonEnabled", false);
@@ -530,15 +530,17 @@ sap.ui.define([
             var sUOM = this.getViewModel("boqCreationModel").getProperty("/UOM");
             if (sUOM === 'MT') {
                 for (var i = 0; i < aCalculatedBOQItems.length; i++) {
-                    if (!aCalculatedBOQItems[i].selected || aCalculatedBOQItems[i].BOQQuantity === null)
+                    if (!aCalculatedBOQItems[i].selected || aCalculatedBOQItems[i].BOQQuantity === null) {
                         aCalculatedBOQItems.splice(i, 1);
+                        i--;
+                    }
                 }
             }
             var oModel = this.getComponentModel();
             if (sQuantity !== "0") {
                 if (isMaterialStandAlone) {
                     var oPayload = {
-                        "QTY": parseInt(sQuantity),
+                        "QTY": parseFloat(sQuantity),
                         "PCGroupId": 0,
                         "ParentLineItemId": this.getView().getBindingContext().getObject().ID,
                         "IsOne2OneLineItem": true,
@@ -547,7 +549,7 @@ sap.ui.define([
                 } else {
                     var oSelectedItemData = this.byId("idPCListTable").getSelectedItem().getBindingContext().getObject();
                     var oPayload = {
-                        "QTY": parseInt(sQuantity),
+                        "QTY": parseFloat(sQuantity),
                         "PCGroupId": parseInt(oSelectedItemData.ID),
                         "ParentLineItemId": parseInt(oSelectedItemData.ParentLineItemID),
                         "CalculatedBOQItems": aCalculatedBOQItems
