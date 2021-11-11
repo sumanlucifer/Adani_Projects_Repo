@@ -29,7 +29,7 @@
                 </uxap:snappedTitleOnMobile>
                 <uxap:actions>
                     <Button text="{i18n>close}" press="_navToDetailsPage"></Button>
-                    <Button text="{i18n>save}" type="Emphasized" press="onSaveButtonPress"></Button>
+                    <Button id="idOfflineSaveButton" text="{i18n>save}" enabled="false" type="Emphasized" press="onSaveButtonPress"></Button>
                 </uxap:actions>
             </uxap:ObjectPageDynamicHeaderTitle>
         </uxap:headerTitle>
@@ -63,6 +63,9 @@
                                         <Text text="{i18n>quantity}" />
                                     </Column>
                                     <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center">
+                                        <Text text="{i18n>BoqApproveQty}" />
+                                    </Column>
+                                    <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center">
                                         <Text text="{i18n>inspectionQuantity}" />
                                     </Column>
                                     <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center">
@@ -76,6 +79,7 @@
                                             <Text text="{ParentItemModel>Name}" wrappingType="Hyphenated"/>
                                             <ExpandableText text="{ParentItemModel>Description}" maxCharacters="20" overflowMode="Popover"/>
                                             <Text text="{ParentItemModel>Quantity}"/>
+                                            <Text text="{ParentItemModel>BOQApprovedQty}"/>                                                
                                             <Input value="{ParentItemModel>InspectionQty}" width="30%" type="Number" liveChange="onLiveChangeInspectionQty" enabled="false" />
                                             <Text text="{ParentItemModel>UoM}"/>
                                         </cells>

@@ -32,6 +32,9 @@
                 <Text text="Quantity"/>
             </Column>
             <Column>
+                <Text text="Total Weight"/>
+            </Column>
+            <Column>
                 <Text text="UOM"/>
             </Column>
             <Column>
@@ -48,6 +51,7 @@
                     <Text text="{Name}"/>
                     <ExpandableText text="{Description}" overflowMode="InPlace" maxCharacters="50" />
                     <Text text="{Qty}"/>
+                    <Text text="{TotalItemWeight}"/>
                     <Text text="{UOM}"/>
                     <ExpandableText text="{Remarks}" overflowMode="InPlace" maxCharacters="50" />
                     <!-- <Text text="{path:'CreatedAt',

@@ -31,7 +31,7 @@
                 </uxap:snappedTitleOnMobile>
                 <uxap:actions>
                 <Label text="{i18n>Version}"/>
-                <ComboBox  change="onHistoryVersionChange" class="sapUiSmallMarginTop sapUiSizeCompact" selectedKey="{objectViewModel>/SelectedVersion}" items="{path : 'objectViewModel>/Versions',sorter: [{path: 'versionKey',descending: true}],length : '1000'}">
+                <ComboBox  change="onHistoryVersionChange" selectedKey="{objectViewModel>/SelectedVersion}" items="{path : 'objectViewModel>/Versions',sorter: [{path: 'versionKey',descending: true}],length : '1000'}">
 					<core:ListItem key="{objectViewModel>versionKey}" text="{objectViewModel>versionText}"/>
                 </ComboBox>
                 </uxap:actions>
