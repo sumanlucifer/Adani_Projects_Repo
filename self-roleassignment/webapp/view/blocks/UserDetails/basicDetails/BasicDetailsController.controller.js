@@ -2,8 +2,10 @@ sap.ui.define([
     "sap/ui/core/mvc/Controller",
     "sap/ui/core/Fragment",
     "sap/m/MessageBox",
-    "sap/m/MessageToast"
-], function (Controller, Fragment, MessageBox, MessageToast) {
+    "sap/m/MessageToast",
+    "sap/ui/model/Filter",
+    "sap/ui/model/FilterOperator"
+], function (Controller, Fragment, MessageBox, MessageToast, Filter, FilterOperator) {
     "use strict";
 
     return Controller.extend("com.agel.mmts.selfroleassignment.view.blocks.UserDetails.basicDetails.BasicDetailsController", {
@@ -13,7 +15,7 @@ sap.ui.define([
             var sFirstName = this.getView().getModel("UserDetailModel").getProperty("/FirstName"),
                 sLastName = this.getView().getModel("UserDetailModel").getProperty("/LastName"),
                 oDetails = {};
-                
+
             sFirstName = sFirstName ? sFirstName : "";
             sLastName = sLastName ? sLastName : "";
 
@@ -104,6 +106,19 @@ sap.ui.define([
                     this.onClose();
                 }.bind(this)
             });
+        },
+
+        // Filter Table Entity with Logged In User Email ID Field
+        onBeforeBindRequestedRolesTable: function (oEvent) {
+            var oFilter = new Filter({
+                filters: [
+                    new Filter("Email", FilterOperator.EQ, this.getView().getModel("objectViewModel").getProperty("/UserEmail")),
+                    new Filter("Status", FilterOperator.NE, "APPROVED")
+                ],
+                and: true,
+            });
+
+            oEvent.getSource().getBinding("items").filter(oFilter);
         }
     });
 });
