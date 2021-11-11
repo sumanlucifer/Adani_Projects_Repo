@@ -13,6 +13,9 @@ sap.ui.define([
             var sFirstName = this.getView().getModel("UserDetailModel").getProperty("/FirstName"),
                 sLastName = this.getView().getModel("UserDetailModel").getProperty("/LastName"),
                 oDetails = {};
+                
+            sFirstName = sFirstName ? sFirstName : "";
+            sLastName = sLastName ? sLastName : "";
 
             oDetails.controller = this;
             oDetails.view = this.getView();
@@ -39,7 +42,7 @@ sap.ui.define([
 
         onClose: function (oEvent) {
             this.pDialog.then(function (oDialog) {
-                this.getView().byId("roleEdit").setSelectedKeys([]);
+                // this.getView().byId("roleEdit").setSelectedKeys([]);
                 this.getView().byId("idSaveBTN").setEnabled(false);
                 oDialog.close();
             }.bind(this));
