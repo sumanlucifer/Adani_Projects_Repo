@@ -56,6 +56,7 @@ sap.ui.define([
 
         _getLineItemData: function (sPath) {
             this.getComponentModel().read(sPath, {
+                urlParameters: { "$expand": "BOQApprovalRequests/BOQGroup" },
                 success: function (oData, oResponse) {
                     var data = oData.results;
                     this._prepareDataForView(data);
@@ -82,6 +83,12 @@ sap.ui.define([
                     element.InspectionQty = null;
                     element.ParentLineItemId = element.ID;
                     element.InspectedBOQItemRequests = [];
+                    element.BOQApprovedQty = 0;
+                    for(var i=0; i<element.BOQApprovalRequests.results.length;i++){
+                        if(element.BOQApprovalRequests.results[i].Status === 'APPROVED'){
+                            element.BOQApprovedQty += parseFloat(element.BOQApprovalRequests.results[i].BOQGroup.GeneratedBOQQty);
+                        }
+                    }
                 });
             }
             var oModel = new JSONModel(data);
@@ -95,18 +102,18 @@ sap.ui.define([
 
             if (bSelectAll) {
                 for (var i = 0; i < aListItems.length; i++) {
-                    aListItems[i].getCells()[4].setEnabled(true);
+                    aListItems[i].getCells()[5].setEnabled(true);
                 }
             } else {
                 for (var i = 0; i < aListItems.length; i++) {
-                    aListItems[i].getCells()[4].setEnabled(false);
+                    aListItems[i].getCells()[5].setEnabled(false);
                 }
             }
 
             if (bSelected) {
-                oEvent.getParameter("listItem").getCells()[4].setEnabled(true);
+                oEvent.getParameter("listItem").getCells()[5].setEnabled(true);
             } else {
-                oEvent.getParameter("listItem").getCells()[4].setEnabled(false);
+                oEvent.getParameter("listItem").getCells()[5].setEnabled(false);
             }
         },
 
@@ -128,19 +135,23 @@ sap.ui.define([
         },
 
         onLiveChangeInspectionQty: function (oEvent) {
-            var InspectQuantity = parseInt(oEvent.getSource().getValue());
-            var Quantity = parseInt(oEvent.getSource().getParent().getCells()[3].getText());
+            var InspectQuantity = parseFloat(oEvent.getSource().getValue());
+            var Quantity = parseFloat(oEvent.getSource().getParent().getCells()[4].getText());
+            var oSaveButton = this.getView().byId("idOfflineSaveButton");
             if (InspectQuantity <= 0) {
                 oEvent.getSource().setValueState("Error");
                 oEvent.getSource().setValueStateText("Please enter positive value");
+                oSaveButton.setEnabled(false);
                 return 0;
             }
             if (InspectQuantity > Quantity) {
                 oEvent.getSource().setValueState("Error");
                 oEvent.getSource().setValueStateText("Please enter inspected quantity lesser than or equal to total quantity");
+                oSaveButton.setEnabled(false);
             }
             else {
                 oEvent.getSource().setValueState("None");
+                oSaveButton.setEnabled(true);
             }
         },
 

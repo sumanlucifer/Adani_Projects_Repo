@@ -4,18 +4,9 @@
         <content>
             <Table id="idInspectedChildLineItems" width="auto" growing="true" growingScrollToLoad="true" items="{inspectedMapBOQItemsModel>/inspectedMapBOQItems}" mode="None" rememberSelections="true">
                 <columns>
-
-
-                    <Column width="8%" hAlign="Center">
-                                <CheckBox  select="onSelectAll" ></CheckBox>
-                        <!-- <Text text="Select"/> -->
-
-
-
+                    <Column width="8%" hAlign="Center" visible="{inspectedMapBOQItemsModel>/isSpecial}">
+                        <CheckBox select="onSelectAll"></CheckBox>
                     </Column>
-
-
-
                     <Column width="10%">
                         <Text text="Material Code"/>
                     </Column>
@@ -37,20 +28,17 @@
                     <Column>
                         <Text text="Remarks"/>
                     </Column>
-
                     <Column>
                         <Text text="Approved Quantity"/>
-                    </Column>
-
-                   
+                    </Column>                   
                     <Column>
                         <Text text="Weight Per Piece"/>
                     </Column>
                 </columns>
                 <items>
-                    <ColumnListItem press=".onInspectionIDPress">
+                    <ColumnListItem>
                         <cells>
-                            <CheckBox selected="{inspectedMapBOQItemsModel>isSelected}" select="onSelectionOfRow" />
+                            <CheckBox selected="{inspectedMapBOQItemsModel>isSelected}" select="onSelectionOfRow" visible="{inspectedMapBOQItemsModel>isSpecial}"/>
                             <ObjectIdentifier title="{inspectedMapBOQItemsModel>MaterialCode}" titleActive="true"/>
                             <Text text="{inspectedMapBOQItemsModel>Name}"/>
                             <Text text="{inspectedMapBOQItemsModel>Qty}"/>
@@ -58,8 +46,7 @@
                             <Text text="{inspectedMapBOQItemsModel>RemainingQty}"/>
                             <Text text="{inspectedMapBOQItemsModel>RemainingWeight}"/>
                             <Text text="{inspectedMapBOQItemsModel>Remarks}"/>
-                            <Input editable="{= ${inspectedMapBOQItemsModel>isSelected} ? true : false }" type="Number" liveChange="onLiveChangeApprovedQty" value="{inspectedMapBOQItemsModel>ApprovedQty}"/>
-
+                            <Input editable="{= ${inspectedMapBOQItemsModel>isSpecial} ? ${inspectedMapBOQItemsModel>isSelected} ? true : false : false }" type="Number" valueLiveUpdate="true" liveChange="onLiveChangeApprovedQty" value="{inspectedMapBOQItemsModel>ApprovedQty}"/>
                             <Text text="{inspectedMapBOQItemsModel>WeightPerPiece}"/>
                         </cells>
                     </ColumnListItem>
@@ -68,7 +55,7 @@
         </content>
 
         <beginButton>
-            <Button id="idBtnSave" text="Save" press="onPressSaveInspectionBOQItems" type="Emphasized"></Button>
+            <Button id="idBtnSave" text="Save" visible="{inspectedMapBOQItemsModel>/isSpecial}" press="onPressSaveInspectionBOQItems" type="Emphasized"></Button>
         </beginButton>
         <endButton>
             <Button text="Close" press="onViewInspectBOQDialogClose" type="Emphasized"></Button>
