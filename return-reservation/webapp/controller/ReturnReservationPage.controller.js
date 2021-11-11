@@ -397,6 +397,13 @@ sap.ui.define([
                        var aItemData = this.getViewModel("TreeDataModel").getData();
            
                     var aItemData = aItemData.results;
+
+                    var aItemData = aItemData.filter(function (item) {
+                        return (
+                            item.Quantity !== null
+                        );
+                    });
+
                 // var aTreeData = this.getViewModel("TreeDataModel").getData();
                 // var itemData = aTreeData.results;
                 // var aReservationItems = [];
