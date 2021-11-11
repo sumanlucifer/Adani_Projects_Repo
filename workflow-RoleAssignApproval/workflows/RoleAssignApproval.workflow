@@ -257,7 +257,7 @@
 			"name": "maildefinition1",
 			"to": "${context.RoleAssignUserMail}",
 			"cc": "akhil.jain@extentia.com,atul.jain@extentia.com,dharmendra.joshi@extentia.com,Suraj.Gavane@extentia.com,suman.shanmugam@extentia.com",
-			"subject": "${context.RoleAssignRequestID} Approval",
+			"subject": "Role Assignment Approval",
 			"reference": "/webcontent/RoleAssignApproval/RoleAssign.html",
 			"id": "maildefinition1"
 		},
