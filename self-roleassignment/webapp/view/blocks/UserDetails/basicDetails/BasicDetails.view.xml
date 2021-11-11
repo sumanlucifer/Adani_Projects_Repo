@@ -24,7 +24,7 @@
                 <items>
                     <ColumnListItem>
                         <cells>
-                            <Text text="{UserDetailModel>Role/Role}​​​"/>
+                            <Text text="{UserDetailModel>Role/RoleName}​​​"/>
                             <Text text="{path:'UserDetailModel>CreatedAt',
                                             type: 'sap.ui.model.type.Date',
                                             formatOptions: {

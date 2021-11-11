@@ -57,7 +57,7 @@ sap.ui.define([
             var oDataModel = oView.getModel();
             //console.log(oPayLoad);
             return new Promise((resolve, reject) => {
-                this.getOwnerComponent().getModel().read("/PackingListSet(" + this.packingListId + ")/Attachments", {
+                this.getOwnerComponent().getModel().read("/InspectionCallIdSet" + this.sObjectId + "/Attachments", {
                     success: function (oData, oResponse) {
                         var oJSONData = {
                             PL_Material: [],

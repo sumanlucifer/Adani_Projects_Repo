@@ -99,7 +99,7 @@ sap.ui.define([
 
         onSave: function (oEvent) {
             this.getView().setBusy(true);
-            
+
             var oBOQGroupSelected = oEvent.getSource().getBindingContext().getObject(),
                 userID = parseInt(oBOQGroupSelected.ID),
                 aRoleId = this.getView().byId("roleEdit").getSelectedKeys();
@@ -116,9 +116,13 @@ sap.ui.define([
             };
 
             this.getComponentModel().create("/UserRoleAssignmentSet", aPayload, {
-                success: function (oData, oResponse) {
+                success: function (oResponse) {
                     this.getView().setBusy(false);
-                    MessageBox.success(this.getResourceBundle().getText("UserRoleAssigned"));
+                    if (oResponse.Success)
+                        MessageBox.success(oResponse.Message);
+                    else
+                        MessageBox.error(oResponse.Message);
+
                     this.getView().getElementBinding().refresh(true);
                     this.onClose();
                 }.bind(this),
@@ -130,6 +134,10 @@ sap.ui.define([
             });
 
             this.getView().byId("roleEdit").setSelectedKeys([]);
+        },
+
+        onLoadUserRoles: function (oEvent) {
+
         }
     });
 });
