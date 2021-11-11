@@ -176,7 +176,7 @@ sap.ui.define([
                 }
 
             }
-            if (parseInt(oValue) <= 0 || parseInt(oValue) === 0) {
+            if (parseFloat(oValue) <= 0 || parseFloat(oValue) === 0) {
                 oEvent.getSource().setValueState("Error");
                 oEvent.getSource().setValueStateText("Please enter Positive and Non Zero Number");
                 this.getView().getModel("ManageBOQModel").setProperty(sItemPath + "/WeightPerPiece", "");
@@ -203,7 +203,7 @@ sap.ui.define([
                 this.weightValueFlag = false;
                 this.getView().getModel("ManageBOQModel").setProperty(sItemPath + "/TotalItemWeight", "");
             }
-            if (parseInt(oValue) <= 0 || parseInt(oValue) === 0) {
+            if (parseFloat(oValue) <= 0 || parseFloat(oValue) === 0) {
                 oEvent.getSource().setValueState("Error");
                 oEvent.getSource().setValueStateText("Please enter Positive and Non Zero Number");
                 this.getView().getModel("ManageBOQModel").setProperty(sItemPath + "/TotalItemWeight", "");
@@ -482,7 +482,7 @@ sap.ui.define([
                 var iTotalWeight = parseFloat(oValue) * (parseFloat(iWeightPerPiece) / 1000);
                 this.getViewModel("boqCreationModel").setProperty(sBindingPath + "/TotalItemWeight", iTotalWeight);
                 iTotalQuantity += iTotalWeight;
-                iTotalQuantity = iTotalQuantity.toFixed(3);
+                iTotalQuantity = iTotalQuantity.toFixed(4);
                 this.getViewModel("boqCreationModel").setProperty("/quantity", iTotalQuantity);
                 // if (parseFloat(oValue) > parseFloat(oPOData.PendingQty)) {
                 //     this.getViewModel("boqCreationModel").setProperty("/isConfirmButtonEnabled", false);
@@ -538,7 +538,7 @@ sap.ui.define([
             if (sQuantity !== "0") {
                 if (isMaterialStandAlone) {
                     var oPayload = {
-                        "QTY": parseInt(sQuantity),
+                        "QTY": parseFloat(sQuantity),
                         "PCGroupId": 0,
                         "ParentLineItemId": this.getView().getBindingContext().getObject().ID,
                         "IsOne2OneLineItem": true,
@@ -547,7 +547,7 @@ sap.ui.define([
                 } else {
                     var oSelectedItemData = this.byId("idPCListTable").getSelectedItem().getBindingContext().getObject();
                     var oPayload = {
-                        "QTY": parseInt(sQuantity),
+                        "QTY": parseFloat(sQuantity),
                         "PCGroupId": parseInt(oSelectedItemData.ID),
                         "ParentLineItemId": parseInt(oSelectedItemData.ParentLineItemID),
                         "CalculatedBOQItems": aCalculatedBOQItems
