@@ -38,6 +38,7 @@ sap.ui.define([
 
         _bindView: function (sObjectPath) {
             var objectViewModel = this.getViewModel("objectViewModel");
+            // this.fnGetUserRoles(sObjectPath);
 
             this.getView().bindElement({
                 path: sObjectPath,
@@ -51,6 +52,20 @@ sap.ui.define([
                 }
             });
         },
+
+        // fnGetUserRoles: function (sObjectPath) {
+        //     this.getView().getModel().read(sObjectPath, {
+        //         urlParameters: {
+        //             $expand: "UserRoles"
+        //         },
+        //         success: function (oResponse) {
+        //             var oApprovedUserRolesModel = new JSONModel(oResponse.UserRoles.results);
+        //             this.getView().setModel(oApprovedUserRolesModel, "ApprovedUserRolesModel");
+        //         }.bind(this),
+        //         error: function (oError) {
+        //         }.bind(this)
+        //     });
+        // },
 
         onRoleDialogPress: function (oEvent) {
             var sParentItemPath = oEvent.getSource().getParent().getBindingContext().getPath(),
@@ -87,8 +102,18 @@ sap.ui.define([
                 oDialog.setTitle(oDetails.title);
                 oDialog.addStyleClass("sapUiSizeCompact");
                 oDialog.open();
+
+                // oDetails.controller.setSelectedRoleKeys();
             });
         },
+
+        // setSelectedRoleKeys: function () {
+        //     var aExistingApprovedRoles = this.getView().getModel("ApprovedUserRolesModel").getProperty("/"),
+        //         aUserRoles = this.getView().byId("roleEdit").getItems(),
+        //         aSelectedKeys = [];
+
+        //     this.getView().byId("roleEdit").setSelectedKeys(aSelectedKeys);
+        // },
 
         onClose: function (oEvent) {
             this.pDialog.then(function (oDialog) {
@@ -118,10 +143,10 @@ sap.ui.define([
             this.getComponentModel().create("/UserRoleAssignmentSet", aPayload, {
                 success: function (oResponse) {
                     this.getView().setBusy(false);
-                    if (oResponse.Success)
-                        MessageBox.success(oResponse.Message);
-                    else
-                        MessageBox.error(oResponse.Message);
+                    // if (oResponse.Success)
+                        MessageBox.success("User Roles Assigned Successfully.");
+                    // else
+                        // MessageBox.error(oResponse.Message);
 
                     this.getView().getElementBinding().refresh(true);
                     this.onClose();
@@ -134,10 +159,6 @@ sap.ui.define([
             });
 
             this.getView().byId("roleEdit").setSelectedKeys([]);
-        },
-
-        onLoadUserRoles: function (oEvent) {
-
         }
     });
 });

@@ -85,11 +85,15 @@ sap.ui.define([
 
                 this.getView().getModel().create("/RoleAssignApprovalRequestEdmSet", oApproveRejectObj, {
                     success: function (oResponse) {
-                        sap.m.MessageBox.success("Request " + sStatus.toLowerCase() + " successfully.");
+                        if (oResponse.Success)
+                            sap.m.MessageBox.success("Request " + sStatus.toLowerCase() + " successfully.");
+                        else
+                            sap.m.MessageBox.error(oResponse.Message);
+
                         this.getOwnerComponent().getModel().refresh();
                     }.bind(this),
                     error: function (oError) {
-                        sap.m.MessageBox.error(JSON.stringify(oError));
+                        // sap.m.MessageBox.error(JSON.stringify(oError));
                     }
                 });
 

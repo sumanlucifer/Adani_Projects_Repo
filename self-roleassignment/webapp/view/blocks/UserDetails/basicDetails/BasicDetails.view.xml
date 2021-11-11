@@ -3,42 +3,92 @@
     xmlns:f="sap.ui.layout.form"
     xmlns="sap.m"
     controllerName="com.agel.mmts.selfroleassignment.view.blocks.UserDetails.basicDetails.BasicDetailsController">
-            <Table width="auto" growing="true" growingThreshold="10" fixedLayout="false" items="{UserDetailModel>/UserRoles}">
-                <headerToolbar>
-					<OverflowToolbar>
-						<ToolbarSpacer/>
-                        <Button text="{i18n>RequestNewRole}" icon="sap-icon://add" press="onRoleDialogPress"/>
-					</OverflowToolbar>
-				</headerToolbar>
-                <columns>
-                    <Column demandPopin="true" minScreenWidth="Tablet">
-                        <Text text="{i18n>role}" wrapping="true"/>
-                    </Column>
-                    <Column demandPopin="true" minScreenWidth="Tablet">
-                        <Text text="{i18n>roleCreated}" wrapping="true"/>
-                    </Column>
-                    <Column demandPopin="true" minScreenWidth="Tablet">
-                        <Text text="{i18n>roleUpdated}" wrapping="true"/>
-                    </Column>
-                </columns>
-                <items>
-                    <ColumnListItem>
-                        <cells>
-                            <Text text="{UserDetailModel>Role/RoleName}​​​"/>
-                            <Text text="{path:'UserDetailModel>CreatedAt',
-                                            type: 'sap.ui.model.type.Date',
-                                            formatOptions: {
+        <IconTabBar>
+            <items>
+                <IconTabFilter text="{i18n>AssignedRoles}" key="AssignedRoles">
+                <content>
+                    <Table width="auto" fixedLayout="false" items="{UserDetailModel>/UserRoles}">
+                        <columns>
+                            <Column demandPopin="true" minScreenWidth="Tablet">
+                                <Text text="{i18n>role}" wrapping="true"/>
+                            </Column>
+                            <Column demandPopin="true" minScreenWidth="Tablet">
+                                <Text text="{i18n>roleCreated}" wrapping="true"/>
+                            </Column>
+                            <Column demandPopin="true" minScreenWidth="Tablet">
+                                <Text text="{i18n>roleUpdated}" wrapping="true"/>
+                            </Column>
+                        </columns>
+                        <items>
+                            <ColumnListItem>
+                                <cells>
+                                    <Text text="{UserDetailModel>Role/RoleName}​​​"/>
+                                    <Text text="{
+                                                path:'UserDetailModel>CreatedAt',
+                                                type: 'sap.ui.model.type.Date',
+                                                formatOptions: {
                                                 pattern: 'MMMM dd, yyyy'
-                                            }
-                                }"/>
-                            <Text text="{path:'UserDetailModel>UpdatedAt',
-                                            type: 'sap.ui.model.type.Date',
-                                            formatOptions: {
-                                            pattern: 'MMMM dd, yyyy'
-                                            }
-                            }"/>
-                        </cells>
-                    </ColumnListItem>
-                </items>
-        </Table>
+                                                }
+                                    }"/>
+                                    <Text text="{
+                                                path:'UserDetailModel>UpdatedAt',
+                                                type: 'sap.ui.model.type.Date',
+                                                formatOptions: {
+                                                pattern: 'MMMM dd, yyyy'
+                                                }
+                                    }"/>
+                                </cells>
+                            </ColumnListItem>
+                        </items>
+                    </Table>
+                </content>
+                </IconTabFilter>
+                <IconTabFilter text="{i18n>RequestedRoles}" key="RequestedRoles">
+                    <Table 
+                        id="idRequestedRolesTBL" width="auto" fixedLayout="false" 
+                        items="{
+                            path: '/RoleAssignApprovalRequestSet'
+                            }" 
+                        updateStarted="onBeforeBindRequestedRolesTable">
+                        <headerToolbar>
+                            <OverflowToolbar>
+                                <ToolbarSpacer/>
+                                <Button text="{i18n>RequestNewRole}" icon="sap-icon://add" press="onRoleDialogPress"/>
+                            </OverflowToolbar>
+                        </headerToolbar>
+                        <columns>
+                            <Column demandPopin="true" minScreenWidth="Tablet">
+                                <Text text="{i18n>role}" wrapping="true"/>
+                            </Column>
+                            <Column demandPopin="true" minScreenWidth="Tablet">
+                                <Text text="{i18n>requestNumber}" wrapping="true"/>
+                            </Column>
+                            <Column demandPopin="true" minScreenWidth="Tablet">
+                                <Text text="{i18n>roleRequestedOn}" wrapping="true"/>
+                            </Column>
+                            <Column demandPopin="true" minScreenWidth="Tablet">
+                                <Text text="{i18n>Status}" wrapping="true"/>
+                            </Column>
+                        </columns>
+                        <items>
+                            <ColumnListItem>
+                                <cells>
+                                    <Text text="{Role}​​​"/>
+                                    <Text text="{RequestNumber}​​​"/>
+                                    <Text text="{
+                                                path:'CreatedAt',
+                                                type: 'sap.ui.model.type.Date',
+                                                formatOptions: {
+                                                    pattern: 'MMMM dd, yyyy'
+                                                }
+                                    }"/>
+                                    <ObjectNumber number="{Status}" 
+                                        state="{= ${Status} === 'PENDING' ? 'Warning'  : 'Error' }"/>
+                                </cells>
+                            </ColumnListItem>
+                        </items>
+                </Table>
+                </IconTabFilter>
+            </items>
+        </IconTabBar>
 </mvc:View>

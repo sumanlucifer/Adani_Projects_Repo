@@ -22,14 +22,15 @@ sap.ui.define([
             this.getView().addEventDelegate({
                 onAfterShow: this.onBeforeShow,
             }, this);
-            
+
             //view model instatiation
             var oViewModel = new JSONModel({
                 busy: false,
                 delay: 0,
                 boqSelection: null,
                 ID: null,
-                Role: null
+                Role: null,
+                UserEmail: this.UserEmail
             });
             this.setModel(oViewModel, "objectViewModel");
 
@@ -60,7 +61,7 @@ sap.ui.define([
                     }
                 }.bind(this),
                 error: function (oError) {
-                    sap.m.MessageBox.error(JSON.stringify(oError));
+                    // sap.m.MessageBox.error(JSON.stringify(oError));
                 }
             });
         },
