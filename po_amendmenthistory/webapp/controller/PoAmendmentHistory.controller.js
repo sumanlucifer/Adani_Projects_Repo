@@ -61,11 +61,11 @@ sap.ui.define([
         },
 
         fnSetVersionValues: function (sVersionNo) {
-            var aVersionValues = [],
-                // sVersion = this.getResourceBundle().getText("Version"),
-                sCurrentVersion = this.getResourceBundle().getText("CurrentVersion");
+            var aVersionValues = [];
+                // sVersion = this.getResourceBundle().getText("Version");
+                // sCurrentVersion = this.getResourceBundle().getText("CurrentVersion");
 
-            for (var i = 1; i < sVersionNo; i++) {
+            for(var i = 1; i < sVersionNo; i++) {
                 var oVersionData = {
                     versionKey: i,
                     // versionText: i
@@ -75,7 +75,7 @@ sap.ui.define([
             }
             var oCurrentVesionData = {
                 versionKey: sVersionNo,
-                versionText: sCurrentVersion + " " + sVersionNo
+                versionText: sVersionNo
             }
             aVersionValues.unshift(oCurrentVesionData);
 
