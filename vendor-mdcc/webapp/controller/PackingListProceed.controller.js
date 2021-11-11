@@ -136,7 +136,7 @@ sap.ui.define([
                     if (ParentData[i].MDCCBOQItems.results.length) {
 
 
-                        if (ParentData[i].UOM === "EA") {
+                        if (ParentData[i].UOM === "MT") {
                             this.ParentDataView[i].isStandAlone = true;
                             this.ParentDataView[i].ChildItems = ParentData[i].MDCCBOQItems.results;
                             this.ParentDataView[i].isSelected = false;
@@ -178,7 +178,7 @@ sap.ui.define([
 
 
 
-                        if (ParentData[i].UOM === "EA") {
+                        if (ParentData[i].UOM === "MT") {
 
 
 
