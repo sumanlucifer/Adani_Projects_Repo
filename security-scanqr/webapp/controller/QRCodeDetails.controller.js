@@ -108,21 +108,14 @@ sap.ui.define([
                 var oDataModel = oView.getModel();
                 //console.log(oPayLoad);
                 return new Promise((resolve, reject) => {
-                    this.getOwnerComponent().getModel().read("/PackingListSet(" + this.packingListId + ")/Attachments", {
+                    this.getOwnerComponent().getModel().read("/QRCodeSet(" + this.qrCodeID + ")/PackingList/Attachments", {
                         success: function (oData, oResponse) {
                             var oJSONData = {
                                 PL_Material: [],
                                 PL_Invoice: [],
                                 PL_Others: []
                             };
-                            // oData.results.forEach((oItem) => {
-                            //     if(oItem.Type === 'PACKING_LIST' && oItem.SubType === 'MATERIAL' )
-                            //         oJSONData.PL_Material.push(oItem);
-                            //     else if(oItem.Type === 'PACKING_LIST' && oItem.SubType === 'INVOICE' )
-                            //         oJSONData.PL_Invoice.push(oItem);
-                            //     else if(oItem.Type === 'PACKING_LIST' && oItem.SubType === 'OTHERS' )
-                            //         oJSONData.PL_Others.push(oItem);
-                            // } );
+                           
                             var DocumentModel = new JSONModel(oJSONData);
                             that.getView().setModel(DocumentModel, "DocumentModel");
                             resolve(oData.results);

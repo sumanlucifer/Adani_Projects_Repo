@@ -17,20 +17,15 @@
         <uxap:headerTitle>
             <uxap:ObjectPageDynamicHeaderTitle>
                 <uxap:breadcrumbs>
-                    <!-- <Breadcrumbs id="breadcrumbsId" currentLocationText="{i18n>confirmedPODetails}">
-                        <Link text="{i18n>assignedPOList}" press=".handleToAllPOBreadcrumPress"/>
-                    </Breadcrumbs> -->
                 </uxap:breadcrumbs>
                 <uxap:expandedHeading>
                     <FlexBox direction="Column" renderType="Bare">
                         <Title text="User Details" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
-                        <!-- <Title text="{ID}" wrapping="true" titleStyle="H3" /> -->
                     </FlexBox>
                 </uxap:expandedHeading>
                 <uxap:snappedHeading>
                     <FlexBox direction="Column" renderType="Bare">
                         <Title text="User Details" wrapping="true" titleStyle="H4"/>
-                        <!-- <Title text="{ID}" wrapping="true" titleStyle="H3"/> -->
                     </FlexBox>
                 </uxap:snappedHeading>
                 <uxap:expandedContent></uxap:expandedContent>
@@ -69,23 +64,10 @@
                                             }
                                 }"/>
                         </VBox>
-                        
-                        <!-- <VBox renderType="Bare" class="sapUiMediumMarginEnd">
-                            <Label text="Updated On" />
-                            <Text text="{path:'UserDetailModel>/UpdatedAt',
-                                            type: 'sap.ui.model.type.Date',
-                                            formatOptions: {
-                                            pattern: 'MMMM dd, yyyy'
-                                            }
-                            }"/>
-                        </VBox> -->
-                        <!-- <ToolbarSpacer/> -->
-                        
                         <VBox renderType="Bare">
                             <Label text="{i18n>active}" />
                             <ObjectStatus text="{UserDetailModel>/Active}" state="{= ${UserDetailModel>/Active} === 'PENDING' ? 'Warning' : ${UserDetailModel>/Active} === 'REJECTED' ? 'Error' : 'Success'}"/>
                         </VBox>
-                        
                     </FlexBox>
                 </VBox>
             </FlexBox>
