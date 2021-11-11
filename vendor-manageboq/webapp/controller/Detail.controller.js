@@ -468,7 +468,7 @@ sap.ui.define([
             var sBindingPath = oEvent.getSource().getBindingContext("boqCreationModel").sPath;
             // var aGroupItems = this.getViewModel("boqCreationModel").getProperty("/CalculatedBOQItems");
             var iTotalQuantity = this.getViewModel("boqCreationModel").getProperty("/quantity");
-            if(iTotalQuantity)
+            if (iTotalQuantity)
                 iTotalQuantity = parseFloat(iTotalQuantity);
             var iWeightPerPiece = this.getViewModel("boqCreationModel").getProperty(sBindingPath + "/WeightPerPiece");
             var iTotalItemWeight = this.getViewModel("boqCreationModel").getProperty(sBindingPath + "/TotalItemWeight");
@@ -530,8 +530,10 @@ sap.ui.define([
             var sUOM = this.getViewModel("boqCreationModel").getProperty("/UOM");
             if (sUOM === 'MT') {
                 for (var i = 0; i < aCalculatedBOQItems.length; i++) {
-                    if (!aCalculatedBOQItems[i].selected || aCalculatedBOQItems[i].BOQQuantity === null)
+                    if (!aCalculatedBOQItems[i].selected || aCalculatedBOQItems[i].BOQQuantity === null) {
                         aCalculatedBOQItems.splice(i, 1);
+                        i--;
+                    }
                 }
             }
             var oModel = this.getComponentModel();
