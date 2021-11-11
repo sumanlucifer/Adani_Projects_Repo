@@ -53,8 +53,8 @@ sap.ui.define([
 
             _onObjectMatched: function (oEvent) {
 
-            var startupParams = this.getOwnerComponent().getComponentData().startupParameters;
-            //  var startupParams={MDCCId:176,manage:"false"};
+                var startupParams = this.getOwnerComponent().getComponentData().startupParameters;
+                // var startupParams = { MDCCId: 275, manage: "false" };
 
                 this.sObjectId = startupParams.MDCCId;
                 // this.sObjectId = this.sObjectId;
@@ -109,17 +109,24 @@ sap.ui.define([
 
             dataBuilding: function (ParentData) {
                 this.ParentData = ParentData;
+
+
                 for (var i = 0; i < ParentData.length; i++) {
+
+                    this.ParentData[i].MDCCApprovedQty = "";
                     // Is Deleted - Check based on quantity is present or not then push it.
-                    if (ParentData[i].MDCCApprovedQty != null && ParentData[i].MDCCApprovedQty != ""
-                        && ParentData[i].MDCCApprovedQty != "0.0") {
-                        this.ParentData[i].MDCCApprovedQty = "";
-                        this.ParentData[i].isSelected = true;
-                        this.ParentData[i].isPreviouslySelected = true;
-                    } else {
+                    // if (ParentData[i].MDCCApprovedQty != null && ParentData[i].MDCCApprovedQty != ""
+                    //     && ParentData[i].MDCCApprovedQty != "0.0") {
+
+                    if (ParentData[i].UOM === "MT") {
+
                         this.ParentData[i].MDCCApprovedQty = "";
                         this.ParentData[i].isSelected = false;
                         this.ParentData[i].isPreviouslySelected = false;
+                    } else {
+                        // this.ParentData[i].MDCCApprovedQty = "";
+                        this.ParentData[i].isSelected = false;
+                        this.ParentData[i].isPreviouslySelected = true;
                     }
 
                     if (this.ParentData[i].InspectedBOQItems.results.length) {
@@ -128,10 +135,14 @@ sap.ui.define([
                         this.ParentData[i].IsDeleted = false;
 
                         for (var j = 0; j < ParentData[i].ChildItems.length; j++) {
-                            if (ParentData[i].ChildItems[j].MDCCApprovedQty != null && ParentData[i].ChildItems[j].MDCCApprovedQty != ""
-                                && ParentData[i].ChildItems[j].MDCCApprovedQty != "0.0") {
+                            // if (ParentData[i].ChildItems[j].MDCCApprovedQty != null && ParentData[i].ChildItems[j].MDCCApprovedQty != ""
+                            //     && ParentData[i].ChildItems[j].MDCCApprovedQty != "0.0") {
+
+
+
+                            if (ParentData[i].UOM === "MT") {
                                 this.ParentData[i].ChildItems[j].MDCCApprovedQty = "";
-                                this.ParentData[i].ChildItems[j].isSelected = true;
+                                this.ParentData[i].ChildItems[j].isSelected = false;
                                 this.ParentData[i].ChildItems[j].isPreviouslySelected = true;
                                 this.ParentData[i].ChildItems[j].IsDeleted = false;
                             } else {
@@ -221,7 +232,7 @@ sap.ui.define([
                 }
             },
 
-            onLiveChangeApprovedQty: function (oEvent) {
+            onLiveChangeApprovedQty1: function (oEvent) {
                 var rowObj = oEvent.getSource().getParent().getRowBindingContext().getObject();
                 var MDCCApprovedQty = oEvent.getSource().getParent().getCells()[7].getValue();
                 var aCell = oEvent.getSource().getParent().getCells()[7];
@@ -234,18 +245,111 @@ sap.ui.define([
                     this.getView().byId("idBtnSave").setEnabled(true);
                 }
             },
+            onLiveChangeApprovedQty: function (oEvent) {
+                var sItemPath = oEvent
+                    .getSource()
+                    .getBindingContext("TreeTableModel")
+                    .getPath();
 
+                var sParentPath = sItemPath.slice(0, 13);
+
+                var iTotalQuantity = this.getViewModel("TreeTableModel").getProperty(
+                    sParentPath + "/MDCCApprovedQty"
+                );
+                var iParentIssuedQuantity = this.getViewModel("TreeTableModel").getProperty(
+                    sParentPath + "/RemainingQty"
+                );
+
+                if (!iTotalQuantity) iTotalQuantity = 0;
+                var ReservedQty = parseFloat(oEvent.getSource().getValue());
+                var oValue = oEvent.getSource().getValue();
+                if (!oValue)
+                    oValue = 0;
+                var BalanceQty = parseFloat(
+                    oEvent.getSource().getParent().getCells()[8].getText()
+                );
+
+                var bChildItemFreeze = this.getViewModel("TreeTableModel").getProperty(
+                    sParentPath + "/isSelected"
+                );
+                var aChildItems = this.getViewModel("TreeTableModel").getProperty(
+                    sParentPath + "/ChildItems"
+                );
+
+                if (bChildItemFreeze) {
+                    debugger;
+                    aChildItems.forEach((item) => {
+                        //    item.Quantity = parseFloat(oValue) * (parseFloat(item.BalanceQty) /parseFloat(iParentIssuedQuantity));
+                        item.MDCCApprovedQty = parseFloat(oValue) * (parseFloat(item.BaseQty));
+                    });
+                    this.getViewModel("TreeTableModel").setProperty(
+                        sParentPath + "/ChildItems",
+                        aChildItems
+                    );
+                } else {
+                    if (parseFloat(oValue) >= 0) {
+
+                        var wpp = oEvent
+                            .getSource()
+                            .getBindingContext("TreeTableModel")
+                            .getObject().WeightPerPiece;
+                        var liveQty = oEvent
+                            .getSource()
+                            .getBindingContext("TreeTableModel")
+                            .getObject().MDCCApprovedQty;
+                        if (!liveQty) liveQty = 0;
+
+
+                        // iTotalQuantity = iTotalQuantity - parseFloat(liveQty) + parseFloat(oValue);
+                        iTotalQuantity = iTotalQuantity + ((parseFloat(oValue) - parseFloat(liveQty)) * parseFloat(wpp));
+                        this.getViewModel("TreeTableModel").setProperty(sItemPath + "/MDCCApprovedQty", oValue);
+
+
+                        this.getViewModel("TreeTableModel").setProperty(
+                            sParentPath + "/MDCCApprovedQty",
+                            iTotalQuantity
+                        );
+
+                    }
+                }
+
+                if (oValue === "") {
+                    oEvent.getSource().setValueState("Error");
+                    oEvent.getSource().setValueStateText("Please enter quantity ");
+                    this.getView().byId("idBtnSave").setEnabled(false);
+                }
+                if (parseInt(ReservedQty) < 0) {
+                    oEvent.getSource().setValueState("Error");
+                    oEvent
+                        .getSource()
+                        .setValueStateText(
+                            "Please enter quantity greater than 0 or positive value"
+                        );
+                    this.getView().byId("idBtnSave").setEnabled(false);
+                } else if (parseInt(ReservedQty) > parseInt(BalanceQty)) {
+                    oEvent.getSource().setValueState("Error");
+                    oEvent
+                        .getSource()
+                        .setValueStateText(
+                            "Please enter quantity lesser than or equal to balance quantity"
+                        );
+                    this.getView().byId("idBtnSave").setEnabled(false);
+                } else {
+                    oEvent.getSource().setValueState("None");
+                    this.getView().byId("idBtnSave").setEnabled(true);
+                }
+            },
             onSelectionOfRow: function (oEvent) {
                 var bSelected = oEvent.getParameter("selected");
 
                 if (bSelected) {
-                    oEvent.getSource().getParent().getCells()[7].setEditable(true);
+                    oEvent.getSource().getParent().getCells()[9].setEditable(true);
                     if (oEvent.getSource().getParent().getRowBindingContext().getObject().isPreviouslySelected) {
                         oEvent.getSource().getParent().getRowBindingContext().getObject().IsDeleted = false;
                     }
                 } else {
-                    oEvent.getSource().getParent().getCells()[7].setEditable(false);
-                    oEvent.getSource().getParent().getCells()[7].setValue(null);
+                    oEvent.getSource().getParent().getCells()[9].setEditable(false);
+                    oEvent.getSource().getParent().getCells()[9].setValue(null);
 
                     // Is Deleted - If User unselect the previous saved item
                     if (oEvent.getSource().getParent().getRowBindingContext().getObject().isPreviouslySelected) {
