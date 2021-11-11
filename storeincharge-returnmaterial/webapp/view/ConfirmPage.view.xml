@@ -46,12 +46,7 @@
                         <tt:TreeTable id="TreeTable" rows="{path:'TreeTableModelView>/ReturnData', parameters: {arrayNames:['ChildItemsView']}}" 
                             selectionMode="None" enableSelectAll="false" ariaLabelledBy="title" rowsUpdated="onRowsUpdated">
                             <tt:columns>
-                                <tt:Column>
-                                    <Label text="ID" />
-                                    <tt:template>
-                                        <Text text="{TreeTableModelView>ID}" />
-                                    </tt:template>
-                                </tt:Column>
+
                                 <tt:Column>
                                     <Label text="Material Code" wrapping="true"/>
                                     <tt:template>
@@ -69,11 +64,42 @@
                                     <tt:template>
                                         <Text text="{TreeTableModelView>Name}" wrapping="false" />
                                     </tt:template>
-                                </tt:Column>     
+                                </tt:Column>    
+                                <tt:Column>
+                                    <Label text="Description"/>
+                                    <tt:template>
+                                        <Text text="{TreeTableModelView>Description}" wrapping="false" /> 
+                                    </tt:template>
+                                </tt:Column>
+
+                                <tt:Column>
+                                    <Label text="Base Unit"/>
+                                    <tt:template>
+                                        <Text text="{TreeTableModelView>BaseUnit}" />
+                                    </tt:template>
+                                </tt:Column> 
+                                    <tt:Column>
+                                    <Label text="Base Quantity"/>
+                                    <tt:template>
+                                        <Text text="{TreeTableModelView>BaseQty}" wrapping="false" />
+                                    </tt:template>
+                                </tt:Column>   
+                                <tt:Column>
+                                    <Label text="Weight Per Piece"/>
+                                    <tt:template>
+                                        <Text text="{TreeTableModelView>WeightPerPiece}" wrapping="false" />
+                                    </tt:template>
+                                </tt:Column>                               
                                 <tt:Column>
                                     <Label text="Issued Quantity"/>
                                     <tt:template>
                                         <Text text="{TreeTableModelView>Quantity}" wrapping="false" />
+                                    </tt:template>
+                                </tt:Column>
+                                                                <tt:Column>
+                                    <Label text="Balanced Quantity"/>
+                                    <tt:template>
+                                        <Text text="{TreeTableModelView>BalanceQty}" wrapping="false" />
                                     </tt:template>
                                 </tt:Column>
                                 <tt:Column>

@@ -35,7 +35,7 @@
                     <!-- <Text text="{DispatchQty}"/> -->
                     <Text text="{PackagingDimensions}"/>
                     <!-- <Text text="{UOM}"/> -->
-                    <Link text="View QR Code" binding="{QrCode}" visible="{= ${QRNumber}}" press="onViewQRCodePressSmart"/>
+                    <Link text="View QR Code" binding="{QrCode}" visible="{= ${QRNumber} !== '' ? true :false}" press="onViewQRCodePressSmart"/>
                 </cells>
             </ColumnListItem>
         </items>

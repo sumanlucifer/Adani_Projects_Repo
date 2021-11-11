@@ -44,7 +44,7 @@
                     </f:content>
                 </f:SimpleForm>
 
-                <Table width="auto"  growing="true" growingThreshold="5" items= "{RestrictedStoreStockParents}">
+                <Table id="idGRNItemsTBL" width="auto"  growing="true" growingThreshold="5" items= "{RestrictedStoreStockParents}">
                     <columns>
                         <Column importance="High">
                             <Text text="{i18n>lineNo}" wrapping="true" wrappingType="Hyphenated" />
@@ -70,6 +70,9 @@
                         <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center" >
                             <Text text="{i18n>UOM}"/>
                         </Column>
+                        <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center" >
+                            <Text text="{i18n>ValuationArea}"/>
+                        </Column>
                     </columns>
                     <items>
                         <ColumnListItem>
@@ -82,6 +85,15 @@
                                 <Text text="{PlantCode}"/>
                                 <Text text="{Qty}"/>
                                 <Text text="{UOM}"/>
+                                <ComboBox 
+                                    loadItems="onLoadValuationAreaItems"
+                                    showSecondaryValues= "true"
+                                    selectionChange="handleSelectionChange"
+                                    items="{path: '/MasterMaterialValAreaSet',
+                                            suspended: true
+                                    }">
+                                <core:ListItem key="{ValuationType}" text="{ValuationType}" additionalText="{ValuationArea}"/>
+    		                    </ComboBox>
                             </cells>
                         </ColumnListItem>
                     </items>

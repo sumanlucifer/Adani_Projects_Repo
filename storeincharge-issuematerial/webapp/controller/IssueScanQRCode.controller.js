@@ -156,8 +156,11 @@ sap.ui.define([
                                         initialMatModel[j].QRNumber = qrCodeId;
                                         this.onEnterQuantity(j);
                                     }
-                                    else
+                                    else {
+                                        // sap.m.MessageBox.error("Material Code Mismatch Found for below \n " + initialMatModel[j].MaterialCode + " And " + finalMatCode);
                                         sap.m.MessageBox.error("Invalid Scan");
+                                        return;
+                                    }
                                 }
                             }
                             else
