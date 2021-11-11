@@ -52,7 +52,6 @@ sap.ui.define([
             // get Startup params from Owner Component
             if (startupParams.Kind[0]) {
                 this.type = startupParams.Kind[0];
-                //    this.type = 1;
                 this.byId("idIconTabBar").setSelectedKey(this.type);
             }
         },
