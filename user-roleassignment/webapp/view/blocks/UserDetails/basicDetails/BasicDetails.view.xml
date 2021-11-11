@@ -33,7 +33,7 @@
                 <items>
                     <ColumnListItem>
                         <cells>
-                            <Text text="{Role}​​​" binding="{Role}"/>
+                            <Text text="{RoleName}​​​" binding="{Role}"/>
                             <Text text="{path:'CreatedAt',
                                             type: 'sap.ui.model.type.Date',
                                             formatOptions: {
@@ -47,8 +47,8 @@
                                             }
                             }"/>
                             <HBox alignItems="Center" alignContent="Center">
-                                <ObjectNumber number="{i18n>IsDepartmentHead}" state="Success" visible="{= ${IsHeadOfDepartment} === true ? true : false}"/>
-                                <Button text="{i18n>DeclareHOD}"  press="onCreateDeptHeadPress"  visible="{= ${IsHeadOfDepartment} === false ? true : false}"/>
+                                <Button text="{i18n>RemoveHOD}"  press="onAddRemoveDeptHeadPress" type="Reject" visible="{= ${IsHeadOfDepartment} === true ? true : false}"/>
+                                <Button text="{i18n>DeclareHOD}"  press="onAddRemoveDeptHeadPress" type="Accept" visible="{= ${IsHeadOfDepartment} === false ? true : false}"/>
                             </HBox>
                         </cells>
                     </ColumnListItem>

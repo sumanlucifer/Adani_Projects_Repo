@@ -8,7 +8,7 @@
                 items="{
                     path: '/MasterRoleSet'
                 }">
-                <core:Item key="{ID}" text="{Role}"/> 
+                <core:Item key="{ID}" text="{RoleName}"/> 
             </MultiComboBox>
         </content>
         <beginButton>
