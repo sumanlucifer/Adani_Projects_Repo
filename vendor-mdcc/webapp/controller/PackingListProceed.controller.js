@@ -225,6 +225,7 @@ sap.ui.define([
             onLiveChangeDispatchQty: function (oEvent) {
                 oEvent.getSource().setValueState("None");
                 this.getView().byId("idBtnProceed").setEnabled(true);
+                var flag = 0;
                 var sItemPath = oEvent
                     .getSource()
                     .getBindingContext("TreeTableModel")
