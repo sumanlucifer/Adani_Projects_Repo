@@ -44,7 +44,7 @@ sap.ui.define([
 
         onClose: function (oEvent) {
             this.pDialog.then(function (oDialog) {
-                // this.getView().byId("roleEdit").setSelectedKeys([]);
+                this.getView().byId("roleEdit").setSelectedKeys([]);
                 this.getView().byId("idSaveBTN").setEnabled(false);
                 oDialog.close();
             }.bind(this));
