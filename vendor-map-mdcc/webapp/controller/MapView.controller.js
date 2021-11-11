@@ -161,6 +161,12 @@ sap.ui.define([
                 }
                 this._arrangeData();
             },
+               // Model Data Set To Table
+            _arrangeData: function () {
+                var oModel = new JSONModel({ "ChildItems": this.ParentData });
+                this.getView().setModel(oModel, "TreeTableModel");
+            },
+
 
             // Read Inspected Parent Items
             _getParentData: function () {
