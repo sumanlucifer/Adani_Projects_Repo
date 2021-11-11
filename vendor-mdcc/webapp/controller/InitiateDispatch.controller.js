@@ -41,10 +41,11 @@ sap.ui.define([
             var that = this;
             var startupParams = this.getOwnerComponent().getComponentData().startupParameters;
             this.sObjectId = parseInt(startupParams.MDCCId[0]);
-            //this.sObjectId = "162";
-            //  var startupParams={MDCCId:163,manage:"false"};       
 
-            //this.sObjectId=parseInt(startupParams.MDCCId);
+            
+            // var startupParams={MDCCId:260,manage:"false"};       
+            // this.sObjectId=parseInt(startupParams.MDCCId);
+            
             this._bindView("/MDCCSet(" + this.sObjectId + ")");
 
             this.getMDCCData();
