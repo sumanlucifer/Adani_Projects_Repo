@@ -58,6 +58,39 @@ sap.ui.define([
             }
 
             return oPayloadObj;
+        },
+
+        onUnassignRolePress: function (oEvent) {
+            var bIsHeadOfDepartment = oEvent.getSource().getBindingContext().getObject().IsHeadOfDepartment;
+
+            if (bIsHeadOfDepartment === true) {
+                MessageBox.error(this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("RemoveAsHODAndTryAgain"));
+            }
+            else {
+                var sUserRoleID = Number(this.getView().getBindingContext().getObject().ID),
+                    sRoleId = Number(oEvent.getSource().getParent().getAggregation("cells")[0].getBindingContext().getObject().ID),
+                    sRoleName = oEvent.getSource().getParent().getAggregation("cells")[0].getBindingContext().getObject().Role,
+                    oUnassignRoleObj = {
+                        "UserId": sUserRoleID,
+                        "UnassignRole": true,
+                        "Roles": [
+                            {
+                                "RoleId": sRoleId,
+                                "RoleName": sRoleName
+                            }
+                        ]
+                    };
+
+                this.getView().getModel().create("/UserRoleAssignmentSet", oUnassignRoleObj, {
+                    success: function () {
+                        MessageBox.success(this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("UserRoleUnassignedSuccess"));
+                        this.getView().getElementBinding().refresh(true);
+                    }.bind(this),
+                    error: function (oError) {
+                        // MessageBox.error(JSON.stringify(oError));
+                    }
+                });
+            }
         }
     });
 });
