@@ -84,8 +84,8 @@ sap.ui.define([
                     element.ParentLineItemId = element.ID;
                     element.InspectedBOQItemRequests = [];
                     element.BOQApprovedQty = 0;
-                    for(var i=0; i<element.BOQApprovalRequests.results.length;i++){
-                        if(element.BOQApprovalRequests.results[i].Status === 'APPROVED'){
+                    for (var i = 0; i < element.BOQApprovalRequests.results.length; i++) {
+                        if (element.BOQApprovalRequests.results[i].Status === 'APPROVED') {
                             element.BOQApprovedQty += parseFloat(element.BOQApprovalRequests.results[i].BOQGroup.GeneratedBOQQty);
                         }
                     }
@@ -103,17 +103,21 @@ sap.ui.define([
             if (bSelectAll) {
                 for (var i = 0; i < aListItems.length; i++) {
                     aListItems[i].getCells()[5].setEnabled(true);
+
                 }
             } else {
                 for (var i = 0; i < aListItems.length; i++) {
                     aListItems[i].getCells()[5].setEnabled(false);
+
                 }
             }
 
             if (bSelected) {
                 oEvent.getParameter("listItem").getCells()[5].setEnabled(true);
+
             } else {
                 oEvent.getParameter("listItem").getCells()[5].setEnabled(false);
+
             }
         },
 
@@ -136,8 +140,20 @@ sap.ui.define([
 
         onLiveChangeInspectionQty: function (oEvent) {
             var InspectQuantity = parseFloat(oEvent.getSource().getValue());
+            oEvent.getSource().getParent().getCells()[6].setEnabled(true);
+            oEvent.getSource().getParent().getCells()[7].setEnabled(true);
+            oEvent.getSource().getParent().getCells()[8].setEnabled(true);
             var Quantity = parseFloat(oEvent.getSource().getParent().getCells()[4].getText());
             var oSaveButton = this.getView().byId("idOfflineSaveButton");
+
+            if (oEvent.getSource().getValue() === "") {
+                oEvent.getSource().getParent().getCells()[6].setEnabled(false);
+                oEvent.getSource().getParent().getCells()[7].setEnabled(false);
+                oEvent.getSource().getParent().getCells()[8].setEnabled(false);
+                oEvent.getSource().getParent().getCells()[6].setValue("");
+                oEvent.getSource().getParent().getCells()[7].setValue("");
+                oEvent.getSource().getParent().getCells()[8].setValue("");
+            }
             if (InspectQuantity <= 0) {
                 oEvent.getSource().setValueState("Error");
                 oEvent.getSource().setValueStateText("Please enter positive value");
@@ -149,6 +165,46 @@ sap.ui.define([
                 oEvent.getSource().setValueStateText("Please enter inspected quantity lesser than or equal to total quantity");
                 oSaveButton.setEnabled(false);
             }
+
+            else {
+                oEvent.getSource().setValueState("None");
+                oSaveButton.setEnabled(true);
+            }
+
+        },
+
+        onLiveChangeARHQty: function (oEvent) {
+            var oValue = parseFloat(oEvent.getSource().getValue());
+
+            var Quantity = parseFloat(oEvent.getSource().getParent().getCells()[5].getValue());
+            var ApprovedQty = parseFloat(oEvent.getSource().getParent().getCells()[6].getValue());
+            var RejectQty = parseFloat(oEvent.getSource().getParent().getCells()[7].getValue());
+            var HoldQty = parseFloat(oEvent.getSource().getParent().getCells()[8].getValue());
+            if (!ApprovedQty) ApprovedQty = 0;
+            if (!RejectQty) RejectQty = 0;
+            if (!HoldQty) HoldQty = 0;
+            var sumARHQty = ApprovedQty + RejectQty + HoldQty;
+            var oSaveButton = this.getView().byId("idOfflineSaveButton");
+            if (sumARHQty >= Quantity) {
+                oEvent.getSource().setValueState("Error");
+                oEvent.getSource().setValueStateText("Please enter quantity lesser than or equal to total Inspection quantity");
+                oSaveButton.setEnabled(false);
+                return 0;
+            }
+            if (oValue <= 0) {
+                oEvent.getSource().setValueState("Error");
+                oEvent.getSource().setValueStateText("Please enter positive value");
+                oSaveButton.setEnabled(false);
+                return 0;
+            }
+            if (oValue > Quantity) {
+                oEvent.getSource().setValueState("Error");
+                oEvent.getSource().setValueStateText("Please enter inspected quantity lesser than or equal to total quantity");
+                oSaveButton.setEnabled(false);
+                return 0;
+            }
+
+
             else {
                 oEvent.getSource().setValueState("None");
                 oSaveButton.setEnabled(true);
@@ -181,7 +237,7 @@ sap.ui.define([
                 flag = 1;
                 this.getView().byId("idDpInspectionDate").setValueState("Error");
             }
-            
+
             if (creationModelData.RaisedInspectionDate == null || creationModelData.RaisedInspectionDate == "") {
                 flag = 1;
                 this.getView().byId("idDpRaisedInspectionDate").setValueState("Error");
@@ -357,9 +413,9 @@ sap.ui.define([
             this.getView().getModel("localAttachmentModel").getData().items.push(document);
         },
 
-        // onFileSizeExceed: function () {
-        //     MessageBox.error("File size exceeded, Please upload file upto 1MB.");
-        // },
+        onFileSizeExceed: function () {
+            MessageBox.error("File size exceeded, Please upload file upto 10MB.");
+        },
 
         onFileNameLengthExceed: function () {
             MessageBox.error("File name length exceeded, Please upload file with name lenght upto 50 characters.");

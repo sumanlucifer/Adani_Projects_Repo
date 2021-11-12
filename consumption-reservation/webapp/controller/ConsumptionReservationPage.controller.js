@@ -87,7 +87,7 @@ sap.ui.define(
                     //     value1: 12,
                     // });
                     var filter = [];
-                    filter.push(GoodReciepientFilter,BalanceQtyFilter);
+                    filter.push(GoodReciepientFilter, BalanceQtyFilter);
                     this.getOwnerComponent()
                         .getModel()
                         .read("/IssuedMaterialReservedItemSet", {
@@ -113,13 +113,19 @@ sap.ui.define(
                 },
                 dataBuilding: function (ParentData) {
                     for (var i = 0; i < ParentData.length; i++) {
-                        ParentData[i].results =
-                            ParentData[i].IssuedMaterialReservedBOQItems.results;
-                        for (
-                            var j = 0;
-                            j < ParentData[i].IssuedMaterialReservedBOQItems.results.length;
-                            j++
-                        ) {
+                        ParentData[i].results = ParentData[i].IssuedMaterialReservedBOQItems.results;
+
+   if (ParentData[i].BaseUnit === "MT") {
+                        ParentData[i].isChildItemFreeze = false;
+                        ParentData[i].Quantity = "";
+                    } else {
+                        ParentData[i].isChildItemFreeze = true;
+                        ParentData[i].Quantity = "";
+                    }
+
+
+
+                        for (var j = 0; j < ParentData[i].IssuedMaterialReservedBOQItems.results.length; j++) {
                             if (ParentData[i].BaseUnit === "MT") {
                                 ParentData[i].IssuedMaterialReservedBOQItems.results[
                                     j

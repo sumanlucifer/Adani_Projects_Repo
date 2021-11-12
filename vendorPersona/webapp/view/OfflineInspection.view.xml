@@ -95,11 +95,11 @@
                                             <Text text="{ParentItemModel>BOQApprovedQty}"/>                                                
                                             <Input value="{ParentItemModel>InspectionQty}" width="30%" type="Number" liveChange="onLiveChangeInspectionQty" enabled="false" />
 
-                                            <Input value="{ParentItemModel>AcceptQuantity}" width="30%" type="Number" liveChange="onLiveChangeInspectionQty" enabled="false" />
+                                            <Input value="{ParentItemModel>AcceptQuantity}" width="30%" type="Number" liveChange="onLiveChangeARHQty" enabled="false" />
 
-                                            <Input value="{ParentItemModel>RejectQuantity}" width="30%" type="Number" liveChange="onLiveChangeInspectionQty" enabled="false" />
+                                            <Input value="{ParentItemModel>RejectQuantity}" width="30%" type="Number" liveChange="onLiveChangeARHQty" enabled="false" />
 
-                                     <Input value="{ParentItemModel>HoldQuantity}" width="30%" type="Number" liveChange="onLiveChangeInspectionQty" enabled="false" />     
+                                     <Input value="{ParentItemModel>HoldQuantity}" width="30%" type="Number" liveChange="onLiveChangeARHQty" enabled="false" />     
 
                                             
 

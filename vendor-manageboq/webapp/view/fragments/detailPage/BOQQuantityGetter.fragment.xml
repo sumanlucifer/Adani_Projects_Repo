@@ -35,7 +35,7 @@
                             <Text text="UOM"/>
                         </Column>
                         <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center">
-                            <Text text="Weight Per Piece"/>
+                            <Text text="Weight Per Piece(in KG)"/>
                         </Column>
                         <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center">
                             <Text text="{i18n>TotalItemPerWeight}" />
