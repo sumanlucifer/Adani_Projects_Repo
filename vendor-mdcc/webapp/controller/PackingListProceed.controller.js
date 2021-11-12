@@ -19,13 +19,10 @@ sap.ui.define([
 	 */
     function (BaseController, Filter, FilterOperator, Fragment, Sorter, Device, History, ColumnListItem, Input, deepExtend, Spreadsheet, MessageToast, MessageBox, JSONModel) {
         "use strict";
-
         return BaseController.extend("com.agel.mmts.vendormdcc.controller.PackingListProceed", {
             onInit: function () {
-
                 this.MainModel = this.getOwnerComponent().getModel();
                 this.getView().setModel(this.MainModel);
-
                 //view model instatiation
                 var oViewModel = new JSONModel({
                     busy: false,
@@ -33,31 +30,22 @@ sap.ui.define([
                     boqSelection: null
                 });
                 this.setModel(oViewModel, "objectViewModel");
-
                 //Router Object
                 this.oRouter = this.getOwnerComponent().getRouter();
                 this.oRouter.getRoute("RoutePackingListProceedPage").attachPatternMatched(this._onObjectMatched, this);
-
                 //   this.getView().setModel(this.getOwnerComponent().getModel("i18n").getResourceBundle());
             },
-
             _onObjectMatched: function (oEvent) {
                 this.sObjectId = oEvent.getParameter("arguments").MDCCId;
                 this.sObjectId = this.sObjectId;
-
                 this._bindView("/MDCCSet(" + this.sObjectId + ")");
-
                 this._getMDCCData();
                 this.getMDCCData();
                 //  this._getParentDataViewMDCC();
-
-
             },
-
             _bindView: function (sObjectPath) {
                 var that = this;
                 var objectViewModel = this.getViewModel("objectViewModel");
-
                 this.getView().bindElement({
                     path: sObjectPath,
                     events: {
@@ -70,7 +58,6 @@ sap.ui.define([
                     }
                 });
             },
-
             // Get MDCC Set Level Data For Post Operation
             _getMDCCData: function () {
                 var that = this;
@@ -91,14 +78,12 @@ sap.ui.define([
                     }
                 });
             },
-
             // Arrange Data For View / Model Set
             _arrangeDataView: function () {
                 var that = this;
                 var oModel = new JSONModel({ "ChildItems": this.ParentDataView });
                 this.getView().setModel(oModel, "TreeTableModel");
             },
-
             getMDCCData: function () {
                 var that = this;
                 this.ParentData;
@@ -122,42 +107,21 @@ sap.ui.define([
                     }
                 });
             },
-
             dataBuilding: function (ParentData) {
                 this.ParentDataView = ParentData;
                 for (var i = 0; i < ParentData.length; i++) {
-
-
-                    this.ParentDataView[i].isChildItemFreeze = false;
-
-
-
-                    //  for (var j = 0; j < ParentData[i].MDCCBOQItems.length; j++) {
                     if (ParentData[i].MDCCBOQItems.results.length) {
-
-
                         if (ParentData[i].UOM === "MT") {
                             this.ParentDataView[i].isStandAlone = true;
                             this.ParentDataView[i].ChildItems = ParentData[i].MDCCBOQItems.results;
                             this.ParentDataView[i].isSelected = false;
                             this.ParentDataView[i].isChildItemFreeze = false;
-
-
-
                         } else {
                             this.ParentDataView[i].isStandAlone = true;
                             this.ParentDataView[i].ChildItems = ParentData[i].MDCCBOQItems.results;
                             this.ParentDataView[i].isSelected = false;
                             this.ParentDataView[i].isChildItemFreeze = true;
-
                         }
-
-
-
-
-                        // this.ParentDataView[i].isStandAlone = true;
-                        // this.ParentDataView[i].isSelected = false;
-                        // this.ParentDataView[i].ChildItems = ParentData[i].MDCCBOQItems.results;
                     }
                     else {
                         this.ParentDataView[i].isStandAlone = false;
@@ -168,35 +132,20 @@ sap.ui.define([
                 }
                 this.onDispatchQuantityNull(this.ParentDataView);
             },
-
             onDispatchQuantityNull: function (ParentData) {
                 for (var i = 0; i < ParentData.length; i++) {
                     this.ParentDataView[i].DispatchQty = "";
                     for (var j = 0; j < ParentData[i].ChildItems.length; j++) {
                         this.ParentDataView[i].ChildItems[j].DispatchQty = "";
-
-
-
-
                         if (ParentData[i].UOM === "MT") {
-
-
-
                             this.ParentData[i].ChildItems[j].isChildItemFreeze = true;
-
                         } else {
-
-
                             this.ParentData[i].ChildItems[j].isChildItemFreeze = false;
-
                         }
-
-
                     }
                 }
                 this._arrangeDataView();
             },
-
             // Live Change On Dispatch Quantity
             onLiveChangeDispatchQty1: function (oEvent) {
                 oEvent.getSource().setValueState("None");
@@ -210,7 +159,6 @@ sap.ui.define([
                     this.getView().byId("idBtnProceed").setEnabled(false);
                     flag = 1;
                 }
-
                 if (parseInt(oValue) < 0 || oValue == "") {
                     oEvent.getSource().setValueState("Error");
                     oEvent.getSource().setValueStateText("Please enter dispatch quantity");
@@ -220,8 +168,6 @@ sap.ui.define([
                     this.getView().byId("idBtnProceed").setEnabled(true);
                 }
             },
-
-
             onLiveChangeDispatchQty: function (oEvent) {
                 oEvent.getSource().setValueState("None");
                 this.getView().byId("idBtnProceed").setEnabled(true);
@@ -230,16 +176,13 @@ sap.ui.define([
                     .getSource()
                     .getBindingContext("TreeTableModel")
                     .getPath();
-
                 var sParentPath = sItemPath.slice(0, 13);
-
                 var iTotalQuantity = this.getViewModel("TreeTableModel").getProperty(
                     sParentPath + "/DispatchQty"
                 );
                 var iParentIssuedQuantity = this.getViewModel("TreeTableModel").getProperty(
                     sParentPath + "/RemainingQty"
                 );
-
                 if (!iTotalQuantity) iTotalQuantity = 0;
                 var ReservedQty = parseFloat(oEvent.getSource().getValue());
                 var oValue = oEvent.getSource().getValue();
@@ -248,14 +191,12 @@ sap.ui.define([
                 var BalanceQty = parseFloat(
                     oEvent.getSource().getParent().getCells()[9].getText()
                 );
-
                 var bChildItemFreeze = this.getViewModel("TreeTableModel").getProperty(
                     sParentPath + "/isSelected"
                 );
                 var aChildItems = this.getViewModel("TreeTableModel").getProperty(
                     sParentPath + "/ChildItems"
                 );
-
                 if (bChildItemFreeze) {
                     debugger;
                     aChildItems.forEach((item) => {
@@ -268,7 +209,6 @@ sap.ui.define([
                     );
                 } else {
                     if (parseFloat(oValue) >= 0) {
-
                         var wpp = oEvent
                             .getSource()
                             .getBindingContext("TreeTableModel")
@@ -278,28 +218,21 @@ sap.ui.define([
                             .getBindingContext("TreeTableModel")
                             .getObject().DispatchQty;
                         if (!liveQty) liveQty = 0;
-
-
                         // iTotalQuantity = iTotalQuantity - parseFloat(liveQty) + parseFloat(oValue);
                         iTotalQuantity = iTotalQuantity + ((parseFloat(oValue) - parseFloat(liveQty)) * parseFloat(wpp));
                         this.getViewModel("TreeTableModel").setProperty(sItemPath + "/DispatchQty", oValue);
-
-
                         this.getViewModel("TreeTableModel").setProperty(
                             sParentPath + "/DispatchQty",
                             iTotalQuantity
                         );
-
                     }
                 }
-
                 if (parseInt(oValue) > parseInt(BalanceQty) || BalanceQty == "") {
                     oEvent.getSource().setValueState("Error");
                     oEvent.getSource().setValueStateText("Please enter dispatch quantity lesser than or equal to the approved remaining quantity");
                     this.getView().byId("idBtnProceed").setEnabled(false);
                     flag = 1;
                 }
-
                 if (parseInt(oValue) < 0 || oValue == "") {
                     oEvent.getSource().setValueState("Error");
                     oEvent.getSource().setValueStateText("Please enter dispatch quantity");
@@ -309,7 +242,6 @@ sap.ui.define([
                     this.getView().byId("idBtnProceed").setEnabled(true);
                 }
             },
-
             // On Selection Of Row 
             onSelectionOfRow: function (oEvent) {
                 var bSelected = oEvent.getParameter("selected");
@@ -328,7 +260,6 @@ sap.ui.define([
                     oEvent.getSource().getParent().getCells()[10].setValue("");
                 }
             },
-
             // on Save Confirm - Proceed Click
             onConfirmProceedSave: function (oEvent) {
                 var that = this;
@@ -344,7 +275,6 @@ sap.ui.define([
                     }
                 });
             },
-
             // on Save - Proceed Click
             onPressProccedSave: function (oEvent) {
                 var that = this;
@@ -386,17 +316,14 @@ sap.ui.define([
                         saveData.MDCCParentItems.push(parentObj);
                     }
                 } // i end
-
                 if (saveData.MDCCParentItems.length < 1) {
                     sap.m.MessageBox.error("Please select at least one item and enter dispatch quantity");
                     return 0;
                 };
-
                 var oPayload = {
                     "ID": that.MDCCData.ID,
                     "MDCCParentItems": saveData.MDCCParentItems
                 };
-
                 // Create Call 
                 that.getComponentModel("app").setProperty("/busy", true);
                 that.MainModel.create("/MDCCEdmSet", oPayload, {
@@ -424,7 +351,6 @@ sap.ui.define([
                     }
                 });
             },
-
             // On Navigate To PackingList Create
             onNavigateToPackingList: function (PackingListId) {
                 var oCrossAppNavigator = sap.ushell.Container.getService("CrossApplicationNavigation"); // get a handle on the global XAppNav service

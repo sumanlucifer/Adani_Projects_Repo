@@ -56,79 +56,72 @@ sap.ui.define([
                 var oModel = new JSONModel([]);
                 this.getView().setModel(oModel, "reservationTableModel");
             },
-              onSearchGoodReciepient: function (sGoodsReciepientValue) {
-                    var GoodReciepientFilter = new sap.ui.model.Filter({
-                        path: "GoodsRecipient",
-                        operator: sap.ui.model.FilterOperator.EQ,
-                        value1: sGoodsReciepientValue,
+            onSearchGoodReciepient: function (sGoodsReciepientValue) {
+                var GoodReciepientFilter = new sap.ui.model.Filter({
+                    path: "GoodsRecipient",
+                    operator: sap.ui.model.FilterOperator.EQ,
+                    value1: sGoodsReciepientValue,
+                });
+                var BalanceQtyFilter = new sap.ui.model.Filter({
+                    path: "BalanceQty",
+                    operator: sap.ui.model.FilterOperator.NE,
+                    value1: 0,
+                });
+                var filter = [];
+                filter.push(GoodReciepientFilter, BalanceQtyFilter);
+                this.getOwnerComponent()
+                    .getModel()
+                    .read("/IssuedMaterialReservedItemSet", {
+                        filters: [filter],
+                        urlParameters: {
+                            $expand: "IssuedMaterialReservedBOQItems",
+                        },
+                        success: function (oData, oResponse) {
+                            this.dataBuilding(oData.results);
+                            this.getViewModel("objectViewModel").setProperty(
+                                "/isItemFieldsVisible",
+                                true
+                            );
+                            this.getViewModel("objectViewModel").setProperty(
+                                "/isButtonVisible",
+                                false
+                            );
+                        }.bind(this),
+                        error: function (oError) {
+                            sap.m.MessageBox.error(JSON.stringify(oError));
+                        },
                     });
-                    var BalanceQtyFilter = new sap.ui.model.Filter({
-                        path: "BalanceQty",
-                        operator: sap.ui.model.FilterOperator.NE,
-                        value1: 0,
-                    });
-
-                    var filter = [];
-                    filter.push(GoodReciepientFilter, BalanceQtyFilter);
-                    this.getOwnerComponent()
-                        .getModel()
-                        .read("/IssuedMaterialReservedItemSet", {
-                            filters: [filter],
-                            urlParameters: {
-                                $expand: "IssuedMaterialReservedBOQItems",
-                            },
-                            success: function (oData, oResponse) {
-                                this.dataBuilding(oData.results);
-                                this.getViewModel("objectViewModel").setProperty(
-                                    "/isItemFieldsVisible",
-                                    true
-                                );
-                                this.getViewModel("objectViewModel").setProperty(
-                                    "/isButtonVisible",
-                                    false
-                                );
-                            }.bind(this),
-                            error: function (oError) {
-                                sap.m.MessageBox.error(JSON.stringify(oError));
-                            },
-                        });
-                },
-                dataBuilding: function (ParentData) {
-                    for (var i = 0; i < ParentData.length; i++) {
-                        ParentData[i].results =
-                            ParentData[i].IssuedMaterialReservedBOQItems.results;
-                        for (
-                            var j = 0;
-                            j < ParentData[i].IssuedMaterialReservedBOQItems.results.length;
-                            j++
-                        ) {
-                            if (ParentData[i].BaseUnit === "MT") {
-                                ParentData[i].IssuedMaterialReservedBOQItems.results[
-                                    j
-                                ].isParent = true;
-                                ParentData[i].isChildItemFreeze = false;
-                                ParentData[i].IssuedMaterialReservedBOQItems.results[
-                                    j
-                                ].isChildItemFreeze = true;
-                            } else {
-                                ParentData[i].IssuedMaterialReservedBOQItems.results[
-                                    j
-                                ].isParent = true;
-                                ParentData[i].isChildItemFreeze = true;
-                                ParentData[i].IssuedMaterialReservedBOQItems.results[
-                                    j
-                                ].isChildItemFreeze = false;
-                            }
-                            //   ParentData[i].IssuedMaterialReservedBOQItems.results[j].isParent = true;
-                            //   ParentData[i].IssuedMaterialReservedBOQItems.results[j].isSelected = false;
-                        }
-                        ParentData[i].isParent = false;
-                        ParentData[i].isSelected = false;
+            },
+            dataBuilding: function (ParentData) {
+                for (var i = 0; i < ParentData.length; i++) {
+                    ParentData[i].results = ParentData[i].IssuedMaterialReservedBOQItems.results;
+                    if (ParentData[i].UOM === "MT") {
+                        ParentData[i].isChildItemFreeze = false;
+                        ParentData[i].Quantity = "";
+                    } else {
+                        ParentData[i].isChildItemFreeze = true;
+                        ParentData[i].Quantity = "";
                     }
-                    var TreeDataModel = new JSONModel({ results: ParentData });
-                    this.getView().setModel(TreeDataModel, "TreeDataModel");
-                },
-           
+                    // ParentData[i].isChildItemFreeze = true;
+                    for (var j = 0; j < ParentData[i].IssuedMaterialReservedBOQItems.results.length; j++) {
+                        if (ParentData[i].BaseUnit === "MT") {
+                            ParentData[i].IssuedMaterialReservedBOQItems.results[j].isParent = true;
+                            ParentData[i].isChildItemFreeze = false;
+                            ParentData[i].IssuedMaterialReservedBOQItems.results[j].isChildItemFreeze = true;
+                            ParentData[i].IssuedMaterialReservedBOQItems.results[j].Quantity = "";
+                        } else {
+                            ParentData[i].IssuedMaterialReservedBOQItems.results[j].isParent = true;
+                            ParentData[i].isChildItemFreeze = true;
+                            ParentData[i].IssuedMaterialReservedBOQItems.results[j].isChildItemFreeze = false;
+                             ParentData[i].IssuedMaterialReservedBOQItems.results[j].Quantity = "";
+                        }
+                    }
+                    ParentData[i].isParent = false;
+                    ParentData[i].isSelected = false;
+                }
+                var TreeDataModel = new JSONModel({ results: ParentData });
+                this.getView().setModel(TreeDataModel, "TreeDataModel");
+            },
             onAddReservationItemsPress: function (oEvent) {
                 var oModel = this.getViewModel("reservationTableModel");
                 var oItems = oModel.getData().map(function (oItem) {
@@ -142,119 +135,81 @@ sap.ui.define([
                 });
                 oModel.setData(oItems);
             },
-              onLiveChangeReservedQty: function (oEvent) {
-                    var sItemPath = oEvent
-                        .getSource()
-                        .getBindingContext("TreeDataModel")
-                        .getPath();
-
-                    var sParentPath = sItemPath.slice(0, 10);
-
-                    var iTotalQuantity = this.getViewModel("TreeDataModel").getProperty(
-                        sParentPath + "/Quantity"
-                    );
-                    var iParentIssuedQuantity = this.getViewModel("TreeDataModel").getProperty(
-                        sParentPath + "/IssuedQty"
-                    );
-
-                    if (!iTotalQuantity) iTotalQuantity = 0;
-                    var ReservedQty = parseFloat(oEvent.getSource().getValue());
-                    var oValue = oEvent.getSource().getValue();
-                    if(!oValue)
+            onLiveChangeReservedQty: function (oEvent) {
+                var sItemPath = oEvent
+                    .getSource()
+                    .getBindingContext("TreeDataModel")
+                    .getPath();
+                var sParentPath = sItemPath.slice(0, 10);
+                var iTotalQuantity = this.getViewModel("TreeDataModel").getProperty(
+                    sParentPath + "/Quantity"
+                );
+                var iParentIssuedQuantity = this.getViewModel("TreeDataModel").getProperty(
+                    sParentPath + "/IssuedQty"
+                );
+                if (!iTotalQuantity) iTotalQuantity = 0;
+                var ReservedQty = parseFloat(oEvent.getSource().getValue());
+                var oValue = oEvent.getSource().getValue();
+                if (!oValue)
                     oValue = 0;
-                    var BalanceQty = parseFloat(
-                        oEvent.getSource().getParent().getCells()[10].getText()
+                var BalanceQty = parseFloat(
+                    oEvent.getSource().getParent().getCells()[11].getText()
+                );
+                var bChildItemFreeze = this.getViewModel("TreeDataModel").getProperty(
+                    sParentPath + "/isChildItemFreeze"
+                );
+                var aChildItems = this.getViewModel("TreeDataModel").getProperty(
+                    sParentPath + "/IssuedMaterialReservedBOQItems"
+                );
+                if (bChildItemFreeze) {
+                    debugger;
+                    aChildItems.results.forEach((item) => {
+                        item.Quantity = parseFloat(oValue) * (parseFloat(item.BaseQty));
+                    });
+                    this.getViewModel("TreeDataModel").setProperty(
+                        sParentPath + "/IssuedMaterialReservedBOQItems",
+                        aChildItems
                     );
-
-                    var bChildItemFreeze = this.getViewModel("TreeDataModel").getProperty(
-                        sParentPath + "/isChildItemFreeze"
-                    );
-                    var aChildItems = this.getViewModel("TreeDataModel").getProperty(
-                        sParentPath + "/IssuedMaterialReservedBOQItems"
-                    );
-
-                    if (bChildItemFreeze) {
-                        debugger;
-                        aChildItems.results.forEach((item) => {
-                           // item.Quantity = parseFloat(oValue) * (parseFloat(item.IssuedQty) /parseFloat(iParentIssuedQuantity));
-                           item.Quantity = parseFloat(oValue) * (parseFloat(item.BaseQty));
-                        });
+                } else {
+                    if (parseFloat(oValue) >= 0) {
+                        var wpp = oEvent
+                            .getSource()
+                            .getBindingContext("TreeDataModel")
+                            .getObject().WeightPerPiece;
+                        var liveQty = oEvent
+                            .getSource()
+                            .getBindingContext("TreeDataModel")
+                            .getObject().Quantity;
+                        if (!liveQty) liveQty = 0;
+                        iTotalQuantity = iTotalQuantity + ((parseFloat(oValue) - parseFloat(liveQty)) * parseFloat(wpp));
+                        this.getViewModel("TreeDataModel").setProperty(sItemPath + "/Quantity", oValue);
                         this.getViewModel("TreeDataModel").setProperty(
-                            sParentPath + "/IssuedMaterialReservedBOQItems",
-                            aChildItems
+                            sParentPath + "/Quantity",
+                            iTotalQuantity
                         );
-                    } else {
-                        if (parseFloat(oValue) >= 0) {
-                            // var iTotalQty = parseFloat(oValue);
-                            // if(!iTotalQty)
-                            // iTotalQty =0;
-                            // var aChildQty = this.getViewModel("TreeDataModel")
-                            //     .getProperty(sParentPath + "/")
-                            //     .IssuedMaterialReservedBOQItems.results.map(function (item) {
-                            //         return {
-                            //             Quantity: parseFloat(item.Quantity),
-                            //         };
-                            //     });
-                            //   if (iTotalQuantity === null || iTotalQuantity === "") {
-                            //     this.getViewModel("TreeDataModel").setProperty(
-                            //       sParentPath + "/Quantity",
-                            //       iTotalQty
-                            //     );
-                            //   }
-
-                            // else {
-                             var wpp = oEvent
-                                .getSource()
-                                .getBindingContext("TreeDataModel")
-                                .getObject().WeightPerPiece;
-                            var liveQty = oEvent
-                                .getSource()
-                                .getBindingContext("TreeDataModel")
-                                .getObject().Quantity;
-                            if (!liveQty) liveQty = 0;
-                
-
-                            // iTotalQuantity = iTotalQuantity - parseFloat(liveQty) + parseFloat(oValue);
-                            iTotalQuantity = iTotalQuantity + ( ( parseFloat(oValue) - parseFloat(liveQty) ) * parseFloat(wpp));
-                            this.getViewModel("TreeDataModel").setProperty(sItemPath + "/Quantity", oValue);
-                            // var sum = aChildQty.reduce((a, b) => ({
-                            //   x: a.Quantity + b.Quantity,
-                            // }));
-
-                            this.getViewModel("TreeDataModel").setProperty(
-                                sParentPath + "/Quantity",
-                                iTotalQuantity
-                            );
-                            // }
-                        }
                     }
-
-                    //if (oValue === "") {
-                        // oEvent.getSource().setValueState("Error");
-                        // oEvent.getSource().setValueStateText("Please enter quantity ");
-                        // this.getView().byId("idBtnSave").setEnabled(false);
-                   // } 
-                     if (parseInt(ReservedQty) < 0) {
-                        oEvent.getSource().setValueState("Error");
-                        oEvent
-                            .getSource()
-                            .setValueStateText(
-                                "Please enter quantity greater than 0 or positive value"
-                            );
-                        this.getView().byId("idBtnSave").setEnabled(false);
-                    } else if (parseInt(ReservedQty) > parseInt(BalanceQty)) {
-                        oEvent.getSource().setValueState("Error");
-                        oEvent
-                            .getSource()
-                            .setValueStateText(
-                                "Please enter quantity lesser than or equal to balance quantity"
-                            );
-                        this.getView().byId("idBtnSave").setEnabled(false);
-                    } else {
-                        oEvent.getSource().setValueState("None");
-                        this.getView().byId("idBtnSave").setEnabled(true);
-                    }
-                },
+                }
+                if (parseInt(ReservedQty) < 0) {
+                    oEvent.getSource().setValueState("Error");
+                    oEvent
+                        .getSource()
+                        .setValueStateText(
+                            "Please enter quantity greater than 0 or positive value"
+                        );
+                    this.getView().byId("idBtnSave").setEnabled(false);
+                } else if (parseInt(ReservedQty) > parseInt(BalanceQty)) {
+                    oEvent.getSource().setValueState("Error");
+                    oEvent
+                        .getSource()
+                        .setValueStateText(
+                            "Please enter quantity lesser than or equal to balance quantity"
+                        );
+                    this.getView().byId("idBtnSave").setEnabled(false);
+                } else {
+                    oEvent.getSource().setValueState("None");
+                    this.getView().byId("idBtnSave").setEnabled(true);
+                }
+            },
             onMaterialCodeChange: function (oEvent) {
                 var reservationListObj = oEvent.getParameter("selectedRow").getBindingContext().getObject();
                 var sItemPath = oEvent.getSource().getParent().getBindingContextPath();
@@ -393,17 +348,13 @@ sap.ui.define([
             },
             _createReservationList: function () {
                 var oAdditionalData = this.getViewModel("HeaderDetailsModel").getData();
-
-                       var aItemData = this.getViewModel("TreeDataModel").getData();
-           
-                    var aItemData = aItemData.results;
-
-                    var aItemData = aItemData.filter(function (item) {
-                        return (
-                            item.Quantity !== null
-                        );
-                    });
-
+                var aItemData = this.getViewModel("TreeDataModel").getData();
+                var aItemData = aItemData.results;
+                var aItemData = aItemData.filter(function (item) {
+                    return (
+                        item.Quantity !== null
+                    );
+                });
                 // var aTreeData = this.getViewModel("TreeDataModel").getData();
                 // var itemData = aTreeData.results;
                 // var aReservationItems = [];
@@ -428,15 +379,15 @@ sap.ui.define([
                         Quantity: item.Quantity,
                         BaseUnit: item.BaseUnit,
                         Batch: item.BatchNumber,
-                           BOQList: item.IssuedMaterialReservedBOQItems.results.map(
-                                function (items) {
-                                    return {
-                                        IssuedMaterialBOQId: parseInt(items.ID),
-                                        Quantity: parseFloat(items.Quantity),
-                                        WeightPerPiece: parseFloat(items.WeightPerPiece),
-                                    };
-                                }
-                            ),
+                        BOQList: item.IssuedMaterialReservedBOQItems.results.map(
+                            function (items) {
+                                return {
+                                    IssuedMaterialBOQId: parseInt(items.ID),
+                                    Quantity: parseFloat(items.Quantity),
+                                    WeightPerPiece: parseFloat(items.WeightPerPiece),
+                                };
+                            }
+                        ),
                     };
                 });
                 var oPayload = {
@@ -484,4 +435,3 @@ sap.ui.define([
             }
         });
     });
-
