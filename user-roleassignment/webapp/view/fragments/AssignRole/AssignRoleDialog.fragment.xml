@@ -4,15 +4,15 @@
     
      <Dialog contentWidth="35%">
         <content>
-            <MultiComboBox id="roleEdit" placeholder="Select"
+            <MultiComboBox id="roleEdit" placeholder="Select" selectionFinish="onRoleSelectionFinish"
                 items="{
-                    path: '/MasterRoleSet'
+                    path: 'objectViewModel>/UnassignRoleList'
                 }">
-                <core:Item key="{ID}" text="{RoleName}"/> 
+                <core:Item key="{objectViewModel>ID}" text="{objectViewModel>RoleName}"/> 
             </MultiComboBox>
         </content>
         <beginButton>
-            <Button text="Save" press="onSave" type="Emphasized" />
+            <Button id="idSaveNewRoleBTN" text="Save" press="onSave" type="Emphasized"/>
         </beginButton>
         <endButton>
             <Button text="Close" press="onClose" type="Emphasized" />

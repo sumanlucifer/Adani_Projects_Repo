@@ -17,7 +17,7 @@
 					</OverflowToolbar>
 				</headerToolbar>
                 <columns>
-                    <Column demandPopin="true" minScreenWidth="Tablet">
+                    <Column demandPopin="true" minScreenWidth="Tablet" width="25%">
                         <Text text="{i18n>role}" wrapping="true"/>
                     </Column>
                     <Column demandPopin="true" minScreenWidth="Tablet">
@@ -28,6 +28,9 @@
                     </Column>
                     <Column demandPopin="true" minScreenWidth="Tablet">
                         <Text text="{i18n>departmenthead}" wrapping="true"/>
+                    </Column>
+                     <Column demandPopin="true" minScreenWidth="Tablet">
+                        <Text text="{i18n>unAssignRole}" wrapping="true"/>
                     </Column>
                 </columns>
                 <items>
@@ -50,6 +53,7 @@
                                 <Button text="{i18n>RemoveHOD}"  press="onAddRemoveDeptHeadPress" type="Reject" visible="{= ${IsHeadOfDepartment} === true ? true : false}"/>
                                 <Button text="{i18n>DeclareHOD}"  press="onAddRemoveDeptHeadPress" type="Accept" visible="{= ${IsHeadOfDepartment} === false ? true : false}"/>
                             </HBox>
+                            <Button text="{i18n>unAssignRole}"  press="onUnassignRolePress" type="Ghost"/>
                         </cells>
                     </ColumnListItem>
                 </items>
