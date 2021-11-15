@@ -232,7 +232,7 @@ sap.ui.define(
                     if(!oValue)
                     oValue = 0;
                     var BalanceQty = parseFloat(
-                        oEvent.getSource().getParent().getCells()[10].getText()
+                        oEvent.getSource().getParent().getCells()[11].getText()
                     );
 
                     var bChildItemFreeze = this.getViewModel("TreeDataModel").getProperty(
