@@ -485,6 +485,8 @@ sap.ui.define([
                 this.getViewModel("boqCreationModel").setProperty(sBindingPath + "/TotalItemWeight", iTotalWeight);
                 iTotalQuantity += iTotalWeight;
                 iTotalQuantity = iTotalQuantity.toFixed(4);
+                if(iTotalQuantity < 0 )
+                    iTotalQuantity = 0;
                 this.getViewModel("boqCreationModel").setProperty("/quantity", iTotalQuantity);
                 // if (parseFloat(oValue) > parseFloat(oPOData.PendingQty)) {
                 //     this.getViewModel("boqCreationModel").setProperty("/isConfirmButtonEnabled", false);

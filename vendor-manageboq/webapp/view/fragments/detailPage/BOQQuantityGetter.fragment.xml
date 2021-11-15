@@ -51,15 +51,15 @@
                                 <ObjectIdentifier title="{boqCreationModel>MaterialCode}"/>
                                 <Text text="{boqCreationModel>Name}"/>
                                 <ExpandableText text="{boqCreationModel>Description}" maxCharacters="50" overflowMode="Popover"/>
-                                <Text text="{path: 'boqCreationModel>Qty', formatter: '.formatter.toFiveDecimals'}"/>
-                                <Text text="{path: 'boqCreationModel>RemainingQty', formatter: '.formatter.toFiveDecimals'}"/>
+                                <Text text="{path: 'boqCreationModel>Qty'}"/>
+                                <Text text="{path: 'boqCreationModel>RemainingQty'}"/>
                                 <!-- <VBox> -->
                                     <!-- <Text visible="{= ${boqCreationModel>/UOM} === 'MT'? false: true}" text="{boqCreationModel>BOQQuantity}"/> -->
-                                    <Input editable="{= ${boqCreationModel>/UOM} === 'MT'? ${boqCreationModel>selected} : false}" value="{boqCreationModel>BOQQuantity}" liveChange="onLiveChangeBoqQty" type="Number"/>
+                                <Input editable="{= ${boqCreationModel>/UOM} === 'MT'? ${boqCreationModel>selected} : false}" value="{boqCreationModel>BOQQuantity}" liveChange="onLiveChangeBoqQty" type="Number"/>
                                 <!-- </VBox> -->
                                 <Text text="{boqCreationModel>UOM}"/>
                                 <Text text="{boqCreationModel>WeightPerPiece}"/>
-                                <Text text="{path: 'boqCreationModel>TotalItemWeight', formatter: '.formatter.toFiveDecimals'}"/>
+                                <Text text="{path: 'boqCreationModel>TotalItemWeight'}"/>
                                 <ExpandableText text="{boqCreationModel>Remarks}" maxCharacters="50" overflowMode="Popover"/>
                             </cells>
                         </ColumnListItem>
