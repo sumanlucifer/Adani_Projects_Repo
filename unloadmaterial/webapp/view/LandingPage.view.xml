@@ -46,7 +46,7 @@
             <smartTable:SmartTable class="sapUiResponsiveContentPadding" id="idUnloadMaterialTable" editable="false" placeToolbarInTable="true" 
             enableAutoBinding="true" entitySet="UnloadMaterialSet"  showFullScreenButton="true" showRowCount="false" tableType="ResponsiveTable" 
             demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" beforeRebindTable="onbeforeRebindTable"
-            ignoreFromPersonalisation="ID,MaterialCode,Description,Type,DispatchType,DispatchQty,QRNumber,IsArchived,CreatedAt,CreatedBy,UpdatedAt,UpdatedBy">
+            ignoreFromPersonalisation="ID,MaterialCode,Description,Type,DispatchType,DispatchQty,QRNumber,IsArchived,CreatedAt,CreatedBy,UpdatedAt,UpdatedBy,TotalReceivedQty,UOM">
                 <Table sticky="ColumnHeaders,HeaderToolbar">
                     <columns>
                         <Column >
@@ -81,22 +81,6 @@
                             <Text text="{i18n>GateEntryDate}"/>
                         </Column>
 
-                        <Column demandPopin="true" minScreenWidth="Tablet">
-                            <customData>
-                                <core:CustomData key="p13nData" value='\{"columnKey": "TotalReceivedQty", "leadingProperty": "TotalReceivedQty",
-                                        "columnIndex": 4,"sortProperty": "TotalReceivedQty", "filterProperty": "TotalReceivedQty"}'/>
-                            </customData>
-                            <Text text="{i18n>TotRcvdQty}"/>
-                        </Column>
-
-                        <Column demandPopin="true" minScreenWidth="Desktop">
-                            <customData>
-                                <core:CustomData key="p13nData" value='\{"columnKey": "UOM", "leadingProperty": "UOM",
-                                                        "columnIndex": 5,"sortProperty": "UOM", "filterProperty": "UOM" }'/>
-                            </customData>
-                            <Text text="{i18n>UOM}"/>
-                        </Column>
-
                     </columns>
                     <items>
                         <ColumnListItem type="Inactive"> 
@@ -115,8 +99,6 @@
                                                 pattern: 'MMMM dd, yyyy'
                                             }
                                 }"/>
-                                <Text text="{TotalReceivedQty}"/>
-                                <Text text="{UOM}"/>
                             </cells>
                         </ColumnListItem>
                     </items>
