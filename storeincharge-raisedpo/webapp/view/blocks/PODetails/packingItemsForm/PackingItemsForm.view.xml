@@ -37,12 +37,12 @@
                     <ObjectStatus text="{Status}" state="{= ${Status}=== 'SAVED' ? 'Indication05' : ${Status}=== 'DISPATCHED' ? 'Indication06' : 'Indication08'}"/>
 
                     <Text text="{GateEntryNumber}"/>
-                    <Text text="{path:'CreatedAt',
+                    <Text text="{path:'UnloadingDate',
                                 type: 'sap.ui.model.type.Date',
                                 formatOptions: {
                                 pattern: 'MMMM dd, yyyy'
                                 }
-                        }" binding="{UnloadMaterial}"/>
+                        }"/>
                 </cells>
             </ColumnListItem>
         </items>
