@@ -18,8 +18,8 @@ sap.ui.define([
                 busy: false,
                 delay: 0,
                 boqSelection: null,
-                ID: null,
-                Role: null
+                Role: null,
+                UnassignRoleList: []
             });
             this.setModel(oViewModel, "objectViewModel");
 
@@ -38,7 +38,8 @@ sap.ui.define([
 
         _bindView: function (sObjectPath) {
             var objectViewModel = this.getViewModel("objectViewModel");
-            // this.fnGetUserRoles(sObjectPath);
+            this.fnGetUserRoles(sObjectPath);
+            this.fnGetMasterRoles();
 
             this.getView().bindElement({
                 path: sObjectPath,
@@ -53,19 +54,31 @@ sap.ui.define([
             });
         },
 
-        // fnGetUserRoles: function (sObjectPath) {
-        //     this.getView().getModel().read(sObjectPath, {
-        //         urlParameters: {
-        //             $expand: "UserRoles"
-        //         },
-        //         success: function (oResponse) {
-        //             var oApprovedUserRolesModel = new JSONModel(oResponse.UserRoles.results);
-        //             this.getView().setModel(oApprovedUserRolesModel, "ApprovedUserRolesModel");
-        //         }.bind(this),
-        //         error: function (oError) {
-        //         }.bind(this)
-        //     });
-        // },
+        fnGetUserRoles: function (sObjectPath) {
+            this.getView().getModel().read(sObjectPath, {
+                urlParameters: {
+                    $expand: "UserRoles,UserRoles/Role"
+                },
+                success: function (oResponse) {
+                    var oApprovedUserRolesModel = new JSONModel(oResponse.UserRoles.results);
+                    this.getView().setModel(oApprovedUserRolesModel, "ApprovedUserRolesModel");
+                }.bind(this),
+                error: function (oError) {
+                }.bind(this)
+            });
+        },
+
+        fnGetMasterRoles: function () {
+            this.getView().getModel().read("/MasterRoleSet", {
+                success: function (oResponse) {
+                    var oMasterRoleSetModel = new JSONModel(oResponse.results);
+                    this.getView().setModel(oMasterRoleSetModel, "MasterRoleSetModel");
+                }.bind(this),
+                error: function (oError) {
+                }.bind(this)
+            });
+
+        },
 
         onRoleDialogPress: function (oEvent) {
             var sParentItemPath = oEvent.getSource().getParent().getBindingContext().getPath(),
@@ -103,19 +116,31 @@ sap.ui.define([
                 oDialog.addStyleClass("sapUiSizeCompact");
                 oDialog.open();
 
-                // oDetails.controller.setSelectedRoleKeys();
+                oDetails.view.byId("idSaveNewRoleBTN").setEnabled(false);
+                oDetails.controller.fnSetUnassignedRolesList(oDetails.view);
             });
         },
 
-        // setSelectedRoleKeys: function () {
-        //     var aExistingApprovedRoles = this.getView().getModel("ApprovedUserRolesModel").getProperty("/"),
-        //         aUserRoles = this.getView().byId("roleEdit").getItems(),
-        //         aSelectedKeys = [];
+        fnSetUnassignedRolesList: function (oView) {
+            var aExistingApprovedRoles = oView.getModel("ApprovedUserRolesModel").getProperty("/"),
+                aMasterRoles = oView.getModel("MasterRoleSetModel").getProperty("/"),
+                UnassignedRoles = [];
 
-        //     this.getView().byId("roleEdit").setSelectedKeys(aSelectedKeys);
-        // },
+            for (var i = 0; i < aMasterRoles.length; i++) {
+                var iIndex = aExistingApprovedRoles.findIndex(function (oRole) {
+                    return oRole.Role.Role === aMasterRoles[i].Role;
+                });
 
-        onClose: function (oEvent) {
+                if (iIndex < 0) {
+                    UnassignedRoles.push(aMasterRoles[i]);
+                }
+            }
+
+            oView.getModel("objectViewModel").setProperty("/UnassignRoleList", UnassignedRoles);
+            oView.getModel("objectViewModel").refresh();
+        },
+
+        onClose: function () {
             this.pDialog.then(function (oDialog) {
                 oDialog.close();
             });
@@ -140,25 +165,29 @@ sap.ui.define([
                 "Roles": aRoleId
             };
 
+            this.onClose();
             this.getComponentModel().create("/UserRoleAssignmentSet", aPayload, {
-                success: function (oResponse) {
+                success: function () {
                     this.getView().setBusy(false);
-                    // if (oResponse.Success)
-                        MessageBox.success("User Roles Assigned Successfully.");
-                    // else
-                        // MessageBox.error(oResponse.Message);
-
+                    MessageBox.success(this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("UserRoleAssignedSuccess"));
                     this.getView().getElementBinding().refresh(true);
-                    this.onClose();
+                    // this.onInit();
                 }.bind(this),
                 error: function (oError) {
                     this.getView().setBusy(false);
                     MessageBox.error(JSON.stringify(oError));
-                    this.onClose();
                 }.bind(this)
             });
 
             this.getView().byId("roleEdit").setSelectedKeys([]);
+        },
+
+        onRoleSelectionFinish: function (oEvent) {
+            var aSelectedRoleKeys = oEvent.getSource().getSelectedKeys();
+            if (aSelectedRoleKeys.length > 0)
+                this.getView().byId("idSaveNewRoleBTN").setEnabled(true);
+            else
+                this.getView().byId("idSaveNewRoleBTN").setEnabled(false);
         }
     });
 });
