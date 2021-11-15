@@ -15,7 +15,7 @@ function (BlockBase) {
                 }
             },
             events: {
-                "onRoleDialogPress": {}
+                "onRoleDialogPress": {}                
 			}
         }
     });
