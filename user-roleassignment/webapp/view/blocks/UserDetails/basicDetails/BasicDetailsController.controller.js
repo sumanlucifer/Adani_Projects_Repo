@@ -19,7 +19,7 @@ sap.ui.define([
                         MessageBox.success(oResponse.Message);
                     else
                         MessageBox.error(oResponse.Message);
-                    this.getView().getModel().refresh();
+                    this.getView().byId("idUserRolesTBL").getBinding("items").refresh();
                 }.bind(this),
                 error: function (oError) {
                     MessageBox.error(JSON.stringify(oError));
@@ -84,7 +84,13 @@ sap.ui.define([
                 this.getView().getModel().create("/UserRoleAssignmentSet", oUnassignRoleObj, {
                     success: function () {
                         MessageBox.success(this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("UserRoleUnassignedSuccess"));
-                        this.getView().getElementBinding().refresh(true);
+                        var aExistingApprovedRoles = this.getView().getModel("ApprovedUserRolesModel").getProperty("/"),
+                            iUnassignedRoleIndex = aExistingApprovedRoles.findIndex(function (oRole) {
+                                return oRole.Role.ID == sRoleId;
+                            });
+                        aExistingApprovedRoles.splice(iUnassignedRoleIndex, 1);
+                        this.getView().getModel("ApprovedUserRolesModel").setProperty("/", aExistingApprovedRoles);
+                        this.getView().byId("idUserRolesTBL").getBinding("items").refresh();
                     }.bind(this),
                     error: function (oError) {
                         // MessageBox.error(JSON.stringify(oError));

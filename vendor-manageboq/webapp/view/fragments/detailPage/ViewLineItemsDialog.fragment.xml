@@ -32,9 +32,9 @@
                             <ObjectIdentifier title="{MaterialCode}"/>
                             <Text text="{Name}"/>
                             <ExpandableText text="{Description}" maxCharacters="50" overflowMode="Popover"/>
-                            <Text text="{Qty}"/>
+                            <Text text="{path: 'Qty', formatter: '.formatter.toFiveDecimals'}"/>
                             <Text text="{UOM}"/>
-                            <Text text="{TotalItemWeight}"/>
+                            <Text text="{path: 'TotalItemWeight', formatter: '.formatter.toFiveDecimals'}"/>
                             <ExpandableText text="{Remarks}" maxCharacters="50" overflowMode="Popover"/>
                         </cells>
                     </ColumnListItem>

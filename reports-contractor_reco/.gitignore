@@ -8,11 +8,3 @@ mta-*
 resources
 archive.zip
 .*_mta_build_tmp
-# auto generated wildcard
-materialreservation/.env1
-# auto generated wildcard
-materialreservation/.env2
-# auto generated wildcard
-admin-po_summary/.env7
-# auto generated wildcard
-sapui5/vendor-manageboq/.env1

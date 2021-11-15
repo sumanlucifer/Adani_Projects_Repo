@@ -82,7 +82,7 @@
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection title="{i18n>basicDetails}" titleLevel="H6">
                         <uxap:blocks>
-                            <basicDetails:BasicDetails class="sapUxAPObjectPageSubSectionAlignContent" onRoleDialogPress= "onRoleDialogPress"/>
+                            <basicDetails:BasicDetails id="idUserRolesBlock" class="sapUxAPObjectPageSubSectionAlignContent" onRoleDialogPress= "onRoleDialogPress"/>
                         </uxap:blocks>
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>

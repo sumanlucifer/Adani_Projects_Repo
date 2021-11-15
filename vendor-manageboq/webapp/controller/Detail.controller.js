@@ -9,9 +9,11 @@ sap.ui.define([
     "sap/ui/core/routing/History",
     'sap/m/MessageToast',
     "sap/m/MessageBox",
-], function (BaseController, JSONModel, Filter, FilterOperator, Fragment, Sorter, Device, History, MessageToast, MessageBox) {
+    "com/agel/mmts/vendormanageboq/utils/formatter"
+], function (BaseController, JSONModel, Filter, FilterOperator, Fragment, Sorter, Device, History, MessageToast, MessageBox, Formatter) {
     "use strict";
     return BaseController.extend("com.agel.mmts.vendormanageboq.controller.Detail", {
+        formatter: Formatter,
         onInit: function () {
             //get logged in User
             try {

@@ -19,7 +19,8 @@ sap.ui.define([
                 delay: 0,
                 boqSelection: null,
                 Role: null,
-                UnassignRoleList: []
+                UnassignRoleList: [],
+                UserID: null
             });
             this.setModel(oViewModel, "objectViewModel");
 
@@ -33,6 +34,7 @@ sap.ui.define([
 
         _onObjectMatched: function (oEvent) {
             var sObjectId = oEvent.getParameter("arguments").BOQRequestId;
+            this.getView().getModel("objectViewModel").setProperty("/UserID", sObjectId);
             this._bindView("/UserSet" + sObjectId);
         },
 
@@ -170,8 +172,11 @@ sap.ui.define([
                 success: function () {
                     this.getView().setBusy(false);
                     MessageBox.success(this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("UserRoleAssignedSuccess"));
-                    this.getView().getElementBinding().refresh(true);
-                    // this.onInit();
+                    var sUserID = this.getView().getModel("objectViewModel").getProperty("/UserID");
+
+                    this.fnGetUserRoles("/UserSet" + sUserID);
+
+                    this.getView().getElementBinding().refresh();
                 }.bind(this),
                 error: function (oError) {
                     this.getView().setBusy(false);

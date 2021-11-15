@@ -9,8 +9,9 @@ sap.ui.define([
     "sap/ui/Device",
     "sap/m/MessageBox",
     'sap/ui/core/ValueState',
+    'sap/m/MessageToast',
     '../utils/formatter',
-], function (BaseController, jQuery, JSONModel, Filter, FilterOperator, Fragment, Sorter, Device, MessageBox, ValueState, formatter) {
+], function (BaseController, jQuery, JSONModel, Filter, FilterOperator, Fragment, Sorter, Device, MessageBox, ValueState, MessageToast, formatter) {
     "use strict";
 
     return BaseController.extend("com.agel.mmts.vendorPersona.controller.OfflineInspection", {
@@ -86,6 +87,10 @@ sap.ui.define([
                     element.BOQApprovedQty = 0;
                     for (var i = 0; i < element.BOQApprovalRequests.results.length; i++) {
                         if (element.BOQApprovalRequests.results[i].Status === 'APPROVED') {
+                            element.RejectQuantity = "0";
+                            element.HoldQuantity = "0";
+                            element.AcceptQuantity = "0";
+
                             element.BOQApprovedQty += parseFloat(element.BOQApprovalRequests.results[i].BOQGroup.GeneratedBOQQty);
                         }
                     }
@@ -96,9 +101,19 @@ sap.ui.define([
         },
 
         onSelectionChange: function (oEvent) {
+
+
+
             var bSelected = oEvent.getParameter("selected");
             var bSelectAll = oEvent.getParameter("selectAll");
             var aListItems = oEvent.getParameter("listItems");
+
+            var sBOQQty = parseFloat(oEvent.getParameter("listItem").getCells()[4].getText());
+            if (sBOQQty === 0 || sBOQQty === null) {
+                MessageToast.show("BOQ Quantity is not available for selected item.");
+                
+                return false;
+            }
 
             if (bSelectAll) {
                 for (var i = 0; i < aListItems.length; i++) {
@@ -185,7 +200,7 @@ sap.ui.define([
             if (!HoldQty) HoldQty = 0;
             var sumARHQty = ApprovedQty + RejectQty + HoldQty;
             var oSaveButton = this.getView().byId("idOfflineSaveButton");
-            if (sumARHQty >= Quantity) {
+            if (sumARHQty > Quantity) {
                 oEvent.getSource().setValueState("Error");
                 oEvent.getSource().setValueStateText("Please enter quantity lesser than or equal to total Inspection quantity");
                 oSaveButton.setEnabled(false);
