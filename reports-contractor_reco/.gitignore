@@ -15,4 +15,8 @@ materialreservation/.env2
 # auto generated wildcard
 admin-po_summary/.env7
 # auto generated wildcard
+<<<<<<< HEAD
 vendor-manageboq/.env5
+=======
+sapui5/vendor-manageboq/.env1
+>>>>>>> develop

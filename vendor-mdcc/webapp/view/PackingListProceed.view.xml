@@ -91,7 +91,7 @@
                                  <ui:Column width="8%">
 									<Label text="Select"/>
 									<ui:template>
-<CheckBox selected="{TreeTableModel>isSelected}"  visible="{TreeTableModel>isChildItemFreeze}" 
+                             <CheckBox selected="{TreeTableModel>isSelected}"  visible="{TreeTableModel>isChildItemFreeze}" 
                                             select="onSelectionOfRow"  />
 
 
@@ -133,7 +133,7 @@
 									</ui:template>
 								</ui:Column>
 
-<ui:Column>
+                                    <ui:Column>
 									<Label text="{i18n>WeightPerPiece}" wrapping="true"/>
 									<ui:template>                                        
 										    <Text text="{TreeTableModel>WeightPerPiece}" />
