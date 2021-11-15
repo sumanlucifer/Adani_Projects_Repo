@@ -15,3 +15,5 @@ materialreservation/.env1
 materialreservation/.env2
 # auto generated wildcard
 admin-po_summary/.env7
+# auto generated wildcard
+vendor-manageboq/.env5
