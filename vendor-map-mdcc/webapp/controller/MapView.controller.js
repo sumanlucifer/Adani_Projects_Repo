@@ -436,17 +436,20 @@ sap.ui.define([
                     success: function (oData, oResponse) {
                         //  that.getComponentModel("app").setProperty("/busy", false);
                         // debbuger;
-                        that.getComponentModel("app").setProperty("/busy", false);
-                        sap.m.MessageBox.success("MDCC items mapped successfully!", {
-                            title: "Success",
-                            onClose: function (oAction1) {
+                        if (oData.Success) {
+                            that.getComponentModel("app").setProperty("/busy", false);
+                            sap.m.MessageBox.success("MDCC items mapped successfully!", {
+                                title: "Success",
+                                onClose: function (oAction1) {
 
-                                if (oAction1 === sap.m.MessageBox.Action.OK) {
-                                    window.history.go(-1);
-                                }
-                            }.bind(this)
-                        });
-
+                                    if (oAction1 === sap.m.MessageBox.Action.OK) {
+                                        window.history.go(-1);
+                                    }
+                                }.bind(this)
+                            });
+                        }
+                        else
+                            sap.m.MessageBox.error(oData.Message);
                         //  that.onCancel();
                     }.bind(this),
                     error: function (oError) {
