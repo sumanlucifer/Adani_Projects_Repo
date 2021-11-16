@@ -168,7 +168,8 @@
                                 <ui:Column>
 									<Label text="{i18n>dispatchQty}"/>
 									<ui:template>
-										<Input value="{TreeTableModel>DispatchQty}" liveChange="onLiveChangeDispatchQty" editable="false" enabled="{= ${TreeTableModel>isChildItemFreeze} ? true : false}" />
+										<!-- <Input value="{TreeTableModel>DispatchQty}" liveChange="onLiveChangeDispatchQty" editable="false" enabled="{= ${TreeTableModel>isChildItemFreeze} ? true : false}" /> -->
+										<Input value="{TreeTableModel>DispatchQty}" liveChange="onLiveChangeDispatchQty" editable="true" enabled="true" />
 									</ui:template>
 								</ui:Column>
 
