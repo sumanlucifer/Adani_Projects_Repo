@@ -110,24 +110,48 @@ sap.ui.define([
             dataBuilding: function (ParentData) {
                 this.ParentDataView = ParentData;
                 for (var i = 0; i < ParentData.length; i++) {
+
+                    if (ParentData[i].UOM === "MT") {
+
+
+                        this.ParentData[i].isSelected = false;
+                        this.ParentData[i].isChildItemFreeze = false;
+                    } else {
+
+                        this.ParentData[i].isSelected = false;
+                        this.ParentData[i].isChildItemFreeze = true;
+                    }
+
                     if (ParentData[i].MDCCBOQItems.results.length) {
-                        if (ParentData[i].UOM === "MT") {
-                            this.ParentDataView[i].isStandAlone = true;
-                            this.ParentDataView[i].ChildItems = ParentData[i].MDCCBOQItems.results;
-                            this.ParentDataView[i].isSelected = false;
-                            this.ParentDataView[i].isChildItemFreeze = false;
-                        } else {
-                            this.ParentDataView[i].isStandAlone = true;
-                            this.ParentDataView[i].ChildItems = ParentData[i].MDCCBOQItems.results;
-                            this.ParentDataView[i].isSelected = false;
-                            this.ParentDataView[i].isChildItemFreeze = true;
-                        }
+                        this.ParentDataView[i].isStandAlone = true;
+                        this.ParentDataView[i].isSelected = false;
+                        this.ParentDataView[i].ChildItems = ParentData[i].MDCCBOQItems.results;
                     }
                     else {
                         this.ParentDataView[i].isStandAlone = false;
                         this.ParentDataView[i].isSelected = false;
                         this.ParentDataView[i].ChildItems = [];
                     }
+
+
+                    // if (ParentData[i].MDCCBOQItems.results.length) {
+                    //     if (ParentData[i].UOM === "MT") {
+                    //         this.ParentDataView[i].isStandAlone = true;
+                    //         this.ParentDataView[i].ChildItems = ParentData[i].MDCCBOQItems.results;
+                    //         this.ParentDataView[i].isSelected = false;
+                    //         this.ParentDataView[i].isChildItemFreeze = false;
+                    //     } else {
+                    //         this.ParentDataView[i].isStandAlone = true;
+                    //         this.ParentDataView[i].ChildItems = ParentData[i].MDCCBOQItems.results;
+                    //         this.ParentDataView[i].isSelected = false;
+                    //         this.ParentDataView[i].isChildItemFreeze = true;
+                    //     }
+                    // }
+                    // else {
+                    //     this.ParentDataView[i].isStandAlone = false;
+                    //     this.ParentDataView[i].isSelected = false;
+                    //     this.ParentDataView[i].ChildItems = [];
+                    // }
                     //   }
                 }
                 this.onDispatchQuantityNull(this.ParentDataView);

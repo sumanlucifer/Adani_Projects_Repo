@@ -615,6 +615,13 @@ modules:
     - npm install
     - npm run build:cf
     supported-platforms: []
+- name: workflow-ReturnMaterial
+  type: com.sap.application.content
+  path: workflow-ReturnMaterial
+  requires:
+  - name: workflow
+    parameters:
+      content-target: true
 resources:
 - name: uaa_agel-mmts-web
   type: org.cloudfoundry.managed-service

@@ -1,0 +1,38 @@
+{
+    "id": "returnmaterialform",
+    "schemaVersion": "1.1.0",
+    "name": "ReturnmaterialForm",
+    "revision": "1.0",
+    "type": "task",
+    "readOnly": true,
+    "content": [
+        {
+            "id": "basic_details",
+            "type": "section",
+            "title": "Basic Details",
+            "content": [
+                {
+                    "id": "request_number",
+                    "type": "string",
+                    "label": "Request Number",
+                    "readOnly": false,
+                    "value": "${context.ReservationResponse.d.RequestNumber}",
+                    "constraints": {
+                        "required": false
+                    }
+                },
+                {
+                    "id": "reservation_number",
+                    "type": "string",
+                    "label": "Reservation Number",
+                    "readOnly": false,
+                    "value": "${context.ReservationResponse.d.ReservationNumber}",
+                    "constraints": {
+                        "required": false
+                    }
+                }
+            ]
+        }
+    ],
+    "decisions": []
+}

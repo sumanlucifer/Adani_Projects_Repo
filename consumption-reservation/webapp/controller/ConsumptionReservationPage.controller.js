@@ -114,17 +114,13 @@ sap.ui.define(
                 dataBuilding: function (ParentData) {
                     for (var i = 0; i < ParentData.length; i++) {
                         ParentData[i].results = ParentData[i].IssuedMaterialReservedBOQItems.results;
-
-   if (ParentData[i].BaseUnit === "MT") {
-                        ParentData[i].isChildItemFreeze = false;
-                        ParentData[i].Quantity = "";
-                    } else {
-                        ParentData[i].isChildItemFreeze = true;
-                        ParentData[i].Quantity = "";
-                    }
-
-
-
+                        if (ParentData[i].BaseUnit === "MT") {
+                            ParentData[i].isChildItemFreeze = false;
+                            ParentData[i].Quantity = "";
+                        } else {
+                            ParentData[i].isChildItemFreeze = true;
+                            ParentData[i].Quantity = "";
+                        }
                         for (var j = 0; j < ParentData[i].IssuedMaterialReservedBOQItems.results.length; j++) {
                             if (ParentData[i].BaseUnit === "MT") {
                                 ParentData[i].IssuedMaterialReservedBOQItems.results[
@@ -216,37 +212,32 @@ sap.ui.define(
                         .getSource()
                         .getBindingContext("TreeDataModel")
                         .getPath();
-
                     var sParentPath = sItemPath.slice(0, 10);
-
                     var iTotalQuantity = this.getViewModel("TreeDataModel").getProperty(
                         sParentPath + "/Quantity"
                     );
                     var iParentIssuedQuantity = this.getViewModel("TreeDataModel").getProperty(
                         sParentPath + "/IssuedQty"
                     );
-
                     if (!iTotalQuantity) iTotalQuantity = 0;
                     var ReservedQty = parseFloat(oEvent.getSource().getValue());
                     var oValue = oEvent.getSource().getValue();
-                    if(!oValue)
-                    oValue = 0;
+                    if (!oValue)
+                        oValue = 0;
                     var BalanceQty = parseFloat(
                         oEvent.getSource().getParent().getCells()[11].getText()
                     );
-
                     var bChildItemFreeze = this.getViewModel("TreeDataModel").getProperty(
                         sParentPath + "/isChildItemFreeze"
                     );
                     var aChildItems = this.getViewModel("TreeDataModel").getProperty(
                         sParentPath + "/IssuedMaterialReservedBOQItems"
                     );
-
                     if (bChildItemFreeze) {
                         debugger;
                         aChildItems.results.forEach((item) => {
-                           // item.Quantity = parseFloat(oValue) * (parseFloat(item.IssuedQty) /parseFloat(iParentIssuedQuantity));
-                           item.Quantity = parseFloat(oValue) * (parseFloat(item.BaseQty));
+                            // item.Quantity = parseFloat(oValue) * (parseFloat(item.IssuedQty) /parseFloat(iParentIssuedQuantity));
+                            item.Quantity = parseFloat(oValue) * (parseFloat(item.BaseQty));
                         });
                         this.getViewModel("TreeDataModel").setProperty(
                             sParentPath + "/IssuedMaterialReservedBOQItems",
@@ -254,25 +245,7 @@ sap.ui.define(
                         );
                     } else {
                         if (parseFloat(oValue) >= 0) {
-                            // var iTotalQty = parseFloat(oValue);
-                            // if(!iTotalQty)
-                            // iTotalQty =0;
-                            // var aChildQty = this.getViewModel("TreeDataModel")
-                            //     .getProperty(sParentPath + "/")
-                            //     .IssuedMaterialReservedBOQItems.results.map(function (item) {
-                            //         return {
-                            //             Quantity: parseFloat(item.Quantity),
-                            //         };
-                            //     });
-                            //   if (iTotalQuantity === null || iTotalQuantity === "") {
-                            //     this.getViewModel("TreeDataModel").setProperty(
-                            //       sParentPath + "/Quantity",
-                            //       iTotalQty
-                            //     );
-                            //   }
-
-                            // else {
-                             var wpp = oEvent
+                            var wpp = oEvent
                                 .getSource()
                                 .getBindingContext("TreeDataModel")
                                 .getObject().WeightPerPiece;
@@ -281,29 +254,23 @@ sap.ui.define(
                                 .getBindingContext("TreeDataModel")
                                 .getObject().Quantity;
                             if (!liveQty) liveQty = 0;
-                
-
-                            // iTotalQuantity = iTotalQuantity - parseFloat(liveQty) + parseFloat(oValue);
-                            iTotalQuantity = iTotalQuantity + ( ( parseFloat(oValue) - parseFloat(liveQty) ) * parseFloat(wpp));
+                            iTotalQuantity = iTotalQuantity + ((parseFloat(oValue) - parseFloat(liveQty)) * parseFloat(wpp));
                             this.getViewModel("TreeDataModel").setProperty(sItemPath + "/Quantity", oValue);
                             // var sum = aChildQty.reduce((a, b) => ({
                             //   x: a.Quantity + b.Quantity,
                             // }));
-
                             this.getViewModel("TreeDataModel").setProperty(
                                 sParentPath + "/Quantity",
                                 iTotalQuantity
                             );
-                            // }
                         }
                     }
-
                     //if (oValue === "") {
-                        // oEvent.getSource().setValueState("Error");
-                        // oEvent.getSource().setValueStateText("Please enter quantity ");
-                        // this.getView().byId("idBtnSave").setEnabled(false);
-                   // } 
-                     if (parseInt(ReservedQty) < 0) {
+                    // oEvent.getSource().setValueState("Error");
+                    // oEvent.getSource().setValueStateText("Please enter quantity ");
+                    // this.getView().byId("idBtnSave").setEnabled(false);
+                    // } 
+                    if (parseInt(ReservedQty) < 0) {
                         oEvent.getSource().setValueState("Error");
                         oEvent
                             .getSource()
@@ -477,7 +444,6 @@ sap.ui.define(
                     //     return item.isSelected === true;
                     //   });
                     var aItemData = aItemData.results;
-
                     this.callConsumptionReservationService(oAdditionalData, aItemData);
                 },
                 callConsumptionReservationService: function (
