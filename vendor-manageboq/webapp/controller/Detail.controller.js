@@ -9,9 +9,11 @@ sap.ui.define([
     "sap/ui/core/routing/History",
     'sap/m/MessageToast',
     "sap/m/MessageBox",
-], function (BaseController, JSONModel, Filter, FilterOperator, Fragment, Sorter, Device, History, MessageToast, MessageBox) {
+    "com/agel/mmts/vendormanageboq/utils/formatter"
+], function (BaseController, JSONModel, Filter, FilterOperator, Fragment, Sorter, Device, History, MessageToast, MessageBox, Formatter) {
     "use strict";
     return BaseController.extend("com.agel.mmts.vendormanageboq.controller.Detail", {
+        formatter: Formatter,
         onInit: function () {
             //get logged in User
             try {
@@ -483,6 +485,8 @@ sap.ui.define([
                 this.getViewModel("boqCreationModel").setProperty(sBindingPath + "/TotalItemWeight", iTotalWeight);
                 iTotalQuantity += iTotalWeight;
                 iTotalQuantity = iTotalQuantity.toFixed(4);
+                if(iTotalQuantity < 0 )
+                    iTotalQuantity = 0;
                 this.getViewModel("boqCreationModel").setProperty("/quantity", iTotalQuantity);
                 // if (parseFloat(oValue) > parseFloat(oPOData.PendingQty)) {
                 //     this.getViewModel("boqCreationModel").setProperty("/isConfirmButtonEnabled", false);
