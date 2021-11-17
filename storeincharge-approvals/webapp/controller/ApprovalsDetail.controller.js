@@ -264,7 +264,8 @@ sap.ui.define([
                 }
                 var qrcodeID = this.getViewModel().getProperty(sParentItemPath).QRNumber;
                 var aPayload = {
-                    "QRNumber": qrcodeID
+                    "QRNumber": qrcodeID,
+                    "RegeneratedQRId" : 0
                 };
                 this.getComponentModel().create("/QuickAccessQRCodeEdmSet", aPayload, {
                     success: function (oData, oResponse) {
@@ -293,7 +294,8 @@ sap.ui.define([
                 }
                 var qrcodeID = this.getViewModel().getProperty(sParentItemPath).QRNumber;
                 var aPayload = {
-                    "QRNumber": qrcodeID
+                    "QRNumber": qrcodeID,
+                    "RegeneratedQRId" : 0
                 };
                 this.getComponentModel().create("/QuickAccessQRCodeEdmSet", aPayload, {
                     success: function (oData, oResponse) {
