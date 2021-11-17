@@ -93,7 +93,8 @@ sap.ui.define([
             onViewQRCodePress: function (oEvent) {
                 var qrcodeID = this.byId("idInputQRCode").getValue();
                 var aPayload = {
-                    "QRNumber": qrcodeID
+                    "QRNumber": qrcodeID,
+                    "RegeneratedQRId" : 0
                 };
                 this.getComponentModel().create("/QuickAccessQRCodeEdmSet", aPayload, {
                     success: function (oData, oResponse) {
