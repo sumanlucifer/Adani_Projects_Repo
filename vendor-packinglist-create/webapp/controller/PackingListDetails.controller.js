@@ -379,7 +379,8 @@ sap.ui.define([
             var qrcodeID = this.byId("idQRNumber").getText();
             var qrcodeID = oEvent.mParameters.getSource().getBindingContext().getObject().QRNumber;
             var aPayload = {
-                "QRNumber": qrcodeID
+                "QRNumber": qrcodeID,
+                "RegeneratedQRId" : 0
             };
             this.getComponentModel().create("/QuickAccessQRCodeEdmSet", aPayload, {
                 success: function (oData, oResponse) {
