@@ -136,9 +136,8 @@ sap.ui.define([
                 })
                 sContent.then(function (oVal) {
                     item.Content = oVal.Bytes;
-                    debugger;
                     if (item.Type === 'MDCC')
-                        that.getViewModel("DocumentModel").getProperty("/PL_Material").push(item);
+                        that.getViewModel("DocumentModel").getProperty("/MDCC").push(item);
 
                     that.getViewModel("DocumentModel").refresh();
                 });
@@ -154,7 +153,6 @@ sap.ui.define([
             return new Promise((resolve, reject) => {
                 oDataModel.create("/PrintDocumentEdmSet", reqID, {
                     success: function (data) {
-                        // debugger;
                         resolve(data);
                     },
                     error: function (data) {
@@ -428,7 +426,6 @@ sap.ui.define([
                // var sPath = oEvent.getSource().getParent().getBindingContextPath();
                // sPath=  ;
                // that.handleViewDialogOpen();
-               //debugger;
         }
 
     });
