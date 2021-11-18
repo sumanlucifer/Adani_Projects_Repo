@@ -1,7 +1,7 @@
 <core:FragmentDefinition xmlns="sap.m"
     xmlns:smartTable="sap.ui.comp.smarttable"
     xmlns:core="sap.ui.core">
-    <smartTable:SmartTable class="sapUiResponsiveContentPadding" id="idListTable" editable="false" placeToolbarInTable="true" enableAutoBinding="true" entitySet="ConsumptionPostingSet" showFullScreenButton="true" header="Posted Consumption" showRowCount="true" tableType="ResponsiveTable" demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" beforeRebindTable="onbeforeRebindConsumptionTable" requestAtLeastFields="ID,GatePassNumber" ignoreFromPersonalisation="TotalGrossWeight, CancelledAt, CancelledBy, UpdatedAt, UpdatedBy,CreatedBy, IsArchived">
+    <smartTable:SmartTable class="sapUiResponsiveContentPadding" id="idListTable" editable="false" placeToolbarInTable="true" enableAutoBinding="true" entitySet="ConsumptionPostingSet" showFullScreenButton="true" header="Posted Consumption" showRowCount="true" tableType="ResponsiveTable" demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" beforeRebindTable="onbeforeRebindConsumptionTable" requestAtLeastFields="ID" ignoreFromPersonalisation="TotalGrossWeight, GatePassNumber, CancelledAt, CancelledBy, UpdatedAt, UpdatedBy,CreatedBy, IsArchived">
         <Table sticky="ColumnHeaders,HeaderToolbar" updateFinished="onIssueTableUpdateFinished" alternateRowColors="true">
             <columns>
                 <Column >
@@ -27,30 +27,22 @@
                 </Column>
                 <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "GatePassNumber", "leadingProperty": "GatePassNumber",
-"columnIndex": 3 ,"sortProperty": "GatePassNumber"}'/>
-                    </customData>
-                    <Text text="{i18n>GatePassNumber}"/>
-                </Column>
-                <Column demandPopin="true" minScreenWidth="Tablet">
-                    <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "DocumentDate", "leadingProperty": "DocumentDate",
-"columnIndex": 4 ,"sortProperty": "DocumentDate"}'/>
+"columnIndex": 3 ,"sortProperty": "DocumentDate"}'/>
                     </customData>
                     <Text text="{i18n>DocumentDate}"/>
                 </Column>
                 <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "PostingDate", "leadingProperty": "PostingDate",
-"columnIndex": 5 ,"sortProperty": "PostingDate"}'/>
+"columnIndex": 4 ,"sortProperty": "PostingDate"}'/>
                     </customData>
                     <Text text="{i18n>PostingDate}"/>
                 </Column>
-
                 <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "Status", "leadingProperty": "Status",
-"columnIndex": 6 ,"sortProperty": "Status"}'/>
+"columnIndex": 5 ,"sortProperty": "Status"}'/>
                     </customData>
                     <Text text="{i18n>Status}"/>
                 </Column>
@@ -61,7 +53,6 @@
                         <ObjectIdentifier title="{MaterialDocumentNumber}" />
                         <Text text="{MaterialDocumentYear}"/>
                         <Text text="{ReservationNumber}"/>
-                        <Text text="{GatePassNumber}"/>
                         <Text text="{path:'DocumentDate',
 type: 'sap.ui.model.type.DateTime',
 formatOptions: {
