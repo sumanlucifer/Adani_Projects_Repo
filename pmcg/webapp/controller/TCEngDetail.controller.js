@@ -15,12 +15,13 @@ sap.ui.define([
     "sap/m/MessageBox",
     "sap/m/ObjectIdentifier",
     "sap/m/Text",
-    "sap/m/Button"
-], function (BaseController, JSONModel, Filter, FilterOperator, Fragment, Sorter, Device, History, ColumnListItem, Input, deepExtend, Spreadsheet, MessageToast, MessageBox, ObjectIdentifier, Text, Button) {
+    "sap/m/Button",
+    "../utils/formatter"
+], function (BaseController, JSONModel, Filter, FilterOperator, Fragment, Sorter, Device, History, ColumnListItem, Input, deepExtend, Spreadsheet, MessageToast, MessageBox, ObjectIdentifier, Text, Button, formatter) {
     "use strict";
 
     return BaseController.extend("com.agel.mmts.pmcg.controller.TCEngDetail", {
-
+        formatter: formatter,
         onInit: function () {
             this.getView().addEventDelegate({
                 onAfterShow: this.onBeforeShow,
@@ -32,7 +33,7 @@ sap.ui.define([
                 boqSelection: null
             });
             this.setModel(oViewModel, "objectViewModel");
-            
+
             this.MainModel = this.getOwnerComponent().getModel();
             this.getView().setModel(this.MainModel);
 
@@ -50,10 +51,10 @@ sap.ui.define([
             // var sObjectId = oEvent.getParameter("arguments").TCEngId;
 
             var sObjectId = oEvent.getParameter("arguments").TCEngId;
-            this.sObjectId =sObjectId;
- 
+            this.sObjectId = sObjectId;
+
             // this._bindView("/MDCCSet(" + sObjectId +")");
-            this._bindView("/MDCCStatusSet(" + sObjectId +")/MDCC");
+            this._bindView("/MDCCStatusSet(" + sObjectId + ")/MDCC");
             this._getParentDataViewMDCC(sObjectId);
         },
 
@@ -68,7 +69,7 @@ sap.ui.define([
                 UpdatedAt: null,
                 UpdatedBy: null,
                 ApprovedOn: null,
-                ApprovedBy:null
+                ApprovedBy: null
 
             });
 
@@ -102,7 +103,7 @@ sap.ui.define([
             var oDataModel = oView.getModel();
             //console.log(oPayLoad);
             return new Promise((resolve, reject) => {
-                this.getOwnerComponent().getModel().read("/MDCCStatusSet(" + this.sObjectId +")/MDCC/Attachments", {
+                this.getOwnerComponent().getModel().read("/MDCCStatusSet(" + this.sObjectId + ")/MDCC/Attachments", {
                     success: function (oData, oResponse) {
                         var oJSONData = {
                             MDCC: []
@@ -241,9 +242,9 @@ sap.ui.define([
 
         onApproveBOQPress: function (oEvent) {
             var boqApprovalModel = this.getViewModel("BOQApprovalModel");
-            var obj=oEvent.getSource().getBindingContext().getObject();
+            var obj = oEvent.getSource().getBindingContext().getObject();
             var patt1 = /[0-9]/g;
-            var sObject =this.sObjectId;
+            var sObject = this.sObjectId;
             var mDCCID = parseInt(sObject.match(patt1));
             var iD = obj.ID;
             var updatedAt = obj.UpdatedAt;
@@ -277,12 +278,12 @@ sap.ui.define([
                 boqApprovalModel.setProperty("/isPostButtonEnabled", false);
         },
 
-        onReadId : function(){
+        onReadId: function () {
             var that = this;
             // this.getComponentModel().read("/MDCCSet(" + this.sObjectId +")/MDCCStatuses", {
-            this.getComponentModel().read("/MDCCStatusSet(" + this.sObjectId +")/MDCC/MDCCStatuses", {
+            this.getComponentModel().read("/MDCCStatusSet(" + this.sObjectId + ")/MDCC/MDCCStatuses", {
                 success: function (oData, oResponse) {
-                   that.onPostButtonPress(oData.results[0].ID);
+                    that.onPostButtonPress(oData.results[0].ID);
                 }.bind(this),
                 error: function (oError) {
                     sap.m.MessageBox.success(JSON.stringify(oError));
@@ -296,39 +297,39 @@ sap.ui.define([
             var boqApprovalModel = this.getViewModel("BOQApprovalModel");
             var patt1 = /[0-9]/g;
             var sObject = this.sObjectId;
-         //   var sObjectId = parseInt(sObject.match(patt1));
+            //   var sObjectId = parseInt(sObject.match(patt1));
             var sObjectId = sObject;
 
-            var aPayload = 
+            var aPayload =
             // {"Responses": 
-                {
-                    "ID": MDCCStatusSetID,
-                    "Status": boqApprovalModel.getProperty("/Status"),
-                    "Comment": boqApprovalModel.getProperty("/Comment"),
-                    "MDCCID": boqApprovalModel.getProperty("/ID"),
-                    "UpdatedAt": new Date(),
-                    "UpdatedBy": boqApprovalModel.getProperty("/UpdatedBy"),
-                    "ApprovedOn": new Date(),
-                    "ApprovedBy": boqApprovalModel.getProperty("/ApprovedBy")
-                };
+            {
+                "ID": MDCCStatusSetID,
+                "Status": boqApprovalModel.getProperty("/Status"),
+                "Comment": boqApprovalModel.getProperty("/Comment"),
+                "MDCCID": boqApprovalModel.getProperty("/ID"),
+                "UpdatedAt": new Date(),
+                "UpdatedBy": boqApprovalModel.getProperty("/UpdatedBy"),
+                "ApprovedOn": new Date(),
+                "ApprovedBy": boqApprovalModel.getProperty("/ApprovedBy")
+            };
             // };
 
-            this.getComponentModel().update("/MDCCStatusSet(" + MDCCStatusSetID +")", aPayload, {
+            this.getComponentModel().update("/MDCCStatusSet(" + MDCCStatusSetID + ")", aPayload, {
                 success: function (oData, oResponse) {
                     var message;
-                    if ( aPayload.Status === "APPROVED"){
+                    if (aPayload.Status === "APPROVED") {
                         message = "MDCC request has been Approved successfully!";
-                    }else{
-                         message = "MDCC request has been Rejected successfully!"
+                    } else {
+                        message = "MDCC request has been Rejected successfully!"
                     }
-                     sap.m.MessageBox.success(message, {
-                            title: "Success",
-                            onClose: function (oAction1) {
-                                if (oAction1 === sap.m.MessageBox.Action.OK) {
-                                    this.getComponentModel().refresh();
-                                }
-                            }.bind(this)
-                        });
+                    sap.m.MessageBox.success(message, {
+                        title: "Success",
+                        onClose: function (oAction1) {
+                            if (oAction1 === sap.m.MessageBox.Action.OK) {
+                                this.getComponentModel().refresh();
+                            }
+                        }.bind(this)
+                    });
                 }.bind(this),
                 error: function (oError) {
                     sap.m.MessageBox.success(JSON.stringify(oError));
@@ -339,9 +340,9 @@ sap.ui.define([
 
         onRejectBOQPress: function (oEvent) {
             var boqApprovalModel = this.getViewModel("BOQApprovalModel");
-            var obj=oEvent.getSource().getBindingContext().getObject();
+            var obj = oEvent.getSource().getBindingContext().getObject();
             var patt1 = /[0-9]/g;
-            var sObject =this.sObjectId;
+            var sObject = this.sObjectId;
             var mDCCID = parseInt(sObject.match(patt1));
             var iD = obj.ID;
             var updatedAt = obj.UpdatedAt;
@@ -370,62 +371,62 @@ sap.ui.define([
         onCancelBOQApprovalProcess: function (oEvent) {
             this._oBOQApprovalDialog.close();
         },
-        		
-		//---------------------------------------------Tree Table-------------------------------------------------------------//
-        _arrangeData : function(){        
-            var oModel = new JSONModel({"ChildItems":this.ParentData});
-            this.getView().setModel(oModel,"TreeTableModel");
-        },
-        _getParentDataViewMDCC : function(sObjectId){
-                var patt1 = /[0-9]/g;
-                var sObject =sObjectId;
-           //     sObjectId = parseInt(sObject.match(patt1));
 
-                this.ParentDataView = [];
-                // var sPath = "/MDCCSet("+sObjectId+")/MDCCParentLineItems";
-                var sPath = "/MDCCStatusSet("+sObjectId+")/MDCC/MDCCParentLineItems";
-                this.MainModel.read(sPath,{
-                    success:function(oData,oResponse){
-                        if(oData.results.length){
-                            this._getChildItemsViewMDCC(oData.results, sObjectId);
-                        }
-                    }.bind(this),
-                    error:function(oError){
-                        sap.m.MessageBox.Error(JSON.stringify(oError));
+        //---------------------------------------------Tree Table-------------------------------------------------------------//
+        _arrangeData: function () {
+            var oModel = new JSONModel({ "ChildItems": this.ParentData });
+            this.getView().setModel(oModel, "TreeTableModel");
+        },
+        _getParentDataViewMDCC: function (sObjectId) {
+            var patt1 = /[0-9]/g;
+            var sObject = sObjectId;
+            //     sObjectId = parseInt(sObject.match(patt1));
+
+            this.ParentDataView = [];
+            // var sPath = "/MDCCSet("+sObjectId+")/MDCCParentLineItems";
+            var sPath = "/MDCCStatusSet(" + sObjectId + ")/MDCC/MDCCParentLineItems";
+            this.MainModel.read(sPath, {
+                success: function (oData, oResponse) {
+                    if (oData.results.length) {
+                        this._getChildItemsViewMDCC(oData.results, sObjectId);
                     }
-                });
-        },           
-        _getChildItemsViewMDCC : function(ParentDataView, sObjectId){
+                }.bind(this),
+                error: function (oError) {
+                    sap.m.MessageBox.Error(JSON.stringify(oError));
+                }
+            });
+        },
+        _getChildItemsViewMDCC: function (ParentDataView, sObjectId) {
             this.ParentDataView = ParentDataView;
-            for( var i=0; i < ParentDataView.length; i++){
+            for (var i = 0; i < ParentDataView.length; i++) {
                 // var sPath = "/MDCCSet("+sObjectId+")/MDCCParentLineItems("+ ParentDataView[i].ID +")/MDCCBOQItems";
-                var sPath = "/MDCCStatusSet("+sObjectId+")/MDCC/MDCCParentLineItems("+ ParentDataView[i].ID +")/MDCCBOQItems";
-                this.MainModel.read(sPath,{
-                    success:function(i,oData,oResponse){
-                        if(oData.results.length){
-                            this.ParentDataView[i].isStandAlone=true;
-                            this.ParentDataView[i].ChildItemsView=oData.results;
+                var sPath = "/MDCCStatusSet(" + sObjectId + ")/MDCC/MDCCParentLineItems(" + ParentDataView[i].ID + ")/MDCCBOQItems";
+                this.MainModel.read(sPath, {
+                    success: function (i, oData, oResponse) {
+                        if (oData.results.length) {
+                            this.ParentDataView[i].isStandAlone = true;
+                            this.ParentDataView[i].ChildItemsView = oData.results;
                         }
-                        else{
-                            this.ParentDataView[i].isStandAlone=false;
-                            this.ParentDataView[i].ChildItemsView=[];
+                        else {
+                            this.ParentDataView[i].isStandAlone = false;
+                            this.ParentDataView[i].ChildItemsView = [];
                         }
-                        if(i==this.ParentDataView.length-1)
+                        if (i == this.ParentDataView.length - 1)
                             this._arrangeDataView();
-                    }.bind(this,i),
-                    error:function(oError){
+                    }.bind(this, i),
+                    error: function (oError) {
                         sap.m.MessageBox.Error(JSON.stringify(oError));
                     }
                 });
             }
         },
-        _arrangeDataView : function(){        
-                var that = this;
-                var oModel = new JSONModel({"ChildItemsView":this.ParentDataView});
-                this.getView().setModel(oModel,"TreeTableModelView");
-               // var sPath = oEvent.getSource().getParent().getBindingContextPath();
-               // sPath=  ;
-               // that.handleViewDialogOpen();
+        _arrangeDataView: function () {
+            var that = this;
+            var oModel = new JSONModel({ "ChildItemsView": this.ParentDataView });
+            this.getView().setModel(oModel, "TreeTableModelView");
+            // var sPath = oEvent.getSource().getParent().getBindingContextPath();
+            // sPath=  ;
+            // that.handleViewDialogOpen();
         }
 
     });
