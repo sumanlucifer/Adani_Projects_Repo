@@ -111,7 +111,7 @@ sap.ui.define([
             var sBOQQty = parseFloat(oEvent.getParameter("listItem").getCells()[4].getText());
             if (sBOQQty === 0 || sBOQQty === null) {
                 MessageToast.show("BOQ Quantity is not available for selected item.");
-                
+
                 return false;
             }
 
@@ -302,9 +302,10 @@ sap.ui.define([
                 "Documents": creationModelData.items,
                 "RaisedOfflineInspectionDate": creationModelData.RaisedInspectionDate
             };
-
+            this.getViewModel("objectViewModel").setProperty("/busy", true);
             this.getComponentModel().create("/InspectionCallIdRequestSet", oPayload, {
                 success: function (oData, oResponse) {
+                    this.getViewModel("objectViewModel").setProperty("/busy", false);
                     this.getComponentModel().refresh();
                     sap.m.MessageBox.success("Offline Inspection Call raised successfully!", {
                         title: "Success",
@@ -316,7 +317,7 @@ sap.ui.define([
                     });
                 }.bind(this),
                 error: function (oError) {
-                    sap.m.MessageBox.error(JSON.stringify(oError));
+                    this.getViewModel("objectViewModel").setProperty("/busy", false);
                 }
             })
 
