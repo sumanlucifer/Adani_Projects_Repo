@@ -57,17 +57,31 @@ sap.ui.define([
                 iDuplicateRoleIndex = aUserExistingRoles.findIndex(function (oRoleItem) {
                     return oRoleItem.Role.ID === sNewSelectedRoleId;
                 }),
-                aSelectedRolesIds = oEvent.getSource().getSelectedKeys();
+                aSelectedRolesIds = oEvent.getSource().getSelectedKeys(),
+                aPendingRequestRoles = this.getView().byId("idRequestedRolesTBL").getBinding("items").aLastContexts,
+                aPendingRequest = aPendingRequestRoles.filter(function (oRole) {
+                    return (oRole.getObject().Role === sNewSelectedRoleName && oRole.getObject().Status === "PENDING");
+                });
 
             if (iDuplicateRoleIndex >= 0) {
                 MessageToast.show("You already have access to  " + sNewSelectedRoleName + " Role.");
-                var iItemToBeUnselectIndex = aSelectedRolesIds.findIndex(function (oItem) {
-                    return oItem === sNewSelectedRoleId;
-                });
-
-                aSelectedRolesIds.splice(iItemToBeUnselectIndex, 1);
-                oEvent.getSource().setSelectedKeys(aSelectedRolesIds);
+                this.fnUpdateSelectedKeys(oEvent, aSelectedRolesIds, sNewSelectedRoleId);
+                return;
             }
+
+            if (aPendingRequest.length > 0) {
+                MessageBox.error("You have already raised access request for " + sNewSelectedRoleName + " Role.");
+                this.fnUpdateSelectedKeys(oEvent, aSelectedRolesIds, sNewSelectedRoleId);
+            }
+        },
+
+        fnUpdateSelectedKeys: function (oEvent, aSelectedRolesIds, sNewSelectedRoleId) {
+            var iItemToBeUnselectIndex = aSelectedRolesIds.findIndex(function (oItem) {
+                return oItem === sNewSelectedRoleId;
+            });
+
+            aSelectedRolesIds.splice(iItemToBeUnselectIndex, 1);
+            oEvent.getSource().setSelectedKeys(aSelectedRolesIds);
 
             if (aSelectedRolesIds.length > 0) {
                 this.getView().byId("idSaveBTN").setEnabled(true);
