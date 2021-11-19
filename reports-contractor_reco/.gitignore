@@ -13,3 +13,5 @@ archive.zip
 pmcg/.env1
 # auto generated wildcard
 vendorPersona/.env32
+# auto generated wildcard
+vendor-map-mdcc/.env2

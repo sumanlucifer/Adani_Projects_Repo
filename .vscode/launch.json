@@ -846,6 +846,26 @@
       },
       "envFile": "${workspaceFolder}/vendorPersona/.env32",
       "preLaunchTask": "Build sapui5"
+    },
+    {
+      "name": "Run sapui5-vendor-map-mdcc",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/agel-mmts-web-approuter/node_modules/@sap/html5-repo-mock/index.js",
+      "args": [
+        "--standalone",
+        "/comagelmmtsvendormapmdcc/index.html",
+        "--ui5",
+        "{\"version\":\".\"}"
+      ],
+      "cwd": "${workspaceFolder}/vendor-map-mdcc",
+      "env": {
+        "PORT": "6004",
+        "MOCK_LOOKUP_DIRS": "[\"webapp\"]",
+        "run.config": "{\"handlerId\":\"ui5_run_config_handler_id\",\"runnableId\":\"/home/user/projects/sapui5/vendor-map-mdcc\"}"
+      },
+      "envFile": "${workspaceFolder}/vendor-map-mdcc/.env2",
+      "preLaunchTask": "Build sapui5"
     }
   ],
   "compounds": [],
