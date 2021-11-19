@@ -806,6 +806,26 @@
       },
       "envFile": "${workspaceFolder}/vendor-manageboq/.env5",
       "preLaunchTask": "Build sapui5"
+    },
+    {
+      "name": "Run sapui5-pmcg",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/agel-mmts-web-approuter/node_modules/@sap/html5-repo-mock/index.js",
+      "args": [
+        "--standalone",
+        "/comagelmmtspmcg/index.html",
+        "--ui5",
+        "{\"version\":\".\"}"
+      ],
+      "cwd": "${workspaceFolder}/pmcg",
+      "env": {
+        "PORT": "6004",
+        "MOCK_LOOKUP_DIRS": "[\"webapp\"]",
+        "run.config": "{\"handlerId\":\"ui5_run_config_handler_id\",\"runnableId\":\"/home/user/projects/sapui5/pmcg\"}"
+      },
+      "envFile": "${workspaceFolder}/pmcg/.env1",
+      "preLaunchTask": "Build sapui5"
     }
   ],
   "compounds": [],
