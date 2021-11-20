@@ -14,7 +14,7 @@
                                 <Title text="{i18n>MapMDCC}" titleStyle="H3"/>
                             </contentLeft>
                             <contentRight>
-                                <Button id="idBtnSave" text="Save" type="Emphasized" press="onSave"/>
+                                <Button id="idBtnSave" text="{i18n>Save}" type="Emphasized" press="onSave"/>
                             </contentRight>
                         </Bar>                    
                     </customHeader>
@@ -26,7 +26,7 @@
 							<ui:columns>
                                 
                                 <ui:Column width="8%" hAlign="Center">
-									<Label text="Select" />
+									<Label text="{i18n>Select}" />
 									<ui:template>
 										 <CheckBox visible="{TreeTableModel>isPreviouslySelected}" selected="{TreeTableModel>isSelected}" 
                                            select="onSelectionOfRow" />
@@ -41,37 +41,46 @@
 								</ui:Column> -->
 
                                 <ui:Column width="9%">
-									<Label text="Line Number"/>
+									<Label text="{i18n>LineNumber}"/>
 									<ui:template>
 										<Text text="{TreeTableModel>LineNumber}"  />
 									</ui:template>
 								</ui:Column>
                                 
                                 <ui:Column>
-									<Label text="Material Code"/>
+									<Label text="{i18n>MaterialCode}"/>
 									<ui:template>
 										<ObjectIdentifier title="{TreeTableModel>MaterialCode}"  />
 									</ui:template>
 								</ui:Column>
 
 								<ui:Column>
-									<Label text="Name"/>
+									<Label text="{i18n>Name}"/>
 									<ui:template>
 										<Text text="{TreeTableModel>Name}"  />
 									</ui:template>
 								</ui:Column>
 
+
 								<ui:Column>
-									<Label text="Description"/>
+									<Label text="{i18n>Description}"/>
 									<ui:template>
                                         <ExpandableText text="{TreeTableModel>Description}" overflowMode="Popover" maxCharacters="32"/>
 										<!-- <Text text="{TreeTableModel>Description}"  /> -->
 									</ui:template>
 								</ui:Column>
+
+
+                                 <ui:Column>
+									<Label text="{i18n>BOQList}"/>
+									<ui:template>
+										<Text text="{TreeTableModel>BOQGroupName}"  />
+									</ui:template>
+								</ui:Column>
                                 
 
                                 <ui:Column>
-									<Label text="Weight Per Piece"/>
+									<Label text="{i18n>WeightPerPiece}"/>
 									<ui:template>
 										<Text text="{TreeTableModel>WeightPerPiece}"  />
 									</ui:template>
@@ -79,28 +88,28 @@
 
 
                                 <ui:Column>
-									<Label text="Base Quantity"/>
+									<Label text="{i18n>BaseQuantity}"/>
 									<ui:template>
 										<Text text="{TreeTableModel>BaseQty}"  />
 									</ui:template>
 								</ui:Column>
 								
 								<ui:Column>
-									<Label text="Total Quantity"/>
+									<Label text="{i18n>TotalQuantity}"/>
 									<ui:template>
 										<Text text="{TreeTableModel>Qty}"  />
 									</ui:template>
 								</ui:Column>
 
                                 <ui:Column>
-									<Label text="Remaining Quantity"/>
+									<Label text="{i18n>RemainingQuantity}"/>
 									<ui:template>
 										<Text text="{TreeTableModel>RemainingQty}"  />
 									</ui:template>
 								</ui:Column>
 
 								<ui:Column>
-									<Label text="Approved Quantity"/>
+									<Label text="{i18n>ApprovedQuantity}"/>
 									<ui:template>
                                         
 										    <Input value="{TreeTableModel>MDCCApprovedQty}" 
@@ -112,7 +121,7 @@
 								</ui:Column>
 
 								<ui:Column hAlign="Center">
-									<Label text="UOM"/>
+									<Label text="{i18n>UOM}"/>
 									<ui:template>
 										<Text text="{TreeTableModel>UOM}"  />
 									</ui:template>
