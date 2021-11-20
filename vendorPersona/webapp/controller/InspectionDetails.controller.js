@@ -100,7 +100,6 @@ sap.ui.define([
                         that.getViewModel("DocumentModel").getProperty("/PL_Invoice").push(item);
                     else if (item.Type === 'PACKING_LIST' && item.SubType === 'OTHERS')
                         that.getViewModel("DocumentModel").getProperty("/PL_Others").push(item);
-
                     that.getViewModel("DocumentModel").refresh();
                 });
             });
@@ -252,7 +251,6 @@ sap.ui.define([
             xhr.responseType = 'blob';
             xhr.send();
         },
-
         onMDCCYesSelect: function () {
             this.byId("idMDCCUploadArea").setVisible(true);
         },
@@ -608,47 +606,95 @@ sap.ui.define([
                 oDialog.close();
             });
         },
+        // onViewInspectionItemsPress: function (oEvent) {
+        //     this.inspectionID = oEvent.getSource().getBindingContext().getObject().ID;
+        //     this.CreatedAt = oEvent.getSource().getBindingContext().getObject().CreatedAt;
+        //     this.UpdatedAt = oEvent.getSource().getBindingContext().getObject().UpdatedAt;
+        //     //this.inspectionID = 15;
+        //     var that = this;
+        //     that.oIssueMaterialModel = new JSONModel();
+        //     this.MainModel.read("/InspectedParentItemSet(" + this.inspectionID + ")", {
+        //         urlParameters: { "$expand": "ParentLineItem/PCGroups/PCGroupItems" },
+        //         success: function (oData, oResponse) {
+        //             var data = oData.ParentLineItem.PCGroups.results[0];
+        //             if (oData.ParentLineItem.UoM === "MT")
+        //                 var bIsSplCase = true;
+        //             else
+        //                 bIsSplCase = false;
+        //             var InspectionMapBOQItemsData = data.PCGroupItems.results;
+        //             this.dataBuilding(InspectionMapBOQItemsData, bIsSplCase, oData.AcceptQuantity);
+        //         }.bind(this),
+        //         error: function (oError) {
+        //             sap.m.MessageBox.error("Data Not Found");
+        //         }
+        //     });
+        // },
+        // dataBuilding: function (data, bIsSplCase, iParentQty) {
+        //     for (var i = 0; i < data.length; i++) {
+        //         data[i].isSelected = false;
+        //         if (bIsSplCase)
+        //             data[i].ApprovedQty = "";
+        //         else
+        //             data[i].ApprovedQty = data[i].Qty * iParentQty;
+        //         data[i].isSpecial = bIsSplCase;
+        //         data[i].ParentApprovedQty = iParentQty;
+        //     }
+        //     var oModel = new JSONModel({});
+        //     oModel.setProperty("/isSpecial", bIsSplCase);
+        //     this.getView().setModel(oModel, "inspectedMapBOQItemsModel");
+        //     this.openInspectionBOQFragment(data);
+        // },
         onViewInspectionItemsPress: function (oEvent) {
             this.inspectionID = oEvent.getSource().getBindingContext().getObject().ID;
             this.CreatedAt = oEvent.getSource().getBindingContext().getObject().CreatedAt;
             this.UpdatedAt = oEvent.getSource().getBindingContext().getObject().UpdatedAt;
-            //this.inspectionID = 15;
+            this.inspectionQty = oEvent.getSource().getBindingContext().getObject().Qty;
+            // this.inspectionID = 148;
             var that = this;
             that.oIssueMaterialModel = new JSONModel();
-            this.MainModel.read("/InspectedParentItemSet(" + this.inspectionID + ")", {
-                urlParameters: { "$expand": "ParentLineItem/PCGroups/PCGroupItems" },
+            this.MainModel.read("/InspectionCallIdSet(" + this.inspectionID + ")/InspectedParentItems", {
+                urlParameters: { "$expand": "ParentLineItem/BOQGroups/BOQItems" },
                 success: function (oData, oResponse) {
-                    var data = oData.ParentLineItem.PCGroups.results[0];
-                    if (oData.ParentLineItem.UoM === "MT")
-                        var bIsSplCase = true;
-                    else
-                        bIsSplCase = false;
-                    var InspectionMapBOQItemsData = data.PCGroupItems.results;
-                    this.dataBuilding(InspectionMapBOQItemsData, bIsSplCase, oData.AcceptQuantity);
+                    var data = oData.results[0].ParentLineItem.BOQGroups.results;
+                    this.dataBuilding(data);
                 }.bind(this),
                 error: function (oError) {
                     sap.m.MessageBox.error("Data Not Found");
                 }
             });
         },
-        dataBuilding: function (data, bIsSplCase, iParentQty) {
-            for (var i = 0; i < data.length; i++) {
-                data[i].isSelected = false;
-                if (bIsSplCase)
-                    data[i].ApprovedQty = "";
-                else
-                    data[i].ApprovedQty = data[i].Qty * iParentQty;
-                data[i].isSpecial = bIsSplCase;
-                data[i].ParentApprovedQty = iParentQty;
+        dataBuilding: function (ParentData) {
+            ParentData.reverse();
+            for (var i = 0; i < ParentData.length; i++) {
+                ParentData[i].results = [];
+                ParentData[i].enable = false;
+                if (i === 0) {
+                    ParentData[i].isGroup = false;
+                    for (var j = 0; j < ParentData[i].BOQItems.results.length; j++) {
+                        ParentData[i].results.push(ParentData[i].BOQItems.results[j]) 
+                        ParentData[i].results[j].isGroup = true;
+                        ParentData[i].results[j].enable = true;
+                    }
+                }
+                else {
+                    ParentData[i].isGroup = false;
+                    for (var j = 0; j < ParentData[i].BOQItems.results.length; j++) {
+                        ParentData[i].results.push(ParentData[i].BOQItems.results[j])
+                        ParentData[i].results[j].isGroup = true;
+                        ParentData[i].results[j].enable = false;
+                    }
+                }
             }
-            var oModel = new JSONModel({});
-            oModel.setProperty("/isSpecial", bIsSplCase);
-            this.getView().setModel(oModel, "inspectedMapBOQItemsModel");
-            this.openInspectionBOQFragment(data);
+            //   ParentData[0].enable = true;  
+            var TreeDataModel = new JSONModel({ "results": ParentData });
+            this.getView().setModel(TreeDataModel, "TreeDataModel");
+            this.openInspectionBOQFragment();
         },
         openInspectionBOQFragment: function (itemData) {
             var oView = this.getView();
-            oView.getModel("inspectedMapBOQItemsModel").setProperty("/inspectedMapBOQItems", itemData);
+            // var TreeDataModel = new JSONModel({ results: itemData });
+            // oView.setModel(TreeDataModel, "TreeDataModel");
+            //  oView.getModel("inspectedMapBOQItemsModel").setProperty("/inspectedMapBOQItems", itemData);
             // create dialog lazily
             var that = this;
             var oDetails = {};
@@ -675,24 +721,92 @@ sap.ui.define([
                 oDialog.open();
             });
         },
+
+
+            onLiveChangeARHQty: function (oEvent) {
+            var oValue = parseFloat(oEvent.getSource().getValue());
+
+            var Quantity = parseFloat(oEvent.getSource().getParent().getCells()[8].getValue());
+            var ApprovedQty = parseFloat(oEvent.getSource().getParent().getCells()[9].getValue());
+            var RejectQty = parseFloat(oEvent.getSource().getParent().getCells()[10].getValue());
+            var HoldQty = parseFloat(oEvent.getSource().getParent().getCells()[11].getValue());
+            if (!ApprovedQty) ApprovedQty = 0;
+            if (!RejectQty) RejectQty = 0;
+            if (!HoldQty) HoldQty = 0;
+            var sumARHQty = ApprovedQty + RejectQty + HoldQty;
+            var oSaveButton = this.getView().byId("idBtnSave");
+            if (sumARHQty > Quantity) {
+                oEvent.getSource().setValueState("Error");
+                oEvent.getSource().setValueStateText("Please enter quantity lesser than or equal to total Inspection quantity");
+                oSaveButton.setEnabled(false);
+                return 0;
+            }
+            if (oValue <= 0) {
+                oEvent.getSource().setValueState("Error");
+                oEvent.getSource().setValueStateText("Please enter positive value");
+                oSaveButton.setEnabled(false);
+                return 0;
+            }
+            if (oValue > Quantity) {
+                oEvent.getSource().setValueState("Error");
+                oEvent.getSource().setValueStateText("Please enter inspected quantity lesser than or equal to total quantity");
+                oSaveButton.setEnabled(false);
+                return 0;
+            }
+
+
+            else {
+                oEvent.getSource().setValueState("None");
+                oSaveButton.setEnabled(true);
+            }
+        },
+        // openInspectionBOQFragment: function (itemData) {
+        //     var oView = this.getView();
+        //     oView.getModel("inspectedMapBOQItemsModel").setProperty("/inspectedMapBOQItems", itemData);
+        //     // create dialog lazily
+        //     var that = this;
+        //     var oDetails = {};
+        //     oDetails.controller = this;
+        //     oDetails.view = this.getView();
+        //     if (!this.pDialogInspectBOQ) {
+        //         this.pDialogInspectBOQ = Fragment.load({
+        //             id: oDetails.view.getId(),
+        //             name: "com.agel.mmts.vendorPersona.view.fragments.inspectionDetails.InspectionCallChildLineItems",
+        //             controller: oDetails.controller
+        //         }).then(function (oDialog) {
+        //             if (Device.system.desktop) {
+        //                 oDialog.addStyleClass("sapUiSizeCompact");
+        //             }
+        //             // connect dialog to the root view of this component (models, lifecycle)
+        //             oDetails.view.addDependent(oDialog);
+        //             //  oDialog.setModel(that.getView().getModel("TreeTableModelView"));
+        //             return oDialog;
+        //         });
+        //     }
+        //     this.pDialogInspectBOQ.then(function (oDialog) {
+        //         oDetails.view.addDependent(oDialog);
+        //         //oDialog.setModel(that.getView().getModel("TreeTableModelView"));
+        //         oDialog.open();
+        //     });
+        // },
         onViewInspectBOQDialogClose: function () {
             this.pDialogInspectBOQ.then(function (oDialog) {
                 oDialog.close();
             });
         },
         onLiveChangeApprovedQty: function (oEvent) {
-            var bindingContext = oEvent.getSource().getBindingContext("inspectedMapBOQItemsModel"),
-                path = bindingContext.getPath(),
-                rowObj = bindingContext.getModel().getProperty(path);
-            var aChildItems = this.getViewModel("inspectedMapBOQItemsModel").getData().inspectedMapBOQItems;
+            var bindingContext = oEvent.getSource().getBindingContext("TreeDataModel"),
+                path = bindingContext.getPath();
+                // rowObj = bindingContext.getModel().getProperty(path);
+            var aChildItems = this.getViewModel("TreeDataModel").getData().results[0].BOQItems.results;
             var iTotalChildQty = 0;
-            for(var i=0; i<aChildItems.length;i++){
-                if(aChildItems[i].ApprovedQty)
-                iTotalChildQty += parseFloat(aChildItems[i].ApprovedQty);
+            for (var i = 0; i < aChildItems.length; i++) {
+                if (aChildItems[i].IssuedQty)
+                    iTotalChildQty += parseFloat(aChildItems[i].IssuedQty);
             }
             var ApprovedQty = oEvent.getSource().getValue();
             var aCell = oEvent.getSource().getParent().getCells()[8];
-            if (parseFloat(ApprovedQty) > parseFloat(rowObj.Qty)) {
+            if (parseFloat(ApprovedQty) > parseFloat(this.inspectionQty)) {
                 aCell.setValueState("Error");
                 aCell.setValueStateText("Please enter quantity lesser than or equal to remaining quantity")
                 this.getView().byId("idBtnSave").setEnabled(false);
@@ -700,7 +814,7 @@ sap.ui.define([
                 aCell.setValueState("None");
                 this.getView().byId("idBtnSave").setEnabled(true);
             }
-            if (parseFloat(iTotalChildQty) > parseFloat(rowObj.ParentApprovedQty)) {
+            if (iTotalChildQty > parseFloat(this.inspectionQty)) {
                 aCell.setValueState("Error");
                 aCell.setValueStateText("Quantity exceed the total parent Quantity.")
                 this.getView().byId("idBtnSave").setEnabled(false);
@@ -712,9 +826,9 @@ sap.ui.define([
         onPressSaveInspectionBOQItems: function (oEvent) {
             var that = this;
             var itemData = this.getTableItems();
-            if (!this._validateItemData(itemData.selectedItems)) {
-                return;
-            }
+            // if (!this._validateItemData(itemData.selectedItems)) {
+            //     return;
+            // }
             var inspectionID = this.inspectionID;
             MessageBox.confirm("Do you want to Submit the Inspect BOQ Items?", {
                 icon: MessageBox.Icon.INFORMATION,
@@ -729,10 +843,11 @@ sap.ui.define([
             });
         },
         getTableItems: function () {
-            var itemData = this.getView().getModel("inspectedMapBOQItemsModel").getProperty("/inspectedMapBOQItems");
-            var selectedItems = itemData.filter(function (item) {
-                return item.isSelected === true;
-            });
+            var itemData = this.getView().getModel("TreeDataModel").getData();
+            var selectedItems = itemData.results[0];
+            // var selectedItems = itemData.filter(function (item) {
+            //     return item.isSelected === true;
+            // });
             return {
                 selectedItems
             };
@@ -770,10 +885,13 @@ sap.ui.define([
             return bValid;
         },
         onSaveInspectBOQDialog: function (inspectionID, itemData) {
-            var aInspectionBOQItems = itemData.selectedItems.map(function (item) {
+            var aInspectionBOQItems = itemData.selectedItems.BOQItems.results.map(function (item) {
                 return {
                     BOQItemId: item.ID,
-                    InspectionQty: item.ApprovedQty
+                    InspectionQty: item.IssuedQty,
+                    AcceptedQuantity: "1",
+                    RejectedQuantity: "2",
+                    HoldQuantity: "3"
                 };
             });
             var oPayload = {
@@ -781,7 +899,8 @@ sap.ui.define([
                 "CreatedAt": this.CreatedAt,
                 "CreatedBy": "",
                 "UpdatedAt": null,
-                "UpdatedBy": this.UpdatedBy,
+                "BOQGroupId":itemData.selectedItems.ID,
+                // "UpdatedBy": this.UpdatedBy,
                 "InspectedBOQItems": aInspectionBOQItems
             };
             this.MainModel.create("/InspectionBOQRequestSet", oPayload, {
@@ -808,6 +927,8 @@ sap.ui.define([
         onRowsUpdated: function (oEvent) {
             //  //debugger;
             //  var oTable = this.getView().byId("TreeTableBasicView");
+            //   var mBindingParams = oEvent.getSource().getBinding("rows");
+            // mBindingParams.aSorters.push(new sap.ui.model.Sorter("CreatedOn",false));
         },
         onExit: function () {
         }
