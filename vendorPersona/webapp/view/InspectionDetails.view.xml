@@ -144,7 +144,7 @@
                                             <Text text="{Qty}"/>
                                             <Text text="{AcceptQuantity}"/>
                                             <Text text="{HoldQuantity}"/>
-                                            <Text text="{RejectedQuantity}"/>
+                                            <Text text="{RejectQuantity}"/>
                                             <Text text="{MDCCApprovedQty}"/>
                                             <Text text="{UOM}"/>
                                         </cells>

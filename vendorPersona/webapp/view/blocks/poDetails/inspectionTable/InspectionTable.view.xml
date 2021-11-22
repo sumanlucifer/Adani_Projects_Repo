@@ -27,8 +27,16 @@
 
                 <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Type", "leadingProperty": "Type",
+                                                 "columnIndex": 1,"sortProperty": "Type","filterProperty": "Type"}'/>
+                    </customData>
+                    <Text text="{i18n>Type}"/>
+                </Column>
+
+                <Column demandPopin="true" minScreenWidth="Tablet">
+                    <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "InspectionDate", "leadingProperty": "InspectionDate",
-                                                 "columnIndex": 1 ,"sortProperty": "InspectionDate"}'/>
+                                                 "columnIndex": 2 ,"sortProperty": "InspectionDate"}'/>
                     </customData>
                     <Text text="{i18n>inspectionDate}"/>
                 </Column>
@@ -36,7 +44,7 @@
                 <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "RaisedOfflineInspectionDate", "leadingProperty": "RaisedOfflineInspectionDate",
-                                                 "columnIndex": 2 ,"sortProperty": "RaisedOfflineInspectionDate"}'/>
+                                                 "columnIndex": 3 ,"sortProperty": "RaisedOfflineInspectionDate"}'/>
                     </customData>
                     <Text text="{i18n>RaisedOfflineInspectionDate}"/>
                 </Column>
@@ -44,7 +52,7 @@
                 <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "CreatedAt", "leadingProperty": "CreatedAt",
-                                                 "columnIndex": 3 ,"sortProperty": "CreatedAt"}'/>
+                                                 "columnIndex": 4 ,"sortProperty": "CreatedAt"}'/>
                     </customData>
                     <Text text="{i18n>CreatedAt}"/>
                 </Column>
@@ -52,9 +60,31 @@
                 <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "Comments", "leadingProperty": "Comments",
-                                                 "columnIndex": 4,"sortProperty": "Comments","filterProperty": "Comments"}'/>
+                                                 "columnIndex": 5,"sortProperty": "Comments","filterProperty": "Comments"}'/>
                     </customData>
                     <Text text="{i18n>comments}"/>
+                </Column>
+
+                <!-- <Column demandPopin="true" minScreenWidth="Tablet">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Type", "leadingProperty": "Type",
+                                                 "columnIndex": 5,"sortProperty": "Type","filterProperty": "Type"}'/>
+                    </customData>
+                    <Text text="{i18n>Type}"/>
+                </Column> -->
+                <Column demandPopin="true" minScreenWidth="Tablet">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Category", "leadingProperty": "Category",
+                                                 "columnIndex": 6,"sortProperty": "Category","filterProperty": "Category"}'/>
+                    </customData>
+                    <Text text="{i18n>Category}"/>
+                </Column>
+                <Column demandPopin="true" minScreenWidth="Tablet">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "InspectionDays", "leadingProperty": "InspectionDays",
+                                                 "columnIndex": 7,"sortProperty": "InspectionDays","filterProperty": "InspectionDays"}'/>
+                    </customData>
+                    <Text text="{i18n>InspectionDays}"/>
                 </Column>
             </columns>
             <items>
@@ -62,6 +92,7 @@
                 <ColumnListItem type="Navigation" press="onInspectionIDPress">
                     <cells>
                         <ObjectIdentifier title="{= ${Notification}!== '0' ? ${Notification} : ${OfflineInspectionCallId}}" />
+                        <Text text="{Type}"/>
                         <Text text="{path:'InspectionDate',
                                     type: 'sap.ui.model.type.Date',
 				                     formatOptions: {
@@ -81,6 +112,8 @@
 				                     }    
                         }"/>
                         <Text text="{Comments}"/>
+                        <Text text="{Category}"/>
+                        <Text text="{InspectionDays}"/>                        
                     </cells>
                 </ColumnListItem>
 

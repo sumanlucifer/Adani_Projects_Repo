@@ -649,6 +649,8 @@ sap.ui.define([
             this.CreatedAt = oEvent.getSource().getBindingContext().getObject().CreatedAt;
             this.UpdatedAt = oEvent.getSource().getBindingContext().getObject().UpdatedAt;
             this.inspectionQty = oEvent.getSource().getBindingContext().getObject().Qty;
+            this.oSelectedMapBOQItem = oEvent.getSource().getBindingContext().getObject();
+
             // this.inspectionID = 148;
             var that = this;
             that.oIssueMaterialModel = new JSONModel();
@@ -657,6 +659,8 @@ sap.ui.define([
                 success: function (oData, oResponse) {
                     var data = oData.results[0].ParentLineItem.BOQGroups.results;
                     this.dataBuilding(data);
+                    this.getViewModel("objectViewModel").setProperty("/Description", oData.results[0].Description);
+                    this.getViewModel("objectViewModel").setProperty("/LongText", oData.results[0].LongText);
                 }.bind(this),
                 error: function (oError) {
                     sap.m.MessageBox.error("Data Not Found");
@@ -671,7 +675,7 @@ sap.ui.define([
                 if (i === 0) {
                     ParentData[i].isGroup = false;
                     for (var j = 0; j < ParentData[i].BOQItems.results.length; j++) {
-                        ParentData[i].results.push(ParentData[i].BOQItems.results[j]) 
+                        ParentData[i].results.push(ParentData[i].BOQItems.results[j])
                         ParentData[i].results[j].isGroup = true;
                         ParentData[i].results[j].enable = true;
                     }
@@ -723,42 +727,65 @@ sap.ui.define([
         },
 
 
-            onLiveChangeARHQty: function (oEvent) {
-            var oValue = parseFloat(oEvent.getSource().getValue());
+        onLiveChangeARHQty: function (oEvent) {
+            if (oEvent.getSource().getValue()) {
+                var iValue = parseFloat(oEvent.getSource().getValue()),
+                    oRowObject = oEvent.getSource().getParent().getBindingContext("TreeDataModel").getObject(),
+                    iQuantity = oRowObject.Qty ? parseFloat(oRowObject.Qty) : 0,
+                    iAcceptedQuantity = oRowObject.AcceptedQuantity ? parseFloat(oRowObject.AcceptedQuantity) : 0,
+                    iRejectedQuantity = oRowObject.RejectedQuantity ? parseFloat(oRowObject.RejectedQuantity) : 0,
+                    iHoldQuantity = oRowObject.HoldQuantity ? parseFloat(oRowObject.HoldQuantity) : 0,
+                    iSumOfARHQty = iAcceptedQuantity + iRejectedQuantity + iHoldQuantity,
+                    oSaveButton = this.getView().byId("idBtnSave"),
+                    oMismatchMsgStrip = this.getView().byId("idQntMismatchMSGStrip"),
+                    fnShowQntMismatchMSGStrip = function () {
+                        oMismatchMsgStrip.setVisible(true);
+                        //oEvent.getSource().setValue(null);
+                        oSaveButton.setEnabled(false);
+                    };
 
-            var Quantity = parseFloat(oEvent.getSource().getParent().getCells()[8].getValue());
-            var ApprovedQty = parseFloat(oEvent.getSource().getParent().getCells()[9].getValue());
-            var RejectQty = parseFloat(oEvent.getSource().getParent().getCells()[10].getValue());
-            var HoldQty = parseFloat(oEvent.getSource().getParent().getCells()[11].getValue());
-            if (!ApprovedQty) ApprovedQty = 0;
-            if (!RejectQty) RejectQty = 0;
-            if (!HoldQty) HoldQty = 0;
-            var sumARHQty = ApprovedQty + RejectQty + HoldQty;
-            var oSaveButton = this.getView().byId("idBtnSave");
-            if (sumARHQty > Quantity) {
-                oEvent.getSource().setValueState("Error");
-                oEvent.getSource().setValueStateText("Please enter quantity lesser than or equal to total Inspection quantity");
                 oSaveButton.setEnabled(false);
-                return 0;
-            }
-            if (oValue <= 0) {
-                oEvent.getSource().setValueState("Error");
-                oEvent.getSource().setValueStateText("Please enter positive value");
-                oSaveButton.setEnabled(false);
-                return 0;
-            }
-            if (oValue > Quantity) {
-                oEvent.getSource().setValueState("Error");
-                oEvent.getSource().setValueStateText("Please enter inspected quantity lesser than or equal to total quantity");
-                oSaveButton.setEnabled(false);
-                return 0;
-            }
 
+                if (iValue > iQuantity) {
+                    fnShowQntMismatchMSGStrip();
+                    return;
+                }
+                else if (iSumOfARHQty > iQuantity) {
+                    fnShowQntMismatchMSGStrip();
+                    return;
+                }
+                oMismatchMsgStrip.setVisible(false);
 
-            else {
-                oEvent.getSource().setValueState("None");
-                oSaveButton.setEnabled(true);
+                var aInspectionBOQItems = this.getTableItems().selectedItems.BOQItems.results,
+                    aIncompleteInspectionBOQItems = aInspectionBOQItems.filter(function (oItem) {
+                        return oItem.AcceptedQuantity === null || oItem.RejectedQuantity === null || oItem.HoldQuantity === null;
+                    });
+
+                if (aIncompleteInspectionBOQItems.length === 0) {
+                    var iAcceptedQuantityTotal = 0, iRejectedQuantityTotal = 0, iHoldQuantityTotal = 0;
+                    for (var i = 0; i < aInspectionBOQItems.length; i++) {
+                        iAcceptedQuantityTotal = iAcceptedQuantityTotal + (aInspectionBOQItems[i].AcceptedQuantity ? parseFloat(aInspectionBOQItems[i].AcceptedQuantity) : 0);
+                        iRejectedQuantityTotal = iRejectedQuantityTotal + (aInspectionBOQItems[i].RejectedQuantity ? parseFloat(aInspectionBOQItems[i].RejectedQuantity) : 0);
+                        iHoldQuantityTotal = iHoldQuantityTotal + (aInspectionBOQItems[i].HoldQuantity ? parseFloat(aInspectionBOQItems[i].HoldQuantity) : 0);
+                    }
+                    var iMainAcceptedQuantity = parseInt(this.oSelectedMapBOQItem.AcceptQuantity),
+                        iMainRejectedQuantity = parseInt(this.oSelectedMapBOQItem.RejectQuantity),
+                        iMainHoldQuantity = parseInt(this.oSelectedMapBOQItem.HoldQuantity);
+
+                    if (iAcceptedQuantityTotal > iMainAcceptedQuantity || iRejectedQuantityTotal > iMainRejectedQuantity || iHoldQuantityTotal > iMainHoldQuantity) {
+                        // MessageBox.error("Please enter quantities matching with Parent Quantities.");
+                        oMismatchMsgStrip.setVisible(true);
+                    }
+                    else {
+                        oSaveButton.setEnabled(true);
+                    }
+                }
+
             }
+        },
+
+        fnSetSaveButtonEnabled: function (oRowObject) {
+
         },
         // openInspectionBOQFragment: function (itemData) {
         //     var oView = this.getView();
@@ -797,7 +824,7 @@ sap.ui.define([
         onLiveChangeApprovedQty: function (oEvent) {
             var bindingContext = oEvent.getSource().getBindingContext("TreeDataModel"),
                 path = bindingContext.getPath();
-                // rowObj = bindingContext.getModel().getProperty(path);
+            // rowObj = bindingContext.getModel().getProperty(path);
             var aChildItems = this.getViewModel("TreeDataModel").getData().results[0].BOQItems.results;
             var iTotalChildQty = 0;
             for (var i = 0; i < aChildItems.length; i++) {
@@ -889,9 +916,9 @@ sap.ui.define([
                 return {
                     BOQItemId: item.ID,
                     InspectionQty: item.IssuedQty,
-                    AcceptedQuantity: "1",
-                    RejectedQuantity: "2",
-                    HoldQuantity: "3"
+                    AcceptedQuantity: item.AcceptedQuantity,
+                    RejectedQuantity: item.RejectedQuantity,
+                    HoldQuantity: item.HoldQuantity
                 };
             });
             var oPayload = {
@@ -899,7 +926,7 @@ sap.ui.define([
                 "CreatedAt": this.CreatedAt,
                 "CreatedBy": "",
                 "UpdatedAt": null,
-                "BOQGroupId":itemData.selectedItems.ID,
+                "BOQGroupId": itemData.selectedItems.ID,
                 // "UpdatedBy": this.UpdatedBy,
                 "InspectedBOQItems": aInspectionBOQItems
             };
