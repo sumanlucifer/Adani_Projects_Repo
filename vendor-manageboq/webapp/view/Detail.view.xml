@@ -43,10 +43,10 @@
                     <Label text="{i18n>actualQuantity}" class="sapUiTinyMarginBottom"/>
                     <Text text="{Quantity}"/>
                 </VBox>
-                <VBox renderType="Bare" class="sapUiMediumMarginEnd">
+                <!-- <VBox renderType="Bare" class="sapUiMediumMarginEnd">
                     <Label text="{i18n>boqgenerationQuantity}" class="sapUiTinyMarginBottom"/>
                     <Text text="{PendingQty}"/>
-                </VBox>
+                </VBox> -->
                 <VBox renderType="Bare">
                     <Label text="{i18n>uom}" class="sapUiTinyMarginBottom"/>
                     <Text text="{UoM}"/>
@@ -196,8 +196,6 @@
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>
             </uxap:ObjectPageSection>
-
-
         </uxap:sections>
     </uxap:ObjectPageLayout>
 </mvc:View>

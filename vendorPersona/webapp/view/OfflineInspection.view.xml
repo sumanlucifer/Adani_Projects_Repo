@@ -60,7 +60,7 @@
                                         <Text text="{i18n>description}"/>
                                     </Column>
                                     <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center">
-                                        <Text text="{i18n>quantity}" />
+                                        <Text text="{i18n>offerquantity}" />
                                     </Column>
                                     <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center">
                                         <Text text="{i18n>BoqApproveQty}" />
