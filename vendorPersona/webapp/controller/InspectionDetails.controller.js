@@ -809,18 +809,18 @@ sap.ui.define([
                             iHoldQty = aInspectionBOQItems[i].HoldQuantity ? parseFloat(aInspectionBOQItems[i].HoldQuantity) : 0,
                             iSumOfARHQuantity = iAcceptedQty + iRejectedQty + iHoldQty;
 
-                        if (iSumOfARHQuantity < aInspectionBOQItems[i].Qty) {
-                            oSaveButton.setEnabled(false);
-                            return;
-                        }
-                        else if (iSumOfARHQuantity > aInspectionBOQItems[i].Qty) {
+                        if (iSumOfARHQuantity < parseFloat(aInspectionBOQItems[i].Qty)) {
                             fnShowQntMismatchMSGStrip();
                             return;
                         }
-                        else if (iSumOfARHQuantity < aInspectionBOQItems[i].Qty) {
+                        else if (iSumOfARHQuantity > parseFloat(aInspectionBOQItems[i].Qty)) {
                             fnShowQntMismatchMSGStrip();
                             return;
                         }
+                        // else if (iSumOfARHQuantity < parseFloat(aInspectionBOQItems[i].Qty)) {
+                        //     fnShowQntMismatchMSGStrip();
+                        //     return;
+                        // }
                     }
                     oSaveButton.setEnabled(true);
                 }
