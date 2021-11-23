@@ -660,8 +660,8 @@ sap.ui.define([
                 success: function (oData, oResponse) {
                     var data = oData.ParentLineItem.BOQGroups.results;
                     this.dataBuilding(data);
-                    this.getViewModel("objectViewModel").setProperty("/Description", oData.results[0].Description);
-                    this.getViewModel("objectViewModel").setProperty("/LongText", oData.results[0].LongText);
+                    this.getViewModel("objectViewModel").setProperty("/Description", oData.Description);
+                    this.getViewModel("objectViewModel").setProperty("/LongText", oData.LongText);
                 }.bind(this),
                 error: function (oError) {
                     sap.m.MessageBox.error("Data Not Found");
