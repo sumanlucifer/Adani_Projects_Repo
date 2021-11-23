@@ -658,7 +658,7 @@ sap.ui.define([
             this.MainModel.read("/InspectionCallIdSet" + this.sObjectId + "/InspectedParentItems(" + this.inspectionID + ")", {
                 urlParameters: { "$expand": "ParentLineItem/BOQGroups/BOQItems" },
                 success: function (oData, oResponse) {
-                    var data = oData.results[0].ParentLineItem.BOQGroups.results;
+                    var data = oData.ParentLineItem.BOQGroups.results;
                     this.dataBuilding(data);
                     this.getViewModel("objectViewModel").setProperty("/Description", oData.results[0].Description);
                     this.getViewModel("objectViewModel").setProperty("/LongText", oData.results[0].LongText);
