@@ -655,7 +655,7 @@ sap.ui.define([
             // this.inspectionID = 148;
             var that = this;
             that.oIssueMaterialModel = new JSONModel();
-            this.MainModel.read("/InspectionCallIdSet(" + this.sObjectId + ")/InspectedParentItems( " + this.inspectionID + ")", {
+            this.MainModel.read("/InspectionCallIdSet" + this.sObjectId + "/InspectedParentItems(" + this.inspectionID + ")", {
                 urlParameters: { "$expand": "ParentLineItem/BOQGroups/BOQItems" },
                 success: function (oData, oResponse) {
                     var data = oData.results[0].ParentLineItem.BOQGroups.results;
