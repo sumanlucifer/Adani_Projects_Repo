@@ -63,9 +63,9 @@
 </core:FragmentDefinition> -->
 <core:FragmentDefinition xmlns="sap.m" xmlns:ui="sap.ui.table"
     xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form">
-    <Dialog id="helloDialog" title="Inspected Child Line Items">
+    <Dialog id="helloDialog" title="Inspected BOQ Items">
         <content>
-        <VBox class="sapUiSmallMargin">
+        <VBox>
         	<f:SimpleForm 
 			editable="false"
 			layout="ResponsiveGridLayout"
@@ -89,11 +89,13 @@
                 <Text text="{objectViewModel>/LongText}"/>
 			</f:content>
 		</f:SimpleForm>
-                <ui:TreeTable  id="TreeTable" rows="{path:'TreeDataModel>/', parameters: {numberOfExpandedLevels: 2,arrayNames:['results']}}" selectionMode="None" enableSelectAll="false" ariaLabelledBy="title" rowsUpdated="onRowsUpdated">
+                <ui:TreeTable 
+                class="sapUiSmallMarginBeginEnd  sapUiSmallMarginBottom"
+                id="TreeTable" rows="{path:'TreeDataModel>/', parameters: {numberOfExpandedLevels: 2,arrayNames:['results']}}" selectionMode="None" enableSelectAll="false" ariaLabelledBy="title" rowsUpdated="onRowsUpdated">
                 <ui:extension>
                 <MessageStrip
                     id="idQntMismatchMSGStrip"
-                    text="Quantity Mismatched"
+                    text=""
                     type="Error"
                     showIcon="true"
                     showCloseButton="false"
@@ -133,31 +135,13 @@
                             </ui:template>
                         </ui:Column>
                         <ui:Column>
-                            <Label text="{i18n>WeightPerPiece}" />
-                            <ui:template>
-                                <Text text="{TreeDataModel>WeightPerPiece}" wrapping="false" />
-                            </ui:template>
-                        </ui:Column>
-                        <!-- <ui:Column>
-                            <Label text="{i18n>RemainingQty}" />
-                            <ui:template>
-                                <Text text="{TreeDataModel>RemainingQty}" wrapping="false" />
-                            </ui:template>
-                        </ui:Column>
-                                                <ui:Column>
-                            <Label text="{i18n>RemainingWeight}" />
-                            <ui:template>
-                                <Text text="{TreeDataModel>RemainingWeight}" wrapping="false" />
-                            </ui:template>
-                        </ui:Column> -->
-                        <ui:Column>
                             <Label text="{i18n>Remarks}" />
                             <ui:template>
                                 <Text text="{TreeDataModel>Remarks}" wrapping="false" />
                             </ui:template>
                         </ui:Column>
-                    <ui:Column>
-                            <Label text="{i18n>InspectedQty}" />
+                        <ui:Column>
+                            <Label text="{i18n>TCEApproved/InspectionQty}" />
                             <ui:template>
                                 <Text text="{TreeDataModel>Qty}" wrapping="false" />
                             </ui:template>

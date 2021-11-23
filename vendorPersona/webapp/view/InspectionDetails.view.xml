@@ -115,16 +115,16 @@
                                         <Text text="{i18n>actions}"/>
                                     </Column>
                                     <Column>
-                                        <Text text="Inspection Quantity"/>
+                                        <Text text="{i18n>inspectionQuantity}"/>
                                     </Column>
                                     <Column hAlign="Center">
-                                        <Text text="Accepted Quantity"/>
+                                        <Text text="{i18n>AcceptQuantity}"/>
                                     </Column>
                                     <Column hAlign="Center">
-                                        <Text text="Hold Quantity"/>
+                                        <Text text="{i18n>RejectQuantity}"/>
                                     </Column>
                                     <Column hAlign="Center">
-                                        <Text text="Rejected Quantity"/>
+                                        <Text text="{i18n>HoldQuantity}"/>
                                     </Column>
                                     <Column hAlign="Center">
                                         <Text text="{i18n>mdccApprovedQty}"/>
@@ -143,8 +143,8 @@
                                             <Link text="{= ${UOM} === 'MT' ? ${i18n>MapBOQItems} : ${i18n>ViewBOQItems} }" visible="{IsBOQApplicable}" press="onViewInspectionItemsPress"></Link>
                                             <Text text="{Qty}"/>
                                             <Text text="{AcceptQuantity}"/>
-                                            <Text text="{HoldQuantity}"/>
                                             <Text text="{RejectQuantity}"/>
+                                            <Text text="{HoldQuantity}"/>
                                             <Text text="{MDCCApprovedQty}"/>
                                             <Text text="{UOM}"/>
                                         </cells>
@@ -187,10 +187,10 @@
                                         <Text text="{i18n>status}"/>
                                     </Column>
                                     <Column>
-                                        <Text text="Comment"/>
+                                        <Text text="{i18n>Comment}"/>
                                     </Column>
                                     <Column>
-                                        <Text text="Action Date"/>
+                                        <Text text="{i18n>ActionDate}"/>
                                     </Column>
                                     <Column>
                                         <Text text="{i18n>packingList}"/>
