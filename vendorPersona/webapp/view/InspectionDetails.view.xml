@@ -140,7 +140,8 @@
                                             <ObjectIdentifier title="{MaterialCode}"/>
                                             <Text text="{Name}"/>
                                             <ExpandableText text="{Description}" maxCharacters="32" overflowMode="Popover"/>
-                                            <Link text="{= ${UOM} === 'MT' ? ${i18n>MapBOQItems} : ${i18n>ViewBOQItems} }" visible="{IsBOQApplicable}" press="onViewInspectionItemsPress"></Link>
+                                            <!-- <Link text="{= ${UOM} === 'MT' ? ${i18n>MapBOQItems} : ${i18n>ViewBOQItems} }" visible="{IsBOQApplicable}" press="onViewInspectionItemsPress"></Link> -->
+                                            <Link text="{i18n>MapBOQItems}" visible="{IsBOQApplicable}" press="onViewInspectionItemsPress"></Link>
                                             <Text text="{Qty}"/>
                                             <Text text="{AcceptQuantity}"/>
                                             <Text text="{RejectQuantity}"/>
