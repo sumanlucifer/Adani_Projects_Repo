@@ -6,7 +6,7 @@
         <content>
             <!-- <FlexBox wrap="Wrap" renderType="Bare" alignItems="Center" justifyContent="Center" class="sapUiSmallMargin"> -->
             <VBox class="sapUiSmallMargin">
-                <RadioButtonGroup id="idRGBOQType" columns="2" visible="{= ${boqCreationModel>/UOM} === 'MT'? false: true}" select="onBOQQtyTypeSelect">
+                <RadioButtonGroup id="idRGBOQType" columns="2" visible="{= ${boqCreationModel>/IsOne2OneLineItem}? false: ${boqCreationModel>/UOM} === 'MT'? false: true}" select="onBOQQtyTypeSelect">
 					<RadioButton text="Full BOQ" selected="{= ${objectViewModel>/BOQQtyType} === 'F' ? true: false}" />
 					<RadioButton text="Partial BOQ" selected="{= ${objectViewModel>/BOQQtyType} === 'P' ? true: false}" />
 				</RadioButtonGroup>
