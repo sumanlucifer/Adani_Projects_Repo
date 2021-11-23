@@ -62,10 +62,47 @@
     </Dialog>
 </core:FragmentDefinition> -->
 <core:FragmentDefinition xmlns="sap.m" xmlns:ui="sap.ui.table"
-    xmlns:core="sap.ui.core">
-    <Dialog id="helloDialog" title="Inspected Child Line Items">
+    xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form">
+    <Dialog id="helloDialog" title="Inspected BOQ Items">
         <content>
-                <ui:TreeTable  id="TreeTable" rows="{path:'TreeDataModel>/', parameters: {numberOfExpandedLevels: 2,arrayNames:['results']}}" selectionMode="None" enableSelectAll="false" ariaLabelledBy="title" rowsUpdated="onRowsUpdated">
+        <VBox>
+        	<f:SimpleForm 
+			editable="false"
+			layout="ResponsiveGridLayout"
+			labelSpanXL="12"
+			labelSpanL="12"
+			labelSpanM="12"
+			labelSpanS="12"
+			adjustLabelSpan="false"
+			emptySpanXL="4"
+			emptySpanL="4"
+			emptySpanM="4"
+			emptySpanS="0"
+			columnsXL="1"
+			columnsL="1"
+			columnsM="1"
+			singleContainerFullSize="false" >
+			<f:content>
+				<Label text="Description"/>
+                <Text text="{objectViewModel>/Description}"/>
+                <Label text="Long Text"/>
+                <Text text="{objectViewModel>/LongText}"/>
+			</f:content>
+		</f:SimpleForm>
+                <ui:TreeTable 
+                class="sapUiSmallMarginBeginEnd  sapUiSmallMarginBottom"
+                id="TreeTable" rows="{path:'TreeDataModel>/', parameters: {numberOfExpandedLevels: 2,arrayNames:['results']}}" selectionMode="None" enableSelectAll="false" ariaLabelledBy="title" rowsUpdated="onRowsUpdated">
+                <ui:extension>
+                <MessageStrip
+                    id="idQntMismatchMSGStrip"
+                    text=""
+                    type="Error"
+                    showIcon="true"
+                    showCloseButton="false"
+                    visible="false"
+                    class="sapUiTinyMarginBeginEnd sapUiTinyMarginTopBottom">
+			</MessageStrip>
+                </ui:extension>
                     <ui:columns>
                         <!-- <ui:Column width="8%" hAlign="Center">
                             <Label text="{i18n>Select}" />
@@ -85,34 +122,16 @@
                                 <Text text="{TreeDataModel>MaterialCode}" wrapping="false" />
                             </ui:template>
                         </ui:Column>
-                        <ui:Column>
+                        <!-- <ui:Column>
                             <Label text="{i18n>Qty}" />
                             <ui:template>
                                 <Text text="{TreeDataModel>Qty}" wrapping="false" />
                             </ui:template>
-                        </ui:Column>
+                        </ui:Column> -->
                         <ui:Column>
                             <Label text="{i18n>UOM}" />
                             <ui:template>
                                 <Text text="{TreeDataModel>UOM}" wrapping="false" />
-                            </ui:template>
-                        </ui:Column>
-                        <ui:Column>
-                            <Label text="{i18n>WeightPerPiece}" />
-                            <ui:template>
-                                <Text text="{TreeDataModel>WeightPerPiece}" wrapping="false" />
-                            </ui:template>
-                        </ui:Column>
-                        <ui:Column>
-                            <Label text="{i18n>RemainingQty}" />
-                            <ui:template>
-                                <Text text="{TreeDataModel>RemainingQty}" wrapping="false" />
-                            </ui:template>
-                        </ui:Column>
-                                                <ui:Column>
-                            <Label text="{i18n>RemainingWeight}" />
-                            <ui:template>
-                                <Text text="{TreeDataModel>RemainingWeight}" wrapping="false" />
                             </ui:template>
                         </ui:Column>
                         <ui:Column>
@@ -121,36 +140,46 @@
                                 <Text text="{TreeDataModel>Remarks}" wrapping="false" />
                             </ui:template>
                         </ui:Column>
-                    <ui:Column>
-                            <Label text="{i18n>InspectedQty}" />
+                        <ui:Column>
+                            <Label text="{i18n>TCEApproved/InspectionQty}" />
                             <ui:template>
-                 <Input editable="{= ${TreeDataModel>enable} ? true : false }" visible="{TreeDataModel>isGroup}" value="{TreeDataModel>IssuedQty}"  type="Number" valueLiveUpdate="true" liveChange="onLiveChangeApprovedQty"  />
+                                <Text text="{TreeDataModel>Qty}" wrapping="false" />
                             </ui:template>
                         </ui:Column>
                         <ui:Column>
                             <Label text="{i18n>AcceptQuantity}" />
                             <ui:template>
-                                <Input type="Number" editable="{= ${TreeDataModel>enable} ? true : false }" visible="{TreeDataModel>isGroup}" liveChange="onLiveChangeARHQty" value="{TreeDataModel>AcceptedQuantity}"  />
+                            <HBox>
+                                <Text visible="{= ${TreeDataModel>enable} === true ? false : true}" text="{TreeDataModel>AcceptedQuantity}"/>
+                                <Input type="Number" visible="{= ${TreeDataModel>enable} === true ? true : false}" change="onLiveChangeARHQty" value="{TreeDataModel>AcceptedQuantity}"  />
+                            </HBox>
                             </ui:template>
                         </ui:Column>
-                                                <ui:Column>
+                        <ui:Column>
                             <Label text="{i18n>RejectQty}" />
                             <ui:template>
-                                <Input type="Number" editable="{= ${TreeDataModel>enable} ? true : false }" visible="{TreeDataModel>isGroup}" liveChange="onLiveChangeARHQty"  value="{TreeDataModel>RejectedQuantity}"  />
+                            <HBox>
+                                <Text visible="{= ${TreeDataModel>enable} === true ? false : true}" text="{TreeDataModel>RejectedQuantity}"/>
+                                <Input type="Number" visible="{= ${TreeDataModel>enable} === true ? true : false}" change="onLiveChangeARHQty"  value="{TreeDataModel>RejectedQuantity}"  />
+                            </HBox>
                             </ui:template>
                         </ui:Column>
                         <ui:Column>
                             <Label text="{i18n>HoldQty}" />
                             <ui:template>
-                                <Input type="Number" liveChange="onLiveChangeARHQty" editable="{= ${TreeDataModel>enable} ? true : false }" visible="{TreeDataModel>isGroup}" value="{TreeDataModel>HoldQuantity}"  />
+                            <HBox>
+                                <Text visible="{= ${TreeDataModel>enable} === true ? false : true}" text="{TreeDataModel>HoldQuantity}"/>
+                                <Input type="Number" change="onLiveChangeARHQty" visible="{= ${TreeDataModel>enable} === true ? true : false}" value="{TreeDataModel>HoldQuantity}"  />
+                            </HBox>
                             </ui:template>
                         </ui:Column>
 
                     </ui:columns>
                 </ui:TreeTable>
+            </VBox>
         </content>
         <beginButton>
-            <Button id="idBtnSave" text="Save" visible="{inspectedMapBOQItemsModel>/isSpecial}" press="onPressSaveInspectionBOQItems" type="Emphasized"></Button>
+            <Button id="idBtnSave" text="Save" enabled="false" visible="{inspectedMapBOQItemsModel>/isSpecial}" press="onPressSaveInspectionBOQItems" type="Emphasized"></Button>
         </beginButton>
         <endButton>
             <Button text="Close" press="onViewInspectBOQDialogClose" type="Emphasized"></Button>
