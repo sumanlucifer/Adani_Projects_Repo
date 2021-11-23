@@ -318,7 +318,7 @@ sap.ui.define([
                 }.bind(this),
                 error: function (oError) {
                     this.getViewModel("objectViewModel").setProperty("/busy", false);
-                }
+                }.bind(this)
             })
 
         },
