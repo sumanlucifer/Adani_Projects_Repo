@@ -487,13 +487,13 @@ sap.ui.define([
             //         }
             //     ]
             // };
+            https://qa-agel-mmts-api.cfapps.ap11.hana.ondemand.com/api/v2/odata.svc/DocumentUploadEdmSet
             var documents = {
                 "Documents": [
                     {
                         "Type": "MDCC",
                         "ContentType": fileType,
                         "FileName": fileName,
-                        "Content": data,
                         "UploadedBy": "AGEL",
                         "FileSize": fileSize,
                         "SubType": "",
@@ -510,6 +510,7 @@ sap.ui.define([
                     BusyIndicator.hide();
                     sap.m.MessageToast.show("MDCC Details Uploaded!");
                     this.getView().getModel().refresh();
+                    this._updateDocumentService(oData.ID, data, fileName, fileType, fileSize, rowId, rowObj, sPONumber);
                     //   this.getView().getModel("ManageMDCCModel").getData().MDCCItems[rowId].MapItems = true;
                     //   this.getView().getModel("ManageMDCCModel").refresh();
                 }.bind(this),
@@ -518,6 +519,54 @@ sap.ui.define([
                     sap.m.MessageBox.error("Error uploading document");
                 }
             });
+        },
+        _updateDocumentService1: function (ID, data, fileName, fileType, fileSize, rowId, rowObj, sPONumber) {
+            var that = this;
+            that.documents = data;
+            var document = {
+                headers: {
+                    "X-Requested-With": "XMLHttpRequest",
+                    "Content-Type": fileType,
+                    "DataServiceVersion": "2.0",
+                    "slug": fileName,
+                },
+                data: data
+            };
+            var sPath = `/DocumentUploadEdmSet(${ID})/$value`
+            this.MainModel.update(sPath, document, {
+                success: function (oData, oResponse) {
+                    BusyIndicator.hide();
+                    sap.m.MessageToast.show("Updated Details Uploaded!");
+                    this.getView().getModel().refresh();
+                }.bind(this),
+                error: function (oError) {
+                    BusyIndicator.hide();
+                    sap.m.MessageBox.error("Error uploading document");
+                }
+            });
+        },
+        _updateDocumentService: function (ID, data, fileName, fileType, fileSize, rowId, rowObj, sPONumber) {
+            var that = this;
+        
+
+            var oData = {};
+
+
+            var base64string = btoa(data);
+
+            var serviceUrl = `/DocumentUploadEdmSet(${ID})/$value`
+            this.MainModel.update(serviceUrl, oData, {
+                method: "PUT",
+                headers: {
+                    "X-Requested-With": "XMLHttpRequest",
+                    "Content-Type": fileType,
+                    "DataServiceVersion": "2.0",
+                    "slug": fileName
+                },
+
+                data: base64string
+            });
+            this.MainModel.submitChanges();
         },
         onFileUrlClick: function (oEvent) {
             var FileContent = oEvent.getSource().getBindingContext().getObject().FileContent;
@@ -671,7 +720,7 @@ sap.ui.define([
                 if (i === 0) {
                     ParentData[i].isGroup = false;
                     for (var j = 0; j < ParentData[i].BOQItems.results.length; j++) {
-                        ParentData[i].results.push(ParentData[i].BOQItems.results[j]) 
+                        ParentData[i].results.push(ParentData[i].BOQItems.results[j])
                         ParentData[i].results[j].isGroup = true;
                         ParentData[i].results[j].enable = true;
                     }
@@ -721,11 +770,8 @@ sap.ui.define([
                 oDialog.open();
             });
         },
-
-
-            onLiveChangeARHQty: function (oEvent) {
+        onLiveChangeARHQty: function (oEvent) {
             var oValue = parseFloat(oEvent.getSource().getValue());
-
             var Quantity = parseFloat(oEvent.getSource().getParent().getCells()[8].getValue());
             var ApprovedQty = parseFloat(oEvent.getSource().getParent().getCells()[9].getValue());
             var RejectQty = parseFloat(oEvent.getSource().getParent().getCells()[10].getValue());
@@ -753,8 +799,6 @@ sap.ui.define([
                 oSaveButton.setEnabled(false);
                 return 0;
             }
-
-
             else {
                 oEvent.getSource().setValueState("None");
                 oSaveButton.setEnabled(true);
@@ -797,7 +841,7 @@ sap.ui.define([
         onLiveChangeApprovedQty: function (oEvent) {
             var bindingContext = oEvent.getSource().getBindingContext("TreeDataModel"),
                 path = bindingContext.getPath();
-                // rowObj = bindingContext.getModel().getProperty(path);
+            // rowObj = bindingContext.getModel().getProperty(path);
             var aChildItems = this.getViewModel("TreeDataModel").getData().results[0].BOQItems.results;
             var iTotalChildQty = 0;
             for (var i = 0; i < aChildItems.length; i++) {
@@ -899,7 +943,7 @@ sap.ui.define([
                 "CreatedAt": this.CreatedAt,
                 "CreatedBy": "",
                 "UpdatedAt": null,
-                "BOQGroupId":itemData.selectedItems.ID,
+                "BOQGroupId": itemData.selectedItems.ID,
                 // "UpdatedBy": this.UpdatedBy,
                 "InspectedBOQItems": aInspectionBOQItems
             };

@@ -145,7 +145,7 @@ sap.ui.define([
                         oReservationModel.setProperty(sItemPath + "/PopupItems", aItems);
                     },
                     error: function (oError) {
-                        sap.m.MessageBox.error(JSON.stringify(oError));
+                        // sap.m.MessageBox.error(JSON.stringify(oError));
                     }
                 })
             },
