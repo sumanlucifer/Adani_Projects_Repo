@@ -165,16 +165,17 @@
                                 <items>
                                     <ColumnListItem id="idBOQItems">
                                         <cells>
-                                            <Select forceSelection="false" selectedKey="{ManageBOQModel>MasterBOQItemId}" items="{
-                                                    path: '/MasterBoQItemSet',
+                                            <Select forceSelection="false" selectedKey="{ManageBOQModel>MasterBOQItemId}" 
+                                            items="{
+                                                    path: 'MasterMaterialModel>/',
                                                     templateShareable:false,
-                                                    sorter: { path: 'Name' }
+                                                    sorter: { path: 'MasterBOQItem/Name' }
                                                 }" change="onBOQItemSelected">
-                                                <core:Item key="{ID}" text="{Name}" />
+                                                <core:Item key="{MasterMaterialModel>MasterBOQItem/ID}" text="{MasterMaterialModel>MasterBOQItem/Name}"/>
                                             </Select>
                                             <Text data:p="MaterialCode" text="{ManageBOQModel>MaterialCode}"/>
                                             <Text data:p="Description" text="{ManageBOQModel>Description}"/>
-                                            <Input editable="{ManageBOQModel>isQtyEditable}" value="{ManageBOQModel>Qty}" liveChange="onLiveChangeQty" type="Number"/>
+                                            <Input editable="false" value="{ManageBOQModel>Qty}" liveChange="onLiveChangeQty" type="Number"/>
                                             <VBox>
                                                 <Link text="{= ${ManageBOQModel>Remarks}.length ? 'View remarks' : 'Add remarks'}" press="openAddRemarksPopupPress"/>
                                                 <!--  <ExpandableText text="{ManageBOQModel>Remarks}" overflowMode="Popover" visible="{= ${ManageBOQModel>Remarks}.length ? true : false}"/> -->

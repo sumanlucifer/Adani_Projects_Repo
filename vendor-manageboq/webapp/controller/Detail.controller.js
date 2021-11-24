@@ -78,8 +78,9 @@ sap.ui.define([
                     dataRequested: function () {
                         objectViewModel.setProperty("/busy", true);
                     },
-                    dataReceived: function () {
+                    dataReceived: function (oData, oResponse) {
                         objectViewModel.setProperty("/busy", false);
+                        objectViewModel.setProperty("/MaterialCode", oData.getParameter("data").MaterialCode);
                     }
                 }
             });
@@ -110,10 +111,13 @@ sap.ui.define([
                 aRowCells = oEvent.getSource().getParent().getCells(),
                 sItemPath = oEvent.getSource().getBindingContext("ManageBOQModel").getPath();
             var sText = oEvent.getParameter("selectedItem").getText();
+            var sBaseQty = oEvent.getParameter("selectedItem").getBindingContext("MasterMaterialModel").getObject().BaseQty;
             this.getView().getModel("ManageBOQModel").setProperty(sItemPath + "/Name", sText);
+            this.getView().getModel("ManageBOQModel").setProperty(sItemPath + "/Qty", sBaseQty);
             var sKey = oEvent.getParameter("selectedItem").getKey();
             this.getView().getModel("ManageBOQModel").setProperty(sItemPath + "/MasterBOQItemId", sKey);
             this.getView().getModel("ManageBOQModel").setProperty(sItemPath + "/isQtyEditable", true);
+            this.getView().getModel("ManageBOQModel").setProperty(sItemPath + "/isWeightEditable", true);
             for (var i = 1; i < aRowCells.length; i++) {
                 if (aRowCells[i] instanceof sap.m.Text) {
                     var cellContextPath = aRowCells[i].data("p");
@@ -123,20 +127,51 @@ sap.ui.define([
             }
             this._prepareSuggestionItemsForUOM(oBindingContextPath, sItemPath);
         },
+        // _prepareSuggestionItemsForUOM: function (oBindingContextPath, sItemPath) {
+        //     var that = this;
+        //     oBindingContextPath = oBindingContextPath + "/UOMs"
+        //     var oModel = this.getView().getModel();
+        //     oModel.read(oBindingContextPath, {
+        //         success: function (oData, oResponse) {
+        //             if (oData.results.length)
+        //                 this.getView().getModel("ManageBOQModel").setProperty(sItemPath + "/UOMSuggestions", oData.results);
+        //             else
+        //                 this.getView().getModel("ManageBOQModel").setProperty(sItemPath + "/UOMSuggestions", null);
+        //         }.bind(this),
+        //         error: function (oError) {
+        //             sap.m.MessageBox.error("Error fetching UOMs");
+        //         }
+        //     });
+        // },
+
         _prepareSuggestionItemsForUOM: function (oBindingContextPath, sItemPath) {
-            var that = this;
-            oBindingContextPath = oBindingContextPath + "/UOMs"
-            var oModel = this.getView().getModel();
-            oModel.read(oBindingContextPath, {
-                success: function (oData, oResponse) {
-                    if (oData.results.length)
-                        this.getView().getModel("ManageBOQModel").setProperty(sItemPath + "/UOMSuggestions", oData.results);
+            var iMasterBOQItemId = this.getView().getModel("ManageBOQModel").getProperty(sItemPath + "/MasterBOQItemId"),
+                sMaterialCode = this.getView().getModel("objectViewModel").getProperty("/MaterialCode"),
+                oFilter = new sap.ui.model.Filter("MaterialCode", sap.ui.model.FilterOperator.EQ, sMaterialCode);
+            // oFilter = new sap.ui.model.Filter("MaterialCode", sap.ui.model.FilterOperator.EQ, "6781438673");
+
+            this.getOwnerComponent().getModel().read("/MasterMaterialSet", {
+                filters: [oFilter],
+                urlParameters: {
+                    $expand: "MasterBOQs/MasterBOQItem/UOMs"
+                },
+                success: function (oResponse) {
+                    if (oResponse.results.length > 0) {
+                        if (oResponse.results[0].MasterBOQs.results.length > 0) {
+
+                            var iMasterBOQIndex = oResponse.results[0].MasterBOQs.results.findIndex(function (oitem) {
+                                return oitem.MasterBOQItem.ID === iMasterBOQItemId;
+                            });
+                            this.getView().getModel("ManageBOQModel").setProperty(sItemPath + "/UOMSuggestions", oResponse.results[0].MasterBOQs.results[iMasterBOQIndex].MasterBOQItem.UOMs.results);
+                        } else
+                            this.getView().getModel("ManageBOQModel").setProperty(sItemPath + "/UOMSuggestions", null);
+                    }
                     else
                         this.getView().getModel("ManageBOQModel").setProperty(sItemPath + "/UOMSuggestions", null);
                 }.bind(this),
                 error: function (oError) {
-                    sap.m.MessageBox.error("Error fetching UOMs");
-                }
+
+                }.bind(this)
             });
         },
         onAddItemPress: function (oEvent) {
@@ -348,6 +383,7 @@ sap.ui.define([
         },
         onCreateNewPCListPress: function (oEvent) {
             this.getViewModel("objectViewModel").setProperty("/isCreatingPCList", true)
+            this.fnGetMasterMaterialData();
         },
         onCancelPCListCreationPress: function (oEvent) {
             //   this.getViewModel("objectViewModel").setProperty("/isCreatingPCList", false);
@@ -721,6 +757,29 @@ sap.ui.define([
                 this.getViewModel("objectViewModel").setProperty("/BOQQtyType", "P");
                 this.getViewModel("boqCreationModel").setProperty("/quantity", 0);
             }
+        },
+
+        fnGetMasterMaterialData: function () {
+            var sMaterialCode = this.getView().getModel("objectViewModel").getProperty("/MaterialCode"),
+                oFilter = new sap.ui.model.Filter("MaterialCode", sap.ui.model.FilterOperator.EQ, sMaterialCode);
+            // oFilter = new sap.ui.model.Filter("MaterialCode", sap.ui.model.FilterOperator.EQ, "6781438673");
+
+            this.getOwnerComponent().getModel().read("/MasterMaterialSet", {
+                filters: [oFilter],
+                urlParameters: {
+                    $expand: "MasterBOQs/MasterBOQItem"
+                },
+                success: function (oResponse) {
+                    if (oResponse.results.length > 0) {
+                        var oMasterMaterialModel = new JSONModel(oResponse.results[0].MasterBOQs.results);
+                        this.getView().setModel(oMasterMaterialModel, "MasterMaterialModel");
+                    }
+                }.bind(this),
+                error: function (oError) {
+
+                }.bind(this)
+            });
         }
+
     });
 });            
