@@ -67,11 +67,12 @@ sap.ui.define([
                 MessageToast.show("You already have access to  " + sNewSelectedRoleName + " Role.");
                 this.fnUpdateSelectedKeys(oEvent, aSelectedRolesIds, sNewSelectedRoleId);
                 return;
-            }
-
-            if (aPendingRequest.length > 0) {
+            } else if (aPendingRequest.length > 0) {
                 MessageBox.error("You have already raised access request for " + sNewSelectedRoleName + " Role.");
                 this.fnUpdateSelectedKeys(oEvent, aSelectedRolesIds, sNewSelectedRoleId);
+            }
+            else {
+                this.getView().byId("idSaveBTN").setEnabled(true);
             }
         },
 

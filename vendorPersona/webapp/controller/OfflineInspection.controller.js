@@ -90,8 +90,8 @@ sap.ui.define([
                             element.RejectQuantity = "0";
                             element.HoldQuantity = "0";
                             element.AcceptQuantity = "0";
-
                             element.BOQApprovedQty += parseFloat(element.BOQApprovalRequests.results[i].BOQGroup.GeneratedBOQQty);
+                            element.InspectionQty = element.BOQApprovedQty;
                         }
                     }
                 });
@@ -101,39 +101,78 @@ sap.ui.define([
         },
 
         onSelectionChange: function (oEvent) {
-
-
-
             var bSelected = oEvent.getParameter("selected");
             var bSelectAll = oEvent.getParameter("selectAll");
-            var aListItems = oEvent.getParameter("listItems");
+            var aListItems = oEvent.getParameter("listItems"),
+                sBOQQty = parseFloat(oEvent.getParameter("listItem").getCells()[4].getText()),
+                fnSetARHQtyEnableDisable = function (bEnabled) {
+                    for (var i = 0; i < aListItems.length; i++) {
+                        aListItems[i].getCells()[5].setEnabled(bEnabled);
+                        aListItems[i].getCells()[6].setEnabled(bEnabled);
+                        aListItems[i].getCells()[7].setEnabled(bEnabled);
+                        aListItems[i].getCells()[8].setEnabled(bEnabled);
+                    }
+                };
 
-            var sBOQQty = parseFloat(oEvent.getParameter("listItem").getCells()[4].getText());
-            if (sBOQQty === 0 || sBOQQty === null) {
-                MessageToast.show("BOQ Quantity is not available for selected item.");
 
-                return false;
-            }
-
+            // if (sBOQQty === 0 || sBOQQty === null) {
+            //     MessageToast.show("BOQ Quantity is not available for selected item.");
+            //     return false;
+            // }
             if (bSelectAll) {
-                for (var i = 0; i < aListItems.length; i++) {
-                    aListItems[i].getCells()[5].setEnabled(true);
-
-                }
+                fnSetARHQtyEnableDisable(true);
             } else {
-                for (var i = 0; i < aListItems.length; i++) {
-                    aListItems[i].getCells()[5].setEnabled(false);
-
-                }
+                fnSetARHQtyEnableDisable(false);
             }
-
             if (bSelected) {
                 oEvent.getParameter("listItem").getCells()[5].setEnabled(true);
+                oEvent.getParameter("listItem").getCells()[6].setEnabled(true);
+                oEvent.getParameter("listItem").getCells()[7].setEnabled(true);
+                oEvent.getParameter("listItem").getCells()[8].setEnabled(true);
 
             } else {
-                oEvent.getParameter("listItem").getCells()[5].setEnabled(false);
-
+                oEvent.getParameter("listItem").getCells()[5].setEnabled(true);
+                oEvent.getParameter("listItem").getCells()[6].setEnabled(false);
+                oEvent.getParameter("listItem").getCells()[7].setEnabled(false);
+                oEvent.getParameter("listItem").getCells()[8].setEnabled(false);
             }
+
+            this.setSaveButtonEnabledDisable();
+        },
+
+        setSaveButtonEnabledDisable: function () {
+            var oSaveButton = this.getView().byId("idOfflineSaveButton"),
+                aSelectedLineItems = this.byId("idParentItemTable").getSelectedItems(),
+                bFlagIncompleteItemsFound = false;
+
+            if (aSelectedLineItems.length === 0) {
+                oSaveButton.setEnabled(false);
+                return;
+            }
+
+            for (var i = 0; i < aSelectedLineItems.length; i++) {
+                var oLineItemObj = aSelectedLineItems[i].getBindingContext("ParentItemModel").getObject(),
+                    iInspectionQty = oLineItemObj.InspectionQty ? parseFloat(oLineItemObj.InspectionQty) : 0,
+                    iAcceptQuantity = oLineItemObj.AcceptQuantity ? parseFloat(oLineItemObj.AcceptQuantity) : 0,
+                    iRejectQuantity = oLineItemObj.RejectQuantity ? parseFloat(oLineItemObj.RejectQuantity) : 0,
+                    iHoldQuantity = oLineItemObj.HoldQuantity ? parseFloat(oLineItemObj.HoldQuantity) : 0,
+                    iSumOfARHQty = iAcceptQuantity + iRejectQuantity + iHoldQuantity;
+
+                iSumOfARHQty = parseFloat(iSumOfARHQty.toFixed(2));
+
+                if (iSumOfARHQty !== iInspectionQty) {
+                    bFlagIncompleteItemsFound = true;
+                    break;
+                }
+            }
+
+            if (bFlagIncompleteItemsFound) {
+                oSaveButton.setEnabled(false);
+            }
+            else {
+                oSaveButton.setEnabled(true);
+            }
+
         },
 
         onLiveChangeComment: function (oEvent) {
@@ -183,65 +222,143 @@ sap.ui.define([
 
             else {
                 oEvent.getSource().setValueState("None");
-                oSaveButton.setEnabled(true);
+                oSaveButton.setEnabled(false);
+                // oSaveButton.setEnabled(true);
             }
 
         },
 
         onLiveChangeARHQty: function (oEvent) {
-            var oValue = parseFloat(oEvent.getSource().getValue());
+            var oValue = parseFloat(oEvent.getSource().getValue()),
+                oLineItemObj = oEvent.getSource().getBindingContext("ParentItemModel").getObject(),
+                Quantity = oLineItemObj.InspectionQty ? parseFloat(oLineItemObj.InspectionQty) : 0,
+                ApprovedQty = oLineItemObj.AcceptQuantity ? parseFloat(oLineItemObj.AcceptQuantity) : 0,
+                RejectQty = oLineItemObj.RejectQuantity ? parseFloat(oLineItemObj.RejectQuantity) : 0,
+                HoldQty = oLineItemObj.HoldQuantity ? parseFloat(oLineItemObj.HoldQuantity) : 0,
+                sumARHQty = ApprovedQty + RejectQty + HoldQty,
+                oSaveButton = this.getView().byId("idOfflineSaveButton"),
+                aInputFileds = oEvent.getSource().getParent().getCells(),
+                fnSetQtyErrorMsg = function () {
+                    oEvent.getSource().setValueState("Error");
+                    oEvent.getSource().setValueStateText("Please check the entered quanity.");
+                    oSaveButton.setEnabled(false);
+                },
+                fnSetMinusQtyErrorMsg = function () {
+                    oEvent.getSource().setValueState("Error");
+                    oEvent.getSource().setValueStateText("No negative quantity values allowed.");
+                    oSaveButton.setEnabled(false);
+                };
 
-            var Quantity = parseFloat(oEvent.getSource().getParent().getCells()[5].getValue());
-            var ApprovedQty = parseFloat(oEvent.getSource().getParent().getCells()[6].getValue());
-            var RejectQty = parseFloat(oEvent.getSource().getParent().getCells()[7].getValue());
-            var HoldQty = parseFloat(oEvent.getSource().getParent().getCells()[8].getValue());
-            if (!ApprovedQty) ApprovedQty = 0;
-            if (!RejectQty) RejectQty = 0;
-            if (!HoldQty) HoldQty = 0;
-            var sumARHQty = ApprovedQty + RejectQty + HoldQty;
-            var oSaveButton = this.getView().byId("idOfflineSaveButton");
-            if (sumARHQty > Quantity) {
-                oEvent.getSource().setValueState("Error");
-                oEvent.getSource().setValueStateText("Please enter quantity lesser than or equal to total Inspection quantity");
-                oSaveButton.setEnabled(false);
+            aInputFileds[6].setValueState("None");
+            aInputFileds[7].setValueState("None");
+            aInputFileds[8].setValueState("None");
+
+            sumARHQty = parseFloat(sumARHQty.toFixed(2));
+
+            if (oValue < 0 || ApprovedQty < 0 || RejectQty < 0 || HoldQty < 0) {
+                fnSetMinusQtyErrorMsg();
                 return 0;
             }
-            if (oValue <= 0) {
-                oEvent.getSource().setValueState("Error");
-                oEvent.getSource().setValueStateText("Please enter positive value");
-                oSaveButton.setEnabled(false);
+            else if (oValue > Quantity) {
+                fnSetQtyErrorMsg();
                 return 0;
             }
-            if (oValue > Quantity) {
-                oEvent.getSource().setValueState("Error");
-                oEvent.getSource().setValueStateText("Please enter inspected quantity lesser than or equal to total quantity");
-                oSaveButton.setEnabled(false);
+            else if (sumARHQty > Quantity) {
+                fnSetQtyErrorMsg();
                 return 0;
             }
 
+            var aSelectedLineItems = oEvent.getSource().getParent().getParent().getSelectedItems(),
+                aIncompleteSelctedLineItems = aSelectedLineItems.filter(function (oLineItem) {
+                    var oLineItemObj = oLineItem.getBindingContext("ParentItemModel").getObject();
+                    return oLineItemObj.AcceptQuantity === null || oLineItemObj.RejectQuantity === null || oLineItemObj.HoldQuantity === null;
+                }),
+                aIncompleteLineItemsWithMinus = aSelectedLineItems.filter(function (oItem) {
+                    var oLineItemObj = oItem.getBindingContext("ParentItemModel").getObject();
+                    return parseFloat(oLineItemObj.AcceptQuantity) < 0 || parseFloat(oLineItemObj.RejectQuantity) < 0 || parseFloat(oLineItemObj.HoldQuantity) < 0;
+                });
 
+            if (aIncompleteLineItemsWithMinus.length > 0) {
+                fnSetMinusQtyErrorMsg();
+                return;
+            }
+
+            if (aIncompleteSelctedLineItems.length > 0) {
+                fnSetQtyErrorMsg();
+                return 0;
+            }
             else {
-                oEvent.getSource().setValueState("None");
-                oSaveButton.setEnabled(true);
+                if (sumARHQty < Quantity && (ApprovedQty > 0 && RejectQty > 0 && HoldQty > 0)) {
+                    fnSetQtyErrorMsg();
+                    return;
+                }
+                if (sumARHQty === Quantity) {
+                    oEvent.getSource().setValueState("None");
+                    // oSaveButton.setEnabled(true);
+                    this.setSaveButtonEnabledDisable();
+
+                }
+                else {
+                    oSaveButton.setEnabled(false);
+                }
             }
         },
 
+
+        // onLiveChangeARHQty: function (oEvent) {
+        //     var oValue = parseFloat(oEvent.getSource().getValue());
+
+        //     var Quantity = parseFloat(oEvent.getSource().getParent().getCells()[5].getValue());
+        //     var ApprovedQty = parseFloat(oEvent.getSource().getParent().getCells()[6].getValue());
+        //     var RejectQty = parseFloat(oEvent.getSource().getParent().getCells()[7].getValue());
+        //     var HoldQty = parseFloat(oEvent.getSource().getParent().getCells()[8].getValue());
+        //     if (!ApprovedQty) ApprovedQty = 0;
+        //     if (!RejectQty) RejectQty = 0;
+        //     if (!HoldQty) HoldQty = 0;
+        //     var sumARHQty = ApprovedQty + RejectQty + HoldQty;
+        //     var oSaveButton = this.getView().byId("idOfflineSaveButton");
+        //     if (sumARHQty > Quantity) {
+        //         oEvent.getSource().setValueState("Error");
+        //         oEvent.getSource().setValueStateText("Please enter quantity lesser than or equal to total Inspection quantity");
+        //         oSaveButton.setEnabled(false);
+        //         return 0;
+        //     }
+        //     if (oValue <= 0) {
+        //         oEvent.getSource().setValueState("Error");
+        //         oEvent.getSource().setValueStateText("Please enter positive value");
+        //         oSaveButton.setEnabled(false);
+        //         return 0;
+        //     }
+        //     if (oValue > Quantity) {
+        //         oEvent.getSource().setValueState("Error");
+        //         oEvent.getSource().setValueStateText("Please enter inspected quantity lesser than or equal to total quantity");
+        //         oSaveButton.setEnabled(false);
+        //         return 0;
+        //     }
+
+
+        //     else {
+        //         oEvent.getSource().setValueState("None");
+        //         oSaveButton.setEnabled(true);
+        //     }
+        // },
+
         onSaveValidation: function () {
             var flag = 0;
-            var aTableData = this.byId("idParentItemTable").getModel("ParentItemModel").getData();
-            var aSelectedItemsFromTable = aTableData.filter(item => item.InspectionQty !== null);
+            // var aTableData = this.byId("idParentItemTable").getModel("ParentItemModel").getData();
+            // var aSelectedItemsFromTable = aTableData.filter(item => item.InspectionQty !== null);
             var creationModelData = this.getViewModel("localAttachmentModel").getData();
 
-            if (aSelectedItemsFromTable.length < 1) {
-                sap.m.MessageBox.error("Please select at least one line item detail and fill the inspection quantity");
-                return 1;
-            }
+            // if (aSelectedItemsFromTable.length < 1) {
+            //     sap.m.MessageBox.error("Please select at least one line item detail and fill the inspection quantity");
+            //     return 1;
+            // }
 
-            var aInvalidInspectionQtyItems = aTableData.filter(item => (item.InspectionQty && item.InspectionQty <= 0));
-            if (aInvalidInspectionQtyItems.length > 0) {
-                sap.m.MessageBox.error("Please Enter valid inspection quantity");
-                return 1;
-            }
+            // var aInvalidInspectionQtyItems = aTableData.filter(item => (item.InspectionQty && item.InspectionQty <= 0));
+            // if (aInvalidInspectionQtyItems.length > 0) {
+            //     sap.m.MessageBox.error("Please Enter valid inspection quantity");
+            //     return 1;
+            // }
 
             if (creationModelData.Comment && creationModelData.Comment.trim() === "") {
                 flag = 1;
@@ -289,6 +406,18 @@ sap.ui.define([
         },
 
         onSaveButtonConfirmPress: function (oEvent) {
+            var aSelectedItems = this.byId("idParentItemTable").getSelectedItems(),
+                aInspectedParentLineItem = [];
+
+            for (var i = 0; i < aSelectedItems.length; i++) {
+                var oItemObj = aSelectedItems[i].getBindingContext("ParentItemModel").getObject();
+                if (oItemObj.IsBOQApplicable === true && oItemObj.UoM !== "MT") {
+                    aInspectedParentLineItem.push(oItemObj);
+                } else if (oItemObj.InspectionQty > 0) {
+                    aInspectedParentLineItem.push(oItemObj);
+                }
+            }
+
             var aTableData = this.byId("idParentItemTable").getModel("ParentItemModel").getData();
             var aSelectedItemsFromTable = aTableData.filter(item => item.InspectionQty !== null);
             var oBindingContextData = this.getView().getBindingContext().getObject();
@@ -298,7 +427,7 @@ sap.ui.define([
                 "InspectionDate": creationModelData.InspectionDate,
                 "PurchaseOrderId": oBindingContextData.ID,
                 "Comment": creationModelData.Comment,
-                "InspectedParentLineItemRequests": aSelectedItemsFromTable,
+                "InspectedParentLineItemRequests": aInspectedParentLineItem,
                 "Documents": creationModelData.items,
                 "RaisedOfflineInspectionDate": creationModelData.RaisedInspectionDate
             };
