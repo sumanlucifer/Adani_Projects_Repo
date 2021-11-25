@@ -69,12 +69,12 @@
 										<Text text="{TreeTableModel>WeightPerPiece}"/>
 									</ui:template>
 								</ui:Column>
-                                <ui:Column>
+                                <!-- <ui:Column>
 									<Label text="{i18n>BaseQuantity}"/>
 									<ui:template>
 										<Text text="{TreeTableModel>BaseQty}"/>
 									</ui:template>
-								</ui:Column>							
+								</ui:Column>							 -->
 								<ui:Column>
 									<Label text="{i18n>TotalQuantity}"/>
 									<ui:template>
