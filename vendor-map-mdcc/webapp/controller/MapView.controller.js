@@ -54,7 +54,7 @@ sap.ui.define([
             _onObjectMatched: function (oEvent) {
 
                 var startupParams = this.getOwnerComponent().getComponentData().startupParameters;
-                // var startupParams = { MDCCId: 289, manage: "false" };
+                // var startupParams = { MDCCId: 309, manage: "false" };
 
                 this.sObjectId = startupParams.MDCCId;
                 // this.sObjectId = this.sObjectId;
@@ -124,39 +124,38 @@ sap.ui.define([
                         this.ParentData[i].isSelected = false;
                         this.ParentData[i].isPreviouslySelected = false;
                     } else {
-                        // this.ParentData[i].MDCCApprovedQty = "";
+                        this.ParentData[i].MDCCApprovedQty = "";
                         this.ParentData[i].isSelected = false;
-                        this.ParentData[i].isPreviouslySelected = true;
+                        this.ParentData[i].isPreviouslySelected = false;
                     }
 
                     if (this.ParentData[i].InspectedBOQItems.results.length) {
+                        if (ParentData[i].UOM !== "MT")
+                            this.ParentData[i].MDCCApprovedQty = 0;
                         this.ParentData[i].isStandAlone = true;
                         this.ParentData[i].ChildItems = this.ParentData[i].InspectedBOQItems.results;
                         this.ParentData[i].IsDeleted = false;
 
                         for (var j = 0; j < ParentData[i].ChildItems.length; j++) {
-                            // if (ParentData[i].ChildItems[j].MDCCApprovedQty != null && ParentData[i].ChildItems[j].MDCCApprovedQty != ""
-                            //     && ParentData[i].ChildItems[j].MDCCApprovedQty != "0.0") {
-
-
-
-                            if (ParentData[i].UOM === "MT") {
+                            // if (ParentData[i].UOM === "MT") {
                                 this.ParentData[i].ChildItems[j].MDCCApprovedQty = "";
                                 this.ParentData[i].ChildItems[j].isSelected = false;
                                 this.ParentData[i].ChildItems[j].isPreviouslySelected = true;
                                 this.ParentData[i].ChildItems[j].IsDeleted = false;
-                            } else {
-                                this.ParentData[i].ChildItems[j].MDCCApprovedQty = "";
-                                this.ParentData[i].ChildItems[j].isSelected = false;
-                                this.ParentData[i].ChildItems[j].isPreviouslySelected = false;
-                                this.ParentData[i].ChildItems[j].IsDeleted = false;
-                            }
+                                this.ParentData[i].ChildItems[j].AcceptQuantity = this.ParentData[i].ChildItems[j].AcceptedQuantity;
+                            // } else {
+                            //     this.ParentData[i].ChildItems[j].MDCCApprovedQty = "";
+                            //     this.ParentData[i].ChildItems[j].isSelected = false;
+                            //     this.ParentData[i].ChildItems[j].isPreviouslySelected = false;
+                            //     this.ParentData[i].ChildItems[j].IsDeleted = false;
+                            // }
                         }
                     }
                     else {
                         this.ParentData[i].isStandAlone = false;
                         this.ParentData[i].IsDeleted = false;
                         this.ParentData[i].ChildItems = [];
+                        this.ParentData[i].isPreviouslySelected = true;
                     }
                 }
                 this._arrangeData();
@@ -240,8 +239,8 @@ sap.ui.define([
 
             onLiveChangeApprovedQty1: function (oEvent) {
                 var rowObj = oEvent.getSource().getParent().getRowBindingContext().getObject();
-                var MDCCApprovedQty = oEvent.getSource().getParent().getCells()[8].getValue();
-                var aCell = oEvent.getSource().getParent().getCells()[8];
+                var MDCCApprovedQty = oEvent.getSource().getParent().getCells()[7].getValue();
+                var aCell = oEvent.getSource().getParent().getCells()[7];
                 if (parseFloat(MDCCApprovedQty) > parseFloat(rowObj.RemainingQty) || parseFloat(MDCCApprovedQty) <= 0) {
                     aCell.setValueState("Error");
                     aCell.setValueStateText("Please enter a non-zero quantity lesser than or equal to remaining quantity")
@@ -272,7 +271,7 @@ sap.ui.define([
                 if (!oValue)
                     oValue = 0;
                 var BalanceQty = parseFloat(
-                    oEvent.getSource().getParent().getCells()[9].getText()
+                    oEvent.getSource().getParent().getCells()[8].getTitle()
                 );
 
                 var bChildItemFreeze = this.getViewModel("TreeTableModel").getProperty(
@@ -283,7 +282,6 @@ sap.ui.define([
                 );
 
                 if (bChildItemFreeze) {
-                    debugger;
                     aChildItems.forEach((item) => {
                         //    item.Quantity = parseFloat(oValue) * (parseFloat(item.BalanceQty) /parseFloat(iParentIssuedQuantity));
                         item.MDCCApprovedQty = parseFloat(oValue) * (parseFloat(item.BaseQty));
@@ -293,7 +291,8 @@ sap.ui.define([
                         aChildItems
                     );
                 } else {
-                    if (parseFloat(oValue) >= 0) {
+                    var sParentUOM =  this.getViewModel("TreeTableModel").getProperty(sParentPath).UOM;
+                    if (parseFloat(oValue) >= 0 && sParentUOM === 'MT') {
 
                         var wpp = oEvent
                             .getSource()
@@ -324,7 +323,7 @@ sap.ui.define([
                     oEvent.getSource().setValueStateText("Please enter quantity ");
                     this.getView().byId("idBtnSave").setEnabled(false);
                 }
-                if (parseInt(ReservedQty) < 0) {
+                if (parseFloat(ReservedQty) < 0) {
                     oEvent.getSource().setValueState("Error");
                     oEvent
                         .getSource()
@@ -332,7 +331,7 @@ sap.ui.define([
                             "Please enter quantity greater than 0 or positive value"
                         );
                     this.getView().byId("idBtnSave").setEnabled(false);
-                } else if (parseInt(ReservedQty) > parseInt(BalanceQty)) {
+                } else if (parseFloat(ReservedQty) > parseFloat(BalanceQty)) {
                     oEvent.getSource().setValueState("Error");
                     oEvent
                         .getSource()
@@ -349,13 +348,13 @@ sap.ui.define([
                 var bSelected = oEvent.getParameter("selected");
 
                 if (bSelected) {
-                    oEvent.getSource().getParent().getCells()[10].setEditable(true);
+                    oEvent.getSource().getParent().getCells()[9].setEditable(true);
                     if (oEvent.getSource().getParent().getRowBindingContext().getObject().isPreviouslySelected) {
                         oEvent.getSource().getParent().getRowBindingContext().getObject().IsDeleted = false;
                     }
                 } else {
-                    oEvent.getSource().getParent().getCells()[10].setEditable(false);
-                    oEvent.getSource().getParent().getCells()[10].setValue(null);
+                    oEvent.getSource().getParent().getCells()[9].setEditable(false);
+                    oEvent.getSource().getParent().getCells()[9].setValue(null);
 
                     // Is Deleted - If User unselect the previous saved item
                     if (oEvent.getSource().getParent().getRowBindingContext().getObject().isPreviouslySelected) {
@@ -396,23 +395,21 @@ sap.ui.define([
                     flag = 0;
                     var obj = {};
                     obj.ParentLineItemID = data[i].ID;
-                    //   obj.InspectedParenLineItemID = data[i].InspectedParenLineItemID;  // newlly added
-                    //   obj.MDCCId = that.MDCCData.ID; // newly added 
-                    obj.MDCCApprovedQty = parseInt(data[i].MDCCApprovedQty);
-                    obj.RemainingQty = parseInt(data[i].RemainingQty);
+                    obj.MDCCApprovedQty = parseFloat(data[i].MDCCApprovedQty);
+                    if(obj.MDCCApprovedQty === 0)
+                        obj.IsPartial = true;
+                    else
+                        obj.IsPartial = false;
+                    obj.RemainingQty = parseFloat(data[i].RemainingQty);
                     obj.IsDeleted = data[i].IsDeleted;
                     obj.MDCCBOQItem = [];
 
                     for (var j = 0; j < data[i].ChildItems.length; j++) {
                         var childObj = {};
                         childObj.BOQItemID = data[i].ChildItems[j].ID;
-                        childObj.MDCCApprovedQty = parseInt(data[i].ChildItems[j].MDCCApprovedQty);
-                        childObj.RemainingQty = parseInt(data[i].ChildItems[j].RemainingQty);
+                        childObj.MDCCApprovedQty = parseFloat(data[i].ChildItems[j].MDCCApprovedQty);
+                        childObj.RemainingQty = parseFloat(data[i].ChildItems[j].RemainingQty);
                         childObj.IsDeleted = data[i].ChildItems[j].IsDeleted;
-
-                        //  childObj.InspectedBOQItemID=data[i].ChildItems[j].ID; // newly added
-                        //        childObj.MDCCId = that.MDCCData.ID;                   // newly added         
-                        //        childObj.MDCCParentLineItemId = data[i].ID;           // newly added
 
                         if (childObj.IsDeleted == true) {
                             childObj.MDCCApprovedQty = 0;
