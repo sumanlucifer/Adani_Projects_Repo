@@ -48,6 +48,12 @@
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection title="{i18n>lineItems}">
                         <uxap:blocks>
+                           <VBox>
+                            <MessageStrip 
+                                class="sapUiTinyMarginBottom"
+                                text="{i18n>QuantityZeroIndicationMsgStrip}"
+                                type="Information" 
+                                showIcon="true"/>
                             <Table id="idParentItemTable" width="auto" growing="true" growingThreshold="5" items="{path: 'ParentItemModel>/'}" fixedLayout="false" mode="MultiSelect" selectionChange="onSelectionChange">
                                 <columns>
                                     <Column>
@@ -68,19 +74,15 @@
                                     <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center">
                                         <Text text="{i18n>inspectionQuantity}" />
                                     </Column>
-
                                     <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center">
                                         <Text text="{i18n>AcceptQuantity}" />
                                     </Column>
                                      <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center">
                                         <Text text="{i18n>RejectQuantity}" />
                                     </Column>
-
                                     <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center">
                                         <Text text="{i18n>HoldQuantity}" />
                                     </Column>
-
-
                                     <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center">
                                         <Text text="{i18n>orderUnit}"/>
                                     </Column>
@@ -93,21 +95,16 @@
                                             <ExpandableText text="{ParentItemModel>Description}" maxCharacters="20" overflowMode="Popover"/>
                                             <Text text="{ParentItemModel>Quantity}"/>
                                             <Text text="{ParentItemModel>BOQApprovedQty}"/>                                                
-                                            <Input value="{ParentItemModel>InspectionQty}" width="30%" type="Number" liveChange="onLiveChangeInspectionQty" enabled="false" />
-
-                                            <Input value="{ParentItemModel>AcceptQuantity}" width="30%" type="Number" liveChange="onLiveChangeARHQty" enabled="false" />
-
-                                            <Input value="{ParentItemModel>RejectQuantity}" width="30%" type="Number" liveChange="onLiveChangeARHQty" enabled="false" />
-
-                                     <Input value="{ParentItemModel>HoldQuantity}" width="30%" type="Number" liveChange="onLiveChangeARHQty" enabled="false" />     
-
-                                            
-
+                                            <Input value="{ParentItemModel>InspectionQty}" type="Number" liveChange="onLiveChangeInspectionQty" editable="false" enabled="false" />
+                                            <Input value="{ParentItemModel>AcceptQuantity}" type="Number" change="onLiveChangeARHQty" enabled="false" />
+                                            <Input value="{ParentItemModel>RejectQuantity}" type="Number" change="onLiveChangeARHQty" enabled="false" />
+                                            <Input value="{ParentItemModel>HoldQuantity}" type="Number" change="onLiveChangeARHQty" enabled="false" />     
                                             <Text text="{ParentItemModel>UoM}"/>
                                         </cells>
                                     </ColumnListItem>
                                 </items>
                             </Table>
+                        </VBox>
                         </uxap:blocks>
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>
