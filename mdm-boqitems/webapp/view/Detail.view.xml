@@ -22,8 +22,8 @@
                <uxap:actions>
                     <Button id="idBtnEdit" text="{i18n>Edit}" icon="sap-icon://edit" press="onEdit" 
                                     visible="{= ${objectViewModel>/idBtnEdit}}"/>
-                    <Button text="{i18n>Delete}" type="Reject" visible="{= ${objectViewModel>/idBtnDelete}}"
-                                            press="onDelete"/>                
+                    <!-- <Button text="{i18n>Delete}" type="Reject" visible="{= ${objectViewModel>/idBtnDelete}}"
+                                            press="onDelete"/>                 -->
                 </uxap:actions>
             </uxap:ObjectPageDynamicHeaderTitle>
         </uxap:headerTitle>

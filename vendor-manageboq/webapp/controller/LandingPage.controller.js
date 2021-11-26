@@ -33,7 +33,7 @@ sap.ui.define([
                 if ((startupParams.poNumber && startupParams.poNumber[0])) {
                     this.recievedPONumber = startupParams.poNumber;
                 }
-            //    this.recievedPONumber = "4500011223";
+               //this.recievedPONumber = "4500011223";
                 var list = this.byId("idParentLineItemList");
                 if (list) {
                     var oItems = new sap.m.StandardListItem({
