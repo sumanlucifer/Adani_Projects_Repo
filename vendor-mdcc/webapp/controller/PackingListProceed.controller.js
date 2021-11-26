@@ -111,16 +111,13 @@ sap.ui.define([
                 this.ParentDataView = ParentData;
                 for (var i = 0; i < ParentData.length; i++) {
 
-                    if (ParentData[i].UOM === "MT") {
-
-
-                        this.ParentData[i].isSelected = false;
-                        this.ParentData[i].isChildItemFreeze = false;
-                    } else {
-
-                        this.ParentData[i].isSelected = false;
-                        this.ParentData[i].isChildItemFreeze = true;
-                    }
+                    // if (ParentData[i].UOM === "MT") {
+                    this.ParentData[i].isSelected = false;
+                    this.ParentData[i].isChildItemFreeze = false;
+                    // } else {
+                    //     this.ParentData[i].isSelected = false;
+                    //     this.ParentData[i].isChildItemFreeze = true;
+                    // }
 
                     if (ParentData[i].MDCCBOQItems.results.length) {
                         this.ParentDataView[i].isStandAlone = true;
@@ -158,14 +155,17 @@ sap.ui.define([
             },
             onDispatchQuantityNull: function (ParentData) {
                 for (var i = 0; i < ParentData.length; i++) {
-                    this.ParentDataView[i].DispatchQty = "";
+                    if (ParentData[i].isStandAlone && ParentData[i].UOM !== "MT")
+                        this.ParentDataView[i].DispatchQty = 0;
+                    else
+                        this.ParentDataView[i].DispatchQty = "";
                     for (var j = 0; j < ParentData[i].ChildItems.length; j++) {
                         this.ParentDataView[i].ChildItems[j].DispatchQty = "";
-                        if (ParentData[i].UOM === "MT") {
+                        // if (ParentData[i].UOM === "MT") {
                             this.ParentData[i].ChildItems[j].isChildItemFreeze = true;
-                        } else {
-                            this.ParentData[i].ChildItems[j].isChildItemFreeze = false;
-                        }
+                        // } else {
+                        //     this.ParentData[i].ChildItems[j].isChildItemFreeze = false;
+                        // }
                     }
                 }
                 this._arrangeDataView();
@@ -175,7 +175,7 @@ sap.ui.define([
                 oEvent.getSource().setValueState("None");
                 this.getView().byId("idBtnProceed").setEnabled(true);
                 var oValue = oEvent.getSource().getValue();
-                var remainingQty = oEvent.getSource().getParent().getCells()[7].getText();
+                var remainingQty = oEvent.getSource().getParent().getCells()[6].getText();
                 var flag = 0;
                 if (parseInt(oValue) > parseInt(remainingQty) || remainingQty == "") {
                     oEvent.getSource().setValueState("Error");
@@ -213,7 +213,7 @@ sap.ui.define([
                 if (!oValue)
                     oValue = 0;
                 var BalanceQty = parseFloat(
-                    oEvent.getSource().getParent().getCells()[9].getText()
+                    oEvent.getSource().getParent().getCells()[8].getText()
                 );
                 var bChildItemFreeze = this.getViewModel("TreeTableModel").getProperty(
                     sParentPath + "/isSelected"
@@ -221,8 +221,10 @@ sap.ui.define([
                 var aChildItems = this.getViewModel("TreeTableModel").getProperty(
                     sParentPath + "/ChildItems"
                 );
+                var sParentUOM = this.getViewModel("TreeTableModel").getProperty(
+                    sParentPath + "/UOM"
+                );
                 if (bChildItemFreeze) {
-                    debugger;
                     aChildItems.forEach((item) => {
                         //    item.Quantity = parseFloat(oValue) * (parseFloat(item.BalanceQty) /parseFloat(iParentIssuedQuantity));
                         item.DispatchQty = parseFloat(oValue) * (parseFloat(item.BaseQty));
@@ -232,7 +234,7 @@ sap.ui.define([
                         aChildItems
                     );
                 } else {
-                    if (parseFloat(oValue) >= 0) {
+                    if (parseFloat(oValue) >= 0 && sParentUOM === 'MT') {
                         var wpp = oEvent
                             .getSource()
                             .getBindingContext("TreeTableModel")
@@ -269,19 +271,19 @@ sap.ui.define([
             // On Selection Of Row 
             onSelectionOfRow: function (oEvent) {
                 var bSelected = oEvent.getParameter("selected");
-                var dispatchQty = oEvent.getSource().getParent().getCells()[10].getValue();
+                var dispatchQty = oEvent.getSource().getParent().getCells()[9].getValue();
                 if (bSelected) {
                     if (dispatchQty == "") {
                         this.getView().byId("idBtnProceed").setEnabled(false);
                     } else {
                         this.getView().byId("idBtnProceed").setEnabled(true);
                     }
-                    oEvent.getSource().getParent().getCells()[10].setEditable(true);
+                    oEvent.getSource().getParent().getCells()[9].setEditable(true);
                     oEvent.getSource().getParent().getRowBindingContext().getObject().isSelected = true;
                 } else {
-                    oEvent.getSource().getParent().getCells()[10].setEditable(false);
+                    oEvent.getSource().getParent().getCells()[9].setEditable(false);
                     oEvent.getSource().getParent().getRowBindingContext().getObject().isSelected = false;
-                    oEvent.getSource().getParent().getCells()[10].setValue("");
+                    oEvent.getSource().getParent().getCells()[9].setValue("");
                 }
             },
             // on Save Confirm - Proceed Click
