@@ -56,7 +56,7 @@ sap.ui.define([
                     }.bind(this),
                     error: function (oError) {
                         this.getView().setBusy(false);
-                        MessageBox.error(JSON.stringify(oError));
+                        // MessageBox.error(JSON.stringify(oError));
                     }.bind(this),
                 });
             },
@@ -105,7 +105,7 @@ sap.ui.define([
                     }.bind(this),
                     error: function (oError) {
                         this.getView().setBusy(false);
-                        MessageBox.error(JSON.stringify(oError));
+                        // MessageBox.error(JSON.stringify(oError));
                     }
                 });
             },
@@ -132,7 +132,7 @@ sap.ui.define([
                     }.bind(this),
                     error: function (oError) {
                         this.getView().setBusy(false);
-                        MessageBox.success(JSON.stringify(oError));
+                        // MessageBox.success(JSON.stringify(oError));
                     }
                 })
             },

@@ -62,7 +62,7 @@ sap.ui.define([
                     }
                 }.bind(this),
                 error: function (oError) {
-                    MessageBox.error(JSON.stringify(oError));
+                    //MessageBox.error(JSON.stringify(oError));
                     this.getView().setBusy(false);
                 }.bind(this)
             });

@@ -63,6 +63,10 @@ sap.ui.define([
             },
 
             fnSaveApproveRejectRequest: function (sStatus, oEvent) {
+                this.getViewModel("objectViewModel").setProperty(
+                    "/busy",
+                    true
+                );
                 try {
                     this.sUserName = sap.ushell.Container.getService("UserInfo").getFirstName();
                 }
@@ -85,6 +89,10 @@ sap.ui.define([
 
                 this.getView().getModel().create("/RoleAssignApprovalRequestEdmSet", oApproveRejectObj, {
                     success: function (oResponse) {
+                        this.getViewModel("objectViewModel").setProperty(
+                            "/busy",
+                            false
+                        );
                         if (oResponse.Success)
                             sap.m.MessageBox.success("Request " + sStatus.toLowerCase() + " successfully.");
                         else
@@ -93,8 +101,12 @@ sap.ui.define([
                         this.getOwnerComponent().getModel().refresh();
                     }.bind(this),
                     error: function (oError) {
+                        this.getViewModel("objectViewModel").setProperty(
+                            "/busy",
+                            false
+                        );
                         // sap.m.MessageBox.error(JSON.stringify(oError));
-                    }
+                    }.bind(this),
                 });
 
 

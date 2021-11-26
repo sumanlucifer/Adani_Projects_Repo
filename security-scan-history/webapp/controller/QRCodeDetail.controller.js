@@ -81,12 +81,20 @@ sap.ui.define([
             getDocumentData: function () {
                 var promise = jQuery.Deferred();
                 var that = this;
+                this.getViewModel("objectViewModel").setProperty(
+                    "/busy",
+                    true
+                );
                 var oView = this.getView();
                 var oDataModel = oView.getModel();
                 //console.log(oPayLoad);
                 return new Promise((resolve, reject) => {
                     this.getOwnerComponent().getModel().read("/PackingListSet(" + this.packingListId + ")/Attachments", {
                         success: function (oData, oResponse) {
+                            this.getViewModel("objectViewModel").setProperty(
+                                "/busy",
+                                false
+                            );
                             var oJSONData = {
                                 PL_Material: [],
                                 PL_Invoice: [],
@@ -105,8 +113,12 @@ sap.ui.define([
                             resolve(oData.results);
                         }.bind(this),
                         error: function (oError) {
-                            sap.m.MessageBox.error(JSON.stringify(oError));
-                        }
+                            this.getViewModel("objectViewModel").setProperty(
+                                "/busy",
+                                false
+                            );
+                           // sap.m.MessageBox.error(JSON.stringify(oError));
+                        }.bind(this),
                     });
                 });
             },
@@ -298,7 +310,10 @@ sap.ui.define([
 
 
             onViewQRCodePress: function (oEvent) {
-
+                this.getViewModel("objectViewModel").setProperty(
+                    "/busy",
+                    true
+                );
                 try {
                     var sParentItemPath = oEvent.getParameter("oSource").getBindingContext().getPath();
                 }
@@ -312,7 +327,12 @@ sap.ui.define([
                 };
                 this.getComponentModel().create("/QuickAccessQRCodeEdmSet", aPayload, {
                     success: function (oData, oResponse) {
+                        this.getViewModel("objectViewModel").setProperty(
+                            "/busy",
+                            false
+                        );
                         if (oData.Success) {
+                        
                             // sap.m.MessageBox.success(oData.Message);
                             this._openPDFDownloadWindow(oData.Base64String);
                         }
@@ -323,12 +343,21 @@ sap.ui.define([
                         this.getComponentModel().refresh();
                     }.bind(this),
                     error: function (oError) {
-                        sap.m.MessageBox.success(JSON.stringify(oError));
-                    }
+                        this.getViewModel("objectViewModel").setProperty(
+                            "/busy",
+                            false
+                        );
+                        //sap.m.MessageBox.success(JSON.stringify(oError));
+                    }.bind(this),
                 })
             },
 
             onViewQRCodePress1: function (oEvent) {
+
+                this.getViewModel("objectViewModel").setProperty(
+                    "/busy",
+                    true
+                );
                 try {
                     var sParentItemPath = oEvent.getParameter("oSource").getBindingContext().getPath();
                 }
@@ -342,6 +371,10 @@ sap.ui.define([
                 };
                 this.getComponentModel().create("/QuickAccessQRCodeEdmSet", aPayload, {
                     success: function (oData, oResponse) {
+                        this.getViewModel("objectViewModel").setProperty(
+                            "/busy",
+                            false
+                        );
                         if (oData.Success) {
                             // sap.m.MessageBox.success(oData.Message);
                             this._openPDFDownloadWindow(oData.Base64String);
@@ -353,7 +386,11 @@ sap.ui.define([
                         this.getComponentModel().refresh();
                     }.bind(this),
                     error: function (oError) {
-                        sap.m.MessageBox.success(JSON.stringify(oError));
+                        this.getViewModel("objectViewModel").setProperty(
+                            "/busy",
+                            false
+                        );
+                        //sap.m.MessageBox.success(JSON.stringify(oError));
                     }
                 })
             },

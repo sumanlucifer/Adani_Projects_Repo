@@ -79,11 +79,19 @@ sap.ui.define([
 
         onReadDataIssueMaterialParents: function () {
             var that = this;
+            this.getViewModel("objectViewModel").setProperty(
+                "/busy",
+                true
+            );
 
             that.oIssueMaterialModel = new JSONModel();
             this.MainModel.read("/SONumberDetailsSet(" + that.sObjectId + ")", {
                 urlParameters: { "$expand": "IssuedMaterialParent/IssuedMaterialBOQ" },
                 success: function (oData, oResponse) {
+                    this.getViewModel("objectViewModel").setProperty(
+                        "/busy",
+                        false
+                    );
                     //   debugger;
                     that.dataBuilding(oData.IssuedMaterialParent.results);
                     //   that.oIssueMaterialModel.setData({ "Items": oData.results });
@@ -91,8 +99,12 @@ sap.ui.define([
                     // that.onReadDataIssueMaterialChild(oData.results);
                 }.bind(this),
                 error: function (oError) {
-                    sap.m.MessageBox.error("Data Not Found");
-                }
+                    this.getViewModel("objectViewModel").setProperty(
+                        "/busy",
+                        false
+                    );
+                   // sap.m.MessageBox.error("Data Not Found");
+                }.bind(this),
             });
         },
 
@@ -211,6 +223,10 @@ sap.ui.define([
 
         onSendAssistanceRequestPress: function (oEvent) {
             var that = this;
+            this.getViewModel("objectViewModel").setProperty(
+                "/busy",
+                true
+            );
             var inputModel = this.getView().getModel("qrAssistantModel");
             var flag = 0;
             if (inputModel.getProperty("/comment") == null || inputModel.getProperty("/comment") == "") {
@@ -270,26 +286,46 @@ sap.ui.define([
 
             this.MainModel.create("/RaiseReturnMaterialRequestSet", oPayload, {
                 success: function (oData, oResponse) {
+                    this.getViewModel("objectViewModel").setProperty(
+                        "/busy",
+                        false
+                    );
                     that._oQRAssistantDialog.close();
                     sap.m.MessageBox.success(oData.Message);
                 }.bind(this),
                 error: function (oError) {
-                    sap.m.MessageBox.error(oError.Message);
-                }
+                    this.getViewModel("objectViewModel").setProperty(
+                        "/busy",
+                        false
+                    );
+                   // sap.m.MessageBox.error(oError.Message);
+                }.bind(this),
             });
         },
         onReadDataIssueMaterials: function () {
             var that = this;
+            this.getViewModel("objectViewModel").setProperty(
+                "/busy",
+                true
+            );
             var oTable = this.byId("idTblIssueMaterialItems");
             that.oIssueMaterialModel = new JSONModel();
             this.MainModel.read("/SONumberDetailsSet(" + that.sObjectId + ")/IssuedMaterials", {
                 success: function (oData, oResponse) {
+                    this.getViewModel("objectViewModel").setProperty(
+                        "/busy",
+                        false
+                    );
                     that.oIssueMaterialModel.setData({ "Items": oData.results });
                     oTable.setModel(that.oIssueMaterialModel, "oIssueMaterialModel");
                 }.bind(this),
                 error: function (oError) {
-                    sap.m.MessageBox.error("Data Not Found");
-                }
+                    this.getViewModel("objectViewModel").setProperty(
+                        "/busy",
+                        false
+                    );
+                   // sap.m.MessageBox.error("Data Not Found");
+                }.bind(this),
             });
         },
     });

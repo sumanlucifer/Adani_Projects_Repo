@@ -47,7 +47,7 @@ sap.ui.define([
                     // that.onReadDataIssueMaterialChild(oData.results);
                 }.bind(this),
                 error: function (oError) {
-                    sap.m.MessageBox.error("Data Not Found");
+                    //sap.m.MessageBox.error("Data Not Found");
                 }
             });
         },

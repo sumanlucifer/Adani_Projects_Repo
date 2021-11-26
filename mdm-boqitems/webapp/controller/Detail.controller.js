@@ -174,7 +174,7 @@ sap.ui.define([
 
                 }.bind(this),
                 error: function (oError) {
-                    MessageBox.error(JSON.stringify(oError));
+                    // MessageBox.error(JSON.stringify(oError));
                 }
             });
         },
@@ -251,7 +251,7 @@ sap.ui.define([
                                     this.getComponentModel("app").setProperty("/busy", false);
                                 }.bind(this),
                                 error: function (oError) {
-                                    MessageBox.error(JSON.stringify(oError));
+                                    // MessageBox.error(JSON.stringify(oError));
                                     this.getComponentModel("app").setProperty("/busy", false);
                                 }.bind(this)
                             });
@@ -270,7 +270,7 @@ sap.ui.define([
                     }.bind(this),
                     error: function (oError) {
                         that.getComponentModel("app").setProperty("/busy", false);
-                        MessageBox.error(JSON.stringify(oError));
+                        // MessageBox.error(JSON.stringify(oError));
                     }
                 });
             }
@@ -317,7 +317,7 @@ sap.ui.define([
                             }.bind(this),
                             error: function (oError) {
                                 that.getComponentModel("app").setProperty("/busy", false);
-                                MessageBox.error(JSON.stringify(oError));
+                               // MessageBox.error(JSON.stringify(oError));
                             }
                         });
                     }

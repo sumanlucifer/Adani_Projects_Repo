@@ -19,10 +19,11 @@ sap.ui.define([
                     "submitQRCode": false,
                     "scanQRCode": true,
                     "submitInvoiceCode": false,
-                    "inputQRCode": true
+                    "inputQRCode": true,
+                    "busy": false
 
                 });
-                this.setModel(oViewModel, "oViewModel");
+                this.setModel(oViewModel, "objectViewModel");
             },
 
             _onNavtoQRDeatilsPage: function (oItem) {
@@ -120,6 +121,10 @@ sap.ui.define([
 
             // Read QR Code details and Validate QR Code, If valid navigate to details page
             onPressSubmitQRCode: function (QRCode) {
+                this.getViewModel("objectViewModel").setProperty(
+                    "/busy",
+                    true
+                );
                 var sQRCode = this.getView().byId("idInputQRCode").getValue(),
                     QRCodeFilter = new Filter("QRNumber", FilterOperator.EQ, sQRCode);
                 this.getComponentModel().read("/QRCodeSet", {
@@ -128,6 +133,10 @@ sap.ui.define([
                         "$expand": "PackingListParentItem"
                     },
                     success: function (oData) {
+                        this.getViewModel("objectViewModel").setProperty(
+                            "/busy",
+                            false
+                        );
                         if (oData.results.length > 0) {
                             if (oData.results[0].Type !== "PARENT") {
                                 MessageBox.error(this.getResourceBundle().getText("MSGUseParentQRCode"));
@@ -142,8 +151,12 @@ sap.ui.define([
                         }
                     }.bind(this),
                     error: function (oError) {
-                        MessageBox.error(JSON.stringify(oError));
-                    }
+                        this.getViewModel("objectViewModel").setProperty(
+                            "/busy",
+                            false
+                        );
+                        // MessageBox.error(JSON.stringify(oError));
+                    }.bind(this),
                 });
             }
         });

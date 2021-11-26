@@ -78,11 +78,13 @@ sap.ui.define([
         },
 
         _setTreeTableData: function(oController){
-            debugger;
+           
             var objectViewModel= oController.getViewModel("objectViewModel");
+            objectViewModel.setProperty("/busy", true);
             oController.MainModel.read("/IssuedMaterialSet(" + oController.sObjectId +")/IssuedMaterialParents",{
                 urlParameters: { "$expand": "IssuedMaterialBOQ" },
                 success: function(oData) {
+                    objectViewModel.setProperty("/busy", false);
                     if(oData){
                         oData.results.forEach(element => {
                             element.BoqItems = element.IssuedMaterialBOQ.results;
@@ -91,8 +93,9 @@ sap.ui.define([
                     }
                 }.bind(oController),
                 error: function(oErr){
+                    objectViewModel.setProperty("/busy", false);
 
-                }
+                }.bind(oController),
             })
         },
 
@@ -162,6 +165,10 @@ sap.ui.define([
         },
 
         onPressConfirm: function(oEvent){
+            this.getViewModel("objectViewModel").setProperty(
+                "/busy",
+                true
+            );
             // debugger;
             var that = this;
             var MaterialID= this.sObjectId;
@@ -174,13 +181,21 @@ sap.ui.define([
 
             this.getOwnerComponent().getModel().create("/IssueMaterialConfirmationEdmSet", oPayload, {
                 success: function (oData, oResponse) {
+                    this.getViewModel("objectViewModel").setProperty(
+                        "/busy",
+                        false
+                    );
                     sap.m.MessageToast.show("The Requested Material is Issued");
                     this.getOwnerComponent().getModel().refresh();
                     this.getRouter().navTo("RouteLandingPage");
                 }.bind(this),
                 error: function (oError) {
-                    sap.m.MessageBox.error(JSON.stringify(oError));
-                    }
+                    this.getViewModel("objectViewModel").setProperty(
+                        "/busy",
+                        false
+                    );
+                  //  sap.m.MessageBox.error(JSON.stringify(oError));
+                }.bind(this),
             });
         },
 

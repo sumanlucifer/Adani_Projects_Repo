@@ -180,6 +180,7 @@ sap.ui.define([
 
 
         confirmPO: function (oEvent) {
+            this.getViewModel("objectViewModel").setProperty("/busy", true);
             var sPath = this.getView().getBindingContext().getPath();
             var poNumber = this.getView().getBindingContext().getObject().PONumber;
             var oPayload = {
@@ -189,12 +190,14 @@ sap.ui.define([
 
             this.getComponentModel().update(sPath, oPayload, {
                 success: function (oData, oResponse) {
+                    this.getViewModel("objectViewModel").setProperty("/busy", false);
                     sap.m.MessageBox.success("Purchase Order " + poNumber + " has been confirmed! Please raise the inspection call through SIMS portal.");
                     this.getComponentModel().refresh();
                 }.bind(this),
                 error: function (oError) {
-                    sap.m.MessageBox.error(JSON.stringify(oError));
-                }
+                    this.getViewModel("objectViewModel").setProperty("/busy", false);
+                  //  sap.m.MessageBox.error(JSON.stringify(oError));
+                }.bind(this),
             })
         },
 
@@ -410,6 +413,7 @@ sap.ui.define([
         },
 
         sendForApproval: function (oEvent) {
+            this.getViewModel("objectViewModel").setProperty("/busy", true);
             this.oApproveDialog.close();
             var sendForApprovalModel = this.getViewModel("sendForApprovalModel");
             var oPayload = {
@@ -418,6 +422,7 @@ sap.ui.define([
             };
             this.getComponentModel().create("/ParentLineItemTCApprovalListSet", oPayload, {
                 success: function (oData, oEvent) {
+                    this.getViewModel("objectViewModel").setProperty("/busy", false);
                     if (oData.Success)
                         sap.m.MessageBox.success(oData.Message);
                     else
@@ -425,8 +430,9 @@ sap.ui.define([
                     this.getView().getContent()[0].getSections()[2].rerender();
                 }.bind(this),
                 error: function (oError) {
-                    sap.m.MessageBox.success(JSON.stringify(oError));
-                }
+                    this.getViewModel("objectViewModel").setProperty("/busy", false);
+                   // sap.m.MessageBox.success(JSON.stringify(oError));
+                }.bind(this),
             });
         },
 
