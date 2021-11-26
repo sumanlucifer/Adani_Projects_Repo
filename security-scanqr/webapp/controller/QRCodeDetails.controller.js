@@ -103,6 +103,11 @@ sap.ui.define([
             },
             getDocumentData: function () {
                 var promise = jQuery.Deferred();
+                this.getViewModel("objectViewModel").setProperty(
+                    "/busy",
+                    true
+                );
+                
                 var that = this;
                 var oView = this.getView();
                 var oDataModel = oView.getModel();
@@ -110,6 +115,10 @@ sap.ui.define([
                 return new Promise((resolve, reject) => {
                     this.getOwnerComponent().getModel().read("/QRCodeSet(" + this.qrCodeID + ")/PackingList/Attachments", {
                         success: function (oData, oResponse) {
+                            this.getViewModel("objectViewModel").setProperty(
+                                "/busy",
+                                false
+                            );
                             var oJSONData = {
                                 PL_Material: [],
                                 PL_Invoice: [],
@@ -121,8 +130,12 @@ sap.ui.define([
                             resolve(oData.results);
                         }.bind(this),
                         error: function (oError) {
-                            sap.m.MessageBox.error(JSON.stringify(oError));
-                        }
+                            this.getViewModel("objectViewModel").setProperty(
+                                "/busy",
+                                false
+                            );
+                           // sap.m.MessageBox.error(JSON.stringify(oError));
+                        }.bind(this),
                     });
                 });
             },
@@ -195,13 +208,21 @@ sap.ui.define([
                     this.MainModel.create("/ScannedMaterialEdmSet", oPayload, {
                         success: function (oData, oResponse) {
                             that.scannedMaterialID = oData.ID;
+                            this.getViewModel("objectViewModel").setProperty(
+                                "/busy",
+                                false
+                            );
                             // objectViewModel.setProperty("/busy", false);
                             // sap.m.MessageBox.success("Scanned QR Code Stored Successfully");
                         }.bind(this),
                         error: function (oError) {
+                            this.getViewModel("objectViewModel").setProperty(
+                                "/busy",
+                                false
+                            );
                             // objectViewModel.setProperty("/busy", false);
-                            sap.m.MessageBox.error(JSON.stringify(oError));
-                        }
+                          //  sap.m.MessageBox.error(JSON.stringify(oError));
+                        }.bind(this),
                     });
                 } else {
                     sap.m.MessageBox.error("Oops! Error occured please try again in sometime.");
@@ -224,7 +245,10 @@ sap.ui.define([
 
             // On Submit Press - 
             onVehicleNumberSubmit: function (oEvent) {
-
+                this.getViewModel("objectViewModel").setProperty(
+                    "/busy",
+                    true
+                );
                 var that = this;
                 var obj = oEvent.getSource().getBindingContext().getObject();
                 var newVehiclenumber = this.getView().getModel("oViewHandlingModel").oData.ReEnterVehicleNo;
@@ -251,6 +275,10 @@ sap.ui.define([
                     this.MainModel.create("/VehicleNumberUpdateSet", oPayload, {
 
                         success: function (oData, oResponse) {
+                            this.getViewModel("objectViewModel").setProperty(
+                                "/busy",
+                                false
+                            );
                             this.MainModel.refresh();
                             MessageBox.success("Vehicle Number Submitted successfully");
                             this.getViewModel("oViewHandlingModel").setProperty("/wantChange", false);
@@ -259,7 +287,11 @@ sap.ui.define([
 
                         }.bind(this),
                         error: function (oError) {
-                            MessageBox.error(JSON.stringify(oError));
+                            this.getViewModel("objectViewModel").setProperty(
+                                "/busy",
+                                false
+                            );
+                           // MessageBox.error(JSON.stringify(oError));
                         }.bind(this)
                     });
                     // this.MainModel.refresh();

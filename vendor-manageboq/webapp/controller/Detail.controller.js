@@ -30,7 +30,8 @@ sap.ui.define([
                 isCreatingPCList: false,
                 isPCListSelected: false,
                 sViewBOQButtonName: "View BOQ List",
-                hasPClist: false
+                hasPClist: false,
+                BOQQtyType: 'F'
             });
             this.setModel(oViewModel, "objectViewModel");
             //Router Object
@@ -414,6 +415,7 @@ sap.ui.define([
                 oController._oBOQCreationDialog = sap.ui.xmlfragment("com.agel.mmts.vendormanageboq.view.fragments.detailPage.BOQQuantityGetter", oController);
                 oController.getView().addDependent(oController._oBOQCreationDialog);
             }
+            oController.getViewModel("objectViewModel").setProperty("/BOQQtyType", "F");
             oController._oBOQCreationDialog.open();
         },
 
@@ -438,24 +440,34 @@ sap.ui.define([
             var oPOData = this.getView().getBindingContext().getObject();
             if (oEvent.getSource().getValue().length && parseFloat(oEvent.getSource().getValue()) > 0) {
                 this.getViewModel("boqCreationModel").setProperty("/isConfirmButtonEnabled", true);
-                if (parseFloat(oEvent.getSource().getValue()) > parseFloat(oPOData.PendingQty)) {
-                    this.getViewModel("boqCreationModel").setProperty("/valueState", "Error");
-                    this.getViewModel("boqCreationModel").setProperty("/valueStateText", "BOQ quantity should not exceed PO's pending quantity.");
-                    this.getViewModel("boqCreationModel").setProperty("/isConfirmButtonEnabled", false);
-                }
-                else {
-                    this.getViewModel("boqCreationModel").setProperty("/valueState", null);
-                    this.getViewModel("boqCreationModel").setProperty("/valueStateText", "");
-                    this.getViewModel("boqCreationModel").setProperty("/isConfirmButtonEnabled", true);
-                    var sValue = parseFloat(oEvent.getSource().getValue());
-                    var aGroupItems = this.getViewModel("boqCreationModel").getProperty("/CalculatedBOQItems");
-                    aGroupItems.forEach(item => {
-                        item.BOQQuantity = sValue * parseFloat(item.Qty);
-                        item.TotalItemWeight = item.BOQQuantity * parseFloat(item.WeightPerPiece);
-                    });
-                    this.getViewModel("boqCreationModel").setProperty("/CalculatedBOQItems", aGroupItems);
-                    // this.getViewModel("boqCreationModel").refresh();
-                }
+                // if (parseFloat(oEvent.getSource().getValue()) > parseFloat(oPOData.PendingQty)) {
+                //     this.getViewModel("boqCreationModel").setProperty("/valueState", "Error");
+                //     this.getViewModel("boqCreationModel").setProperty("/valueStateText", "BOQ quantity should not exceed PO's pending quantity.");
+                //     this.getViewModel("boqCreationModel").setProperty("/isConfirmButtonEnabled", false);
+                // }
+                // else {
+                //     this.getViewModel("boqCreationModel").setProperty("/valueState", null);
+                //     this.getViewModel("boqCreationModel").setProperty("/valueStateText", "");
+                //     this.getViewModel("boqCreationModel").setProperty("/isConfirmButtonEnabled", true);
+                var sValue = parseFloat(oEvent.getSource().getValue());
+                var aGroupItems = this.getViewModel("boqCreationModel").getProperty("/CalculatedBOQItems");
+                aGroupItems.forEach(item => {
+                    item.BOQQuantity = sValue * parseFloat(item.Qty);
+                    item.TotalItemWeight = item.BOQQuantity * parseFloat(item.WeightPerPiece);
+                    if (parseFloat(item.BOQQuantity) > parseFloat(item.RemainingQty)) {
+                        this.getViewModel("boqCreationModel").setProperty("/valueState", "Error");
+                        this.getViewModel("boqCreationModel").setProperty("/valueStateText", "BOQ quantity should not exceed PO's pending quantity.");
+                        this.getViewModel("boqCreationModel").setProperty("/isConfirmButtonEnabled", false);
+                        return;
+                    }
+                    else {
+                        this.getViewModel("boqCreationModel").setProperty("/valueState", null);
+                        this.getViewModel("boqCreationModel").setProperty("/valueStateText", "");
+                        this.getViewModel("boqCreationModel").setProperty("/isConfirmButtonEnabled", true);
+                    }
+                });
+                this.getViewModel("boqCreationModel").setProperty("/CalculatedBOQItems", aGroupItems);
+                // }
             }
             else {
                 this.getViewModel("boqCreationModel").setProperty("/isConfirmButtonEnabled", false);
@@ -469,6 +481,7 @@ sap.ui.define([
             var oValue = oEvent.getSource().getValue();
             var sBindingPath = oEvent.getSource().getBindingContext("boqCreationModel").sPath;
             // var aGroupItems = this.getViewModel("boqCreationModel").getProperty("/CalculatedBOQItems");
+            var sUOM = this.getViewModel("boqCreationModel").getProperty("/UOM");
             var iTotalQuantity = this.getViewModel("boqCreationModel").getProperty("/quantity");
             if (iTotalQuantity)
                 iTotalQuantity = parseFloat(iTotalQuantity);
@@ -477,7 +490,8 @@ sap.ui.define([
             var iRemainingQty = this.getViewModel("boqCreationModel").getProperty(sBindingPath + "/RemainingQty");
             if (iTotalItemWeight) {
                 iTotalQuantity -= iTotalItemWeight
-                this.getViewModel("boqCreationModel").setProperty("/quantity", iTotalQuantity);
+                if (sUOM === 'MT')
+                    this.getViewModel("boqCreationModel").setProperty("/quantity", iTotalQuantity);
             }
             this.getViewModel("boqCreationModel").setProperty(sBindingPath + "/TotalItemWeight", null);
             if (parseFloat(oValue) > 0) {
@@ -485,9 +499,10 @@ sap.ui.define([
                 this.getViewModel("boqCreationModel").setProperty(sBindingPath + "/TotalItemWeight", iTotalWeight);
                 iTotalQuantity += iTotalWeight;
                 iTotalQuantity = iTotalQuantity.toFixed(4);
-                if(iTotalQuantity < 0 )
+                if (iTotalQuantity < 0)
                     iTotalQuantity = 0;
-                this.getViewModel("boqCreationModel").setProperty("/quantity", iTotalQuantity);
+                if (sUOM === 'MT')
+                    this.getViewModel("boqCreationModel").setProperty("/quantity", iTotalQuantity);
                 // if (parseFloat(oValue) > parseFloat(oPOData.PendingQty)) {
                 //     this.getViewModel("boqCreationModel").setProperty("/isConfirmButtonEnabled", false);
                 //     oEvent.getSource().setValueState("Error");
@@ -532,7 +547,8 @@ sap.ui.define([
             var sQuantity = this.getViewModel("boqCreationModel").getProperty("/quantity");
             var aCalculatedBOQItems = this.getViewModel("boqCreationModel").getProperty("/CalculatedBOQItems");
             var sUOM = this.getViewModel("boqCreationModel").getProperty("/UOM");
-            if (sUOM === 'MT') {
+            var sBOQQtyType = this.getViewModel("objectViewModel").getProperty("/BOQQtyType");
+            if (sUOM === 'MT' || sBOQQtyType === 'P') {
                 for (var i = 0; i < aCalculatedBOQItems.length; i++) {
                     if (!aCalculatedBOQItems[i].selected || aCalculatedBOQItems[i].BOQQuantity === null) {
                         aCalculatedBOQItems.splice(i, 1);
@@ -541,7 +557,7 @@ sap.ui.define([
                 }
             }
             var oModel = this.getComponentModel();
-            if (sQuantity !== "0") {
+            if (sQuantity !== "0" || (sQuantity === '0' && sBOQQtyType === 'P')) {
                 if (isMaterialStandAlone) {
                     var oPayload = {
                         "QTY": parseFloat(sQuantity),
@@ -695,6 +711,16 @@ sap.ui.define([
             this.pDialog.then(function (oDialog) {
                 oDialog.close();
             });
+        },
+
+        onBOQQtyTypeSelect: function (oEvent) {
+            var sSelectedText = oEvent.getSource().getSelectedButton().getText();
+            if (sSelectedText === "Full BOQ")
+                this.getViewModel("objectViewModel").setProperty("/BOQQtyType", "F");
+            else if (sSelectedText === "Partial BOQ") {
+                this.getViewModel("objectViewModel").setProperty("/BOQQtyType", "P");
+                this.getViewModel("boqCreationModel").setProperty("/quantity", 0);
+            }
         }
     });
 });            

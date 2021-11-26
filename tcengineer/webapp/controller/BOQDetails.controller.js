@@ -182,7 +182,7 @@ sap.ui.define([
                     boqApprovalModel.setProperty("/Comment", null);
                 }.bind(this),
                 error: function (oError) {
-                    sap.m.MessageBox.success(JSON.stringify(oError));
+                    //sap.m.MessageBox.success(JSON.stringify(oError));
                 }
             })
         },

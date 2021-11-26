@@ -52,6 +52,10 @@ sap.ui.define([
         },
         getDocumentData: function () {
             var promise = jQuery.Deferred();
+            this.getViewModel("objectViewModel").setProperty(
+                "/busy",
+                true
+            );
             var that = this;
             var oView = this.getView();
             var oDataModel = oView.getModel();
@@ -59,6 +63,10 @@ sap.ui.define([
             return new Promise((resolve, reject) => {
                 this.getOwnerComponent().getModel().read("/InspectionCallIdSet" + this.sObjectId + "/Attachments", {
                     success: function (oData, oResponse) {
+                        this.getViewModel("objectViewModel").setProperty(
+                            "/busy",
+                            false
+                        );
                         var oJSONData = {
                             PL_Material: [],
                             PL_Invoice: [],
@@ -69,8 +77,12 @@ sap.ui.define([
                         resolve(oData.results);
                     }.bind(this),
                     error: function (oError) {
-                        sap.m.MessageBox.error(JSON.stringify(oError));
-                    }
+                        this.getViewModel("objectViewModel").setProperty(
+                            "/busy",
+                            false
+                        );
+                        // sap.m.MessageBox.error(JSON.stringify(oError));
+                    }.bind(this),
                 });
             });
         },
@@ -257,6 +269,10 @@ sap.ui.define([
         ///--------------------- Send For Approval ----------------------------------//
         onSendForApprovalPress: function (oEvent) {
             var that = this;
+            this.getViewModel("objectViewModel").setProperty(
+                "/busy",
+                true
+            );
             var obj = oEvent.getSource().getBindingContext().getObject();
             MessageBox.confirm("Do you want to send " + obj.MDCCNumber + " for approval?", {
                 icon: MessageBox.Icon.INFORMATION,
@@ -283,6 +299,10 @@ sap.ui.define([
                         BusyIndicator.show();
                         that.MainModel.create(sPath, oPayload, {
                             success: function (oData, oResponse) {
+                                this.getViewModel("objectViewModel").setProperty(
+                                    "/busy",
+                                    false
+                                );
                                 BusyIndicator.hide();
                                 if (oData.ID) {
                                     MessageBox.success("MDCC Number " + that.MDCCNumber + " Sent for approval successfully");
@@ -291,9 +311,13 @@ sap.ui.define([
                                 }
                             }.bind(this),
                             error: function (oError) {
+                                this.getViewModel("objectViewModel").setProperty(
+                                    "/busy",
+                                    false
+                                );
                                 BusyIndicator.hide();
-                                MessageBox.error(JSON.stringify(oError));
-                            }
+                                // MessageBox.error(JSON.stringify(oError));
+                            }.bind(this),
                         });
                     }
                 }
@@ -362,26 +386,46 @@ sap.ui.define([
         },
         // Parent Data View Fetch / Model Set
         _getParentDataViewMDCC: function (sObjectId, mdccNobb) {
+            this.getViewModel("objectViewModel").setProperty(
+                "/busy",
+                true
+            );
             this.ParentDataView = [];
             var sPath = "/MDCCSet(" + sObjectId + ")/MDCCParentLineItems";
             this.MainModel.read(sPath, {
                 success: function (oData, oResponse) {
+                    this.getViewModel("objectViewModel").setProperty(
+                        "/busy",
+                        false
+                    );
                     if (oData.results.length) {
                         this._getChildItemsViewMDCC(oData.results, sObjectId, mdccNobb);
                     }
                 }.bind(this),
                 error: function (oError) {
-                    sap.m.MessageBox.Error(JSON.stringify(oError));
-                }
+                    this.getViewModel("objectViewModel").setProperty(
+                        "/busy",
+                        false
+                    );
+                    //sap.m.MessageBox.Error(JSON.stringify(oError));
+                }.bind(this),
             });
         },
         // Child Item View Fetch / Model Set
         _getChildItemsViewMDCC: function (ParentDataView, sObjectId, mdccNobb) {
+            this.getViewModel("objectViewModel").setProperty(
+                "/busy",
+                true
+            );
             this.ParentDataView = ParentDataView;
             for (var i = 0; i < ParentDataView.length; i++) {
                 var sPath = "/MDCCSet(" + sObjectId + ")/MDCCParentLineItems(" + ParentDataView[i].ID + ")/MDCCBOQItems";
                 this.MainModel.read(sPath, {
                     success: function (i, oData, oResponse) {
+                        this.getViewModel("objectViewModel").setProperty(
+                            "/busy",
+                            false
+                        );
                         if (oData.results.length) {
                             this.ParentDataView[i].isStandAlone = true;
                             this.ParentDataView[i].ChildItemsView = oData.results;
@@ -392,8 +436,12 @@ sap.ui.define([
                         if (i == this.ParentDataView.length - 1) this._arrangeDataView(mdccNobb);
                     }.bind(this, i),
                     error: function (oError) {
-                        sap.m.MessageBox.Error(JSON.stringify(oError));
-                    }
+                        this.getViewModel("objectViewModel").setProperty(
+                            "/busy",
+                            false
+                        );
+                        //   sap.m.MessageBox.Error(JSON.stringify(oError));
+                    }.bind(this, i),
                 });
             }
         },
@@ -404,7 +452,7 @@ sap.ui.define([
             BusyIndicator.show();
             var oFiles = oEvent.getParameters().files;
             var fileName = oFiles[0].name;
-            var fileType = "application/pdf";
+            var fileType = oFiles[0].type;
             this._getImageData(URL.createObjectURL(oFiles[0]), function (base64) {
                 that._addData(base64, fileName, fileType);
             }, fileName);
@@ -427,6 +475,10 @@ sap.ui.define([
         },
         addMdccRow: function () {
             var that = this;
+            this.getViewModel("objectViewModel").setProperty(
+                "/busy",
+                true
+            );
             var object = this.getView().getBindingContext().getObject();
             var oPayload = {
                 //  "MDCCNumber": "", // as shubham informed
@@ -444,15 +496,23 @@ sap.ui.define([
             BusyIndicator.show();
             this.MainModel.create(sPath, oPayload, {
                 success: function (oData, oResponse) {
+                    this.getViewModel("objectViewModel").setProperty(
+                        "/busy",
+                        false
+                    );
                     BusyIndicator.hide();
                     this.getView().getModel().refresh();
                     //that.getView().( "ManageMDCCModel");
                     // that.getView().getModel("ManageMDCCModel").getData().MDCCItems = oData.results;
                 }.bind(this),
                 error: function (oError) {
+                    this.getViewModel("objectViewModel").setProperty(
+                        "/busy",
+                        false
+                    );
                     BusyIndicator.hide();
-                    sap.m.MessageBox.Error(JSON.stringify(oError));
-                }
+                    //  sap.m.MessageBox.Error(JSON.stringify(oError));
+                }.bind(this),
             });
         },
         //-------------------- File Upload MDCC ----------------------//
@@ -463,15 +523,25 @@ sap.ui.define([
             var rowObj = oEvent.getSource().getBindingContext().getObject();
             BusyIndicator.show();
             var oFiles = oEvent.getParameters().files;
+            this.oFiles = oFiles;
             var fileName = oFiles[0].name;
-            var fileType = "application/pdf";
+
+            var fileType = oFiles[0].type;
+
+            fileType = fileType === "application/pdf" ? "application/pdf" : "application/octet-stream";
+
+
             var fileSize = oFiles[0].size;
             this._getImageData(URL.createObjectURL(oFiles[0]), function (base64) {
-                that._addData(base64, fileName, fileType, fileSize, rowId, rowObj);
+                that._addData(base64, fileName, fileType, fileSize, rowId, rowObj, oFiles);
             }, fileName);
         },
         _addData: function (data, fileName, fileType, fileSize, rowId, rowObj) {
             var that = this;
+            this.getViewModel("objectViewModel").setProperty(
+                "/busy",
+                true
+            );
             var sPONumber = this.getView().byId("idPONumber").getText();;
             // var documents = {
             //     "Documents": [
@@ -487,7 +557,6 @@ sap.ui.define([
             //         }
             //     ]
             // };
-            https://qa-agel-mmts-api.cfapps.ap11.hana.ondemand.com/api/v2/odata.svc/DocumentUploadEdmSet
             var documents = {
                 "Documents": [
                     {
@@ -507,66 +576,71 @@ sap.ui.define([
             var sPath = "/DocumentUploadEdmSet"
             this.MainModel.create(sPath, documents, {
                 success: function (oData, oResponse) {
+                    this.getViewModel("objectViewModel").setProperty(
+                        "/busy",
+                        false
+                    );
                     BusyIndicator.hide();
                     sap.m.MessageToast.show("MDCC Details Uploaded!");
                     this.getView().getModel().refresh();
-                    this._updateDocumentService(oData.ID, data, fileName, fileType, fileSize, rowId, rowObj, sPONumber);
+                    this._updateDocumentService(oData.ID, fileType);
                     //   this.getView().getModel("ManageMDCCModel").getData().MDCCItems[rowId].MapItems = true;
                     //   this.getView().getModel("ManageMDCCModel").refresh();
                 }.bind(this),
-                error: function (oError) {
+                error: function () {
+                    this.getViewModel("objectViewModel").setProperty(
+                        "/busy",
+                        false
+                    );
                     BusyIndicator.hide();
                     sap.m.MessageBox.error("Error uploading document");
                 }
             });
         },
-        _updateDocumentService1: function (ID, data, fileName, fileType, fileSize, rowId, rowObj, sPONumber) {
+        _updateDocumentService: function (ID, fileType) {
             var that = this;
-            that.documents = data;
-            var document = {
-                headers: {
-                    "X-Requested-With": "XMLHttpRequest",
-                    "Content-Type": fileType,
-                    "DataServiceVersion": "2.0",
-                    "slug": fileName,
-                },
-                data: data
-            };
-            var sPath = `/DocumentUploadEdmSet(${ID})/$value`
-            this.MainModel.update(sPath, document, {
-                success: function (oData, oResponse) {
-                    BusyIndicator.hide();
-                    sap.m.MessageToast.show("Updated Details Uploaded!");
-                    this.getView().getModel().refresh();
-                }.bind(this),
-                error: function (oError) {
-                    BusyIndicator.hide();
-                    sap.m.MessageBox.error("Error uploading document");
-                }
-            });
-        },
-        _updateDocumentService: function (ID, data, fileName, fileType, fileSize, rowId, rowObj, sPONumber) {
-            var that = this;
-        
-
-            var oData = {};
-
-
-            var base64string = btoa(data);
-
-            var serviceUrl = `/DocumentUploadEdmSet(${ID})/$value`
-            this.MainModel.update(serviceUrl, oData, {
+            var file = this.oFiles;
+            var serviceUrl = `/AGEL_MMTS_API/api/v2/odata.svc/DocumentUploadEdmSet(${ID})/$value`
+            var sUrl = serviceUrl;
+            jQuery.ajax({
                 method: "PUT",
                 headers: {
-                    "X-Requested-With": "XMLHttpRequest",
-                    "Content-Type": fileType,
-                    "DataServiceVersion": "2.0",
-                    "slug": fileName
+                    'Content-Type': 'application/octet-stream'
                 },
-
-                data: base64string
+                url: sUrl,
+                cache: false,
+                contentType: fileType,
+                processData: false,
+                data: file[0],
+                success: function (data) {
+                    console.log("success");
+                },
+                error: function () {
+                    console.log("failure");
+                },
             });
-            this.MainModel.submitChanges();
+        },
+
+
+
+///// testing code
+        _openPDFDownloadWindow: function (base64Data) {
+            var _pdfViewer = new PDFViewer();
+            this.getView().addDependent(_pdfViewer);
+            var decodedPdfContent = atob(base64Data);
+            var byteArray = new Uint8Array(decodedPdfContent.length)
+            for (var i = 0; i < decodedPdfContent.length; i++) {
+                byteArray[i] = decodedPdfContent.charCodeAt(i);
+            }
+            var blob = new Blob([byteArray.buffer], { type: 'application/pdf' });
+            var _pdfurl = URL.createObjectURL(blob);
+            _pdfViewer.setSource(_pdfurl);
+            if (Device.system.desktop) {
+                _pdfViewer.addStyleClass("sapUiSizeCompact");
+            }
+            _pdfViewer.setTitle("Packing List " + this.getView().getBindingContext().getObject().Name);
+            _pdfViewer.setShowDownloadButton(false);
+            _pdfViewer.open();
         },
         onFileUrlClick: function (oEvent) {
             var FileContent = oEvent.getSource().getBindingContext().getObject().FileContent;
@@ -694,22 +768,28 @@ sap.ui.define([
         //     this.openInspectionBOQFragment(data);
         // },
         onViewInspectionItemsPress: function (oEvent) {
+            BusyIndicator.show();
             this.inspectionID = oEvent.getSource().getBindingContext().getObject().ID;
             this.CreatedAt = oEvent.getSource().getBindingContext().getObject().CreatedAt;
             this.UpdatedAt = oEvent.getSource().getBindingContext().getObject().UpdatedAt;
             this.inspectionQty = oEvent.getSource().getBindingContext().getObject().Qty;
+            this.oSelectedMapBOQItem = oEvent.getSource().getBindingContext().getObject();
             // this.inspectionID = 148;
             var that = this;
             that.oIssueMaterialModel = new JSONModel();
-            this.MainModel.read("/InspectionCallIdSet(" + this.inspectionID + ")/InspectedParentItems", {
+            this.MainModel.read("/InspectionCallIdSet" + this.sObjectId + "/InspectedParentItems(" + this.inspectionID + ")", {
                 urlParameters: { "$expand": "ParentLineItem/BOQGroups/BOQItems" },
                 success: function (oData, oResponse) {
-                    var data = oData.results[0].ParentLineItem.BOQGroups.results;
+                    BusyIndicator.hide();
+                    var data = oData.ParentLineItem.BOQGroups.results;
                     this.dataBuilding(data);
+                    this.getViewModel("objectViewModel").setProperty("/Description", oData.Description);
+                    this.getViewModel("objectViewModel").setProperty("/LongText", oData.LongText);
                 }.bind(this),
                 error: function (oError) {
-                    sap.m.MessageBox.error("Data Not Found");
-                }
+                    BusyIndicator.hide();
+                    // sap.m.MessageBox.error("Data Not Found");
+                }.bind(this),
             });
         },
         dataBuilding: function (ParentData) {
@@ -771,37 +851,90 @@ sap.ui.define([
             });
         },
         onLiveChangeARHQty: function (oEvent) {
-            var oValue = parseFloat(oEvent.getSource().getValue());
-            var Quantity = parseFloat(oEvent.getSource().getParent().getCells()[8].getValue());
-            var ApprovedQty = parseFloat(oEvent.getSource().getParent().getCells()[9].getValue());
-            var RejectQty = parseFloat(oEvent.getSource().getParent().getCells()[10].getValue());
-            var HoldQty = parseFloat(oEvent.getSource().getParent().getCells()[11].getValue());
-            if (!ApprovedQty) ApprovedQty = 0;
-            if (!RejectQty) RejectQty = 0;
-            if (!HoldQty) HoldQty = 0;
-            var sumARHQty = ApprovedQty + RejectQty + HoldQty;
-            var oSaveButton = this.getView().byId("idBtnSave");
-            if (sumARHQty > Quantity) {
-                oEvent.getSource().setValueState("Error");
-                oEvent.getSource().setValueStateText("Please enter quantity lesser than or equal to total Inspection quantity");
+            var oSaveButton = this.getView().byId("idBtnSave"),
+                iValue = oEvent.getSource().getValue();
+            if (iValue) {
+                var oRowObject = oEvent.getSource().getParent().getBindingContext("TreeDataModel").getObject(),
+                    iQuantity = oRowObject.Qty ? parseFloat(oRowObject.Qty) : 0,
+                    iAcceptedQuantity = oRowObject.AcceptedQuantity ? parseFloat(oRowObject.AcceptedQuantity) : 0,
+                    iRejectedQuantity = oRowObject.RejectedQuantity ? parseFloat(oRowObject.RejectedQuantity) : 0,
+                    iHoldQuantity = oRowObject.HoldQuantity ? parseFloat(oRowObject.HoldQuantity) : 0,
+                    iSumOfARHQty = iAcceptedQuantity + iRejectedQuantity + iHoldQuantity,
+                    oMismatchMsgStrip = this.getView().byId("idQntMismatchMSGStrip"),
+                    fnShowQntMismatchMSGStrip = function () {
+                        oMismatchMsgStrip.setText("Please check the entered quanity.");
+                        oMismatchMsgStrip.setVisible(true);
+                        oSaveButton.setEnabled(false);
+                    },
+                    fnShowMinusQntMSGStrip = function () {
+                        oMismatchMsgStrip.setText("No negative quantity values allowed.");
+                        oSaveButton.setEnabled(false);
+                        oMismatchMsgStrip.setVisible(true);
+                    };
+                if (iValue.indexOf("-") >= 0) {
+                    fnShowMinusQntMSGStrip();
+                    return;
+                }
+                iValue = parseFloat(iValue);
+                if (iValue > iQuantity) {
+                    fnShowQntMismatchMSGStrip();
+                    return;
+                }
+                else if (iSumOfARHQty > iQuantity) {
+                    fnShowQntMismatchMSGStrip();
+                    return;
+                }
+                oMismatchMsgStrip.setVisible(false);
+                var aInspectionBOQItems = this.getTableItems().selectedItems.BOQItems.results,
+                    aIncompleteInspectionBOQItems = aInspectionBOQItems.filter(function (oItem) {
+                        return oItem.AcceptedQuantity === null || oItem.RejectedQuantity === null || oItem.HoldQuantity === null;
+                    }),
+                    aIncompleteInspectionBOQItemsWithMinus = aInspectionBOQItems.filter(function (oItem) {
+                        return oItem.AcceptedQuantity.indexOf("-") >= 0 || oItem.RejectedQuantity.indexOf("-") >= 0 || oItem.HoldQuantity.indexOf("-") >= 0;
+                    });
+                if (aIncompleteInspectionBOQItemsWithMinus.length > 0) {
+                    fnShowMinusQntMSGStrip();
+                    return;
+                }
+                if (aIncompleteInspectionBOQItems.length === 0) {
+                    // var iAcceptedQuantityTotal = 0, iRejectedQuantityTotal = 0, iHoldQuantityTotal = 0;
+                    // for (var i = 0; i < aInspectionBOQItems.length; i++) {
+                    //     iAcceptedQuantityTotal = iAcceptedQuantityTotal + (aInspectionBOQItems[i].AcceptedQuantity ? parseFloat(aInspectionBOQItems[i].AcceptedQuantity) : 0);
+                    //     iRejectedQuantityTotal = iRejectedQuantityTotal + (aInspectionBOQItems[i].RejectedQuantity ? parseFloat(aInspectionBOQItems[i].RejectedQuantity) : 0);
+                    //     iHoldQuantityTotal = iHoldQuantityTotal + (aInspectionBOQItems[i].HoldQuantity ? parseFloat(aInspectionBOQItems[i].HoldQuantity) : 0);
+                    // }
+                    // var iMainAcceptedQuantity = parseInt(this.oSelectedMapBOQItem.AcceptQuantity),
+                    //     iMainRejectedQuantity = parseInt(this.oSelectedMapBOQItem.RejectQuantity),
+                    //     iMainHoldQuantity = parseInt(this.oSelectedMapBOQItem.HoldQuantity);
+                    // if (iAcceptedQuantityTotal > iMainAcceptedQuantity || iRejectedQuantityTotal > iMainRejectedQuantity || iHoldQuantityTotal > iMainHoldQuantity) {
+                    //     // MessageBox.error("Please enter quantities matching with Parent Quantities.");
+                    //     oMismatchMsgStrip.setVisible(true);
+                    // }
+                    // else {
+                    //     oSaveButton.setEnabled(true);
+                    // }
+                    for (var i = 0; i < aInspectionBOQItems.length; i++) {
+                        var iAcceptedQty = aInspectionBOQItems[i].AcceptedQuantity ? parseFloat(aInspectionBOQItems[i].AcceptedQuantity) : 0,
+                            iRejectedQty = aInspectionBOQItems[i].RejectedQuantity ? parseFloat(aInspectionBOQItems[i].RejectedQuantity) : 0,
+                            iHoldQty = aInspectionBOQItems[i].HoldQuantity ? parseFloat(aInspectionBOQItems[i].HoldQuantity) : 0,
+                            iSumOfARHQuantity = iAcceptedQty + iRejectedQty + iHoldQty;
+                        if (iSumOfARHQuantity < parseFloat(aInspectionBOQItems[i].Qty)) {
+                            fnShowQntMismatchMSGStrip();
+                            return;
+                        }
+                        else if (iSumOfARHQuantity > parseFloat(aInspectionBOQItems[i].Qty)) {
+                            fnShowQntMismatchMSGStrip();
+                            return;
+                        }
+                        // else if (iSumOfARHQuantity < parseFloat(aInspectionBOQItems[i].Qty)) {
+                        //     fnShowQntMismatchMSGStrip();
+                        //     return;
+                        // }
+                    }
+                    oSaveButton.setEnabled(true);
+                }
+            } else {
                 oSaveButton.setEnabled(false);
-                return 0;
-            }
-            if (oValue <= 0) {
-                oEvent.getSource().setValueState("Error");
-                oEvent.getSource().setValueStateText("Please enter positive value");
-                oSaveButton.setEnabled(false);
-                return 0;
-            }
-            if (oValue > Quantity) {
-                oEvent.getSource().setValueState("Error");
-                oEvent.getSource().setValueStateText("Please enter inspected quantity lesser than or equal to total quantity");
-                oSaveButton.setEnabled(false);
-                return 0;
-            }
-            else {
-                oEvent.getSource().setValueState("None");
-                oSaveButton.setEnabled(true);
             }
         },
         // openInspectionBOQFragment: function (itemData) {
@@ -837,6 +970,7 @@ sap.ui.define([
             this.pDialogInspectBOQ.then(function (oDialog) {
                 oDialog.close();
             });
+            this.oSelectedMapBOQItem = null;
         },
         onLiveChangeApprovedQty: function (oEvent) {
             var bindingContext = oEvent.getSource().getBindingContext("TreeDataModel"),
@@ -867,13 +1001,9 @@ sap.ui.define([
                 this.getView().byId("idBtnSave").setEnabled(true);
             }
         },
-        onPressSaveInspectionBOQItems: function (oEvent) {
-            var that = this;
-            var itemData = this.getTableItems();
-            // if (!this._validateItemData(itemData.selectedItems)) {
-            //     return;
-            // }
-            var inspectionID = this.inspectionID;
+        onPressSaveInspectionBOQItems: function () {
+            var itemData = this.getTableItems(),
+                inspectionID = this.inspectionID;
             MessageBox.confirm("Do you want to Submit the Inspect BOQ Items?", {
                 icon: MessageBox.Icon.INFORMATION,
                 title: "Confirm",
@@ -881,9 +1011,9 @@ sap.ui.define([
                 emphasizedAction: MessageBox.Action.YES,
                 onClose: function (oAction) {
                     if (oAction == "YES") {
-                        that.onSaveInspectBOQDialog(inspectionID, itemData);
+                        this.onSaveInspectBOQDialog(inspectionID, itemData);
                     }
-                }
+                }.bind(this)
             });
         },
         getTableItems: function () {
@@ -929,44 +1059,46 @@ sap.ui.define([
             return bValid;
         },
         onSaveInspectBOQDialog: function (inspectionID, itemData) {
-            var aInspectionBOQItems = itemData.selectedItems.BOQItems.results.map(function (item) {
-                return {
-                    BOQItemId: item.ID,
-                    InspectionQty: item.IssuedQty,
-                    AcceptedQuantity: "1",
-                    RejectedQuantity: "2",
-                    HoldQuantity: "3"
+            BusyIndicator.show();
+            var inspectionQty = this.oSelectedMapBOQItem.Qty,
+                aInspectionBOQItems = itemData.selectedItems.BOQItems.results.map(function (item) {
+                    return {
+                        BOQItemId: item.ID,
+                        InspectionQty: inspectionQty,
+                        AcceptedQuantity: item.AcceptedQuantity !== "" ? item.AcceptedQuantity : "0",
+                        RejectedQuantity: item.RejectedQuantity !== "" ? item.RejectedQuantity : "0",
+                        HoldQuantity: item.HoldQuantity !== "" ? item.HoldQuantity : "0",
+                    };
+                }),
+                oPayload = {
+                    "InspectionID": inspectionID,
+                    "CreatedAt": this.CreatedAt,
+                    "CreatedBy": "",
+                    "UpdatedAt": null,
+                    "BOQGroupId": itemData.selectedItems.ID,
+                    // "UpdatedBy": this.UpdatedBy,
+                    "InspectedBOQItems": aInspectionBOQItems
                 };
-            });
-            var oPayload = {
-                "InspectionID": inspectionID,
-                "CreatedAt": this.CreatedAt,
-                "CreatedBy": "",
-                "UpdatedAt": null,
-                "BOQGroupId": itemData.selectedItems.ID,
-                // "UpdatedBy": this.UpdatedBy,
-                "InspectedBOQItems": aInspectionBOQItems
-            };
             this.MainModel.create("/InspectionBOQRequestSet", oPayload, {
-                success: function (oData, oResponse) {
+                success: function (oData) {
+                    BusyIndicator.hide();
+                    this.oSelectedMapBOQItem = null;
                     if (oData.Success === true) {
-                        this.getView().getModel();
-                        sap.m.MessageBox.success("The Inspected BOQ Items has been succesfully created for selected Items!");
+                        MessageBox.success("The Inspected BOQ Items has been succesfully created for selected Items!");
                         this.onViewInspectBOQDialogClose();
                         this.MainModel.refresh();
-                        // var objectViewModel = this.getViewModel("objectViewModel");
                     }
                     else {
-                        sap.m.MessageBox.error(oData.Message);
+                        MessageBox.error(oData.Message);
                     }
                 }.bind(this),
                 error: function (oError) {
-                    // sap.m.MessageBox.success("Something went Wrong!");
-                    var objectViewModel = this.getViewModel("objectViewModel");
+                    BusyIndicator.hide();
+                    // MessageBox.error("Something went Wrong!");
+                    // var objectViewModel = this.getViewModel("objectViewModel");
                     // objectViewModel.setProperty("/isViewQRMode", false);
                 }.bind(this)
-            })
-            //debugger;
+            });
         },
         onRowsUpdated: function (oEvent) {
             //  //debugger;

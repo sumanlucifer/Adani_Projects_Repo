@@ -93,18 +93,30 @@ sap.ui.define([
 
         _prepareSuggestionItemsForUOM: function (oBindingContextPath, sItemPath) {
             var that = this;
+            this.getViewModel("objectViewModel").setProperty(
+                "/busy",
+                true
+            );
             oBindingContextPath = oBindingContextPath + "/UOMs"
             var oModel = this.getView().getModel();
             oModel.read(oBindingContextPath, {
                 success: function (oData, oResponse) {
+                    this.getViewModel("objectViewModel").setProperty(
+                        "/busy",
+                        false
+                    );
                     if (oData.results.length)
                         this.getView().getModel("ManageBOQModel").setProperty(sItemPath + "/UOMSuggestions", oData.results);
                     else
                         this.getView().getModel("ManageBOQModel").setProperty(sItemPath + "/UOMSuggestions", null);
                 }.bind(this),
                 error: function (oError) {
-                    sap.m.MessageBox.error("Error fetching UOMs");
-                }
+                    this.getViewModel("objectViewModel").setProperty(
+                        "/busy",
+                        false
+                    );
+                   // sap.m.MessageBox.error("Error fetching UOMs");
+                }.bind(this),
             });
         },
 
@@ -204,6 +216,7 @@ sap.ui.define([
         },
 
         onSaveManagedBOQItemsPress: function (oEvent) {
+            
             var oPayload = {};
             var aTableData = this.getViewModel("ManageBOQModel").getProperty("/boqItems");
             var aPayloadSelectedItem = aTableData;

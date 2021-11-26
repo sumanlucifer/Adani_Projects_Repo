@@ -47,6 +47,10 @@ sap.ui.define([
         },
 
         fnGetUserDetails: function () {
+            this.getViewModel("objectViewModel").setProperty(
+                "/busy",
+                true
+            );
             var oEmailIDFilter = new Filter("Email", FilterOperator.EQ, this.UserEmail);
             this.getView().getModel().read("/UserSet", {
                 filters: [oEmailIDFilter],
@@ -54,6 +58,10 @@ sap.ui.define([
                     $expand: "UserRoles/Role"
                 },
                 success: function (oResponse) {
+                    this.getViewModel("objectViewModel").setProperty(
+                        "/busy",
+                        false
+                    );
                     if (oResponse.results) {
                         var oFormattedData = this.fnFormatData(oResponse.results[0]);
                         var oUserDetailModel = new JSONModel(oFormattedData);
@@ -61,8 +69,12 @@ sap.ui.define([
                     }
                 }.bind(this),
                 error: function (oError) {
+                    this.getViewModel("objectViewModel").setProperty(
+                        "/busy",
+                        false
+                    );
                     // sap.m.MessageBox.error(JSON.stringify(oError));
-                }
+                }.bind(this),
             });
         },
 

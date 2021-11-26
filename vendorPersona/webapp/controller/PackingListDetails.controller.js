@@ -66,6 +66,7 @@ sap.ui.define([
         },
         getDocumentData: function () {
             var promise = jQuery.Deferred();
+            this.getViewModel("objectViewModel").setProperty("/busy", true);
             var that = this;
             var oView = this.getView();
             var oDataModel = oView.getModel();
@@ -73,6 +74,8 @@ sap.ui.define([
             return new Promise((resolve, reject) => {
                 this.getOwnerComponent().getModel().read("/PackingListSet(" + this.packingListId + ")/Attachments", {
                     success: function (oData, oResponse) {
+
+                        this.getViewModel("objectViewModel").setProperty("/busy", false);
                         var oJSONData = {
                             PL_Material: [],
                             PL_Invoice: [],
@@ -83,8 +86,9 @@ sap.ui.define([
                         resolve(oData.results);
                     }.bind(this),
                     error: function (oError) {
-                        sap.m.MessageBox.error(JSON.stringify(oError));
-                    }
+                        this.getViewModel("objectViewModel").setProperty("/busy", false);
+                        //sap.m.MessageBox.error(JSON.stringify(oError));
+                    }.bind(this),
                 });
             });
         },

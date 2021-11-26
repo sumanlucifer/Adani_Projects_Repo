@@ -74,6 +74,10 @@ sap.ui.define([
                 });
             },
             getDocumentData: function () {
+                this.getViewModel("objectViewModel").setProperty(
+                    "/busy",
+                    true
+                );
                 var promise = jQuery.Deferred();
                 var that = this;
                 var oView = this.getView();
@@ -82,6 +86,10 @@ sap.ui.define([
                 return new Promise((resolve, reject) => {
                     this.getOwnerComponent().getModel().read("/PackingListSet(" + this.packingListId + ")/Attachments", {
                         success: function (oData, oResponse) {
+                            this.getViewModel("objectViewModel").setProperty(
+                                "/busy",
+                                false
+                            );
                             var oJSONData = {
                                 PL_Material: [],
                                 PL_Invoice: [],
@@ -100,8 +108,12 @@ sap.ui.define([
                             resolve(oData.results);
                         }.bind(this),
                         error: function (oError) {
-                            sap.m.MessageBox.error(JSON.stringify(oError));
-                        }
+                            this.getViewModel("objectViewModel").setProperty(
+                                "/busy",
+                                false
+                            );
+                            //sap.m.MessageBox.error(JSON.stringify(oError));
+                        }.bind(this),
                     });
                 });
             },
@@ -255,6 +267,10 @@ sap.ui.define([
 
 
             onViewQRCodePress: function (oEvent) {
+                this.getViewModel("objectViewModel").setProperty(
+                    "/busy",
+                    true
+                );
 
                 try {
                     var sParentItemPath = oEvent.getParameter("oSource").getBindingContext().getPath();
@@ -269,6 +285,10 @@ sap.ui.define([
                 };
                 this.getComponentModel().create("/QuickAccessQRCodeEdmSet", aPayload, {
                     success: function (oData, oResponse) {
+                        this.getViewModel("objectViewModel").setProperty(
+                            "/busy",
+                            false
+                        );
                         if (oData.Success) {
                             // sap.m.MessageBox.success(oData.Message);
                             this._openPDFDownloadWindow(oData.Base64String);
@@ -280,12 +300,20 @@ sap.ui.define([
                         this.getComponentModel().refresh();
                     }.bind(this),
                     error: function (oError) {
-                        sap.m.MessageBox.success(JSON.stringify(oError));
-                    }
+                        this.getViewModel("objectViewModel").setProperty(
+                            "/busy",
+                            false
+                        );
+                       // sap.m.MessageBox.success(JSON.stringify(oError));
+                    }.bind(this),
                 })
             },
 
             onViewQRCodePressSmart: function (oEvent) {
+                this.getViewModel("objectViewModel").setProperty(
+                    "/busy",
+                    true
+                );
                 try {
                     var sParentItemPath = oEvent.getParameter("oSource").getBindingContext().getPath();
                 }
@@ -299,6 +327,10 @@ sap.ui.define([
                 };
                 this.getComponentModel().create("/QuickAccessQRCodeEdmSet", aPayload, {
                     success: function (oData, oResponse) {
+                        this.getViewModel("objectViewModel").setProperty(
+                            "/busy",
+                            false
+                        );
                         if (oData.Success) {
                             // sap.m.MessageBox.success(oData.Message);
                             this._openPDFDownloadWindow(oData.Base64String);
@@ -310,8 +342,12 @@ sap.ui.define([
                         this.getComponentModel().refresh();
                     }.bind(this),
                     error: function (oError) {
-                        sap.m.MessageBox.success(JSON.stringify(oError));
-                    }
+                        this.getViewModel("objectViewModel").setProperty(
+                            "/busy",
+                            false
+                        );
+                       // sap.m.MessageBox.success(JSON.stringify(oError));
+                    }.bind(this),
                 })
             },
 
@@ -357,6 +393,10 @@ sap.ui.define([
             },
 
             onApprovePress: function (oEvent) {
+                this.getViewModel("objectViewModel").setProperty(
+                    "/busy",
+                    true
+                );
                 // debugger;
                 var that = this;
                 if (this.getView().getBindingContext().getObject().ID.length) {
@@ -376,12 +416,20 @@ sap.ui.define([
 
                     this.getOwnerComponent().getModel().create("/StoreInchargeQRCodePrintingAssistanceSet", oPayload, {
                         success: function (oData, oResponse) {
+                            this.getViewModel("objectViewModel").setProperty(
+                                "/busy",
+                                false
+                            );
                             sap.m.MessageBox.success("The pending request is approved");
                             this.getOwnerComponent().getModel().refresh();
                         }.bind(this),
                         error: function (oError) {
-                            sap.m.MessageBox.error(JSON.stringify(oError));
-                        }
+                            this.getViewModel("objectViewModel").setProperty(
+                                "/busy",
+                                false
+                            );
+                            //sap.m.MessageBox.error(JSON.stringify(oError));
+                        }.bind(this),
                     });
                 } else {
                     sap.m.MessageBox.error("Oops! Error occured please try again in sometime.");
@@ -391,6 +439,10 @@ sap.ui.define([
             onRejectPress: function (oEvent) {
                 // debugger;
                 var that = this;
+                this.getViewModel("objectViewModel").setProperty(
+                    "/busy",
+                    true
+                );
                 if (this.getView().getBindingContext().getObject().ID.length) {
                     var PackingListId = this.byId("vBoxid").getBindingContext().getObject().ID;
                     var userName = "Agel_July";
@@ -406,12 +458,20 @@ sap.ui.define([
 
                     this.getOwnerComponent().getModel().create("/StoreInchargeQRCodePrintingAssistanceSet", oPayload, {
                         success: function (oData, oResponse) {
+                            this.getViewModel("objectViewModel").setProperty(
+                                "/busy",
+                                false
+                            );
                             sap.m.MessageBox.success("The pending request is rejected");
                             this.getOwnerComponent().getModel().refresh();
                         }.bind(this),
                         error: function (oError) {
-                            sap.m.MessageBox.error(JSON.stringify(oError));
-                        }
+                            this.getViewModel("objectViewModel").setProperty(
+                                "/busy",
+                                false
+                            );
+                            //sap.m.MessageBox.error(JSON.stringify(oError));
+                        }.bind(this),
                     });
                 } else {
                     sap.m.MessageBox.error("Oops! Error occured please try again in sometime.");

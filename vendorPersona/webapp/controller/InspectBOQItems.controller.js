@@ -70,16 +70,28 @@ sap.ui.define([
         },
         readConsumedItemsTreeData: function (SOID) {
             var that = this;
+            this.getViewModel("objectViewModel").setProperty(
+                "/busy",
+                true
+            );
             that.oIssueMaterialModel = new JSONModel();
             this.MainModel.read("/SONumberDetailsSet(" + SOID + ")", {
                 urlParameters: { "$expand": "IssuedMaterialParent/IssuedMaterialBOQ" },
                 success: function (oData, oResponse) {
+                    this.getViewModel("objectViewModel").setProperty(
+                        "/busy",
+                        false
+                    );
 
                     that.dataBuilding(oData.IssuedMaterialParent.results);
                 }.bind(this),
                 error: function (oError) {
-                    sap.m.MessageBox.error("Data Not Found");
-                }
+                    this.getViewModel("objectViewModel").setProperty(
+                        "/busy",
+                        false
+                    );
+                   // sap.m.MessageBox.error("Data Not Found");
+                }.bind(this),
             });
         },
         dataBuilding: function (ParentData) {
@@ -129,6 +141,10 @@ sap.ui.define([
         },
 
         onSaveButtonConfirmPress: function () {
+            this.getViewModel("objectViewModel").setProperty(
+                "/busy",
+                true
+            );
             var oParentData = this.byId("TreeTable").getModel().getData().ChildItemsView;
             var that = this;
             var ParentItem = [];
@@ -160,6 +176,10 @@ sap.ui.define([
             };
             this.MainModel.create("/ConsumptionPostingReserveEdmSet", oPayload, {
                 success: function (oData, oResponse) {
+                    this.getViewModel("objectViewModel").setProperty(
+                        "/busy",
+                        false
+                    );
                     if (oData.Success === true) {
                         that.submitConsumptionPostingID(oData.ConsumptionPostingReserveId);
                     }
@@ -168,17 +188,29 @@ sap.ui.define([
                     }
                 }.bind(this),
                 error: function (oError) {
-                    sap.m.MessageBox.error(oError.Message);
-                }
+                    this.getViewModel("objectViewModel").setProperty(
+                        "/busy",
+                        false
+                    );
+                    //sap.m.MessageBox.error(oError.Message);
+                }.bind(this),
             });
         },
         submitConsumptionPostingID: function (CID) {
+            this.getViewModel("objectViewModel").setProperty(
+                "/busy",
+                true
+            );
             var oPayload = {
                 "UserName": "Agel",
                 "ConsumptionPostingReserveId": CID
             };
             this.MainModel.create("/ConsumptionPostingEdmSet", oPayload, {
                 success: function (oData, oResponse) {
+                    this.getViewModel("objectViewModel").setProperty(
+                        "/busy",
+                        false
+                    );
                     if (oData.Success === true) {
                         sap.m.MessageBox.success("Consumption has been posted successfully!", {
                             title: "Success",
@@ -195,8 +227,12 @@ sap.ui.define([
                     }
                 }.bind(this),
                 error: function (oError) {
-                    sap.m.MessageBox.error(oError.Message);
-                }
+                    this.getViewModel("objectViewModel").setProperty(
+                        "/busy",
+                        false
+                    );
+                   // sap.m.MessageBox.error(oError.Message);
+                }.bind(this),
             });
         },
         handleToAllPOBreadcrumPress: function (oEvent) {

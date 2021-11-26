@@ -28,17 +28,12 @@ sap.ui.define([
                 //this._bindView("/ParentLineItemSet" + this.sParentID);
                 var poNumber;
                 this.recievedPONumber="";
-
-
                 var startupParams = this.getOwnerComponent().getComponentData().startupParameters;
                 // get Startup params from Owner Component
                 if ((startupParams.poNumber && startupParams.poNumber[0])) {
                     this.recievedPONumber = startupParams.poNumber;
                 }
-
-
-            //    this.recievedPONumber = "4500098765";
-
+            //    this.recievedPONumber = "4500011223";
                 var list = this.byId("idParentLineItemList");
                 if (list) {
                     var oItems = new sap.m.StandardListItem({

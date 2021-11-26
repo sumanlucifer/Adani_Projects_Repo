@@ -193,6 +193,10 @@ sap.ui.define([
 
             // Validate QR Code
             validateQRCode: function (QRCode) {
+                this.getViewModel("objectViewModel").setProperty(
+                    "/busy",
+                    true
+                );
                 var that = this;
                 var qrCodeId = this.getView().byId("idInputQRCode").getValue() || QRCode;
                 var QRNumberFilter = new sap.ui.model.Filter({
@@ -217,6 +221,10 @@ sap.ui.define([
                     //     "$expand": "PackingList"
                     // },
                     success: function (oData, oResponse) {
+                        this.getViewModel("objectViewModel").setProperty(
+                            "/busy",
+                            false
+                        );
 
                         if (oData.results.length) {
                             that.oRouter.navTo("QRCodeDetailsPage", {
@@ -229,8 +237,12 @@ sap.ui.define([
                         }
                     }.bind(this),
                     error: function (oError) {
-                        sap.m.MessageBox.error(JSON.stringify(oError));
-                    }
+                        this.getViewModel("objectViewModel").setProperty(
+                            "/busy",
+                            false
+                        );
+                        //sap.m.MessageBox.error(JSON.stringify(oError));
+                    }.bind(this),
                 });
             },
 
@@ -239,6 +251,10 @@ sap.ui.define([
                 this.validateInvoiceNumber();
             },
             validateInvoiceNumber: function () {
+                this.getViewModel("objectViewModel").setProperty(
+                    "/busy",
+                    true
+                );
                 var that = this;
 
                 var invnumberId = this.getView().byId("idInvoiceNum").getValue();
@@ -265,6 +281,10 @@ sap.ui.define([
                     },
 
                     success: function (oData, oResponse) {
+                        this.getViewModel("objectViewModel").setProperty(
+                            "/busy",
+                            false
+                        );
                         // debugger;
                         if (oData.results.length) {
                             var qrCodeId = oData.results[0].QRCodeId.results;
@@ -288,8 +308,12 @@ sap.ui.define([
                         }
                     }.bind(this),
                     error: function (oError) {
-                        sap.m.MessageBox.error(JSON.stringify(oError));
-                    }
+                        this.getViewModel("objectViewModel").setProperty(
+                            "/busy",
+                            false
+                        );
+                        //sap.m.MessageBox.error(JSON.stringify(oError));
+                    }.bind(this),
                 });
             },
 

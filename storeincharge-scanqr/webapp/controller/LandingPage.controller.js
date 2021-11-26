@@ -109,7 +109,7 @@ sap.ui.define([
                         this.getComponentModel().refresh();
                     }.bind(this),
                     error: function (oError) {
-                        sap.m.MessageBox.success(JSON.stringify(oError));
+                       // sap.m.MessageBox.success(JSON.stringify(oError));
                     }
                 })
             },

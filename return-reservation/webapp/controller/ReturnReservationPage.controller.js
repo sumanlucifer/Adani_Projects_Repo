@@ -57,6 +57,9 @@ sap.ui.define([
                 this.getView().setModel(oModel, "reservationTableModel");
             },
             onSearchGoodReciepient: function (sGoodsReciepientValue) {
+                this.getViewModel("objectViewModel").setProperty(
+                    "/busy",
+                    true);
                 var GoodReciepientFilter = new sap.ui.model.Filter({
                     path: "GoodsRecipient",
                     operator: sap.ui.model.FilterOperator.EQ,
@@ -77,6 +80,9 @@ sap.ui.define([
                             $expand: "IssuedMaterialReservedBOQItems",
                         },
                         success: function (oData, oResponse) {
+                            this.getViewModel("objectViewModel").setProperty(
+                                "/busy",
+                                false);
                             this.dataBuilding(oData.results);
                             this.getViewModel("objectViewModel").setProperty(
                                 "/isItemFieldsVisible",
@@ -88,8 +94,11 @@ sap.ui.define([
                             );
                         }.bind(this),
                         error: function (oError) {
+                            this.getViewModel("objectViewModel").setProperty(
+                                "/busy",
+                                false);
                             // sap.m.MessageBox.error(JSON.stringify(oError));
-                        },
+                        }.bind(this),
                     });
             },
             dataBuilding: function (ParentData) {
@@ -390,6 +399,9 @@ sap.ui.define([
                         ),
                     };
                 });
+                this.getViewModel("objectViewModel").setProperty(
+                    "/busy",
+                    true);
                 var oPayload = {
                     // "IssuedMaterialId": oAdditionalData.ID,
                     "UserName": "Agel",
@@ -406,6 +418,9 @@ sap.ui.define([
                 };
                 this.mainModel.create("/ReturnMaterialReserveEdmSet", oPayload, {
                     success: function (oData, oResponse) {
+                        this.getViewModel("objectViewModel").setProperty(
+                            "/busy",
+                            false);
                         if (oData.Success === true) {
                             this.getView().getModel();
                             sap.m.MessageBox.success("The return reservation " + "" + oData.ReservationNo + "" + " has been succesfully created for selected Items!");
@@ -417,6 +432,9 @@ sap.ui.define([
                         }
                     }.bind(this),
                     error: function (oError) {
+                        this.getViewModel("objectViewModel").setProperty(
+                            "/busy",
+                            false);
                         // sap.m.MessageBox.success("Something went Wrong!");
                         var objectViewModel = this.getViewModel("objectViewModel");
                         // objectViewModel.setProperty("/isViewQRMode", false);

@@ -97,6 +97,9 @@ sap.ui.define([
             });
         },
         getDocumentData: function () {
+            this.getViewModel("objectViewModel").setProperty(
+                "/busy",
+                true);
             var promise = jQuery.Deferred();
             var that = this;
             var oView = this.getView();
@@ -105,6 +108,9 @@ sap.ui.define([
             return new Promise((resolve, reject) => {
                 this.getOwnerComponent().getModel().read("/MDCCStatusSet(" + this.sObjectId + ")/MDCC/Attachments", {
                     success: function (oData, oResponse) {
+                        this.getViewModel("objectViewModel").setProperty(
+                            "/busy",
+                            false);
                         var oJSONData = {
                             MDCC: []
                         };
@@ -113,8 +119,11 @@ sap.ui.define([
                         resolve(oData.results);
                     }.bind(this),
                     error: function (oError) {
-                        sap.m.MessageBox.error(JSON.stringify(oError));
-                    }
+                        this.getViewModel("objectViewModel").setProperty(
+                            "/busy",
+                            false);
+                       // sap.m.MessageBox.error(JSON.stringify(oError));
+                    }.bind(this),
                 });
             });
         },
@@ -286,12 +295,15 @@ sap.ui.define([
                     that.onPostButtonPress(oData.results[0].ID);
                 }.bind(this),
                 error: function (oError) {
-                    sap.m.MessageBox.success(JSON.stringify(oError));
+                  //  sap.m.MessageBox.success(JSON.stringify(oError));
                 }
             })
         },
 
         onPostButtonPress: function (MDCCStatusSetID) {
+            this.getViewModel("objectViewModel").setProperty(
+                "/busy",
+                true);
             this._oBOQApprovalDialog.close();
             var oData = this.getViewModel("BOQApprovalModel").getData();
             var boqApprovalModel = this.getViewModel("BOQApprovalModel");
@@ -316,6 +328,9 @@ sap.ui.define([
 
             this.getComponentModel().update("/MDCCStatusSet(" + MDCCStatusSetID + ")", aPayload, {
                 success: function (oData, oResponse) {
+                    this.getViewModel("objectViewModel").setProperty(
+                        "/busy",
+                        false);
                     var message;
                     if (aPayload.Status === "APPROVED") {
                         message = "MDCC request has been Approved successfully!";
@@ -332,8 +347,11 @@ sap.ui.define([
                     });
                 }.bind(this),
                 error: function (oError) {
-                    sap.m.MessageBox.success(JSON.stringify(oError));
-                }
+                    this.getViewModel("objectViewModel").setProperty(
+                        "/busy",
+                        false);
+                  //  sap.m.MessageBox.success(JSON.stringify(oError));
+                }.bind(this),
             })
 
         },
@@ -378,6 +396,9 @@ sap.ui.define([
             this.getView().setModel(oModel, "TreeTableModel");
         },
         _getParentDataViewMDCC: function (sObjectId) {
+            this.getViewModel("objectViewModel").setProperty(
+                "/busy",
+                true);
             var patt1 = /[0-9]/g;
             var sObject = sObjectId;
             //     sObjectId = parseInt(sObject.match(patt1));
@@ -387,22 +408,35 @@ sap.ui.define([
             var sPath = "/MDCCStatusSet(" + sObjectId + ")/MDCC/MDCCParentLineItems";
             this.MainModel.read(sPath, {
                 success: function (oData, oResponse) {
+                    this.getViewModel("objectViewModel").setProperty(
+                        "/busy",
+                        false);
                     if (oData.results.length) {
                         this._getChildItemsViewMDCC(oData.results, sObjectId);
                     }
                 }.bind(this),
                 error: function (oError) {
-                    sap.m.MessageBox.Error(JSON.stringify(oError));
-                }
+                    this.getViewModel("objectViewModel").setProperty(
+                        "/busy",
+                        false);
+                  //  sap.m.MessageBox.Error(JSON.stringify(oError));
+                }.bind(this),
             });
         },
         _getChildItemsViewMDCC: function (ParentDataView, sObjectId) {
+            this.getViewModel("objectViewModel").setProperty(
+                "/busy",
+                true);
             this.ParentDataView = ParentDataView;
+            
             for (var i = 0; i < ParentDataView.length; i++) {
                 // var sPath = "/MDCCSet("+sObjectId+")/MDCCParentLineItems("+ ParentDataView[i].ID +")/MDCCBOQItems";
                 var sPath = "/MDCCStatusSet(" + sObjectId + ")/MDCC/MDCCParentLineItems(" + ParentDataView[i].ID + ")/MDCCBOQItems";
                 this.MainModel.read(sPath, {
                     success: function (i, oData, oResponse) {
+                        this.getViewModel("objectViewModel").setProperty(
+                            "/busy",
+                            false);
                         if (oData.results.length) {
                             this.ParentDataView[i].isStandAlone = true;
                             this.ParentDataView[i].ChildItemsView = oData.results;
@@ -415,8 +449,11 @@ sap.ui.define([
                             this._arrangeDataView();
                     }.bind(this, i),
                     error: function (oError) {
-                        sap.m.MessageBox.Error(JSON.stringify(oError));
-                    }
+                        this.getViewModel("objectViewModel").setProperty(
+                            "/busy",
+                            false);
+                       // sap.m.MessageBox.Error(JSON.stringify(oError));
+                    }.bind(this, i),
                 });
             }
         },

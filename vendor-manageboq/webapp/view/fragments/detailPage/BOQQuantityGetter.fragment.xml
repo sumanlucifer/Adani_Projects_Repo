@@ -6,11 +6,15 @@
         <content>
             <!-- <FlexBox wrap="Wrap" renderType="Bare" alignItems="Center" justifyContent="Center" class="sapUiSmallMargin"> -->
             <VBox class="sapUiSmallMargin">
+                <RadioButtonGroup id="idRGBOQType" columns="2" visible="{= ${boqCreationModel>/IsOne2OneLineItem}? false: ${boqCreationModel>/UOM} === 'MT'? false: true}" select="onBOQQtyTypeSelect">
+					<RadioButton text="Full BOQ" selected="{= ${objectViewModel>/BOQQtyType} === 'F' ? true: false}" />
+					<RadioButton text="Partial BOQ" selected="{= ${objectViewModel>/BOQQtyType} === 'P' ? true: false}" />
+				</RadioButtonGroup>
                 <Label text="Please enter the quantity ({boqCreationModel>/UOM})"></Label>
-                <Input value="{boqCreationModel>/quantity}" liveChange="onQuantityLiveChange" type="Number" valueState="{boqCreationModel>/valueState}" valueStateText="{boqCreationModel>/valueStateText}" editable="{= ${boqCreationModel>/UOM} === 'MT'? false: true}"></Input>
+                <Input value="{boqCreationModel>/quantity}" liveChange="onQuantityLiveChange" type="Number" valueState="{boqCreationModel>/valueState}" valueStateText="{boqCreationModel>/valueStateText}" editable="{= ${boqCreationModel>/UOM} === 'MT'? false: ${objectViewModel>/BOQQtyType} === 'P' ? false : true }"></Input>
                 <Table visible="{= ${boqCreationModel>/IsOne2OneLineItem}? false: true}" alternateRowColors="true" width="auto" id="idGetBOQLineItemsTable" items="{boqCreationModel>/CalculatedBOQItems}" fixedLayout="false">
                     <columns>
-                        <Column visible="{= ${boqCreationModel>/UOM} === 'MT'? true: false}">
+                        <Column visible="{= ${boqCreationModel>/UOM} === 'MT'? true: ${objectViewModel>/BOQQtyType} === 'P' ? true: false }">
                             <CheckBox id="idSelectAllBoq" select="onSelectAllBoq"/>
                         </Column>
                         <Column>
@@ -53,10 +57,8 @@
                                 <ExpandableText text="{boqCreationModel>Description}" maxCharacters="50" overflowMode="Popover"/>
                                 <Text text="{path: 'boqCreationModel>Qty'}"/>
                                 <Text text="{path: 'boqCreationModel>RemainingQty'}"/>
-                                <!-- <VBox> -->
-                                    <!-- <Text visible="{= ${boqCreationModel>/UOM} === 'MT'? false: true}" text="{boqCreationModel>BOQQuantity}"/> -->
-                                <Input editable="{= ${boqCreationModel>/UOM} === 'MT'? ${boqCreationModel>selected} : false}" value="{boqCreationModel>BOQQuantity}" liveChange="onLiveChangeBoqQty" type="Number"/>
-                                <!-- </VBox> -->
+                                <!-- <Input editable="{= ${boqCreationModel>/UOM} === 'MT'? ${boqCreationModel>selected} : false}" value="{boqCreationModel>BOQQuantity}" liveChange="onLiveChangeBoqQty" type="Number"/> -->
+                                <Input editable="{boqCreationModel>selected}" value="{boqCreationModel>BOQQuantity}" liveChange="onLiveChangeBoqQty" type="Number"/>
                                 <Text text="{boqCreationModel>UOM}"/>
                                 <Text text="{boqCreationModel>WeightPerPiece}"/>
                                 <Text text="{path: 'boqCreationModel>TotalItemWeight'}"/>

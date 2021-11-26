@@ -51,7 +51,7 @@ sap.ui.define([
 				this._sErrorText,
 				{
 					id : "serviceErrorMessageBox",
-					details: sDetails,
+					details: sDetails.message,
 					styleClass: this._oComponent.getContentDensityClass(),
 					actions: [MessageBox.Action.CLOSE],
 					onClose: function () {
