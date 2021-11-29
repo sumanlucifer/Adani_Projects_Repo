@@ -72,6 +72,9 @@
                                         <Text text="{i18n>BoqApproveQty}" />
                                     </Column>
                                     <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center">
+                                        <Text text="{i18n>BoqApproveQtyRemaining}" />
+                                    </Column>
+                                    <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center">
                                         <Text text="{i18n>inspectionQuantity}" />
                                     </Column>
                                     <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center">
@@ -94,7 +97,8 @@
                                             <Text text="{ParentItemModel>Name}" wrappingType="Hyphenated"/>
                                             <ExpandableText text="{ParentItemModel>Description}" maxCharacters="20" overflowMode="Popover"/>
                                             <Text text="{ParentItemModel>Quantity}"/>
-                                            <Text text="{ParentItemModel>BOQApprovedQty}"/>                                                
+                                            <Text text="{ParentItemModel>BOQApprovedQty}"/>
+                                            <Text text="{ParentItemModel>BOQApprovedQtyRemaining}"/>                                                
                                             <Input value="{ParentItemModel>InspectionQty}" type="Number" liveChange="onLiveChangeInspectionQty" editable="false" enabled="false" />
                                             <Input value="{ParentItemModel>AcceptQuantity}" type="Number" change="onLiveChangeARHQty" enabled="false" />
                                             <Input value="{ParentItemModel>RejectQuantity}" type="Number" change="onLiveChangeARHQty" enabled="false" />
