@@ -40,7 +40,6 @@
                 </uxap:snappedHeading>
                 <uxap:expandedContent></uxap:expandedContent>
                 <uxap:snappedTitleOnMobile>
-                   
                 </uxap:snappedTitleOnMobile>
                 <uxap:actions>
                     <Button id="idBtnProceed" text="Proceed"  type="Emphasized" press="onConfirmProceedSave"/>
@@ -56,7 +55,6 @@
                             <Label text="{i18n>PODetails}" />
                             <Text text="{PONumber}" />
                         </VBox>
-
                         <VBox renderType="Bare" class="sapUiMediumMarginEnd">
                             <Label text="{i18n>createdOn}" />
                             <Text text="{path:'CreatedAt',
@@ -91,20 +89,16 @@
                                  <ui:Column width="8%">
 									<Label text="Select"/>
 									<ui:template>
-                             <CheckBox selected="{TreeTableModel>isSelected}"  visible="{TreeTableModel>isChildItemFreeze}" 
+                                        <CheckBox selected="{TreeTableModel>isSelected}"  visible="{TreeTableModel>isChildItemFreeze}" 
                                             select="onSelectionOfRow"  />
-
-
 									</ui:template>
 								</ui:Column> 
-
                                 <ui:Column width="10%">
 				                    <Label text="Line Number" wrapping="true"/>
 				                    <ui:template>
 					                    <Text text="{TreeTableModel>LineNumber}"  />
 				                    </ui:template>
-			                    </ui:Column>
-                           
+			                    </ui:Column>                           
                                 <ui:Column>
 									<Label text="{i18n>materialCode}"/>
 									<ui:template>
@@ -125,46 +119,36 @@
                                         <ExpandableText  text="{TreeTableModel>Description}" maxCharacters="32" overflowMode="Popover"/>
 									</ui:template>
 								</ui:Column>
-
-                                								<ui:Column>
+                                <!-- <ui:Column>
 									<Label text="{i18n>baseQty}" wrapping="true"/>
 									<ui:template>                                        
 										    <Text text="{TreeTableModel>BaseQty}" />
 									</ui:template>
-								</ui:Column>
-
-                                    <ui:Column>
+								</ui:Column> -->
+                                <ui:Column>
 									<Label text="{i18n>WeightPerPiece}" wrapping="true"/>
 									<ui:template>                                        
 										    <Text text="{TreeTableModel>WeightPerPiece}" />
 									</ui:template>
 								</ui:Column>
-
-
-
-                                
-								
 								<ui:Column width="10%">
 									<Label text="{i18n>totalQuantity}" wrapping="true"/>
 									<ui:template>
 										<Text text="{TreeTableModel>Qty}" wrapping="false" />
 									</ui:template>
 								</ui:Column>
-
 								<ui:Column>
 									<Label text="{i18n>mdccApprovedQty}" wrapping="true"/>
 									<ui:template>                                        
 										    <Text text="{TreeTableModel>MDCCApprovedQty}" />
 									</ui:template>
 								</ui:Column>
-
                                 <ui:Column>
 				                    <Label text="{i18n>remainQty}" wrapping="true"/>
 				                        <ui:template>
 					                        <Text text="{TreeTableModel>RemainingDispatchedQty}" />
                         				</ui:template>
-			                    </ui:Column>  
-
+			                    </ui:Column>
                                 <ui:Column>
 									<Label text="{i18n>dispatchQty}"/>
 									<ui:template>
@@ -172,7 +156,6 @@
 										<!-- <Input value="{TreeTableModel>DispatchQty}" liveChange="onLiveChangeDispatchQty" editable="true" enabled="true" /> -->
 									</ui:template>
 								</ui:Column>
-
 								<ui:Column width="7%">
 									<Label text="{i18n>uom}"/>
 									<ui:template>
@@ -185,7 +168,6 @@
 					 </uxap:ObjectPageSubSection>
                 </uxap:subSections>
             </uxap:ObjectPageSection>
-
           </uxap:sections>
     </uxap:ObjectPageLayout>
 

@@ -42,13 +42,13 @@
 					</ui:template>
 				</ui:Column>
 				<ui:Column width="5%">
-					<Label text="Total Qty"/>
+					<Label text="Inspection Quantity (Accepted)"/>
 					<ui:template>
 						<Text text="{TreeTableModelView>Qty}" wrapping="false" />
 					</ui:template>
 				</ui:Column>
 				<ui:Column width="8%">
-					<Label text="MDCC Approved Qty"/>
+					<Label text="Quantity received for MDCC approval"/>
 					<ui:template>						
 						<Text text="{TreeTableModelView>MDCCApprovedQty}" />
 					</ui:template>
