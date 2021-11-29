@@ -1,4 +1,4 @@
-<core:FragmentDefinition xmlns="sap.m"
+<core:FragmentDefinition xmlns="sap.m" xmlns:tnt="sap.tnt"
     xmlns:core="sap.ui.core"
     xmlns:u="sap.ui.unified"
     xmlns:f="sap.ui.layout.form">
@@ -34,16 +34,20 @@
                         <Label text="Total Packaging Weight" required="true"></Label>
                         <Input id="idweight" value="{requestModel>/quantity}" liveChange="onQuantityLiveChange" type="Number" valueState="{requestModel>/valueState}" valueStateText="{requestModel>/valueStateText}"></Input>
                         <Label text="Bill of Lading" required="true"></Label>
-                        <Input id="idbilloflading" value="{requestModel>/billoflading}" type="Text" valueState="{requestModel>/valueState}" valueStateText="{requestModel>/valueStateText}"></Input>
+                        <Input id="idbilloflading" value="{requestModel>/billoflading}" type="Text" change="fnSetRequestButtonEnableDisable" valueState="{requestModel>/valueState}" valueStateText="{requestModel>/valueStateText}"></Input>
                         <Label text="LR Number" required="true"></Label>
-                        <Input id="idlrnumber" value="{requestModel>/lrnumber}" type="Text" valueState="{requestModel>/valueState}" valueStateText="{requestModel>/valueStateText}"></Input>
+                        <Input id="idlrnumber" value="{requestModel>/lrnumber}" type="Text" change="fnSetRequestButtonEnableDisable" valueState="{requestModel>/valueState}" valueStateText="{requestModel>/valueStateText}"></Input>
                         <Label text="Reference" required="true"></Label>
-                        <Input id="idreference" value="{requestModel>/reference}" type="Text" valueState="{requestModel>/valueState}" valueStateText="{requestModel>/valueStateText}"></Input>
+                        <Input id="idreference" value="{requestModel>/reference}" type="Text" change="fnSetRequestButtonEnableDisable" valueState="{requestModel>/valueState}" valueStateText="{requestModel>/valueStateText}"></Input>
                         <Label text="Delivery Note​​​​​​​​​" required="true"></Label>
-                        <Input id="iddelivery" value="{requestModel>/delivery}" type="Text" valueState="{requestModel>/valueState}" valueStateText="{requestModel>/valueStateText}"></Input>
+                        <Input id="iddelivery" value="{requestModel>/delivery}" type="Text" change="fnSetRequestButtonEnableDisable" valueState="{requestModel>/valueState}" valueStateText="{requestModel>/valueStateText}"></Input>
                     </f:content>
                 </f:SimpleForm>
-
+                <MessageStrip
+                        text="Items mark with partial are not allowed to request GRN."
+                        type="Warning"
+                        class="sapUiTinyMarginBottom"
+                        showIcon="true"/>
                 <Table id="idGRNItemsTBL" width="auto"  growing="true" growingThreshold="5" items= "{RestrictedStoreStockParents}">
                     <columns>
                         <Column importance="High">
@@ -78,14 +82,18 @@
                         <ColumnListItem>
                             <cells>
                                 <Text text="{LineNumber}"/>
-                                <ObjectIdentifier title="{MaterialCode}"/>
+                                <!-- <ObjectIdentifier title="{MaterialCode}"/> -->
+                                 <VBox>
+                                    <tnt:InfoLabel id="il2" text="Partial" renderMode="Narrow" colorScheme="2" visible="{= ${IsPartial} === true ? true  : false }"/>
+                                    <ObjectIdentifier title="{MaterialCode}"/>
+                                 </VBox>  
                                 <Text text="{Name}"/>
                                 <Text text="{Description}"/>
                                 <Text text="{MovementType}"/>
                                 <Text text="{PlantCode}"/>
                                 <Text text="{Qty}"/>
                                 <Text text="{UOM}"/>
-                                <ComboBox 
+                                <ComboBox enabled="{= ${IsPartial} === true ? false  : true }"
                                     loadItems="onLoadValuationAreaItems"
                                     showSecondaryValues= "true"
                                     selectionChange="handleSelectionChange"
