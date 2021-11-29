@@ -623,7 +623,7 @@ sap.ui.define([
                 });
                 this.getView().setModel(requestModel, "requestModel");
 
-                if (!this._oRequestDialog) {
+                // if (!this._oRequestDialog) {
                     this._oRequestDialog = sap.ui.xmlfragment("com.agel.mmts.unloadmaterial.view.fragments.common.ViewRequestGRNDialog", this);
                     var oDialog = this._oRequestDialog;
                     this.getView().addDependent(oDialog);
@@ -638,7 +638,7 @@ sap.ui.define([
                     });
                     oDialog.setTitle("Request GRN");
                     // return oDialog;
-                }
+               // }
                 this._oRequestDialog.open();
             },
 

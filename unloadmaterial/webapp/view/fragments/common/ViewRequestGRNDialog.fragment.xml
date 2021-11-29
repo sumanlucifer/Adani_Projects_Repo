@@ -28,17 +28,17 @@
                 <f:SimpleForm layout="ColumnLayout" columnsM="2" columnsL="2" columnsXL="2" singleContainerFullSize="true" class="style-RemoveTitleHeight">
                     <f:content>
                         <Label text="Movement Type" required="true"></Label>
-                        <Input id="idMovementType" value="{requestModel>/MovementType}" editable="false"></Input>
+                        <Input value="{requestModel>/MovementType}" editable="false"></Input>
                         <Label text="Total Packaging Weight" required="true"></Label>
-                        <Input id="idweight" value="{requestModel>/quantity}" liveChange="onQuantityLiveChange" type="Number" valueState="{requestModel>/valueState}" valueStateText="{requestModel>/valueStateText}"></Input>
+                        <Input value="{requestModel>/quantity}" liveChange="onQuantityLiveChange" type="Number" valueState="{requestModel>/valueState}" valueStateText="{requestModel>/valueStateText}"></Input>
                         <Label text="Bill of Lading" required="true"></Label>
-                        <Input id="idbilloflading" value="{requestModel>/billoflading}" change="fnSetRequestButtonEnableDisable" type="Text" valueState="{requestModel>/valueState}" valueStateText="{requestModel>/valueStateText}"></Input>
+                        <Input value="{requestModel>/billoflading}" change="fnSetRequestButtonEnableDisable" type="Text" valueState="{requestModel>/valueState}" valueStateText="{requestModel>/valueStateText}"></Input>
                         <Label text="LR Number" required="true"></Label>
-                        <Input id="idlrnumber" value="{requestModel>/lrnumber}" change="fnSetRequestButtonEnableDisable" type="Text" valueState="{requestModel>/valueState}" valueStateText="{requestModel>/valueStateText}"></Input>
+                        <Input value="{requestModel>/lrnumber}" change="fnSetRequestButtonEnableDisable" type="Text" valueState="{requestModel>/valueState}" valueStateText="{requestModel>/valueStateText}"></Input>
                         <Label text="Reference" required="true"></Label>
-                        <Input id="idreference" value="{requestModel>/reference}" change="fnSetRequestButtonEnableDisable" type="Text" valueState="{requestModel>/valueState}" valueStateText="{requestModel>/valueStateText}"></Input>
+                        <Input value="{requestModel>/reference}" change="fnSetRequestButtonEnableDisable" type="Text" valueState="{requestModel>/valueState}" valueStateText="{requestModel>/valueStateText}"></Input>
                         <Label text="Delivery Note​​​​​​​​​" required="true"></Label>
-                        <Input id="iddelivery" value="{requestModel>/delivery}" change="fnSetRequestButtonEnableDisable" type="Text" valueState="{requestModel>/valueState}" valueStateText="{requestModel>/valueStateText}"></Input>
+                        <Input value="{requestModel>/delivery}" change="fnSetRequestButtonEnableDisable" type="Text" valueState="{requestModel>/valueState}" valueStateText="{requestModel>/valueStateText}"></Input>
                     </f:content>
                 </f:SimpleForm>
                 <MessageStrip
@@ -82,7 +82,7 @@
                                 <Text text="{LineNumber}"/>
                                 <!-- <ObjectIdentifier title="{MaterialCode}"/> -->
                                 <VBox>
-                                    <tnt:InfoLabel id="il2" text="Partial" renderMode="Narrow" colorScheme="2" visible="{= ${IsPartial} === true ? true  : false }"/>
+                                    <tnt:InfoLabel text="Partial" renderMode="Narrow" colorScheme="2" visible="{= ${IsPartial} === true ? true  : false }"/>
                                     <ObjectIdentifier title="{MaterialCode}"/>
                                 </VBox>  
                                 <Text text="{Name}"/>
@@ -96,6 +96,7 @@
                                     showSecondaryValues= "true"
                                     selectionChange="handleSelectionChange"
                                     items="{path: '/MasterMaterialValAreaSet',
+                                            templateShareable:true,
                                             suspended: true
                                     }">
                                 <core:ListItem key="{ValuationType}" text="{ValuationType}" additionalText="{ValuationArea}"/>
@@ -108,7 +109,7 @@
             </FlexBox>
         </content>
         <beginButton>
-            <Button id="idRequestButton" text="{i18n>Request}" press="onRequestPress"  type="Emphasized" enabled="{requestModel>/isConfirmButtonEnabled}"></Button>
+            <Button text="{i18n>Request}" press="onRequestPress"  type="Emphasized" enabled="{requestModel>/isConfirmButtonEnabled}"></Button>
         </beginButton>
         <endButton>
             <Button text="{i18n>close}" press="onViewChildDialogClose" type="Emphasized" />
