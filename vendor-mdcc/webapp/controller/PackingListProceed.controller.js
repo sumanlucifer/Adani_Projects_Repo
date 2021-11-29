@@ -127,6 +127,7 @@ sap.ui.define([
                     else {
                         this.ParentDataView[i].isStandAlone = false;
                         this.ParentDataView[i].isSelected = false;
+                        this.ParentData[i].isChildItemFreeze = true;
                         this.ParentDataView[i].ChildItems = [];
                     }
 
