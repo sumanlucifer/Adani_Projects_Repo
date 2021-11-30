@@ -103,7 +103,12 @@ sap.ui.define(
                     });
                 },
                 onReadDataIssueMaterialParents: function () {
+                    this.getViewModel("objectViewModel").setProperty(
+                        "/busy",
+                        true
+                    );
                     var that = this;
+                    
                     that.oIssueMaterialModel = new JSONModel();
                     this.MainModel.read(
                         "/ConsumptionPostingReserveSet(" +
@@ -112,7 +117,10 @@ sap.ui.define(
                         {
                             urlParameters: { "$expand": "ConsumedMaterialReserveBOQItem" },
                             success: function (oData, oResponse) {
-
+                                this.getViewModel("objectViewModel").setProperty(
+                                    "/busy",
+                                    false
+                                );
 
 
                                 this.dataBuilding(oData.results);
@@ -120,8 +128,12 @@ sap.ui.define(
                                 // this.getView().setModel(consumptionData, "consumptionData");
                             }.bind(this),
                             error: function (oError) {
-                                sap.m.MessageBox.error("Data Not Found");
-                            },
+                                this.getViewModel("objectViewModel").setProperty(
+                                    "/busy",
+                                    false
+                                );
+                                // sap.m.MessageBox.error("Data Not Found");
+                            }.bind(this),
                         }
                     );
                 },
@@ -424,6 +436,10 @@ sap.ui.define(
                     this.getView().getModel("consumptionData").setData(totalItems);
                 },
                 onSubmitButtonConfirmPress: function (CID, itemData) {
+                    this.getViewModel("objectViewModel").setProperty(
+                        "/busy",
+                        true
+                    );
                     var IsAllItemsConsumed = itemData.IsAllItemsConsumed;
                     itemData = itemData.totalItems.map(function (item) {
                         return {
@@ -451,6 +467,10 @@ sap.ui.define(
                     };
                     this.MainModel.create("/ConsumptionPostingEdmSet", oPayload, {
                         success: function (oData, oResponse) {
+                            this.getViewModel("objectViewModel").setProperty(
+                                "/busy",
+                                false
+                            );
                             if (oData.Success === true) {
                                 sap.m.MessageBox.success(
                                     "Cosumption Posted with Material Document Number " +
@@ -473,8 +493,12 @@ sap.ui.define(
                             }
                         }.bind(this),
                         error: function (oError) {
-                            sap.m.MessageBox.error(oError.Message);
-                        },
+                            this.getViewModel("objectViewModel").setProperty(
+                                "/busy",
+                                false
+                            );
+                            // sap.m.MessageBox.error(oError.Message);
+                        }.bind(this),
                     });
                 },
             }

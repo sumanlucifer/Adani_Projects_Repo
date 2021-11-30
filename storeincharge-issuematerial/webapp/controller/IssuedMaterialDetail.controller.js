@@ -78,9 +78,17 @@ sap.ui.define([
         _setTreeTableData: function (oController) {
             debugger;
             var objectViewModel = oController.getViewModel("objectViewModel");
+            objectViewModel.setProperty(
+                "/busy",
+                true
+            );
             oController.MainModel.read("/IssuedMaterialSet" + oController.sObjectId + "/IssuedMaterialParents", {
                 urlParameters: { "$expand": "IssuedMaterialBOQ" },
                 success: function (oData) {
+                    objectViewModel.setProperty(
+                        "/busy",
+                        false
+                    );
                     if (oData) {
                         oData.results.forEach(element => {
                             element.BoqItems = element.IssuedMaterialBOQ.results;
@@ -90,7 +98,12 @@ sap.ui.define([
                 }.bind(oController),
                 error: function (oErr) {
 
-                }
+                    objectViewModel.setProperty(
+                        "/busy",
+                        false
+                    );
+
+                }.bind(oController),
             })
         },
         handleToIssueMatBreadcrumPress: function () {

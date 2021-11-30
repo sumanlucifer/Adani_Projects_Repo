@@ -47,7 +47,7 @@ sap.ui.define([
                     // that.onReadDataIssueMaterialChild(oData.results);
                 }.bind(this),
                 error: function (oError) {
-                    sap.m.MessageBox.error("Data Not Found");
+                 //   sap.m.MessageBox.error("Data Not Found");
                 }
             });
         },
@@ -98,7 +98,7 @@ sap.ui.define([
                     }
                 }.bind(this),
                 error: (oErr) => {
-                    MessageBox.error("Error while submitting return request.");
+                 //   MessageBox.error("Error while submitting return request.");
                 }
             })
         }

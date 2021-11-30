@@ -93,21 +93,33 @@ sap.ui.define([
         },
 
         onReadDataIssueMaterialParents: function () {
+            this.getViewModel("objectViewModel").setProperty(
+                "/busy",
+                true
+            );
             var that = this;
-
+           
             that.oIssueMaterialModel = new JSONModel();
             this.MainModel.read("/SONumberDetailsSet(" + that.sObjectId + ")", {
                 urlParameters: { "$expand": "IssuedMaterialParent/IssuedMaterialBOQ" },
                 success: function (oData, oResponse) {
-                    debugger;
+                    this.getViewModel("objectViewModel").setProperty(
+                        "/busy",
+                        false
+                    );
+                
                     that.dataBuilding(oData.IssuedMaterialParent.results);
                     //   that.oIssueMaterialModel.setData({ "Items": oData.results });
                     //   oTable.setModel(that.oIssueMaterialModel, "oIssueMaterialModel");
                     // that.onReadDataIssueMaterialChild(oData.results);
                 }.bind(this),
                 error: function (oError) {
-                    sap.m.MessageBox.error("Data Not Found");
-                }
+                    this.getViewModel("objectViewModel").setProperty(
+                        "/busy",
+                        false
+                    );
+                    //sap.m.MessageBox.error("Data Not Found");
+                }.bind(this),
             });
         },
 
@@ -132,7 +144,10 @@ sap.ui.define([
 
 
         onCancelReturn: function (oEvent) {
-            debugger;
+            this.getViewModel("objectViewModel").setProperty(
+                "/busy",
+                true
+            );
             var ReturnMaterialId = this.getView().getBindingContext().getObject().ID;
             var sReturnMaterialReservationContext = "/ReturnMaterialSet("+ parseInt(ReturnMaterialId) +"l)/ReturnMaterialReserve"
             var ReturnMaterialReserveId = this.getView().getModel().getData(sReturnMaterialReservationContext).ID;
@@ -145,12 +160,18 @@ sap.ui.define([
 
             this.MainModel.update("/ReturnMaterialCancellationEdmSet", oPayload,  {
                 success: function (oData, oResponse) {
-                    debugger;
+                    this.getViewModel("objectViewModel").setProperty(
+                        "/busy",
+                        false
+                    );
                 }.bind(this),
                 error: function (oError) {
-                    debugger;
-                    sap.m.MessageBox.error("Data Not Found");
-                }
+                    this.getViewModel("objectViewModel").setProperty(
+                        "/busy",
+                        false
+                    );
+                   // sap.m.MessageBox.error("Data Not Found");
+                }.bind(this),
             });
         },
 

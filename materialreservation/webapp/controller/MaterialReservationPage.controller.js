@@ -105,6 +105,9 @@ sap.ui.define([
             },
 
             onMaterialCodeChange: function (oEvent) {
+                this.getViewModel("objectViewModel").setProperty(
+                    "/busy",
+                    true);
 
                 var reservationListObj = oEvent.getParameter("selectedItem").getBindingContext("suggestionModel").getObject();
                 if (!this._validateItemSelected(reservationListObj)) {
@@ -129,6 +132,9 @@ sap.ui.define([
                     },
                     filters: [oMaterialCodeFilter],
                     success: function (oData, Res) {
+                        this.getViewModel("objectViewModel").setProperty(
+                            "/busy",
+                            false);
                         var aItems = [];
                         for (var i = 0; i < oData.results[0].MasterBOQs.results.length; i++) {
                             var oBoq = oData.results[0].MasterBOQs.results[i].MasterBOQItem;
@@ -143,10 +149,13 @@ sap.ui.define([
                             aItems.push(oBoq);
                         }
                         oReservationModel.setProperty(sItemPath + "/PopupItems", aItems);
-                    },
+                    }.bind(this),
                     error: function (oError) {
-                        sap.m.MessageBox.error(JSON.stringify(oError));
-                    }
+                        this.getViewModel("objectViewModel").setProperty(
+                            "/busy",
+                            false);
+                        // sap.m.MessageBox.error(JSON.stringify(oError));
+                    }.bind(this),
                 })
             },
 
@@ -212,6 +221,9 @@ sap.ui.define([
             },
 
             getMaterialSuggestionData: function (Plant, StorageLocation, UnloadPoint) {
+                this.getViewModel("objectViewModel").setProperty(
+                    "/busy",
+                    true);
                 var PlantFilter = new sap.ui.model.Filter({
                     path: "PlantCode",
                     operator: sap.ui.model.FilterOperator.EQ,
@@ -236,14 +248,20 @@ sap.ui.define([
                     //     "$expand": "PackingList"
                     // },
                     success: function (oData, oResponse) {
+                        this.getViewModel("objectViewModel").setProperty(
+                            "/busy",
+                            false);
                         var suggestionModel = new JSONModel(oData.results);
                         this.getView().setModel(suggestionModel, "suggestionModel");
                         this.getViewModel("objectViewModel").setProperty("/isButtonVisible", false);
 
                     }.bind(this),
                     error: function (oError) {
-                        sap.m.MessageBox.error(JSON.stringify(oError));
-                    }
+                        this.getViewModel("objectViewModel").setProperty(
+                            "/busy",
+                            false);
+                        // sap.m.MessageBox.error(JSON.stringify(oError));
+                    }.bind(this),
                 });
             },
             onSubmitReservation: function (oEvent) {
@@ -496,6 +514,9 @@ sap.ui.define([
                         IssueMaterialReservedBOQItems: aBoqStock
                     };
                 });
+                this.getViewModel("objectViewModel").setProperty(
+                    "/busy",
+                    true);
                 var oPayload = {
                     "Plant": oAdditionalData.Plant,
                     "MovementType": "311",
@@ -512,6 +533,9 @@ sap.ui.define([
                 };
                 this.mainModel.create("/IssueMaterialReservationEdmSet", oPayload, {
                     success: function (oData, oResponse) {
+                        this.getViewModel("objectViewModel").setProperty(
+                            "/busy",
+                            false);
                         if (oData.Success === true) {
                             sap.m.MessageBox.success(oData.Message);
                             this.setInitialModel();
@@ -522,6 +546,9 @@ sap.ui.define([
                         }
                     }.bind(this),
                     error: function (oError) {
+                        this.getViewModel("objectViewModel").setProperty(
+                            "/busy",
+                            false);
                         // sap.m.MessageBox.success("Something went Wrong!");
                         var objectViewModel = this.getViewModel("objectViewModel");
                         // objectViewModel.setProperty("/isViewQRMode", false);

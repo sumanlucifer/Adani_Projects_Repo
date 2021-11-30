@@ -39,9 +39,16 @@ sap.ui.define([
         },
 
         fnGetPackingListJourneyDetails: function (sObjectId) {
-
+            this.getViewModel("objectViewModel").setProperty(
+                "/busy",
+                true
+            );
             this.getComponentModel().read("/PackingListJourneyViewSet" + sObjectId, {
                 success: function (oData) {
+                    this.getViewModel("objectViewModel").setProperty(
+                        "/busy",
+                        false
+                    );
                     if (oData)
                         this.fnSetProcessFlowNodesData(oData);
                     else
@@ -49,7 +56,11 @@ sap.ui.define([
 
                 }.bind(this),
                 error: function (oError) {
-                    sap.m.MessageBox.success(JSON.stringify(oError));
+                    this.getViewModel("objectViewModel").setProperty(
+                        "/busy",
+                        false
+                    );
+                   // sap.m.MessageBox.success(JSON.stringify(oError));
 
                 }.bind(this)
             });

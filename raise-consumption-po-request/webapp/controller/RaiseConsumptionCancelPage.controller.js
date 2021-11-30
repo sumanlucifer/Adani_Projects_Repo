@@ -33,7 +33,7 @@ sap.ui.define([
                 boqSelection: null,
                 csvFile: "file"
             });
-            
+
             this.setModel(oViewModel, "objectViewModel");
             var oReservationData = new JSONModel({
                 ReservationNumber: null,
@@ -75,16 +75,29 @@ sap.ui.define([
             });
         },
         onReadDataIssueMaterialParents: function () {
+            this.getViewModel("objectViewModel").setProperty(
+                "/busy",
+                true
+            );
             var that = this;
+         
             that.oIssueMaterialModel = new JSONModel();
             this.MainModel.read("/ConsumptionPostingSet(" + that.sObjectId + ")/ConsumedMaterialParent", {
-            urlParameters: { "$expand": "ConsumptionPostingBOQ" },
+                urlParameters: { "$expand": "ConsumptionPostingBOQ" },
                 success: function (oData, oResponse) {
+                    this.getViewModel("objectViewModel").setProperty(
+                        "/busy",
+                        false
+                    );
                     this.dataBuilding(oData.results);
                 }.bind(this),
                 error: function (oError) {
-                    sap.m.MessageBox.error("Data Not Found");
-                }
+                    this.getViewModel("objectViewModel").setProperty(
+                        "/busy",
+                        false
+                    );
+                    // sap.m.MessageBox.error("Data Not Found");
+                }.bind(this),
             });
         },
         dataBuilding1: function (ItemData) {
@@ -99,17 +112,17 @@ sap.ui.define([
 
 
 
-  dataBuilding: function (ParentData) {
-                    for (var i = 0; i < ParentData.length; i++) {
-                        ParentData[i].results =
-                            ParentData[i].ConsumptionPostingBOQ.results;
-                      
+        dataBuilding: function (ParentData) {
+            for (var i = 0; i < ParentData.length; i++) {
+                ParentData[i].results =
+                    ParentData[i].ConsumptionPostingBOQ.results;
 
-                        
-                    }
-                    var TreeDataModel = new JSONModel({ results: ParentData });
-                    this.getView().setModel(TreeDataModel, "ConsumptionCancelTreeDataModel");
-                },
+
+
+            }
+            var TreeDataModel = new JSONModel({ results: ParentData });
+            this.getView().setModel(TreeDataModel, "ConsumptionCancelTreeDataModel");
+        },
 
         _onBindingChange: function () {
             var oView = this.getView(),
@@ -189,6 +202,10 @@ sap.ui.define([
             };
         },
         onSubmitCancelConfirmPress: function (a, itemData) {
+            this.getViewModel("objectViewModel").setProperty(
+                "/busy",
+                true
+            );
             var IsAllItemsCancelled = itemData.IsAllItemsCancelled;
             itemData = itemData.totalSelectedItems.map(function (item) {
                 return {
@@ -206,6 +223,10 @@ sap.ui.define([
             this.MainModel.create("/CancelConsumptionPostingEdmSet", oPayload, {
                 success: function (oData, oResponse) {
                     if (oData.Success === true) {
+                        this.getViewModel("objectViewModel").setProperty(
+                            "/busy",
+                            false
+                        );
                         sap.m.MessageBox.success("Cosumed Material Cancelled with Material Document Number " + "" + oData.MaterialDocumentNumber + "" + " Succesfully!", {
                             title: "Success",
                             onClose: function (oAction1) {
@@ -221,8 +242,12 @@ sap.ui.define([
                     }
                 }.bind(this),
                 error: function (oError) {
-                    sap.m.MessageBox.error("Data Not Found");
-                }
+                    this.getViewModel("objectViewModel").setProperty(
+                        "/busy",
+                        false
+                    );
+                    // sap.m.MessageBox.error("Data Not Found");
+                }.bind(this),
             });
         }
     });

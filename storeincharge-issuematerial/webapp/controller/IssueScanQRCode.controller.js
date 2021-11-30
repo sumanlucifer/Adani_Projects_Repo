@@ -79,11 +79,19 @@ sap.ui.define([
         },
 
         readJSONModel: function () {
+            this.getViewModel("objectViewModel").setProperty(
+                "/busy",
+                true
+            );
 
             var oDataModel = this.getViewModel();
             oDataModel.read("/IssuedMaterialReserveSet" + this.sObjectId, {
                 urlParameters: { "$expand": "IssuedMaterialReservedItems/IssuedMaterialReservedBOQItems" },
                 success: function (oData) {
+                    this.getViewModel("objectViewModel").setProperty(
+                        "/busy",
+                        false
+                    );
                     if (oData) {
                         // debugger;
                         oData.IssuedMaterialReservedItems.results.forEach(element => {
@@ -111,13 +119,18 @@ sap.ui.define([
                     this.getView().setModel(oJsonModel, "IssueMatModel");
                 }.bind(this),
                 error: function (oError) {
-                    sap.m.MessageBox.error(JSON.stringify(oError));
-                }
+                    this.getViewModel("objectViewModel").setProperty(
+                        "/busy",
+                        false
+                    );
+                   // sap.m.MessageBox.error(JSON.stringify(oError));
+                }.bind(this),
             });
 
         },
 
         onPressScanQR: function (oEvent) {
+
             if (!this._oScannerDialog) {
                 this._oScannerDialog = sap.ui.xmlfragment("com.agel.mmts.storeinchargeissuematerial.view.fragments.common.ScannerFragment", this);
                 this.getView().addDependent(this._oScannerDialog);
@@ -130,7 +143,10 @@ sap.ui.define([
         },
 
         readJSONEnterQtyModel: function (qrCodeId) {
-
+            this.getViewModel("objectViewModel").setProperty(
+                "/busy",
+                true
+            );
             var QRNumberFilter = new sap.ui.model.Filter({
                 path: "QRNumber",
                 operator: sap.ui.model.FilterOperator.EQ,
@@ -146,6 +162,10 @@ sap.ui.define([
                 },
                 filters: [filter],
                 success: function (oData) {
+                    this.getViewModel("objectViewModel").setProperty(
+                        "/busy",
+                        false
+                    );
                     if (oData) {
                         if (oData.results[0] != undefined) {
                             if (oData.results[0].RestrictedStoreStockParent.StoreStockParent != undefined) {
@@ -171,8 +191,12 @@ sap.ui.define([
                     }
                 }.bind(this),
                 error: function (oError) {
-                    sap.m.MessageBox.error(JSON.stringify(oError));
-                }
+                    this.getViewModel("objectViewModel").setProperty(
+                        "/busy",
+                        false
+                    );
+                   // sap.m.MessageBox.error(JSON.stringify(oError));
+                }.bind(this),
             });
         },
 
@@ -320,6 +344,10 @@ sap.ui.define([
 
         onPressDone: function (oEvent) {
             // debugger;
+            this.getViewModel("objectViewModel").setProperty(
+                "/busy",
+                true
+            );
             var oDetails = {};
             oDetails.controller = this;
             oDetails.view = this.getView();
@@ -359,21 +387,30 @@ sap.ui.define([
 
             this.MainModel.create("/IssueMaterialEdmSet", aPayload, {
                 success: function (oData, oResponse) {
+                    this.getViewModel("objectViewModel").setProperty(
+                        "/busy",
+                        false
+                    );
                     if (oData.Success)
                         this.onPressNavigation(oData.ID);
                     else
                         sap.m.MessageBox.error(oData.Message);
                 }.bind(this),
                 error: function (oError) {
-                    sap.m.MessageBox.error(JSON.stringify(oError));
-                }
+                    this.getViewModel("objectViewModel").setProperty(
+                        "/busy",
+                        false
+                    );
+                   // sap.m.MessageBox.error(JSON.stringify(oError));
+                }.bind(this),
             });
         },
 
         onPressNavigation: function (id) {
             var that = this;
             that.getRouter().navTo("RaiseIssueUploadDoc", {
-                ID: id
+             ID: id
+              
             });
         }
 

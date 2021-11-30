@@ -205,7 +205,7 @@
                                             <VBox>
                                                 <Link id="idFileName" text="{i18n>viewAttachment}" press="onShowFileNameDialog" visible="{path:'Attachments',formatter:'.formatter.viewFileNames'}"/>
                                                 <!-- onFileUrlClick      -->
-                                                <unified:FileUploader id="idInvoiceUploader" buttonOnly="true" buttonText="Upload Invoice" sameFilenameAllowed="true" multiple="false" style="Emphasized" change="onMDCCFileSelectedForUpload" visible="{path:'Attachments',formatter:'.formatter.viewItemsFileUploader'}" />
+                                                <unified:FileUploader id="idInvoiceUploader" buttonOnly="true" buttonText="Upload Invoice"  sameFilenameAllowed="true" multiple="false" style="Emphasized" change="onMDCCFileSelectedForUpload" visible="{path:'Attachments',formatter:'.formatter.viewItemsFileUploader'}" />
                                             </VBox>
 
                                             <Link text="{i18n>mapItemsForMDCC}" press="onMapMDCCCItems" enabled="{parts:[{path:'Attachments'},{path:'Status'}],formatter:'.formatter.viewMapItems'}"/>

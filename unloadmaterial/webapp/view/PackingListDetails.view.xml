@@ -207,7 +207,7 @@
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection title="{i18n>materialDetails}">
                         <uxap:blocks>
-                        <!-- <UploadCollection id="idMaterialFileUploader" maximumFilenameLength="55" 
+                        <UploadCollection id="idMaterialFileUploader" maximumFilenameLength="55" 
                             maximumFileSize="10" multiple="true" 
                             items="{
                                     path:'Attachments',
@@ -217,8 +217,7 @@
                                     ],
                                     templateShareable: false}" mode="None" uploadButtonInvisible="true" instantUpload="false">
                                 <items>
-                                    <UploadCollectionItem documentId="{ID}" url="{parts: ['FileName','Content'], 
-                                        formatter: '.formatter.fileContent' }" enableEdit="false" enableDelete="false" 
+                                <UploadCollectionItem documentId="{ID}" url="{objectViewModel>/serviceUrl}{DocURL}" enableEdit="false" enableDelete="false" 
                                         visibleDelete="false" visibleEdit="false" fileName="{FileName}">
                                         <attributes>
                                             <ObjectAttribute title="Material Documnets" text="{ID}" class="sapUiSmallMarginEnd"/>
@@ -228,8 +227,8 @@
                                         </attributes>
                                     </UploadCollectionItem>
                                 </items>
-                            </UploadCollection> -->
-                            <UploadCollection id="idMaterialFileUploader" maximumFilenameLength="55" maximumFileSize="10" multiple="true" items="{
+                            </UploadCollection>
+                            <!-- <UploadCollection id="idMaterialFileUploader" maximumFilenameLength="55" maximumFileSize="10" multiple="true" items="{
                                     path:'DocumentModel>/PL_Material',
                                     templateShareable: false}" mode="None" uploadButtonInvisible="true" instantUpload="false">
                                 <items>
@@ -247,12 +246,12 @@
                                         </attributes>
                                     </UploadCollectionItem>
                                 </items>
-                            </UploadCollection>
+                            </UploadCollection> -->
                         </uxap:blocks>
                         </uxap:ObjectPageSubSection>
                         <uxap:ObjectPageSubSection title="{i18n>invoiceDetails}">
                         <uxap:blocks>
-                        <!-- <UploadCollection id="idInvoiceFileUploader" maximumFilenameLength="55" maximumFileSize="10" 
+                        <UploadCollection id="idInvoiceFileUploader" maximumFilenameLength="55" maximumFileSize="10" 
                             multiple="true" items="{
                                     path:'Attachments',
                                     filters : [
@@ -261,8 +260,7 @@
                                     ],
                                     templateShareable: false}" mode="None" uploadButtonInvisible="true" instantUpload="false">
                                 <items>
-                                    <UploadCollectionItem documentId="{ID}" url="{parts: ['FileName','Content'], 
-                                        formatter: '.formatter.fileContent' }" enableEdit="false" enableDelete="false"
+                                <UploadCollectionItem documentId="{ID}" url="{objectViewModel>/serviceUrl}{DocURL}" enableEdit="false" enableDelete="false"
                                          visibleDelete="false" visibleEdit="false" fileName="{FileName}">
                                         <attributes>
                                             <ObjectAttribute title="Material Documnets" text="{ID}" class="sapUiSmallMarginEnd"/>
@@ -272,8 +270,8 @@
                                         </attributes>
                                     </UploadCollectionItem>
                                 </items>
-                            </UploadCollection> -->
-                            <UploadCollection id="idInvoiceFileUploader" maximumFilenameLength="55" maximumFileSize="10" multiple="true" items="{
+                            </UploadCollection>
+                            <!-- <UploadCollection id="idInvoiceFileUploader" maximumFilenameLength="55" maximumFileSize="10" multiple="true" items="{
                                     path:'DocumentModel>/PL_Invoice',
                                     templateShareable: false}" mode="None" uploadButtonInvisible="true" instantUpload="false">
                                 <items>
@@ -291,12 +289,12 @@
                                         </attributes>
                                     </UploadCollectionItem>
                                 </items>
-                            </UploadCollection>
+                            </UploadCollection> -->
                         </uxap:blocks>
                         </uxap:ObjectPageSubSection>
                         <uxap:ObjectPageSubSection title="{i18n>otherDetails}">
                         <uxap:blocks>
-                        <!-- <UploadCollection id="idOtherFileUploader" maximumFilenameLength="55" maximumFileSize="10" multiple="true" 
+                        <UploadCollection id="idOtherFileUploader" maximumFilenameLength="55" maximumFileSize="10" multiple="true" 
                                 items="{
                                     path:'Attachments',
                                     filters : [
@@ -305,8 +303,7 @@
                                     ],
                                     templateShareable: false}" mode="None" uploadButtonInvisible="true" instantUpload="false">
                                 <items>
-                                    <UploadCollectionItem documentId="{ID}" url="{parts: ['FileName','Content'], 
-                                        formatter: '.formatter.fileContent' }" enableEdit="false" enableDelete="false" visibleDelete="false" visibleEdit="false" fileName="{FileName}">
+                                <UploadCollectionItem documentId="{ID}" url="{objectViewModel>/serviceUrl}{DocURL}" enableEdit="false" enableDelete="false" visibleDelete="false" visibleEdit="false" fileName="{FileName}">
                                         <attributes>
                                             <ObjectAttribute title="Material Documents" text="{ID}" class="sapUiSmallMarginEnd"/>
                                             <ObjectAttribute title="Invoice Date" text="{path:'CreatedAt', type: 'sap.ui.model.type.Date',
@@ -315,8 +312,8 @@
                                         </attributes>
                                     </UploadCollectionItem>
                                 </items>
-                            </UploadCollection> -->
-                            <UploadCollection id="idOtherFileUploader" maximumFilenameLength="55" maximumFileSize="10" multiple="true" items="{
+                            </UploadCollection>
+                            <!-- <UploadCollection id="idOtherFileUploader" maximumFilenameLength="55" maximumFileSize="10" multiple="true" items="{
                                     path:'DocumentModel>/PL_Others',
                                     templateShareable: false}" mode="None" uploadButtonInvisible="true" instantUpload="false">
                                 <items>
@@ -334,7 +331,7 @@
                                         </attributes>
                                     </UploadCollectionItem>
                                 </items>
-                            </UploadCollection>
+                            </UploadCollection> -->
                         </uxap:blocks>
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>

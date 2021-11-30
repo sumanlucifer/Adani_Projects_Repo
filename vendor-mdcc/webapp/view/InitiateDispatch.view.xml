@@ -168,7 +168,7 @@
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection title="{i18n>Attachments}">                    
                                 <VBox id="idMDCCUploadArea">
-                                    <!-- <UploadCollection id="idMDCCUploader" maximumFilenameLength="55" maximumFileSize="10" 
+                                    <UploadCollection id="idMDCCUploader" maximumFilenameLength="55" maximumFileSize="10" 
                                     multiple="true" numberOfAttachmentsText=""
                                     items="{
                                     path:'Attachments',
@@ -178,8 +178,7 @@
                                     templateShareable: false}" mode="None" uploadButtonInvisible="true"
                                         >
                                         <items>
-                                            <UploadCollectionItem documentId="{ID}" url="{parts: ['FileName','file'], 
-                                        formatter: '.formatter.fileContent' }" enableEdit="false" enableDelete="false" visibleDelete="false" visibleEdit="false" fileName="{FileName}">
+                                <UploadCollectionItem documentId="{ID}" url="{objectViewModel>/serviceUrl}{DocURL}" enableEdit="false" enableDelete="false" visibleDelete="false" visibleEdit="false" fileName="{FileName}">
                                                 <attributes>
                                                     <ObjectAttribute title="Uploaded By" text="{UploadedBy}" class="sapUiSmallMarginEnd"/>
                                                     <ObjectAttribute title="Uploaded On" text= "{path:'UploadedOn', type: 'sap.ui.model.type.Date', formatOptions: {pattern: 'MMMM dd, yyyy'}}"/>
@@ -187,8 +186,8 @@
                                                 </attributes>
                                             </UploadCollectionItem>
                                         </items>
-                                    </UploadCollection> -->
-                                    <UploadCollection id="idMDCCUploader" maximumFilenameLength="55" maximumFileSize="10" multiple="true" items="{
+                                    </UploadCollection>
+                                    <!-- <UploadCollection id="idMDCCUploader" maximumFilenameLength="55" maximumFileSize="10" multiple="true" items="{
                                     path:'DocumentModel>/MDCC',
                                     templateShareable: false}" mode="None" uploadButtonInvisible="true" instantUpload="false">
                                         <items>
@@ -206,7 +205,7 @@
                                                 </attributes>
                                             </UploadCollectionItem>
                                         </items>
-                                    </UploadCollection>
+                                    </UploadCollection> -->
                                 </VBox>
                           
                 

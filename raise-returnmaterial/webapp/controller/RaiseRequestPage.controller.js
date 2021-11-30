@@ -62,6 +62,10 @@ sap.ui.define([
 
             // Validate QR Code
             validateSONumber: function () {
+                this.getViewModel("objectViewModel").setProperty(
+                    "/busy",
+                    true
+                );
                 var that = this;
                 var SoNumber = this.getView().byId("idSoNumber").getValue();
                 that.sObjectId = SoNumber + "l";
@@ -78,6 +82,10 @@ sap.ui.define([
                 this.MainModel.read("/SONumberDetailsSet", {
                     filters: [filter],
                     success: function (oData, oResponse) {
+                        this.getViewModel("objectViewModel").setProperty(
+                            "/busy",
+                            false
+                        );
                         if (oData) {
                             // debugger;
                             if (oData.results.length) {
@@ -93,25 +101,40 @@ sap.ui.define([
                         }
                     }.bind(this),
                     error: function (oError) {
-                        sap.m.MessageBox.error(JSON.stringify(oError));
+                        this.getViewModel("objectViewModel").setProperty(
+                            "/busy",
+                            false
+                        );
+                        //sap.m.MessageBox.error(JSON.stringify(oError));
                     }
                 });
             },
 
             onReadDataIssueMaterials: function () {
+                this.getViewModel("objectViewModel").setProperty(
+                    "/busy",
+                    true
+                );
                 var that = this;
                 var oTable = this.byId("idTblIssueMaterialItems");
                 oTable.setVisible(true);
                 that.oIssueMaterialModel = new JSONModel();
                 this.MainModel.read("/SONumberDetailsSet(" + that.sObjectId + ")/IssuedMaterials", {
                     success: function (oData, oResponse) {
+                        this.getViewModel("objectViewModel").setProperty(
+                            "/busy",
+                            false
+                        );
                         that.oIssueMaterialModel.setData({ "Items": oData.results });
                         oTable.setModel(that.oIssueMaterialModel, "oIssueMaterialModel");
                     }.bind(this),
                     error: function (oError) {
-                        sap.m.MessageBox.error("Data Not Found");
-                    }
-                });
+                        this.getViewModel("objectViewModel").setProperty(
+                            "/busy",
+                            false
+                        );
+                       // sap.m.MessageBox.error("Data Not Found");
+                    }.bind(this),                });
             },
 
         });

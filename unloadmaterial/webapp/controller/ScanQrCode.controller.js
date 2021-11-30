@@ -196,7 +196,7 @@ sap.ui.define([
                         }
                     }.bind(this),
                     error: function (oError) {
-                        sap.m.MessageBox.error(JSON.stringify(oError));
+                        //sap.m.MessageBox.error(JSON.stringify(oError));
                     }
                 });
             },
@@ -243,7 +243,7 @@ sap.ui.define([
                         }
                     }.bind(this),
                     error: function (oError) {
-                        sap.m.MessageBox.error(JSON.stringify(oError));
+                     //   sap.m.MessageBox.error(JSON.stringify(oError));
                     }
                 });
             },

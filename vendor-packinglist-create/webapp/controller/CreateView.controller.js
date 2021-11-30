@@ -34,7 +34,12 @@ sap.ui.define([
                 var startupParams = this.getOwnerComponent().getComponentData().startupParameters;
                 this.packingListId = startupParams.packingListID[0];
 
+<<<<<<< HEAD
                 //  this.packingListId = 120;
+=======
+        //     this.packingListId = 62;
+               
+>>>>>>> develop
 
 
                 /* if (startupParams.status[0] !== "SAVED") {
@@ -119,26 +124,48 @@ sap.ui.define([
             },
 
             _getPackingListContainsData: function () {
+                this.getViewModel("objectViewModel").setProperty(
+                    "/busy",
+                    true
+                );
                 this.mainModel.read("/PackingListSet(" + this.packingListId + ")/PackingListContains", {
                     success: function (oData, oResponse) {
+                        this.getViewModel("objectViewModel").setProperty(
+                            "/busy",
+                            false
+                        );
                         if (oData.results.length)
                             this._setPackingListContainsData(oData.results);
                     }.bind(this),
                     error: function (oError) {
-
-                    }
+                        this.getViewModel("objectViewModel").setProperty(
+                            "/busy",
+                            false
+                        );
+                    }.bind(this),
                 })
             },
 
             _getPackingListInnerPackagingData: function () {
+                this.getViewModel("objectViewModel").setProperty(
+                    "/busy",
+                    true
+                );
                 this.mainModel.read("/PackingListSet(" + this.packingListId + ")/InnerPackagings", {
                     success: function (oData, oResponse) {
+                        this.getViewModel("objectViewModel").setProperty(
+                            "/busy",
+                            false
+                        );
                         if (oData.results.length)
                             this._setPackingListInnerPackagingData(oData.results);
                     }.bind(this),
                     error: function (oError) {
-
-                    }
+                        this.getViewModel("objectViewModel").setProperty(
+                            "/busy",
+                            false
+                        );
+                    }.bind(this),
                 })
             },
 
@@ -172,6 +199,10 @@ sap.ui.define([
             },
 
             onSavePackingListPress: function (oEvent) {
+                this.getViewModel("objectViewModel").setProperty(
+                    "/busy",
+                    true
+                );
                 if (!this._validateProceedData()) {
                     return;
                 }
@@ -192,13 +223,21 @@ sap.ui.define([
 
                 this.mainModel.create("/PackingListEdmSet", payload, {
                     success: function (oData, oResponse) {
+                        this.getViewModel("objectViewModel").setProperty(
+                            "/busy",
+                            false
+                        );
                         //this.getViewModel("objectViewModel").setProperty("/isPackingListInEditModel", false);
                         sap.m.MessageToast.show("Packing List saved successfully!");
                         this.getViewModel("objectViewModel").setProperty("/isPackingListInEditModel", false);
                         this.getView().getModel().refresh();
                     }.bind(this),
                     error: function (oError) {
-                        sap.m.MessageBox.error(JSON.stringify(oError));
+                        this.getViewModel("objectViewModel").setProperty(
+                            "/busy",
+                            false
+                        );
+                        // sap.m.MessageBox.error(JSON.stringify(oError));
                         this.getViewModel("objectViewModel").setProperty("/isPackingListInEditModel", false);
                     }.bind(this)
                 });

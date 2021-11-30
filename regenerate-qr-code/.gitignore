@@ -8,13 +8,3 @@ mta-*
 resources
 archive.zip
 .*_mta_build_tmp
-# auto generated wildcard
-pmcg/.env1
-# auto generated wildcard
-vendorPersona/.env32
-# auto generated wildcard
-vendor-map-mdcc/.env2
-# auto generated wildcard
-security-scanqr/.env1
-# auto generated wildcard
-vendor-packinglist-create/.env2

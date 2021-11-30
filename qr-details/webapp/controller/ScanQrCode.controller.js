@@ -197,6 +197,9 @@ sap.ui.define([
 
             // Validate QR Code
             validateQRCode: function (QRCode) {
+                this.getViewModel("objectViewModel").setProperty(
+                    "/busy",
+                    true);
 
                 var qrCodeId = this.getView().byId("idInputQRCode").getValue() || QRCode;
 
@@ -213,6 +216,9 @@ sap.ui.define([
                         "$expand": "PackingList"
                     },
                     success: function (oData, oResponse) {
+                        this.getViewModel("objectViewModel").setProperty(
+                            "/busy",
+                            false);
                         if (oData.results.length !== 0) {
                             this.oRouter.navTo("QRCodeDetailsPage", {
                                 PackingID: oData.results[0].PackingList.ID
@@ -226,8 +232,11 @@ sap.ui.define([
                         }
                     }.bind(this),
                     error: function (oError) {
-                        sap.m.MessageBox.error(JSON.stringify(oError));
-                    }
+                        this.getViewModel("objectViewModel").setProperty(
+                            "/busy",
+                            false);
+                        //sap.m.MessageBox.error(JSON.stringify(oError));
+                    }.bind(this),
                 });
             },
 

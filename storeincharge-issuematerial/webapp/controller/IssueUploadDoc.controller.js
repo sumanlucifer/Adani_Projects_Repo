@@ -78,11 +78,13 @@ sap.ui.define([
         },
 
         _setTreeTableData: function(oController){
-            debugger;
+           
             var objectViewModel= oController.getViewModel("objectViewModel");
+            objectViewModel.setProperty("/busy", true);
             oController.MainModel.read("/IssuedMaterialSet(" + oController.sObjectId +")/IssuedMaterialParents",{
                 urlParameters: { "$expand": "IssuedMaterialBOQ" },
                 success: function(oData) {
+                    objectViewModel.setProperty("/busy", false);
                     if(oData){
                         oData.results.forEach(element => {
                             element.BoqItems = element.IssuedMaterialBOQ.results;
@@ -91,8 +93,9 @@ sap.ui.define([
                     }
                 }.bind(oController),
                 error: function(oErr){
+                    objectViewModel.setProperty("/busy", false);
 
-                }
+                }.bind(oController),
             })
         },
 
@@ -107,15 +110,22 @@ sap.ui.define([
 
         onAttachmentChange: function (oEvent) {
             // keep a reference of the uploaded file
-            var that = this
+            var that = this;
+            var rowObj = oEvent.getSource().getBindingContext().getObject();
             var oFiles = oEvent.getParameters().files;
+            this.oFiles = oFiles;
+
+
+            var fileType = oFiles[0].type;
+
+            fileType = fileType === "application/pdf" ? "application/pdf" : "application/octet-stream";
             var SubType = "inpsection_doc";
             var Type = "INSPECTION";
             for (var i = 0; i < oFiles.length; i++) {
                 var fileName = oFiles[i].name;
                 var fileSize = oFiles[i].size;
                 this._getImageData(URL.createObjectURL(oFiles[i]), function (base64) {
-                    that._addData(base64, fileName, SubType, Type, fileSize);
+                    that._addData(base64, fileName, SubType, Type, fileSize, fileType, rowObj);
                 }, fileName);
             }
         },
@@ -129,23 +139,99 @@ sap.ui.define([
             this.getView().setModel(model, "localAttachmentModel");
         },
 
-        _addData: function (Content, fileName, SubType, Type, fileSize) {
-            var that = this,
-                oViewContext = this.getView().getBindingContext().getObject();
+        // _addData: function (Content, fileName, SubType, Type, fileSize) {
+        //     var that = this,
+        //         oViewContext = this.getView().getBindingContext().getObject();
 
-            var document = {
-                "UploadTypeId": 7,
-                "Type": "ISSUE_MATERIAL",
-                "SubType": "Material_Details",
-                "FileName": fileName,
-                "Content": "base-64",
-                "ContentType": "application/pdf",
-                "UploadedBy": "vendor-1",
-                "FileSize": fileSize
+        //     var document = {
+        //         "UploadTypeId": 7,
+        //         "Type": "ISSUE_MATERIAL",
+        //         "SubType": "Material_Details",
+        //         "FileName": fileName,
+        //         "Content": "base-64",
+        //         "ContentType": "application/pdf",
+        //         "UploadedBy": "vendor-1",
+        //         "FileSize": fileSize
+        //     };
+
+        //     this.getView().getModel("localAttachmentModel").getData().items.push(document);
+        // },
+
+
+        _addData: function (base64, fileName, SubType, Type, fileSize, fileType, rowObj) {
+            var that = this;
+            this.getViewModel("objectViewModel").setProperty(
+                "/busy",
+                true
+            );
+
+         
+            var documents = {
+                "Documents": [
+                    {
+                        "Type": "ISSUE_MATERIAL",
+                        "ContentType": fileType,
+                        "FileName": fileName,
+                        "UploadedBy": "vendor-1",
+                        "FileSize": fileSize,
+                        "SubType": "",
+                        "UploadTypeId": rowObj.ID,
+                        "PONumber": null,
+                        "CompanyCode": null
+                    }
+                ]
             };
+            that.documents = documents;
+            var sPath = "/DocumentUploadEdmSet"
+            this.MainModel.create(sPath, documents, {
+                success: function (oData, oResponse) {
+                    this.getViewModel("objectViewModel").setProperty(
+                        "/busy",
+                        false
+                    );
 
-            this.getView().getModel("localAttachmentModel").getData().items.push(document);
+                    sap.m.MessageToast.show("MDCC Details Uploaded!");
+                    this.getView().getModel().refresh();
+                    this._updateDocumentService(oData.ID, fileType);
+                    //   this.getView().getModel("ManageMDCCModel").getData().MDCCItems[rowId].MapItems = true;
+                    //   this.getView().getModel("ManageMDCCModel").refresh();
+                }.bind(this),
+                error: function () {
+                    this.getViewModel("objectViewModel").setProperty(
+                        "/busy",
+                        false
+                    );
+
+                    sap.m.MessageBox.error("Error uploading document");
+                }
+            });
         },
+
+
+        _updateDocumentService: function (ID, fileType) {
+            var that = this;
+            var file = this.oFiles;
+            var serviceUrl = `/AGEL_MMTS_API/api/v2/odata.svc/DocumentUploadEdmSet(${ID})/$value`
+            var sUrl = serviceUrl;
+            jQuery.ajax({
+                method: "PUT",
+                headers: {
+                    'Content-Type': 'application/octet-stream'
+                },
+                url: sUrl,
+                cache: false,
+                contentType: fileType,
+                processData: false,
+                data: file[0],
+                success: function (data) {
+                    console.log("success");
+                },
+                error: function () {
+                    console.log("failure");
+                },
+            });
+        },
+
 
         _getImageData: function (url, callback) {
             var xhr = new XMLHttpRequest();
@@ -162,6 +248,10 @@ sap.ui.define([
         },
 
         onPressConfirm: function(oEvent){
+            this.getViewModel("objectViewModel").setProperty(
+                "/busy",
+                true
+            );
             // debugger;
             var that = this;
             var MaterialID= this.sObjectId;
@@ -174,13 +264,21 @@ sap.ui.define([
 
             this.getOwnerComponent().getModel().create("/IssueMaterialConfirmationEdmSet", oPayload, {
                 success: function (oData, oResponse) {
+                    this.getViewModel("objectViewModel").setProperty(
+                        "/busy",
+                        false
+                    );
                     sap.m.MessageToast.show("The Requested Material is Issued");
                     this.getOwnerComponent().getModel().refresh();
                     this.getRouter().navTo("RouteLandingPage");
                 }.bind(this),
                 error: function (oError) {
-                    sap.m.MessageBox.error(JSON.stringify(oError));
-                    }
+                    this.getViewModel("objectViewModel").setProperty(
+                        "/busy",
+                        false
+                    );
+                  //  sap.m.MessageBox.error(JSON.stringify(oError));
+                }.bind(this),
             });
         },
 
