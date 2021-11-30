@@ -70,7 +70,6 @@
                                     value1: 'PACKINGLIST' }
                                 ] }">
                                 <VBox>
-
                                     <Avatar displaySize="XL" badgeIcon="sap-icon://edit" displayShape="Square" src="data:image/jpg;base64,{Content}">
                                         <detailBox>
                                             <LightBox>
@@ -100,7 +99,6 @@
                         <ObjectAttribute text="{Street}" binding="{PurchaseOrder/MasterCompanyCode/Address}"/>
                         <ObjectAttribute text="{City} - {State} - {Country}" binding="{PurchaseOrder/MasterCompanyCode/Address}"/>
                         <ObjectAttribute text="{pinCode}" binding="{PurchaseOrder/MasterCompanyCode/Address}"/> -->
-
                         <ObjectAttribute title="" />
                         <ObjectAttribute text="" />
                         <ObjectAttribute text="" />
