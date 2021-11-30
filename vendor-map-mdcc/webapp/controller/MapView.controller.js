@@ -303,21 +303,11 @@ sap.ui.define([
                             .getBindingContext("TreeTableModel")
                             .getObject().MDCCApprovedQty;
                         if (!liveQty) liveQty = 0;
-
-
-                        // iTotalQuantity = iTotalQuantity - parseFloat(liveQty) + parseFloat(oValue);
-                        iTotalQuantity = iTotalQuantity + ((parseFloat(oValue) - parseFloat(liveQty)) * parseFloat(wpp));
+                        iTotalQuantity = iTotalQuantity + (((parseFloat(oValue) - parseFloat(liveQty)) * parseFloat(wpp))/1000);
                         this.getViewModel("TreeTableModel").setProperty(sItemPath + "/MDCCApprovedQty", oValue);
-
-
-                        this.getViewModel("TreeTableModel").setProperty(
-                            sParentPath + "/MDCCApprovedQty",
-                            iTotalQuantity
-                        );
-
+                        this.getViewModel("TreeTableModel").setProperty(sParentPath + "/MDCCApprovedQty",iTotalQuantity);
                     }
                 }
-
                 if (oValue === "") {
                     oEvent.getSource().setValueState("Error");
                     oEvent.getSource().setValueStateText("Please enter quantity ");

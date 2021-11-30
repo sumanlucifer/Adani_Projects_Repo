@@ -1,6 +1,6 @@
-<core:FragmentDefinition xmlns="sap.m"
+<core:FragmentDefinition xmlns="sap.m" 	xmlns:tnt="sap.tnt"
     xmlns:core="sap.ui.core" xmlns:u="sap.ui.unified">
-
+   
     <Table width="auto" growing="true" growingThreshold="5" items="{path: 'ParentLineItems'}" fixedLayout="false">
         <columns>
             <!-- <Column demandPopin="true" minScreenWidth="Desktop" hAlign="Center">
@@ -52,6 +52,10 @@
                     <!-- <Text text="{ponumber}"/> -->
                     <Text text="{LineNumber}" wrappingType="Hyphenated"/>
                     <ObjectIdentifier title="{MaterialCode}"/>
+                    <!-- <VBox>
+		                <tnt:InfoLabel id="il2" text="Partial" renderMode="Narrow" colorScheme="2" visible="{= ${IsPartial} === true ? true  : false }"/>
+                        <ObjectIdentifier title="{MaterialCode}"/>
+                    </VBox>     -->
                     <Text text="{Name}" wrappingType="Hyphenated"/>
                     <Text text="{PlantCode}" binding="{PurchaseOrder}"/>
                     <Text text="{StorageLocation}"/>
@@ -72,5 +76,6 @@
             </ColumnListItem>
         </items>
     </Table>
+    
 
 </core:FragmentDefinition>
