@@ -335,6 +335,38 @@ sap.ui.define([
                 _pdfViewer.open();
             },
 
+            //scannner related functions
+            onScanSuccess: function (oEvent) {
+                if (oEvent.getParameter("cancelled")) {
+                    sap.m.MessageToast.show("Scan cancelled", { duration: 1000 });
+                } else {
+                    var sScannedValue = oEvent.getParameter("text");
+                    if (sScannedValue.length > 0) {
+                        var isValid = this.checkForValidJSON(sScannedValue);
+                        if (isValid) {
+                            sap.m.MessageToast.show("Successfully scanned: " + JSON.parse(JSON.parse(sScannedValue)).QRNumber);
+                            this.getViewModel("oViewHandlingModel").setProperty("/unloadQrCode", JSON.parse(JSON.parse(sScannedValue)).QRNumber);
+                            this.onPressSubmitQRCode();
+                        } else {
+                            this.getViewModel("oViewHandlingModel").setProperty("/unloadQrCode", "");
+                            sap.m.MessageBox.error("Not a valid QR! Please try again with a different QR code.")
+                        }
+                    }
+                }
+            },
+
+            onScanError: function (oEvent) {
+                sap.m.MessageToast.show("Scan failed" + oEvent, { duration: 1000 });
+            },
+
+            checkForValidJSON: function (sScannedValue) {
+                try {
+                    return (JSON.parse(JSON.parse(sScannedValue)) && !!sScannedValue);
+                } catch (e) {
+                    return false;
+                }
+            },
+
             onQRCodeSuggestionSelected: function (oEvent) {
                 var sScanQrcodeno = oEvent.getSource().getSelectedKey();
                 if (sScanQrcodeno)
@@ -624,21 +656,21 @@ sap.ui.define([
                 this.getView().setModel(requestModel, "requestModel");
 
                 // if (!this._oRequestDialog) {
-                    this._oRequestDialog = sap.ui.xmlfragment("com.agel.mmts.unloadmaterial.view.fragments.common.ViewRequestGRNDialog", this);
-                    var oDialog = this._oRequestDialog;
-                    this.getView().addDependent(oDialog);
-                    if (Device.system.desktop) {
-                        oDialog.addStyleClass("sapUiSizeCompact");
+                this._oRequestDialog = sap.ui.xmlfragment("com.agel.mmts.unloadmaterial.view.fragments.common.ViewRequestGRNDialog", this);
+                var oDialog = this._oRequestDialog;
+                this.getView().addDependent(oDialog);
+                if (Device.system.desktop) {
+                    oDialog.addStyleClass("sapUiSizeCompact");
+                }
+                oDialog.bindElement({
+                    path: sParentItemPath,
+                    parameters: {
+                        "expand": 'RestrictedStoreStockParents, PurchaseOrder, PackingListParentItems'
                     }
-                    oDialog.bindElement({
-                        path: sParentItemPath,
-                        parameters: {
-                            "expand": 'RestrictedStoreStockParents, PurchaseOrder, PackingListParentItems'
-                        }
-                    });
-                    oDialog.setTitle("Request GRN");
-                    // return oDialog;
-               // }
+                });
+                oDialog.setTitle("Request GRN");
+                // return oDialog;
+                // }
                 this._oRequestDialog.open();
             },
 

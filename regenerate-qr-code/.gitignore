@@ -14,3 +14,7 @@ pmcg/.env1
 vendorPersona/.env32
 # auto generated wildcard
 vendor-map-mdcc/.env2
+# auto generated wildcard
+security-scanqr/.env1
+# auto generated wildcard
+vendor-packinglist-create/.env2

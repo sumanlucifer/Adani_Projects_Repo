@@ -303,6 +303,38 @@ sap.ui.define([
                 }
             });
         },
+
+        //scannner related functions
+        onScanSuccess: function (oEvent) {
+            if (oEvent.getParameter("cancelled")) {
+                sap.m.MessageToast.show("Scan cancelled", { duration: 1000 });
+            } else {
+                var sScannedValue = oEvent.getParameter("text");
+                if (sScannedValue.length > 0) {
+                    var isValid = this.checkForValidJSON(sScannedValue);
+                    if (isValid) {
+                        sap.m.MessageToast.show("Successfully scanned: " + JSON.parse(JSON.parse(sScannedValue)).QRNumber);
+                        this.getViewModel("packingListDispatchModel").setProperty("/QRNumber", JSON.parse(JSON.parse(sScannedValue)).QRNumber);
+                        this.onValidateQRPress();
+                    } else {
+                        sap.m.MessageBox.error("Not a valid QR! Please try again with a different QR code.")
+                    }
+                }
+            }
+        },
+
+        onScanError: function (oEvent) {
+            sap.m.MessageToast.show("Scan failed" + oEvent, { duration: 1000 });
+        },
+
+        checkForValidJSON: function (sScannedValue) {
+            try {
+                return (JSON.parse(JSON.parse(sScannedValue)) && !!sScannedValue);
+            } catch (e) {
+                return false;
+            }
+        },
+
         onValidateQRPress: function (oEvent) {
             var sPackingListPath = this.getView().getBindingContext().getPath();
             var sPathToCheck = sPackingListPath + "/QRCodeId";
@@ -380,7 +412,7 @@ sap.ui.define([
             var qrcodeID = oEvent.mParameters.getSource().getBindingContext().getObject().QRNumber;
             var aPayload = {
                 "QRNumber": qrcodeID,
-                "RegeneratedQRId" : 0
+                "RegeneratedQRId": 0
             };
             this.getComponentModel().create("/QuickAccessQRCodeEdmSet", aPayload, {
                 success: function (oData, oResponse) {

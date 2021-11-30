@@ -107,51 +107,84 @@ sap.ui.define([
                 }
             },
 
-            // On Press QR Histroy
-            onPressScanQRCode: function () {
-                var that = this;
+            // // On Press QR Histroy
+            // onPressScanQRCode: function () {
+            //     var that = this;
+            //     this.getView().byId("idQRBtn").setProperty("enabled", false);
+            //     this.getView().byId("idInvBtn").setProperty("enabled", false);
+            //     this.getView().byId("idInputQRCode").setProperty("enabled", false);
+            //     this.getView().byId("idInvoiceNum").setProperty("enabled", false);
+            //     this.validateQRCode();
+            // },
+
+            //scannner related functions
+            onScanSuccess: function (oEvent) {
                 this.getView().byId("idQRBtn").setProperty("enabled", false);
                 this.getView().byId("idInvBtn").setProperty("enabled", false);
                 this.getView().byId("idInputQRCode").setProperty("enabled", false);
                 this.getView().byId("idInvoiceNum").setProperty("enabled", false);
-                this.validateQRCode();
+
+                if (oEvent.getParameter("cancelled")) {
+                    sap.m.MessageToast.show("Scan cancelled", { duration: 1000 });
+                } else {
+                    var sScannedValue = oEvent.getParameter("text");
+                    if (sScannedValue.length > 0) {
+                        var isValid = this.checkForValidJSON(sScannedValue);
+                        if (isValid) {
+                            sap.m.MessageToast.show("Successfully scanned: " + JSON.parse(JSON.parse(sScannedValue)).QRNumber);
+                            this.validateQRCode(JSON.parse(JSON.parse(sScannedValue)).QRNumber);
+                        } else {
+                            sap.m.MessageBox.error("Not a valid QR! Please try again with a different QR code.")
+                        }
+                    }
+                }
+            },
+
+            onScanError: function (oEvent) {
+                sap.m.MessageToast.show("Scan failed" + oEvent, { duration: 1000 });
+            },
+
+            checkForValidJSON: function (sScannedValue) {
+                try {
+                    return (JSON.parse(JSON.parse(sScannedValue)) && !!sScannedValue);
+                } catch (e) {
+                    return false;
+                }
             },
 
             // On Submit QR Histroy
             onPressSubmitQRCode: function () {
-                var that = this;
                 this.validateQRCode();
             },
 
             // Validate QR Code
-            validateQRCode: function () {
-                var that = this;
-                var qrCodeId = this.getView().byId("idInputQRCode").getValue();
-                var QRNumberFilter = new sap.ui.model.Filter({
-                    path: "QRNumber",
-                    operator: sap.ui.model.FilterOperator.EQ,
-                    value1: qrCodeId
-                });
+            validateQRCode: function (sQRCode) {
+                this.getView().byId("idQRBtn").setProperty("enabled", false);
+                this.getView().byId("idInvBtn").setProperty("enabled", false);
+                this.getView().byId("idInputQRCode").setProperty("enabled", false);
+                this.getView().byId("idInvoiceNum").setProperty("enabled", false);
 
-                var PACKINGLISTFilter = new sap.ui.model.Filter({
-                    path: "Type",
-                    operator: sap.ui.model.FilterOperator.EQ,
-                    value1: 'PACKINGLIST'
-                });
-                var filter = [];
-                filter.push(QRNumberFilter);
-                filter.push(PACKINGLISTFilter);
-                var sPath = "/QRCodeSet?$filter=QRNumber eq '" + qrCodeId + "' and Type eq 'PACKINGLIST'&$expand=PackingList"
+                var sQRCodeID = this.getView().byId("idInputQRCode").getValue() || sQRCode,
+                    QRNumberFilter = new sap.ui.model.Filter({
+                        path: "QRNumber",
+                        operator: sap.ui.model.FilterOperator.EQ,
+                        value1: sQRCodeID
+                    }),
+                    PACKINGLISTFilter = new sap.ui.model.Filter({
+                        path: "Type",
+                        operator: sap.ui.model.FilterOperator.EQ,
+                        value1: 'PACKINGLIST'
+                    });
 
                 this.MainModel.read("/QRCodeSet", {
-                     urlParameters: {
+                    urlParameters: {
                         "$expand": "PackingList"
                     },
-                    filters: [filter],
-                    success: function (oData, oResponse) {
+                    filters: [QRNumberFilter, PACKINGLISTFilter],
+                    success: function (oData) {
                         if (oData) {
                             if (oData.results.length) {
-                                that.oRouter.navTo("RouteDetailsPage", {
+                                this.oRouter.navTo("RouteDetailsPage", {
                                     RequestId: oData.results[0].PackingList.ID,
                                     Type: "QR"
                                 }, false);
@@ -169,9 +202,9 @@ sap.ui.define([
             },
 
             onPressSubmitInvoiceNumber: function () {
-                var that = this;
                 this.validateInvoiceNumber();
             },
+
             validateInvoiceNumber: function () {
                 var that = this;
 

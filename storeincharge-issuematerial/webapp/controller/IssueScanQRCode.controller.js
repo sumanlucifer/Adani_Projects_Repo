@@ -281,67 +281,42 @@ sap.ui.define([
             });
         },
 
+        //scannner related functions
+        onScanSuccess: function (oEvent) {
+            if (oEvent.getParameter("cancelled")) {
+                sap.m.MessageToast.show("Scan cancelled", { duration: 1000 });
+            } else {
+                var sScannedValue = oEvent.getParameter("text");
+                if (sScannedValue.length > 0) {
+                    var isValid = this.checkForValidJSON(sScannedValue);
+                    if (isValid) {
+                        sap.m.MessageToast.show("Successfully scanned: " + JSON.parse(JSON.parse(sScannedValue)).QRNumber);
+                        this.readJSONEnterQtyModel(JSON.parse(JSON.parse(sScannedValue)).QRNumber);
+                    } else {
+                        sap.m.MessageBox.error("Not a valid QR! Please try again with a different QR code.")
+                    }
+                }
+            }
+        },
+
+        onScanError: function (oEvent) {
+            sap.m.MessageToast.show("Scan failed" + oEvent, { duration: 1000 });
+        },
+
+        checkForValidJSON: function (sScannedValue) {
+            try {
+                return (JSON.parse(JSON.parse(sScannedValue)) && !!sScannedValue);
+            } catch (e) {
+                return false;
+            }
+        },
+
         // On Submit QR Histroy
         onPressSubmitQRCode: function () {
             var that = this;
             var qrCodeId = sap.ui.getCore().byId("idInputQRCode").getValue();
             this.readJSONEnterQtyModel(qrCodeId);
         },
-
-
-        // validateQRCode: function () {
-        //     var that = this;
-        //     var qrCodeId = sap.ui.getCore().byId("idInputQRCode").getValue();
-        //     // var QRNumberFilter = new sap.ui.model.Filter({
-        //     //     path: "QRNumber",
-        //     //     operator: sap.ui.model.FilterOperator.EQ,
-        //     //     value1: qrCodeId
-        //     // });
-
-        //     // var PACKINGLISTFilter = new sap.ui.model.Filter({
-        //     //     path: "Type",
-        //     //     operator: sap.ui.model.FilterOperator.EQ,
-        //     //     value1: 'INNER'
-        //     // });
-        //     // var filter = [];
-        //     // filter.push(QRNumberFilter);
-        //     // filter.push(PACKINGLISTFilter);
-        //     // var sPath = "/QRCodeSet?$filter=QRNumber eq '" + qrCodeId + "' and Type eq 'INNER'&$expand=PackingList"
-        //     // var sPath = "/IssueMaterialQREdmSet"
-
-        //     var aPayload = {
-        //         "QRNumber":qrCodeId
-        //     };
-
-        //     // this.MainModel.create("/IssueMaterialQREdmSet", aPayload, {
-
-        //     this.MainModel.read("/MapQRLineItemSet", aPayload, {
-
-        //     // this.MainModel.create("/IssueMaterialQREdmSet", {
-        //     //     // urlParameters: {
-        //     //     //     "$expand": "PackingList"
-        //     //     // },
-        //     //     filters: [filter],
-        //         success: function (oData, oResponse) {
-        //             if (oData) {
-        //                 // debugger;
-        //                 if (oData) {
-        //                     // sap.m.MessageBox.success("QR Code is valid");
-        //                     this.onQRCodeScanDialogClosePress();
-        //                     this.onEnterQuantity();
-
-        //                 } else {
-        //                     sap.m.MessageBox.error("Please Enter Valid  QR Code");
-        //                 }
-        //             } else {
-        //                 sap.m.MessageBox.error("Please Enter Valid QR Code");
-        //             }
-        //         }.bind(this),
-        //         error: function (oError) {
-        //             sap.m.MessageBox.error(JSON.stringify(oError));
-        //         }
-        //     });
-        // }
 
         onPressDone: function (oEvent) {
             // debugger;
