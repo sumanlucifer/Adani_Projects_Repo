@@ -36,13 +36,13 @@
                 <uxap:snappedTitleOnMobile>
                     <Title text="Packing List Details - {Name}" wrapping="true" titleStyle="Auto"/>
                 </uxap:snappedTitleOnMobile>
-                <uxap:actions>
+                <uxap:actions> 
                 </uxap:actions>
             </uxap:ObjectPageDynamicHeaderTitle>
         </uxap:headerTitle>
         <uxap:headerContent>
             <FlexBox wrap="Wrap" height="100%" renderType="Bare" direction="Column">
-                <HBox >
+                <HBox>
                     <VBox class="sapUiMediumMarginEnd">
                         <FlexBox fitContainer="true" alignItems="Center">
                             <FlexBox items="{path: 'QRCodeId', 
