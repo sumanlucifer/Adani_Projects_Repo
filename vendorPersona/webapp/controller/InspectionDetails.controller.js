@@ -785,7 +785,7 @@ sap.ui.define([
             for (var i = 0; i < ParentData.length; i++) {
                 ParentData[i].results = [];
                 ParentData[i].enable = false;
-                if (i === 0) {
+                if (i === 0 && !ParentData[i].IsInspectionDone) {
                     ParentData[i].isGroup = false;
                     for (var j = 0; j < ParentData[i].BOQItems.results.length; j++) {
                         ParentData[i].results.push(ParentData[i].BOQItems.results[j])

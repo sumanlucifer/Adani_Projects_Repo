@@ -295,7 +295,7 @@ sap.ui.define([
                 var qrcodeID = this.getViewModel().getProperty(sParentItemPath).QRNumber;
                 var aPayload = {
                     "QRNumber": qrcodeID,
-                    "RegeneratedQRId" : 0
+                    "RegeneratedQRId": 0
                 };
                 this.getComponentModel().create("/QuickAccessQRCodeEdmSet", aPayload, {
                     success: function (oData, oResponse) {
@@ -623,7 +623,7 @@ sap.ui.define([
                 });
                 this.getView().setModel(requestModel, "requestModel");
 
-                if (!this._oRequestDialog) {
+                // if (!this._oRequestDialog) {
                     this._oRequestDialog = sap.ui.xmlfragment("com.agel.mmts.unloadmaterial.view.fragments.common.ViewRequestGRNDialog", this);
                     var oDialog = this._oRequestDialog;
                     this.getView().addDependent(oDialog);
@@ -638,49 +638,62 @@ sap.ui.define([
                     });
                     oDialog.setTitle("Request GRN");
                     // return oDialog;
-                }
+               // }
                 this._oRequestDialog.open();
             },
 
-            onDeliveryNoteLiveChange: function (oEvent) {
-                var oPOData = this.getView().getBindingContext().getObject();
-                if (oEvent.getSource().getValue().length)
-                    this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", true);
-                else
-                    this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", false);
-            },
+            // onDeliveryNoteLiveChange: function (oEvent) {
+            //     var oPOData = this.getView().getBindingContext().getObject();
+            //     if (oEvent.getSource().getValue().length)
+            //         this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", true);
+            //     else
+            //         this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", false);
+            // },
 
             onQuantityLiveChange: function (oEvent) {
                 var oGRNData = this.getView().getBindingContext().getObject();
                 if (oEvent.getSource().getValue().length && parseFloat(oEvent.getSource().getValue()) > 0) {
-                    this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", true);
+                    //this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", true);
                     oEvent.getSource().setValueState("None");
                     oEvent.getSource().setValueStateText("");
                 }
                 else {
-                    this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", false);
+                    //this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", false);
                     oEvent.getSource().setValueState("Error");
                     oEvent.getSource().setValueStateText("Weight should be more than 0.");
                 }
 
                 if (parseFloat(oEvent.getSource().getValue()) > parseFloat(oGRNData.TotalWeight) || parseFloat(oEvent.getSource().getValue()) <= 0) {
                     // sap.m.MessageBox.error("Total Packaging Weight should more than 0 and not exceed Total Vendor Entered Weight.");
-                    this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", false);
+                    //this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", false);
                     oEvent.getSource().setValueState("Error");
                     oEvent.getSource().setValueStateText("Weight should be less than total weight.");
                 }
                 else {
-                    this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", true);
+                    //this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", true);
                     oEvent.getSource().setValueState("None");
                     oEvent.getSource().setValueStateText("");
                 }
+                this.fnSetRequestButtonEnableDisable();
             },
 
             onViewChildDialogClose: function (oEvent) {
                 this._oRequestDialog.close();
             },
+
+            fnSetRequestButtonEnableDisable: function () {
+                var sDelivery = this.getViewModel("requestModel").getProperty("/delivery"),
+                    sQuantity = this.getViewModel("requestModel").getProperty("/quantity"),
+                    sBillofLading = this.getViewModel("requestModel").getProperty("/billoflading"),
+                    sReference = this.getViewModel("requestModel").getProperty("/reference"),
+                    sLRNumber = this.getViewModel("requestModel").getProperty("/lrnumber");
+
+                if (sDelivery !== "" && sQuantity !== "" && sBillofLading !== "" && sReference !== "" && sLRNumber !== "")
+                    this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", true);
+                else
+                    this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", false);
+            },
             onRequestPress: function (oEvent) {
-                this._oRequestDialog.close();
                 var sDelivery = this.getViewModel("requestModel").getProperty("/delivery");
                 var sQuantity = this.getViewModel("requestModel").getProperty("/quantity");
                 var sBillofLading = this.getViewModel("requestModel").getProperty("/billoflading");
@@ -689,60 +702,66 @@ sap.ui.define([
                 var sLRNumber = this.getViewModel("requestModel").getProperty("/lrnumber");
                 var oModel = this.getComponentModel(),
                     aGRNItems = this.getView().getModel("requestModel").getProperty("/GRNItems");
-                if (parseInt(sQuantity) > 0) {
-                    if (sDelivery !== null) {
-                        var oPayload = {
-                            "QTY": parseInt(sQuantity),
-                            "DeliveryNote": sDelivery,
-                            "BillOfLading": sBillofLading,
-                            "GatePassNumber": sGatePassNumber,
-                            "LRNumber": sLRNumber,
-                            "Reference": sReference,
-                            "PackingListId": this.getView().getBindingContext().getObject().ID,
-                            "UserName": "Agel_Sep",
-                            "GRNItems": aGRNItems
-                        };
-                    } else {
-                        var oSelectedItemData = this.byId("idGRNTable").getSelectedItem().getBindingContext().getObject();
-
-                        var oPayload = {
-                            "TotalPackagingWeight": parseInt(sQuantity),
-                            "DeliveryNote": sDelivery,
-                            "BillOfLading": sBillofLading,
-                            "GatePassNumber": sGatePassNumber,
-                            "LRNumber": sLRNumber,
-                            "Reference": sReference,
-                            "PackingListId": parseInt(oSelectedItemData.ID),
-                            "UserName": "Agel_Sep",
-                            "GRNItems": aGRNItems
-                        };
-                    }
-                    if (oPayload) {
-                        oModel.create("/GRNEdmSet", oPayload, {
-                            success: function (oData) {
-                                if (oData.Success) {
-                                    MessageBox.success(oData.Message, {
-                                        title: "Success",
-                                        onClose: function (oAction1) {
-                                            if (oAction1 === sap.m.MessageBox.Action.OK) {
-                                                this.getComponentModel().refresh();
-                                                this.onDoItLaterPress();
-                                            }
-                                        }.bind(this)
-                                    });
-                                }
-                                else
-                                    sap.m.MessageBox.error(oData.Message);
-                            }.bind(this),
-                            error: function (oError) {
-                                //MessageBox.error(JSON.stringify(oError));
-                            }
-                        });
-                    }
-                } else {
-                    MessageBox.error("Please enter positive and a non zero number for Quantity")
+                if (aGRNItems.length === 0) {
+                    sap.m.MessageToast.show("Please provide items to request GRN.");
+                    return;
                 }
+                else {
+                    if (parseInt(sQuantity) > 0) {
+                        if (sDelivery !== null) {
+                            var oPayload = {
+                                "QTY": parseInt(sQuantity),
+                                "DeliveryNote": sDelivery,
+                                "BillOfLading": sBillofLading,
+                                "GatePassNumber": sGatePassNumber,
+                                "LRNumber": sLRNumber,
+                                "Reference": sReference,
+                                "PackingListId": this.getView().getBindingContext().getObject().ID,
+                                "UserName": "Agel_Sep",
+                                "GRNItems": aGRNItems
+                            };
+                        } else {
+                            var oSelectedItemData = this.byId("idGRNTable").getSelectedItem().getBindingContext().getObject();
 
+                            var oPayload = {
+                                "TotalPackagingWeight": parseInt(sQuantity),
+                                "DeliveryNote": sDelivery,
+                                "BillOfLading": sBillofLading,
+                                "GatePassNumber": sGatePassNumber,
+                                "LRNumber": sLRNumber,
+                                "Reference": sReference,
+                                "PackingListId": parseInt(oSelectedItemData.ID),
+                                "UserName": "Agel_Sep",
+                                "GRNItems": aGRNItems
+                            };
+                        }
+                        if (oPayload) {
+                            oModel.create("/GRNEdmSet", oPayload, {
+                                success: function (oData) {
+                                    if (oData.Success) {
+                                        MessageBox.success(oData.Message, {
+                                            title: "Success",
+                                            onClose: function (oAction1) {
+                                                if (oAction1 === sap.m.MessageBox.Action.OK) {
+                                                    this.getComponentModel().refresh();
+                                                    this.onDoItLaterPress();
+                                                }
+                                            }.bind(this)
+                                        });
+                                    }
+                                    else
+                                        sap.m.MessageBox.error(oData.Message);
+                                }.bind(this),
+                                error: function (oError) {
+                                   // MessageBox.error(JSON.stringify(oError));
+                                }
+                            });
+                        }
+                    } else {
+                        MessageBox.error("Please enter positive and a non zero number for Quantity")
+                    }
+                    this._oRequestDialog.close();
+                }
             },
 
             // onMapVendorQRSuccess: function (oEvent) {

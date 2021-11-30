@@ -47,7 +47,7 @@ sap.ui.define([
             // get Startup params from Owner Component
             if (startupParams.Kind[0]) {
                 this.type = startupParams.Kind[0];
-                 this.byId("idIconTabBar").setSelectedKey(this.type);
+                this.byId("idIconTabBar").setSelectedKey(this.type);
             }
         },
 
@@ -77,18 +77,18 @@ sap.ui.define([
         // Closed Po Table Before Bind
         onbeforeRebindClosedPoTable: function (oEvent) {
             var mBindingParams = oEvent.getParameter("bindingParams");
-            mBindingParams.filters.push(new Filter("Status", sap.ui.model.FilterOperator.EQ, "CLOSED"));   
+            mBindingParams.filters.push(new Filter("Status", sap.ui.model.FilterOperator.EQ, "CLOSED"));
         },
 
         onRaisedPOTableUpdateFinished: function (oEvent) {
             this.setIconTabCount(oEvent, oEvent.getParameter("total"), "/openCount");
         },
 
-        onInTransitPOTableUpdateFinished: function (oEvent) {                      
+        onInTransitPOTableUpdateFinished: function (oEvent) {
             this.setIconTabCount(oEvent, oEvent.getParameter("total"), "/confirmCount");
         },
 
-        onClosedPOTableUpdateFinished: function (oEvent) {                       
+        onClosedPOTableUpdateFinished: function (oEvent) {
             this.setIconTabCount(oEvent, oEvent.getParameter("total"), "/closedCount");
         },
 
@@ -100,26 +100,26 @@ sap.ui.define([
 
         // On Icon Tab Select
         onIconTabBarChanged: function (sKey) {
-             if (sKey === "RAISED") {
-                 this.byId("pageTitle").setText(this.getResourceBundle().getText("raisedPO"));
-             } else if (sKey === "INPROGRESS") {
-                 this.byId("pageTitle").setText(this.getResourceBundle().getText("inProgressPO"));
-             } else if(sKey === "CLOSED") {
-                 this.byId("pageTitle").setText(this.getResourceBundle().getText("closedPO"));
-             }
+            if (sKey === "RAISED") {
+                this.byId("pageTitle").setText(this.getResourceBundle().getText("raisedPO"));
+            } else if (sKey === "INPROGRESS") {
+                this.byId("pageTitle").setText(this.getResourceBundle().getText("inProgressPO"));
+            } else if (sKey === "CLOSED") {
+                this.byId("pageTitle").setText(this.getResourceBundle().getText("closedPO"));
+            }
         },
 
         // On Icon Tab Select
         onIconTabSelect: function (oEvent) {
-             var sKey = oEvent.getParameter("key");
+            var sKey = oEvent.getParameter("key");
 
-             if (sKey === "RAISED") {
-                 this.byId("pageTitle").setText(this.getResourceBundle().getText("raisedPO"));
-             } else if (sKey === "INPROGRESS") {
-                 this.byId("pageTitle").setText(this.getResourceBundle().getText("inProgressPO"));
-             } else if(sKey === "CLOSED") {
-                 this.byId("pageTitle").setText(this.getResourceBundle().getText("closedPO"));
-             }
+            if (sKey === "RAISED") {
+                this.byId("pageTitle").setText(this.getResourceBundle().getText("raisedPO"));
+            } else if (sKey === "INPROGRESS") {
+                this.byId("pageTitle").setText(this.getResourceBundle().getText("inProgressPO"));
+            } else if (sKey === "CLOSED") {
+                this.byId("pageTitle").setText(this.getResourceBundle().getText("closedPO"));
+            }
         },
 
         //triggers on press of a PO cheveron item from the Flist
@@ -133,9 +133,9 @@ sap.ui.define([
             var sObjectPath = oItem.getBindingContext().sPath;
             var sKey = this.byId("idIconTabBar").getSelectedKey();
             that.getRouter().navTo("RoutePODetailsPage", {
-                    POId: sObjectPath.slice("/PurchaseOrderSet".length),
-                    Type: sKey
-                });
+                POId: sObjectPath.slice("/PurchaseOrderSet".length),
+                Type: sKey
+            });
         },
 
         //Breadcrum pressed

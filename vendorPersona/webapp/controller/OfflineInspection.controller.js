@@ -86,13 +86,16 @@ sap.ui.define([
                     element.ParentLineItemId = element.ID;
                     element.InspectedBOQItemRequests = [];
                     element.BOQApprovedQty = 0;
+                    element.BOQApprovedQtyRemaining = 0;
                     for (var i = 0; i < element.BOQApprovalRequests.results.length; i++) {
                         if (element.BOQApprovalRequests.results[i].Status === 'APPROVED') {
                             element.RejectQuantity = "0";
                             element.HoldQuantity = "0";
                             element.AcceptQuantity = "0";
+                            if (!element.BOQApprovalRequests.results[i].IsInspectionRaised)
+                                element.BOQApprovedQtyRemaining += parseFloat(element.BOQApprovalRequests.results[i].BOQGroup.GeneratedBOQQty);
                             element.BOQApprovedQty += parseFloat(element.BOQApprovalRequests.results[i].BOQGroup.GeneratedBOQQty);
-                            element.InspectionQty = element.BOQApprovedQty;
+                            element.InspectionQty = element.BOQApprovedQtyRemaining;
                         }
                     }
                 });
@@ -105,13 +108,13 @@ sap.ui.define([
             var bSelected = oEvent.getParameter("selected");
             var bSelectAll = oEvent.getParameter("selectAll");
             var aListItems = oEvent.getParameter("listItems"),
-                sBOQQty = parseFloat(oEvent.getParameter("listItem").getCells()[4].getText()),
+                sBOQQty = parseFloat(oEvent.getParameter("listItem").getCells()[5].getText()),
                 fnSetARHQtyEnableDisable = function (bEnabled) {
                     for (var i = 0; i < aListItems.length; i++) {
-                        aListItems[i].getCells()[5].setEnabled(bEnabled);
                         aListItems[i].getCells()[6].setEnabled(bEnabled);
                         aListItems[i].getCells()[7].setEnabled(bEnabled);
                         aListItems[i].getCells()[8].setEnabled(bEnabled);
+                        aListItems[i].getCells()[9].setEnabled(bEnabled);
                     }
                 };
 
@@ -126,16 +129,16 @@ sap.ui.define([
                 fnSetARHQtyEnableDisable(false);
             }
             if (bSelected) {
-                oEvent.getParameter("listItem").getCells()[5].setEnabled(true);
                 oEvent.getParameter("listItem").getCells()[6].setEnabled(true);
                 oEvent.getParameter("listItem").getCells()[7].setEnabled(true);
                 oEvent.getParameter("listItem").getCells()[8].setEnabled(true);
+                oEvent.getParameter("listItem").getCells()[9].setEnabled(true);
 
             } else {
-                oEvent.getParameter("listItem").getCells()[5].setEnabled(true);
-                oEvent.getParameter("listItem").getCells()[6].setEnabled(false);
+                oEvent.getParameter("listItem").getCells()[6].setEnabled(true);
                 oEvent.getParameter("listItem").getCells()[7].setEnabled(false);
                 oEvent.getParameter("listItem").getCells()[8].setEnabled(false);
+                oEvent.getParameter("listItem").getCells()[9].setEnabled(false);
             }
 
             this.setSaveButtonEnabledDisable();
@@ -195,19 +198,19 @@ sap.ui.define([
 
         onLiveChangeInspectionQty: function (oEvent) {
             var InspectQuantity = parseFloat(oEvent.getSource().getValue());
-            oEvent.getSource().getParent().getCells()[6].setEnabled(true);
             oEvent.getSource().getParent().getCells()[7].setEnabled(true);
             oEvent.getSource().getParent().getCells()[8].setEnabled(true);
+            oEvent.getSource().getParent().getCells()[9].setEnabled(true);
             var Quantity = parseFloat(oEvent.getSource().getParent().getCells()[4].getText());
             var oSaveButton = this.getView().byId("idOfflineSaveButton");
 
             if (oEvent.getSource().getValue() === "") {
-                oEvent.getSource().getParent().getCells()[6].setEnabled(false);
                 oEvent.getSource().getParent().getCells()[7].setEnabled(false);
                 oEvent.getSource().getParent().getCells()[8].setEnabled(false);
-                oEvent.getSource().getParent().getCells()[6].setValue("");
+                oEvent.getSource().getParent().getCells()[9].setEnabled(false);
                 oEvent.getSource().getParent().getCells()[7].setValue("");
                 oEvent.getSource().getParent().getCells()[8].setValue("");
+                oEvent.getSource().getParent().getCells()[9].setValue("");
             }
             if (InspectQuantity <= 0) {
                 oEvent.getSource().setValueState("Error");
