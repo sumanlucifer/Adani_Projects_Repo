@@ -78,7 +78,7 @@ sap.ui.define([
                     }.bind(this),
                     error: function (oError) {
                         that.getComponentModel("app").setProperty("/busy", false);
-                        sap.m.MessageBox.Error(JSON.stringify(oError));
+                        //sap.m.MessageBox.Error(JSON.stringify(oError));
                     }
                 });
             },
@@ -102,7 +102,7 @@ sap.ui.define([
                     }.bind(this),
                     error: function (oError) {
                         that.getComponentModel("app").setProperty("/busy", false);
-                        sap.m.MessageBox.Error(JSON.stringify(oError));
+                        //sap.m.MessageBox.Error(JSON.stringify(oError));
                     }
                 });
             },
@@ -181,7 +181,7 @@ sap.ui.define([
                     }.bind(this),
                     error: function (oError) {
                         that.getComponentModel("app").setProperty("/busy", false);
-                        sap.m.MessageBox.Error(JSON.stringify(oError));
+                      //  sap.m.MessageBox.Error(JSON.stringify(oError));
                     }
                 });
             },
@@ -231,7 +231,7 @@ sap.ui.define([
                                 this._arrangeData();
                         }.bind(this, i),
                         error: function (oError) {
-                            sap.m.MessageBox.Error(JSON.stringify(oError));
+                           // sap.m.MessageBox.Error(JSON.stringify(oError));
                         }
                     });
                 }
@@ -451,7 +451,7 @@ sap.ui.define([
                     }.bind(this),
                     error: function (oError) {
                         that.getComponentModel("app").setProperty("/busy", false);
-                        MessageBox.error(JSON.stringify(oError));
+                       // MessageBox.error(JSON.stringify(oError));
                     }
                 });
             },
@@ -479,7 +479,7 @@ sap.ui.define([
                     }.bind(this),
                     error: function (oError) {
                         that.getComponentModel("app").setProperty("/busy", false);
-                        sap.m.MessageBox.Error(JSON.stringify(oError));
+                      //  sap.m.MessageBox.Error(JSON.stringify(oError));
                     }
                 });
             },
@@ -505,7 +505,7 @@ sap.ui.define([
                                 this._arrangeDataView();
                         }.bind(this, i),
                         error: function (oError) {
-                            sap.m.MessageBox.Error(JSON.stringify(oError));
+                           // sap.m.MessageBox.Error(JSON.stringify(oError));
                         }
                     });
                 }

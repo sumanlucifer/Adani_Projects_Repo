@@ -17,3 +17,5 @@ vendorPersona/.env32
 vendor-map-mdcc/.env2
 # auto generated wildcard
 sapui5/regenerate-qr-code/.env2
+# auto generated wildcard
+sapui5/storeincharge-issuematerial/.env1

@@ -78,11 +78,12 @@ sap.ui.define([
         },
 
         onReadDataIssueMaterialParents: function () {
-            var that = this;
             this.getViewModel("objectViewModel").setProperty(
                 "/busy",
                 true
             );
+            var that = this;
+           
 
             that.oIssueMaterialModel = new JSONModel();
             this.MainModel.read("/SONumberDetailsSet(" + that.sObjectId + ")", {
@@ -222,11 +223,12 @@ sap.ui.define([
         },
 
         onSendAssistanceRequestPress: function (oEvent) {
-            var that = this;
             this.getViewModel("objectViewModel").setProperty(
                 "/busy",
                 true
             );
+            var that = this;
+           
             var inputModel = this.getView().getModel("qrAssistantModel");
             var flag = 0;
             if (inputModel.getProperty("/comment") == null || inputModel.getProperty("/comment") == "") {
@@ -303,11 +305,12 @@ sap.ui.define([
             });
         },
         onReadDataIssueMaterials: function () {
-            var that = this;
             this.getViewModel("objectViewModel").setProperty(
                 "/busy",
                 true
             );
+            var that = this;
+            
             var oTable = this.byId("idTblIssueMaterialItems");
             that.oIssueMaterialModel = new JSONModel();
             this.MainModel.read("/SONumberDetailsSet(" + that.sObjectId + ")/IssuedMaterials", {

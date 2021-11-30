@@ -38,7 +38,7 @@
                 <VBox renderType="Bare" class="sapUiMediumMarginEnd">
                     <Label text="{i18n>poNumber}" />
                     <!-- missing -->
-                    <Text text="{PONumber}"/>
+                    <Text id="idPONumber" text="{PONumber}"/>
                 </VBox>
             </FlexBox>
         </uxap:headerContent>

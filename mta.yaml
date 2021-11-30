@@ -15,7 +15,7 @@ modules:
     group: destinations
     properties:
       forwardAuthToken: true
-      timeout: 80000
+      timeout: 300000
       name: AGEL_MMTS_API
       url: https://agel-mmts-api.cfapps.ap11.hana.ondemand.com/
   parameters:

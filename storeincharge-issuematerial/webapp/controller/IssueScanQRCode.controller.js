@@ -130,6 +130,7 @@ sap.ui.define([
         },
 
         onPressScanQR: function (oEvent) {
+
             if (!this._oScannerDialog) {
                 this._oScannerDialog = sap.ui.xmlfragment("com.agel.mmts.storeinchargeissuematerial.view.fragments.common.ScannerFragment", this);
                 this.getView().addDependent(this._oScannerDialog);
@@ -433,7 +434,8 @@ sap.ui.define([
         onPressNavigation: function (id) {
             var that = this;
             that.getRouter().navTo("RaiseIssueUploadDoc", {
-                ID: id
+             ID: id
+              
             });
         }
 

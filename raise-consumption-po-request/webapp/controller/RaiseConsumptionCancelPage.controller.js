@@ -75,11 +75,12 @@ sap.ui.define([
             });
         },
         onReadDataIssueMaterialParents: function () {
-            var that = this;
             this.getViewModel("objectViewModel").setProperty(
                 "/busy",
                 true
             );
+            var that = this;
+         
             that.oIssueMaterialModel = new JSONModel();
             this.MainModel.read("/ConsumptionPostingSet(" + that.sObjectId + ")/ConsumedMaterialParent", {
                 urlParameters: { "$expand": "ConsumptionPostingBOQ" },
