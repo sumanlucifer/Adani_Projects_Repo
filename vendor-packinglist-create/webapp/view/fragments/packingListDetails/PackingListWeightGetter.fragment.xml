@@ -1,7 +1,8 @@
 <core:FragmentDefinition xmlns="sap.m"
     xmlns:l="sap.ui.layout"
     xmlns:f="sap.ui.layout.form"
-    xmlns:core="sap.ui.core">
+    xmlns:core="sap.ui.core"
+    xmlns:scan="sap.ndc">
     <Dialog title="Dispatch Packing List">
         <l:Grid defaultSpan="L12 M12 S12" width="auto">
             <l:content>
@@ -23,6 +24,8 @@
                         </layoutData>
                         </Button>
                         </FlexBox>
+                    <Text text="OR"  visible="{= ${packingListDispatchModel>/isQRConfirmed} ? false : true}"/>
+                    <scan:BarcodeScannerButton id="idQRBtn" scanSuccess="onScanSuccess" scanFail="onScanError" width="10%"  visible="{= ${packingListDispatchModel>/isQRConfirmed} ? false : true}"/>
                     <Label text="Add Total Gross weight of the Packing List in MT" visible="{= ${packingListDispatchModel>/isQRConfirmed}}"></Label>
                     <Input value="{packingListDispatchModel>/weight}" visible="{= ${packingListDispatchModel>/isQRConfirmed}}" type="Number" liveChange="onWeightLiveChange"></Input>
                 </f:SimpleForm>
