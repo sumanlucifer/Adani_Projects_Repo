@@ -40,6 +40,7 @@ sap.ui.define([
 
                 this.MainModel = this.getComponentModel();
                 this.getView().setModel(this.MainModel);
+                this.getViewModel("objectViewModel").setProperty("/serviceUrl",  this.MainModel.sServiceUrl);
 
                 //Router Object
                 this.oRouter = this.getRouter();
@@ -69,10 +70,10 @@ sap.ui.define([
                         dataReceived: function () {
                             objectViewModel.setProperty("/busy", false);
                             // that.readGRNS(sObjectPath + "/GRNS");
-                            var documentResult = that.getDocumentData();
-                            documentResult.then(function (result) {
-                                that.PrintDocumentService(result);
-                            });
+                            // var documentResult = that.getDocumentData();
+                            // documentResult.then(function (result) {
+                            //     that.PrintDocumentService(result);
+                            // });
                         }
                     }
                 });
@@ -92,100 +93,100 @@ sap.ui.define([
 
             },
 
-            getDocumentData: function () {
-                var promise = jQuery.Deferred();
-                this.getViewModel("objectViewModel").setProperty(
-                    "/busy",
-                    true
-                );
-                var that = this;
-                var oView = this.getView();
-                var oDataModel = oView.getModel();
-                //console.log(oPayLoad);
-                return new Promise((resolve, reject) => {
-                    // this.getOwnerComponent().getModel().read("/PackingListSet(" + this.packingListId + ")/Attachments", {
-                    this.getOwnerComponent().getModel().read("/PackingListSet" + this.RequestId + "/Attachments", {
-                        success: function (oData) {
-                            this.getViewModel("objectViewModel").setProperty(
-                                "/busy",
-                                false
-                            );
-                            var oJSONData = {
-                                PL_Material: [],
-                                PL_Invoice: [],
-                                PL_Others: []
-                            };
-                            // oData.results.forEach((oItem) => {
-                            //     if(oItem.Type === 'PACKING_LIST' && oItem.SubType === 'MATERIAL' )
-                            //         oJSONData.PL_Material.push(oItem);
-                            //     else if(oItem.Type === 'PACKING_LIST' && oItem.SubType === 'INVOICE' )
-                            //         oJSONData.PL_Invoice.push(oItem);
-                            //     else if(oItem.Type === 'PACKING_LIST' && oItem.SubType === 'OTHERS' )
-                            //         oJSONData.PL_Others.push(oItem);
-                            // } );
-                            var DocumentModel = new JSONModel(oJSONData);
-                            that.getView().setModel(DocumentModel, "DocumentModel");
-                            resolve(oData.results);
-                        }.bind(this),
-                        error: function (oError) {
-                            this.getViewModel("objectViewModel").setProperty(
-                                "/busy",
-                                false
-                            );
-                           // sap.m.MessageBox.error(JSON.stringify(oError));
-                        }.bind(this),
-                    });
-                });
-            },
-            PrintDocumentService: function (result) {
-                var that = this;
-                var oView = this.getView();
-                var oDataModel = oView.getModel();
-                var aRequestID = result.map(function (item) {
-                    return {
-                        RequestNo: item.RequestNo
-                    };
-                });
-                that.aResponsePayload = [];
-                aRequestID.forEach((reqID) => {
-                    that.aResponsePayload.push(that.callPrintDocumentService(reqID))
-                })
-                result.forEach((item) => {
-                    var sContent = that.callPrintDocumentService({
-                        RequestNo: item.RequestNo
-                    })
-                    sContent.then(function (oVal) {
-                        item.Content = oVal.Bytes;
-                        if (item.Type === 'PACKING_LIST' && item.SubType === 'MATERIAL')
-                            that.getViewModel("DocumentModel").getProperty("/PL_Material").push(item);
-                        else if (item.Type === 'PACKING_LIST' && item.SubType === 'INVOICE')
-                            that.getViewModel("DocumentModel").getProperty("/PL_Invoice").push(item);
-                        else if (item.Type === 'PACKING_LIST' && item.SubType === 'OTHERS')
-                            that.getViewModel("DocumentModel").getProperty("/PL_Others").push(item);
+            // getDocumentData: function () {
+            //     var promise = jQuery.Deferred();
+            //     this.getViewModel("objectViewModel").setProperty(
+            //         "/busy",
+            //         true
+            //     );
+            //     var that = this;
+            //     var oView = this.getView();
+            //     var oDataModel = oView.getModel();
+            //     //console.log(oPayLoad);
+            //     return new Promise((resolve, reject) => {
+            //         // this.getOwnerComponent().getModel().read("/PackingListSet(" + this.packingListId + ")/Attachments", {
+            //         this.getOwnerComponent().getModel().read("/PackingListSet" + this.RequestId + "/Attachments", {
+            //             success: function (oData) {
+            //                 this.getViewModel("objectViewModel").setProperty(
+            //                     "/busy",
+            //                     false
+            //                 );
+            //                 var oJSONData = {
+            //                     PL_Material: [],
+            //                     PL_Invoice: [],
+            //                     PL_Others: []
+            //                 };
+            //                 // oData.results.forEach((oItem) => {
+            //                 //     if(oItem.Type === 'PACKING_LIST' && oItem.SubType === 'MATERIAL' )
+            //                 //         oJSONData.PL_Material.push(oItem);
+            //                 //     else if(oItem.Type === 'PACKING_LIST' && oItem.SubType === 'INVOICE' )
+            //                 //         oJSONData.PL_Invoice.push(oItem);
+            //                 //     else if(oItem.Type === 'PACKING_LIST' && oItem.SubType === 'OTHERS' )
+            //                 //         oJSONData.PL_Others.push(oItem);
+            //                 // } );
+            //                 var DocumentModel = new JSONModel(oJSONData);
+            //                 that.getView().setModel(DocumentModel, "DocumentModel");
+            //                 resolve(oData.results);
+            //             }.bind(this),
+            //             error: function (oError) {
+            //                 this.getViewModel("objectViewModel").setProperty(
+            //                     "/busy",
+            //                     false
+            //                 );
+            //                // sap.m.MessageBox.error(JSON.stringify(oError));
+            //             }.bind(this),
+            //         });
+            //     });
+            // },
+            // PrintDocumentService: function (result) {
+            //     var that = this;
+            //     var oView = this.getView();
+            //     var oDataModel = oView.getModel();
+            //     var aRequestID = result.map(function (item) {
+            //         return {
+            //             RequestNo: item.RequestNo
+            //         };
+            //     });
+            //     that.aResponsePayload = [];
+            //     aRequestID.forEach((reqID) => {
+            //         that.aResponsePayload.push(that.callPrintDocumentService(reqID))
+            //     })
+            //     result.forEach((item) => {
+            //         var sContent = that.callPrintDocumentService({
+            //             RequestNo: item.RequestNo
+            //         })
+            //         sContent.then(function (oVal) {
+            //             item.Content = oVal.Bytes;
+            //             if (item.Type === 'PACKING_LIST' && item.SubType === 'MATERIAL')
+            //                 that.getViewModel("DocumentModel").getProperty("/PL_Material").push(item);
+            //             else if (item.Type === 'PACKING_LIST' && item.SubType === 'INVOICE')
+            //                 that.getViewModel("DocumentModel").getProperty("/PL_Invoice").push(item);
+            //             else if (item.Type === 'PACKING_LIST' && item.SubType === 'OTHERS')
+            //                 that.getViewModel("DocumentModel").getProperty("/PL_Others").push(item);
 
-                        that.getViewModel("DocumentModel").refresh();
-                    });
-                });
-            },
-            callPrintDocumentService: function (reqID) {
-                var promise = jQuery.Deferred();
-                var othat = this;
-                var oView = this.getView();
-                var oDataModel = oView.getModel();
-                //console.log(oPayLoad);
-                // reqID.RequestNo = 'REQ00001'                  // For testing only, Comment for production
-                return new Promise((resolve, reject) => {
-                    oDataModel.create("/PrintDocumentEdmSet", reqID, {
-                        success: function (data) {
-                            // debugger;
-                            resolve(data);
-                        },
-                        error: function (data) {
-                            reject(data);
-                        },
-                    });
-                });
-            },
+            //             that.getViewModel("DocumentModel").refresh();
+            //         });
+            //     });
+            // },
+            // callPrintDocumentService: function (reqID) {
+            //     var promise = jQuery.Deferred();
+            //     var othat = this;
+            //     var oView = this.getView();
+            //     var oDataModel = oView.getModel();
+            //     //console.log(oPayLoad);
+            //     // reqID.RequestNo = 'REQ00001'                  // For testing only, Comment for production
+            //     return new Promise((resolve, reject) => {
+            //         oDataModel.create("/PrintDocumentEdmSet", reqID, {
+            //             success: function (data) {
+            //                 // debugger;
+            //                 resolve(data);
+            //             },
+            //             error: function (data) {
+            //                 reject(data);
+            //             },
+            //         });
+            //     });
+            // },
 
             readGRNS: function (sPath) {
                 this.getViewModel("objectViewModel").setProperty(

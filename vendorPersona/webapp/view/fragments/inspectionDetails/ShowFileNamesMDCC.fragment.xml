@@ -4,7 +4,7 @@
 	<Dialog contentHeight="50%" contentWidth="50%" >
 		<content>
 			<VBox id="idMDCCUploadArea">
-				<!-- <UploadCollection id="idMDCCUploader" maximumFilenameLength="55" maximumFileSize="10" 
+				<UploadCollection id="idMDCCUploader" maximumFilenameLength="55" maximumFileSize="10" 
                      multiple="true"
                     items="{ path:'Attachments',
                                 parameters : {
@@ -13,8 +13,7 @@
                                 templateShareable: false}" 
                     mode="None" uploadButtonInvisible="true">
 					<items>
-						<UploadCollectionItem documentId="{ID}" url="{parts: ['FileName','file'], 
-                                        formatter: '.formatter.fileContent' }" 
+						<UploadCollectionItem documentId="{ID}" url="{objectViewModel>/serviceUrl}{DocURL}" 
                                         enableEdit="false" enableDelete="false" visibleDelete="false" 
                                         visibleEdit="false" fileName="{FileName}">
 							<attributes>
@@ -25,8 +24,8 @@
                             </attributes>
 						</UploadCollectionItem>
 					</items>
-                </UploadCollection> -->
-                <UploadCollection id="idOtherFileUploader" maximumFilenameLength="55" maximumFileSize="10" multiple="true" items="{
+                </UploadCollection>
+                <!-- <UploadCollection id="idOtherFileUploader" maximumFilenameLength="55" maximumFileSize="10" multiple="true" items="{
                                     path:'DocumentModel>/MDCC',
                                     templateShareable: false}" mode="None" uploadButtonInvisible="true" instantUpload="false">
                                 <items>
@@ -44,7 +43,7 @@
                                         </attributes>
                                     </UploadCollectionItem>
                                 </items>
-                            </UploadCollection>
+                            </UploadCollection> -->
 			</VBox>
 		</content>
 		<endButton>
