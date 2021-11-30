@@ -476,11 +476,13 @@ sap.ui.define([
 
                 var SubType = "INVOICE";
                 var Type = "PACKING_LIST";
+                var fileType = oFiles[0].type;
+                fileType = fileType === "application/pdf" ? "application/pdf" : "application/octet-stream";
                 for (var i = 0; i < oFiles.length; i++) {
                     var fileName = oFiles[i].name;
                     var fileSize = oFiles[i].size;
                     this._getImageData(URL.createObjectURL(oFiles[0]), function (base64) {
-                        that._addData(base64, fileName, SubType, Type, fileSize);
+                        that._addData(base64, fileName, SubType, Type, fileSize, fileType);
                     }, fileName);
                 }
             },
@@ -489,13 +491,16 @@ sap.ui.define([
                 // keep a reference of the uploaded file
                 var that = this;
                 var oFiles = oEvent.getParameters().files;
+                this.oFiles = oFiles;
                 var SubType = "MATERIAL";
                 var Type = "PACKING_LIST";
+                var fileType = oFiles[0].type;
+                fileType = fileType === "application/pdf" ? "application/pdf" : "application/octet-stream";
                 for (var i = 0; i < oFiles.length; i++) {
                     var fileName = oFiles[i].name;
                     var fileSize = oFiles[i].size;
                     this._getImageData(URL.createObjectURL(oFiles[i]), function (base64) {
-                        that._addData(base64, fileName, SubType, Type, fileSize);
+                        that._addData(base64, fileName, SubType, Type, fileSize, fileType);
                     }, fileName);
                 }
             },
@@ -504,13 +509,17 @@ sap.ui.define([
                 // keep a reference of the uploaded file
                 var that = this
                 var oFiles = oEvent.getParameters().files;
+                this.oFiles = oFiles;
                 var SubType = "OTHERS";
                 var Type = "PACKING_LIST";
+
+                var fileType = oFiles[0].type;
+                fileType = fileType === "application/pdf" ? "application/pdf" : "application/octet-stream";
                 for (var i = 0; i < oFiles.length; i++) {
                     var fileName = oFiles[i].name;
                     var fileSize = oFiles[i].size;
                     this._getImageData(URL.createObjectURL(oFiles[i]), function (base64) {
-                        that._addData(base64, fileName, SubType, Type, fileSize);
+                        that._addData(base64, fileName, SubType, Type, fileSize, fileType);
                     }, fileName);
                 }
             },
@@ -551,15 +560,20 @@ sap.ui.define([
                 xhr.send();
             },
 
-            _addData: function (data, fileName, SubType, Type, fileSize) {
-                var that = this,
+            _addData: function (data, fileName, SubType, Type, fileSize, fileType) {
                 this.getViewModel("objectViewModel").setProperty(
                     "/busy",
                     true
                 );
+                var that = this,
+                
                     oViewContext = this.getView().getBindingContext().getObject();
                 var oPackingListData = this.mainModel.getData("/PackingListSet(" + this.packingListId + "l)");
                 var sPONumber = oPackingListData.PONumber;
+
+
+
+
                 var documents = {
                     "Documents": [
                         {
@@ -567,17 +581,18 @@ sap.ui.define([
                             "Type": Type,
                             "SubType": SubType,
                             "FileName": fileName,
-                            "Content": data,
-                            "ContentType": "application/pdf",
+                            "ContentType": fileType,
                             "UploadedBy": "vendor-1",
                             "FileSize": fileSize,
-                            "PONumber": sPONumber
+                            "PONumber": sPONumber,
+                            "CompanyCode": null
                         }
                     ]
                 };
 
                 this.mainModel.create("/DocumentUploadEdmSet", documents, {
                     success: function (oData, oResponse) {
+                        this._updateDocumentService(oData.ID, fileType);
                         this.getViewModel("objectViewModel").setProperty(
                             "/busy",
                             false
@@ -598,6 +613,31 @@ sap.ui.define([
 
 
             },
+
+            _updateDocumentService: function (ID, fileType) {
+                var that = this;
+                var file = this.oFiles;
+                var serviceUrl = `/AGEL_MMTS_API/api/v2/odata.svc/DocumentUploadEdmSet(${ID})/$value`
+                var sUrl = serviceUrl;
+                jQuery.ajax({
+                    method: "PUT",
+                    headers: {
+                        'Content-Type': 'application/octet-stream'
+                    },
+                    url: sUrl,
+                    cache: false,
+                    contentType: fileType,
+                    processData: false,
+                    data: file[0],
+                    success: function (data) {
+                        console.log("success");
+                    },
+                    error: function () {
+                        console.log("failure");
+                    },
+                });
+            },
+    
 
             onDeleteDocumentPress: function (oEvent) {
                 this.getViewModel("objectViewModel").setProperty(

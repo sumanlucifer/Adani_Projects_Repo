@@ -65,11 +65,12 @@ sap.ui.define([
         },
         getDocumentData: function () {
             var promise = jQuery.Deferred();
-            var that = this;
             this.getViewModel("objectViewModel").setProperty(
                 "/busy",
                 true
             );
+            var that = this;
+          
             var oView = this.getView();
             var oDataModel = oView.getModel();
             //console.log(oPayLoad);

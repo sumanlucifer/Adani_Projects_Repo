@@ -438,11 +438,12 @@ sap.ui.define([
 
             onRejectPress: function (oEvent) {
                 // debugger;
-                var that = this;
                 this.getViewModel("objectViewModel").setProperty(
                     "/busy",
                     true
                 );
+                var that = this;
+                
                 if (this.getView().getBindingContext().getObject().ID.length) {
                     var PackingListId = this.byId("vBoxid").getBindingContext().getObject().ID;
                     var userName = "Agel_July";

@@ -21,6 +21,7 @@ sap.ui.define([
             //Router Object
             this.oRouter = this.getRouter();
             this.oRouter.getRoute("RouteCreateOfflineInspection").attachPatternMatched(this._onObjectMatched, this);
+            this.MainModel = this.getOwnerComponent().getModel();
 
             //view model instatiation
             var oViewModel = new JSONModel({
@@ -63,7 +64,7 @@ sap.ui.define([
                     this._prepareDataForView(data);
                 }.bind(this),
                 error: function (oError) {
-                    sap.m.MessageBox.error(JSON.stringify(oError));
+                   // sap.m.MessageBox.error(JSON.stringify(oError));
                 }
             })
         },
@@ -431,7 +432,7 @@ sap.ui.define([
                 "PurchaseOrderId": oBindingContextData.ID,
                 "Comment": creationModelData.Comment,
                 "InspectedParentLineItemRequests": aInspectedParentLineItem,
-                "Documents": creationModelData.items,
+                "Documents": null,
                 "RaisedOfflineInspectionDate": creationModelData.RaisedInspectionDate
             };
             this.getViewModel("objectViewModel").setProperty("/busy", true);
@@ -481,15 +482,27 @@ sap.ui.define([
 
         onAttachmentChange: function (oEvent) {
             // keep a reference of the uploaded file
+            
+            var rowObj = oEvent.getSource().getBindingContext().getObject();
             var that = this
             var oFiles = oEvent.getParameters().files;
             var SubType = "inpsection_doc";
             var Type = "INSPECTION";
+
+            this.oFiles = oFiles;
+            var fileName = oFiles[0].name;
+
+            var fileType = oFiles[0].type;
+
+            fileType = fileType === "application/pdf" ? "application/pdf" : "application/octet-stream";
+
+
+            var fileSize = oFiles[0].size;
             for (var i = 0; i < oFiles.length; i++) {
                 var fileName = oFiles[i].name;
                 var fileSize = oFiles[i].size;
                 this._getImageData(URL.createObjectURL(oFiles[i]), function (base64) {
-                    that._addData(base64, fileName, SubType, Type, fileSize);
+                    that._addData(base64, fileName, fileType, fileSize, rowObj, oFiles);
                 }, fileName);
             }
         },
@@ -530,36 +543,112 @@ sap.ui.define([
             xhr.send();
         },
 
-        _addData: function (data, fileName, SubType, Type, fileSize) {
-            var that = this,
-                oViewContext = this.getView().getBindingContext().getObject();
+        // _addData1: function (data, fileName, SubType, Type, fileSize) {
+        //     var that = this,
+        //         oViewContext = this.getView().getBindingContext().getObject();
 
-            // var document = {
-            //     "Type": "INSPECTION",
-            //     "SubType": "inpsection_doc",
-            //     "FileName": fileName,
-            //     "Content": data.split(",")[1],
-            //     "ContentType": "application/pdf",
-            //     "UploadedBy": "vendor-1",
-            //     "FileSize": fileSize
-            // };
+        //     // var document = {
+        //     //     "Type": "INSPECTION",
+        //     //     "SubType": "inpsection_doc",
+        //     //     "FileName": fileName,
+        //     //     "Content": data.split(",")[1],
+        //     //     "ContentType": "application/pdf",
+        //     //     "UploadedBy": "vendor-1",
+        //     //     "FileSize": fileSize
+        //     // };
 
-            var document =
-            {
-                "Type": "INSPECTION",
-                "ContentType": "application/pdf",
-                "FileName": fileName,
-                "Content": data,
-                "UploadedBy": "vendor-1",
-                "FileSize": fileSize,
-                "SubType": "inpsection_doc",
-                "UploadTypeId": "1",
-                "PONumber": null,
-                "CompanyCode": "123"
+        //     var document =
+        //     {
+        //         "Type": "INSPECTION",
+        //         "ContentType": "application/pdf",
+        //         "FileName": fileName,
+        //         "Content": data,
+        //         "UploadedBy": "vendor-1",
+        //         "FileSize": fileSize,
+        //         "SubType": "inpsection_doc",
+        //         "UploadTypeId": "1",
+        //         "PONumber": null,
+        //         "CompanyCode": "123"
+        //     };
+
+        //     this.getView().getModel("localAttachmentModel").getData().items.push(document);
+        // },
+
+        _addData: function (base64, fileName, fileType, fileSize, rowObj, oFiles) {
+            this.getViewModel("objectViewModel").setProperty(
+                "/busy",
+                true
+            );
+
+
+            var sPONumber = this.getView().byId("idPONumber").getText();;
+         
+            var documents = {
+                "Documents": [
+                    {
+                        "Type": "MDCC",
+                        "ContentType": fileType,
+                        "FileName": fileName,
+                        "UploadedBy": "AGEL",
+                        "FileSize": fileSize,
+                        "SubType": "",
+                        "UploadTypeId": rowObj.ID,
+                        "PONumber": sPONumber,
+                        "CompanyCode": null
+                    }
+                ]
             };
+            
+            var sPath = "/DocumentUploadEdmSet"
+            this.MainModel.create(sPath, documents, {
+                success: function (oData, oResponse) {
+                    this.getViewModel("objectViewModel").setProperty(
+                        "/busy",
+                        false
+                    );
 
-            this.getView().getModel("localAttachmentModel").getData().items.push(document);
+                    sap.m.MessageToast.show("MDCC Details Uploaded!");
+                    this.getView().getModel().refresh();
+                    this._updateDocumentService(oData.ID, fileType);
+                    //   this.getView().getModel("ManageMDCCModel").getData().MDCCItems[rowId].MapItems = true;
+                    //   this.getView().getModel("ManageMDCCModel").refresh();
+                }.bind(this),
+                error: function (oError) {
+                    this.getViewModel("objectViewModel").setProperty(
+                        "/busy",
+                        false
+                    );
+
+                   // sap.m.MessageBox.error("Error uploading document");
+                }
+            });
         },
+
+
+        _updateDocumentService: function (ID, fileType) {
+            var that = this;
+            var file = this.oFiles;
+            var serviceUrl = `/AGEL_MMTS_API/api/v2/odata.svc/DocumentUploadEdmSet(${ID})/$value`
+            var sUrl = serviceUrl;
+            jQuery.ajax({
+                method: "PUT",
+                headers: {
+                    'Content-Type': 'application/octet-stream'
+                },
+                url: sUrl,
+                cache: false,
+                contentType: fileType,
+                processData: false,
+                data: file[0],
+                success: function (data) {
+                    console.log("success");
+                },
+                error: function () {
+                    console.log("failure");
+                },
+            });
+        },
+
 
         onFileSizeExceed: function () {
             MessageBox.error("File size exceeded, Please upload file upto 10MB.");

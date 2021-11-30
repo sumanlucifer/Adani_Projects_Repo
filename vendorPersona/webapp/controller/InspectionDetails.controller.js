@@ -521,7 +521,7 @@ sap.ui.define([
             var that = this;
             var rowId = oEvent.getSource().getParent().getParent().getBindingContextPath().split('/').pop();
             var rowObj = oEvent.getSource().getBindingContext().getObject();
-            BusyIndicator.show();
+
             var oFiles = oEvent.getParameters().files;
             this.oFiles = oFiles;
             var fileName = oFiles[0].name;
@@ -537,26 +537,14 @@ sap.ui.define([
             }, fileName);
         },
         _addData: function (data, fileName, fileType, fileSize, rowId, rowObj) {
-            var that = this;
             this.getViewModel("objectViewModel").setProperty(
                 "/busy",
                 true
             );
+            var that = this;
+
             var sPONumber = this.getView().byId("idPONumber").getText();;
-            // var documents = {
-            //     "Documents": [
-            //         {
-            //             "UploadTypeId": rowObj.ID, // MDCC Id
-            //             "Type": "MDCC",
-            //             "SubType": "",
-            //             "FileName": fileName,
-            //             "Content": data, // base - 64 (Type)
-            //             "ContentType": fileType, // application/pdf text/csv
-            //             "UploadedBy": rowObj.UpdatedBy ? rowObj.UpdatedBy : "vendor1",
-            //             "FileSize": fileSize
-            //         }
-            //     ]
-            // };
+         
             var documents = {
                 "Documents": [
                     {
