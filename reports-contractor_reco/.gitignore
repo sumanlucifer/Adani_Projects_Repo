@@ -8,20 +8,3 @@ mta-*
 resources
 archive.zip
 .*_mta_build_tmp
-
-# auto generated wildcard
-pmcg/.env1
-# auto generated wildcard
-vendorPersona/.env32
-# auto generated wildcard
-vendor-map-mdcc/.env2
-# auto generated wildcard
-sapui5/regenerate-qr-code/.env2
-# auto generated wildcard
-sapui5/storeincharge-issuematerial/.env1
-# auto generated wildcard
-sapui5/pmcg/.env1
-# auto generated wildcard
-sapui5/pmcg/.env2
-# auto generated wildcard
-sapui5/security-scan-history/.env1
