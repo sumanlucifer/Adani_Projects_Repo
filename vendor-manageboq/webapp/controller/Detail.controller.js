@@ -20,7 +20,7 @@ sap.ui.define([
                 this.UserEmail = sap.ushell.Container.getService("UserInfo").getEmail();
             }
             catch (e) {
-                this.UserEmail = 'mukesh.gupta@extentia.com';
+                this.UserEmail = 'suraj.gavane@extentia.com';
             }
             //view model instatiation
             var oViewModel = new JSONModel({
@@ -72,6 +72,7 @@ sap.ui.define([
         _bindView: function (sObjectPath) {
             var objectViewModel = this.getViewModel("objectViewModel");
             var that = this;
+            this.getView().unbindElement();
             this.getView().bindElement({
                 path: sObjectPath,
                 events: {
@@ -82,22 +83,37 @@ sap.ui.define([
                         objectViewModel.setProperty("/busy", false);
                         objectViewModel.setProperty("/MaterialCode", oData.getParameter("data").MaterialCode);
                         that.setStandalone();
+                    },
+                    change: function(oData){
+                        var sMatCode= that.getView().getBindingContext().getObject().MaterialCode;
+                        that.getViewModel("objectViewModel").setProperty("/MaterialCode", sMatCode);
+                        that.setStandalone();
                     }
                 }
             });
-            that.setStandalone();
         },
         setStandalone: function () {
-            try{
-            var bIsBOQAppicable = this.getViewModel().getProperty("/ParentLineItemSet" + this.sParentID).IsBOQApplicable;
+            try {
+                var bIsBOQAppicable = this.getViewModel().getProperty("/ParentLineItemSet" + this.sParentID).IsBOQApplicable;
             }
-            catch(e){
+            catch (e) {
                 bIsBOQAppicable = null;
             }
             if (bIsBOQAppicable === false)
                 this.getViewModel("objectViewModel").setProperty("/noParentChildRelationFlag", true);
             else
                 this.getViewModel("objectViewModel").setProperty("/noParentChildRelationFlag", false);
+
+            // try {
+            //     var sMatCode = this.getViewModel("objectViewModel").getProperty("/MaterialCode");
+            //     if (!sMatCode) {
+            //         sMatCode = this.getView().getBindingContext().getObject().MaterialCode;
+            //         this.getViewModel("objectViewModel").setProperty("/MaterialCode", sMatCode);
+            //     }
+            // }
+            // catch (e) {
+            //     sMatCode = null;
+            // }
         },
         setCreatePCListVisiblity: function (oEvent) {
             var iPCListCount = oEvent.getSource().getBinding("items").getLength();

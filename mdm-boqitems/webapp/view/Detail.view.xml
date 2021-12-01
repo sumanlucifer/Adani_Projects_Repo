@@ -98,12 +98,7 @@
                                                         visible="{= ${objectViewModel>/idSFEdit}===true?true:false}"
                                                         items="{
                                                             path: '/MasterMaterialSet',
-                                                            templateShareable:false,
-                                                            filters: [{
-                                                                path: 'IsParent',
-                                                                operator: 'EQ',
-                                                                value1: true
-                                                                }]
+                                                            templateShareable:false
                                                         }">
                                                         <core:ListItem key="{ID}" text="{Description}"  additionalText="{MaterialCode}"/>
                                                     </ComboBox>
@@ -158,20 +153,17 @@
                                     <items>
                                         <ColumnListItem>
                                             <cells>
-                                                <ComboBox value="{MasterParentsModel>ParentMaterialCode}"
+                                                <ComboBox value="{MasterParentsModel>ParentMaterialCode}" 
+                                                    editable="{= ${MasterParentsModel>NewlyAddedItem} ? true : false}"
                                                     selectedKey="{MasterParentsModel>MasterMaterialId}"
                                                     selectionChange="handleParentChange" showSecondaryValues= "true"
                                                     items="{
-                                                        path: '/MasterMaterialSet',
-                                                        filters: [{
-                                                            path: 'IsParent',
-                                                            operator: 'EQ',
-                                                            value1: true
-                                                            }]
-                                                    }">
+                                                        path: '/MasterMaterialSet'
+                                                            }">
                                                     <core:ListItem key="{ID}" text="{Description}"  additionalText="{MaterialCode}"/>
                                                 </ComboBox>
-                                                <Input value="{MasterParentsModel>BaseQty}"/>
+                                                <Input value="{MasterParentsModel>BaseQty}"  editable="{= ${MasterParentsModel>NewlyAddedItem} ? true : false}"
+/>
                                             </cells>
                                         </ColumnListItem>
                                     </items>
