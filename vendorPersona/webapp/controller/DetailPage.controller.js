@@ -18,7 +18,7 @@ sap.ui.define([
                 this.UserEmail = sap.ushell.Container.getService("UserInfo").getEmail();
             }
             catch (e) {
-                this.UserEmail = 'mukesh.gupta@extentia.com';
+                this.UserEmail = 'suraj.gavane@extentia.com';
             }
             //Router Object
             this.oRouter = this.getRouter();
