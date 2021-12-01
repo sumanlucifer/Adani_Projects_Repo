@@ -152,7 +152,7 @@ sap.ui.define([
                         var items = { selectedItems: [selectedKeys] }
                         this.getView().getModel("oSelectedKeyModel").setData(items);
                     }
-                    else{
+                    else {
                         var items = { selectedItems: [] }
                         this.getView().getModel("oSelectedKeyModel").setData(items);
                     }
@@ -166,9 +166,10 @@ sap.ui.define([
                                 "BaseQty": aMasterMaterialData[i].BaseQty
                             });
                         }
+                        this.aMasterParents = JSON.stringify(aMasterParents);
                         this.getView().getModel("MasterParentsModel").setData(aMasterParents);
                         this.getView().getModel("MasterParentsModel").refresh();
-                    }else{
+                    } else {
                         this.getView().getModel("MasterParentsModel").setData([]);
                     }
 
@@ -245,9 +246,10 @@ sap.ui.define([
                         if (oAction == "YES") {
                             this.getComponentModel("app").setProperty("/busy", true);
                             this.mainModel.create("/MasterBoQItemSet", oPayload, {
-                                success: function (oData, oResponse) {
+                                success: function (oData) {
                                     MessageBox.success(this.getResourceBundle().getText("BOQitemcreatedsuccessfully"));
-                                    this.onCancel();
+                                    // this.getView().getModel().refresh();
+                                    this.fnResetViewSettings();
                                     this.getComponentModel("app").setProperty("/busy", false);
                                 }.bind(this),
                                 error: function (oError) {
@@ -265,7 +267,7 @@ sap.ui.define([
                 that.mainModel.update(sPath, oPayload, {
                     success: function (oData, oResponse) {
                         MessageBox.success(this.getResourceBundle().getText("BOQitemupdatedsuccessfully"));
-                        that.onCancel();
+                        that.fnResetViewSettings();
                         that.getComponentModel("app").setProperty("/busy", false);
                     }.bind(this),
                     error: function (oError) {
@@ -276,7 +278,7 @@ sap.ui.define([
             }
         },
 
-        onCancel: function () {
+        fnResetViewSettings: function () {
             this.getViewModel("objectViewModel").setProperty("/idBtnEdit", true);
             this.getViewModel("objectViewModel").setProperty("/idBtnSave", false);
             this.getViewModel("objectViewModel").setProperty("/idBtnCancel", false);
@@ -292,6 +294,12 @@ sap.ui.define([
                     false
                 );
             }
+        },
+
+        onCancel: function () {
+            this.fnResetViewSettings();
+            this.getView().getModel("MasterParentsModel").setData(JSON.parse(this.aMasterParents));
+            this.getView().getModel("MasterParentsModel").refresh();
         },
 
         // On Delete //
@@ -311,13 +319,13 @@ sap.ui.define([
                         that.mainModel.remove(sPath, {
                             success: function (oData, oResponse) {
                                 MessageBox.success(this.getResourceBundle().getText("UOMitemdeletedsuccessfully"));
-                                that.onCancel();
+                                that.fnResetViewSettings();
                                 that.onNavigateToMaster();
                                 that.getComponentModel("app").setProperty("/busy", false);
                             }.bind(this),
                             error: function (oError) {
                                 that.getComponentModel("app").setProperty("/busy", false);
-                               // MessageBox.error(JSON.stringify(oError));
+                                // MessageBox.error(JSON.stringify(oError));
                             }
                         });
                     }
@@ -335,8 +343,7 @@ sap.ui.define([
         onAddParentPress: function () {
             var oMasterMaterialData = {
                 "MasterMaterialId": null,
-                // "ParentMaterialCode": null,
-                // "MasterParentId": null,
+                "NewlyAddedItem": true,
                 "BaseQty": 0
             },
                 aMasterParents = this.getView().getModel("MasterParentsModel").getProperty("/");
@@ -353,16 +360,13 @@ sap.ui.define([
             if (oEvent.getParameter("selectedItem")) {
                 oEvent.getSource().setValueState("None");
                 var sMaterialId = oEvent.getParameter("selectedItem").getBindingContext().getObject().ID;
-                // sMaterialCode = oEvent.getParameter("selectedItem").getBindingContext().getObject().MaterialCode;
 
                 oItemObj.MasterMaterialId = sMaterialId;
-                // oItemObj.ParentMaterialCode = sMaterialCode;
 
                 this.getView().getModel("MasterParentsModel").setProperty(sItemPath, oItemObj);
             }
             else {
                 oItemObj.MasterMaterialId = null;
-                // oItemObj.ParentMaterialCode = null;
                 this.getView().getModel("MasterParentsModel").setProperty(sItemPath, oItemObj);
                 oEvent.getSource().setValueState(this.getResourceBundle().getText("Error"));
                 oEvent.getSource().setValueStateText(this.getResourceBundle().getText("PleaseenteravalidMaterial"));

@@ -19,7 +19,7 @@ sap.ui.define([
             });
             this.setModel(oViewModel, "objectViewModel");
             this.MainModel = this.getOwnerComponent().getModel();
-            this.getViewModel("objectViewModel").setProperty("/serviceUrl",  this.MainModel.sServiceUrl);
+            this.getViewModel("objectViewModel").setProperty("/serviceUrl", this.MainModel.sServiceUrl);
             //Router Object
             this.oRouter = this.getRouter();
             this.oRouter.getRoute("RouteInspectionDetailsPage").attachPatternMatched(this._onObjectMatched, this);
@@ -269,10 +269,6 @@ sap.ui.define([
         },
         ///--------------------- Send For Approval ----------------------------------//
         onSendForApprovalPress: function (oEvent) {
-            this.getViewModel("objectViewModel").setProperty(
-                "/busy",
-                true
-            );
             var that = this;
 
             var obj = oEvent.getSource().getBindingContext().getObject();
@@ -298,14 +294,12 @@ sap.ui.define([
                             "MDCCID": obj.ID
                         };
                         that.MDCCNumber = obj.MDCCNumber;
-                        BusyIndicator.show();
+                        this.getViewModel("objectViewModel").setProperty("/busy", true);
+                        // BusyIndicator.show();
                         that.MainModel.create(sPath, oPayload, {
                             success: function (oData, oResponse) {
-                                this.getViewModel("objectViewModel").setProperty(
-                                    "/busy",
-                                    false
-                                );
-                                BusyIndicator.hide();
+                                this.getViewModel("objectViewModel").setProperty("/busy", false);
+                                // BusyIndicator.hide();
                                 if (oData.ID) {
                                     MessageBox.success("MDCC Number " + that.MDCCNumber + " Sent for approval successfully");
                                     that.getView().getContent()[0].getContent().rerender();
@@ -313,16 +307,13 @@ sap.ui.define([
                                 }
                             }.bind(this),
                             error: function (oError) {
-                                this.getViewModel("objectViewModel").setProperty(
-                                    "/busy",
-                                    false
-                                );
-                                BusyIndicator.hide();
+                                this.getViewModel("objectViewModel").setProperty("/busy", false);
+                                // BusyIndicator.hide();
                                 // MessageBox.error(JSON.stringify(oError));
                             }.bind(this),
                         });
                     }
-                }
+                }.bind(this)
             });
         },
         onViewPress: function (oEvent) {
@@ -495,7 +486,7 @@ sap.ui.define([
                 }
             };
             var sPath = "/MDCCSet";
-;
+            ;
             this.MainModel.create(sPath, oPayload, {
                 success: function (oData, oResponse) {
                     this.getViewModel("objectViewModel").setProperty(
@@ -546,7 +537,7 @@ sap.ui.define([
             var that = this;
 
             var sPONumber = this.getView().byId("idPONumber").getText();;
-         
+
             var documents = {
                 "Documents": [
                     {
@@ -613,7 +604,7 @@ sap.ui.define([
 
 
 
-///// testing code
+        ///// testing code
         _openPDFDownloadWindow: function (base64Data) {
             var _pdfViewer = new PDFViewer();
             this.getView().addDependent(_pdfViewer);
