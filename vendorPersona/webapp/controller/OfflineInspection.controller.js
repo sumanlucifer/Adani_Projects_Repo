@@ -598,6 +598,8 @@ sap.ui.define([
                     }
                 ]
             };
+
+               this.getView().getModel("localAttachmentModel").getData().items.push(documents);
             
             var sPath = "/DocumentUploadEdmSet"
             this.MainModel.create(sPath, documents, {
