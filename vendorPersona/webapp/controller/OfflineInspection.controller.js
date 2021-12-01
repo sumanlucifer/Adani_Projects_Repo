@@ -162,7 +162,7 @@ sap.ui.define([
                     iHoldQuantity = oLineItemObj.HoldQuantity ? parseFloat(oLineItemObj.HoldQuantity) : 0,
                     iSumOfARHQty = iAcceptQuantity + iRejectQuantity + iHoldQuantity;
 
-                iSumOfARHQty = parseFloat(iSumOfARHQty.toFixed(2));
+                iSumOfARHQty = parseFloat(iSumOfARHQty.toFixed(5));
 
                 if (iSumOfARHQty !== iInspectionQty) {
                     bFlagIncompleteItemsFound = true;
@@ -257,7 +257,7 @@ sap.ui.define([
             aInputFileds[7].setValueState("None");
             aInputFileds[8].setValueState("None");
 
-            sumARHQty = parseFloat(sumARHQty.toFixed(2));
+            sumARHQty = parseFloat(sumARHQty.toFixed(5));
 
             if (oValue < 0 || ApprovedQty < 0 || RejectQty < 0 || HoldQty < 0) {
                 fnSetMinusQtyErrorMsg();
