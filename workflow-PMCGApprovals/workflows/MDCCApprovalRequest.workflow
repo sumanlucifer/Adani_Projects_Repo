@@ -222,7 +222,7 @@
 			"name": "maildefinition1",
 			"to": "akhil.jain@extentia.com,atul.jain@extentia.com,dharmendra.joshi@extentia.com,Suraj.Gavane@extentia.com",
 			"subject": "${context.MDCCRequestID} Approval",
-			"text": "${context.MDCCRequestID} Approval",
+			"reference": "/webcontent/MDCCApprovalRequest/MDCCApprovals.html",
 			"id": "maildefinition1"
 		}
 	}
