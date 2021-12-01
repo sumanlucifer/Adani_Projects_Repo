@@ -162,7 +162,7 @@ sap.ui.define([
                     iHoldQuantity = oLineItemObj.HoldQuantity ? parseFloat(oLineItemObj.HoldQuantity) : 0,
                     iSumOfARHQty = iAcceptQuantity + iRejectQuantity + iHoldQuantity;
 
-                iSumOfARHQty = parseFloat(iSumOfARHQty.toFixed(2));
+                iSumOfARHQty = parseFloat(iSumOfARHQty.toFixed(5));
 
                 if (iSumOfARHQty !== iInspectionQty) {
                     bFlagIncompleteItemsFound = true;

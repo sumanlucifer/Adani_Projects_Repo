@@ -85,13 +85,12 @@ sap.ui.define([
                 if (oEvent.getParameter("cancelled")) {
                     MessageToast.show("Scan cancelled", { duration: 1000 });
                 } else {
-                    MessageToast.show("Scanned: " + oEvent.getParameter("text"), { duration: 2000 });
                     var sScannedValue = oEvent.getParameter("text");
                     if (sScannedValue.length > 0) {
                         var isValid = this.checkForValidJSON(sScannedValue);
                         if (isValid) {
-                            MessageToast.show(JSON.parse(JSON.parse(sScannedValue)).QRNumber);
-                            this.validateQRCode(JSON.parse(JSON.parse(sScannedValue)).QRNumber);
+                            MessageToast.show("Successfully scanned: " + JSON.parse(JSON.parse(sScannedValue)).QRNumber);
+                            this.onPressSubmitQRCode(JSON.parse(JSON.parse(sScannedValue)).QRNumber);
                         } else {
                             MessageBox.error(this.getResourceBundle().getText("MSGInvalidQRCode"));
                         }
@@ -101,13 +100,6 @@ sap.ui.define([
 
             onScanError: function (oEvent) {
                 MessageToast.show("Scan failed" + oEvent, { duration: 1000 });
-            },
-
-            onScanLiveupdate: function (oEvent) {
-                var sCloseCode = oModel.getProperty("/closeCode");
-                if (sCloseCode && sCloseCode === oEvent.getParameter("newValue")) {
-                    sap.ndc.BarcodeScanner.closeScanDialog();
-                }
             },
 
             checkForValidJSON: function (sScannedValue) {
@@ -121,11 +113,8 @@ sap.ui.define([
 
             // Read QR Code details and Validate QR Code, If valid navigate to details page
             onPressSubmitQRCode: function (QRCode) {
-                this.getViewModel("objectViewModel").setProperty(
-                    "/busy",
-                    true
-                );
-                var sQRCode = this.getView().byId("idInputQRCode").getValue(),
+                this.getViewModel("objectViewModel").setProperty("/busy",true);
+                var sQRCode = this.getView().byId("idInputQRCode").getValue() || QRCode,
                     QRCodeFilter = new Filter("QRNumber", FilterOperator.EQ, sQRCode);
                 this.getComponentModel().read("/QRCodeSet", {
                     filters: [QRCodeFilter],
@@ -133,10 +122,8 @@ sap.ui.define([
                         "$expand": "PackingListParentItem"
                     },
                     success: function (oData) {
-                        this.getViewModel("objectViewModel").setProperty(
-                            "/busy",
-                            false
-                        );
+                        this.getViewModel("objectViewModel").setProperty("/busy",false);
+
                         if (oData.results.length > 0) {
                             if (oData.results[0].Type !== "PARENT") {
                                 MessageBox.error(this.getResourceBundle().getText("MSGUseParentQRCode"));
@@ -151,10 +138,7 @@ sap.ui.define([
                         }
                     }.bind(this),
                     error: function (oError) {
-                        this.getViewModel("objectViewModel").setProperty(
-                            "/busy",
-                            false
-                        );
+                        this.getViewModel("objectViewModel").setProperty("/busy",false);
                         // MessageBox.error(JSON.stringify(oError));
                     }.bind(this),
                 });
