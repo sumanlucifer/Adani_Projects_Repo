@@ -23,11 +23,8 @@
                         <Text text="OR" class="sapUiTinyMargin"/>
                     </HBox>
                     <HBox alignItems="Center">
-                       <!--  <Button id="idQRSubmit" text="Scan QR Code" type="Emphasized" press="onPressScanQRCode" enabled="{oViewModel>/scanQRCode}"/> -->
-                         <!-- <Button id="idQRSubmit" text="Scan QR Code" type="Emphasized" press="onScan" enabled="{oViewModel>/scanQRCode}"/> -->
-                         <scan:BarcodeScannerButton id="idQRSubmit" scanSuccess="onScanSuccess" scanFail="onScanError" inputLiveUpdate="onScanLiveupdate" visible="{oViewModel>/scanQRCode}"/>
+                        <scan:BarcodeScannerButton id="idQRSubmit" scanSuccess="onScanSuccess" scanFail="onScanError"/>
                     </HBox>
-
                 </uxap:content>
             </uxap:ObjectPageDynamicHeaderTitle>
         </uxap:headerTitle>

@@ -82,12 +82,8 @@ sap.ui.define([
                 var that = this;
                 if (qrcodeID !== "") {
                     that.getView().byId("idQRBtn").setProperty("enabled", true);
-
-
-
                 } else {
                     that.getView().byId("idQRBtn").setProperty("enabled", false);
-
                 }
             },
 
@@ -96,67 +92,25 @@ sap.ui.define([
                 var that = this;
                 if (invoiceID !== "") {
                     that.getView().byId("idInvBtn").setProperty("enabled", true);
-                    // that.getView().byId("idQRSubmit").setProperty("enabled", false);
                     that.getView().byId("idInputQRCode").setProperty("enabled", false);
 
                 } else {
                     that.getView().byId("idInvBtn").setProperty("enabled", false);
-                    // that.getView().byId("idQRSubmit").setProperty("enabled", true);
                     that.getView().byId("idInputQRCode").setProperty("enabled", true);
                 }
             },
 
-            // On Press QR Histroy
-            onPressScanQRCode: function () {
-                var that = this;
-                this.getView().byId("idQRBtn").setProperty("enabled", false);
-                this.getView().byId("idInvBtn").setProperty("enabled", false);
-                this.getView().byId("idInputQRCode").setProperty("enabled", false);
-                this.getView().byId("idInvoiceNum").setProperty("enabled", false);
-                //this.validateQRCode();
-                //added by Venkatesh
-                this.openScanner();
-            },
-
-            openScanner: function () {
-                if (!this._oScannerDialog) {
-                    this._oScannerDialog = sap.ui.xmlfragment("com.agel.mmts.securityscanqr.view.fragments.common.Scanner", this);
-                    this.getView().addDependent(this._oScannerDialog);
-                }
-                this._oScannerDialog.open();
-            },
-
-            onCloseSgnnerDialog: function (oEvent) {
-                this._oScannerDialog.close();
-            },
-
-            onQRCodeScanned: function (oEvent) {
-                var sScannedValue = oEvent.getSource().getValue();
-                if (sScannedValue.length > 0) {
-                    var isValid = this.checkForValidJSON(sScannedValue);
-                    if (isValid) {
-                        sap.m.MessageToast.show(JSON.parse(JSON.parse(sScannedValue)).QRNumber);
-                        this.validateQRCode(JSON.parse(JSON.parse(sScannedValue)).QRNumber);
-                        this.onCloseSgnnerDialog();
-                    } else {
-                        sap.m.MessageBox.error("Not a valid QR! Please try again with a different QR code.")
-                    }
-                }
-                oEvent.getSource().scanner._camera.stop();
-            },
-
             //scannner related functions
             onScanSuccess: function (oEvent) {
-                debugger;
+                //debugger;
                 if (oEvent.getParameter("cancelled")) {
                     sap.m.MessageToast.show("Scan cancelled", { duration: 1000 });
                 } else {
-                    sap.m.MessageToast.show("Scanned: " + oEvent.getParameter("text"), { duration: 2000 });
                     var sScannedValue = oEvent.getParameter("text");
                     if (sScannedValue.length > 0) {
                         var isValid = this.checkForValidJSON(sScannedValue);
                         if (isValid) {
-                            sap.m.MessageToast.show(JSON.parse(JSON.parse(sScannedValue)).QRNumber);
+                            sap.m.MessageToast.show("Successfully scanned: " + JSON.parse(JSON.parse(sScannedValue)).QRNumber);
                             this.validateQRCode(JSON.parse(JSON.parse(sScannedValue)).QRNumber);
                         } else {
                             sap.m.MessageBox.error("Not a valid QR! Please try again with a different QR code.")
@@ -169,12 +123,6 @@ sap.ui.define([
                 sap.m.MessageToast.show("Scan failed" + oEvent, { duration: 1000 });
             },
 
-            onScanLiveupdate: function (oEvent) {
-                var sCloseCode = oModel.getProperty("/closeCode");
-                if (sCloseCode && sCloseCode === oEvent.getParameter("newValue")) {
-                    sap.ndc.BarcodeScanner.closeScanDialog();
-                }
-            },
 
             checkForValidJSON: function (sScannedValue) {
                 try {
@@ -186,23 +134,13 @@ sap.ui.define([
 
             // On Submit QR Histroy
             onPressSubmitQRCode: function () {
-
                 this.validateQRCode();
             },
 
-
-
-
-
-
             // Validate QR Code
             validateQRCode: function (QRCode) {
-                this.getViewModel("objectViewModel").setProperty(
-                    "/busy",
-                    true);
-
+                this.getViewModel("objectViewModel").setProperty("/busy", true);
                 var qrCodeId = this.getView().byId("idInputQRCode").getValue() || QRCode;
-
                 var QRCodeFilter = new sap.ui.model.Filter({
                     path: "QRNumber",
                     operator: sap.ui.model.FilterOperator.EQ,
@@ -215,40 +153,28 @@ sap.ui.define([
                     urlParameters: {
                         "$expand": "PackingList"
                     },
-                    success: function (oData, oResponse) {
-                        this.getViewModel("objectViewModel").setProperty(
-                            "/busy",
-                            false);
+                    success: function (oData) {
+                        this.getViewModel("objectViewModel").setProperty("/busy", false);
+
                         if (oData.results.length !== 0) {
                             this.oRouter.navTo("QRCodeDetailsPage", {
                                 PackingID: oData.results[0].PackingList.ID
-                                                           //     PackingID: 71
+                                //     PackingID: 71
                             }, false);
                         }
                         else {
                             sap.m.MessageBox.error("Invalid QR Code");
-
-
                         }
                     }.bind(this),
                     error: function (oError) {
-                        this.getViewModel("objectViewModel").setProperty(
-                            "/busy",
-                            false);
+                        this.getViewModel("objectViewModel").setProperty("/busy", false);
                         //sap.m.MessageBox.error(JSON.stringify(oError));
                     }.bind(this),
                 });
             },
 
-
-
-
-
-
             onPressSubmitInvoiceNumber: function () {
-                var that = this;
                 this.validateInvoiceNumber();
             }
-
         });
     });
