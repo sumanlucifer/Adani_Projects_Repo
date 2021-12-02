@@ -66,7 +66,7 @@
                                     <content>
                                         <Title text="PC List"/>
                                         <ToolbarSpacer />
-                                        <Button text="Create" icon="sap-icon://add" press="onCreateNewPCListPress" visible="{= ${objectViewModel>/hasPClist} ? true : false}"></Button>
+                                        <Button text="Create" icon="sap-icon://add" press="onCreateNewPCListPress" visible="{= ${objectViewModel>/hasPClist} ? false : true}"></Button>
                                         <!-- <Button text="Use Selected" press="onUseSelectedPress" type="Emphasized" visible="{= ${objectViewModel>/isPCListSelected}}"/> -->
                                     </content>
                                 </OverflowToolbar>
