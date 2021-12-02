@@ -593,10 +593,7 @@ sap.ui.define([
                 this.mainModel.create("/DocumentUploadEdmSet", documents, {
                     success: function (oData, oResponse) {
                         this._updateDocumentService(oData.ID, fileType);
-                        this.getViewModel("objectViewModel").setProperty(
-                            "/busy",
-                            false
-                        );
+                  
                         // //console.log("docuymnet UPloaded");
                         this.byId("idMaterialFileUploader").getBinding("items").refresh();
                         this.byId("idInvoiceFileUploader").getBinding("items").refresh();
@@ -630,10 +627,17 @@ sap.ui.define([
                     processData: false,
                     data: file[0],
                     success: function (data) {
-                        console.log("success");
+                        that.getComponentModel().refresh();
+                        that.getViewModel("objectViewModel").setProperty(
+                            "/busy",
+                            false
+                        );
                     },
                     error: function () {
-                        console.log("failure");
+                        that.getViewModel("objectViewModel").setProperty(
+                            "/busy",
+                            false
+                        );
                     },
                 });
             },

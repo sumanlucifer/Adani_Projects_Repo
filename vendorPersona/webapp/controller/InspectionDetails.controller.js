@@ -557,13 +557,10 @@ sap.ui.define([
             var sPath = "/DocumentUploadEdmSet"
             this.MainModel.create(sPath, documents, {
                 success: function (oData, oResponse) {
-                    this.getViewModel("objectViewModel").setProperty(
-                        "/busy",
-                        false
-                    );
+                   
 
-                    sap.m.MessageToast.show("MDCC Details Uploaded!");
-                    this.getView().getModel().refresh();
+
+
                     this._updateDocumentService(oData.ID, fileType);
                     //   this.getView().getModel("ManageMDCCModel").getData().MDCCItems[rowId].MapItems = true;
                     //   this.getView().getModel("ManageMDCCModel").refresh();
@@ -573,6 +570,7 @@ sap.ui.define([
                         "/busy",
                         false
                     );
+                 
 
                     sap.m.MessageBox.error("Error uploading document");
                 }
@@ -594,10 +592,18 @@ sap.ui.define([
                 processData: false,
                 data: file[0],
                 success: function (data) {
-                    console.log("success");
+                    sap.m.MessageToast.show("MDCC Details Uploaded!");
+                    that.getComponentModel().refresh();
+                    that.getViewModel("objectViewModel").setProperty(
+                        "/busy",
+                        false
+                    );
                 },
                 error: function () {
-                    console.log("failure");
+                    that.getViewModel("objectViewModel").setProperty(
+                        "/busy",
+                        false
+                    );
                 },
             });
         },
