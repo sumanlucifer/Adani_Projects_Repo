@@ -84,8 +84,8 @@ sap.ui.define([
                         objectViewModel.setProperty("/MaterialCode", oData.getParameter("data").MaterialCode);
                         that.setStandalone();
                     },
-                    change: function(oData){
-                        var sMatCode= that.getView().getBindingContext().getObject().MaterialCode;
+                    change: function (oData) {
+                        var sMatCode = that.getView().getBindingContext().getObject().MaterialCode;
                         that.getViewModel("objectViewModel").setProperty("/MaterialCode", sMatCode);
                         that.setStandalone();
                     }
@@ -355,6 +355,16 @@ sap.ui.define([
                     if (!aBoqItemData[i].Qty || !aBoqItemData[i].MasterBOQItemId || !aBoqItemData[i].masterUOMItemId || !aBoqItemData[i].WeightPerPiece) {
                         bValid = false;
                         sap.m.MessageBox.alert("Please fill all the required fields before saving.");
+                        return;
+                    }
+                }
+                for (var j = 0; j < aBoqItemData.length; j++) {
+                    var aDuplicateItems = aBoqItemData.filter(function (oItem) {
+                        return oItem.MasterBOQItemId === aBoqItemData[j].MasterBOQItemId;
+                    });
+                    if (aDuplicateItems.length > 1) {
+                        bValid = false;
+                        sap.m.MessageBox.error("Duplicate Materials Found, Please correct data and try again.");
                         return;
                     }
                 }

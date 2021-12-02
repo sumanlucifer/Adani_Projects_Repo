@@ -156,7 +156,8 @@
                                                 <ComboBox value="{MasterParentsModel>ParentMaterialCode}" 
                                                     editable="{= ${MasterParentsModel>NewlyAddedItem} ? true : false}"
                                                     selectedKey="{MasterParentsModel>MasterMaterialId}"
-                                                    selectionChange="handleParentChange" showSecondaryValues= "true"
+                                                    selectionChange="handleParentChange" showSecondaryValues= "true" 
+                                                    filterSecondaryValues= "true"
                                                     items="{
                                                         path: '/MasterMaterialSet'
                                                             }">
