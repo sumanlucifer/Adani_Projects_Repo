@@ -29,22 +29,22 @@
                 </f:SimpleForm>
                 <f:SimpleForm layout="ColumnLayout" columnsM="2" columnsL="2" columnsXL="2" singleContainerFullSize="true" class="style-RemoveTitleHeight">
                     <f:content>
-                        <Label text="Movement Type " required="true"></Label>
+                        <Label text="{i18n>MovementType}" required="true"></Label>
                         <Input value="{requestModel>/MovementType}" editable="false"></Input>
-                        <Label text="Total Packaging Weight" required="true"></Label>
+                        <Label text="{i18n>TotalPackagingWeight}" required="true"></Label>
                         <Input value="{requestModel>/quantity}" liveChange="onQuantityLiveChange" type="Number" valueState="{requestModel>/valueState}" valueStateText="{requestModel>/valueStateText}"></Input>
-                        <Label text="Bill of Lading" required="true"></Label>
+                        <Label text="{i18n>BillofLading}" required="true"></Label>
                         <Input value="{requestModel>/billoflading}" type="Text" change="fnSetRequestButtonEnableDisable" valueState="{requestModel>/valueState}" valueStateText="{requestModel>/valueStateText}"></Input>
-                        <Label text="LR Number" required="true"></Label>
+                        <Label text="{i18n>LRNumber}" required="true"></Label>
                         <Input value="{requestModel>/lrnumber}" type="Text" change="fnSetRequestButtonEnableDisable" valueState="{requestModel>/valueState}" valueStateText="{requestModel>/valueStateText}"></Input>
-                        <Label text="Reference" required="true"></Label>
+                        <Label text="{i18n>Reference}" required="true"></Label>
                         <Input value="{requestModel>/reference}" type="Text" change="fnSetRequestButtonEnableDisable" valueState="{requestModel>/valueState}" valueStateText="{requestModel>/valueStateText}"></Input>
-                        <Label text="Delivery Note​​​​​​​​​" required="true"></Label>
+                        <Label text="{i18n>DeliveryNote}​​​​​​​​​" required="true"></Label>
                         <Input value="{requestModel>/delivery}" type="Text" change="fnSetRequestButtonEnableDisable" valueState="{requestModel>/valueState}" valueStateText="{requestModel>/valueStateText}"></Input>
                     </f:content>
                 </f:SimpleForm>
                 <MessageStrip
-                        text="Items mark with partial are not allowed to request GRN."
+                        text="{i18n>Itemsmarkwithpartialarenotallowed}"
                         type="Warning"
                         class="sapUiTinyMarginBottom"
                         showIcon="true"/>
@@ -57,13 +57,13 @@
                             <Text text="{i18n>materialCode}" wrapping="true" wrappingType="Hyphenated"/>
                         </Column>
                         <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center" >
-                            <Text text="Name"/>
+                            <Text text="{i18n>Name}"/>
                         </Column>
                         <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center">
-                            <Text text="Description"/>
+                            <Text text="{i18n>Description}"/>
                         </Column>
                         <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center" >
-                            <Text text="Movement Type"/>
+                            <Text text="{i18n>MovementType}"/>
                         </Column>
                         <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center">
                             <Text text="{i18n>Plant}" />
@@ -84,7 +84,7 @@
                                 <Text text="{LineNumber}"/>
                                 <!-- <ObjectIdentifier title="{MaterialCode}"/> -->
                                  <VBox>
-                                    <tnt:InfoLabel text="Partial" renderMode="Narrow" colorScheme="2" visible="{= ${IsPartial} === true ? true  : false }"/>
+                                    <tnt:InfoLabel text="{i18n>Partial}" renderMode="Narrow" colorScheme="2" visible="{= ${IsPartial} === true ? true  : false }"/>
                                     <ObjectIdentifier title="{MaterialCode}"/>
                                  </VBox>  
                                 <Text text="{Name}"/>
@@ -111,10 +111,10 @@
             </FlexBox>
         </content>
         <beginButton>
-            <Button text="Request" press="onRequestPress" type="Emphasized" enabled="{requestModel>/isConfirmButtonEnabled}"></Button>
+            <Button text="{i18n>Request}" press="onRequestPress" type="Emphasized" enabled="{requestModel>/isConfirmButtonEnabled}"></Button>
         </beginButton>
         <endButton>
-            <Button text="Close" press="onViewChildDialogClose" type="Emphasized" />
+            <Button text="{i18n>Close}" press="onViewChildDialogClose" type="Emphasized" />
         </endButton>
     </Dialog>
 </core:FragmentDefinition>
