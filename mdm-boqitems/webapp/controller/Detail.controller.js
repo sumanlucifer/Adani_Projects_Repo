@@ -269,6 +269,9 @@ sap.ui.define([
                         MessageBox.success(this.getResourceBundle().getText("BOQitemupdatedsuccessfully"));
                         that.fnResetViewSettings();
                         that.getComponentModel("app").setProperty("/busy", false);
+                        this.getSelectedKeys(this.sParentID);
+                        this.fnResetFieldsVisibility();
+                        this._bindView("/MasterBoQItemSet" + this.sParentID);
                     }.bind(this),
                     error: function (oError) {
                         that.getComponentModel("app").setProperty("/busy", false);

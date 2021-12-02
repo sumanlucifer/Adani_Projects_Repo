@@ -84,8 +84,8 @@ sap.ui.define([
                         objectViewModel.setProperty("/MaterialCode", oData.getParameter("data").MaterialCode);
                         that.setStandalone();
                     },
-                    change: function(oData){
-                        var sMatCode= that.getView().getBindingContext().getObject().MaterialCode;
+                    change: function (oData) {
+                        var sMatCode = that.getView().getBindingContext().getObject().MaterialCode;
                         that.getViewModel("objectViewModel").setProperty("/MaterialCode", sMatCode);
                         that.setStandalone();
                     }
@@ -148,11 +148,18 @@ sap.ui.define([
             this.getView().getModel("ManageBOQModel").setProperty(sItemPath + "/MasterBOQItemId", sKey);
             this.getView().getModel("ManageBOQModel").setProperty(sItemPath + "/isQtyEditable", true);
             this.getView().getModel("ManageBOQModel").setProperty(sItemPath + "/isWeightEditable", true);
-            for (var i = 1; i < aRowCells.length; i++) {
-                if (aRowCells[i] instanceof sap.m.Text) {
-                    var cellContextPath = aRowCells[i].data("p");
-                    var val = userObj[cellContextPath];
-                    aRowCells[i].setText(val);
+            // for (var i = 1; i < aRowCells.length; i++) {
+            //     if (aRowCells[i] instanceof sap.m.Text) {
+            //         var cellContextPath = aRowCells[i].data("p");
+            //         var val = userObj[cellContextPath];
+            //         aRowCells[i].setText(val);
+            //     }
+            // }
+            var aMasterMaterialItems = this.getViewModel("MasterMaterialModel").getData();
+            for( var i=0; i<aMasterMaterialItems.length;i++){
+                if(aMasterMaterialItems[i].MasterBOQItem.ID == sKey){
+                    this.getView().getModel("ManageBOQModel").setProperty(sItemPath + "/MaterialCode", aMasterMaterialItems[i].MasterBOQItem.MaterialCode);
+                    this.getView().getModel("ManageBOQModel").setProperty(sItemPath + "/Description", aMasterMaterialItems[i].MasterBOQItem.Description);
                 }
             }
             this._prepareSuggestionItemsForUOM(oBindingContextPath, sItemPath);
@@ -355,6 +362,16 @@ sap.ui.define([
                     if (!aBoqItemData[i].Qty || !aBoqItemData[i].MasterBOQItemId || !aBoqItemData[i].masterUOMItemId || !aBoqItemData[i].WeightPerPiece) {
                         bValid = false;
                         sap.m.MessageBox.alert("Please fill all the required fields before saving.");
+                        return;
+                    }
+                }
+                for (var j = 0; j < aBoqItemData.length; j++) {
+                    var aDuplicateItems = aBoqItemData.filter(function (oItem) {
+                        return oItem.MasterBOQItemId === aBoqItemData[j].MasterBOQItemId;
+                    });
+                    if (aDuplicateItems.length > 1) {
+                        bValid = false;
+                        sap.m.MessageBox.error("Duplicate Materials Found, Please correct data and try again.");
                         return;
                     }
                 }
