@@ -72,9 +72,10 @@
                             <Input visible="{= ${objectViewModel>/isHeaderFieldsVisible} ? true : false}" id="idGLAccount" value="{HeaderDetailsModel>GLAccount}" />
                             
                             <Label visible="{= ${objectViewModel>/isHeaderFieldsVisible} ? true : false}" text="{i18n>ContractorName}"  required="true"/>
-                            <Select visible="{= ${objectViewModel>/isHeaderFieldsVisible} ? true : false}" id="idContractor" change="onVendorSelected" selectedKey="{HeaderDetailsModel>ContractorId}" forceSelection="false" items="{/VendorSet}">
+                            <!-- <Select visible="{= ${objectViewModel>/isHeaderFieldsVisible} ? true : false}" id="idContractor" change="onVendorSelected" selectedKey="{HeaderDetailsModel>ContractorId}" forceSelection="false" items="{/VendorSet}">
                                 <core:Item key="{ID}" text="{Name} - {VendorCode}" />
-                            </Select>
+                            </Select> -->
+                              <Input visible="{= ${objectViewModel>/isHeaderFieldsVisible} ? true : false}" id="idContractor" value="{HeaderDetailsModel>ContractorId}" />
                             
                         </fm:SimpleForm>
                     </VBox>
