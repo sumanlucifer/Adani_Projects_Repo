@@ -294,16 +294,11 @@ sap.ui.define([
                     var sParentUOM =  this.getViewModel("TreeTableModel").getProperty(sParentPath).UOM;
                     if (parseFloat(oValue) >= 0 && sParentUOM === 'MT') {
 
-                        var wpp = oEvent
-                            .getSource()
-                            .getBindingContext("TreeTableModel")
-                            .getObject().WeightPerPiece;
-                        var liveQty = oEvent
-                            .getSource()
-                            .getBindingContext("TreeTableModel")
-                            .getObject().MDCCApprovedQty;
+                        var wpp = oEvent.getSource().getBindingContext("TreeTableModel").getObject().WeightPerPiece;
+                        var liveQty = oEvent.getSource().getBindingContext("TreeTableModel").getObject().MDCCApprovedQty;
                         if (!liveQty) liveQty = 0;
                         iTotalQuantity = iTotalQuantity + (((parseFloat(oValue) - parseFloat(liveQty)) * parseFloat(wpp))/1000);
+                        iTotalQuantity = iTotalQuantity.toFixed(3);
                         this.getViewModel("TreeTableModel").setProperty(sItemPath + "/MDCCApprovedQty", oValue);
                         this.getViewModel("TreeTableModel").setProperty(sParentPath + "/MDCCApprovedQty",iTotalQuantity);
                     }
