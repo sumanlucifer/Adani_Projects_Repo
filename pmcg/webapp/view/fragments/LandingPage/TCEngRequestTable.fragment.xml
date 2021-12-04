@@ -7,7 +7,8 @@
              entitySet="MDCCStatusSet" showFullScreenButton="true" showRowCount="false"
               tableType="ResponsiveTable" demandPopin="false" useExportToExcel="false" 
               useTablePersonalisation="true" useVariantManagement="false" 
-              beforeRebindTable="onBeforeRebindBOQTable" enableAutoColumnWidth="true">
+              beforeRebindTable="onBeforeRebindBOQTable" enableAutoColumnWidth="true"
+              ignoreFromPersonalisation="ID, IsArchived, WorkflowInstanceId">
 
         <smartTable:layoutData><FlexItemData growFactor="1" /></smartTable:layoutData>
         <Table sticky="ColumnHeaders,HeaderToolbar">

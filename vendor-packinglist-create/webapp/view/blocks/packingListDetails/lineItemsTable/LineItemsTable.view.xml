@@ -14,16 +14,16 @@
                 <Text text="Material Code"/>
             </Column>
             <Column>
-                <Text text="Name"/>
+                <Text text="Material Name"/>
             </Column>
             <Column hAlign="Center">
-                <Text text="Quantity"/>
+                <Text text="Order Quantity"/>
             </Column>
             <Column hAlign="Center">
-                <Text text="MDCC Approved Qty."/>
+                <Text text="MDCC Approved Quantity"/>
             </Column>
             <Column hAlign="Center">
-                <Text text="Dispatch Qty."/>
+                <Text text="Dispatch Quantity"/>
             </Column>
             <Column>
                 <Text text="UOM"/>

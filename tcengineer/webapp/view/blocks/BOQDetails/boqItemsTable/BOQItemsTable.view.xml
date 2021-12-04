@@ -23,19 +23,19 @@
                 <Text text="Material Code"/>
             </Column>
             <Column>
-                <Text text="Name"/>
+                <Text text="Material Name"/>
             </Column>
             <Column>
-                <Text text="Description"/>
+                <Text text="Material Description"/>
             </Column>
             <Column>
-                <Text text="Quantity"/>
-            </Column>
-            <Column>
-                <Text text="Total Weight"/>
+                <Text text="Approval Request Quantity"/>
             </Column>
             <Column>
                 <Text text="UOM"/>
+            </Column>
+            <Column>
+                <Text text="Total Weight"/>
             </Column>
             <Column>
                 <Text text="Remarks"/>
@@ -51,8 +51,8 @@
                     <Text text="{Name}"/>
                     <ExpandableText text="{Description}" overflowMode="InPlace" maxCharacters="50" />
                     <Text text="{Qty}"/>
-                    <Text text="{TotalItemWeight}"/>
                     <Text text="{UOM}"/>
+                    <Text text="{TotalItemWeight}"/>
                     <ExpandableText text="{Remarks}" overflowMode="InPlace" maxCharacters="50" />
                     <!-- <Text text="{path:'CreatedAt',
                                      type: 'sap.ui.model.type.Date',

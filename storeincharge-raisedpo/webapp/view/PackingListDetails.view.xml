@@ -68,10 +68,10 @@
                         </FlexBox>
                     </VBox>
                     <VBox class="sapUiMediumMarginBeginEnd">
-                        <Title text="{i18n>pOandASNDetails}" titleStyle="H6"/>
-                        <ObjectStatus title="ASN Number" text="Missing"/>
+                        <Title text="PO Details:" titleStyle="H6"/>
+                        <!-- <ObjectStatus title="ASN Number" text="Missing"/> -->
                         <ObjectStatus title="PO Number" text="{PONumber}"/>
-                        <ObjectStatus title="ASN Creation Date" text="Missing"/>
+                        <!-- <ObjectStatus title="ASN Creation Date" text="Missing"/> -->
                     </VBox>
                     <VBox class="sapUiMediumMarginBeginEnd">
                         <Title text="{i18n>shipTo}" titleStyle="H6"/>
@@ -137,16 +137,16 @@
                                         <Text text="Line Number"/>
                                     </Column>
                                     <Column>
-                                        <Text text="Name"/>
+                                        <Text text="Material Name"/>
                                     </Column>
                                     <Column>
-                                        <Text text="PO Qty."/>
+                                        <Text text="Order Quantity"/>
                                     </Column>
                                     <Column>
-                                        <Text text="MDCC Approved Qty."/>
+                                        <Text text="MDCC Approved Quantity"/>
                                     </Column>
                                     <Column>
-                                        <Text text="Dispatch Qty"/>
+                                        <Text text="Dispatch Quantity"/>
                                     </Column>
                                     <Column>
                                         <Text text="UOM"/>
@@ -191,9 +191,8 @@
                                 <headerToolbar>
                                     <OverflowToolbar >
                                         <content>
-                                            <Text text="{i18n>GRNStatus}"/>
-                                            <ToolbarSpacer>
-                                            </ToolbarSpacer>
+                                            <!-- <Text text="{i18n>GRNStatus}"/> -->
+                                            <ToolbarSpacer />
                                             <VBox>
                                                 <Button text="Request GRN" id="idrequestGRNButton" press="onRequestGRNPress" type="Accept" visible="{=  ${Status} === 'UNLOADING COMPLETED' ? ${IsGRNRaised} === false  ||  ${IsGRNRaised} === null : false}"/>
                                             </VBox>
@@ -223,7 +222,7 @@
                                         <Text text="Posting Date"/>
                                     </Column>
                                     <Column demandPopin="true" minScreenWidth="Tablet">
-                                        <Text text="Cancelled Date"/>
+                                        <Text text="Cancellation Date"/>
                                     </Column>
                                     <Column demandPopin="true" minScreenWidth="Tablet">
                                         <Text text=""/>
@@ -283,7 +282,7 @@
                             <outerPackaging:OuterPackaging class="sapUxAPObjectPageSubSectionAlignContent" OnViewQRCodePressSmart="onViewQRCodePressSmart"/>
                         </uxap:blocks>
                     </uxap:ObjectPageSubSection>
-                    <uxap:ObjectPageSubSection title="Inner Packaging">
+                    <uxap:ObjectPageSubSection title="Primary Packaging">
                         <uxap:blocks>
                             <innerPackaging:InnerPackaging class="sapUxAPObjectPageSubSectionAlignContent" OnViewQRCodePressSmart = "onViewQRCodePressSmart"/>
                         </uxap:blocks>
@@ -302,7 +301,7 @@
                                     <Text text="{VehicleNumber}" />
                                     <Label text="Invoice Number" />
                                     <Text text="{InvoiceNumber}" />
-                                    <Label text="Packaging Ref. No." />
+                                    <Label text="Packaging Reference Number" />
                                     <Text text="{PackagingReferenceNumber}" />
                                     <Label text="Invoice Date" />
                                     <Text text="{path:'InvoiceDate',

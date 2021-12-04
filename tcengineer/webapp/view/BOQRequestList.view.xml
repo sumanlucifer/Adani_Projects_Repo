@@ -8,7 +8,7 @@
         <f:title>
             <f:DynamicPageTitle>
                 <f:heading>
-                    <Title text="BOQ Approvals"/>
+                    <Title text="BOQ Approval Requests"/>
                 </f:heading>
             </f:DynamicPageTitle>
         </f:title>

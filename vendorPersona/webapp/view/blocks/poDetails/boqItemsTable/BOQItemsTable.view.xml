@@ -18,61 +18,50 @@
         </smartTable:customToolbar>
         <tt:TreeTable id="treeTable" selectionMode="None" enableColumnReordering="true" expandFirstLevel="true" visibleRowCountMode="Interactive">
             <tt:columns>
-
                 <tt:Column hAlign="Center">
                     <Label text="{i18n>name}"/>
                     <tt:customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "Name", "leadingProperty": "Name",
                                                  "columnIndex": 1 ,"sortProperty": "Name","filterProperty": "Name"}'/>
                     </tt:customData>
-
                     <tt:template>
                         <Text text="{Name}" wrapping="false"></Text>
                     </tt:template>
                 </tt:Column>
-
                 <tt:Column hAlign="Center">
                     <Label text="{i18n>materialCode}"/>
                     <tt:customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "MaterialCode", "leadingProperty": "MaterialCode",
                                                  "columnIndex": 0 ,"sortProperty": "NamMaterialCodee","filterProperty": "MaterialCode"}'/>
                     </tt:customData>
-
                     <tt:template>
                         <ObjectIdentifier title="{MaterialCode}"></ObjectIdentifier>
                     </tt:template>
                 </tt:Column>
-
                 <tt:Column hAlign="Center">
                     <Label text="{i18n>description}" />
                     <tt:customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "Description", "leadingProperty": "Description",
                                                  "columnIndex": 2 ,"sortProperty": "Description","filterProperty": "Description"}'/>
                     </tt:customData>
-
                     <tt:template>
-
                         <ExpandableText text="{Description}" overflowMode="Popover" maxCharacters="5"/>
                     </tt:template>
                 </tt:Column>
-
                 <tt:Column hAlign="Center">
                     <Label text="{i18n>poQuantity}" />
                     <tt:customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "Quantity", "leadingProperty":"Quantity", "columnIndex": 3}' />
                     </tt:customData>
-
                     <tt:template>
                         <Text text="{Quantity}"></Text>
                     </tt:template>
                 </tt:Column>
-
                 <tt:Column hAlign="Center">
                     <Label text="{i18n>uom}" />
                     <tt:customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "UoM", "leadingProperty":"UoM", "columnIndex": 4}' />
                     </tt:customData>
-
                     <tt:template>
                         <Text text="{UoM}"></Text>
                     </tt:template>
@@ -83,31 +72,24 @@
                     <tt:customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "GeneratedBOQQty", "leadingProperty":"BOQGroups/GeneratedBOQQty", "columnIndex": 5}' />
                     </tt:customData>
-
                     <tt:template>
                         <Text text="{GeneratedBOQQty}"></Text>
                     </tt:template>
                 </tt:Column>
-
-
-
                 <tt:Column hAlign="Center">
                     <Label text="{i18n>boqItems}" />
                     <tt:customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "TotalChildItemCount", "leadingProperty":"BOQGroups/TotalChildItemCount", "columnIndex": 6}' />
                     </tt:customData>
-
                     <tt:template>
                         <Text text="{TotalChildItemCount}"></Text>
                     </tt:template>
                 </tt:Column>
-
                 <tt:Column hAlign="Center">
                     <Label text="Requested On" />
                     <tt:customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "CreatedAt", "leadingProperty":"BOQGroups/CreatedAt", "columnIndex": 7}' />
                     </tt:customData>
-
                     <tt:template>
                         <Text text="{path:'CreatedAt',
                                                     type: 'sap.ui.model.type.Date',
@@ -116,13 +98,11 @@
                                                     }}"/>
                     </tt:template>
                 </tt:Column>
-
                 <tt:Column hAlign="Center">
                     <Label text="Action Date" />
                     <tt:customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "UpdatedAt", "leadingProperty":"BOQGroups/ApprovedOn", "columnIndex": 8}' />
                     </tt:customData>
-
                     <tt:template>
                         <Text text="{path:'ApprovedOn',
                                                     type: 'sap.ui.model.type.Date',
@@ -131,39 +111,31 @@
                                                     }}"/>
                     </tt:template>
                 </tt:Column>
-
-
-
                 <tt:Column hAlign="Center">
                     <Label text="{i18n>status}" />
                     <tt:customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "status", "columnIndex": 9}' />
                     </tt:customData>
-
                     <tt:template>
                         <VBox justifyContent="Center" visible="{= ${MaterialCode} ? false : true }">
                             <ObjectStatus text="{Status}" state="{= ${Status} === 'PENDING' ? 'Warning' : ${Status} === 'REJECTED' ? 'Error' : 'Success'}" visible="{= ${Status}.length>0 ? true : false }"/>
                         </VBox>
                     </tt:template>
                 </tt:Column>
-
                 <tt:Column hAlign="Center">
                     <Label text="{i18n>comments}" />
                     <tt:customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "Comment", "leadingProperty":"BOQGroups/Comment", "columnIndex": 10}' />
                     </tt:customData>
-
                     <tt:template>
                         <ExpandableText text="{Comment}" maxCharacters="10" overflowMode="Popover" visible="{= ${MaterialCode} ? false : true }"/>
                     </tt:template>
                 </tt:Column>
-
                 <tt:Column hAlign="Center">
-                    <Label text="{i18n>viewAction}" />
+                    <Label text="Action" />
                     <tt:customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "Action", "columnIndex": 11}' />
                     </tt:customData>
-
                     <tt:template>
                         <Link text="{= ${MaterialCode} ? '' : 'View BOQ Items' }" press="onViewBOQItemPress"></Link>
                     </tt:template>
@@ -179,7 +151,7 @@
 
                     <tt:template>
                         <VBox justifyContent="Center" visible="{= ${MaterialCode} ? false : true }">
-                            <Button text="Send for approval" visible="{= ${Status}.length>0 ? false : true }" press="onSendForApprovalPress"/>
+                            <Button text="Send for Approval" visible="{= ${Status}.length>0 ? false : true }" press="onSendForApprovalPress"/>
                         </VBox>
                     </tt:template>
                 </tt:Column>

@@ -17,7 +17,7 @@
                 <uxap:expandedHeading>
                     <FlexBox direction="Column" renderType="Bare">
                         <Title text="{i18n>PODetail}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
-                        <Title text="{AmendmentHistoryModel>/PONumber}"/>
+                        <!-- <Title text="{AmendmentHistoryModel>/PONumber}"/> -->
                     </FlexBox>
                 </uxap:expandedHeading>
                 <uxap:snappedHeading>
@@ -38,8 +38,13 @@
             </uxap:ObjectPageDynamicHeaderTitle>
         </uxap:headerTitle>
         <uxap:headerContent>
-            <!-- <FlexBox wrap="Wrap" height="100%" renderType="Bare" direction="Column">
-                <VBox renderType="Bare">
+            <FlexBox wrap="Wrap" height="100%" renderType="Bare" direction="Column">
+                <VBox renderType="Bare" class="sapUiMediumMarginEnd">
+                    <Label text="PO Number" />
+                    <ObjectStatus text="{AmendmentHistoryModel>/PONumber}"/>
+                    <!-- state="{= ${Status}=== 'SAVED' ? 'Indication05' : ${Status}=== 'DISPATCHED' ? 'Indication06' : 'Indication07'}" -->
+                </VBox>
+                <!-- <VBox renderType="Bare">
                     <FlexBox direction="Row" renderType="Bare" class="sapUiTinyMarginBottom">
                         <VBox renderType="Bare" class="sapUiMediumMarginEnd">
                             <Label text="PO Issued Date" />
@@ -64,17 +69,17 @@
                             <ObjectStatus text="{Status}" state="{= ${Status}==='CONFIRMED' ? 'Success' : 'Warning'}"/>
                         </VBox>
                     </FlexBox>
-                </VBox>
-            </FlexBox> -->
+                </VBox> -->
+            </FlexBox>
         </uxap:headerContent>
         <uxap:sections>
-            <!-- Line Items Section -->
+            <!-- Basic Details Section -->
             <uxap:ObjectPageSection titleUppercase="false" title="{i18n>BasicDetails}">
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection title="{i18n>BasicDetails}" titleLevel="H6">
                         <uxap:blocks>
                             <VBox class="sapUiSmallMargin">
-		                        <f:SimpleForm id="idBasicDetailsSFM" editable="false" layout="ColumnLayout"	title="{i18n>BasicDetails}" columnsM="2" columnsL="3" columnsXL="4">
+		                        <f:SimpleForm id="idBasicDetailsSFM" editable="false" layout="ColumnLayout" columnsM="2" columnsL="3" columnsXL="4">
                                     <f:content>
                                         <Label text="{i18n>VendorCode}"/>
                                         <Text id="nameText" text="{AmendmentHistoryModel>/VendorCode}"/>

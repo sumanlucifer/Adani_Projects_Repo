@@ -15,7 +15,7 @@
                         <core:CustomData key="p13nData" value='\{"columnKey": "Name", "leadingProperty": "Name",
                                                  "columnIndex": 0 ,"sortProperty": "Name","filterProperty": "Name"}'/>
                     </customData>
-                    <Text text="Name"/>
+                    <Text text="Packing List Number"/>
                 </Column>
                 
                 <Column demandPopin="true" minScreenWidth="Tablet">

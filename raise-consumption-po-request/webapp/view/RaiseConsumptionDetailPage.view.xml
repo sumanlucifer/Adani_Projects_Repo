@@ -54,13 +54,13 @@
                             <Text text="{GoodsRecipient}"/>
                         </VBox>
                         <VBox renderType="Bare" class="sapUiMediumMarginEnd">
-                            <Label text="{i18n>ReservationDate}" />
+                            <Label text="{i18n>reservationDate}" />
                             <!-- missing -->
                             <Text text="{path:'ReservationDate',
                                   type: 'sap.ui.model.type.DateTime',
-formatOptions: {
-pattern: 'MMMM dd, yyyy HH:mm:ss'
-}
+                                formatOptions: {
+                                pattern: 'MMMM dd, yyyy HH:mm:ss'
+                                }
                             }"/>
                         </VBox>
                         <VBox renderType="Bare" class="sapUiMediumMarginEnd">
@@ -109,36 +109,34 @@ pattern: 'MMMM dd, yyyy HH:mm:ss'
                                 <Text text="{TreeDataModel>MaterialCode}" wrapping="false" />
                             </ui:template>
                         </ui:Column>
-
-
-                                                <ui:Column>
-                            <Label text="{i18n>BaseUnit}" />
-                            <ui:template>
-                                <Text text="{TreeDataModel>BaseUnit}" wrapping="false" />
-                            </ui:template>
-                        </ui:Column>
                         <ui:Column>
                             <Label text="{i18n>UOM}" />
                             <ui:template>
                                 <Text text="{TreeDataModel>UOM}" wrapping="false" />
                             </ui:template>
                         </ui:Column>
-                        <ui:Column>
+                        <!-- <ui:Column>
                             <Label text="{i18n>Description}" />
                             <ui:template>
                                 <Text text="{TreeDataModel>Description}" wrapping="false" />
                             </ui:template>
-                        </ui:Column>
+                        </ui:Column> -->
                         <ui:Column>
                             <Label text="{i18n>StorageLocation}" />
                             <ui:template>
                                 <Text text="{TreeDataModel>StorageLocation}" wrapping="false" />
                             </ui:template>
                         </ui:Column>
-                                                <ui:Column>
+                        <ui:Column>
                             <Label text="{i18n>BaseQty}" />
                             <ui:template>
                                 <Text text="{TreeDataModel>BaseQty}" wrapping="false" />
+                            </ui:template>
+                        </ui:Column>
+                        <ui:Column>
+                            <Label text="{i18n>BaseUnit}" />
+                            <ui:template>
+                                <Text text="{TreeDataModel>BaseUnit}" wrapping="false" />
                             </ui:template>
                         </ui:Column>
                         <ui:Column>

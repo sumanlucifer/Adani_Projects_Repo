@@ -59,12 +59,13 @@
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection visible="{= ${objectViewModel>/noParentChildRelationFlag} ? false : true }">
                         <!-- <ScrollContainer height="200px" vertical="true"> -->
-                        <Table updateFinished="setCreatePCListVisiblity" id="idPCListTable" growing="true" growingThreshold="4" items="{path : 'PCGroups', sorter : {
-                            path : 'CreatedAt', descending: 'true' }}" mode="SingleSelectLeft" visible="{= ${objectViewModel>/isCreatingPCList} ? false : true}" selectionChange="onPCListSelectionChange">
+                        <Table updateFinished="setCreatePCListVisiblity" id="idPCListTable" growing="true" growingThreshold="10" items="{path : 'PCGroups', sorter : {
+                            path : 'CreatedAt', descending: 'true' }}" mode="SingleSelectLeft" visible="{= ${objectViewModel>/isCreatingPCList} ? false : true}" 
+                            selectionChange="onPCListSelectionChange">
                             <headerToolbar>
                                 <OverflowToolbar>
                                     <content>
-                                        <Title text="PC List"/>
+                                        <Title text="PC Lists"/>
                                         <ToolbarSpacer />
                                         <Button text="Create" icon="sap-icon://add" press="onCreateNewPCListPress" visible="{= ${objectViewModel>/hasPClist} ? false : true}"></Button>
                                         <!-- <Button text="Use Selected" press="onUseSelectedPress" type="Emphasized" visible="{= ${objectViewModel>/isPCListSelected}}"/> -->
@@ -79,7 +80,7 @@
                                     <Text text="Created On"/>
                                 </Column>
                                 <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center">
-                                    <Text text="Child Item Count"/>
+                                    <Text text="Total Items Count"/>
                                 </Column>
                                 <Column demandPopin="true" minScreenWidth="Desktop">
                                     <Text text="Recently Used On"/>
@@ -128,7 +129,7 @@
                                     <OverflowToolbar>
                                         <content>
                                             <ToolbarSpacer/>
-                                            <Button text="Add Row" icon="sap-icon://add" press="onAddItemPress"></Button>
+                                            <Button text="Add Item" icon="sap-icon://add" press="onAddItemPress"></Button>
                                             <Button text="Save" icon="sap-icon://save" iconFirst="true" press="onSaveManagedBOQItemsPress" type="Emphasized"/>
                                             <Button text="Cancel" icon="sap-icon://cancel" iconFirst="true" press="onCancelPCListCreationPress"/>
                                         </content>
@@ -136,7 +137,7 @@
                                 </headerToolbar>
                                 <columns>
                                     <Column>
-                                        <Text text="Child Name"/>
+                                        <Text text="Item Name"/>
                                     </Column>
                                     <Column>
                                         <Text text="Material Code"/>
@@ -145,7 +146,7 @@
                                         <Text text="Description"/>
                                     </Column>
                                     <Column demandPopin="true" minScreenWidth="Tablet">
-                                        <Text text="Quantity"/>
+                                        <Text text="Base Quantity"/>
                                     </Column>
                                     <Column demandPopin="true" minScreenWidth="Desktop">
                                         <Text text="Remarks"/>
@@ -157,7 +158,7 @@
                                         <Text text="Weight/Pc"/>
                                     </Column>
                                     <Column demandPopin="true" minScreenWidth="Tablet">
-                                        <Text text="Total Item Weight"/>
+                                        <Text text="Total Weight (Qty * Wt/Pc)"/>
                                     </Column>
                                     <Column width="5%">
                                     </Column>

@@ -112,6 +112,17 @@
                 </uxap:subSections>
             </uxap:ObjectPageSection>
 
+            <!-- MDCC Section -->
+            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>mdcc}">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection title="{i18n>mdcc}">
+                        <uxap:blocks>
+                            <boqItemsTable:BOQItemsTable class="sapUxAPObjectPageSubSectionAlignContent" OnApproveBOQPress="onApproveBOQPress" OnRejectBOQPress="onRejectBOQPress"/>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
             <!-- MDCC Documents -->
             <uxap:ObjectPageSection titleUppercase="false" title="{i18n>mdccDocuments}">
                 <uxap:subSections>
@@ -162,18 +173,6 @@
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>
             </uxap:ObjectPageSection>
-
-            <!-- MDCC Section -->
-            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>mdcc}">
-                <uxap:subSections>
-                    <uxap:ObjectPageSubSection title="{i18n>mdcc}">
-                        <uxap:blocks>
-                            <boqItemsTable:BOQItemsTable class="sapUxAPObjectPageSubSectionAlignContent" OnApproveBOQPress="onApproveBOQPress" OnRejectBOQPress="onRejectBOQPress"/>
-                        </uxap:blocks>
-                    </uxap:ObjectPageSubSection>
-                </uxap:subSections>
-            </uxap:ObjectPageSection>
-
         </uxap:sections>
     </uxap:ObjectPageLayout>
 </mvc:View>

@@ -2,19 +2,19 @@
     xmlns:core="sap.ui.core">
     <Dialog >
         <content>
-            <Table width="auto" growing="true" id="idViewBOQLineItemsTable" growingThreshold="2" items="{path: 'BOQItems'}" class="sapUiResponsiveMargin">
+            <Table width="auto" growing="true" id="idViewBOQLineItemsTable" growingThreshold="5" items="{path: 'BOQItems'}" class="sapUiResponsiveMargin">
                 <columns>
                     <Column>
-                        <Text text="{i18n>materialCode}" wrapping="true" wrappingType="Hyphenated"/>
+                        <Text text="Item Code" wrapping="true" wrappingType="Hyphenated"/>
                     </Column>
                     <Column>
-                        <Text text="{i18n>name}" wrapping="true"/>
+                        <Text text="Item Code" wrapping="true"/>
                     </Column>
                     <Column demandPopin="true" minScreenWidth="Tablet">
-                        <Text text="{i18n>description}"/>
+                        <Text text="Item Description"/>
                     </Column>
                     <Column demandPopin="true" minScreenWidth="Tablet" width="auto">
-                        <Text text="{i18n>quantity}" />
+                        <Text text="BOQ Quantity" />
                     </Column>
                     <Column demandPopin="true" minScreenWidth="Tablet">
                         <Text text="UOM"/>

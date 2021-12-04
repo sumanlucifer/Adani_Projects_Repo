@@ -59,7 +59,7 @@
                         </headerToolbar>
                         <columns>
                             <Column demandPopin="true" minScreenWidth="Tablet">
-                                <Text text="{i18n>role}" wrapping="true"/>
+                                <Text text="{i18n>requestedRole}" wrapping="true"/>
                             </Column>
                             <Column demandPopin="true" minScreenWidth="Tablet">
                                 <Text text="{i18n>requestNumber}" wrapping="true"/>

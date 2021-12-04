@@ -1,29 +1,32 @@
 <core:FragmentDefinition xmlns="sap.m"
     xmlns:smartTable="sap.ui.comp.smarttable"
     xmlns:core="sap.ui.core">
-    <smartTable:SmartTable class="sapUiResponsiveContentPadding" id="idListTable" editable="false" placeToolbarInTable="true" enableAutoBinding="true" entitySet="ConsumptionPostingSet" showFullScreenButton="true" header="Posted Consumption" showRowCount="true" tableType="ResponsiveTable" demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" beforeRebindTable="onbeforeRebindConsumptionTable" requestAtLeastFields="ID" ignoreFromPersonalisation="TotalGrossWeight, GatePassNumber, CancelledAt, CancelledBy, UpdatedAt, UpdatedBy,CreatedBy, IsArchived">
+    <smartTable:SmartTable class="sapUiResponsiveContentPadding" id="idListTable" editable="false" placeToolbarInTable="true" enableAutoBinding="true" 
+    entitySet="ConsumptionPostingSet" showFullScreenButton="true" header="Posted Consumption" showRowCount="true" tableType="ResponsiveTable" demandPopin="false" 
+    useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" beforeRebindTable="onbeforeRebindConsumptionTable" 
+    requestAtLeastFields="ID" ignoreFromPersonalisation="TotalGrossWeight, GatePassNumber, CancelledAt, CancelledBy, UpdatedAt, UpdatedBy,CreatedBy, IsArchived">
         <Table sticky="ColumnHeaders,HeaderToolbar" updateFinished="onIssueTableUpdateFinished" alternateRowColors="true">
             <columns>
+                <Column demandPopin="true" minScreenWidth="Tablet">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "ReservationNumber", "leadingProperty": "ReservationNumber",
+"columnIndex": 0 ,"sortProperty": "ReservationNumber"}'/>
+                    </customData>
+                    <Text text="{i18n>ReservationNumber}"/>
+                </Column>
                 <Column >
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "MaterialDocumentNumber", "leadingProperty": "MaterialDocumentNumber",
-"columnIndex": 0 ,"sortProperty": "MaterialDocumentNumber","filterProperty": "MaterialDocumentNumber"}'/>
+"columnIndex": 1 ,"sortProperty": "MaterialDocumentNumber","filterProperty": "MaterialDocumentNumber"}'/>
                     </customData>
                     <Text text="{i18n>MaterialDocumentNumber}"/>
                 </Column>
                 <Column demandPopin="true" minScreenWidth="Desktop">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "MaterialDocumentYear", "leadingProperty": "MaterialDocumentYear",
-"columnIndex": 1 ,"sortProperty": "MaterialDocumentYear","filterProperty": "MaterialDocumentYear"}'/>
+"columnIndex": 2 ,"sortProperty": "MaterialDocumentYear","filterProperty": "MaterialDocumentYear"}'/>
                     </customData>
                     <Text text="{i18n>MaterialDocumentYear}"/>
-                </Column>
-                <Column demandPopin="true" minScreenWidth="Tablet">
-                    <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "ReservationNumber", "leadingProperty": "ReservationNumber",
-"columnIndex": 2 ,"sortProperty": "ReservationNumber"}'/>
-                    </customData>
-                    <Text text="{i18n>ReservationNumber}"/>
                 </Column>
                 <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
@@ -50,21 +53,21 @@
             <items>
                 <ColumnListItem type="Navigation" press="onNavigationCancelPress">
                     <cells>
-                        <ObjectIdentifier title="{MaterialDocumentNumber}" />
+                        <ObjectIdentifier title="{ReservationNumber}"/>
+                        <Text text="{MaterialDocumentNumber}" />
                         <Text text="{MaterialDocumentYear}"/>
-                        <Text text="{ReservationNumber}"/>
                         <Text text="{path:'DocumentDate',
-type: 'sap.ui.model.type.DateTime',
-formatOptions: {
-pattern: 'MMMM dd, yyyy HH:mm:ss'
-}
-}"/>
+                            type: 'sap.ui.model.type.DateTime',
+                            formatOptions: {
+                            pattern: 'MMMM dd, yyyy HH:mm:ss'
+                            }
+                        }"/>        
                         <Text text="{path:'PostingDate',
-type: 'sap.ui.model.type.DateTime',
-formatOptions: {
-pattern: 'MMMM dd, yyyy HH:mm:ss'
-}
-}"/>
+                            type: 'sap.ui.model.type.DateTime',
+                            formatOptions: {
+                            pattern: 'MMMM dd, yyyy HH:mm:ss'
+                            }
+                        }"/>
                         <ObjectStatus text="{Status}" state="{= ${Status} === 'PARTIALLY CANCELLED' ? 'Success' : ${Status} === 'CONSUMPTION SUCCESSFUL' ? 'Information' : 'Error'}" visible="{= ${Status}.length>0 ? true : false }"/>
                     </cells>
                 </ColumnListItem>

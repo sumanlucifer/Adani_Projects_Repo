@@ -30,7 +30,7 @@
                         <Text text="{i18n>departmenthead}" wrapping="true"/>
                     </Column>
                      <Column demandPopin="true" minScreenWidth="Tablet">
-                        <Text text="{i18n>unAssignRole}" wrapping="true"/>
+                        <Text text="{i18n>Action}" wrapping="true"/>
                     </Column>
                 </columns>
                 <items>

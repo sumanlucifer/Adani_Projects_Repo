@@ -19,7 +19,7 @@
                 </uxap:breadcrumbs> -->
                 <uxap:expandedHeading>
                     <FlexBox direction="Column" renderType="Bare">
-                        <Title text="{i18n>Summary}" wrapping="false" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
+                        <Title text="{i18n>Summary}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
                     </FlexBox>
                 </uxap:expandedHeading>
                 <uxap:snappedHeading>
@@ -54,64 +54,63 @@
                                     </tt:template>
                                 </tt:Column>
                                 <tt:Column>
-                                    <Label text="Plant"/>
+                                    <Label text="Plant" wrapping="true"/>
                                     <tt:template>
                                         <ObjectIdentifier title="{TreeTableModelView>Plant}" />
                                     </tt:template>
                                 </tt:Column>
                                 <tt:Column>
-                                    <Label text="Name"/>
+                                    <Label text="Name" wrapping="true"/>
                                     <tt:template>
-                                        <Text text="{TreeTableModelView>Name}" wrapping="false" />
+                                        <Text text="{TreeTableModelView>Name}" wrapping="true"/>
                                     </tt:template>
                                 </tt:Column>    
                                 <tt:Column>
-                                    <Label text="Description"/>
+                                    <Label text="Description" wrapping="true"/>
                                     <tt:template>
-                                        <Text text="{TreeTableModelView>Description}" wrapping="false" /> 
+                                        <Text text="{TreeTableModelView>Description}" wrapping="true"/> 
                                     </tt:template>
                                 </tt:Column>
-
                                 <tt:Column>
-                                    <Label text="Base Unit"/>
+                                    <Label text="Base Quantity" wrapping="true"/>
                                     <tt:template>
-                                        <Text text="{TreeTableModelView>BaseUnit}" />
+                                        <Text text="{TreeTableModelView>BaseQty}" wrapping="true"/>
+                                    </tt:template>
+                                </tt:Column>
+                                <tt:Column>
+                                    <Label text="Base Unit" wrapping="true"/>
+                                    <tt:template>
+                                        <Text text="{TreeTableModelView>BaseUnit}" wrapping="true"/>
                                     </tt:template>
                                 </tt:Column> 
-                                    <tt:Column>
-                                    <Label text="Base Quantity"/>
-                                    <tt:template>
-                                        <Text text="{TreeTableModelView>BaseQty}" wrapping="false" />
-                                    </tt:template>
-                                </tt:Column>   
                                 <tt:Column>
-                                    <Label text="Weight Per Piece"/>
+                                    <Label text="Weight Per Piece" wrapping="true"/>
                                     <tt:template>
-                                        <Text text="{TreeTableModelView>WeightPerPiece}" wrapping="false" />
+                                        <Text text="{TreeTableModelView>WeightPerPiece}" wrapping="true" />
                                     </tt:template>
                                 </tt:Column>                               
                                 <tt:Column>
-                                    <Label text="Issued Quantity"/>
+                                    <Label text="Issued Quantity" wrapping="true"/>
                                     <tt:template>
-                                        <Text text="{TreeTableModelView>Quantity}" wrapping="false" />
-                                    </tt:template>
-                                </tt:Column>
-                                                                <tt:Column>
-                                    <Label text="Balanced Quantity"/>
-                                    <tt:template>
-                                        <Text text="{TreeTableModelView>BalanceQty}" wrapping="false" />
+                                        <Text text="{TreeTableModelView>Quantity}" wrapping="true" />
                                     </tt:template>
                                 </tt:Column>
                                 <tt:Column>
-                                    <Label text="Qty Requested for Return"/>
+                                    <Label text="Balanced Quantity" wrapping="true"/>
                                     <tt:template>
-                                        <Text text="{TreeTableModelView>RequirementQuantity}" wrapping="false" />
+                                        <Text text="{TreeTableModelView>BalanceQty}" wrapping="true" />
+                                    </tt:template>
+                                </tt:Column>
+                                <tt:Column>
+                                    <Label text="Quantity Requested for Return" wrapping="true"/>
+                                    <tt:template>
+                                        <Text text="{TreeTableModelView>RequirementQuantity}" wrapping="true" />
                                     </tt:template>
                                 </tt:Column>                  
                                 <tt:Column>
-                                    <Label text="Qty Approved for Return"/>
+                                    <Label text="Quantity Approved for Return" wrapping="true"/>
                                     <tt:template>
-                                        <Text text="{TreeTableModelView>ApprovedQuantity}" wrapping="false"/>
+                                        <Text text="{TreeTableModelView>ApprovedQuantity}" wrapping="true"/>
                                     </tt:template>
                                 </tt:Column>
                             </tt:columns>

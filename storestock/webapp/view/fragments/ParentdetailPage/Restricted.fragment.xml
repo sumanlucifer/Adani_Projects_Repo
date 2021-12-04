@@ -14,7 +14,6 @@
                     </customData>
                     <Text text="{i18n>LineNumber}"/>
                 </Column>
-
                 <Column >
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "Name", "leadingProperty": "Name",
@@ -30,16 +29,14 @@
                     </customData>
                     <Text text="{i18n>MaterialID}"/>
                 </Column>
-
                 <!-- Plant Code -->
                 <Column demandPopin="true" minScreenWidth="Desktop">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "Qty", "leadingProperty": "Qty",
                                                  "columnIndex": 3 ,"sortProperty": "Qty","filterProperty": "Qty"}'/>
                     </customData>
-                    <Text text="{i18n>Quantity}"/>
+                    <Text text="{i18n>AvailableQty}"/>
                 </Column>
-
                 <!-- Issue Date -->
                 <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
@@ -48,7 +45,6 @@
                     </customData>
                     <Text text="{i18n>UOM}"/>
                 </Column>
-
                 <Column>
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "CreatedAt", "leadingProperty": "CreatedAt",
@@ -56,17 +52,10 @@
                     </customData>
                     <Text text="Created At"/>
                 </Column>
-
-
-
             </columns>
             <items>
-
                 <ColumnListItem type="Navigation" press="onRestrictdParentTablePress">
                     <cells>
-
-
-
                         <ObjectIdentifier title="{LineNumber}"/>
                         <ObjectIdentifier text="{Name}"/>
                         <ObjectIdentifier text="{MaterialCode}"/>
@@ -78,13 +67,9 @@
 				                        pattern: 'MMMM dd, yyyy'
 				                     }
                         }"/>
-
-
                     </cells>
                 </ColumnListItem>
-
             </items>
         </Table>
     </smartTable:SmartTable>
-
 </core:FragmentDefinition>

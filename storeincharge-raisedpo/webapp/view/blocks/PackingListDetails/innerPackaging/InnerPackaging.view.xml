@@ -10,7 +10,7 @@
     
         <columns>
             <Column>
-                <Text text="Inner Packaging"/>
+                <Text text="Primary Packaging"/>
             </Column>
             <Column>
                 <Text text="Line Item"/>
@@ -19,7 +19,7 @@
                 <Text text="Dispatch Qty."/>
             </Column> -->
             <Column>
-                <Text text="Packaging Qty"/>
+                <Text text="Packaging Quantity"/>
             </Column>
             <Column>
                 <Text text="UOM"/>
