@@ -77,6 +77,7 @@ sap.ui.define([
                     oApproveRejectObj = {
                         "UserName": this.sUserName,
                         "UserId": Number(oSelectedUserObj.UserId),
+                        "ID": Number(oSelectedUserObj.ID),
                         "UpdateRequestFlag": true,
                         "RoleAssignApprovalRequestId": Number(oSelectedUserObj.ID),
                         "Status": sStatus,
@@ -153,22 +154,17 @@ sap.ui.define([
                 if (requestnumber != "") {
                     andFilters.push(new Filter("RequestNumber", FilterOperator.EQ, requestnumber));
                 }
-
                 // Created At
                 if (DateRangeValue != "") {
                     var From = new Date(DateRange.getFrom());
                     var To = new Date(DateRange.getTo());
                     andFilters.push(new Filter("CreatedAt", FilterOperator.BT, From.toISOString(), To.toISOString()));
                 }
-
-
                 var idRequestTableBinding = this.getView().byId("idApproveRejectRolesTBL").getTable().getBinding("items");
                 if (andFilters.length == 0) {
                     andFilters.push(new Filter("RequestNumber", FilterOperator.NE, ""));
                     idBOQRequestTableBinding.filter(new Filter(andFilters, true));
                 }
-
-
                 if (andFilters.length > 0) {
                     idRequestTableBinding.filter(new Filter(andFilters, true));
                 }
