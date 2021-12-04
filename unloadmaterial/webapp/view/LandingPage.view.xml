@@ -54,7 +54,7 @@
                                 <core:CustomData key="p13nData" value='\{"columnKey": "Name", "leadingProperty": "PackingList/Name",
                                                         "columnIndex": 0 ,"sortProperty": "PackingList/Name", "filterProperty": "PackingList/Name"}'/>
                             </customData>
-                            <Text text="{i18n>Name}"/>
+                            <Text text="{i18n>PackingListName}"/>
                         </Column>
 
                         <Column demandPopin="true" minScreenWidth="Desktop">

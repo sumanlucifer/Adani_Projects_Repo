@@ -121,7 +121,7 @@
                                         <core:CustomData key="p13nData" value='\{"columnKey": "Name", "leadingProperty": "Name",
                                                  "columnIndex": 0 ,"sortProperty": "Name","filterProperty": "Name"}'/>
                                     </customData>
-                                    <Text text="{i18n>name}"/>
+                                    <Text text="Packing List Number"/>
                                 </Column>
                 
                                 <Column demandPopin="true" minScreenWidth="Tablet">
@@ -129,7 +129,7 @@
                                         <core:CustomData key="p13nData" value='\{"columnKey": "CreatedAt", "leadingProperty": "CreatedAt",
                                                  "columnIndex": 1 ,"sortProperty": "CreatedAt","filterProperty": "CreatedAt"}'/>
                                     </customData>
-                                    <Text text="{i18n>createdAt}"/>
+                                    <Text text="Created On"/>
                                 </Column>
 
                                 <Column demandPopin="true" minScreenWidth="Tablet">

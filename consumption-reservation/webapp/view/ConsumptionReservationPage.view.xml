@@ -95,13 +95,6 @@
                                 <Text text="{TreeDataModel>BalanceQty}" wrapping="false" />
                             </ui:template>
                         </ui:Column>
-
-                                                <ui:Column>
-                            <Label text="{i18n>BaseUnit}" />
-                            <ui:template>
-                                <Text text="{TreeDataModel>BaseUnit}" wrapping="false" />
-                            </ui:template>
-                        </ui:Column>
                         <ui:Column>
                             <Label text="{i18n>UOM}" />
                             <ui:template>
@@ -114,11 +107,16 @@
                                 <Text text="{TreeDataModel>Description}" wrapping="false" />
                             </ui:template>
                         </ui:Column>
-
-                                                <ui:Column>
+                        <ui:Column>
                             <Label text="{i18n>BaseQty}" />
                             <ui:template>
                                 <Text text="{TreeDataModel>BaseQty}" wrapping="false" />
+                            </ui:template>
+                        </ui:Column>
+                        <ui:Column>
+                            <Label text="{i18n>BaseUnit}" />
+                            <ui:template>
+                                <Text text="{TreeDataModel>BaseUnit}" wrapping="false" />
                             </ui:template>
                         </ui:Column>
                         <ui:Column>
@@ -133,15 +131,12 @@
                                 <Text text="{TreeDataModel>IssuedQty}" wrapping="false" />
                             </ui:template>
                         </ui:Column>
-<ui:Column>
+                        <ui:Column>
                             <Label text="{i18n>WeightPerPiece}" />
                             <ui:template>
                                 <Text text="{TreeDataModel>WeightPerPiece}" wrapping="false" />
                             </ui:template>
-                        </ui:Column>
-
-
-                        
+                        </ui:Column>                        
                         <ui:Column>
                             <Label text="{i18n>BalancedQuantity}" />
                             <ui:template>

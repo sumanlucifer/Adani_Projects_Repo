@@ -16,6 +16,9 @@
                 <Text text="Name" wrapping="true"/>
             </Column>
             <Column demandPopin="true" minScreenWidth="Desktop">
+                <Text text="{i18n>hsncode}"/>
+            </Column>
+            <Column demandPopin="true" minScreenWidth="Desktop">
                 <Text text="{i18n>plant}" />
             </Column>
             <Column demandPopin="true" minScreenWidth="Desktop" hAlign="Center">
@@ -25,7 +28,7 @@
                 <Text text="{i18n>quantity}" />
             </Column>
             <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center">
-                <Text text="{i18n>orderUnit}"/>
+                <Text text="{i18n>UOM}"/>
             </Column>
             <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center">
                 <Text text="{i18n>netPrice}"/>
@@ -38,9 +41,6 @@
             </Column>
             <Column demandPopin="true" minScreenWidth="Desktop" hAlign="Center">
                 <Text text="{i18n>taxIndicator}"/>
-            </Column>
-            <Column demandPopin="true" minScreenWidth="Desktop">
-                <Text text="{i18n>hsncode}"/>
             </Column>
             <Column demandPopin="true" minScreenWidth="Desktop">
                 <Text text="{i18n>deliveryDate}"/>
@@ -57,6 +57,7 @@
                         <ObjectIdentifier title="{MaterialCode}"/>
                     </VBox>     -->
                     <Text text="{Name}" wrappingType="Hyphenated"/>
+                    <Text text="{HSNCode}"/>
                     <Text text="{PlantCode}" binding="{PurchaseOrder}"/>
                     <Text text="{StorageLocation}"/>
                     <Text text="{Quantity}"/>
@@ -65,7 +66,6 @@
                     <u:Currency stringValue="{Value}" currency="{PurchaseOrder/Currency}" useSymbol="true"/>
                     <Text text="{TaxCode}"/>
                     <Text text="{TaxIndicator}"/>
-                    <Text text="{HSNCode}"/>
                     <Text text="{path:'DeliveryDate',
                                      type: 'sap.ui.model.type.Date',
 				                     formatOptions: {

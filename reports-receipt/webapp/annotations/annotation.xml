@@ -103,6 +103,9 @@
             <Annotations Target="com.agel.mmts.entity.ReceiptReportViewModel/GoodsRecipient">
                 <Annotation Term="Common.Label" String="{@i18n>goodsRecipient}"/>
             </Annotations>
+            <Annotations Target="com.agel.mmts.entity.ReceiptReportViewModel/Plant">
+                <Annotation Term="Common.Label" String="{@i18n>Plant}"/>
+            </Annotations>
 
             <Annotations Target="com.agel.mmts.entity.ReceiptReportViewModel">
                 <Annotation Term="Common.SemanticKey">
@@ -148,25 +151,25 @@
                             <PropertyValue Property="Value" Path="POLine"/>
                         </Record>
                         <Record Type="UI.DataField">
-                            <PropertyValue Property="Value" Path="ChildCode"/>
-                        </Record>
-                        <Record Type="UI.DataField">
                             <PropertyValue Property="Value" Path="ParentCode"/>
                         </Record>
                         <Record Type="UI.DataField">
                             <PropertyValue Property="Value" Path="ParentDescription"/>
                         </Record>
                         <Record Type="UI.DataField">
-                            <PropertyValue Property="Value" Path="ChildUOM"/>
-                        </Record>
-                        <Record Type="UI.DataField">
-                            <PropertyValue Property="Value" Path="ChildQty"/>
-                        </Record>
-                        <Record Type="UI.DataField">
                             <PropertyValue Property="Value" Path="ParentUOM"/>
                         </Record>
                         <Record Type="UI.DataField">
                             <PropertyValue Property="Value" Path="ParentQty"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="ChildCode"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="ChildUOM"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="ChildQty"/>
                         </Record>
                         <Record Type="UI.DataField">
                             <PropertyValue Property="Value" Path="StorageLocation"/>
@@ -191,11 +194,11 @@
                         <PropertyPath>InvoiceNo</PropertyPath>
                         <PropertyPath>PurchaseOrder</PropertyPath>
                         <PropertyPath>POLine</PropertyPath>
-                        <PropertyPath>ChildCode</PropertyPath>
                         <PropertyPath>ParentCode</PropertyPath>
                         <PropertyPath>ParentDescription</PropertyPath>
-                        <PropertyPath>ChildUOM</PropertyPath>
                         <PropertyPath>ParentUOM</PropertyPath>
+                        <PropertyPath>ChildCode</PropertyPath>
+                        <PropertyPath>ChildUOM</PropertyPath>
                         <PropertyPath>StorageLocation</PropertyPath>
                         <PropertyPath>Username</PropertyPath>
                         <PropertyPath>GoodsRecipient</PropertyPath>

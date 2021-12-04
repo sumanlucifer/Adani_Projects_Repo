@@ -10,7 +10,7 @@
             <OverflowToolbar >
                 <content>
                     <ToolbarSpacer></ToolbarSpacer>
-                    <Button id="idButtonGenerate" text="{= ${IsProcessOneCompletes} ? 'Regenerate Inner Packaging List' : 'Generate Inner Packaging List'}" press="onGeneratePackingList" visible="{= ${objectViewModel>/isPackingListInEditModel} ? true : false}"></Button>
+                    <Button id="idButtonGenerate" text="{= ${IsProcessOneCompletes} ? 'Regenerate Primary Packaging List' : 'Generate Primary Packaging List'}" press="onGeneratePackingList" visible="{= ${objectViewModel>/isPackingListInEditModel} ? true : false}"></Button>
                 </content>
             </OverflowToolbar>
         </headerToolbar>
@@ -57,7 +57,7 @@
         <headerToolbar>
             <OverflowToolbar >
                 <content>
-                    <Title text="Generated Inner Packaging" level="H2"></Title>
+                    <Title text="Generated Primary Packaging" level="H2"></Title>
                 </content>
             </OverflowToolbar>
         </headerToolbar>

@@ -3,8 +3,8 @@
     xmlns:core="sap.ui.core">
 
     <smartTable:SmartTable class="sapUiResponsiveContentPadding" id="idListTable" editable="false" placeToolbarInTable="true" enableAutoBinding="true" entitySet="PrintAssistanceSet" 
-    showFullScreenButton="true" header="Approval Requests" showRowCount="true" tableType="ResponsiveTable" demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" 
-    beforeRebindTable="onbeforeRebindListPoTable" ignoreFromPersonalisation="ApprovedBy, ApprovedOn, Description, Reason, RequestedBy, UpdatedAt, UpdatedBy, CreatedAt, CreatedBy, ID, IsArchived">
+    showFullScreenButton="true" header="{i18n>PageTitle}" showRowCount="true" tableType="ResponsiveTable" demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" 
+    beforeRebindTable="onbeforeRebindListPoTable" ignoreFromPersonalisation="WorkflowInstanceId, ApprovedBy, ApprovedOn, Description, Reason, RequestedBy, UpdatedAt, UpdatedBy, CreatedAt, CreatedBy, ID, IsArchived">
 
         <Table sticky="ColumnHeaders,HeaderToolbar" updateFinished="onListTableUpdateFinished" alternateRowColors="true">
             <columns>

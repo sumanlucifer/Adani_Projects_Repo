@@ -42,37 +42,20 @@
             </uxap:ObjectPageDynamicHeaderTitle>
         </uxap:headerTitle>
         <uxap:headerContent>
-
             <FlexBox wrap="Wrap" height="100%" renderType="Bare" direction="Column">
                 <VBox renderType="Bare">
                     <FlexBox direction="Row" renderType="Bare" class="sapUiTinyMarginBottom">
-
                         <VBox renderType="Bare" class="sapUiMediumMarginEnd">
                             <Label text="{i18n>CreatedAt}" />
-                            <!-- <Text text="{path:'CreatedAt',
-                                  type: 'sap.ui.model.type.DateTime',
-                                    formatOptions: {
-                                    pattern: 'MMMM dd, yyyy HH:mm:ss'
-                                    }
-                            }"/> -->
-
                             <Text text="{path:'CreatedAt',
                                      type: 'sap.ui.model.type.Date',
 				                     formatOptions: {
 				                        pattern: 'MMMM dd, yyyy'
 				                     }
-                        }"/>
+                            }"/>
                         </VBox>
-
                         <VBox renderType="Bare" class="sapUiMediumMarginEnd">
                             <Label text="{i18n>DocumentDate}" />
-
-                            <!-- <Text text="{path:'DocumentDate',
-                                  type: 'sap.ui.model.type.DateTime',
-                                    formatOptions: {
-                                    pattern: 'MMMM dd, yyyy HH:mm:ss'
-                                    }
-                            }"/> -->
                             <Text text="{path:'DocumentDate',
                                      type: 'sap.ui.model.type.Date',
 				                     formatOptions: {
@@ -82,19 +65,12 @@
                         </VBox>
                         <VBox renderType="Bare" class="sapUiMediumMarginEnd">
                             <Label text="{i18n>PostingDate}" />
-                            <!-- missing -->
-                            <!-- <Text text="{path:'PostingDate',
-                                type: 'sap.ui.model.type.DateTime',
-                                formatOptions: {
-                                pattern: 'MMMM dd, yyyy HH:mm:ss'
-                                }
-                            }"/> -->
                             <Text text="{path:'PostingDate',
                                      type: 'sap.ui.model.type.Date',
 				                     formatOptions: {
 				                        pattern: 'MMMM dd, yyyy'
 				                     }
-                        }"/>
+                            }"/>
                         </VBox>
                         <VBox renderType="Bare" class="sapUiMediumMarginEnd">
                             <Label text="{i18n>status}" />
@@ -115,12 +91,10 @@
             <uxap:ObjectPageSection titleUppercase="false" title="{i18n>lineItems}">
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection title="{i18n>lineItems}">
-
                         <Table id="idListTable" growing="true" growingThreshold="10" items="{consumptionData>/}">
                             <headerToolbar>
                                 <OverflowToolbar>
                                     <content>
-
                                     </content>
                                 </OverflowToolbar>
                             </headerToolbar>
@@ -129,13 +103,13 @@
                                     <CheckBox select="onSelectAll"></CheckBox>
                                 </Column>
                                 <Column demandPopin="true" minScreenWidth="Tablet">
-                                    <Text text="Name"/>
+                                    <Text text="Material Name"/>
                                 </Column>
                                 <Column demandPopin="true" minScreenWidth="Tablet">
                                     <Text text="Material Code"/>
                                 </Column>
                                 <Column demandPopin="true" minScreenWidth="Tablet">
-                                    <Text text="Plant"/>
+                                    <Text text="Plant Code"/>
                                 </Column>
                                 <Column demandPopin="true" minScreenWidth="Tablet">
                                     <Text text="Storage Location"/>
@@ -147,21 +121,20 @@
                                     <Text text="Goods Recipient"/>
                                 </Column>
                                 <Column demandPopin="true" minScreenWidth="Tablet">
-                                    <Text text="WBS Number"/>
+                                    <Text text="WBS Element"/>
                                 </Column>
                                 <Column demandPopin="true" minScreenWidth="Tablet">
                                     <Text text="Unloading Point"/>
                                 </Column>
                                 <Column demandPopin="true" minScreenWidth="Tablet">
-                                    <Text text="Issued Qty"/>
+                                    <Text text="Issued Quantity"/>
                                 </Column>
                                 <Column demandPopin="true" minScreenWidth="Desktop">
-                                    <Text text="Reserved Qty"/>
+                                    <Text text="Reserved Quantity"/>
                                 </Column>
                                 <Column demandPopin="true" minScreenWidth="Tablet">
                                     <Text text="Status"/>
                                 </Column>
-
                             </columns>
                             <items>
                                 <ColumnListItem id="idBOQItems">
@@ -177,7 +150,6 @@
                                         <Text text="{consumptionData>UnloadPoint}"/>
                                         <Text text="{consumptionData>IssuedQty}"/>
                                         <Text text="{consumptionData>IssuedMaterialReservedItem/ReservedQty}"/>
-
                                         <ObjectStatus text="{consumptionData>Status}" state="{= ${consumptionData>Status} === 'ISSUED' ? 'Success' : ${consumptionData>Status} === 'RESERVED' ? 'Information' : 'Error'}" visible="{= ${consumptionData>Status}.length>0 ? true : false }"/>
                                     </cells>
                                 </ColumnListItem>

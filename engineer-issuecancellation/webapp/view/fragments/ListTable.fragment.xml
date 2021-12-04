@@ -2,7 +2,7 @@
     xmlns:smartTable="sap.ui.comp.smarttable"
     xmlns:core="sap.ui.core">
     <smartTable:SmartTable class="sapUiResponsiveContentPadding" id="idListTable" editable="false" placeToolbarInTable="true" enableAutoBinding="true" entitySet="IssuedMaterialSet" 
-    showFullScreenButton="true" header="Issue Cancellation" showRowCount="true" tableType="ResponsiveTable" requestAtLeastFields="ID" demandPopin="false" useExportToExcel="false" 
+    showFullScreenButton="true" header="Issue Cancellation Requests" showRowCount="true" tableType="ResponsiveTable" requestAtLeastFields="ID" demandPopin="false" useExportToExcel="false" 
     useTablePersonalisation="true" useVariantManagement="false" beforeRebindTable="onbeforeRebindListIssueTable" ignoreFromPersonalisation="ID">
         <Table sticky="ColumnHeaders,HeaderToolbar" updateFinished="onIssueTableUpdateFinished" alternateRowColors="true">
             <columns>
@@ -29,17 +29,17 @@
                 </Column>
                 <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "Status", "leadingProperty": "Status",
-                        "columnIndex": 3 ,"sortProperty": "Status"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "CreatedAt", "leadingProperty": "CreatedAt",
+                        "columnIndex": 3 ,"sortProperty": "CreatedAt"}'/>
                     </customData>
-                    <Text text="{i18n>Status}"/>
+                    <Text text="{i18n>issuedDate}"/>
                 </Column>
                 <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "CreatedAt", "leadingProperty": "CreatedAt",
-                        "columnIndex": 4 ,"sortProperty": "CreatedAt"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Status", "leadingProperty": "Status",
+                        "columnIndex": 4 ,"sortProperty": "Status"}'/>
                     </customData>
-                    <Text text="{i18n>issuedDate}"/>
+                    <Text text="{i18n>Status}"/>
                 </Column>
             </columns>
             <items>
@@ -48,13 +48,13 @@
                         <ObjectIdentifier title="{MaterialDocumentNumber}" />
                         <Text text="{MaterialDocumentYear}"/>
                         <Text text="{TotalGrossWeight}"/>
-                        <ObjectStatus text="{Status}" state="{= ${Status} === 'ISSUED' ? 'Success' : ${Status} === 'PARTIALLY CANCELLED' ? 'Information' : ${Status} === 'PARTIALLY EXECUTED' ? 'Warning' : 'Error'}" visible="{= ${Status}.length>0 ? true : false }"/>
                         <Text text="{path:'CreatedAt',
                             type: 'sap.ui.model.type.Date',
                             formatOptions: {
                             pattern: 'MMMM dd, yyyy'
                             }
                         }"/>
+                        <ObjectStatus text="{Status}" state="{= ${Status} === 'ISSUED' ? 'Success' : ${Status} === 'PARTIALLY CANCELLED' ? 'Information' : ${Status} === 'PARTIALLY EXECUTED' ? 'Warning' : 'Error'}" visible="{= ${Status}.length>0 ? true : false }"/>
                     </cells>
                 </ColumnListItem>
             </items>

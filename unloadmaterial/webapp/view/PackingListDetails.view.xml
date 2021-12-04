@@ -116,9 +116,9 @@
 			                        <Column>
 				                        <Text text="{i18n>lineno}"/>
 			                        </Column>
-			                        <Column>
+			                        <!-- <Column>
 				                        <Text text="{i18n>lineItemId}"/>
-			                        </Column>
+			                        </Column> -->
 			                        <Column>
 				                        <Text text="{i18n>POQty}"/>
 			                        </Column>
@@ -132,14 +132,14 @@
 				                        <Text text="{i18n>UOM}"/>
 			                        </Column>
                                     <Column>
-				                        <Text text=""/>
+				                        <Text text="{i18n>Action}"/>
 			                        </Column>
 		                        </columns>
 		                        <items>
 			                        <ColumnListItem>
 				                        <cells> 
 					                        <Text text="{LineNumber}"/>
-					                        <Text text="{ID}"/>
+					                        <!-- <Text text="{ID}"/> -->
 					                        <Text text="{Qty}"/>
 					                        <Text text="{MDCCApprovedQty}"/>
 					                        <Text text="{DispatchQty}"/>

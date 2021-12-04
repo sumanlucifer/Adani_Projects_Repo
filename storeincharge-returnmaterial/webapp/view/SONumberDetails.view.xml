@@ -16,14 +16,11 @@
                     <Breadcrumbs id="breadcrumbsId" currentLocationText="{i18n>ReturnMaterialDetails}">
                         <Link text="{i18n>ReturnMaterial}" press=".handleToAllReturnMaterialBreadcrumPress"/>
                     </Breadcrumbs> 
-                </uxap:breadcrumbs>
-      
-
-                                <uxap:expandedHeading>
+                </uxap:breadcrumbs>   
+                <uxap:expandedHeading>
                     <FlexBox direction="Column" renderType="Bare">
                         <Title text="{i18n>ReturnMaterial}" wrapping="false" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
                         <Title text="{ReservationNumber}" wrapping="true" titleStyle="H3" />
-
                     </FlexBox>
                 </uxap:expandedHeading>
                 <uxap:snappedHeading>
@@ -59,10 +56,10 @@
                             <Label text="{i18n>ReservationDate}" />
                             <!-- missing -->
                             <Text text="{path:'ReservationDate',
-                                  type: 'sap.ui.model.type.DateTime',
-formatOptions: {
-pattern: 'MMMM dd, yyyy HH:mm:ss'
-}
+                                type: 'sap.ui.model.type.DateTime',
+                                formatOptions: {
+                                pattern: 'MMMM dd, yyyy HH:mm:ss'
+                                }
                             }"/>
                         </VBox>
                         <VBox renderType="Bare" class="sapUiMediumMarginEnd">
@@ -136,11 +133,9 @@ pattern: 'MMMM dd, yyyy HH:mm:ss'
                                     <Label text="" />
                                     <tt:template>
                                         <CheckBox select="onReturnItemSelect" selected="{TreeTableModelView>isSelected}" visible="{=  ${Status} === 'RESERVED FOR RETURN MATERIAL' &amp;&amp; ${TreeTableModelView>selectable}}" />
-
-                                                                                <!-- <CheckBox select="onReturnItemSelect" selected="{TreeTableModelView>isSelected}" visible="{=  ${Status} === 'RESERVED FOR RETURN MATERIAL' &amp;&amp; ${TreeTableModelView>selectable} &amp;&amp; ${TreeTableModelView>RequirementQuantity} > 0 }" /> -->
+                                        <!-- <CheckBox select="onReturnItemSelect" selected="{TreeTableModelView>isSelected}" visible="{=  ${Status} === 'RESERVED FOR RETURN MATERIAL' &amp;&amp; ${TreeTableModelView>selectable} &amp;&amp; ${TreeTableModelView>RequirementQuantity} > 0 }" /> -->
                                     </tt:template>
                                 </tt:Column>
-
                                 <tt:Column>
                                     <Label text="Material Code" wrapping="true"/>
                                     <tt:template>
@@ -148,68 +143,67 @@ pattern: 'MMMM dd, yyyy HH:mm:ss'
                                     </tt:template>
                                 </tt:Column>
                                 <tt:Column>
-                                    <Label text="Name"/>
+                                    <Label text="Material Name" wrapping="true"/>
                                     <tt:template>
                                         <Text text="{TreeTableModelView>Name}" wrapping="false" /> 
                                     </tt:template>
                                 </tt:Column>
                                  <tt:Column>
-                                    <Label text="Description"/>
+                                    <Label text="Material Description" wrapping="true"/>
                                     <tt:template>
                                         <Text text="{TreeTableModelView>Description}" wrapping="false" /> 
                                     </tt:template>
                                 </tt:Column>
                                 <tt:Column>
-                                    <Label text="Plant"/>
+                                    <Label text="Plant Code" wrapping="true"/>
                                     <tt:template>
                                         <Text text="{TreeTableModelView>Plant}" />
                                     </tt:template>
                                 </tt:Column>   
                                 <tt:Column>
-                                    <Label text="WBS Element"/>
+                                    <Label text="{i18n>WBS}" wrapping="true"/>
                                     <tt:template>
                                         <Text text="{TreeTableModelView>WBSElement}" />
                                     </tt:template>
                                 </tt:Column> 
-
-                                    <tt:Column>
-                                    <Label text="Base Unit"/>
-                                    <tt:template>
-                                        <Text text="{TreeTableModelView>BaseUnit}" />
-                                    </tt:template>
-                                </tt:Column> 
-                                                                <tt:Column>
-                                    <Label text="Base Quantity"/>
+                                <tt:Column>
+                                    <Label text="Base Quantity" wrapping="true"/>
                                     <tt:template>
                                         <Text text="{TreeTableModelView>BaseQty}" wrapping="false" />
                                     </tt:template>
                                 </tt:Column>   
-                                                                <tt:Column>
-                                    <Label text="Weight Per Piece"/>
+                                <tt:Column>
+                                    <Label text="Base Unit" wrapping="true"/>
+                                    <tt:template>
+                                        <Text text="{TreeTableModelView>BaseUnit}" />
+                                    </tt:template>
+                                </tt:Column> 
+                                <tt:Column>
+                                    <Label text="Weight Per Piece" wrapping="true"/>
                                     <tt:template>
                                         <Text text="{TreeTableModelView>WeightPerPiece}" wrapping="false" />
                                     </tt:template>
                                 </tt:Column>                              
                                 <tt:Column>
-                                    <Label text="Issued Quantity"/>
+                                    <Label text="Issued Quantity" wrapping="true"/>
                                     <tt:template>
                                         <Text text="{TreeTableModelView>Quantity}" wrapping="false" />
                                     </tt:template>
                                 </tt:Column>
                                 <tt:Column>
-                                    <Label text="Balanced Quantity"/>
+                                    <Label text="Balanced Quantity" wrapping="true"/>   
                                     <tt:template>
                                         <Text text="{TreeTableModelView>BalanceQty}" wrapping="false" />
                                     </tt:template>
                                 </tt:Column>
                                 <tt:Column>
-                                    <Label text="Qty Requested for Return"/>
+                                    <Label text="Quantity Requested for Return" wrapping="true"/>
                                     <tt:template>
-                                        <ObjectIdentifier title="{TreeTableModelView>RequirementQuantity}" wrapping="false" />
+                                        <ObjectIdentifier title="{TreeTableModelView>RequirementQuantity}" />
                                     </tt:template>
                                 </tt:Column>                  
                                 <tt:Column>
-                                    <Label text="Qty Approved for Return"/>
+                                    <Label text="Quantity Approved for Return" wrapping="true"/>
                                     <tt:template>
                                         <Input type="Number" value="{TreeTableModelView>ApprovedRetQuantity}" enabled="{TreeTableModelView>isSelected}"  valueLiveUpdate="false" liveChange="onLiveChangeApprvdQty" 
                                             valueState="{= ${TreeTableModelView>ApprovedRetQuantity} > 0 &amp;&amp; ${TreeTableModelView>RequirementQuantity} >= ${TreeTableModelView>ApprovedRetQuantity} ? 'None' : 'Error' }"/>
