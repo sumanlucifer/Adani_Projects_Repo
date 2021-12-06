@@ -219,10 +219,10 @@
 		"c5ac1385-a0d4-490e-ace2-aaaf41238eea": {
 			"classDefinition": "com.sap.bpm.wfs.MailDefinition",
 			"name": "maildefinition1",
-			"to": "akhil.jain@extentia.com,atul.jain@extentia.com,dharmendra.joshi@extentia.com,Suraj.Gavane@extentia.com,anirban.neogi@extentia.com",
-			"cc": "suman.shanmugam@extentia.com",
-			"subject": "${context.ReservationRequestID} Approval",
-			"text": "${context.ReservationRequestID} Approval",
+			"to": "${context.ReservationUsersMail}",
+			"cc": "",
+			"subject": "Reservation Approval Request Raised",
+			"reference": "/webcontent/ReservationApprovals/ReservationApproval.html",
 			"id": "maildefinition1"
 		}
 	}

@@ -5,13 +5,13 @@
     xmlns:smartTable="sap.ui.comp.smarttable"
     controllerName="com.agel.mmts.storeinchargeraisedpo.view.blocks.PODetails.packingItemsForm.PackingItemsFormController">
 
-  <Table width="auto" growing="true" growingThreshold="5" fixedLayout="false" items="{PackingList}">
+  <Table width="auto" growing="true" growingThreshold="10" fixedLayout="false" items="{PackingList}">
         <columns>
             <Column demandPopin="true" minScreenWidth="Desktop" hAlign="Center">
                 <Text text="Name" wrapping="true" wrappingType="Hyphenated"/>
             </Column>
                  <Column demandPopin="true" minScreenWidth="Desktop" hAlign="Center">
-                <Text text="InvoiceDate" wrapping="true" wrappingType="Hyphenated"/>
+                <Text text="Invoice Date" wrapping="true" wrappingType="Hyphenated"/>
             </Column>
                  <Column demandPopin="true" minScreenWidth="Desktop" hAlign="Center">
                 <Text text="Status" wrapping="true" wrappingType="Hyphenated"/>

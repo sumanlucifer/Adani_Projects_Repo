@@ -29,14 +29,6 @@
         </uxap:headerTitle>
         <uxap:headerContent>
             <FlexBox direction="Row" renderType="Bare" class="sapUiTinyMarginBottom">
-                <!-- <VBox renderType="Bare" class="sapUiMediumMarginEnd">
-                    <Label text="{i18n>detlPgName}" class="sapUiTinyMarginBottom"/>
-                    <Text text="{Name}"/>
-                </VBox> -->
-                <!-- <VBox renderType="Bare" class="sapUiMediumMarginEnd">
-                    <Label text="{i18n>detlPgDescription}" class="sapUiTinyMarginBottom"/>
-                    <Text text="{Description}"/>
-                </VBox> -->
             </FlexBox>
         </uxap:headerContent>
         <uxap:sections>
@@ -69,10 +61,10 @@
                                         <core:Item key="{ID}" text="{Name}"/>
                                     </MultiComboBox>
 
-                                <Label text="Parent" visible="{= ${objectViewModel>/idSFEdit}}" />
+                                <Label text="{i18n>Parent}" visible="{= ${objectViewModel>/idSFEdit}}" />
                                     <Link text="Add Parent" visible="{= ${objectViewModel>/idSFEdit}}" press="onAddParentPress" enabled="false"/>
                                 
-                                <Label text="Parent" />
+                                <Label text="{i18n>Parent}" />
                                     <Table 
                                         items="{MasterParentsModel>/}"
                                         sticky="ColumnHeaders,HeaderToolbar"  alternateRowColors="true">

@@ -19,10 +19,10 @@
                         <Text text="Name" />
                     </Column>
                     <Column minScreenWidth="Phone" demandPopin="true" hAlign="Center">
-                        <Text text="Total Child Items" />
+                        <Text text="Total Items" />
                     </Column>
                     <Column minScreenWidth="Phone" demandPopin="true" hAlign="Center">
-                        <Text text="BOQ Quantity" />
+                        <Text text="Line Item Quantity" />
                     </Column>
                     <Column minScreenWidth="Desktop" demandPopin="true">
                     </Column>

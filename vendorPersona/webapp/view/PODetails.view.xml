@@ -141,7 +141,7 @@
                 </uxap:subSections>
             </uxap:ObjectPageSection>
 
-            <!-- Line Items Section -->
+            <!-- BOQ Items Section -->
             <uxap:ObjectPageSection titleUppercase="false" title="{i18n>boqItems}" visible="{= ${Status}==='CONFIRMED' ? true : false || ${Status}==='IN PROGRESS' ? true : false}">
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection title="{i18n>boqItems}">

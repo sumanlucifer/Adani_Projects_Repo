@@ -10,10 +10,13 @@
                 <Text text="{i18n>materialCode}" wrapping="true" wrappingType="Hyphenated"/>
             </Column>
             <Column demandPopin="true" minScreenWidth="Desktop">
-                <Text text="Name" wrapping="true"/>
+                <Text text="Material Name" wrapping="true"/>
             </Column>
             <Column demandPopin="true" minScreenWidth="Desktop">
                 <Text text="{i18n>description}"/>
+            </Column>
+            <Column demandPopin="true" minScreenWidth="Desktop">
+                <Text text="{i18n>hsncode}"/>
             </Column>
             <Column demandPopin="true" minScreenWidth="Desktop">
                 <Text text="{i18n>plant}" />
@@ -22,7 +25,7 @@
                 <Text text="{i18n>storageloc}" />
             </Column>
             <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center">
-                <Text text="{i18n>quantity}" />
+                <Text text="{i18n>OrderQty}" />
             </Column>
             <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center">
                 <Text text="{i18n>orderUnit}"/>
@@ -40,20 +43,17 @@
                 <Text text="{i18n>taxIndicator}"/>
             </Column>
             <Column demandPopin="true" minScreenWidth="Desktop">
-                <Text text="{i18n>hsncode}"/>
-            </Column>
-            <Column demandPopin="true" minScreenWidth="Desktop">
                 <Text text="{i18n>deliveryDate}"/>
             </Column>
         </columns>
         <items>
             <ColumnListItem>
                 <cells>
-            
                     <Text text="{LineNumber}" wrappingType="Hyphenated"/>
                     <ObjectIdentifier title="{MaterialCode}"/>
                     <Text text="{Name}" wrappingType="Hyphenated"/>
                     <ExpandableText text="{Description}" maxCharacters="20" overflowMode="Popover"/>
+                    <Text text="{HSNCode}"/>
                     <Text text="{PlantCode}" binding="{PurchaseOrder}"/>
                     <Text text="{StorageLocation}"/>
                     <Text text="{Quantity}"/>
@@ -62,7 +62,6 @@
                     <u:Currency stringValue="{Value}" currency="{PurchaseOrder/Currency}" useSymbol="true"/>
                     <Text text="{TaxCode}"/>
                     <Text text="{TaxIndicator}"/>
-                    <Text text="{HSNCode}"/>
                     <Text text="{path:'DeliveryDate',
                                      type: 'sap.ui.model.type.Date',
 				                     formatOptions: {

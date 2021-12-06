@@ -29,7 +29,7 @@
         {
             "id": "3",
             "lane": "1",
-            "title": "QR Code Approved?\nYES or NO",
+            "title": "QR Code Approval",
             "titleAbbreviation": "QR Approved?",
             "children": [
                 4
@@ -68,7 +68,7 @@
         {
             "id": "6",
             "lane": "4",
-            "title": "Unload",
+            "title": "Material Unload",
             "titleAbbreviation": "Unload",
             "children": [
                 7
@@ -81,7 +81,7 @@
         {
             "id": "7",
             "lane": "5",
-            "title": "GRN",
+            "title": "Material GRN",
             "titleAbbreviation": "GRN",
             "children": [
                 8
@@ -94,7 +94,7 @@
         {
             "id": "8",
             "lane": "6",
-            "title": "UD",
+            "title": "Material UD",
             "titleAbbreviation": "UD",
             "state": "Positive",
             "stateText": "Complete",

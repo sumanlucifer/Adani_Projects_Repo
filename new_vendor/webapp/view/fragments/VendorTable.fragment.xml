@@ -4,7 +4,7 @@
     <smartTable:SmartTable class="sapUiResponsiveContentPadding" id="idVendorTable" editable="false" placeToolbarInTable="true" enableAutoBinding="true" entitySet="VendorSet" 
     showFullScreenButton="true" showRowCount="false" tableType="ResponsiveTable" demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" 
     ignoredFields="IsArchived,CreatedAt,CreatedBy,UpdatedAt,UpdatedBy,PhoneNumber,EmailSearch,Address,PurchaseOrders,BOQItemGroups,SONumberDetails,IssuedMaterialReserves,Fax,GSTIN,GSTNumber,IsRegistered,City,ID,Pan,Phone,PostCode,Region,Street,StreetSuppl1"
-    beforeRebindTable="onbeforeRebindOpenPoTable" requestAtLeastFields="VendorCode,Name,Email,Country,IsActive,IsRegistered" >
+    beforeRebindTable="onbeforeRebindOpenPoTable" requestAtLeastFields="VendorCode,Name,Email,Country,IsActive,IsRegistered,StreetSuppl2" >
         <Table class="sapUiSizeCompact" growingScrollToLoad="true" growingThreshold="10" sticky="ColumnHeaders,HeaderToolbar" updateFinished="onPurchaseOrderTableUpdateFinished" alternateRowColors="true">
             <columns>
             

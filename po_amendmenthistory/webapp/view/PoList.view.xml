@@ -10,7 +10,7 @@
 		<f:title>
 			<f:DynamicPageTitle>
 				<f:heading>
-					<Title id="pageTitle" text="{i18n>txtPOAmendmentHistory}"/>
+					<Title id="pageTitle" text="{i18n>POs}"/>
 				</f:heading>
 			</f:DynamicPageTitle>
 		</f:title>

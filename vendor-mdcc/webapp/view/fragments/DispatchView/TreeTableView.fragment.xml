@@ -8,8 +8,8 @@
 	<ui:TreeTable id="TreeTableBasicViewDispatch"
                             rows="{path:'TreeTableModelView>/', parameters: {arrayNames:['ChildItemsView']}}"
                             selectionMode="None"  enableSelectAll="false"
-                            title="{i18n>TreeTableViewTitle}" ariaLabelledBy="title"
-                             rowsUpdated="onRowsUpdated">
+                            title="Line Items" ariaLabelledBy="title"
+                            rowsUpdated="onRowsUpdated">
 		<ui:columns>
 			<!-- <ui:Column width="5%">
 				<Label text="ID"/>
@@ -51,14 +51,7 @@
 				<ui:template>
 					<Text text="{TreeTableModelView>Qty}" wrapping="false" />
 				</ui:template>
-			</ui:Column>
-
-            <ui:Column  width="10%">
-				<Label text="{i18n>remainQty}" wrapping="true"/>
-				<ui:template>
-					<Text text="{TreeTableModelView>RemainingDispatchedQty}"  />
-				</ui:template>
-			</ui:Column>            
+			</ui:Column>        
 
 			<ui:Column>
 				<Label text="{i18n>mdccApprovedQty}" wrapping="true"/>
@@ -68,6 +61,13 @@
 					</HBox>
 				</ui:template>
 			</ui:Column>
+
+            <ui:Column  width="10%">
+				<Label text="{i18n>remainQty}" wrapping="true"/>
+				<ui:template>
+					<Text text="{TreeTableModelView>RemainingDispatchedQty}"  />
+				</ui:template>
+			</ui:Column>    
 
 			<ui:Column width="7%">
 				<Label text="{i18n>uom}" />

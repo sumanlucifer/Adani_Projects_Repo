@@ -11,7 +11,7 @@
         <smartTable:customToolbar>
             <OverflowToolbar design="Transparent">
                 <ToolbarSpacer/>
-                <Button text="Offline inspection raised?" press="onOfflineInspectionPress"></Button>
+                <Button text="Post Offline Inspection Details" icon="sap-icon://add-document" press="onOfflineInspectionPress"></Button>
             </OverflowToolbar>
         </smartTable:customToolbar>
 
@@ -63,7 +63,7 @@
                         <core:CustomData key="p13nData" value='\{"columnKey": "InspectionDate", "leadingProperty": "InspectionDate",
                                                  "columnIndex": 5 ,"sortProperty": "InspectionDate"}'/>
                     </customData>
-                    <Text text="{i18n>inspectionDate}"/>
+                    <Text text="Actual Inspection Date"/>
                 </Column>
                 
             </columns>

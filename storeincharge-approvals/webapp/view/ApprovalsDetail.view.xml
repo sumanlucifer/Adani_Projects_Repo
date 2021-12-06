@@ -202,17 +202,17 @@
                                     <Column>
                                         <Text text="Line Number"/>
                                     </Column>
-                                    <Column>
+                                    <!-- <Column>
                                         <Text text="Line Item ID"/>
+                                    </Column> -->
+                                    <Column>
+                                        <Text text="PO Quantity"/>
                                     </Column>
                                     <Column>
-                                        <Text text="PO Qty."/>
+                                        <Text text="MDCC Approved Quantity"/>
                                     </Column>
                                     <Column>
-                                        <Text text="MDCC Approved Qty."/>
-                                    </Column>
-                                    <Column>
-                                        <Text text="Dispatch Qty"/>
+                                        <Text text="Dispatch Quantity"/>
                                     </Column>
                                     <Column>
                                         <Text text="UOM"/>
@@ -225,7 +225,7 @@
                                     <ColumnListItem>
                                         <cells>
                                             <ObjectIdentifier title="{LineNumber}"/>
-                                            <ObjectIdentifier title="{ID}"/>
+                                            <!-- <ObjectIdentifier title="{ID}"/> -->
                                             <Text text="{Qty}"/>
                                             <Text text="{MDCCApprovedQty}"/>
                                             <Text text="{DispatchQty}"/>

@@ -7,7 +7,7 @@
         <f:title>
             <f:DynamicPageTitle>
                 <f:heading>
-                    <Title text="{i18n>manageBOQ}"/>
+                    <Title text="{i18n>lineItems}"/>
                 </f:heading>
             </f:DynamicPageTitle>
         </f:title>

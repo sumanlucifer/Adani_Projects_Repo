@@ -19,18 +19,18 @@
                 </uxap:breadcrumbs>
                 <uxap:expandedHeading>
                     <FlexBox direction="Column" renderType="Bare">
-                        <Title text="{i18n>PODetail}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
-                        <Title text="{objectViewModel>/PONumber}"/>
+                        <Title text="PO Details" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
+                        <!-- <Title text="{objectViewModel>/PONumber}"/> -->
                     </FlexBox>
                 </uxap:expandedHeading>
                 <uxap:snappedHeading>
                     <FlexBox direction="Column" renderType="Bare">
-                        <Title text="{i18n>PODetail}" wrapping="true" titleStyle="H4"/>
+                        <Title text="PO Details" wrapping="true" titleStyle="H4"/>
                     </FlexBox>
                 </uxap:snappedHeading>
                 <uxap:expandedContent></uxap:expandedContent>
                 <uxap:snappedTitleOnMobile>
-                    <Title text="{i18n>PODetail}" wrapping="true" titleStyle="Auto"/>
+                    <Title text="PO Details" wrapping="true" titleStyle="Auto"/>
                 </uxap:snappedTitleOnMobile>
                 <uxap:actions>
                 </uxap:actions>
@@ -41,7 +41,12 @@
                 <VBox renderType="Bare">
                     <FlexBox direction="Row" renderType="Bare" class="sapUiTinyMarginBottom">
                         <VBox renderType="Bare" class="sapUiMediumMarginEnd">
-                            <Label text="{i18n>POIssuedDate}" />
+                            <Label text="PO Number" />
+                            <ObjectStatus text="{objectViewModel>/PONumber}"/>
+                            <!-- state="{= ${Status}=== 'SAVED' ? 'Indication05' : ${Status}=== 'DISPATCHED' ? 'Indication06' : 'Indication07'}" -->
+                        </VBox>
+                        <VBox renderType="Bare" class="sapUiMediumMarginEnd">
+                            <Label text="PO Issued Date" />
                             <Text text="{path:'objectViewModel>/CreatedAt',
                                     type: 'sap.ui.model.type.Date',
 				                     formatOptions: {
@@ -69,14 +74,12 @@
         </uxap:headerContent>
         <uxap:sections>
 
-
             <!-- Line Items Section -->
             <uxap:ObjectPageSection titleUppercase="false" title="{i18n>ViewPackingList}">
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection title="{i18n>ViewPackingList}" titleLevel="H6">
                         <uxap:blocks>
                             <smartTable:SmartTable class="sapUiSizeCompact" id="idPackingListTable" editable="false" placeToolbarInTable="true" enableAutoBinding="true" entitySet="PurchaseOrderSet" tableBindingPath="PackingList" showFullScreenButton="true" showRowCount="false" tableType="ResponsiveTable" demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" beforeRebindTable="onBeforeRebindPackingListTable" ignoreFromPersonalisation="ID,CreatedBy,IsArchived,PONumber,UpdatedAt,UpdatedBy">
-
                                 <Table sticky="ColumnHeaders,HeaderToolbar" updateFinished="onPackingListTableUpdateFinished">
                                     <columns>
                                         <Column >
@@ -84,7 +87,7 @@
                                                 <core:CustomData key="p13nData" value='\{"columnKey": "Name", "leadingProperty": "Name",
                                                  "columnIndex": 0 ,"sortProperty": "Name","filterProperty": "Name"}'/>
                                             </customData>
-                                            <Text text="{i18n>Name}"/>
+                                            <Text text="Packing List Number"/>
                                         </Column>
 
                                         <Column demandPopin="true" minScreenWidth="Tablet">

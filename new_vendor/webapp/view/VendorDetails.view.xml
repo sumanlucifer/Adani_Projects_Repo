@@ -11,13 +11,13 @@
                 <uxap:expandedHeading>
                     <FlexBox direction="Column" renderType="Bare">
                         <Title text="{i18n>VendorDetails}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
-                        <Text text="{i18n>VendorCode}: {VendorViewModel>/VendorCode}" wrapping="true"/>
+                        <!-- <Text text="{i18n>VendorCode}: {VendorViewModel>/VendorCode}" wrapping="true"/> -->
                     </FlexBox>
                 </uxap:expandedHeading>
                 <uxap:snappedHeading>
                     <FlexBox direction="Column" renderType="Bare">
                         <Title text="{i18n>VendorDetails}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
-                        <Text text="{i18n>VendorCode}: {VendorViewModel>/VendorCode}" wrapping="true"/>
+                        <!-- <Text text="{i18n>VendorCode}: {VendorViewModel>/VendorCode}" wrapping="true"/> -->
                     </FlexBox>
                 </uxap:snappedHeading>
                 <uxap:snappedTitleOnMobile>

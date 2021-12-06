@@ -85,18 +85,18 @@
                         </FlexBox>
                     </VBox>
                     <VBox class="sapUiMediumMarginBeginEnd">
-                        <Title text="{i18n>pOandASNDetails}" titleStyle="H6"/>
+                        <Title text="PO Details:" titleStyle="H6"/>
                         <!-- <ObjectStatus title="Invoice Number" text="{InvoiceNumber}"/> -->
-                        <ObjectStatus title="ASN Number" text="Missing"/>
                         <ObjectStatus title="PO Number" text="{PONumber}"/>
-                        <ObjectStatus title="ASN Creation Date" text="Missing"/>
+                        <!-- <ObjectStatus title="ASN Number" text="Missing"/> -->
+                        <!-- <ObjectStatus title="ASN Creation Date" text="Missing"/> -->
                         <!-- <ObjectStatus title="Invoice Date" text="{InvoiceDate}"/> -->
                         <!-- <ObjectStatus title="Status" text="{Status}"/> -->
                     </VBox>
                     <VBox class="sapUiMediumMarginBeginEnd">
                         <Title text="{i18n>shipTo}" titleStyle="H6"/>
-                        <!-- <ObjectAttribute title="{Name}" binding="{PurchaseOrder/MasterCompanyCode}"/>
-                        <ObjectAttribute text="{Street}" binding="{PurchaseOrder/MasterCompanyCode/Address}"/>
+                        <ObjectAttribute title="{Name}" binding="{PurchaseOrder/MasterCompanyCode}"/>
+                        <!-- <ObjectAttribute text="{Street}" binding="{PurchaseOrder/MasterCompanyCode/Address}"/>
                         <ObjectAttribute text="{City} - {State} - {Country}" binding="{PurchaseOrder/MasterCompanyCode/Address}"/>
                         <ObjectAttribute text="{pinCode}" binding="{PurchaseOrder/MasterCompanyCode/Address}"/> -->
                         <ObjectAttribute title="" />
@@ -139,7 +139,7 @@
                             <outerPackaging:OuterPackaging OnViewQRCodePress="onViewQRCodePress" class="sapUxAPObjectPageSubSectionAlignContent"/>
                         </uxap:blocks>
                     </uxap:ObjectPageSubSection>
-                    <uxap:ObjectPageSubSection title="Inner Packaging">
+                    <uxap:ObjectPageSubSection title="Primary Packaging">
                         <uxap:blocks>
                             <innerPackaging:InnerPackaging class="sapUxAPObjectPageSubSectionAlignContent" OnViewQRCodePress = "onViewQRCodePress"/>
                         </uxap:blocks>
@@ -160,7 +160,7 @@
                                     <Label text="Invoice Number" />
                                     <Text text="{InvoiceNumber}" />
                                     <!-- <core:Title ></core:Title> -->
-                                    <Label text="Packaging Ref. No." />
+                                    <Label text="Packaging Reference Number" />
                                     <Text text="{PackagingReferenceNumber}" />
                                     <Label text="Invoice Date" />
                                     <Text text="{InvoiceDate}" />

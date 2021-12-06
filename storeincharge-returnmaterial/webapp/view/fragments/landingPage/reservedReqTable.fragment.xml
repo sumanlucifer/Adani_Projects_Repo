@@ -6,7 +6,7 @@
     enableAutoBinding="true" entitySet="ReturnMaterialReserveSet"  showFullScreenButton="true" showRowCount="true" tableType="ResponsiveTable" 
     demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" beforeRebindTable="onBeforeRebindReqTable"
     ignoreFromPersonalisation="ID,RequestDate,CancelledDate,CancelledBy,Comment,IsArchived,CreatedAt,CreatedBy,UpdatedAt,UpdatedBy">
-        <Table sticky="ColumnHeaders,HeaderToolbar" alternateRowColors="true" growing="true" growingThreshold="5">
+        <Table sticky="ColumnHeaders,HeaderToolbar" alternateRowColors="true" growing="true" growingThreshold="20">
             <columns>
                 <Column>
                     <customData>
@@ -15,19 +15,19 @@
                     </customData>
                     <Text text="{i18n>ReservationNo}"/>
                 </Column>
-                <Column demandPopin="true" minScreenWidth="Desktop">
-                    <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "Plant", "leadingProperty": "Plant",
-                                "columnIndex": 1,"sortProperty": "Plant", "filterProperty": "Plant"}'/>
-                    </customData>
-                    <Text text="{i18n>Plant}"/>
-                </Column>
                 <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "ReservationDate", "leadingProperty": "ReservationDate",
-                                "columnIndex": 2, "sortProperty": "ReservationDate", "filterProperty": "ReservationDate"}'/>
+                                "columnIndex": 1, "sortProperty": "ReservationDate", "filterProperty": "ReservationDate"}'/>
                     </customData>
                     <Text text="{i18n>ReservationDate}"/>
+                </Column>
+                <Column demandPopin="true" minScreenWidth="Desktop">
+                    <customData>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Plant", "leadingProperty": "Plant",
+                                "columnIndex": 2,"sortProperty": "Plant", "filterProperty": "Plant"}'/>
+                    </customData>
+                    <Text text="{i18n>Plant}"/>
                 </Column>
                 <Column demandPopin="true" minScreenWidth="Desktop">
                     <customData>
@@ -41,13 +41,13 @@
                 <ColumnListItem type="Navigation" press="onReturnMaterialSelect"> 
                     <cells>
                         <Text text="{ReservationNumber}"/>
-                        <Text text="{Plant}"/>
                         <Text text="{path:'ReservationDate',
                                     type: 'sap.ui.model.type.Date',
                                     formatOptions: {
                                         pattern: 'MMMM dd, yyyy'
                                     }
                         }"/>
+                        <Text text="{Plant}"/>
                         <ObjectStatus text="{Status}" state="{= ${Status} === 'RESERVED FOR RETURN MATERIAL' ? 'Information' : 'None'}" visible="{= ${Status}.length>0 ? true : false }"/>
                     </cells>
                 </ColumnListItem>

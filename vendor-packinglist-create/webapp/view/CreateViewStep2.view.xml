@@ -118,7 +118,7 @@
                                         <Text text="Outer Packaging Type"/>
                                     </Column>
                                     <Column>
-                                        <Text text="Outer Packaging Dimention"/>
+                                        <Text text="Outer Packaging Dimension"/>
                                     </Column>
                                     <Column>
                                         <Text text="Action"/>
@@ -136,7 +136,7 @@
                                                 <core:Item key="{ID}" text="{Name}" />
                                             </Select>
                                             <Text data:p="Dimension" text="{outerPackagingModel>PackagingDimensions}"/>
-                                            <Link text="Manage Inner Packaging" press="onManageInnerPackagingPress" enabled="{= ${objectViewModel>/isPackingListInEditMode} ? true : false}"></Link>
+                                            <Link text="Manage Primary Packaging" press="onManageInnerPackagingPress" enabled="{= ${objectViewModel>/isPackingListInEditMode} ? true : false}"></Link>
                                             <Button icon="sap-icon://delete" enabled="{= ${objectViewModel>/isPackingListInEditMode} ? true : false}" press="onDeleteOuterPackingListItemPress" type="Transparent"/>
 
                                         </cells>
@@ -160,7 +160,7 @@
                                     <Label text="Invoice Number" required="true"/>
                                     <Input id="idInvoiceNumber" value="{InvoiceNumber}" editable="{= ${objectViewModel>/isPackingListInEditMode} ? true : false}"/>
                                     <!-- <core:Title ></core:Title> -->
-                                    <Label text="Packaging Ref. No" required="true"/>
+                                    <Label text="Packaging Reference Number" required="true"/>
                                     <Input id="idPackagagingRefNumber" value="{PackagingReferenceNumber}" editable="{= ${objectViewModel>/isPackingListInEditMode} ? true : false}"/>
                                     <Label text="Invoice Date" required="true"/>
                                     <DatePicker id="idInvoiceDate" value="{InvoiceDate}" valueFormat="yyyy-MM-dd" displayFormat="yyyy-MM-dd" editable="{= ${objectViewModel>/isPackingListInEditMode} ? true : false}"/>

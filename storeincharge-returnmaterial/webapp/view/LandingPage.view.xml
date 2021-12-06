@@ -11,7 +11,7 @@
         <f:title>
             <f:DynamicPageTitle>
                 <f:heading>
-                    <Title id="pageTitle" text="Return Requests"/>
+                    <Title id="pageTitle" text="{i18n>ReservedRequests}"/>
                 </f:heading>
                 <f:actions>
                 </f:actions>

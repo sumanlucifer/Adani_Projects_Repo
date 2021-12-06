@@ -18,37 +18,37 @@
         </ui:extension>
        <ui:columns>
             <ui:Column width="8%">
-                <Label text="Line No."/>
+                <Label text="{i18n>lineNo}"/>
                 <ui:template>
                     <Text text="{TreeTableModelView>LineNumber}" wrapping="false" />
                 </ui:template>
             </ui:Column>
             <ui:Column width="8%">
-                <Label text="Material Code"/>
+                <Label text="{i18n>materialCode}"/>
                 <ui:template>
                     <Text text="{TreeTableModelView>MaterialCode}" wrapping="false" />
                 </ui:template>
             </ui:Column>
             <ui:Column width="8%">
-                <Label text="Name"/>
+                <Label text="{i18n>Name}"/>
                 <ui:template>
                     <Text text="{TreeTableModelView>Name}" wrapping="false" />
                 </ui:template>
             </ui:Column>
             <ui:Column width="12%">
-                <Label text="Description"/>
+                <Label text="{i18n>description}"/>
                 <ui:template>
                     <ExpandableText text="{TreeTableModelView>Description}" maxCharacters="32" overflowMode="Popover"/>
                 </ui:template>
             </ui:Column>    
             <ui:Column width="5%">
-                <Label text="Total Quantity"/>
+                <Label text="{i18n>AcceptQty}"/>
                 <ui:template>
                     <Text text="{TreeTableModelView>Qty}" wrapping="false" />
                 </ui:template>
             </ui:Column>
             <ui:Column width="5%">
-                <Label text="MDCC Approved Quantity" tooltip="{i18n>MDCCApprovedQty}"/>
+                <Label text="{i18n>receivedQty}"/>
                 <ui:template>
                     <Text text="{TreeTableModelView>MDCCApprovedQty}" wrapping="false" />
                 </ui:template>

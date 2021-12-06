@@ -220,8 +220,8 @@
 		"fe66df94-e03f-4c03-95ea-cf5bf2f36b4f": {
 			"classDefinition": "com.sap.bpm.wfs.MailDefinition",
 			"name": "maildefinition1",
-			"to": "akhil.jain@extentia.com,atul.jain@extentia.com,dharmendra.joshi@extentia.com,Suraj.Gavane@extentia.com",
-			"subject": "${context.MDCCRequestID} Approval",
+			"to": "${context.PMCGUserMail}",
+			"subject": "MDCC Aprroval Request Raised",
 			"reference": "/webcontent/MDCCApprovalRequest/MDCCApprovals.html",
 			"id": "maildefinition1"
 		}
