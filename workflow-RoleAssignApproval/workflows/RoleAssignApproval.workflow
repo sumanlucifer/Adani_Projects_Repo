@@ -295,7 +295,7 @@
 			"classDefinition": "com.sap.bpm.wfs.MailDefinition",
 			"name": "maildefinition1",
 			"to": "${context.RoleAssignUserMail}",
-			"cc": "akhil.jain@extentia.com,atul.jain@extentia.com,dharmendra.joshi@extentia.com,Suraj.Gavane@extentia.com,suman.shanmugam@extentia.com",
+			"cc": "",
 			"subject": "Role Assignment Approval",
 			"reference": "/webcontent/RoleAssignApproval/RoleAssign.html",
 			"id": "maildefinition1"
@@ -303,10 +303,10 @@
 		"b5916570-ae24-4193-8b9f-f3ebb147f11b": {
 			"classDefinition": "com.sap.bpm.wfs.MailDefinition",
 			"name": "maildefinition2",
-			"to": "${context.RoleAssignUserMail}",
+			"to": "${context.RoleAssignResponse.d.Email}",
 			"cc": "akhil.jain@extentia.com,atul.jain@extentia.com,dharmendra.joshi@extentia.com,Suraj.Gavane@extentia.com,suman.shanmugam@extentia.com",
 			"subject": "Request ${context.RoleAssignRequestID}-${context.RoleAssignResponse.d.Status} ",
-			"text": "Dear ${context.RoleAssignResponse.d.CreatedBy},\n\nyour request  ${context.RoleAssignRequestID} for ${context.RoleAssignResponse.d.Role} role assignment has been ${context.RoleAssignResponse.d.Status}\n\nPlease Login to the application again for verifying approved roles.\n\nRegards,\nAGEL MMTS TEAM",
+			"text": "Dear ${context.RoleAssignResponse.d.CreatedBy},\n\nYour request for ${context.RoleAssignResponse.d.Role} role assignment has been ${context.RoleAssignResponse.d.Status}\n\nPlease Login to the application again for verifying approved roles.\n\nRegards,\nAGEL MMTS TEAM",
 			"id": "maildefinition2"
 		}
 	}

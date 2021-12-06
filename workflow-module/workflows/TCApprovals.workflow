@@ -67,7 +67,7 @@
 		"e4000acf-98bb-43e2-9b03-20c9cf5ef2c4": {
 			"classDefinition": "com.sap.bpm.wfs.ServiceTask",
 			"destination": "AGEL_MMTS",
-			"path": "/api/v2/odata.svc/BOQGroupSet(${context.BOQGroupId})?$expand=BOQItems,ParentLineItem/PurchaseOrder,ParentLineItem/PurchaseOrder/Vendor",
+			"path": "/api/v2/odata.svc/BOQGroupSet(${context.BOQGroupId})?$expand=BOQItems,ParentLineItem/PurchaseOrder,ParentLineItem/PurchaseOrder/Vendor,ParentLineItem/PurchaseOrder/MasterCompanyCode",
 			"httpMethod": "GET",
 			"responseVariable": "${context.aBOQItems}",
 			"headers": [],
@@ -264,8 +264,8 @@
 		"fc6ead61-a0f3-4d24-bc29-91b915fafc57": {
 			"classDefinition": "com.sap.bpm.wfs.MailDefinition",
 			"name": "maildefinition2",
-			"to": "Akhil.jain@extentia.com,Atul.Jain@extentia.com,dharmendra.joshi@extentia.com,Suraj.Gavane@extentia.com",
-			"subject": "Approval Testing",
+			"to": "${context.BOQGroupId}",
+			"subject": "BOQ Approval Request Raised",
 			"reference": "/webcontent/TCApprovals/TCMail.html",
 			"id": "maildefinition2"
 		}

@@ -219,8 +219,8 @@
 		"4f716eb4-1786-4b8d-9477-6cbf16f497fa": {
 			"classDefinition": "com.sap.bpm.wfs.MailDefinition",
 			"name": "maildefinition1",
-			"to": "akhil.jain@extentia.com,atul.jain@extentia.com,dharmendra.joshi@extentia.com,Suraj.Gavane@extentia.com,anirban.neogi@extentia.com",
-			"cc": "suman.shanmugam@extentia.com",
+			"to": "${context.ReservationRequestID}",
+			"cc": "",
 			"subject": "Return Material Request Raised ",
 			"reference": "/webcontent/ReturnMaterialApproval/ReturnMaterialApproval.html",
 			"id": "maildefinition1"

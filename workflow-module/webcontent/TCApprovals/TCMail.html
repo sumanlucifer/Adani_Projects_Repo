@@ -14,7 +14,7 @@
 <body>
     <!-- <font face="verdana" size="2">Hi,</font> -->
     <br>
-    <font face="verdana" size="5" color="#2D68B2">A new approval request - <span style="color:#BC3863;">${context.aBOQItems.d.Name}</span> is ready for your review.
+    <font face="verdana" size="5" color="#2D68B2">A new BOQ approval request - <span style="color:#BC3863;">${context.aBOQItems.d.Name}</span> is ready for your review.
     </font>
     <br>
     <br>
@@ -33,7 +33,7 @@
 
     <font face="verdana" size="2">
         <b>Company Code:</b>
-        500E7
+        ${context.aBOQItems.d.ParentLineItem.PurchaseOrder.CompanyCode}
     </font>
 
     <br>
@@ -59,50 +59,13 @@
 
     <font face="verdana" size="2">
         <b>Buyer Name:</b>
-        Vaibhav Bhargava
+        ${context.aBOQItems.d.ParentLineItem.PurchaseOrder.MasterCompanyCode.d.Name}
     </font>
 
     <br>
 
-    <font face="verdana" size="2">
-        <b>Buyer Code:</b>
-        45678
-    </font>
-    <br>
-
-    <!-- <hr>
-    <font face="verdana" size="2.5" color="#2D68B2">
-        <b><u>Line Item Details:</u></b>
-    </font>
-    <br>
-    <br>
-
-    <table>
-        <tr>
-            <th>Material Code</th>
-            <th>Material Name</th>
-            <th>Quantity</th>
-            <th>UOM</th>
-        </tr>
-        <tr>
-            <td>56673</td>
-            <td>HT Panel</td>
-            <td>50</td>
-            <td>Nos</td>
-        </tr>
-        <tr>
-            <td>56673</td>
-            <td>HT Panel</td>
-            <td>50</td>
-            <td>Nos</td>
-        </tr>
-    </table>
-    <br> -->
-    <br>
-    <font face="verdana" size="2" color="#595998">Please visit the below link to review</font>
-    <br>
     <a
-        href="https://renewables-qa.cpp.cfapps.ap11.hana.ondemand.com/site/MaterialMovementTrackingSystem">
+        href="https://adani-renewables-uat-4x35exgr.cpp.cfapps.ap11.hana.ondemand.com/site/mmts-uat">
         Approval Request Review</a>
     <br>
     <br>
