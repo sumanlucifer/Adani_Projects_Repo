@@ -310,7 +310,7 @@ sap.ui.define([
                         this.getComponentModel().refresh();
                     }.bind(this),
                     error: function (oError) {
-                       // MessageBox.success(JSON.stringify(oError));
+                        // MessageBox.success(JSON.stringify(oError));
                     }
                 })
             },
@@ -720,7 +720,7 @@ sap.ui.define([
                     sReference = this.getViewModel("requestModel").getProperty("/reference"),
                     sLRNumber = this.getViewModel("requestModel").getProperty("/lrnumber");
 
-                if (sDelivery !== "" && sQuantity !== "" && sBillofLading !== "" && sReference !== "" && sLRNumber !== "")
+                if (sDelivery && sQuantity && sBillofLading && sReference && sLRNumber)
                     this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", true);
                 else
                     this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", false);
@@ -734,6 +734,10 @@ sap.ui.define([
                 var sLRNumber = this.getViewModel("requestModel").getProperty("/lrnumber");
                 var oModel = this.getComponentModel(),
                     aGRNItems = this.getView().getModel("requestModel").getProperty("/GRNItems");
+                if (!sDelivery || !sQuantity || !sBillofLading || !sReference || !sLRNumber) {
+                    sap.m.MessageBox.error("Please fill all required fields.");
+                    return;
+                }
                 if (aGRNItems.length === 0) {
                     sap.m.MessageToast.show("Please provide items to request GRN.");
                     return;
@@ -768,8 +772,10 @@ sap.ui.define([
                             };
                         }
                         if (oPayload) {
+                            this.getViewModel("objectViewModel").setProperty("/busy", true);
                             oModel.create("/GRNEdmSet", oPayload, {
                                 success: function (oData) {
+                                    this.getViewModel("objectViewModel").setProperty("/busy", false);
                                     if (oData.Success) {
                                         MessageBox.success(oData.Message, {
                                             title: "Success",
@@ -785,7 +791,8 @@ sap.ui.define([
                                         sap.m.MessageBox.error(oData.Message);
                                 }.bind(this),
                                 error: function (oError) {
-                                   // MessageBox.error(JSON.stringify(oError));
+                                    this.getViewModel("objectViewModel").setProperty("/busy", false);
+                                    // MessageBox.error(JSON.stringify(oError));
                                 }
                             });
                         }

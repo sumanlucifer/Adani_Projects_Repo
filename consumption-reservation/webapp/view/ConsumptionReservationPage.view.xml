@@ -11,12 +11,12 @@
         <f:title>
             <f:DynamicPageTitle>
                 <f:heading>
-                    <Title id="pageTitle" text="Create Consumption Reservation"/>
+                    <Title id="pageTitle" text="{i18n>CreateConsumptionReservation}"/>
                 </f:heading>
                 <f:actions>
                     <HBox visible="{= ${objectViewModel>/isItemFieldsVisible} ? true : false}">
-                        <Button text="Save" id="idBtnSave" class="sapUiTinyMarginBegin" press="onSubmitReservation" type="Emphasized" />
-                        <Button text="Reset" class="sapUiTinyMarginBegin" press="onCancelReservation" />
+                        <Button text="{i18n>Save}" id="idBtnSave" class="sapUiTinyMarginBegin" press="onSubmitReservation" type="Emphasized" />
+                        <Button text="{i18n>Reset}" class="sapUiTinyMarginBegin" press="onCancelReservation" />
                     </HBox>
                     <!-- <Button text="Raise Return Material Request" press="onConfirmRequest" type="Emphasized"/> -->
                 </f:actions>
@@ -28,7 +28,7 @@
                 <f:content>
                     <Toolbar>
                         <ToolbarSpacer />
-                        <Button visible="{= ${objectViewModel>/isButtonVisible} ? true : false}" text="Go" type="Emphasized" press="onPressGo"/>
+                        <Button visible="{= ${objectViewModel>/isButtonVisible} ? true : false}" text="{i18n>Go}" type="Emphasized" press="onPressGo"/>
                     </Toolbar>
                     <VBox alignContent="SpaceBetween">
                         <fm:SimpleForm layout="ColumnLayout" binding="{HeaderDetailsModel>/}" columnsM="2" columnsL="3" columnsXL="3" singleContainerFullSize="true" class="style-RemoveTitleHeight">

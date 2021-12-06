@@ -84,18 +84,18 @@
                         </FlexBox>
                     </VBox>
                     <VBox class="sapUiMediumMarginBeginEnd">
-                        <Title text="{i18n>pOandASNDetails}" titleStyle="H6"/>
+                        <Title text="{i18n>podetails}" titleStyle="H6"/>
                         <!-- <ObjectStatus title="Invoice Number" text="{InvoiceNumber}"/> -->
-                        <ObjectStatus title="ASN Number" text="Missing"/>
+                        <!-- <ObjectStatus title="ASN Number" text="Missing"/> -->
                         <ObjectStatus title="PO Number" text="{PONumber}"/>
-                        <ObjectStatus title="ASN Creation Date" text="Missing"/>
+                        <!-- <ObjectStatus title="ASN Creation Date" text="Missing"/> -->
                         <!-- <ObjectStatus title="Invoice Date" text="{InvoiceDate}"/> -->
                         <!-- <ObjectStatus title="Status" text="{Status}"/> -->
                     </VBox>
                     <VBox class="sapUiMediumMarginBeginEnd">
                         <Title text="{i18n>shipTo}" titleStyle="H6"/>
-                        <!-- <ObjectAttribute title="{Name}" binding="{PurchaseOrder/Buyer}"/> 
-                        <ObjectAttribute text="{Street}" binding="{PurchaseOrder/Buyer/Address}"/>
+                        <ObjectAttribute title="{Name}" binding="{PurchaseOrder/Buyer}"/> 
+                         <!--<ObjectAttribute text="{Street}" binding="{PurchaseOrder/Buyer/Address}"/>
                         <ObjectAttribute text="{City} - {State} - {Country}" binding="{PurchaseOrder/Buyer/Address}"/>
                         <ObjectAttribute text="{pinCode}" binding="{PurchaseOrder/Buyer/Address}"/> -->
                         <ObjectAttribute text=""/>

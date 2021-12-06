@@ -2,8 +2,10 @@ sap.ui.define([
     "./BaseController",
     "sap/ui/model/json/JSONModel",
     "sap/ui/core/Fragment",
+    "sap/ui/model/Filter",
+    "sap/ui/model/FilterOperator",
     "sap/m/MessageBox"
-], function (BaseController, JSONModel, Fragment, MessageBox) {
+], function (BaseController, JSONModel, Fragment, Filter, FilterOperator, MessageBox) {
     "use strict";
 
     return BaseController.extend("com.agel.mmts.userroleassignment.controller.UserDetails", {
@@ -57,7 +59,9 @@ sap.ui.define([
         },
 
         fnGetUserRoles: function (sObjectPath) {
+            var oIsArchivedFilter = new Filter("IsArchived", FilterOperator.EQ, false);
             this.getView().getModel().read(sObjectPath, {
+                filters: [oIsArchivedFilter],
                 urlParameters: {
                     $expand: "UserRoles,UserRoles/Role"
                 },
@@ -180,7 +184,7 @@ sap.ui.define([
                 }.bind(this),
                 error: function (oError) {
                     this.getView().setBusy(false);
-                  //  MessageBox.error(JSON.stringify(oError));
+                    //  MessageBox.error(JSON.stringify(oError));
                 }.bind(this)
             });
 

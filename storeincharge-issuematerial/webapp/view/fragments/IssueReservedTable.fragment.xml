@@ -6,7 +6,7 @@
         showFullScreenButton="true" header="Reservation Request" showRowCount="true" tableType="ResponsiveTable" demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" 
         beforeRebindTable="onbeforeRebindIssueReservedTable" ignoreFromPersonalisation="ID, RequestDate, CancelledDate, CancelledBy, Comment, CostCentre, ProfitCentre, GLAccount, ReceivingLocation, IsArchived, CreatedAt, CreatedBy, UpdatedAt, UpdatedBy">
 
-        <Table sticky="ColumnHeaders,HeaderToolbar" updateFinished="onIssueTableUpdateFinished" alternateRowColors="true" growingThreshold="20">
+        <Table sticky="ColumnHeaders,HeaderToolbar" updateFinished="onIssueTableUpdateFinished" alternateRowColors="true" growing="true" growingThreshold="20">
             <columns>
                 <Column >
                     <customData>

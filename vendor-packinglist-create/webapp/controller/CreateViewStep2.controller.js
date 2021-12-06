@@ -109,56 +109,36 @@ sap.ui.define([
             },
 
             _getRelatedInnerPackagings: function (outerPackagingData) {
-                this.getViewModel("objectViewModel").setProperty(
-                    "/busy",
-                    true
-                );
                 for (let i = 0; i < outerPackagingData.length; i++) {
+                    this.getViewModel("objectViewModel").setProperty("/busy", true);
                     var path = "/OuterPackagingSet(" + outerPackagingData[i].ID + ")/InnerPackagings"
 
                     this.mainModel.read(path, {
                         success: function (i, oData, oError) {
-                            this.getViewModel("objectViewModel").setProperty(
-                                "/busy",
-                                false
-                            );
+                            this.getViewModel("objectViewModel").setProperty("/busy", false);
                             //console.log("Inner packaging get");
                             this.getView().getModel("outerPackagingModel").setProperty("/" + i + "/InnerPackagings", oData.results);
                             // debugger;
                         }.bind(this, i),
                         error: function (oError) {
-                            this.getViewModel("objectViewModel").setProperty(
-                                "/busy",
-                                false
-                            );
+                            this.getViewModel("objectViewModel").setProperty("/busy", false);
                             // sap.m.MessageBox.error(JSON.stringify(oError));
                         }.bind(this, i),
                     });
-
                 }
-
             },
 
             _getPackingListInnerPackagingData: function () {
-                this.getViewModel("objectViewModel").setProperty(
-                    "/busy",
-                    true
-                );
+                this.getViewModel("objectViewModel").setProperty("/busy", true);
                 this.mainModel.read("/PackingListSet(" + this.packingListId + ")/InnerPackagings", {
                     success: function (oData, oError) {
-                        this.getViewModel("objectViewModel").setProperty(
-                            "/busy",
-                            false
-                        );
+                        this.getViewModel("objectViewModel").setProperty("/busy", false);
                         this.aInnerPackagingData = oData.results;
                         var oModel = new JSONModel(oData.results);
                         this.getView().setModel(oModel, "valueHelpModel");
                     }.bind(this),
                     error: function (oError) {
-                        this.getViewModel("objectViewModel").setProperty(
-                            "/busy",
-                            false
-                        );
+                        this.getViewModel("objectViewModel").setProperty("/busy", false);
                         // sap.m.MessageBox.error(JSON.stringify(oError));
                     }.bind(this),
                 });
@@ -566,7 +546,7 @@ sap.ui.define([
                     true
                 );
                 var that = this,
-                
+
                     oViewContext = this.getView().getBindingContext().getObject();
                 var oPackingListData = this.mainModel.getData("/PackingListSet(" + this.packingListId + "l)");
                 var sPONumber = oPackingListData.PONumber;
@@ -593,7 +573,7 @@ sap.ui.define([
                 this.mainModel.create("/DocumentUploadEdmSet", documents, {
                     success: function (oData, oResponse) {
                         this._updateDocumentService(oData.ID, fileType);
-                  
+
                         // //console.log("docuymnet UPloaded");
                         this.byId("idMaterialFileUploader").getBinding("items").refresh();
                         this.byId("idInvoiceFileUploader").getBinding("items").refresh();
@@ -641,7 +621,7 @@ sap.ui.define([
                     },
                 });
             },
-    
+
 
             onDeleteDocumentPress: function (oEvent) {
                 this.getViewModel("objectViewModel").setProperty(
@@ -667,7 +647,7 @@ sap.ui.define([
                             "/busy",
                             false
                         );
-                       // sap.m.MessageBox.error(JSON.stringify(oError));
+                        // sap.m.MessageBox.error(JSON.stringify(oError));
                     }.bind(this),
                 })
 
@@ -696,7 +676,7 @@ sap.ui.define([
 
             onViewQRCodePress: function (oEvent) {
                 var that = this;
-                
+
                 var oPayload = {};
                 var oAdditionalData = this.getView().getBindingContext().getObject();
                 var poNum = oAdditionalData.PONumber;
@@ -736,7 +716,7 @@ sap.ui.define([
                     success: function (oData, oResponse) {
                     }.bind(this),
                     error: function (oError) {
-                       // sap.m.MessageBox.error(JSON.stringify(oError));
+                        // sap.m.MessageBox.error(JSON.stringify(oError));
                     }
                 });
             },

@@ -156,7 +156,7 @@
                                 <f:content>
                                     <!-- <core:Title  /> -->
                                     <Label text="Vehicle Number" required="true"/>
-                                    <Input id="idVehicleNumber" value="{VehicleNumber}"  editable="{= ${objectViewModel>/isPackingListInEditMode} ? true : false}"/>
+                                    <Input id="idVehicleNumber" value="{VehicleNumber}" placeholder="{i18n>HR55EXXXX}"  editable="{= ${objectViewModel>/isPackingListInEditMode} ? true : false}"/>
                                     <Label text="Invoice Number" required="true"/>
                                     <Input id="idInvoiceNumber" value="{InvoiceNumber}" editable="{= ${objectViewModel>/isPackingListInEditMode} ? true : false}"/>
                                     <!-- <core:Title ></core:Title> -->

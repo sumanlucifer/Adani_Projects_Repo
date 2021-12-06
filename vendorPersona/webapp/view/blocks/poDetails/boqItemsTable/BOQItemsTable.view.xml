@@ -7,7 +7,7 @@
 
     <smartTable:SmartTable id="smartTreeTable" entitySet="ParentLineItemSet" tableType="TreeTable" useExportToExcel="false" useVariantManagement="false" 
     useTablePersonalisation="true" placeToolbarInTable="true" showRowCount="true" enableAutoBinding="true" enableAutoColumnWidth="true" 
-    beforeRebindTable="onBeforeRebindTreeTable" ignoreFromPersonalisation="DeliveryDate,HSNCode,ID,InspectedQty,IsBOQApplicable,OverseasQrCode,PlantCode,PONumber,Price,Status,StorageLocation,TaxCode,TaxIndicator,Value">
+    beforeRebindTable="onBeforeRebindTreeTable" ignoreFromPersonalisation="DeliveryDate,HSNCode,ID,InspectedQty,IsBOQApplicable,OverseasQrCode,PlantCode,PONumber,Price,Status,StorageLocation,TaxCode,TaxIndicator,Value,IsArchived,Version,DelieveryCompletion,DeletionIndicator,PendingQty">
         <!-- layout data used to make the table growing but the filter bar fixed -->
         <smartTable:customToolbar>
             <OverflowToolbar design="Transparent">
