@@ -60,7 +60,7 @@ sap.ui.define([
                         "/busy",
                         false
                     );
-                   // sap.m.MessageBox.success(JSON.stringify(oError));
+                    // sap.m.MessageBox.success(JSON.stringify(oError));
 
                 }.bind(this)
             });
@@ -94,21 +94,25 @@ sap.ui.define([
         },
 
         onOnError: function (event) {
-            MessageToast.show("Exception occurred: " + event.getParameters().text);
+            var sExceptionMessage = this.getResourceBundle().getText("Exceptionoccurred", [event.getParameters().text]);
+            MessageToast.show(sExceptionMessage);
         },
 
         onNodePress: function (event) {
-            MessageToast.show("Node " + event.getParameters().getNodeId() + " has been clicked.");
+            var sNodePressMessage = this.getResourceBundle().getText("NodeHasClick", [event.getParameters().getNodeId()]);
+            MessageToast.show(sNodePressMessage);
         },
 
         onZoomIn: function () {
+            var sZoomLevelChangedMessage = this.getResourceBundle().getText("Zoomlevelchanged", [this.oProcessFlow.getZoomLevel()]);
             this.oProcessFlow.zoomIn();
-            MessageToast.show("Zoom level changed to: " + this.oProcessFlow.getZoomLevel());
+            MessageToast.show(sZoomLevelChangedMessage);
         },
 
         onZoomOut: function () {
+            var sZoomLevelChangedOutMessage = this.getResourceBundle().getText("Zoomlevelchanged", [this.oProcessFlow.getZoomLevel()]);
             this.oProcessFlow.zoomOut();
-            MessageToast.show("Zoom level changed to: " + this.oProcessFlow.getZoomLevel());
+            MessageToast.show(sZoomLevelChangedOutMessage);
         }
     });
 });

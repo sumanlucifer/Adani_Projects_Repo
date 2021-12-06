@@ -19,18 +19,18 @@
                 </uxap:breadcrumbs>
                 <uxap:expandedHeading>
                     <FlexBox direction="Column" renderType="Bare">
-                        <Title text="PO Detail" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
+                        <Title text="{i18n>PODetail}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
                         <Title text="{objectViewModel>/PONumber}"/>
                     </FlexBox>
                 </uxap:expandedHeading>
                 <uxap:snappedHeading>
                     <FlexBox direction="Column" renderType="Bare">
-                        <Title text="PO Detail" wrapping="true" titleStyle="H4"/>
+                        <Title text="{i18n>PODetail}" wrapping="true" titleStyle="H4"/>
                     </FlexBox>
                 </uxap:snappedHeading>
                 <uxap:expandedContent></uxap:expandedContent>
                 <uxap:snappedTitleOnMobile>
-                    <Title text="PO Detail" wrapping="true" titleStyle="Auto"/>
+                    <Title text="{i18n>PODetail}" wrapping="true" titleStyle="Auto"/>
                 </uxap:snappedTitleOnMobile>
                 <uxap:actions>
                 </uxap:actions>
@@ -41,7 +41,7 @@
                 <VBox renderType="Bare">
                     <FlexBox direction="Row" renderType="Bare" class="sapUiTinyMarginBottom">
                         <VBox renderType="Bare" class="sapUiMediumMarginEnd">
-                            <Label text="PO Issued Date" />
+                            <Label text="{i18n>POIssuedDate}" />
                             <Text text="{path:'objectViewModel>/CreatedAt',
                                     type: 'sap.ui.model.type.Date',
 				                     formatOptions: {
@@ -50,7 +50,7 @@
                         }"/>
                         </VBox>
                         <VBox renderType="Bare" class="sapUiMediumMarginEnd">
-                            <Label text="Release Date" />
+                            <Label text="{i18n>ReleaseDate}" />
                             <Text text="{path:'objectViewModel>/POReleaseDate',
                                      type: 'sap.ui.model.type.Date',
 				                     formatOptions: {
@@ -59,7 +59,7 @@
                             }"/>
                         </VBox>
                         <VBox renderType="Bare" class="sapUiMediumMarginEnd">
-                            <Label text="Status" />
+                            <Label text="{i18n>Status}" />
                             <ObjectStatus text="{Status}" state="{= ${Status}==='CONFIRMED' ? 'Success' : 'Warning'}"/>
                             <!-- state="{= ${Status}=== 'SAVED' ? 'Indication05' : ${Status}=== 'DISPATCHED' ? 'Indication06' : 'Indication07'}" -->
                         </VBox>
@@ -84,7 +84,7 @@
                                                 <core:CustomData key="p13nData" value='\{"columnKey": "Name", "leadingProperty": "Name",
                                                  "columnIndex": 0 ,"sortProperty": "Name","filterProperty": "Name"}'/>
                                             </customData>
-                                            <Text text="Name"/>
+                                            <Text text="{i18n>Name}"/>
                                         </Column>
 
                                         <Column demandPopin="true" minScreenWidth="Tablet">
@@ -100,7 +100,7 @@
                                                 <core:CustomData key="p13nData" value='\{"columnKey": "Status", "leadingProperty": "Status",
                                                  "columnIndex": 2 ,"sortProperty": "Status","filterProperty": "Status"}'/>
                                             </customData>
-                                            <Text text="Status"/>
+                                            <Text text="{i18n>Status}"/>
                                         </Column>
                                     </columns>
                                     <items>
@@ -109,15 +109,14 @@
                                             <cells>
                                                 <Text text="{Name}"/>
                                                 <Text text="{path:'CreatedAt',
-                                    type: 'sap.ui.model.type.Date',
-				                     formatOptions: {
-				                        pattern: 'MMMM dd, yyyy'
-				                     }    
-                        }"/>
+                                                            type: 'sap.ui.model.type.Date',
+                                                            formatOptions: {
+                                                                pattern: 'MMMM dd, yyyy'
+                                                            }    
+                                                }"/>
                                                 <ObjectStatus text="{Status}" state="{= ${Status}=== 'SAVED' ? 'Indication05' : ${Status}=== 'DISPATCHED' ? 'Indication06' : 'Indication08'}"/>
                                             </cells>
                                         </ColumnListItem>
-
                                     </items>
                                 </Table>
                             </smartTable:SmartTable>

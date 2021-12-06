@@ -171,8 +171,9 @@ sap.ui.define([
         },
 
         onConfirmPO: function () {
-            var poNumber = this.getView().getBindingContext().getObject().PONumber;
-            MessageBox.confirm("Do you want to confirm Purchase Order " + poNumber + "?", {
+            var poNumber = this.getView().getBindingContext().getObject().PONumber,
+                sMessage = this.getResourceBundle().getText("confirmPurchaseOrderMSG", [poNumber]);
+            MessageBox.confirm(sMessage, {
                 styleClass: "sapUiResponsivePadding--header sapUiResponsivePadding--content sapUiResponsivePadding--footer",
                 actions: [MessageBox.Action.OK, MessageBox.Action.CANCEL],
                 emphasizedAction: MessageBox.Action.OK,
@@ -199,19 +200,14 @@ sap.ui.define([
 
             this.getComponentModel().update(sPath, oPayload, {
                 success: function (oData, oResponse) {
-                    this.getViewModel("objectViewModel").setProperty(
-                        "/busy",
-                        false
-                    );
-                    sap.m.MessageBox.success("Purchase Order " + poNumber + " has been confirmed! Please raise the inspection call through SIMS portal.");
+                    this.getViewModel("objectViewModel").setProperty("/busy", false);
+                    var sMessage = this.getResourceBundle().getText("confirmPurchaseOrderSuccessMSG", [poNumber]);
+                    sap.m.MessageBox.success(sMessage);
                     this.getComponentModel().refresh();
                 }.bind(this),
                 error: function (oError) {
-                    this.getViewModel("objectViewModel").setProperty(
-                        "/busy",
-                        false
-                    );
-                  //  sap.m.MessageBox.error(JSON.stringify(oError));
+                    this.getViewModel("objectViewModel").setProperty("/busy", false);
+                    //  sap.m.MessageBox.error(JSON.stringify(oError));
                 }.bind(this),
             })
         },
@@ -253,9 +249,11 @@ sap.ui.define([
 
 
             oContext.created().then(function () {
-                sap.m.MessageBox.success("New entry created!");
+                var sMessage = this.getResourceBundle().getText("NewentryMSG");
+                var sErrorMessage = this.getResourceBundle().getText("ErrorCreatingEntries");
+                sap.m.MessageBox.success(sMessage);
             }.bind(oContext, that), function (error) {
-                sap.m.MessageBox.success("Error Creating Entries!!");
+                sap.m.MessageBox.error(sErrorMessage);
             }.bind(oContext));
             this.closeDialog();
         },
@@ -454,7 +452,7 @@ sap.ui.define([
                         "/busy",
                         false
                     );
-                   // sap.m.MessageBox.success(JSON.stringify(oError));
+                    // sap.m.MessageBox.success(JSON.stringify(oError));
                 }.bind(this),
             });
         },

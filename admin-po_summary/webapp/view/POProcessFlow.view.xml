@@ -5,10 +5,10 @@
 	controllerName="com.agel.mmts.adminposummary.controller.POProcessFlow">
 	<m:Panel>
 		<m:Toolbar>
-        		<m:Label text="PC List ID: {objectViewModel>/PCListID}" design="Bold"/>
+        		<m:Label text="{i18n>PCListID}: {objectViewModel>/PCListID}" design="Bold"/>
         <m:ToolbarSpacer/>
-			<m:Button text="Zoom In" press="onZoomIn" />
-			<m:Button text="Zoom Out" press="onZoomOut" />
+			<m:Button text="{i18n>ZoomIn}" press="onZoomIn" />
+			<m:Button text="{i18n>ZoomOut}" press="onZoomOut" />
 		</m:Toolbar>
 		<ProcessFlow
 			id="processflow"
