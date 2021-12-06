@@ -75,7 +75,7 @@
         </Table>
         </content>
         <endButton>
-            <Button text="Close" press="onViewChildDialogClose" type="Emphasized" />
+            <Button text="{i18n>Close}" press="onViewChildDialogClose" type="Emphasized" />
         </endButton>
     </Dialog>
 </core:FragmentDefinition>

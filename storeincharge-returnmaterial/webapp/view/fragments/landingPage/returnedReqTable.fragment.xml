@@ -5,7 +5,7 @@
     <smartTable:SmartTable class="sapUiResponsiveContentPadding" id="idReturnMaterialTable" editable="false" placeToolbarInTable="true" 
     enableAutoBinding="true" entitySet="ReturnMaterialReserveSet"  showFullScreenButton="true" showRowCount="true" tableType="ResponsiveTable" 
     demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" beforeRebindTable="onBeforeRebindRetTable"
-    ignoreFromPersonalisation="ID,RequestDate,CancelledDate,CancelledBy,Comment,RequestNumber,IsArchived,CreatedAt,CreatedBy,UpdatedAt,UpdatedBy">
+    ignoreFromPersonalisation="ID,RequestDate,CancelledDate,CancelledBy,Comment,RequestNumber,IsArchived,CreatedAt,CreatedBy,UpdatedAt,UpdatedBy, WBSElement, WorkflowInstanceId">
         <Table sticky="ColumnHeaders,HeaderToolbar" alternateRowColors="true" growing="true" growingThreshold="20">
             <columns>
                 <Column>

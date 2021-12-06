@@ -40,7 +40,7 @@ sap.ui.define([
 
                 this.MainModel = this.getComponentModel();
                 this.getView().setModel(this.MainModel);
-                this.getViewModel("objectViewModel").setProperty("/serviceUrl",  this.MainModel.sServiceUrl);
+                this.getViewModel("objectViewModel").setProperty("/serviceUrl", this.MainModel.sServiceUrl);
 
                 //Router Object
                 this.oRouter = this.getRouter();
@@ -86,7 +86,7 @@ sap.ui.define([
                         this.getView().setModel(oMasterMaterialValAreaModel, "MasterMaterialValAreaModel");
                     }.bind(this),
                     error: function (oError) {
-                       // this.messages.showErrorMessage(oError);
+                        // this.messages.showErrorMessage(oError);
                         this.getView().setBusy(false);
                     }.bind(this)
                 });
@@ -383,7 +383,7 @@ sap.ui.define([
                             "/busy",
                             false
                         );
-                       // sap.m.MessageBox.success(JSON.stringify(oError));
+                        // sap.m.MessageBox.success(JSON.stringify(oError));
                     }.bind(this),
                 })
             },
@@ -458,7 +458,7 @@ sap.ui.define([
             },
 
             onCancelGRNPress: function (oEvent) {
-                
+
                 var that = this;
                 var gID = oEvent.getSource().getBindingContext().getObject().ID;
                 var oPayload = {
@@ -599,7 +599,7 @@ sap.ui.define([
                     sReference = this.getViewModel("requestModel").getProperty("/reference"),
                     sLRNumber = this.getViewModel("requestModel").getProperty("/lrnumber");
 
-                if (sDelivery !== "" && sQuantity !== "" && sBillofLading !== "" && sReference !== "" && sLRNumber !== "")
+                if (sDelivery && sQuantity && sBillofLading && sReference && sLRNumber)
                     this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", true);
                 else
                     this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", false);
@@ -614,6 +614,10 @@ sap.ui.define([
                 var sLRNumber = this.getViewModel("requestModel").getProperty("/lrnumber");
                 //var sGRNTblData=sap.ui.getCore().byId("idGRNItemsTBL").getBindingContext().getModel().getProperty("/RestrictedStoreStockParentSet(17l)").ID
                 var aGRNItems = this.getView().getModel("requestModel").getProperty("/GRNItems");
+                if (!sDelivery || !sQuantity || !sBillofLading || !sReference || !sLRNumber) {
+                    sap.m.MessageBox.error("Please fill all required fields.");
+                    return;
+                }
                 if (aGRNItems.length === 0) {
                     sap.m.MessageToast.show("Please provide items to request GRN.");
                     return;
@@ -650,8 +654,10 @@ sap.ui.define([
                         }
 
                         if (oPayload) {
+                            this.getViewModel("objectViewModel").setProperty("/busy", true);
                             oModel.create("/GRNEdmSet", oPayload, {
                                 success: function (oData) {
+                                    this.getViewModel("objectViewModel").setProperty("/busy", false);
                                     if (oData.Success) {
                                         sap.m.MessageBox.success(oData.Message);
                                         this.getComponentModel().refresh();
@@ -660,7 +666,8 @@ sap.ui.define([
                                         sap.m.MessageBox.error(oData.Message);
                                 }.bind(this),
                                 error: function (oError) {
-                                   // sap.m.MessageBox.error(JSON.stringify(oError));
+                                    this.getViewModel("objectViewModel").setProperty("/busy", false);
+                                    // sap.m.MessageBox.error(JSON.stringify(oError));
                                 }
                             });
                         }

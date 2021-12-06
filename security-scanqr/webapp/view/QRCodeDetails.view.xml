@@ -25,7 +25,7 @@
 
                             <VBox renderType="Bare" visible="{= ${VehicleNumber} === '' ? true : false &amp;&amp; ${GateEntryNumber} !== '' ? true : false}">
                                 <Label text="{i18n>VehicleNumber}" design="Bold"/>
-                                <Input value="{oViewHandlingModel>/ReEnterVehicleNo}" width="80%"/>
+                                <Input value="{oViewHandlingModel>/ReEnterVehicleNo}" placeholder="{i18n>HR55EXXXX}" width="80%"/>
                             </VBox>
 
                             <VBox renderType="Bare" visible="{= ${VehicleNumber} !== '' ? true : false}">
@@ -98,10 +98,10 @@
                         </FlexBox>
                     </VBox>
                     <VBox class="sapUiMediumMarginBeginEnd">
-                        <Title text="{i18n>pOandASNDetails}" titleStyle="H6"/>
-                        <ObjectStatus title="ASN Number" text="Missing"/>
+                        <Title text="{i18n>podetails}" titleStyle="H6"/>
+                        <!-- <ObjectStatus title="ASN Number" text="Missing"/> -->
                         <ObjectStatus title="PO Number" text="{PONumber}"/>
-                        <ObjectStatus title="ASN Creation Date" text="Missing"/>
+                        <!-- <ObjectStatus title="ASN Creation Date" text="Missing"/> -->
                     </VBox>
                     <VBox class="sapUiMediumMarginBeginEnd">
                         <Title text="{i18n>shipTo}" titleStyle="H6"/>
@@ -212,7 +212,7 @@
                                 <f:content>
                                     <!-- <core:Title  /> -->
                                     <Label text="Vehicle Number" />
-                                    <Text text="{VehicleNumber}" />
+                                    <Text text="{VehicleNumber}"  />
                                     <Label text="Invoice Number" />
                                     <Text text="{InvoiceNumber}" />
                                     <!-- <core:Title ></core:Title> -->

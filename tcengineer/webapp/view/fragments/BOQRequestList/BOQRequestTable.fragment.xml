@@ -5,11 +5,12 @@
     <smartTable:SmartTable class="sapUiResponsiveContentPadding" id="idBOQRequestTable"
      editable="false" placeToolbarInTable="true" enableAutoBinding="true" entitySet="BOQApprovalRequestSet"
       showFullScreenButton="true" showRowCount="false" tableType="ResponsiveTable" demandPopin="false"
-       useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" 
-       beforeRebindTable="onBeforeRebindBOQTable" enableAutoColumnWidth="true">
+      useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" 
+       beforeRebindTable="onBeforeRebindBOQTable" enableAutoColumnWidth="true"
+       ignoreFromPersonalisation="PurchaseOrderId, IsInspectionRaised, IsArchived, ID">
 
         <smartTable:layoutData><FlexItemData growFactor="1" /></smartTable:layoutData>
-        <Table sticky="ColumnHeaders,HeaderToolbar">
+        <Table growing="true" growingThreshold="20" sticky="ColumnHeaders,HeaderToolbar">
             <columns>
 
                 <Column >

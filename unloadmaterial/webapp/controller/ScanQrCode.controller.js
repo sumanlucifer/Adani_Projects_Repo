@@ -82,12 +82,12 @@ sap.ui.define([
                 var qrcodeID = this.byId("idInputQRCode").getValue();
                 if (qrcodeID !== "") {
                     this.getView().byId("idQRBtn").setProperty("enabled", true);
-                    this.getView().byId("idQRSubmit").setProperty("enabled", false);
+                    //this.getView().byId("idQRSubmit").setProperty("enabled", false);
                     this.getView().byId("idInvoiceNum").setProperty("enabled", false);
 
                 } else {
                     this.getView().byId("idQRBtn").setProperty("enabled", false);
-                    this.getView().byId("idQRSubmit").setProperty("enabled", true);
+                   // this.getView().byId("idQRSubmit").setProperty("enabled", true);
                     this.getView().byId("idInvoiceNum").setProperty("enabled", true);
                 }
                 // this._filterQrSuggestion(oEvent);
@@ -97,12 +97,12 @@ sap.ui.define([
                 var invoiceID = this.byId("idInvoiceNum").getValue();
                 if (invoiceID !== "") {
                     this.getView().byId("idInvBtn").setProperty("enabled", true);
-                    this.getView().byId("idQRSubmit").setProperty("enabled", false);
+                    //this.getView().byId("idQRSubmit").setProperty("enabled", false);
                     this.getView().byId("idInputQRCode").setProperty("enabled", false);
 
                 } else {
                     this.getView().byId("idInvBtn").setProperty("enabled", false);
-                    this.getView().byId("idQRSubmit").setProperty("enabled", true);
+                   // this.getView().byId("idQRSubmit").setProperty("enabled", true);
                     this.getView().byId("idInputQRCode").setProperty("enabled", true);
                 }
             },
@@ -119,10 +119,10 @@ sap.ui.define([
 
             //scannner related functions
             onScanSuccess: function (oEvent) {
-                this.getView().byId("idQRBtn").setProperty("enabled", false);
-                this.getView().byId("idInvBtn").setProperty("enabled", false);
-                this.getView().byId("idInputQRCode").setProperty("enabled", false);
-                this.getView().byId("idInvoiceNum").setProperty("enabled", false);
+                // this.getView().byId("idQRBtn").setProperty("enabled", false);
+                // this.getView().byId("idInvBtn").setProperty("enabled", false);
+                // this.getView().byId("idInputQRCode").setProperty("enabled", false);
+                // this.getView().byId("idInvoiceNum").setProperty("enabled", false);
 
                 if (oEvent.getParameter("cancelled")) {
                     sap.m.MessageToast.show("Scan cancelled", { duration: 1000 });

@@ -111,9 +111,9 @@
                         entitySet="PackingListSet" showFullScreenButton="true" 
                         showRowCount="false" tableType="ResponsiveTable" demandPopin="false" 
                         useExportToExcel="false" useTablePersonalisation="true" 
-                        useVariantManagement="false" beforeRebindTable="onBeforeRebindPackingListTable">
+                        useVariantManagement="false" beforeRebindTable="onBeforeRebindPackingListTable" ignoreFromPersonalisation="IsDraft,ID,MDCC_Id,IsProcessOneCompletes,IsProcessTwoCompletes,IsArchived,IsGRNRaised">
 
-                         <Table sticky="ColumnHeaders,HeaderToolbar">
+                         <Table growing="true" growingThreshold="20" sticky="ColumnHeaders,HeaderToolbar">
                             <columns>
                 
                                 <Column >

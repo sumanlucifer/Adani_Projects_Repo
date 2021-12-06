@@ -200,7 +200,7 @@
                                             <cells>
                                                 <Text text="{AmendmentHistoryModel>LineNumber}"/>
                                                 <Text text="{AmendmentHistoryModel>MaterialCode}"/>
-                                                <Text text="{AmendmentHistoryModel>Description}"/>
+                                                <ExpandableText text="{AmendmentHistoryModel>Description}" overflowMode="Popover" maxCharacters="32"/>
                                                 <Text text="{AmendmentHistoryModel>HSNCode}"/>
                                                 <Text text="{AmendmentHistoryModel>StorageLocation}"/>
                                                 <Text text="{AmendmentHistoryModel>Quantity}"/>
