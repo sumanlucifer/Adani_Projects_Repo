@@ -219,7 +219,7 @@
 		"24191055-9033-4e6f-b2f5-d693e7757d7f": {
 			"classDefinition": "com.sap.bpm.wfs.MailDefinition",
 			"name": "maildefinition1",
-			"to": "${context.PrintRequestID}",
+			"to": "${context.PrintUserMailInfo}",
 			"subject": "Printing Approval Request Raised",
 			"reference": "/webcontent/PrintApprovals/ApprovalMail.html",
 			"id": "maildefinition1"

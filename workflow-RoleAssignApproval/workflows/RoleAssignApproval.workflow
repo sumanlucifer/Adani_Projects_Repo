@@ -304,7 +304,7 @@
 			"classDefinition": "com.sap.bpm.wfs.MailDefinition",
 			"name": "maildefinition2",
 			"to": "${context.RoleAssignResponse.d.Email}",
-			"cc": "akhil.jain@extentia.com,atul.jain@extentia.com,dharmendra.joshi@extentia.com,Suraj.Gavane@extentia.com,suman.shanmugam@extentia.com",
+			"cc": "",
 			"subject": "Request ${context.RoleAssignRequestID}-${context.RoleAssignResponse.d.Status} ",
 			"text": "Dear ${context.RoleAssignResponse.d.CreatedBy},\n\nYour request for ${context.RoleAssignResponse.d.Role} role assignment has been ${context.RoleAssignResponse.d.Status}\n\nPlease Login to the application again for verifying approved roles.\n\nRegards,\nAGEL MMTS TEAM",
 			"id": "maildefinition2"

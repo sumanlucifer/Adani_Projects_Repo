@@ -264,7 +264,7 @@
 		"fc6ead61-a0f3-4d24-bc29-91b915fafc57": {
 			"classDefinition": "com.sap.bpm.wfs.MailDefinition",
 			"name": "maildefinition2",
-			"to": "${context.BOQGroupId}",
+			"to": "${context.TCUserEmails}",
 			"subject": "BOQ Approval Request Raised",
 			"reference": "/webcontent/TCApprovals/TCMail.html",
 			"id": "maildefinition2"

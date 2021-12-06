@@ -220,7 +220,7 @@
 			"classDefinition": "com.sap.bpm.wfs.MailDefinition",
 			"name": "maildefinition1",
 			"to": "${context.ReservationUsersMail}",
-			"cc": "suman.shanmugam@extentia.com",
+			"cc": "",
 			"subject": "Reservation Approval Request Raised",
 			"reference": "/webcontent/ReservationApprovals/ReservationApproval.html",
 			"id": "maildefinition1"

@@ -219,7 +219,7 @@
 		"4f716eb4-1786-4b8d-9477-6cbf16f497fa": {
 			"classDefinition": "com.sap.bpm.wfs.MailDefinition",
 			"name": "maildefinition1",
-			"to": "${context.ReservationRequestID}",
+			"to": "${context.ReservationMail}",
 			"cc": "",
 			"subject": "Return Material Request Raised ",
 			"reference": "/webcontent/ReturnMaterialApproval/ReturnMaterialApproval.html",
