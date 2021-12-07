@@ -247,6 +247,8 @@ sap.ui.define([
                         if (!liveQty) liveQty = 0;
                         // iTotalQuantity = iTotalQuantity - parseFloat(liveQty) + parseFloat(oValue);
                         iTotalQuantity = iTotalQuantity + (((parseFloat(oValue) - parseFloat(liveQty)) * parseFloat(wpp))/1000);
+                        if(iTotalQuantity < 0)
+                            iTotalQuantity = 0;
                         this.getViewModel("TreeTableModel").setProperty(sItemPath + "/DispatchQty", oValue);
                         this.getViewModel("TreeTableModel").setProperty(
                             sParentPath + "/DispatchQty",
