@@ -4,11 +4,11 @@ sap.ui.define([
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator",
     "sap/ui/core/Fragment",
-    "sap/ui/model/Sorter",
+    // "sap/ui/model/Sorter",
     "sap/ui/Device",
-    "sap/ui/core/routing/History",
-    'sap/m/ColumnListItem',
-    'sap/m/Input',
+    // "sap/ui/core/routing/History",
+    // 'sap/m/ColumnListItem',
+    // 'sap/m/Input',
     "jquery.sap.global",
     "sap/m/MessageBox",
     "sap/m/MessageToast",
@@ -18,7 +18,7 @@ sap.ui.define([
 	/**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (BaseController, JSONModel, Filter, FilterOperator, Fragment, Sorter, Device, History, ColumnListItem, Input, jquery, MessageBox, MessageToast, formatter, PDFViewer) {
+    function (BaseController, JSONModel, Filter, FilterOperator, Fragment, Device, jquery, MessageBox, MessageToast, formatter, PDFViewer) {
         "use strict";
         return BaseController.extend("com.agel.mmts.storeinchargeraisedpo.controller.PackingListDetails", {
             formatter: formatter,

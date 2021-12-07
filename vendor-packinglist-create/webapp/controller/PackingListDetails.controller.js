@@ -3,15 +3,15 @@ sap.ui.define([
     "sap/ui/core/Fragment",
     "sap/ui/Device",
     "sap/ui/model/json/JSONModel",
-    'sap/m/Token',
-    'sap/m/ColumnListItem',
-    'sap/m/Label',
+    // 'sap/m/Token',
+    // 'sap/m/ColumnListItem',
+    // 'sap/m/Label',
     'sap/m/MessageBox',
     '../utils/formatter',
     "sap/m/PDFViewer",
     'sap/ui/model/Filter',
     'sap/ui/model/FilterOperator',
-], function (BaseController, Fragment, Device, JSONModel, Token, ColumnListItem, Label, MessageBox, formatter, PDFViewer, Filter, FilterOperator) {
+], function (BaseController, Fragment, Device, JSONModel, MessageBox, formatter, PDFViewer, Filter, FilterOperator) {
     "use strict";
     return BaseController.extend("com.agel.mmts.vendorpackinglistcreate.controller.PackingListDetails", {
         formatter: formatter,

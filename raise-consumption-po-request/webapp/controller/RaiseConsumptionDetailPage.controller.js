@@ -4,15 +4,15 @@ sap.ui.define(
         "sap/ui/model/json/JSONModel",
         "sap/ui/model/Filter",
         "sap/ui/model/FilterOperator",
-        "sap/ui/core/Fragment",
+        // "sap/ui/core/Fragment",
         "sap/ui/model/Sorter",
-        "sap/ui/Device",
-        "sap/ui/core/routing/History",
-        "sap/m/ColumnListItem",
-        "sap/m/Input",
-        "sap/base/util/deepExtend",
-        "sap/ui/export/Spreadsheet",
-        "sap/m/MessageToast",
+        // "sap/ui/Device",
+        // "sap/ui/core/routing/History",
+        // "sap/m/ColumnListItem",
+        // "sap/m/Input",
+        // "sap/base/util/deepExtend",
+        // "sap/ui/export/Spreadsheet",
+        // "sap/m/MessageToast",
         "sap/m/MessageBox",
         "sap/m/ObjectIdentifier",
         "sap/m/Text",
@@ -20,27 +20,7 @@ sap.ui.define(
         "sap/m/Dialog",
         "../utils/formatter",
     ],
-    function (
-        BaseController,
-        JSONModel,
-        Filter,
-        FilterOperator,
-        Fragment,
-        Sorter,
-        Device,
-        History,
-        ColumnListItem,
-        Input,
-        deepExtend,
-        Spreadsheet,
-        MessageToast,
-        MessageBox,
-        ObjectIdentifier,
-        Text,
-        Button,
-        Dialog,
-        formatter
-    ) {
+    function (BaseController, JSONModel, Filter, FilterOperator, Sorter, MessageBox, Text, Button, Dialog, formatter) {
         "use strict";
         return BaseController.extend(
             "com.agel.mmts.raiseconsumptionporequest.controller.RaiseConsumptionDetailPage",
@@ -108,7 +88,7 @@ sap.ui.define(
                         true
                     );
                     var that = this;
-                    
+
                     that.oIssueMaterialModel = new JSONModel();
                     this.MainModel.read(
                         "/ConsumptionPostingReserveSet(" +

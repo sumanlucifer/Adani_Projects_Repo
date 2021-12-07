@@ -3,14 +3,14 @@ sap.ui.define([
     "sap/ui/core/Fragment",
     "sap/ui/Device",
     "sap/ui/model/json/JSONModel",
-    'sap/m/Token',
-    'sap/m/ColumnListItem',
-    'sap/m/Label',
+    // 'sap/m/Token',
+    // 'sap/m/ColumnListItem',
+    // 'sap/m/Label',
     'sap/m/MessageBox',
     '../utils/formatter',
-    'sap/m/MessageToast'
+    // 'sap/m/MessageToast'
 ],
-    function (BaseController, Fragment, Device, JSONModel, Token, ColumnListItem, Label, MessageBox, formatter, MessageToast) {
+    function (BaseController, Fragment, Device, JSONModel, MessageBox, formatter) {
         "use strict";
         return BaseController.extend("com.agel.mmts.materialreservation.controller.MaterialReservationPage", {
             formatter: formatter,
@@ -526,7 +526,7 @@ sap.ui.define([
                     "ProfitCenter": oAdditionalData.ProfitCenter,
                     "ReceivingLocation": oAdditionalData.ReceivingLocation,
                     "GLAccount": oAdditionalData.GLAccount,
-                    "ContractorId": oAdditionalData.ContractorId,
+                    "ContractorName": oAdditionalData.ContractorId,
                     "CompanyCode": oAdditionalData.CompanyCode,
                     "UserName": "AGEL",
                     "IssueMaterialReservationItems": aReservationItems

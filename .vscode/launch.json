@@ -888,63 +888,23 @@
       "preLaunchTask": "Build sapui5"
     },
     {
-      "name": "Run sapui5-consumption-reservation",
+      "name": "Run sapui5-storeincharge-approvals",
       "type": "node",
       "request": "launch",
       "program": "${workspaceFolder}/agel-mmts-web-approuter/node_modules/@sap/html5-repo-mock/index.js",
       "args": [
         "--standalone",
-        "/comagelmmtsconsumptionreservation/index.html",
+        "/comagelmmtsstoreinchargeapprovals/index.html",
         "--ui5",
         "{\"version\":\".\"}"
       ],
-      "cwd": "${workspaceFolder}/consumption-reservation",
+      "cwd": "${workspaceFolder}/storeincharge-approvals",
       "env": {
         "PORT": "6004",
         "MOCK_LOOKUP_DIRS": "[\"webapp\"]",
-        "run.config": "{\"handlerId\":\"ui5_run_config_handler_id\",\"runnableId\":\"/home/user/projects/sapui5/consumption-reservation\"}"
+        "run.config": "{\"handlerId\":\"ui5_run_config_handler_id\",\"runnableId\":\"/home/user/projects/sapui5/storeincharge-approvals\"}"
       },
-      "envFile": "${workspaceFolder}/consumption-reservation/.env5",
-      "preLaunchTask": "Build sapui5"
-    },
-    {
-      "name": "Run sapui5-storeincharge-scanqr",
-      "type": "node",
-      "request": "launch",
-      "program": "${workspaceFolder}/agel-mmts-web-approuter/node_modules/@sap/html5-repo-mock/index.js",
-      "args": [
-        "--standalone",
-        "/comagelmmtsstoreinchargescanqr/index.html",
-        "--ui5",
-        "{\"version\":\".\"}"
-      ],
-      "cwd": "${workspaceFolder}/storeincharge-scanqr",
-      "env": {
-        "PORT": "6004",
-        "MOCK_LOOKUP_DIRS": "[\"webapp\"]",
-        "run.config": "{\"handlerId\":\"ui5_run_config_handler_id\",\"runnableId\":\"/home/user/projects/sapui5/storeincharge-scanqr\"}"
-      },
-      "envFile": "${workspaceFolder}/storeincharge-scanqr/.env1",
-      "preLaunchTask": "Build sapui5"
-    },
-    {
-      "name": "Run sapui5-return-reservation",
-      "type": "node",
-      "request": "launch",
-      "program": "${workspaceFolder}/agel-mmts-web-approuter/node_modules/@sap/html5-repo-mock/index.js",
-      "args": [
-        "--standalone",
-        "/comagelmmtsreturnreservation/index.html",
-        "--ui5",
-        "{\"version\":\".\"}"
-      ],
-      "cwd": "${workspaceFolder}/return-reservation",
-      "env": {
-        "PORT": "6004",
-        "MOCK_LOOKUP_DIRS": "[\"webapp\"]",
-        "run.config": "{\"handlerId\":\"ui5_run_config_handler_id\",\"runnableId\":\"/home/user/projects/sapui5/return-reservation\"}"
-      },
-      "envFile": "${workspaceFolder}/return-reservation/.env1",
+      "envFile": "${workspaceFolder}/storeincharge-approvals/.env1",
       "preLaunchTask": "Build sapui5"
     }
   ],

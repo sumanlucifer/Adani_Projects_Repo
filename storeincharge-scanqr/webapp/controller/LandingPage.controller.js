@@ -1,21 +1,21 @@
 sap.ui.define([
     "./BaseController",
     "sap/ui/model/json/JSONModel",
-    "sap/ui/model/Filter",
-    "sap/ui/model/FilterOperator",
-    "sap/ui/core/Fragment",
-    "sap/ui/model/Sorter",
+    // "sap/ui/model/Filter",
+    // "sap/ui/model/FilterOperator",
+    // "sap/ui/core/Fragment",
+    // "sap/ui/model/Sorter",
     "sap/ui/Device",
-    "sap/ui/core/routing/History",
-    "sap/m/ColumnListItem",
-    "sap/m/Input",
-    "sap/ui/core/ValueState",
+    // "sap/ui/core/routing/History",
+    // "sap/m/ColumnListItem",
+    // "sap/m/Input",
+    // "sap/ui/core/ValueState",
     "sap/m/PDFViewer"
 ],
 	/**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (BaseController, JSONModel, Filter, FilterOperator, Fragment, Sorter, Device, History, ColumnListItem, Input, ValueState, PDFViewer) {
+    function (BaseController, JSONModel, Device, PDFViewer) {
         "use strict";
 
         return BaseController.extend("com.agel.mmts.storeinchargescanqr.controller.ScanQrCode", {

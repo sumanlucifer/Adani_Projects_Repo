@@ -5,9 +5,9 @@ sap.ui.define([
     "sap/ui/model/FilterOperator",
     "sap/ui/core/Fragment",
     "sap/ui/model/Sorter",
-    "sap/ui/Device",
-    'sap/ui/core/ValueState'
-], function (BaseController, JSONModel, Filter, FilterOperator, Fragment, Sorter, Device, ValueState) {
+    // "sap/ui/Device",
+    // 'sap/ui/core/ValueState'
+], function (BaseController, JSONModel, Filter, FilterOperator, Fragment, Sorter) {
     "use strict";
 
     return BaseController.extend("com.agel.mmts.storeinchargereturnmaterial.controller.LandingPage", {

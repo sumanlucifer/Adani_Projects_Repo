@@ -1,21 +1,21 @@
 sap.ui.define([
     "./BaseController",
     "sap/ui/model/json/JSONModel",
-    "sap/ui/model/Filter",
-    "sap/ui/model/FilterOperator",
-    "sap/ui/core/Fragment",
-    "sap/ui/model/Sorter",
-    "sap/ui/Device",
-    "sap/ui/core/routing/History",
-    'sap/m/ColumnListItem',
-    'sap/m/Input',
+    // "sap/ui/model/Filter",
+    // "sap/ui/model/FilterOperator",
+    // "sap/ui/core/Fragment",
+    // "sap/ui/model/Sorter",
+    // "sap/ui/Device",
+    // "sap/ui/core/routing/History",
+    // 'sap/m/ColumnListItem',
+    // 'sap/m/Input',
     '../utils/formatter',
     "jquery.sap.global"
 ],
 	/**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (BaseController, JSONModel, Filter, FilterOperator, Fragment, Sorter, Device, History, ColumnListItem, Input, formatter, jquery) {
+    function (BaseController, JSONModel, formatter, jquery) {
         "use strict";
         return BaseController.extend("com.agel.mmts.vendorpackinglistcreate.controller.QRCodeDetails", {
             formatter: formatter,

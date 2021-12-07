@@ -43,7 +43,9 @@
                     <Title text="PO Details - {PONumber}" binding="{PurchaseOrder/ParentLineItems}" wrapping="true" titleStyle="Auto"/>
                 </uxap:snappedTitleOnMobile>
                 <uxap:actions>
-                    <Button text="Close" type="Back" press="onClose"/>
+                    <!-- <Button text="Close" type="Back" press="onClose"/> -->
+                    <Button text="Approve" type="Accept" press="onApprovePress" visible="{= ${Status} === 'PENDING' }"/>
+                    <Button text="Reject" type="Reject" press="onRejectPress" visible="{= ${Status} === 'PENDING' }"/>
                 </uxap:actions>
             </uxap:ObjectPageDynamicHeaderTitle>
         </uxap:headerTitle>
@@ -120,7 +122,6 @@
                     <uxap:ObjectPageSubSection title="Basic Details">
                         <uxap:blocks>
                             <FlexBox wrap="Wrap" height="100%" renderType="Bare" direction="Column">
-
                                 <HBox >
                                     <VBox class="sapUiMediumMarginEnd" visible="{= ${objectViewModel>/viewQrCode}}">
                                         <FlexBox fitContainer="true" alignItems="Center">
@@ -184,8 +185,8 @@
                                             <Text text="{i18n>lineItems}"/>
                                             <ToolbarSpacer width="80%">
                                             </ToolbarSpacer>
-                                            <Button text="Approve" type="Accept" press="onApprovePress" visible="{= ${Status} === 'PENDING' }"/>
-                                            <Button text="Reject" type="Reject" press="onRejectPress" visible="{= ${Status} === 'PENDING' }"/>
+                                            <!-- <Button text="Approve" type="Accept" press="onApprovePress" visible="{= ${Status} === 'PENDING' }"/>
+                                            <Button text="Reject" type="Reject" press="onRejectPress" visible="{= ${Status} === 'PENDING' }"/> -->
                                             <HBox  visible="{= ${Status} === 'APPROVED'}" justifyContent="Center" alignItems="Center">
                                                 <Label text="View QR Code" class= "sapUiTinyMarginEnd"/>
                                                 <Switch state="false" change="onViewQRCodePackingList">
