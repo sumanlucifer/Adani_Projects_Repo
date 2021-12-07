@@ -1,15 +1,15 @@
 sap.ui.define([
     "./BaseController",
     "sap/ui/model/json/JSONModel",
-    "sap/ui/model/Filter",
-    "sap/ui/model/FilterOperator",
-    "sap/ui/core/Fragment",
-    "sap/ui/model/Sorter",
-    "sap/ui/Device",
-    "sap/ui/core/routing/History",
-    'sap/m/MessageToast',
+    // "sap/ui/model/Filter",
+    // "sap/ui/model/FilterOperator",
+    // "sap/ui/core/Fragment",
+    // "sap/ui/model/Sorter",
+    // "sap/ui/Device",
+    // "sap/ui/core/routing/History",
+    // 'sap/m/MessageToast',
     "sap/m/MessageBox",
-], function (BaseController, JSONModel, Filter, FilterOperator, Fragment, Sorter, Device, History, MessageToast, MessageBox) {
+], function (BaseController, JSONModel, MessageBox) {
     "use strict";
 
     return BaseController.extend("com.agel.mmts.mdmouterpackinglist.controller.Detail", {

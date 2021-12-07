@@ -1,23 +1,23 @@
 sap.ui.define([
     "./BaseController",
-    "sap/ui/model/Filter",
-    "sap/ui/model/FilterOperator",
-    "sap/ui/core/Fragment",
-    "sap/ui/model/Sorter",
-    "sap/ui/Device",
-    "sap/ui/core/routing/History",
-    'sap/m/ColumnListItem',
-    'sap/m/Input',
-    'sap/base/util/deepExtend',
-    'sap/ui/export/Spreadsheet',
-    'sap/m/MessageToast',
+    // "sap/ui/model/Filter",
+    // "sap/ui/model/FilterOperator",
+    // "sap/ui/core/Fragment",
+    // "sap/ui/model/Sorter",
+    // "sap/ui/Device",
+    // "sap/ui/core/routing/History",
+    // 'sap/m/ColumnListItem',
+    // 'sap/m/Input',
+    // 'sap/base/util/deepExtend',
+    // 'sap/ui/export/Spreadsheet',
+    // 'sap/m/MessageToast',
     "sap/m/MessageBox",
     "sap/ui/model/json/JSONModel",
 ],
 	/**
 	 * @param {typeof sap.ui.core.mvc.Controller} 
 	 */
-    function (BaseController, Filter, FilterOperator, Fragment, Sorter, Device, History, ColumnListItem, Input, deepExtend, Spreadsheet, MessageToast, MessageBox, JSONModel) {
+    function (BaseController, MessageBox, JSONModel) {
         "use strict";
         return BaseController.extend("com.agel.mmts.vendormdcc.controller.PackingListProceed", {
             onInit: function () {
@@ -247,6 +247,8 @@ sap.ui.define([
                         if (!liveQty) liveQty = 0;
                         // iTotalQuantity = iTotalQuantity - parseFloat(liveQty) + parseFloat(oValue);
                         iTotalQuantity = iTotalQuantity + (((parseFloat(oValue) - parseFloat(liveQty)) * parseFloat(wpp))/1000);
+                        if(iTotalQuantity < 0)
+                            iTotalQuantity = 0;
                         this.getViewModel("TreeTableModel").setProperty(sItemPath + "/DispatchQty", oValue);
                         this.getViewModel("TreeTableModel").setProperty(
                             sParentPath + "/DispatchQty",

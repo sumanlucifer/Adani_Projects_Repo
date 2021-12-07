@@ -10,3 +10,5 @@ archive.zip
 .*_mta_build_tmp
 # auto generated wildcard
 regenerate-qr-code/.env3
+# auto generated wildcard
+storeincharge-approvals/.env1

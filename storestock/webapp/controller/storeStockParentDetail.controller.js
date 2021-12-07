@@ -5,12 +5,10 @@ sap.ui.define([
     "sap/ui/model/FilterOperator",
     "sap/ui/core/Fragment",
     "sap/ui/model/Sorter",
-    "sap/ui/Device",
-    'sap/ui/core/ValueState'
-
+    // "sap/ui/Device",
+    // 'sap/ui/core/ValueState'
 ],
-
-    function (BaseController, JSONModel, Filter, FilterOperator, Fragment, Sorter, Device, ValueState) {
+    function (BaseController, JSONModel, Filter, FilterOperator, Fragment, Sorter) {
         "use strict";
         return BaseController.extend("com.agel.mmts.storestock.controller.storeStockParentDetail", {
 
@@ -36,25 +34,16 @@ sap.ui.define([
                 var mockPlantData = [{
                     key: "4500327800",
                     value: "AG-234"
-
-
                 },
                 {
                     key: "4500327801",
                     value: "AG-34"
-
-
                 },
                 {
                     key: "4600327832",
                     value: "AG-67"
-
-
                 }
-
                 ];
-
-
                 this.getViewModel("PlantModel").setProperty("/PlntItems", mockPlantData);
 
             },
@@ -79,7 +68,7 @@ sap.ui.define([
 
             onBeforeRebindRestTable: function (oEvent) {
                 var mBindingParams1 = oEvent.getParameter("bindingParams");
-                mBindingParams1.filters.push(new Filter("Status", sap.ui.model.FilterOperator.EQ, "RESTRICTED"));   
+                mBindingParams1.filters.push(new Filter("Status", sap.ui.model.FilterOperator.EQ, "RESTRICTED"));
                 mBindingParams1.sorter.push(new sap.ui.model.Sorter("CreatedAt", true));
             },
 

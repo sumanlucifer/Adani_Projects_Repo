@@ -1,6 +1,6 @@
 sap.ui.define([
     "./BaseController",
-    'sap/f/library',
+    // 'sap/f/library',
     "sap/ui/core/Fragment",
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator",
@@ -9,7 +9,7 @@ sap.ui.define([
 	/**
 	 * @param {typeof sap.ui.core.mvc.Controller} Controller
 	 */
-    function (BaseController, fioriLibrary,Fragment,Filter,FilterOperator,JSONModel) {
+    function (BaseController,Fragment,Filter,FilterOperator,JSONModel) {
         "use strict";
 
         return BaseController.extend("com.agel.mmts.mdmuom.controller.LandingPage", {

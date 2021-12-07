@@ -4,29 +4,16 @@ sap.ui.define(
         "sap/ui/core/Fragment",
         "sap/ui/Device",
         "sap/ui/model/json/JSONModel",
-        "sap/m/Token",
-        "sap/m/ColumnListItem",
-        "sap/m/Label",
+        // "sap/m/Token",
+        // "sap/m/ColumnListItem",
+        // "sap/m/Label",
         "sap/m/MessageBox",
         "../utils/formatter",
         "sap/m/PDFViewer",
         "sap/ui/model/Filter",
         "sap/ui/model/FilterOperator",
     ],
-    function (
-        BaseController,
-        Fragment,
-        Device,
-        JSONModel,
-        Token,
-        ColumnListItem,
-        Label,
-        MessageBox,
-        formatter,
-        PDFViewer,
-        Filter,
-        FilterOperator
-    ) {
+    function (BaseController, Fragment, Device, JSONModel, MessageBox, formatter, PDFViewer, Filter, FilterOperator) {
         "use strict";
         return BaseController.extend(
             "com.agel.mmts.qrdetails.controller.QRCodeDetails",
@@ -122,7 +109,7 @@ sap.ui.define(
                                     this.getViewModel("objectViewModel").setProperty(
                                         "/busy",
                                         false);
-                                   // sap.m.MessageBox.error(JSON.stringify(oError));
+                                    // sap.m.MessageBox.error(JSON.stringify(oError));
                                 }.bind(this),
                             }
                         );
@@ -245,7 +232,7 @@ sap.ui.define(
                             this.getViewModel("objectViewModel").setProperty(
                                 "/busy",
                                 false);
-                           // sap.m.MessageBox.error(JSON.parse(oError));
+                            // sap.m.MessageBox.error(JSON.parse(oError));
                         }.bind(this),
                     });
                 },
@@ -364,7 +351,7 @@ sap.ui.define(
                             this.getViewModel("objectViewModel").setProperty(
                                 "/busy",
                                 false);
-                           // sap.m.MessageBox.error(JSON.parse(oError));
+                            // sap.m.MessageBox.error(JSON.parse(oError));
                         }.bind(this),
                     });
                 },
@@ -421,7 +408,7 @@ sap.ui.define(
                             this.getViewModel("objectViewModel").setProperty(
                                 "/busy",
                                 false);
-                          //  sap.m.MessageBox.error(JSON.parse(oError));
+                            //  sap.m.MessageBox.error(JSON.parse(oError));
                         },
                     });
                 },
@@ -488,7 +475,7 @@ sap.ui.define(
                             this.getViewModel("objectViewModel").setProperty(
                                 "/busy",
                                 false);
-                           // sap.m.MessageBox.error(JSON.parse(oError));
+                            // sap.m.MessageBox.error(JSON.parse(oError));
                         }.bind(this),
                     });
                 },
@@ -543,7 +530,7 @@ sap.ui.define(
                         .getObject().QRNumber;
                     var aPayload = {
                         "QRNumber": qrcodeID,
-                        "RegeneratedQRId" : 0
+                        "RegeneratedQRId": 0
                     };
                     this.getComponentModel().create(
                         "/QuickAccessQRCodeEdmSet",
@@ -565,7 +552,7 @@ sap.ui.define(
                                 this.getViewModel("objectViewModel").setProperty(
                                     "/busy",
                                     false);
-                               // sap.m.MessageBox.success(JSON.stringify(oError));
+                                // sap.m.MessageBox.success(JSON.stringify(oError));
                             }.bind(this),
                         }
                     );
@@ -582,8 +569,8 @@ sap.ui.define(
 
                     var aPayload = {
                         QRNumber: qrcodeID,
-                        "RegeneratedQRId" : 0
-                        
+                        "RegeneratedQRId": 0
+
                     };
                     this.getComponentModel().create(
                         "/QuickAccessQRCodeEdmSet",

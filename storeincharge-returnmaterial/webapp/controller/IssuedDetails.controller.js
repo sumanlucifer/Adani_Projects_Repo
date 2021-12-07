@@ -1,15 +1,15 @@
 sap.ui.define([
     "./BaseController",
     "sap/ui/model/json/JSONModel",
-    "sap/ui/model/Filter",
-    "sap/ui/model/FilterOperator",
-    "sap/ui/core/Fragment",
-    "sap/ui/model/Sorter",
-    "sap/ui/Device",
-    'sap/ui/core/ValueState',
+    // "sap/ui/model/Filter",
+    // "sap/ui/model/FilterOperator",
+    // "sap/ui/core/Fragment",
+    // "sap/ui/model/Sorter",
+    // "sap/ui/Device",
+    // 'sap/ui/core/ValueState',
     "jquery.sap.global",
     "sap/m/MessageBox"
-], function (BaseController, JSONModel, Filter, FilterOperator, Fragment, Sorter, Device, ValueState, jquery, MessageBox) {
+], function (BaseController, JSONModel, jquery, MessageBox) {
     "use strict";
 
     return BaseController.extend("com.agel.mmts.storeinchargereturnmaterial.controller.IssuedDetails", {
