@@ -95,7 +95,7 @@ sap.ui.define([
                             false
                         );
                         if (oResponse.Success)
-                            sap.m.MessageBox.success("Request " + sStatus.toLowerCase() + " successfully.");
+                            sap.m.MessageBox.success(this.getResourceBundle().getText("RequestSuccessMSG", [sStatus.toLowerCase()]));
                         else
                             sap.m.MessageBox.error(oResponse.Message);
 

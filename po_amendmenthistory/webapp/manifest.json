@@ -110,7 +110,12 @@
                 "controlAggregation": "pages",
                 "controlId": "app",
                 "clearControlAggregation": false,
-                "fullWidth": true 
+                "fullWidth": true,
+                "bypassed": {
+                    "target": [
+                        "notFound"
+                    ]
+                }
             },
             "routes": [
                 {
@@ -142,6 +147,9 @@
                     "clearControlAggregation": false,
                     "viewId": "PoAmendmentHistory",
                     "viewName": "PoAmendmentHistory"
+                },
+                "notFound": {
+                    "viewName": "NotFound"
                 }
             }
         }

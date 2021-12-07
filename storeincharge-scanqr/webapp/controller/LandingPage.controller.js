@@ -70,28 +70,55 @@ sap.ui.define([
                 var qrcodeID = this.byId("idInputQRCode").getSelectedKey();
                 if (qrcodeID !== "") {
                     this.getView().byId("idQRBtn").setProperty("enabled", true);
-                    this.getView().byId("idQRSubmit").setProperty("enabled", false);
-
+                    // this.getView().byId("idQRSubmit").setProperty("enabled", false);
                 } else {
                     this.getView().byId("idQRBtn").setProperty("enabled", false);
-                    this.getView().byId("idQRSubmit").setProperty("enabled", true);
+                    // this.getView().byId("idQRSubmit").setProperty("enabled", true);
+                }
+            },
+
+            //scannner related functions
+            onScanSuccess: function (oEvent) {
+                if (oEvent.getParameter("cancelled")) {
+                    sap.m.MessageToast.show("Scan cancelled", { duration: 1000 });
+                } else {
+                    var sScannedValue = oEvent.getParameter("text");
+                    if (sScannedValue.length > 0) {
+                        var isValid = this.checkForValidJSON(sScannedValue);
+                        if (isValid) {
+                            sap.m.MessageToast.show("Successfully scanned: " + JSON.parse(JSON.parse(sScannedValue)).QRNumber);
+                            this.onViewQRCodePress(JSON.parse(JSON.parse(sScannedValue)).QRNumber);
+                        } else {
+                            sap.m.MessageBox.error("Not a valid QR! Please try again with a different QR code.")
+                        }
+                    }
+                }
+            },
+
+            onScanError: function (oEvent) {
+                sap.m.MessageToast.show("Scan failed" + oEvent, { duration: 1000 });
+            },
+
+            checkForValidJSON: function (sScannedValue) {
+                try {
+                    return (JSON.parse(JSON.parse(sScannedValue)) && !!sScannedValue);
+                } catch (e) {
+                    return false;
                 }
             },
 
             onPressScanQRCode: function (oEvent) {
-                var that = this;
                 this.getView().byId("idQRBtn").setProperty("enabled", false);
                 this.getView().byId("idInputQRCode").setProperty("enabled", false);
-                this.onViewQRCodePress(oEvent);
+                this.onViewQRCodePress();
             },
 
             onPressSubmitQRCode: function (oEvent) {
-                var that = this;
-                this.onViewQRCodePress(oEvent);
+                this.onViewQRCodePress();
             },
 
-            onViewQRCodePress: function (oEvent) {
-                var qrcodeID = this.byId("idInputQRCode").getValue();
+            onViewQRCodePress: function (sQRCode) {
+                var qrcodeID = this.byId("idInputQRCode").getValue() || sQRCode;
                 var aPayload = {
                     "QRNumber": qrcodeID,
                     "RegeneratedQRId" : 0
@@ -102,7 +129,6 @@ sap.ui.define([
                             // sap.m.MessageBox.success(oData.Message);
                             this._openPDFDownloadWindow(oData.Base64String);
                         }
-
                         else {
                             sap.m.MessageBox.error("QR Code is wrong");
                         }

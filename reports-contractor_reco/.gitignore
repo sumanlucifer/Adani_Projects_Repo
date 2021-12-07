@@ -10,3 +10,13 @@ archive.zip
 .*_mta_build_tmp
 # auto generated wildcard
 regenerate-qr-code/.env3
+# auto generated wildcard
+consumption-reservation/.env4
+# auto generated wildcard
+consumption-reservation/.env5
+# auto generated wildcard
+storeincharge-scanqr/.env1
+# auto generated wildcard
+return-reservation/.env1
+# auto generated wildcard
+new_vendor/.env6

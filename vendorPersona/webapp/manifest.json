@@ -122,7 +122,9 @@
                 "controlId": "app",
                 "clearControlAggregation": false,
                 "bypassed": {
-                    "target": []
+                    "target": [
+                        "notFound"
+                    ]
                 }
             },
             "routes": [
@@ -205,6 +207,9 @@
                     "transition": "slide",
                     "viewName": "OfflineInspection",
                     "viewLevel": 6
+                },
+                "notFound": {
+                    "viewName": "NotFound"
                 }
             }
         }

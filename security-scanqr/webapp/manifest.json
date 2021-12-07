@@ -113,7 +113,12 @@
                 "viewPath": "com.agel.mmts.securityscanqr.view",
                 "controlAggregation": "pages",
                 "controlId": "app",
-                "clearControlAggregation": false
+                "clearControlAggregation": false,
+                "bypassed": {
+                    "target": [
+                        "notFound"
+                    ]
+                }
             },
             "routes": [
                 {
@@ -148,6 +153,9 @@
                     "viewId": "QRCodeDetails",
                     "viewName": "QRCodeDetails",
                     "viewLevel": 2
+                },
+                "notFound": {
+                    "viewName": "NotFound"
                 }
             }
         }

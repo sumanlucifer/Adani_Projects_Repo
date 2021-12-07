@@ -77,7 +77,7 @@ sap.ui.define([
                     // this.getView().setModel(consumptionData, "consumptionData");
                 }.bind(this),
                 error: function (oError) {
-                    sap.m.MessageBox.error("Data Not Found");
+                    sap.m.MessageBox.error(this.getResourceBundle().getText("DataNotFound"));
                 }
             });
         },
@@ -152,7 +152,8 @@ sap.ui.define([
             var ConsumptionPostingReserveId = that.sObjectId;
             var itemData = this.getTableItems();
             // var ConsumptionPostingId = oEvent.getSource().getBindingContext().getObject().ConsumptionPostingId;
-            MessageBox.confirm("Do you want to Cancel the issue posting?", {
+            var sMessage = this.getResourceBundle().getText("CancelIssuePostingMSG");
+            MessageBox.confirm(sMessage, {
                 icon: MessageBox.Icon.INFORMATION,
                 title: "Confirm",
                 actions: [MessageBox.Action.YES, MessageBox.Action.NO],
@@ -182,7 +183,7 @@ sap.ui.define([
                     this.getView().getModel("objectViewModel").setProperty("/cancelbutton", false);
                     this.getOwnerComponent().getModel().refresh();
                     if (oData.Success === true) {
-                        sap.m.MessageBox.success("The Issue Posting has been cancelled for selected item(s)!");
+                        sap.m.MessageBox.success(this.getResourceBundle().getText("IssuedPostingCancelMSG"));
                     }
                     else {
                         sap.m.MessageBox.error(oData.Message);
@@ -190,7 +191,7 @@ sap.ui.define([
                 }.bind(this),
                 error: function (oError) {
                     this.getView().getModel("objectViewModel").setProperty("/cancelbutton", false);
-                    sap.m.MessageBox.error("Data Not Found");
+                    sap.m.MessageBox.error(this.getResourceBundle().getText("DataNotFound"));
                 }
             });
         }

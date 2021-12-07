@@ -5,7 +5,11 @@
     <f:SimpleForm id="idEditBasicDetailsSFM" class="sapUiSizeCompact" editable="false" layout="ColumnLayout"	title="{i18n>BasicDetails}" columnsM="2" columnsL="3" columnsXL="4">
         <f:toolbar>
 			<Toolbar>
-            	<!-- <Title text="{i18n>BasicDetails}"/> -->
+                <MessageStrip 
+                    visible="{= ${objectViewModel>/EditMode} === true ? false : true}"
+                    class="z_toolbar_msgstp"
+                    text="{i18n>ChangesReflectedMSGStrip}"
+                    type="Information" showIcon="true"/>
 				<ToolbarSpacer />
 		    	<Label text="{i18n>IsActive}: "/>
                 <Switch 

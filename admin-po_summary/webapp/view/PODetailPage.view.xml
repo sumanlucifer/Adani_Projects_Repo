@@ -19,18 +19,18 @@
                 </uxap:breadcrumbs>
                 <uxap:expandedHeading>
                     <FlexBox direction="Column" renderType="Bare">
-                        <Title text="PO Details" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
+                        <Title text="{i18n>PODetails}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
                         <!-- <Title text="{objectViewModel>/PONumber}"/> -->
                     </FlexBox>
                 </uxap:expandedHeading>
                 <uxap:snappedHeading>
                     <FlexBox direction="Column" renderType="Bare">
-                        <Title text="PO Details" wrapping="true" titleStyle="H4"/>
+                        <Title text="{i18n>PODetails}" wrapping="true" titleStyle="H4"/>
                     </FlexBox>
                 </uxap:snappedHeading>
                 <uxap:expandedContent></uxap:expandedContent>
                 <uxap:snappedTitleOnMobile>
-                    <Title text="PO Details" wrapping="true" titleStyle="Auto"/>
+                    <Title text="{i18n>PODetails}" wrapping="true" titleStyle="Auto"/>
                 </uxap:snappedTitleOnMobile>
                 <uxap:actions>
                 </uxap:actions>
@@ -41,12 +41,12 @@
                 <VBox renderType="Bare">
                     <FlexBox direction="Row" renderType="Bare" class="sapUiTinyMarginBottom">
                         <VBox renderType="Bare" class="sapUiMediumMarginEnd">
-                            <Label text="PO Number" />
+                            <Label text="{i18n>ponum}" />
                             <ObjectStatus text="{objectViewModel>/PONumber}"/>
                             <!-- state="{= ${Status}=== 'SAVED' ? 'Indication05' : ${Status}=== 'DISPATCHED' ? 'Indication06' : 'Indication07'}" -->
                         </VBox>
                         <VBox renderType="Bare" class="sapUiMediumMarginEnd">
-                            <Label text="PO Issued Date" />
+                            <Label text="{i18n>POIssuedDate}" />
                             <Text text="{path:'objectViewModel>/CreatedAt',
                                     type: 'sap.ui.model.type.Date',
 				                     formatOptions: {
@@ -87,7 +87,7 @@
                                                 <core:CustomData key="p13nData" value='\{"columnKey": "Name", "leadingProperty": "Name",
                                                  "columnIndex": 0 ,"sortProperty": "Name","filterProperty": "Name"}'/>
                                             </customData>
-                                            <Text text="Packing List Number"/>
+                                            <Text text="{i18n>PackingListNumber}"/>
                                         </Column>
 
                                         <Column demandPopin="true" minScreenWidth="Tablet">

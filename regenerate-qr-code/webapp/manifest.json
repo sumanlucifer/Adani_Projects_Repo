@@ -109,7 +109,12 @@
                 "viewPath": "com.agel.mmts.regenerateqrcode.view",
                 "controlAggregation": "pages",
                 "controlId": "app",
-                "clearControlAggregation": false
+                "clearControlAggregation": false,
+                "bypassed": {
+                    "target": [
+                        "notFound"
+                    ]
+                }
             },
             "routes": [
                 {
@@ -141,6 +146,9 @@
                     "clearControlAggregation": false,
                     "viewId": "QRCodeDetailsPage",
                     "viewName": "QRCodeDetailsPage"
+                },
+                "notFound": {
+                    "viewName": "NotFound"
                 }
             }
         }

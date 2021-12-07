@@ -80,17 +80,17 @@
                     "bundleName": "com.agel.mmts.securityscanhistory.i18n.i18n"
                 }
             },
-            "": {	
-                "type": "sap.ui.model.odata.v2.ODataModel",	
-                "settings": {	
-                    "defaultOperationMode": "Server",	
-                    "defaultBindingMode": "TwoWay",	
-                    "defaultCountMode": "Inline",	
-                    "refreshAfterChange": true,	
-                    "useBatch": false	
-                },	
-                "dataSource": "default",	
-                "preload": true	
+            "": {
+                "type": "sap.ui.model.odata.v2.ODataModel",
+                "settings": {
+                    "defaultOperationMode": "Server",
+                    "defaultBindingMode": "TwoWay",
+                    "defaultCountMode": "Inline",
+                    "refreshAfterChange": true,
+                    "useBatch": false
+                },
+                "dataSource": "default",
+                "preload": true
             }
         },
         "resources": {
@@ -110,7 +110,9 @@
                 "controlId": "app",
                 "clearControlAggregation": false,
                 "bypassed": {
-                    "target": []
+                    "target": [
+                        "notFound"
+                    ]
                 }
             },
             "routes": [
@@ -142,6 +144,9 @@
                     "transition": "slide",
                     "clearControlAggregation": false,
                     "viewName": "QRCodeDetail"
+                },
+                "notFound": {
+                    "viewName": "NotFound"
                 }
             }
         }

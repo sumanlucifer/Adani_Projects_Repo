@@ -122,7 +122,7 @@ sap.ui.define([
                             ParentData[i].IssuedMaterialReservedBOQItems.results[j].isParent = true;
                             ParentData[i].isChildItemFreeze = true;
                             ParentData[i].IssuedMaterialReservedBOQItems.results[j].isChildItemFreeze = false;
-                             ParentData[i].IssuedMaterialReservedBOQItems.results[j].Quantity = "";
+                            ParentData[i].IssuedMaterialReservedBOQItems.results[j].Quantity = "";
                         }
                     }
                     ParentData[i].isParent = false;
@@ -230,6 +230,7 @@ sap.ui.define([
                 var oHeaderData = this.getViewModel("HeaderDetailsModel").getData();
                 var aReservationItems = this.getViewModel("reservationTableModel").getData();
                 if (!this._validateHeaderData(oHeaderData)) {
+                    this.getViewModel("objectViewModel").setProperty("/isHeaderFieldsVisible", true);
                     return;
                 }
                 this.onSearchGoodReciepient(oHeaderData.GoodRecipient);
@@ -288,47 +289,50 @@ sap.ui.define([
                 } else {
                     this.byId("idSelPlant").setValueState("None");
                     this.byId("idSelPlant").setValueStateText(null);
-                    this.getViewModel("objectViewModel").setProperty("/isHeaderFieldsVisible", true);
                 }
-                if (!data.ProfitCenter) {
-                    this.byId("idProfitCenter").setValueState("Error");
-                    this.byId("idProfitCenter").setValueStateText("Please enter profit center value");
-                    bValid = false;
+                if (this.getView().getModel("objectViewModel").getProperty("/isHeaderFieldsVisible") === true) {
+                    if (!data.ProfitCenter) {
+                        this.byId("idProfitCenter").setValueState("Error");
+                        this.byId("idProfitCenter").setValueStateText("Please enter profit center value");
+                        bValid = false;
+                    } else {
+                        this.byId("idProfitCenter").setValueState("None");
+                        this.byId("idProfitCenter").setValueStateText(null);
+                    }
+                    if (!data.ReceivingLocation) {
+                        this.byId("idRecievingLoc").setValueState("Error");
+                        this.byId("idRecievingLoc").setValueStateText("Please enter recieving center value");
+                        bValid = false;
+                    } else {
+                        this.byId("idRecievingLoc").setValueState("None");
+                        this.byId("idRecievingLoc").setValueStateText(null);
+                    }
+                    if (!data.CostCenter) {
+                        this.byId("idCostCenter").setValueState("Error");
+                        this.byId("idCostCenter").setValueStateText("Please enter cost center value");
+                        bValid = false;
+                    } else {
+                        this.byId("idCostCenter").setValueState("None");
+                        this.byId("idCostCenter").setValueStateText(null);
+                    }
+                    if (!data.WBS) {
+                        this.byId("idWBS").setValueState("Error");
+                        this.byId("idWBS").setValueStateText("Please enter WBS value");
+                        bValid = false;
+                    } else {
+                        this.byId("idWBS").setValueState("None");
+                        this.byId("idWBS").setValueStateText(null);
+                    }
+                    if (!data.GLAccount) {
+                        this.byId("idGLAccount").setValueState("Error");
+                        this.byId("idGLAccount").setValueStateText("Please enter GLAccount recipient");
+                        bValid = false;
+                    } else {
+                        this.byId("idGLAccount").setValueState("None");
+                        this.byId("idGLAccount").setValueStateText(null);
+                    }
                 } else {
-                    this.byId("idProfitCenter").setValueState("None");
-                    this.byId("idProfitCenter").setValueStateText(null);
-                }
-                if (!data.ReceivingLocation) {
-                    this.byId("idRecievingLoc").setValueState("Error");
-                    this.byId("idRecievingLoc").setValueStateText("Please enter recieving center value");
                     bValid = false;
-                } else {
-                    this.byId("idRecievingLoc").setValueState("None");
-                    this.byId("idRecievingLoc").setValueStateText(null);
-                }
-                if (!data.CostCenter) {
-                    this.byId("idCostCenter").setValueState("Error");
-                    this.byId("idCostCenter").setValueStateText("Please enter cost center value");
-                    bValid = false;
-                } else {
-                    this.byId("idCostCenter").setValueState("None");
-                    this.byId("idCostCenter").setValueStateText(null);
-                }
-                if (!data.WBS) {
-                    this.byId("idWBS").setValueState("Error");
-                    this.byId("idWBS").setValueStateText("Please enter WBS value");
-                    bValid = false;
-                } else {
-                    this.byId("idWBS").setValueState("None");
-                    this.byId("idWBS").setValueStateText(null);
-                }
-                if (!data.GLAccount) {
-                    this.byId("idGLAccount").setValueState("Error");
-                    this.byId("idGLAccount").setValueStateText("Please enter GLAccount recipient");
-                    bValid = false;
-                } else {
-                    this.byId("idGLAccount").setValueState("None");
-                    this.byId("idGLAccount").setValueStateText(null);
                 }
                 return bValid;
             },

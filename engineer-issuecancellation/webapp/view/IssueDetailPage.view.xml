@@ -36,7 +36,7 @@
                     <Title text="{i18n>SONumber}- {MaterialDocumentNumber}" wrapping="true" titleStyle="Auto"/>
                 </uxap:snappedTitleOnMobile>
                 <uxap:actions>
-                    <Button text="Cancel Issued Items" press="onPressCancelIssuePosting" type="Emphasized" visible="{= ${Status} === 'ISSUED' || ${Status} === 'PARTIALLY ISSUED' || ${Status} === 'PARTIALLY CANCELLED'}" enabled="{objectViewModel>/cancelbutton}"/>
+                    <Button text="{i18n>CancelIssuedItems>" press="onPressCancelIssuePosting" type="Emphasized" visible="{= ${Status} === 'ISSUED' || ${Status} === 'PARTIALLY ISSUED' || ${Status} === 'PARTIALLY CANCELLED'}" enabled="{objectViewModel>/cancelbutton}"/>
 
                 </uxap:actions>
             </uxap:ObjectPageDynamicHeaderTitle>
@@ -103,37 +103,37 @@
                                     <CheckBox select="onSelectAll"></CheckBox>
                                 </Column>
                                 <Column demandPopin="true" minScreenWidth="Tablet">
-                                    <Text text="Material Name"/>
+                                    <Text text="{i18n>MaterialName}"/>
                                 </Column>
                                 <Column demandPopin="true" minScreenWidth="Tablet">
-                                    <Text text="Material Code"/>
+                                    <Text text="{i18n>MaterialCode}"/>
                                 </Column>
                                 <Column demandPopin="true" minScreenWidth="Tablet">
-                                    <Text text="Plant Code"/>
+                                    <Text text="{i18n>PlantCode}"/>
                                 </Column>
                                 <Column demandPopin="true" minScreenWidth="Tablet">
-                                    <Text text="Storage Location"/>
+                                    <Text text="{i18n>StorageLocation}"/>
                                 </Column>
                                 <Column demandPopin="true" minScreenWidth="Tablet">
-                                    <Text text="Movement Type"/>
+                                    <Text text="{i18n>MovementType}"/>
                                 </Column>
                                 <Column demandPopin="true" minScreenWidth="Tablet">
-                                    <Text text="Goods Recipient"/>
+                                    <Text text="{i18n>GoodsRecipient}"/>
                                 </Column>
                                 <Column demandPopin="true" minScreenWidth="Tablet">
-                                    <Text text="WBS Element"/>
+                                    <Text text="{i18n>WBSElement}"/>
                                 </Column>
                                 <Column demandPopin="true" minScreenWidth="Tablet">
-                                    <Text text="Unloading Point"/>
+                                    <Text text="{i18n>UnloadingPoint}"/>
                                 </Column>
                                 <Column demandPopin="true" minScreenWidth="Tablet">
-                                    <Text text="Issued Quantity"/>
+                                    <Text text="{i18n>IssuedQuantity}"/>
                                 </Column>
                                 <Column demandPopin="true" minScreenWidth="Desktop">
-                                    <Text text="Reserved Quantity"/>
+                                    <Text text="{i18n>ReservedQuantity"/>
                                 </Column>
                                 <Column demandPopin="true" minScreenWidth="Tablet">
-                                    <Text text="Status"/>
+                                    <Text text="{i18n>Status"/>
                                 </Column>
                             </columns>
                             <items>
