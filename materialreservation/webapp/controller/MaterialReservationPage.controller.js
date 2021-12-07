@@ -526,7 +526,7 @@ sap.ui.define([
                     "ProfitCenter": oAdditionalData.ProfitCenter,
                     "ReceivingLocation": oAdditionalData.ReceivingLocation,
                     "GLAccount": oAdditionalData.GLAccount,
-                    "ContractorId": oAdditionalData.ContractorId,
+                    "ContractorName": oAdditionalData.ContractorId,
                     "CompanyCode": oAdditionalData.CompanyCode,
                     "UserName": "AGEL",
                     "IssueMaterialReservationItems": aReservationItems
