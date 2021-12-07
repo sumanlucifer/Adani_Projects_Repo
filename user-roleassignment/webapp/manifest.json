@@ -108,7 +108,12 @@
                 "viewPath": "com.agel.mmts.userroleassignment.view",
                 "controlAggregation": "pages",
                 "controlId": "app",
-                "clearControlAggregation": false
+                "clearControlAggregation": false,
+                "bypassed": {
+                    "target": [
+                        "notFound"
+                    ]
+                }
             },
             "routes": [
                 {
@@ -140,7 +145,10 @@
                     "clearControlAggregation": false,	
                     "viewName": "UserDetails",	
                     "viewLevel": 2	
-                }	
+                },
+                "notFound": {
+                    "viewName": "NotFound"
+                }
             }
         }
     }

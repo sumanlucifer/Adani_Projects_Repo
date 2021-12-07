@@ -3,7 +3,7 @@ sap.ui.define([
 ], function (BaseController) {
 	"use strict";
 
-	return BaseController.extend("com.agel.mmts.storestock.controller.NotFound", {
+	return BaseController.extend("com.agel.mmts.lognewconsumption.controller.NotFound", {
 
 	});
 

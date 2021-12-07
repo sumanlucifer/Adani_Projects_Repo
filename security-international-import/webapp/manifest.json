@@ -108,7 +108,12 @@
                 "viewPath": "com.agel.mmts.securityinternationalimport.view",
                 "controlAggregation": "pages",
                 "controlId": "app",
-                "clearControlAggregation": false
+                "clearControlAggregation": false,
+                "bypassed": {
+                    "target": [
+                        "notFound"
+                    ]
+                }
             },
             "routes": [
                 {
@@ -126,6 +131,9 @@
                     "clearControlAggregation": false,
                     "viewId": "Main",
                     "viewName": "Main"
+                },
+                "notFound": {
+                    "viewName": "NotFound"
                 }
             }
         }

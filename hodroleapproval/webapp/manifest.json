@@ -109,7 +109,12 @@
                 "viewPath": "com.agel.mmts.hodroleapproval.view",
                 "controlAggregation": "pages",
                 "controlId": "app",
-                "clearControlAggregation": false
+                "clearControlAggregation": false,
+                "bypassed": {
+                    "target": [
+                        "notFound"
+                    ]
+                }
             },
             "routes": [
                 {
@@ -127,6 +132,9 @@
                     "clearControlAggregation": false,
                     "viewId": "LandingPage",
                     "viewName": "LandingPage"
+                },
+                "notFound": {
+                    "viewName": "NotFound"
                 }
             }
         }

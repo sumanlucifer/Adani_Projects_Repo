@@ -113,7 +113,12 @@
                 "viewPath": "com.agel.mmts.newvendor.view",
                 "controlAggregation": "pages",
                 "controlId": "app",
-                "clearControlAggregation": false
+                "clearControlAggregation": false,
+                "bypassed": {
+                    "target": [
+                        "notFound"
+                    ]
+                }
             },
             "routes": [
                 {
@@ -159,6 +164,9 @@
                     "clearControlAggregation": false,
                     "viewId": "CreateVendor",
                     "viewName": "CreateVendor"
+                },
+                "notFound": {
+                    "viewName": "NotFound"
                 }
             }
         }

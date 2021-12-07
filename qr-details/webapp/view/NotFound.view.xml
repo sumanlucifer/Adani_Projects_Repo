@@ -6,7 +6,7 @@
     xmlns:form="sap.ui.layout.form" height="100%">
     <Page showHeader="false">
         <VBox height="100%" justifyContent="Center">
-            <f:IllustratedMessage illustrationSize="Auto" description="The requested resource was not found." title="Oops! Page Not Found">
+            <f:IllustratedMessage illustrationSize="Auto" description="{i18n>TheResourcenotfoundMSG}" title="{i18n>PageNtFoundMSG}">
                 <f:additionalContent>
                 </f:additionalContent>
             </f:IllustratedMessage>

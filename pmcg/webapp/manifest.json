@@ -110,7 +110,12 @@
                 "viewPath": "com.agel.mmts.pmcg.view",
                 "controlAggregation": "pages",
                 "controlId": "app",
-                "clearControlAggregation": false
+                "clearControlAggregation": false,
+                "bypassed": {
+                    "target": [
+                        "notFound"
+                    ]
+                }
             },
             "routes": [
                 {
@@ -142,6 +147,9 @@
                     "viewName": "TCEngDetail",	
                     "clearControlAggregation": false,
                     "viewLevel": 2	
+                },
+                "notFound": {
+                    "viewName": "NotFound"
                 }
             }
         }

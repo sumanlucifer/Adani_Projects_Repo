@@ -113,7 +113,12 @@
                 "viewPath": "com.agel.mmts.adminposummary.view",
                 "controlAggregation": "pages",
                 "controlId": "app",
-                "clearControlAggregation": false
+                "clearControlAggregation": false,
+                "bypassed": {
+                    "target": [
+                        "notFound"
+                    ]
+                }
             },
             "routes": [
                 {
@@ -130,7 +135,7 @@
                         "TargetPODetailPage"
                     ]
                 },
-                 {
+                {
                     "name": "POProcessFlow",
                     "pattern": "POProcessFlow/{PackingListId}",
                     "target": [
@@ -145,7 +150,7 @@
                     "clearControlAggregation": false,
                     "viewId": "LandingPage",
                     "viewName": "LandingPage",
-                      "viewLevel": 1
+                    "viewLevel": 1
                 },
                 "TargetPODetailPage": {
                     "viewType": "XML",
@@ -160,6 +165,9 @@
                     "clearControlAggregation": false,
                     "viewName": "POProcessFlow",
                     "viewLevel": 3
+                },
+                "notFound": {
+                    "viewName": "NotFound"
                 }
             }
         }

@@ -12,8 +12,8 @@
         "resources": "resources.json",
         "ach": "ach",
         "sourceTemplate": {
-			"id": "html5moduletemplates.basicSAPUI5ApplicationProjectModule",
-			"version": "1.40.12"
+            "id": "html5moduletemplates.basicSAPUI5ApplicationProjectModule",
+            "version": "1.40.12"
         },
         "crossNavigation": {
             "inbounds": {
@@ -115,7 +115,9 @@
                 "clearControlAggregation": false,
                 "transition": "slide",
                 "bypassed": {
-                    "target": []
+                    "target": [
+                        "notFound"
+                    ]
                 }
             },
             "routes": [
@@ -151,6 +153,9 @@
                     "viewType": "XML",
                     "transition": "slide",
                     "controlAggregation": "midColumnPages"
+                },
+                "notFound": {
+                    "viewName": "NotFound"
                 }
             }
         }

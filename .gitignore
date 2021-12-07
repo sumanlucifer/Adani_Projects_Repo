@@ -4,7 +4,4 @@
 *.zip 
 package-lock.json
 /dist/
-# auto generated wildcard
-regenerate-qr-code/.env3
-# auto generated wildcard
-storeincharge-approvals/.env1
+

@@ -250,9 +250,9 @@ sap.ui.define([
 
             oContext.created().then(function () {
                 var sMessage = this.getResourceBundle().getText("NewentryMSG");
-                var sErrorMessage = this.getResourceBundle().getText("ErrorCreatingEntries");
                 sap.m.MessageBox.success(sMessage);
             }.bind(oContext, that), function (error) {
+                var sErrorMessage = this.getResourceBundle().getText("ErrorCreatingEntries");
                 sap.m.MessageBox.error(sErrorMessage);
             }.bind(oContext));
             this.closeDialog();
@@ -399,21 +399,27 @@ sap.ui.define([
         },
 
         _openConfirmationDialog: function () {
+            var sName = this.getViewModel("sendForApprovalModel").getProperty("/oBOQGroupSelected").Name,
+                sSendTcApprovalConfirmMsg = this.getResourceBundle().getText("SendTcApprovalConfirmMsg", [sName]),
+                sConfirm = this.getResourceBundle().getText("Confirm"),
+                sSend = this.getResourceBundle().getText("Send"),
+                sCancel = this.getResourceBundle().getText("Cancel");
+
             //if (!this.oApproveDialog) {
             this.oApproveDialog = new Dialog({
                 type: sap.m.DialogType.Message,
-                title: "Confirm",
-                content: new Text({ text: "Do you want to send the " + this.getViewModel("sendForApprovalModel").getProperty("/oBOQGroupSelected").Name + " group for TC approval?" }),
+                title: sConfirm,
+                content: new Text({ text: sSendTcApprovalConfirmMsg }),
                 beginButton: new Button({
                     type: sap.m.ButtonType.Emphasized,
-                    text: "Send",
+                    text: sSend,
                     press: function () {
                         this.sendForApproval();
                         this.oApproveDialog.close();
                     }.bind(this)
                 }),
                 endButton: new Button({
-                    text: "Cancel",
+                    text: sCancel,
                     press: function () {
                         this.oApproveDialog.close();
                     }.bind(this)
@@ -459,7 +465,7 @@ sap.ui.define([
 
         onViewBOQItemPress: function (oEvent) {
             var sBOQItemPath = oEvent.mParameters.getSource().getBindingContext().getPath();
-            var sDialogTitle = oEvent.mParameters.getSource().getBindingContext().getObject().Name + " Items";
+            var sDialogTitle = this.getResourceBundle().getText("Items", [oEvent.mParameters.getSource().getBindingContext().getObject().Name]);
             var oDetails = {};
             oDetails.controller = this;
             oDetails.view = this.getView();

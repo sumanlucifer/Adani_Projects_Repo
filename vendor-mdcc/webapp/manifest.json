@@ -108,7 +108,12 @@
                 "viewPath": "com.agel.mmts.vendormdcc.view",
                 "controlAggregation": "pages",
                 "controlId": "app",
-                "clearControlAggregation": false
+                "clearControlAggregation": false,
+                "bypassed": {
+                    "target": [
+                        "notFound"
+                    ]
+                }
             },
             "routes": [
                 {
@@ -138,6 +143,9 @@
                     "transition": "slide",
                     "clearControlAggregation": false,
                     "viewName": "PackingListProceed"
+                },
+                "notFound": {
+                    "viewName": "NotFound"
                 }
             }
         }

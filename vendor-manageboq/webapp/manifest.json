@@ -111,7 +111,9 @@
                 "clearControlAggregation": false,
                 "transition": "slide",
                 "bypassed": {
-                    "target": []
+                    "target": [
+                        "notFound"
+                    ]
                 }
             },
             "routes": [
@@ -163,6 +165,9 @@
                     "viewType": "XML",
                     "transition": "slide",
                     "controlAggregation": "endColumnPages"
+                },
+                "notFound": {
+                    "viewName": "NotFound"
                 }
             }
         }

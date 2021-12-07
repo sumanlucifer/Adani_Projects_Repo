@@ -13,7 +13,7 @@
                        <core:CustomData key="p13nData" value='\{"columnKey": "RoleAssignId/ID", "leadingProperty": "RoleAssignId/ID",
                                                 "columnIndex": 0 ,"sortProperty": "RoleAssignId/ID","filterProperty": "RoleAssignId/ID"}'/>
                    </customData>
-                   <Text text="ID"/>
+                   <Text text="{i18n>ID}"/>
                </Column>
                 <Column demandPopin="true" minScreenWidth="Tablet"> 
                    <customData>
@@ -86,9 +86,9 @@
 				                     }
                         }" />
                         <HBox alignContent="Center" alignItems="Center" width="100%">
-                                <Button text="Approve"  press="onApproveRequestPress" type="Accept" 
+                                <Button text="{i18n>Approve}"  press="onApproveRequestPress" type="Accept" 
                                     visible="{= ${RoleAssignId/Status} === 'PENDING' ? true : false}" class="sapUiTinyMarginEnd"/>
-                                <Button text="Reject"  press="onRejectRequestPress" width="125%"
+                                <Button text="{i18n>Reject}"  press="onRejectRequestPress" width="125%"
                                     visible="{= ${RoleAssignId/Status} === 'PENDING' ? true : false}" type="Reject"/>
                                 <ObjectNumber number="{RoleAssignId/Status}" 
                                     visible="{= ${RoleAssignId/Status} !== 'PENDING' ? true : false}"
