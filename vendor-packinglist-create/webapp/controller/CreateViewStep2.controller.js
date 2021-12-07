@@ -3,15 +3,15 @@ sap.ui.define([
     "sap/ui/core/Fragment",
     "sap/ui/Device",
     "sap/ui/model/json/JSONModel",
-    'sap/m/Token',
-    'sap/m/ColumnListItem',
-    'sap/m/Label',
+    // 'sap/m/Token',
+    // 'sap/m/ColumnListItem',
+    // 'sap/m/Label',
     'sap/m/MessageBox',
     '../utils/formatter',
     'sap/m/MessageToast'
 
 ],
-    function (BaseController, Fragment, Device, JSONModel, Token, ColumnListItem, Label, MessageBox, formatter, MessageToast) {
+    function (BaseController, Fragment, Device, JSONModel, MessageBox, formatter, MessageToast) {
         "use strict";
 
         return BaseController.extend("com.agel.mmts.vendorpackinglistcreate.controller.CreateViewStep2", {

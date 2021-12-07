@@ -4,13 +4,13 @@ sap.ui.define([
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator",
     "sap/ui/core/Fragment",
-    "sap/ui/model/Sorter",
+    // "sap/ui/model/Sorter",
     "sap/ui/Device",
-    "sap/ui/core/routing/History",
-    'sap/m/MessageToast',
+    // "sap/ui/core/routing/History",
+    // 'sap/m/MessageToast',
     "sap/m/MessageBox",
     "com/agel/mmts/vendormanageboq/utils/formatter"
-], function (BaseController, JSONModel, Filter, FilterOperator, Fragment, Sorter, Device, History, MessageToast, MessageBox, Formatter) {
+], function (BaseController, JSONModel, Filter, FilterOperator, Fragment, Device, MessageBox, Formatter) {
     "use strict";
     return BaseController.extend("com.agel.mmts.vendormanageboq.controller.Detail", {
         formatter: Formatter,

@@ -4,21 +4,21 @@ sap.ui.define([
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator",
     "sap/ui/core/Fragment",
-    "sap/ui/model/Sorter",
+    // "sap/ui/model/Sorter",
     "sap/ui/Device",
-    "sap/ui/core/routing/History",
-    'sap/m/ColumnListItem',
-    'sap/m/Input',
-    'sap/base/util/deepExtend',
-    'sap/ui/export/Spreadsheet',
+    // "sap/ui/core/routing/History",
+    // 'sap/m/ColumnListItem',
+    // 'sap/m/Input',
+    // 'sap/base/util/deepExtend',
+    // 'sap/ui/export/Spreadsheet',
     'sap/m/MessageToast',
     "sap/m/MessageBox",
-    "sap/m/ObjectIdentifier",
-    "sap/m/Text",
-    "sap/m/Button",
-    "sap/m/Dialog",
+    // "sap/m/ObjectIdentifier",
+    // "sap/m/Text",
+    // "sap/m/Button",
+    // "sap/m/Dialog",
     '../utils/formatter',
-], function (BaseController, JSONModel, Filter, FilterOperator, Fragment, Sorter, Device, History, ColumnListItem, Input, deepExtend, Spreadsheet, MessageToast, MessageBox, ObjectIdentifier, Text, Button, Dialog, formatter) {
+], function (BaseController, JSONModel, Filter, FilterOperator, Fragment, Device, MessageToast, MessageBox, formatter) {
     "use strict";
 
     return BaseController.extend("com.agel.mmts.storeinchargeissuematerial.controller.IssueScanQRCode", {

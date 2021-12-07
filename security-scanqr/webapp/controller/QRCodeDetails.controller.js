@@ -1,23 +1,23 @@
 sap.ui.define([
     "./BaseController",
     "sap/ui/model/json/JSONModel",
-    "sap/ui/model/Filter",
-    "sap/ui/model/FilterOperator",
+    // "sap/ui/model/Filter",
+    // "sap/ui/model/FilterOperator",
     "sap/ui/core/Fragment",
-    "sap/ui/model/Sorter",
+    // "sap/ui/model/Sorter",
     "sap/ui/Device",
-    "sap/ui/core/routing/History",
-    'sap/m/ColumnListItem',
-    'sap/m/Input',
+    // "sap/ui/core/routing/History",
+    // 'sap/m/ColumnListItem',
+    // 'sap/m/Input',
     "jquery.sap.global",
     "sap/m/MessageBox",
-    "sap/m/MessageToast",
+    // "sap/m/MessageToast",
     "../utils/formatter",
 ],
 	/**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (BaseController, JSONModel, Filter, FilterOperator, Fragment, Sorter, Device, History, ColumnListItem, Input, jquery, MessageBox, MessageToast, formatter) {
+    function (BaseController, JSONModel, Fragment, Device, jquery, MessageBox, formatter) {
         "use strict";
         return BaseController.extend("com.agel.mmts.securityscanqr.controller.QRCodeDetails", {
             formatter: formatter,

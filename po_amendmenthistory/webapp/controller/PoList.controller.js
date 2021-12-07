@@ -3,13 +3,13 @@ sap.ui.define([
     "sap/ui/model/json/JSONModel",
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator",
-    "sap/ui/core/Fragment",
-    "sap/ui/Device",
+    // "sap/ui/core/Fragment",
+    // "sap/ui/Device",
 ],
 	/**
 	 * @param {typeof sap.ui.core.mvc.Controller} Controller
 	 */
-    function (BaseController, JSONModel, Filter, FilterOperator, Fragment, Device) {
+    function (BaseController, JSONModel, Filter, FilterOperator) {
         "use strict";
 
         return BaseController.extend("com.agel.mmts.poamendmenthistory.controller.PoList", {

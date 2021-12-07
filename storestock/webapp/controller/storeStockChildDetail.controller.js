@@ -3,14 +3,14 @@ sap.ui.define([
     "sap/ui/model/json/JSONModel",
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator",
-    "sap/ui/core/Fragment",
-    "sap/ui/model/Sorter",
-    "sap/ui/Device",
-    'sap/ui/core/ValueState'
+    // "sap/ui/core/Fragment",
+    // "sap/ui/model/Sorter",
+    // "sap/ui/Device",
+    // 'sap/ui/core/ValueState'
 
 ],
 
-    function (BaseController, JSONModel, Filter, FilterOperator, Fragment, Sorter, Device, ValueState) {
+    function (BaseController, JSONModel, Filter, FilterOperator) {
         "use strict";
         return BaseController.extend("com.agel.mmts.storestock.controller.storeStockChildDetail", {
 

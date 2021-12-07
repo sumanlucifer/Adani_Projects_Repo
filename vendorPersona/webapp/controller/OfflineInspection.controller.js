@@ -3,15 +3,15 @@ sap.ui.define([
     "jquery.sap.global",
     "sap/ui/model/json/JSONModel",
     "sap/ui/model/Filter",
-    "sap/ui/model/FilterOperator",
-    "sap/ui/core/Fragment",
-    "sap/ui/model/Sorter",
-    "sap/ui/Device",
+    // "sap/ui/model/FilterOperator",
+    // "sap/ui/core/Fragment",
+    // "sap/ui/model/Sorter",
+    // "sap/ui/Device",
     "sap/m/MessageBox",
     'sap/ui/core/ValueState',
     'sap/m/MessageToast',
     '../utils/formatter',
-], function (BaseController, jQuery, JSONModel, Filter, FilterOperator, Fragment, Sorter, Device, MessageBox, ValueState, MessageToast, formatter) {
+], function (BaseController, jQuery, JSONModel, Filter, MessageBox, ValueState, MessageToast, formatter) {
     "use strict";
 
     return BaseController.extend("com.agel.mmts.vendorPersona.controller.OfflineInspection", {
