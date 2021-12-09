@@ -200,12 +200,16 @@
             <Annotations Target="com.agel.mmts.entity.IssuedMaterialReservedItemModel/UpdatedBy">
                 <Annotation Term="Common.Label" String="{@i18n>UpdatedBy}"/>
             </Annotations>
+            <Annotations Target="com.agel.mmts.entity.IssuedMaterialReservedItemModel/ContractorName">
+                <Annotation Term="Common.Label" String="{@i18n>ContractorName}"/>
+            </Annotations>
 
             <!-- For List Page -->
             <Annotations Target="com.agel.mmts.entity.IssuedMaterialReservedItemModel">
                 <!-- For List Page Filters -->
                 <Annotation Term="UI.SelectionFields">
                     <Collection>
+                        <PropertyPath>ContractorName</PropertyPath>
                         <PropertyPath>MaterialCode</PropertyPath>
                         <PropertyPath>StorageLocation</PropertyPath>
                         <PropertyPath>UnloadPoint</PropertyPath>
@@ -229,6 +233,10 @@
                 <!-- For Displaying the List -->
                 <Annotation Term="UI.LineItem">
                     <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="ContractorName"/>
+                            <PropertyValue Property="Label" String="{@i18n>ContractorName}"/>
+                        </Record>
                         <Record Type="UI.DataField">
                             <PropertyValue Property="Value" Path="ReservationNumber"/>
                             <PropertyValue Property="Label" String="{@i18n>ReservationNumber}"/>

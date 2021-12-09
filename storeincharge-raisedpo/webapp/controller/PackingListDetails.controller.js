@@ -514,8 +514,10 @@ sap.ui.define([
 
             onLoadValuationAreaItems: function (oEvent) {
                 var sMaterialCode = oEvent.getSource().getParent().getBindingContext().getObject().MaterialCode;
-                var oMaterialCodeFilter = new sap.ui.model.Filter("MaterialCode", sap.ui.model.FilterOperator.Contains, sMaterialCode);
-                oEvent.getSource().getBinding("items").filter(oMaterialCodeFilter);
+                var sPlantCode = oEvent.getSource().getParent().getBindingContext().getObject().PlantCode;
+                var oMaterialCodeFilter = new sap.ui.model.Filter("MaterialCode", sap.ui.model.FilterOperator.EQ, sMaterialCode);
+                var oPlantCodeFilter = new sap.ui.model.Filter("ValuationArea", sap.ui.model.FilterOperator.EQ, sPlantCode);
+                oEvent.getSource().getBinding("items").filter([oMaterialCodeFilter,oPlantCodeFilter]);
             },
 
             onRequestGRNPress: function (oEvent) {

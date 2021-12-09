@@ -259,6 +259,7 @@
                 <Property Name="BaseUnit" Type="Edm.String" Nullable="true"/>
                 <Property Name="BatchNumber" Type="Edm.String" Nullable="true"/>
                 <Property Name="SpecialStockIndicator" Type="Edm.String" Nullable="true"/>
+                <Property Name="ContractorName" Type="Edm.String" Nullable="true"/>
                 <Property Name="ReservationNumber" Type="Edm.String" Nullable="true"/>
                 <Property Name="ItemNumber" Type="Edm.String" Nullable="true"/>
                 <Property Name="Status" Type="Edm.String" Nullable="true"/>
