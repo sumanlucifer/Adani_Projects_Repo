@@ -15,8 +15,8 @@ modules:
     group: destinations
     properties:
       forwardAuthToken: true
-      timeout: 300000
       name: AGEL_MMTS_API
+      timeout: 300000
       url: https://agel-mmts-api.cfapps.ap11.hana.ondemand.com/
   parameters:
     disk-quota: 256M
@@ -207,6 +207,10 @@ modules:
     - artifacts:
       - comagelmmtsreportscontractorreco.zip
       name: comagelmmtsreportscontractorreco
+      target-path: resources/
+    - artifacts:
+      - comagelmmtsfieldstock.zip
+      name: comagelmmtsfieldstock
       target-path: resources/
 - name: launchpad
   type: com.sap.application.content
@@ -623,6 +627,16 @@ modules:
   - name: workflow
     parameters:
       content-target: true
+- name: comagelmmtsfieldstock
+  type: html5
+  path: fieldstock
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
 resources:
 - name: uaa_agel-mmts-web
   type: org.cloudfoundry.managed-service
