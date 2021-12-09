@@ -9,7 +9,7 @@ server:
     configuration:
       ignoreCertError: false # If set to true, certificate errors will be ignored. E.g. self-signed certificates will be accepted
       backend:
-      - path: /api
+      - path: /AGEL_MMTS_API
         url: https://agel-mmts-api.cfapps.ap11.hana.ondemand.com
         destination: AGEL_MMTS
       ui5:
@@ -23,8 +23,3 @@ server:
     configuration:
      port: 35729
      path: webapp
-     delay: 300
-  - name: fiori-tools-preview
-    afterMiddleware: fiori-tools-appreload
-    configuration:
-      component: com.agel.mmts.fieldstock
