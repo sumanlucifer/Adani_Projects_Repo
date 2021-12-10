@@ -42,7 +42,7 @@
                 <uxap:snappedTitleOnMobile>
                 </uxap:snappedTitleOnMobile>
                 <uxap:actions>
-                    <Button id="idBtnProceed" text="Proceed"  type="Emphasized" press="onConfirmProceedSave"/>
+                    <Button id="idBtnProceed" text="{i18n>Proceed}"  type="Emphasized" press="onConfirmProceedSave"/>
                 </uxap:actions>
             </uxap:ObjectPageDynamicHeaderTitle>
         </uxap:headerTitle>
@@ -75,7 +75,7 @@
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection title="{i18n>lineItems}">
                         <VBox renderType="Bare">
-                        	<MessageStrip text="Select items that you want to send with this packing list"
+                        	<MessageStrip text="{i18n>SelectitemssendwiththispackinglistMsgStrip}"
 				                enableFormattedText="true" showIcon="true" 	showCloseButton="false"
                                 	class="sapUiMediumMarginBottom"/>
                         <!-- <Label text="Select items that you want to send with this packing list"/> -->
@@ -87,14 +87,14 @@
                             rowSelectionChange="onSelectionOfRow">
 							<ui:columns>
                                  <ui:Column width="8%">
-									<Label text="Select"/>
+									<Label text="{i18n>Select}"/>
 									<ui:template>
                                         <CheckBox selected="{TreeTableModel>isSelected}"  visible="{TreeTableModel>isChildItemFreeze}" 
                                             select="onSelectionOfRow"  />
 									</ui:template>
 								</ui:Column> 
                                 <ui:Column width="10%">
-				                    <Label text="Line Number" wrapping="true"/>
+				                    <Label text="{i18n>LineNumber}" wrapping="true"/>
 				                    <ui:template>
 					                    <Text text="{TreeTableModel>LineNumber}"  />
 				                    </ui:template>

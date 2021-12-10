@@ -4,7 +4,7 @@
             <Bar>
                 <contentLeft></contentLeft>
                 <contentMiddle>
-                    <Title text="Add remark"/>
+                    <Title text="{i18n>Addremark}"/>
                 </contentMiddle>
                 <contentRight></contentRight>
             </Bar>
@@ -15,10 +15,10 @@
             </FlexBox>
         </content>
         <beginButton>
-            <Button text="Add" press="onAddRemarksPress" type="Emphasized"></Button>
+            <Button text="{i18n>Add}" press="onAddRemarksPress" type="Emphasized"></Button>
         </beginButton>
         <endButton>
-            <Button text="Close" press="onCloseRemarkPopupPress"></Button>
+            <Button text="{i18n>Close}" press="onCloseRemarkPopupPress"></Button>
         </endButton>
     </Dialog>
 </core:FragmentDefinition>

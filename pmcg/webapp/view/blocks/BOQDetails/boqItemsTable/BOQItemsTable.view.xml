@@ -12,8 +12,8 @@
         <ui:extension>
             <m:OverflowToolbar style="Clear">
                 <m:ToolbarSpacer/>
-                    <Button text="Approve" type="Accept" press="onApproveBOQPress" visible="{= ${Status} === 'PENDING' }"/>
-                    <Button text="Reject" type="Reject" press="onRejectBOQPress" visible="{= ${Status} === 'PENDING' }"/>
+                    <Button text="{i18n>Approve}" type="Accept" press="onApproveBOQPress" visible="{= ${Status} === 'PENDING' }"/>
+                    <Button text="{i18n>Reject}" type="Reject" press="onRejectBOQPress" visible="{= ${Status} === 'PENDING' }"/>
             </m:OverflowToolbar>
         </ui:extension>
        <ui:columns>

@@ -26,7 +26,7 @@
                     <Title text="{Name}" wrapping="true" titleStyle="Auto"/>
                 </uxap:snappedTitleOnMobile>
                 <uxap:actions>
-                    <Button text="Save" icon="sap-icon://save" iconFirst="true" press="onSaveManagedBOQItemsPress"/>
+                    <Button text="{i18n>save}" icon="sap-icon://save" iconFirst="true" press="onSaveManagedBOQItemsPress"/>
                 </uxap:actions>
             </uxap:ObjectPageDynamicHeaderTitle>
         </uxap:headerTitle>
@@ -60,32 +60,34 @@
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection >
                         <VBox renderType="Bare">
-                            <MessageStrip text="BOQ items for 1 quantity of {Name}." type="Information" showIcon="true" class="sapUiMediumMarginBottom" visible="{= ${objectViewModel>/noParentChildRelationFlag} ? false : true }" />
+                            <MessageStrip text="{i18n>BOQitemsfor1quantityof} {Name}." type="Information" showIcon="true" 
+                                class="sapUiMediumMarginBottom" visible="{= ${objectViewModel>/noParentChildRelationFlag} ? false : true }" />
                             <FlexBox justifyContent="End">
-                                <CheckBox text="No Parent-Child relation applicable." selected="{objectViewModel>/noParentChildRelationFlag}" />
+                                <CheckBox text="{i18n>NoParentChildrelationapplicable}" selected="{objectViewModel>/noParentChildRelationFlag}" />
                             </FlexBox>
 
-                            <Table id="idManageBOQTable" growing="true" growingThreshold="10" items="{ManageBOQModel>/boqItems}" visible="{= ${objectViewModel>/noParentChildRelationFlag} ? false : true }">
+                            <Table id="idManageBOQTable" growing="true" growingThreshold="10" items="{ManageBOQModel>/boqItems}" 
+                                visible="{= ${objectViewModel>/noParentChildRelationFlag} ? false : true }">
                                 <headerToolbar>
                                     <OverflowToolbar>
-                                        <Button text="Add Row" icon="sap-icon://add" press="onAddItemPress"></Button>
+                                        <Button text="{i18n>AddRow}" icon="sap-icon://add" press="onAddItemPress"></Button>
                                     </OverflowToolbar>
                                 </headerToolbar>
                                 <columns>
                                     <Column>
-                                        <Text text="Child Name"/>
+                                        <Text text="{i18n>ChildName}"/>
                                     </Column>
                                     <Column>
-                                        <Text text="Material Code"/>
+                                        <Text text="{i18n>materialCode}"/>
                                     </Column>
                                     <Column demandPopin="true" minScreenWidth="Tablet">
-                                        <Text text="Quantity"/>
+                                        <Text text="{i18n>quantity}"/>
                                     </Column>
                                     <Column demandPopin="true" minScreenWidth="Desktop">
-                                        <Text text="Remarks"/>
+                                        <Text text="{i18n>Remarks}"/>
                                     </Column>
                                     <Column demandPopin="true" minScreenWidth="Tablet">
-                                        <Text text="UOM"/>
+                                        <Text text="{i18n>UOM}"/>
                                     </Column>
                                     <Column width="5%">
                                     </Column>
@@ -93,7 +95,8 @@
                                 <items>
                                     <ColumnListItem id="idBOQItems">
                                         <cells>
-                                            <Select forceSelection="false" selectedKey="{ManageBOQModel>Name}" items="{
+                                            <Select forceSelection="false" selectedKey="{ManageBOQModel>Name}" 
+                                                items="{
                                                     path: '/MasterBoQItemSet',
                                                     templateShareable:false,
                                                     sorter: { path: 'Name' }
@@ -103,10 +106,12 @@
                                             <Text data:p="MaterialCode" text="{ManageBOQModel>MaterialCode}"/>
                                             <Input value="{ManageBOQModel>Qty}"/>
                                             <VBox>
-                                                <Link text="Add Remarks" press="openAddRemarksPopupPress" visible="{= ${ManageBOQModel>Remarks}.length ? false : true}"/>
+                                                <Link text="{i18n>AddRemarks}" press="openAddRemarksPopupPress" visible="{= ${ManageBOQModel>Remarks}.length ? false : true}"/>
                                                 <ExpandableText text="{ManageBOQModel>Remarks}" overflowMode="Popover" visible="{= ${ManageBOQModel>Remarks}.length ? true : false}"/>
                                             </VBox>
-                                            <Select id="idUOMSelector" forceSelection="false" visible="{= ${ManageBOQModel>Name}.length >0 ? true : false }" selectedKey="{ManageBOQModel>UOM}" items="{
+                                            <Select id="idUOMSelector" forceSelection="false" visible="{= ${ManageBOQModel>Name}.length >0 ? true : false }" 
+                                                selectedKey="{ManageBOQModel>UOM}" 
+                                                items="{
                                                     path: 'ManageBOQModel>UOMSuggestions',
                                                         templateShareable:false
                                                 }">
@@ -121,8 +126,6 @@
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>
             </uxap:ObjectPageSection>
-
-
         </uxap:sections>
     </uxap:ObjectPageLayout>
 </mvc:View>

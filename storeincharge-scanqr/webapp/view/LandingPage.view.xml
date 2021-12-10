@@ -17,12 +17,12 @@
                     </HBox> -->
                     <HBox alignItems="Center">
                         <Input id="idInputQRCode" width="100%" showSuggestion="true" showValueHelp="false" 
-                            placeholder="Enter QR Number" valueLiveUpdate="true" class="sapUiSmallMarginEnd" enabled="{oViewModel>/inputQRCode}">
+                            placeholder="{i18n>EnterQRNumber}" valueLiveUpdate="true" class="sapUiSmallMarginEnd" enabled="{oViewModel>/inputQRCode}">
                         </Input>
-                        <Button id="idQRBtn" text="Submit" type="Emphasized" press="onPressSubmitQRCode" class="sapUiSmallMarginBegin" enabled="{oViewModel>/submitQRCode}"/>
+                        <Button id="idQRBtn" text="{i18n>Submit}" type="Emphasized" press="onPressSubmitQRCode" class="sapUiSmallMarginBegin" enabled="{oViewModel>/submitQRCode}"/>
                     </HBox>
                     <HBox alignItems="Center">
-                        <Text text="OR" class="sapUiTinyMargin"/>
+                        <Text text="{i18n>OR}" class="sapUiTinyMargin"/>
                     </HBox>
                     <HBox alignItems="Center">
                          <scan:BarcodeScannerButton id="idQRSubmit" scanSuccess="onScanSuccess" scanFail="onScanError"/>

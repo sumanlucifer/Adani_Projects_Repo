@@ -20,19 +20,19 @@
                             <HBox renderType="Bare" class="sapUiSmallMarginTopBottom">
                                 <items>
                                     <VBox renderType="Bare" class="sapUiSmallMarginEnd">
-                                        <Label text="{i18n>parentname}" />
+                                        <Label text="{i18n>ParentName}" />
                                         <Text text="{Name}" />
                                     </VBox>
                                     <VBox renderType="Bare" class="sapUiSmallMarginEnd">
-                                        <Label text="{i18n>approvedqty}" />
+                                        <Label text="{i18n>ApprovedQuantity}" />
                                         <Text text="{ApprovedQty}" />
                                     </VBox>
                                     <VBox renderType="Bare" class="sapUiSmallMarginEnd">
-                                        <Label text="{i18n>dispatchedqty}" />
+                                        <Label text="{i18n>DispatchedQuantity}" />
                                         <Text text="{DispatchedQty}" />
                                     </VBox>
                                     <VBox renderType="Bare" class="sapUiSmallMarginEnd">
-                                        <Label text="{i18n>uom}" />
+                                        <Label text="{i18n>UOM}" />
                                         <Text text="{UOM}" />
                                     </VBox>                                  
                                 </items>
@@ -40,15 +40,15 @@
                             <HBox renderType="Bare" class="sapUiSmallMarginTopBottom">
                                 <items>
                                     <VBox renderType="Bare" class="sapUiSmallMarginEnd">
-                                        <Label text="{i18n>childMatID}" />
+                                        <Label text="{i18n>ChildMatID}" />
                                         <Text text="{ApprovedQty}" />
                                     </VBox>
                                     <VBox renderType="Bare" class="sapUiSmallMarginEnd">
-                                        <Label text="{i18n>childName}" />
+                                        <Label text="{i18n>ChildName}" />
                                         <Text text="{DispatchedQty}" />
                                     </VBox>
                                     <VBox renderType="Bare" class="sapUiSmallMarginEnd">
-                                        <Label text="{i18n>dispatchType}" />
+                                        <Label text="{i18n>DispatchType}" />
                                         <Text text="{UOM}" />
                                     </VBox>                                  
                                 </items>
@@ -77,19 +77,19 @@
                             <HBox renderType="Bare" justifyContent="Center" alignItems="Center">
                                 <items>
                                     <VBox renderType="Bare" class="sapUiSmallMarginEnd">
-                                        <Label text="{i18n>srNo}" />
+                                        <Label text="{i18n>SrNo}" />
                                         <Text text="{ApprovedQty}" />
                                     </VBox>
                                     <VBox renderType="Bare" class="sapUiSmallMarginEnd">
-                                        <Label text="{i18n>parentName}" />
+                                        <Label text="{i18n>ParentName}" />
                                         <Text text="{UOM}" />
                                     </VBox>
                                     <VBox renderType="Bare" class="sapUiSmallMarginEnd">
-                                        <Label text="{i18n>approvedQty}" />
+                                        <Label text="{i18n>ApprovedQuantity}" />
                                         <Text text="{UOM}" />
                                     </VBox> 
                                     <VBox renderType="Bare" class="sapUiSmallMarginEnd">
-                                        <Label text="{i18n>dispatchedQty}" />
+                                        <Label text="{i18n>DispatchedQuantity}" />
                                         <Text text="{UOM}" />
                                     </VBox>                                  
                                 </items>
@@ -97,19 +97,19 @@
                             <HBox renderType="Bare" justifyContent="Center" alignItems="Center">
                                 <items>
                                     <VBox renderType="Bare" class="sapUiSmallMarginEnd">
-                                        <Label text="{i18n>childMaterialID}" />
+                                        <Label text="{i18n>ChildMatID}" />
                                         <Text text="{ApprovedQty}" />
                                     </VBox>
                                     <VBox renderType="Bare" class="sapUiSmallMarginEnd">
-                                        <Label text="{i18n>childName}" />
+                                        <Label text="{i18n>ChildName}" />
                                         <Text text="{UOM}" />
                                     </VBox>
                                     <VBox renderType="Bare" class="sapUiSmallMarginEnd">
-                                        <Label text="{i18n>dispatchType}" />
+                                        <Label text="{i18n>DispatchType}" />
                                         <Text text="{UOM}" />
                                     </VBox> 
                                     <VBox renderType="Bare" class="sapUiSmallMarginEnd">
-                                        <Label text="{i18n>uom}" />
+                                        <Label text="{i18n>UOM}" />
                                         <Text text="{UOM}" />
                                     </VBox>                                  
                                 </items>
@@ -129,19 +129,19 @@
                             <HBox renderType="Bare" justifyContent="Center" alignItems="Center">
                                 <items>
                                     <VBox renderType="Bare" class="sapUiSmallMarginEnd">
-                                        <Label text="{i18n>srNo}" />
+                                        <Label text="{i18n>SrNo}" />
                                         <Text text="{ApprovedQty}" />
                                     </VBox>
                                     <VBox renderType="Bare" class="sapUiSmallMarginEnd">
-                                        <Label text="{i18n>parentName}" />
+                                        <Label text="{i18n>ParentName}" />
                                         <Text text="{UOM}" />
                                     </VBox>
                                     <VBox renderType="Bare" class="sapUiSmallMarginEnd">
-                                        <Label text="{i18n>approvedQty}" />
+                                        <Label text="{i18n>ApprovedQuantity}" />
                                         <Text text="{UOM}" />
                                     </VBox> 
                                     <VBox renderType="Bare" class="sapUiSmallMarginEnd">
-                                        <Label text="{i18n>dispatchedQty}" />
+                                        <Label text="{i18n>DispatchedQuantity}" />
                                         <Text text="{UOM}" />
                                     </VBox>                                  
                                 </items>
@@ -149,19 +149,19 @@
                             <HBox renderType="Bare" justifyContent="Center" alignItems="Center">
                                 <items>
                                     <VBox renderType="Bare" class="sapUiSmallMarginEnd">
-                                        <Label text="{i18n>childMaterialID}" />
+                                        <Label text="{i18n>ChildMatID}" />
                                         <Text text="{ApprovedQty}" />
                                     </VBox>
                                     <VBox renderType="Bare" class="sapUiSmallMarginEnd">
-                                        <Label text="{i18n>childName}" />
+                                        <Label text="{i18n>ChildName}" />
                                         <Text text="{UOM}" />
                                     </VBox>
                                     <VBox renderType="Bare" class="sapUiSmallMarginEnd">
-                                        <Label text="{i18n>dispatchType}" />
+                                        <Label text="{i18n>DispatchType}" />
                                         <Text text="{UOM}" />
                                     </VBox> 
                                     <VBox renderType="Bare" class="sapUiSmallMarginEnd">
-                                        <Label text="{i18n>uom}" />
+                                        <Label text="{i18n>UOM}" />
                                         <Text text="{UOM}" />
                                     </VBox>                                  
                                 </items>

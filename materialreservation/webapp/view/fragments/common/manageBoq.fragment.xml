@@ -5,7 +5,7 @@
     <Dialog class="testTitle">
         <content>
             <FlexBox wrap="Wrap" renderType="Bare" class="sapUiSmallMargin">    
-                <Table width="auto" items= "{reservationTableModel>PopupItems}" noDataText="No BOQ Items available for this Material.">
+                <Table width="auto" items= "{reservationTableModel>PopupItems}" noDataText="{i18n>NoBOQAvailableMsg}">
                     <columns>
                         <Column importance="High">
                             <Text text="{i18n>Name}" wrapping="true" wrappingType="Hyphenated" />
@@ -39,10 +39,10 @@
                                     <core:ListItem key="{reservationTableModel>WeightPerPiece}" text="{reservationTableModel>WeightPerPiece}" additionalText="{reservationTableModel>Qty}"/>
                                 </Select>
                                 <VBox>
-                                    <Text text="Out of Stock" visible="{= ${reservationTableModel>StoreStockBOQs/results}.length > 0 ? false : true }"/>
+                                    <Text text="{i18n>OutofStock}" visible="{= ${reservationTableModel>StoreStockBOQs/results}.length > 0 ? false : true }"/>
                                     <Text text="{reservationTableModel>AvailableQty}" visible="{= ${reservationTableModel>StoreStockBOQs/results}.length > 0 ? true : false }"/>
                                 </VBox>
-                                <Input width="70%" placeholder="Enter Quantity" enabled="{= ${objectViewModel>/popupEditable} ? ${reservationTableModel>StoreStockBOQs/results}.length > 0 ? true : false : true }" editable="{objectViewModel>/popupEditable}" value="{reservationTableModel>Quantity}" type="Number" liveChange="onIssueQtyLiveChange"/>
+                                <Input width="70%" placeholder="{i18n>EnterQuantity}" enabled="{= ${objectViewModel>/popupEditable} ? ${reservationTableModel>StoreStockBOQs/results}.length > 0 ? true : false : true }" editable="{objectViewModel>/popupEditable}" value="{reservationTableModel>Quantity}" type="Number" liveChange="onIssueQtyLiveChange"/>
                                     <!-- valueState="{= $parseFloat({reservationTableModel>IssueQty}) > $parseFloat({reservationTableModel>AvailableQty}) ? 'Error' : 'None' }"
                                     valueStateText="{= ${reservationTableModel>IssueQty} > ${reservationTableModel>AvailableQty} ? ${i18n>QtyErrorMsg} : 'None' }"/> -->
                             </cells>

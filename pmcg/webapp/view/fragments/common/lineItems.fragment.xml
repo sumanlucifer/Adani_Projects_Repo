@@ -10,7 +10,7 @@
                 <Text text="{i18n>materialCode}" wrapping="true" wrappingType="Hyphenated"/>
             </Column>
             <Column>
-                <Text text="Name" wrapping="true"/>
+                <Text text="{i18n>Name}" wrapping="true"/>
             </Column>
             <Column demandPopin="true" minScreenWidth="Desktop">
                 <Text text="{i18n>description}"/>

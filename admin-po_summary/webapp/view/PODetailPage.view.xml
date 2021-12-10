@@ -127,8 +127,6 @@
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>
             </uxap:ObjectPageSection>
-
         </uxap:sections>
     </uxap:ObjectPageLayout>
-
 </mvc:View>

@@ -19,9 +19,9 @@
                     <Title text="{Name}" wrapping="true" titleStyle="Auto"/>
                 </uxap:snappedTitleOnMobile>
                 <uxap:actions>
-                    <Button id="idBtnEdit" text="Edit" icon="sap-icon://edit" press="onEdit" 
+                    <Button id="idBtnEdit" text="{i18n>Edit}" icon="sap-icon://edit" press="onEdit" 
                                     visible="{= ${objectViewModel>/idBtnEdit}}"/>
-                    <Button text="Delete" type="Reject" visible="{= ${objectViewModel>/idBtnDelete}}"
+                    <Button text="{i18n>Delete}" type="Reject" visible="{= ${objectViewModel>/idBtnDelete}}"
                          press="onDeletePress"/>
                 </uxap:actions>
             </uxap:ObjectPageDynamicHeaderTitle>
@@ -50,7 +50,7 @@
                               <!--  <Label text="ID" />
 				                <Input id="desc1" value="{ID}" editable="false"/> -->
 
-				                <Label text="Name" />
+				                <Label text="{i18n>Name}" />
 				                <Input id="name" value="{Name}" editable="false" />
 			                </f:content>    
 		                </f:SimpleForm>
@@ -65,7 +65,7 @@
                               <!--  <Label text="ID" />
 				                <Input id="idEdit" value="{ID}"/> -->
 
-				                <Label text="Name" />
+				                <Label text="{i18n>Name}" />
 				                <Input id="nameEdit" value="{Name}" maxLength="20"/>
 				
 			                </f:content>    
@@ -83,9 +83,9 @@
         <uxap:footer>
             <OverflowToolbar>
             <ToolbarSpacer/>
-            <Button id="idBtnSave" text="Save" icon="sap-icon://save" press="onSave"
+            <Button id="idBtnSave" text="{i18n>Save}" icon="sap-icon://save" press="onSave"
                          type="Accept"  visible="{= ${objectViewModel>/idBtnSave}}"/>
-					<Button id="idBtnCancel" text="Cancel" icon="sap-icon://cancel" press="onCancel" 
+					<Button id="idBtnCancel" text="{i18n>Cancel}" icon="sap-icon://cancel" press="onCancel" 
                                     visible="{= ${objectViewModel>/idBtnCancel}}"/>
             </OverflowToolbar>
          </uxap:footer>

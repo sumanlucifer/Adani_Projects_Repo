@@ -4,33 +4,32 @@
     xmlns="sap.m"
     xmlns:smartTable="sap.ui.comp.smarttable"
     xmlns:tt="sap.ui.table" controllerName="com.agel.mmts.vendorpackinglistcreate.view.blocks.createView.lineItemsTable.LineItemsTableController">
-
     <Table id="idBOQItemTable" items="{path: 'PackingListParentItems'}" autoPopinMode="true" growingThreshold="5" growing="true" fixedLayout="false">
         <columns>
             <Column>
-                <Text text="Line Number"/>
+                <Text text="{i18n>LineNumber}"/>
             </Column>
             <Column>
-                <Text text="Material Code"/>
+                <Text text="{i18n>MaterialCode}"/>
             </Column>
             <Column>
-                <Text text="Name"/>
+                <Text text="{i18n>Name}"/>
             </Column>
             <Column>
-                <Text text="Description"/>
+                <Text text="{i18n>Description}"/>
             </Column>
 
             <Column>
-                <Text text="Total Quantity"/>
+                <Text text="{i18n>TotalQuantity}"/>
             </Column>
             <Column>
-                <Text text="Dispatch Quantity"/>
+                <Text text="{i18n>DispatchQuantity}"/>
             </Column>
             <Column>
-                <Text text="UOM"/>
+                <Text text="{i18n>UOM}"/>
             </Column>
             <Column>
-                <Text text="Action"/>
+                <Text text="{i18n>Action}"/>
             </Column>
             <!-- <Column>
                 <Text text="Name"/>
@@ -47,13 +46,12 @@
                     <Text text="{DispatchQty}"/>
                     <Text text="{UOM}"/>
                     <!-- <VBox items="{PackingListBOQItems}"> -->
-                        <Link text="View BOQ items" press="onViewBOQItemsPress" visible="{= ${PackingListBOQItems/items}.length>0 }"/>
+                        <Link text="{i18n>ViewBOQItems}" press="onViewBOQItemsPress" visible="{= ${PackingListBOQItems/items}.length>0 }"/>
                     <!-- </VBox> -->
                 </cells>
             </ColumnListItem>
         </items>
     </Table>
-
 </mvc:View>
 
 

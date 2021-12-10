@@ -23,25 +23,25 @@
                 </uxap:breadcrumbs>
                 <uxap:expandedHeading>
                     <FlexBox direction="Column" renderType="Bare">
-                        <Title text="Packing List Details - {Name}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
+                        <Title text="{i18n>PackingListDetails} - {Name}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
                         <ObjectStatus id="idStatus" text="{Status}" state="{= ${Status}=== 'SAVED' ? 'Indication05' : ${Status}=== 'DISPATCHED' ? 'Indication06' : 'Indication08'}"/>
                     </FlexBox>
                 </uxap:expandedHeading>
                 <uxap:snappedHeading>
                     <FlexBox direction="Column" renderType="Bare">
-                        <Title text="Packing List Details - {Name}" wrapping="true" titleStyle="H4"/>
+                        <Title text="{i18n>PackingListDetails} - {Name}" wrapping="true" titleStyle="H4"/>
                     </FlexBox>
                 </uxap:snappedHeading>
                 <uxap:expandedContent></uxap:expandedContent>
                 <uxap:snappedTitleOnMobile>
-                    <Title text="Packing List Details - {Name}" wrapping="true" titleStyle="Auto"/>
+                    <Title text="{i18n>PackingListDetails} - {Name}" wrapping="true" titleStyle="Auto"/>
                 </uxap:snappedTitleOnMobile>
                 <uxap:actions>
                     <!-- <Button icon="sap-icon://download" type="Emphasized" press="onDownloadPackingListPress" visible="{= ${Status} === 'SENT FOR QR CODE APPROVAL' || ${Status} === 'QR CODE REQUEST APPROVED' ? false : true}"/> -->
                     <Button icon="sap-icon://download" type="Emphasized" press="onDownloadPackingListPress"/>
                     <!-- <Link text="need QR code printing assistance" press="onNeedQRPrintingAsistancePress" visible="{= ${Status} === 'SENT FOR QR CODE APPROVAL' || ${Status} === 'QR CODE REQUEST APPROVED' || ${Status} === 'QR CODE REQUEST REJECTED' || ${Status} === 'DISPATCHED' ? false}"></Link> -->
-                    <Link text="Need QR Code Printing Assistance" press="onNeedQRPrintingAsistancePress" visible="{= ${Status} === 'SAVED' ? true : false}"></Link>
-                    <Button text="Mark Consignment as Dispatched" press="onMarkConsignmentAsDispatched" type="Emphasized" visible="{= ${Status} === 'SENT FOR QR CODE APPROVAL' || ${Status} === 'DISPATCHED' || ${Status} === 'UNLOADING COMPLETED' ? false : true}"/>
+                    <Link text="{i18n>NeedQRCodePrintingAssistance}" press="onNeedQRPrintingAsistancePress" visible="{= ${Status} === 'SAVED' ? true : false}"></Link>
+                    <Button text="{i18n>MarkConsignmentasDispatched}" press="onMarkConsignmentAsDispatched" type="Emphasized" visible="{= ${Status} === 'SENT FOR QR CODE APPROVAL' || ${Status} === 'DISPATCHED' || ${Status} === 'UNLOADING COMPLETED' ? false : true}"/>
                 </uxap:actions>
             </uxap:ObjectPageDynamicHeaderTitle>
         </uxap:headerTitle>
@@ -85,9 +85,9 @@
                         </FlexBox>
                     </VBox>
                     <VBox class="sapUiMediumMarginBeginEnd">
-                        <Title text="PO Details:" titleStyle="H6"/>
+                        <Title text="{i18n>PODetails}" titleStyle="H6"/>
                         <!-- <ObjectStatus title="Invoice Number" text="{InvoiceNumber}"/> -->
-                        <ObjectStatus title="PO Number" text="{PONumber}"/>
+                        <ObjectStatus title="{i18n>poNumber}" text="{PONumber}"/>
                         <!-- <ObjectStatus title="ASN Number" text="Missing"/> -->
                         <!-- <ObjectStatus title="ASN Creation Date" text="Missing"/> -->
                         <!-- <ObjectStatus title="Invoice Date" text="{InvoiceDate}"/> -->
@@ -134,12 +134,12 @@
                             <linePackingItems:LineItemsTable class="sapUxAPObjectPageSubSectionAlignContent" OnViewBOQItemsPress="onViewBOQItemsPress" OnViewQRCode="onViewQRCode" OnViewQRCode1="OnViewQRCode1" OnViewQRCodePress = "onViewQRCodePress"/>
                         </uxap:blocks>
                     </uxap:ObjectPageSubSection>
-                    <uxap:ObjectPageSubSection title="Outer Packaging">
+                    <uxap:ObjectPageSubSection title="{i18n>OuterPackaging}">
                         <uxap:blocks>
                             <outerPackaging:OuterPackaging OnViewQRCodePress="onViewQRCodePress" class="sapUxAPObjectPageSubSectionAlignContent"/>
                         </uxap:blocks>
                     </uxap:ObjectPageSubSection>
-                    <uxap:ObjectPageSubSection title="Primary Packaging">
+                    <uxap:ObjectPageSubSection title="{i18n>PrimaryPackaging}">
                         <uxap:blocks>
                             <innerPackaging:InnerPackaging class="sapUxAPObjectPageSubSectionAlignContent" OnViewQRCodePress = "onViewQRCodePress"/>
                         </uxap:blocks>
@@ -154,15 +154,13 @@
                         <uxap:blocks>
                             <f:SimpleForm layout="ColumnLayout" columnsM="2" columnsL="3" columnsXL="4" singleContainerFullSize="true" class="style-RemoveTitleHeight">
                                 <f:content>
-                                    <!-- <core:Title  /> -->
-                                    <Label text="Vehicle Number" />
+                                    <Label text="{i18n>VehicleNumber}"/>
                                     <Text text="{VehicleNumber}" />
-                                    <Label text="Invoice Number" />
+                                    <Label text="{i18n>InvoiceNumber}" />
                                     <Text text="{InvoiceNumber}" />
-                                    <!-- <core:Title ></core:Title> -->
-                                    <Label text="Packaging Reference Number" />
+                                    <Label text="{i18n>PackagingReferenceNumber}" />
                                     <Text text="{PackagingReferenceNumber}" />
-                                    <Label text="Invoice Date" />
+                                    <Label text="{i18n>InvoiceDate}" />
                                     <Text text="{InvoiceDate}" />
                                 </f:content>
                             </f:SimpleForm>
@@ -187,14 +185,14 @@
                                 <items>
                                 <UploadCollectionItem documentId="{ID}" url="{objectViewModel>/serviceUrl}{DocURL}" enableEdit="false" enableDelete="false" visibleDelete="false" visibleEdit="false" fileName="{FileName}">
                                         <attributes>
-                                            <ObjectAttribute title="Material Documnets" text="{ID}" class="sapUiSmallMarginEnd"/>
-                                            <ObjectAttribute title="Invoice Date" text="{path:'CreatedAt',
+                                            <ObjectAttribute title="{i18n>MaterialDocumnets}" text="{ID}" class="sapUiSmallMarginEnd"/>
+                                            <ObjectAttribute title="{i18n>InvoiceDate}" text="{path:'CreatedAt',
                                                         type: 'sap.ui.model.type.Date',
                                                         formatOptions: {
                                                             pattern: 'MMMM dd, yyyy'
                                                         }
                                                 }"/>
-                                            <ObjectAttribute title="Size" text="{path : 'FileSize', formatter : '.formatter.formatFileSize'}"/>
+                                            <ObjectAttribute title="{i18n>Size}" text="{path : 'FileSize', formatter : '.formatter.formatFileSize'}"/>
                                         </attributes>
                                     </UploadCollectionItem>
                                 </items>
@@ -232,14 +230,14 @@
                                 <items>
                                 <UploadCollectionItem documentId="{ID}" url="{objectViewModel>/serviceUrl}{DocURL}" enableEdit="false" enableDelete="false" visibleDelete="false" visibleEdit="false" fileName="{FileName}">
                                         <attributes>
-                                            <ObjectAttribute title="Material Documnets" text="{ID}" class="sapUiSmallMarginEnd"/>
-                                            <ObjectAttribute title="Invoice Date" text="{path:'CreatedAt',
+                                            <ObjectAttribute title="{i18n>MaterialDocumnets}" text="{ID}" class="sapUiSmallMarginEnd"/>
+                                            <ObjectAttribute title="{i18n>InvoiceDate}" text="{path:'CreatedAt',
                                                     type: 'sap.ui.model.type.Date',
                                                     formatOptions: {
                                                         pattern: 'MMMM dd, yyyy'
                                                     }
                                             }"/>
-                                            <ObjectAttribute title="Size" text="{path : 'FileSize', formatter : '.formatter.formatFileSize'}"/>
+                                            <ObjectAttribute title="{i18n>Size}" text="{path : 'FileSize', formatter : '.formatter.formatFileSize'}"/>
                                         </attributes>
                                     </UploadCollectionItem>
                                 </items>
@@ -277,14 +275,14 @@
                                 <items>
                                 <UploadCollectionItem documentId="{ID}" url="{objectViewModel>/serviceUrl}{DocURL}" enableEdit="false" enableDelete="false" visibleDelete="false" visibleEdit="false" fileName="{FileName}">
                                         <attributes>
-                                            <ObjectAttribute title="Material Documents" text="{ID}" class="sapUiSmallMarginEnd"/>
-                                                            <ObjectAttribute title="Invoice Date" text="{path:'CreatedAt',
+                                            <ObjectAttribute title="{i18n>MaterialDocuments}" text="{ID}" class="sapUiSmallMarginEnd"/>
+                                            <ObjectAttribute title="{i18n>InvoiceDate}" text="{path:'CreatedAt',
                                                     type: 'sap.ui.model.type.Date',
                                                     formatOptions: {
                                                         pattern: 'MMMM dd, yyyy'
                                                     }
                                             }"/>
-                                            <ObjectAttribute title="Size" text="{path : 'FileSize', formatter : '.formatter.formatFileSize'}"/>
+                                            <ObjectAttribute title="{i18n>Size}" text="{path : 'FileSize', formatter : '.formatter.formatFileSize'}"/>
                                         </attributes>
                                     </UploadCollectionItem>
                                 </items>
@@ -314,5 +312,4 @@
             </uxap:ObjectPageSection>
         </uxap:sections>
     </uxap:ObjectPageLayout>
-
 </mvc:View>

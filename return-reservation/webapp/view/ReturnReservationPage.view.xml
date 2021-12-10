@@ -11,12 +11,12 @@
         <f:title>
             <f:DynamicPageTitle>
                 <f:heading>
-                    <Title id="pageTitle" text="Create Return Reservation"/>
+                    <Title id="pageTitle" text="{i18n>CreateReturnReservation}"/>
                 </f:heading>
                 <f:actions>
                     <HBox visible="{= ${objectViewModel>/isItemFieldsVisible} ? true : false}">
-                        <Button text="Save" id="idBtnSave" class="sapUiTinyMarginBegin" press="onSubmitReservation" type="Emphasized" />
-                        <Button text="Reset" class="sapUiTinyMarginBegin" press="onCancelReservation" />
+                        <Button text="{i18n>Save}" id="idBtnSave" class="sapUiTinyMarginBegin" press="onSubmitReservation" type="Emphasized" />
+                        <Button text="{i18n>Reset}" class="sapUiTinyMarginBegin" press="onCancelReservation" />
                     </HBox>
                 </f:actions>
             </f:DynamicPageTitle>
@@ -27,7 +27,7 @@
                 <f:content>
                     <Toolbar>
                         <ToolbarSpacer />
-                        <Button visible="{= ${objectViewModel>/isButtonVisible} ? true : false}" text="Go" type="Emphasized" press="onPressGo"/>
+                        <Button visible="{= ${objectViewModel>/isButtonVisible} ? true : false}" text="{i18n>Go}" type="Emphasized" press="onPressGo"/>
                     </Toolbar>
                     <VBox alignContent="SpaceBetween">
                         <fm:SimpleForm layout="ColumnLayout" binding="{HeaderDetailsModel>/}" columnsM="2" columnsL="3" columnsXL="3" singleContainerFullSize="true" class="style-RemoveTitleHeight">
@@ -64,8 +64,9 @@
         </f:header>
         <!-- DynamicPage Content -->
         <f:content>
-<VBox>
-                <ui:TreeTable visible="{= ${objectViewModel>/isItemFieldsVisible} ? true : false}" id="TreeTable" rows="{path:'TreeDataModel>/', parameters: {numberOfExpandedLevels: 2,arrayNames:['results']}}" selectionMode="None" enableSelectAll="false" ariaLabelledBy="title" rowsUpdated="onRowsUpdated">
+            <VBox>
+                <ui:TreeTable visible="{= ${objectViewModel>/isItemFieldsVisible} ? true : false}" id="TreeTable" rows="{path:'TreeDataModel>/', parameters: {numberOfExpandedLevels: 2,arrayNames:['results']}}" 
+                selectionMode="None" enableSelectAll="false" ariaLabelledBy="title" rowsUpdated="onRowsUpdated">
                     <ui:columns>
                         <!-- <ui:Column width="8%" hAlign="Center">
                             <Label text="{i18n>Select}" />
@@ -133,15 +134,12 @@
                                 <Text text="{TreeDataModel>IssuedQty}" wrapping="false" />
                             </ui:template>
                         </ui:Column>
-<ui:Column>
+                        <ui:Column>
                             <Label text="{i18n>WeightPerPiece}" />
                             <ui:template>
                                 <Text text="{TreeDataModel>WeightPerPiece}" wrapping="false" />
                             </ui:template>
                         </ui:Column>
-
-
-                        
                         <ui:Column>
                             <Label text="{i18n>BalancedQuantity}" />
                             <ui:template>
@@ -163,7 +161,6 @@
                     </ui:columns>
                 </ui:TreeTable>
             </VBox>
-
         </f:content>
         <!-- <f:footer>
             <OverflowToolbar visible="{= ${objectViewModel>/isItemFieldsVisible} ? true : false}">

@@ -25,7 +25,6 @@
         <f:content>
             <IconTabBar id="idIconTabBar" select="onIconTabSelect" headerMode="Inline" expanded="true" class="sapUiResponsiveContentPadding">
                 <items>
-
                     <IconTabFilter id="idOpenPOTabTitle" text="{i18n>OpenPO}" key="OPEN" count="{oIconTabCountModel>/openCount}">
                         <core:Fragment fragmentName="com.agel.mmts.vendorPersona.view.fragments.detailPage.OpenPOTable" type="XML"/>
                     </IconTabFilter>
@@ -41,7 +40,6 @@
                     <IconTabFilter text="{i18n>ClosedPO}" key="CLOSED" count="{oIconTabCountModel>/dispatchCount}">
                        <core:Fragment fragmentName="com.agel.mmts.vendorPersona.view.fragments.detailPage.DispatchedPOTable" type="XML"/>
                     </IconTabFilter>
-
                 </items>
             </IconTabBar>
         </f:content>

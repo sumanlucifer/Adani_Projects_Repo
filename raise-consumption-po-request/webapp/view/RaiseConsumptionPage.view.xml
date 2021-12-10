@@ -4,7 +4,6 @@
     xmlns="sap.m"
     xmlns:f="sap.f"
     xmlns:layout="sap.ui.layout" height="100%">
-
     <f:DynamicPage headerExpanded="true" busy="{objectViewModel>/busy}">
         <!-- DynamicPage Title -->
         <f:title>

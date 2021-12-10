@@ -34,7 +34,7 @@
                     <!-- <Title text="{SONumber}" binding="{SONumberId}" wrapping="true" titleStyle="Auto"/> -->
                 </uxap:snappedTitleOnMobile>
                 <uxap:actions>
-                    <Button text="Done" press="onDonePress" type="Emphasized" enabled="{= ${objectViewModel>/enableDone} || ${Status} === 'Approved' || ${Status} === 'Rejected' || ${Status} === 'Partially Approved' }"/>
+                    <Button text="{i18n>Done}" press="onDonePress" type="Emphasized" enabled="{= ${objectViewModel>/enableDone} || ${Status} === 'Approved' || ${Status} === 'Rejected' || ${Status} === 'Partially Approved' }"/>
                 </uxap:actions>
             </uxap:ObjectPageDynamicHeaderTitle>
         </uxap:headerTitle>
@@ -123,9 +123,9 @@
                                 <OverflowToolbar style="Clear">
                                     <Title id="title" text="{i18n>TreeTableViewTitle}"/>
                                     <ToolbarSpacer/>
-                                    <Button text="Approve All" press="onApproveAllPress" type="Accept" icon="sap-icon://accept" enabled="{= ${Status} !== 'RESERVED FOR RETURN MATERIAL'? false : !${objectViewModel>/partialApproval}}"/>
+                                    <Button text="{i18n>ApproveAll}" press="onApproveAllPress" type="Accept" icon="sap-icon://accept" enabled="{= ${Status} !== 'RESERVED FOR RETURN MATERIAL'? false : !${objectViewModel>/partialApproval}}"/>
                                     <Button text="{i18n>PartialApprove}" press="onPartialApprovePress" enabled="{= ${Status} !== 'RESERVED FOR RETURN MATERIAL'? false : ${objectViewModel>/partialApproval}}"/>
-                                    <Button text="Reject All" press="onRejectAllPress" type="Reject" icon="sap-icon://decline" enabled="{= ${Status} !== 'RESERVED FOR RETURN MATERIAL'? false : !${objectViewModel>/partialApproval}}"/>
+                                    <Button text="{i18n>RejectAll}" press="onRejectAllPress" type="Reject" icon="sap-icon://decline" enabled="{= ${Status} !== 'RESERVED FOR RETURN MATERIAL'? false : !${objectViewModel>/partialApproval}}"/>
                                 </OverflowToolbar>
                             </tt:extension>
                             <tt:columns>
@@ -137,25 +137,25 @@
                                     </tt:template>
                                 </tt:Column>
                                 <tt:Column>
-                                    <Label text="Material Code" wrapping="true"/>
+                                    <Label text="{i18n>MaterialCode}" wrapping="true"/>
                                     <tt:template>
                                         <Text text="{TreeTableModelView>MaterialCode}" />
                                     </tt:template>
                                 </tt:Column>
                                 <tt:Column>
-                                    <Label text="Material Name" wrapping="true"/>
+                                    <Label text="{i18n>MaterialName}" wrapping="true"/>
                                     <tt:template>
                                         <Text text="{TreeTableModelView>Name}" wrapping="false" /> 
                                     </tt:template>
                                 </tt:Column>
                                  <tt:Column>
-                                    <Label text="Material Description" wrapping="true"/>
+                                    <Label text="{i18n>Description}" wrapping="true"/>
                                     <tt:template>
                                         <Text text="{TreeTableModelView>Description}" wrapping="false" /> 
                                     </tt:template>
                                 </tt:Column>
                                 <tt:Column>
-                                    <Label text="Plant Code" wrapping="true"/>
+                                    <Label text="{i18n>Plant}" wrapping="true"/>
                                     <tt:template>
                                         <Text text="{TreeTableModelView>Plant}" />
                                     </tt:template>
@@ -167,43 +167,43 @@
                                     </tt:template>
                                 </tt:Column> 
                                 <tt:Column>
-                                    <Label text="Base Quantity" wrapping="true"/>
+                                    <Label text="{i18n>BaseQty}" wrapping="true"/>
                                     <tt:template>
                                         <Text text="{TreeTableModelView>BaseQty}" wrapping="false" />
                                     </tt:template>
                                 </tt:Column>   
                                 <tt:Column>
-                                    <Label text="Base Unit" wrapping="true"/>
+                                    <Label text="{i18n>BaseUnit}" wrapping="true"/>
                                     <tt:template>
                                         <Text text="{TreeTableModelView>BaseUnit}" />
                                     </tt:template>
                                 </tt:Column> 
                                 <tt:Column>
-                                    <Label text="Weight Per Piece" wrapping="true"/>
+                                    <Label text="{i18n>WeightPerPiece}" wrapping="true"/>
                                     <tt:template>
                                         <Text text="{TreeTableModelView>WeightPerPiece}" wrapping="false" />
                                     </tt:template>
                                 </tt:Column>                              
                                 <tt:Column>
-                                    <Label text="Issued Quantity" wrapping="true"/>
+                                    <Label text="{i18n>IssuedQuantity}" wrapping="true"/>
                                     <tt:template>
                                         <Text text="{TreeTableModelView>Quantity}" wrapping="false" />
                                     </tt:template>
                                 </tt:Column>
                                 <tt:Column>
-                                    <Label text="Balanced Quantity" wrapping="true"/>   
+                                    <Label text="{i18n>BalancedQuantity}" wrapping="true"/>   
                                     <tt:template>
                                         <Text text="{TreeTableModelView>BalanceQty}" wrapping="false" />
                                     </tt:template>
                                 </tt:Column>
                                 <tt:Column>
-                                    <Label text="Quantity Requested for Return" wrapping="true"/>
+                                    <Label text="{i18n>QuantityRequestedforReturn}" wrapping="true"/>
                                     <tt:template>
                                         <ObjectIdentifier title="{TreeTableModelView>RequirementQuantity}" />
                                     </tt:template>
                                 </tt:Column>                  
                                 <tt:Column>
-                                    <Label text="Quantity Approved for Return" wrapping="true"/>
+                                    <Label text="{i18n>QuantityApprovedforReturn}" wrapping="true"/>
                                     <tt:template>
                                         <Input type="Number" value="{TreeTableModelView>ApprovedRetQuantity}" enabled="{TreeTableModelView>isSelected}"  valueLiveUpdate="false" liveChange="onLiveChangeApprvdQty" 
                                             valueState="{= ${TreeTableModelView>ApprovedRetQuantity} > 0 &amp;&amp; ${TreeTableModelView>RequirementQuantity} >= ${TreeTableModelView>ApprovedRetQuantity} ? 'None' : 'Error' }"/>
@@ -211,7 +211,7 @@
                                 </tt:Column>   
 
                                  <tt:Column>
-                                    <Label text="Status"/>
+                                    <Label text="{i18n>Status}"/>
                                     <tt:template>
                                 <ObjectStatus text="{TreeTableModelView>Status}" state="{= ${TreeTableModelView>Status} === 'RESERVED' ? 'Success' : ${Status} === 'RESERVED FOR ISSUE' ? 'Information' : 'Error'}" visible="{= ${Status}.length>0 ? true : false }"/>
                                     </tt:template>

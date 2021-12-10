@@ -1,6 +1,6 @@
 <core:FragmentDefinition xmlns="sap.m"
     xmlns:core="sap.ui.core">
-    <Dialog contentHeight="50%" contentWidth="50%" title="Child Items Detail">
+    <Dialog contentHeight="50%" contentWidth="50%" title="{i18n>ChildItemsDetail}">
         <content>
             <Table width="auto" growing="true" id="idChildItemsTable" growingScrollToLoad="true" 
                 items="{path:'child_line_items'}">
@@ -15,19 +15,19 @@
                 </headerToolbar>
                 <columns>
                     <Column>
-                        <Text text="Material Code"/>
+                        <Text text="{i18n>MaterialCode}"/>
                     </Column>
                      <Column>
-                        <Text text="Name"/>
+                        <Text text="{i18n>Name}"/>
                     </Column>
                     <Column width="30%">
-                        <Text text="Description"/>
+                        <Text text="{i18n>Description}"/>
                     </Column>
                     <Column>
-                        <Text text="Quantity"/>
+                        <Text text="{i18n>quantity}"/>
                     </Column>
                     <Column>
-                        <Text text="UOM"/>
+                        <Text text="{i18n>UOM}"/>
                     </Column>
                     <!--  <Column width="5%">
                         <Text text="{i18n>EditButton}"/>
@@ -52,7 +52,7 @@
             </Table>
         </content>
         <endButton>
-            <Button text="Close" press="onViewChildDialogClose" type="Emphasized" />
+            <Button text="{i18n>close}" press="onViewChildDialogClose" type="Emphasized" />
         </endButton>
     </Dialog>
 </core:FragmentDefinition>

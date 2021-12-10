@@ -38,7 +38,7 @@
                     <uxap:blocks>
                       	<f:SimpleForm id="idSFDisplay"	editable="true"
                           visible="{= ${objectViewModel>/idSFDisplay}}" 
-                            layout="ResponsiveGridLayout"  title="Details" 
+                            layout="ResponsiveGridLayout"  title="{i18n>Details}" 
                         	labelSpanXL="3"	labelSpanL="3" labelSpanM="3" labelSpanS="12"
 			                adjustLabelSpan="false"	emptySpanXL="4" emptySpanL="4" emptySpanM="4"
 			                emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false" >
@@ -62,7 +62,7 @@
                                     </MultiComboBox>
 
                                 <Label text="{i18n>Parent}" visible="{= ${objectViewModel>/idSFEdit}}" />
-                                    <Link text="Add Parent" visible="{= ${objectViewModel>/idSFEdit}}" press="onAddParentPress" enabled="false"/>
+                                    <Link text="{i18n>AddParent}" visible="{= ${objectViewModel>/idSFEdit}}" press="onAddParentPress" enabled="false"/>
                                 
                                 <Label text="{i18n>Parent}" />
                                     <Table 
@@ -103,7 +103,7 @@
 		                </f:SimpleForm>
 
                         <f:SimpleForm id="idSFEdit"	editable="true" visible="{= ${objectViewModel>/idSFEdit}}"
-                            layout="ResponsiveGridLayout"  title="Details" 
+                            layout="ResponsiveGridLayout"  title="{i18n>Details}" 
                         	labelSpanXL="3"	labelSpanL="3" labelSpanM="3" labelSpanS="12"
 			                adjustLabelSpan="false"	emptySpanXL="4" emptySpanL="4" emptySpanM="4"
 			                emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false" >
@@ -125,8 +125,8 @@
                                         }">
                                         <core:Item key="{ID}" text="{Name}"/>
                                     </MultiComboBox>
-                               <Label text="Parent" />
-                                <Link text="Add Parent" press="onAddParentPress"/>
+                               <Label text="{i18n>ParentL" />
+                                <Link text="{i18n>AddParent}" press="onAddParentPress"/>
                                 <Label text="    " />
                                 <Table 
                                     items="{MasterParentsModel>/}"

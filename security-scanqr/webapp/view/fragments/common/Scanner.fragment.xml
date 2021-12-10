@@ -8,7 +8,7 @@
         <beginButton>
         </beginButton>
         <endButton>
-            <Button text="Close" press="onCloseSgnnerDialog" type="Emphasized"></Button>
+            <Button text="{i18n>Close}" press="onCloseSgnnerDialog" type="Emphasized"></Button>
         </endButton>
     </Dialog>
 </core:FragmentDefinition>

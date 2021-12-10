@@ -1,7 +1,10 @@
 <core:FragmentDefinition xmlns="sap.m"
     xmlns:smartTable="sap.ui.comp.smarttable"
     xmlns:core="sap.ui.core">
-    <smartTable:SmartTable class="sapUiResponsiveContentPadding" id="idConfirmPOTable" editable="false" placeToolbarInTable="true" enableAutoBinding="true" entitySet="PurchaseOrderSet"  showFullScreenButton="true" showRowCount="false" tableType="ResponsiveTable" demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" beforeRebindTable="onbeforeRebindConfirmPoTable" ignoreFromPersonalisation="AmendmentBy,AmendmentDate,AmendmentReason,CreatedBy,ID,Currency,IsArchived,UpdatedAt,UpdatedBy,ValidityEndDate,ValidityStartDate,Status,CreatedAt">
+    <smartTable:SmartTable id="idConfirmPOTable" editable="false" placeToolbarInTable="true" enableAutoBinding="true" entitySet="PurchaseOrderSet" 
+    showFullScreenButton="true" showRowCount="false" tableType="ResponsiveTable" demandPopin="false" useTablePersonalisation="true" useVariantManagement="false" 
+    beforeRebindTable="onbeforeRebindConfirmPoTable" class="sapUiResponsiveContentPadding" useExportToExcel="false" 
+    ignoreFromPersonalisation="AmendmentBy,AmendmentDate,AmendmentReason,CreatedBy,ID,Currency,IsArchived,UpdatedAt,UpdatedBy,ValidityEndDate,ValidityStartDate,Status,CreatedAt">
         <Table  sticky="ColumnHeaders,HeaderToolbar" updateFinished="onConfirmPOTableUpdateFinished">
             <columns>
                 <Column>
@@ -15,7 +18,7 @@
                 <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "CompanyCode", "leadingProperty": "MasterCompanyCode/CompanyCode",
-                                                 "columnIndex": 1 ,"sortProperty": "MasterCompanyCode/CompanyCode","filterProperty": "MasterCompanyCode/CompanyCode"}'/>
+                            "columnIndex": 1 ,"sortProperty": "MasterCompanyCode/CompanyCode","filterProperty": "MasterCompanyCode/CompanyCode"}'/>
                     </customData>
                     <Text text="{i18n>companyCode}"/>
                 </Column>
@@ -32,7 +35,7 @@
                 <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "IssueDate", "leadingProperty": "CreatedAt",
-                                                 "columnIndex": 3,  "sortProperty": "CreatedAt"  }'/>
+                            "columnIndex": 3,  "sortProperty": "CreatedAt"  }'/>
                     </customData>
                     <Text text="{i18n>issuedate}"/>
                 </Column>
@@ -42,7 +45,7 @@
                 <Column demandPopin="true" minScreenWidth="Desktop">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "ReleaseDate", "leadingProperty": "POReleaseDate",
-                                                 "columnIndex": 4,  "sortProperty": "POReleaseDate" }'/>
+                            "columnIndex": 4,  "sortProperty": "POReleaseDate" }'/>
                     </customData>
                     <Text text="{i18n>releaseDate}"/>
                 </Column>
@@ -50,7 +53,7 @@
                 <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "ConfirmedDate", "leadingProperty": "ConfirmedDate",
-                                                 "columnIndex": 5,  "sortProperty": "ConfirmedDate"  }'/>
+                            "columnIndex": 5,  "sortProperty": "ConfirmedDate"  }'/>
                     </customData>
                     <Text text="{i18n>confirmdate}"/>
                 </Column> 
@@ -87,7 +90,7 @@
 				                        pattern: 'MMMM dd, yyyy'
 				                     }
                         }"/>
-                       <Link text="{i18n>viewLineItems}" press="onViewLineItemsPress"></Link>
+                       <Link text="{i18n>viewLineItems}" press="onViewLineItemsPress"/>
                     </cells>
                 </ColumnListItem>
             </items>

@@ -7,7 +7,7 @@
                 <headerToolbar>
 					<OverflowToolbar>
 						<ToolbarSpacer />
-                        <Button text="Assign Role" icon="sap-icon://edit" press="onRoleDialogPress" class="sapUiSmallMarginBottom"/>
+                        <Button text="{i18n>AssignRole}" icon="sap-icon://edit" press="onRoleDialogPress" class="sapUiSmallMarginBottom"/>
 						<!-- <Button id="idBtnEdit" text="Edit" icon="sap-icon://edit" type="Transparent"
 							press="onEdit" visible="{= ${objectViewModel>/idBtnEdit}}"/>
                         <Button id="idBtnSave" text="Save" icon="sap-icon://save" press="onSave"

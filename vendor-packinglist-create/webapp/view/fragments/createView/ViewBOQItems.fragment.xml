@@ -6,25 +6,25 @@
             fixedLayout="false" class="sapUiResponsiveMargin" noDataText="No BOQ Items for selected Parent.">
                 <columns>
                     <Column>
-                        <Text text="Material Code" wrapping="true" wrappingType="Hyphenated"/>
+                        <Text text="{i18n>MaterialCode}" wrapping="true" wrappingType="Hyphenated"/>
                     </Column>
                     <Column>
-                        <Text text="Name" wrapping="true"/>
+                        <Text text="{i18n>Name}" wrapping="true"/>
                     </Column>
                     <Column demandPopin="true" minScreenWidth="Desktop">
-                        <Text text="Description"/>
+                        <Text text="{i18n>Description}"/>
                     </Column>
                     <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center">
-                        <Text text="Total Quantity" />
+                        <Text text="{i18n>TotalQuantity}" />
                     </Column>
                     <!-- <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center">
                         <Text text="MDCC Approved Quantity"/>
                     </Column> -->
                     <Column demandPopin="true" minScreenWidth="Tablet">
-                        <Text text="Dispatch Quantity"/>
+                        <Text text="{i18n>DispatchQuantity}"/>
                     </Column>
                     <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center">
-                        <Text text="UOM"/>
+                        <Text text="{i18n>UOM}"/>
                     </Column>
                 </columns>
                 <items>
@@ -43,7 +43,7 @@
             </Table>
         </content>
         <endButton>
-            <Button text="Close" press="onViewBOQItemDialogClose" type="Emphasized" />
+            <Button text="{i18n>Close}" press="onViewBOQItemDialogClose" type="Emphasized" />
         </endButton>
     </Dialog>
 </core:FragmentDefinition>

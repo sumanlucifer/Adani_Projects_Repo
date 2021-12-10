@@ -15,22 +15,22 @@
         </headerToolbar>
         <columns>
             <Column>
-                <Text text="Line Number"/>
+                <Text text="{i18n>LineNumber}"/>
             </Column>
             <Column>
-                <Text text="Line Item ID"/>
+                <Text text="{i18n>LineItemID}"/>
             </Column>
             <Column>
-                <Text text="PO Qty."/>
+                <Text text="{i18n>POQty}"/>
             </Column>
             <Column>
-                <Text text="MDCC Approved Qty."/>
+                <Text text="{i18n>MDCCApprovedQty}"/>
             </Column>
             <Column>
-                <Text text="Dispatch Qty"/>
+                <Text text="{i18n>DispatchQty}"/>
             </Column>
             <Column>
-                <Text text="UOM"/>
+                <Text text="{i18n>UOM}"/>
             </Column>
         </columns>
         <items>

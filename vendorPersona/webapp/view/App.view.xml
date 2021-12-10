@@ -4,7 +4,5 @@
 	displayBlock="true"
 	xmlns="sap.m"
     xmlns:f="sap.f">
-
 	<App id="app"/>
-
 </mvc:View>

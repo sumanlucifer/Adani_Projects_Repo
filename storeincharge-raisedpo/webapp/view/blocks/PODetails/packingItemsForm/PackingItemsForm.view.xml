@@ -8,19 +8,19 @@
   <Table width="auto" growing="true" growingThreshold="10" fixedLayout="false" items="{PackingList}">
         <columns>
             <Column demandPopin="true" minScreenWidth="Desktop" hAlign="Center">
-                <Text text="Name" wrapping="true" wrappingType="Hyphenated"/>
+                <Text text="{i18n>Name}" wrapping="true" wrappingType="Hyphenated"/>
             </Column>
                  <Column demandPopin="true" minScreenWidth="Desktop" hAlign="Center">
-                <Text text="Invoice Date" wrapping="true" wrappingType="Hyphenated"/>
+                <Text text="{i18n>invoiceDate}" wrapping="true" wrappingType="Hyphenated"/>
             </Column>
                  <Column demandPopin="true" minScreenWidth="Desktop" hAlign="Center">
-                <Text text="Status" wrapping="true" wrappingType="Hyphenated"/>
+                <Text text="{i18n>Status}" wrapping="true" wrappingType="Hyphenated"/>
             </Column>
             <Column demandPopin="true" minScreenWidth="Desktop" hAlign="Center">
-                <Text text="Gate Entry Number" wrapping="true" wrappingType="Hyphenated"/>
+                <Text text="{i18n>gateEntryNumber}" wrapping="true" wrappingType="Hyphenated"/>
             </Column>
             <Column demandPopin="true" minScreenWidth="Desktop" hAlign="Center">
-                <Text text="Unloading Date" wrapping="true" wrappingType="Hyphenated"/>
+                <Text text="{i18n>UnloadingDate}" wrapping="true" wrappingType="Hyphenated"/>
             </Column>
         </columns>
         <items>

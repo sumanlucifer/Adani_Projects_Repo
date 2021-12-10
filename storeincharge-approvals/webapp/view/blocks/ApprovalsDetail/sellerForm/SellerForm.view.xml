@@ -12,7 +12,6 @@
             <Text text="{VendorCode}"/>
             <Label text="{i18n>gstIN}" />
             <Text text="{GSTIN}"/>
-
             <Label text="{i18n>pan}" />
             <Text text="{Pan}"/>
             <Label text="{i18n>emailID}" />
@@ -34,7 +33,6 @@
             <Label text="{i18n>postalCode}" />
             <!-- <Text text="{pinCode}" binding="{Address}"/> -->
             <Text text=""/>
-
             <!-- <core:Title /> -->
             <Label text="{i18n>addressNoSAP}" />
             <!-- <ExpandableText binding="{Address}" text="{Country}" overflowMode="InPlace"/> -->

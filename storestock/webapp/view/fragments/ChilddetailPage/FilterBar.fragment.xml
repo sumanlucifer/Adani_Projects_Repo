@@ -7,20 +7,17 @@
         <fb:filterGroupItems>
           <fb:FilterGroupItem groupName="__$INTERNAL$" name="ChildMatName" label="{i18n>MaterialName}" visibleInFilterBar="true" class="searchFieldLabelHidden">
                 <fb:control>
-                    <Input id="idChildMaterialName" placeholder="Enter Material Name" liveChange="onFilterChange" showValueHelp="false">
+                    <Input id="idChildMaterialName" placeholder="{i18n>EnterMaterialName}" liveChange="onFilterChange" showValueHelp="false">
                     </Input>
                 </fb:control>
             </fb:FilterGroupItem>
            
             <fb:FilterGroupItem groupName="__$INTERNAL$" name="ChildMatCode" label="{i18n>MaterialID}" visibleInFilterBar="true" class="searchFieldLabelHidden">
                 <fb:control>
-                    <Input id="idChildMaterialCode" placeholder="Enter Material Code" liveChange="onFilterChange" showValueHelp="false">
+                    <Input id="idChildMaterialCode" placeholder="{i18n>EnterMaterialCode}" liveChange="onFilterChange" showValueHelp="false">
                     </Input>
                 </fb:control>
             </fb:FilterGroupItem>
-           
-          
-            
         </fb:filterGroupItems>
     </fb:FilterBar>
 

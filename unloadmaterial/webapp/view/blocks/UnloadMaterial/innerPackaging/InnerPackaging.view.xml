@@ -24,7 +24,7 @@
                 <Text text="{i18n>UOM}"/>
             </Column>
             <Column>
-              <Text text="Map Vendor QR Code"/>
+              <Text text="{i18n>MapVendorQRCode}"/>
             </Column>
         </columns>
         <items>

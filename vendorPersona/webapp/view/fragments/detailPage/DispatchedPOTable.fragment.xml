@@ -1,21 +1,24 @@
 <core:FragmentDefinition xmlns="sap.m"
     xmlns:smartTable="sap.ui.comp.smarttable"
     xmlns:core="sap.ui.core">
-    <smartTable:SmartTable  class="sapUiResponsiveContentPadding" id="idDispatchedPOTable" editable="false" placeToolbarInTable="true" enableAutoBinding="true" entitySet="PurchaseOrderSet" showFullScreenButton="true" showRowCount="false" tableType="ResponsiveTable" demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" beforeRebindTable="onbeforeRebindDispatchPoTable">
+    <smartTable:SmartTable  class="sapUiResponsiveContentPadding" id="idDispatchedPOTable" 
+        editable="false" placeToolbarInTable="true" enableAutoBinding="true" entitySet="PurchaseOrderSet"
+        showFullScreenButton="true" showRowCount="false" tableType="ResponsiveTable" demandPopin="false" 
+        useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" beforeRebindTable="onbeforeRebindDispatchPoTable">
         <Table sticky="ColumnHeaders,HeaderToolbar" updateFinished="onDispatchPOTableUpdateFinished">
             <columns>
                 <Column >
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "PONumber", "leadingProperty": "PONumber",
-                                                 "columnIndex": 0 ,"sortProperty": "PONumber","filterProperty": "PONumber"}'/>
+                            "columnIndex": 0 ,"sortProperty": "PONumber","filterProperty": "PONumber"}'/>
                     </customData>
                     <Text text="{i18n>ponum}"/>
                 </Column>
-                <!-- missing company code -->
+                
                 <Column demandPopin="true" minScreenWidth="Desktop">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "companyCode",
-                                 "columnIndex": 1}'/>
+                            "columnIndex": 1}'/>
                     </customData>
                     <Text text="{i18n>companyCode}"/>
                 </Column>
@@ -27,33 +30,35 @@
                     </customData>
                     <Text text="{i18n>plantcode}"/>
                 </Column>
-                <!-- missing issued date -->
+
                 <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "IssuedDate", "leadingProperty": "CreatedAt",
-                                                 "columnIndex": 3,  "sortProperty": "CreatedAt"}'/>
+                            "columnIndex": 3,  "sortProperty": "CreatedAt"}'/>
                     </customData>
                     <Text text="{i18n>issuedate}"/>
                 </Column>
+
                 <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "POReleaseDate", "leadingProperty": "POReleaseDate",
-                                                 "columnIndex": 4,  "sortProperty": "POReleaseDate"}'/>
+                            "columnIndex": 4,  "sortProperty": "POReleaseDate"}'/>
                     </customData>
                     <Text text="{i18n>releaseDate}"/>
                 </Column>
+
                  <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "ConfirmedDate", "leadingProperty": "ConfirmedDate",
-                                                 "columnIndex": 5,  "sortProperty": "ConfirmedDate" }'/>
+                            "columnIndex": 5,  "sortProperty": "ConfirmedDate" }'/>
                     </customData>
                     <Text text="{i18n>confirmdate}"/>
                 </Column> 
-                <!-- missing closed date -->
+
                 <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "ClosedDate", "leadingProperty": "POReleaseDate",
-                                                 "columnIndex": 6,  "sortProperty": "POReleaseDate" }'/>
+                            "columnIndex": 6,  "sortProperty": "POReleaseDate" }'/>
                     </customData>
                     <Text text="{i18n>closedDate}"/>
                 </Column>
@@ -69,7 +74,7 @@
                 <ColumnListItem type="Navigation" press="onPurchaseOrderPress"> 
                     <cells>
                         <Text text="{PONumber}"/>
-                        <Text text="missing"/>
+                        <Text text="{i18n>missing}"/>
                         <Text text="{PlantCode}"/>
 
                         <Text text="{path:'CreatedAt',
@@ -78,13 +83,15 @@
 				                        pattern: 'MMMM dd, yyyy'
 				                     }    
                         }"/>
+
                         <Text text="{path:'POReleaseDate',
                                      type: 'sap.ui.model.type.Date',
 				                     formatOptions: {
 				                        pattern: 'MMMM dd, yyyy'
 				                     }
                         }"/>
-                           <Text text="{path:'ConfirmedDate',
+
+                        <Text text="{path:'ConfirmedDate',
                                      type: 'sap.ui.model.type.Date',
 				                     formatOptions: {
 				                        pattern: 'MMMM dd, yyyy'
@@ -96,7 +103,7 @@
 				                        pattern: 'MMMM dd, yyyy'
 				                     }
                         }"/>
-                        <Link text="{i18n>viewLineItems}" press="onViewLineItemsPress"></Link>
+                        <Link text="{i18n>viewLineItems}" press="onViewLineItemsPress"/>
                     </cells>
                 </ColumnListItem>
             </items>

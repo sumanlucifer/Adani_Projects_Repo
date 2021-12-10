@@ -3,11 +3,11 @@
     xmlns:f="sap.ui.layout.form"
     xmlns:core="sap.ui.core"
     xmlns:unified="sap.ui.unified">
-    <Dialog title="Add Parent Item">
+    <Dialog title="{i18n>AddParentItem}">
         <customHeader>
             <Bar>
                 <contentMiddle>
-                    <Title text="Add Parent Item"/>
+                    <Title text="{i18n>AddParentItem}"/>
                 </contentMiddle>
                 <contentRight>
                     <core:Icon src="sap-icon://decline" width="1em" press=".closeDialog" class="sapUiTinyMarginEnd"/>
@@ -15,19 +15,21 @@
             </Bar>
         </customHeader>
         <content>
-            <f:SimpleForm editable="true" layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="3" emptySpanL="3" emptySpanM="3" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false">
+            <f:SimpleForm editable="true" layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3" 
+                labelSpanM="3" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="3" emptySpanL="3" 
+                emptySpanM="3" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false">
                 <f:content>
-                    <Label text="Material Code"/>
+                    <Label text="{i18n>MaterialCode}"/>
                     <Input value="{parentItemCreationModel>/material_code}"/>
-                    <Label text="Description"/>
+                    <Label text="{i18n>Description}"/>
                     <Input value="{parentItemCreationModel>/description}"/>
-                    <Label text="Quantity"/>
+                    <Label text="{i18n>quantity}"/>
                     <Input value="{parentItemCreationModel>/qty}"/>
                 </f:content>
             </f:SimpleForm>
         </content>
         <endButton>
-            <Button text="Save Parent Item" press=".onSaveParentLineItemPress" type="Emphasized"></Button>
+            <Button text="{i18n>SaveParentItem}" press=".onSaveParentLineItemPress" type="Emphasized"/>
         </endButton>
     </Dialog>
 </core:FragmentDefinition>

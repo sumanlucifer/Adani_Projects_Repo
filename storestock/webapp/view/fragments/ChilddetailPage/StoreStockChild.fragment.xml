@@ -62,20 +62,10 @@
                     </customData>
                     <Text text="{i18n>UOM}"/>
                 </Column>
-
-
-
-
-
             </columns>
             <items>
-
                 <ColumnListItem >
                     <cells>
-
-
-
-
                         <ObjectIdentifier text="{Name}"/>
                         <ObjectIdentifier text="{MaterialCode}"/>
                         <!-- <ObjectIdentifier text="{ReceivedQty}"/> -->
@@ -86,13 +76,9 @@
                         <ObjectIdentifier text="{BalanceQty}"/> -->
 
                         <ObjectIdentifier text="{UOM}"/>
-
-
                     </cells>
                 </ColumnListItem>
-
             </items>
         </Table>
     </smartTable:SmartTable>
-
 </core:FragmentDefinition>

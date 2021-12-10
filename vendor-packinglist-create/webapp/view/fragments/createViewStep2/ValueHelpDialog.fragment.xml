@@ -1,6 +1,10 @@
 <core:FragmentDefinition xmlns="sap.m"
     xmlns:core="sap.ui.core">
-    <TableSelectDialog noDataText="No inner packaging avalable for this packinf list." title="Select Inner Packagings" search=".handleSearch" confirm="onSaveInnerPackagingListPress" confirmButtonText="Save" cancel=".handleValueHelpClose" showClearButton="true" multiSelect="true" items="{
+    <TableSelectDialog 
+        noDataText="{i18n>Noinnerpackagingavalable}" 
+        title="{i18n>SelectInnerPackagings}" search=".handleSearch" confirm="onSaveInnerPackagingListPress" 
+        confirmButtonText="{i18n>Save}" cancel=".handleValueHelpClose" showClearButton="true" multiSelect="true" 
+        items="{
 			path : 'valueHelpModel>/'
 		}">
         <ColumnListItem selected="{valueHelpModel>selected}">
@@ -11,21 +15,19 @@
                 <Text text="{valueHelpModel>UOM}"></Text>
             </cells>
         </ColumnListItem>
-
         <columns>
             <Column>
-                <Text text="Packaging Type" />
+                <Text text="{i18n>PackagingType}" />
             </Column>
             <Column>
-                <Text text="Material Name" />
+                <Text text="{i18n>MaterialName}" />
             </Column>
             <Column hAlign="Center">
-                <Text text="Packaging Quantity" />
+                <Text text="{i18n>PackagingQuantity}" />
             </Column>
             <Column>
-                <Text text="UOM" />
+                <Text text="{i18n>UOM}" />
             </Column>
-        </columns>
-        
+        </columns>        
     </TableSelectDialog>
 </core:FragmentDefinition>

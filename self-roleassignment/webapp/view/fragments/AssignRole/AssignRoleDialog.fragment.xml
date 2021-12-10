@@ -4,7 +4,7 @@
     
      <Dialog contentWidth="35%">
         <content>
-            <MultiComboBox id="roleEdit" placeholder= "Select" selectedKeys="{MasterRoleSet>/ID}"
+            <MultiComboBox id="roleEdit" placeholder= "{i18n>Select}" selectedKeys="{MasterRoleSet>/ID}"
             selectionChange="onNewUserRoleSelected"
                 items="{
                     path: '/MasterRoleSet',
@@ -20,10 +20,10 @@
             </MultiComboBox> -->
         </content>
         <beginButton>
-            <Button id="idSaveBTN" enabled="false" text="Save" press="onSave" type="Emphasized" />
+            <Button id="idSaveBTN" enabled="false" text="{i18n>Save}" press="onSave" type="Emphasized" />
         </beginButton>
         <endButton>
-            <Button text="Close" press="onClose" type="Emphasized" />
+            <Button text="{i18n>Close}" press="onClose" type="Emphasized" />
         </endButton>
     </Dialog>
 

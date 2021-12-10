@@ -24,18 +24,18 @@
                 </uxap:breadcrumbs>
                 <uxap:expandedHeading>
                     <FlexBox direction="Column" renderType="Bare">
-                        <Title text="Packing List Details - {Name}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
+                        <Title text="{i18n>PackingListDetails} - {Name}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
                         <ObjectStatus text="{Status}" state="{= ${Status}=== 'DISPATCHED' ? 'Warning' : 'None'}"></ObjectStatus>
                     </FlexBox>
                 </uxap:expandedHeading>
                 <uxap:snappedHeading>
                     <FlexBox direction="Column" renderType="Bare">
-                        <Title text="Packing List Details - {Name}" wrapping="true" titleStyle="H4"/>
+                        <Title text="{i18n>PackingListDetails} - {Name}" wrapping="true" titleStyle="H4"/>
                     </FlexBox>
                 </uxap:snappedHeading>
                 <uxap:expandedContent></uxap:expandedContent>
                 <uxap:snappedTitleOnMobile>
-                    <Title text="Packing List Details - {Name}" wrapping="true" titleStyle="Auto"/>
+                    <Title text="{i18n>PackingListDetails} - {Name}" wrapping="true" titleStyle="Auto"/>
                 </uxap:snappedTitleOnMobile>
                 <uxap:actions>
                    <Button id="idStartUnloadingMat" text="{i18n>startunloadingmat}" type="Emphasized" press="onStartUnloading" visible="{= ${Status} !== 'UNLOADING COMPLETED' &amp;&amp; ${GateEntryNumber} !== null }"/>
@@ -72,9 +72,9 @@
                     </VBox>
                     <VBox class="sapUiMediumMarginBeginEnd">
                         <Title text="{i18n>pOandASNDetails}" titleStyle="H6"/>
-                        <ObjectStatus title="ASN Number" text="Missing"/>
-                        <ObjectStatus title="PO Number" text="{PONumber}"/>
-                        <ObjectStatus title="ASN Creation Date" text="Missing"/>
+                        <ObjectStatus title="{i18n>ASNNumber}" text="Missing"/>
+                        <ObjectStatus title="{i18n>PONumber}" text="{PONumber}"/>
+                        <ObjectStatus title="{i18n>ASNCreationDate}" text="Missing"/>
                     </VBox>
                     <VBox class="sapUiMediumMarginBeginEnd">
                         <Title text="{i18n>shipTo}" titleStyle="H6"/>
@@ -144,7 +144,7 @@
 					                        <Text text="{MDCCApprovedQty}"/>
 					                        <Text text="{DispatchQty}"/>
 					                        <Text text="{UOM}"/>
-                                            <Link text="View QR Code" binding="{QrCode}" visible="{= ${QRNumber} !== '' ? true :false}" press="onViewQRCodePress"/>				                        
+                                            <Link text="{i18n>ViewQRCode}" binding="{QrCode}" visible="{= ${QRNumber} !== '' ? true :false}" press="onViewQRCodePress"/>				                        
                                         </cells>
 			                        </ColumnListItem>
 		                        </items>

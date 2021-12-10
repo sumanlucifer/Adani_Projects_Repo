@@ -35,7 +35,7 @@
                 </uxap:snappedTitleOnMobile>
                 <uxap:actions>
                     <HBox visible="true">
-                        <Button text="Confirm Issue Material" press="onPressConfirm" type="Emphasized"/>
+                        <Button text="{i18n>ConfirmIssueMaterial}" press="onPressConfirm" type="Emphasized"/>
                     </HBox>
                 </uxap:actions>
             </uxap:ObjectPageDynamicHeaderTitle>
@@ -178,12 +178,12 @@
                 </uxap:subSections>
             </uxap:ObjectPageSection>
 
-            <uxap:ObjectPageSection titleUppercase="false" title="Upload Details">
+            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>UploadDetails}">
                 <uxap:subSections>
-                      <uxap:ObjectPageSubSection title="Total Gross Weight (MT)">
+                      <uxap:ObjectPageSubSection title="{i18n>TotalGrossWeight(MT)}">
                         <Input type="Number" id="idTotalGrossWeight" width="20%" required="true"/>
                       </uxap:ObjectPageSubSection>
-                      <uxap:ObjectPageSubSection title="Upload Issue Slip">
+                      <uxap:ObjectPageSubSection title="{i18n>UploadIssueSlip}">
                             <UploadCollection class="uploadClasstest" multiple="true" fileSizeExceed="onFileSizeExceed" typeMissmatch="onTypeMissmatch" uploadComplete="onUploadComplete" beforeUploadStarts="onBeforeUploadStarts" items="{
                                     path:'localAttachmentModel>/items',
                                     templateShareable: false}" mode="None" selectionChange="onAttachmentChange" instantUpload="false" change="onAttachmentChange" fileDeleted="onFileDeleted">
@@ -192,8 +192,6 @@
                                         </UploadCollectionItem>
                                     </items>
                                 </UploadCollection> 
-                                    
-
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>
             </uxap:ObjectPageSection>

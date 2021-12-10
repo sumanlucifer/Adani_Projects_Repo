@@ -2,31 +2,30 @@
     xmlns:l="sap.ui.layout"
     xmlns:f="sap.ui.layout.form"
     xmlns:core="sap.ui.core">
-    <Dialog title="Packing List Name">
+    <Dialog title="{i18n>PackingListName}">
         <l:Grid defaultSpan="L12 M12 S12" width="auto">
             <l:content>
-                <f:SimpleForm minWidth="1024" maxContainerCols="2" editable="false" layout="ResponsiveGridLayout" labelSpanL="3" labelSpanM="3" emptySpanL="4" emptySpanM="4" columnsL="2" columnsM="2">
-                    <Label text="Enter Reason" required="true"></Label>
-                    <!-- <Input value="{qrAssistantModel>/reason}"></Input> -->
-
+                <f:SimpleForm minWidth="1024" maxContainerCols="2" editable="false" 
+                    layout="ResponsiveGridLayout" labelSpanL="3" labelSpanM="3" emptySpanL="4" 
+                    emptySpanM="4" columnsL="2" columnsM="2">
+                    <Label text="{i18n>EnterReason}" required="true"/>
                     <Select id="idSelReason" forceSelection="false"  selectedKey="{qrAssistantModel>/reason}"
 					    items="{
 						    path: '/MasterQrCodeAssistanceReasonSet'						    
 					    }">
-					        <core:Item key="{Reason}" text="{Reason}" />
+					    <core:Item key="{Reason}" text="{Reason}" />
 				    </Select>
-
-                    <Label text="Comments" required="true"></Label>
-                    <TextArea value="{qrAssistantModel>/comment}"></TextArea>
+                    <Label text="{i18n>Comments}" required="true"/>
+                    <TextArea value="{qrAssistantModel>/comment}"/>
                 </f:SimpleForm>
             </l:content>
         </l:Grid>
         
         <beginButton>
-            <Button text="Send" press="onSendAssistanceRequestPress"></Button>
+            <Button text="{i18n>Send}" press="onSendAssistanceRequestPress"/>
         </beginButton>
         <endButton>           
-            <Button text="Cancel" press="onCancelAssistanceRequestPress"></Button>            
+            <Button text="{i18n>Cancel}" press="onCancelAssistanceRequestPress"/>
         </endButton>
     </Dialog>
 </core:FragmentDefinition>

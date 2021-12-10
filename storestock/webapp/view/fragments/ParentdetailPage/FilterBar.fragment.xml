@@ -9,14 +9,14 @@
 
             <fb:FilterGroupItem groupName="__$INTERNAL$" name="ParentName" label="{i18n>MaterialName}" visibleInFilterBar="true" class="searchFieldLabelHidden">
                 <fb:control>
-                    <Input id="idParentMaterialName" placeholder="Enter Material Name" liveChange="onFilterChange" showValueHelp="false">
+                    <Input id="idParentMaterialName" placeholder="{i18n>EnterMaterialName}" liveChange="onFilterChange" showValueHelp="false">
                     </Input>
                 </fb:control>
             </fb:FilterGroupItem>
 
             <fb:FilterGroupItem groupName="__$INTERNAL$" name="ParentCode" label="{i18n>MaterialID}" visibleInFilterBar="true" class="searchFieldLabelHidden">
                 <fb:control>
-                    <Input id="idParentMaterialCode" placeholder="Enter Parent Code" liveChange="onFilterChange" showValueHelp="false">
+                    <Input id="idParentMaterialCode" placeholder="{i18n>EnterMaterialCode}" liveChange="onFilterChange" showValueHelp="false">
                     </Input>
                 </fb:control>
             </fb:FilterGroupItem>

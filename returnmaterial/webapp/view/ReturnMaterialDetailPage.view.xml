@@ -38,7 +38,7 @@
                 </uxap:snappedTitleOnMobile>
                 <uxap:actions>
                     <VBox visible="true">
-                        <Button text="Cancel Return" press="onCancelReturn" type="Emphasized"/>
+                        <Button text="{i18n>CancelReturn}" press="onCancelReturn" type="Emphasized"/>
                     </VBox>
                 </uxap:actions>
             </uxap:ObjectPageDynamicHeaderTitle>
@@ -48,7 +48,7 @@
                 <VBox renderType="Bare">
                     <FlexBox direction="Row" renderType="Bare" class="sapUiTinyMarginBottom">
                         <VBox renderType="Bare" class="sapUiMediumMarginEnd">
-                            <Label text="Posting Date" />
+                            <Label text="{i18n>PostingDate}" />
                             <Text text="{path:'PostingDate',
                                      type: 'sap.ui.model.type.Date',
 				                     formatOptions: {
@@ -58,12 +58,12 @@
                         </VBox>
 
                         <VBox renderType="Bare" class="sapUiMediumMarginEnd">
-                            <Label text="Delivery Note" />
+                            <Label text="{i18n>DeliveryNote}" />
                             <Text text="{DeliveryNote}"/>
                         </VBox>
 
                          <VBox renderType="Bare" class="sapUiMediumMarginEnd">
-                            <Label text="ReservationNumber" />
+                            <Label text="{i18n>ReservationNumber}" />
                             <Text text="{ReservationNumber}"/>
                         </VBox>
 
@@ -85,31 +85,31 @@
 
                                 <columns>
                                     <Column>
-                                        <Text text="Line Number"/>
+                                        <Text text="{i18n>LineNumber}"/>
                                     </Column>
                                     <Column>
-                                        <Text text="Material Code"/>
+                                        <Text text="{i18n>MaterialCode}"/>
                                     </Column>
                                     <Column>
-                                        <Text text="Name"/>
+                                        <Text text="{i18n>Name}"/>
                                     </Column>
                                     <Column>
-                                        <Text text="Quantity"/>
+                                        <Text text="{i18n>Quantity}"/>
                                     </Column>
                                     <Column>
-                                        <Text text="UOM"/>
+                                        <Text text="{i18n>UOM}"/>
                                     </Column>
                                     <Column>
-                                        <Text text="Plant"/>
+                                        <Text text="{i18n>Plant"/>
                                     </Column>
                                     <Column>
-                                        <Text text="Storage Location"/>
+                                        <Text text="{i18n>StorageLocation}"/>
                                     </Column>
                                     <Column>
-                                        <Text text="Batch Number"/>
+                                        <Text text="{i18n>BatchNumber}"/>
                                     </Column>
                                     <Column>
-                                        <Text text="Valuation Type"/>
+                                        <Text text="{i18n>ValuationType}"/>
                                     </Column>
                                 </columns>
                                 <items>

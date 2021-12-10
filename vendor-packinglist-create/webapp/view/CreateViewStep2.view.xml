@@ -47,14 +47,14 @@
 
                      <HBox visible="{= ${IsDraft} ? true : false}">
                         <items>
-                            <Button text="Save" icon="sap-icon://save" press="onSavePackingListPress" type="Emphasized" visible="{= ${objectViewModel>/isPackingListInEditMode} ? true : false}" class="sapUiTinyMarginEnd" enabled="{= ${objectViewModel>/isEnteredValuesValid}}"/>
-                            <Button text="View QR Code" press="onViewQRCodePress" type="Emphasized" visible="{= ${objectViewModel>/isPackingListInEditMode} ? false : true}" class="sapUiTinyMarginEnd"/>
-                            <Button text="Edit" icon="sap-icon://edit" press="onEditPackingListPress" type="Default" visible="{= ${objectViewModel>/isPackingListInEditMode} ? false : true}" class="sapUiTinyMarginEnd"/>
+                            <Button text="{i18n>Save}" icon="sap-icon://save" press="onSavePackingListPress" type="Emphasized" visible="{= ${objectViewModel>/isPackingListInEditMode} ? true : false}" class="sapUiTinyMarginEnd" enabled="{= ${objectViewModel>/isEnteredValuesValid}}"/>
+                            <Button text="{i18n>ViewQRCode}" press="onViewQRCodePress" type="Emphasized" visible="{= ${objectViewModel>/isPackingListInEditMode} ? false : true}" class="sapUiTinyMarginEnd"/>
+                            <Button text="{i18n>Edit}" icon="sap-icon://edit" press="onEditPackingListPress" type="Default" visible="{= ${objectViewModel>/isPackingListInEditMode} ? false : true}" class="sapUiTinyMarginEnd"/>
                           <!--   <Button text="Proceed" press="onProceedStep2Press" type="Emphasized" visible="{= ${objectViewModel>/isPackingListInEditMode} ? false : true}" enabled="{= ${IsProcessTwoCompletes}}"/> -->
                         </items>
                     </HBox>
 
-                    <Button text="Proceed" class="sapUiTinyMarginBegin" press="onProceedStep2Press" type="Emphasized" visible="{= ${IsDraft} ? false : true}"/>
+                    <Button text="{i18n>Proceed}" class="sapUiTinyMarginBegin" press="onProceedStep2Press" type="Emphasized" visible="{= ${IsDraft} ? false : true}"/>
 
 
                 </uxap:actions>
@@ -75,7 +75,7 @@
                             <Text text="{PlantCode}"/>
                         </VBox>
                         <VBox renderType="Bare" class="sapUiMediumMarginEnd">
-                            <Label text="Created On" />
+                            <Label text="{i18n>CreatedOn}" />
                             <!-- missing -->
 
                             <Text text="{path:'CreatedAt',
@@ -97,10 +97,10 @@
                     <uxap:ObjectPageSubSection title="{i18n>lineItems}">
                         <VBox>
                             <VBox>
-                                <Label text="Is Outer Packaging Required?" labelFor="GroupA" />
+                                <Label text="{i18n>IsOuterPackagingRequired}" labelFor="GroupA" />
                                 <RadioButtonGroup id="GroupA" select="onOuterPackagingRequiredSelectionChange" enabled="{= ${objectViewModel>/isPackingListInEditMode} ? true : false}">
-                                    <RadioButton text="Yes" selected="{= ${objectViewModel>/isOuterPackagingRequired} ? true : false}" />
-                                    <RadioButton text="No" selected="{= ${objectViewModel>/isOuterPackagingRequired} ? false : true}"/>
+                                    <RadioButton text="{i18n>Yes}" selected="{= ${objectViewModel>/isOuterPackagingRequired} ? true : false}" />
+                                    <RadioButton text="{i18n>No}" selected="{= ${objectViewModel>/isOuterPackagingRequired} ? false : true}"/>
                                 </RadioButtonGroup>
                             </VBox>
 
@@ -109,19 +109,19 @@
                                     <OverflowToolbar >
                                         <content>
                                             <ToolbarSpacer></ToolbarSpacer>
-                                            <Button icon="sap-icon://add" text="Add" press="onAddOuterPackagingPress" enabled="{= ${objectViewModel>/isPackingListInEditMode} ? true : false}"></Button>
+                                            <Button icon="sap-icon://add" text="{i18n>Add}" press="onAddOuterPackagingPress" enabled="{= ${objectViewModel>/isPackingListInEditMode} ? true : false}"></Button>
                                         </content>
                                     </OverflowToolbar>
                                 </headerToolbar>
                                 <columns>
                                     <Column>
-                                        <Text text="Outer Packaging Type"/>
+                                        <Text text="{i18n>OuterPackagingType}"/>
                                     </Column>
                                     <Column>
-                                        <Text text="Outer Packaging Dimension"/>
+                                        <Text text="{i18n>OuterPackagingDimension}"/>
                                     </Column>
                                     <Column>
-                                        <Text text="Action"/>
+                                        <Text text="{i18n>Action}"/>
                                     </Column>
                                     <Column width="5%">
                                     </Column>
@@ -136,7 +136,7 @@
                                                 <core:Item key="{ID}" text="{Name}" />
                                             </Select>
                                             <Text data:p="Dimension" text="{outerPackagingModel>PackagingDimensions}"/>
-                                            <Link text="Manage Primary Packaging" press="onManageInnerPackagingPress" enabled="{= ${objectViewModel>/isPackingListInEditMode} ? true : false}"></Link>
+                                            <Link text="{i18n>ManagePrimaryPackaging}" press="onManageInnerPackagingPress" enabled="{= ${objectViewModel>/isPackingListInEditMode} ? true : false}"></Link>
                                             <Button icon="sap-icon://delete" enabled="{= ${objectViewModel>/isPackingListInEditMode} ? true : false}" press="onDeleteOuterPackingListItemPress" type="Transparent"/>
 
                                         </cells>
@@ -148,21 +148,21 @@
                 </uxap:subSections>
             </uxap:ObjectPageSection>
 
-            <uxap:ObjectPageSection titleUppercase="false" title="Additional Details">
+            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>AdditionalDetails}">
                 <uxap:subSections>
-                    <uxap:ObjectPageSubSection title="Additional Details">
+                    <uxap:ObjectPageSubSection title="{i18n>AdditionalDetails}">
                         <uxap:blocks>
                             <f:SimpleForm layout="ColumnLayout" binding="{AdditionalDetialsModel>/}" columnsM="2" columnsL="3" columnsXL="4" singleContainerFullSize="true" class="style-RemoveTitleHeight">
                                 <f:content>
                                     <!-- <core:Title  /> -->
-                                    <Label text="Vehicle Number" required="true"/>
+                                    <Label text="{i18n>VehicleNumber}" required="true"/>
                                     <Input id="idVehicleNumber" value="{VehicleNumber}" placeholder="{i18n>HR55EXXXX}"  editable="{= ${objectViewModel>/isPackingListInEditMode} ? true : false}"/>
-                                    <Label text="Invoice Number" required="true"/>
+                                    <Label text="{i18n>InvoiceNumber}" required="true"/>
                                     <Input id="idInvoiceNumber" value="{InvoiceNumber}" editable="{= ${objectViewModel>/isPackingListInEditMode} ? true : false}"/>
                                     <!-- <core:Title ></core:Title> -->
-                                    <Label text="Packaging Reference Number" required="true"/>
+                                    <Label text="{i18n>PackagingReferenceNumber}" required="true"/>
                                     <Input id="idPackagagingRefNumber" value="{PackagingReferenceNumber}" editable="{= ${objectViewModel>/isPackingListInEditMode} ? true : false}"/>
-                                    <Label text="Invoice Date" required="true"/>
+                                    <Label text="{i18n>InvoiceDate}" required="true"/>
                                     <DatePicker id="idInvoiceDate" value="{InvoiceDate}" valueFormat="yyyy-MM-dd" displayFormat="yyyy-MM-dd" editable="{= ${objectViewModel>/isPackingListInEditMode} ? true : false}"/>
                                 </f:content>
                             </f:SimpleForm>
@@ -173,7 +173,7 @@
             </uxap:ObjectPageSection>
 
             <!-- Line Items Section -->
-            <uxap:ObjectPageSection titleUppercase="false" title="Attachments">
+            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>Attachments}">
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection title="{i18n>materialDetails}">
                         <uxap:blocks>
@@ -188,14 +188,14 @@
                                     <UploadCollectionItem documentId="{ID}" url="{parts: ['FileName','Content'], 
                                         formatter: '.formatter.fileContent' }" enableEdit="false" enableDelete="{= ${objectViewModel>/isPackingListInEditMode} ? true : false}" visibleDelete="true" visibleEdit="false" fileName="{FileName}" deletePress="onDeleteDocumentPress">
                                         <attributes>
-                                            <ObjectAttribute title="Uploaded By" text="{UploadedBy}" class="sapUiSmallMarginEnd"/>
-                                            <ObjectAttribute title="Uploaded On" text="{path:'CreatedAt',
+                                            <ObjectAttribute title="{i18n>UploadedBy}" text="{UploadedBy}" class="sapUiSmallMarginEnd"/>
+                                            <ObjectAttribute title="{i18n>UploadedOn}" text="{path:'CreatedAt',
                                                     type: 'sap.ui.model.type.Date',
                                                     formatOptions: {
                                                         pattern: 'MMMM dd, yyyy'
                                                     }
                                             }"/>
-                                            <ObjectAttribute title="Size" text="{path : 'FileSize', formatter : '.formatter.formatFileSize'}"/>
+                                            <ObjectAttribute title="{i18n>Size}" text="{path : 'FileSize', formatter : '.formatter.formatFileSize'}"/>
                                         </attributes>
                                     </UploadCollectionItem>
                                 </items>
@@ -216,14 +216,14 @@
                                     <UploadCollectionItem documentId="{ID}" url="{parts: ['FileName','Content'], 
                                         formatter: '.formatter.fileContent' }" enableEdit="false" enableDelete="{= ${objectViewModel>/isPackingListInEditMode} ? true : false}" visibleDelete="true" deletePress="onDeleteDocumentPress" visibleEdit="false" fileName="{FileName}">
                                         <attributes>
-                                            <ObjectAttribute title="Uploaded By" text="{UploadedBy}" class="sapUiSmallMarginEnd"/>
-                                            <ObjectAttribute title="Uploaded On" text="{path:'CreatedAt',
+                                            <ObjectAttribute title="{i18n>UploadedBy}" text="{UploadedBy}" class="sapUiSmallMarginEnd"/>
+                                            <ObjectAttribute title="{i18n>UploadedOn}" text="{path:'CreatedAt',
                                                     type: 'sap.ui.model.type.Date',
                                                     formatOptions: {
                                                         pattern: 'MMMM dd, yyyy'
                                                     }
                                             }"/>
-                                            <ObjectAttribute title="Size" text="{path : 'FileSize', formatter : '.formatter.formatFileSize'}"/>
+                                            <ObjectAttribute title="{i18n>Size}" text="{path : 'FileSize', formatter : '.formatter.formatFileSize'}"/>
                                         </attributes>
                                     </UploadCollectionItem>
                                 </items>
@@ -245,14 +245,14 @@
                                     <UploadCollectionItem documentId="{ID}" url="{parts: ['FileName','Content'], 
                                         formatter: '.formatter.fileContent' }" enableEdit="false" enableDelete="{= ${objectViewModel>/isPackingListInEditMode} ? true : false}" visibleDelete="true" visibleEdit="false" fileName="{FileName}" deletePress="onDeleteDocumentPress">
                                         <attributes>
-                                            <ObjectAttribute title="Uploaded By" text="{UploadedBy}" class="sapUiSmallMarginEnd"/>
-                                            <ObjectAttribute title="Uploaded On" text="{path:'CreatedAt',
+                                            <ObjectAttribute title="{i18n>UploadedBy}" text="{UploadedBy}" class="sapUiSmallMarginEnd"/>
+                                            <ObjectAttribute title="{i18n>UploadedOn}" text="{path:'CreatedAt',
                                                     type: 'sap.ui.model.type.Date',
                                                     formatOptions: {
                                                         pattern: 'MMMM dd, yyyy'
                                                     }
                                             }"/>
-                                            <ObjectAttribute title="Size" text="{path : 'FileSize', formatter : '.formatter.formatFileSize'}"/>
+                                            <ObjectAttribute title="{i18n>Size}" text="{path : 'FileSize', formatter : '.formatter.formatFileSize'}"/>
                                         </attributes>
                                     </UploadCollectionItem>
                                 </items>

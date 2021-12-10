@@ -3,39 +3,47 @@
     xmlns:f="sap.ui.layout.form"
     xmlns:core="sap.ui.core"
     xmlns:scan="sap.ndc">
-    <Dialog title="Dispatch Packing List">
+    <Dialog title="{i18n>DispatchPackingList}">
         <l:Grid defaultSpan="L12 M12 S12" width="auto">
             <l:content>
-                <f:SimpleForm minWidth="1024" maxContainerCols="2" editable="false" layout="ResponsiveGridLayout" labelSpanL="3" labelSpanM="3" emptySpanL="4" emptySpanM="4" columnsL="2" columnsM="2">
-                    <Label text="Confirm QR Number"></Label>
+                <f:SimpleForm minWidth="1024" maxContainerCols="2" editable="false" 
+                    layout="ResponsiveGridLayout" labelSpanL="3" labelSpanM="3" 
+                    emptySpanL="4" emptySpanM="4" columnsL="2" columnsM="2">
+                    <Label text="{i18n>ConfirmQRNumber}"/>
                     <!-- <HBox>
                         <Input valueState="{packingListDispatchModel>/valueState}" width="130%" valueStateText="{packingListDispatchModel>/valueStateText}" value="{packingListDispatchModel>/QRNumber}" editable="{= ${packingListDispatchModel>/isQRConfirmed} ? false : true}" liveChange="onQRLiveChange" class="sapUiTinyMarginEnd"></Input>
                         <Button text="Validate QR" press="onValidateQRPress" visible="{= ${packingListDispatchModel>/isQRConfirmed} ? false : true}" enabled="{packingListDispatchModel>/isValidateButtonEnabled}" class="sapUiTinyMarginBegin"></Button>
                     </HBox> -->
                     <FlexBox alignItems="Start">
-                        <Input valueState="{packingListDispatchModel>/valueState}" valueStateText="{packingListDispatchModel>/valueStateText}" value="{packingListDispatchModel>/QRNumber}" editable="{= ${packingListDispatchModel>/isQRConfirmed} ? false : true}" liveChange="onQRLiveChange" class="sapUiTinyMarginEnd">
+                        <Input valueState="{packingListDispatchModel>/valueState}" valueStateText="{packingListDispatchModel>/valueStateText}" 
+                            value="{packingListDispatchModel>/QRNumber}" editable="{= ${packingListDispatchModel>/isQRConfirmed} ? false : true}" 
+                            liveChange="onQRLiveChange" class="sapUiTinyMarginEnd">
                         <layoutData>
                         <FlexItemData growFactor="2" />
                         </layoutData>
                         </Input>
-                         <Button text="Validate QR" press="onValidateQRPress" visible="{= ${packingListDispatchModel>/isQRConfirmed} ? false : true}" enabled="{packingListDispatchModel>/isValidateButtonEnabled}" class="sapUiTinyMarginBegin">
+                        <Button text="{i18n>ValidateQR}" press="onValidateQRPress" visible="{= ${packingListDispatchModel>/isQRConfirmed} ? false : true}"
+                            enabled="{packingListDispatchModel>/isValidateButtonEnabled}" class="sapUiTinyMarginBegin">
                         <layoutData>
                         <FlexItemData growFactor="1" />
                         </layoutData>
                         </Button>
                         </FlexBox>
-                    <Text text="OR"  visible="{= ${packingListDispatchModel>/isQRConfirmed} ? false : true}"/>
-                    <scan:BarcodeScannerButton id="idQRBtn" scanSuccess="onScanSuccess" scanFail="onScanError" width="10%"  visible="{= ${packingListDispatchModel>/isQRConfirmed} ? false : true}"/>
-                    <Label text="Add Total Gross weight of the Packing List in MT" visible="{= ${packingListDispatchModel>/isQRConfirmed}}"></Label>
-                    <Input value="{packingListDispatchModel>/weight}" visible="{= ${packingListDispatchModel>/isQRConfirmed}}" type="Number" liveChange="onWeightLiveChange"></Input>
+                    <Text text="{i18n>OR}"  visible="{= ${packingListDispatchModel>/isQRConfirmed} ? false : true}"/>
+                    <scan:BarcodeScannerButton id="idQRBtn" scanSuccess="onScanSuccess" scanFail="onScanError" width="10%"  
+                        visible="{= ${packingListDispatchModel>/isQRConfirmed} ? false : true}"/>
+                    <Label text="{i18n>AddTotalGrossWeightInMT}" visible="{= ${packingListDispatchModel>/isQRConfirmed}}"/>
+                    <Input value="{packingListDispatchModel>/weight}" visible="{= ${packingListDispatchModel>/isQRConfirmed}}"
+                        type="Number" liveChange="onWeightLiveChange"/>
                 </f:SimpleForm>
             </l:content>
         </l:Grid>
         <beginButton>
-            <Button text="Close" press="onCloseDispatchDialogPress"></Button>
+            <Button text="{i18n>Close}" press="onCloseDispatchDialogPress"/>
         </beginButton>
         <endButton>
-            <Button text="Dispatch" press="onDispatchPackingListPress" visible="{= ${packingListDispatchModel>/isQRConfirmed}}" enabled="{packingListDispatchModel>/isDispatchButtonEnabled}" type="Emphasized"></Button>
+            <Button text="{i18n>Dispatch}" press="onDispatchPackingListPress"  type="Emphasized"
+                visible="{= ${packingListDispatchModel>/isQRConfirmed}}" enabled="{packingListDispatchModel>/isDispatchButtonEnabled}"/>
         </endButton>
     </Dialog>
 </core:FragmentDefinition>

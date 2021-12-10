@@ -22,7 +22,7 @@
                 </headerToolbar>
                 <StandardListItem title="{Name}" description="Description: {Description}" info="Material Code: {MaterialCode}" type="Navigation" press="onParentLineItemPress"/>
             </List>-->
-<List id="idParentLineItemList"/>
+        <List id="idParentLineItemList"/>
 
         </f:content>
     </f:DynamicPage>

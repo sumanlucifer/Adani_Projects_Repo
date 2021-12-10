@@ -39,7 +39,7 @@
                 </uxap:snappedTitleOnMobile>
                 <uxap:actions>
                     <VBox visible="true">
-                        <Button id="btnSubmit" text="Submit" press="onSendConsumptionRequestPress" type="Emphasized"/>
+                        <Button id="btnSubmit" text="{i18n>Submit}" press="onSendConsumptionRequestPress" type="Emphasized"/>
                     </VBox>
                 </uxap:actions>
             </uxap:ObjectPageDynamicHeaderTitle>

@@ -118,7 +118,14 @@ sap.ui.define([
                     this.onClose();
                 }.bind(this),
                 error: function (oError) {
-                    MessageBox.error(JSON.stringify(oError));
+                    var sErrorMsg = "";
+                    if (oError.responseText) {
+                        sErrorMsg = JSON.parse(oError.responseText).error.message.value;
+                    }
+                    else {
+                        sErrorMsg = "Sorry, a technical error occurred! Please try again later."
+                    }
+                    MessageBox.error(sErrorMsg);
                     this.onClose();
                 }.bind(this)
             });

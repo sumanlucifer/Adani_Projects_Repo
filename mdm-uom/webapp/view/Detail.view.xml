@@ -27,10 +27,10 @@
                     <Title text="{Name}" wrapping="true" titleStyle="Auto"/>
                 </uxap:snappedTitleOnMobile>
                 <uxap:actions>
-                    <Button id="idBtnEdit" text="Edit" icon="sap-icon://edit" press="onEdit" 
+                    <Button id="idBtnEdit" text="{i18n>Edit}" icon="sap-icon://edit" press="onEdit" 
                                     visible="{= ${objectViewModel>/idBtnEdit}}"/>
 					
-                    <Button id="idBtnDelete" text="Delete" type="Reject" visible="{= ${objectViewModel>/idBtnDelete}}"
+                    <Button id="idBtnDelete" text="{i18n>Delete}" type="Reject" visible="{= ${objectViewModel>/idBtnDelete}}"
                         press="onDeletePress"/>
                 </uxap:actions> 
             </uxap:ObjectPageDynamicHeaderTitle>
@@ -61,10 +61,10 @@
 			                adjustLabelSpan="false"	emptySpanXL="4" emptySpanL="4" emptySpanM="4"
 			                emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false" >
 			                <f:content>
-				                <Label text="Name" />
+				                <Label text="{i18n>name}" />
 				                <Input id="name" value="{Name}" editable="false" />
 				
-                                <Label text="Description" />
+                                <Label text="{i18n>Description}" />
 				                <Input id="desc1" value="{Description}" editable="false"/>
 			                </f:content>    
 		                </f:SimpleForm>
@@ -75,10 +75,10 @@
 			                adjustLabelSpan="false"	emptySpanXL="4" emptySpanL="4" emptySpanM="4"
 			                emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false" >
 			                <f:content>
-				                <Label text="Name" />
+				                <Label text="{i18n>name}" />
 				                <Input id="nameEdit" value="{Name}" />
 				
-                                <Label text="Description" />
+                                <Label text="{i18n>Description}" />
 				                <Input id="nameDesc" value="{Description}"/>
 			                </f:content>    
 		                </f:SimpleForm>
@@ -101,9 +101,9 @@
          <uxap:footer>
             <OverflowToolbar>
             <ToolbarSpacer/>
-            <Button id="idBtnSave" text="Save" icon="sap-icon://save" press="onSave"
+            <Button id="idBtnSave" text="{i18n>Save}" icon="sap-icon://save" press="onSave"
                                type="Accept" visible="{= ${objectViewModel>/idBtnSave}}"/>
-			<Button id="idBtnCancel" text="Cancel" icon="sap-icon://cancel" press="onCancel" 
+			<Button id="idBtnCancel" text="{i18n>Cancel}" icon="sap-icon://cancel" press="onCancel" 
                                     visible="{= ${objectViewModel>/idBtnCancel}}"/>
             </OverflowToolbar>
          </uxap:footer>

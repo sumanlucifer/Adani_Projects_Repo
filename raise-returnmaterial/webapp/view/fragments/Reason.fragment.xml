@@ -6,7 +6,7 @@
         <l:Grid defaultSpan="L12 M12 S12" width="auto">
             <l:content>
                 <f:SimpleForm minWidth="1024" maxContainerCols="2" editable="false" layout="ResponsiveGridLayout" labelSpanL="3" labelSpanM="3" emptySpanL="4" emptySpanM="4" columnsL="2" columnsM="2">
-                    <Label text="Enter Reason" required="true"></Label>
+                    <Label text="{i18n>EnterReason}" required="true"></Label>
                     <!-- <Input value="{qrAssistantModel>/reason}"></Input> -->
 
                     <Select id="idSelReason" forceSelection="false"
@@ -19,7 +19,7 @@
 					        <core:Item key="{ID}" text="{Name}" />
 				    </Select>
 
-                    <Label text="Comments" required="true"></Label>
+                    <Label text="{i18n>Comments}" required="true"></Label>
                     <TextArea id="idTxtComment" value="{qrAssistantModel>/comment}"
                          valueState="{qrAssistantModel>/commentValueState}"
                          liveChange="onLiveChangeComment" />
@@ -28,10 +28,10 @@
         </l:Grid>
         
         <beginButton>
-            <Button text="Send" press="onSendAssistanceRequestPress"></Button>
+            <Button text="{i18n>Send}" press="onSendAssistanceRequestPress"></Button>
         </beginButton>
         <endButton>           
-            <Button text="Cancel" press="onCancelAssistanceRequestPress"></Button>            
+            <Button text="{i18n>Cancel}" press="onCancelAssistanceRequestPress"></Button>            
         </endButton>
     </Dialog>
 </core:FragmentDefinition>

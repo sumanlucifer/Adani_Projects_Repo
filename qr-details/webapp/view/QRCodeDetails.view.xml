@@ -23,18 +23,18 @@
                 </uxap:breadcrumbs>
                 <uxap:expandedHeading>
                     <FlexBox direction="Column" renderType="Bare">
-                        <Title text="Packing List Details - {Name}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
+                        <Title text="{i18n>PackingListDetails} - {Name}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
                         <ObjectStatus id="idStatus" text="{Status}" state="{= ${Status}=== 'SAVED' ? 'Indication05' : ${Status}=== 'DISPATCHED' ? 'Indication06' : 'Indication08'}"/>
                     </FlexBox>
                 </uxap:expandedHeading>
                 <uxap:snappedHeading>
                     <FlexBox direction="Column" renderType="Bare">
-                        <Title text="Packing List Details - {Name}" wrapping="true" titleStyle="H4"/>
+                        <Title text="{i18n>PackingListDetails} - {Name}" wrapping="true" titleStyle="H4"/>
                     </FlexBox>
                 </uxap:snappedHeading>
                 <uxap:expandedContent></uxap:expandedContent>
                 <uxap:snappedTitleOnMobile>
-                    <Title text="Packing List Details - {Name}" wrapping="true" titleStyle="Auto"/>
+                    <Title text="{i18n>PackingListDetails} - {Name}" wrapping="true" titleStyle="Auto"/>
                 </uxap:snappedTitleOnMobile>
                 <uxap:actions>
 
@@ -86,9 +86,9 @@
                     <VBox class="sapUiMediumMarginBeginEnd">
                         <Title text="{i18n>pOandASNDetails}" titleStyle="H6"/>
                         <!-- <ObjectStatus title="Invoice Number" text="{InvoiceNumber}"/> -->
-                        <ObjectStatus title="ASN Number" text="Missing"/>
-                        <ObjectStatus title="PO Number" text="{PONumber}"/>
-                        <ObjectStatus title="ASN Creation Date" text="Missing"/>
+                        <ObjectStatus title="{i18n>ASNNumber}" text="{i18n>Missing}"/>
+                        <ObjectStatus title="{i18n>PONumber}" text="{PONumber}"/>
+                        <ObjectStatus title="{i18n>ASNCreationDate}" text="{i18n>Missing}"/>
                         <!-- <ObjectStatus title="Invoice Date" text="{InvoiceDate}"/> -->
                         <!-- <ObjectStatus title="Status" text="{Status}"/> -->
                     </VBox>
@@ -134,23 +134,18 @@
                             <linePackingItems:LineItemsTable class="sapUxAPObjectPageSubSectionAlignContent" OnViewBOQItemsPress="onViewBOQItemsPress" OnViewQRCode="onViewQRCode" OnViewQRCode1="OnViewQRCode1" OnViewQRCodePress = "onViewQRCodePress"/>
                         </uxap:blocks>
                     </uxap:ObjectPageSubSection>
-                    <uxap:ObjectPageSubSection title="Outer Packaging">
+                    <uxap:ObjectPageSubSection title="{i18n>OuterPackaging}">
                         <uxap:blocks>
                             <outerPackaging:OuterPackaging OnViewQRCodePress="onViewQRCodePress" class="sapUxAPObjectPageSubSectionAlignContent"/>
                         </uxap:blocks>
                     </uxap:ObjectPageSubSection>
-                    <uxap:ObjectPageSubSection title="Inner Packaging">
+                    <uxap:ObjectPageSubSection title="{i18n>InnerPackaging}">
                         <uxap:blocks>
                             <innerPackaging:InnerPackaging class="sapUxAPObjectPageSubSectionAlignContent" OnViewQRCodePress = "onViewQRCodePress"/>
                         </uxap:blocks>
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>
             </uxap:ObjectPageSection>
-
-            
-            
-            
-            
         </uxap:sections>
     </uxap:ObjectPageLayout>
 

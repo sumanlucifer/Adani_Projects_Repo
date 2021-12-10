@@ -32,7 +32,7 @@
                         <!-- <Button id="idQRSubmit" text="{i18n>scanQrCode}" type="Emphasized" press="onPressScanQRCode" enabled="{oViewModel>/scanQRCode}"/> -->
                     </HBox>
                     <HBox alignItems="Center">
-                        <Text text="OR" class="sapUiTinyMargin"/>
+                        <Text text="{i18n>OR}" class="sapUiTinyMargin"/>
                     </HBox>
 
                     <HBox alignItems="Center">
@@ -41,7 +41,7 @@
                                 <core:Item text="{InvoiceNumber}" key="{InvoiceNumber}" />
                             </suggestionItems>
                         </Input> -->
-                        <Input id="idInvoiceNum" width="100%" valueLiveUpdate="true" showSuggestion="false" placeholder="Enter Invoice Number" showValueHelp="false" class="sapUiSmallMarginEnd" liveChange="onInvoiceSuggestionSelected" enabled="{oViewModel>/inputInvoiceCode}"/>
+                        <Input id="idInvoiceNum" width="100%" valueLiveUpdate="true" showSuggestion="false" placeholder="{i18n>EnterInvoiceNumber}" showValueHelp="false" class="sapUiSmallMarginEnd" liveChange="onInvoiceSuggestionSelected" enabled="{oViewModel>/inputInvoiceCode}"/>
                         <Button id="idInvBtn" text="{i18n>submit}" type="Emphasized" press="onPressSubmitInvoiceNumber" class="sapUiSmallMarginBegin" enabled="{oViewModel>/submitInvoiceCode}"/>
                     </HBox>
                 </uxap:content>

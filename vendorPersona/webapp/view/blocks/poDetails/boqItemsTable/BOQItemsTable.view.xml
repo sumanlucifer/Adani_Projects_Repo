@@ -4,7 +4,6 @@
     xmlns="sap.m"
     xmlns:smartTable="sap.ui.comp.smarttable"
     xmlns:tt="sap.ui.table" controllerName="com.agel.mmts.vendorPersona.view.blocks.poDetails.boqItemsTable.BOQItemsTableController">
-
     <smartTable:SmartTable id="smartTreeTable" entitySet="ParentLineItemSet" tableType="TreeTable" useExportToExcel="false" useVariantManagement="false" 
     useTablePersonalisation="true" placeToolbarInTable="true" showRowCount="true" enableAutoBinding="true" enableAutoColumnWidth="true" 
     beforeRebindTable="onBeforeRebindTreeTable" ignoreFromPersonalisation="DeliveryDate,HSNCode,ID,InspectedQty,IsBOQApplicable,OverseasQrCode,PlantCode,PONumber,Price,Status,StorageLocation,TaxCode,TaxIndicator,Value,IsArchived,Version,DelieveryCompletion,DeletionIndicator,PendingQty">
@@ -12,7 +11,7 @@
         <smartTable:customToolbar>
             <OverflowToolbar design="Transparent">
                 <ToolbarSpacer/>
-                <Button text="Manage BOQ" press="navToManageBOQApp"/>
+                <Button text="{i18n>manageBOQ}" press="navToManageBOQApp"/>
                 <Button icon="sap-icon://refresh" press="onRefreshBOQItems"/>
             </OverflowToolbar>
         </smartTable:customToolbar>
@@ -22,7 +21,7 @@
                     <Label text="{i18n>name}"/>
                     <tt:customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "Name", "leadingProperty": "Name",
-                                                 "columnIndex": 1 ,"sortProperty": "Name","filterProperty": "Name"}'/>
+                            "columnIndex": 1 ,"sortProperty": "Name","filterProperty": "Name"}'/>
                     </tt:customData>
                     <tt:template>
                         <Text text="{Name}" wrapping="false"></Text>
@@ -32,7 +31,7 @@
                     <Label text="{i18n>materialCode}"/>
                     <tt:customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "MaterialCode", "leadingProperty": "MaterialCode",
-                                                 "columnIndex": 0 ,"sortProperty": "NamMaterialCodee","filterProperty": "MaterialCode"}'/>
+                            "columnIndex": 0 ,"sortProperty": "NamMaterialCodee","filterProperty": "MaterialCode"}'/>
                     </tt:customData>
                     <tt:template>
                         <ObjectIdentifier title="{MaterialCode}"></ObjectIdentifier>
@@ -42,7 +41,7 @@
                     <Label text="{i18n>description}" />
                     <tt:customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "Description", "leadingProperty": "Description",
-                                                 "columnIndex": 2 ,"sortProperty": "Description","filterProperty": "Description"}'/>
+                            "columnIndex": 2 ,"sortProperty": "Description","filterProperty": "Description"}'/>
                     </tt:customData>
                     <tt:template>
                         <ExpandableText text="{Description}" overflowMode="Popover" maxCharacters="5"/>
@@ -86,7 +85,7 @@
                     </tt:template>
                 </tt:Column>
                 <tt:Column hAlign="Center">
-                    <Label text="Requested On" />
+                    <Label text="{i18n>RequestedOn}" />
                     <tt:customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "CreatedAt", "leadingProperty":"BOQGroups/CreatedAt", "columnIndex": 7}' />
                     </tt:customData>
@@ -99,7 +98,7 @@
                     </tt:template>
                 </tt:Column>
                 <tt:Column hAlign="Center">
-                    <Label text="Action Date" />
+                    <Label text="{i18n>ActionDate}" />
                     <tt:customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "UpdatedAt", "leadingProperty":"BOQGroups/ApprovedOn", "columnIndex": 8}' />
                     </tt:customData>
@@ -132,7 +131,7 @@
                     </tt:template>
                 </tt:Column>
                 <tt:Column hAlign="Center">
-                    <Label text="Action" />
+                    <Label text="{i18n>Action}" />
                     <tt:customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "Action", "columnIndex": 11}' />
                     </tt:customData>
@@ -140,24 +139,18 @@
                         <Link text="{= ${MaterialCode} ? '' : 'View BOQ Items' }" press="onViewBOQItemPress"></Link>
                     </tt:template>
                 </tt:Column>
-
-
-
                 <tt:Column hAlign="Center">
                     <Label text="{i18n>approveAction}" />
                     <tt:customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "approval", "columnIndex": 12}' />
                     </tt:customData>
-
                     <tt:template>
                         <VBox justifyContent="Center" visible="{= ${MaterialCode} ? false : true }">
-                            <Button text="Send for Approval" visible="{= ${Status}.length>0 ? false : true }" press="onSendForApprovalPress"/>
+                            <Button text="{i18n>SendForApproval}" visible="{= ${Status}.length>0 ? false : true }" press="onSendForApprovalPress"/>
                         </VBox>
                     </tt:template>
                 </tt:Column>
-
             </tt:columns>
-
         </tt:TreeTable>
     </smartTable:SmartTable>
 

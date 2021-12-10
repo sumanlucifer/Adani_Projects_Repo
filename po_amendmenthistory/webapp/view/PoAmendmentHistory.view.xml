@@ -40,7 +40,7 @@
         <uxap:headerContent>
             <FlexBox wrap="Wrap" height="100%" renderType="Bare" direction="Column">
                 <VBox renderType="Bare" class="sapUiMediumMarginEnd">
-                    <Label text="PO Number" />
+                    <Label text="{i18n>PONumber}" />
                     <ObjectStatus text="{AmendmentHistoryModel>/PONumber}"/>
                     <!-- state="{= ${Status}=== 'SAVED' ? 'Indication05' : ${Status}=== 'DISPATCHED' ? 'Indication06' : 'Indication07'}" -->
                 </VBox>

@@ -47,7 +47,7 @@
             </FlexBox>
         </semantic:content>
         <semantic:footerMainAction>
-            <semantic:FooterMainAction id="submitButton" text="Submit" press="onCreateEntry"/>
+            <semantic:FooterMainAction id="submitButton" text="{i18n>Submit}" press="onCreateEntry"/>
         </semantic:footerMainAction>
 
     </semantic:SemanticPage>

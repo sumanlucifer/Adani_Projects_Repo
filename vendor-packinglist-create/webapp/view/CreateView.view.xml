@@ -38,14 +38,17 @@
                 <uxap:actions>
                     <HBox visible="{= ${IsDraft} ? true : false}">
                         <items>
-                            <Button text="Save" icon="sap-icon://save" press="onSavePackingListPress" type="Emphasized" visible="{= ${objectViewModel>/isPackingListInEditModel} ? true : false}" class="sapUiTinyMarginEnd" enabled="{= ${objectViewModel>/isEnteredValuesValid}}"/>
-                            <Button text="Edit" icon="sap-icon://edit" press="onEditPackingListPress" type="Default" visible="{= ${objectViewModel>/isPackingListInEditModel} ? false : true}" />
-                            <Button text="Proceed" class="sapUiTinyMarginBegin" press="onProceedStep1Press" type="Emphasized" visible="{= ${objectViewModel>/isPackingListInEditModel} ? false : true}" enabled="{= ${IsProcessOneCompletes}}"/>
+                            <Button text="{i18n>Save}" icon="sap-icon://save" press="onSavePackingListPress" type="Emphasized" 
+                                visible="{= ${objectViewModel>/isPackingListInEditModel} ? true : false}" class="sapUiTinyMarginEnd" 
+                                enabled="{= ${objectViewModel>/isEnteredValuesValid}}"/>
+                            <Button text="{i18n>Edit}" icon="sap-icon://edit" press="onEditPackingListPress" type="Default" 
+                                visible="{= ${objectViewModel>/isPackingListInEditModel} ? false : true}" />
+                            <Button text="{i18n>Proceed}" class="sapUiTinyMarginBegin" press="onProceedStep1Press" type="Emphasized" 
+                                visible="{= ${objectViewModel>/isPackingListInEditModel} ? false : true}" enabled="{= ${IsProcessOneCompletes}}"/>
                         </items>
                     </HBox>
 
-                    <Button text="Proceed" class="sapUiTinyMarginBegin" press="onProceedStep1Press" type="Emphasized" visible="{= ${IsDraft} ? false : true}"/>
-
+                    <Button text="{i18n>Proceed}" class="sapUiTinyMarginBegin" press="onProceedStep1Press" type="Emphasized" visible="{= ${IsDraft} ? false : true}"/>
 
                     <!--  <Button text="Save" icon="sap-icon://save" press="onSavePackingListPress" type="Emphasized" />
                     <Button text="Edit" icon="sap-icon://edit" press="onEditPackingListPress" type="Default"/>
@@ -59,18 +62,14 @@
                     <FlexBox direction="Row" renderType="Bare" class="sapUiTinyMarginBottom">
                         <VBox renderType="Bare" class="sapUiMediumMarginEnd">
                             <Label text="{i18n>poNumber}" />
-                            <!-- missing -->
                             <Text text="{PONumber}"/>
                         </VBox>
                         <VBox renderType="Bare" class="sapUiMediumMarginEnd">
                             <Label text="{i18n>plantCode}" />
-                            <!-- missing -->
                             <Text text="{PlantCode}"/>
                         </VBox>
                         <VBox renderType="Bare" class="sapUiMediumMarginEnd">
-                            <Label text="Created On" />
-                            <!-- missing -->
-
+                            <Label text="{i18n>CreatedOn}" />
                             <Text text="{path:'CreatedAt',
                                      type: 'sap.ui.model.type.Date',
 				                     formatOptions: {
@@ -105,8 +104,6 @@
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>
             </uxap:ObjectPageSection>
-
-
         </uxap:sections>
     </uxap:ObjectPageLayout>
 </mvc:View>

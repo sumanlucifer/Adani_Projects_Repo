@@ -17,7 +17,7 @@
                 <uxap:snappedHeading>
                     <VBox>
                         <Title text="{Name}" wrapping="true" titleStyle="H3"/>
-                        <CheckBox text="No Parent-Child Relation Applicable" selected="{objectViewModel>/noParentChildRelationFlag}" enabled="{= ${objectViewModel>/hasPClist} ? false : true}"/>
+                        <CheckBox text="{i18n>parentChild}" selected="{objectViewModel>/noParentChildRelationFlag}" enabled="{= ${objectViewModel>/hasPClist} ? false : true}"/>
                     </VBox>
                 </uxap:snappedHeading>
                 <uxap:expandedContent></uxap:expandedContent>
@@ -25,7 +25,7 @@
                     <Title text="{Name}" wrapping="true" titleStyle="Auto"/>
                 </uxap:snappedTitleOnMobile>
                 <uxap:actions>
-                    <Button text="Create BOQ" type="Emphasized" press="onCreateBOQPress" visible="{= ${objectViewModel>/isPCListSelected} || ${objectViewModel>/noParentChildRelationFlag} }"></Button>
+                    <Button text="{i18n>CreateBOQ}" type="Emphasized" press="onCreateBOQPress" visible="{= ${objectViewModel>/isPCListSelected} || ${objectViewModel>/noParentChildRelationFlag} }"></Button>
                     <ToggleButton id="idViewBOQListButton" text="{objectViewModel>/sViewBOQButtonName}" press="onViewBOQRequests"></ToggleButton>
                 </uxap:actions>
             </uxap:ObjectPageDynamicHeaderTitle>
@@ -65,28 +65,28 @@
                             <headerToolbar>
                                 <OverflowToolbar>
                                     <content>
-                                        <Title text="PC Lists"/>
+                                        <Title text="{i18n>PCLists}"/>
                                         <ToolbarSpacer />
-                                        <Button text="Create" icon="sap-icon://add" press="onCreateNewPCListPress" visible="{= ${objectViewModel>/hasPClist} ? false : true}"></Button>
+                                        <Button text="{i18n>Create}" icon="sap-icon://add" press="onCreateNewPCListPress" visible="{= ${objectViewModel>/hasPClist} ? false : true}"></Button>
                                         <!-- <Button text="Use Selected" press="onUseSelectedPress" type="Emphasized" visible="{= ${objectViewModel>/isPCListSelected}}"/> -->
                                     </content>
                                 </OverflowToolbar>
                             </headerToolbar>
                             <columns>
                                 <Column>
-                                    <Text text="Name"/>
+                                    <Text text="{i18n>Name}"/>
                                 </Column>
                                 <Column>
-                                    <Text text="Created On"/>
+                                    <Text text="{i18n>CreatedOn}"/>
                                 </Column>
                                 <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center">
-                                    <Text text="Total Items Count"/>
+                                    <Text text="{i18n>TotalItemsCount}"/>
                                 </Column>
                                 <Column demandPopin="true" minScreenWidth="Desktop">
-                                    <Text text="Recently Used On"/>
+                                    <Text text="{i18n>RecentlyUsedOn}"/>
                                 </Column>
                                 <Column demandPopin="true" minScreenWidth="Desktop">
-                                    <Text text="Action"/>
+                                    <Text text="{i18n>Action}"/>
                                 </Column>
                             </columns>
                             <items>
@@ -106,7 +106,7 @@
                                                         pattern: 'MMMM dd, yyyy'
                                                     }    
                                         }"></Text>
-                                        <Link text="View Items" press="onViewChildItemsPress"/>
+                                        <Link text="{i18n>ViewItems}" press="onViewChildItemsPress"/>
                                     </cells>
                                 </ColumnListItem>
                             </items>
@@ -121,7 +121,7 @@
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection visible="{= ${objectViewModel>/isCreatingPCList}}">
                         <VBox renderType="Bare">
-                            <MessageStrip text="BOQ Items for 1 quantity of {Name}" type="Information" showIcon="true" class="sapUiMediumMarginBottom" visible="{= ${objectViewModel>/noParentChildRelationFlag} ? false : true }" />
+                            <MessageStrip text="{i18n>BOQItemsfor1quantityof} {Name}" type="Information" showIcon="true" class="sapUiMediumMarginBottom" visible="{= ${objectViewModel>/noParentChildRelationFlag} ? false : true }" />
 
 
                             <Table id="idManageBOQTable" growing="true" growingThreshold="10" items="{ManageBOQModel>/boqItems}" visible="{= ${objectViewModel>/noParentChildRelationFlag} ? false : true }">
@@ -129,36 +129,36 @@
                                     <OverflowToolbar>
                                         <content>
                                             <ToolbarSpacer/>
-                                            <Button text="Add Item" icon="sap-icon://add" press="onAddItemPress"></Button>
-                                            <Button text="Save" icon="sap-icon://save" iconFirst="true" press="onSaveManagedBOQItemsPress" type="Emphasized"/>
-                                            <Button text="Cancel" icon="sap-icon://cancel" iconFirst="true" press="onCancelPCListCreationPress"/>
+                                            <Button text="{i18n>AddItem}" icon="sap-icon://add" press="onAddItemPress"></Button>
+                                            <Button text="{i18n>Save}" icon="sap-icon://save" iconFirst="true" press="onSaveManagedBOQItemsPress" type="Emphasized"/>
+                                            <Button text="{i18n>Cancel}" icon="sap-icon://cancel" iconFirst="true" press="onCancelPCListCreationPress"/>
                                         </content>
                                     </OverflowToolbar>
                                 </headerToolbar>
                                 <columns>
                                     <Column>
-                                        <Text text="Item Name"/>
+                                        <Text text="{i18n>ItemName}"/>
                                     </Column>
                                     <Column>
-                                        <Text text="Material Code"/>
+                                        <Text text="{i18n>MaterialCode}"/>
                                     </Column>
                                     <Column>
-                                        <Text text="Description"/>
+                                        <Text text="{i18n>Description}"/>
                                     </Column>
                                     <Column demandPopin="true" minScreenWidth="Tablet">
-                                        <Text text="Base Quantity"/>
+                                        <Text text="{i18n>BaseQuantity}"/>
                                     </Column>
                                     <Column demandPopin="true" minScreenWidth="Desktop">
-                                        <Text text="Remarks"/>
+                                        <Text text="{i18n>Remarks}"/>
                                     </Column>
                                     <Column demandPopin="true" minScreenWidth="Tablet">
-                                        <Text text="UOM"/>
+                                        <Text text="{i18n>UOM}"/>
                                     </Column>
                                     <Column demandPopin="true" minScreenWidth="Tablet">
-                                        <Text text="Weight/Pc"/>
+                                        <Text text="{i18n>WeightperPc}"/>
                                     </Column>
                                     <Column demandPopin="true" minScreenWidth="Tablet">
-                                        <Text text="Total Weight (Qty * Wt/Pc)"/>
+                                        <Text text="{i18n>TotalWeight}"/>
                                     </Column>
                                     <Column width="5%">
                                     </Column>

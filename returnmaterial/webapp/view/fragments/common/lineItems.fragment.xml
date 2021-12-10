@@ -15,17 +15,14 @@
             <Column demandPopin="true" minScreenWidth="Desktop">
                 <Text text="{i18n>ReturnQty}"/>
             </Column>
-            
         </columns>
         <items>
             <ColumnListItem>
                 <cells>
-            
                     <Text text="{LineNumber}" wrappingType="Hyphenated"/>
                     <ObjectIdentifier title="{MaterialCode}"/>
                     <Text text="{Name}" wrappingType="Hyphenated"/>
                     <ExpandableText text="{Description}" maxCharacters="20" overflowMode="Popover"/>
-                    
                 </cells>
             </ColumnListItem>
         </items>

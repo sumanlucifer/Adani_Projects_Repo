@@ -12,42 +12,42 @@
                             rowsUpdated="onRowsUpdated">
 		<ui:columns>
 			<ui:Column width="5%">
-				<Label text="ID"/>
+				<Label text="{i18n>ID}"/>
 				<ui:template>
 					<Text text="{TreeTableModelView>ID}" wrapping="false" />
 				</ui:template>
 			</ui:Column>
 
             <ui:Column width="8%">
-				<Label text="Material Code"/>
+				<Label text="{i18n>materialCode}"/>
 				<ui:template>
 					<Text text="{TreeTableModelView>MaterialCode}" wrapping="false" />
 				</ui:template>
 			</ui:Column>
 
 			<ui:Column width="8%">
-				<Label text="Name"/>
+				<Label text="{i18n>Name}"/>
 				<ui:template>
 					<Text text="{TreeTableModelView>Name}" wrapping="false" />
 				</ui:template>
 			</ui:Column>
 
 			<ui:Column width="12%">
-				<Label text="Description"/>
+				<Label text="{i18n>Description}"/>
 				<ui:template>
                     <ExpandableText text="{TreeTableModelView>Description}" overflowMode="Popover" maxCharacters="32"/>
 				</ui:template>
 			</ui:Column>	
 
 			<ui:Column width="5%">
-				<Label text="Qty"/>
+				<Label text="{i18n>Qty}"/>
 				<ui:template>
 					<Text text="{TreeTableModelView>Qty}" wrapping="false" />
 				</ui:template>
 			</ui:Column>
 
 			<ui:Column width="8%">
-				<Label text="Approved Qty"/>
+				<Label text="{i18n>ApprovedQty}"/>
 				<ui:template>
 					<HBox justifyContent="SpaceAround">
 						<Text text="{TreeTableModelView>MDCCApprovedQty}" />
@@ -56,7 +56,7 @@
 			</ui:Column>
 
 			<ui:Column width="5%">
-				<Label text="UOM"/>
+				<Label text="{i18n>UOM}"/>
 				<ui:template>
 					<Text text="{TreeTableModelView>UOM}" wrapping="false" />
 				</ui:template>

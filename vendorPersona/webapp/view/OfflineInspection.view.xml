@@ -37,7 +37,6 @@
             <FlexBox wrap="Wrap" height="100%" renderType="Bare" direction="Column">
                 <VBox renderType="Bare" class="sapUiMediumMarginEnd">
                     <Label text="{i18n>poNumber}" />
-                    <!-- missing -->
                     <Text id="idPONumber" text="{PONumber}"/>
                 </VBox>
             </FlexBox>
@@ -57,10 +56,13 @@
                             <Table id="idParentItemTable" width="auto" growing="true" growingThreshold="5" items="{path: 'ParentItemModel>/'}" fixedLayout="false" mode="MultiSelect" selectionChange="onSelectionChange">
                                 <columns>
                                     <Column>
+                                        <Text text="{i18n>lineNumber}" wrapping="true" wrappingType="Hyphenated"/>
+                                    </Column>
+                                    <Column>
                                         <Text text="{i18n>materialCode}" wrapping="true" wrappingType="Hyphenated"/>
                                     </Column>
                                     <Column>
-                                        <Text text="Name" wrapping="true"/>
+                                        <Text text="{i18n>Name}" wrapping="true"/>
                                     </Column>
                                     <Column demandPopin="true" minScreenWidth="Desktop">
                                         <Text text="{i18n>description}"/>
@@ -86,13 +88,14 @@
                                     <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center">
                                         <Text text="{i18n>HoldQuantity}" />
                                     </Column>
-                                    <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center">
+                                    <Column demandPopin="true" width="5%" minScreenWidth="Tablet"  hAlign="Center">
                                         <Text text="{i18n>orderUnit}"/>
                                     </Column>
                                 </columns>
                                 <items>
                                     <ColumnListItem>
                                         <cells>
+                                            <Text text="{ParentItemModel>LineNumber}" wrappingType="Hyphenated"/>
                                             <ObjectIdentifier title="{ParentItemModel>MaterialCode}"/>
                                             <Text text="{ParentItemModel>Name}" wrappingType="Hyphenated"/>
                                             <ExpandableText text="{ParentItemModel>Description}" maxCharacters="20" overflowMode="Popover"/>
@@ -119,12 +122,12 @@
                     <uxap:ObjectPageSubSection title="{i18n>Details}">
                         <uxap:blocks>
                             <VBox>
-                                <Label text="Inspection Request Date" required="true"/>
+                                <Label text="{i18n>InspectionRequestDate}" required="true"/>
                                 <DatePicker id="idDpRaisedInspectionDate" width="20%" value="{localAttachmentModel>/RaisedInspectionDate}" valueFormat="yyyy-MM-dd" change="onLiveChangeDate" placeholder="MM/DD/YYYY"/>
-                                <Label text="Actual Inspection Date" required="true"/>
+                                <Label text="{i18n>ActualInspectionDate}" required="true"/>
                                 <DatePicker id="idDpInspectionDate" width="20%" value="{localAttachmentModel>/InspectionDate}" valueFormat="yyyy-MM-dd" change="onLiveChangeDate" placeholder="MM/DD/YYYY"/>
                                 <Title text="{i18n>additionalDetails}" class="sapUiTinyMarginTop"/>
-                                <Label text="Comments" required="true"/>
+                                <Label text="{i18n>comments}" required="true"/>
                                 <TextArea id="idTxtComment" width="100%" value="{localAttachmentModel>/Comment}" liveChange="onLiveChangeComment" maxLength="150"/>
                             </VBox>
                         </uxap:blocks>
@@ -136,25 +139,27 @@
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection title="{i18n>attachments}">
                         <uxap:blocks>
-
                             <VBox >
-
-                         <Text text="*" class="redColor" />
-                                <UploadCollection class="uploadClasstest" maximumFileSize="10"  multiple="true" fileSizeExceed="onFileSizeExceed" filenameLengthExceed="onFileNameLengthExceed" maximumFilenameLength="500" typeMissmatch="onTypeMissmatch" uploadComplete="onUploadComplete" beforeUploadStarts="onBeforeUploadStarts" items="{
-                                    path:'localAttachmentModel>/items', 
-                                    templateShareable: false}" mode="None" selectionChange="onAttachmentChange" instantUpload="false" change="onAttachmentChange" fileDeleted="onFileDeleted">
+                                <Text text="*" class="redColor" />
+                                <UploadCollection class="uploadClasstest" maximumFileSize="10"  multiple="true" 
+                                    fileSizeExceed="onFileSizeExceed" filenameLengthExceed="onFileNameLengthExceed" 
+                                    maximumFilenameLength="500" typeMissmatch="onTypeMissmatch" uploadComplete="onUploadComplete" 
+                                    beforeUploadStarts="onBeforeUploadStarts" mode="None" 
+                                    items="{
+                                        path:'localAttachmentModel>/items', 
+                                        templateShareable: false
+                                    }" 
+                                    selectionChange="onAttachmentChange" instantUpload="false" change="onAttachmentChange" fileDeleted="onFileDeleted">
                                     <items>
                                         <UploadCollectionItem url="{parts: ['localAttachmentModel>/FileName','localAttachmentModel>/Content']}" enableEdit="false" enableDelete="false" visibleDelete="false" visibleEdit="false" fileName="{localAttachmentModel>FileName}" deletePress="onDeleteDocumentPress">
                                         </UploadCollectionItem>
                                     </items>
                                 </UploadCollection>
                             </VBox>
-
                         </uxap:blocks>
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>
             </uxap:ObjectPageSection>
-
         </uxap:sections>
     </uxap:ObjectPageLayout>
 </mvc:View>

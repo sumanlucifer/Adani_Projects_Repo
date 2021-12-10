@@ -2,7 +2,6 @@
     xmlns:core="sap.ui.core"
     xmlns:f="sap.ui.layout.form"
     xmlns="sap.m">
-
     <f:SimpleForm layout="ColumnLayout" columnsM="2" columnsL="3" columnsXL="4" binding="{MasterCompanyCode}" singleContainerFullSize="true" class="style-RemoveTitleHeight">
         <f:content>
             <!-- <core:Title  /> -->
@@ -34,5 +33,4 @@
             <Text text="{IECNo}"/> -->
         </f:content>
     </f:SimpleForm>
-
 </mvc:View>

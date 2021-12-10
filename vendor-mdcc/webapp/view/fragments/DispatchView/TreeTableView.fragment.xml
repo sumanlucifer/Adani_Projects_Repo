@@ -8,7 +8,7 @@
 	<ui:TreeTable id="TreeTableBasicViewDispatch"
                             rows="{path:'TreeTableModelView>/', parameters: {arrayNames:['ChildItemsView']}}"
                             selectionMode="None"  enableSelectAll="false"
-                            title="Line Items" ariaLabelledBy="title"
+                            title="{i18n>lineItems}" ariaLabelledBy="title"
                             rowsUpdated="onRowsUpdated">
 		<ui:columns>
 			<!-- <ui:Column width="5%">
@@ -18,7 +18,7 @@
 				</ui:template>
 			</ui:Column> -->
             <ui:Column width="7%">
-				<Label text="Line Number" wrapping="true"/>
+				<Label text="{i18n>LineNumber}" wrapping="true"/>
 				<ui:template>
 					<Text text="{TreeTableModelView>LineNumber}"  />
 				</ui:template>

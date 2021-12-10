@@ -8,7 +8,7 @@
         <f:title>
             <f:DynamicPageTitle>
                 <f:heading>
-                    <Title id="pageTitle" text="Raise Return Material Request"/>
+                    <Title id="pageTitle" text="{i18n>RaiseReturnMaterialRequest}"/>
                 </f:heading>
                 <f:actions>
                     <!-- <Button text="Raise Return Material Request" press="onConfirmRequest" type="Emphasized"/> -->
@@ -19,12 +19,9 @@
         <f:header>
             <f:DynamicPageHeader pinnable="true">
                 <f:content>
-                 
-
-
                        <HBox alignContent="SpaceAround">
-                        <Input liveChange="onChangeSONumber"    placeholder="Enter SO Number" type="Number"  id="idSoNumber" width="90%"  ></Input>
-                        <Button id="SObtnSubmit" text="Submit" press="onSearch" type="Emphasized"/>
+                        <Input liveChange="onChangeSONumber"    placeholder="{i18n>EnterSONumber}" type="Number"  id="idSoNumber" width="90%"  ></Input>
+                        <Button id="SObtnSubmit" text="{i18n>Submit}" press="onSearch" type="Emphasized"/>
                     </HBox>
                 </f:content>
             </f:DynamicPageHeader>
@@ -37,9 +34,11 @@
                     <Column demandPopin="true" minScreenWidth="Desktop">
                         <Text text="{i18n>MaterialCode}" wrapping="true" wrappingType="Hyphenated"/>
                     </Column>
+                    
                     <Column demandPopin="true" minScreenWidth="Desktop">
                         <Text text="{i18n>Name}" wrapping="true" wrappingType="Hyphenated"/>
                     </Column>
+
                     <Column demandPopin="true" minScreenWidth="Desktop">
                         <Text text="{i18n>Description}" wrapping="true" wrappingType="Hyphenated"/>
                     </Column>
@@ -64,6 +63,7 @@
                     <Column demandPopin="true" minScreenWidth="Desktop" hAlign="Begin">
                         <Text text="{i18n>UOM}"/>
                     </Column>
+
                     <Column demandPopin="true" minScreenWidth="Desktop">
                         <Text text="{i18n>ReturnAsset}"/>
                     </Column>
@@ -96,7 +96,5 @@
             <!-- <core:Fragment fragmentName="com.agel.mmts.returnmaterial.view.fragments.RequestTable" type="XML"/> -->
         </f:content>
     </f:DynamicPage>
-
-    
 </mvc:View>
 

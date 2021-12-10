@@ -17,10 +17,9 @@
                                         enableEdit="false" enableDelete="false" visibleDelete="false" 
                                         visibleEdit="false" fileName="{FileName}">
 							<attributes>
-								<ObjectAttribute title="Uploaded By" text="{UploadedBy}" class="sapUiSmallMarginEnd"/>
-								<ObjectAttribute title="Uploaded On" text= "{path:'UploadedOn', type: 'sap.ui.model.type.Date', formatOptions: {pattern: 'MMMM dd, yyyy'}}"/>
-                               <ObjectAttribute title="Size" text="{path : 'FileSize', formatter : '.formatter.formatFileSize'}"/>
-                            
+								<ObjectAttribute title="{i18n>UploadedBy}" text="{UploadedBy}" class="sapUiSmallMarginEnd"/>
+								<ObjectAttribute title="{i18n>UploadedOn}" text= "{path:'UploadedOn', type: 'sap.ui.model.type.Date', formatOptions: {pattern: 'MMMM dd, yyyy'}}"/>
+                               <ObjectAttribute title="{i18n>Size}" text="{path : 'FileSize', formatter : '.formatter.formatFileSize'}"/>
                             </attributes>
 						</UploadCollectionItem>
 					</items>
@@ -47,7 +46,7 @@
 			</VBox>
 		</content>
 		<endButton>
-			<Button text="Close" press="onViewFileDialogClose" type="Emphasized" />
+			<Button text="{i18n>close}" press="onViewFileDialogClose" type="Emphasized" />
 		</endButton>
 	</Dialog>
 </core:FragmentDefinition>

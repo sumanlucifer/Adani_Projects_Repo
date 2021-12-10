@@ -5,7 +5,7 @@
     <smartTable:SmartTable class="sapUiResponsiveContentPadding" id="idParentRestrictedTable" editable="false" placeToolbarInTable="true" enableAutoBinding="false" entitySet="RestrictedStoreStockParentSet" showFullScreenButton="true" showRowCount="false" tableType="ResponsiveTable" demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" beforeRebindTable="onBeforeRebindRestTable" initialNoDataText="{i18n>EnterPlant}">
 
         <!-- <smartTable:layoutData><FlexItemData growFactor="1" /></smartTable:layoutData> -->
-        <Table id="restrictedTable" sticky="ColumnHeaders,HeaderToolbar" updateFinished="onRestrictedStockUpdateFinished" alternateRowColors="true">
+        <Table id="restrictedTable" growing="true" growingThreshold="20" sticky="ColumnHeaders,HeaderToolbar" updateFinished="onRestrictedStockUpdateFinished" alternateRowColors="true">
             <columns>
                 <Column >
                     <customData>
@@ -50,7 +50,7 @@
                         <core:CustomData key="p13nData" value='\{"columnKey": "CreatedAt", "leadingProperty": "CreatedAt",
                                                  "columnIndex": 7 ,"sortProperty": "CreatedAt","filterProperty": "CreatedAt"}'/>
                     </customData>
-                    <Text text="Created At"/>
+                    <Text text="{i18n>CreatedAt}"/>
                 </Column>
             </columns>
             <items>

@@ -7,11 +7,10 @@
     entitySet="PurchaseOrderSet" tableBindingPath="InspectionCalls" showFullScreenButton="true" showRowCount="false" tableType="ResponsiveTable" 
     demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" beforeRebindTable="onBeforeRebindInspectionTable" 
     enableAutoColumnWidth="true" ignoreFromPersonalisation="CompanyCode,CreatedBy,ID,IsArchived,PONumber,UpdatedAt,UpdatedBy,ConfirmedDate,Currency,DeletionIndicator,PaymentTerm,PlantCode,POReleaseDate,DocumentType,PurchasingGroup,PurchasingOrg,ReleaseIndicator,Status,ValidityEndDate,ValidityStartDate,VendorCode,Version">
-
         <smartTable:customToolbar>
             <OverflowToolbar design="Transparent">
                 <ToolbarSpacer/>
-                <Button text="Post Offline Inspection Details" icon="sap-icon://add-document" press="onOfflineInspectionPress"></Button>
+                <Button text="{i18n>PostOfflineInspectionDetails}" icon="sap-icon://add-document" press="onOfflineInspectionPress"></Button>
             </OverflowToolbar>
         </smartTable:customToolbar>
 
@@ -20,7 +19,7 @@
                 <Column >
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "Notification, OfflineInspectionCallId", "leadingProperty": "Notification, OfflineInspectionCallId" ,
-                                                 "columnIndex": 0 }'/>
+                            "columnIndex": 0 }'/>
                     </customData>
                     <Text text="{i18n>inspectionNumber}"/>
                 </Column>
@@ -28,7 +27,7 @@
                 <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "Type", "leadingProperty": "Type",
-                                                 "columnIndex": 1,"sortProperty": "Type","filterProperty": "Type"}'/>
+                            "columnIndex": 1,"sortProperty": "Type","filterProperty": "Type"}'/>
                     </customData>
                     <Text text="{i18n>Type}"/>
                 </Column>
@@ -36,7 +35,7 @@
                    <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "Category", "leadingProperty": "Category",
-                                                 "columnIndex": 2,"sortProperty": "Category","filterProperty": "Category"}'/>
+                            "columnIndex": 2,"sortProperty": "Category","filterProperty": "Category"}'/>
                     </customData>
                     <Text text="{i18n>Category}"/>
                 </Column>
@@ -45,7 +44,7 @@
                 <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "InspectionDays", "leadingProperty": "InspectionDays",
-                                                 "columnIndex": 3,"sortProperty": "InspectionDays","filterProperty": "InspectionDays"}'/>
+                            "columnIndex": 3,"sortProperty": "InspectionDays","filterProperty": "InspectionDays"}'/>
                     </customData>
                     <Text text="{i18n>InspectionDays}"/>
                 </Column>
@@ -53,7 +52,7 @@
                 <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "RaisedOfflineInspectionDate", "leadingProperty": "RaisedOfflineInspectionDate",
-                                                 "columnIndex": 4 ,"sortProperty": "RaisedOfflineInspectionDate"}'/>
+                            "columnIndex": 4 ,"sortProperty": "RaisedOfflineInspectionDate"}'/>
                     </customData>
                     <Text text="{i18n>RaisedOfflineInspectionDate}"/>
                 </Column>
@@ -61,14 +60,13 @@
                 <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "InspectionDate", "leadingProperty": "InspectionDate",
-                                                 "columnIndex": 5 ,"sortProperty": "InspectionDate"}'/>
+                            "columnIndex": 5 ,"sortProperty": "InspectionDate"}'/>
                     </customData>
-                    <Text text="Actual Inspection Date"/>
+                    <Text text="{i18n>ActualInspectionDate}"/>
                 </Column>
                 
             </columns>
             <items>
-
                 <ColumnListItem type="Navigation" press="onInspectionIDPress">
                     <cells>
                         <ObjectIdentifier title="{= ${Notification}!== '0' ? ${Notification} : ${OfflineInspectionCallId}}" />
@@ -87,10 +85,8 @@
 				                        pattern: 'MMMM dd, yyyy'
 				                     }    
                         }"/>
-                        
                     </cells>
                 </ColumnListItem>
-
             </items>
         </Table>
     </smartTable:SmartTable>

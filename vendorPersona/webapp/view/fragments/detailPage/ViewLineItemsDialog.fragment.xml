@@ -5,7 +5,7 @@
             <core:Fragment fragmentName="com.agel.mmts.vendorPersona.view.fragments.common.lineItems" type="XML" class="sapUiResponsiveMargin"/>
         </content>
         <endButton>
-            <Button text="Close" press="onViewChildDialogClose" type="Emphasized" />
+            <Button text="{i18n>close}" press="onViewChildDialogClose" type="Emphasized" />
         </endButton>
     </Dialog>
 </core:FragmentDefinition>

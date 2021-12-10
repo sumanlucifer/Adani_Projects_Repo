@@ -23,19 +23,19 @@
                 </uxap:breadcrumbs>
                 <uxap:expandedHeading>
                     <FlexBox direction="Column" renderType="Bare">
-                        <Title text="User Details" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
+                        <Title text="{i18n>UserDetails}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
                         <!-- <Title text="{ID}" wrapping="true" titleStyle="H3" /> -->
                     </FlexBox>
                 </uxap:expandedHeading>
                 <uxap:snappedHeading>
                     <FlexBox direction="Column" renderType="Bare">
-                        <Title text="User Details" wrapping="true" titleStyle="H4"/>
+                        <Title text="{i18n>UserDetails}" wrapping="true" titleStyle="H4"/>
                         <!-- <Title text="{ID}" wrapping="true" titleStyle="H3"/> -->
                     </FlexBox>
                 </uxap:snappedHeading>
                 <uxap:expandedContent></uxap:expandedContent>
                 <uxap:snappedTitleOnMobile>
-                    <Title text="User Details" wrapping="true" titleStyle="Auto"/>
+                    <Title text="{i18n>UserDetails}" wrapping="true" titleStyle="Auto"/>
                 </uxap:snappedTitleOnMobile>
                 <uxap:actions>          
                 </uxap:actions>
@@ -46,22 +46,22 @@
                 <VBox renderType="Bare">
                     <FlexBox direction="Row" renderType="Bare" class="sapUiTinyMarginBottom">
                         <VBox renderType="Bare" class="sapUiMediumMarginEnd">
-                            <Label text="First Name" />
+                            <Label text="{i18n>firstName}" />
                             <Text text="{FirstName}"/>
                         </VBox>
                         
                         <VBox renderType="Bare" class="sapUiMediumMarginEnd">
-                            <Label text="Last Name" />
+                            <Label text="{i18n>lastName}" />
                             <Text text="{LastName}"/>
                         </VBox>
 
                         <VBox renderType="Bare" class="sapUiMediumMarginEnd">
-                            <Label text="Email" />
+                            <Label text="{i18n>Email}" />
                             <Link text="{Email}"/>
                         </VBox>
 
                         <VBox renderType="Bare" class="sapUiMediumMarginEnd">
-                            <Label text="Created On" />
+                            <Label text="{i18n>CreatedOn}" />
                             <Text text="{path:'CreatedAt',
                                             type: 'sap.ui.model.type.Date',
                                             formatOptions: {

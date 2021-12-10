@@ -12,7 +12,7 @@
         <f:title>
             <f:DynamicPageTitle>
                 <f:heading >
-                    <Title text="Packing List for Inspection - {inspection_call_id}" wrapping="true" binding="{insp_call}"/>
+                    <Title text="{i18n>PackingListforInspection} - {inspection_call_id}" wrapping="true" binding="{insp_call}"/>
                 </f:heading>
                 <f:breadcrumbs>
                     <Breadcrumbs currentLocationText="{i18n>packingDetails}">
@@ -22,10 +22,10 @@
                     </Breadcrumbs>
                 </f:breadcrumbs>
                 <f:expandedContent>
-                    <Label text="PO Number - {po_number}"/>
+                    <Label text="{i18n>poNumber} - {po_number}"/>
                 </f:expandedContent>
                 <f:snappedContent>
-                    <Label text="PO Number - {po_number}"/>
+                    <Label text="{i18n>poNumber} - {po_number}"/>
                 </f:snappedContent>
                 <f:snappedTitleOnMobile>
                     <!-- <Title text="{inspection_call_id}"/> -->
@@ -33,15 +33,15 @@
                 <f:actions>
                     <VBox visible="{= %{qr_code_ID} ? false : true}">
                         <VBox visible="{= %{qr_code_assistance_ID} ? false : true}">
-                            <Link id= "idQRAssistant" text="no I don't opt to generate QR code" press="onQRAssistantPress" binding="{/qrCodeGenerationAssistanceRequest(...)}"></Link>
+                            <Link id= "idQRAssistant" text="{i18n>noIdontopttogenerateQRcode}" press="onQRAssistantPress" binding="{/qrCodeGenerationAssistanceRequest(...)}"></Link>
                         </VBox>
                     </VBox>
                     <VBox visible="{= %{qr_code_assistance_ID} ? false : true}">
-                        <Button text="Generate QR Code" type="Emphasized" press="onGenerateQRCodePress" binding="{qrCodeModel>/generateQRCode(...)}" visible="{= %{qr_code_ID} ? false : true}"></Button>
+                        <Button text="{i18n>GenerateQRCode}" type="Emphasized" press="onGenerateQRCodePress" binding="{qrCodeModel>/generateQRCode(...)}" visible="{= %{qr_code_ID} ? false : true}"></Button>
                     </VBox>
 
                     <VBox visible="{= %{status} ==='Sent for QR Code Approval' || %{status} ==='QR Code Generated'}">
-                        <Button text="Dispatch" type="Emphasized" press="onDispatchPackingListPress" binding="{/updatePackingListStatus(...)}"></Button>
+                        <Button text="{i18n>Dispatch}" type="Emphasized" press="onDispatchPackingListPress" binding="{/updatePackingListStatus(...)}"></Button>
                     </VBox>
 
                     <Button id="idPrintButton" type="Emphasized" icon="sap-icon://print" press="onPrintPackingListPress" binding="{/downloadPackingListDocument(...)}"></Button>
@@ -56,15 +56,16 @@
                         <items>
                             <VBox renderType="Bare" binding="{qr_code}" alignItems="Center">
                                 <items>
-                                    <Avatar displaySize="XL" badgeIcon="sap-icon://upload" displayShape="Square" src="data:image/jpg;base64,{content}" visible="{= %{content} ? true : false}"/>
+                                    <Avatar displaySize="XL" badgeIcon="sap-icon://upload" displayShape="Square" 
+                                        src="data:image/jpg;base64,{content}" visible="{= %{content} ? true : false}"/>
                                     <Label text="{qr_number}"/>
                                 </items>
                             </VBox>
                             <VBox>
                                 <items>
-                                    <Label text="Created on - {createdAt}"/>
-                                    <ObjectStatus text="Status - {status}" state="{path:'status', formatter: '.formatter.getPackingListStatusColor'}"/>
-                                    <Label text="Vehicle No - {vehicle_no}"/>
+                                    <Label text="{i18n>CreatedOn} - {createdAt}"/>
+                                    <ObjectStatus text="{i18n>status} - {status}" state="{path:'status', formatter: '.formatter.getPackingListStatusColor'}"/>
+                                    <Label text="{i18n>vehicleNo} - {vehicle_no}"/>
                                 </items>
                             </VBox>
                         </items>
@@ -76,11 +77,12 @@
         <f:content>
             <IconTabBar id="idIconTabBarNoIcons" expanded="{device>/isNoPhone}" class="sapUiResponsiveContentPadding">
                 <items>
-                    <IconTabFilter text="Packing List Information">
-                        <Table id="idInspectedParentLineItems" width="auto" items="{packinglist_parent_line_items}" noDataText="{i18n>noParentItems}" growing="true" growingScrollToLoad="true" selectionChange=".onParentItemSelect" mode="SingleSelectMaster">
+                    <IconTabFilter text="{i18n>PackingListInformation}">
+                        <Table id="idInspectedParentLineItems" width="auto" items="{packinglist_parent_line_items}" noDataText="{i18n>noParentItems}" 
+                            growing="true" growingScrollToLoad="true" selectionChange=".onParentItemSelect" mode="SingleSelectMaster">
                             <headerToolbar>
                                 <OverflowToolbar>
-                                    <Title text="Packing List Parent Items" level="H4" id="idInspectedParentItems"/>
+                                    <Title text="{i18n>PackingListParentItems}" level="H4" id="idInspectedParentItems"/>
                                     <ToolbarSpacer />
                                     <SearchField id="idSearchFieldPackingListTable" tooltip="{i18n>searchItem}" placeholder="{i18n>searchItem}" search="onSearch" visible="false">
                                         <layoutData>
@@ -106,13 +108,12 @@
                                     <Text text="{i18n>uom}"/>
                                 </Column>
                                 <Column visible="{= %{qr_code_ID} ? true : false}">
-                                    <Text text="QR Code"/>
+                                    <Text text="{i18n>QRCode}"/>
                                 </Column>
                                 <Column>
                                     <Text text="{i18n>viewChildInspectedMaterials}"/>
                                 </Column>
                             </columns>
-
                             <items>
                                 <ColumnListItem type="Active">
                                     <cells>
@@ -134,29 +135,31 @@
                             </VBox>
                             <VBox visible="true">
                                 <Label/>
-                                <Button text="{i18n>submit}" binding="{/submitVehicleNumber(...)}" press="onPressVehicleNumber" type="Emphasized" visible="{= %{gate/ID} ? false : true}"/>
+                                <Button text="{i18n>Submit}" binding="{/submitVehicleNumber(...)}" press="onPressVehicleNumber" type="Emphasized" visible="{= %{gate/ID} ? false : true}"/>
                             </VBox>
                         </HBox>
                         <HBox visible="{= %{vehicle_no} ? true :  false}" class="sapUiSmallMargin">
                             <VBox>
-                                <Label text="Vehicle Number"/>
+                                <Label text="{i18n>VehicleNumber}"/>
                                 <Text text="{vehicle_no}"/>
                             </VBox>
                         </HBox>
                     </IconTabFilter>
-                    <IconTabFilter text="Invoice">
+                    <IconTabFilter text="{i18n>Invoice}">
                         <HBox visible="{= %{status} === 'Ready to Dispatch' ? false : true &amp;&amp; %{status} === 'QR Code Generated' ? false : true &amp;&amp; %{status} === 'Sent for QR Code Approval' ? false : true &amp;&amp; %{status} === 'Dispatch Initiated' ? false : true &amp;&amp; %{status} === 'Arrived' ? false : true &amp;&amp; %{status} === 'Received' ? false : true}">
                             <VBox class="sapUiSmallMargin">
-                                <Label text="Invoice Number"/>
+                                <Label text="{i18n>invoiceNumber}"/>
                                 <Input id="idInvoiceNo"/>
                             </VBox>
                             <VBox class="sapUiSmallMargin">
-                                <Label text="Invoice Date"/>
+                                <Label text="{i18n>InvoiceDate}"/>
                                 <DatePicker id="DP1" placeholder="DDMMYYYY" change="onDateChange" valueFormat="dd.MM.yyyy" class="sapUiSmallMarginBottom"/>
                             </VBox>
                             <VBox class="sapUiSmallMargin">
                                 <Label/>
-                                <unified:FileUploader id="idInvoiceUploader" buttonOnly="true" buttonText="Upload Invoice" sameFilenameAllowed="true" multiple="false" fileType="csv" mimeType="text/csv" style="Emphasized" change="onInvoiceFileSelectedForUpload"/>
+                                <unified:FileUploader id="idInvoiceUploader" buttonOnly="true" buttonText="Upload Invoice" 
+                                    sameFilenameAllowed="true" multiple="false" fileType="csv" mimeType="text/csv" style="Emphasized"
+                                    change="onInvoiceFileSelectedForUpload"/>
                             </VBox>
                         </HBox>
                         <!-- <UploadCollection maximumFilenameLength="55" maximumFileSize="10" multiple="false" fileSizeExceed="onFileSizeExceed" typeMissmatch="onTypeMissmatch" uploadComplete="onUploadComplete" beforeUploadStarts="onBeforeUploadStarts" items="{
@@ -175,27 +178,30 @@
                                 </UploadCollectionItem>
                             </items>
                         </UploadCollection> -->
-                        <UploadCollection id="idMaterialFileUploader" maximumFilenameLength="55" maximumFileSize="10" multiple="true" items="{
+                        <UploadCollection id="idMaterialFileUploader" maximumFilenameLength="55" maximumFileSize="10" multiple="true" 
+                            items="{
                                     path:'DocumentModel>/PL_Material',
-                                    templateShareable: false}" mode="None" uploadButtonInvisible="true" instantUpload="false">
+                                    templateShareable: false
+                                }" 
+                            mode="None" uploadButtonInvisible="true" instantUpload="false">
                                 <items>
                                     <UploadCollectionItem documentId="{DocumentModel>ID}" url="{parts: ['DocumentModel>FileName','DocumentModel>Content'], 
                                         formatter: '.formatter.fileContent' }" enableEdit="false" enableDelete="false" visibleDelete="false" visibleEdit="false" fileName="{DocumentModel>FileName}">
                                         <attributes>
-                                            <ObjectAttribute title="Uploaded By" text="{DocumentModel>UploadedBy}" class="sapUiSmallMarginEnd"/>
-                                            <ObjectAttribute title="Uploaded On" text="{path:'DocumentModel>CreatedAt',
+                                            <ObjectAttribute title="{i18n>UploadedBy}" text="{DocumentModel>UploadedBy}" class="sapUiSmallMarginEnd"/>
+                                            <ObjectAttribute title="{i18n>UploadedOn}" text="{path:'DocumentModel>CreatedAt',
                                                     type: 'sap.ui.model.type.Date',
                                                     formatOptions: {
                                                         pattern: 'MMMM dd, yyyy'
                                                     }
                                             }"/>
-                                            <ObjectAttribute title="Size" text="{path : 'DocumentModel>FileSize', formatter : '.formatter.formatFileSize'}"/>
+                                            <ObjectAttribute title="{i18n>Size}" text="{path : 'DocumentModel>FileSize', formatter : '.formatter.formatFileSize'}"/>
                                         </attributes>
                                     </UploadCollectionItem>
                                 </items>
                             </UploadCollection>
                     </IconTabFilter>
-                    <IconTabFilter text="Material Details">
+                    <IconTabFilter text="{i18n>MaterialDetails}">
                         <!-- <UploadCollection maximumFilenameLength="55" maximumFileSize="10" multiple="true" fileSizeExceed="onFileSizeExceed" typeMissmatch="onTypeMissmatch" uploadComplete="onUploadComplete" beforeUploadStarts="onBeforeUploadStarts" items="{
                                     path:'attachments',
                                     parameters : {
@@ -219,20 +225,20 @@
                                     <UploadCollectionItem documentId="{DocumentModel>ID}" url="{parts: ['DocumentModel>FileName','DocumentModel>Content'], 
                                         formatter: '.formatter.fileContent' }" enableEdit="false" enableDelete="false" visibleDelete="false" visibleEdit="false" fileName="{DocumentModel>FileName}">
                                         <attributes>
-                                            <ObjectAttribute title="Uploaded By" text="{DocumentModel>UploadedBy}" class="sapUiSmallMarginEnd"/>
-                                            <ObjectAttribute title="Uploaded On" text="{path:'DocumentModel>CreatedAt',
+                                            <ObjectAttribute title="{i18n>UploadedBy}" text="{DocumentModel>UploadedBy}" class="sapUiSmallMarginEnd"/>
+                                            <ObjectAttribute title="{i18n>UploadedOn}" text="{path:'DocumentModel>CreatedAt',
                                                     type: 'sap.ui.model.type.Date',
                                                     formatOptions: {
                                                         pattern: 'MMMM dd, yyyy'
                                                     }
                                             }"/>
-                                            <ObjectAttribute title="Size" text="{path : 'DocumentModel>FileSize', formatter : '.formatter.formatFileSize'}"/>
+                                            <ObjectAttribute title="{i18n>Size}" text="{path : 'DocumentModel>FileSize', formatter : '.formatter.formatFileSize'}"/>
                                         </attributes>
                                     </UploadCollectionItem>
                                 </items>
                             </UploadCollection>
                     </IconTabFilter>
-                    <IconTabFilter text="Other Documents">
+                    <IconTabFilter text="{i18n>OtherDocuments}">
                         <!-- <UploadCollection maximumFilenameLength="55" maximumFileSize="10" multiple="true" fileSizeExceed="onFileSizeExceed" typeMissmatch="onTypeMissmatch" uploadComplete="onUploadComplete" beforeUploadStarts="onBeforeUploadStarts" items="{
                                     path:'attachments',
                                     parameters : {
@@ -254,14 +260,14 @@
                                     <UploadCollectionItem documentId="{DocumentModel>ID}" url="{parts: ['DocumentModel>FileName','DocumentModel>Content'], 
                                         formatter: '.formatter.fileContent' }" enableEdit="false" enableDelete="false" visibleDelete="false" visibleEdit="false" fileName="{DocumentModel>FileName}">
                                         <attributes>
-                                            <ObjectAttribute title="Uploaded By" text="{DocumentModel>UploadedBy}" class="sapUiSmallMarginEnd"/>
-                                            <ObjectAttribute title="Uploaded On" text="{path:'DocumentModel>CreatedAt',
+                                            <ObjectAttribute title="{i18n>UploadedBy}" text="{DocumentModel>UploadedBy}" class="sapUiSmallMarginEnd"/>
+                                            <ObjectAttribute title="{i18n>UploadedOn}" text="{path:'DocumentModel>CreatedAt',
                                                     type: 'sap.ui.model.type.Date',
                                                     formatOptions: {
                                                         pattern: 'MMMM dd, yyyy'
                                                     }
                                             }"/>
-                                            <ObjectAttribute title="Size" text="{path : 'DocumentModel>FileSize', formatter : '.formatter.formatFileSize'}"/>
+                                            <ObjectAttribute title="{i18n>Size}" text="{path : 'DocumentModel>FileSize', formatter : '.formatter.formatFileSize'}"/>
                                         </attributes>
                                     </UploadCollectionItem>
                                 </items>
@@ -269,7 +275,6 @@
                     </IconTabFilter>
                 </items>
             </IconTabBar>
-
         </f:content>
     </f:DynamicPage>
 </mvc:View>

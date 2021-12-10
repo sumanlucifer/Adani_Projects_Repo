@@ -1,4 +1,4 @@
-<mvc:View controllerName="com.agel.mmts.raiseconsumptionporequest.controller.NotFound"
+<mvc:View controllerName="com.agel.mmts.consumptionreservation.controller.NotFound"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m"
     xmlns:core="sap.ui.core"

@@ -23,18 +23,18 @@
                 </uxap:breadcrumbs>
                 <uxap:expandedHeading>
                     <FlexBox direction="Column" renderType="Bare">
-                        <Title text="Packing List Details - {Name}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
+                        <Title text="{i18n>PackingListDetails} - {Name}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
                         <ObjectStatus id="idStatus" text="{Status}" state="{= ${Status}=== 'SAVED' ? 'Indication05' : ${Status}=== 'DISPATCHED' ? 'Indication06' : 'Indication07'}"/>
                     </FlexBox>
                 </uxap:expandedHeading>
                 <uxap:snappedHeading>
                     <FlexBox direction="Column" renderType="Bare">
-                        <Title text="Packing List Details - {Name}" wrapping="true" titleStyle="H4"/>
+                        <Title text="{i18n>PackingListDetails} - {Name}" wrapping="true" titleStyle="H4"/>
                     </FlexBox>
                 </uxap:snappedHeading>
                 <uxap:expandedContent></uxap:expandedContent>
                 <uxap:snappedTitleOnMobile>
-                    <Title text="Packing List Details - {Name}" wrapping="true" titleStyle="Auto"/>
+                    <Title text="{i18n>PackingListDetails} - {Name}" wrapping="true" titleStyle="Auto"/>
                 </uxap:snappedTitleOnMobile>
                 <uxap:actions> 
                 </uxap:actions>
@@ -68,9 +68,9 @@
                         </FlexBox>
                     </VBox>
                     <VBox class="sapUiMediumMarginBeginEnd">
-                        <Title text="PO Details:" titleStyle="H6"/>
+                        <Title text="{i18n>PODetails}" titleStyle="H6"/>
                         <!-- <ObjectStatus title="ASN Number" text="Missing"/> -->
-                        <ObjectStatus title="PO Number" text="{PONumber}"/>
+                        <ObjectStatus title="{i18n>PONOs}" text="{PONumber}"/>
                         <!-- <ObjectStatus title="ASN Creation Date" text="Missing"/> -->
                     </VBox>
                     <VBox class="sapUiMediumMarginBeginEnd">
@@ -101,11 +101,11 @@
                         <uxap:blocks>
                             <f:SimpleForm layout="ColumnLayout" columnsM="2" columnsL="3" columnsXL="4" singleContainerFullSize="true" class="style-RemoveTitleHeight">
                                 <f:content>
-                                    <Label text="Gate Entry Number" />
+                                    <Label text="{i18n>gateEntryNumber}" />
                                     <Text text="{GateEntryNumber}"/>
-                                    <Label text="UD Status" />
+                                    <Label text="{i18n>UDStatus}" />
                                     <Text text="{UDStatus}" />
-                                    <Label text="Gate Entry Date​​​​​​​​​" />
+                                    <Label text="{i18n>gateDate}​​​​​​​​​" />
                                     <Text text="{path:'GateEntryDate',
                                             type: 'sap.ui.model.type.Date',
                                             formatOptions: {
@@ -134,25 +134,25 @@
                                 </headerToolbar>
                                 <columns>
                                     <Column>
-                                        <Text text="Line Number"/>
+                                        <Text text="{i18n>LineNo}"/>
                                     </Column>
                                     <Column>
-                                        <Text text="Material Name"/>
+                                        <Text text="{i18n>MaterialName}"/>
                                     </Column>
                                     <Column>
-                                        <Text text="Order Quantity"/>
+                                        <Text text="{i18n>OrderQuantity}"/>
                                     </Column>
                                     <Column>
-                                        <Text text="MDCC Approved Quantity"/>
+                                        <Text text="{i18n>MDCCApprovedQuantity}"/>
                                     </Column>
                                     <Column>
-                                        <Text text="Dispatch Quantity"/>
+                                        <Text text="{i18n>DispatchQuantity}"/>
                                     </Column>
                                     <Column>
-                                        <Text text="UOM"/>
+                                        <Text text="{i18n>UOM}"/>
                                     </Column>
                                     <Column>
-                                        <Text text="Action"/>
+                                        <Text text="{i18n>Action}"/>
                                     </Column>
                                 </columns>
                                 <items>
@@ -164,7 +164,7 @@
                                             <Text text="{MDCCApprovedQty}"/>
                                             <Text text="{DispatchQty}"/>
                                             <Text text="{UOM}"/>
-                                            <Link text="View QR Code" binding="{QrCode}" visible="{= ${QRNumber} !== '' ? true :false}" press="onViewQRCodePress"/>
+                                            <Link text="{i18n>ViewQRCode}" binding="{QrCode}" visible="{= ${QRNumber} !== '' ? true :false}" press="onViewQRCodePress"/>
                                         </cells>
                                     </ColumnListItem>
                                 </items>
@@ -194,35 +194,35 @@
                                             <!-- <Text text="{i18n>GRNStatus}"/> -->
                                             <ToolbarSpacer />
                                             <VBox>
-                                                <Button text="Request GRN" id="idrequestGRNButton" press="onRequestGRNPress" type="Accept" visible="{=  ${Status} === 'UNLOADING COMPLETED' ? ${IsGRNRaised} === false  ||  ${IsGRNRaised} === null : false}"/>
+                                                <Button text="{i18n>RequestGRN}" id="idrequestGRNButton" press="onRequestGRNPress" type="Accept" visible="{=  ${Status} === 'UNLOADING COMPLETED' ? ${IsGRNRaised} === false  ||  ${IsGRNRaised} === null : false}"/>
                                             </VBox>
                                         </content>
                                     </OverflowToolbar>
                                 </headerToolbar>
                                 <columns>
                                     <Column demandPopin="true" minScreenWidth="Tablet">
-                                        <Text text="Material Document Number"/>
+                                        <Text text="{i18n>MaterialDocumentNumber}"/>
                                     </Column>
                                     <Column demandPopin="true" minScreenWidth="Tablet">
-                                        <Text text="Request Number"/>
+                                        <Text text="{i18n>RequestNumber}"/>
                                     </Column>
                                     <Column demandPopin="true" minScreenWidth="Tablet">
-                                        <Text text="Gate Pass Number"/>
+                                        <Text text="{i18n>GatePassNumber}"/>
                                     </Column>
                                     <Column demandPopin="true" minScreenWidth="Tablet">
-                                        <Text text="PO Number"/>
+                                        <Text text="{i18n>PONumber}"/>
                                     </Column>
                                     <Column demandPopin="true" minScreenWidth="Tablet">
-                                        <Text text="Bill of Lading"/>
+                                        <Text text="{i18n>BillofLading}"/>
                                     </Column>
                                     <Column demandPopin="true" minScreenWidth="Tablet">
-                                        <Text text="Status"/>
+                                        <Text text="{i18n>Status}"/>
                                     </Column>
                                     <Column demandPopin="true" minScreenWidth="Tablet">
-                                        <Text text="Posting Date"/>
+                                        <Text text="{i18n>PostingDate}"/>
                                     </Column>
                                     <Column demandPopin="true" minScreenWidth="Tablet">
-                                        <Text text="Cancellation Date"/>
+                                        <Text text="{i18n>CancellationDate}"/>
                                     </Column>
                                     <Column demandPopin="true" minScreenWidth="Tablet">
                                         <Text text=""/>
@@ -258,8 +258,8 @@
                                                 formatOptions: {
                                                     pattern: 'MMMM dd, yyyy'
                                                 }}" />
-                                            <Link text="UD Details" visible="{= ${IsUDRequired} === true }" press="onUDDetailsPress"/>
-                                            <Link text="Cancel GRN" visible="{= ${Status} === 'ACTIVE' }" press="onCancelGRNPress"/>
+                                            <Link text="{i18n>UDDetails}" visible="{= ${IsUDRequired} === true }" press="onUDDetailsPress"/>
+                                            <Link text="{i18n>CancelGRN}" visible="{= ${Status} === 'ACTIVE' }" press="onCancelGRNPress"/>
                                         </cells>
                                     </ColumnListItem>
                                 </items>
@@ -277,12 +277,12 @@
                             <linePackingItems:LineItemsTable class="sapUxAPObjectPageSubSectionAlignContent"/>
                         </uxap:blocks>
                     </uxap:ObjectPageSubSection>
-                    <uxap:ObjectPageSubSection title="Outer Packaging">
+                    <uxap:ObjectPageSubSection title="{i18n>OuterPackaging}">
                         <uxap:blocks>
                             <outerPackaging:OuterPackaging class="sapUxAPObjectPageSubSectionAlignContent" OnViewQRCodePressSmart="onViewQRCodePressSmart"/>
                         </uxap:blocks>
                     </uxap:ObjectPageSubSection>
-                    <uxap:ObjectPageSubSection title="Primary Packaging">
+                    <uxap:ObjectPageSubSection title="{i18n>PrimaryPackaging}">
                         <uxap:blocks>
                             <innerPackaging:InnerPackaging class="sapUxAPObjectPageSubSectionAlignContent" OnViewQRCodePressSmart = "onViewQRCodePressSmart"/>
                         </uxap:blocks>
@@ -297,13 +297,13 @@
                         <uxap:blocks>
                             <f:SimpleForm layout="ColumnLayout" columnsM="2" columnsL="3" columnsXL="4" singleContainerFullSize="true" class="style-RemoveTitleHeight">
                                 <f:content>
-                                    <Label text="Vehicle Number" />
+                                    <Label text="{i18n>vehicleNumber}" />
                                     <Text text="{VehicleNumber}" />
-                                    <Label text="Invoice Number" />
+                                    <Label text="{i18n>invoiceNum}" />
                                     <Text text="{InvoiceNumber}" />
-                                    <Label text="Packaging Reference Number" />
+                                    <Label text="{i18n>PackagingReferenceNumber}" />
                                     <Text text="{PackagingReferenceNumber}" />
-                                    <Label text="Invoice Date" />
+                                    <Label text="{i18n>invoiceDate}" />
                                     <Text text="{path:'InvoiceDate',
                                      type: 'sap.ui.model.type.Date',
 				                     formatOptions: {
@@ -331,10 +331,10 @@
                                 <items>
                                 <UploadCollectionItem documentId="{ID}" url="{objectViewModel>/serviceUrl}{DocURL}" enableEdit="false" enableDelete="false" visibleDelete="false" visibleEdit="false" fileName="{FileName}">
                                         <attributes>
-                                            <ObjectAttribute title="Material Documnets" text="{ID}" class="sapUiSmallMarginEnd"/>
-                                            <ObjectAttribute title="Invoice Date" text="{path:'CreatedAt', type: 'sap.ui.model.type.Date',
+                                            <ObjectAttribute title="{i18n>MaterialDocumnets}" text="{ID}" class="sapUiSmallMarginEnd"/>
+                                            <ObjectAttribute title="{i18n>InvoiceDate}" text="{path:'CreatedAt', type: 'sap.ui.model.type.Date',
 				                                            formatOptions: {pattern: 'MMMM dd, yyyy'}}"/>
-                                            <ObjectAttribute title="Size" text="{path : 'FileSize', formatter : '.formatter.formatFileSize'}"/>
+                                            <ObjectAttribute title="{i18n>Size}" text="{path : 'FileSize', formatter : '.formatter.formatFileSize'}"/>
                                         </attributes>
                                     </UploadCollectionItem>
                                 </items>
@@ -372,10 +372,10 @@
                                 <items>
                                 <UploadCollectionItem documentId="{ID}" url="{objectViewModel>/serviceUrl}{DocURL}" enableEdit="false" enableDelete="false" visibleDelete="false" visibleEdit="false" fileName="{FileName}">
                                         <attributes>
-                                            <ObjectAttribute title="Material Documnets" text="{ID}" class="sapUiSmallMarginEnd"/>
-                                            <ObjectAttribute title="Invoice Date" text="{path:'CreatedAt', type: 'sap.ui.model.type.Date',
+                                            <ObjectAttribute title="{i18n>MaterialDocumnets}" text="{ID}" class="sapUiSmallMarginEnd"/>
+                                            <ObjectAttribute title="{i18n>InvoiceDate}" text="{path:'CreatedAt', type: 'sap.ui.model.type.Date',
 				                                            formatOptions: {pattern: 'MMMM dd, yyyy'}}"/>
-                                            <ObjectAttribute title="Size" text="{path : 'FileSize', formatter : '.formatter.formatFileSize'}"/>
+                                            <ObjectAttribute title="{i18n>Size}" text="{path : 'FileSize', formatter : '.formatter.formatFileSize'}"/>
                                         </attributes>
                                     </UploadCollectionItem>
                                 </items>
@@ -413,10 +413,10 @@
                                 <items>
                                 <UploadCollectionItem documentId="{ID}" url="{objectViewModel>/serviceUrl}{DocURL}" enableEdit="false" enableDelete="false" visibleDelete="false" visibleEdit="false" fileName="{FileName}">
                                         <attributes>
-                                            <ObjectAttribute title="Material Documents" text="{ID}" class="sapUiSmallMarginEnd"/>
-                                            <ObjectAttribute title="Invoice Date" text="{path:'CreatedAt', type: 'sap.ui.model.type.Date',
+                                            <ObjectAttribute title="{i18n>MaterialDocumnets}" text="{ID}" class="sapUiSmallMarginEnd"/>
+                                            <ObjectAttribute title="{i18n>InvoiceDate}" text="{path:'CreatedAt', type: 'sap.ui.model.type.Date',
 				                                            formatOptions: {pattern: 'MMMM dd, yyyy'}}"/>
-                                            <ObjectAttribute title="Size" text="{path : 'FileSize', formatter : '.formatter.formatFileSize'}"/>
+                                            <ObjectAttribute title="{i18n>Size}" text="{path : 'FileSize', formatter : '.formatter.formatFileSize'}"/>
                                         </attributes>
                                     </UploadCollectionItem>
                                 </items>

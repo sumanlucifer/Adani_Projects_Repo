@@ -5,19 +5,19 @@
             <Table width="auto" growing="true" id="idViewBOQLineItemsTable" growingThreshold="5" items="{path: 'BOQItems'}" class="sapUiResponsiveMargin">
                 <columns>
                     <Column>
-                        <Text text="Item Code" wrapping="true" wrappingType="Hyphenated"/>
+                        <Text text="{i18n>ItemCode}" wrapping="true" wrappingType="Hyphenated"/>
                     </Column>
                     <Column>
-                        <Text text="Item Code" wrapping="true"/>
+                        <Text text="{i18n>ItemCode}" wrapping="true"/>
                     </Column>
                     <Column demandPopin="true" minScreenWidth="Tablet">
-                        <Text text="Item Description"/>
+                        <Text text="{i18n>ItemDescription}"/>
                     </Column>
                     <Column demandPopin="true" minScreenWidth="Tablet" width="auto">
-                        <Text text="BOQ Quantity" />
+                        <Text text="{i18n>BOQQuantity}" />
                     </Column>
                     <Column demandPopin="true" minScreenWidth="Tablet">
-                        <Text text="UOM"/>
+                        <Text text="{i18n>UOM}"/>
                     </Column>
                 </columns>
                 <items>
@@ -34,7 +34,7 @@
             </Table>
         </content>
         <endButton>
-            <Button text="Close" press="onViewChildDialogClose" type="Emphasized" />
+            <Button text="{i18n>Close}" press="onViewChildDialogClose" type="Emphasized" />
         </endButton>
     </Dialog>
 </core:FragmentDefinition>

@@ -24,19 +24,19 @@
                 </uxap:breadcrumbs>
                 <uxap:expandedHeading>
                     <FlexBox direction="Column" renderType="Bare">
-                        <Title text="PMCG Details" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
+                        <Title text="{i18n>PMCGDetails}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
                         <Title text="{PONumber}" wrapping="true" titleStyle="H3" />
                     </FlexBox>
                 </uxap:expandedHeading>
                 <uxap:snappedHeading>
                     <FlexBox direction="Column" renderType="Bare">
-                        <Title text="PMCG Details" wrapping="true" titleStyle="H4"/>
+                        <Title text="{i18n>PMCGDetails}" wrapping="true" titleStyle="H4"/>
                         <Title text="{PONumber}" wrapping="true" titleStyle="H3"/>
                     </FlexBox>
                 </uxap:snappedHeading>
                 <uxap:expandedContent></uxap:expandedContent>
                 <uxap:snappedTitleOnMobile>
-                    <Title text="PMCG Details - {PONumber}" wrapping="true" titleStyle="Auto"/>
+                    <Title text="{i18n>PMCGDetails} - {PONumber}" wrapping="true" titleStyle="Auto"/>
                 </uxap:snappedTitleOnMobile>
                 <uxap:actions>
                 </uxap:actions>
@@ -47,12 +47,12 @@
                 <VBox renderType="Bare">
                     <FlexBox direction="Row" renderType="Bare" class="sapUiTinyMarginBottom">
                         <VBox renderType="Bare" class="sapUiMediumMarginEnd">
-                            <Label text="PO Number" />
+                            <Label text="{i18n>PONumber}" />
                             <!-- missing -->
                             <Text text="{PONumber}"/>
                         </VBox>
                         <VBox renderType="Bare" class="sapUiMediumMarginEnd">
-                            <Label text="Created At" />
+                            <Label text="{i18n>CreatedAt}" />
                             <!-- missing -->
                             <Text text="{path:'CreatedAt',
                                      type: 'sap.ui.model.type.Date',
@@ -62,7 +62,7 @@
                             }"/>
                         </VBox>
                         <VBox renderType="Bare" class="sapUiMediumMarginEnd">
-                            <Label text="Updated At" />
+                            <Label text="{i18n>UpdatedAt}" />
                             <!-- missing -->
                             <Text text="{path:'UpdatedAt',
                                      type: 'sap.ui.model.type.Date',
@@ -142,8 +142,8 @@
                                         <items>
                                             <UploadCollectionItem documentId="{ID}" url="{objectViewModel>/serviceUrl}{DocURL}" enableEdit="false" enableDelete="false" visibleDelete="false" visibleEdit="false" fileName="{FileName}">
                                                 <attributes>
-                                                    <ObjectAttribute title="Uploaded By" text="{UploadedBy}" class="sapUiSmallMarginEnd"/>
-                                                    <ObjectAttribute title="Uploaded On" text= "{path:'UploadedOn', type: 'sap.ui.model.type.Date', formatOptions: {pattern: 'MMMM dd, yyyy'}}"/>
+                                                    <ObjectAttribute title="{i18n>UploadedBy}" text="{UploadedBy}" class="sapUiSmallMarginEnd"/>
+                                                    <ObjectAttribute title="{i18n>UploadedOn}" text= "{path:'UploadedOn', type: 'sap.ui.model.type.Date', formatOptions: {pattern: 'MMMM dd, yyyy'}}"/>
                                                 </attributes>
                                             </UploadCollectionItem>
                                         </items>

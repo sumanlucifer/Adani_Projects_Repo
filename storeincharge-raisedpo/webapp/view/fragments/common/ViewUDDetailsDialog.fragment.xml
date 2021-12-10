@@ -14,29 +14,29 @@
                     <Text text="{Plant}" binding="{UDDetail}"/>
                     <Label text="{i18n>Material}"/>
                     <Text text="{MaterialDocuemntNumber}" binding="{UDDetail}"/>
-                    <Label text="Code group/ sel. set"/>
+                    <Label text="{i18n>Codegroup}"/>
                     <Text text="{CodeGroup}" binding="{UDDetail}"/>
-                    <Label text="PO Date"/>
+                    <Label text="{i18n>PODate}"/>
                     <Text text="{path:'CreatedAt',
                                      type: 'sap.ui.model.type.Date',
 				                     formatOptions: {
 				                        pattern: 'MMMM dd, yyyy'
 				                     }}" binding="{UDDetail}"/>
-                    <Label text="Charcterstic"/>
+                    <Label text="{i18n>Charcterstic}"/>
                     <Text text="{Characteristic}" binding="{UDDetail}"/>
-                    <Label text="Mater insp.charac."/>
+                    <Label text="{i18n>Materinspcharac}"/>
                     <Text text="{MasterInspCharac}" binding="{UDDetail}"/>
-                    <Label text="Short Text"/>
+                    <Label text="{i18n>ShortText}"/>
                     <Text text="{ShortText}" binding="{UDDetail}"/>
-                    <Label text="UD Selected Set"/>
+                    <Label text="{i18n>UDSelectedSet}"/>
                     <Text text="{UDSelectedSet}" binding="{UDDetail}"/>
                     <!-- <Label text="UD Code Group"/>
                     <Text text="{UDCodeGroup}" binding="{UDDetail}"/> -->
-                    <Label text="UD Code"/>
+                    <Label text="{i18n>UDCode}"/>
                     <Text text="{UDCode}" binding="{UDDetail}"/>
-                    <Label text="Long Text"/>
+                    <Label text="{i18n>LongText}"/>
                     <Text text="{LongText}" binding="{UDDetail}"/>
-                    <Label text="UD Code Date"/>
+                    <Label text="{i18n>UDCodeDate}"/>
                     <Text text="{path:'UDCodeDate',
                                      type: 'sap.ui.model.type.Date',
 				                     formatOptions: {
@@ -46,7 +46,7 @@
             </f:SimpleForm>
         </content>
         <endButton>
-            <Button text="Close" press="onViewUDDetailsDialogClose" type="Emphasized" />
+            <Button text="{i18n>Close}" press="onViewUDDetailsDialogClose" type="Emphasized" />
         </endButton>
     </Dialog>
 </core:FragmentDefinition>

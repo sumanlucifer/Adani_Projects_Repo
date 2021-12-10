@@ -5,23 +5,23 @@
     controllerName="com.agel.mmts.vendorPersona.view.blocks.poDetails.packingListTable.PackingListTableController">
 
     <smartTable:SmartTable class="sapUiSizeCompact" id="idPackingListTable" editable="false" placeToolbarInTable="true" enableAutoBinding="true"
-     entitySet="PurchaseOrderSet" tableBindingPath="PackingList" showFullScreenButton="true" showRowCount="false" tableType="ResponsiveTable" demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" beforeRebindTable="onBeforeRebindPackingListTable" 
+     entitySet="PurchaseOrderSet" tableBindingPath="PackingList" showFullScreenButton="true" showRowCount="false" tableType="ResponsiveTable" 
+     demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" beforeRebindTable="onBeforeRebindPackingListTable" 
      ignoreFromPersonalisation="ID,CreatedBy,IsArchived,PONumber,UpdatedAt,UpdatedBy,VendorCode,POReleaseDate,PlantCode,CompanyCode,DocumentType,DeletionIndicator,PurchasingOrg,Version,ValidityStartDate,ValidityEndDate,ReleaseIndicator,PurchasingGroup,ConfirmedDate,Currency,PaymentTerm,">
-
         <Table sticky="ColumnHeaders,HeaderToolbar" updateFinished="onPackingListTableUpdateFinished">
             <columns>
                 <Column >
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "Name", "leadingProperty": "Name",
-                                                 "columnIndex": 0 ,"sortProperty": "Name","filterProperty": "Name"}'/>
+                            "columnIndex": 0 ,"sortProperty": "Name","filterProperty": "Name"}'/>
                     </customData>
-                    <Text text="Packing List Number"/>
+                    <Text text="{i18n>PackingListNumber}"/>
                 </Column>
                 
                 <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "CreatedAt", "leadingProperty": "CreatedAt",
-                                                 "columnIndex": 1 ,"sortProperty": "CreatedAt","filterProperty": "CreatedAt"}'/>
+                            "columnIndex": 1 ,"sortProperty": "CreatedAt","filterProperty": "CreatedAt"}'/>
                     </customData>
                     <Text text="{i18n>issuedate}"/>
                 </Column>
@@ -29,13 +29,12 @@
                 <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "Status", "leadingProperty": "Status",
-                                                 "columnIndex": 2 ,"sortProperty": "Status","filterProperty": "Status"}'/>
+                            "columnIndex": 2 ,"sortProperty": "Status","filterProperty": "Status"}'/>
                     </customData>
-                    <Text text="Status"/>
+                    <Text text="{i18n>status}"/>
                 </Column>
             </columns>
             <items>
-
                 <ColumnListItem type="Navigation" press="onPackingListItemPress">
                     <cells>
                         <Text text="{Name}"/>
@@ -48,7 +47,6 @@
                         <ObjectStatus text="{Status}" state="{= ${Status}=== 'SAVED' ? 'Indication05' : ${Status}=== 'DISPATCHED' ? 'Indication08' : ${Status}=== 'SENT FOR QR CODE APPROVAL' ? 'Indication03' : ${Status}=== 'QR CODE REQUEST APPROVED' ? 'Indication04' : 'Indication02'}"/>
                     </cells>
                 </ColumnListItem>
-
             </items>
         </Table>
     </smartTable:SmartTable>

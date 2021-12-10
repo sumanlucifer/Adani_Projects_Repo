@@ -2,7 +2,9 @@
     xmlns:smartTable="sap.ui.comp.smarttable"
     xmlns:core="sap.ui.core">
 
-    <smartTable:SmartTable class="sapUiResponsiveContentPadding" editable="false" placeToolbarInTable="true" enableAutoBinding="true" entitySet="ReturnMaterialSet" showFullScreenButton="true" showRowCount="true" header="Return Requests" tableType="ResponsiveTable" demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" beforeRebindTable="onBeforeRebindReservationTable" ignoreFromPersonalisation="HeaderText,BillOfLading,IsArchived,CreatedAt,CreatedBy,UpdatedBy,UpdatedAt">
+    <smartTable:SmartTable class="sapUiResponsiveContentPadding" editable="false" placeToolbarInTable="true" enableAutoBinding="true" entitySet="ReturnMaterialSet" showFullScreenButton="true" showRowCount="true" 
+    header="Return Requests" tableType="ResponsiveTable" demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" beforeRebindTable="onBeforeRebindReservationTable" 
+    ignoreFromPersonalisation="HeaderText,BillOfLading,IsArchived,CreatedAt,CreatedBy,UpdatedBy,UpdatedAt">
 
         <Table sticky="ColumnHeaders,HeaderToolbar" alternateRowColors="true">
             <columns>

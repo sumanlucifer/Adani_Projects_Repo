@@ -1,59 +1,53 @@
 <core:FragmentDefinition xmlns="sap.m"
     xmlns:smartTable="sap.ui.comp.smarttable"
     xmlns:core="sap.ui.core">
-    <smartTable:SmartTable class="sapUiResponsiveContentPadding" id="idIssueTable" editable="false" placeToolbarInTable="true" enableAutoBinding="true" 
-    entitySet="ConsumptionPostingReserveSet" showFullScreenButton="true" requestAtLeastFields="ID" header="Reservations" showRowCount="true" 
-    tableType="ResponsiveTable" demandPopin="false" useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" 
-    beforeRebindTable="onbeforeRebindIssueReservedTable" 
-    ignoreFromPersonalisation="ID, RequestDate, CancelledDate, CancelledBy, Comment, CostCentre, WBSNumber, ProfitCentre, GLAccount, ReceivingLocation, IsArchived, CreatedAt, CreatedBy, UpdatedAt, UpdatedBy">
+    <smartTable:SmartTable class="sapUiResponsiveContentPadding" id="idIssueTable" editable="false" 
+        placeToolbarInTable="true" enableAutoBinding="true" entitySet="ConsumptionPostingReserveSet" showFullScreenButton="true"
+        requestAtLeastFields="ID" header="Reservations" showRowCount="true" tableType="ResponsiveTable" demandPopin="false"
+        useExportToExcel="false" useTablePersonalisation="true" useVariantManagement="false" 
+        beforeRebindTable="onbeforeRebindIssueReservedTable" 
+        ignoreFromPersonalisation="ID, RequestDate, CancelledDate, CancelledBy, Comment, CostCentre, WBSNumber, ProfitCentre, GLAccount, ReceivingLocation, IsArchived, CreatedAt, CreatedBy, UpdatedAt, UpdatedBy">
         <Table sticky="ColumnHeaders,HeaderToolbar" updateFinished="onIssueTableUpdateFinished" alternateRowColors="true">
             <columns>
                 <Column >
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "RequestNumber", "leadingProperty": "RequestNumber",
-"columnIndex": 0 ,"sortProperty": "RequestNumber","filterProperty": "RequestNumber"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "RequestNumber", "leadingProperty": "RequestNumber", "columnIndex": 0 ,"sortProperty": "RequestNumber","filterProperty": "RequestNumber"}'/>
                     </customData>
                     <Text text="{i18n>RequestNumber}"/>
                 </Column>
                 <Column >
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "ReservationNumber", "leadingProperty": "ReservationNumber",
-"columnIndex": 1 ,"sortProperty": "ReservationNumber","filterProperty": "ReservationNumber"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "ReservationNumber", "leadingProperty": "ReservationNumber", "columnIndex": 1 ,"sortProperty": "ReservationNumber","filterProperty": "ReservationNumber"}'/>
                     </customData>
                     <Text text="{i18n>reservationNumber}"/>
                 </Column>
                 <Column >
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "Plant", "leadingProperty": "Plant",
-"columnIndex": 2 ,"sortProperty": "Plant","filterProperty": "Plant"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Plant", "leadingProperty": "Plant", "columnIndex": 2 ,"sortProperty": "Plant","filterProperty": "Plant"}'/>
                     </customData>
                     <Text text="{i18n>Plant}"/>
                 </Column>
                 <Column demandPopin="true" minScreenWidth="Desktop">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "GoodsRecipient", "leadingProperty": "GoodsRecipient",
-"columnIndex": 3 ,"sortProperty": "GoodsRecipient","filterProperty": "GoodsRecipient"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "GoodsRecipient", "leadingProperty": "GoodsRecipient", "columnIndex": 3 ,"sortProperty": "GoodsRecipient","filterProperty": "GoodsRecipient"}'/>
                     </customData>
                     <Text text="{i18n>goodsRecipient}"/>
                 </Column>
                 <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "ReservationDate", "leadingProperty": "ReservationDate",
-"columnIndex": 4 ,"sortProperty": "ReservationDate"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "ReservationDate", "leadingProperty": "ReservationDate", "columnIndex": 4 ,"sortProperty": "ReservationDate"}'/>
                     </customData>
                     <Text text="{i18n>reservationDate}"/>
                 </Column>
                 <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "MovementType", "leadingProperty": "MovementType",
-"columnIndex": 5 ,"sortProperty": "MovementType"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "MovementType", "leadingProperty": "MovementType", "columnIndex": 5 ,"sortProperty": "MovementType"}'/>
                     </customData>
                     <Text text="{i18n>MovementType}"/>
                 </Column>
                 <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
-                        <core:CustomData key="p13nData" value='\{"columnKey": "Status", "leadingProperty": "Status",
-"columnIndex": 6 ,"sortProperty": "Status"}'/>
+                        <core:CustomData key="p13nData" value='\{"columnKey": "Status", "leadingProperty": "Status", "columnIndex": 6 ,"sortProperty": "Status"}'/>
                     </customData>
                     <Text text="{i18n>Status}"/>
                 </Column>

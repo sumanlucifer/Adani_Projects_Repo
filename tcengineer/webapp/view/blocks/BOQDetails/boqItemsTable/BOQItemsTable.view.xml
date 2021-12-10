@@ -10,8 +10,8 @@
             <OverflowToolbar >
                 <content>
                     <ToolbarSpacer></ToolbarSpacer>
-                    <Button text="Approve" type="Accept" press="onApproveBOQPress" visible="{= ${Status}=== 'PENDING' ? true : false}"></Button>
-                    <Button text="Reject" type="Reject" press="onRejectBOQPress" visible="{= ${Status}=== 'PENDING' ? true : false}"></Button>
+                    <Button text="{i18n>Approve}" type="Accept" press="onApproveBOQPress" visible="{= ${Status}=== 'PENDING' ? true : false}"></Button>
+                    <Button text="{i18n>Reject}" type="Reject" press="onRejectBOQPress" visible="{= ${Status}=== 'PENDING' ? true : false}"></Button>
                     <!-- <Button icon="sap-icon://sort"></Button>
                     <Button icon="sap-icon://filter"></Button>
                     <Button icon="sap-icon://group"></Button> -->
@@ -20,25 +20,25 @@
         </headerToolbar>
         <columns>
             <Column>
-                <Text text="Material Code"/>
+                <Text text="{i18n>materialCode}"/>
             </Column>
             <Column>
-                <Text text="Material Name"/>
+                <Text text="{i18n>MaterialName}"/>
             </Column>
             <Column>
-                <Text text="Material Description"/>
+                <Text text="{i18n>MaterialDescription}"/>
             </Column>
             <Column>
-                <Text text="Approval Request Quantity"/>
+                <Text text="{i18n>ApprovalRequestQuantity}"/>
             </Column>
             <Column>
-                <Text text="UOM"/>
+                <Text text="{i18n>UOM}"/>
             </Column>
             <Column>
-                <Text text="Total Weight"/>
+                <Text text="{i18n>TotalWeight}"/>
             </Column>
             <Column>
-                <Text text="Remarks"/>
+                <Text text="{i18n>Remarks}"/>
             </Column>
             <!-- <Column>
                 <Text text="Name"/>

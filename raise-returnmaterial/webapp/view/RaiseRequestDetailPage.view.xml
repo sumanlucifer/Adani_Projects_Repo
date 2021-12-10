@@ -37,7 +37,7 @@
                 </uxap:snappedTitleOnMobile>
                 <uxap:actions>
                     <VBox visible="true">
-                        <Button id="idBtnSubmit" text="Submit Request" press="onPressSubmitRequest" 
+                        <Button id="idBtnSubmit" text="{i18n>SubmitRequest}" press="onPressSubmitRequest" 
                             enabled="false" type="Emphasized"/>
                     </VBox>
                 </uxap:actions>
@@ -69,7 +69,6 @@
 				                        pattern: 'MMMM dd, yyyy'
 				                     }
                                 }"/>
-
                                 <!-- <core:Title />  -->
                                 <Label text="{i18n>Materials}" />
                                 <Text text="{Materials}"/>
@@ -92,19 +91,15 @@
                     <uxap:ObjectPageSubSection title="{i18n>IssuedMaterialItems}">
                         <ui:TreeTable id="TreeTable" rows="{path:'TreeTableModelView>/', parameters: {arrayNames:['ChildItemsView']}}" selectionMode="None" enableSelectAll="false" ariaLabelledBy="title" rowsUpdated="onRowsUpdated">
                             <ui:columns>
-
-
                                 <ui:Column width="15%">
-                                    <Label text="Material Code" wrapping="true"/>
+                                    <Label text="{i18n>MaterialCode}" wrapping="true"/>
                                     <ui:template>
-
-
                                         <ObjectIdentifier title="{TreeTableModelView>MaterialCode}" />
                                     </ui:template>
                                 </ui:Column>
 
                                 <ui:Column>
-                                    <Label text="Plant"/>
+                                    <Label text="{i18n>Plant}"/>
                                     <ui:template>
 
                                         <Text text="{TreeTableModelView>Plant}" />
@@ -112,42 +107,35 @@
                                 </ui:Column>
 
                                 <ui:Column>
-                                    <Label text="Name"/>
+                                    <Label text="{i18n>Name}"/>
                                     <ui:template>
                                         <Text text="{TreeTableModelView>Name}" wrapping="false" />
                                     </ui:template>
                                 </ui:Column>
 
                                 <ui:Column>
-                                    <Label text="Issued Quantity"/>
+                                    <Label text="{i18n>IssuedQuantity}"/>
                                     <ui:template>
                                         <Text text="{TreeTableModelView>IssuedQty}" wrapping="false" />
                                     </ui:template>
                                 </ui:Column>
 
                                 <ui:Column>
-                                    <Label text="Balance Quantity"/>
+                                    <Label text="{i18n>BalanceQuantity}"/>
                                     <ui:template>
                                         <Text text="{TreeTableModelView>BalanceQty}" wrapping="false" />
                                     </ui:template>
                                 </ui:Column>
 
                                 <ui:Column>
-                                    <Label text="Return Quantity"/>
+                                    <Label text="{i18n>ReturnQuantity}"/>
                                     <ui:template>
-
-
-
                                         <HBox>
                                             <Input value="{TreeTableModelView>ReturnedQty}" type="Number" editable="false" liveChange="onLiveChangeReturnQty" visible="{TreeTableModelView>isStandAlone}" />
                                             <ToggleButton icon="sap-icon://edit" visible="{TreeTableModelView>isStandAlone}" pressed="false" press="onEditQuantityPressed"/>
-
-
                                         </HBox>
                                     </ui:template>
                                 </ui:Column>
-
-
                             </ui:columns>
                         </ui:TreeTable>
                     </uxap:ObjectPageSubSection>

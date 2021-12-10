@@ -34,8 +34,8 @@
                     <Title text="{i18n>issueMaterial}- {ReservationNumber}" wrapping="true" titleStyle="Auto"/>
                 </uxap:snappedTitleOnMobile>
                 <uxap:actions>
-                        <Button text="Scan OR Enter QR Code" press="onPressScanQR" type="Emphasized"/>
-                        <Button text="Done" press="onPressDone" type="Accept" visible="{objectViewModel>/doneButton}"/>
+                        <Button text="{i18n>ScanOREnterQRCode}" press="onPressScanQR" type="Emphasized"/>
+                        <Button text="{i18n>Done}" press="onPressDone" type="Accept" visible="{objectViewModel>/doneButton}"/>
                 </uxap:actions>
             </uxap:ObjectPageDynamicHeaderTitle>
         </uxap:headerTitle>

@@ -10,12 +10,12 @@
         <f:title>
             <f:DynamicPageTitle>
                 <f:heading>
-                    <Title id="pageTitle" text="Create Issue Reservation"/>
+                    <Title id="pageTitle" text="{i18n>CreateIssueReservation}"/>
                 </f:heading>
                 <f:actions>
                     <HBox visible="{= ${objectViewModel>/isButtonVisible} ? true : true}">
-                        <Button text="Save" id="idBtnSubmit" class="sapUiTinyMarginBegin" press="onSubmitReservation" type="Emphasized" />
-                        <Button text="Reset" class="sapUiTinyMarginBegin" press="onCancelReservation" />
+                        <Button text="{i18n>Save}" id="idBtnSubmit" class="sapUiTinyMarginBegin" press="onSubmitReservation" type="Emphasized" />
+                        <Button text="{i18n>Reset}" class="sapUiTinyMarginBegin" press="onCancelReservation" />
                     </HBox>
                     <!-- <Button text="Raise Return Material Request" press="onConfirmRequest" type="Emphasized"/> -->
                 </f:actions>
@@ -91,7 +91,7 @@
                             <Title text="{i18n>lineItems}" level="H4" />
                             <content>
                                 <ToolbarSpacer></ToolbarSpacer>
-                                <Button text="Add" icon="sap-icon://add" press="onAddReservationItemsPress"></Button>
+                                <Button text="{i18n>Add}" icon="sap-icon://add" press="onAddReservationItemsPress"></Button>
                             </content>
                         </OverflowToolbar>
                     </headerToolbar>

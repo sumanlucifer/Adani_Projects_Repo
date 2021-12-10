@@ -121,7 +121,7 @@
                                         <core:CustomData key="p13nData" value='\{"columnKey": "Name", "leadingProperty": "Name",
                                                  "columnIndex": 0 ,"sortProperty": "Name","filterProperty": "Name"}'/>
                                     </customData>
-                                    <Text text="Packing List Number"/>
+                                    <Text text="{i18n>PackingListNumber}"/>
                                 </Column>
                 
                                 <Column demandPopin="true" minScreenWidth="Tablet">
@@ -129,7 +129,7 @@
                                         <core:CustomData key="p13nData" value='\{"columnKey": "CreatedAt", "leadingProperty": "CreatedAt",
                                                  "columnIndex": 1 ,"sortProperty": "CreatedAt","filterProperty": "CreatedAt"}'/>
                                     </customData>
-                                    <Text text="Created On"/>
+                                    <Text text="{i18n>createdOn}"/>
                                 </Column>
 
                                 <Column demandPopin="true" minScreenWidth="Tablet">
@@ -180,9 +180,9 @@
                                         <items>
                                 <UploadCollectionItem documentId="{ID}" url="{objectViewModel>/serviceUrl}{DocURL}" enableEdit="false" enableDelete="false" visibleDelete="false" visibleEdit="false" fileName="{FileName}">
                                                 <attributes>
-                                                    <ObjectAttribute title="Uploaded By" text="{UploadedBy}" class="sapUiSmallMarginEnd"/>
-                                                    <ObjectAttribute title="Uploaded On" text= "{path:'UploadedOn', type: 'sap.ui.model.type.Date', formatOptions: {pattern: 'MMMM dd, yyyy'}}"/>
-                                                    <ObjectAttribute title="Size" text="{path : 'FileSize', formatter : '.formatter.formatFileSize'}"/>
+                                                    <ObjectAttribute title="{i18n>UploadedBy}" text="{UploadedBy}" class="sapUiSmallMarginEnd"/>
+                                                    <ObjectAttribute title="{i18n>UploadedOn}" text= "{path:'UploadedOn', type: 'sap.ui.model.type.Date', formatOptions: {pattern: 'MMMM dd, yyyy'}}"/>
+                                                    <ObjectAttribute title="{i18n>Size}" text="{path : 'FileSize', formatter : '.formatter.formatFileSize'}"/>
                                                 </attributes>
                                             </UploadCollectionItem>
                                         </items>
@@ -207,12 +207,9 @@
                                         </items>
                                     </UploadCollection> -->
                                 </VBox>
-                          
-                
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>
             </uxap:ObjectPageSection>
-
         </uxap:sections>
     </uxap:ObjectPageLayout>
     </App>

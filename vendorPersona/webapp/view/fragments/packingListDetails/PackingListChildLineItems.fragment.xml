@@ -1,8 +1,9 @@
 <core:FragmentDefinition xmlns="sap.m"
     xmlns:core="sap.ui.core">
-    <Dialog contentHeight="50%" contentWidth="50%" title="Packing List Child Line Items">
+    <Dialog contentHeight="50%" contentWidth="50%" title="{i18n>PackingListChildLineItems}">
         <content>
-            <Table id="idInspectedChildLineItems" width="auto" growing="true" growingScrollToLoad="true" items="{path :'packinglist_child_items', parameters: {
+            <Table id="idInspectedChildLineItems" width="auto" growing="true" growingScrollToLoad="true" 
+            items="{path :'packinglist_child_items', parameters: {
                 $expand : { 
                     'qr_code' : {
                                '$select' : ['content']
@@ -10,16 +11,16 @@
             }}}">
                 <columns>
                     <Column>
-                        <Text text="Material Code"/>
+                        <Text text="{i18n>MaterialCode}"/>
                     </Column>
                     <Column width="40%">
-                        <Text text="Description"/>
+                        <Text text="{i18n>Description}"/>
                     </Column>
                     <Column>
-                        <Text text="Quantity"/>
+                        <Text text="{i18n>quantity}"/>
                     </Column>
                     <Column>
-                        <Text text="UOM"/>
+                        <Text text="{i18n>UOM}"/>
                     </Column>
                     <!-- <Column>
                         <Text text="QR Code"/>
@@ -48,7 +49,7 @@
             </Table>
         </content>
         <endButton>
-            <Button text="Close" press="onViewPackingListChildDialogClose" type="Emphasized" />
+            <Button text="{i18n>close}" press="onViewPackingListChildDialogClose" type="Emphasized" />
         </endButton>
     </Dialog>
 </core:FragmentDefinition>

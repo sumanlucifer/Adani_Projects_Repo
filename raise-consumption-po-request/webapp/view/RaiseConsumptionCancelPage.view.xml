@@ -56,19 +56,19 @@
                             <!-- missing -->
                             <Text text="{path:'CreatedAt',
                                     type: 'sap.ui.model.type.DateTime',
-formatOptions: {
-pattern: 'MMMM dd, yyyy HH:mm:ss'
-}
+                                    formatOptions: {
+                                    pattern: 'MMMM dd, yyyy HH:mm:ss'
+                                    }
                             }"/>
                         </VBox>
                         <VBox renderType="Bare" class="sapUiMediumMarginEnd">
                             <Label text="{i18n>PostingDate}" />
                             <!-- missing -->
                             <Text text="{path:'PostingDate',
-                                 type: 'sap.ui.model.type.DateTime',
-formatOptions: {
-pattern: 'MMMM dd, yyyy HH:mm:ss'
-}
+                                        type: 'sap.ui.model.type.DateTime',
+                                        formatOptions: {
+                                        pattern: 'MMMM dd, yyyy HH:mm:ss'
+                                        }
                             }"/>
                         </VBox>
                         <VBox renderType="Bare" class="sapUiMediumMarginEnd">
@@ -116,9 +116,7 @@ pattern: 'MMMM dd, yyyy HH:mm:ss'
                                 <Text text="{ConsumptionCancelTreeDataModel>MaterialCode}" wrapping="false" />
                             </ui:template>
                         </ui:Column>
-
-
-                                                <ui:Column>
+                        <ui:Column>
                             <Label text="{i18n>BaseUnit}" />
                             <ui:template>
                                 <Text text="{ConsumptionCancelTreeDataModel>BaseUnit}" wrapping="false" />
@@ -142,7 +140,7 @@ pattern: 'MMMM dd, yyyy HH:mm:ss'
                                 <Text text="{ConsumptionCancelTreeDataModel>StorageLocation}" wrapping="false" />
                             </ui:template>
                         </ui:Column>
-                                                <ui:Column>
+                        <ui:Column>
                             <Label text="{i18n>BaseQty}" />
                             <ui:template>
                                 <Text text="{ConsumptionCancelTreeDataModel>BaseQty}" wrapping="false" />
@@ -160,9 +158,6 @@ pattern: 'MMMM dd, yyyy HH:mm:ss'
                                 <Text text="{ConsumptionCancelTreeDataModel>WeightPerPiece}" wrapping="false" />
                             </ui:template>
                         </ui:Column>
-
-
-                        
                         <ui:Column>
                             <Label text="{i18n>BalancedQuantity}" />
                             <ui:template>
@@ -178,15 +173,14 @@ pattern: 'MMMM dd, yyyy HH:mm:ss'
                         <ui:Column>
                             <Label text="{i18n>Status}" />
                             <ui:template>
-            
-                                                       <ObjectStatus text="{ConsumptionCancelTreeDataModel>Status}" state="{= ${ConsumptionCancelTreeDataModel>Status} === 'CONSUMPTION SUCCESSFUL' ? 'Success' : ${Status} === 'CONSUMPTION CANCELLED' ? 'Information' : 'Error'}" visible="{= ${Status}.length>0 ? true : false }"/>
+                           <ObjectStatus text="{ConsumptionCancelTreeDataModel>Status}" state="{= ${ConsumptionCancelTreeDataModel>Status} === 'CONSUMPTION SUCCESSFUL' ? 'Success' : ${Status} === 'CONSUMPTION CANCELLED' ? 'Information' : 'Error'}" visible="{= ${Status}.length>0 ? true : false }"/>
                             </ui:template>
                         </ui:Column>
                     </ui:columns>
                 </ui:TreeTable>
             </VBox>
-                    </uxap:ObjectPageSubSection>
-                </uxap:subSections>
+            </uxap:ObjectPageSubSection>
+            </uxap:subSections>
             </uxap:ObjectPageSection>
         </uxap:sections>
     </uxap:ObjectPageLayout>

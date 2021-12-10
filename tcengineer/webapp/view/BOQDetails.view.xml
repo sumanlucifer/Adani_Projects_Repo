@@ -24,19 +24,19 @@
                 </uxap:breadcrumbs>
                 <uxap:expandedHeading>
                     <FlexBox direction="Column" renderType="Bare">
-                        <Title text="BOQ Approval Request Details" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
+                        <Title text="{i18n>BOQApprovalRequestDetails}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
                         <Title text="{BOQGroupName}" wrapping="true" titleStyle="H3" />
                     </FlexBox>
                 </uxap:expandedHeading>
                 <uxap:snappedHeading>
                     <FlexBox direction="Column" renderType="Bare">
-                        <Title text="BOQ Approval Request Details" wrapping="true" titleStyle="H4"/>
+                        <Title text="{i18n>BOQApprovalRequestDetails}" wrapping="true" titleStyle="H4"/>
                         <Title text="{PONumber}" binding="{ParentLineItem/PurchaseOrder}" wrapping="true" titleStyle="H3"/>
                     </FlexBox>
                 </uxap:snappedHeading>
                 <uxap:expandedContent></uxap:expandedContent>
                 <uxap:snappedTitleOnMobile>
-                    <Title text="BOQ Approval Request Details - {PONumber}" binding="{ParentLineItem/PurchaseOrder}" wrapping="true" titleStyle="Auto"/>
+                    <Title text="{i18n>BOQApprovalRequestDetails} - {PONumber}" binding="{ParentLineItem/PurchaseOrder}" wrapping="true" titleStyle="Auto"/>
                 </uxap:snappedTitleOnMobile>
                 <uxap:actions>
                 </uxap:actions>
@@ -47,12 +47,12 @@
                 <VBox renderType="Bare">
                     <FlexBox direction="Row" renderType="Bare" class="sapUiTinyMarginBottom">
                         <VBox renderType="Bare" class="sapUiMediumMarginEnd" binding="{ParentLineItem/PurchaseOrder}">
-                            <Label text="PO Number" />
+                            <Label text="{i18n>ponum}" />
                             <!-- missing -->
                             <Text text="{PONumber}"/>
                         </VBox>
                         <VBox renderType="Bare" class="sapUiMediumMarginEnd" binding="{ParentLineItem/PurchaseOrder}">
-                            <Label text="PO Issues Date" />
+                            <Label text="{i18n>POIssuesDate}" />
                             <!-- missing -->
                             <Text text="{path:'CreatedAt',
                                      type: 'sap.ui.model.type.Date',
@@ -62,7 +62,7 @@
                             }"/>
                         </VBox>
                         <VBox renderType="Bare" class="sapUiMediumMarginEnd" binding="{ParentLineItem/PurchaseOrder}">
-                            <Label text="PO Target Date" />
+                            <Label text="{i18n>POTargetDate}" />
                             <!-- missing -->
                             <Text text="{path:'ValidityEndDate',
                                      type: 'sap.ui.model.type.Date',
@@ -73,7 +73,7 @@
                         </VBox>
 
                         <VBox renderType="Bare" class="sapUiMediumMarginEnd">
-                            <Label text="BOQ Request Date" />
+                            <Label text="{i18n>BOQRequestDate}" />
                             <!-- missing -->
                             <Text text="{path:'CreatedAt',
                                      type: 'sap.ui.model.type.Date',

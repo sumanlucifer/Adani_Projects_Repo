@@ -4,29 +4,28 @@
     xmlns="sap.m"
     xmlns:smartTable="sap.ui.comp.smarttable"
     xmlns:tt="sap.ui.table" controllerName="com.agel.mmts.vendorpackinglistcreate.view.blocks.packingListDetails.packagingListContains.LineItemsTableController">
-
     <Table id="idBOQItemTable" items="{path: 'PackingListContains'}" autoPopinMode="true" growingThreshold="5" growing="true" fixedLayout="true">
         <columns>
             <Column>
-                <Text text="Material Code"/>
+                <Text text="{i18n>MaterialCode}"/>
             </Column>
             <Column>
-                <Text text="Name"/>
+                <Text text="{i18n>Name}"/>
             </Column>
             <!--  <Column>
                 <Text text="Line Item ID"/>
             </Column> -->
             <Column hAlign="Center">
-                <Text text="Dispatch Qty."/>
+                <Text text="{i18n>DispatchQty}"/>
             </Column>
             <Column>
-                <Text text="UOM"/>
+                <Text text="{i18n>UOM}"/>
             </Column>
             <Column>
-                <Text text="Packaging Type"/>
+                <Text text="{i18n>PackagingType]"/>
             </Column>
             <Column hAlign="Center">
-                <Text text="No. of Packages"/>
+                <Text text="{{i18n>NoofPackages}"/>
             </Column>
             <!-- <Column>
                 <Text text="Action"/>
@@ -48,7 +47,6 @@
             </ColumnListItem>
         </items>
     </Table>
-
 </mvc:View>
 
 

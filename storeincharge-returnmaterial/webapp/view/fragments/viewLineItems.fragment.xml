@@ -12,31 +12,31 @@
         selectionMode="None" enableSelectAll="false" title="{i18n>IssuedMaterialItems}" ariaLabelledBy="title" rowsUpdated="onRowsUpdated">
         <tt:columns>
             <tt:Column width="7%">
-                <Label text="ID" />
+                <Label text="{i18n>ID}" />
                 <tt:template>
                     <Text text="{TreeTableModelView>ID}" />
                 </tt:template>
             </tt:Column>
             <tt:Column width="7%">
-                <Label text="Material Code" wrapping="true"/>
+                <Label text="{i18n>MaterialCode}" wrapping="true"/>
                 <tt:template>
                     <Text text="{TreeTableModelView>MaterialCode}" />
                 </tt:template>
             </tt:Column>
             <tt:Column>
-                <Label text="Plant"/>
+                <Label text="{i18n>Plant}"/>
                 <tt:template>
                     <ObjectIdentifier title="{TreeTableModelView>Plant}" />
                 </tt:template>
             </tt:Column>
             <tt:Column>
-                <Label text="Name"/>
+                <Label text="{i18n>Name}"/>
                 <tt:template>
                     <Text text="{TreeTableModelView>Name}" wrapping="false" />
                 </tt:template>
             </tt:Column>     
             <tt:Column>
-                <Label text="Issued Quantity"/>
+                <Label text="{i18n>IssuedQuantity}"/>
                 <tt:template>
                     <Text text="{TreeTableModelView>IssuedQty}" wrapping="false" />
                 </tt:template>

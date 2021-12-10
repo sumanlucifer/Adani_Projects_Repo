@@ -30,14 +30,11 @@
                     </FlexBox>
                 </uxap:snappedHeading>
                 <uxap:expandedContent></uxap:expandedContent>
-
-
                 <uxap:snappedTitleOnMobile>
                     <Title text="{i18n>SONumber}- {MaterialDocumentNumber}" wrapping="true" titleStyle="Auto"/>
                 </uxap:snappedTitleOnMobile>
                 <uxap:actions>
-                    <Button text="{i18n>CancelIssuedItems>" press="onPressCancelIssuePosting" type="Emphasized" visible="{= ${Status} === 'ISSUED' || ${Status} === 'PARTIALLY ISSUED' || ${Status} === 'PARTIALLY CANCELLED'}" enabled="{objectViewModel>/cancelbutton}"/>
-
+                    <Button text="{i18n>CancelIssuedItems}" press="onPressCancelIssuePosting" type="Emphasized" visible="{= ${Status} === 'ISSUED' || ${Status} === 'PARTIALLY ISSUED' || ${Status} === 'PARTIALLY CANCELLED'}" enabled="{objectViewModel>/cancelbutton}"/>
                 </uxap:actions>
             </uxap:ObjectPageDynamicHeaderTitle>
         </uxap:headerTitle>

@@ -10,7 +10,7 @@
                 <ui:TreeTable  id="TreeTable" rows="{path:'TreeDataModel>/results', parameters: {numberOfExpandedLevels: 1,arrayNames:['treeResponse']}}" selectionMode="None" enableSelectAll="false" ariaLabelledBy="title" rowsUpdated="onRowsUpdated">
                     <ui:columns>
                          <ui:Column>
-                            <Label text="{i18n>Line Number}" />
+                            <Label text="{i18n>LineNumber}" />
                             <ui:template>
                                 <Text text="{TreeDataModel>LineNumber}" wrapping="false" />
                             </ui:template>
@@ -28,7 +28,7 @@
                             </ui:template>
                         </ui:Column>
                          <ui:Column>
-                            <Label text="{i18n>Material Code}" />
+                            <Label text="{i18n>MaterialCode}" />
                             <ui:template>
                                 <Text text="{TreeDataModel>MaterialCode}" wrapping="false" />
                             </ui:template>
@@ -40,23 +40,21 @@
                             </ui:template>
                         </ui:Column>
                              <ui:Column>
-                            <Label text="{i18n>MDCC ApprovedQty}" />
+                            <Label text="{i18n>MDCCApprovedQty}" />
                             <ui:template>
                                 <Text text="{TreeDataModel>MDCCApprovedQty}" wrapping="false" />
                             </ui:template>
                         </ui:Column>
                         <ui:Column>
-                            <Label text="{i18n>Dispatch Qty}" />
+                            <Label text="{i18n>DispatchQty}" />
                             <ui:template>
                                 <Text text="{TreeDataModel>DispatchQty}" wrapping="false" />
                             </ui:template>
                         </ui:Column>
-
-
-                                                <ui:Column>
-                            <Label text="Action" />
+                        <ui:Column>
+                            <Label text="{i18n>Action}" />
                             <ui:template>
-                    <Link binding="{TreeDataModel>QrCode/QRNumber}"  visible="{= ${TreeDataModel>QrCode/QRNumber}}" text="View QR Code"  press="onViewTreeTableQRPress"/>
+                                 <Link binding="{TreeDataModel>QrCode/QRNumber}"  visible="{= ${TreeDataModel>QrCode/QRNumber}}" text="{i18n>ViewQRCode}"  press="onViewTreeTableQRPress"/>
                             </ui:template>
                         </ui:Column>
                     </ui:columns>

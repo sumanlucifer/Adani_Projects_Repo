@@ -6,7 +6,7 @@ xmlns:scan="sap.ndc"
             <VBox class="sapUiResponsiveMargin">
                 <HBox alignItems="Center">
                     <Input id="idInputQRCode" value="{= ${oViewHandlingModel>/unloadQrCode} ? ${oViewHandlingModel>/unloadQrCode} : '' }" 
-                    width="100%" showSuggestion="true" showValueHelp="false" suggestionItems="{/QRCodeSet}" placeholder="Enter QR Number" 
+                    width="100%" showSuggestion="true" showValueHelp="false" suggestionItems="{/QRCodeSet}" placeholder="{i18n>EnterQRNumber}" 
                     valueLiveUpdate="true" suggestionItemSelected="onQRCodeSuggestionSelected" liveChange="_filterQrSuggestion" class="sapUiSmallMargin">
                         <suggestionItems>
                             <core:Item text="{QRNumber}" key="{QRNumber}" />

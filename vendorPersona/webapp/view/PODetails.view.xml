@@ -45,7 +45,7 @@
 
                     </VBox>
                     <VBox visible="{= %{Status}==='PENDING' ? true : false}">
-                        <Button text="Confirm PO" press="onConfirmPO" type="Emphasized"/>
+                        <Button text="{i18n>ConfirmPO}" press="onConfirmPO" type="Emphasized"/>
                     </VBox>
                 </uxap:actions>
             </uxap:ObjectPageDynamicHeaderTitle>
@@ -56,7 +56,6 @@
                     <FlexBox direction="Row" renderType="Bare" class="sapUiTinyMarginBottom">
                         <VBox renderType="Bare" class="sapUiMediumMarginEnd">
                             <Label text="{i18n>issuedDate}" />
-                            <!-- missing -->
                             <Text text="{path:'CreatedAt',
                                      type: 'sap.ui.model.type.Date',
 				                     formatOptions: {
@@ -66,7 +65,6 @@
                         </VBox>
                         <VBox renderType="Bare" class="sapUiMediumMarginEnd" visible="{= ${Status}==='CONFIRMED'}">
                             <Label text="{i18n>confirmedDate}" />
-                            <!-- missing -->
                             <Text text="{path:'ConfirmedDate',
                                      type: 'sap.ui.model.type.Date',
 				                     formatOptions: {
@@ -76,7 +74,6 @@
                         </VBox>
                         <VBox renderType="Bare" class="sapUiMediumMarginEnd">
                             <Label text="{i18n>targetDate}" />
-                            <!-- missing -->
                             <Text text="{path:'ValidityEndDate',
                                      type: 'sap.ui.model.type.Date',
 				                     formatOptions: {
@@ -86,7 +83,6 @@
                         </VBox>
                         <VBox renderType="Bare" class="sapUiMediumMarginEnd">
                             <Label text="{i18n>status}" />
-                            <!-- missing -->
                             <ObjectStatus text="{Status}" state="{= ${Status}==='CONFIRMED' ? 'Success' : 'Warning'}"/>
                         </VBox>
 
@@ -99,7 +95,6 @@
                             <Label text="{i18n>companyCode}" />
                             <Text text="{CompanyCode}"/>
                         </VBox> -->
-
                     </FlexBox>
                 </VBox>
                 <!-- <VBox renderType="Bare">
@@ -173,7 +168,6 @@
                     </uxap:ObjectPageSubSection>
                 </uxap:subSections>
             </uxap:ObjectPageSection>
-
         </uxap:sections>
     </uxap:ObjectPageLayout>
 </mvc:View>

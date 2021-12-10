@@ -8,19 +8,19 @@
     initialNoDataText="{i18n>EnterPlant}" ignoreFromPersonalisation="ID, IsArchived, IsBOQApplicable, IssuedQty, PlantCode, QtyApprovedForReturn, QtyRequestedForReturn, Remaining_Qty, ReservedQty">
 
         <!-- <smartTable:layoutData><FlexItemData growFactor="1" /></smartTable:layoutData> -->
-        <Table id="unrestrictedTable" sticky="ColumnHeaders,HeaderToolbar" alternateRowColors="true" updateFinished="onUnrestrictedStockUpdateFinished">
+        <Table id="unrestrictedTable" growing="true" growingThreshold="20" sticky="ColumnHeaders,HeaderToolbar" alternateRowColors="true" updateFinished="onUnrestrictedStockUpdateFinished">
             <columns>
-                <Column >
+                <!-- <Column >
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "LineNumber", "leadingProperty": "LineNumber",
                                                  "columnIndex": 0 ,"sortProperty": "LineNumber","filterProperty": "LineNumber"}'/>
                     </customData>
                     <Text text="{i18n>LineNumber}"/>
-                </Column>
+                </Column> -->
                 <Column >
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "Name", "leadingProperty": "Name",
-                                                 "columnIndex": 1 ,"sortProperty": "Name","filterProperty": "Name"}'/>
+                                                 "columnIndex": 0 ,"sortProperty": "Name","filterProperty": "Name"}'/>
                     </customData>
                     <Text text="{i18n>ParentName}"/>
                 </Column>
@@ -28,7 +28,7 @@
                 <Column>
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "MaterialCode", "leadingProperty": "MaterialCode",
-                                                 "columnIndex": 2 ,"sortProperty": "MaterialCode","filterProperty": "MaterialCode"}'/>
+                                                 "columnIndex": 1 ,"sortProperty": "MaterialCode","filterProperty": "MaterialCode"}'/>
                     </customData>
                     <Text text="{i18n>MaterialID}"/>
                 </Column>
@@ -36,7 +36,7 @@
                 <Column demandPopin="true" minScreenWidth="Desktop">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "Qty", "leadingProperty": "Qty",
-                                                 "columnIndex": 3 ,"sortProperty": "Qty","filterProperty": "Qty"}'/>
+                                                 "columnIndex": 2 ,"sortProperty": "Qty","filterProperty": "Qty"}'/>
                     </customData>
                     <Text text="{i18n>AvailableQty}"/>
                 </Column>
@@ -44,22 +44,22 @@
                 <Column demandPopin="true" minScreenWidth="Tablet">
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "UOM", "leadingProperty": "UOM",
-                                                 "columnIndex": 4, "sortProperty": "UOM"}'/>
+                                                 "columnIndex": 3, "sortProperty": "UOM"}'/>
                     </customData>
                     <Text text="{i18n>UOM}"/>
                 </Column>
                 <Column>
                     <customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "CreatedAt", "leadingProperty": "CreatedAt",
-                                                 "columnIndex": 7 ,"sortProperty": "CreatedAt","filterProperty": "CreatedAt"}'/>
+                                                 "columnIndex": 4 ,"sortProperty": "CreatedAt","filterProperty": "CreatedAt"}'/>
                     </customData>
-                    <Text text="Created At"/>
+                    <Text text="{i18n>CreatedAt}"/>
                 </Column>
             </columns>
             <items>
                 <ColumnListItem type="Navigation" press="onRestrictdParentTablePress">
                     <cells>
-                        <ObjectIdentifier title="{LineNumber}"/>
+                        <!-- <ObjectIdentifier title="{LineNumber}"/> -->
                         <ObjectIdentifier text="{Name}"/>
                         <ObjectIdentifier text="{MaterialCode}"/>
                         <ObjectIdentifier text="{Qty}"/>

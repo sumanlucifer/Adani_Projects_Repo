@@ -2,15 +2,15 @@
     xmlns:l="sap.ui.layout"
     xmlns:f="sap.ui.layout.form"
     xmlns:core="sap.ui.core">
-    <Dialog title="Do you want to create this BOQ for {boqCreationModel>/dialogTitle}?" id="materialFragment" class="sapUiSmallMargin">
+    <Dialog title="{i18n>DoyouwanttocreatethisBOQfor} {boqCreationModel>/dialogTitle}?" id="materialFragment" class="sapUiSmallMargin">
         <content>
             <!-- <FlexBox wrap="Wrap" renderType="Bare" alignItems="Center" justifyContent="Center" class="sapUiSmallMargin"> -->
             <VBox class="sapUiSmallMargin">
                 <RadioButtonGroup id="idRGBOQType" columns="2" visible="{= ${boqCreationModel>/IsOne2OneLineItem}? false: ${boqCreationModel>/UOM} === 'MT'? false: true}" select="onBOQQtyTypeSelect">
-					<RadioButton text="Full BOQ" selected="{= ${objectViewModel>/BOQQtyType} === 'F' ? true: false}" />
-					<RadioButton text="Partial BOQ" selected="{= ${objectViewModel>/BOQQtyType} === 'P' ? true: false}" />
+					<RadioButton text="{i18n>FullBOQ}" selected="{= ${objectViewModel>/BOQQtyType} === 'F' ? true: false}" />
+					<RadioButton text="{i18n>PartialBOQ}" selected="{= ${objectViewModel>/BOQQtyType} === 'P' ? true: false}" />
 				</RadioButtonGroup>
-                <Label text="Please enter the quantity ({boqCreationModel>/UOM})"></Label>
+                <Label text="{i18n>Pleaseenterthequantity} ({boqCreationModel>/UOM})"></Label>
                 <Input value="{boqCreationModel>/quantity}" liveChange="onQuantityLiveChange" type="Number" valueState="{boqCreationModel>/valueState}" valueStateText="{boqCreationModel>/valueStateText}" editable="{= ${boqCreationModel>/UOM} === 'MT'? false: ${objectViewModel>/BOQQtyType} === 'P' ? false : true }"></Input>
                 <Table visible="{= ${boqCreationModel>/IsOne2OneLineItem}? false: true}" alternateRowColors="true" width="auto" id="idGetBOQLineItemsTable" items="{boqCreationModel>/CalculatedBOQItems}" fixedLayout="false">
                     <columns>
@@ -27,19 +27,19 @@
                             <Text text="{i18n>description}"/>
                         </Column>
                         <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center">
-                            <Text text="Quantity" />
+                            <Text text="{i18n>Quantity}" />
                         </Column>
                         <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center">
-                            <Text text="Remaining Quantity" />
+                            <Text text="{i18n>RemainingQuantity}" />
                         </Column>
                         <Column demandPopin="true" minScreenWidth="Tablet">
-                            <Text text="BOQ Quantity"/>
+                            <Text text="{i18n>BOQQuantity}"/>
                         </Column>
                         <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center">
-                            <Text text="UOM"/>
+                            <Text text="{i18n>UOM}"/>
                         </Column>
                         <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center">
-                            <Text text="Weight Per Piece(in KG)"/>
+                            <Text text="{i18n>WeightPerPieceinkg}"/>
                         </Column>
                         <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center">
                             <Text text="{i18n>TotalItemPerWeight}" />
@@ -71,10 +71,10 @@
             </VBox>
         </content>
         <beginButton>
-            <Button id="idCreateBOQButton" text="Confirm" press="onConfirmCreateBOQPress" type="Emphasized" enabled="{boqCreationModel>/isConfirmButtonEnabled}"></Button>
+            <Button id="idCreateBOQButton" text="{i18n>Confirm}" press="onConfirmCreateBOQPress" type="Emphasized" enabled="{boqCreationModel>/isConfirmButtonEnabled}"></Button>
         </beginButton>
         <endButton>
-            <Button text="Cancel" press="onCancelBOQCreationProcess"></Button>
+            <Button text="{i18n>Cancel}" press="onCancelBOQCreationProcess"></Button>
         </endButton>
     </Dialog>
 </core:FragmentDefinition>

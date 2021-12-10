@@ -3,9 +3,9 @@
     xmlns:f="sap.ui.layout.form"
     xmlns="sap.m">
 
-    <f:SimpleForm singleContainerFullSize="true" layout="ColumnLayout" columnsM="2" columnsL="3" columnsXL="4" binding="{Vendor}" class="style-RemoveTitleHeight">
+    <f:SimpleForm singleContainerFullSize="true" layout="ColumnLayout" columnsM="2" 
+        columnsL="3" columnsXL="4" binding="{Vendor}" class="style-RemoveTitleHeight">
         <f:content>
-            <!-- <core:Title  /> -->
             <Label text="{i18n>vendorName}" />
             <Text text="{Name}" />
             <Label text="{i18n>vendorCode}" />
@@ -21,7 +21,7 @@
             <Link text="{Phone}"/>
             <Label text="{i18n>faxNo}" />
             <Text text="{Fax}"/>
-            <!-- <core:Title  /> -->
+
             <Label text="{i18n>city}"/>
             <!-- <Text text="{City}" binding="{Address}"/> -->
             <Text text=""/>
@@ -35,7 +35,6 @@
             <!-- <Text text="{pinCode}" binding="{Address}"/> -->
             <Text text=""/>
 
-            <!-- <core:Title /> -->
             <Label text="{i18n>addressNoSAP}" />
             <!-- <ExpandableText binding="{Address}" text="{Country}" overflowMode="InPlace"/> -->
             <Text text=""/>
@@ -45,8 +44,6 @@
             <Label text="{i18n>countryCode}" />
             <!-- <Text text="{Country}" binding="{Address}"/> -->
             <Text text=""/>
-
         </f:content>
     </f:SimpleForm>
-
 </mvc:View>

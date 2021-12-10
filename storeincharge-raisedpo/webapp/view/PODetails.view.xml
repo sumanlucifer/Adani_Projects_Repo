@@ -24,19 +24,19 @@
                 </uxap:breadcrumbs>
                 <uxap:expandedHeading>
                     <FlexBox direction="Column" renderType="Bare">
-                        <Title text="PO Details" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
+                        <Title text="{i18n>PODetails}" wrapping="true" titleStyle="H4" class="sapUiTinyMarginTopBottom"/>
                         <Title text="{PONumber}" wrapping="true" titleStyle="H3" />
                     </FlexBox>
                 </uxap:expandedHeading>
                 <uxap:snappedHeading>
                     <FlexBox direction="Column" renderType="Bare">
-                        <Title text="PO Details" wrapping="true" titleStyle="H4"/>
+                        <Title text="{i18n>PODetails}" wrapping="true" titleStyle="H4"/>
                         <Title text="{PONumber}"  wrapping="true" titleStyle="H3"/>
                     </FlexBox>
                 </uxap:snappedHeading>
                 <uxap:expandedContent></uxap:expandedContent>
                 <uxap:snappedTitleOnMobile>
-                    <Title text="PO Details - {PONumber}"  wrapping="true" titleStyle="Auto"/>
+                    <Title text="{i18n>PODetails} - {PONumber}"  wrapping="true" titleStyle="Auto"/>
                 </uxap:snappedTitleOnMobile>
                 <uxap:actions>
                 </uxap:actions>
@@ -51,7 +51,7 @@
                             <Text text="{PONumber}"/>
                         </VBox> -->
                         <VBox renderType="Bare" class="sapUiMediumMarginEnd">
-                            <Label text="PO Release Date" />
+                            <Label text="{i18n>POReleaseDate}" />
                             <Text text="{path:'POReleaseDate',
                                      type: 'sap.ui.model.type.Date',
 				                     formatOptions: {
@@ -60,7 +60,7 @@
                             }"/>
                         </VBox>
                         <VBox renderType="Bare" class="sapUiMediumMarginEnd">
-                            <Label text="Confirmed Date" />
+                            <Label text="{i18n>confirmdate}" />
                             <!-- missing -->
                             <Text text="{path:'ConfirmedDate',
                                      type: 'sap.ui.model.type.Date',
@@ -70,7 +70,7 @@
                             }"/>
                         </VBox>
                         <VBox renderType="Bare" class="sapUiMediumMarginEnd">
-                        <Label text="Status" />
+                        <Label text="{i18n>Status}" />
                        <ObjectStatus text="{Status}" state="{
                                 path: 'Status',
                                 formatter: '.formatter.getListStatusColor'

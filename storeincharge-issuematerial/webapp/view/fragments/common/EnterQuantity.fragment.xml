@@ -6,7 +6,7 @@
     <Dialog class="testTitle">
         <content>
         <VBox class="sapUiResponsiveMargin">
-            <Label text="Line Item"/>
+            <Label text="{i18n>lineItem}"/>
             <!-- <Table width="auto" growing="true" growingThreshold="10" fixedLayout="false" >
                 <columns>
                     <Column demandPopin="true" minScreenWidth="Tablet">
@@ -69,14 +69,14 @@
             </f:SimpleForm>
         </VBox>
         <VBox class="sapUiResponsiveMargin">
-            <Label text="BOQ Items"/>
+            <Label text="{i18n>BOQItems}"/>
             <tt:TreeTable
                 id="idEnterQtyTreeTable"
                 rows="{path:'', parameters: {numberOfExpandedLevels: 1, arrayNames:['IssueMaterialPostingBOQs']}}"
                 selectionMode="None"
                 ariaLabelledBy="title"
                 visibleRowCountMode="Auto"
-                noData="BOQ not applicable for Selected Line Item.">
+                noData="{i18n>BOQnotapplicableMsg}">
                 <tt:Column>
                     <Label text="{i18n>name}"/>
                     <tt:template>

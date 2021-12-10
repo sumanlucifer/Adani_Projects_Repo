@@ -7,10 +7,10 @@ xmlns:core="sap.ui.core">
         </FlexBox>
         </content>
 		<beginButton>
-            <Button id="idPostButton" text="Post" press="onReadId" type="Emphasized" enabled="{BOQApprovalModel>/isPostButtonEnabled}"></Button>
+            <Button id="idPostButton" text="{i18n>Post}" press="onReadId" type="Emphasized" enabled="{BOQApprovalModel>/isPostButtonEnabled}"></Button>
         </beginButton>
 		<endButton>
-			<Button text="cancel" press="onCancelBOQApprovalProcess"></Button>
+			<Button text="{i18n>cancel}" press="onCancelBOQApprovalProcess"></Button>
 		</endButton>
 	</Dialog>
 </core:FragmentDefinition>

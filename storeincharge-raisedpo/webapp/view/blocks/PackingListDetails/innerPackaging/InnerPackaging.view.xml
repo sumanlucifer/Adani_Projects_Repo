@@ -10,22 +10,22 @@
     
         <columns>
             <Column>
-                <Text text="Primary Packaging"/>
+                <Text text="{i18n>PrimaryPackaging}"/>
             </Column>
             <Column>
-                <Text text="Line Item"/>
+                <Text text="{i18n>LineItem}"/>
             </Column>
             <!-- <Column>
                 <Text text="Dispatch Qty."/>
             </Column> -->
             <Column>
-                <Text text="Packaging Quantity"/>
+                <Text text="{i18n>PackagingQuantity}"/>
             </Column>
             <Column>
-                <Text text="UOM"/>
+                <Text text="{i18n>UOM}"/>
             </Column>
             <Column>
-              <Text text="Action"/>
+              <Text text="{i18n>Action}"/>
             </Column>
         </columns>
         <items>
@@ -36,7 +36,7 @@
                     <!-- <Text text="{DispatchQty}"/> -->
                     <Text text="{PackagingQty}"/>
                     <Text text="{UOM}"/>
-                    <Link text="View QR Code" binding="{QrCode}" visible="{= ${QRNumber} !== '' ? true :false}" press="onViewQRCodePressSmart"/>
+                    <Link text="{i18n>ViewQRCode}" binding="{QrCode}" visible="{= ${QRNumber} !== '' ? true :false}" press="onViewQRCodePressSmart"/>
                 </cells>
             </ColumnListItem>
         </items>
