@@ -1,0 +1,462 @@
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Capabilities.V1.xml">
+        <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
+        <edmx:Include Namespace="com.sap.vocabularies.UI.v1" Alias="UI"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Communication.xml">
+        <edmx:Include Namespace="com.sap.vocabularies.Communication.v1" Alias="Communication"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/api/v2/odata.svc/$metadata">
+        <edmx:Include Namespace="com.agel.mmts.entity"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="com.agel.mmts">
+            <Annotations Target="com.agel.mmts.entity.DefaultContainer/IssuedMaterialReservedItemSet">
+                <Annotation Term="Capabilities.SearchRestrictions">
+                    <Record Type="Capabilities.SearchRestrictionsType">
+                        <PropertyValue Property="Searchable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record Type="Capabilities.InsertRestrictionsType">
+                        <PropertyValue Property="Insertable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue Property="Deletable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.UpdateRestrictions">
+                    <Record Type="Capabilities.UpdateRestrictionsType">
+                        <PropertyValue Property="Updatable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.FilterRestrictions">
+                    <Record Type="Capabilities.FilterRestrictionsType">
+                        <PropertyValue Property="NonFilterableProperties">
+                            <Collection>
+                                <PropertyPath>ID</PropertyPath>
+                                <PropertyPath>IsArchived</PropertyPath>
+                                <PropertyPath>IsBOQApplicable</PropertyPath>
+                                <PropertyPath>SpecialStockIndicator</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="com.agel.mmts.entity.DefaultContainer/IssuedMaterialReservedBOQItemSet">
+                <Annotation Term="Capabilities.SearchRestrictions">
+                    <Record Type="Capabilities.SearchRestrictionsType">
+                        <PropertyValue Property="Searchable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record Type="Capabilities.InsertRestrictionsType">
+                        <PropertyValue Property="Insertable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue Property="Deletable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.UpdateRestrictions">
+                    <Record Type="Capabilities.UpdateRestrictionsType">
+                        <PropertyValue Property="Updatable" Bool="false"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+
+            <!-- For Common Labels -->
+            <Annotations Target="com.agel.mmts.entity.IssuedMaterialReservedItemModel/Name">
+                <Annotation Term="Common.Label" String="{@i18n>Name}"/>
+            </Annotations>
+            <Annotations Target="com.agel.mmts.entity.IssuedMaterialReservedItemModel/MaterialCode">
+                <Annotation Term="Common.Label" String="{@i18n>MaterialCode}"/>
+            </Annotations>
+            <Annotations Target="com.agel.mmts.entity.IssuedMaterialReservedItemModel/Description">
+                <Annotation Term="Common.Label" String="{@i18n>Description}"/>
+            </Annotations>
+            <Annotations Target="com.agel.mmts.entity.IssuedMaterialReservedItemModel/StorageLocation">
+                <Annotation Term="Common.Label" String="{@i18n>StorageLocation}"/>
+            </Annotations>
+            <Annotations Target="com.agel.mmts.entity.IssuedMaterialReservedItemModel/UnloadPoint">
+                <Annotation Term="Common.Label" String="{@i18n>UnloadPoint}"/>
+            </Annotations>
+            <Annotations Target="com.agel.mmts.entity.IssuedMaterialReservedItemModel/Plant">
+                <Annotation Term="Common.Label" String="{@i18n>Plant}"/>
+            </Annotations>
+            <Annotations Target="com.agel.mmts.entity.IssuedMaterialReservedItemModel/ReservedQty">
+                <Annotation Term="Common.Label" String="{@i18n>ReservedQty}"/>
+            </Annotations>
+            <Annotations Target="com.agel.mmts.entity.IssuedMaterialReservedItemModel/IssuedQty">
+                <Annotation Term="Common.Label" String="{@i18n>IssuedQty}"/>
+            </Annotations>
+            <Annotations Target="com.agel.mmts.entity.IssuedMaterialReservedItemModel/QtyRemainingToIssue">
+                <Annotation Term="Common.Label" String="{@i18n>QtyRemainingToIssue}"/>
+            </Annotations>
+            <Annotations Target="com.agel.mmts.entity.IssuedMaterialReservedItemModel/BalanceQty">
+                <Annotation Term="Common.Label" String="{@i18n>BalanceQty}"/>
+            </Annotations>
+            <Annotations Target="com.agel.mmts.entity.IssuedMaterialReservedItemModel/ConsumedQty">
+                <Annotation Term="Common.Label" String="{@i18n>ConsumedQty}"/>
+            </Annotations>
+            <Annotations Target="com.agel.mmts.entity.IssuedMaterialReservedItemModel/ReturnedQty">
+                <Annotation Term="Common.Label" String="{@i18n>ReturnedQty}"/>
+            </Annotations>
+            <Annotations Target="com.agel.mmts.entity.IssuedMaterialReservedItemModel/CancelledQty">
+                <Annotation Term="Common.Label" String="{@i18n>CancelledQty}"/>
+            </Annotations>
+            <Annotations Target="com.agel.mmts.entity.IssuedMaterialReservedItemModel/BaseUnit">
+                <Annotation Term="Common.Label" String="{@i18n>BaseUnit}"/>
+            </Annotations>
+            <Annotations Target="com.agel.mmts.entity.IssuedMaterialReservedItemModel/BatchNumber">
+                <Annotation Term="Common.Label" String="{@i18n>BatchNumber}"/>
+            </Annotations>
+            <Annotations Target="com.agel.mmts.entity.IssuedMaterialReservedItemModel/ReservationNumber">
+                <Annotation Term="Common.Label" String="{@i18n>ReservationNumber}"/>
+            </Annotations>
+            <Annotations Target="com.agel.mmts.entity.IssuedMaterialReservedItemModel/ItemNumber">
+                <Annotation Term="Common.Label" String="{@i18n>ItemNumber}"/>
+            </Annotations>
+            <Annotations Target="com.agel.mmts.entity.IssuedMaterialReservedItemModel/Status">
+                <Annotation Term="Common.Label" String="{@i18n>Status}"/>
+            </Annotations>
+            <Annotations Target="com.agel.mmts.entity.IssuedMaterialReservedItemModel/RequirementQuantity">
+                <Annotation Term="Common.Label" String="{@i18n>RequirementQuantity}"/>
+            </Annotations>
+            <Annotations Target="com.agel.mmts.entity.IssuedMaterialReservedItemModel/MaterialDocumentLineItem">
+                <Annotation Term="Common.Label" String="{@i18n>MaterialDocumentLineItem}"/>
+            </Annotations>
+            <Annotations Target="com.agel.mmts.entity.IssuedMaterialReservedItemModel/ValuationType">
+                <Annotation Term="Common.Label" String="{@i18n>ValuationType}"/>
+            </Annotations>
+            <Annotations Target="com.agel.mmts.entity.IssuedMaterialReservedItemModel/CostCentre">
+                <Annotation Term="Common.Label" String="{@i18n>CostCentre}"/>
+            </Annotations>
+            <Annotations Target="com.agel.mmts.entity.IssuedMaterialReservedItemModel/CreditDebit">
+                <Annotation Term="Common.Label" String="{@i18n>CreditDebit}"/>
+            </Annotations>
+            <Annotations Target="com.agel.mmts.entity.IssuedMaterialReservedItemModel/ReservationDate">
+                <Annotation Term="Common.Label" String="{@i18n>ReservationDate}"/>
+            </Annotations>
+            <Annotations Target="com.agel.mmts.entity.IssuedMaterialReservedItemModel/MovementType">
+                <Annotation Term="Common.Label" String="{@i18n>MovementType}"/>
+            </Annotations>
+            <Annotations Target="com.agel.mmts.entity.IssuedMaterialReservedItemModel/MovementTypeDesc">
+                <Annotation Term="Common.Label" String="{@i18n>MovementTypeDesc}"/>
+            </Annotations>
+            <Annotations Target="com.agel.mmts.entity.IssuedMaterialReservedItemModel/GoodsRecipient">
+                <Annotation Term="Common.Label" String="{@i18n>GoodsRecipient}"/>
+            </Annotations>
+            <Annotations Target="com.agel.mmts.entity.IssuedMaterialReservedItemModel/WBSElement">
+                <Annotation Term="Common.Label" String="{@i18n>WBSElement}"/>
+            </Annotations>
+            <Annotations Target="com.agel.mmts.entity.IssuedMaterialReservedItemModel/WBSNumber">
+                <Annotation Term="Common.Label" String="{@i18n>WBSNumber}"/>
+            </Annotations>
+            <Annotations Target="com.agel.mmts.entity.IssuedMaterialReservedItemModel/ProfitCentre">
+                <Annotation Term="Common.Label" String="{@i18n>ProfitCentre}"/>
+            </Annotations>
+            <Annotations Target="com.agel.mmts.entity.IssuedMaterialReservedItemModel/GLAccount">
+                <Annotation Term="Common.Label" String="{@i18n>GLAccount}"/>
+            </Annotations>
+            <Annotations Target="com.agel.mmts.entity.IssuedMaterialReservedItemModel/ReceivingLocation">
+                <Annotation Term="Common.Label" String="{@i18n>ReceivingLocation}"/>
+            </Annotations>
+            <Annotations Target="com.agel.mmts.entity.IssuedMaterialReservedItemModel/MaterialDocumentNumber">
+                <Annotation Term="Common.Label" String="{@i18n>MaterialDocumentNumber}"/>
+            </Annotations>
+            <Annotations Target="com.agel.mmts.entity.IssuedMaterialReservedItemModel/MaterialDocumentYear">
+                <Annotation Term="Common.Label" String="{@i18n>MaterialDocumentYear}"/>
+            </Annotations>
+            <Annotations Target="com.agel.mmts.entity.IssuedMaterialReservedItemModel/ReferenceMaterialDocumentNumber">
+                <Annotation Term="Common.Label" String="{@i18n>ReferenceMaterialDocumentNumber}"/>
+            </Annotations>
+            <Annotations Target="com.agel.mmts.entity.IssuedMaterialReservedItemModel/ReferenceMaterialDocumentItem">
+                <Annotation Term="Common.Label" String="{@i18n>ReferenceMaterialDocumentItem}"/>
+            </Annotations>
+            <Annotations Target="com.agel.mmts.entity.IssuedMaterialReservedItemModel/IssuedDate">
+                <Annotation Term="Common.Label" String="{@i18n>IssuedDate}"/>
+            </Annotations>
+            <Annotations Target="com.agel.mmts.entity.IssuedMaterialReservedItemModel/RequestNumber">
+                <Annotation Term="Common.Label" String="{@i18n>RequestNumber}"/>
+            </Annotations>
+            <Annotations Target="com.agel.mmts.entity.IssuedMaterialReservedItemModel/CreatedAt">
+                <Annotation Term="Common.Label" String="{@i18n>CreatedAt}"/>
+            </Annotations>
+            <Annotations Target="com.agel.mmts.entity.IssuedMaterialReservedItemModel/CreatedBy">
+                <Annotation Term="Common.Label" String="{@i18n>CreatedBy}"/>
+            </Annotations>
+            <Annotations Target="com.agel.mmts.entity.IssuedMaterialReservedItemModel/UpdatedAt">
+                <Annotation Term="Common.Label" String="{@i18n>UpdatedAt}"/>
+            </Annotations>
+            <Annotations Target="com.agel.mmts.entity.IssuedMaterialReservedItemModel/UpdatedBy">
+                <Annotation Term="Common.Label" String="{@i18n>UpdatedBy}"/>
+            </Annotations>
+            <Annotations Target="com.agel.mmts.entity.IssuedMaterialReservedItemModel/ContractorName">
+                <Annotation Term="Common.Label" String="{@i18n>ContractorName}"/>
+            </Annotations>
+
+            <!-- For List Page -->
+            <Annotations Target="com.agel.mmts.entity.IssuedMaterialReservedItemModel">
+                <!-- For List Page Filters -->
+                <Annotation Term="UI.SelectionFields">
+                    <Collection>
+                        <PropertyPath>ContractorName</PropertyPath>
+                        <PropertyPath>MaterialCode</PropertyPath>
+                        <PropertyPath>StorageLocation</PropertyPath>
+                        <PropertyPath>UnloadPoint</PropertyPath>
+                        <PropertyPath>Plant</PropertyPath>
+                        <PropertyPath>BatchNumber</PropertyPath>
+                        <PropertyPath>ReservationNumber</PropertyPath>
+                        <PropertyPath>CostCentre</PropertyPath>
+                        <PropertyPath>CreditDebit</PropertyPath>
+                        <PropertyPath>MovementType</PropertyPath>
+                        <PropertyPath>GoodsRecipient</PropertyPath>
+                        <PropertyPath>WBSElement</PropertyPath>
+                        <PropertyPath>ProfitCentre</PropertyPath>
+                        <PropertyPath>GLAccount</PropertyPath>
+                        <PropertyPath>ReceivingLocation</PropertyPath>
+                        <PropertyPath>MaterialDocumentNumber</PropertyPath>
+                        <PropertyPath>MaterialDocumentYear</PropertyPath>
+                        <PropertyPath>RequestNumber</PropertyPath>
+                    </Collection>
+                </Annotation>
+
+                <!-- For Displaying the List -->
+                <Annotation Term="UI.LineItem">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="ContractorName"/>
+                            <PropertyValue Property="Label" String="{@i18n>ContractorName}"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="ReservationNumber"/>
+                            <PropertyValue Property="Label" String="{@i18n>ReservationNumber}"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="Name"/>
+                            <PropertyValue Property="Label" String="{@i18n>Name}"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="MaterialCode"/>
+                            <PropertyValue Property="Label" String="{@i18n>MaterialCode}"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="Description"/>
+                            <PropertyValue Property="Label" String="{@i18n>Description}"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="StorageLocation"/>
+                            <PropertyValue Property="Label" String="{@i18n>StorageLocation}"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="UnloadPoint"/>
+                            <PropertyValue Property="Label" String="{@i18n>UnloadPoint}"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="CostCentre"/>
+                            <PropertyValue Property="Label" String="{@i18n>CostCentre}"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="CreditDebit"/>
+                            <PropertyValue Property="Label" String="{@i18n>CreditDebit}"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="ProfitCentre"/>
+                            <PropertyValue Property="Label" String="{@i18n>ProfitCentre}"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="GLAccount"/>
+                            <PropertyValue Property="Label" String="{@i18n>GLAccount}"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="ReceivingLocation"/>
+                            <PropertyValue Property="Label" String="{@i18n>ReceivingLocation}"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="MovementType"/>
+                            <PropertyValue Property="Label" String="{@i18n>MovementType}"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="GoodsRecipient"/>
+                            <PropertyValue Property="Label" String="{@i18n>GoodsRecipient}"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="WBSElement"/>
+                            <PropertyValue Property="Label" String="{@i18n>WBSElement}"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="ReservedQty"/>
+                            <PropertyValue Property="Label" String="{@i18n>ReservedQty}"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="IssuedQty"/>
+                            <PropertyValue Property="Label" String="{@i18n>IssuedQty}"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="QtyRemainingToIssue"/>
+                            <PropertyValue Property="Label" String="{@i18n>QtyRemainingToIssue}"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="BalanceQty"/>
+                            <PropertyValue Property="Label" String="{@i18n>BalanceQty}"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="ConsumedQty"/>
+                            <PropertyValue Property="Label" String="{@i18n>ConsumedQty}"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="ReturnedQty"/>
+                            <PropertyValue Property="Label" String="{@i18n>ReturnedQty}"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="CancelledQty"/>
+                            <PropertyValue Property="Label" String="{@i18n>CancelledQty}"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="BaseUnit"/>
+                            <PropertyValue Property="Label" String="{@i18n>BaseUnit}"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="RequirementQuantity"/>
+                            <PropertyValue Property="Label" String="{@i18n>RequirementQuantity}"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="Quantity"/>
+                            <PropertyValue Property="Label" String="{@i18n>Quantity}"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="MaterialDocumentNumber"/>
+                            <PropertyValue Property="Label" String="{@i18n>MaterialDocumentNumber}"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="MaterialDocumentYear"/>
+                            <PropertyValue Property="Label" String="{@i18n>MaterialDocumentYear}"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+
+                <!-- For List Items Object Attribute -->
+                <Annotation Term="Common.SemanticKey">
+                    <Collection>
+                        <PropertyPath>Name</PropertyPath>
+                    </Collection>
+                </Annotation>
+
+                <Annotation Term="UI.HeaderInfo">
+                    <Record Type="UI.HeaderInfoType">
+                        <PropertyValue Property="TypeName" String="{@i18n>Material}"/>
+                        <PropertyValue Property="TypeNamePlural" String="{@i18n>Materials}"/>
+                        <PropertyValue Property="Title">
+                            <Record Type="UI.DataField">
+                                <PropertyValue Property="Value" Path="Name"/>
+                                <PropertyValue Property="Label" String="{@i18n>Name}"/>
+                                <PropertyValue Property="IconUrl" String="sap-icon://bookmark"/>
+                            </Record>
+                            <Annotation Term="Common.Heading" String="{@i18n>Name}"/>
+                        </PropertyValue>
+                        <!-- <PropertyValue Property="Description">
+                            <Record Type="UI.DataField">
+                                <PropertyValue Property="Value" Path="MaterialCode"/>
+                                <PropertyValue Property="Label" String="{@i18n>MaterialCode}"/>
+                                <PropertyValue Property="IconUrl" String="sap-icon://bookmark"/>
+                            </Record>
+                        </PropertyValue> -->
+                    </Record>
+                </Annotation>
+
+                <!-- Object Page Facets -->
+                <Annotation Term="UI.Facets">
+                    <Collection>
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="Label" String="{@i18n>BOQItems}"/>
+                            <PropertyValue Property="Target" AnnotationPath="IssuedMaterialReservedBOQItems/@UI.LineItem#BOQItems"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+                
+                <Annotation Term="UI.DataPoint" Qualifier="MatCode">
+                    <Record Type="UI.DataPointType">
+                        <PropertyValue Property="Title" String="{@i18n>MaterialCode}"/>
+                        <PropertyValue Property="Value" Path="MaterialCode"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.DataPoint" Qualifier="Status">
+                    <Record Type="UI.DataPointType">
+                        <PropertyValue Property="Title" String="{@i18n>Status}"/>
+                        <PropertyValue Property="Value" Path="Status"/>
+                        <PropertyValue Property="Description" String="{@i18n>Status}"/>
+                    </Record>
+                </Annotation>
+
+            </Annotations>
+
+            <Annotations Target="com.agel.mmts.entity.IssuedMaterialReservedBOQItemModel">
+
+                <Annotation Term="Common.SemanticKey">
+                    <Collection>
+                        <PropertyPath>Name</PropertyPath>
+                    </Collection>
+                </Annotation>
+
+                <!-- Object Page BOQ Items Table -->
+                <Annotation Term="UI.LineItem" Qualifier="BOQItems">
+                    <Collection>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="Name"/>
+                            <PropertyValue Property="Label" String="{@i18n>Name}"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="MaterialCode"/>
+                            <PropertyValue Property="Label" String="{@i18n>MaterialCode}"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="Description"/>
+                            <PropertyValue Property="Label" String="{@i18n>Description}"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="ReservedQty"/>
+                            <PropertyValue Property="Label" String="{@i18n>ReservedQty}"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="QtyRemainingToIssue"/>
+                            <PropertyValue Property="Label" String="{@i18n>QtyRemainingToIssue}"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="IssuedQty"/>
+                            <PropertyValue Property="Label" String="{@i18n>IssuedQty}"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="ConsumedQty"/>
+                            <PropertyValue Property="Label" String="{@i18n>ConsumedQty}"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="ReturnedQty"/>
+                            <PropertyValue Property="Label" String="{@i18n>ReturnedQty}"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="BalanceQty"/>
+                            <PropertyValue Property="Label" String="{@i18n>BalanceQty}"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="CancelledQty"/>
+                            <PropertyValue Property="Label" String="{@i18n>CancelledQty}"/>
+                        </Record>
+                        <Record Type="UI.DataField">
+                            <PropertyValue Property="Value" Path="UOM"/>
+                            <PropertyValue Property="Label" String="{@i18n>UOM}"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

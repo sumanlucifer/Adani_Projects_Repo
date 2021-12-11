@@ -12,8 +12,6 @@
         <edmx:Include Namespace="com.sap.vocabularies.Communication.v1" Alias="Communication"/>
     </edmx:Reference>
     <edmx:Reference Uri="/api/v2/odata.svc/$metadata">
-        <edmx:Include Namespace="com.agel.mmts.entity.edmentity"/>
-        <edmx:Include Namespace="com.agel.mmts.entity.extension"/>
         <edmx:Include Namespace="com.agel.mmts.entity"/>
     </edmx:Reference>
     <edmx:DataServices>
