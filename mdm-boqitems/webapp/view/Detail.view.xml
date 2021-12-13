@@ -125,7 +125,7 @@
                                         }">
                                         <core:Item key="{ID}" text="{Name}"/>
                                     </MultiComboBox>
-                               <Label text="{i18n>ParentL" />
+                               <Label text="{i18n>ParentL}" />
                                 <Link text="{i18n>AddParent}" press="onAddParentPress"/>
                                 <Label text="    " />
                                 <Table 

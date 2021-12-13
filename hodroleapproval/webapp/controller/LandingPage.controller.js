@@ -48,7 +48,7 @@ sap.ui.define([
                 mBindingParams.sorter.push(new sap.ui.model.Sorter("CreatedAt", true));
 
                 // Filter Table Entity with Logged In User Email ID Field
-                mBindingParams.filters.push(new sap.ui.model.Filter("Email", sap.ui.model.FilterOperator.EQ, this.ApproverEmailID));
+                mBindingParams.filters.push(new sap.ui.model.Filter("Email", sap.ui.model.FilterOperator.EQ, this.ApproverEmailID.toLowerCase()));
 
                 // Expand entity from Table's Main Entity
                 mBindingParams.parameters["expand"] = "RoleAssignId";
@@ -129,7 +129,7 @@ sap.ui.define([
                 if (FreeTextSearch) {
                     orFilters.push(new Filter("UserId", FilterOperator.EQ, FreeTextSearch));
                     orFilters.push(new Filter("Role", FilterOperator.Contains, FreeTextSearch));
-                    orFilters.push(new Filter("Email", FilterOperator.Contains, FreeTextSearch));
+                    orFilters.push(new Filter("Email", FilterOperator.Contains, FreeTextSearch.toLowerCase()));
                     orFilters.push(new Filter("RequestNumber", FilterOperator.Contains, FreeTextSearch));
 
                     andFilters.push(new Filter(orFilters, false));
@@ -147,7 +147,7 @@ sap.ui.define([
 
                 // Email
                 if (email != "") {
-                    andFilters.push(new Filter("Email", FilterOperator.EQ, email));
+                    andFilters.push(new Filter("Email", FilterOperator.EQ, email.toLowerCase()));
                 }
 
                 //RequestNumber
