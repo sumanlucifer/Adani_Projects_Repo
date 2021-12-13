@@ -100,7 +100,7 @@
                                         <Text text="{i18n>UOM}"/>
                                     </Column>
                                     <Column>
-                                        <Text text="{i18n>Plant"/>
+                                        <Text text="{i18n>Plant}"/>
                                     </Column>
                                     <Column>
                                         <Text text="{i18n>StorageLocation}"/>

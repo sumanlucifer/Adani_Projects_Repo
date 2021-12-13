@@ -260,7 +260,7 @@
                                 <f:content>
                                     <Label text="{i18n>VehicleNumber}" />
                                     <Text text="{VehicleNumber}" />
-                                    <Label text="{i18n>InvoiceNumber" />
+                                    <Label text="{i18n>InvoiceNumber}" />
                                     <Text text="{InvoiceNumber}" />
                                     <Label text="{i18n>PackagingRefNo}" />
                                     <Text text="{PackagingReferenceNumber}" />

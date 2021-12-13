@@ -22,7 +22,7 @@
                 <Text text="{i18n>UOM}"/>
             </Column>
             <Column>
-                <Text text="{i18n>PackagingType]"/>
+                <Text text="{i18n>PackagingType}"/>
             </Column>
             <Column hAlign="Center">
                 <Text text="{{i18n>NoofPackages}"/>

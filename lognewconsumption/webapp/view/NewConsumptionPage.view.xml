@@ -94,7 +94,7 @@
                                     </ui:template>
                                 </ui:Column>
                                 <ui:Column>
-                                    <Label text="{i18n>Name"/>
+                                    <Label text="{i18n>Name}"/>
                                     <ui:template>
                                         <Text text="{TreeTableModelView>Name}" wrapping="false" />
                                     </ui:template>

@@ -127,10 +127,10 @@
                                     <Text text="{i18n>IssuedQuantity}"/>
                                 </Column>
                                 <Column demandPopin="true" minScreenWidth="Desktop">
-                                    <Text text="{i18n>ReservedQuantity"/>
+                                    <Text text="{i18n>ReservedQuantity}"/>
                                 </Column>
                                 <Column demandPopin="true" minScreenWidth="Tablet">
-                                    <Text text="{i18n>Status"/>
+                                    <Text text="{i18n>Status}"/>
                                 </Column>
                             </columns>
                             <items>
