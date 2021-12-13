@@ -56,7 +56,7 @@
                     <FlexBox direction="Row" renderType="Bare" class="sapUiTinyMarginBottom">
                         <VBox renderType="Bare" class="sapUiMediumMarginEnd">
                             <Label text="{i18n>issuedDate}" />
-                            <Text text="{path:'CreatedAt',
+                            <Text text="{path:'POReleaseDate',
                                      type: 'sap.ui.model.type.Date',
 				                     formatOptions: {
 				                        pattern: 'MMMM dd, yyyy'
@@ -66,6 +66,15 @@
                         <VBox renderType="Bare" class="sapUiMediumMarginEnd" visible="{= ${Status}==='CONFIRMED'}">
                             <Label text="{i18n>confirmedDate}" />
                             <Text text="{path:'ConfirmedDate',
+                                     type: 'sap.ui.model.type.Date',
+				                     formatOptions: {
+				                        pattern: 'MMMM dd, yyyy'
+				                     }
+                            }"/>
+                        </VBox>
+                        <VBox renderType="Bare" class="sapUiMediumMarginEnd">
+                            <Label text="{i18n>startDate}" />
+                            <Text text="{path:'ValidityStartDate',
                                      type: 'sap.ui.model.type.Date',
 				                     formatOptions: {
 				                        pattern: 'MMMM dd, yyyy'
