@@ -48,7 +48,7 @@ sap.ui.define([
                 mBindingParams.sorter.push(new sap.ui.model.Sorter("CreatedAt", true));
 
                 // Filter Table Entity with Logged In User Email ID Field
-                mBindingParams.filters.push(new sap.ui.model.Filter("Email", sap.ui.model.FilterOperator.EQ, this.ApproverEmailID));
+                mBindingParams.filters.push(new sap.ui.model.Filter("Email", sap.ui.model.FilterOperator.EQ, this.ApproverEmailID.toLowerCase()));
 
                 // Expand entity from Table's Main Entity
                 mBindingParams.parameters["expand"] = "RoleAssignId";
