@@ -112,10 +112,16 @@ sap.ui.define([
             };
 
             this.getView().getModel().create("/RoleAssignApprovalRequestEdmSet", oUserRoleRequestObj, {
-                success: function () {
-                    MessageBox.success("Request for new user role submitted successfully.");
-                    this.getView().getModel().refresh();
-                    this.onClose();
+                success: function (oData) {
+                    if (oData.Success) {
+                        MessageBox.success("Request for new user role submitted successfully.");
+                        this.getView().getModel().refresh();
+                        this.onClose();
+                    }
+                    else {
+                        MessageBox.error(oData.Message);
+                    }
+
                 }.bind(this),
                 error: function (oError) {
                     var sErrorMsg = "";
