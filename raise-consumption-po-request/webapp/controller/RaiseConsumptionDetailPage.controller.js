@@ -441,7 +441,7 @@ sap.ui.define(
 
                     var oPayload = {
                         UserName: "Agel",
-                        ConsumptionPostingReserveId: parseInt(100),
+                        ConsumptionPostingReserveId: parseInt(this.sObjectId),
                         IsAllItemsConsumed: IsAllItemsConsumed,
                         ParentItem: itemData,
                     };
