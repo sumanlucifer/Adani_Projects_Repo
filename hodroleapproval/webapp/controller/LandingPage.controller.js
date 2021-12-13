@@ -117,7 +117,7 @@ sap.ui.define([
             onSearch: function (oEvent) {
                 var userid = this.byId("idUserId").getValue();
                 var role = this.byId("idRole").getValue();
-                var email = this.byId("idEmail").getValue().toLowerCase();
+                var email = this.byId("idEmail").getValue();
                 var requestnumber = this.byId("idRequestNumber").getValue();
                 var DateRange = this.byId("dateRangeSelectionId");
                 var DateRangeValue = this.byId("dateRangeSelectionId").getValue();
@@ -147,7 +147,7 @@ sap.ui.define([
 
                 // Email
                 if (email != "") {
-                    andFilters.push(new Filter("Email", FilterOperator.EQ, email));
+                    andFilters.push(new Filter("Email", FilterOperator.EQ, email.toLowerCase()));
                 }
 
                 //RequestNumber
