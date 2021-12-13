@@ -108,13 +108,13 @@ sap.ui.define([
             var bSelected = oEvent.getParameter("selected");
             var bSelectAll = oEvent.getParameter("selectAll");
             var aListItems = oEvent.getParameter("listItems"),
-                sBOQQty = parseFloat(oEvent.getParameter("listItem").getCells()[5].getText()),
+                sBOQQty = parseFloat(oEvent.getParameter("listItem").getCells()[6].getText()),
                 fnSetARHQtyEnableDisable = function (bEnabled) {
                     for (var i = 0; i < aListItems.length; i++) {
-                        aListItems[i].getCells()[6].setEnabled(bEnabled);
                         aListItems[i].getCells()[7].setEnabled(bEnabled);
                         aListItems[i].getCells()[8].setEnabled(bEnabled);
                         aListItems[i].getCells()[9].setEnabled(bEnabled);
+                        aListItems[i].getCells()[10].setEnabled(bEnabled);
                     }
                 };
 
@@ -129,16 +129,16 @@ sap.ui.define([
                 fnSetARHQtyEnableDisable(false);
             }
             if (bSelected) {
-                oEvent.getParameter("listItem").getCells()[6].setEnabled(true);
                 oEvent.getParameter("listItem").getCells()[7].setEnabled(true);
                 oEvent.getParameter("listItem").getCells()[8].setEnabled(true);
                 oEvent.getParameter("listItem").getCells()[9].setEnabled(true);
+                oEvent.getParameter("listItem").getCells()[10].setEnabled(true);
 
             } else {
-                oEvent.getParameter("listItem").getCells()[6].setEnabled(true);
-                oEvent.getParameter("listItem").getCells()[7].setEnabled(false);
+                oEvent.getParameter("listItem").getCells()[7].setEnabled(true);
                 oEvent.getParameter("listItem").getCells()[8].setEnabled(false);
                 oEvent.getParameter("listItem").getCells()[9].setEnabled(false);
+                oEvent.getParameter("listItem").getCells()[10].setEnabled(false);
             }
 
             this.setSaveButtonEnabledDisable();
@@ -198,19 +198,19 @@ sap.ui.define([
 
         onLiveChangeInspectionQty: function (oEvent) {
             var InspectQuantity = parseFloat(oEvent.getSource().getValue());
-            oEvent.getSource().getParent().getCells()[7].setEnabled(true);
             oEvent.getSource().getParent().getCells()[8].setEnabled(true);
             oEvent.getSource().getParent().getCells()[9].setEnabled(true);
-            var Quantity = parseFloat(oEvent.getSource().getParent().getCells()[4].getText());
+            oEvent.getSource().getParent().getCells()[10].setEnabled(true);
+            var Quantity = parseFloat(oEvent.getSource().getParent().getCells()[5].getText());
             var oSaveButton = this.getView().byId("idOfflineSaveButton");
 
             if (oEvent.getSource().getValue() === "") {
-                oEvent.getSource().getParent().getCells()[7].setEnabled(false);
                 oEvent.getSource().getParent().getCells()[8].setEnabled(false);
                 oEvent.getSource().getParent().getCells()[9].setEnabled(false);
-                oEvent.getSource().getParent().getCells()[7].setValue("");
+                oEvent.getSource().getParent().getCells()[10].setEnabled(false);
                 oEvent.getSource().getParent().getCells()[8].setValue("");
                 oEvent.getSource().getParent().getCells()[9].setValue("");
+                oEvent.getSource().getParent().getCells()[10].setValue("");
             }
             if (InspectQuantity <= 0) {
                 oEvent.getSource().setValueState("Error");
