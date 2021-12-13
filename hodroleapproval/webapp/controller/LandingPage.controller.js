@@ -117,7 +117,7 @@ sap.ui.define([
             onSearch: function (oEvent) {
                 var userid = this.byId("idUserId").getValue();
                 var role = this.byId("idRole").getValue();
-                var email = this.byId("idEmail").getValue();
+                var email = this.byId("idEmail").getValue().toLowerCase();
                 var requestnumber = this.byId("idRequestNumber").getValue();
                 var DateRange = this.byId("dateRangeSelectionId");
                 var DateRangeValue = this.byId("dateRangeSelectionId").getValue();
@@ -129,7 +129,7 @@ sap.ui.define([
                 if (FreeTextSearch) {
                     orFilters.push(new Filter("UserId", FilterOperator.EQ, FreeTextSearch));
                     orFilters.push(new Filter("Role", FilterOperator.Contains, FreeTextSearch));
-                    orFilters.push(new Filter("Email", FilterOperator.Contains, FreeTextSearch));
+                    orFilters.push(new Filter("Email", FilterOperator.Contains, FreeTextSearch.toLowerCase()));
                     orFilters.push(new Filter("RequestNumber", FilterOperator.Contains, FreeTextSearch));
 
                     andFilters.push(new Filter(orFilters, false));
