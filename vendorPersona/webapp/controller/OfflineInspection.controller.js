@@ -253,9 +253,9 @@ sap.ui.define([
                     oSaveButton.setEnabled(false);
                 };
 
-            aInputFileds[6].setValueState("None");
             aInputFileds[7].setValueState("None");
             aInputFileds[8].setValueState("None");
+            aInputFileds[9].setValueState("None");
 
             sumARHQty = parseFloat(sumARHQty.toFixed(5));
 
