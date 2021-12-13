@@ -155,7 +155,7 @@
                             <f:SimpleForm layout="ColumnLayout" binding="{AdditionalDetialsModel>/}" columnsM="2" columnsL="3" columnsXL="4" singleContainerFullSize="true" class="style-RemoveTitleHeight">
                                 <f:content>
                                     <!-- <core:Title  /> -->
-                                    <Label text="{i18n>VehicleNumber}" required="true"/>
+                                    <Label text="{i18n>VehicleNumber}"/>
                                     <Input id="idVehicleNumber" value="{VehicleNumber}" placeholder="{i18n>HR55EXXXX}"  editable="{= ${objectViewModel>/isPackingListInEditMode} ? true : false}"/>
                                     <Label text="{i18n>InvoiceNumber}" required="true"/>
                                     <Input id="idInvoiceNumber" value="{InvoiceNumber}" editable="{= ${objectViewModel>/isPackingListInEditMode} ? true : false}"/>
