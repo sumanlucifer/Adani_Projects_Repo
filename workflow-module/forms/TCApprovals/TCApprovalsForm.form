@@ -16,7 +16,7 @@
                     "type": "string",
                     "label": "PO Number",
                     "readOnly": false,
-                    "value": "${context.aBOQItems.d.ParentLineItem.PurchaseOrder.PONumber}",
+                    "value": "${context.PONumber}",
                     "constraints": {
                         "required": false
                     }
@@ -26,7 +26,7 @@
                     "type": "string",
                     "label": "Plant Code",
                     "readOnly": false,
-                    "value": "${context.aBOQItems.d.ParentLineItem.PurchaseOrder.PlantCode}",
+                    "value": "${context.PlantCode}",
                     "constraints": {
                         "required": false
                     }
@@ -36,7 +36,7 @@
                     "type": "string",
                     "label": "Vendor Name",
                     "readOnly": false,
-                    "value": "${context.aBOQItems.d.ParentLineItem.PurchaseOrder.Vendor.Name}",
+                    "value": "${context.VendorName}",
                     "constraints": {
                         "required": false
                     }
@@ -46,211 +46,10 @@
                     "type": "string",
                     "label": "Vendor Code",
                     "readOnly": false,
-                    "value": "${context.aBOQItems.d.ParentLineItem.PurchaseOrder.Vendor.VendorCode}",
+                    "value": "${context.VendorCode}",
                     "constraints": {
                         "required": false
                     }
-                }
-            ]
-        },
-        {
-            "id": "boq_items",
-            "type": "section",
-            "title": "Item Details",
-            "content": [
-                {
-                    "id": "line_item_1",
-                    "type": "subsection",
-                    "title": "Line Item",
-                    "content": [
-                        {
-                            "id": "line_number",
-                            "type": "string",
-                            "label": "Line Number",
-                            "readOnly": false,
-                            "value": "${context.aBOQItems.d.ParentLineItem.LineNumber}",
-                            "constraints": {
-                                "required": false
-                            }
-                        },
-                        {
-                            "id": "material_code",
-                            "type": "string",
-                            "label": "Material Code",
-                            "readOnly": false,
-                            "value": "${context.aBOQItems.d.ParentLineItem.MaterialCode}",
-                            "constraints": {
-                                "required": false
-                            }
-                        },
-                        {
-                            "id": "name",
-                            "type": "string",
-                            "label": "Name",
-                            "readOnly": false,
-                            "value": "${context.aBOQItems.d.ParentLineItem.Name}",
-                            "constraints": {
-                                "required": false
-                            }
-                        },
-                        {
-                            "id": "description",
-                            "type": "string",
-                            "label": "Description",
-                            "readOnly": false,
-                            "value": "${context.aBOQItems.d.ParentLineItem.Description}",
-                            "constraints": {
-                                "required": false
-                            }
-                        },
-                        {
-                            "id": "plant",
-                            "type": "string",
-                            "label": "Plant",
-                            "readOnly": false,
-                            "value": "${context.aBOQItems.d.ParentLineItem.Plant}",
-                            "constraints": {
-                                "required": false
-                            }
-                        },
-                        {
-                            "id": "storage_location",
-                            "type": "string",
-                            "label": "Storage Location",
-                            "readOnly": false,
-                            "value": "${context.aBOQItems.d.ParentLineItem.StorageLocation}",
-                            "constraints": {
-                                "required": false
-                            }
-                        },
-                        {
-                            "id": "quantity",
-                            "type": "string",
-                            "label": "Quantity",
-                            "readOnly": false,
-                            "value": "${context.aBOQItems.d.ParentLineItem.Quantity}",
-                            "constraints": {
-                                "required": false
-                            }
-                        },
-                        {
-                            "id": "uom",
-                            "type": "string",
-                            "label": "UOM",
-                            "readOnly": false,
-                            "value": "${context.aBOQItems.d.ParentLineItem.UoM}",
-                            "constraints": {
-                                "required": false
-                            }
-                        },
-                        {
-                            "id": "tax_code",
-                            "type": "string",
-                            "label": "Tax Code",
-                            "readOnly": false,
-                            "value": "${context.aBOQItems.d.ParentLineItem.TaxCode}",
-                            "constraints": {
-                                "required": false
-                            }
-                        },
-                        {
-                            "id": "tax_indicator",
-                            "type": "string",
-                            "label": "Tax Indicator",
-                            "readOnly": false,
-                            "value": "${context.aBOQItems.d.ParentLineItem.TaxIndicator}",
-                            "constraints": {
-                                "required": false
-                            }
-                        },
-                        {
-                            "id": "hsn_code",
-                            "type": "string",
-                            "label": "HSN Code",
-                            "readOnly": false,
-                            "value": "${context.aBOQItems.d.ParentLineItem.HSNCode}",
-                            "constraints": {
-                                "required": false
-                            }
-                        }
-                    ]
-                },
-                {
-                    "id": "boq_items",
-                    "type": "subsection",
-                    "title": "BOQ Items",
-                    "content": [
-                        {
-                            "id": "test",
-                            "type": "collection",
-                            "title": "BOQ Items",
-                            "addEnabled": false,
-                            "deleteEnabled": false,
-                            "value": "${context.aBOQItems.d.BOQItems.results}",
-                            "content": [
-                                {
-                                    "id": "firstName",
-                                    "type": "string",
-                                    "label": "Material Code",
-                                    "readOnly": false,
-                                    "value": "${item.MaterialCode}",
-                                    "constraints": {
-                                        "required": false
-                                    }
-                                },
-                                {
-                                    "id": "description",
-                                    "type": "string",
-                                    "label": "Name",
-                                    "readOnly": false,
-                                    "value": "${item.Name}",
-                                    "constraints": {
-                                        "required": false
-                                    }
-                                },
-                                {
-                                    "id": "description_1",
-                                    "type": "string",
-                                    "label": "Description",
-                                    "readOnly": false,
-                                    "value": "${item.Description}",
-                                    "constraints": {
-                                        "required": false
-                                    }
-                                },
-                                {
-                                    "id": "qty",
-                                    "type": "string",
-                                    "label": "Qty",
-                                    "readOnly": false,
-                                    "value": "${item.Qty}",
-                                    "constraints": {
-                                        "required": false
-                                    }
-                                },
-                                {
-                                    "id": "uom",
-                                    "type": "string",
-                                    "label": "UOM",
-                                    "readOnly": false,
-                                    "value": "${item.UOM}",
-                                    "constraints": {
-                                        "required": false
-                                    }
-                                },
-                                {
-                                    "id": "remarks",
-                                    "type": "string",
-                                    "label": "Remarks",
-                                    "readOnly": false,
-                                    "value": "${item.Remarks}",
-                                    "constraints": {
-                                        "required": false
-                                    }
-                                }
-                            ]
-                        }
-                    ]
                 }
             ]
         }

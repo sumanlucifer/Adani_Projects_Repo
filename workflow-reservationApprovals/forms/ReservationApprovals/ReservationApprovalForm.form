@@ -16,7 +16,7 @@
                     "type": "string",
                     "label": "Request Number",
                     "readOnly": false,
-                    "value": "${context.ReservationResponse.d.RequestNumber}",
+                    "value": "${context.RequestNumber}",
                     "constraints": {
                         "required": false
                     }
@@ -26,7 +26,7 @@
                     "type": "string",
                     "label": "Goods Recipient",
                     "readOnly": false,
-                    "value": "${context.ReservationResponse.d.GoodsRecipient}",
+                    "value": "${context.GoodsRecipient}",
                     "constraints": {
                         "required": false
                     }
@@ -36,44 +36,40 @@
                     "type": "string",
                     "label": "WBS Number",
                     "readOnly": false,
-                    "value": "${context.ReservationResponse.d.WBSNumber}",
+                    "value": "${context.WBSNumber}",
                     "constraints": {
                         "required": false
                     }
-                }
-            ]
-        },
-        {
-            "id": "line_items",
-            "type": "section",
-            "title": "Line Items",
-            "content": [
-                {
-                    "id": "name",
-                    "type": "collection",
-                    "title": "Material Document Number",
-                    "addEnabled": false,
-                    "deleteEnabled": false,
-                    "value": "${context.ReservationResponse.d.ReturnedMaterialParent.results.MaterialDocumentNumber}",
-                    "content": []
                 },
                 {
-                    "id": "materialcode",
-                    "type": "collection",
-                    "title": "Material Code",
-                    "addEnabled": false,
-                    "deleteEnabled": false,
-                    "value": "${context.ReservationResponse.d.ReturnedMaterialParent.results.MaterialCode}",
-                    "content": []
+                    "id": "material_",
+                    "type": "string",
+                    "label": "Material Document Number",
+                    "readOnly": false,
+                    "value": "${context.MaterialDocumentNumber}",
+                    "constraints": {
+                        "required": false
+                    }
                 },
                 {
-                    "id": "plant",
-                    "type": "collection",
-                    "title": "WBS Element",
-                    "addEnabled": false,
-                    "deleteEnabled": false,
-                    "value": "${context.ReservationResponse.d.ReturnedMaterialParent.results.WBSElement}",
-                    "content": []
+                    "id": "material_code",
+                    "type": "string",
+                    "label": "Material Code",
+                    "readOnly": false,
+                    "value": "${context.MaterialCode}",
+                    "constraints": {
+                        "required": false
+                    }
+                },
+                {
+                    "id": "wbs_element",
+                    "type": "string",
+                    "label": "WBS Element",
+                    "readOnly": false,
+                    "value": "${context.WBSElement}",
+                    "constraints": {
+                        "required": false
+                    }
                 }
             ]
         }

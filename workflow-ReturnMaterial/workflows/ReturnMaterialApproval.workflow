@@ -16,9 +16,6 @@
 				}
 			},
 			"activities": {
-				"9e773a88-6f51-4782-815c-aebfc9edcdfb": {
-					"name": "ServiceTask1"
-				},
 				"5b6cffe6-8d8c-4c92-80a5-c589a9c760f8": {
 					"name": "MailTask1"
 				},
@@ -29,9 +26,6 @@
 			"sequenceFlows": {
 				"c6b99f32-5fe6-4ab6-b60a-80fba1b9ae0f": {
 					"name": "SequenceFlow1"
-				},
-				"998d30b5-8c7b-438f-ad40-96e8c318b9ae": {
-					"name": "SequenceFlow2"
 				},
 				"b42304c1-f757-4f76-8f5e-72eac968903e": {
 					"name": "SequenceFlow3"
@@ -56,15 +50,6 @@
 			"classDefinition": "com.sap.bpm.wfs.EndEvent",
 			"id": "endevent1",
 			"name": "EndEvent1"
-		},
-		"9e773a88-6f51-4782-815c-aebfc9edcdfb": {
-			"classDefinition": "com.sap.bpm.wfs.ServiceTask",
-			"destination": "AGEL_MMTS",
-			"path": "/api/v2/odata.svc/ReturnMaterialReserveSet(${context.ReservationRequestID})",
-			"httpMethod": "GET",
-			"responseVariable": "${context.ReservationResponse}",
-			"id": "servicetask1",
-			"name": "ServiceTask1"
 		},
 		"5b6cffe6-8d8c-4c92-80a5-c589a9c760f8": {
 			"classDefinition": "com.sap.bpm.wfs.MailTask",
@@ -96,13 +81,6 @@
 			"id": "sequenceflow1",
 			"name": "SequenceFlow1",
 			"sourceRef": "11a9b5ee-17c0-4159-9bbf-454dcfdcd5c3",
-			"targetRef": "9e773a88-6f51-4782-815c-aebfc9edcdfb"
-		},
-		"998d30b5-8c7b-438f-ad40-96e8c318b9ae": {
-			"classDefinition": "com.sap.bpm.wfs.SequenceFlow",
-			"id": "sequenceflow2",
-			"name": "SequenceFlow2",
-			"sourceRef": "9e773a88-6f51-4782-815c-aebfc9edcdfb",
 			"targetRef": "5b6cffe6-8d8c-4c92-80a5-c589a9c760f8"
 		},
 		"b42304c1-f757-4f76-8f5e-72eac968903e": {
@@ -125,8 +103,6 @@
 				"df898b52-91e1-4778-baad-2ad9a261d30e": {},
 				"53e54950-7757-4161-82c9-afa7e86cff2c": {},
 				"6bb141da-d485-4317-93b8-e17711df4c32": {},
-				"e3477327-a25a-4f58-bb99-cc27b5523027": {},
-				"f58e2f58-c19a-4c33-91ea-ac69d5ef6479": {},
 				"531d3267-6007-4e59-92e4-3f0d3a8f328f": {},
 				"c9a8f765-15ed-4412-90f0-c47740cd0f98": {},
 				"e9d0390c-2f86-445b-9754-94dc4fa2be3b": {},
@@ -149,7 +125,7 @@
 		"53e54950-7757-4161-82c9-afa7e86cff2c": {
 			"classDefinition": "com.sap.bpm.wfs.ui.EndEventSymbol",
 			"x": 44.5,
-			"y": 424,
+			"y": 314,
 			"width": 35,
 			"height": 35,
 			"object": "2798f4e7-bc42-4fad-a248-159095a2f40a"
@@ -158,35 +134,20 @@
 			"classDefinition": "com.sap.bpm.wfs.ui.SequenceFlowSymbol",
 			"points": "62,44 62,94",
 			"sourceSymbol": "df898b52-91e1-4778-baad-2ad9a261d30e",
-			"targetSymbol": "e3477327-a25a-4f58-bb99-cc27b5523027",
-			"object": "c6b99f32-5fe6-4ab6-b60a-80fba1b9ae0f"
-		},
-		"e3477327-a25a-4f58-bb99-cc27b5523027": {
-			"classDefinition": "com.sap.bpm.wfs.ui.ServiceTaskSymbol",
-			"x": 12,
-			"y": 94,
-			"width": 100,
-			"height": 60,
-			"object": "9e773a88-6f51-4782-815c-aebfc9edcdfb"
-		},
-		"f58e2f58-c19a-4c33-91ea-ac69d5ef6479": {
-			"classDefinition": "com.sap.bpm.wfs.ui.SequenceFlowSymbol",
-			"points": "62,154 62,204",
-			"sourceSymbol": "e3477327-a25a-4f58-bb99-cc27b5523027",
 			"targetSymbol": "531d3267-6007-4e59-92e4-3f0d3a8f328f",
-			"object": "998d30b5-8c7b-438f-ad40-96e8c318b9ae"
+			"object": "c6b99f32-5fe6-4ab6-b60a-80fba1b9ae0f"
 		},
 		"531d3267-6007-4e59-92e4-3f0d3a8f328f": {
 			"classDefinition": "com.sap.bpm.wfs.ui.MailTaskSymbol",
 			"x": 12,
-			"y": 204,
+			"y": 94,
 			"width": 100,
 			"height": 60,
 			"object": "5b6cffe6-8d8c-4c92-80a5-c589a9c760f8"
 		},
 		"c9a8f765-15ed-4412-90f0-c47740cd0f98": {
 			"classDefinition": "com.sap.bpm.wfs.ui.SequenceFlowSymbol",
-			"points": "62,264 62,314",
+			"points": "62,154 62,204",
 			"sourceSymbol": "531d3267-6007-4e59-92e4-3f0d3a8f328f",
 			"targetSymbol": "e9d0390c-2f86-445b-9754-94dc4fa2be3b",
 			"object": "b42304c1-f757-4f76-8f5e-72eac968903e"
@@ -194,14 +155,14 @@
 		"e9d0390c-2f86-445b-9754-94dc4fa2be3b": {
 			"classDefinition": "com.sap.bpm.wfs.ui.UserTaskSymbol",
 			"x": 12,
-			"y": 314,
+			"y": 204,
 			"width": 100,
 			"height": 60,
 			"object": "fe887841-40ca-4445-8037-f90495901289"
 		},
 		"3a7d1efe-e2af-4317-bbb1-7ccae3f3905d": {
 			"classDefinition": "com.sap.bpm.wfs.ui.SequenceFlowSymbol",
-			"points": "62,374 62,424",
+			"points": "62,264 62,314",
 			"sourceSymbol": "e9d0390c-2f86-445b-9754-94dc4fa2be3b",
 			"targetSymbol": "53e54950-7757-4161-82c9-afa7e86cff2c",
 			"object": "84635f2f-0db5-40f8-9fa6-a6c163fecaff"
