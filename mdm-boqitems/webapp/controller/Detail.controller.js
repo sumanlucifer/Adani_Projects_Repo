@@ -9,7 +9,7 @@ sap.ui.define([
     // "sap/ui/core/routing/History",
     // 'sap/m/MessageToast',
     "sap/m/MessageBox",
-], function (BaseController, JSONModel, MessageBox) {
+], function (BaseController, JSONModel, Fragment, MessageBox) {
     "use strict";
 
     return BaseController.extend("com.agel.mmts.mdmboqitems.controller.Detail", {
