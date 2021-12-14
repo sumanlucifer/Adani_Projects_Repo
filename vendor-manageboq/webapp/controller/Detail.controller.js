@@ -156,8 +156,8 @@ sap.ui.define([
             //     }
             // }
             var aMasterMaterialItems = this.getViewModel("MasterMaterialModel").getData();
-            for( var i=0; i<aMasterMaterialItems.length;i++){
-                if(aMasterMaterialItems[i].MasterBOQItem.ID == sKey){
+            for (var i = 0; i < aMasterMaterialItems.length; i++) {
+                if (aMasterMaterialItems[i].MasterBOQItem.ID == sKey) {
                     this.getView().getModel("ManageBOQModel").setProperty(sItemPath + "/MaterialCode", aMasterMaterialItems[i].MasterBOQItem.MaterialCode);
                     this.getView().getModel("ManageBOQModel").setProperty(sItemPath + "/Description", aMasterMaterialItems[i].MasterBOQItem.Description);
                 }
@@ -571,6 +571,8 @@ sap.ui.define([
                 iTotalQuantity = parseFloat(iTotalQuantity);
             var iWeightPerPiece = this.getViewModel("boqCreationModel").getProperty(sBindingPath + "/WeightPerPiece");
             var iTotalItemWeight = this.getViewModel("boqCreationModel").getProperty(sBindingPath + "/TotalItemWeight");
+            if (iTotalItemWeight)
+                iTotalItemWeight = parseFloat(iTotalItemWeight);
             var iRemainingQty = this.getViewModel("boqCreationModel").getProperty(sBindingPath + "/RemainingQty");
             if (iTotalItemWeight) {
                 iTotalQuantity -= iTotalItemWeight
@@ -582,6 +584,8 @@ sap.ui.define([
                 var iTotalWeight = parseFloat(oValue) * (parseFloat(iWeightPerPiece) / 1000);
                 iTotalWeight = iTotalWeight.toFixed(5);
                 this.getViewModel("boqCreationModel").setProperty(sBindingPath + "/TotalItemWeight", iTotalWeight);
+                if (!iTotalQuantity)
+                    iTotalQuantity = parseFloat(0);
                 iTotalQuantity += iTotalWeight;
                 iTotalQuantity = iTotalQuantity.toFixed(5);
                 if (iTotalQuantity < 0)
