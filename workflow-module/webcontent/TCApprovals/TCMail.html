@@ -17,6 +17,7 @@
     <font face="verdana" size="5" color="#2D68B2">A new BOQ approval request is ready for your review.
     </font>
     <br>
+    
     <br>
     <font face="verdana" size="3" color="#2D68B2">
         <b><u>BOQ Details</u></b>
@@ -44,8 +45,15 @@
     </font>
 
     <br>
+
+    <font face="verdana" size="2">
+        <b>Description:</b>
+        ${context.Description}
+    </font>
+
+    <br>
     <font face="verdana" size="2.2">
-        <b>Vendor Name:</b>
+        <b>Material Name:</b>
         ${context.Name}
     </font>
     <br>
@@ -65,7 +73,7 @@
     <br>
 
     <a
-        href="https://adani-renewables-uat-4x35exgr.cpp.cfapps.ap11.hana.ondemand.com/site/mmts-uat">
+        href=${context.URL}>
         Approval Request Review</a>
     <br>
     <br>
