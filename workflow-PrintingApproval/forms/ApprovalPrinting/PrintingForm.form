@@ -16,37 +16,10 @@
                     "type": "string",
                     "label": "PO Number",
                     "readOnly": false,
-                    "value": "${context.PrintingResponse.d.PurchaseOrder.PONumber}",
+                    "value": "${context.PurchaseOrder.PONumber}",
                     "constraints": {
                         "required": false
                     }
-                }
-            ]
-        },
-        {
-            "id": "priniting_ite",
-            "type": "section",
-            "title": "Packing List Items",
-            "content": [
-                {
-                    "id": "name",
-                    "type": "collection",
-                    "title": "Line Items",
-                    "addEnabled": false,
-                    "deleteEnabled": false,
-                    "value": "${context.PrintingResponse.d.PackingList.PackingListParentItems.results}",
-                    "content": [
-                        {
-                            "id": "name",
-                            "type": "string",
-                            "label": "Name",
-                            "readOnly": false,
-                            "value": "${item.Name}",
-                            "constraints": {
-                                "required": false
-                            }
-                        }
-                    ]
                 }
             ]
         }

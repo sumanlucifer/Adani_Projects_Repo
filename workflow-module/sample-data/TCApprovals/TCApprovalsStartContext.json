@@ -1,4 +1,26 @@
-{
-  "BOQGroupId": null,
-  "TCUserEmails":null
-}
+
+{ 
+
+    "BOQGroupId": null, 
+    
+    "TCUserEmails":null, 
+    
+    "MaterialCode": null, 
+    
+    "Name": null, 
+    
+    "Description":null, 
+   
+    
+    "PONumber":null, 
+    
+    "PlantCode":null, 
+    
+    "VendorCode":null,
+    "VendorName": null
+    
+    
+    } 
+
+
+
