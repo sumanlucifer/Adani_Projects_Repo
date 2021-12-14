@@ -582,12 +582,12 @@ sap.ui.define([
             this.getViewModel("boqCreationModel").setProperty(sBindingPath + "/TotalItemWeight", null);
             if (parseFloat(oValue) > 0) {
                 var iTotalWeight = parseFloat(oValue) * (parseFloat(iWeightPerPiece) / 1000);
-                iTotalWeight = iTotalWeight.toFixed(5);
+                iTotalWeight = parseFloat(iTotalWeight.toFixed(5));
                 this.getViewModel("boqCreationModel").setProperty(sBindingPath + "/TotalItemWeight", iTotalWeight);
                 if (!iTotalQuantity)
                     iTotalQuantity = parseFloat(0);
                 iTotalQuantity += iTotalWeight;
-                iTotalQuantity = iTotalQuantity.toFixed(5);
+                iTotalQuantity = parseFloat(iTotalQuantity.toFixed(5));
                 if (iTotalQuantity < 0)
                     iTotalQuantity = 0;
                 if (sUOM === 'MT')
