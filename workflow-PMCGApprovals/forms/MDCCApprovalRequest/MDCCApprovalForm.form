@@ -30,6 +30,36 @@
                     "constraints": {
                         "required": false
                     }
+                },
+                {
+                    "id": "notification_number",
+                    "type": "string",
+                    "label": "Notification Number",
+                    "readOnly": false,
+                    "value": "${context.Notification}",
+                    "constraints": {
+                        "required": false
+                    }
+                },
+                {
+                    "id": "type",
+                    "type": "string",
+                    "label": "Type",
+                    "readOnly": false,
+                    "value": "${context.Type}",
+                    "constraints": {
+                        "required": false
+                    }
+                },
+                {
+                    "id": "vendor",
+                    "type": "string",
+                    "label": "Vendor",
+                    "readOnly": false,
+                    "value": "${context.Vendor}",
+                    "constraints": {
+                        "required": false
+                    }
                 }
             ]
         }

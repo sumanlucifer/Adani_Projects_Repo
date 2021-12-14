@@ -1,4 +1,12 @@
-{
- "MDCCRequestID" : null,
- "PMCGUserMail": null
-}
+{ 
+
+    "MDCCRequestID" : null, 
+    "PMCGUserMail": null, 
+    "PONumber": null, 
+    "MDCCNumber":null,
+    "Notification": null,
+    "Type": null,
+    "Vendor": null,
+    "URL": null
+    
+    } 

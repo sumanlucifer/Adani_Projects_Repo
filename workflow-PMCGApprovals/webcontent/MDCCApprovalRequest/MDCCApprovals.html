@@ -16,10 +16,67 @@
     <br>
     <font face="verdana" size="5" color="#2D68B2">A new MDCC approval request is ready for your review.</font>
     <br>  
+
+
+    <br>
+    <font face="verdana" size="3" color="#2D68B2">
+        <b><u>Basic Details</u></b>
+    </font>
+    <br>
+    <br>
+
+    <font face="verdana" size="2">
+        <b>PO Number:</b>
+        ${context.PONumber}
+    </font>
+
+    <br>
+
+    <font face="verdana" size="2">
+        <b>MDCC Number:</b>
+        ${context.MDCCNumber}
+    </font>
+
+    <br>
+
+    <font face="verdana" size="2">
+        <b>Notification Number:</b>
+        ${context.Notification}
+    </font>
+
+    <br>
+
+    <font face="verdana" size="2">
+        <b>Type:</b>
+        ${context.Type}
+    </font>
+
+    <br>
+    <font face="verdana" size="2.2">
+        <b>Vendor:</b>
+        ${context.Vendor}
+    </font>
+    <br>
+
+    <font face="verdana" size="2">
+        <b>Vendor Code:</b>
+        ${context.VendorCode}
+    </font>
+
+    <br>
+
+    <font face="verdana" size="2">
+        <b>Vendor Name:</b>
+        ${context.VendorName}
+    </font>
+
+    <br>
+
+
     <font face="verdana" size="2" color="#595998">Please visit the below link to review</font>
     <br>
     <a
-        href="https://adani-renewables-uat-4x35exgr.cpp.cfapps.ap11.hana.ondemand.com/site/mmts-uat">
+    href=${context.URL}>
         Approval Request Review</a>
     <br>
     <br>
