@@ -14,7 +14,7 @@
 <body>
     <!-- <font face="verdana" size="2">Hi,</font> -->
     <br>
-    <font face="verdana" size="5" color="#2D68B2">A new Role Assignment approval request - <span style="color:#BC3863;">${context.RoleAssignResponse.d.RequestNumber}</span> is ready for your review.
+    <font face="verdana" size="5" color="#2D68B2">A new Role Assignment approval request - <span style="color:#BC3863;">${context.RequestNumber}</span> is ready for your review.
     </font>
     <br>
     <br>
@@ -26,21 +26,21 @@
 
     <font face="verdana" size="2">
         <b>Request Number:</b>
-        ${context.RoleAssignResponse.d.RequestNumber}
+        ${context.RequestNumber}
     </font>
 
     <br>
 
     <font face="verdana" size="2">
         <b>Request By:</b>
-        ${context.RoleAssignResponse.d.CreatedBy}
+        ${context.CreatedBy}
     </font>
 
         <br>
 
     <font face="verdana" size="2">
         <b>Role:</b>
-        ${context.RoleAssignResponse.d.Role}
+        ${context.Role}
     </font>
 
     <br>
@@ -58,7 +58,7 @@
 
     <font face="verdana" size="2">
         <b>Email:</b>
-        ${context.RoleAssignResponse.d.Email}
+        ${context.Email}
     </font>
 
     <br>

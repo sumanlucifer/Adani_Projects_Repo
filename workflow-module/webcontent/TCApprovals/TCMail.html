@@ -14,52 +14,52 @@
 <body>
     <!-- <font face="verdana" size="2">Hi,</font> -->
     <br>
-    <font face="verdana" size="5" color="#2D68B2">A new BOQ approval request - <span style="color:#BC3863;">${context.aBOQItems.d.Name}</span> is ready for your review.
+    <font face="verdana" size="5" color="#2D68B2">A new BOQ approval request is ready for your review.
     </font>
     <br>
     <br>
     <font face="verdana" size="3" color="#2D68B2">
-        <b><u>PO Details</u></b>
+        <b><u>BOQ Details</u></b>
     </font>
     <br>
     <br>
 
     <font face="verdana" size="2">
         <b>PO Number:</b>
-        ${context.aBOQItems.d.ParentLineItem.PurchaseOrder.PONumber}
+        ${context.PONumber}
     </font>
 
     <br>
 
     <font face="verdana" size="2">
         <b>Company Code:</b>
-        ${context.aBOQItems.d.ParentLineItem.PurchaseOrder.CompanyCode}
+        ${context.CompanyCode}
     </font>
 
     <br>
 
     <font face="verdana" size="2">
         <b>Plant Code:</b>
-        ${context.aBOQItems.d.ParentLineItem.PurchaseOrder.PlantCode}
+        ${context.PlantCode}
     </font>
 
     <br>
     <font face="verdana" size="2.2">
         <b>Vendor Name:</b>
-        ${context.aBOQItems.d.ParentLineItem.PurchaseOrder.Vendor.Name}
+        ${context.Name}
     </font>
     <br>
 
     <font face="verdana" size="2">
         <b>Vendor Code:</b>
-        ${context.aBOQItems.d.ParentLineItem.PurchaseOrder.Vendor.VendorCode}
+        ${context.VendorCode}
     </font>
 
     <br>
 
     <font face="verdana" size="2">
-        <b>Buyer Name:</b>
-        ${context.aBOQItems.d.ParentLineItem.PurchaseOrder.MasterCompanyCode.d.Name}
+        <b>Vendor Name:</b>
+        ${context.VendorName}
     </font>
 
     <br>

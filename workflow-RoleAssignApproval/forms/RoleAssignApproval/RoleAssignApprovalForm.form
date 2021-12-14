@@ -16,7 +16,7 @@
                     "type": "string",
                     "label": "Request Number",
                     "readOnly": true,
-                    "value": "${context.RoleAssignResponse.d.RequestNumber}",
+                    "value": "${context.RequestNumber}",
                     "constraints": {
                         "required": false
                     }
@@ -26,7 +26,7 @@
                     "type": "string",
                     "label": "Status",
                     "readOnly": true,
-                    "value": "${context.RoleAssignResponse.d.Status}",
+                    "value": "${context.Status}",
                     "constraints": {
                         "required": false
                     }
@@ -36,7 +36,7 @@
                     "type": "string",
                     "label": "Goods Recipient",
                     "readOnly": true,
-                    "value": "${context.RoleAssignResponse.d.GoodsRecipient}",
+                    "value": "${context.GoodsRecipient}",
                     "constraints": {
                         "required": false
                     }
@@ -46,7 +46,7 @@
                     "type": "string",
                     "label": "Plant",
                     "readOnly": true,
-                    "value": "${context.RoleAssignResponse.d.Plant}",
+                    "value": "${context.Plant}",
                     "constraints": {
                         "required": false
                     }
@@ -56,7 +56,7 @@
                     "type": "string",
                     "label": "Profit Centre",
                     "readOnly": true,
-                    "value": "${context.RoleAssignResponse.d.ProfitCentre}",
+                    "value": "${context.ProfitCentre}",
                     "constraints": {
                         "required": false
                     }

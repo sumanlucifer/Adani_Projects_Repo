@@ -14,7 +14,7 @@
 <body>
     <!-- <font face="verdana" size="2">Hi,</font> -->
     <br>
-    <font face="verdana" size="5" color="#2D68B2">A new Return Material request - <span style="color:#BC3863;">${context.ReservationResponse.d.RequestNumber}</span> is ready for your review.
+    <font face="verdana" size="5" color="#2D68B2">A new Return Material request - <span style="color:#BC3863;">${context.RequestNumber}</span> is ready for your review.
     </font>
     <br>
     <br>
@@ -26,27 +26,27 @@
 
     <font face="verdana" size="2">
         <b>Reservation Number:</b>
-${context.ReservationResponse.d.ReservationNumber}
+${context.ReservationNumber}
     </font>
 
     <br>
 
     <font face="verdana" size="2">
         <b>Request Number:</b>
-        ${context.ReservationResponse.d.RequestNumber}
+        ${context.RequestNumber}
     </font>
 
     <br>
 
     <font face="verdana" size="2">
         <b>Cost Centre:</b>
-        ${context.ReservationResponse.d.CostCentre}
+        ${context.CostCentre}
     </font>
 
     <br>
     <font face="verdana" size="2.2">
         <b>Receiving Location:</b>
-        ${context.ReservationResponse.d.ReceivingLocation}
+        ${context.ReceivingLocation}
     </font>
     
 
