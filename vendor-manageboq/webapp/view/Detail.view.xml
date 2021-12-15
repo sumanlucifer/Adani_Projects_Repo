@@ -121,9 +121,9 @@
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection visible="{= ${objectViewModel>/isCreatingPCList}}">
                         <VBox renderType="Bare">
-                            <MessageStrip text="{i18n>BOQItemsfor1quantityof} {Name}" type="Information" showIcon="true" class="sapUiMediumMarginBottom" visible="{= ${objectViewModel>/noParentChildRelationFlag} ? false : true }" />
-
-
+                            <MessageStrip text="{i18n>BOQItemsfor1quantityof} {Name}" type="Information" showIcon="true" class="sapUiMediumMarginBottom" visible="{= ${objectViewModel>/noParentChildRelationFlag} ? false : ${UoM} === 'MT' ? false : true }" />
+                            <MessageStrip text="{i18n>BOQItemsfor} {Quantity} {i18n>quantityof} {Name}" type="Information" showIcon="true" class="sapUiMediumMarginBottom" visible="{= ${objectViewModel>/noParentChildRelationFlag} ? false : ${UoM} === 'MT' ? true : false }" />
+    
                             <Table id="idManageBOQTable" growing="true" growingThreshold="10" items="{ManageBOQModel>/boqItems}" visible="{= ${objectViewModel>/noParentChildRelationFlag} ? false : true }">
                                 <headerToolbar>
                                     <OverflowToolbar>
