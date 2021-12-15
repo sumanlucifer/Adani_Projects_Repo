@@ -24,7 +24,6 @@
                             selectionMode="None"  enableSelectAll="false"
                              ariaLabelledBy="title" class="sapUiSmallMargin">
 							<ui:columns>
-                                
                                 <ui:Column width="8%" hAlign="Center">
 									<Label text="{i18n>Select}" />
 									<ui:template>
