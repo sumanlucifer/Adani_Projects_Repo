@@ -92,8 +92,10 @@
                     <tt:template>
                         <Text text="{path:'CreatedAt',
                                                     type: 'sap.ui.model.type.Date',
+
                                                     formatOptions: {
-                                                        pattern: 'MMMM dd, yyyy HH:mm:ss'
+                                                        style: 'medium',
+                                                        pattern: 'MMMM dd, yyyy'
                                                     }}"/>
                     </tt:template>
                 </tt:Column>
@@ -106,7 +108,8 @@
                         <Text text="{path:'ApprovedOn',
                                                     type: 'sap.ui.model.type.Date',
                                                     formatOptions: {
-                                                        pattern: 'MMMM dd, yyyy HH:mm:ss'
+                                                        style: 'medium',
+                                                        pattern: 'MMMM dd, yyyy'
                                                     }}"/>
                     </tt:template>
                 </tt:Column>
