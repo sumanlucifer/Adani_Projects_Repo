@@ -16,7 +16,67 @@
                     "type": "string",
                     "label": "PO Number",
                     "readOnly": false,
-                    "value": "${context.PurchaseOrder.PONumber}",
+                    "value": "${context.PONumber}",
+                    "constraints": {
+                        "required": false
+                    }
+                },
+                {
+                    "id": "requested_by",
+                    "type": "string",
+                    "label": "Requested By",
+                    "readOnly": false,
+                    "value": "${context.RequestedBy}",
+                    "constraints": {
+                        "required": false
+                    }
+                },
+                {
+                    "id": "plant_code",
+                    "type": "string",
+                    "label": "Plant Code",
+                    "readOnly": false,
+                    "value": "${context.PlantCode}",
+                    "constraints": {
+                        "required": false
+                    }
+                },
+                {
+                    "id": "reason",
+                    "type": "string",
+                    "label": "Reason",
+                    "readOnly": false,
+                    "value": "${context.Reason}",
+                    "constraints": {
+                        "required": false
+                    }
+                },
+                {
+                    "id": "description",
+                    "type": "string",
+                    "label": "Description",
+                    "readOnly": false,
+                    "value": "${context.Description}",
+                    "constraints": {
+                        "required": false
+                    }
+                },
+                {
+                    "id": "packing_list_name",
+                    "type": "string",
+                    "label": "Packing List Name",
+                    "readOnly": false,
+                    "value": "${context.PackingListName}",
+                    "constraints": {
+                        "required": false
+                    }
+                },
+                {
+                    "id": "vendorcode",
+                    "type": "string",
+                    "label": "Vendor Code",
+                    "readOnly": false,
+                    "value": "${context.VendorCode}",
                     "constraints": {
                         "required": false
                     }

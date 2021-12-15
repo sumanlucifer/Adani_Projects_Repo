@@ -128,7 +128,7 @@
 		"53e54950-7757-4161-82c9-afa7e86cff2c": {
 			"classDefinition": "com.sap.bpm.wfs.ui.EndEventSymbol",
 			"x": 44.5,
-			"y": 314,
+			"y": 424,
 			"width": 35,
 			"height": 35,
 			"object": "2798f4e7-bc42-4fad-a248-159095a2f40a"
@@ -165,7 +165,7 @@
 		},
 		"ecdbc89d-112e-4e88-83c3-78e7059a4d15": {
 			"classDefinition": "com.sap.bpm.wfs.ui.SequenceFlowSymbol",
-			"points": "62,264 62,314",
+			"points": "62,234 62,441.5",
 			"sourceSymbol": "48b5e915-7adf-41ed-9be6-4e9437719b88",
 			"targetSymbol": "53e54950-7757-4161-82c9-afa7e86cff2c",
 			"object": "9e2963c6-2990-4f08-9a2c-76b1ea1b7e63"
@@ -173,16 +173,16 @@
 		"62d7f4ed-4063-4c44-af8b-39050bd44926": {
 			"classDefinition": "com.sap.bpm.wfs.LastIDs",
 			"timereventdefinition": 1,
-			"maildefinition": 2,
+			"maildefinition": 3,
 			"hubapireference": 1,
-			"sequenceflow": 10,
+			"sequenceflow": 11,
 			"startevent": 1,
 			"boundarytimerevent": 1,
 			"endevent": 1,
 			"usertask": 1,
 			"servicetask": 1,
 			"scripttask": 2,
-			"mailtask": 2
+			"mailtask": 3
 		},
 		"fc6ead61-a0f3-4d24-bc29-91b915fafc57": {
 			"classDefinition": "com.sap.bpm.wfs.MailDefinition",

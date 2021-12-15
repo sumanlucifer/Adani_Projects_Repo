@@ -1,5 +1,14 @@
-{
-    "ReservationRequestID": null,
-    "ReservationUsersMail": null
-}
+
+{ 
+
+    "ReservationRequestID": null, 
+    "ReservationUsersMail": null, 
+    "RequestNumber": null, 
+    "GoodsRecipient": null,     
+    "WBSNumber": null, 
+    "MaterialDocumentNumber": null, 
+    "MaterialCode": null, 
+    "WBSElement": null,
+    "URL": null
+    } 
 

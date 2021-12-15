@@ -44,8 +44,19 @@
     </font>
 
     <br>
+    <font face="verdana" size="2">
+        <b>Name:</b>
+        ${context.Name}
+    </font>
 
-        
+    <br>
+
+    <font face="verdana" size="2">
+        <b>Status:</b>
+        ${context.Status}
+    </font>
+
+    <br>
 
     <!-- <font face="verdana" size="2">
         <b>Requested On:</b>
@@ -66,7 +77,7 @@
     <font face="verdana" size="2" color="#595998">Please visit the below link to review</font>
     <br>
     <a
-        href="https://renewables-dev.cpp.cfapps.ap11.hana.ondemand.com/site/MaterialMovementTrackingSystem?sap-language=en">
+    href=${context.URL}>
         Approval Request Review</a>
     <br>
     <br>

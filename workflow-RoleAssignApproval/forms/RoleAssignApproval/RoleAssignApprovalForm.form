@@ -60,6 +60,36 @@
                     "constraints": {
                         "required": false
                     }
+                },
+                {
+                    "id": "name",
+                    "type": "string",
+                    "label": "Name",
+                    "readOnly": false,
+                    "value": "${context.Name}",
+                    "constraints": {
+                        "required": false
+                    }
+                },
+                {
+                    "id": "email",
+                    "type": "string",
+                    "label": "Email",
+                    "readOnly": false,
+                    "value": "${context.Email}",
+                    "constraints": {
+                        "required": false
+                    }
+                },
+                {
+                    "id": "role",
+                    "type": "string",
+                    "label": "Role",
+                    "readOnly": false,
+                    "value": "${context.Role}",
+                    "constraints": {
+                        "required": false
+                    }
                 }
             ]
         }
