@@ -10,7 +10,10 @@
     "PlantCode":null, 
     "VendorCode":null,
     "VendorName": null,
-    "URL": null
+    "URL": null,
+    "Email": null,
+    "Status": null,
+    "CreatedBy": null
     
     } 
 
