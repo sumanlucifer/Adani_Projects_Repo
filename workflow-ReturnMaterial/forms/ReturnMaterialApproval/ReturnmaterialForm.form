@@ -30,6 +30,46 @@
                     "constraints": {
                         "required": false
                     }
+                },
+                {
+                    "id": "goods_recipient",
+                    "type": "string",
+                    "label": "Goods Recipient",
+                    "readOnly": false,
+                    "value": "${context.GoodsRecipient}",
+                    "constraints": {
+                        "required": false
+                    }
+                },
+                {
+                    "id": "costcentre",
+                    "type": "string",
+                    "label": "Cost Centre",
+                    "readOnly": false,
+                    "value": "${context.CostCentre}",
+                    "constraints": {
+                        "required": false
+                    }
+                },
+                {
+                    "id": "receiving_location",
+                    "type": "string",
+                    "label": "Receiving Location",
+                    "readOnly": false,
+                    "value": "${context.ReceivingLocation}",
+                    "constraints": {
+                        "required": false
+                    }
+                },
+                {
+                    "id": "wbs_element",
+                    "type": "string",
+                    "label": "WBS Element",
+                    "readOnly": false,
+                    "value": "${context.WBSElement}",
+                    "constraints": {
+                        "required": false
+                    }
                 }
             ]
         }

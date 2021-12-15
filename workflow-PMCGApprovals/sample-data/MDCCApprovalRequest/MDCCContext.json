@@ -7,6 +7,9 @@
     "Notification": null,
     "Type": null,
     "Vendor": null,
-    "URL": null
+    "URL": null,
+    "Email": null,
+    "Status": null,
+    "CreatedBy": null
     
     } 

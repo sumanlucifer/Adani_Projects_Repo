@@ -2,24 +2,15 @@
 { 
 
     "BOQGroupId": null, 
-    
-    "TCUserEmails":null, 
-    
+    "TCUserEmails": null, 
     "MaterialCode": null, 
-    
-    "Name": null, 
-    
+    "Name": null,
     "Description":null, 
-   
-    
-    "PONumber":null, 
-    
+    "PONumber":null,
     "PlantCode":null, 
-    
     "VendorCode":null,
     "VendorName": null,
     "URL": null
-    
     
     } 
 

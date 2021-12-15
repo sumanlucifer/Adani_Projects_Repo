@@ -30,6 +30,12 @@ ${context.ReservationNumber}
     </font>
 
     <br>
+    <font face="verdana" size="2">
+        <b>Goods Recipient:</b>
+${context.GoodsRecipient}
+    </font>
+
+    <br>
 
     <font face="verdana" size="2">
         <b>Request Number:</b>
@@ -44,6 +50,12 @@ ${context.ReservationNumber}
     </font>
 
     <br>
+    <font face="verdana" size="2">
+        <b>WBS Element:</b>
+        ${context.WBSElement}
+    </font>
+
+    <br>
     <font face="verdana" size="2.2">
         <b>Receiving Location:</b>
         ${context.ReceivingLocation}
@@ -55,7 +67,7 @@ ${context.ReservationNumber}
     <font face="verdana" size="2" color="#595998">Please visit the below link to review</font>
     <br>
     <a
-        href="https://renewables-qa.cpp.cfapps.ap11.hana.ondemand.com/site/MaterialMovementTrackingSystem">
+    href=${context.URL}>
         Approval Request Review</a>
     <br>
     <br>

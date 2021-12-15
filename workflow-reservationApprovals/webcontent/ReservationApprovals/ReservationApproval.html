@@ -15,11 +15,62 @@
     <!-- <font face="verdana" size="2">Hi,</font> -->
     <br>
     <font face="verdana" size="5" color="#2D68B2">A new Reservation approval request is ready for your review.</font>
-    <br>  
+    <br> 
+    
+    <br>
+    <font face="verdana" size="3" color="#2D68B2">
+        <b><u>Request Details</u></b>
+    </font>
+    <br>
+    <br>
+
+    <font face="verdana" size="2">
+        <b>Request Number:</b>
+        ${context.RequestNumber}
+    </font>
+
+    <br>
+
+    <font face="verdana" size="2">
+        <b>Goods Recipient:</b>
+        ${context.GoodsRecipient}
+    </font>
+
+    <br>
+    <font face="verdana" size="2.2">
+        <b>WBS Number:</b>
+        ${context.WBSNumber}
+    </font>
+    <br>
+
+    <font face="verdana" size="2">
+        <b>Material Document Number:</b>
+        ${context.MaterialDocumentNumber}
+    </font>
+
+    <br>
+
+    <font face="verdana" size="2">
+        <b>Material Code:</b>
+        ${context.MaterialCode}
+    </font>
+
+    <br>
+
+    <font face="verdana" size="2">
+        <b>WBS Element:</b>
+        ${context.WBSElement}
+    </font>
+
+    <br>
+
+    
+    <br>
+
     <font face="verdana" size="2" color="#595998">Please visit the below link to review</font>
     <br>
     <a
-        href="https://adani-renewables-uat-4x35exgr.cpp.cfapps.ap11.hana.ondemand.com/site/mmts-uat">
+    href=${context.URL}>
         Approval Request Review</a>
     <br>
     <br>

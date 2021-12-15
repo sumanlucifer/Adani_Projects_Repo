@@ -225,10 +225,10 @@
 		"b5916570-ae24-4193-8b9f-f3ebb147f11b": {
 			"classDefinition": "com.sap.bpm.wfs.MailDefinition",
 			"name": "maildefinition2",
-			"to": "${context.RoleAssignResponse.d.Email}",
+			"to": "${context.Email}",
 			"cc": "",
-			"subject": "Request ${context.RoleAssignRequestID}-${context.RoleAssignResponse.d.Status} ",
-			"text": "Dear ${context.RoleAssignResponse.d.CreatedBy},\n\nYour request for ${context.RoleAssignResponse.d.Role} role assignment has been ${context.RoleAssignResponse.d.Status}\n\nPlease Login to the application again for verifying approved roles.\n\nRegards,\nAGEL MMTS TEAM",
+			"subject": "Request ${context.RoleAssignRequestID}-${context.Status} ",
+			"text": "Dear ${context.CreatedBy},\n\nYour request  ${context.RoleAssignRequestID} for ${context.Role} role assignment has been ${context.Status}\n\nPlease Login to the application again for verifying approved roles.\n\nRegards,\nAGEL MMTS TEAM",
 			"id": "maildefinition2"
 		}
 	}
