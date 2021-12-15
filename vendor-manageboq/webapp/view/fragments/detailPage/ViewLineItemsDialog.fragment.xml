@@ -20,7 +20,7 @@
                         <Text text="{i18n>UOM}"/>
                     </Column>
                     <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center">
-                        <Text text="{i18n>TotalItemPerWeight}" />
+                        <Text text="{i18n>TotalItemPerWeightinkg}" />
                     </Column>
                     <Column demandPopin="true" minScreenWidth="Tablet" hAlign="Center">
                         <Text text="{i18n>remarks}"/>
