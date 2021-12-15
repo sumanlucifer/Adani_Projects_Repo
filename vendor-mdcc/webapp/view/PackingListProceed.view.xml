@@ -42,7 +42,7 @@
                 <uxap:snappedTitleOnMobile>
                 </uxap:snappedTitleOnMobile>
                 <uxap:actions>
-                    <Button id="idBtnProceed" text="{i18n>Proceed}"  type="Emphasized" press="onConfirmProceedSave"/>
+                    <Button id="idBtnProceed" text="{i18n>Proceed}"  type="Emphasized" enabled="false" press="onConfirmProceedSave"/>
                 </uxap:actions>
             </uxap:ObjectPageDynamicHeaderTitle>
         </uxap:headerTitle>
