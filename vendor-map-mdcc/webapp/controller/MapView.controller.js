@@ -298,7 +298,7 @@ sap.ui.define([
                         var liveQty = oEvent.getSource().getBindingContext("TreeTableModel").getObject().MDCCApprovedQty;
                         if (!liveQty) liveQty = 0;
                         iTotalQuantity = iTotalQuantity + (((parseFloat(oValue) - parseFloat(liveQty)) * parseFloat(wpp))/1000);
-                        iTotalQuantity = iTotalQuantity.toFixed(3);
+                        iTotalQuantity = parseFloat(iTotalQuantity.toFixed(3));
                         this.getViewModel("TreeTableModel").setProperty(sItemPath + "/MDCCApprovedQty", oValue);
                         this.getViewModel("TreeTableModel").setProperty(sParentPath + "/MDCCApprovedQty",iTotalQuantity);
                     }
