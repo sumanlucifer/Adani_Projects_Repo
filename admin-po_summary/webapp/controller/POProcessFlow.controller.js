@@ -69,9 +69,12 @@ sap.ui.define([
         fnSetProcessFlowNodesData: function (oDataObj) {
             var oProcessFlowData = this.getView().getModel("ProcessFlowModel").getData(),
                 aNodes = oProcessFlowData.nodes,
+                aLanes = oProcessFlowData.lanes,
                 aNodesProperties = ["PackingListCreatedAt", "SentForPrintingAssistanceOn", "PrintingApprovalActionDate", "DispatchedOn",
-                    "GateEntryDate", "UnloadedOn", "PackingGRNDateListCreatedAt", "UDDate"
+                    "GateEntryDate", "UnloadedOn", "GRNDate", "UDDate"
                 ];
+            // aNodesProperties = ["PackingListCreatedAt", "GateEntryDate", "UnloadedOn", "PackingGRNDateListCreatedAt", "UDDate"
+            // ];
 
             this.getView().getModel("objectViewModel").setProperty("/PCListID", oDataObj.PackingListNumber);
 
@@ -88,6 +91,23 @@ sap.ui.define([
                 }
             }
 
+            // Remove Printing Approval Lane and Nodes associated with that Lane
+            // When SentForPrintingAssistanceOn or PrintingApprovalActionDate is not available but DispatchedOn is available
+            if (oDataObj.hasOwnProperty("SentForPrintingAssistanceOn") && oDataObj.hasOwnProperty("DispatchedOn")) {
+                if (oDataObj.DispatchedOn && (!oDataObj.SentForPrintingAssistanceOn || !oDataObj.PrintingApprovalActionDate)) {
+                    aNodes[0].children = [4];
+                    aLanes.splice(1, 1);
+                    aNodes.splice(1, 2);
+
+                    for (var j = 1; j < aLanes.length; j++) {
+                        aLanes[j].position = aLanes[j].position - 1;
+                        aLanes[j].id = (Number(aLanes[j].id) - 1).toString();
+                        aNodes[j].lane = (Number(aNodes[j].lane) - 1).toString();
+                    }
+                }
+            }
+
+            this.getView().getModel("ProcessFlowModel").setProperty("/lanes", aLanes);
             this.getView().getModel("ProcessFlowModel").setProperty("/nodes", aNodes);
             this.oProcessFlow = this.getView().byId("processflow");
             this.oProcessFlow.updateModel();

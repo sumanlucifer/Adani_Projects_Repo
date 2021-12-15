@@ -292,7 +292,7 @@ sap.ui.define([
                             console.log("Matched" + aPackingListContainsData[i].Name);
                         else {
                             bValid = false;
-                            sap.m.MessageBox.alert("Dispatch quantity mismatch with Materil " + aPackingListContainsData[i].Name);
+                            sap.m.MessageBox.alert("Dispatch quantity mismatch with Material " + aPackingListContainsData[i].Name);
                             return;
                             //console.log("Unmatched" + aPackingListContainsData[i].Name);
                         }

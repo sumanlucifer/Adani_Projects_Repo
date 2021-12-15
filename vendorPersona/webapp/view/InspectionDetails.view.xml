@@ -138,7 +138,7 @@
                                             <!-- <Link text="{= ${UOM} === 'MT' ? ${i18n>MapBOQItems} : ${i18n>ViewBOQItems} }" visible="{IsBOQApplicable}" press="onViewInspectionItemsPress"></Link> -->
                                             <VBox>
                                                 <Link text="{i18n>MapBOQItems}" visible="{IsBOQApplicable}" press="onViewInspectionItemsPress"></Link>
-                                                <Text text="--" visible="{= ${IsBOQApplicable} === true ? false : true }"/>
+                                                <Text text="--" visible="{= ${IsBOQApplicable} ? false : true }"/>
                                             </VBox>
                                             <Text text="{Qty}"/>
                                             <Text text="{AcceptQuantity}"/>
