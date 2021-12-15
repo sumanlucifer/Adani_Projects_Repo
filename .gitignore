@@ -8,3 +8,5 @@ package-lock.json
 
 # auto generated wildcard
 storestock/.env1
+# auto generated wildcard
+vendor-mdcc/.env1

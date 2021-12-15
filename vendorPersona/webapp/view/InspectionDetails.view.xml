@@ -136,7 +136,10 @@
                                             <Text text="{Name}"/>
                                             <ExpandableText text="{Description}" maxCharacters="32" overflowMode="Popover"/>
                                             <!-- <Link text="{= ${UOM} === 'MT' ? ${i18n>MapBOQItems} : ${i18n>ViewBOQItems} }" visible="{IsBOQApplicable}" press="onViewInspectionItemsPress"></Link> -->
-                                            <Link text="{i18n>MapBOQItems}" visible="{IsBOQApplicable}" press="onViewInspectionItemsPress"></Link>
+                                            <VBox>
+                                                <Link text="{i18n>MapBOQItems}" visible="{IsBOQApplicable}" press="onViewInspectionItemsPress"></Link>
+                                                <Text text="--" visible="{= ${IsBOQApplicable} ? false : true }"/>
+                                            </VBox>
                                             <Text text="{Qty}"/>
                                             <Text text="{AcceptQuantity}"/>
                                             <Text text="{RejectQuantity}"/>
@@ -207,7 +210,7 @@
 
                                             <!-- enabled="{path:'Attachments',formatter:'.formatter.testFunction2'}" -->
 
-                                            <Link text="{i18n>viewItems}" press="onViewPress" visible="{path:'MDCCParentLineItems',formatter:'.formatter.viewItemsVisible'}" />
+                                            <Link text="{i18n>viewmappeditems}" press="onViewPress" visible="{path:'MDCCParentLineItems',formatter:'.formatter.viewItemsVisible'}" />
 
                                             <VBox>
                                                 <ObjectStatus text="{Status}" state="{= ${Status} === 'APPROVED' ? 'Success' : ${Status} === 'REJECTED' ? 'Error' : 'Warning'}" visible="{= ${Status}.length>0 ? true : false }"/>
