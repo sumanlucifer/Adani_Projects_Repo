@@ -1,4 +1,17 @@
-{
- "RoleAssignRequestID" : null,
- "RoleAssignUserMail": null
-}
+
+{ 
+
+    "RoleAssignRequestID" : null, 
+    "RoleAssignUserMail": null, 
+    "RequestNumber" : null, 
+    "Name": null,
+    "Status": null, 
+    "GoodsRecipient" : null, 
+    "Plant" : null, 
+    "ProfitCentre" : null, 
+    "Role" : null, 
+    "Email": null, 
+    "CreatedBy" : null,
+    "URL": null
+    
+    } 

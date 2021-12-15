@@ -1,4 +1,13 @@
-{
- "PrintRequestID": null,
- "PrintUserMailInfo": null
-}
+{ 
+    "PrintRequestID": null, 
+    "PrintUserMailInfo": null, 
+    "PONumber": null, 
+    "RequestedBy": null, 
+    "PlantCode": null, 
+    "Reason" : null, 
+    "Description": null, 
+    "PackingListName": null, 
+    "VendorCode": null,
+    "URL":null
+    
+    } 
