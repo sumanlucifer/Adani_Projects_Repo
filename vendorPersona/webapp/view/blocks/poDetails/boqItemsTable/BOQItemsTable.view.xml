@@ -98,7 +98,7 @@
                     </tt:template>
                 </tt:Column>
                 <tt:Column hAlign="Center">
-                    <Label text="{i18n>ActionDate}" />
+                    <Label text="{i18n>approvaldate}" />
                     <tt:customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "UpdatedAt", "leadingProperty":"BOQGroups/ApprovedOn", "columnIndex": 8}' />
                     </tt:customData>
@@ -116,9 +116,14 @@
                         <core:CustomData key="p13nData" value='\{"columnKey": "status", "columnIndex": 9}' />
                     </tt:customData>
                     <tt:template>
+                    <HBox>
                         <VBox justifyContent="Center" visible="{= ${MaterialCode} ? false : true }">
                             <ObjectStatus text="{Status}" state="{= ${Status} === 'PENDING' ? 'Warning' : ${Status} === 'REJECTED' ? 'Error' : 'Success'}" visible="{= ${Status}.length>0 ? true : false }"/>
                         </VBox>
+                         <VBox justifyContent="Center" visible="{= ${MaterialCode} ? false : true }">
+                            <Button text="{i18n>SendForApproval}" visible="{= ${Status}.length>0 ? false : true }" press="onSendForApprovalPress"/>
+                        </VBox>
+                    </HBox>
                     </tt:template>
                 </tt:Column>
                 <tt:Column hAlign="Center">
@@ -139,7 +144,7 @@
                         <Link text="{= ${MaterialCode} ? '' : 'View BOQ Items' }" press="onViewBOQItemPress"></Link>
                     </tt:template>
                 </tt:Column>
-                <tt:Column hAlign="Center">
+                <!-- <tt:Column hAlign="Center">
                     <Label text="{i18n>approveAction}" />
                     <tt:customData>
                         <core:CustomData key="p13nData" value='\{"columnKey": "approval", "columnIndex": 12}' />
@@ -149,7 +154,7 @@
                             <Button text="{i18n>SendForApproval}" visible="{= ${Status}.length>0 ? false : true }" press="onSendForApprovalPress"/>
                         </VBox>
                     </tt:template>
-                </tt:Column>
+                </tt:Column> -->
             </tt:columns>
         </tt:TreeTable>
     </smartTable:SmartTable>

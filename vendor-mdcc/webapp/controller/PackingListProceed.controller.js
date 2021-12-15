@@ -178,13 +178,13 @@ sap.ui.define([
                 var oValue = oEvent.getSource().getValue();
                 var remainingQty = oEvent.getSource().getParent().getCells()[6].getText();
                 var flag = 0;
-                if (parseInt(oValue) > parseInt(remainingQty) || remainingQty == "") {
+                if (parseFloat(oValue) > parseFloat(remainingQty) || remainingQty == "") {
                     oEvent.getSource().setValueState("Error");
                     oEvent.getSource().setValueStateText("Please enter dispatch quantity lesser than or equal to the approved remaining quantity");
                     this.getView().byId("idBtnProceed").setEnabled(false);
                     flag = 1;
                 }
-                if (parseInt(oValue) < 0 || oValue == "") {
+                if (parseFloat(oValue) < 0 || oValue == "") {
                     oEvent.getSource().setValueState("Error");
                     oEvent.getSource().setValueStateText("Please enter dispatch quantity");
                     this.getView().byId("idBtnProceed").setEnabled(false);
@@ -256,15 +256,15 @@ sap.ui.define([
                         );
                     }
                 }
-                if (parseInt(oValue) > parseInt(BalanceQty) || BalanceQty == "") {
+                if (parseFloat(oValue) > parseFloat(BalanceQty) || BalanceQty == "") {
                     oEvent.getSource().setValueState("Error");
                     oEvent.getSource().setValueStateText("Please enter dispatch quantity lesser than or equal to the approved remaining quantity");
                     this.getView().byId("idBtnProceed").setEnabled(false);
                     flag = 1;
                 }
-                if (parseInt(oValue) < 0 || oValue == "") {
+                if (parseFloat(oValue) <= 0 || oValue == "") {
                     oEvent.getSource().setValueState("Error");
-                    oEvent.getSource().setValueStateText("Please enter dispatch quantity");
+                    oEvent.getSource().setValueStateText("Please enter valid dispatch quantity");
                     this.getView().byId("idBtnProceed").setEnabled(false);
                 } else if (flag != 1) {
                     oEvent.getSource().setValueState("None");

@@ -455,7 +455,6 @@ sap.ui.define([
                     oDialog.bindElement({
                         path: oDetails.sBOQItemPath
                     });
-                    oDialog.setTitle(oDetails.title)
                     if (Device.system.desktop) {
                         oDialog.addStyleClass("sapUiSizeCompact");
                     }
@@ -467,6 +466,7 @@ sap.ui.define([
                 oDialog.bindElement({
                     path: oDetails.sBOQItemPath,
                 });
+                oDialog.setTitle(oDetails.title)
                 oDialog.open();
             });
         },
