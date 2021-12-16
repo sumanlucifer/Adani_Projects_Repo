@@ -120,10 +120,9 @@
                                         }"/>
                                         <Label text="{i18n>PaymentTerm}"/>
                                         <Text text="{AmendmentHistoryModel>/PaymentTerm}" />
-                                        <Label text="{i18n>Version}"/>
+                                        <!-- <Label text="{i18n>Version}"/>
                                         <Text text="{AmendmentHistoryModel>/Version}"/>
                                         <Label text="{i18n>IsAmended}"/>
-                                        <!-- <Text text="{= ${AmendmentHistoryModel>/IsAmended} === true ? 'X' : ''}"/> -->
                                         <Text text="{AmendmentHistoryModel>/IsAmended}"/>
                                         <Label text="{i18n>CreatedAt}"/>
                                         <Text text="{path:'AmendmentHistoryModel>/CreatedAt',
@@ -142,7 +141,7 @@
                                                     }    
                                         }"/>
                                         <Label text="{i18n>UpdatedBy}"/>
-                                        <Text text="{AmendmentHistoryModel>/UpdatedBy}"/>
+                                        <Text text="{AmendmentHistoryModel>/UpdatedBy}"/> -->
                                     </f:content>
                                 </f:SimpleForm>
                             </VBox>

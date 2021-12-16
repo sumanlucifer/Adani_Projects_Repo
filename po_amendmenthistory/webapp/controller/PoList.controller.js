@@ -123,6 +123,11 @@ sap.ui.define([
 
             onFilterChange: function (oEvent) {
                 this.oFilterBar.fireFilterChange(oEvent);
+            },
+
+            onbeforeRebindOpenPoTable: function (oEvent) {
+                var mBindingParams = oEvent.getParameter("bindingParams");
+                mBindingParams.filters.push(new Filter("Version", sap.ui.model.FilterOperator.GT, 1));
             }
         });
     });
