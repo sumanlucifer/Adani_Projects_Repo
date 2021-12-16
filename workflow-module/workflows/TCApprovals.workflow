@@ -85,6 +85,12 @@
 			"name": "MailTask2",
 			"mailDefinitionRef": "fc6ead61-a0f3-4d24-bc29-91b915fafc57"
 		},
+		"3905a22e-888e-4c27-90f5-9da5c2365ac9": {
+			"classDefinition": "com.sap.bpm.wfs.MailTask",
+			"id": "mailtask4",
+			"name": "MailTask4",
+			"mailDefinitionRef": "9019deb8-af49-498c-a8ab-dbcd231b9ba3"
+		},
 		"c6b99f32-5fe6-4ab6-b60a-80fba1b9ae0f": {
 			"classDefinition": "com.sap.bpm.wfs.SequenceFlow",
 			"id": "sequenceflow1",
@@ -105,6 +111,13 @@
 			"name": "SequenceFlow10",
 			"sourceRef": "3fe975b1-e269-4746-9874-a41a5c83761f",
 			"targetRef": "3905a22e-888e-4c27-90f5-9da5c2365ac9"
+		},
+		"17200ce1-bc97-45ee-87a8-45a65754ad61": {
+			"classDefinition": "com.sap.bpm.wfs.SequenceFlow",
+			"id": "sequenceflow12",
+			"name": "SequenceFlow12",
+			"sourceRef": "3905a22e-888e-4c27-90f5-9da5c2365ac9",
+			"targetRef": "2798f4e7-bc42-4fad-a248-159095a2f40a"
 		},
 		"42fa7a2d-c526-4a02-b3ba-49b5168ba644": {
 			"classDefinition": "com.sap.bpm.wfs.ui.Diagram",
@@ -178,6 +191,21 @@
 			"targetSymbol": "f1c523df-9730-4820-bf82-7e3101b85392",
 			"object": "9e2963c6-2990-4f08-9a2c-76b1ea1b7e63"
 		},
+		"f1c523df-9730-4820-bf82-7e3101b85392": {
+			"classDefinition": "com.sap.bpm.wfs.ui.MailTaskSymbol",
+			"x": 12,
+			"y": 314,
+			"width": 100,
+			"height": 60,
+			"object": "3905a22e-888e-4c27-90f5-9da5c2365ac9"
+		},
+		"15ee383d-82a7-4f69-8387-bf00b719bac0": {
+			"classDefinition": "com.sap.bpm.wfs.ui.SequenceFlowSymbol",
+			"points": "62,374 62,424",
+			"sourceSymbol": "f1c523df-9730-4820-bf82-7e3101b85392",
+			"targetSymbol": "53e54950-7757-4161-82c9-afa7e86cff2c",
+			"object": "17200ce1-bc97-45ee-87a8-45a65754ad61"
+		},
 		"62d7f4ed-4063-4c44-af8b-39050bd44926": {
 			"classDefinition": "com.sap.bpm.wfs.LastIDs",
 			"timereventdefinition": 1,
@@ -200,38 +228,10 @@
 			"reference": "/webcontent/TCApprovals/TCMail.html",
 			"id": "maildefinition2"
 		},
-		"3905a22e-888e-4c27-90f5-9da5c2365ac9": {
-			"classDefinition": "com.sap.bpm.wfs.MailTask",
-			"id": "mailtask4",
-			"name": "MailTask4",
-			"mailDefinitionRef": "9019deb8-af49-498c-a8ab-dbcd231b9ba3"
-		},
-		"f1c523df-9730-4820-bf82-7e3101b85392": {
-			"classDefinition": "com.sap.bpm.wfs.ui.MailTaskSymbol",
-			"x": 12,
-			"y": 314,
-			"width": 100,
-			"height": 60,
-			"object": "3905a22e-888e-4c27-90f5-9da5c2365ac9"
-		},
-		"17200ce1-bc97-45ee-87a8-45a65754ad61": {
-			"classDefinition": "com.sap.bpm.wfs.SequenceFlow",
-			"id": "sequenceflow12",
-			"name": "SequenceFlow12",
-			"sourceRef": "3905a22e-888e-4c27-90f5-9da5c2365ac9",
-			"targetRef": "2798f4e7-bc42-4fad-a248-159095a2f40a"
-		},
-		"15ee383d-82a7-4f69-8387-bf00b719bac0": {
-			"classDefinition": "com.sap.bpm.wfs.ui.SequenceFlowSymbol",
-			"points": "62,374 62,424",
-			"sourceSymbol": "f1c523df-9730-4820-bf82-7e3101b85392",
-			"targetSymbol": "53e54950-7757-4161-82c9-afa7e86cff2c",
-			"object": "17200ce1-bc97-45ee-87a8-45a65754ad61"
-		},
 		"9019deb8-af49-498c-a8ab-dbcd231b9ba3": {
 			"classDefinition": "com.sap.bpm.wfs.MailDefinition",
 			"name": "maildefinition4",
-			"to": "${context.Email}",
+			"to": "${context. RequestedBy}",
 			"subject": "Request for ${context.Name}-${context.Status} ",
 			"text": "Dear ${context.CreatedBy},\n\nYour BOQ Approval request for ${context.Name} with ID-${context.BOQGroupId} has been ${context.Status}\n\nPlease login to the application to view the changes.\n\nRegards,\nAGEL MMTS TEAM",
 			"id": "maildefinition4"
