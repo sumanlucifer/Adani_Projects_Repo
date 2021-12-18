@@ -218,7 +218,7 @@
 			"classDefinition": "com.sap.bpm.wfs.MailDefinition",
 			"name": "maildefinition1",
 			"to": "${context.PMCGUserMail}",
-			"subject": "MDCC Aprroval Request Raised",
+			"subject": "MDCC Approval Request Raised",
 			"reference": "/webcontent/MDCCApprovalRequest/MDCCApprovals.html",
 			"id": "maildefinition1"
 		},
