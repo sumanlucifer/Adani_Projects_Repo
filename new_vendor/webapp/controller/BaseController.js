@@ -191,7 +191,7 @@ sap.ui.define([
 
                 bValidEmailId = RegularExpression.test(oEvent.getSource().getValue());
 
-            if (!bValidEmailId) {
+            if (!bValidEmailId && oEvent.getSource().getValue().length > 0) {
                 oEvent.getSource().setValueState("Error");
                 oEvent.getSource().setValueStateText(this.getResourceBundle().getText("EnterValidEmailId"));
             } else {
@@ -211,7 +211,7 @@ sap.ui.define([
 
         fnValidateFieldsAndSaveVendorData: function (bVendorCreateUpdateFlag) {
             var bRequiredFieldsError = false,
-                bInValidEmail = false,
+                bValidEmail = true,
                 bInValidLocMapping = false,
                 oForm = this.getView().byId("idEditBasicDetailsSFM").getContent();
 
@@ -220,12 +220,6 @@ sap.ui.define([
                     if (!Field.getValue() || Field.getValue().length < 1) {
                         Field.setValueState("Error");
                         bRequiredFieldsError = true;
-
-                        if (Field.getName() === "Email") {
-                            var RegularExpression =
-                                /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-                            bInValidEmail = RegularExpression.test(Field.getValue());
-                        }
                     }
                     else {
                         Field.setValueState("None");
@@ -238,7 +232,13 @@ sap.ui.define([
                 return;
             }
 
-            if (bInValidEmail) {
+            var sEmail = this.getView().getModel("VendorViewModel").getProperty("/Email"),
+                RegularExpression =
+                    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+            bValidEmail = RegularExpression.test(sEmail);
+
+            if (!bValidEmail) {
                 MessageBox.error(this.getResourceBundle().getText("PleaseentervalidEmailID"));
                 return;
             }

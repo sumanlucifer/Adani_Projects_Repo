@@ -637,7 +637,7 @@ sap.ui.define([
                 var sPlantCode = oEvent.getSource().getParent().getBindingContext().getObject().PlantCode;
                 var oMaterialCodeFilter = new sap.ui.model.Filter("MaterialCode", sap.ui.model.FilterOperator.EQ, sMaterialCode);
                 var oPlantCodeFilter = new sap.ui.model.Filter("ValuationArea", sap.ui.model.FilterOperator.EQ, sPlantCode);
-                oEvent.getSource().getBinding("items").filter([oMaterialCodeFilter,oPlantCodeFilter]);
+                oEvent.getSource().getBinding("items").filter([oMaterialCodeFilter, oPlantCodeFilter]);
             },
 
             onRequestGRNPress: function (oEvent) {
@@ -721,8 +721,9 @@ sap.ui.define([
                     sBillofLading = this.getViewModel("requestModel").getProperty("/billoflading"),
                     sReference = this.getViewModel("requestModel").getProperty("/reference"),
                     sLRNumber = this.getViewModel("requestModel").getProperty("/lrnumber");
+                sStorageLocation = this.getViewModel("requestModel").getProperty("/StorageLocation");
 
-                if (sDelivery && sQuantity && sBillofLading && sReference && sLRNumber)
+                if (sDelivery && sQuantity && sBillofLading && sReference && sLRNumber && sStorageLocation)
                     this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", true);
                 else
                     this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", false);
@@ -734,9 +735,10 @@ sap.ui.define([
                 var sReference = this.getViewModel("requestModel").getProperty("/reference");
                 var sGatePassNumber = this.getViewModel("requestModel").getProperty("/gatepassnumber");
                 var sLRNumber = this.getViewModel("requestModel").getProperty("/lrnumber");
+                var sStorageLocation = this.getViewModel("requestModel").getProperty("/StorageLocation");
                 var oModel = this.getComponentModel(),
                     aGRNItems = this.getView().getModel("requestModel").getProperty("/GRNItems");
-                if (!sDelivery || !sQuantity || !sBillofLading || !sReference || !sLRNumber) {
+                if (!sDelivery || !sQuantity || !sBillofLading || !sReference || !sLRNumber || !sStorageLocation) {
                     sap.m.MessageBox.error("Please fill all required fields.");
                     return;
                 }
@@ -753,6 +755,7 @@ sap.ui.define([
                                 "BillOfLading": sBillofLading,
                                 "GatePassNumber": sGatePassNumber,
                                 "LRNumber": sLRNumber,
+                                "StorageLocation": sStorageLocation,
                                 "Reference": sReference,
                                 "PackingListId": this.getView().getBindingContext().getObject().ID,
                                 "UserName": "Agel_Sep",
@@ -767,6 +770,7 @@ sap.ui.define([
                                 "BillOfLading": sBillofLading,
                                 "GatePassNumber": sGatePassNumber,
                                 "LRNumber": sLRNumber,
+                                "StorageLocation": sStorageLocation,
                                 "Reference": sReference,
                                 "PackingListId": parseInt(oSelectedItemData.ID),
                                 "UserName": "Agel_Sep",

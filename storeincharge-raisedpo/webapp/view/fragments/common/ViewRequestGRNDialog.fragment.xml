@@ -41,6 +41,8 @@
                         <Input value="{requestModel>/reference}" type="Text" change="fnSetRequestButtonEnableDisable" valueState="{requestModel>/valueState}" valueStateText="{requestModel>/valueStateText}"></Input>
                         <Label text="{i18n>DeliveryNote}​​​​​​​​​" required="true"></Label>
                         <Input value="{requestModel>/delivery}" type="Text" change="fnSetRequestButtonEnableDisable" valueState="{requestModel>/valueState}" valueStateText="{requestModel>/valueStateText}"></Input>
+                        <Label text="{i18n>StorageLocation}​​​​​​​​​" required="true"></Label>
+                        <Input value="{requestModel>/StorageLocation}" type="Text" change="fnSetRequestButtonEnableDisable" valueState="{requestModel>/valueState}" valueStateText="{requestModel>/valueStateText}"></Input>
                     </f:content>
                 </f:SimpleForm>
                 <MessageStrip
