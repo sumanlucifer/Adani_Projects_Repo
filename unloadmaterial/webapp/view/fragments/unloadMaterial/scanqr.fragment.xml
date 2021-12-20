@@ -4,6 +4,7 @@ xmlns:scan="sap.ndc"
     <Dialog class="testTitle">
         <content>
             <VBox class="sapUiResponsiveMargin">
+                <Label text="{i18n>EnterorScanaprimaryorouterpackingQR}" class="sapUiSmallMargin" />
                 <HBox alignItems="Center">
                     <Input id="idInputQRCode" value="{= ${oViewHandlingModel>/unloadQrCode} ? ${oViewHandlingModel>/unloadQrCode} : '' }" 
                     width="100%" showSuggestion="true" showValueHelp="false" suggestionItems="{/QRCodeSet}" placeholder="{i18n>EnterQRNumber}" 

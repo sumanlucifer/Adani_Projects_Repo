@@ -14,6 +14,14 @@ sap.ui.define([
 
         return BaseController.extend("com.agel.mmts.poamendmenthistory.controller.PoList", {
             onInit: function () {
+                //get logged in User
+                try {
+                    this.UserEmail = sap.ushell.Container.getService("UserInfo").getEmail();
+                }
+                catch (e) {
+                    this.UserEmail = 'suraj.gavane@extentia.com';
+                }
+                
                 //Router Object
                 this.oRouter = this.getRouter();
                 this.oRouter.getRoute("RoutePoList").attachPatternMatched(this._onObjectMatched, this);
@@ -128,6 +136,7 @@ sap.ui.define([
             onbeforeRebindOpenPoTable: function (oEvent) {
                 var mBindingParams = oEvent.getParameter("bindingParams");
                 mBindingParams.filters.push(new Filter("Version", sap.ui.model.FilterOperator.GT, 1));
+                mBindingParams.filters.push(new Filter("Vendor/Email", sap.ui.model.FilterOperator.EQ, this.UserEmail))
             }
         });
     });
