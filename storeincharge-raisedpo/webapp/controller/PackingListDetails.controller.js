@@ -24,6 +24,14 @@ sap.ui.define([
             formatter: formatter,
 
             onInit: function () {
+                try {
+                    this.UserEmail = sap.ushell.Container.getService("UserInfo").getEmail();
+                    this.UserFName = sap.ushell.Container.getService("UserInfo").getFullName()();
+                }
+                catch (e) {
+                    this.UserEmail = 'Test.User@extentia.com';
+                    this.UserFName = 'Test User';
+                }
                 jquery.sap.addUrlWhitelist("blob");
                 //view model instatiation
                 var oViewModel = new JSONModel({
@@ -458,13 +466,11 @@ sap.ui.define([
             },
 
             onCancelGRNPress: function (oEvent) {
-
                 var that = this;
                 var gID = oEvent.getSource().getBindingContext().getObject().ID;
                 var oPayload = {
                     "GRNId": gID,
-                    "UserName": "Agel_Sep"
-
+                    "UserName": this.UserFName
                 };
                 MessageBox.confirm("Do you really want to cancel GRN ?", {
                     icon: MessageBox.Icon.INFORMATION,
@@ -517,7 +523,7 @@ sap.ui.define([
                 var sPlantCode = oEvent.getSource().getParent().getBindingContext().getObject().PlantCode;
                 var oMaterialCodeFilter = new sap.ui.model.Filter("MaterialCode", sap.ui.model.FilterOperator.EQ, sMaterialCode);
                 var oPlantCodeFilter = new sap.ui.model.Filter("ValuationArea", sap.ui.model.FilterOperator.EQ, sPlantCode);
-                oEvent.getSource().getBinding("items").filter([oMaterialCodeFilter,oPlantCodeFilter]);
+                oEvent.getSource().getBinding("items").filter([oMaterialCodeFilter, oPlantCodeFilter]);
             },
 
             onRequestGRNPress: function (oEvent) {
@@ -599,9 +605,10 @@ sap.ui.define([
                     sQuantity = this.getViewModel("requestModel").getProperty("/quantity"),
                     sBillofLading = this.getViewModel("requestModel").getProperty("/billoflading"),
                     sReference = this.getViewModel("requestModel").getProperty("/reference"),
-                    sLRNumber = this.getViewModel("requestModel").getProperty("/lrnumber");
+                    sLRNumber = this.getViewModel("requestModel").getProperty("/lrnumber"),
+                    sStorageLocation = this.getViewModel("requestModel").getProperty("/StorageLocation");
 
-                if (sDelivery && sQuantity && sBillofLading && sReference && sLRNumber)
+                if (sDelivery && sQuantity && sBillofLading && sReference && sLRNumber && sStorageLocation)
                     this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", true);
                 else
                     this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", false);
@@ -616,7 +623,8 @@ sap.ui.define([
                 var sLRNumber = this.getViewModel("requestModel").getProperty("/lrnumber");
                 //var sGRNTblData=sap.ui.getCore().byId("idGRNItemsTBL").getBindingContext().getModel().getProperty("/RestrictedStoreStockParentSet(17l)").ID
                 var aGRNItems = this.getView().getModel("requestModel").getProperty("/GRNItems");
-                if (!sDelivery || !sQuantity || !sBillofLading || !sReference || !sLRNumber) {
+                var sStorageLocation = this.getView().getModel("requestModel").getProperty("/StorageLocation");
+                if (!sDelivery || !sQuantity || !sBillofLading || !sReference || !sLRNumber || !sStorageLocation) {
                     sap.m.MessageBox.error("Please fill all required fields.");
                     return;
                 }
@@ -635,8 +643,9 @@ sap.ui.define([
                                 // "GatePassNumber": sGatePassNumber,
                                 "LRNumber": sLRNumber,
                                 "Reference": sReference,
+                                "StorageLocation": sStorageLocation,
                                 "PackingListId": this.getView().getBindingContext().getObject().ID,
-                                "UserName": "Agel_Sep",
+                                "UserName": this.UserFName,
                                 "GRNItems": aGRNItems
                             };
                         } else {
@@ -650,7 +659,7 @@ sap.ui.define([
                                 "LRNumber": sLRNumber,
                                 "Reference": sReference,
                                 "PackingListId": parseInt(oSelectedItemData.ID),
-                                "UserName": "Agel_Sep",
+                                "UserName": this.UserFName,
                                 "GRNItems": aGRNItems
                             };
                         }
