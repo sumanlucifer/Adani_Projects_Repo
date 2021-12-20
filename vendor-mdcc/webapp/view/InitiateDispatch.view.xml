@@ -44,7 +44,7 @@
                    <!-- <Title text="MDCC" wrapping="true" titleStyle="Auto"/>-->
                 </uxap:snappedTitleOnMobile>
                 <uxap:actions>
-                    <Button id="idInitiateDispatchBTN" enabled="false" text="{i18n>initiateDispatch}"  type="Emphasized" press="onPressInitiateDispatch"/>
+                    <Button id="idInitiateDispatchBTN" text="{i18n>initiateDispatch}"  type="Emphasized" press="onPressInitiateDispatch"/>
                 </uxap:actions>
             </uxap:ObjectPageDynamicHeaderTitle>
         </uxap:headerTitle>

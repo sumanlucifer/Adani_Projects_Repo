@@ -8,6 +8,8 @@
     "Description": null, 
     "PackingListName": null, 
     "VendorCode": null,
-    "URL":null
+    "URL":null,
+    "Status": null,
+    "CreatedBy": null
     
     } 

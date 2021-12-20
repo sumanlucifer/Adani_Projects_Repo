@@ -495,7 +495,7 @@ sap.ui.define([
             handleSelectionChange: function (oEvent) {
                 var aGRNItems = this.getView().getModel("requestModel").getProperty("/GRNItems"),
                     oGRMItem = {
-                        RestrictedStoreStockParentId: oEvent.getSource().getSelectedItem().getBindingContext().getObject().ID,
+                        RestrictedStoreStockParentId: oEvent.getSource().getParent().getBindingContext().getObject().ID,
                         ValuationType: oEvent.getSource().getSelectedItem().getProperty("text")
                     },
                     iIndex = aGRNItems.findIndex(function (oItem) {
