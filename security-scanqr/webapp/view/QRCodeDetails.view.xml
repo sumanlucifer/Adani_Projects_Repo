@@ -24,7 +24,7 @@
                             </VBox>
 
                             <VBox renderType="Bare" visible="{= ${VehicleNumber} === '' ? true : false &amp;&amp; ${GateEntryNumber} !== '' ? true : false}">
-                                <Label text="{i18n>VehicleNumber}" design="Bold"/>
+                                <Label text="{i18n>VehicleNumber}: e.g {i18n>HR55EXXXX}" design="Bold"/>
                                 <Input value="{oViewHandlingModel>/ReEnterVehicleNo}" placeholder="{i18n>HR55EXXXX}" width="80%"/>
                             </VBox>
 

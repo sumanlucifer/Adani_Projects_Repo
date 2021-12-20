@@ -13,7 +13,7 @@
             <uxap:ObjectPageDynamicHeaderTitle>
                 <uxap:content>
                     <HBox alignItems="Center">
-                        <Input id="idInputQRCode" width="20rem" placeholder="{i18n>EnterQRNumber}" 
+                        <Input id="idInputQRCode" width="20rem" placeholder="{i18n>EnterParentPrimaryQRNumber}" 
                             liveChange="onQRCodeSuggestionSelected" class="sapUiSmallMarginEnd" 
                             enabled="{oViewModel>/inputQRCode}" submit="onPressSubmitQRCode"/>
                         <Button id="idQRBtn" text="{i18n>Submit}" type="Emphasized" press="onPressSubmitQRCode" class="sapUiSmallMarginBegin" enabled="{oViewModel>/submitQRCode}"/>

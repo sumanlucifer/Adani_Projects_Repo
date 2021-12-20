@@ -84,18 +84,18 @@
                         </FlexBox>
                     </VBox>
                     <VBox class="sapUiMediumMarginBeginEnd">
-                        <Title text="{i18n>pOandASNDetails}" titleStyle="H6"/>
+                        <Title text="{i18n>PODetails}" titleStyle="H6"/>
                         <!-- <ObjectStatus title="Invoice Number" text="{InvoiceNumber}"/> -->
-                        <ObjectStatus title="{i18n>ASNNumber}" text="{i18n>Missing}"/>
+                        <!-- <ObjectStatus title="{i18n>ASNNumber}" text="{i18n>Missing}"/> -->
                         <ObjectStatus title="{i18n>PONumber}" text="{PONumber}"/>
-                        <ObjectStatus title="{i18n>ASNCreationDate}" text="{i18n>Missing}"/>
+                        <!-- <ObjectStatus title="{i18n>ASNCreationDate}" text="{i18n>Missing}"/> -->
                         <!-- <ObjectStatus title="Invoice Date" text="{InvoiceDate}"/> -->
                         <!-- <ObjectStatus title="Status" text="{Status}"/> -->
                     </VBox>
                     <VBox class="sapUiMediumMarginBeginEnd">
                         <Title text="{i18n>shipTo}" titleStyle="H6"/>
-                        <!-- <ObjectAttribute title="{Name}" binding="{PurchaseOrder/MasterCompanyCode}"/>
-                        <ObjectAttribute text="{Street}" binding="{PurchaseOrder/MasterCompanyCode/Address}"/>
+                         <ObjectAttribute text="{Name}" binding="{PurchaseOrder/MasterCompanyCode}"/>
+                        <!--<ObjectAttribute text="{Street}" binding="{PurchaseOrder/MasterCompanyCode/Address}"/>
                         <ObjectAttribute text="{City} - {State} - {Country}" binding="{PurchaseOrder/MasterCompanyCode/Address}"/>
                         <ObjectAttribute text="{pinCode}" binding="{PurchaseOrder/MasterCompanyCode/Address}"/> -->
 
@@ -106,7 +106,7 @@
                     </VBox>
                     <VBox class="sapUiMediumMarginBeginEnd">
                         <Title text="{i18n>from}" titleStyle="H6"/>
-                        <ObjectAttribute title="{Name}" binding="{PurchaseOrder/Vendor}"/>
+                        <ObjectAttribute text="{Name}" binding="{PurchaseOrder/Vendor}"/>
                         <ObjectAttribute id="idObjVendorCode" text="{VendorCode}" binding="{PurchaseOrder/Vendor}"/>
                         <Link text="{Email}" binding="{PurchaseOrder/Vendor}"/>
                     </VBox>

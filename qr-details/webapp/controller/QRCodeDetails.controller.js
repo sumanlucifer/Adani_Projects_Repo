@@ -96,7 +96,7 @@ sap.ui.define(
                             ")/PackingListParentItems",
                             {
                                 urlParameters: {
-                                    $expand: "PackingListBOQItems,QrCode",
+                                    $expand: "PackingListBOQItems/QrCode,QrCode",
                                 },
                                 success: function (oData, oResponse) {
                                     this.getViewModel("objectViewModel").setProperty(

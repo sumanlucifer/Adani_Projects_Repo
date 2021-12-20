@@ -28,7 +28,7 @@ sap.ui.define([
             this.setModel(oViewModel, "objectViewModel");
             this.MainModel = this.getOwnerComponent().getModel();
             this.getView().setModel(this.MainModel);
-            this.getViewModel("objectViewModel").setProperty("/serviceUrl",  this.MainModel.sServiceUrl);
+            this.getViewModel("objectViewModel").setProperty("/serviceUrl", this.MainModel.sServiceUrl);
 
             //   this._createBOQApprovalModel();
 
@@ -45,10 +45,10 @@ sap.ui.define([
             var startupParams = this.getOwnerComponent().getComponentData().startupParameters;
             this.sObjectId = parseInt(startupParams.MDCCId[0]);
 
-            
-            // var startupParams={MDCCId:308,manage:"false"};       
-            // this.sObjectId=parseInt(startupParams.MDCCId);
-            
+
+            // var startupParams = { MDCCId: 308, manage: "false" };
+            // this.sObjectId = parseInt(startupParams.MDCCId);
+
             this._bindView("/MDCCSet(" + this.sObjectId + ")");
 
             this.getMDCCData();
@@ -196,10 +196,67 @@ sap.ui.define([
 
         // Arrange Data For View / Model Set
         _arrangeDataView: function () {
-            var that = this;
-            var oModel = new JSONModel({ "ChildItemsView": this.ParentDataView });
+            var bEnableInitiateDispatch = false,
+                oModel = new JSONModel({ "ChildItemsView": this.ParentDataView });
+
             this.getView().setModel(oModel, "TreeTableModelView");
             this.getView().getModel("TreeTableModelView").refresh();
+
+            if (this.ParentDataView.length > 0) {
+                if (this.fnCheckParentRDQ() === true) {
+                    this.getView().byId("idInitiateDispatchBTN").setEnabled(true);
+                    return;
+                }
+                else {
+                    var aParentWithChildItems = this.ParentDataView.filter(function (oItem) {
+                        if (oItem.MDCCBOQItems.hasOwnProperty("results"))
+                            return oItem.MDCCBOQItems.results.length > 0;
+                    });
+
+                    // if 
+                    // (aParentWithChildItems.length <= 0) {
+                    //     for (var i = 0; i < this.ParentDataView.length; i++) {
+                    //         if (Number(this.ParentDataView[i].RemainingDispatchedQty) > 0) {
+                    //             bEnableInitiateDispatch = true;
+                    //             break;
+                    //         }
+                    //     }
+                    // } else {
+
+                        for (var j = 0; j < aParentWithChildItems.length; j++) {
+                            if (aParentWithChildItems[j].UOM !== "MT") {
+                                var aChildItems = aParentWithChildItems[j].MDCCBOQItems.results,
+                                    aNonZeroRDQChildItems = aChildItems.filter(function (oItem) {
+                                        return oItem.RemainingDispatchedQty > 0;
+                                    });
+
+                                if (aNonZeroRDQChildItems.length > 0) {
+                                    bEnableInitiateDispatch = true;
+                                    break;
+                                }
+                            }
+                            else if (aParentWithChildItems[j].UOM === "MT" && Number(aParentWithChildItems[j].RemainingDispatchedQty) > 0) {
+                                bEnableInitiateDispatch = true;
+                                break;
+                            }
+                        }
+                    // }
+                }
+            }
+
+            this.getView().byId("idInitiateDispatchBTN").setEnabled(bEnableInitiateDispatch);
+        },
+
+        fnCheckParentRDQ: function () {
+            var bEnableInitiateDispatch = false;
+            for (var i = 0; i < this.ParentDataView.length; i++) {
+                if (Number(this.ParentDataView[i].RemainingDispatchedQty) > 0) {
+                    bEnableInitiateDispatch = true;
+                    break;
+                }
+            }
+
+            return bEnableInitiateDispatch;
         },
 
         // Parent Data View Fetch / Model Set
