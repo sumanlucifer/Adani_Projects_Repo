@@ -47,8 +47,8 @@
                                 </Select>
                                 <Label  text="{i18n>StorageLocation}" required="true"/>
                                 <Input id="idStorageLocation" value="{HeaderDetailsModel>StorageLocation}" />                                    
-                                <Label  text="{i18n>UnloadingPoint}" required="true"/>
-                                <Input id="idUnloadPoint" value="{HeaderDetailsModel>UnloadPoint}" />
+                                <!-- <Label  text="{i18n>UnloadingPoint}" required="true"/>
+                                <Input id="idUnloadPoint" value="{HeaderDetailsModel>UnloadPoint}" /> -->
                             </fm:content>
                         </fm:SimpleForm>
                         <fm:SimpleForm layout="ColumnLayout" binding="{HeaderDetailsModel>/}" columnsM="2" columnsL="3" columnsXL="3" singleContainerFullSize="false" class="style-RemoveTitleHeight">
@@ -65,17 +65,17 @@
                             <Label visible="{= ${objectViewModel>/isHeaderFieldsVisible} ? true : false}" text="{i18n>RecievingLocation}"  required="true"/>
                             <Input visible="{= ${objectViewModel>/isHeaderFieldsVisible} ? true : false}" id="idRecievingLocation" value="{HeaderDetailsModel>ReceivingLocation}" />
                             
-                            <Label visible="{= ${objectViewModel>/isHeaderFieldsVisible} ? true : false}" text="{i18n>CostCenter}"  required="true"/>
+                            <Label visible="{= ${objectViewModel>/isHeaderFieldsVisible} ? true : false}" text="{i18n>CostCenter}"  required="false"/>
                             <Input visible="{= ${objectViewModel>/isHeaderFieldsVisible} ? true : false}" id="idCostCenter" value="{HeaderDetailsModel>CostCenter}" />
                             
-                            <Label visible="{= ${objectViewModel>/isHeaderFieldsVisible} ? true : false}" text="{i18n>GLAccount}"  required="true"/>
+                            <Label visible="{= ${objectViewModel>/isHeaderFieldsVisible} ? true : false}" text="{i18n>GLAccount}"  required="false"/>
                             <Input visible="{= ${objectViewModel>/isHeaderFieldsVisible} ? true : false}" id="idGLAccount" value="{HeaderDetailsModel>GLAccount}" />
                             
                             <Label visible="{= ${objectViewModel>/isHeaderFieldsVisible} ? true : false}" text="{i18n>ContractorName}"  required="true"/>
                             <!-- <Select visible="{= ${objectViewModel>/isHeaderFieldsVisible} ? true : false}" id="idContractor" change="onVendorSelected" selectedKey="{HeaderDetailsModel>ContractorId}" forceSelection="false" items="{/VendorSet}">
                                 <core:Item key="{ID}" text="{Name} - {VendorCode}" />
                             </Select> -->
-                              <Input visible="{= ${objectViewModel>/isHeaderFieldsVisible} ? true : false}" id="idContractor" value="{HeaderDetailsModel>ContractorId}" />
+                            <Input visible="{= ${objectViewModel>/isHeaderFieldsVisible} ? true : false}" id="idContractor" value="{HeaderDetailsModel>ContractorId}" />
                             
                         </fm:SimpleForm>
                     </VBox>

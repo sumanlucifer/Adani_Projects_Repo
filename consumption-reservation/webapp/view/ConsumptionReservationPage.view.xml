@@ -34,7 +34,7 @@
                         <fm:SimpleForm layout="ColumnLayout" binding="{HeaderDetailsModel>/}" columnsM="2" columnsL="3" columnsXL="3" singleContainerFullSize="true" class="style-RemoveTitleHeight">
                             <!-- <core:Title  /> -->
                             <Label text="{i18n>MovementType}"  required="true"/>
-                            <Select id="idSelMovementType" change="onMoventTypeChange" editable="false" selectedKey="201" forceSelection="false" items="{HeaderDetailsModel>/movementType}">
+                            <Select id="idSelMovementType" change="onMoventTypeChange" editable="true" selectedKey="{HeaderDetailsModel>MovementTypeValue}" forceSelection="false" items="{HeaderDetailsModel>/movementType}">
                                 <core:Item key="{HeaderDetailsModel>value}" text="{HeaderDetailsModel>Text}" />
                             </Select>
                             <Label text="{i18n>GoodRecipientSONumber}"  required="true"/>
@@ -47,13 +47,13 @@
                             </Select>
                         </fm:SimpleForm>
                         <fm:SimpleForm layout="ColumnLayout" binding="{HeaderDetailsModel>/}" columnsM="2" columnsL="3" columnsXL="3" singleContainerFullSize="false" class="style-RemoveTitleHeight">
-                            <Label visible="{= ${objectViewModel>/isHeaderFieldsVisible} ? true : false}" text="{i18n>WBS}"   required="true"/>
+                            <Label visible="{= ${objectViewModel>/isHeaderFieldsVisible} ? true : false}" text="{i18n>WBS}"   required="{= ${HeaderDetailsModel>MovementTypeValue} === '221' ? true : false }"/>
                             <Input visible="{= ${objectViewModel>/isHeaderFieldsVisible} ? true : false}" id="idWBS" value="{HeaderDetailsModel>WBS}" />
-                            <Label visible="{= ${objectViewModel>/isHeaderFieldsVisible} ? true : false}" text="{i18n>ProfitCenter}"  required="true"/>
+                            <Label visible="{= ${objectViewModel>/isHeaderFieldsVisible} ? true : false}" text="{i18n>ProfitCenter}"  required="false"/>
                             <Input visible="{= ${objectViewModel>/isHeaderFieldsVisible} ? true : false}" id="idProfitCenter" value="{HeaderDetailsModel>ProfitCenter}" />
-                            <Label visible="{= ${objectViewModel>/isHeaderFieldsVisible} ? true : false}" text="{i18n>GLAccount}"  required="true"/>
+                            <Label visible="{= ${objectViewModel>/isHeaderFieldsVisible} ? true : false}" text="{i18n>GLAccount}"  required="false"/>
                             <Input visible="{= ${objectViewModel>/isHeaderFieldsVisible} ? true : false}" id="idGLAccount" value="{HeaderDetailsModel>GLAccount}" />
-                            <Label visible="{= ${objectViewModel>/isHeaderFieldsVisible} ? true : false}" text="{i18n>CostCenter}"  required="true"/>
+                            <Label visible="{= ${objectViewModel>/isHeaderFieldsVisible} ? true : false}" text="{i18n>CostCenter}"  required="{= ${HeaderDetailsModel>MovementTypeValue} === '201' ? true : false }" />
                             <Input visible="{= ${objectViewModel>/isHeaderFieldsVisible} ? true : false}" id="idCostCenter" value="{HeaderDetailsModel>CostCenter}" />
                         </fm:SimpleForm>
                     </VBox>
@@ -120,9 +120,9 @@
                             </ui:template>
                         </ui:Column>
                         <ui:Column>
-                            <Label text="{i18n>StorageLocation}" />
+                            <Label text="{i18n>ReceivingLocation}" />
                             <ui:template>
-                                <Text text="{TreeDataModel>StorageLocation}" wrapping="false" />
+                                <Text text="{TreeDataModel>ReceivingLocation}" wrapping="false" />
                             </ui:template>
                         </ui:Column>
                         <ui:Column>
