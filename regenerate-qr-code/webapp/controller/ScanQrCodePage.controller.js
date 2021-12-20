@@ -24,6 +24,10 @@ sap.ui.define([
 
                 });
                 this.setModel(oViewModel, "objectViewModel");
+
+                //Change scan button icon
+                var oScanButton = this.getView().byId("idQRSubmit")
+                oScanButton.getAggregation("_btn").setIcon("sap-icon://qr-code")
             },
 
             _onNavtoQRDeatilsPage: function (oItem) {

@@ -83,7 +83,7 @@ sap.ui.define([
             oModel.create("/ReturnMaterialPostingEdmSet", { "ID": this.ReturnId }, {
                 success: function (oRes) {
                     if (oRes.Success) {
-                        MessageBox.success("Return request action is submitted successfully.", {
+                        MessageBox.success(oRes.Message, {
                             title: "Success",
                             onClose: function (oAction1) {
                                 if (oAction1 === sap.m.MessageBox.Action.OK) {

@@ -48,6 +48,7 @@ sap.ui.define([
                 //Router Object
                 this.oRouter = this.getRouter();
                 this.oRouter.getRoute("RouteUnloadMaterial").attachPatternMatched(this._onObjectMatched, this);
+
             },
 
             // On Object Matched 
@@ -203,6 +204,9 @@ sap.ui.define([
                     });
                     oDialog.setTitle(oDetails.title);
                     oDialog.open();
+                    //Change scan button icon
+                    var oScanButton = sap.ui.getCore().byId("idQRSubmit");
+                    oScanButton.getAggregation("_btn").setIcon("sap-icon://qr-code");
                 });
             },
 

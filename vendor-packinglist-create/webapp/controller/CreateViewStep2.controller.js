@@ -24,8 +24,8 @@ sap.ui.define([
 
                 }
                 catch (e) {
-                    this.UserEmail = 'suraj.gavane@extentia.com';
-                    this.UserFName = 'suraj';
+                    this.UserEmail = 'test.user@extentia.com';
+                    this.UserFName = 'Test User';
 
                 }
                 //jQuery.sap.addUrlWhitelist("blob");
