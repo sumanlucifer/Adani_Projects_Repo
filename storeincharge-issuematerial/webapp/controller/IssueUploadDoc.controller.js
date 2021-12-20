@@ -24,6 +24,16 @@ sap.ui.define([
     return BaseController.extend("com.agel.mmts.storeinchargeissuematerial.controller.IssueUploadDoc", {
         formatter: formatter,
         onInit: function () {
+            //get UserInfo
+            try {
+                this.UserEmail = sap.ushell.Container.getService("UserInfo").getEmail();
+                this.UserFName = sap.ushell.Container.getService("UserInfo").getFullName()();
+            }
+            catch (e) {
+                this.UserEmail = 'test.user@extentia.com';
+                this.UserFName = 'Test User'
+            }
+
             this.getView().addEventDelegate({
                 onAfterShow: this.onBeforeShow,
             }, this);
@@ -54,7 +64,7 @@ sap.ui.define([
             // debugger;
             this.sObjectId = oEvent.getParameter("arguments").ID;
             // this._bindView("/IssueMaterialItemsEdmSet(" + this.sObjectId +")/IssueMaterialParentItems");
-            this._bindView("/IssuedMaterialSet(" + this.sObjectId +")");
+            this._bindView("/IssuedMaterialSet(" + this.sObjectId + ")");
             this._createAttachmentModel();
 
         },
@@ -77,29 +87,29 @@ sap.ui.define([
             });
         },
 
-        _setTreeTableData: function(oController){
-           
-            var objectViewModel= oController.getViewModel("objectViewModel");
+        _setTreeTableData: function (oController) {
+
+            var objectViewModel = oController.getViewModel("objectViewModel");
             objectViewModel.setProperty("/busy", true);
-            oController.MainModel.read("/IssuedMaterialSet(" + oController.sObjectId +")/IssuedMaterialParents",{
+            oController.MainModel.read("/IssuedMaterialSet(" + oController.sObjectId + ")/IssuedMaterialParents", {
                 urlParameters: { "$expand": "IssuedMaterialBOQ" },
-                success: function(oData) {
+                success: function (oData) {
                     objectViewModel.setProperty("/busy", false);
-                    if(oData){
+                    if (oData) {
                         oData.results.forEach(element => {
                             element.BoqItems = element.IssuedMaterialBOQ.results;
                         });
-                        objectViewModel.setProperty("/TreeTableData",oData.results);
+                        objectViewModel.setProperty("/TreeTableData", oData.results);
                     }
                 }.bind(oController),
-                error: function(oErr){
+                error: function (oErr) {
                     objectViewModel.setProperty("/busy", false);
 
                 }.bind(oController),
             })
         },
 
-        handleToIssueMatBreadcrumPress: function(){
+        handleToIssueMatBreadcrumPress: function () {
             this.getRouter().navTo("RaiseIssueScanQRCode");
         },
 
@@ -165,7 +175,7 @@ sap.ui.define([
                 true
             );
 
-         
+
             var documents = {
                 "Documents": [
                     {
@@ -185,9 +195,6 @@ sap.ui.define([
             var sPath = "/DocumentUploadEdmSet"
             this.MainModel.create(sPath, documents, {
                 success: function (oData, oResponse) {
-
-
-
                     this.getView().getModel().refresh();
                     this._updateDocumentService(oData.ID, fileType);
                     //   this.getView().getModel("ManageMDCCModel").getData().MDCCItems[rowId].MapItems = true;
@@ -253,19 +260,19 @@ sap.ui.define([
             xhr.send();
         },
 
-        onPressConfirm: function(oEvent){
+        onPressConfirm: function (oEvent) {
             this.getViewModel("objectViewModel").setProperty(
                 "/busy",
                 true
             );
             // debugger;
             var that = this;
-            var MaterialID= this.sObjectId;
-            var weight= this.getView().byId("idTotalGrossWeight").getValue();
+            var MaterialID = this.sObjectId;
+            var weight = this.getView().byId("idTotalGrossWeight").getValue();
             var oPayload = {
                 "TotalGrossWeight": weight,
                 "IssuedMaterialId": MaterialID,
-                "UserName": "Agel_September"
+                "UserName": this.UserFName
             };
 
             this.getOwnerComponent().getModel().create("/IssueMaterialConfirmationEdmSet", oPayload, {
@@ -274,16 +281,15 @@ sap.ui.define([
                         "/busy",
                         false
                     );
-                    sap.m.MessageToast.show("The Requested Material is Issued");
-                    this.getOwnerComponent().getModel().refresh();
-                    this.getRouter().navTo("RouteLandingPage");
+                    MessageBox.success("The Requested Material is Issued", {
+                        onClose : function(sButton) {
+                            this.getOwnerComponent().getModel().refresh();
+                            this.getRouter().navTo("RouteLandingPage");
+                        }.bind(this)
+                    });
                 }.bind(this),
                 error: function (oError) {
-                    this.getViewModel("objectViewModel").setProperty(
-                        "/busy",
-                        false
-                    );
-                  //  sap.m.MessageBox.error(JSON.stringify(oError));
+                    this.getViewModel("objectViewModel").setProperty("/busy",false);
                 }.bind(this),
             });
         },

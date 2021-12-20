@@ -15,8 +15,7 @@ sap.ui.define([
                 this.UserEmail = sap.ushell.Container.getService("UserInfo").getEmail();
             }
             catch (e) {
-                // this.UserEmail = "atul.jain@extentia.com";
-                this.UserEmail = "aakash.d@extentia.com";
+                this.UserEmail = "test.user@extentia.com";
             }
 
             this.getView().addEventDelegate({

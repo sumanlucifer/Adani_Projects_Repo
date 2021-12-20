@@ -246,6 +246,9 @@ sap.ui.define([
                 this._oPackingListDispatchDialog.addStyleClass("sapUiSizeCompact");
             }
             this._oPackingListDispatchDialog.open();
+            //Change scan button icon
+            var oScanButton = sap.ui.getCore().byId("idQRBtn");
+            oScanButton.getAggregation("_btn").setIcon("sap-icon://qr-code");            
         },
         onCloseDispatchDialogPress: function (oEvent) {
             this._oPackingListDispatchDialog.close();

@@ -494,13 +494,7 @@ sap.ui.define(
                                 false);
                             if (oData.Success === true) {
                                 this.getView().getModel();
-                                sap.m.MessageBox.success(
-                                    "The consumption reservation " +
-                                    "" +
-                                    oData.ReservationNumber +
-                                    "" +
-                                    " has been succesfully created for selected Items!"
-                                );
+                                sap.m.MessageBox.success("The consumption reservation " +"" +oData.ReservationNumber +"" +" has been succesfully created for selected Items!");
                                 this.setInitialModel();
                                 var objectViewModel = this.getViewModel("objectViewModel");
                             } else {

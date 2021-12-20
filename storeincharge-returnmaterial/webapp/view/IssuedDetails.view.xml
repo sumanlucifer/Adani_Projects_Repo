@@ -42,7 +42,7 @@
             <!-- Summary Table Section -->
             <uxap:ObjectPageSection titleUppercase="false" title="{i18n>lineItems}">
                 <uxap:subSections>
-                    <uxap:ObjectPageSubSection title="clineItems}">
+                    <uxap:ObjectPageSubSection title="{i18n>lineItems}">
                         <tt:TreeTable id="TreeTable" rows="{path:'TreeTableModelView>/ReturnData', parameters: {arrayNames:['ChildItemsView']}}" 
                             selectionMode="None" enableSelectAll="false" ariaLabelledBy="title" rowsUpdated="onRowsUpdated">
                             <tt:columns>

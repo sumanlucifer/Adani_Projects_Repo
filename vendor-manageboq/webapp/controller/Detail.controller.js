@@ -20,7 +20,7 @@ sap.ui.define([
                 this.UserEmail = sap.ushell.Container.getService("UserInfo").getEmail();
             }
             catch (e) {
-                this.UserEmail = 'suraj.gavane@extentia.com';
+                this.UserEmail = 'test.user@extentia.com';
             }
             //view model instatiation
             var oViewModel = new JSONModel({
