@@ -12,6 +12,15 @@ sap.ui.define([
     return BaseController.extend("com.agel.mmts.vendorPersona.controller.InspectionDetails", {
         formatter: formatter,
         onInit: function () {
+            //get logged in User
+            try {
+                this.UserEmail = sap.ushell.Container.getService("UserInfo").getEmail();
+                this.UserFName = sap.ushell.Container.getService("UserInfo").getFullName();
+            }
+            catch (e) {
+                this.UserEmail = 'test.user@extentia.com';
+                this.UserFName = 'Test User';
+            }
             //view model instatiation
             var oViewModel = new JSONModel({
                 busy: true,
@@ -281,15 +290,9 @@ sap.ui.define([
                     if (oAction == "YES") {
                         var sPath = "/MDCCStatusSet";
                         var oPayload = {
-                            //     "Status" : obj.Status,
                             "Status": "PENDING",
-                            //"ApprovedOn": new Date(),
-                            //      "ApprovedBy": obj.,
                             "CreatedAt": obj.CreatedAt,
                             "CreatedBy": obj.CreatedBy,
-                            //"UpdatedAt": new Date(),
-                            //        "UpdatedBy": obj.UpdatedBy,
-                            //    "Comment"  : obj.,
                             "IsArchived": false,
                             "MDCCID": obj.ID
                         };
@@ -1060,10 +1063,9 @@ sap.ui.define([
                 oPayload = {
                     "InspectionID": inspectionID,
                     "CreatedAt": this.CreatedAt,
-                    "CreatedBy": "",
+                    "CreatedBy": this.UserFName,
                     "UpdatedAt": null,
                     "BOQGroupId": itemData.selectedItems.ID,
-                    // "UpdatedBy": this.UpdatedBy,
                     "InspectedBOQItems": aInspectionBOQItems
                 };
             this.MainModel.create("/InspectionBOQRequestSet", oPayload, {

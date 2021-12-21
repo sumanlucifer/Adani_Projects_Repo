@@ -282,14 +282,17 @@ sap.ui.define([
                         false
                     );
                     MessageBox.success("The Requested Material is Issued", {
-                        onClose : function(sButton) {
-                            this.getOwnerComponent().getModel().refresh();
-                            this.getRouter().navTo("RouteLandingPage");
+                        title: "Success",
+                        onClose: function (oAction1) {
+                            if (oAction1 === sap.m.MessageBox.Action.OK) {
+                                this.getOwnerComponent().getModel().refresh();
+                                this.getRouter().navTo("RouteLandingPage");
+                            }
                         }.bind(this)
                     });
                 }.bind(this),
                 error: function (oError) {
-                    this.getViewModel("objectViewModel").setProperty("/busy",false);
+                    this.getViewModel("objectViewModel").setProperty("/busy", false);
                 }.bind(this),
             });
         },
