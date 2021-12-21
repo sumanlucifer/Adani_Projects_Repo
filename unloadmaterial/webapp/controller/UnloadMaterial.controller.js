@@ -25,6 +25,17 @@ sap.ui.define([
 
             onInit: function () {
                 jquery.sap.addUrlWhitelist("blob");
+
+                //get logged in User
+                try {
+                    this.UserEmail = sap.ushell.Container.getService("UserInfo").getEmail();
+                    this.UserFName = sap.ushell.Container.getService("UserInfo").getFullName();
+                }
+                catch (e) {
+                    this.UserEmail = 'test.user@extentia.com';
+                    this.UserFName = 'Test User';
+                }
+
                 //view model instatiation
                 var oViewModel = new JSONModel({
                     busy: true,
@@ -85,14 +96,8 @@ sap.ui.define([
                             oJSONData.CreatedAt = new Date();
                             oJSONData.GateEntryDate = oRetrievedResult.GateEntryDate;
                         }
-                        try {
-                            oJSONData.UpdatedBy = sap.ui2.shell.getUser().getId();
-                            oJSONData.CreatedBy = sap.ui2.shell.getUser().getId();
-                        }
-                        catch (e) {
-                            oJSONData.UpdatedBy = "Test User";
-                            oJSONData.CreatedBy = "Test User";
-                        }
+                            oJSONData.UpdatedBy = this.UserFName;
+                            oJSONData.CreatedBy = this.UserFName;
                         try {
                             var sParentListItemid = oRetrievedResult.PackingListParentItems.results[0].ID;
                         }
@@ -129,7 +134,7 @@ sap.ui.define([
                             oJSONData.OuterPackings.push(ofinalOuter);
                         })
                         oView.setModel(new JSONModel(oJSONData), "JSONModelData");
-                    },
+                    }.bind(this),
                     error: function (oError) { }
                 });
 
@@ -205,7 +210,7 @@ sap.ui.define([
                     oDialog.setTitle(oDetails.title);
                     oDialog.open();
                     //Change scan button icon
-                    var oScanButton = sap.ui.getCore().byId("idQRSubmit");
+                    var oScanButton = sap.ui.getCore().byId(oDetails.view.getId()+"--"+"idQRSubmit");
                     oScanButton.getAggregation("_btn").setIcon("sap-icon://qr-code");
                 });
             },
