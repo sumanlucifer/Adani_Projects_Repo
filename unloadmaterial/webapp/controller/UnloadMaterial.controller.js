@@ -210,7 +210,7 @@ sap.ui.define([
                     oDialog.setTitle(oDetails.title);
                     oDialog.open();
                     //Change scan button icon
-                    var oScanButton = sap.ui.getCore().byId("idQRSubmit");
+                    var oScanButton = sap.ui.getCore().byId(oDetails.view.getId()+"--"+"idQRSubmit");
                     oScanButton.getAggregation("_btn").setIcon("sap-icon://qr-code");
                 });
             },
