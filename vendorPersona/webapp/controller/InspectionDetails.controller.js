@@ -301,7 +301,7 @@ sap.ui.define([
                                 this.getViewModel("objectViewModel").setProperty("/busy", false);
                                 // BusyIndicator.hide();
                                 if (oData.ID) {
-                                    MessageBox.success("MDCC Number " + that.MDCCNumber + " Sent for approval successfully");
+                                    MessageBox.success("MDCC Number '" + that.MDCCNumber + "' sent for PMCG approval.");
                                     that.getView().getContent()[0].getContent().rerender();
                                     that.getView().getModel().refresh();
                                 }

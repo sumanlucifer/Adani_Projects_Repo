@@ -333,9 +333,9 @@ sap.ui.define([
                         false);
                     var message;
                     if (aPayload.Status === "APPROVED") {
-                        message = "MDCC request has been Approved successfully!";
+                        message = "MDCC request has been approved.";
                     } else {
-                        message = "MDCC request has been Rejected successfully!"
+                        message = "MDCC request has been rejected."
                     }
                     sap.m.MessageBox.success(message, {
                         title: "Success",
