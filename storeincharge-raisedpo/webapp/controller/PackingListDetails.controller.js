@@ -40,6 +40,13 @@ sap.ui.define([
                 });
                 this.setModel(oViewModel, "objectViewModel");
 
+                this.getComponentModel().attachRequestSent(function () {
+                    oViewModel.setProperty("/busy", true);
+                });
+                this.getComponentModel().attachRequestCompleted(function () {
+                    oViewModel.setProperty("/busy", false);
+                });
+
                 var oViewHandlingModel = new JSONModel({
                     "closeButton": false,
                     "submitButton": true
@@ -73,10 +80,10 @@ sap.ui.define([
                     parameter: { expand: 'GRNS' },
                     events: {
                         dataRequested: function () {
-                            objectViewModel.setProperty("/busy", true);
+                            // objectViewModel.setProperty("/busy", true);
                         },
                         dataReceived: function () {
-                            objectViewModel.setProperty("/busy", false);
+                            // objectViewModel.setProperty("/busy", false);
                             // that.readGRNS(sObjectPath + "/GRNS");
                             // var documentResult = that.getDocumentData();
                             // documentResult.then(function (result) {
@@ -95,7 +102,7 @@ sap.ui.define([
                     }.bind(this),
                     error: function (oError) {
                         // this.messages.showErrorMessage(oError);
-                        this.getView().setBusy(false);
+                        // this.getView().setBusy(false);
                     }.bind(this)
                 });
 
@@ -197,16 +204,16 @@ sap.ui.define([
             // },
 
             readGRNS: function (sPath) {
-                this.getViewModel("objectViewModel").setProperty(
-                    "/busy",
-                    true
-                );
+                // this.getViewModel("objectViewModel").setProperty(
+                //     "/busy",
+                //     true
+                // );
                 this.MainModel.read(sPath, {
                     success: function (oData, oResponse) {
-                        this.getViewModel("objectViewModel").setProperty(
-                            "/busy",
-                            false
-                        );
+                        // this.getViewModel("objectViewModel").setProperty(
+                        //     "/busy",
+                        //     false
+                        // );
                         // debugger;
                         var filtered = oData.results.filter((item) => item.Status === "APPROVED");
                         if (filtered.length > 0)
@@ -215,10 +222,10 @@ sap.ui.define([
                             this.byId("idrequestGRNButton").setVisible(true);
                     }.bind(this),
                     error: function (oError) {
-                        this.getViewModel("objectViewModel").setProperty(
-                            "/busy",
-                            false
-                        );
+                        // this.getViewModel("objectViewModel").setProperty(
+                        //     "/busy",
+                        //     false
+                        // );
                         //sap.m.MessageBox.error(JSON.stringify(oError));
                     }.bind(this),
                 });
@@ -313,10 +320,10 @@ sap.ui.define([
 
 
             onViewQRCodePress: function (oEvent) {
-                this.getViewModel("objectViewModel").setProperty(
-                    "/busy",
-                    true
-                );
+                // this.getViewModel("objectViewModel").setProperty(
+                //     "/busy",
+                //     true
+                // );
                 try {
                     var sParentItemPath = oEvent.getParameter("oSource").getBindingContext().getPath();
                 }
@@ -330,10 +337,10 @@ sap.ui.define([
                 };
                 this.getComponentModel().create("/QuickAccessQRCodeEdmSet", aPayload, {
                     success: function (oData, oResponse) {
-                        this.getViewModel("objectViewModel").setProperty(
-                            "/busy",
-                            false
-                        );
+                        // this.getViewModel("objectViewModel").setProperty(
+                        //     "/busy",
+                        //     false
+                        // );
                         if (oData.Success) {
                             // sap.m.MessageBox.success(oData.Message);
                             this._openPDFDownloadWindow(oData.Base64String);
@@ -345,20 +352,20 @@ sap.ui.define([
                         this.getComponentModel().refresh();
                     }.bind(this),
                     error: function (oError) {
-                        this.getViewModel("objectViewModel").setProperty(
-                            "/busy",
-                            false
-                        );
+                        // this.getViewModel("objectViewModel").setProperty(
+                        //     "/busy",
+                        //     false
+                        // );
                         //sap.m.MessageBox.success(JSON.stringify(oError));
                     }.bind(this),
                 })
             },
 
             onViewQRCodePressSmart: function (oEvent) {
-                this.getViewModel("objectViewModel").setProperty(
-                    "/busy",
-                    true
-                );
+                // this.getViewModel("objectViewModel").setProperty(
+                //     "/busy",
+                //     true
+                // );
                 try {
                     var sParentItemPath = oEvent.getParameter("oSource").getBindingContext().getPath();
                 }
@@ -372,10 +379,10 @@ sap.ui.define([
                 };
                 this.getComponentModel().create("/QuickAccessQRCodeEdmSet", aPayload, {
                     success: function (oData, oResponse) {
-                        this.getViewModel("objectViewModel").setProperty(
-                            "/busy",
-                            false
-                        );
+                        // this.getViewModel("objectViewModel").setProperty(
+                        //     "/busy",
+                        //     false
+                        // );
                         if (oData.Success) {
                             // sap.m.MessageBox.success(oData.Message);
                             this._openPDFDownloadWindow(oData.Base64String);
@@ -387,10 +394,10 @@ sap.ui.define([
                         this.getComponentModel().refresh();
                     }.bind(this),
                     error: function (oError) {
-                        this.getViewModel("objectViewModel").setProperty(
-                            "/busy",
-                            false
-                        );
+                        // this.getViewModel("objectViewModel").setProperty(
+                        //     "/busy",
+                        //     false
+                        // );
                         // sap.m.MessageBox.success(JSON.stringify(oError));
                     }.bind(this),
                 })
@@ -665,10 +672,10 @@ sap.ui.define([
                         }
 
                         if (oPayload) {
-                            this.getViewModel("objectViewModel").setProperty("/busy", true);
+                            // this.getViewModel("objectViewModel").setProperty("/busy", true);
                             oModel.create("/GRNEdmSet", oPayload, {
                                 success: function (oData) {
-                                    this.getViewModel("objectViewModel").setProperty("/busy", false);
+                                    // this.getViewModel("objectViewModel").setProperty("/busy", false);
                                     if (oData.Success) {
                                         sap.m.MessageBox.success(oData.Message);
                                         this.getComponentModel().refresh();
@@ -677,7 +684,7 @@ sap.ui.define([
                                         sap.m.MessageBox.error(oData.Message);
                                 }.bind(this),
                                 error: function (oError) {
-                                    this.getViewModel("objectViewModel").setProperty("/busy", false);
+                                    // this.getViewModel("objectViewModel").setProperty("/busy", false);
                                     // sap.m.MessageBox.error(JSON.stringify(oError));
                                 }
                             });

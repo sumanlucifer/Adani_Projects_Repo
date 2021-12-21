@@ -13,7 +13,7 @@
     xmlns:linePackingItems="com.agel.mmts.storeinchargeraisedpo.view.blocks.PackingListDetails.packagingListContains.blocks"
     xmlns:outerPackaging="com.agel.mmts.storeinchargeraisedpo.view.blocks.PackingListDetails.outerPackaging.blocks"
     xmlns:innerPackaging="com.agel.mmts.storeinchargeraisedpo.view.blocks.PackingListDetails.innerPackaging.blocks">
-    <uxap:ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true" upperCaseAnchorBar="false" headerContentPinnable="true" toggleHeaderOnTitleClick="true" showFooter="true">
+    <uxap:ObjectPageLayout id="ObjectPageLayout" busy="{objectViewModel>/busy}" showTitleInHeaderContent="true" upperCaseAnchorBar="false" headerContentPinnable="true" toggleHeaderOnTitleClick="true" showFooter="true">
         <uxap:headerTitle>
             <uxap:ObjectPageDynamicHeaderTitle>
                 <uxap:breadcrumbs>
