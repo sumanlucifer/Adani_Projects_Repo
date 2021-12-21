@@ -9,9 +9,9 @@ sap.ui.define([
     // "sap/ui/Device",
     "sap/m/MessageBox",
     'sap/ui/core/ValueState',
-    'sap/m/MessageToast',
+    // 'sap/m/MessageToast',
     '../utils/formatter',
-], function (BaseController, jQuery, JSONModel, Filter, MessageBox, ValueState, MessageToast, formatter) {
+], function (BaseController, jQuery, JSONModel, Filter, MessageBox, ValueState, formatter) {
     "use strict";
 
     return BaseController.extend("com.agel.mmts.vendorPersona.controller.OfflineInspection", {
@@ -440,7 +440,7 @@ sap.ui.define([
                 success: function (oData, oResponse) {
                     this.getViewModel("objectViewModel").setProperty("/busy", false);
                     this.getComponentModel().refresh();
-                    sap.m.MessageBox.success("Offline Inspection Call raised successfully!", {
+                    sap.m.MessageBox.success("Offline inspection created successfully.", {
                         title: "Success",
                         onClose: function (oAction1) {
                             if (oAction1 === sap.m.MessageBox.Action.OK) {
@@ -640,7 +640,7 @@ sap.ui.define([
                 processData: false,
                 data: file[0],
                 success: function (data) {
-                    sap.m.MessageToast.show("MDCC Details Uploaded!");
+                    // sap.m.MessageToast.show("MDCC Details Uploaded!");
                     that.getComponentModel().refresh();
                     that.getViewModel("objectViewModel").setProperty(
                         "/busy",

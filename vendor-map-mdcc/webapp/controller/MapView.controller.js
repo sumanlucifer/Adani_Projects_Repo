@@ -420,7 +420,7 @@ sap.ui.define([
                         // debbuger;
                         if (oData.Success) {
                             that.getComponentModel("app").setProperty("/busy", false);
-                            sap.m.MessageBox.success("MDCC items mapped successfully!", {
+                            sap.m.MessageBox.success("MDCC items mapped successfully.", {
                                 title: "Success",
                                 onClose: function (oAction1) {
 
