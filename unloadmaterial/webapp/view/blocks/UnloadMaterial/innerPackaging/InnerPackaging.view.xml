@@ -47,7 +47,7 @@
                         </core:layoutData>
                     </core:Icon> -->
                     <!-- <Link visible="{= ${JSONModelData>ReceivedQty} ? true : false }" text="{= ${JSONModelData>ExternalQRCodeInfo} === '' ? 'Map Vendor QR Code' : 'Vendor Information Mapped' }" press="onMapVendorQRPress"/> -->
-                    <scan:BarcodeScannerButton id="idQRSubmit" scanSuccess="onMapVendorQRSuccess" scanFail="onMapVendorQRFail" visible="{= ${JSONModelData>ReceivedQty} ? true : false }"/>   
+                    <scan:BarcodeScannerButton id="idQRSubmitInner" scanSuccess="onMapVendorQRSuccess" scanFail="onMapVendorQRFail" visible="{= ${JSONModelData>ReceivedQty} ? true : false }"/>   
                 </cells>
             </ColumnListItem>
         </items>

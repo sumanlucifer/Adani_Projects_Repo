@@ -17,6 +17,17 @@ sap.ui.define([
         return BaseController.extend("com.agel.mmts.vendorpackinglistcreate.controller.CreateViewStep2", {
             formatter: formatter,
             onInit: function () {
+                //get logged in User
+                try {
+                    this.UserEmail = sap.ushell.Container.getService("UserInfo").getEmail();
+                    this.UserFName = sap.ushell.Container.getService("UserInfo").getFullName()();
+
+                }
+                catch (e) {
+                    this.UserEmail = 'test.user@extentia.com';
+                    this.UserFName = 'Test User';
+
+                }
                 //jQuery.sap.addUrlWhitelist("blob");
                 this.mainModel = this.getOwnerComponent().getModel();
                 //Router Object
@@ -682,7 +693,7 @@ sap.ui.define([
                 var poNum = oAdditionalData.PONumber;
                 var userName = oAdditionalData.Name;
                 var packingListId = oAdditionalData.ID;
-                oPayload.UserName = "Venkatesh";
+                oPayload.UserName = this.UserFName;
                 oPayload.PackingListId = packingListId;
                 oPayload.PONumber = poNum;
 

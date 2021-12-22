@@ -84,5 +84,16 @@
             ]
         }
     ],
-    "decisions": []
+    "decisions": [
+        {
+            "id": "APPROVED",
+            "text": "Approve",
+            "decisionType": "positive"
+        },
+        {
+            "id": "REJECTED",
+            "text": "Reject",
+            "decisionType": "negative"
+        }
+    ]
 }

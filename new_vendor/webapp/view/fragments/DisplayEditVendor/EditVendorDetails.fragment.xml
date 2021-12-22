@@ -33,9 +33,8 @@
                     }
                 }"
                 enabled="{= ${objectViewModel>/EditMode} === true ? false : true}"/>
-            <Label text="{i18n>Name}" required="true"/>
+            <Label text="{i18n>Name}" />
             <Input 
-                required="true" 
                 maxLength="50"
                 value="{
                     path: 'VendorViewModel>/Name',
@@ -114,11 +113,10 @@
                         maxLength: 50
                     }
                 }"/>
-            <Label text="{i18n>PhoneNumber}" required="true"/>
-            <Input  required="true" type="Number" maxLength="15"
-                value="{VendorViewModel>/PhoneNumber}"/>
-            <Label text="{i18n>EmailID}" required="true"/>
-            <Input  name="Email" required="true" type="Email" value="{VendorViewModel>/Email}" maxLength="50" enabled="{= ${objectViewModel>/EditMode} === true ? false : true}" change="checkValidationEmail"/>
+            <Label text="{i18n>PhoneNumber}" />
+            <Input  type="Number" maxLength="15" value="{VendorViewModel>/PhoneNumber}"/>
+            <Label text="{i18n>EmailID}"/>
+            <Input  name="Email" type="Email" value="{VendorViewModel>/Email}" maxLength="50" change="checkValidationEmail"/>
             <Label text="{i18n>Pan}"/>
             <Input 
                 maxLength="10"

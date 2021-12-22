@@ -136,6 +136,9 @@ sap.ui.define([
                 this.getView().addDependent(this._oScannerDialog);
             }
             this._oScannerDialog.open();
+            //Change scan button icon
+            var oScanButton = sap.ui.getCore().byId("idQRSubmit");
+            oScanButton.getAggregation("_btn").setIcon("sap-icon://qr-code");
         },
 
         onQRCodeScanDialogClosePress: function (oEvent) {

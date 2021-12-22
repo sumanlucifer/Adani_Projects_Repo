@@ -46,62 +46,6 @@
             <uxap:ObjectPageSection titleUppercase="false" title="{i18n>lineItems}">
                 <uxap:subSections>
                     <uxap:ObjectPageSubSection title="{i18n>lineItems}">
-                        <!-- <Table width="auto" growing="true" growingThreshold="5" fixedLayout="false" items="{IssuedMaterialParents}">     
-                            <headerToolbar>
-                                <OverflowToolbar id="otbSubheader">
-                                    <Title text="Products" level="H2" />
-                                    <ToolbarSpacer />
-                                    </OverflowToolbar>
-                            </headerToolbar>
-                            <columns>
-                                <Column demandPopin="true" minScreenWidth="Desktop">
-                                    <Text text="{i18n>name}" wrapping="true" wrappingType="Hyphenated"/>
-                                </Column>
-                                 <Column demandPopin="true" minScreenWidth="Tablet">
-                                    <Text text="Material Code"/>
-                                </Column>
-                                <Column demandPopin="true" minScreenWidth="Tablet">
-                                    <Text text="Plant"/>
-                                </Column>
-                                <Column demandPopin="true" minScreenWidth="Tablet">
-                                    <Text text="Storage Location"/>
-                                </Column>
-                                <Column demandPopin="true" minScreenWidth="Tablet">
-                                    <Text text="Movement Type"/>
-                                </Column>
-                                <Column demandPopin="true" minScreenWidth="Tablet">
-                                    <Text text="Goods Recipient"/>
-                                </Column>
-                                <Column demandPopin="true" minScreenWidth="Tablet">
-                                    <Text text="WBS Number"/>
-                                </Column>
-                                <Column demandPopin="true" minScreenWidth="Tablet">
-                                    <Text text="Unloading Point"/>
-                                </Column>
-                                <Column demandPopin="true" minScreenWidth="Desktop">
-                                    <Text text="{i18n>issueQty}"/>
-                                </Column>
-                                <Column demandPopin="true" minScreenWidth="Desktop">
-                                    <Text text="{i18n>status}"/>
-                                </Column>
-                            </columns>
-                            <items>
-                                <ColumnListItem>
-                                    <cells>
-                                        <ObjectIdentifier title="{Name}"/>
-                                         <Text text="{MaterialCode}"/>
-                                        <Text text="{Plant}"/>
-                                        <Text text="{StorageLocation}"/>
-                                        <Text text="{MovementType}" />
-                                        <Text text="{GoodsRecipient}" binding="{IssuedMaterialReservedItem/IssueMaterialReserve}"/>
-                                        <Text text="{WBSNumber}" binding="{IssuedMaterialReservedItem/IssueMaterialReserve}"/>
-                                        <Text text="{UnloadPoint}"/>
-                                        <Text text="{IssuedQty}"/>
-                                        <ObjectStatus text="{Status}" state="{= ${Status} === 'ISSUED' ? 'Success' : ${Status} === 'RESERVED' ? 'Information' : 'Error'}" visible="{= ${Status}.length>0 ? true : false }"/>
-                                    </cells>
-                                </ColumnListItem>
-                            </items>
-                        </Table> -->
                         <tt:TreeTable
                             id="idReserveMatTreeTable"
                             rows="{path:'/TreeTableData', model: 'objectViewModel', parameters: {arrayNames:['BoqItems']}}"

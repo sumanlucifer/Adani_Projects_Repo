@@ -24,6 +24,10 @@ sap.ui.define([
 
                 });
                 this.setModel(oViewModel, "objectViewModel");
+
+                //Change scan button icon
+                var oScanButton = this.getView().byId("idQRSubmit")
+                oScanButton.getAggregation("_btn").setIcon("sap-icon://qr-code")
             },
 
             _onNavtoQRDeatilsPage: function (oItem) {
@@ -125,12 +129,12 @@ sap.ui.define([
                         this.getViewModel("objectViewModel").setProperty("/busy",false);
 
                         if (oData.results.length > 0) {
-                            if (oData.results[0].Type !== "PARENT") {
-                                MessageBox.error(this.getResourceBundle().getText("MSGUseParentQRCode"));
-                            } else {
+                            if (oData.results[0].Type === "PARENT" || oData.results[0].Type === "INNER") {
                                 this.getRouter().navTo("QRCodeDetailsPage", {
                                     QRNumber: oData.results[0].QRNumber
                                 });
+                            } else {
+                                MessageBox.error(this.getResourceBundle().getText("MSGUseParentQRCode"));
                             }
                         }
                         else {

@@ -54,7 +54,6 @@ sap.ui.define([
             // debugger;
             this.sObjectId = oEvent.getParameter("arguments").ID;
             this._bindView("/IssuedMaterialSet" + this.sObjectId);
-
         },
 
         _bindView: function (sObjectPath) {
@@ -76,14 +75,13 @@ sap.ui.define([
         },
 
         _setTreeTableData: function (oController) {
-            debugger;
             var objectViewModel = oController.getViewModel("objectViewModel");
             objectViewModel.setProperty(
                 "/busy",
                 true
             );
             oController.MainModel.read("/IssuedMaterialSet" + oController.sObjectId + "/IssuedMaterialParents", {
-                urlParameters: { "$expand": "IssuedMaterialBOQ" },
+                urlParameters: { "$expand": "IssuedMaterialBOQ,IssuedMaterialReservedItem" },
                 success: function (oData) {
                     objectViewModel.setProperty(
                         "/busy",
@@ -92,6 +90,7 @@ sap.ui.define([
                     if (oData) {
                         oData.results.forEach(element => {
                             element.BoqItems = element.IssuedMaterialBOQ.results;
+                            element.ReservedQty = element.IssuedMaterialReservedItem.ReservedQty;
                         });
                         objectViewModel.setProperty("/TreeTableData", oData.results);
                     }

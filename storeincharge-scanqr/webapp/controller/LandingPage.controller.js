@@ -44,6 +44,10 @@ sap.ui.define([
                 //Router Object
                 this.oRouter = this.getRouter();
                 this.oRouter.getRoute("RouteLandingPage").attachPatternMatched(this._onObjectMatched, this);
+
+                //Change scan button icon
+                var oScanButton = this.getView().byId("idQRSubmit")
+                oScanButton.getAggregation("_btn").setIcon("sap-icon://qr-code")
             },
 
             _onObjectMatched: function (oEvent) {

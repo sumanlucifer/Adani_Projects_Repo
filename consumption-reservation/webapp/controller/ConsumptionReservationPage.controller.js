@@ -44,14 +44,19 @@ sap.ui.define(
                                 value: "201",
                                 Text: "201 - Consumption Reservation",
                             },
+                            {
+                                value: "221",
+                                Text: "221 - Consumption Reservation",
+                            },
                         ],
-                        MovementTypeValue: null,
-                        WBS: null,
+                        MovementTypeValue: "201",
+                        WBS: '',
                         GoodRecipient: null,
                         Plant: null,
                         RecievingLocation: null,
-                        CostCenter: null,
-                        GLAccount: null,
+                        CostCenter: '',
+                        GLAccount: '',
+                        ProfitCenter: ''
                     });
                     this.getView().setModel(oModel, "HeaderDetailsModel");
                 },
@@ -370,17 +375,17 @@ sap.ui.define(
                         this.byId("idSelPlant").setValueStateText(null);
                     }
                     if (this.getView().getModel("objectViewModel").getProperty("/isHeaderFieldsVisible") === true) {
-                        if (!data.ProfitCenter) {
-                            this.byId("idProfitCenter").setValueState("Error");
-                            this.byId("idProfitCenter").setValueStateText(
-                                "Please enter profit center value"
-                            );
-                            bValid = false;
-                        } else {
-                            this.byId("idProfitCenter").setValueState("None");
-                            this.byId("idProfitCenter").setValueStateText(null);
-                        }
-                        if (!data.CostCenter) {
+                        // if (!data.ProfitCenter) {
+                        //     this.byId("idProfitCenter").setValueState("Error");
+                        //     this.byId("idProfitCenter").setValueStateText(
+                        //         "Please enter profit center value"
+                        //     );
+                        //     bValid = false;
+                        // } else {
+                        //     this.byId("idProfitCenter").setValueState("None");
+                        //     this.byId("idProfitCenter").setValueStateText(null);
+                        // }
+                        if (!data.CostCenter && !data.MovementTypeValue==="201") {
                             this.byId("idCostCenter").setValueState("Error");
                             this.byId("idCostCenter").setValueStateText(
                                 "Please enter cost center value"
@@ -390,7 +395,7 @@ sap.ui.define(
                             this.byId("idCostCenter").setValueState("None");
                             this.byId("idCostCenter").setValueStateText(null);
                         }
-                        if (!data.WBS) {
+                        if (!data.WBS && !data.MovementTypeValue==="221") {
                             this.byId("idWBS").setValueState("Error");
                             this.byId("idWBS").setValueStateText("Please enter WBS value");
                             bValid = false;
@@ -398,16 +403,16 @@ sap.ui.define(
                             this.byId("idWBS").setValueState("None");
                             this.byId("idWBS").setValueStateText(null);
                         }
-                        if (!data.GLAccount) {
-                            this.byId("idGLAccount").setValueState("Error");
-                            this.byId("idGLAccount").setValueStateText(
-                                "Please enter GLAccount recipient"
-                            );
-                            bValid = false;
-                        } else {
-                            this.byId("idGLAccount").setValueState("None");
-                            this.byId("idGLAccount").setValueStateText(null);
-                        }
+                        // if (!data.GLAccount) {
+                        //     this.byId("idGLAccount").setValueState("Error");
+                        //     this.byId("idGLAccount").setValueStateText(
+                        //         "Please enter GLAccount recipient"
+                        //     );
+                        //     bValid = false;
+                        // } else {
+                        //     this.byId("idGLAccount").setValueState("None");
+                        //     this.byId("idGLAccount").setValueStateText(null);
+                        // }
                     } else {
                         bValid = false;
                     }
@@ -474,10 +479,10 @@ sap.ui.define(
                     var oPayload = {
                         UserName: "Agel",
                         Plant: oAdditionalData.Plant,
-                        MovementType: "201",
+                        MovementType: oAdditionalData.MovementTypeValue,
                         GoodRecipient: oAdditionalData.GoodRecipient,
                         CostCenter: oAdditionalData.CostCenter,
-                        WBS: "",
+                        WBS: oAdditionalData.WBS,
                         GLAccount: oAdditionalData.GLAccount,
                         ProfitCenter: oAdditionalData.ProfitCenter,
                         ParentItem: aReservationItems,
@@ -489,13 +494,7 @@ sap.ui.define(
                                 false);
                             if (oData.Success === true) {
                                 this.getView().getModel();
-                                sap.m.MessageBox.success(
-                                    "The consumption reservation " +
-                                    "" +
-                                    oData.ReservationNumber +
-                                    "" +
-                                    " has been succesfully created for selected Items!"
-                                );
+                                sap.m.MessageBox.success("The consumption reservation " +"" +oData.ReservationNumber +"" +" has been succesfully created for selected Items!");
                                 this.setInitialModel();
                                 var objectViewModel = this.getViewModel("objectViewModel");
                             } else {

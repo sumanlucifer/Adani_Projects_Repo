@@ -43,12 +43,13 @@ sap.ui.define([
                         }
                     ],
                     MovementTypeValue: null,
-                    WBS: null,
+                    WBS: '',
                     GoodRecipient: null,
                     Plant: null,
                     RecievingLocation: null,
-                    CostCenter: null,
-                    GLAccount: null
+                    CostCenter: '',
+                    GLAccount: '',
+                    ProfitCenter: ''
                 });
                 this.getView().setModel(oModel, "HeaderDetailsModel")
             },
@@ -291,14 +292,14 @@ sap.ui.define([
                     this.byId("idSelPlant").setValueStateText(null);
                 }
                 if (this.getView().getModel("objectViewModel").getProperty("/isHeaderFieldsVisible") === true) {
-                    if (!data.ProfitCenter) {
-                        this.byId("idProfitCenter").setValueState("Error");
-                        this.byId("idProfitCenter").setValueStateText("Please enter profit center value");
-                        bValid = false;
-                    } else {
-                        this.byId("idProfitCenter").setValueState("None");
-                        this.byId("idProfitCenter").setValueStateText(null);
-                    }
+                    // if (!data.ProfitCenter) {
+                    //     this.byId("idProfitCenter").setValueState("Error");
+                    //     this.byId("idProfitCenter").setValueStateText("Please enter profit center value");
+                    //     bValid = false;
+                    // } else {
+                    //     this.byId("idProfitCenter").setValueState("None");
+                    //     this.byId("idProfitCenter").setValueStateText(null);
+                    // }
                     if (!data.ReceivingLocation) {
                         this.byId("idRecievingLoc").setValueState("Error");
                         this.byId("idRecievingLoc").setValueStateText("Please enter recieving center value");
@@ -307,30 +308,30 @@ sap.ui.define([
                         this.byId("idRecievingLoc").setValueState("None");
                         this.byId("idRecievingLoc").setValueStateText(null);
                     }
-                    if (!data.CostCenter) {
-                        this.byId("idCostCenter").setValueState("Error");
-                        this.byId("idCostCenter").setValueStateText("Please enter cost center value");
-                        bValid = false;
-                    } else {
-                        this.byId("idCostCenter").setValueState("None");
-                        this.byId("idCostCenter").setValueStateText(null);
-                    }
-                    if (!data.WBS) {
-                        this.byId("idWBS").setValueState("Error");
-                        this.byId("idWBS").setValueStateText("Please enter WBS value");
-                        bValid = false;
-                    } else {
-                        this.byId("idWBS").setValueState("None");
-                        this.byId("idWBS").setValueStateText(null);
-                    }
-                    if (!data.GLAccount) {
-                        this.byId("idGLAccount").setValueState("Error");
-                        this.byId("idGLAccount").setValueStateText("Please enter GLAccount recipient");
-                        bValid = false;
-                    } else {
-                        this.byId("idGLAccount").setValueState("None");
-                        this.byId("idGLAccount").setValueStateText(null);
-                    }
+                    // if (!data.CostCenter) {
+                    //     this.byId("idCostCenter").setValueState("Error");
+                    //     this.byId("idCostCenter").setValueStateText("Please enter cost center value");
+                    //     bValid = false;
+                    // } else {
+                    //     this.byId("idCostCenter").setValueState("None");
+                    //     this.byId("idCostCenter").setValueStateText(null);
+                    // }
+                    // if (!data.WBS) {
+                    //     this.byId("idWBS").setValueState("Error");
+                    //     this.byId("idWBS").setValueStateText("Please enter WBS value");
+                    //     bValid = false;
+                    // } else {
+                    //     this.byId("idWBS").setValueState("None");
+                    //     this.byId("idWBS").setValueStateText(null);
+                    // }
+                    // if (!data.GLAccount) {
+                    //     this.byId("idGLAccount").setValueState("Error");
+                    //     this.byId("idGLAccount").setValueStateText("Please enter GLAccount recipient");
+                    //     bValid = false;
+                    // } else {
+                    //     this.byId("idGLAccount").setValueState("None");
+                    //     this.byId("idGLAccount").setValueStateText(null);
+                    // }
                 } else {
                     bValid = false;
                 }
@@ -417,7 +418,6 @@ sap.ui.define([
                     "ReceivingLocation": oAdditionalData.ReceivingLocation,
                     "GLAccount": oAdditionalData.GLAccount,
                     "ProfitCenter": oAdditionalData.ProfitCenter,
-                    "ReservationDate": "/Date(1624280339932)/",
                     "ParentList": aReservationItems
                 };
                 this.mainModel.create("/ReturnMaterialReserveEdmSet", oPayload, {

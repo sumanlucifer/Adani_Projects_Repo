@@ -24,6 +24,14 @@ sap.ui.define([
             formatter: formatter,
 
             onInit: function () {
+                try {
+                    this.UserEmail = sap.ushell.Container.getService("UserInfo").getEmail();
+                    this.UserFName = sap.ushell.Container.getService("UserInfo").getFullName()();
+                }
+                catch (e) {
+                    this.UserEmail = 'Test.User@extentia.com';
+                    this.UserFName = 'Test User';
+                }
                 jquery.sap.addUrlWhitelist("blob");
                 //view model instatiation
                 var oViewModel = new JSONModel({
@@ -31,6 +39,13 @@ sap.ui.define([
                     delay: 0
                 });
                 this.setModel(oViewModel, "objectViewModel");
+
+                this.getComponentModel().attachRequestSent(function () {
+                    oViewModel.setProperty("/busy", true);
+                });
+                this.getComponentModel().attachRequestCompleted(function () {
+                    oViewModel.setProperty("/busy", false);
+                });
 
                 var oViewHandlingModel = new JSONModel({
                     "closeButton": false,
@@ -65,10 +80,10 @@ sap.ui.define([
                     parameter: { expand: 'GRNS' },
                     events: {
                         dataRequested: function () {
-                            objectViewModel.setProperty("/busy", true);
+                            // objectViewModel.setProperty("/busy", true);
                         },
                         dataReceived: function () {
-                            objectViewModel.setProperty("/busy", false);
+                            // objectViewModel.setProperty("/busy", false);
                             // that.readGRNS(sObjectPath + "/GRNS");
                             // var documentResult = that.getDocumentData();
                             // documentResult.then(function (result) {
@@ -87,7 +102,7 @@ sap.ui.define([
                     }.bind(this),
                     error: function (oError) {
                         // this.messages.showErrorMessage(oError);
-                        this.getView().setBusy(false);
+                        // this.getView().setBusy(false);
                     }.bind(this)
                 });
 
@@ -189,16 +204,16 @@ sap.ui.define([
             // },
 
             readGRNS: function (sPath) {
-                this.getViewModel("objectViewModel").setProperty(
-                    "/busy",
-                    true
-                );
+                // this.getViewModel("objectViewModel").setProperty(
+                //     "/busy",
+                //     true
+                // );
                 this.MainModel.read(sPath, {
                     success: function (oData, oResponse) {
-                        this.getViewModel("objectViewModel").setProperty(
-                            "/busy",
-                            false
-                        );
+                        // this.getViewModel("objectViewModel").setProperty(
+                        //     "/busy",
+                        //     false
+                        // );
                         // debugger;
                         var filtered = oData.results.filter((item) => item.Status === "APPROVED");
                         if (filtered.length > 0)
@@ -207,10 +222,10 @@ sap.ui.define([
                             this.byId("idrequestGRNButton").setVisible(true);
                     }.bind(this),
                     error: function (oError) {
-                        this.getViewModel("objectViewModel").setProperty(
-                            "/busy",
-                            false
-                        );
+                        // this.getViewModel("objectViewModel").setProperty(
+                        //     "/busy",
+                        //     false
+                        // );
                         //sap.m.MessageBox.error(JSON.stringify(oError));
                     }.bind(this),
                 });
@@ -305,10 +320,10 @@ sap.ui.define([
 
 
             onViewQRCodePress: function (oEvent) {
-                this.getViewModel("objectViewModel").setProperty(
-                    "/busy",
-                    true
-                );
+                // this.getViewModel("objectViewModel").setProperty(
+                //     "/busy",
+                //     true
+                // );
                 try {
                     var sParentItemPath = oEvent.getParameter("oSource").getBindingContext().getPath();
                 }
@@ -322,10 +337,10 @@ sap.ui.define([
                 };
                 this.getComponentModel().create("/QuickAccessQRCodeEdmSet", aPayload, {
                     success: function (oData, oResponse) {
-                        this.getViewModel("objectViewModel").setProperty(
-                            "/busy",
-                            false
-                        );
+                        // this.getViewModel("objectViewModel").setProperty(
+                        //     "/busy",
+                        //     false
+                        // );
                         if (oData.Success) {
                             // sap.m.MessageBox.success(oData.Message);
                             this._openPDFDownloadWindow(oData.Base64String);
@@ -337,20 +352,20 @@ sap.ui.define([
                         this.getComponentModel().refresh();
                     }.bind(this),
                     error: function (oError) {
-                        this.getViewModel("objectViewModel").setProperty(
-                            "/busy",
-                            false
-                        );
+                        // this.getViewModel("objectViewModel").setProperty(
+                        //     "/busy",
+                        //     false
+                        // );
                         //sap.m.MessageBox.success(JSON.stringify(oError));
                     }.bind(this),
                 })
             },
 
             onViewQRCodePressSmart: function (oEvent) {
-                this.getViewModel("objectViewModel").setProperty(
-                    "/busy",
-                    true
-                );
+                // this.getViewModel("objectViewModel").setProperty(
+                //     "/busy",
+                //     true
+                // );
                 try {
                     var sParentItemPath = oEvent.getParameter("oSource").getBindingContext().getPath();
                 }
@@ -364,10 +379,10 @@ sap.ui.define([
                 };
                 this.getComponentModel().create("/QuickAccessQRCodeEdmSet", aPayload, {
                     success: function (oData, oResponse) {
-                        this.getViewModel("objectViewModel").setProperty(
-                            "/busy",
-                            false
-                        );
+                        // this.getViewModel("objectViewModel").setProperty(
+                        //     "/busy",
+                        //     false
+                        // );
                         if (oData.Success) {
                             // sap.m.MessageBox.success(oData.Message);
                             this._openPDFDownloadWindow(oData.Base64String);
@@ -379,10 +394,10 @@ sap.ui.define([
                         this.getComponentModel().refresh();
                     }.bind(this),
                     error: function (oError) {
-                        this.getViewModel("objectViewModel").setProperty(
-                            "/busy",
-                            false
-                        );
+                        // this.getViewModel("objectViewModel").setProperty(
+                        //     "/busy",
+                        //     false
+                        // );
                         // sap.m.MessageBox.success(JSON.stringify(oError));
                     }.bind(this),
                 })
@@ -458,13 +473,11 @@ sap.ui.define([
             },
 
             onCancelGRNPress: function (oEvent) {
-
                 var that = this;
                 var gID = oEvent.getSource().getBindingContext().getObject().ID;
                 var oPayload = {
                     "GRNId": gID,
-                    "UserName": "Agel_Sep"
-
+                    "UserName": this.UserFName
                 };
                 MessageBox.confirm("Do you really want to cancel GRN ?", {
                     icon: MessageBox.Icon.INFORMATION,
@@ -517,7 +530,7 @@ sap.ui.define([
                 var sPlantCode = oEvent.getSource().getParent().getBindingContext().getObject().PlantCode;
                 var oMaterialCodeFilter = new sap.ui.model.Filter("MaterialCode", sap.ui.model.FilterOperator.EQ, sMaterialCode);
                 var oPlantCodeFilter = new sap.ui.model.Filter("ValuationArea", sap.ui.model.FilterOperator.EQ, sPlantCode);
-                oEvent.getSource().getBinding("items").filter([oMaterialCodeFilter,oPlantCodeFilter]);
+                oEvent.getSource().getBinding("items").filter([oMaterialCodeFilter, oPlantCodeFilter]);
             },
 
             onRequestGRNPress: function (oEvent) {
@@ -599,9 +612,10 @@ sap.ui.define([
                     sQuantity = this.getViewModel("requestModel").getProperty("/quantity"),
                     sBillofLading = this.getViewModel("requestModel").getProperty("/billoflading"),
                     sReference = this.getViewModel("requestModel").getProperty("/reference"),
-                    sLRNumber = this.getViewModel("requestModel").getProperty("/lrnumber");
+                    sLRNumber = this.getViewModel("requestModel").getProperty("/lrnumber"),
+                    sStorageLocation = this.getViewModel("requestModel").getProperty("/StorageLocation");
 
-                if (sDelivery && sQuantity && sBillofLading && sReference && sLRNumber)
+                if (sDelivery && sQuantity && sBillofLading && sReference && sLRNumber && sStorageLocation)
                     this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", true);
                 else
                     this.getViewModel("requestModel").setProperty("/isConfirmButtonEnabled", false);
@@ -616,7 +630,8 @@ sap.ui.define([
                 var sLRNumber = this.getViewModel("requestModel").getProperty("/lrnumber");
                 //var sGRNTblData=sap.ui.getCore().byId("idGRNItemsTBL").getBindingContext().getModel().getProperty("/RestrictedStoreStockParentSet(17l)").ID
                 var aGRNItems = this.getView().getModel("requestModel").getProperty("/GRNItems");
-                if (!sDelivery || !sQuantity || !sBillofLading || !sReference || !sLRNumber) {
+                var sStorageLocation = this.getView().getModel("requestModel").getProperty("/StorageLocation");
+                if (!sDelivery || !sQuantity || !sBillofLading || !sReference || !sLRNumber || !sStorageLocation) {
                     sap.m.MessageBox.error("Please fill all required fields.");
                     return;
                 }
@@ -635,8 +650,9 @@ sap.ui.define([
                                 // "GatePassNumber": sGatePassNumber,
                                 "LRNumber": sLRNumber,
                                 "Reference": sReference,
+                                "StorageLocation": sStorageLocation,
                                 "PackingListId": this.getView().getBindingContext().getObject().ID,
-                                "UserName": "Agel_Sep",
+                                "UserName": this.UserFName,
                                 "GRNItems": aGRNItems
                             };
                         } else {
@@ -650,16 +666,16 @@ sap.ui.define([
                                 "LRNumber": sLRNumber,
                                 "Reference": sReference,
                                 "PackingListId": parseInt(oSelectedItemData.ID),
-                                "UserName": "Agel_Sep",
+                                "UserName": this.UserFName,
                                 "GRNItems": aGRNItems
                             };
                         }
 
                         if (oPayload) {
-                            this.getViewModel("objectViewModel").setProperty("/busy", true);
+                            // this.getViewModel("objectViewModel").setProperty("/busy", true);
                             oModel.create("/GRNEdmSet", oPayload, {
                                 success: function (oData) {
-                                    this.getViewModel("objectViewModel").setProperty("/busy", false);
+                                    // this.getViewModel("objectViewModel").setProperty("/busy", false);
                                     if (oData.Success) {
                                         sap.m.MessageBox.success(oData.Message);
                                         this.getComponentModel().refresh();
@@ -668,7 +684,7 @@ sap.ui.define([
                                         sap.m.MessageBox.error(oData.Message);
                                 }.bind(this),
                                 error: function (oError) {
-                                    this.getViewModel("objectViewModel").setProperty("/busy", false);
+                                    // this.getViewModel("objectViewModel").setProperty("/busy", false);
                                     // sap.m.MessageBox.error(JSON.stringify(oError));
                                 }
                             });
