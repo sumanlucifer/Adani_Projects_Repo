@@ -56,12 +56,12 @@
     ],
     "decisions": [
         {
-            "id": "approve",
+            "id": "APPROVED",
             "text": "Approve",
             "decisionType": "positive"
         },
         {
-            "id": "reject",
+            "id": "REJECTED",
             "text": "Reject",
             "decisionType": "negative"
         }
