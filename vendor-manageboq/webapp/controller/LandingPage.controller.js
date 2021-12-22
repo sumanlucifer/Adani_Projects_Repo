@@ -33,13 +33,19 @@ sap.ui.define([
                 if ((startupParams.poNumber && startupParams.poNumber[0])) {
                     this.recievedPONumber = startupParams.poNumber;
                 }
-               //this.recievedPONumber = "4500011223";
+                // this.recievedPONumber = "4500011223";
                 var list = this.byId("idParentLineItemList");
                 if (list) {
-                    var oItems = new sap.m.StandardListItem({
+                    var oItems = new sap.m.ObjectListItem({
                         title: "{Name}",
-                        description: "Description: {Description}",
-                        info: "Material Code: {MaterialCode}",
+                        attributes: [new sap.m.ObjectAttribute({
+                            text: "Line No: {LineNumber}"
+                        }), new sap.m.ObjectAttribute({
+                            text: "Description: {Description}"
+                        })],
+                        firstStatus: [new sap.m.ObjectStatus({
+                            text: "Material Code: {MaterialCode}"
+                        })],
                         type: "Navigation"
                     }).attachPress(this.onParentLineItemPress, this);
                     var oFilters = [new sap.ui.model.Filter("PONumber", sap.ui.model.FilterOperator.EQ, this.recievedPONumber)];
