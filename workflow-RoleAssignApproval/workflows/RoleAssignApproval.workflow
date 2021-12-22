@@ -24,6 +24,9 @@
 				},
 				"3319f36e-6a94-4e41-91cc-6bfcb1219a6c": {
 					"name": "MailTask2"
+				},
+				"101dbbf2-3acd-409f-a233-14eec99ea624": {
+					"name": "ScriptTask1"
 				}
 			},
 			"sequenceFlows": {
@@ -38,6 +41,9 @@
 				},
 				"0f7f3c9d-71e6-41c8-a149-19ab0d7e0da5": {
 					"name": "SequenceFlow8"
+				},
+				"6ed510da-ba96-40eb-b784-2cd35a1d807a": {
+					"name": "SequenceFlow12"
 				}
 			},
 			"diagrams": {
@@ -114,7 +120,7 @@
 			"id": "sequenceflow8",
 			"name": "SequenceFlow8",
 			"sourceRef": "50b703a3-6173-423d-9ba5-ad0cb604ec36",
-			"targetRef": "3319f36e-6a94-4e41-91cc-6bfcb1219a6c"
+			"targetRef": "101dbbf2-3acd-409f-a233-14eec99ea624"
 		},
 		"42fa7a2d-c526-4a02-b3ba-49b5168ba644": {
 			"classDefinition": "com.sap.bpm.wfs.ui.Diagram",
@@ -127,7 +133,9 @@
 				"4597c222-4d4f-4bca-ae30-a5db06cc8199": {},
 				"e262dc7f-cf84-4cf9-b2ec-ec209e69cd29": {},
 				"b3c85b50-bf63-445a-bf89-cef9101168db": {},
-				"d4f451d5-c122-4d9a-a879-d38937be757a": {}
+				"d4f451d5-c122-4d9a-a879-d38937be757a": {},
+				"1f164340-08e4-4909-8c4e-7047110a62ef": {},
+				"89e83565-b310-48df-bd9d-a7211c440d05": {}
 			}
 		},
 		"41203e6d-c3d1-4c04-a7e7-6254048607a4": {
@@ -146,7 +154,7 @@
 		"53e54950-7757-4161-82c9-afa7e86cff2c": {
 			"classDefinition": "com.sap.bpm.wfs.ui.EndEventSymbol",
 			"x": 44.5,
-			"y": 424,
+			"y": 534,
 			"width": 35,
 			"height": 35,
 			"object": "2798f4e7-bc42-4fad-a248-159095a2f40a"
@@ -184,14 +192,14 @@
 		"e262dc7f-cf84-4cf9-b2ec-ec209e69cd29": {
 			"classDefinition": "com.sap.bpm.wfs.ui.MailTaskSymbol",
 			"x": 12,
-			"y": 314,
+			"y": 424,
 			"width": 100,
 			"height": 60,
 			"object": "3319f36e-6a94-4e41-91cc-6bfcb1219a6c"
 		},
 		"b3c85b50-bf63-445a-bf89-cef9101168db": {
 			"classDefinition": "com.sap.bpm.wfs.ui.SequenceFlowSymbol",
-			"points": "62,374 62,424",
+			"points": "62,484 62,534",
 			"sourceSymbol": "e262dc7f-cf84-4cf9-b2ec-ec209e69cd29",
 			"targetSymbol": "53e54950-7757-4161-82c9-afa7e86cff2c",
 			"object": "18e34522-828d-47fb-87da-7228604c5d8c"
@@ -200,17 +208,18 @@
 			"classDefinition": "com.sap.bpm.wfs.ui.SequenceFlowSymbol",
 			"points": "62,264 62,314",
 			"sourceSymbol": "4597c222-4d4f-4bca-ae30-a5db06cc8199",
-			"targetSymbol": "e262dc7f-cf84-4cf9-b2ec-ec209e69cd29",
+			"targetSymbol": "1f164340-08e4-4909-8c4e-7047110a62ef",
 			"object": "0f7f3c9d-71e6-41c8-a149-19ab0d7e0da5"
 		},
 		"62d7f4ed-4063-4c44-af8b-39050bd44926": {
 			"classDefinition": "com.sap.bpm.wfs.LastIDs",
 			"maildefinition": 2,
-			"sequenceflow": 11,
+			"sequenceflow": 12,
 			"startevent": 1,
 			"endevent": 1,
 			"usertask": 1,
 			"servicetask": 3,
+			"scripttask": 1,
 			"mailtask": 2
 		},
 		"f4226526-b10a-4c21-9c57-45dda108954f": {
@@ -230,6 +239,34 @@
 			"subject": "Request ${context.RoleAssignRequestID}-${context.Status} ",
 			"text": "Dear ${context.CreatedBy},\n\nYour request  ${context.RoleAssignRequestID} for ${context.Role} role assignment has been ${context.Status}\n\nPlease Login to the application again for verifying approved roles.\n\nRegards,\nAGEL MMTS TEAM",
 			"id": "maildefinition2"
+		},
+		"101dbbf2-3acd-409f-a233-14eec99ea624": {
+			"classDefinition": "com.sap.bpm.wfs.ScriptTask",
+			"reference": "/scripts/RoleAssignApprovals/setApprovalStatus.js",
+			"id": "scripttask1",
+			"name": "ScriptTask1"
+		},
+		"1f164340-08e4-4909-8c4e-7047110a62ef": {
+			"classDefinition": "com.sap.bpm.wfs.ui.ScriptTaskSymbol",
+			"x": 12,
+			"y": 314,
+			"width": 100,
+			"height": 60,
+			"object": "101dbbf2-3acd-409f-a233-14eec99ea624"
+		},
+		"6ed510da-ba96-40eb-b784-2cd35a1d807a": {
+			"classDefinition": "com.sap.bpm.wfs.SequenceFlow",
+			"id": "sequenceflow12",
+			"name": "SequenceFlow12",
+			"sourceRef": "101dbbf2-3acd-409f-a233-14eec99ea624",
+			"targetRef": "3319f36e-6a94-4e41-91cc-6bfcb1219a6c"
+		},
+		"89e83565-b310-48df-bd9d-a7211c440d05": {
+			"classDefinition": "com.sap.bpm.wfs.ui.SequenceFlowSymbol",
+			"points": "62,374 62,424",
+			"sourceSymbol": "1f164340-08e4-4909-8c4e-7047110a62ef",
+			"targetSymbol": "e262dc7f-cf84-4cf9-b2ec-ec209e69cd29",
+			"object": "6ed510da-ba96-40eb-b784-2cd35a1d807a"
 		}
 	}
 }
