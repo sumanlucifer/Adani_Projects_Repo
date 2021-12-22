@@ -255,7 +255,7 @@
 			"classDefinition": "com.sap.bpm.wfs.MailDefinition",
 			"name": "maildefinition1",
 			"to": "${context.PMCGUserMail}",
-			"subject": "MDCC Aprroval Requested by ${context.Vendor}",
+			"subject": "MDCC Aprroval Requested by ${context.VendorName} (${context.VendorCode})",
 			"reference": "/webcontent/MDCCApprovalRequest/MDCCApprovals.html",
 			"id": "maildefinition1"
 		},
@@ -263,7 +263,7 @@
 			"classDefinition": "com.sap.bpm.wfs.MailDefinition",
 			"name": "maildefinition2",
 			"to": "${context. RequestedBy}  ",
-			"subject": "Request for ${context.MDCCNumber}-${context.Status} ",
+			"subject": "Request for ${context.MDCCNumber}-${context.Status}",
 			"text": "Dear ${context.CreatedBy},\n\nYour MDCC Approval request for MDCC number-${context.MDCCNumber} raised for inspection ${context.Notification} has been ${context.Status}\n\nPlease login to the application to view the changes.\n\nRegards,\nAGEL MMTS TEAM",
 			"ignoreInvalidRecipients": true,
 			"id": "maildefinition2"

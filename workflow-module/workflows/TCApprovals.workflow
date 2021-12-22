@@ -269,7 +269,7 @@
 			"name": "maildefinition4",
 			"to": "${context. RequestedBy}",
 			"subject": "Request for ${context.Name}-${context.Status} ",
-			"text": "Dear ${context.CreatedBy},\n\nYour BOQ Approval request for ${context.Name} with ID-${context.BOQGroupId} has been ${context.Status}\n\nPlease login to the application to view the changes.\n\nRegards,\nAGEL MMTS TEAM",
+			"text": "Dear ${context.CreatedBy},\n\nYour BOQ Approval request for ${context.Name} with BOQ List-${context.BOQName} has been ${context.Status}\n\nPlease login to the application to view the changes.\n\nRegards,\nAGEL MMTS TEAM",
 			"id": "maildefinition4"
 		}
 	}
