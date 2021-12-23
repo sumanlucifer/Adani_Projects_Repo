@@ -39,9 +39,7 @@
         </uxap:headerTitle>
         <uxap:headerContent>
         </uxap:headerContent>
-
         <uxap:sections>
-
             <!-- Line Items Section -->
             <uxap:ObjectPageSection titleUppercase="false" title="{i18n>lineItems}">
                 <uxap:subSections>

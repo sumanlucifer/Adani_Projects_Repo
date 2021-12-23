@@ -92,12 +92,13 @@ sap.ui.define([
             var objectViewModel = oController.getViewModel("objectViewModel");
             objectViewModel.setProperty("/busy", true);
             oController.MainModel.read("/IssuedMaterialSet(" + oController.sObjectId + ")/IssuedMaterialParents", {
-                urlParameters: { "$expand": "IssuedMaterialBOQ" },
+                urlParameters: { "$expand": "IssuedMaterialBOQ,IssuedMaterialReservedItem" },
                 success: function (oData) {
                     objectViewModel.setProperty("/busy", false);
                     if (oData) {
                         oData.results.forEach(element => {
                             element.BoqItems = element.IssuedMaterialBOQ.results;
+                            element.ReservedQty = element.IssuedMaterialReservedItem.ReservedQty;
                         });
                         objectViewModel.setProperty("/TreeTableData", oData.results);
                     }
@@ -229,14 +230,13 @@ sap.ui.define([
                 data: file[0],
                 success: function (data) {
                     that.getComponentModel().refresh();
-                    sap.m.MessageToast.show("MDCC Details Uploaded!");
+                    sap.m.MessageToast.show("Document Uploaded successfully.");
                     that.getViewModel("objectViewModel").setProperty(
                         "/busy",
                         false
                     );
                 },
                 error: function () {
-
                     that.getViewModel("objectViewModel").setProperty(
                         "/busy",
                         false
@@ -277,19 +277,20 @@ sap.ui.define([
 
             this.getOwnerComponent().getModel().create("/IssueMaterialConfirmationEdmSet", oPayload, {
                 success: function (oData, oResponse) {
-                    this.getViewModel("objectViewModel").setProperty(
-                        "/busy",
-                        false
-                    );
-                    MessageBox.success("The Requested Material is Issued", {
-                        title: "Success",
-                        onClose: function (oAction1) {
-                            if (oAction1 === sap.m.MessageBox.Action.OK) {
-                                this.getOwnerComponent().getModel().refresh();
-                                this.getRouter().navTo("RouteLandingPage");
-                            }
-                        }.bind(this)
-                    });
+                    this.getViewModel("objectViewModel").setProperty("/busy",false);
+                    if (oData.Success) {
+                        MessageBox.success("The Requested Material is Issued", {
+                            title: "Success",
+                            onClose: function (oAction1) {
+                                if (oAction1 === sap.m.MessageBox.Action.OK) {
+                                    this.getOwnerComponent().getModel().refresh();
+                                    this.getRouter().navTo("RouteLandingPage");
+                                }
+                            }.bind(this)
+                        });
+                    }
+                    else
+                        MessageBox.error(oData.Message);
                 }.bind(this),
                 error: function (oError) {
                     this.getViewModel("objectViewModel").setProperty("/busy", false);
